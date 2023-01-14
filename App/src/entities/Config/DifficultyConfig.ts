@@ -1,5 +1,3 @@
-import { GameConfig } from "@/entities/Config/GameConfig";
-
 export class DifficultyConfig {
     public iri: string|null;
     public id: number|null;
@@ -48,7 +46,7 @@ export class DifficultyConfig {
     }
     load(object:any) : DifficultyConfig {
         if (typeof object !== "undefined") {
-            this.iri = object.iri;
+            this.iri = object['@id'];
             this.id = object.id;
             this.name = object.name;
             this.equipmentBreakRate = object.equipmentBreakRate;
@@ -61,19 +59,19 @@ export class DifficultyConfig {
             this.electricArcRate = object.electricArcRate;
             this.metalPlateRate = object.metalPlateRate;
             this.panicCrisisRate = object.panicCrisisRate;
-            this.firePlayerDamage = object.firePlayerDamage;
-            this.fireHullDamage = object.fireHullDamage;
-            this.electricArcPlayerDamage = object.electricArcPlayerDamage;
-            this.tremorPlayerDamage = object.tremorPlayerDamage;
-            this.metalPlatePlayerDamage = object.metalPlatePlayerDamage;
-            this.panicCrisisPlayerDamage = object.panicCrisisPlayerDamage;
+            this.loadMapAttribute(object, 'firePlayerDamage', this.firePlayerDamage);
+            this.loadMapAttribute(object, 'fireHullDamage', this.fireHullDamage);
+            this.loadMapAttribute(object, 'electricArcPlayerDamage', this.electricArcPlayerDamage);
+            this.loadMapAttribute(object, 'tremorPlayerDamage', this.tremorPlayerDamage);
+            this.loadMapAttribute(object, 'metalPlatePlayerDamage', this.metalPlatePlayerDamage);
+            this.loadMapAttribute(object, 'panicCrisisPlayerDamage', this.panicCrisisPlayerDamage);
             this.plantDiseaseRate = object.plantDiseaseRate;
             this.cycleDiseaseRate = object.cycleDiseaseRate;
         }
         return this;
     }
     jsonEncode() : object {
-        return {
+        const data: any = {
             'id': this.id,
             'name': this.name,
             'equipmentBreakRate': this.equipmentBreakRate,
@@ -86,42 +84,49 @@ export class DifficultyConfig {
             'electricArcRate': this.electricArcRate,
             'metalPlateRate': this.metalPlateRate,
             'panicCrisisRate': this.panicCrisisRate,
-            'firePlayerDamage': this.firePlayerDamage,
-            'fireHullDamage': this.fireHullDamage,
-            'electricArcPlayerDamage': this.electricArcPlayerDamage,
-            'tremorPlayerDamage': this.tremorPlayerDamage,
-            'metalPlatePlayerDamage': this.metalPlatePlayerDamage,
-            'panicCrisisPlayerDamage': this.panicCrisisPlayerDamage,
             'plantDiseaseRate': this.plantDiseaseRate,
             'cycleDiseaseRate': this.cycleDiseaseRate
         };
+
+        this.encodeMapAttribute(data, 'firePlayerDamage', this.firePlayerDamage);
+        this.encodeMapAttribute(data, 'fireHullDamage', this.fireHullDamage);
+        this.encodeMapAttribute(data, 'electricArcPlayerDamage', this.electricArcPlayerDamage);
+        this.encodeMapAttribute(data, 'tremorPlayerDamage', this.tremorPlayerDamage);
+        this.encodeMapAttribute(data, 'metalPlatePlayerDamage', this.metalPlatePlayerDamage);
+        this.encodeMapAttribute(data, 'panicCrisisPlayerDamage', this.panicCrisisPlayerDamage);
+
+        return data;
     }
     decode(jsonString : string): DifficultyConfig {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.iri = object.iri;
-            this.id = object.id;
-            this.name = object.name;
-            this.equipmentBreakRate = object.equipmentBreakRate;
-            this.doorBreakRate = object.doorBreakRate;
-            this.equipmentFireBreakRate = object.equipmentFireBreakRate;
-            this.startingFireRate = object.startingFireRate;
-            this.propagatingFireRate = object.propagatingFireRate;
-            this.hullFireDamageRate = object.hullFireDamageRate;
-            this.tremorRate = object.tremorRate;
-            this.electricArcRate = object.electricArcRate;
-            this.metalPlateRate = object.metalPlateRate;
-            this.panicCrisisRate = object.panicCrisisRate;
-            this.firePlayerDamage = object.firePlayerDamage;
-            this.fireHullDamage = object.fireHullDamage;
-            this.electricArcPlayerDamage = object.electricArcPlayerDamage;
-            this.tremorPlayerDamage = object.tremorPlayerDamage;
-            this.metalPlatePlayerDamage = object.metalPlatePlayerDamage;
-            this.panicCrisisPlayerDamage = object.panicCrisisPlayerDamage;
-            this.plantDiseaseRate = object.plantDiseaseRate;
-            this.cycleDiseaseRate = object.cycleDiseaseRate;
+            this.load(object);
         }
 
         return this;
+    }
+
+    private loadMapAttribute(object: any, attributeName: string, map: Map<any, number>|null) {
+        if (map === null) {
+            return;
+        }
+        if (typeof object[attributeName] !== 'undefined') {
+            for (const [key, value] of Object.entries(object[attributeName])) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    map.set(key, value);
+                }
+            }
+        }
+    }
+    private encodeMapAttribute(data: any, attributeName: string, map: Map<any, number>|null) {
+        if (map === null) {
+            return;
+        }
+        const mapObject : object = {};
+        map.forEach((value, key) => {
+            // @ts-ignore
+            mapObject[key] = value;
+        });
+        data[attributeName] = mapObject;
     }
 }

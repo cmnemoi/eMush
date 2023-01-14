@@ -161,7 +161,13 @@
 			"metalPlateRate": "Probabilité de plaques de métal",
 			"panicCrisisRate": "Probabilité de crises de panique",
 			"plantDiseaseRate": "Probabilité de maladies spontanées (plantes)",
-			"cycleDiseaseRate": "Probabilité de maladies spontanées (joueurs)"
+			"cycleDiseaseRate": "Probabilité de maladies spontanées (joueurs)",
+			"firePlayerDamage": "Dégâts des incendies sur les joueurs (dégâts => probabilité)",
+			"fireHullDamage": "Dégâts des incendies à la coque (dégâts => probabilité)",
+			"electricArcPlayerDamage": "Dégâts des décharges électriques sur les joueurs (dégâts => probabilité)",
+			"tremorPlayerDamage": "Dégâts des secousses sur les joueurs (dégâts => probabilité)",
+			"metalPlatePlayerDamage": "Dégâts des plaques de métal sur les joueurs (dégâts => probabilité)",
+			"panicCrisisPlayerDamage": "Dégâts des crises de panique sur les joueurs (dégâts => probabilité)"
 		},
 		"characterConfig": {
 			"name": "Nom",

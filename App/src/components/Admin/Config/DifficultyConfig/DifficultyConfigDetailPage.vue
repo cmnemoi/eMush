@@ -105,6 +105,48 @@
                 :errors="errors.plantDiseaseRate"
             />
         </div>
+        <MapManager
+            :label="$t('admin.difficultyConfig.firePlayerDamage')"
+            :map="difficultyConfig.firePlayerDamage"
+            mapIndexesType="number"
+            @addTuple="addNewFirePlayerDamage"
+            @removeIndex="removeFirePlayerDamage"
+        />
+        <MapManager
+            :label="$t('admin.difficultyConfig.fireHullDamage')"
+            :map="difficultyConfig.fireHullDamage"
+            mapIndexesType="number"
+            @addTuple="addNewFireHullDamage"
+            @removeIndex="removeFireHullDamage"
+        />
+        <MapManager
+            :label="$t('admin.difficultyConfig.electricArcPlayerDamage')"
+            :map="difficultyConfig.electricArcPlayerDamage"
+            mapIndexesType="number"
+            @addTuple="addNewElectricArcPlayerDamage"
+            @removeIndex="removeElectricArcPlayerDamage"
+        />
+        <MapManager
+            :label="$t('admin.difficultyConfig.tremorPlayerDamage')"
+            :map="difficultyConfig.tremorPlayerDamage"
+            mapIndexesType="number"
+            @addTuple="addNewTremorPlayerDamage"
+            @removeIndex="removeTremorPlayerDamage"
+        />
+        <MapManager
+            :label="$t('admin.difficultyConfig.metalPlatePlayerDamage')"
+            :map="difficultyConfig.metalPlatePlayerDamage"
+            mapIndexesType="number"
+            @addTuple="addNewMetalPlatePlayerDamage"
+            @removeIndex="removeMetalPlatePlayerDamage"
+        />
+        <MapManager
+            :label="$t('admin.difficultyConfig.panicCrisisPlayerDamage')"
+            :map="difficultyConfig.panicCrisisPlayerDamage"
+            mapIndexesType="number"
+            @addTuple="addNewPanicCrisisPlayerDamage"
+            @removeIndex="removePanicCrisisPlayerDamage"
+        />
         <button class="action-button" type="submit" @click="update">
             {{ $t('admin.save') }}
         </button>
@@ -117,6 +159,7 @@ import GameConfigService from "@/services/game_config.service";
 import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import Input from "@/components/Utils/Input.vue";
+import MapManager from "@/components/Utils/MapManager.vue";
 
 interface DifficultyConfigState {
     difficultyConfig: null|DifficultyConfig
@@ -126,7 +169,8 @@ interface DifficultyConfigState {
 export default defineComponent({
     name: "DifficultyConfigDetailPage",
     components: {
-        Input
+        Input,
+        MapManager
     },
     data: function (): DifficultyConfigState {
         return {
@@ -140,6 +184,7 @@ export default defineComponent({
                 return;
             }
             this.errors = {};
+            // @ts-ignore
             GameConfigService.updateDifficultyConfig(this.difficultyConfig)
                 .then((res: DifficultyConfig | null) => {
                     this.difficultyConfig = res;
@@ -157,6 +202,78 @@ export default defineComponent({
                         console.error('Error', error.message);
                     }
                 });
+        },
+        addNewFirePlayerDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.difficultyConfig && this.difficultyConfig.firePlayerDamage) {
+                this.difficultyConfig.firePlayerDamage.set(index, value);
+            }
+        },
+        removeFirePlayerDamage(index: number): void {
+            if (this.difficultyConfig && this.difficultyConfig.firePlayerDamage) {
+                this.difficultyConfig.firePlayerDamage.delete(index);
+            }
+        },
+        addNewFireHullDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.difficultyConfig && this.difficultyConfig.fireHullDamage) {
+                this.difficultyConfig.fireHullDamage.set(index, value);
+            }
+        },
+        removeFireHullDamage(index: number): void {
+            if (this.difficultyConfig && this.difficultyConfig.fireHullDamage) {
+                this.difficultyConfig.fireHullDamage.delete(index);
+            }
+        },
+        addNewElectricArcPlayerDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.difficultyConfig && this.difficultyConfig.electricArcPlayerDamage) {
+                this.difficultyConfig.electricArcPlayerDamage.set(index, value);
+            }
+        },
+        removeElectricArcPlayerDamage(index: number): void {
+            if (this.difficultyConfig && this.difficultyConfig.electricArcPlayerDamage) {
+                this.difficultyConfig.electricArcPlayerDamage.delete(index);
+            }
+        },
+        addNewTremorPlayerDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.difficultyConfig && this.difficultyConfig.tremorPlayerDamage) {
+                this.difficultyConfig.tremorPlayerDamage.set(index, value);
+            }
+        },
+        removeTremorPlayerDamage(index: number): void {
+            if (this.difficultyConfig && this.difficultyConfig.tremorPlayerDamage) {
+                this.difficultyConfig.tremorPlayerDamage.delete(index);
+            }
+        },
+        addNewMetalPlatePlayerDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.difficultyConfig && this.difficultyConfig.metalPlatePlayerDamage) {
+                this.difficultyConfig.metalPlatePlayerDamage.set(index, value);
+            }
+        },
+        removeMetalPlatePlayerDamage(index: number): void {
+            if (this.difficultyConfig && this.difficultyConfig.metalPlatePlayerDamage) {
+                this.difficultyConfig.metalPlatePlayerDamage.delete(index);
+            }
+        },
+        addNewPanicCrisisPlayerDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.difficultyConfig && this.difficultyConfig.panicCrisisPlayerDamage) {
+                this.difficultyConfig.panicCrisisPlayerDamage.set(index, value);
+            }
+        },
+        removePanicCrisisPlayerDamage(index: number): void {
+            if (this.difficultyConfig && this.difficultyConfig.panicCrisisPlayerDamage) {
+                this.difficultyConfig.panicCrisisPlayerDamage.delete(index);
+            }
         }
     },
     beforeMount() {

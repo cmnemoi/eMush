@@ -63,7 +63,7 @@ class CycleEventCest
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
             'localizationConfig' => $localizationConfig,
-            'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
+            'diseaseCauseConfigs' => new ArrayCollection([$diseaseCause]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
         ]);
 

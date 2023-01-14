@@ -70,7 +70,7 @@ class MakeSickActionCest
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
-            ->setDiseaseCauseConfig(new ArrayCollection([$diseaseCause]))
+            ->setDiseaseCauseConfigs(new ArrayCollection([$diseaseCause]))
             ->setDiseaseConfig(new ArrayCollection([$diseaseConfig]))
             ->setDaedalusConfig($daedalusConfig)
         ;

@@ -70,7 +70,7 @@ class NewDiseaseOnCycleCest
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'difficultyConfig' => $difficultyConfig,
-            'diseaseCauseConfig' => new ArrayCollection([$diseaseCauseLowMorale, $diseaseCause]),
+            'diseaseCauseConfigs' => new ArrayCollection([$diseaseCauseLowMorale, $diseaseCause]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
         ]);
 
@@ -143,7 +143,7 @@ class NewDiseaseOnCycleCest
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'difficultyConfig' => $difficultyConfig,
-            'diseaseCauseConfig' => new ArrayCollection([$diseaseCauseLowMorale, $diseaseCause]),
+            'diseaseCauseConfigs' => new ArrayCollection([$diseaseCauseLowMorale, $diseaseCause]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
         ]);
 

@@ -104,7 +104,7 @@ class DoTheThingCest
         $gameConfig
             ->setStatusConfigs(new ArrayCollection([$attemptConfig, $pregnantStatus, $didTheThingStatus]))
             ->setDiseaseConfig(new ArrayCollection([$diseaseConfig]))
-            ->setDiseaseCauseConfig(new ArrayCollection([$diseaseCauseConfig]))
+            ->setDiseaseCauseConfigs(new ArrayCollection([$diseaseCauseConfig]))
             ->setDaedalusConfig($daedalusConfig)
         ;
         $I->flushToDatabase();

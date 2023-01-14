@@ -245,8 +245,13 @@ class GameConfig
     /**
      * @param Collection<int, StatusConfig> $statusConfigs
      */
-    public function setStatusConfigs(Collection $statusConfigs): static
+    public function setStatusConfigs(Collection|array $statusConfigs): static
     {
+        if(is_array($statusConfigs))
+        {
+            $statusConfigs = new ArrayCollection($statusConfigs);
+        }
+        
         $this->statusConfigs = $statusConfigs;
 
         return $this;

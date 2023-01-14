@@ -25,6 +25,12 @@
                 <span>{{ child.id }} - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.statusConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.statusConfigs" @addId="addNewStatusConfig" @remove="removeStatusConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.equipmentConfigs") }}</h3>
         <ChildCollectionManager :children="gameConfig.equipmentsConfig" @addId="addNewEquipmentConfig" @remove="removeEquipmentConfig">
             <template #header="child">
@@ -44,6 +50,7 @@ import { CharacterConfig } from "@/entities/Config/CharacterConfig";
 import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
 import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { GameConfig } from "@/entities/Config/GameConfig";
+import { StatusConfig } from "@/entities/Config/StatusConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import Input from "@/components/Utils/Input.vue";
@@ -111,6 +118,17 @@ export default defineComponent({
                                     this.gameConfig.equipmentsConfig = equipmentsConfig;
                                 }
                             });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'status_configs?pagination=false'))
+                            .then((result) => {
+                                const statusConfigs: StatusConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    statusConfigs.push((new StatusConfig()).load(datum));
+                                });
+                            
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.statusConfigs = statusConfigs;
+                                }
+                            });
                     }
                 })
                 .catch((error) => {
@@ -150,7 +168,19 @@ export default defineComponent({
             if (this.gameConfig && this.gameConfig.equipmentsConfig){
                 this.gameConfig.equipmentsConfig = removeItem(this.gameConfig.equipmentsConfig, equipmentConfig);
             }
-        }
+        },
+        addNewStatusConfig(selectedId: integer){
+            GameConfigService.loadStatusConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.statusConfigs){
+                    this.gameConfig.statusConfigs.push(res);
+                }
+            });
+        },
+        removeStatusConfig(statusConfig: any){
+            if (this.gameConfig && this.gameConfig.statusConfigs){
+                this.gameConfig.statusConfigs = removeItem(this.gameConfig.statusConfigs, statusConfig);
+            }
+        },
     },
     beforeMount() {
         const gameConfigId = Number(this.$route.params.gameConfigId);
@@ -185,6 +215,17 @@ export default defineComponent({
                     
                     if (this.gameConfig instanceof GameConfig) {
                         this.gameConfig.equipmentsConfig = equipmentsConfig;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'status_configs?pagination=false'))
+                .then((result) => {
+                    const statusConfigs: StatusConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        statusConfigs.push((new StatusConfig()).load(datum));
+                    });
+                    
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.statusConfigs = statusConfigs;
                     }
                 });
         });

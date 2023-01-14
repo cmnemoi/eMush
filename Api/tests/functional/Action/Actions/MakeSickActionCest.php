@@ -71,7 +71,7 @@ class MakeSickActionCest
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
             ->setDiseaseCauseConfigs(new ArrayCollection([$diseaseCause]))
-            ->setDiseaseConfig(new ArrayCollection([$diseaseConfig]))
+            ->setDiseaseConfigs(new ArrayCollection([$diseaseConfig]))
             ->setDaedalusConfig($daedalusConfig)
         ;
         $I->flushToDatabase();

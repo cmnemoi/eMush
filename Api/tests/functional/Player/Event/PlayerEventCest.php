@@ -248,7 +248,7 @@ class PlayerEventCest
         $gameConfig = $I->have(GameConfig::class, [
             'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
             'diseaseCauseConfigs' => new ArrayCollection([$diseaseCause]),
-            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+            'diseaseConfigs' => new ArrayCollection([$diseaseConfig]),
         ]);
 
         /** @var User $user */

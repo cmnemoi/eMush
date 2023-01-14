@@ -966,7 +966,7 @@ class ActionSubscriberCest
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'diseaseCauseConfigs' => new ArrayCollection([$diseaseCauseConfig]),
-            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+            'diseaseConfigs' => new ArrayCollection([$diseaseConfig]),
         ]);
 
         /** @var User $user */

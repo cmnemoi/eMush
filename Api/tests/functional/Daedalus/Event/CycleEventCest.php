@@ -64,7 +64,7 @@ class CycleEventCest
             'daedalusConfig' => $daedalusConfig,
             'localizationConfig' => $localizationConfig,
             'diseaseCauseConfigs' => new ArrayCollection([$diseaseCause]),
-            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+            'diseaseConfigs' => new ArrayCollection([$diseaseConfig]),
         ]);
 
         $neron = new Neron();

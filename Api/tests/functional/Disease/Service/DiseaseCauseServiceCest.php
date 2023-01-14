@@ -63,7 +63,7 @@ class DiseaseCauseServiceCest
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'diseaseCauseConfigs' => new ArrayCollection([$diseaseCause, $diseaseCause2]),
-            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+            'diseaseConfigs' => new ArrayCollection([$diseaseConfig]),
         ]);
 
         /** @var Daedalus $daedalus */

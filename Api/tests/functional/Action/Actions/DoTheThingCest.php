@@ -103,7 +103,7 @@ class DoTheThingCest
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
             ->setStatusConfigs(new ArrayCollection([$attemptConfig, $pregnantStatus, $didTheThingStatus]))
-            ->setDiseaseConfig(new ArrayCollection([$diseaseConfig]))
+            ->setDiseaseConfigs(new ArrayCollection([$diseaseConfig]))
             ->setDiseaseCauseConfigs(new ArrayCollection([$diseaseCauseConfig]))
             ->setDaedalusConfig($daedalusConfig)
         ;

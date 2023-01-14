@@ -253,13 +253,13 @@ class PlayerService implements PlayerServiceInterface
         $gameConfig = $player->getDaedalus()->getGameConfig();
 
         if ($player->isMush() &&
-            ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))
+            ($mushTriumph = $gameConfig->getTriumphConfigs()->getTriumph(TriumphEnum::CYCLE_MUSH))
         ) {
             $triumphChange = $mushTriumph->getTriumph();
         }
 
         if (!$player->isMush() &&
-            ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))
+            ($humanTriumph = $gameConfig->getTriumphConfigs()->getTriumph(TriumphEnum::CYCLE_HUMAN))
         ) {
             $triumphChange = $humanTriumph->getTriumph();
         }

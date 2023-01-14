@@ -41,7 +41,7 @@ class GameConfig
     private Collection $statusConfigs;
 
     #[ORM\ManyToMany(targetEntity: TriumphConfig::class)]
-    private Collection $triumphConfig;
+    private Collection $triumphConfigs;
 
     #[ORM\ManyToMany(targetEntity: DiseaseCauseConfig::class)]
     private Collection $diseaseCauseConfig;
@@ -62,7 +62,7 @@ class GameConfig
     {
         $this->characterConfigs = new ArrayCollection();
         $this->equipmentConfigs = new ArrayCollection();
-        $this->triumphConfig = new ArrayCollection();
+        $this->triumphConfigs = new ArrayCollection();
         $this->diseaseCauseConfig = new ArrayCollection();
         $this->diseaseConfig = new ArrayCollection();
         $this->consumableDiseaseConfig = new ArrayCollection();
@@ -112,24 +112,24 @@ class GameConfig
         return $this;
     }
 
-    public function getTriumphConfig(): TriumphConfigCollection
+    public function getTriumphConfigs(): TriumphConfigCollection
     {
-        return new TriumphConfigCollection($this->triumphConfig->toArray());
+        return new TriumphConfigCollection($this->triumphConfigs->toArray());
     }
 
     /**
-     * @param Collection<int, TriumphConfig> $triumphConfig
+     * @param Collection<int, TriumphConfig> $triumphConfigs
      */
-    public function setTriumphConfig(Collection $triumphConfig): self
+    public function setTriumphConfigs(Collection $triumphConfigs): self
     {
-        $this->triumphConfig = $triumphConfig;
+        $this->triumphConfigs = $triumphConfigs;
 
         return $this;
     }
 
-    public function addTriumphConfig(TriumphConfig $triumphConfig): self
+    public function addTriumphConfig(TriumphConfig $triumphConfigs): self
     {
-        $this->triumphConfig->add($triumphConfig);
+        $this->triumphConfigs->add($triumphConfigs);
 
         return $this;
     }

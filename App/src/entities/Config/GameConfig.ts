@@ -1,6 +1,7 @@
 import { CharacterConfig } from "@/entities/Config/CharacterConfig";
 import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
 import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
+import { StatusConfig } from "@/entities/Config/StatusConfig";
 
 export class GameConfig {
     public iri: string|null;
@@ -9,6 +10,7 @@ export class GameConfig {
     public daedalusConfig: DaedalusConfig|null;
     public charactersConfig: CharacterConfig[]|null;
     public equipmentsConfig: EquipmentConfig[]|null;
+    public statusConfigs: StatusConfig[]|null;
 
     constructor() {
         this.iri = null;
@@ -17,6 +19,7 @@ export class GameConfig {
         this.daedalusConfig = null;
         this.charactersConfig = null;
         this.equipmentsConfig = null;
+        this.statusConfigs = null;
     }
     load(object:any) : GameConfig {
         if (typeof object !== "undefined") {
@@ -42,6 +45,14 @@ export class GameConfig {
                 });
                 this.equipmentsConfig = equipmentsConfig;
             }
+            if (typeof object.statusConfigs !== "undefined") {
+                const statusConfigs : StatusConfig[] = [];
+                object.statusConfigs.forEach((statusConfigsData: any) => {
+                    const statusConfig = (new StatusConfig()).load(statusConfigsData);
+                    statusConfigs.push(statusConfig);
+                });
+                this.statusConfigs = statusConfigs;
+            }
         }
         return this;
     }
@@ -50,12 +61,15 @@ export class GameConfig {
         this.charactersConfig?.forEach(characterConfig => (typeof characterConfig.iri === 'string' ? charactersConfig.push(characterConfig.iri) : null));
         const equipmentsConfig : string[] = [];
         this.equipmentsConfig?.forEach(equipmentConfig => (typeof equipmentConfig.iri === 'string' ? equipmentsConfig.push(equipmentConfig.iri) : null));
+        const statusConfigs : string[] = [];
+        this.statusConfigs?.forEach(statusConfig => (typeof statusConfig.iri === 'string' ? statusConfigs.push(statusConfig.iri) : null));
         const data : any = {
             'id': this.id,
             'name': this.name,
             'daedalusConfig': this.daedalusConfig?.iri,
             'charactersConfig': charactersConfig,
-            'equipmentsConfig': equipmentsConfig
+            'equipmentsConfig': equipmentsConfig,
+            'statusConfigs': statusConfigs,
         };
 
         return data;

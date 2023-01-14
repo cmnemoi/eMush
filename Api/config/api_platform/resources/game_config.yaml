@@ -30,3 +30,7 @@ Mush\Game\Entity\GameConfig:
       subresource:
         resourceClass: 'Mush\Equipment\Entity\Config\EquipmentConfig'
         collection: true
+    statusConfigs:
+      subresource:
+        resourceClass: 'Mush\Status\Entity\Config\StatusConfig'
+        collection: true

@@ -105,9 +105,9 @@ class GameConfig
         return $this;
     }
 
-    public function addCharacterConfig(CharacterConfig $characterConfigs): static
+    public function addCharacterConfig(CharacterConfig $characterConfig): static
     {
-        $this->characterConfigs->add($characterConfigs);
+        $this->characterConfigs->add($characterConfig);
 
         return $this;
     }
@@ -127,9 +127,9 @@ class GameConfig
         return $this;
     }
 
-    public function addTriumphConfig(TriumphConfig $triumphConfigs): self
+    public function addTriumphConfig(TriumphConfig $triumphConfig): self
     {
-        $this->triumphConfigs->add($triumphConfigs);
+        $this->triumphConfigs->add($triumphConfig);
 
         return $this;
     }
@@ -150,9 +150,9 @@ class GameConfig
         return $this;
     }
 
-    public function addEquipmentConfig(EquipmentConfig $equipmentConfigs): static
+    public function addEquipmentConfig(EquipmentConfig $equipmentConfig): static
     {
-        $this->equipmentConfigs->add($equipmentConfigs);
+        $this->equipmentConfigs->add($equipmentConfig);
 
         return $this;
     }
@@ -172,9 +172,9 @@ class GameConfig
         return $this;
     }
 
-    public function addDiseaseCauseConfig(DiseaseCauseConfig $diseaseCauseConfigs): static
+    public function addDiseaseCauseConfig(DiseaseCauseConfig $diseaseCauseConfig): static
     {
-        $this->diseaseCauseConfigs->add($diseaseCauseConfigs);
+        $this->diseaseCauseConfigs->add($diseaseCauseConfig);
 
         return $this;
     }
@@ -191,9 +191,9 @@ class GameConfig
         return $this;
     }
 
-    public function addDiseaseConfig(DiseaseConfig $diseaseConfigs): static
+    public function addDiseaseConfig(DiseaseConfig $diseaseConfig): static
     {
-        $this->diseaseConfigs->add($diseaseConfigs);
+        $this->diseaseConfigs->add($diseaseConfig);
 
         return $this;
     }
@@ -210,9 +210,9 @@ class GameConfig
         return $this;
     }
 
-    public function addConsumableDiseaseConfig(ConsumableDiseaseConfig $consumableDiseaseConfigs): static
+    public function addConsumableDiseaseConfig(ConsumableDiseaseConfig $consumableDiseaseConfig): static
     {
-        $this->consumableDiseaseConfigs->add($consumableDiseaseConfigs);
+        $this->consumableDiseaseConfigs->add($consumableDiseaseConfig);
 
         return $this;
     }

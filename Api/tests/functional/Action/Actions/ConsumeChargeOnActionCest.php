@@ -101,7 +101,7 @@ class ConsumeChargeOnActionCest
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
             ->setStatusConfigs(new ArrayCollection([$attemptConfig, $statusConfig]))
-            ->setEquipmentsConfig(new ArrayCollection([$equipment, $equipmentCoffee]))
+            ->setEquipmentConfigs(new ArrayCollection([$equipment, $equipmentCoffee]))
         ;
         $I->flushToDatabase();
 
@@ -223,7 +223,7 @@ class ConsumeChargeOnActionCest
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
             ->setStatusConfigs(new ArrayCollection([$attemptConfig]))
-            ->setEquipmentsConfig(new ArrayCollection([$equipment, $equipmentCoffee, $gearConfig]))
+            ->setEquipmentConfigs(new ArrayCollection([$equipment, $equipmentCoffee, $gearConfig]))
         ;
         $I->flushToDatabase();
 
@@ -371,7 +371,7 @@ class ConsumeChargeOnActionCest
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
             ->setStatusConfigs(new ArrayCollection([$statusConfig]))
-            ->setEquipmentsConfig(new ArrayCollection([$equipment, $equipmentCoffee, $gearConfig]))
+            ->setEquipmentConfigs(new ArrayCollection([$equipment, $equipmentCoffee, $gearConfig]))
         ;
         $I->flushToDatabase();
 

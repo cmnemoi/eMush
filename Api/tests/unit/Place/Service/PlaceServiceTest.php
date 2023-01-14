@@ -72,7 +72,7 @@ class PlaceServiceTest extends TestCase
         $equipmentConfigCollection->add($this->createEquipmentConfig(EquipmentEnum::COMMUNICATION_CENTER));
         $equipmentConfigCollection->add($this->createEquipmentConfig(ItemEnum::TABULATRIX));
 
-        $gameConfig->setEquipmentsConfig($equipmentConfigCollection);
+        $gameConfig->setEquipmentConfigs($equipmentConfigCollection);
 
         $roomConfig = $this->createRoomConfig('bridge', $daedalusConfig);
 

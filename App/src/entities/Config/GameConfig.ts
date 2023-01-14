@@ -9,7 +9,7 @@ export class GameConfig {
     public name: string|null;
     public daedalusConfig: DaedalusConfig|null;
     public characterConfigs: CharacterConfig[]|null;
-    public equipmentsConfig: EquipmentConfig[]|null;
+    public equipmentConfigs: EquipmentConfig[]|null;
     public statusConfigs: StatusConfig[]|null;
 
     constructor() {
@@ -18,7 +18,7 @@ export class GameConfig {
         this.name = null;
         this.daedalusConfig = null;
         this.characterConfigs = null;
-        this.equipmentsConfig = null;
+        this.equipmentConfigs = null;
         this.statusConfigs = null;
     }
     load(object:any) : GameConfig {
@@ -37,13 +37,13 @@ export class GameConfig {
                 });
                 this.characterConfigs = characterConfigs;
             }
-            if (typeof object.equipmentsConfig !== "undefined") {
-                const equipmentsConfig : EquipmentConfig[] = [];
-                object.equipmentsConfig.forEach((equipmentsConfigData: any) => {
-                    const equipmentConfig = (new EquipmentConfig()).load(equipmentsConfigData);
-                    equipmentsConfig.push(equipmentConfig);
+            if (typeof object.equipmentConfigs !== "undefined") {
+                const equipmentConfigs : EquipmentConfig[] = [];
+                object.equipmentConfigs.forEach((equipmentConfigsData: any) => {
+                    const equipmentConfig = (new EquipmentConfig()).load(equipmentConfigsData);
+                    equipmentConfigs.push(equipmentConfig);
                 });
-                this.equipmentsConfig = equipmentsConfig;
+                this.equipmentConfigs = equipmentConfigs;
             }
             if (typeof object.statusConfigs !== "undefined") {
                 const statusConfigs : StatusConfig[] = [];
@@ -59,8 +59,8 @@ export class GameConfig {
     jsonEncode() : string {
         const characterConfigs : string[] = [];
         this.characterConfigs?.forEach(characterConfig => (typeof characterConfig.iri === 'string' ? characterConfigs.push(characterConfig.iri) : null));
-        const equipmentsConfig : string[] = [];
-        this.equipmentsConfig?.forEach(equipmentConfig => (typeof equipmentConfig.iri === 'string' ? equipmentsConfig.push(equipmentConfig.iri) : null));
+        const equipmentConfigs : string[] = [];
+        this.equipmentConfigs?.forEach(equipmentConfig => (typeof equipmentConfig.iri === 'string' ? equipmentConfigs.push(equipmentConfig.iri) : null));
         const statusConfigs : string[] = [];
         this.statusConfigs?.forEach(statusConfig => (typeof statusConfig.iri === 'string' ? statusConfigs.push(statusConfig.iri) : null));
         const data : any = {
@@ -68,7 +68,7 @@ export class GameConfig {
             'name': this.name,
             'daedalusConfig': this.daedalusConfig?.iri,
             'characterConfigs': characterConfigs,
-            'equipmentsConfig': equipmentsConfig,
+            'equipmentConfigs': equipmentConfigs,
             'statusConfigs': statusConfigs,
         };
 

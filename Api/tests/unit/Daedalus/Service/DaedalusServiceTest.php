@@ -125,7 +125,7 @@ class DaedalusServiceTest extends TestCase
         ;
         $gameConfig
             ->setDaedalusConfig($daedalusConfig)
-            ->setEquipmentsConfig(new ArrayCollection([$item]))
+            ->setEquipmentConfigs(new ArrayCollection([$item]))
         ;
 
         $this->localizationConfigRepository

@@ -169,7 +169,7 @@ class PlantCycleEventCest
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
             'statusConfigs' => new ArrayCollection([$thirstyStatusConfig, $dryStatusConfig, $diseasedStatusConfig]),
-            'equipmentsConfig' => new ArrayCollection([$fruitConfig, $hydropotConfig]),
+            'equipmentConfigs' => new ArrayCollection([$fruitConfig, $hydropotConfig]),
         ]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycle' => 8]);

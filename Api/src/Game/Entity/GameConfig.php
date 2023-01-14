@@ -35,7 +35,7 @@ class GameConfig
     private Collection $characterConfigs;
 
     #[ORM\ManyToMany(targetEntity: EquipmentConfig::class)]
-    private Collection $equipmentsConfig;
+    private Collection $equipmentConfigs;
 
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
     private Collection $statusConfigs;
@@ -61,7 +61,7 @@ class GameConfig
     public function __construct()
     {
         $this->characterConfigs = new ArrayCollection();
-        $this->equipmentsConfig = new ArrayCollection();
+        $this->equipmentConfigs = new ArrayCollection();
         $this->triumphConfig = new ArrayCollection();
         $this->diseaseCauseConfig = new ArrayCollection();
         $this->diseaseConfig = new ArrayCollection();
@@ -134,25 +134,25 @@ class GameConfig
         return $this;
     }
 
-    public function getEquipmentsConfig(): Collection
+    public function getEquipmentConfigs(): Collection
     {
-        return $this->equipmentsConfig;
+        return $this->equipmentConfigs;
     }
 
-    public function setEquipmentsConfig(Collection|array $equipmentsConfig): static
+    public function setEquipmentConfigs(Collection|array $equipmentConfigs): static
     {
-        if (is_array($equipmentsConfig)) {
-            $equipmentsConfig = new ArrayCollection($equipmentsConfig);
+        if (is_array($equipmentConfigs)) {
+            $equipmentConfigs = new ArrayCollection($equipmentConfigs);
         }
 
-        $this->equipmentsConfig = $equipmentsConfig;
+        $this->equipmentConfigs = $equipmentConfigs;
 
         return $this;
     }
 
-    public function addEquipmentConfig(EquipmentConfig $equipmentsConfig): static
+    public function addEquipmentConfig(EquipmentConfig $equipmentConfigs): static
     {
-        $this->equipmentsConfig->add($equipmentsConfig);
+        $this->equipmentConfigs->add($equipmentConfigs);
 
         return $this;
     }

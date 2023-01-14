@@ -132,7 +132,7 @@ class CreateDaedalusCest
         $gameConfig
             ->setName('name')
             ->setDaedalusConfig($daedalusConfig)
-            ->setEquipmentsConfig(new ArrayCollection([$door, $hydropot, $gravitySimulator, $waterStick]))
+            ->setEquipmentConfigs(new ArrayCollection([$door, $hydropot, $gravitySimulator, $waterStick]))
             ->setStatusConfigs(new ArrayCollection([$alienArtifact]))
         ;
         $I->haveInRepository($gameConfig);

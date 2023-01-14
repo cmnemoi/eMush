@@ -72,7 +72,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'equipmentsConfig' => new ArrayCollection([$equipmentConfig]),
+            'equipmentConfigs' => new ArrayCollection([$equipmentConfig]),
         ]);
 
         /** @var Daedalus $daedalus */
@@ -141,7 +141,7 @@ class CreateDestroyEquipmentSubscriberCest
         ]);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['equipmentsConfig' => new ArrayCollection([$itemConfig])]);
+        $gameConfig = $I->have(GameConfig::class, ['equipmentConfigs' => new ArrayCollection([$itemConfig])]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -208,7 +208,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'equipmentsConfig' => new ArrayCollection([$itemConfig]),
+            'equipmentConfigs' => new ArrayCollection([$itemConfig]),
         ]);
 
         /** @var Daedalus $daedalus */
@@ -284,7 +284,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'equipmentsConfig' => new ArrayCollection([$equipmentConfig]),
+            'equipmentConfigs' => new ArrayCollection([$equipmentConfig]),
         ]);
 
         /** @var Daedalus $daedalus */
@@ -363,7 +363,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'equipmentsConfig' => new ArrayCollection([$itemConfig]),
+            'equipmentConfigs' => new ArrayCollection([$itemConfig]),
         ]);
 
         /** @var Daedalus $daedalus */
@@ -483,7 +483,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'equipmentsConfig' => new ArrayCollection([$equipmentConfig, $equipmentConfig2]),
+            'equipmentConfigs' => new ArrayCollection([$equipmentConfig, $equipmentConfig2]),
         ]);
 
         /** @var Daedalus $daedalus */

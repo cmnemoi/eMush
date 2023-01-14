@@ -26,7 +26,7 @@ Mush\Game\Entity\GameConfig:
       subresource:
         resourceClass: 'Mush\Player\Entity\Config\CharacterConfig'
         collection: true
-    equipmentsConfig:
+    equipmentConfigs:
       subresource:
         resourceClass: 'Mush\Equipment\Entity\Config\EquipmentConfig'
         collection: true

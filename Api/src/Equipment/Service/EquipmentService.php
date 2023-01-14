@@ -11,7 +11,7 @@ class EquipmentService implements EquipmentServiceInterface
     {
         $items = $daedalus
             ->getGameConfig()
-            ->getEquipmentsConfig()
+            ->getEquipmentConfigs()
             ->filter(fn (EquipmentConfig $item) => $item->getEquipmentName() === $name)
         ;
 

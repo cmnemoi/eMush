@@ -373,7 +373,7 @@ class DiseaseMessageServiceTest extends TestCase
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
 
         $gameConfig
-            ->setCharactersConfig(new CharacterConfigCollection([$characterConfig1, $characterConfig2]))
+            ->setCharacterConfigs(new CharacterConfigCollection([$characterConfig1, $characterConfig2]))
         ;
 
         $daedalus = new Daedalus();

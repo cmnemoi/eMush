@@ -139,7 +139,7 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function findAvailableCharacterForDaedalus(Daedalus $daedalus): Collection
     {
-        return $daedalus->getGameConfig()->getCharactersConfig()->filter(
+        return $daedalus->getGameConfig()->getCharacterConfigs()->filter(
             fn (CharacterConfig $characterConfig) => !$daedalus->getPlayers()->exists(
                 fn (int $key, Player $player) => ($player->getName() === $characterConfig->getCharacterName())
             )
@@ -258,7 +258,7 @@ class DaedalusService implements DaedalusServiceInterface
         // Chose alpha Mushs
         $chancesArray = [];
 
-        foreach ($gameConfig->getCharactersConfig() as $characterConfig) {
+        foreach ($gameConfig->getCharacterConfigs() as $characterConfig) {
             // @TODO lower $mushChance if user is a beginner
             // @TODO (maybe add a "I want to be mush" setting to increase this proba)
 

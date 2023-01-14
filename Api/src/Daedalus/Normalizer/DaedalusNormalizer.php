@@ -36,7 +36,7 @@ class DaedalusNormalizer implements NormalizerInterface
         /** @var Daedalus $daedalus */
         $daedalus = $object;
         $gameConfig = $daedalus->getGameConfig();
-        $cryoPlayer = $gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count();
+        $cryoPlayer = $gameConfig->getCharacterConfigs()->count() - $daedalus->getPlayers()->count();
         $humanDead = $daedalus->getPlayers()->getHumanPlayer()->getPlayerDead()->count();
         $mushAlive = $daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count();
         $mushDead = $daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count();

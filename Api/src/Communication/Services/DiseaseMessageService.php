@@ -178,7 +178,7 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
 
     private function getRandomOtherPlayer(Player $player): string
     {
-        $characterConfigs = $player->getDaedalus()->getGameConfig()->getCharactersConfig();
+        $characterConfigs = $player->getDaedalus()->getGameConfig()->getCharacterConfigs();
 
         $characters = [];
         /** @var CharacterConfig $characterConfig */

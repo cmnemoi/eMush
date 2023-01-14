@@ -47,7 +47,7 @@ class FullDaedalusTest extends TestCase
                 ]));
 
         $gameConfig = new GameConfig();
-        $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig(), new CharacterConfig()]));
+        $gameConfig->setCharacterConfigs(new ArrayCollection([new CharacterConfig(), new CharacterConfig()]));
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $this->validator->validate($daedalus, $constraint);
@@ -67,7 +67,7 @@ class FullDaedalusTest extends TestCase
                 ]));
 
         $gameConfig = new GameConfig();
-        $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig()]));
+        $gameConfig->setCharacterConfigs(new ArrayCollection([new CharacterConfig()]));
 
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 

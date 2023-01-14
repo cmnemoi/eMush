@@ -20,7 +20,7 @@
             </template>
         </Pannel>
         <h3>{{ $t("admin.gameConfig.characterConfigs") }}</h3>
-        <ChildCollectionManager :children="gameConfig.charactersConfig" @addId="addNewCharacterConfig" @remove="removeCharacterConfig">
+        <ChildCollectionManager :children="gameConfig.characterConfigs" @addId="addNewCharacterConfig" @remove="removeCharacterConfig">
             <template #header="child">
                 <span>{{ child.id }} - {{ child.name }}</span>
             </template>
@@ -96,15 +96,15 @@ export default defineComponent({
                                     this.gameConfig.daedalusConfig = daedalusConfig;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'characters_configs'))
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'character_configs'))
                             .then((result) => {
-                                const charactersConfig: CharacterConfig[] = [];
+                                const characterConfigs: CharacterConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
-                                    charactersConfig.push((new CharacterConfig()).load(datum));
+                                    characterConfigs.push((new CharacterConfig()).load(datum));
                                 });
 
                                 if (this.gameConfig instanceof GameConfig) {
-                                    this.gameConfig.charactersConfig = charactersConfig;
+                                    this.gameConfig.characterConfigs = characterConfigs;
                                 }
                             });
                         ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'equipments_configs?pagination=false'))
@@ -147,14 +147,14 @@ export default defineComponent({
         },
         addNewCharacterConfig(selectedId: integer){
             GameConfigService.loadCharacterConfig(selectedId).then((res) => {
-                if (res && this.gameConfig && this.gameConfig.charactersConfig){
-                    this.gameConfig.charactersConfig.push(res);
+                if (res && this.gameConfig && this.gameConfig.characterConfigs){
+                    this.gameConfig.characterConfigs.push(res);
                 }
             });
         },
         removeCharacterConfig(characterConfig: any){
-            if (this.gameConfig && this.gameConfig.charactersConfig){
-                this.gameConfig.charactersConfig = removeItem(this.gameConfig.charactersConfig, characterConfig);
+            if (this.gameConfig && this.gameConfig.characterConfigs){
+                this.gameConfig.characterConfigs = removeItem(this.gameConfig.characterConfigs, characterConfig);
             }
         },
         addNewEquipmentConfig(selectedId: integer){
@@ -195,15 +195,15 @@ export default defineComponent({
                         this.gameConfig.daedalusConfig = daedalusConfig;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs', String(gameConfigId), 'characters_configs'))
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs', String(gameConfigId), 'character_configs'))
                 .then((result) => {
-                    const charactersConfig: CharacterConfig[] = [];
+                    const characterConfigs: CharacterConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
-                        charactersConfig.push((new CharacterConfig()).load(datum));
+                        characterConfigs.push((new CharacterConfig()).load(datum));
                     });
 
                     if (this.gameConfig instanceof GameConfig) {
-                        this.gameConfig.charactersConfig = charactersConfig;
+                        this.gameConfig.characterConfigs = characterConfigs;
                     }
                 });
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'equipments_configs?pagination=false'))

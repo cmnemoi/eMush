@@ -32,7 +32,7 @@ class GameConfig
     private DaedalusConfig $daedalusConfig;
 
     #[ORM\ManyToMany(targetEntity: CharacterConfig::class)]
-    private Collection $charactersConfig;
+    private Collection $characterConfigs;
 
     #[ORM\ManyToMany(targetEntity: EquipmentConfig::class)]
     private Collection $equipmentsConfig;
@@ -60,7 +60,7 @@ class GameConfig
 
     public function __construct()
     {
-        $this->charactersConfig = new ArrayCollection();
+        $this->characterConfigs = new ArrayCollection();
         $this->equipmentsConfig = new ArrayCollection();
         $this->triumphConfig = new ArrayCollection();
         $this->diseaseCauseConfig = new ArrayCollection();
@@ -86,28 +86,28 @@ class GameConfig
         return $this;
     }
 
-    public function getCharactersConfig(): CharacterConfigCollection
+    public function getCharacterConfigs(): CharacterConfigCollection
     {
-        return new CharacterConfigCollection($this->charactersConfig->toArray());
+        return new CharacterConfigCollection($this->characterConfigs->toArray());
     }
 
     /**
-     * @param Collection<int, CharacterConfig> $charactersConfig
+     * @param Collection<int, CharacterConfig> $characterConfigs
      */
-    public function setCharactersConfig(Collection|array $charactersConfig): static
+    public function setCharacterConfigs(Collection|array $characterConfigs): static
     {
-        if (is_array($charactersConfig)) {
-            $charactersConfig = new ArrayCollection($charactersConfig);
+        if (is_array($characterConfigs)) {
+            $characterConfigs = new ArrayCollection($characterConfigs);
         }
 
-        $this->charactersConfig = $charactersConfig;
+        $this->characterConfigs = $characterConfigs;
 
         return $this;
     }
 
-    public function addCharactersConfig(CharacterConfig $charactersConfig): static
+    public function addCharacterConfig(CharacterConfig $characterConfigs): static
     {
-        $this->charactersConfig->add($charactersConfig);
+        $this->characterConfigs->add($characterConfigs);
 
         return $this;
     }
@@ -269,6 +269,6 @@ class GameConfig
 
     public function getMaxPlayer(): int
     {
-        return $this->charactersConfig->count();
+        return $this->characterConfigs->count();
     }
 }

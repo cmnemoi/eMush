@@ -85,7 +85,7 @@ class CreatePlayerServiceCest
         $charactersConfig->add($gioeleCharacterConfig);
         $charactersConfig->add($andieCharacterConfig);
 
-        $gameConfig->setCharactersConfig($charactersConfig);
+        $gameConfig->setCharacterConfigs($charactersConfig);
         $daedalusInfo->setGameConfig($gameConfig);
 
         $I->expectThrowable(\LogicException::class, fn () => $this->playerService->createPlayer($daedalus, $user, 'non_existent_player')

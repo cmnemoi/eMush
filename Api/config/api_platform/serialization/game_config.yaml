@@ -6,7 +6,7 @@ Mush\Game\Entity\GameConfig:
       groups: [ 'game_config_read', 'game_config_write' ]
     daedalusConfig:
       groups: [ 'game_config_read', 'game_config_write' ]
-    charactersConfig:
+    characterConfigs:
       groups: [ 'game_config_read', 'game_config_write' ]
     equipmentsConfig:
       groups: [ 'game_config_read', 'game_config_write' ]

@@ -108,7 +108,7 @@ class PlayerServiceTest extends TestCase
         $this->charactersConfigs->add($characterConfig);
 
         $gameConfig
-            ->setCharactersConfig($this->charactersConfigs)
+            ->setCharacterConfigs($this->charactersConfigs)
         ;
 
         $this->entityManager

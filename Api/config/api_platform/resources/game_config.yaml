@@ -22,7 +22,7 @@ Mush\Game\Entity\GameConfig:
     daedalusConfig:
       subresource:
         resourceClass: 'Mush\Daedalus\Entity\DaedalusConfig'
-    charactersConfig:
+    characterConfigs:
       subresource:
         resourceClass: 'Mush\Player\Entity\Config\CharacterConfig'
         collection: true

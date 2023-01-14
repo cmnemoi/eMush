@@ -50,7 +50,7 @@ class StartingDaedalusTest extends TestCase
         $daedalus->setPlayers(new ArrayCollection([new Player()]));
 
         $gameConfig = new GameConfig();
-        $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig(), new CharacterConfig()]));
+        $gameConfig->setCharacterConfigs(new ArrayCollection([new CharacterConfig(), new CharacterConfig()]));
 
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
@@ -70,7 +70,7 @@ class StartingDaedalusTest extends TestCase
         $daedalusInfo->setGameStatus(GameStatusEnum::CURRENT);
 
         $gameConfig = new GameConfig();
-        $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig()]));
+        $gameConfig->setCharacterConfigs(new ArrayCollection([new CharacterConfig()]));
 
         $this->validator->validate($daedalus, $constraint);
 

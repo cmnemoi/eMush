@@ -200,7 +200,7 @@ class DaedalusServiceTest extends TestCase
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $characterConfigCollection = new ArrayCollection();
-        $gameConfig->setCharactersConfig($characterConfigCollection);
+        $gameConfig->setCharacterConfigs($characterConfigCollection);
 
         $characterConfig = new CharacterConfig();
         $characterConfig->setCharacterName('character_1');
@@ -310,7 +310,7 @@ class DaedalusServiceTest extends TestCase
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $characterConfigCollection = new ArrayCollection();
-        $gameConfig->setCharactersConfig($characterConfigCollection);
+        $gameConfig->setCharacterConfigs($characterConfigCollection);
 
         $player1 = $this->createPlayer($daedalus, 'player1');
         $characterConfig1 = $player1->getPlayerInfo()->getCharacterConfig();

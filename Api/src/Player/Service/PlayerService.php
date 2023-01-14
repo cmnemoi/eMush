@@ -129,7 +129,7 @@ class PlayerService implements PlayerServiceInterface
 
         $gameConfig = $daedalus->getGameConfig();
 
-        $characterConfig = $gameConfig->getCharactersConfig()->getCharacter($character);
+        $characterConfig = $gameConfig->getCharacterConfigs()->getCharacter($character);
         if (!$characterConfig) {
             throw new \LogicException('Character not available');
         }

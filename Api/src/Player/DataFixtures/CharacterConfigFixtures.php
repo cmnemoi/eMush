@@ -346,7 +346,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
         $gameConfig
-            ->setCharactersConfig(new ArrayCollection([
+            ->setCharacterConfigs(new ArrayCollection([
                 $andie, $chun, $derek, $eleesha, $frieda, $gioele, $hua, $ian,
                 $janice, $jinSu, $kuanTi, $paola, $raluca, $roland, $stephen, $terrence,
             ]))

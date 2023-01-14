@@ -55,7 +55,7 @@ export class GameConfig {
             'name': this.name,
             'daedalusConfig': this.daedalusConfig?.iri,
             'charactersConfig': charactersConfig,
-            'equipmentConfig': equipmentsConfig
+            'equipmentsConfig': equipmentsConfig
         };
 
         return data;

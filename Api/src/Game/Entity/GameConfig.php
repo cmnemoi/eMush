@@ -165,8 +165,12 @@ class GameConfig
     /**
      * @param Collection<int, DiseaseCauseConfig> $diseaseCauseConfigs
      */
-    public function setDiseaseCauseConfigs(Collection $diseaseCauseConfigs): static
+    public function setDiseaseCauseConfigs(Collection|array $diseaseCauseConfigs): static
     {
+        if(is_array($diseaseCauseConfigs)) {
+            $diseaseCauseConfigs = new ArrayCollection($diseaseCauseConfigs);
+        }
+        
         $this->diseaseCauseConfigs = $diseaseCauseConfigs;
 
         return $this;

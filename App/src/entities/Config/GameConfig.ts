@@ -1,5 +1,6 @@
 import { CharacterConfig } from "@/entities/Config/CharacterConfig";
 import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
+import { DiseaseCauseConfig } from "@/entities/Config/DiseaseCauseConfig";
 import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
 
@@ -11,6 +12,7 @@ export class GameConfig {
     public characterConfigs: CharacterConfig[]|null;
     public equipmentConfigs: EquipmentConfig[]|null;
     public statusConfigs: StatusConfig[]|null;
+    public diseaseCauseConfigs: DiseaseCauseConfig[]|null;
 
     constructor() {
         this.iri = null;
@@ -20,6 +22,7 @@ export class GameConfig {
         this.characterConfigs = null;
         this.equipmentConfigs = null;
         this.statusConfigs = null;
+        this.diseaseCauseConfigs = null;
     }
     load(object:any) : GameConfig {
         if (typeof object !== "undefined") {
@@ -53,6 +56,14 @@ export class GameConfig {
                 });
                 this.statusConfigs = statusConfigs;
             }
+            if (typeof object.diseaseCauseConfigs !== "undefined") {
+                const diseaseCauseConfigs : DiseaseCauseConfig[] = [];
+                object.diseaseCauseConfigs.forEach((diseaseCauseConfigsData: any) => {
+                    const diseaseCauseConfig = (new DiseaseCauseConfig()).load(diseaseCauseConfigsData);
+                    diseaseCauseConfigs.push(diseaseCauseConfig);
+                });
+                this.diseaseCauseConfigs = diseaseCauseConfigs;
+            }
         }
         return this;
     }
@@ -63,6 +74,8 @@ export class GameConfig {
         this.equipmentConfigs?.forEach(equipmentConfig => (typeof equipmentConfig.iri === 'string' ? equipmentConfigs.push(equipmentConfig.iri) : null));
         const statusConfigs : string[] = [];
         this.statusConfigs?.forEach(statusConfig => (typeof statusConfig.iri === 'string' ? statusConfigs.push(statusConfig.iri) : null));
+        const diseaseCauseConfigs : string[] = [];
+        this.diseaseCauseConfigs?.forEach(diseaseCauseConfig => (typeof diseaseCauseConfig.iri === 'string' ? diseaseCauseConfigs.push(diseaseCauseConfig.iri) : null));
         const data : any = {
             'id': this.id,
             'name': this.name,
@@ -70,6 +83,7 @@ export class GameConfig {
             'characterConfigs': characterConfigs,
             'equipmentConfigs': equipmentConfigs,
             'statusConfigs': statusConfigs,
+            'diseaseCauseConfigs': diseaseCauseConfigs,
         };
 
         return data;

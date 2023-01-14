@@ -34,3 +34,7 @@ Mush\Game\Entity\GameConfig:
       subresource:
         resourceClass: 'Mush\Status\Entity\Config\StatusConfig'
         collection: true
+    diseaseCauseConfigs:
+      subresource:
+        resourceClass: 'Mush\Disease\Entity\Config\DiseaseCauseConfig'
+        collection: true

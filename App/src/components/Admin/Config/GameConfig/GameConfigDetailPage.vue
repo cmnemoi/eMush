@@ -37,6 +37,12 @@
                 <span>{{ child.id }} - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.diseaseCauseConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.diseaseCauseConfigs" @addId="addNewDiseaseCauseConfig" @remove="removeDiseaseCauseConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
         <button class="action-button" type="submit" @click="update">
             {{ $t('admin.save') }}
         </button>
@@ -48,6 +54,7 @@ import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
 import { CharacterConfig } from "@/entities/Config/CharacterConfig";
 import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
+import { DiseaseCauseConfig } from "@/entities/Config/DiseaseCauseConfig";
 import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { GameConfig } from "@/entities/Config/GameConfig";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
@@ -83,6 +90,7 @@ export default defineComponent({
                 return;
             }
             this.errors = {};
+            // @ts-ignore
             GameConfigService.updateGameConfig(this.gameConfig)
                 .then((res: GameConfig | null) => {
                     this.gameConfig = res;
@@ -107,7 +115,7 @@ export default defineComponent({
                                     this.gameConfig.characterConfigs = characterConfigs;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'equipment_configs?pagination=false'))
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'equipment_configs?pagination=true'))
                             .then((result) => {
                                 const equipmentConfigs: EquipmentConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -118,7 +126,7 @@ export default defineComponent({
                                     this.gameConfig.equipmentConfigs = equipmentConfigs;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'status_configs?pagination=false'))
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'status_configs?pagination=true'))
                             .then((result) => {
                                 const statusConfigs: StatusConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -127,6 +135,17 @@ export default defineComponent({
                             
                                 if (this.gameConfig instanceof GameConfig) {
                                     this.gameConfig.statusConfigs = statusConfigs;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'disease_cause_configs?pagination=true'))
+                            .then((result) => {
+                                const diseaseCauseConfigs: DiseaseCauseConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    diseaseCauseConfigs.push((new DiseaseCauseConfig()).load(datum));
+                                });
+                            
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.diseaseCauseConfigs = diseaseCauseConfigs;
                                 }
                             });
                     }
@@ -181,6 +200,18 @@ export default defineComponent({
                 this.gameConfig.statusConfigs = removeItem(this.gameConfig.statusConfigs, statusConfig);
             }
         },
+        addNewDiseaseCauseConfig(selectedId: integer){
+            GameConfigService.loadDiseaseCauseConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.daedalusConfig && this.gameConfig.diseaseCauseConfigs){
+                    this.gameConfig.diseaseCauseConfigs.push(res);
+                }
+            });
+        },
+        removeDiseaseCauseConfig(diseaseCauseConfig: any){
+            if (this.gameConfig && this.gameConfig.diseaseCauseConfigs){
+                this.gameConfig.diseaseCauseConfigs = removeItem(this.gameConfig.diseaseCauseConfigs, diseaseCauseConfig);
+            }
+        },
     },
     beforeMount() {
         const gameConfigId = Number(this.$route.params.gameConfigId);
@@ -206,7 +237,7 @@ export default defineComponent({
                         this.gameConfig.characterConfigs = characterConfigs;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'equipment_configs?pagination=false'))
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'equipment_configs?pagination=true'))
                 .then((result) => {
                     const equipmentConfigs: EquipmentConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
@@ -217,7 +248,7 @@ export default defineComponent({
                         this.gameConfig.equipmentConfigs = equipmentConfigs;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'status_configs?pagination=false'))
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'status_configs?pagination=true'))
                 .then((result) => {
                     const statusConfigs: StatusConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
@@ -226,6 +257,17 @@ export default defineComponent({
                     
                     if (this.gameConfig instanceof GameConfig) {
                         this.gameConfig.statusConfigs = statusConfigs;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'disease_cause_configs?pagination=true'))
+                .then((result) => {
+                    const diseaseCauseConfigs: DiseaseCauseConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        diseaseCauseConfigs.push((new DiseaseCauseConfig()).load(datum));
+                    });
+                    
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.diseaseCauseConfigs = diseaseCauseConfigs;
                     }
                 });
         });

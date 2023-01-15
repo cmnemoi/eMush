@@ -419,6 +419,20 @@ const GameConfigService = {
         return symptomConfig;
     },
 
+    createSymptomActivationRequirement: async (symptomActivationRequirement: SymptomActivationRequirement): Promise<SymptomActivationRequirement | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const symptomActivationRequirementRecord: Record<string, any> = symptomActivationRequirement.jsonEncode();
+
+        const symptomActivationRequirementData = await ApiService.post(SYMPTOM_REQUIREMENT_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', symptomActivationRequirementRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (symptomActivationRequirementData.data) {
+            symptomActivationRequirement = (new SymptomActivationRequirement()).load(symptomActivationRequirementData.data);
+        }
+
+        return symptomActivationRequirement;
+    },
+
     loadSymptomActivationRequirement: async(symptomActivationRequirementId: number): Promise<SymptomActivationRequirement | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const symptomActivationRequirementData = await ApiService.get(SYMPTOM_REQUIREMENT_ENDPOINT + '/' + symptomActivationRequirementId + '?XDEBUG_SESSION_START=PHPSTORM')

@@ -375,6 +375,20 @@ const GameConfigService = {
         return diseaseConfig;
     },
 
+    createSymptomConfig: async (symptomConfig: SymptomConfig): Promise<SymptomConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const symptomConfigRecord: Record<string, any> = symptomConfig.jsonEncode();
+
+        const symptomConfigData = await ApiService.post(SYMPTOM_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', symptomConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (symptomConfigData.data) {
+            symptomConfig = (new SymptomConfig()).load(symptomConfigData.data);
+        }
+
+        return symptomConfig;
+    },
+
     loadSymptomConfig: async(symptomConfigId: number): Promise<SymptomConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const symptomConfigData = await ApiService.get(SYMPTOM_CONFIG_ENDPOINT + '/' + symptomConfigId + '?XDEBUG_SESSION_START=PHPSTORM')

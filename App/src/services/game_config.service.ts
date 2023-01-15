@@ -242,6 +242,20 @@ const GameConfigService = {
         return actionConfig;
     },
 
+    createDaedalusConfig: async(daedalusConfig: DaedalusConfig): Promise<DaedalusConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const daedalusConfigRecord: Record<string, any> = daedalusConfig.jsonEncode();
+
+        const daedalusConfigData = await ApiService.post(CONFIG_DAEDALUS_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', daedalusConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (daedalusConfigData.data) {
+            daedalusConfig = (new DaedalusConfig()).load(daedalusConfigData.data);
+        }
+
+        return daedalusConfig;
+    },
+
     loadDaedalusConfig: async(daedalusConfigId: number): Promise<DaedalusConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const daedalusConfigData = await ApiService.get(CONFIG_DAEDALUS_CONFIG_ENDPOINT + '/' + daedalusConfigId + '?XDEBUG_SESSION_START=PHPSTORM')

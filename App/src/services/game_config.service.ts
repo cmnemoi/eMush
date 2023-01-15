@@ -212,6 +212,21 @@ const GameConfigService = {
         return modifierRequirement;
     },
 
+    createStatusConfig: async(statusConfig: StatusConfig): Promise<StatusConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const statusConfigRecord: Record<string, any> = statusConfig.jsonEncode();
+
+        const statusConfigData = await ApiService.post(CONFIG_STATUS_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', statusConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (statusConfigData.data) {
+            statusConfig = (new StatusConfig()).load(statusConfigData.data);
+        }
+
+        return statusConfig;
+
+    },
+
     loadStatusConfig: async(statusConfigId: number): Promise<StatusConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const statusConfigData = await ApiService.get(CONFIG_STATUS_ENDPOINT + '/' + statusConfigId + '?XDEBUG_SESSION_START=PHPSTORM')

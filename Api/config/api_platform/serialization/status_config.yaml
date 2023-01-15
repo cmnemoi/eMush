@@ -6,6 +6,8 @@ Mush\Status\Entity\Config\StatusConfig:
       groups: [ 'status_config_read', 'status_config_write' ]
     name:
       groups: [ 'status_config_read', 'status_config_write' ]
+    statusName:
+      groups: [ 'status_config_read', 'status_config_write' ]
     visibility:
       groups: [ 'status_config_read', 'status_config_write' ]
     modifierConfigs:

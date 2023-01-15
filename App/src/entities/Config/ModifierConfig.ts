@@ -4,6 +4,7 @@ export class ModifierConfig {
     public iri: string|null;
     public id: number|null;
     public name: string|null;
+    public modifierName: string|null;
     public delta: number|null;
     public targetVariable: string|null;
     public targetEvent: string|null;
@@ -16,6 +17,7 @@ export class ModifierConfig {
         this.iri = null;
         this.id = null;
         this.name = null;
+        this.modifierName = null;
         this.delta = null;
         this.targetVariable = null;
         this.targetEvent = null;
@@ -28,6 +30,7 @@ export class ModifierConfig {
             this.iri = object['@id'];
             this.id = object.id;
             this.name = object.name;
+            this.modifierName = object.modifierName;
             this.delta = object.delta;
             this.targetVariable = object.targetVariable;
             this.targetEvent = object.targetEvent;
@@ -42,6 +45,7 @@ export class ModifierConfig {
         return {
             'id': this.id,
             'name': this.name,
+            'modifierName': this.modifierName,
             'delta': this.delta,
             'targetVariable': this.targetVariable,
             'targetEvent': this.targetEvent,
@@ -53,13 +57,7 @@ export class ModifierConfig {
     decode(jsonString : string): ModifierConfig {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.id = object.id;
-            this.name = object.name;
-            this.delta = object.delta;
-            this.targetVariable = object.targetVariable;
-            this.targetEvent = object.targetEvent;
-            this.modifierHolderClass = object.modifierHolderClass;
-            this.mode = object.mode;
+            this.load(object);
         }
 
         return this;

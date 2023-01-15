@@ -553,6 +553,21 @@ const GameConfigService = {
         return placeConfig;
     },
 
+    createRandomItemPlaces: async (randomItemPlaces: RandomItemPlaces): Promise<RandomItemPlaces | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const randomItemPlacesRecord: Record<string, any> = randomItemPlaces.jsonEncode();
+
+        const randomItemPlacesData = await ApiService.post(RANDOM_ITEM_PLACES_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', randomItemPlacesRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (randomItemPlacesData.data) {
+            randomItemPlaces = (new RandomItemPlaces()).load(randomItemPlacesData.data);
+        }
+
+        return randomItemPlaces;
+
+    },
+
     loadRandomItemPlaces: async(randomItemPlacesId: number): Promise<RandomItemPlaces | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const randomItemPlacesData = await ApiService.get(RANDOM_ITEM_PLACES_ENDPOINT + '/' + randomItemPlacesId + '?XDEBUG_SESSION_START=PHPSTORM')

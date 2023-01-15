@@ -84,11 +84,14 @@
 
         <div v-if="mechanics.mechanics?.includes('ration')">
             <div class="flex-row">
-                <input type="checkbox"
-                       class="mechanicsCheckbox"
-                       id="isPerishable"
-                       v-model="mechanics.isPerishable" />
-                <label for="isPerishable">{{ mechanics.isPerishable ? $t('admin.mechanics.isPerishable') : $t('admin.mechanics.isNotPerishable') }}</label>
+                <Input
+                    v-if="mechanics.mechanicsType == 'Fruit'"
+                    :label="$t('admin.mechanics.plantName')"
+                    id="mechanics_plantName"
+                    v-model="mechanics.plantName"
+                    type="text"
+                    :errors="errors.plantName"
+                />
                 <Input
                     :label="$t('admin.mechanics.satiety')"
                     id="mechanics_satiety"
@@ -96,6 +99,11 @@
                     type="number"
                     :errors="errors.satiety"
                 ></Input>
+                <input type="checkbox"
+                       class="mechanicsCheckbox"
+                       id="isPerishable"
+                       v-model="mechanics.isPerishable" />
+                <label for="isPerishable">{{ mechanics.isPerishable ? $t('admin.mechanics.isPerishable') : $t('admin.mechanics.isNotPerishable') }}</label>
             </div>
             <MapManager :label="$t('admin.mechanics.actionPoints')"
                         :map="mechanics.actionPoints" 

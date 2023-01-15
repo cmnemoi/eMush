@@ -301,6 +301,21 @@ const GameConfigService = {
         return characterConfig;
     },
 
+    createEquipmentConfig: async(equipmentConfig: EquipmentConfig): Promise<EquipmentConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const characterConfigRecord : Record<string, any> = equipmentConfig.jsonEncode();
+
+        const equipmentConfigData = await ApiService.post(EQUIPMENT_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', characterConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if(equipmentConfigData.data) {
+            equipmentConfig = (new EquipmentConfig()).load(equipmentConfigData.data);
+        }
+
+        return equipmentConfig;
+
+    },
+
     loadEquipmentConfig: async(equipmentConfigId: number): Promise<EquipmentConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const equipmentConfigData = await ApiService.get(EQUIPMENT_CONFIG_ENDPOINT + '/' + equipmentConfigId + '?XDEBUG_SESSION_START=PHPSTORM')

@@ -127,11 +127,11 @@
             </template>
         </ChildCollectionManager>
         <h3> {{$t('admin.characterConfig.skills')}} </h3>
-        <select>
-            <option v-for="(item, index) in characterConfig.skills" :key="index">
-                {{ item }}
-            </option>
-        </select>
+        <StringArrayManager
+            :array="characterConfig.skills"
+            @addElement="characterConfig.skills?.push($event)"
+            @removeElement="characterConfig.skills?.splice($event, 1)"
+        />
         <h3> {{$t('admin.characterConfig.startingItems')}} </h3>
         <ChildCollectionManager :children="characterConfig.startingItems" @addId="selectNewStartingItem" @remove="removeStartingItem">
             <template #header="child">
@@ -150,9 +150,7 @@
                 <span>{{ $t('admin.characterConfig.name') }} {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -171,6 +169,8 @@ import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
 
 interface CharacterConfigState {
     characterConfig: CharacterConfig|null
@@ -181,7 +181,9 @@ export default defineComponent({
     name: "CharacterConfigDetailPage",
     components: {
         ChildCollectionManager,
-        Input
+        Input,
+        UpdateConfigButtons,
+        StringArrayManager
     },
     data: function (): CharacterConfigState {
         return {
@@ -191,6 +193,33 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if (this.characterConfig === null) return;
+
+            const newCharacterConfig = this.characterConfig;
+            newCharacterConfig.id = null;
+
+            // @ts-ignore
+            GameConfigService.createCharacterConfig(newCharacterConfig)
+                .then((res: CharacterConfig | null) => {
+                    const newCharacterConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/character-config', String(res?.id));
+                    window.location.href = newCharacterConfigUrl;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+
+        },
         update(): void {
             if (this.characterConfig === null) {
                 return;

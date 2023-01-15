@@ -330,6 +330,21 @@ const GameConfigService = {
         return difficultyConfig;
     },
 
+    createCharacterConfig: async(characterConfig: CharacterConfig): Promise<CharacterConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const characterConfigRecord: Record<string, any> = characterConfig.jsonEncode();
+
+        const characterConfigData = await ApiService.post(CHARACTER_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', characterConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (characterConfigData.data) {
+            characterConfig = (new CharacterConfig()).load(characterConfigData.data);
+        }
+
+        return characterConfig;
+
+    },
+
     loadCharacterConfig: async(characterConfigId: number): Promise<CharacterConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const characterConfigData = await ApiService.get(CHARACTER_CONFIG_ENDPOINT + '/' + characterConfigId + '?XDEBUG_SESSION_START=PHPSTORM')

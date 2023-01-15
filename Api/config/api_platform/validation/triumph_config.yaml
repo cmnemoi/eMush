@@ -1,0 +1,14 @@
+Mush\Game\Entity\TriumphConfig:
+  properties:
+    name:
+      - NotBlank: ~
+      - Type: string
+    triumph:
+      - NotBlank: ~
+      - Type: integer
+    isAllCrew:
+      - NotBlank: ~
+      - Type: boolean
+    team:
+      - NotBlank: ~
+      - Type: string

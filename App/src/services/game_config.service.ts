@@ -19,6 +19,7 @@ import { RandomItemPlaces } from "@/entities/Config/RandomItemPlaces";
 import { ConsumableDiseaseConfig } from "@/entities/Config/ConsumableDiseaseConfig";
 import { ConsumableDiseaseAttribute } from "@/entities/ConsumableDiseaseAttribute";
 import { DiseaseCauseConfig } from "@/entities/Config/DiseaseCauseConfig";
+import { TriumphConfig } from "@/entities/Config/TriumphConfig";
 
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
@@ -56,6 +57,8 @@ const CONSUMABLE_DISEASE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, 
 const CONSUMABLE_DISEASE_ATTRIBUTE_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "consumable_disease_attributes");
 // @ts-ignore
 const DISEASE_CAUSE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "disease_cause_configs");
+// @ts-ignore
+const TRIUMPH_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "triumph_configs");
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -596,6 +599,52 @@ const GameConfigService = {
         }
 
         return diseaseCauseConfig;
+    },
+
+    createTriumphConfig: async(triumphConfig: TriumphConfig): Promise<TriumphConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const triumphConfigRecord : Record<string, any> = triumphConfig.jsonEncode();
+
+        const triumphConfigData = await ApiService.post(TRIUMPH_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', triumphConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (triumphConfigData.data) {
+            triumphConfig = (new TriumphConfig()).load(triumphConfigData.data);
+        }
+
+        return triumphConfig;
+    },
+
+    loadTriumphConfig: async(triumphConfigId: number): Promise<TriumphConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const triumphConfigData = await ApiService.get(TRIUMPH_CONFIG_ENDPOINT + '/' + triumphConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let triumphConfig = null;
+        if (triumphConfigData.data) {
+            triumphConfig = (new TriumphConfig()).load(triumphConfigData.data);
+        }
+
+        return triumphConfig;
+    },
+
+    updateTriumphConfig: async(triumphConfig: TriumphConfig): Promise<TriumphConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const triumphConfigData = await ApiService.put(TRIUMPH_CONFIG_ENDPOINT + '/' + triumphConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', triumphConfig.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (triumphConfigData.data) {
+            triumphConfig = (new TriumphConfig()).load(triumphConfigData.data);
+        }
+
+        return triumphConfig;
     }
 };
 export default GameConfigService;

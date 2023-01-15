@@ -54,6 +54,12 @@ class TriumphConfig
         return $this;
     }
 
+    // Getter for API Platform serialization
+    public function getIsAllCrew(): bool
+    {
+        return $this->isAllCrew;
+    }
+
     public function isAllCrew(): bool
     {
         return $this->isAllCrew;

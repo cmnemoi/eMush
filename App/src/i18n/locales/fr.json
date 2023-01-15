@@ -291,7 +291,9 @@
 		},
 		"buttons": {
 			"add": "Ajouter",
-			"delete": "Supprimer"
+			"delete": "Supprimer",
+			"updateConfig": "Mettre à jour la configuration",
+			"createNewConfig": "Créer une nouvelle configuration"
 		},
 		"childCollectionManager":
 		{
@@ -317,6 +319,15 @@
 			"diseasesDelayMin": "Nombre de cycles avant effet (nombre de cycles => probabilité qu'il soit choisi)",
 			"diseasesDelayLength": "Nombre de cycles d'incubation (nombre de cycles => probabilité qu'il soit choisi)",
 			"effectNumber": "Nombre d'effets (nombre d'effets => probabilité qu'il soit choisi)"
+		},
+		"triumphConfig":
+		{
+			"pageTitle": "Modification du triomphe ",
+			"name": "Nom",
+			"triumph": "Points de triomphe gagnés",
+			"isAllCrew": "Gagné par tout l'équipage",
+			"isNotAllCrew": "Non gagné par tout l'équipage",
+			"team": "Équipe"
 		}
 	},
 	"charselection": {

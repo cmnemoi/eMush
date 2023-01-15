@@ -73,6 +73,8 @@ const FRUIT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "fruits");
 const GEAR_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "gears");
 // @ts-ignore
 const PLANT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "plants");
+// @ts-ignore
+const RATION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "rations");
 
 const MECHANICS_ENDPOINTS: Map<string, string> = new Map([
     ['blueprint', BLUEPRINT_ENDPOINT],
@@ -81,7 +83,8 @@ const MECHANICS_ENDPOINTS: Map<string, string> = new Map([
     ['drug', DRUG_ENDPOINT],
     ['fruit', FRUIT_ENDPOINT],
     ['gear', GEAR_ENDPOINT],
-    ['plant', PLANT_ENDPOINT]
+    ['plant', PLANT_ENDPOINT],
+    ['ration', RATION_ENDPOINT]
 ]);
     
 

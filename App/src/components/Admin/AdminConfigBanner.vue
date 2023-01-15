@@ -21,6 +21,7 @@
         <div class="admin-menu">
             <router-link :to="{ name: 'AdminStatusConfigList' }">Status Config</router-link>
             <router-link :to="{ name: 'AdminActionConfigList' }">Action Config</router-link>
+            <router-link :to="{ name: 'AdminTriumphConfigList' }">Triumph Config</router-link>
         </div>
     </div>
 </template>

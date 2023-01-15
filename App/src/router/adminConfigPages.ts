@@ -32,6 +32,8 @@ import ConsumableDiseaseConfigListPage from "@/components/Admin/Config/Consumabl
 import ConsumableDiseaseConfigDetailPage from "@/components/Admin/Config/ConsumableDiseaseConfig/ConsumableDiseaseConfigDetailPage.vue";
 import DiseaseCauseConfigListPage from "@/components/Admin/Config/DiseaseCauseConfig/DiseaseCauseConfigListPage.vue";
 import DiseaseCauseConfigDetailPage from "@/components/Admin/Config/DiseaseCauseConfig/DiseaseCauseConfigDetailPage.vue";
+import TriumphConfigListPage from "@/components/Admin/Config/TriumphConfig/TriumphConfigListPage.vue";
+import TriumphConfigDetailPage from "@/components/Admin/Config/TriumphConfig/TriumphConfigDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -203,5 +205,15 @@ export const adminConfigRoutes = [
         name: "AdminDiseaseCauseConfigDetail",
         path: 'disease-cause-config/:diseaseCauseConfigId',
         component: DiseaseCauseConfigDetailPage
+    },
+    {
+        name: "AdminTriumphConfigList",
+        path: 'triumph-config-list',
+        component: TriumphConfigListPage
+    },
+    {
+        name: "AdminTriumphConfigDetail",
+        path: 'triumph-config/:triumphConfigId',
+        component: TriumphConfigDetailPage
     },
 ];

@@ -1,5 +1,13 @@
 Mush\Equipment\Entity\Mechanics\Blueprint:
   attributes:
+    id: 
+      groups: [ 'blueprint_read' ]
+    name:
+      groups: [  'blueprint_write' ]
+    mechanics:
+      groups: [  'blueprint_write' ]
+    actions:
+      groups: [  'blueprint_write' ]
     equipment:
       groups: [ 'blueprint_read', 'blueprint_write' ]
     ingredients:

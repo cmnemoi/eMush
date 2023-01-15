@@ -1,6 +1,30 @@
 <template>
     <div v-if="mechanics" class="center">
         <h2>{{ $t('admin.mechanics.pageTitle') }} {{ mechanics.name }}</h2>
+        <div class="flex-row">
+            <Input
+                :label="$t('admin.mechanics.name')"
+                id="mechanics_name"
+                v-model="mechanics.name"
+                type="text"
+                :errors="errors.name"
+            />
+            <Input
+                :label="$t('admin.mechanics.mechanicsType')"
+                id="mechanics_mechanicsType"
+                v-model="mechanics.mechanicsType"
+                type="text"
+                :errors="errors.mechanicsType"
+            />
+        </div>
+
+        <h3>{{ $t('admin.mechanics.mechanics') }}</h3>
+        <StringArrayManager
+            :array="mechanics.mechanics"
+            @addElement="mechanics.mechanics.push($event)"
+            @removeElement="mechanics.mechanics.splice(mechanics.mechanics.indexOf($event), 1)"
+        />
+        
         <h3>{{ $t('admin.mechanics.actions') }}</h3>
         <ChildCollectionManager :children="mechanics.actions" @addId="selectNewAction" @remove="removeAction">
             <template #header="child">
@@ -9,6 +33,13 @@
         </ChildCollectionManager>
         
         <div v-if="mechanics.mechanicsType == 'Blueprint'">
+            <h3>{{ $t('admin.mechanics.equipment') }}</h3>
+            <ChildManager :child="mechanics.equipment" @addId="selectNewEquipment" @remove="removeEquipment">
+                <template #header="child">
+                    <span>{{ child.id }} - {{ child.name }}</span>
+                </template>
+            </ChildManager>
+
             <h3>{{ $t('admin.mechanics.ingredients') }}</h3>
             <pre>{{ mechanics.ingredients }}</pre>
             <label for="ingredients">{{ $t('admin.mechanics.addIngredients') }}</label>
@@ -151,9 +182,7 @@
                         @addTuple="addBaseDamageRange" 
                         @removeIndex="removeBaseDamageRange"></MapManager>
         </div>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -167,9 +196,12 @@ import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { Mechanics } from "@/entities/Config/Mechanics";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
+import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
+import ChildManager from "@/components/Utils/ChildManager.vue";
 import Input from "@/components/Utils/Input.vue";
 import MapManager from "@/components/Utils/MapManager.vue";
-import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
 import urlJoin from "url-join";
 import { removeItem } from "@/utils/misc";
 
@@ -184,8 +216,11 @@ export default defineComponent({
     name: "MechanicsDetailPage",
     components: {
         ChildCollectionManager,
+        ChildManager,
         Input,
         MapManager,
+        UpdateConfigButtons,
+        StringArrayManager
     },
     data: function (): MechanicsState {
         return {
@@ -196,6 +231,32 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if(this.mechanics === null) return;
+
+            const newMechanics = this.mechanics;
+            newMechanics.id = null;
+
+            // @ts-ignore
+            GameConfigService.createMechanics(newMechanics)
+                .then((res: Mechanics | null) => {
+                    const newMechanicsUrl = urlJoin(process.env.VUE_APP_URL + '/config/mechanics', String(res?.id));
+                    window.location.href = newMechanicsUrl;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+        },
         update(): void {
             if (this.mechanics === null) {
                 return;
@@ -243,6 +304,18 @@ export default defineComponent({
                         console.error('Error', error.message);
                     }
                 });
+        },
+        selectNewEquipment(selectedId: any) {
+            GameConfigService.loadEquipmentConfig(selectedId).then((res) => {
+                if (res && this.mechanics && this.mechanics.equipment) {
+                    this.mechanics.equipment = res;
+                }
+            });
+        },
+        removeEquipment() {
+            if (this.mechanics && this.mechanics.equipment) {
+                this.mechanics.equipment = null;
+            }
         },
         selectNewAction(selectedId: any) {
             ActionService.loadAction(selectedId).then((res) => {

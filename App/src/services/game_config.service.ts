@@ -59,6 +59,13 @@ const CONSUMABLE_DISEASE_ATTRIBUTE_ENDPOINT = urlJoin(process.env.VUE_APP_API_UR
 const DISEASE_CAUSE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "disease_cause_configs");
 // @ts-ignore
 const TRIUMPH_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "triumph_configs");
+// @ts-ignore
+const BLUEPRINT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "blueprints");
+
+const MECHANICS_ENDPOINTS: Map<string, string> = new Map([
+    ['blueprint', BLUEPRINT_ENDPOINT],
+]);
+    
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -476,6 +483,25 @@ const GameConfigService = {
         }
 
         return symptomActivationRequirement;
+    },
+
+    createMechanics: async (mechanics: Mechanics): Promise<Mechanics | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const mechanicsType = mechanics.mechanicsType?.toLocaleLowerCase();
+        if (mechanicsType === undefined) {
+            throw new Error('Mechanics type is not defined');
+        }
+
+        const mechanicsRecord: Record<string, any> = mechanics.jsonEncode();
+        const mechanicsData = await ApiService.post(MECHANICS_ENDPOINTS.get(mechanicsType) + '?XDEBUG_SESSION_START=PHPSTORM', mechanicsRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (mechanicsData.data) {
+            mechanics = (new Mechanics()).load(mechanicsData.data);
+        }
+
+        return mechanics;
+
     },
 
     loadMechanics: async(mechanicsId: number): Promise<Mechanics | null> => {

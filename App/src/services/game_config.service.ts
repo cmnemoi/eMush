@@ -525,6 +525,21 @@ const GameConfigService = {
         return randomItemPlaces;
     },
 
+    createConsumableDiseaseConfig: async(consumableDiseaseConfig: ConsumableDiseaseConfig): Promise<ConsumableDiseaseConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const consumableDiseaseRecord : Record<string, any> = consumableDiseaseConfig.jsonEncode();
+
+        const consumableDiseaseConfigData = await ApiService.post(CONSUMABLE_DISEASE_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', consumableDiseaseRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (consumableDiseaseConfigData.data) {
+            consumableDiseaseConfig = (new ConsumableDiseaseConfig()).load(consumableDiseaseConfigData.data);
+        }
+
+        return consumableDiseaseConfig;
+
+    },
+
     loadConsumableDiseaseConfig: async(consumableDiseaseConfigId: number): Promise<ConsumableDiseaseConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const consumableDiseaseConfigData = await ApiService.get(CONSUMABLE_DISEASE_CONFIG_ENDPOINT + '/' + consumableDiseaseConfigId + '?XDEBUG_SESSION_START=PHPSTORM')

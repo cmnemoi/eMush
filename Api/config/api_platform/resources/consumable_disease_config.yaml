@@ -10,6 +10,8 @@ Mush\Disease\Entity\Config\ConsumableDiseaseConfig:
   collectionOperations:
     get:
       filters: [ 'default.search_filter', 'default.order_filter' ]
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
   itemOperations:
     get: 
       security: 'is_granted("ROLE_ADMIN")'

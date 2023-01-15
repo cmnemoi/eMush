@@ -1,7 +1,22 @@
 <template>
     <div v-if="consumableDiseaseConfig" class="center">
         <h2>{{ $t('admin.consumableDiseaseConfig.pageTitle') }} {{ consumableDiseaseConfig.name }}</h2>
-        
+        <div class="flex-row">
+            <Input
+                :label="$t('admin.consumableDiseaseConfig.name')"
+                id="consumableDiseaseConfig_name"
+                v-model="consumableDiseaseConfig.name"
+                type="text"
+                :errors="errors.name"
+            />
+            <Input
+                :label="$t('admin.consumableDiseaseConfig.causeName')"
+                id="consumableDiseaseConfig_causeName"
+                v-model="consumableDiseaseConfig.causeName"
+                type="text"
+                :errors="errors.name"
+            />
+        </div>
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.curesName')"
             :map="consumableDiseaseConfig.curesName"
@@ -51,11 +66,10 @@
             @addTuple="addEffectNumber"
             @removeIndex="removeEffectNumber"
         />
-
-
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons
+            @create="create"
+            @update="update"
+        />
     </div>
 </template>
 
@@ -64,7 +78,10 @@ import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
 import { ConsumableDiseaseConfig } from "@/entities/Config/ConsumableDiseaseConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
+import urlJoin from "url-join";
+import Input from "@/components/Utils/Input.vue";
 import MapManager from "@/components/Utils/MapManager.vue";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface ConsumableDiseaseConfigState {
     consumableDiseaseConfig: null|ConsumableDiseaseConfig
@@ -74,7 +91,9 @@ interface ConsumableDiseaseConfigState {
 export default defineComponent({
     name: "consumableDiseaseConfigDetailPage",
     components: {
-        MapManager
+        Input,
+        MapManager,
+        UpdateConfigButtons,
     },
     data: function (): ConsumableDiseaseConfigState {
         return {
@@ -83,6 +102,32 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if (!this.consumableDiseaseConfig) return;
+            
+            const newConsumableDiseaseConfig = this.consumableDiseaseConfig;
+            newConsumableDiseaseConfig.id = null;
+            
+            // @ts-ignore
+            GameConfigService.createConsumableDiseaseConfig(newConsumableDiseaseConfig)
+                .then((res: ConsumableDiseaseConfig | null) => {
+                    const newConsumableDiseaseConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/consumable-disease-config', String(res?.id));
+                    window.location.href = newConsumableDiseaseConfigUrl;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+        },
         update(): void {
             if (this.consumableDiseaseConfig === null) {
                 return;

@@ -167,6 +167,21 @@ const GameConfigService = {
         return modifierConfig;
     },
 
+    createModifierActivationRequirement: async(modifierRequirement: ModifierActivationRequirement): Promise<ModifierActivationRequirement | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const modifierRequirementRecord: Record<string, any> = modifierRequirement.jsonEncode();
+
+        const modifierRequirementData = await ApiService.post(MODIFIER_REQUIREMENT_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', modifierRequirementRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (modifierRequirementData.data) {
+            modifierRequirement = (new ModifierActivationRequirement()).load(modifierRequirementData.data);
+        }
+
+        return modifierRequirement;
+
+    },
+
     loadModifierActivationRequirement: async(modifierRequirementId: number): Promise<ModifierActivationRequirement | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const modifierRequirementData = await ApiService.get(MODIFIER_REQUIREMENT_ENDPOINT + '/' + modifierRequirementId + '?XDEBUG_SESSION_START=PHPSTORM')

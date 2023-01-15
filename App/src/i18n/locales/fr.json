@@ -96,8 +96,9 @@
 		},
 		"modifierActivationRequirement": {
 			"name": "Nom",
+			"activationRequirementName": "Type de condition de déclenchement",
 			"activationRequirement": "Condition",
-			"value": "Valeur"
+			"value": "Probabilité de déclenchement"
 		},
 		"statusConfig": {
 			"name": "Nom",

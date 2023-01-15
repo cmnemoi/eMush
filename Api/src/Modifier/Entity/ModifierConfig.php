@@ -99,13 +99,19 @@ class ModifierConfig
 
         return $this;
     }
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     public function getName(): string
     {
         return $this->name;
     }
 
-    public function setModifierName(string $modifierName): self
+    public function setModifierName(string|null $modifierName): self
     {
         $this->modifierName = $modifierName;
 

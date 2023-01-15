@@ -63,10 +63,13 @@ const TRIUMPH_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "triumph_co
 const BLUEPRINT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "blueprints");
 // @ts-ignore
 const BOOK_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "books");
+// @ts-ignore
+const DOCUMENT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "documents");
 
 const MECHANICS_ENDPOINTS: Map<string, string> = new Map([
     ['blueprint', BLUEPRINT_ENDPOINT],
     ['book', BOOK_ENDPOINT],
+    ['document', DOCUMENT_ENDPOINT]
 ]);
     
 

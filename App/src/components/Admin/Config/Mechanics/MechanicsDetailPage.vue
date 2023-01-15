@@ -52,6 +52,15 @@
             </div>
         </div>
 
+        <div class="flex-row" v-if="mechanics.mechanicsType == 'Book'">
+            <Input :label="$t('admin.mechanics.skill')"
+                   id="mechanics_skill"
+                   v-model="mechanics.skill"
+                   type="text"
+                   :errors="errors.skill"
+            />
+        </div>
+
         <div v-if="mechanics.mechanicsType == 'Document'">
             <h3> {{ $t('admin.mechanics.content') }}</h3>
             <textarea v-model="mechanics.content"></textarea>

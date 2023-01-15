@@ -1,4 +1,12 @@
 Mush\Equipment\Entity\Mechanics\Book:
   attributes:
+    id: 
+      groups: [ 'book_read' ]
+    name:
+      groups: [ 'book_write' ]
+    mechanics:
+      groups: [ 'book_write' ]
+    actions:
+      groups: [ 'book_write' ]
     skill:
       groups: [ 'book_read', 'book_write' ]

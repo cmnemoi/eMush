@@ -1,10 +1,11 @@
 import { ActionVariables } from "@/entities/Config/ActionVariables";
-import { QuantityPoint } from "@/entities/QuantityPoint";
+import { toHandlers } from "vue";
 
 export class ActionConfig {
     public iri: string|null;
     public id: number|null;
     public name: string|null;
+    public actionName: string|null;
     public types: string[]|null;
     public target: string|null;
     public scope: string|null;
@@ -14,6 +15,7 @@ export class ActionConfig {
         this.iri = null;
         this.id = null;
         this.name = null;
+        this.actionName = null;
         this.types = null;
         this.target = null;
         this.scope = null;
@@ -24,6 +26,7 @@ export class ActionConfig {
             this.iri = object.iri;
             this.id = object.id;
             this.name = object.name;
+            this.actionName = object.actionName;
             this.types = object.types;
             this.target = object.target;
             this.scope = object.scope;
@@ -35,6 +38,7 @@ export class ActionConfig {
         return {
             'id': this.id,
             'name': this.name,
+            'actionName': this.actionName,
             'types': this.types,
             'target': this.target,
             'scope': this.scope,
@@ -47,6 +51,7 @@ export class ActionConfig {
             this.iri = object.iri;
             this.id = object.id;
             this.name = object.name;
+            this.actionName = object.actionName;
             this.types = object.types;
             this.target = object.target;
             this.scope = object.scope;

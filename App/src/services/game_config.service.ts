@@ -508,6 +508,21 @@ const GameConfigService = {
         return mechanics;
     },
 
+    createPlaceConfig: async (placeConfig: PlaceConfig): Promise<PlaceConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const placeConfigRecord: Record<string, any> = placeConfig.jsonEncode();
+
+        const placeConfigData = await ApiService.post(PLACE_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', placeConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (placeConfigData.data) {
+            placeConfig = (new PlaceConfig()).load(placeConfigData.data);
+        }
+
+        return placeConfig;
+
+    },
+
     loadPlaceConfig: async(placeConfigId: number): Promise<PlaceConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const placeConfigData = await ApiService.get(PLACE_CONFIG_ENDPOINT + '/' + placeConfigId + '?XDEBUG_SESSION_START=PHPSTORM')

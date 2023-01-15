@@ -8,7 +8,9 @@ api_platform:
     swagger:
         versions: [3]
     defaults:
+        pagination_client_enabled: true
         pagination_client_items_per_page: true
     collection:
         pagination:
+            enabled_parameter_name: pagination
             items_per_page_parameter_name: itemsPerPage

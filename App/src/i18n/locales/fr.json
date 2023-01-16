@@ -110,23 +110,30 @@
 			"startCharge": "Nombre de charges initiales"
 		},
 		"actionConfig": {
-			"name": "Nom",
+			"name": "Nom complet",
+			"actionName": "Nom",
 			"target": "Cible",
 			"types": "Types",
 			"scope": "Portée",
 			"successRate": "Taux de succès",
 			"injuryRate": "Taux de maladresse",
-			"dirtyRate": "Taux de salissure"
-		},
-		"actionCost": {
-			"actionPointCost": "Coût en points d'action",
-			"movementPointCost": "Coût en points de mouvement",
-			"moralPointCost": "Coût en points de moral"
+			"dirtyRate": "Taux de salissure",
+			"actionPoint": "Coût en points d'action",
+			"movementPoint": "Coût en points de mouvement",
+			"moralPoint": "Coût en points de moral",
+			"percentageSuccess": "Pourcentage de succès",
+			"percentageCritical": "Pourcentage de succès critique",
+			"percentageInjury": "Pourcentage de maladresse",
+			"percentageDirtiness": "Pourcentage de salissure",
+			"isSuperDirty": "Est super salissant",
+			"isNotSuperDirty": "N'est pas super salissant"
 		},
 		"daedalus": {
 			"createDaedalus": "Créer un Daedalus",
 			"name": "Nom du Daedalus :",
-			"create": "Créer un Daedalus"
+			"create": "Créer un Daedalus",
+			"config": "Configuration du Daedalus",
+			"language": "Langue du Daedalus"
 		},
 		"save": "Sauvegarder",
 		"show": "Montrer",
@@ -218,7 +225,7 @@
 		"symptomActivationRequirement":
 		{
 			"pageTitle": "Modification de la condition de déclenchement ",
-			"activationRequirementName": "Nom",
+			"activationRequirementName": "Type de condition de déclenchement",
 			"name": "Nom complet",
 			"activationRequirement": "Condition",
 			"value": "Probabilité de déclenchement"
@@ -266,6 +273,7 @@
 			"pageTitle": "Modification de la mécanique ",
 			"name": "Nom",
 			"mechanics": "Mécaniques",
+			"mechanicsType": "Type de mécanique",
 			"actions": "Actions",
 			"maturationTime": "Temps de maturation (nombre de cycles => probabilité qu'il soit choisi)",
 			"addMaturationTime": "Supprimer un temps de maturation :",
@@ -287,7 +295,15 @@
 			"moralPoints": "Points de moral gagnés (points => probabilité)",
 			"healthPoints": "Points de vie gagnés (points => probabilité)",
 			"movementPoints": "Points de mouvement gagnés (points => probabilité)",
-			"extraEffects": "Effets supplémentaires"
+			"extraEffects": "Effets supplémentaires",
+			"skill": "Compétence apprise",
+			"content": "Contenu",
+			"isTranslated": "Est traduit",
+			"isNotTranslated": "N'est pas traduit",
+			"canShred": "Peut être déchiré",
+			"cannotShred": "Ne peut pas être déchiré",
+			"modifierConfigs": "Modificateurs",
+			"equipment": "Équipement assemblé" 
 
 		},
 		"buttons": {
@@ -295,6 +311,10 @@
 			"delete": "Supprimer",
 			"updateConfig": "Mettre à jour la configuration",
 			"createNewConfig": "Créer une nouvelle configuration"
+		},
+		"childManager":
+		{
+			"idToAdd": "ID à ajouter : "
 		},
 		"childCollectionManager":
 		{

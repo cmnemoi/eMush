@@ -301,6 +301,21 @@ const GameConfigService = {
         return characterConfig;
     },
 
+    createEquipmentConfig: async(equipmentConfig: EquipmentConfig): Promise<EquipmentConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const characterConfigRecord : Record<string, any> = equipmentConfig.jsonEncode();
+
+        const equipmentConfigData = await ApiService.post(EQUIPMENT_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', characterConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if(equipmentConfigData.data) {
+            equipmentConfig = (new EquipmentConfig()).load(equipmentConfigData.data);
+        }
+
+        return equipmentConfig;
+
+    },
+
     loadEquipmentConfig: async(equipmentConfigId: number): Promise<EquipmentConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const equipmentConfigData = await ApiService.get(EQUIPMENT_CONFIG_ENDPOINT + '/' + equipmentConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
@@ -329,6 +344,20 @@ const GameConfigService = {
         }
 
         return equipmentConfig;
+    },
+
+    createDiseaseConfig: async (diseaseConfig: DiseaseConfig): Promise<DiseaseConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const diseaseConfigRecord: Record<string, any> = diseaseConfig.jsonEncode();
+
+        const diseaseCauseConfigData = await ApiService.post(DISEASE_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', diseaseConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (diseaseCauseConfigData.data) {
+            diseaseConfig = (new DiseaseConfig()).load(diseaseCauseConfigData.data);
+        }
+
+        return diseaseConfig;
     },
 
     loadDiseaseConfig: async(diseaseConfigId: number): Promise<DiseaseConfig | null> => {
@@ -361,6 +390,20 @@ const GameConfigService = {
         return diseaseConfig;
     },
 
+    createSymptomConfig: async (symptomConfig: SymptomConfig): Promise<SymptomConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const symptomConfigRecord: Record<string, any> = symptomConfig.jsonEncode();
+
+        const symptomConfigData = await ApiService.post(SYMPTOM_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', symptomConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (symptomConfigData.data) {
+            symptomConfig = (new SymptomConfig()).load(symptomConfigData.data);
+        }
+
+        return symptomConfig;
+    },
+
     loadSymptomConfig: async(symptomConfigId: number): Promise<SymptomConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const symptomConfigData = await ApiService.get(SYMPTOM_CONFIG_ENDPOINT + '/' + symptomConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
@@ -389,6 +432,20 @@ const GameConfigService = {
         }
 
         return symptomConfig;
+    },
+
+    createSymptomActivationRequirement: async (symptomActivationRequirement: SymptomActivationRequirement): Promise<SymptomActivationRequirement | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const symptomActivationRequirementRecord: Record<string, any> = symptomActivationRequirement.jsonEncode();
+
+        const symptomActivationRequirementData = await ApiService.post(SYMPTOM_REQUIREMENT_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', symptomActivationRequirementRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (symptomActivationRequirementData.data) {
+            symptomActivationRequirement = (new SymptomActivationRequirement()).load(symptomActivationRequirementData.data);
+        }
+
+        return symptomActivationRequirement;
     },
 
     loadSymptomActivationRequirement: async(symptomActivationRequirementId: number): Promise<SymptomActivationRequirement | null> => {
@@ -509,6 +566,21 @@ const GameConfigService = {
         }
 
         return randomItemPlaces;
+    },
+
+    createConsumableDiseaseConfig: async(consumableDiseaseConfig: ConsumableDiseaseConfig): Promise<ConsumableDiseaseConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const consumableDiseaseRecord : Record<string, any> = consumableDiseaseConfig.jsonEncode();
+
+        const consumableDiseaseConfigData = await ApiService.post(CONSUMABLE_DISEASE_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', consumableDiseaseRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (consumableDiseaseConfigData.data) {
+            consumableDiseaseConfig = (new ConsumableDiseaseConfig()).load(consumableDiseaseConfigData.data);
+        }
+
+        return consumableDiseaseConfig;
+
     },
 
     loadConsumableDiseaseConfig: async(consumableDiseaseConfigId: number): Promise<ConsumableDiseaseConfig | null> => {

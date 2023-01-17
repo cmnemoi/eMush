@@ -94,9 +94,7 @@
                 <span>{{ $t('admin.symptomConfig.trigger') }}: {{ child.trigger }}</span>
             </template>
         </ChildCollectionManager>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -112,6 +110,7 @@ import urlJoin from "url-join";
 import Input from "@/components/Utils/Input.vue";
 import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface DiseaseConfigState {
     diseaseConfig: null|DiseaseConfig
@@ -123,7 +122,8 @@ export default defineComponent({
     name: "DiseaseConfigDetailPage",
     components: {
         ChildCollectionManager,
-        Input
+        Input,
+        UpdateConfigButtons,
     },
     data: function (): DiseaseConfigState {
         return {
@@ -133,6 +133,35 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            // @ts-ignore
+            const newDiseaseConfig = (new DiseaseConfig()).load(this.diseaseConfig?.jsonEncode());
+            
+            newDiseaseConfig.id = null;
+            if (this.diseaseConfig?.modifierConfigs !== undefined){
+                newDiseaseConfig.modifierConfigs = this.diseaseConfig?.modifierConfigs;
+            }
+            if (this.diseaseConfig?.symptomConfigs !== undefined){
+                newDiseaseConfig.symptomConfigs = this.diseaseConfig?.symptomConfigs;
+            }
+            GameConfigService.createDiseaseConfig(newDiseaseConfig).then((res: DiseaseConfig | null) => {
+                const newDiseaseConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/disease-config', String(res?.id));
+                window.location.href = newDiseaseConfigUrl;
+            })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+        },
         update(): void {
             if (this.diseaseConfig === null) {
                 return;

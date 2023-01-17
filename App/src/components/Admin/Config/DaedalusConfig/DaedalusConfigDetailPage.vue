@@ -105,9 +105,7 @@
                 <span>{{ child.id }} - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -123,6 +121,7 @@ import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vu
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import { removeItem } from "@/utils/misc";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface DaedalusConfigState {
     daedalusConfig: null|DaedalusConfig
@@ -133,7 +132,8 @@ export default defineComponent({
     name: "DaedalusConfigDetailPage",
     components: {
         ChildCollectionManager,
-        Input
+        Input,
+        UpdateConfigButtons,
     },
     data: function (): DaedalusConfigState {
         return {
@@ -142,6 +142,26 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if (this.daedalusConfig === null) return;
+            
+            const newDaedalusConfig = this.daedalusConfig;
+            newDaedalusConfig.id = null;
+            if (this.daedalusConfig.randomItemPlaces){
+                const newRandomItemPlaces = this.daedalusConfig.randomItemPlaces;
+                newRandomItemPlaces.id = null;
+                newRandomItemPlaces.name = newDaedalusConfig.name;
+                GameConfigService.createRandomItemPlaces(newRandomItemPlaces)
+                    .then((res: RandomItemPlaces | null) => {
+                        newDaedalusConfig.randomItemPlaces = res;
+                        GameConfigService.createDaedalusConfig(newDaedalusConfig)
+                            .then((res: DaedalusConfig | null) => {
+                                const newDaedalusConfigUrl = urlJoin(process.env.VUE_APP_URL + "/config/daedalus-config", String(res?.id));
+                                window.location.href = newDaedalusConfigUrl;
+                            });
+                    });
+            }
+        },
         update(): void {
             if (this.daedalusConfig === null) {
                 return;

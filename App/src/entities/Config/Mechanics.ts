@@ -87,7 +87,7 @@ export class Mechanics {
         }
         
         this.addBlueprintAttributes(object);  
-        this.addSkillAttributes(object);
+        this.addBookAttributes(object);
         this.addDocumentAttributes(object);
         this.addFruitAttributes(object);
         this.addGearAttributes(object);
@@ -110,7 +110,7 @@ export class Mechanics {
         };
         
         this.encodeBlueprintAttributes(data);
-        this.encodeSkillAttributes(data);
+        this.encodeBookAttributes(data);
         this.encodeDocumentAttributes(data);
         this.encodeFruitAttributes(data);
         this.encodeGearAttributes(data);
@@ -156,14 +156,14 @@ export class Mechanics {
         data.ingredients = ingredients;
     }
 
-    private encodeSkillAttributes(data: any){
-        if(!this.mechanics?.includes("skill")) return;
+    private encodeBookAttributes(data: any){
+        if(!this.mechanics?.includes("book")) return;
 
         data.skill = this.skill;
     }
 
-    private addSkillAttributes(object: any){
-        if(!this.mechanics?.includes("skill")) return;
+    private addBookAttributes(object: any){
+        if(!this.mechanics?.includes("book")) return;
 
         this.skill = object.skill;
     }

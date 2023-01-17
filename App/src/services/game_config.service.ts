@@ -61,9 +61,33 @@ const DISEASE_CAUSE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "dise
 const TRIUMPH_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "triumph_configs");
 // @ts-ignore
 const BLUEPRINT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "blueprints");
+// @ts-ignore
+const BOOK_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "books");
+// @ts-ignore
+const DOCUMENT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "documents");
+// @ts-ignore
+const DRUG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "drugs");
+// @ts-ignore
+const FRUIT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "fruits");
+// @ts-ignore
+const GEAR_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "gears");
+// @ts-ignore
+const PLANT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "plants");
+// @ts-ignore
+const RATION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "rations");
+// @ts-ignore
+const WEAPON_ENDPOINTS = urlJoin(process.env.VUE_APP_API_URL, "weapons");
 
 const MECHANICS_ENDPOINTS: Map<string, string> = new Map([
     ['blueprint', BLUEPRINT_ENDPOINT],
+    ['book', BOOK_ENDPOINT],
+    ['document', DOCUMENT_ENDPOINT],
+    ['drug', DRUG_ENDPOINT],
+    ['fruit', FRUIT_ENDPOINT],
+    ['gear', GEAR_ENDPOINT],
+    ['plant', PLANT_ENDPOINT],
+    ['ration', RATION_ENDPOINT],
+    ['weapon', WEAPON_ENDPOINTS]
 ]);
     
 
@@ -218,6 +242,20 @@ const GameConfigService = {
         return actionConfig;
     },
 
+    createDaedalusConfig: async(daedalusConfig: DaedalusConfig): Promise<DaedalusConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const daedalusConfigRecord: Record<string, any> = daedalusConfig.jsonEncode();
+
+        const daedalusConfigData = await ApiService.post(CONFIG_DAEDALUS_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', daedalusConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (daedalusConfigData.data) {
+            daedalusConfig = (new DaedalusConfig()).load(daedalusConfigData.data);
+        }
+
+        return daedalusConfig;
+    },
+
     loadDaedalusConfig: async(daedalusConfigId: number): Promise<DaedalusConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const daedalusConfigData = await ApiService.get(CONFIG_DAEDALUS_CONFIG_ENDPOINT + '/' + daedalusConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
@@ -357,11 +395,11 @@ const GameConfigService = {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const diseaseConfigRecord: Record<string, any> = diseaseConfig.jsonEncode();
 
-        const diseaseCauseConfigData = await ApiService.post(DISEASE_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', diseaseConfigRecord)
+        const diseaseConfigData = await ApiService.post(DISEASE_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', diseaseConfigRecord)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
-        if (diseaseCauseConfigData.data) {
-            diseaseConfig = (new DiseaseConfig()).load(diseaseCauseConfigData.data);
+        if (diseaseConfigData.data) {
+            diseaseConfig = (new DiseaseConfig()).load(diseaseConfigData.data);
         }
 
         return diseaseConfig;
@@ -697,6 +735,21 @@ const GameConfigService = {
         }
 
         return consumableDiseaseAttribute;
+    },
+
+    createDiseaseCauseConfig: async(diseaseCauseConfig: DiseaseCauseConfig): Promise<DiseaseCauseConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const diseaseCauseRecord : Record<string, any> = diseaseCauseConfig.jsonEncode();
+
+        const diseaseCauseConfigData = await ApiService.post(DISEASE_CAUSE_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', diseaseCauseRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (diseaseCauseConfigData.data) {
+            diseaseCauseConfig = (new DiseaseCauseConfig()).load(diseaseCauseConfigData.data);
+        }
+
+        return diseaseCauseConfig;
+
     },
 
     loadDiseaseCauseConfig: async(diseaseCauseConfigId: number): Promise<DiseaseCauseConfig | null> => {

@@ -1,5 +1,13 @@
 Mush\Equipment\Entity\Mechanics\Plant:
   attributes:
+    id: 
+      groups: [ 'plant_read' ]
+    name:
+      groups: [ 'plant_write' ]
+    mechanics:
+      groups: [ 'plant_write' ]
+    actions:
+      groups: [ 'plant_write' ]
     fruit:
       groups: [ 'plant_read', 'plant_write' ]
     maturationTime:

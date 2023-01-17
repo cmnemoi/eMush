@@ -52,6 +52,15 @@
             </div>
         </div>
 
+        <div class="flex-row" v-if="mechanics.mechanicsType == 'Book'">
+            <Input :label="$t('admin.mechanics.skill')"
+                   id="mechanics_skill"
+                   v-model="mechanics.skill"
+                   type="text"
+                   :errors="errors.skill"
+            />
+        </div>
+
         <div v-if="mechanics.mechanicsType == 'Document'">
             <h3> {{ $t('admin.mechanics.content') }}</h3>
             <textarea v-model="mechanics.content"></textarea>
@@ -75,11 +84,14 @@
 
         <div v-if="mechanics.mechanics?.includes('ration')">
             <div class="flex-row">
-                <input type="checkbox"
-                       class="mechanicsCheckbox"
-                       id="isPerishable"
-                       v-model="mechanics.isPerishable" />
-                <label for="isPerishable">{{ mechanics.isPerishable ? $t('admin.mechanics.isPerishable') : $t('admin.mechanics.isNotPerishable') }}</label>
+                <Input
+                    v-if="mechanics.mechanicsType == 'Fruit'"
+                    :label="$t('admin.mechanics.plantName')"
+                    id="mechanics_plantName"
+                    v-model="mechanics.plantName"
+                    type="text"
+                    :errors="errors.plantName"
+                />
                 <Input
                     :label="$t('admin.mechanics.satiety')"
                     id="mechanics_satiety"
@@ -87,6 +99,11 @@
                     type="number"
                     :errors="errors.satiety"
                 ></Input>
+                <input type="checkbox"
+                       class="mechanicsCheckbox"
+                       id="isPerishable"
+                       v-model="mechanics.isPerishable" />
+                <label for="isPerishable">{{ mechanics.isPerishable ? $t('admin.mechanics.isPerishable') : $t('admin.mechanics.isNotPerishable') }}</label>
             </div>
             <MapManager :label="$t('admin.mechanics.actionPoints')"
                         :map="mechanics.actionPoints" 

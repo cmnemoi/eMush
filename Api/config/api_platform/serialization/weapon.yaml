@@ -1,5 +1,13 @@
 Mush\Equipment\Entity\Mechanics\Weapon:
   attributes:
+    id: 
+      groups: [ 'weapon_read' ]
+    name:
+      groups: [ 'weapon_write' ]
+    mechanics:
+      groups: [ 'weapon_write' ]
+    actions:
+      groups: [ 'weapon_write' ]
     baseAccuracy:
       groups: [ 'weapon_read', 'weapon_write' ]
     baseDamageRange:

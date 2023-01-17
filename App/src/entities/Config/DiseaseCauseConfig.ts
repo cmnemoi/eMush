@@ -1,12 +1,14 @@
 export class DiseaseCauseConfig {
     public iri: string|null;
     public id: number|null;
+    public name: string|null;
     public causeName: string|null;
     public diseases: Map<string, integer>|null;
 
     constructor() {
         this.iri = null;
         this.id = null;
+        this.name = null;
         this.causeName = null;
         this.diseases = new Map();
     }
@@ -14,6 +16,7 @@ export class DiseaseCauseConfig {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;
+            this.name = object.name;
             this.causeName = object.causeName;
             if (typeof object.diseases !== 'undefined') {
                 for (const [key, value] of Object.entries(object.diseases)) {
@@ -33,6 +36,7 @@ export class DiseaseCauseConfig {
         });
         return {
             'id': this.id,
+            'name': this.name,
             'causeName': this.causeName,
             'diseases': diseases
         };

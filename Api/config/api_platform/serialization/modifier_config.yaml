@@ -4,6 +4,8 @@ Mush\Modifier\Entity\ModifierConfig:
       groups: [ 'modifier_config_read' ]
     name:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    modifierName:
+      groups: [ 'modifier_config_read' , 'modifier_config_write' ]
     delta:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     targetVariable:

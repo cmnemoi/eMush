@@ -4,6 +4,8 @@ Mush\Action\Entity\Action:
       groups: [ 'action_read' ]
     name:
       groups: [ 'action_read', 'action_write' ]
+    actionName:
+      groups: [ 'action_read', 'action_write' ]
     types:
       groups: [ 'action_read', 'action_write' ]
     target:

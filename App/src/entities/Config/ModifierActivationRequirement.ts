@@ -2,6 +2,7 @@ export class ModifierActivationRequirement {
     public iri: string|null;
     public id: number|null;
     public name: string|null;
+    public activationRequirementName: string|null;
     public activationRequirement: string|null;
     public value: number|null;
 
@@ -9,6 +10,7 @@ export class ModifierActivationRequirement {
         this.iri = null;
         this.id = null;
         this.name = null;
+        this.activationRequirementName = null;
         this.activationRequirement = null;
         this.value = null;
     }
@@ -17,21 +19,25 @@ export class ModifierActivationRequirement {
             this.iri = object['@id'];
             this.id = object.id;
             this.name = object.name;
+            this.activationRequirementName = object.activationRequirementName;
             this.activationRequirement = object.activationRequirement;
             this.value = object.value;
         }
         return this;
     }
-    jsonEncode() : string {
-        return JSON.stringify(this);
+    jsonEncode() : any {
+        return {
+            'id': this.id,
+            'name': this.name,
+            'activationRequirementName': this.activationRequirementName,
+            'activationRequirement': this.activationRequirement,
+            'value': this.value
+        };
     }
     decode(jsonString : string): ModifierActivationRequirement {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.id = object.id;
-            this.name = object.name;
-            this.activationRequirement = object.activationRequirement;
-            this.value = object.value;
+            this.load(object);
         }
 
         return this;

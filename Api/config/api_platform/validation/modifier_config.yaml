@@ -3,6 +3,8 @@ Mush\Modifier\Entity\ModifierConfig:
     name:
       - NotBlank: ~
       - Type: string
+    modifierName:
+      - Type: string
     delta:
       - NotBlank: ~
       - Type: float

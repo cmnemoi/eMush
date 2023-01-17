@@ -9,6 +9,13 @@
                 :errors="errors.name"
             />
             <Input
+                :label="$t('admin.modifierConfig.modifierName')"
+                id="modifierConfig_modifierName"
+                v-model="modifierConfig.modifierName"
+                type="text"
+                :errors="errors.modifierName"
+            />
+            <Input
                 :label="$t('admin.modifierConfig.delta')"
                 id="modifierConfig_delta"
                 v-model="modifierConfig.delta"
@@ -49,17 +56,15 @@
         <h3>Modifier Requirement</h3>
         <ChildCollectionManager :children="modifierConfig.modifierActivationRequirements" @addId="selectNewChild" @remove="removeChild">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span>{{ child.id }} - {{ child.modifierName }}</span>
             </template>
             <template #body="child">
-                <span>name: {{ child.name }}</span>
+                <span>name: {{ child.modifierName }}</span>
                 <span>activationRequirement: {{ child.activationRequirement }}</span>
                 <span>value: {{ child.value }}</span>
             </template>
         </ChildCollectionManager>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -74,6 +79,7 @@ import { ModifierActivationRequirement } from "@/entities/Config/ModifierActivat
 import Input from "@/components/Utils/Input.vue";
 import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface ModifierConfigState {
     modifierConfig: null|ModifierConfig
@@ -84,7 +90,8 @@ export default defineComponent({
     name: "ModifierConfigState",
     components: {
         ChildCollectionManager,
-        Input
+        Input,
+        UpdateConfigButtons
     },
     data: function (): ModifierConfigState {
         return {
@@ -93,6 +100,31 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if (this.modifierConfig === null) return;
+
+            const newModifierConfig = this.modifierConfig;
+            newModifierConfig.id = null;
+
+            GameConfigService.createModifierConfig(newModifierConfig)
+                .then((res: ModifierConfig | null) => {
+                    const newModifierConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/modifier-config', String(res?.id));
+                    window.location.href = newModifierConfigUrl;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+        },
         update(): void {
             if (this.modifierConfig === null) {
                 return;

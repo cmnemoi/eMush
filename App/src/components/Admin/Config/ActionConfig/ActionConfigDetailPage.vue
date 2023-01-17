@@ -9,6 +9,13 @@
                 :errors="errors.name"
             ></Input>
             <Input
+                :label="$t('admin.actionConfig.actionName')"
+                id="actionConfig_actionName"
+                v-model="actionConfig.actionName"
+                type="text"
+                :errors="errors.actionName"
+            ></Input>
+            <Input
                 :label="$t('admin.actionConfig.target')"
                 id="actionConfig_target"
                 v-model="actionConfig.target"
@@ -93,9 +100,7 @@
             <label for="actionConfig_isSuperDirty">{{ actionConfig.actionVariablesArray.isSuperDirty ? $t('admin.actionConfig.isSuperDirty') : $t('admin.actionConfig.isNotSuperDirty') }}</label>
 
         </div>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -105,6 +110,8 @@ import GameConfigService from "@/services/game_config.service";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import Input from "@/components/Utils/Input.vue";
 import { ActionConfig } from "@/entities/Config/ActionConfig";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import urlJoin from "url-join";
 
 interface ActionConfigState {
     actionConfig: null|ActionConfig
@@ -114,7 +121,8 @@ interface ActionConfigState {
 export default defineComponent({
     name: "ActionConfigDetailPage",
     components: {
-        Input
+        Input,
+        UpdateConfigButtons
     },
     data: function (): ActionConfigState {
         return {
@@ -123,6 +131,32 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if (this.actionConfig === null) return;
+
+            const newActionConfig = this.actionConfig;
+            newActionConfig.id = null;
+
+            // @ts-ignore
+            GameConfigService.createActionConfig(newActionConfig)
+                .then((res: ActionConfig | null) => {
+                    const newActionConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/action-config', String(res?.id));
+                    window.location.href = newActionConfigUrl;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+        },
         update(): void {
             if (this.actionConfig === null) {
                 return;

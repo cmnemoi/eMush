@@ -22,9 +22,7 @@
             @addElement="randomItemPlaces.places.push($event)"
             @removeElement="randomItemPlaces.places.splice(randomItemPlaces.places.indexOf($event), 1)"
         ></StringArrayManager>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -34,7 +32,9 @@ import GameConfigService from "@/services/game_config.service";
 import { RandomItemPlaces } from "@/entities/Config/RandomItemPlaces";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import Input from "@/components/Utils/Input.vue";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
+import urlJoin from "url-join";
 
 interface RandomItemPlacesState {
     randomItemPlaces: null|RandomItemPlaces
@@ -45,7 +45,9 @@ export default defineComponent({
     name: "RandomItemPlacesDetailPage",
     components: {
         Input,
-        StringArrayManager
+        UpdateConfigButtons,
+        StringArrayManager,
+
     },
     data: function (): RandomItemPlacesState {
         return {
@@ -54,6 +56,31 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if (this.randomItemPlaces === null) return;
+
+            const newRandomItemPlaces = this.randomItemPlaces;
+            newRandomItemPlaces.id = null;
+
+            GameConfigService.createRandomItemPlaces(newRandomItemPlaces)
+                .then((res: RandomItemPlaces | null) => {
+                    const newRandomItemPlacesUrl = urlJoin(process.env.VUE_APP_URL+ '/config/random-item-places', String(res?.id));
+                    window.location.href = newRandomItemPlacesUrl;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+        },
         update(): void {
             if (this.randomItemPlaces === null) {
                 return;

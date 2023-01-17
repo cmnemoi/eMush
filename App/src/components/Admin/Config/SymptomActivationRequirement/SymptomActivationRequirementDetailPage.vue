@@ -31,9 +31,7 @@
                 :errors="errors.value"
             ></Input>
         </div>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -43,6 +41,8 @@ import GameConfigService from "@/services/game_config.service";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import { SymptomActivationRequirement } from "@/entities/Config/SymptomActivationRequirement";
 import Input from "@/components/Utils/Input.vue";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import urlJoin from "url-join";
 
 interface SymptomActivationRequirementState {
     symptomActivationRequirement: null|SymptomActivationRequirement
@@ -52,7 +52,8 @@ interface SymptomActivationRequirementState {
 export default defineComponent({
     name: "SymptomActivationRequirement",
     components: {
-        Input
+        Input,
+        UpdateConfigButtons
     },
     data: function (): SymptomActivationRequirementState {
         return {
@@ -61,6 +62,31 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if(this.symptomActivationRequirement === null) return;
+            
+            const newSymptomActivationRequirement = this.symptomActivationRequirement;
+            newSymptomActivationRequirement.id = null;
+
+            GameConfigService.createSymptomActivationRequirement(newSymptomActivationRequirement)
+                .then((res: SymptomActivationRequirement | null) => {
+                    const newSymptomActivationRequirementUrl = urlJoin(process.env.VUE_APP_URL + '/config/symptom-activation-requirement', String(res?.id));
+                    window.location.href = newSymptomActivationRequirementUrl;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+        },
         update(): void {
             if (this.symptomActivationRequirement === null) {
                 return;

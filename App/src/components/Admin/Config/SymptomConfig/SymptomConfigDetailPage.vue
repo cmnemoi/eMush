@@ -37,9 +37,7 @@
                 <span>{{ child.id }} - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -54,6 +52,7 @@ import { SymptomActivationRequirement } from "@/entities/Config/SymptomActivatio
 import Input from "@/components/Utils/Input.vue";
 import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface SymptomConfigState {
     symptomConfig: null|SymptomConfig
@@ -64,7 +63,8 @@ export default defineComponent({
     name: "SymptomConfigState",
     components: {
         ChildCollectionManager,
-        Input
+        Input,
+        UpdateConfigButtons,
     },
     data: function (): SymptomConfigState {
         return {
@@ -73,6 +73,31 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if (this.symptomConfig === null) return;
+
+            const newSymptomConfig = this.symptomConfig;
+            newSymptomConfig.id = null;
+
+            GameConfigService.createSymptomConfig(newSymptomConfig)
+                .then((res: SymptomConfig | null) => {
+                    const newSymptomConfigUrl = urlJoin(process.env.VUE_APP_URL+'/config/symptom-config', String(res?.id));
+                    window.location.href = newSymptomConfigUrl;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+        },
         update(): void {
             if (this.symptomConfig === null) {
                 return;

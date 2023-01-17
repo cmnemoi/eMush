@@ -93,9 +93,7 @@
             </template>
         </ChildCollectionManager>
 
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -113,6 +111,7 @@ import urlJoin from "url-join";
 import { Action } from "@/entities/Action";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
 import { Mechanics } from "@/entities/Config/Mechanics";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface EquipmentConfigState {
     equipmentConfig: null|EquipmentConfig
@@ -125,7 +124,8 @@ export default defineComponent({
     name: "EquipmentConfigDetailPage",
     components: {
         ChildCollectionManager,
-        Input
+        Input,
+        UpdateConfigButtons
     },
     data: function (): EquipmentConfigState {
         return {
@@ -136,6 +136,18 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if (this.equipmentConfig === null) return;
+
+            const newEquipmentConfig = this.equipmentConfig;
+            newEquipmentConfig.id = null;
+
+            // @ts-ignore
+            GameConfigService.createEquipmentConfig(newEquipmentConfig).then((res: EquipmentConfig | null) => {
+                const newEquipmentConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/equipment-config', String(res?.id));
+                window.location.href = newEquipmentConfigUrl;
+            });
+        },
         update(): void {
             if (this.equipmentConfig === null) {
                 return;

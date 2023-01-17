@@ -30,7 +30,7 @@ const MODIFIER_REQUIREMENT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modi
 // @ts-ignore
 const CONFIG_STATUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "status_configs");
 // @ts-ignore
-const CONFIG_ACTION_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
+const ACTION_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
 // @ts-ignore
 const CONFIG_DAEDALUS_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedalus_configs");
 // @ts-ignore
@@ -122,6 +122,21 @@ const GameConfigService = {
         return gameConfig;
     },
 
+    createModifierConfig: async(modifierConfig: ModifierConfig): Promise<ModifierConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const modifierConfigRecord: Record<string, any> = modifierConfig.jsonEncode();
+
+        const modifierConfigData = await ApiService.post(MODIFIER_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', modifierConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (modifierConfigData.data) {
+            modifierConfig = (new ModifierConfig()).load(modifierConfigData.data);
+        }
+
+        return modifierConfig;
+
+    },
+
     loadModifierConfig: async(modifierConfigId: number): Promise<ModifierConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const modifierConfigData = await ApiService.get(MODIFIER_CONFIG_ENDPOINT + '/' + modifierConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
@@ -150,6 +165,21 @@ const GameConfigService = {
         }
 
         return modifierConfig;
+    },
+
+    createModifierActivationRequirement: async(modifierRequirement: ModifierActivationRequirement): Promise<ModifierActivationRequirement | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const modifierRequirementRecord: Record<string, any> = modifierRequirement.jsonEncode();
+
+        const modifierRequirementData = await ApiService.post(MODIFIER_REQUIREMENT_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', modifierRequirementRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (modifierRequirementData.data) {
+            modifierRequirement = (new ModifierActivationRequirement()).load(modifierRequirementData.data);
+        }
+
+        return modifierRequirement;
+
     },
 
     loadModifierActivationRequirement: async(modifierRequirementId: number): Promise<ModifierActivationRequirement | null> => {
@@ -182,6 +212,21 @@ const GameConfigService = {
         return modifierRequirement;
     },
 
+    createStatusConfig: async(statusConfig: StatusConfig): Promise<StatusConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const statusConfigRecord: Record<string, any> = statusConfig.jsonEncode();
+
+        const statusConfigData = await ApiService.post(CONFIG_STATUS_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', statusConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (statusConfigData.data) {
+            statusConfig = (new StatusConfig()).load(statusConfigData.data);
+        }
+
+        return statusConfig;
+
+    },
+
     loadStatusConfig: async(statusConfigId: number): Promise<StatusConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const statusConfigData = await ApiService.get(CONFIG_STATUS_ENDPOINT + '/' + statusConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
@@ -211,10 +256,24 @@ const GameConfigService = {
 
         return statusConfig;
     },
+    
+    createActionConfig: async(actionConfig: ActionConfig): Promise<ActionConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const actionConfigRecord : Record<string, any> = actionConfig.jsonEncode();
+
+        const actionConfigData = await ApiService.post(ACTION_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', actionConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if(actionConfigData.data) {
+            actionConfig = (new ActionConfig()).load(actionConfigData.data);
+        }
+
+        return actionConfig;
+    },
 
     loadActionConfig: async(actionConfigId: number): Promise<ActionConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const actionConfigData = await ApiService.get(CONFIG_ACTION_CONFIG_ENDPOINT + '/' + actionConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+        const actionConfigData = await ApiService.get(ACTION_CONFIG_ENDPOINT + '/' + actionConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         let actionConfig = null;
@@ -227,7 +286,7 @@ const GameConfigService = {
 
     updateActionConfig: async(actionConfig: ActionConfig): Promise<ActionConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const actionConfigData = await ApiService.put(CONFIG_ACTION_CONFIG_ENDPOINT + '/' + actionConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', actionConfig.jsonEncode())
+        const actionConfigData = await ApiService.put(ACTION_CONFIG_ENDPOINT + '/' + actionConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', actionConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
@@ -314,6 +373,21 @@ const GameConfigService = {
         }
 
         return difficultyConfig;
+    },
+
+    createCharacterConfig: async(characterConfig: CharacterConfig): Promise<CharacterConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const characterConfigRecord: Record<string, any> = characterConfig.jsonEncode();
+
+        const characterConfigData = await ApiService.post(CHARACTER_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', characterConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (characterConfigData.data) {
+            characterConfig = (new CharacterConfig()).load(characterConfigData.data);
+        }
+
+        return characterConfig;
+
     },
 
     loadCharacterConfig: async(characterConfigId: number): Promise<CharacterConfig | null> => {

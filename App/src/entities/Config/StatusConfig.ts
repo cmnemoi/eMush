@@ -5,6 +5,7 @@ export class StatusConfig {
     public configType: string|null;
     public id: number|null;
     public name: string|null;
+    public statusName: string|null;
     public visibility: string|null;
     public chargeVisibility: string|null;
     public chargeStrategy: string|null;
@@ -19,6 +20,7 @@ export class StatusConfig {
         this.configType = null;
         this.id = null;
         this.name = null;
+        this.statusName = null;
         this.visibility = null;
         this.chargeVisibility = null;
         this.chargeStrategy = null;
@@ -33,6 +35,7 @@ export class StatusConfig {
             this.iri = object["@id"];
             this.id = object.id;
             this.name = object.name;
+            this.statusName = object.statusName;
             this.visibility = object.visibility;
             if (typeof object.modifierConfigs !== 'undefined') {
                 const modifierConfigs : ModifierConfig[] = [];
@@ -60,6 +63,7 @@ export class StatusConfig {
         const data : any = {
             'id': this.id,
             'name': this.name,
+            'statusName': this.statusName,
             'visibility': this.visibility,
             'modifierConfigs': modifierConfigs
         };

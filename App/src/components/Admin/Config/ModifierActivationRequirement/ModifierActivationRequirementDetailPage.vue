@@ -9,6 +9,13 @@
                 :errors="errors.name"
             ></Input>
             <Input
+                :label="$t('admin.modifierActivationRequirement.activationRequirementName')"
+                id="modifierActivationRequirement_activationRequirementName"
+                v-model="modifierActivationRequirement.activationRequirementName"
+                type="text"
+                :errors="errors.activationRequirementName"
+            ></Input>
+            <Input
                 :label="$t('admin.modifierActivationRequirement.activationRequirement')"
                 id="modifierActivationRequirement_activationRequirement"
                 v-model="modifierActivationRequirement.activationRequirement"
@@ -19,13 +26,11 @@
                 :label="$t('admin.modifierActivationRequirement.value')"
                 id="modifierActivationRequirement_value"
                 v-model="modifierActivationRequirement.value"
-                type="text"
+                type="number"
                 :errors="errors.value"
             ></Input>
         </div>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -35,6 +40,8 @@ import GameConfigService from "@/services/game_config.service";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import { ModifierActivationRequirement } from "@/entities/Config/ModifierActivationRequirement";
 import Input from "@/components/Utils/Input.vue";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import urlJoin from "url-join";
 
 interface ModifierActivationRequirementState {
     modifierActivationRequirement: null|ModifierActivationRequirement
@@ -44,7 +51,8 @@ interface ModifierActivationRequirementState {
 export default defineComponent({
     name: "ModifierActivationRequirement",
     components: {
-        Input
+        Input,
+        UpdateConfigButtons
     },
     data: function (): ModifierActivationRequirementState {
         return {
@@ -53,6 +61,31 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if (this.modifierActivationRequirement === null) return;
+
+            const newModifierActivationRequirement = this.modifierActivationRequirement;
+            newModifierActivationRequirement.id = null;
+
+            GameConfigService.createModifierActivationRequirement(newModifierActivationRequirement)
+                .then((res: ModifierActivationRequirement | null) => {
+                    const newModifierActivationRequirementUrl = urlJoin(process.env.VUE_APP_URL + '/config/modifier-activation-requirement', String(res?.id));
+                    window.location.href = newModifierActivationRequirementUrl;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+        },
         update(): void {
             if (this.modifierActivationRequirement === null) {
                 return;

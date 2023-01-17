@@ -2,11 +2,11 @@ Mush\Modifier\Entity\ModifierActivationRequirement:
   properties:
     name:
       - NotBlank: ~
-      - Length:
-          max: 48
+      - Type: string
+    activationRequirementName:
+      - NotBlank: ~
       - Type: string
     activationRequirement:
-      - NotBlank: ~
       - Type: string
     value:
       - NotBlank: ~

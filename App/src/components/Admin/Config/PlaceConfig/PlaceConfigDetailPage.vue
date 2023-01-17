@@ -42,9 +42,7 @@
             @addElement="placeConfig.doors.push($event)"
             @removeElement="placeConfig.doors.splice(placeConfig.doors.indexOf($event), 1)"
         ></StringArrayManager>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -55,6 +53,8 @@ import { PlaceConfig } from "@/entities/Config/PlaceConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import Input from "@/components/Utils/Input.vue";
 import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import urlJoin from "url-join";
 
 interface PlaceConfigState {
     placeConfig: null|PlaceConfig
@@ -65,7 +65,8 @@ export default defineComponent({
     name: "PlaceConfigDetailPage",
     components: {
         Input,
-        StringArrayManager
+        StringArrayManager,
+        UpdateConfigButtons
     },
     data: function (): PlaceConfigState {
         return {
@@ -74,6 +75,31 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if(this.placeConfig === null) return;
+
+            const newPlaceConfig = this.placeConfig;
+            newPlaceConfig.id = null;
+
+            GameConfigService.createPlaceConfig(newPlaceConfig)
+                .then((res: PlaceConfig | null) => {
+                    const newPlaceConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/place-config', String(res?.id));
+                    window.location.href = newPlaceConfigUrl;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+        },
         update(): void {
             if (this.placeConfig === null) {
                 return;

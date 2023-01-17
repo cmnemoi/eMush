@@ -59,6 +59,13 @@ const CONSUMABLE_DISEASE_ATTRIBUTE_ENDPOINT = urlJoin(process.env.VUE_APP_API_UR
 const DISEASE_CAUSE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "disease_cause_configs");
 // @ts-ignore
 const TRIUMPH_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "triumph_configs");
+// @ts-ignore
+const BLUEPRINT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "blueprints");
+
+const MECHANICS_ENDPOINTS: Map<string, string> = new Map([
+    ['blueprint', BLUEPRINT_ENDPOINT],
+]);
+    
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -478,6 +485,25 @@ const GameConfigService = {
         return symptomActivationRequirement;
     },
 
+    createMechanics: async (mechanics: Mechanics): Promise<Mechanics | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const mechanicsType = mechanics.mechanicsType?.toLocaleLowerCase();
+        if (mechanicsType === undefined) {
+            throw new Error('Mechanics type is not defined');
+        }
+
+        const mechanicsRecord: Record<string, any> = mechanics.jsonEncode();
+        const mechanicsData = await ApiService.post(MECHANICS_ENDPOINTS.get(mechanicsType) + '?XDEBUG_SESSION_START=PHPSTORM', mechanicsRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (mechanicsData.data) {
+            mechanics = (new Mechanics()).load(mechanicsData.data);
+        }
+
+        return mechanics;
+
+    },
+
     loadMechanics: async(mechanicsId: number): Promise<Mechanics | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const mechanicsData = await ApiService.get(MECHANICS_ENDPOINT + '/' + mechanicsId + '?XDEBUG_SESSION_START=PHPSTORM')
@@ -508,6 +534,21 @@ const GameConfigService = {
         return mechanics;
     },
 
+    createPlaceConfig: async (placeConfig: PlaceConfig): Promise<PlaceConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const placeConfigRecord: Record<string, any> = placeConfig.jsonEncode();
+
+        const placeConfigData = await ApiService.post(PLACE_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', placeConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (placeConfigData.data) {
+            placeConfig = (new PlaceConfig()).load(placeConfigData.data);
+        }
+
+        return placeConfig;
+
+    },
+
     loadPlaceConfig: async(placeConfigId: number): Promise<PlaceConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const placeConfigData = await ApiService.get(PLACE_CONFIG_ENDPOINT + '/' + placeConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
@@ -536,6 +577,21 @@ const GameConfigService = {
         }
 
         return placeConfig;
+    },
+
+    createRandomItemPlaces: async (randomItemPlaces: RandomItemPlaces): Promise<RandomItemPlaces | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const randomItemPlacesRecord: Record<string, any> = randomItemPlaces.jsonEncode();
+
+        const randomItemPlacesData = await ApiService.post(RANDOM_ITEM_PLACES_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', randomItemPlacesRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (randomItemPlacesData.data) {
+            randomItemPlaces = (new RandomItemPlaces()).load(randomItemPlacesData.data);
+        }
+
+        return randomItemPlaces;
+
     },
 
     loadRandomItemPlaces: async(randomItemPlacesId: number): Promise<RandomItemPlaces | null> => {

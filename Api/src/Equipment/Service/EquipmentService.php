@@ -16,7 +16,7 @@ class EquipmentService implements EquipmentServiceInterface
         ;
 
         if ($items->count() !== 1) {
-            throw new \Error('there should be exactly one equipmentConfig with this name');
+            throw new \Error("There should be exactly 1 equipmentConfig with this name ({$name}). There are currently {$items->count()}");
         }
 
         return $items->first();

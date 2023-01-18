@@ -34,7 +34,7 @@ class GameConfig
     #[ORM\ManyToMany(targetEntity: CharacterConfig::class)]
     private Collection $charactersConfig;
 
-    #[ORM\ManyToMany(targetEntity: EquipmentConfig::class)]
+    #[ORM\ManyToMany(targetEntity: EquipmentConfig::class, mappedBy: 'gameConfig')]
     private Collection $equipmentsConfig;
 
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
@@ -145,7 +145,10 @@ class GameConfig
             $equipmentsConfig = new ArrayCollection($equipmentsConfig);
         }
 
-        $this->equipmentsConfig = $equipmentsConfig;
+        /** @var EquipmentConfig $equipmentConfig */
+        foreach ($equipmentsConfig as $equipmentConfig) {
+            $this->addEquipmentConfig($equipmentConfig);
+        }
 
         return $this;
     }
@@ -153,6 +156,7 @@ class GameConfig
     public function addEquipmentConfig(EquipmentConfig $equipmentsConfig): static
     {
         $this->equipmentsConfig->add($equipmentsConfig);
+        $equipmentsConfig->addGameConfig($this);
 
         return $this;
     }

@@ -14,12 +14,16 @@ class GameConfigFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $gameConfig = new GameConfig();
-
         $gameConfig
             ->setName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($gameConfig);
+
+        $testConfig = new GameConfig();
+        $testConfig
+            ->setName(GameConfigEnum::TEST)
+        ;
+        $manager->persist($testConfig);
 
         $manager->flush();
 

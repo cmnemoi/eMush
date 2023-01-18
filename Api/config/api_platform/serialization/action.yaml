@@ -1,9 +1,9 @@
 Mush\Action\Entity\Action:
   attributes:                          # optional
     id:
-      groups: [ 'action_read' ]
+      groups: [ 'action_read', 'equipment_config_read' ]
     name:
-      groups: [ 'action_read', 'action_write' ]
+      groups: [ 'action_read', 'action_write', 'equipment_config_read' ]
     actionName:
       groups: [ 'action_read', 'action_write' ]
     types:

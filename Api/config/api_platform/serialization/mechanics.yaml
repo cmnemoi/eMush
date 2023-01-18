@@ -1,9 +1,9 @@
 Mush\Equipment\Entity\EquipmentMechanic:
   attributes:
     id:
-      groups: [ 'equipment_mechanic_read' ]
+      groups: [ 'equipment_mechanic_read', 'equipment_config_read' ]
     name:
-      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write', 'equipment_config_read' ]
     mechanics:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
     actions:

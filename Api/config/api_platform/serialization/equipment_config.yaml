@@ -4,6 +4,8 @@ Mush\Equipment\Entity\Config\EquipmentConfig:
       groups: [ 'equipment_config_read' ]
     name:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]
+    gameConfig:
+      groups: [ 'equipment_config_read', 'equipment_config_write' ]
     equipmentName:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]
     mechanics:

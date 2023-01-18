@@ -1,9 +1,9 @@
 Mush\Game\Entity\GameConfig:
   attributes:                          # optional
     id:
-      groups: [ 'game_config_read' ]
+      groups: [ 'game_config_read', 'equipment_config_read' ]
     name:
-      groups: [ 'game_config_read', 'game_config_write' ]
+      groups: [ 'game_config_read', 'game_config_write', 'equipment_config_read' ]
     daedalusConfig:
       groups: [ 'game_config_read', 'game_config_write' ]
     charactersConfig:

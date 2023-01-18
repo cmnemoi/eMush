@@ -20,6 +20,8 @@ import { ConsumableDiseaseConfig } from "@/entities/Config/ConsumableDiseaseConf
 import { ConsumableDiseaseAttribute } from "@/entities/ConsumableDiseaseAttribute";
 import { DiseaseCauseConfig } from "@/entities/Config/DiseaseCauseConfig";
 import { TriumphConfig } from "@/entities/Config/TriumphConfig";
+import apiService from "@/services/api.service";
+import {Action} from "@/entities/Action";
 
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
@@ -436,15 +438,20 @@ const GameConfigService = {
     },
 
     loadEquipmentConfig: async(equipmentConfigId: number): Promise<EquipmentConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const equipmentConfigData = await ApiService.get(EQUIPMENT_CONFIG_ENDPOINT + '/' + equipmentConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
-            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
-
         let equipmentConfig = null;
-        if (equipmentConfigData.data) {
-            equipmentConfig = (new EquipmentConfig()).load(equipmentConfigData.data);
-        }
 
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const equipmentConfigData = await ApiService.get(
+            EQUIPMENT_CONFIG_ENDPOINT + '/' + equipmentConfigId,
+        ).then((equipmentConfigData) => {
+            console.log(equipmentConfigData);
+            const data = equipmentConfigData.data;
+            if (data) {
+                equipmentConfig = (new EquipmentConfig()).load(data);
+            }
+        }).finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        console.log(equipmentConfig);
         return equipmentConfig;
     },
 

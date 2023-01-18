@@ -1,12 +1,14 @@
 import { Action } from "@/entities/Action";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
 import { Mechanics } from "@/entities/Config/Mechanics";
+import {GameConfigShort} from "@/entities/Config/GameConfigShort";
 
 export class EquipmentConfig {
     public iri: string|null;
     public id: number|null;
     public equipmentType: string|null;
     public name: string|null;
+    public gameConfigs: GameConfigShort[];
     public equipmentName: string|null;
     public initStatuses: StatusConfig[]|null;
     public mechanics: Mechanics[]|null;
@@ -21,6 +23,7 @@ export class EquipmentConfig {
     constructor() {
         this.iri = null;
         this.id = null;
+        this.gameConfigs = [];
         this.equipmentType = null;
         this.name = null;
         this.equipmentName = null;
@@ -44,6 +47,12 @@ export class EquipmentConfig {
             this.isFireBreakable = object.isFireBreakable;
             this.isBreakable = object.isBreakable;
             this.isPersonal = object.isPersonal;
+            if (typeof object.gameConfig !== 'undefined') {
+                object.gameConfig.forEach((gameConfigData: any) => {
+                    const gameConfig = (new GameConfigShort()).load(gameConfigData);
+                    this.gameConfigs.push(gameConfig);
+                });
+            }
             if (typeof object.actions !== 'undefined') {
                 const actions : Action[] = [];
                 object.actions.forEach((actionData: any) => {

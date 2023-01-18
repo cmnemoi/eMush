@@ -94,6 +94,13 @@
         </ChildCollectionManager>
 
         <UpdateConfigButtons @create="create" @update="update"/>
+
+        <h3>{{ $t('admin.equipmentConfig.gameConfig') }}</h3>
+        <ChildCollectionManager :children="equipmentConfig.gameConfigs" @addId="addToGameConfig" @remove="removeFromGameConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
     </div>
 </template>
 
@@ -112,6 +119,7 @@ import { Action } from "@/entities/Action";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
 import { Mechanics } from "@/entities/Config/Mechanics";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import {GameConfigShort} from "@/entities/Config/GameConfigShort";
 
 interface EquipmentConfigState {
     equipmentConfig: null|EquipmentConfig
@@ -157,41 +165,6 @@ export default defineComponent({
             GameConfigService.updateEquipmentConfig(this.equipmentConfig)
                 .then((res: EquipmentConfig | null) => {
                     this.equipmentConfig = res;
-                    if (this.equipmentConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'actions'))
-                            .then((result) => {
-                                const actions: Action[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
-                                    const currentAction = (new Action()).load(datum);
-                                    actions.push(currentAction);
-                                });
-                                if (this.equipmentConfig instanceof EquipmentConfig) {
-                                    this.equipmentConfig.actions = actions;
-                                }
-                            });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'init_statuses'))
-                            .then((result) => {
-                                const statuses: StatusConfig[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
-                                    const currentStatus = (new StatusConfig()).load(datum);
-                                    statuses.push(currentStatus);
-                                });
-                                if (this.equipmentConfig instanceof EquipmentConfig) {
-                                    this.equipmentConfig.initStatuses = statuses;
-                                }
-                            });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'mechanics'))
-                            .then((result) => {
-                                const mechanics: Mechanics[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
-                                    const currentMechanics = (new Mechanics()).load(datum);
-                                    mechanics.push(currentMechanics);
-                                });
-                                if (this.equipmentConfig instanceof EquipmentConfig) {
-                                    this.equipmentConfig.mechanics = mechanics;
-                                }
-                            });
-                    }
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -206,6 +179,31 @@ export default defineComponent({
                         console.error('Error', error.message);
                     }
                 });
+        },
+        addToGameConfig(selectedId: any) {
+            GameConfigService.loadGameConfig(selectedId).then((res) => {
+                if (res && this.equipmentConfig) {
+                    res.equipmentsConfig.push(this.equipmentConfig);
+                    GameConfigService.updateGameConfig(res);
+                }
+            });
+        },
+        removeFromGameConfig(child: any) {
+            console.log(this.equipmentConfig.iri);
+            GameConfigService.loadGameConfig(child.id).then((res) => {
+                if (res && this.equipmentConfig) {
+                    if (res.equipmentsConfig !== null) {
+                        for (let i= 0; i<res.equipmentsConfig.length; i++) {
+                            if (res.equipmentsConfig[i] === this.equipmentConfig.iri) {
+                                res.equipmentsConfig.splice(i, 1);
+                                break;
+                            }
+                        }
+                    }
+
+                    GameConfigService.updateGameConfig(res);
+                }
+            });
         },
         addDismountedProduct(product: string): void {
             if (this.equipmentConfig && this.equipmentConfig.dismountedProducts) {
@@ -277,39 +275,6 @@ export default defineComponent({
         const equipmentConfigId = String(this.$route.params.equipmentConfigId);
         GameConfigService.loadEquipmentConfig(Number(equipmentConfigId)).then((res: EquipmentConfig | null) => {
             this.equipmentConfig = res;
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'equipment_configs', equipmentConfigId, 'actions'))
-                .then((result) => {
-                    const actions : Action[] = [];
-                    result.data['hydra:member'].forEach((datum: any) => {
-                        const currentAction = (new Action()).load(datum);
-                        actions.push(currentAction);
-                    });
-                    if (this.equipmentConfig instanceof EquipmentConfig) {
-                        this.equipmentConfig.actions = actions;
-                    }
-                });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'equipment_configs', equipmentConfigId, 'init_statuses'))
-                .then((result) => {
-                    const initStatuses : StatusConfig[] = [];
-                    result.data['hydra:member'].forEach((datum: any) => {
-                        const currentStatusConfig = (new StatusConfig()).load(datum);
-                        initStatuses.push(currentStatusConfig);
-                    });
-                    if (this.equipmentConfig instanceof EquipmentConfig) {
-                        this.equipmentConfig.initStatuses = initStatuses;
-                    }
-                });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'equipment_configs', equipmentConfigId, 'mechanics'))
-                .then((result) => {
-                    const mechanics : Mechanics[] = [];
-                    result.data['hydra:member'].forEach((datum: any) => {
-                        const currentMechanics = (new Mechanics()).load(datum);
-                        mechanics.push(currentMechanics);
-                    });
-                    if (this.equipmentConfig instanceof EquipmentConfig) {
-                        this.equipmentConfig.mechanics = mechanics;
-                    }
-                });
         });
     }
 });

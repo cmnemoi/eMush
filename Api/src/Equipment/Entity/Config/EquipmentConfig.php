@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Entity\GameConfig;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -31,6 +32,9 @@ class EquipmentConfig
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
+
+    #[ORM\ManyToMany(targetEntity: GameConfig::class, inversedBy: 'equipmentsConfig')]
+    private Collection $gameConfig;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $equipmentName;
@@ -64,6 +68,7 @@ class EquipmentConfig
         $this->mechanics = new ArrayCollection();
         $this->actions = new ArrayCollection();
         $this->initStatuses = new ArrayCollection();
+        $this->gameConfig = new ArrayCollection();
     }
 
     public function createGameEquipment(EquipmentHolderInterface $holder): GameEquipment
@@ -80,6 +85,25 @@ class EquipmentConfig
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getGameConfig(): Collection
+    {
+        return $this->gameConfig;
+    }
+
+    public function addGameConfig(GameConfig $gameConfig): static
+    {
+        $this->gameConfig->add($gameConfig);
+
+        return $this;
+    }
+
+    public function removeGameConfig(GameConfig $gameConfig): static
+    {
+        $this->gameConfig->remove($gameConfig);
+
+        return $this;
     }
 
     public function getEquipmentName(): string

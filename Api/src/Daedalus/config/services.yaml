@@ -32,3 +32,7 @@ services:
         name: 'doctrine.orm.entity_listener'
         event: 'postLoad'
         entity: 'Mush\Daedalus\Entity\Daedalus'
+
+  Mush\Daedalus\Normalizer\ClosedDaedalusNormalizer:
+    tags:
+      - { name: 'serializer.normalizer', priority: 64 }

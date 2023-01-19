@@ -1,5 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import GamePage from "@/components/GamePage.vue";
+import RankingPage from "@/components/Ranking/RankingPage.vue";
+import ShipRanking from "@/components/Ranking/ShipRanking.vue";
 import Token from "@/components/Token.vue";
 import { is_granted, UserRole } from "@/enums/user_role.enum";
 import store from "@/store";
@@ -24,6 +26,20 @@ const routes = [
         name: "GamePage",
         component: GamePage,
         meta: { authorize: [UserRole.USER] }
+    },
+    {
+        path: "/ranking",
+        name: "RankingPage",
+        component: RankingPage,
+        redirect: { name: 'ShipRanking' },
+        meta: { authorize: [UserRole.USER] },
+        children: [
+            {
+                name: "ShipRanking",
+                path: '',
+                component: ShipRanking,
+            },
+        ]
     },
     {
         path: "/admin",

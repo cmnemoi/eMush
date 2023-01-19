@@ -52,6 +52,11 @@ class ClosedPlayer
         return $this->playerInfo;
     }
 
+    public function isDaedalusFinished(): bool
+    {
+        return $this->getClosedDaedalus()->isDaedalusFinished();
+    }
+
     public function setPlayerInfo(PlayerInfo $playerInfo): static
     {
         $this->playerInfo = $playerInfo;

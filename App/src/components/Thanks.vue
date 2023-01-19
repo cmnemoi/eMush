@@ -4,7 +4,7 @@
         </div>
         <div class="wrapper">
             <div class="box small devs">
-                <h3>{{ $t('footer.developpers') }} :</h3>
+                <h3>{{ $t('footer.developers') }} :</h3>
                 <ul>
                     <li v-for="dev in randomDev" :key="dev">{{ dev }}</li>
                 </ul>

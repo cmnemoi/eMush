@@ -28,7 +28,7 @@ class ClosedDaedalus
     private Collection $players;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $endCause = EndCauseEnum::DAEDALUS_DESTROYED;
+    private string $endCause = EndCauseEnum::STILL_LIVING;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $endDay = 0;
@@ -36,9 +36,14 @@ class ClosedDaedalus
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $endCycle = 0;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
+    }
+
+    public function isDaedalusFinished(): bool
+    {
+        return $this->daedalusInfo->isDaedalusFinished();
     }
 
     public function getPlayers(): ArrayCollection

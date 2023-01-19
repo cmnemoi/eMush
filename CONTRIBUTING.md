@@ -35,7 +35,7 @@ Test should cover at least 70 % of the lines. To check test coverage run:
 XDEBUG_MODE=coverage php vendor/bin/codecept run  --coverage
 ```
 
-4- Issue a Merge Request describing summarizing what you have done, wait a moment (ideally 24h) or the approval of an other developper before merging
+4- Issue a Merge Request describing summarizing what you have done, wait a moment (ideally 24h) or the approval of another developer before merging
 ## Code of Conduct
 
 ### Our Pledge

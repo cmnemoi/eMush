@@ -130,6 +130,11 @@ class DaedalusInfo
         return $this;
     }
 
+    public function isDaedalusFinished(): bool
+    {
+        return $this->gameStatus === GameStatusEnum::FINISHED || $this->gameStatus === GameStatusEnum::CLOSED;
+    }
+
     public function setLocalizationConfig(LocalizationConfig $localizationConfig): self
     {
         $this->localizationConfig = $localizationConfig;

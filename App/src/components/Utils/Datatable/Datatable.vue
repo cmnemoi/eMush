@@ -11,7 +11,7 @@
                         :class=sortClassname(field)
                     >
                         <slot v-if="field.slot" :name="[`header-${field.key}`]" v-bind="field" />
-                        <span v-else class="header-text">{{ field.name }}</span>
+                        <span v-else class="header-text">{{ $t(field.name) }}</span>
                     </th>
                 </tr>
             </thead>
@@ -28,8 +28,8 @@
             <Pagination
                 :page-count="Math.ceil(pagination.totalPage)"
                 :click-handler="paginationClick"
-                :prev-text="'Prev'"
-                :next-text="'Next'"
+                :prev-text="$t('util.prev')"
+                :next-text="$t('util.next')"
                 :container-class="'className'"
             ></Pagination>
         </div>

@@ -1,0 +1,10 @@
+Mush\Player\Entity\ClosedPlayer:
+  attributes:                          # optional
+    id:
+      groups: [ 'closed_daedalus_read' ]
+    endCause:
+      groups: [ 'closed_daedalus_read' ]
+    endDay:
+      groups: [ 'closed_daedalus_read' ]
+    endCycle:
+      groups: [ 'closed_daedalus_read' ]

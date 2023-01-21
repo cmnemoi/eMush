@@ -134,8 +134,9 @@ class ActionsFixtures extends Fixture
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
-            ->setSuccessRate(65)
+            ->setSuccessRate(60)
             ->setDirtyRate(15)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
         ;
         $manager->persist($hitAction);
 

@@ -7,7 +7,9 @@ files:
   - source: /Api/translations/fr/*.fr.xlf
     translation: /Api/translations/%two_letters_code%/%file_name%.%two_letters_code%.xlf
     translation_replace: {
-      "fr.": ""
+      ".fr.en": ".en",
+      ".fr.fr": ".fr",
+      ".fr.es": ".es",
     }
   - source: /App/src/i18n/locales/fr.json
     translation: /App/src/i18n/locales/%two_letters_code%.json

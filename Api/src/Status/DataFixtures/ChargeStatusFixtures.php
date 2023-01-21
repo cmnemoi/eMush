@@ -324,6 +324,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($updatingTrackie);
 
         $gameConfig
+            ->addStatusConfig($attemptConfig)
             ->addStatusConfig($scooterCharge)
             ->addStatusConfig($oldFaithfulCharge)
             ->addStatusConfig($bigWeaponCharge)

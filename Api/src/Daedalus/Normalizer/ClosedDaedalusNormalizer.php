@@ -3,7 +3,6 @@
 namespace Mush\Daedalus\Normalizer;
 
 use Mush\Daedalus\Entity\ClosedDaedalus;
-use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -45,15 +44,8 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
 
         $data = $this->normalizer->normalize($object, $format, $context);
 
-        if (is_array($data) && key_exists('endCause', $data)) {
-            $data['endCause'] = $this->translationService->translate(
-                $data['endCause'] . '.name',
-                [],
-                LanguageEnum::END_CAUSE,
-                LanguageEnum::FRENCH
-            );
-        } else {
-            throw new \Error('normalized closedDaedalus should be an array with a endCause key');
+        if (!is_array($data)) {
+            throw new \Error('normalized closedDaedalus should be an array');
         }
 
         return $data;

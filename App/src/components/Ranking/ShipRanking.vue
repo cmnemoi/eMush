@@ -22,10 +22,11 @@
             @sortTable="sortTable"
         >
             <template #header-actions>
-                Actions
+                {{ $t('ranking.linkToTheEnd') }}
             </template>
             <template #row-actions="slotProps">
-                <router-link :to="{ name: 'theEnd', params: { closedDaedalusId : slotProps.id } }"></router-link>
+                
+                <router-link class="router" :to="{ name: 'TheEnd', params: { closedDaedalusId: slotProps.id } }"> <img :src="require('@/assets/images/right.png')" id="arrow" />  {{  $t('ranking.goToTheEnd') }}</router-link>
             </template>
         </Datatable>
     </div>
@@ -60,6 +61,12 @@ export default defineComponent({
                     key: 'endCycle',
                     name: 'ranking.cycle',
                     sortable: false,
+                },
+                {
+                    key: 'actions',
+                    name: 'ranking.goToTheEnd',
+                    sortable: false,
+                    slot: true
                 }
             ],
             pagination: {
@@ -101,6 +108,9 @@ export default defineComponent({
             }
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'closed_daedaluses'), params)
                 .then((result) => {
+                    for (const closedDaedalus of result.data['hydra:member']) {
+                        closedDaedalus.endCause = this.$t('ranking.endCause.' + closedDaedalus.endCause);
+                    }
                     return result.data;
                 })
                 .then((remoteRowData: any) => {
@@ -151,5 +161,13 @@ export default defineComponent({
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
+}
+
+.router{
+    padding-left: 5px;
+}
+
+#arrow {
+    top: 0;
 }
 </style>

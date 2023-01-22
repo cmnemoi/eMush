@@ -1,0 +1,20 @@
+Mush\Player\Entity\ClosedPlayer:
+  attributes:
+    id: 
+      groups: [ 'closed_player_read' ]
+    message: 
+      groups: [ 'closed_player_read' ]
+    endCause: 
+      groups: [ 'closed_player_read' ]
+    dayDeath: 
+      groups: [ 'closed_player_read' ]
+    cycleDeath: 
+      groups: [ 'closed_player_read' ]
+    likes:
+      groups: [ 'closed_player_read' ]
+    isMush:
+      groups: [ 'closed_player_read' ]
+    character:
+      groups: [ 'closed_player_read' ]
+    userInfo:
+      groups: [ 'user_info_read' ]

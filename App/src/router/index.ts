@@ -13,6 +13,7 @@ import DaedalusDetailPage from "@/components/Admin/Daedalus/DaedalusDetailPage.v
 import AdminHomePage from "@/components/Admin/AdminHomePage.vue";
 import AdminPage from "@/components/Admin/AdminPage.vue";
 import AdminConfigPage from "@/components/Admin/AdminConfigPage.vue";
+import TheEndPage from "@/components/Ranking/TheEndPage.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 
 const routes = [
@@ -39,6 +40,11 @@ const routes = [
                 path: '',
                 component: ShipRanking,
             },
+            {
+                name: "TheEnd",
+                path: '/the-end/:closedDaedalusId',
+                component: TheEndPage
+            }
         ]
     },
     {

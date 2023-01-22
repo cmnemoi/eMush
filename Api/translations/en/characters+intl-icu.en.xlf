@@ -24,6 +24,10 @@
         <source>andie.age</source>
         <target>andie.age</target>
       </segment>
+      <segment id="description" state="translated">
+        <source>andie.description</source>
+        <target>Federation boot-licker.</target>
+      </segment>
       <segment id="employment" state="initial">
         <source>andie.employment</source>
         <target>andie.employment</target>
@@ -49,6 +53,10 @@
       <segment id="age" state="translated">
         <source>chao.age</source>
         <target>34 years old</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>chao.description</source>
+        <target>Head of Security aboard the Daedalus, a blaster-toting psychopath</target>
       </segment>
       <segment id="employment" state="initial">
         <source>chao.employment</source>
@@ -76,6 +84,10 @@
         <source>chun.age</source>
         <target>chun.age</target>
       </segment>
+      <segment id="description" state="translated">
+        <source>chun.description</source>
+        <target>Everyone on board is important, but she is Humanity's last hope!</target>
+      </segment>
       <segment id="employment" state="initial">
         <source>chun.employment</source>
         <target>chun.employment</target>
@@ -101,6 +113,10 @@
       <segment id="age" state="initial">
         <source>derek.age</source>
         <target>derek.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>derek.description</source>
+        <target>A true hero in spite of everything.</target>
       </segment>
       <segment id="employment" state="initial">
         <source>derek.employment</source>
@@ -128,6 +144,10 @@
         <source>eleesha.age</source>
         <target>eleesha.age</target>
       </segment>
+      <segment id="description" state="translated">
+        <source>eleesha.description</source>
+        <target>Deposed first-rate investigator on the run from the Federation.</target>
+      </segment>
       <segment id="employment" state="initial">
         <source>eleesha.employment</source>
         <target>eleesha.employment</target>
@@ -153,6 +173,10 @@
       <segment id="age" state="initial">
         <source>finola.age</source>
         <target>finola.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>finola.description</source>
+        <target>Internationally renowned biologist and pioneer abducted from Earth.</target>
       </segment>
       <segment id="employment" state="initial">
         <source>finola.employment</source>
@@ -180,6 +204,10 @@
         <source>frieda.age</source>
         <target>frieda.age</target>
       </segment>
+      <segment id="description" state="translated">
+        <source>frieda.description</source>
+        <target>Vintage Astro-Physicist. Allegedly a descendant of Copernicus...</target>
+      </segment>
       <segment id="employment" state="initial">
         <source>frieda.employment</source>
         <target>frieda.employment</target>
@@ -205,6 +233,10 @@
       <segment id="age" state="initial">
         <source>gioele.age</source>
         <target>gioele.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>gioele.description</source>
+        <target>Ship-owning combat-ready caffeine-junkie.</target>
       </segment>
       <segment id="employment" state="initial">
         <source>gioele.employment</source>
@@ -232,6 +264,10 @@
         <source>hua.age</source>
         <target>hua.age</target>
       </segment>
+      <segment id="description" state="translated">
+        <source>hua.description</source>
+        <target>An extreme explorer with an irrational fear of balloon animals.</target>
+      </segment>
       <segment id="employment" state="initial">
         <source>hua.employment</source>
         <target>hua.employment</target>
@@ -257,6 +293,10 @@
       <segment id="age" state="initial">
         <source>ian.age</source>
         <target>ian.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>ian.description</source>
+        <target>Flexible fructivorous researcher. Better living through botany!</target>
       </segment>
       <segment id="employment" state="initial">
         <source>ian.employment</source>
@@ -284,6 +324,10 @@
         <source>jin_su.age</source>
         <target>jin_su.age</target>
       </segment>
+      <segment id="description" state="translated">
+        <source>jin_su.description</source>
+        <target>Supreme Commander of the Daedalus.</target>
+      </segment>
       <segment id="employment" state="initial">
         <source>jin_su.employment</source>
         <target>jin_su.employment</target>
@@ -309,6 +353,10 @@
       <segment id="age" state="initial">
         <source>kuan_ti.age</source>
         <target>kuan_ti.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>kuan_ti.description</source>
+        <target>Grand Architect of the Daedalus. His knowledge of the ship is unmatched.</target>
       </segment>
       <segment id="employment" state="initial">
         <source>kuan_ti.employment</source>
@@ -336,6 +384,10 @@
         <source>paola.age</source>
         <target>paola.age</target>
       </segment>
+      <segment id="description" state="translated">
+        <source>paola.description</source>
+        <target>Chief Communications Officer and former political activist.</target>
+      </segment>
       <segment id="employment" state="initial">
         <source>paola.employment</source>
         <target>paola.employment</target>
@@ -361,6 +413,10 @@
       <segment id="age" state="initial">
         <source>raluca.age</source>
         <target>raluca.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>raluca.description</source>
+        <target>Reclusive cat-loving quantum physicist prodigy and electronics genius.</target>
       </segment>
       <segment id="employment" state="initial">
         <source>raluca.employment</source>
@@ -388,6 +444,10 @@
         <source>roland.age</source>
         <target>roland.age</target>
       </segment>
+      <segment id="description" state="translated">
+        <source>roland.description</source>
+        <target>Amateur comedian and elite fighter pilot. Born to destroy Hunters.</target>
+      </segment>
       <segment id="employment" state="initial">
         <source>roland.employment</source>
         <target>roland.employment</target>
@@ -413,6 +473,10 @@
       <segment id="age" state="initial">
         <source>stephen.age</source>
         <target>stephen.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>stephen.description</source>
+        <target>The most dangerous cook in history. Keep your fingers out of his soup!</target>
       </segment>
       <segment id="employment" state="initial">
         <source>stephen.employment</source>
@@ -440,6 +504,10 @@
         <source>terrence.age</source>
         <target>terrence.age</target>
       </segment>
+      <segment id="description" state="translated">
+        <source>terrence.description</source>
+        <target>Disillusioned motorized technophile with an unhealthy drone fixation.</target>
+      </segment>
       <segment id="employment" state="initial">
         <source>terrence.employment</source>
         <target>terrence.employment</target>
@@ -465,6 +533,10 @@
       <segment id="age" state="initial">
         <source>janice.age</source>
         <target>janice.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>janice.description</source>
+        <target>A Digital Psychologist and one-woman enigma machine.</target>
       </segment>
       <segment id="employment" state="initial">
         <source>janice.employment</source>

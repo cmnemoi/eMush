@@ -8,16 +8,31 @@
 		"doors": "Doors",
 		"inventory": "Inventory",
 		"inventoryDescription": "Click here to open the Room Inventory",
-		"equipement": "Equipment",
+		"equipment": "Equipment",
 		"player": "Players",
 		"issue": "Please report the encontered bugs on"
 	},
 	"footer": {
-		"developpers": "Development",
+		"developers": "Development",
 		"thanks": "Thanks",
 		"alpha-testers": "All alpha testers :)",
 		"emush": "eMush",
 		"eternaltwin": "eMush is a non-commercial website operate by hobbyists. It belongs to the Eternaltwin project whose purpose is to archive Motion Twin's games. This means we want to ensure they remain available even if the official website closes. <strong>We are not related to Motion Twin</strong>."
+	},
+	"util": {
+		"prev": "Previous page",
+		"next": "Next page"
+	},
+	"banner": {
+		"ranking": "Rankings",
+		"user": "My account"
+	},
+	"ranking": {
+		"ship_end_cause": "End cause",
+		"day": "End day",
+		"cycle": "End cycle",
+		"playerRankingSubMenu": "Players",
+		"shipRankingSubMenu": "Daedalus"
 	},
 	"login": "Login",
 	"logout": "Logout",
@@ -90,14 +105,15 @@
 			"name": "Name",
 			"delta": "Delta",
 			"targetVariable": "Target variable",
-			"targetEvent": "Trigger (or Scope)",
-			"modifierHolderClass": "Class of the modifier Holder",
+			"targetEvent": "Trigger event",
+			"modifierHolderClass": "Modifier holder entity",
 			"mode": "Calculation Mode"
 		},
-		"modifierRequirement": {
+		"modifierActivationRequirement": {
 			"name": "Name",
-			"activationRequirement": "Requirement",
-			"value": "Value"
+			"activationRequirementName": "Activation requirement type",
+			"activationRequirement": "Activation requirement",
+			"value": "Activation probability"
 		},
 		"statusConfig": {
 			"name": "Name",
@@ -109,23 +125,30 @@
 			"startCharge": "Initial charges amount"
 		},
 		"actionConfig": {
-			"name": "Name",
+			"name": "Complete name",
+			"actionName": "Name",
 			"target": "Target",
 			"types": "Types",
 			"scope": "Scope",
 			"successRate": "Success rate",
 			"injuryRate": "Clumsiness rate",
-			"dirtyRate": "Dirty rate"
-		},
-		"actionCost": {
-			"actionPointCost": "Action point cost",
-			"movementPointCost": "Movement point cost",
-			"moralPointCost": "Morale point cost"
+			"dirtyRate": "Dirty rate",
+			"actionPoint": "Action point cost",
+			"movementPoint": "Movement point cost",
+			"moralPoint": "Morale point cost",
+			"percentageSuccess": "Success rate",
+			"percentageCritical": "Critical success rate",
+			"percentageInjury": "Clumsiness rate",
+			"percentageDirtiness": "Dirty rate",
+			"isSuperDirty": "Is super dirty",
+			"isNotSuperDirty": "Is not super dirty"
 		},
 		"daedalus": {
 			"createDaedalus": "Create a Daedalus",
 			"name": "Daedalus name :",
-			"create": "Create a Daedalus"
+			"create": "Create a Daedalus",
+			"config": "Configuration of the daedalus",
+			"language": "Daedalus language"
 		},
 		"save": "Save",
 		"show": "Show",
@@ -145,7 +168,8 @@
 			"maxShield": "Maximal Shield",
 			"nbMush": "Initial number of Mushs",
 			"cyclePerGameDay": "Number of cycles per day",
-			"cycleLength": "Cycle length (in minutes)"
+			"cycleLength": "Cycle length (in minutes)",
+			"placeConfigs": "Rooms"
 		},
 		"difficultyConfig": {
 			"name": "Name",
@@ -160,7 +184,13 @@
 			"metalPlateRate": "Metal plate rate",
 			"panicCrisisRate": "Panic attack rate",
 			"plantDiseaseRate": "Disease rate at cycle change (plants)",
-			"cycleDiseaseRate": "Disease rate at cycle change (players)"
+			"cycleDiseaseRate": "Disease rate at cycle change (players)",
+			"firePlayerDamage": "Fire damage on players (damage => probability)",
+			"fireHullDamage": "Fire damage on hull (damage => probability)",
+			"electricArcPlayerDamage": "Electric arc damage on players (damage => probability)",
+			"tremorPlayerDamage": "Tremor damage on players (damage => probability)",
+			"metalPlatePlayerDamage": "Metal plate damage on players (damage => probability)",
+			"panicCrisisPlayerDamage": "Panic attack damage on players (damage => probability)"
 		},
 		"characterConfig": {
 			"name": "Name",
@@ -181,6 +211,145 @@
 			"skills": "Skills",
 			"startingItems": "Starting items",
 			"initDiseases": "Initial diseases"
+		},
+		"diseaseConfig": {
+			"pageTitle": "Modification of the disease ",
+			"name": "Complete name",
+			"diseaseName": "Name",
+			"type": "Type",
+			"resistance": "Resistance",
+			"delayMin": "Number of cycles before activation",
+			"delayLength": "Number of cycles of incubation after activation",
+			"diseasePointMin": "Minimum disease points amount",
+			"diseasePointLength": "Maximum disease points amount",
+			"override": "Overriden disease",
+			"overrideDiseaseToAdd": "Disease to add :",
+			"modifierConfigs": "Modifiers",
+			"symptomConfigs": "Symptoms"
+		},
+		"symptomConfig": {
+			"pageTitle": "Modification of the symptom ",
+			"name": "Complete name",
+			"symptomName": "Name",
+			"trigger": "Trigger",
+			"visibility": "Visibility",
+			"symptomActivationRequirements": "Activation requirements"
+		},
+		"symptomActivationRequirement": {
+			"pageTitle": "Modification of the activation requirement ",
+			"activationRequirementName": "Activation requirement type",
+			"name": "Name",
+			"activationRequirement": "Activation requirement",
+			"value": "Activation probability"
+		},
+		"equipmentConfig": {
+			"pageTitle": "Modification of the piece of equipment ",
+			"name": "Complete name",
+			"equipmentName": "Name",
+			"isBreakable": "Is breakable",
+			"isNotBreakable": "Is not breakable",
+			"isFireBreakable": "Fire breakable",
+			"isNotFireBreakable": "Not fire breakable",
+			"isFireDestroyable": "Fire destroyable",
+			"isNotFireDestroyable": "Not fire destroyable",
+			"isPersonal": "Is personal",
+			"isNotPersonal": "Is not personal",
+			"dismountedProducts": "Items given when dismounted",
+			"addDismountedProducts": "Add an item :",
+			"isStackable": "Stackable",
+			"isNotStackable": "Not stackable",
+			"actions": "Actions",
+			"initStatuses": "Statuses",
+			"mechanics": "Mechanics"
+		},
+		"placeConfig": {
+			"pageTitle": "Modification of the room ",
+			"name": "Complete name",
+			"placeName": "Name",
+			"type": "Room type",
+			"doors": "Doors",
+			"equipments": "Equipment",
+			"items": "Items"
+		},
+		"randomItemPlaces": {
+			"pageTitle": "Modification of the random repartition of items in the rooms ",
+			"name": "Name",
+			"items": "Items",
+			"places": "Rooms"
+		},
+		"mechanics": {
+			"pageTitle": "Modification of the mechanics ",
+			"name": "Name",
+			"mechanics": "Mechanics",
+			"mechanicsType": "Mechanics type",
+			"actions": "Actions",
+			"maturationTime": "Maturation time (number of cycles => probability)",
+			"addMaturationTime": "Delete a maturation time :",
+			"maturationTimeIndexToAdd": "Maturation time to add :",
+			"maturationTimeValueToAdd": "Probability of the maturation time :",
+			"oxygen": "Oxygen given per day (number of oxygen => probability)",
+			"baseAccuracy": "Success rate",
+			"baseDamageRange": "Damage (number of health points => probability)",
+			"expeditionBonus": "Expedition bonus",
+			"criticalSuccessRate": "Critical success rate",
+			"criticalFailRate": "Critical fail rate",
+			"oneShotRate": "One shot rate",
+			"ingredients": "Ingredients",
+			"addIngredients": "Add an ingredient :",
+			"isPerishable": "Is perishable",
+			"isNotPerishable": "Is not perishable",
+			"satiety": "Satiety",
+			"actionPoints": "Action points earned (points => probabilité)",
+			"moralPoints": "Morale points earned (points => probabilité)",
+			"healthPoints": "Health points earned (points => probabilité)",
+			"movementPoints": "Movement point gagnés (points => probabilité)",
+			"extraEffects": "Extra effects",
+			"skill": "Learned skill",
+			"content": "Content",
+			"isTranslated": "Is translated",
+			"isNotTranslated": "Is not translated",
+			"canShred": "Can be shred",
+			"cannotShred": "Cannot be shred",
+			"modifierConfigs": "Modifiers",
+			"equipment": "Built piece of equipment"
+		},
+		"buttons": {
+			"add": "Add",
+			"delete": "Delete",
+			"updateConfig": "Update the configuration",
+			"createNewConfig": "Create a new configuration"
+		},
+		"childManager": {
+			"idToAdd": "ID to add : "
+		},
+		"childCollectionManager": {
+			"idToAdd": "ID to add : "
+		},
+		"mapManager": {
+			"indexToDelete": "Key to delete :",
+			"mapIndexToAdd": "Key to add : ",
+			"mapValueToAdd": "Value to add:"
+		},
+		"stringArrayManager": {
+			"elementToAdd": "Element to add : "
+		},
+		"consumableDiseaseConfig": {
+			"pageTitle": "Modification of the diseases given/healed by the consummable ",
+			"curesName": "Diseases cured (disease => probability of being chosen)",
+			"diseasesName": "Diseases given (disease => probability of being chosen)",
+			"diseasesChances": "Probability of giving a disease (probability => probability of being chosen)",
+			"curesChances": "Probability of curing a disease (probability => probability of being chosen)",
+			"diseasesDelayMin": "Minimum number of cycles of incubation (number of cycles => probability of being chosen)",
+			"diseasesDelayLength": "Maximum number of cycles of incubation (number of cycles => probability of being chosen)",
+			"effectNumber": "Number of effects (number of effects => probability of being chosen)"
+		},
+		"triumphConfig": {
+			"pageTitle": "Modification of the triumph ",
+			"name": "Nom",
+			"triumph": "Earned triumph",
+			"isAllCrew": "Earned by all crew",
+			"isNotAllCrew": "Non earned by all crew",
+			"team": "Team"
 		}
 	},
 	"charselection": {

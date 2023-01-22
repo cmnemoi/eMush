@@ -8,16 +8,31 @@
 		"doors": "Portes",
 		"inventory": "Inventaire",
 		"inventoryDescription": "Cliquez ici pour ouvrir l'inventaire de la pièce.",
-		"equipement": "Equipement",
+		"equipment": "Équipement",
 		"player": "Joueurs",
 		"issue": "Merci de signaler les bugs rencontrés sur "
 	},
 	"footer": {
-		"developpers": "Développement",
+		"developers": "Développement",
 		"thanks": "Remerciements",
 		"alpha-testers": "Tous les alpha testeurs :)",
 		"emush": "eMush",
 		"eternaltwin": "eMush est un site web non-commercial géré par des amateurs. Il fait partie du projet Eternaltwin dont le but est d'archiver les jeux de Motion Twin, c'est à dire les garder accessibles même en cas de fermeture du site officiel. <strong>Nous ne sommes pas liés à Motion Twin</strong>."
+	},
+	"util": {
+		"prev": "Page précédente",
+		"next": "Page suivante"
+	},
+	"banner": {
+		"ranking": "Classement",
+		"user": "Mon Compte"
+	},
+	"ranking": {
+		"ship_end_cause": "Cause de la destruction",
+		"day": "Jours survécus",
+		"cycle": "Cycles survécus",
+		"playerRankingSubMenu": "Joueurs",
+		"shipRankingSubMenu": "Daedalus"
 	},
 	"login": "Connexion",
 	"logout": "Deconnexion",
@@ -89,15 +104,16 @@
 		"modifierConfig": {
 			"name": "Nom",
 			"delta": "Delta",
-			"target": "Cible",
-			"scope": "Scope",
-			"reach": "Portée",
+			"targetVariable": "Variable cible",
+			"targetEvent": "Déclencheur",
+			"modifierHolderClass": "Entité porteuse du modificateur",
 			"mode": "Mode"
 		},
 		"modifierActivationRequirement": {
 			"name": "Nom",
+			"activationRequirementName": "Type de condition de déclenchement",
 			"activationRequirement": "Condition",
-			"value": "Valeur"
+			"value": "Probabilité de déclenchement"
 		},
 		"statusConfig": {
 			"name": "Nom",
@@ -109,23 +125,30 @@
 			"startCharge": "Init Charge"
 		},
 		"actionConfig": {
-			"name": "Nom de l'action",
+			"name": "Nom complet",
+			"actionName": "Nom",
 			"target": "Cible de l'action",
 			"types": "Types de l'action",
 			"scope": "Source (scope) de l'action",
 			"successRate": "Probabilité de succès de l'action",
 			"injuryRate": "Probabilité de maladresse",
-			"dirtyRate": "Probabilité de salissure"
-		},
-		"actionCost": {
-			"actionPointCost": "Coût en points d'action",
-			"movementPointCost": "Coût en points de mouvement",
-			"moralPointCost": "Coût en points de moral"
+			"dirtyRate": "Probabilité de salissure",
+			"actionPoint": "Coût en points d'action",
+			"movementPoint": "Coût en points de mouvement",
+			"moralPoint": "Coût en points de moral",
+			"percentageSuccess": "Pourcentage de succès",
+			"percentageCritical": "Pourcentage de succès critique",
+			"percentageInjury": "Pourcentage de maladresse",
+			"percentageDirtiness": "Pourcentage de salissure",
+			"isSuperDirty": "Est super salissant",
+			"isNotSuperDirty": "N'est pas super salissant"
 		},
 		"daedalus": {
 			"createDaedalus": "Créer un Daedalus :",
 			"name": "Nom du Daedalus :",
-			"create": "Créer un Daedalus"
+			"create": "Créer un Daedalus",
+			"config": "Configuration du Daedalus",
+			"language": "Langue du Daedalus"
 		},
 		"save": "Sauvegarder",
 		"show": "Montrer",
@@ -145,7 +168,8 @@
 			"maxShield": "Bouclier maximal",
 			"nbMush": "Nombre de Mushs de départ",
 			"cyclePerGameDay": "Nombre de cycles par jour",
-			"cycleLength": "Durée du cycle (en minutes)"
+			"cycleLength": "Durée du cycle (en minutes)",
+			"placeConfigs": "Salles"
 		},
 		"difficultyConfig": {
 			"name": "Nom",
@@ -160,7 +184,13 @@
 			"metalPlateRate": "Probabilité de plaques de métal",
 			"panicCrisisRate": "Probabilité de crises de panique",
 			"plantDiseaseRate": "Probabilité de maladies spontanées (plantes)",
-			"cycleDiseaseRate": "Probabilité de maladies spontanées (joueurs)"
+			"cycleDiseaseRate": "Probabilité de maladies spontanées (joueurs)",
+			"firePlayerDamage": "Dégâts des incendies sur les joueurs (dégâts => probabilité)",
+			"fireHullDamage": "Dégâts des incendies à la coque (dégâts => probabilité)",
+			"electricArcPlayerDamage": "Dégâts des décharges électriques sur les joueurs (dégâts => probabilité)",
+			"tremorPlayerDamage": "Dégâts des secousses sur les joueurs (dégâts => probabilité)",
+			"metalPlatePlayerDamage": "Dégâts des plaques de métal sur les joueurs (dégâts => probabilité)",
+			"panicCrisisPlayerDamage": "Dégâts des crises de panique sur les joueurs (dégâts => probabilité)"
 		},
 		"characterConfig": {
 			"name": "Nom",
@@ -181,6 +211,145 @@
 			"skills": "Compétences",
 			"startingItems": "Objets de départ",
 			"initDiseases": "Maladies de départ"
+		},
+		"diseaseConfig": {
+			"pageTitle": "Modification de la maladie ",
+			"name": "Nom complet",
+			"diseaseName": "Nom de la maladie",
+			"type": "Type",
+			"resistance": "Résistance",
+			"delayMin": "Nombre de cycles avant activation",
+			"delayLength": "Nombre de cycles d'incubation",
+			"diseasePointMin": "Points de maladie minimum",
+			"diseasePointLength": "Points de maladie maximum",
+			"override": "Maladies remplacées",
+			"overrideDiseaseToAdd": "Nom de la maladie à ajouter : ",
+			"modifierConfigs": "Modificateurs",
+			"symptomConfigs": "Symptômes"
+		},
+		"symptomConfig": {
+			"pageTitle": "Modification du symptôme ",
+			"name": "Nom",
+			"symptomName": "Nom du symptôme",
+			"trigger": "Déclencheur",
+			"visibility": "Visibilité",
+			"symptomActivationRequirements": "Conditions de déclenchement"
+		},
+		"symptomActivationRequirement": {
+			"pageTitle": "Modification de la condition de déclenchement ",
+			"activationRequirementName": "Type de condition de déclenchement",
+			"name": "Nom complet",
+			"activationRequirement": "Condition",
+			"value": "Probabilité de déclenchement"
+		},
+		"equipmentConfig": {
+			"pageTitle": "Modification de l'équipement ",
+			"name": "Nom",
+			"equipmentName": "Nom de l'équipement",
+			"isBreakable": "Cassable",
+			"isNotBreakable": "Non cassable",
+			"isFireBreakable": "Cassable par les incendies",
+			"isNotFireBreakable": "Non cassable par les incendies",
+			"isFireDestroyable": "Peut être détruit par les incendies",
+			"isNotFireDestroyable": "Ne peut pas être détruit par les incendies",
+			"isPersonal": "Personnel",
+			"isNotPersonal": "Non personnel",
+			"dismountedProducts": "Produits du démontage",
+			"addDismountedProducts": "Ajouter un produit :",
+			"isStackable": "Empilable",
+			"isNotStackable": "Non empilable",
+			"actions": "Actions",
+			"initStatuses": "Statuts",
+			"mechanics": "Mécaniques"
+		},
+		"placeConfig": {
+			"pageTitle": "Modification de la salle ",
+			"name": "Nom complet",
+			"placeName": "Nom de la salle",
+			"type": "Type de salle",
+			"doors": "Portes",
+			"equipments": "Équipements",
+			"items": "Objets"
+		},
+		"randomItemPlaces": {
+			"pageTitle": "Modification de la répartition aléatoire des objets dans les salles ",
+			"name": "Nom",
+			"items": "Objets",
+			"places": "Salles"
+		},
+		"mechanics": {
+			"pageTitle": "Modification de la mécanique ",
+			"name": "Nom",
+			"mechanics": "Mécaniques",
+			"mechanicsType": "Type de mécanique",
+			"actions": "Actions",
+			"maturationTime": "Temps de maturation (nombre de cycles => probabilité qu'il soit choisi)",
+			"addMaturationTime": "Supprimer un temps de maturation :",
+			"maturationTimeIndexToAdd": "Temps de maturation (en cycles) à ajouter :",
+			"maturationTimeValueToAdd": "Probabilité du temps de maturation :",
+			"oxygen": "Oxygène donné par jour (oxygène => probabilité)",
+			"baseAccuracy": "Probabilité de toucher",
+			"baseDamageRange": "Dégâts (nombre de points de vie retirés => probabilité)",
+			"expeditionBonus": "Bonus en expédition",
+			"criticalSuccessRate": "Probabilité de réussite critique",
+			"criticalFailRate": "Probabilité d'échec critique",
+			"oneShotRate": "Probabilité de tuer en un coup",
+			"ingredients": "Ingrédients",
+			"addIngredients": "Ajouter un ingrédient :",
+			"isPerishable": "Périssable",
+			"isNotPerishable": "Non périssable",
+			"satiety": "Satiété",
+			"actionPoints": "Points d'action gagnés (points => probabilité)",
+			"moralPoints": "Points de moral gagnés (points => probabilité)",
+			"healthPoints": "Points de vie gagnés (points => probabilité)",
+			"movementPoints": "Points de mouvement gagnés (points => probabilité)",
+			"extraEffects": "Effets supplémentaires",
+			"skill": "Compétence apprise",
+			"content": "Contenu",
+			"isTranslated": "Est traduit",
+			"isNotTranslated": "N'est pas traduit",
+			"canShred": "Peut être déchiré",
+			"cannotShred": "Ne peut pas être déchiré",
+			"modifierConfigs": "Modificateurs",
+			"equipment": "Équipement assemblé"
+		},
+		"buttons": {
+			"add": "Ajouter",
+			"delete": "Supprimer",
+			"updateConfig": "Mettre à jour la configuration",
+			"createNewConfig": "Créer une nouvelle configuration"
+		},
+		"childManager": {
+			"idToAdd": "ID à ajouter : "
+		},
+		"childCollectionManager": {
+			"idToAdd": "ID à ajouter : "
+		},
+		"mapManager": {
+			"indexToDelete": "Clé à supprimer :",
+			"mapIndexToAdd": "Clé à ajouter : ",
+			"mapValueToAdd": "Valeur à ajouter :"
+		},
+		"stringArrayManager": {
+			"elementToAdd": "Élément à ajouter : "
+		},
+		"consumableDiseaseConfig": {
+			"pageTitle": "Modification de la configuration des maladies de la nourriture ",
+			"curesName": "Maladies guéries par la nourritre (maladie => probabilité qu'elle soit choisie)",
+			"diseasesName": "Maladies provoquées par la nourriture (maladie => probabilité qu'elle soit choisie)",
+			"diseasesChances": "Probabilité de contracter une maladie (probabilité => probabilité qu'elle soit choisie)",
+			"curesChances": "Probabilité de guérir d'une maladie (probabilité => probabilité qu'elle soit choisie)",
+			"diseasesDelayMin": "Nombre de cycles avant effet (nombre de cycles => probabilité qu'il soit choisi)",
+			"diseasesDelayLength": "Nombre de cycles d'incubation (nombre de cycles => probabilité qu'il soit choisi)",
+			"effectNumber": "Nombre d'effets (nombre d'effets => probabilité qu'il soit choisi)"
+		},
+		"triumphConfig": {
+			"pageTitle": "Modification du triomphe ",
+			"name": "Nom",
+			"triumph": "Points de triomphe gagnés",
+			"isAllCrew": "Gagné par tout l'équipage",
+			"isNotAllCrew": "Non gagné par tout l'équipage",
+			"team": "Équipe"
 		}
 	},
 	"charselection": {

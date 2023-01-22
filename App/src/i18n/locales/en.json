@@ -19,6 +19,69 @@
 		"emush": "eMush",
 		"eternaltwin": "eMush is a non-commercial website operate by hobbyists. It belongs to the Eternaltwin project whose purpose is to archive Motion Twin's games. This means we want to ensure they remain available even if the official website closes. <strong>We are not related to Motion Twin</strong>."
 	},
+	"ranking": {
+		"ship_end_cause": "End cause",
+		"day": "End day",
+		"cycle": "End cycle",
+		"playerRankingSubMenu": "Players",
+		"shipRankingSubMenu": "Daedalus",
+		"linkToTheEnd": "Daedalus",
+		"goToTheEnd": "Honours List",
+		"endCause" : {
+			"sol_return": "Daedalus returned to Sol",
+			"eden": "Daedalus has settled on Eden",
+			"daedalus_destroyed": "Daedalus destroyed",
+			"killed_by_neron": "Crew assassinated by NERON",
+			"super_nova": "Super Nova"
+		}
+	},
+	"theEnd": {
+		"headliner": "Starring role :",
+		"mainRoles": "Supporting roles :",
+		"figurantPlayers": "Featuring :",
+		"goldSuperNova": "Golden Supernova Award",
+		"silverSuperNova": "Supernova of Excellence Award",
+		"bronzeSuperNova": "Honorable Supernova Award",
+		"discoveredSuperNova": "Discovered Supernova Award",
+		"specialSuperNova": "Special Nova Award",
+		"normalSuperNova": "Prize Nova",
+		"amountOfMushPlayers": "Number of Mushs",
+		"goBack": "Back",
+		"endCause": {
+			"sol_return": "The Daedalus returned to Sol!",
+			"eden": "The Daedalus has settled on Eden!",
+			"daedalus_destroyed": "Your corpse is floating amongst the debris of the pulverized Daedalus!",
+			"killed_by_neron": "On the way to the infinite void!",
+			"super_nova": "Death by impish administrator!",
+			"alien_abducted": "You have been abducted.",
+			"assassinated": "Assassinated by a crewmate!",
+			"depression": "You put an end to it all...",
+			"asphyxia": "Dead on the Daedalus through lack of oxygen!",
+			"abandoned": "Abandoned by the Daedalus to take your chances alone!",
+			"allergy": "Cuddle with an allergen!",
+			"self_extracted": "Your guts needed some fresh air!",
+			"exploration": "Killed in an accident in an alien world!",
+			"exploration_combat": "Destroyed by an alien with a headache!",
+			"exploration_lost": "Your crewmates can't be bothered coming to get you...",
+			"electrocuted": "Electrocuted by this old piece of junk!",
+			"injury": "Injured to death!",
+			"burnt": "Burnt out by an untimely fire!",
+			"clumsiness": "So bad that one little thing finished you off...",
+			"space_battle": "Death present in an annihilated device!",
+			"space_asphyxiated": "Dead left in outer space!",
+			"beheaded": "Beheaded by a coward!",
+			"starvation": "Starved to death!",
+			"quarantine": "Quarantined by NERON",
+			"black_bite": "Succumbed to an alien disease!",
+			"metal_plate": "Another victim claimed by the old Daed-shed!",
+			"rocketed": "Scattered by an inquisitive missile!",
+			"bled": "Drained of blood!",
+			"infection": "Succumbed to a massive infection!",
+			"mankarog": "Killed by a crafty Mankarog!",
+			"no_infirmerie": "Death lost in infinite space!",
+			"suicide": "Suicide with panache!"
+		}
+	},
 	"util": {
 		"prev": "Previous page",
 		"next": "Next page"
@@ -26,13 +89,6 @@
 	"banner": {
 		"ranking": "Rankings",
 		"user": "My account"
-	},
-	"ranking": {
-		"ship_end_cause": "End cause",
-		"day": "End day",
-		"cycle": "End cycle",
-		"playerRankingSubMenu": "Players",
-		"shipRankingSubMenu": "Daedalus"
 	},
 	"login": "Login",
 	"logout": "Logout",

@@ -1,2 +1,0 @@
-- modifierConfig.scope / modifierConfig.reach rename
-- sporesdescription rename

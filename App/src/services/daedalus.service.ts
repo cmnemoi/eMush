@@ -3,7 +3,8 @@ import { Alert } from "@/entities/Alerts";
 import { Daedalus } from "@/entities/Daedalus";
 import urlJoin from "url-join";
 import { Minimap } from "@/entities/Minimap";
-import { GameConfig } from "@/entities/Config/GameConfig";
+import { ClosedDaedalus } from "@/entities/ClosedDaedalus";
+import store from "@/store";
 
 // @ts-ignore
 const DAEDALUS_ALERTS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "alert");
@@ -11,6 +12,8 @@ const DAEDALUS_ALERTS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "alert");
 const DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedaluses");
 // @ts-ignore
 const CREATE_DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedaluses/create-daedalus");
+// @ts-ignore
+const CLOSED_DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "closed_daedaluses");
 
 const DaedalusService = {
     loadAlerts: async (daedalus: Daedalus): Promise<Alert[]> => {
@@ -42,6 +45,19 @@ const DaedalusService = {
             'name' : name,
             'language' : language
         });
-    }
+    },
+    loadClosedDaedalus: async (closedDaedalusId: integer): Promise<ClosedDaedalus | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const closedDaedalusData = await ApiService.get(CLOSED_DAEDALUS_ENDPOINT + '/' + closedDaedalusId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let closedDaedalus = null;
+        if (closedDaedalusData.data) {
+            closedDaedalus = (new ClosedDaedalus()).load(closedDaedalusData.data);
+        }
+
+        return closedDaedalus;
+    },
+
 };
 export default DaedalusService;

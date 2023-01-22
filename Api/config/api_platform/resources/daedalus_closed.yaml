@@ -12,4 +12,8 @@ Mush\Daedalus\Entity\ClosedDaedalus:
   itemOperations:
     get:
       security: 'is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)'
-
+  properties:
+    players:
+      subresource:
+        resourceClass: Mush\Player\Entity\ClosedPlayer
+        collection: true

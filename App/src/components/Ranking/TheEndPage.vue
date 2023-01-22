@@ -1,210 +1,158 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="closedDaedalus">
         <div class="ending-screen">
             <img src="@/assets/images/ending-destroyed.png" alt="destroyed!" >
         </div>
-        <h2>Tête d'affiche :</h2>
-        <div class="card star-card">
+        <h2>{{ $t("theEnd.headliner") }}</h2>
+        <div class="card star-card" v-if="goldNovaPlayer">
             <div>
-                <img class="avatar" src="@/assets/images/char/portrait/Janice_kent_portrait.jpg" alt="Janice">
+                <img class="avatar" :src="getPlayerCharacterPortrait(goldNovaPlayer)" alt="Janice">
                 <div class="dude">
-                    <img class="body" src="@/assets/images/char/body/janice.png" alt="Janice">
+                    <img class="body" :src="getPlayerCharacterBody(goldNovaPlayer)" alt="Janice">
                     <div>
                         <h3 class="char-name">
-                            Janice Kent
+                            {{ getPlayerCharacterCompleteName(goldNovaPlayer) }}
                         </h3>
                         <p>
                             <span class="pseudo">
-                                Player
+                                {{ goldNovaPlayer.username }}
                             </span>
                             <span class="likes">
-                                7 <img src="@/assets/images/dislike.png">
+                                {{ goldNovaPlayer.likes }} <img src="@/assets/images/dislike.png">
                             </span>
                         </p>
                     </div>
                 </div>
                 <p class="epitaph">
-                    On méritait d'avoir plus de chances aux expéditions, petite penser à notre pauvre commandant qui est mort à cause du froid. Merci à tous pour ce vaisseau !^-^
+                    {{ goldNovaPlayer.message }}
                 </p>
                 <div class="triumph">
-                    <p class="score mush">
-                        448
+                    <p class="score mush" v-if="goldNovaPlayer.isMush">
+                        {{ goldNovaPlayer.cyclesSurvived }}
+                    </p>
+                    <p class="score" v-else>
+                        {{ goldNovaPlayer.cyclesSurvived }}
+                    </p>
+                    <p class="death-cause">
+                        <img src="@/assets/images/dead.png" alt="Dead">
+                        {{ $t("theEnd.endCause." + goldNovaPlayer.endCause) }}
                     </p>
                     <p class="nova">
-                        <img src="@/assets/images/nova/first.png" alt="First"> Prix Super Nova d'Or
+                        <img src="@/assets/images/nova/first.png" alt="First"> {{ $t('theEnd.goldSuperNova') }}
                     </p>
-                    <ul>
+                    <!-- <ul>
                         <li>Vous avez éteint un incendie !</li>
                         <li>Vous avez découvert une nouvelle planète !</li>
                         <li>Vous avez pris une douche bien méritée !</li>
-                    </ul>
-                    <button>
+                    </ul> -->
+                    <!-- <button>
                         <img src="@/assets/images/notes.gif" alt="Historique et Triomphe">
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </div>
-
-        <h2>Dans les rôles principaux :</h2>
-        <div class="guests">
-            <div class="card guest-card">
+        
+        <h2 v-if="mainRolesPlayers?.length > 0">{{ $t('theEnd.mainRoles') }}</h2>
+        <div class="guests" v-if="mainRolesPlayers?.length > 0">
+            <div v-for="(player, key) in mainRolesPlayers"
+                 :key="key"
+                 class="card guest-card">
                 <div>
-                    <img class="avatar" src="@/assets/images/char/portrait/Terrence_archer_portrait.jpg" alt="Terrence">
+                    <img class="avatar" :src="getPlayerCharacterPortrait(player)" :alt="getPlayerCharacterCompleteName(player)">
                     <div class="dude">
-                        <img class="body" src="@/assets/images/char/body/terrence.png" alt="Terrence">
+                        <img class="body" :src="getPlayerCharacterBody(player)" :alt="getPlayerCharacterCompleteName(player)">
                         <div>
                             <h3 class="char-name">
-                                Terrence Archer
+                                {{ getPlayerCharacterCompleteName(player) }}
                             </h3>
                             <p>
                                 <span class="pseudo">
-                                    Player
+                                    {{ player.username }}
                                 </span>
                                 <span class="likes">
-                                    5 <img src="@/assets/images/dislike.png" alt="likes">
+                                    {{ player.likes }} <img src="@/assets/images/dislike.png" alt="likes">
                                 </span>
                             </p>
                         </div>
                     </div>
                     <div class="triumph">
-                        <p class="score mush">
-                            425
-                            <img src="@/assets/images/triumph-mush.png" alt="triumph">
+                        <p class="score mush" v-if="player.isMush">
+                            {{ player.cyclesSurvived }}
+                        </p>
+                        <p class="score" v-else>
+                            {{ player.cyclesSurvived }}
                         </p>
                         <p class="death-cause">
                             <img src="@/assets/images/dead.png" alt="Dead">
-                            Le Daedalus est rentré sur Sol !
+                            {{ $t('theEnd.endCause.' + player.endCause) }}
                         </p>
-                        <p class="nova">
-                            <img src="@/assets/images/nova/second.png" alt="Second"> Prix Super Nova d'Excellence
+                        <p class="nova" v-if="key === 0">
+                            <img src="@/assets/images/nova/second.png" alt="Second"> {{ $t('theEnd.silverSuperNova') }}
                         </p>
-                        <ul>
+                        <p class="nova" v-else-if="key === 1">
+                            <img src="@/assets/images/nova/third.png" alt="Third"> {{ $t('theEnd.bronzeSuperNova') }}
+                        </p>
+                        <p class="nova" v-else-if="key === 2">
+                            <img src="@/assets/images/nova/fourth.png" alt="Fourth"> {{ $t('theEnd.discoveredSuperNova') }}
+                        </p>
+                        <p class="nova" v-else-if="key >= 3">
+                            <img src="@/assets/images/nova/fifth.png" alt="fifth"> {{ $t('theEnd.specialSuperNova') }}
+                        </p>
+                        <!-- <ul>
                             <li>Vous avez éteint un incendie !</li>
-                        </ul>
+                        </ul> 
                         <button>
                             <img src="@/assets/images/notes.gif" alt="Historique et Triomphe">
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="card guest-card">
-                <div>
-                    <img class="avatar" src="@/assets/images/char/portrait/Frieda_bergmann_portrait.jpg" alt="Frieda">
-                    <div class="dude">
-                        <img class="body" src="@/assets/images/char/body/frieda.png" alt="Frieda">
-                        <div>
-                            <h3 class="char-name">
-                                Frieda Bergmann
-                            </h3>
-                            <p>
-                                <span class="pseudo">
-                                    Player
-                                </span>
-                                <span class="likes">
-                                    5 <img src="@/assets/images/dislike.png" alt="likes">
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="triumph">
-                        <p class="score">
-                            124
-                            <img src="@/assets/images/triumph.png" alt="triumph">
-                        </p>
-                        <p class="death-cause">
-                            Le Daedalus est rentré sur Sol !
-                        </p>
-                        <p class="nova">
-                            <img src="@/assets/images/nova/third.png" alt="Third"> Prix Super Nova d'Honneur
-                        </p>
-                        <p class="epitaph">
-                            «On méritait d'avoir plus de chances aux expéditions, petite penser à notre pauvre commandant qui est mort à cause du froid. Merci à tous pour ce vaisseau !^-^»
-                        </p>
-                        <ul>
-                            <li>Vous avez éteint un incendie !</li>
-                        </ul>
-                        <button>
-                            <img src="@/assets/images/notes.gif" alt="Historique et Triomphe">
-                        </button>
+                        </button> -->
                     </div>
                 </div>
             </div>
         </div>
 
-        <h2>avec la participation de :</h2>
-        <div class="extras">
-            <div class="card extra-card">
+        <h2 v-if="figurantPlayers?.length > 0">{{ $t('theEnd.figurantPlayers')}}</h2>
+        <div class="extras" v-if="figurantPlayers?.length > 0">
+            <div v-for="(player, key) in
+                     figurantPlayers"
+                 :key="key"
+                 class="card extra-card">
                 <div>
+                    <img class="avatar" :src="getPlayerCharacterPortrait(player)" :alt="getPlayerCharacterCompleteName(player)">
                     <div class="dude">
-                        <img class="body" src="@/assets/images/char/body/raluca.png" alt="Raluca">
+                        <img class="body" :src="getPlayerCharacterBody(player)" :alt="getPlayerCharacterCompleteName(player)">
                         <div>
                             <h3 class="char-name">
-                                Raluca Tomescu
+                                {{ getPlayerCharacterCompleteName(player) }}
                             </h3>
                             <p>
                                 <span class="pseudo">
-                                    Player
+                                    {{ player.username }}
                                 </span>
                                 <span class="likes">
-                                    2 <img src="@/assets/images/dislike.png" alt="likes">
+                                    {{ player.likes }} <img src="@/assets/images/dislike.png" alt="likes">
                                 </span>
                             </p>
                         </div>
                     </div>
                     <div class="triumph">
-                        <p class="score mush">
-                            82
-                            <img src="@/assets/images/triumph-mush.png" alt="triumph">
+                        <p class="score mush" v-if="player.isMush">
+                            {{ player.cyclesSurvived }}
+                        </p>
+                        <p class="score" v-else>
+                            {{ player.cyclesSurvived }}
                         </p>
                         <p class="death-cause">
                             <img src="@/assets/images/dead.png" alt="Dead">
-                            Vos co-équipiers avaient la flemme de venir vous chercher !
+                            {{ $t('theEnd.endCause.' + player.endCause) }}
                         </p>
                         <p class="nova">
-                            <img src="@/assets/images/nova/sixth.png" alt="Sixth"> Prix Nova
+                            <img src="@/assets/images/nova/sixth.png" alt="sixth"> {{ $t('theEnd.normalNova') }}
                         </p>
+                        <!-- <ul>
+                            <li>Vous avez éteint un incendie !</li>
+                        </ul> 
                         <button>
                             <img src="@/assets/images/notes.gif" alt="Historique et Triomphe">
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="card extra-card">
-                <div>
-                    <div class="dude">
-                        <img class="body" src="@/assets/images/char/body/jin_su.png" alt="Jin Su">
-                        <div>
-                            <h3 class="char-name">
-                                Kim Jin Su
-                            </h3>
-                            <p>
-                                <span class="pseudo">
-                                    Player
-                                </span>
-                                <span class="likes">
-                                    0 <img src="@/assets/images/dislike.png" alt="likes">
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="triumph">
-                        <p class="score">
-                            0
-                            <img src="@/assets/images/triumph.png" alt="triumph">
-                        </p>
-                        <p class="death-cause">
-                            <img src="@/assets/images/dead.png" alt="Dead">
-                            Vous avez été enlevé.
-                        </p>
-                        <p class="epitaph">
-                            «On méritait d'avoir plus de chances aux expéditions, petite penser à notre pauvre commandant qui est mort à cause du froid. Merci à tous pour ce vaisseau !^-^»
-                        </p>
-                        <p class="nova">
-                            <img src="@/assets/images/nova/sixth.png" alt="Sixth"> Prix Nova
-                        </p>
-                        <button>
-                            <img src="@/assets/images/notes.gif" alt="Historique et Triomphe">
-                        </button>
+                        </button> -->
                     </div>
                 </div>
             </div>
@@ -213,7 +161,7 @@
         <h2>Daedalus :</h2>
         <div class="ship">
             <div class="stats">
-                <div>
+                <!-- <div>
                     <p>Planètes trouvées</p>
                     <p>36</p>
                 </div>
@@ -228,14 +176,14 @@
                 <div>
                     <p>Spores générés</p>
                     <p>0</p>
-                </div>
-                <div>
-                    <p>Nombre de Mush</p>
-                    <p>2</p>
+                </div> -->
+                <div> 
+                    <p>{{ $t("theEnd.amountOfMushPlayers") }}</p>
+                    <p>{{ getAmountOfMushPlayers() }}</p>
                 </div>
             </div>
 
-            <div class="progress">
+            <!-- <div class="progress">
                 <div>
                     <p>Recherches</p>
                     <ul>
@@ -318,17 +266,124 @@
                         <li><img src="@/assets/images/char/body/terrence.png" alt="Terrence"> Terrence</li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
         </div>
-        <a class="back" href="#"><span>Retour</span></a>
+        <router-link class="back" :to="{ name: 'RankingPage' }"> {{ $t('theEnd.goBack') }}</router-link>
     </div>
 </template>
 
 <script lang="ts">
+import urlJoin from "url-join";
+
+import { characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
+import { handleErrors } from "@/utils/apiValidationErrors";
+import { ClosedDaedalus } from "@/entities/ClosedDaedalus";
+import { ClosedPlayer } from "@/entities/ClosedPlayer";
+import ApiService from "@/services/api.service";
+import DaedalusService from "@/services/daedalus.service";
+
+interface ClosedDaedalusState {
+    closedDaedalus: ClosedDaedalus|null
+    errors: any
+    goldNovaPlayer: ClosedPlayer|null,
+    mainRolesPlayers: ClosedPlayer[]|null,
+    figurantPlayers: ClosedPlayer[]|null
+}
 
 export default defineComponent ({
-    name: 'TheEnd'
+    name: 'TheEnd',
+    data: function (): ClosedDaedalusState {
+        return {
+            closedDaedalus: null,
+            errors: {},
+            goldNovaPlayer: null,
+            mainRolesPlayers: [],
+            figurantPlayers: []
+        };
+    },
+    methods: {
+        getAmountOfMushPlayers() {
+            if (this.closedDaedalus && this.closedDaedalus.players) {
+                return this.closedDaedalus.players.filter((player: ClosedPlayer) => player.isMush).length;
+            }
+
+            return 0;
+        },
+        getNthPlayer(n: number) {
+            if (n < 1) return null;
+            if (this.closedDaedalus && this.closedDaedalus.players) {
+                return this.sortPlayersByCycleSurvived(this.closedDaedalus.players)[n-1];
+            }
+
+            return null;
+        },
+        getPlayerCharacterCompleteName(player: ClosedPlayer) {
+            if (player.character === null) return;
+            return characterEnum[player.character].completeName;
+        },
+        getPlayerCharacterBody(player: ClosedPlayer) {
+            if (player.character === null) return;
+            return characterEnum[player.character].body;
+        },
+        getPlayerCharacterPortrait(player: ClosedPlayer) {
+            if (player.character === null) return;
+            return characterEnum[player.character].portrait;
+        },
+        getPlayersInRange(start: number, end: number) {
+            if (start < 1 || end > 16) return null;
+            if (this.closedDaedalus && this.closedDaedalus.players) {
+                return this.sortPlayersByCycleSurvived(this.closedDaedalus.players).slice(start - 1, end + 1);
+            }
+            return null;
+        },
+        sortPlayersByCycleSurvived(players: ClosedPlayer[], descending = true) {
+            return players.sort((a, b) => {
+                if (a.cyclesSurvived === null) return 1;
+                if (b.cyclesSurvived === null) return -1;
+                if (descending) {
+                    return b.cyclesSurvived - a.cyclesSurvived;
+                }
+                return a.cyclesSurvived - b.cyclesSurvived;
+            });
+        },
+    },
+    beforeMount() {
+        const closedDaedalusId = String(this.$route.params.closedDaedalusId);
+        DaedalusService.loadClosedDaedalus(Number(closedDaedalusId))
+            .then((response: ClosedDaedalus | null) => {
+                this.closedDaedalus = response;
+                ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'closed_daedaluses', closedDaedalusId, 'players'))
+                    .then((result) => {
+                        console.log(result);
+                        const closedPlayers : ClosedPlayer[] = [];
+                        result.data['hydra:member'].forEach((datum: any) => {
+                            const currentClosedPlayer = (new ClosedPlayer()).load(datum);
+                            closedPlayers.push(currentClosedPlayer);
+                        });
+                        if (this.closedDaedalus instanceof ClosedDaedalus) {
+                            this.closedDaedalus.players = closedPlayers;
+                        }
+                        this.goldNovaPlayer = this.getNthPlayer(1);
+                        this.mainRolesPlayers = this.getPlayersInRange(2, 7);
+                        this.figurantPlayers = this.getPlayersInRange(8, 16);
+                    });
+            })
+            .catch((error) => {
+                if (error.response) {
+                    if (error.response.data.violations) {
+                        this.errors = handleErrors(error.response.data.violations);
+                    }
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    console.error(error.request);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.error('Error', error.message);
+                }
+            });
+        
+    },
 });
 </script>
 

@@ -286,7 +286,7 @@ export default defineComponent({
             this.equipmentConfig = res;
 
             console.log(res.iri);
-            ApiService.get('game_configs' + '?equipmentsConfig=1')
+            ApiService.get('game_configs' + '?equipmentsConfig=/api/v1/item_configs/1')
                 .then((result) => {
                     const gameConfigs : GameConfigShort[] = [];
 

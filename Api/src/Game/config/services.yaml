@@ -14,8 +14,3 @@ services:
       - '../Entity/'
       - '../Kernel.php'
       - '../Tests/'
-
-  gameConfig.search_filter:
-    parent: 'api_platform.doctrine.orm.search_filter'
-    arguments: [ { equipmentsConfig: ~ } ]
-    tags: [ 'api_platform.filter' ]

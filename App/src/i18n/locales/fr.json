@@ -24,7 +24,7 @@
 		"next": "Page suivante"
 	},
 	"banner": {
-		"ranking": "Classement",
+		"ranking": "Classements",
 		"user": "Mon Compte"
 	},
 	"ranking": {
@@ -105,7 +105,7 @@
 			"name": "Nom",
 			"delta": "Delta",
 			"targetVariable": "Variable cible",
-			"targetEvent": "Déclencheur",
+			"targetEvent": "Évènement déclencheur",
 			"modifierHolderClass": "Entité porteuse du modificateur",
 			"mode": "Mode de calcul"
 		},
@@ -212,8 +212,7 @@
 			"startingItems": "Objets de départ",
 			"initDiseases": "Maladies de départ"
 		},
-		"diseaseConfig":
-		{	
+		"diseaseConfig": {
 			"pageTitle": "Modification de la maladie ",
 			"name": "Nom complet",
 			"diseaseName": "Nom de la maladie",
@@ -228,8 +227,7 @@
 			"modifierConfigs": "Modificateurs",
 			"symptomConfigs": "Symptômes"
 		},
-		"symptomConfig":
-		{
+		"symptomConfig": {
 			"pageTitle": "Modification du symptôme ",
 			"name": "Nom",
 			"symptomName": "Nom du symptôme",
@@ -237,16 +235,14 @@
 			"visibility": "Visibilité",
 			"symptomActivationRequirements": "Conditions de déclenchement"
 		},
-		"symptomActivationRequirement":
-		{
+		"symptomActivationRequirement": {
 			"pageTitle": "Modification de la condition de déclenchement ",
 			"activationRequirementName": "Type de condition de déclenchement",
 			"name": "Nom complet",
 			"activationRequirement": "Condition",
 			"value": "Probabilité de déclenchement"
 		},
-		"equipmentConfig":
-		{
+		"equipmentConfig": {
 			"pageTitle": "Modification de l'équipement ",
 			"name": "Nom",
 			"equipmentName": "Nom de l'équipement",
@@ -266,8 +262,7 @@
 			"initStatuses": "Statuts",
 			"mechanics": "Mécaniques"
 		},
-		"placeConfig":
-		{
+		"placeConfig": {
 			"pageTitle": "Modification de la salle ",
 			"name": "Nom complet",
 			"placeName": "Nom de la salle",
@@ -276,15 +271,13 @@
 			"equipments": "Équipements",
 			"items": "Objets"
 		},
-		"randomItemPlaces":
-		{
+		"randomItemPlaces": {
 			"pageTitle": "Modification de la répartition aléatoire des objets dans les salles ",
 			"name": "Nom",
 			"items": "Objets",
 			"places": "Salles"
 		},
-		"mechanics":
-		{
+		"mechanics": {
 			"pageTitle": "Modification de la mécanique ",
 			"name": "Nom",
 			"mechanics": "Mécaniques",
@@ -318,8 +311,7 @@
 			"canShred": "Peut être déchiré",
 			"cannotShred": "Ne peut pas être déchiré",
 			"modifierConfigs": "Modificateurs",
-			"equipment": "Équipement assemblé" 
-
+			"equipment": "Équipement assemblé"
 		},
 		"buttons": {
 			"add": "Ajouter",
@@ -327,26 +319,21 @@
 			"updateConfig": "Mettre à jour la configuration",
 			"createNewConfig": "Créer une nouvelle configuration"
 		},
-		"childManager":
-		{
+		"childManager": {
 			"idToAdd": "ID à ajouter : "
 		},
-		"childCollectionManager":
-		{
+		"childCollectionManager": {
 			"idToAdd": "ID à ajouter : "
 		},
-		"mapManager":
-		{
+		"mapManager": {
 			"indexToDelete": "Clé à supprimer :",
 			"mapIndexToAdd": "Clé à ajouter : ",
 			"mapValueToAdd": "Valeur à ajouter :"
 		},
-		"stringArrayManager":
-		{
+		"stringArrayManager": {
 			"elementToAdd": "Élément à ajouter : "
 		},
-		"consumableDiseaseConfig":
-		{
+		"consumableDiseaseConfig": {
 			"pageTitle": "Modification de la configuration des maladies de la nourriture ",
 			"curesName": "Maladies guéries par la nourritre (maladie => probabilité qu'elle soit choisie)",
 			"diseasesName": "Maladies provoquées par la nourriture (maladie => probabilité qu'elle soit choisie)",
@@ -356,8 +343,7 @@
 			"diseasesDelayLength": "Nombre de cycles d'incubation (nombre de cycles => probabilité qu'il soit choisi)",
 			"effectNumber": "Nombre d'effets (nombre d'effets => probabilité qu'il soit choisi)"
 		},
-		"triumphConfig":
-		{
+		"triumphConfig": {
 			"pageTitle": "Modification du triomphe ",
 			"name": "Nom",
 			"triumph": "Points de triomphe gagnés",

@@ -24,9 +24,9 @@
         <source>andie.age</source>
         <target>24 ans</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>andie.description</source>
-        <target>Fayot de la Fédération</target>
+        <target>Fayot de la Fédération.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>andie.employment</source>
@@ -60,7 +60,7 @@
         <source>chao.age</source>
         <target>34 ans</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>chao.description</source>
         <target>Chef de la sécurité du Daedalus</target>
       </segment>
@@ -97,9 +97,9 @@
         <source>chun.age</source>
         <target>33 ans</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>chun.description</source>
-        <target>Dernier espoir de l'Humanité</target>
+        <target>Dernier espoir de l'Humanité.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>chun.employment</source>
@@ -140,9 +140,9 @@
         <source>derek.age</source>
         <target>à peine plus de 39 ans</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>derek.description</source>
-        <target>Héros malgré lui</target>
+        <target>Héros malgré lui.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>derek.employment</source>
@@ -178,9 +178,9 @@
         <source>eleesha.age</source>
         <target>30 ans</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>eleesha.description</source>
-        <target>Investigatrice déchue de premier plan</target>
+        <target>Investigatrice déchue de premier plan.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>eleesha.employment</source>
@@ -223,9 +223,9 @@
         <source>finola.age</source>
         <target>30 ans</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>finola.description</source>
-        <target>Biologiste de renommée internationale, pionnière dans l'étude du Mush</target>
+        <target>Biologiste de renommée internationale, pionnière dans l'étude du Mush.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>finola.employment</source>
@@ -262,9 +262,9 @@
         <source>frieda.age</source>
         <target>66 ans</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>frieda.description</source>
-        <target>Scientifique millénaire</target>
+        <target>Scientifique millénaire.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>frieda.employment</source>
@@ -304,7 +304,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>gioele.description</source>
-        <target>Armateur philantrophobe</target>
+        <target>Armateur philantrophobe.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>gioele.employment</source>
@@ -342,7 +342,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>hua.description</source>
-        <target>Exploratrice de l'extrême</target>
+        <target>Exploratrice de l'extrême.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>hua.employment</source>
@@ -380,7 +380,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>ian.description</source>
-        <target>Chercheur frugivore flexible</target>
+        <target>Chercheur frugivore flexible.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>ian.employment</source>
@@ -420,7 +420,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>jin_su.description</source>
-        <target>Commandant suprême du Daedalus</target>
+        <target>Commandant suprême du Daedalus.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>jin_su.employment</source>
@@ -459,7 +459,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>kuan_ti.description</source>
-        <target>Grand architecte du Daedalus</target>
+        <target>Grand architecte du Daedalus.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>kuan_ti.employment</source>
@@ -495,9 +495,9 @@
         <source>paola.age</source>
         <target>23 ans</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>paola.description</source>
-        <target>Officier principal des Communications du Daedalus</target>
+        <target>Officier principal des Communications du Daedalus.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>paola.employment</source>
@@ -534,7 +534,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>raluca.description</source>
-        <target>Génie de la physique quantique félinophile</target>
+        <target>Génie de la physique quantique félinophile.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>raluca.employment</source>
@@ -576,7 +576,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>roland.description</source>
-        <target>Humoriste pilote de chasse à ses heures</target>
+        <target>Humoriste pilote de chasse à ses heures.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>roland.employment</source>
@@ -614,7 +614,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>stephen.description</source>
-        <target>Cuisinier le plus dangeureux de la galaxie</target>
+        <target>Cuisinier le plus dangeureux de la galaxie.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>stephen.employment</source>
@@ -655,9 +655,9 @@
         <source>terrence.age</source>
         <target>44 ans</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>terrence.description</source>
-        <target>Technophile désabusé motorisé</target>
+        <target>Technophile désabusé motorisé.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>terrence.employment</source>
@@ -697,7 +697,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>janice.description</source>
-        <target>Psychologue Digitale aux atouts certains</target>
+        <target>Psychologue Digitale aux atouts certains.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>janice.employment</source>

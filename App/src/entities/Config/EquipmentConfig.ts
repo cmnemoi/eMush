@@ -38,7 +38,11 @@ export class EquipmentConfig {
         this.isStackable = null;
     }
     load(object:any) : EquipmentConfig {
-        if (typeof object !== "undefined") {
+        console.log('tata');
+        if (typeof object === "string") {
+            this.iri = object;
+        } else if (typeof object !== "undefined") {
+            console.log(object);
             this.iri = object["@id"];
             this.id = object.id;
             this.name = object.name;

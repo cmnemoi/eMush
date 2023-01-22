@@ -2,6 +2,9 @@
 
 namespace Mush\Game\Entity;
 
+use ApiPlatform\Doctrine\Odm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,6 +22,8 @@ use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity(repositoryClass: GameConfigRepository::class)]
 #[ORM\Table(name: 'config_game')]
+#[ApiResource]
+#[ApiFilter(SearchFilter::class, properties: ['equipmentsConfig' => 'exact'])]
 class GameConfig
 {
     use TimestampableEntity;
@@ -34,7 +39,7 @@ class GameConfig
     #[ORM\ManyToMany(targetEntity: CharacterConfig::class)]
     private Collection $charactersConfig;
 
-    #[ORM\ManyToMany(targetEntity: EquipmentConfig::class, mappedBy: 'gameConfig')]
+    #[ORM\ManyToMany(targetEntity: EquipmentConfig::class)]
     private Collection $equipmentsConfig;
 
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
@@ -156,7 +161,6 @@ class GameConfig
     public function addEquipmentConfig(EquipmentConfig $equipmentsConfig): static
     {
         $this->equipmentsConfig->add($equipmentsConfig);
-        $equipmentsConfig->addGameConfig($this);
 
         return $this;
     }

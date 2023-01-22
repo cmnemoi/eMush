@@ -87,25 +87,6 @@ class EquipmentConfig
         return $this->id;
     }
 
-    public function getGameConfig(): Collection
-    {
-        return $this->gameConfig;
-    }
-
-    public function addGameConfig(GameConfig $gameConfig): static
-    {
-        $this->gameConfig->add($gameConfig);
-
-        return $this;
-    }
-
-    public function removeGameConfig(GameConfig $gameConfig): static
-    {
-        $this->gameConfig->remove($gameConfig);
-
-        return $this;
-    }
-
     public function getEquipmentName(): string
     {
         return $this->equipmentName;

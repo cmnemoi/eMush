@@ -120,6 +120,8 @@ import { StatusConfig } from "@/entities/Config/StatusConfig";
 import { Mechanics } from "@/entities/Config/Mechanics";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 import {GameConfigShort} from "@/entities/Config/GameConfigShort";
+import {CharacterConfig} from "@/entities/Config/CharacterConfig";
+import {gameConfig} from "@/store/game_config.module";
 
 interface EquipmentConfigState {
     equipmentConfig: null|EquipmentConfig
@@ -191,10 +193,14 @@ export default defineComponent({
         removeFromGameConfig(child: any) {
             console.log(this.equipmentConfig.iri);
             GameConfigService.loadGameConfig(child.id).then((res) => {
+                console.log('yoyoyo');
                 if (res && this.equipmentConfig) {
                     if (res.equipmentsConfig !== null) {
+                        console.log(res.equipmentsConfig);
+                        // res.equipmentsConfig = removeItem(res.equipmentsConfig, this.equipmentConfig);
                         for (let i= 0; i<res.equipmentsConfig.length; i++) {
-                            if (res.equipmentsConfig[i] === this.equipmentConfig.iri) {
+                            if (res.equipmentsConfig[i].iri === this.equipmentConfig.iri) {
+                                console.log('coucou');
                                 res.equipmentsConfig.splice(i, 1);
                                 break;
                             }
@@ -236,7 +242,10 @@ export default defineComponent({
         },
         removeAction(child: any) {
             if (this.equipmentConfig && this.equipmentConfig.actions) {
+                console.log(this.equipmentConfig.actions);
                 this.equipmentConfig.actions = removeItem(this.equipmentConfig.actions, child);
+                console.log('this.equipmentConfig.actions');
+                console.log(this.equipmentConfig.actions);
             }
         },
         selectNewInitStatuses(selectedId: any) {
@@ -275,6 +284,20 @@ export default defineComponent({
         const equipmentConfigId = String(this.$route.params.equipmentConfigId);
         GameConfigService.loadEquipmentConfig(Number(equipmentConfigId)).then((res: EquipmentConfig | null) => {
             this.equipmentConfig = res;
+
+            console.log(res.iri);
+            ApiService.get('game_configs' + '?equipmentsConfig=1')
+                .then((result) => {
+                    const gameConfigs : GameConfigShort[] = [];
+
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        const currentGameConfig = (new GameConfigShort()).load(datum);
+                        gameConfigs.push(currentGameConfig);
+                    });
+                    if (this.equipmentConfig instanceof EquipmentConfig) {
+                        this.equipmentConfig.gameConfigs = gameConfigs;
+                    }
+                })
         });
     }
 });

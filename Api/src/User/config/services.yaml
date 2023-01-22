@@ -29,5 +29,6 @@ services:
       '%env(OAUTH_CALLBACK)%',
       '%env(OAUTH_CLIENT_ID)%',
       '%env(OAUTH_SECRET_ID)%',
-      '%env(ADMIN)%'
+      '%env(ADMIN)%',
+      '%env(APP_ENV)%'
     ]

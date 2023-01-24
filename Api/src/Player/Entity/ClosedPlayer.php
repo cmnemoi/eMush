@@ -153,11 +153,23 @@ class ClosedPlayer
         return $this->getPlayerInfo()->getCharacterConfig()->getCharacterName();
     }
 
+    public function getUserName(): string
+    {
+        return $this->getPlayerInfo()->getUser()->getUsername();
+    }
+
     public function getUserInfo(): array
     {
+        if ($this->daedalus->isDaedalusFinished()) {
+            return [
+                'username' => $this->getPlayerInfo()->getUser()->getUsername(),
+                'id' => $this->getPlayerInfo()->getUser()->getUserId(),
+            ];
+        }
+
         return [
-            'id' => $this->getPlayerInfo()->getUser()->getUserId(),
-            'username' => $this->getPlayerInfo()->getUser()->getUsername(),
+            'username' => null,
+            'id' => null,
         ];
     }
 }

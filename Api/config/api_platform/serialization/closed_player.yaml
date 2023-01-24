@@ -14,7 +14,7 @@ Mush\Player\Entity\ClosedPlayer:
       groups: [ 'closed_player_read' ]
     isMush:
       groups: [ 'closed_player_read' ]
-    character:
+    characterKey:
       groups: [ 'closed_player_read' ]
     userInfo:
-      groups: [ 'user_info_read' ]
+      groups: [ 'closed_player_read' ]

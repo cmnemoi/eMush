@@ -319,16 +319,16 @@ export default defineComponent ({
             return null;
         },
         getPlayerCharacterCompleteName(player: ClosedPlayer) {
-            if (player.character === null) return;
-            return characterEnum[player.character].completeName;
+            if (player.characterKey === null) return;
+            return characterEnum[player.characterKey].completeName;
         },
         getPlayerCharacterBody(player: ClosedPlayer) {
-            if (player.character === null) return;
-            return characterEnum[player.character].body;
+            if (player.characterKey === null) return;
+            return characterEnum[player.characterKey].body;
         },
         getPlayerCharacterPortrait(player: ClosedPlayer) {
-            if (player.character === null) return;
-            return characterEnum[player.character].portrait;
+            if (player.characterKey === null) return;
+            return characterEnum[player.characterKey].portrait;
         },
         getPlayersInRange(start: number, end: number) {
             if (start < 1 || end > 16) return null;

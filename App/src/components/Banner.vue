@@ -5,8 +5,8 @@
         </div>
         <div class="mainmenu">
             <router-link v-if="loggedIn"  :to="{ name: 'GamePage' }">Daedalus</router-link>
-            <span v-else>Daedalus</span>
-            <router-link :to="{ name: 'RankingPage' }">{{ $t("banner.ranking") }}</router-link>
+            <router-link v-if="loggedIn" :to="{ name: 'MePage' }">{{ $t("banner.user") }}</router-link>
+            <router-link v-if="loggedIn" :to="{ name: 'RankingPage' }">{{ $t("banner.ranking") }}</router-link>
             <router-link v-if="isAdmin" :to="{ name: 'Admin' }">Admin</router-link>
             <Login />
             <!--
@@ -33,7 +33,8 @@ export default defineComponent ({
     computed: {
         ...mapGetters('auth', [
             'loggedIn',
-            'isAdmin'
+            'isAdmin',
+            'userId'
         ])
     }
 });

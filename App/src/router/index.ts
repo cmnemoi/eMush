@@ -14,6 +14,8 @@ import AdminHomePage from "@/components/Admin/AdminHomePage.vue";
 import AdminPage from "@/components/Admin/AdminPage.vue";
 import AdminConfigPage from "@/components/Admin/AdminConfigPage.vue";
 import TheEndPage from "@/components/Ranking/TheEndPage.vue";
+import UserPage from "@/components/User/UserPage.vue";
+import UserShips from "@/components/User/UserShips.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 
 const routes = [
@@ -27,6 +29,36 @@ const routes = [
         name: "GamePage",
         component: GamePage,
         meta: { authorize: [UserRole.USER] }
+    },
+    {
+        path: "/user/:userId",
+        name: "UserPage",
+        component: UserPage,
+        redirect: { name: 'UserShips' },
+        meta: { authorize: [UserRole.USER] },
+        children: [
+            {
+                name: "UserShips",
+                path: '',
+                component: UserShips
+            }
+        ]
+    },
+    {
+        path: "/me",
+        name: "MePage",
+        component: UserPage,
+        meta: { authorize: [UserRole.USER] },
+        // @ts-ignore
+        beforeEnter: (to, from, next) => {
+            const currentUser = store.getters["auth/getUserInfo"];
+            if (currentUser) {
+                next({ name: 'UserPage', params: { userId: currentUser.userId } });
+            } else {
+                next({ name: 'HomePage' });
+            }
+        }
+        
     },
     {
         path: "/ranking",
@@ -43,7 +75,16 @@ const routes = [
             {
                 name: "TheEnd",
                 path: '/the-end/:closedDaedalusId',
-                component: TheEndPage
+                component: TheEndPage,
+                children: [
+                    {
+                        name: "TheEndUserPage",
+                        path: '/user/:userId',
+                        component: UserPage,
+                        redirect: { name: 'UserPage' },
+                    }
+                ]
+
             }
         ]
     },
@@ -97,6 +138,7 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
+    // @ts-ignore
     routes
 });
 

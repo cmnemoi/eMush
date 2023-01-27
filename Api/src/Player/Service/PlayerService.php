@@ -327,6 +327,7 @@ class PlayerService implements PlayerServiceInterface
             ->setDayCycleDeath($player->getDaedalus())
             ->setEndCause($reason)
             ->setIsMush($player->isMush())
+            ->setClosedDaedalus($player->getDaedalus()->getDaedalusInfo()->getClosedDaedalus())
         ;
         $this->persistPlayerInfo($playerInfo);
 

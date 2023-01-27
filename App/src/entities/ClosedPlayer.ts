@@ -8,7 +8,7 @@ export class ClosedPlayer {
     public cyclesSurvived: integer|null;
     public likes: integer|null;
     public isMush: boolean|null;
-    public character: string|null;
+    public characterKey: string|null;
     public username: string|null;
     public userId: string|null;
 
@@ -22,7 +22,7 @@ export class ClosedPlayer {
         this.cyclesSurvived = null;
         this.likes = null;
         this.isMush = null;
-        this.character = null;
+        this.characterKey = null;
         this.username = null;
         this.userId = null;
     }
@@ -36,15 +36,14 @@ export class ClosedPlayer {
             this.cycleDeath = object.cycleDeath;
             this.likes = object.likes;
             this.isMush = object.isMush;
-            this.character = object.characterKey;
+            this.characterKey = object.characterKey;
+            this.username = object.username;
+            this.userId = object.userId;
         }
         if (this.dayDeath && this.cycleDeath){
             this.cyclesSurvived = (this.dayDeath - 1) * 8 + this.cycleDeath;
         }
-        if (object.userInfo){
-            this.username = object.userInfo.username;
-            this.userId = object.userInfo.id;
-        }
+        
         return this;
     }
     jsonEncode(): object {
@@ -57,7 +56,7 @@ export class ClosedPlayer {
             'cyclesSurvived': this.cyclesSurvived,
             'likes': this.likes,
             'isMush': this.isMush,
-            'character': this.character,
+            'characterKey': this.characterKey,
             'username': this.username,
             'userId': this.userId,
         };

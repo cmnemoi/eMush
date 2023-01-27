@@ -1,16 +1,17 @@
 <?php
-//// api/src/Filter/RegexpFilter.php
+
+// // api/src/Filter/RegexpFilter.php
 //
-//namespace Mush\Game\Filter;
+// namespace Mush\Game\Filter;
 //
-//use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
-//use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
-//use ApiPlatform\Metadata\Operation;
-//use Doctrine\ORM\QueryBuilder;
-//use Symfony\Component\PropertyInfo\Type;
+// use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
+// use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
+// use ApiPlatform\Metadata\Operation;
+// use Doctrine\ORM\QueryBuilder;
+// use Symfony\Component\PropertyInfo\Type;
 //
-//final class GameConfigFilter extends AbstractFilter
-//{
+// final class GameConfigFilter extends AbstractFilter
+// {
 //    protected function filterProperty(string $property, $value, QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, Operation $operation = null, array $context = []): void
 //    {
 //        // otherwise filter is applied to order and page as well
@@ -55,4 +56,4 @@
 //
 //        return $description;
 //    }
-//}
+// }

@@ -19,7 +19,10 @@
                 <tr v-for="row in rowData" :key='row'>
                     <td v-for="field in headers" :key='field'>
                         <slot v-if="field.slot" :name="[`row-${field.key}`]" v-bind="row" />
-                        <span v-else>{{ row[field.key] }}</span>
+                        <span v-else> <img :src="row[field.image]"
+                                           v-if="row[field.image]"
+                                           :alt="row[field.name]"
+                                           id="row-image"/> {{ $t(String(row[field.key]))  }}</span>
                     </td>
                 </tr>
             </tbody>
@@ -44,7 +47,8 @@ import Spinner from "@/components/Utils/Spinner.vue";
 export interface Header {
     key: string,
     name: string | null,
-    sortable: boolean | null
+    sortable: boolean | null,
+    image: any | null,
 }
 
 export default defineComponent ({
@@ -190,5 +194,10 @@ table {
     flex-direction: row;
     justify-content: center;
     padding: 10px;
+}
+
+#row-image {
+    padding-left: 6px;
+    padding-right: 6px;
 }
 </style>

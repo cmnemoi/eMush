@@ -139,6 +139,7 @@ class PlayerServiceTest extends TestCase
 
     public function testPlayerDeath()
     {
+        $gameConfig = new GameConfig();
         $room = new Place();
         $room->setType(PlaceTypeEnum::ROOM)->setName('randomRoom');
 
@@ -148,6 +149,7 @@ class PlayerServiceTest extends TestCase
             ->setDay(5)
             ->addPlace($room)
         ;
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $characterConfig = new CharacterConfig();
         $characterConfig->setCharacterName('name');

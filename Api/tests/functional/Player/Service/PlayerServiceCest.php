@@ -93,6 +93,9 @@ class PlayerServiceCest
 
     public function testDeathMushPlayer(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
 
@@ -100,7 +103,11 @@ class PlayerServiceCest
         $characterConfig = $I->have(CharacterConfig::class, ['name' => 'andie']);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $daedalus = $I->have(Daedalus::class, ['day' => 5, 'cycle' => '3']);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
@@ -221,6 +228,9 @@ class PlayerServiceCest
 
     public function testDeathEffectOnItems(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
 
@@ -228,7 +238,11 @@ class PlayerServiceCest
         $characterConfig = $I->have(CharacterConfig::class, ['name' => 'andie']);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $daedalus = $I->have(Daedalus::class, ['day' => 5, 'cycle' => '3']);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);

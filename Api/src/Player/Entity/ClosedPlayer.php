@@ -147,17 +147,4 @@ class ClosedPlayer
     {
         return $this->isMush;
     }
-
-    public function getCharacterKey(): string
-    {
-        return $this->getPlayerInfo()->getCharacterConfig()->getCharacterName();
-    }
-
-    public function getUserInfo(): array
-    {
-        return [
-            'id' => $this->getPlayerInfo()->getUser()->getUserId(),
-            'username' => $this->getPlayerInfo()->getUser()->getUsername(),
-        ];
-    }
 }

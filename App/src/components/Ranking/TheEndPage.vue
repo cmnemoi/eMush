@@ -14,17 +14,17 @@
                             {{ getPlayerCharacterCompleteName(goldNovaPlayer) }}
                         </h3>
                         <p>
-                            <span class="pseudo">
+                            <router-link class="pseudo" :to="{ name: 'TheEndUserPage', params: {userId: goldNovaPlayer.userId}}">
                                 {{ goldNovaPlayer.username }}
-                            </span>
+                            </router-link>
                             <span class="likes">
                                 {{ goldNovaPlayer.likes }} <img src="@/assets/images/dislike.png">
                             </span>
                         </p>
                     </div>
                 </div>
-                <p class="epitaph">
-                    {{ goldNovaPlayer.message }}
+                <p class="epitaph" v-if="goldNovaPlayer.message">
+                    « {{ goldNovaPlayer.message }} »
                 </p>
                 <div class="triumph">
                     <p class="score mush" v-if="goldNovaPlayer.isMush">
@@ -66,9 +66,9 @@
                                 {{ getPlayerCharacterCompleteName(player) }}
                             </h3>
                             <p>
-                                <span class="pseudo">
+                                <router-link class="pseudo" :to="{ name: 'TheEndUserPage', params: {userId: player.userId}}">
                                     {{ player.username }}
-                                </span>
+                                </router-link>
                                 <span class="likes">
                                     {{ player.likes }} <img src="@/assets/images/dislike.png" alt="likes">
                                 </span>
@@ -98,6 +98,9 @@
                         <p class="nova" v-else-if="key >= 3">
                             <img src="@/assets/images/nova/fifth.png" alt="fifth"> {{ $t('theEnd.specialSuperNova') }}
                         </p>
+                        <p class="epitaph" v-if="player.message">
+                            « {{ player.message }} »
+                        </p>
                         <!-- <ul>
                             <li>Vous avez éteint un incendie !</li>
                         </ul> 
@@ -124,9 +127,9 @@
                                 {{ getPlayerCharacterCompleteName(player) }}
                             </h3>
                             <p>
-                                <span class="pseudo">
+                                <router-link class="pseudo" :to="{ name: 'TheEndUserPage', params: {userId: player.userId}}">
                                     {{ player.username }}
-                                </span>
+                                </router-link>
                                 <span class="likes">
                                     {{ player.likes }} <img src="@/assets/images/dislike.png" alt="likes">
                                 </span>
@@ -146,6 +149,9 @@
                         </p>
                         <p class="nova">
                             <img src="@/assets/images/nova/sixth.png" alt="sixth"> {{ $t('theEnd.normalNova') }}
+                        </p>
+                        <p class="epitaph" v-if="player.message">
+                            « {{ player.message }} »
                         </p>
                         <!-- <ul>
                             <li>Vous avez éteint un incendie !</li>
@@ -319,16 +325,16 @@ export default defineComponent ({
             return null;
         },
         getPlayerCharacterCompleteName(player: ClosedPlayer) {
-            if (player.character === null) return;
-            return characterEnum[player.character].completeName;
+            if (player.characterKey === null) return;
+            return characterEnum[player.characterKey].completeName;
         },
         getPlayerCharacterBody(player: ClosedPlayer) {
-            if (player.character === null) return;
-            return characterEnum[player.character].body;
+            if (player.characterKey === null) return;
+            return characterEnum[player.characterKey].body;
         },
         getPlayerCharacterPortrait(player: ClosedPlayer) {
-            if (player.character === null) return;
-            return characterEnum[player.character].portrait;
+            if (player.characterKey === null) return;
+            return characterEnum[player.characterKey].portrait;
         },
         getPlayersInRange(start: number, end: number) {
             if (start < 1 || end > 16) return null;
@@ -480,6 +486,7 @@ h2 {
         background: rgba(17,84,165,0.5);
         border-radius: 4px;
         font-size: 1.2rem;
+        color: white;
     }
 }
 

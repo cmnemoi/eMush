@@ -3,7 +3,6 @@
 namespace Mush\Player\Normalizer;
 
 use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -46,21 +45,20 @@ class ClosedPlayerNormalizer implements ContextAwareNormalizerInterface, Normali
         /** @var ClosedPlayer $closedPlayer */
         $closedPlayer = $object;
 
-        $closedDaedalus = $closedPlayer->getClosedDaedalus();
-
-        if ($closedDaedalus->getDaedalusInfo()->getGameStatus() === GameStatusEnum::CLOSED) {
-            $context['group'][] = 'user_info_read';
-        }
+        $daedalus = $closedPlayer->getClosedDaedalus();
 
         $context[self::ALREADY_CALLED] = true;
 
         $data = $this->normalizer->normalize($object, $format, $context);
 
-        if (is_array($data)) {
-            $data['userInfo'] = $closedPlayer->getUserInfo();
-            $data['characterKey'] = $closedPlayer->getCharacterKey();
-        } else {
-            throw new \Error('normalized closedPlayer should be an array');
+        if (!is_array($data)) {
+            throw new \Exception('ClosedPlayerNormalizer: data is not an array');
+        }
+
+        if ($daedalus->isDaedalusFinished()) {
+            $data['characterKey'] = $closedPlayer->getPlayerInfo()->getCharacterConfig()->getCharacterName();
+            $data['userId'] = $closedPlayer->getPlayerInfo()->getUser()->getUserId();
+            $data['username'] = $closedPlayer->getPlayerInfo()->getUser()->getUsername();
         }
 
         return $data;

@@ -10,7 +10,7 @@ Mush\Game\Entity\GameConfig:
       groups: [ 'game_config_write' ]
   collectionOperations:
     get:
-      filters: [ 'default.search_filter', 'default.order_filter' ]
+      filters: [ 'default.search_filter', 'default.order_filter', 'gameConfig.configCollections' ]
     post:
       security: 'is_granted("ROLE_ADMIN")'
   itemOperations:

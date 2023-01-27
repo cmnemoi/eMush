@@ -44,3 +44,10 @@ services:
         autowire: false
         autoconfigure: false
         public: false
+    gameConfig.configCollections:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { equipmentsConfig.id: ~ } ]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false

@@ -115,6 +115,7 @@ import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
+import qs from "qs";
 import { Action } from "@/entities/Action";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
 import { Mechanics } from "@/entities/Config/Mechanics";
@@ -191,9 +192,7 @@ export default defineComponent({
             });
         },
         removeFromGameConfig(child: any) {
-            console.log(this.equipmentConfig.iri);
             GameConfigService.loadGameConfig(child.id).then((res) => {
-                console.log('yoyoyo');
                 if (res && this.equipmentConfig) {
                     if (res.equipmentsConfig !== null) {
                         console.log(res.equipmentsConfig);
@@ -285,8 +284,17 @@ export default defineComponent({
         GameConfigService.loadEquipmentConfig(Number(equipmentConfigId)).then((res: EquipmentConfig | null) => {
             this.equipmentConfig = res;
 
-            console.log(res.iri);
-            ApiService.get('game_configs' + '?equipmentsConfig=/api/v1/item_configs/1')
+            const params: any = {
+                header: {
+                    'accept': 'application/ld+json'
+                },
+                params: { },
+                paramsSerializer: qs.stringify
+            };
+
+            params.params['equipmentsConfig.id'] = res.id;
+
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs'), params)
                 .then((result) => {
                     const gameConfigs : GameConfigShort[] = [];
 

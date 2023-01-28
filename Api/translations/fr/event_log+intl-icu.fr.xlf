@@ -293,8 +293,7 @@
                 male {stressé, angoissé}
                 female {stressée, angoisée}
                 other {stressé, angoissé}
-                }. Vous devriez voir un *Psy*. Vous avez développé une maladie mentale : {disease}.
-                </target>
+                }. Vous devriez voir un *Psy*. Vous avez développé une maladie mentale : {disease}.</target>
       </segment>
     </unit>
     <unit id="disease_curred_player">

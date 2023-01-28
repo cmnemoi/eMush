@@ -19,6 +19,14 @@
 		"emush": "eMush",
 		"eternaltwin": "eMush is a non-commercial website operate by hobbyists. It belongs to the Eternaltwin project whose purpose is to archive Motion Twin's games. This means we want to ensure they remain available even if the official website closes. <strong>We are not related to Motion Twin</strong>."
 	},
+	"util": {
+		"prev": "Previous page",
+		"next": "Next page"
+	},
+	"banner": {
+		"ranking": "Rankings",
+		"user": "My account"
+	},
 	"ranking": {
 		"ship_end_cause": "End cause",
 		"day": "End day",
@@ -27,7 +35,7 @@
 		"shipRankingSubMenu": "Daedalus",
 		"linkToTheEnd": "Daedalus",
 		"goToTheEnd": "Honours List",
-		"endCause" : {
+		"endCause": {
 			"sol_return": "Daedalus returned to Sol",
 			"eden": "Daedalus has settled on Eden",
 			"daedalus_destroyed": "Daedalus destroyed",
@@ -82,18 +90,10 @@
 			"suicide": "Suicide with panache!"
 		}
 	},
-	"util": {
-		"prev": "Previous page",
-		"next": "Next page"
-	},
-	"banner": {
-		"ranking": "Rankings",
-		"user": "My account"
-	},
 	"userBanner": {
 		"userShips": "File"
 	},
-	"userShips" : {
+	"userShips": {
 		"pageTitle": "'s file",
 		"character": "Character",
 		"day": "Survived days",
@@ -101,7 +101,7 @@
 		"linkToTheEnd": "Daedalus",
 		"goToTheEnd": "Honours List",
 		"endCauses": "End cause",
-		"endCause" : {
+		"endCause": {
 			"sol_return": "Daedalus returned to Sol",
 			"eden": "Daedalus has settled on Eden",
 			"daedalus_destroyed": "Daedalus destroyed",

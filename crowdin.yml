@@ -1,7 +1,6 @@
 base_path: /
 preserve_hierarchy: 1
 base_url: 'https://eternaltwin.crowdin.com'
-commit_message: '[skip ci]'
 pull_request_title: 'feat: new Crowdin translations'
 files:
   - source: /Api/translations/fr/*.fr.xlf

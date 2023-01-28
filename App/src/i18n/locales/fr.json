@@ -35,7 +35,7 @@
 		"shipRankingSubMenu": "Daedalus",
 		"linkToTheEnd": "Daedalus",
 		"goToTheEnd": "Palmarès",
-		"endCause" : {
+		"endCause": {
 			"sol_return": "Daedalus rentré sur Sol",
 			"eden": "Daedalus s'est installé sur Eden",
 			"daedalus_destroyed": "Daedalus détruit",
@@ -55,7 +55,7 @@
 		"normalSuperNova": "Prix Nova",
 		"amountOfMushPlayers": "Nombre de Mushs",
 		"goBack": "Retour",
-		"endCause" : {
+		"endCause": {
 			"sol_return": "Le Daedalus est rentré sur Sol !",
 			"eden": "Le Daedalus s'est installé sur Eden !",
 			"daedalus_destroyed": "Votre cadavre flotte parmi les débris du Daedalus pulvérisé !",
@@ -93,7 +93,7 @@
 	"userBanner": {
 		"userShips": "Fiche"
 	},
-	"userShips" : {
+	"userShips": {
 		"pageTitle": "Fiche de ",
 		"character": "Personnage",
 		"day": "Jours survécus",

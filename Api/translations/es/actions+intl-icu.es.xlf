@@ -701,6 +701,26 @@
         <target>suicide.short_name</target>
       </segment>
     </unit>
+    <unit id="auto_destroy">
+      <segment id="name" state="initial">
+        <source>auto_destroy.name</source>
+        <target>auto_destroy.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>auto_destroy.description</source>
+        <target>auto_destroy.description</target>
+      </segment>
+    </unit>
+    <unit id="kill_player">
+      <segment id="name" state="initial">
+        <source>kill_player.name</source>
+        <target>kill_player.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>kill_player.description</source>
+        <target>kill_player.description</target>
+      </segment>
+    </unit>
     <unit id="action_aggressive">
       <segment id="name" state="initial">
         <source>action_aggressive.name</source>

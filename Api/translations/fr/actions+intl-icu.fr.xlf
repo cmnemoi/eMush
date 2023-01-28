@@ -727,8 +727,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="final">
         <source>kill_player.description</source>
-        <target>
-        Ordonner à NERON de mettre ce joueur en quarantaine.
+        <target>Ordonner à NERON de mettre ce joueur en quarantaine.
         //
         Mutations génétiques incompréhensibles ou folie meurtrière, une chose est sûre : ce joueur est trop dangereux pour être laissé en liberté.
         //

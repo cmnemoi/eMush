@@ -624,8 +624,7 @@
         <source>tracker.description</source>
         <target>The tracker is like an on-board GPS, it gives you general information on the ship!
 //
-Displays the minimap.
-</target>
+Displays the minimap.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>tracker.examine</source>
@@ -3421,7 +3420,7 @@ The most fashionable SNC product, which in certain South American tribes, has co
         <source>blueprint.description</source>
         <target>To construct something, a solid blueprint beats a speech hands down. This plan requires some components to be completed.      
 //
-This plan requires: </target>
+This plan requires:</target>
       </segment>
       <segment id="examine" state="translated">
         <source>blueprint.examine</source>

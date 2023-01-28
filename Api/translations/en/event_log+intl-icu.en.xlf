@@ -255,7 +255,7 @@
     <unit id="disorder_appear">
       <segment state="translated">
         <source>disorder_appear</source>
-        <target>You don't feel great... Your head is spinning, you feel confused, stressed, and anxious. You should see a *Shrink*. You have picked up a psychological illness: {disease}.</target>
+        <target>:psy_disease: You don't feel great... Your head is spinning, you feel confused, stressed, and anxious. You should see a *Shrink*. You have picked up a psychological illness: {disease}.</target>
       </segment>
     </unit>
     <unit id="disease_curred_player">
@@ -419,8 +419,8 @@
       <segment id="self_surgery_success" state="translated">
         <source>self_surgery_success</source>
         <target>The operation seems to take forever... {version, select,
-                    1 {**{character}** is doing admirably}.
-                    2 {The operation was successful. **{character}** is doing well and will be back on his feet soon}.
+                    1 {**{character}** is doing admirably.}
+                    2 {The operation was successful. **{character}** is doing well and will be back on his feet soon.}
                     other {invalid gender input}
                     } **{character}**'s wound ({disease}) is healed.</target>
       </segment>

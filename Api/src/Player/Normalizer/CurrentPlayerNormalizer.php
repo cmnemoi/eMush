@@ -88,7 +88,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             $normedSpores = [
                 'key' => PlayerStatusEnum::SPORES,
                 'name' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.name', [], 'status', $language),
-                'description' => $this->translationService->translate(PlayerStatusEnum::SPORES . 'description', [], 'status', $language),
+                'description' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.description', [], 'status', $language),
                 'charge' => $player->getSpores(),
             ];
             $statuses[] = $normedSpores;

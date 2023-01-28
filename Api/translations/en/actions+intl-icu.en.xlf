@@ -719,9 +719,9 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         <source>auto_destroy.name</source>
         <target>Destroy the ship</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>auto_destroy.description</source>
-        <target>This ship filled with genetic anomalies : a drastic solution is needed.
+        <target>This ship is filled with genetic anomalies : a drastic solution is needed.
         //
         **Warning**, this action will destroy the ship **immediately**!</target>
       </segment>
@@ -733,8 +733,7 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
       <segment id="description" state="final">
         <source>kill_player.description</source>
-        <target>
-        Order NERON to quarantine this player.
+        <target>Order NERON to quarantine this player.
         //
         Whether it's an incomprehensible genetic mutation or a murderous madness, one thing is certain: this player is too dangerous to be left at large.
         //

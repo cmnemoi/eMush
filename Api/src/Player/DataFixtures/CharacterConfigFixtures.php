@@ -360,6 +360,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         // ADMIN ONLY
         /** @var Action $suicideAction */
         $suicideAction = $this->getReference(ActionsFixtures::SUICIDE);
+        /** @var Action $autoDestroyAction */
+        $autoDestroyAction = $this->getReference(ActionsFixtures::AUTO_DESTROY);
+        /** @var Action $killPlayerAction */
+        $killPlayerAction = $this->getReference(ActionsFixtures::KILL_PLAYER);
 
         // @TODO: remove when the game is ready
         /** @var Action $rejuvenateAlphaAction */
@@ -438,8 +442,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $fakeDiseaseAction,
             $screwTalkieAction,
             $ungag,
+            $autoDestroyAction,
             $suicideAction,
             $surgeryAction,
+            $killPlayerAction,
         ]);
 
         $characterConfig = new CharacterConfig();

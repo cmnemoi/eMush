@@ -289,10 +289,12 @@
       <segment state="translated">
         <source>disorder_appear</source>
         <target>:psy_disease: Vous ne vous sentez pas très très bien... Votre tête tourne, vous vous sentez confus, 
-{character_gender, select,
-male {stressé, angoissé}
-female {stressée, angoisée}
-}. Vous devriez voir un *Psy*. Vous avez développé une maladie mentale : {disease}.</target>
+                {character_gender, select,
+                male {stressé, angoissé}
+                female {stressée, angoisée}
+                other {stressé, angoissé}
+                }. Vous devriez voir un *Psy*. Vous avez développé une maladie mentale : {disease}.
+                </target>
       </segment>
     </unit>
     <unit id="disease_curred_player">

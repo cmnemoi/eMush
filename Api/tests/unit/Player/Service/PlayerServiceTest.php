@@ -43,6 +43,8 @@ class PlayerServiceTest extends TestCase
     private RoomLogServiceInterface $roomLogService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
+    /** @var RandomServiceInterface|Mockery\Mock */
+    private RandomServiceInterface $randomService;
 
     private CharacterConfigCollection $charactersConfigs;
     private PlayerService $service;
@@ -58,6 +60,7 @@ class PlayerServiceTest extends TestCase
         $this->deadPlayerInfoRepository = \Mockery::mock(DeadPlayerInfoRepository::class);
         $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->charactersConfigs = new CharacterConfigCollection();
 
@@ -68,6 +71,7 @@ class PlayerServiceTest extends TestCase
             $this->deadPlayerInfoRepository,
             $this->roomLogService,
             $this->gameEquipmentService,
+            $this->randomService
         );
     }
 

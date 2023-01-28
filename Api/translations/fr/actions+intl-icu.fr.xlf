@@ -708,6 +708,33 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Vous avez accompli votre mission ici-bas, il est temps d'aller coder ailleurs.</target>
       </segment>
     </unit>
+    <unit id="auto_destroy">
+      <segment id="name" state="final">
+        <source>auto_destroy.name</source>
+        <target>Détruire le vaisseau</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>auto_destroy.description</source>
+        <target>Ce vaisseau est rempli d'anomalies génétiques : une solution drastique s'impose.
+        //
+        **Attention**, cette action détruira le vaisseau **sur le champ** !</target>
+      </segment>
+    </unit>
+    <unit id="kill_player">
+      <segment id="name" state="final">
+        <source>kill_player.name</source>
+        <target>Mettre en quarantaine</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>kill_player.description</source>
+        <target>
+        Ordonner à NERON de mettre ce joueur en quarantaine.
+        //
+        Mutations génétiques incompréhensibles ou folie meurtrière, une chose est sûre : ce joueur est trop dangereux pour être laissé en liberté.
+        //
+        **Attention**, cette action tuera ce joueur **sur le champ** !</target>
+      </segment>
+    </unit>
     <unit id="action_aggressive">
       <segment id="name" state="final">
         <source>action_aggressive.name</source>

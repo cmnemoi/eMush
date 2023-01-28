@@ -714,6 +714,33 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         <target>You have accomplished your mission here, it is time to go and code elsewhere.</target>
       </segment>
     </unit>
+    <unit id="auto_destroy">
+      <segment id="name" state="final">
+        <source>auto_destroy.name</source>
+        <target>Destroy the ship</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>auto_destroy.description</source>
+        <target>This ship filled with genetic anomalies : a drastic solution is needed.
+        //
+        **Warning**, this action will destroy the ship **immediately**!</target>
+      </segment>
+    </unit>
+    <unit id="kill_player">
+      <segment id="name" state="final">
+        <source>kill_player.name</source>
+        <target>Quarantine</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>kill_player.description</source>
+        <target>
+        Order NERON to quarantine this player.
+        //
+        Whether it's an incomprehensible genetic mutation or a murderous madness, one thing is certain: this player is too dangerous to be left at large.
+        //
+        **Warning**, this action will kill this player **immediately** !</target>
+      </segment>
+    </unit>
     <unit id="action_aggressive">
       <segment id="name" state="final">
         <source>action_aggressive.name</source>

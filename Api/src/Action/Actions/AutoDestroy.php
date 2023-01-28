@@ -6,18 +6,18 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\HasRole;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\User\Enum\RoleEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * Allow admins to suicide themselves.
+ * Allow admins to finish a Daedalus.
  */
-class Suicide extends AbstractAction
+class AutoDestroy extends AbstractAction
 {
-    protected string $name = ActionEnum::SUICIDE;
+    protected string $name = ActionEnum::AUTO_DESTROY;
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -36,7 +36,8 @@ class Suicide extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $deathEvent = new PlayerEvent($this->player, EndCauseEnum::SUICIDE, new \DateTime());
-        $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
+        $deathEvent = new DaedalusEvent($this->player->getDaedalus(), EndCauseEnum::SUPER_NOVA, new \DateTime());
+
+        $this->eventDispatcher->dispatch($deathEvent, DaedalusEvent::FINISH_DAEDALUS);
     }
 }

@@ -4,12 +4,14 @@ namespace Mush\Player\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\ClosedPlayer;
@@ -34,6 +36,8 @@ class PlayerService implements PlayerServiceInterface
     public const CYCLE_SATIETY_CHANGE = -1;
     public const DAY_HEALTH_CHANGE = 1;
     public const DAY_MORAL_CHANGE = -2;
+    public const NB_ORGANIC_WASTE_MIN = 3;
+    public const NB_ORGANIC_WASTE_MAX = 4;
 
     private EntityManagerInterface $entityManager;
 
@@ -47,6 +51,8 @@ class PlayerService implements PlayerServiceInterface
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
+    private RandomServiceInterface $randomService;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
@@ -54,6 +60,7 @@ class PlayerService implements PlayerServiceInterface
         DeadPlayerInfoRepository $deadPlayerRepository,
         RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
+        RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
@@ -61,6 +68,7 @@ class PlayerService implements PlayerServiceInterface
         $this->deadPlayerRepository = $deadPlayerRepository;
         $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
+        $this->randomService = $randomService;
     }
 
     public function persist(Player $player): Player
@@ -320,6 +328,10 @@ class PlayerService implements PlayerServiceInterface
             $this->gameEquipmentService->persist($item);
         }
 
+        if ($reason === EndCauseEnum::QUARANTINE) {
+            $this->handleQuarantineCompensation($player->getPlace());
+        }
+
         $playerInfo = $player->getPlayerInfo();
         $closedPlayer = $playerInfo->getClosedPlayer();
         $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
@@ -331,7 +343,7 @@ class PlayerService implements PlayerServiceInterface
         ;
         $this->persistPlayerInfo($playerInfo);
 
-        if ($reason !== EndCauseEnum::DEPRESSION) {
+        if (!in_array($reason, [EndCauseEnum::DEPRESSION, EndCauseEnum::QUARANTINE])) {
             $moraleLoss = -1;
             if ($player->hasStatus(PlayerStatusEnum::PREGNANT)) {
                 $moraleLoss = -2;
@@ -352,7 +364,26 @@ class PlayerService implements PlayerServiceInterface
             }
         }
 
-        // @TODO in case of assassination chance of disorder for roommates
         return $player;
+    }
+
+    /**
+     * This function handle the compensation for a player who died because of quarantine.
+     * Currently it drops 3-4 organic waste.
+     * TODO: add more powerful compensation?
+     *
+     * @param Place $playerPlace
+     */
+    private function handleQuarantineCompensation(Place $playerDeathPlace)
+    {
+        $nbOrganicWaste = $this->randomService->random(self::NB_ORGANIC_WASTE_MIN, self::NB_ORGANIC_WASTE_MAX);
+
+        for ($i = 0; $i < $nbOrganicWaste; ++$i) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                GameRationEnum::ORGANIC_WASTE,
+                $playerDeathPlace,
+                EndCauseEnum::QUARANTINE,
+            );
+        }
     }
 }

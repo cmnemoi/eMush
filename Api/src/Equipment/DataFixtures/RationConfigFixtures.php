@@ -193,7 +193,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setSatiety(16)
             ->setIsPerishable(false)
             ->addAction($consumeRationAction)
-            ->setActions($actions)
             ->buildName(EquipmentMechanicEnum::RATION . '_' . GameRationEnum::ORGANIC_WASTE, GameConfigEnum::DEFAULT)
         ;
 

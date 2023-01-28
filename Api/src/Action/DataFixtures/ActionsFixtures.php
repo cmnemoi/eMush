@@ -16,6 +16,8 @@ use Mush\Game\Enum\VisibilityEnum;
 class ActionsFixtures extends Fixture
 {
     public const SUICIDE = 'suicide';
+    public const AUTO_DESTROY = 'auto.destruction';
+    public const KILL_PLAYER = 'kill.player';
 
     public const REJUVENATE_ALPHA = 'rejuvenate.alpha';
     public const UPDATING_TALKIE = 'updating.talkie';
@@ -88,6 +90,23 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::SELF)
         ;
         $manager->persist($suicide);
+
+        $autoDestroy = new Action();
+        $autoDestroy
+            ->setName(ActionEnum::AUTO_DESTROY)
+            ->setActionName(ActionEnum::AUTO_DESTROY)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+        ;
+        $manager->persist($autoDestroy);
+
+        $killPlayer = new Action();
+        $killPlayer
+            ->setName(ActionEnum::KILL_PLAYER)
+            ->setActionName(ActionEnum::KILL_PLAYER)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+        ;
+        $manager->persist($killPlayer);
 
         $rejuvenateAlpha = new Action();
         $rejuvenateAlpha
@@ -733,6 +752,8 @@ class ActionsFixtures extends Fixture
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
+        $this->addReference(self::AUTO_DESTROY, $autoDestroy);
+        $this->addReference(self::KILL_PLAYER, $killPlayer);
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
         $this->addReference(self::UPDATING_TALKIE, $updatingTalkie);

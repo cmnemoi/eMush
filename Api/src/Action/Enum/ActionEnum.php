@@ -8,6 +8,8 @@ class ActionEnum
 
     // admin actions
     public const SUICIDE = 'suicide';
+    public const AUTO_DESTROY = 'auto_destroy';
+    public const KILL_PLAYER = 'kill_player';
 
     // alpha actions
     public const REJUVENATE = 'rejuvenate';
@@ -198,6 +200,8 @@ class ActionEnum
             self::CONSUME_DRUG,
             self::REJUVENATE,
             self::SUICIDE,
+            self::AUTO_DESTROY,
+            self::KILL_PLAYER,
         ];
     }
 }

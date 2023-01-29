@@ -24,6 +24,8 @@ interface DaedalusServiceInterface
 
     public function findAvailableDaedalus(string $name): ?Daedalus;
 
+    public function findAllNonFinishedDaedaluses(): DaedalusCollection;
+
     public function existAvailableDaedalus(): bool;
 
     public function createDaedalus(GameConfig $gameConfig, string $name, string $language): Daedalus;

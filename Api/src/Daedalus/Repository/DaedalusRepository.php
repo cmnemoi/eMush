@@ -63,4 +63,18 @@ class DaedalusRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
+
+    public function findNonFinishedDaedaluses()
+    {
+        $qb = $this->createQueryBuilder('daedalus');
+
+        $qb
+            ->select('daedalus')
+            ->leftJoin('daedalus.daedalusInfo', 'daedalus_info')
+            ->where($qb->expr()->notIn('daedalus_info.gameStatus', ':gameStatus'))
+            ->setParameter('gameStatus', [GameStatusEnum::FINISHED, GameStatusEnum::CLOSED])
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 }

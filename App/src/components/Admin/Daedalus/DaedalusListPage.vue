@@ -23,6 +23,9 @@
                 >
             </label>
             <router-link :to="{ name: 'AdminDaedalusCreate' }">{{$t("admin.daedalus.create")}}</router-link>
+            <button class = "action-button" type="button" @click="destroyAllDaedaluses">
+                {{$t("admin.daedalus.destroyAllDaedaluses")}}
+            </button>
         </div>
         <Datatable
             :headers='fields'
@@ -40,6 +43,18 @@
             <template #row-cycle="slotProps">
                 {{ slotProps.cycle }} / {{ slotProps.day }} ( {{ $t('admin.updatedAt') }} {{formatDate(slotProps.updatedAt)}})
             </template>
+            <template #header-actions>
+                Actions
+            </template>
+            <template #row-actions="slotProps">
+                <button v-if="slotProps.gameStatus != 'finished'"
+                        class="action-button"
+                        type="button"
+                        @click="destroyDaedalus(slotProps.id)">
+                    {{ $t("admin.daedalus.destroy") }}
+                </button>
+            </template>
+
         </Datatable>
     </div>
 </template>
@@ -52,6 +67,7 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import DaedalusService from "@/services/daedalus.service";
 
 export default defineComponent({
     name: "DeadalusListPage",
@@ -79,6 +95,12 @@ export default defineComponent({
                 {
                     key: 'cycle',
                     name: 'Cycle/Day',
+                    sortable: false,
+                    slot: true
+                },
+                {
+                    key: 'actions',
+                    name: 'Actions',
                     sortable: false,
                     slot: true
                 }
@@ -161,6 +183,16 @@ export default defineComponent({
         paginationClick(page: number) {
             this.pagination.currentPage = page;
             this.loadData();
+        },
+        destroyDaedalus(id: number) {
+            DaedalusService.destroyDaedalus(id).then(() => {
+                this.loadData();
+            });
+        },
+        destroyAllDaedaluses() {
+            DaedalusService.destroyAllDaedaluses().then(() => {
+                this.loadData();
+            });
         }
     },
     beforeMount() {

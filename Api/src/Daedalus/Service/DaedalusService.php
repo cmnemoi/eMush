@@ -48,6 +48,7 @@ class DaedalusService implements DaedalusServiceInterface
     private RoomLogServiceInterface $roomLogService;
     private LocalizationConfigRepository $localizationConfigRepository;
     private DaedalusInfoRepository $daedalusInfoRepository;
+    private DaedalusRepository $daedalusRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -58,7 +59,8 @@ class DaedalusService implements DaedalusServiceInterface
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
         LocalizationConfigRepository $localizationConfigRepository,
-        DaedalusInfoRepository $daedalusInfoRepository
+        DaedalusInfoRepository $daedalusInfoRepository,
+        DaedalusRepository $daedalusRepository
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
@@ -69,6 +71,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->roomLogService = $roomLogService;
         $this->localizationConfigRepository = $localizationConfigRepository;
         $this->daedalusInfoRepository = $daedalusInfoRepository;
+        $this->daedalusRepository = $daedalusRepository;
     }
 
     /**
@@ -394,6 +397,11 @@ class DaedalusService implements DaedalusServiceInterface
         }
 
         return $daedalus;
+    }
+
+    public function findAllNonFinishedDaedaluses(): DaedalusCollection
+    {
+        return new DaedalusCollection($this->daedalusRepository->findNonFinishedDaedaluses());
     }
 
     private function getValueInInterval(int $value, ?int $min, ?int $max): int

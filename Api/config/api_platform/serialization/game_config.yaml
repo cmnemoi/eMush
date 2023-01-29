@@ -4,35 +4,11 @@ Mush\Game\Entity\GameConfig:
       groups: [ 'game_config_read' ]
     name:
       groups: [ 'game_config_read', 'game_config_write' ]
-    nbMush:
+    daedalusConfig:
       groups: [ 'game_config_read', 'game_config_write' ]
-    cyclePerGameDay:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    cycleLength:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    timeZone:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    maxNumberPrivateChannel:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    language:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    initHealthPoint:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    maxHealthPoint:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    initMoralPoint:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    maxMoralPoint:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    initSatiety:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    initActionPoint:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    maxActionPoint:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    initMovementPoint:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    maxMovementPoint:
-      groups: [ 'game_config_read', 'game_config_write' ]
-    maxItemInInventory:
-      groups: [ 'game_config_read', 'game_config_write' ]
+    charactersConfig:
+      groups: [ 'game_config_write' ]
+    equipmentsConfig:
+      groups: [ 'game_config_write' ]
+    statusConfigs:
+      groups: [ 'game_config_write' ]

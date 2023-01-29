@@ -186,22 +186,10 @@
 		},
 		"gameConfig": {
 			"name": "Name",
-			"language": "Language",
-			"timeZone": "Timezone",
-			"nbMush": "Initial amount of Mush players",
-			"cyclePerGameDay": "Cycles per day",
-			"cycleLength": "Cycle length",
-			"maxNumberPrivateChannel": "Maximum amount of private channels",
-			"maxItemInInventory": "Maximum amount of items in inventory",
-			"initSatiety": "Initial satiety",
-			"initHealthPoint": "Initial Health Points",
-			"maxHealthPoint": "Maximum Health Points amount",
-			"initMoralPoint": "Initial Morale Points",
-			"maxMoralPoint": "Maximum Morale Points amount",
-			"initActionPoint": "Initial Action Points",
-			"maxActionPoint": "Maximum Action Points amount",
-			"initMovementPoint": "Initial Movement Points",
-			"maxMovementPoint": "Maximum Movement Points amount"
+			"daedalusConfig": "Daedalus config",
+			"characterConfigs": "Characters",
+			"statusConfigs": "Statuses",
+			"equipmentConfigs": "Equipment"
 		},
 		"modifierConfig": {
 			"name": "Name",

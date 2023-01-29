@@ -94,8 +94,12 @@ class GameConfig
     /**
      * @param Collection<int, CharacterConfig> $charactersConfig
      */
-    public function setCharactersConfig(Collection $charactersConfig): static
+    public function setCharactersConfig(Collection|array $charactersConfig): static
     {
+        if (is_array($charactersConfig)) {
+            $charactersConfig = new ArrayCollection($charactersConfig);
+        }
+
         $this->charactersConfig = $charactersConfig;
 
         return $this;
@@ -135,8 +139,12 @@ class GameConfig
         return $this->equipmentsConfig;
     }
 
-    public function setEquipmentsConfig(Collection $equipmentsConfig): static
+    public function setEquipmentsConfig(Collection|array $equipmentsConfig): static
     {
+        if (is_array($equipmentsConfig)) {
+            $equipmentsConfig = new ArrayCollection($equipmentsConfig);
+        }
+
         $this->equipmentsConfig = $equipmentsConfig;
 
         return $this;
@@ -236,8 +244,12 @@ class GameConfig
     /**
      * @param Collection<int, StatusConfig> $statusConfigs
      */
-    public function setStatusConfigs(Collection $statusConfigs): static
+    public function setStatusConfigs(Collection|array $statusConfigs): static
     {
+        if (is_array($statusConfigs)) {
+            $statusConfigs = new ArrayCollection($statusConfigs);
+        }
+
         $this->statusConfigs = $statusConfigs;
 
         return $this;

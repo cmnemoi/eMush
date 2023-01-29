@@ -57,10 +57,10 @@ export class DaedalusConfig {
             this.nbMush = object.nbMush;
             this.cyclePerGameDay = object.cyclePerGameDay;
             this.cycleLength = object.cycleLength;
-            if (object.randomItemPlaces) {
+            if (typeof object.randomItemPlaces !== "undefined") {
                 this.randomItemPlaces = (new RandomItemPlaces()).load(object.randomItemPlaces);
             }
-            if (object.placeConfigs) {
+            if (typeof object.placeConfigs !== "undefined") {
                 this.placeConfigs = [];
                 for (const placeConfig of object.placeConfigs) {
                     this.placeConfigs.push(new PlaceConfig().load(placeConfig));

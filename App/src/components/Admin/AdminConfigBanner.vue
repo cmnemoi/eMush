@@ -1,6 +1,7 @@
 <template>
     <div class="banner">
         <div class="admin-menu">
+            <router-link :to="{ name: 'AdminGameConfigList' }">Game Config</router-link>
             <router-link :to="{ name: 'AdminDaedalusConfigList' }">Daedalus Config</router-link>
             <router-link :to="{ name: 'AdminDifficultyConfigList' }">Difficulty Config</router-link>
             <router-link :to="{ name: 'AdminCharacterConfigList' }">Character Config</router-link>
@@ -16,7 +17,7 @@
             <router-link :to="{ name: 'AdminModifierConfigList' }">Modifier Config</router-link>
             <router-link :to="{ name: 'AdminModifierActivationRequirementList' }">Modifier Requirements</router-link>
             <router-link :to="{ name: 'AdminSymptomConfigList' }">Symptom Config</router-link>
-            <router-link :to="{ name: 'AdminSymptomActivationRequirementList' }">Symptom Requirement</router-link>
+            <router-link :to="{ name: 'AdminSymptomActivationRequirementList' }">Symptom Requirements</router-link>
         </div>
         <div class="admin-menu">
             <router-link :to="{ name: 'AdminStatusConfigList' }">Status Config</router-link>

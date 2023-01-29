@@ -106,6 +106,10 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
 
         $diseaseName = $this->randomService->getSingleRandomElementFromProbaArray($newDiseaseProbaArray);
 
+        if ($diseaseName === null) {
+            return;
+        }
+
         $this->playerDiseaseService->createDiseaseFromName($diseaseName, $player, $cause, $delayMin, $delayLength);
     }
 }

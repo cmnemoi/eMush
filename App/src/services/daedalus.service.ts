@@ -14,6 +14,10 @@ const DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedaluses");
 const CREATE_DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedaluses/create-daedalus");
 // @ts-ignore
 const CLOSED_DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "closed_daedaluses");
+// @ts-ignore
+const DESTROY_DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedaluses/destroy-daedalus");
+// @ts-ignore
+const DESTROY_ALL_DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedaluses/destroy-all-daedaluses");
 
 const DaedalusService = {
     loadAlerts: async (daedalus: Daedalus): Promise<Alert[]> => {
@@ -58,6 +62,20 @@ const DaedalusService = {
 
         return closedDaedalus;
     },
+    destroyDaedalus: async (daedalusId: integer): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = ApiService.post(DESTROY_DAEDALUS_ENDPOINT + '/' + daedalusId);
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
+    destroyAllDaedaluses: async (): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = ApiService.post(DESTROY_ALL_DAEDALUS_ENDPOINT);
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    }
 
 };
 export default DaedalusService;

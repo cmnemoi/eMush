@@ -234,6 +234,8 @@
 			"isNotSuperDirty": "Is not super dirty"
 		},
 		"daedalus": {
+			"destroy": "Destroy",
+			"destroyAllDaedaluses": "Destroy all Daedaluses",
 			"createDaedalus": "Create a Daedalus",
 			"name": "Daedalus name :",
 			"create": "Create a Daedalus",

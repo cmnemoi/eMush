@@ -12,6 +12,7 @@ use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
 use Mush\User\Enum\RoleEnum;
@@ -168,6 +169,82 @@ class DaedalusController extends AbstractFOSRestController
             $daedalusCreateRequest->getName(),
             $daedalusCreateRequest->getLanguage()
         );
+
+        return $this->view(null, 200);
+    }
+
+    /**
+     * Destroy the specified Daedalus.
+     *
+     * @OA\Tag (name="Daedalus")
+     *
+     * @Security (name="Bearer")
+     *
+     * @Rest\Post(path="/destroy-daedalus/{id}", requirements={"id"="\d+"})
+     */
+    public function destroyDaedalus(Request $request): View
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $userRoles = $user->getRoles();
+        if (!(in_array(RoleEnum::SUPER_ADMIN, $userRoles, true) ||
+            in_array(RoleEnum::ADMIN, $userRoles, true))) {
+            throw new AccessDeniedException('User is not an admin');
+        }
+
+        $daedalusId = $request->get('id');
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $this->daedalusService->findById($daedalusId);
+        if ($daedalus === null) {
+            return $this->view(['error' => 'Daedalus not found'], 404);
+        }
+        if ($daedalus->getDaedalusInfo()->isDaedalusFinished()) {
+            return $this->view(['error' => 'Daedalus is already finished'], 400);
+        }
+
+        $this->daedalusService->endDaedalus(
+            $daedalus,
+            EndCauseEnum::SUPER_NOVA,
+            new \DateTime()
+        );
+
+        return $this->view(null, 200);
+    }
+
+    /**
+     * Destroy all non finished Daedaluses.
+     *
+     * @OA\Tag (name="Daedalus")
+     *
+     * @Security (name="Bearer")
+     *
+     * @Rest\Post(path="/destroy-all-daedaluses")
+     */
+    public function destroyAllDaedaluses(): View
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $userRoles = $user->getRoles();
+        if (!(in_array(RoleEnum::SUPER_ADMIN, $userRoles, true) ||
+            in_array(RoleEnum::ADMIN, $userRoles, true))) {
+            throw new AccessDeniedException('User is not an admin');
+        }
+
+        $daedaluses = $this->daedalusService->findAllNonFinishedDaedaluses();
+        if (count($daedaluses) === 0) {
+            return $this->view(['error' => 'No daedaluses found'], 404);
+        }
+
+        foreach ($daedaluses as $daedalus) {
+            $this->daedalusService->endDaedalus(
+                $daedalus,
+                EndCauseEnum::SUPER_NOVA,
+                new \DateTime()
+            );
+        }
 
         return $this->view(null, 200);
     }

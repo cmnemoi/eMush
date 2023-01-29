@@ -59,6 +59,8 @@ class DaedalusServiceTest extends TestCase
     private LocalizationConfigRepository $localizationConfigRepository;
     /** @var DaedalusInfoRepository|Mockery\Mock */
     private DaedalusInfoRepository $daedalusInfoRepository;
+    /** @var DaedalusRepository|Mockery\Mock */
+    private DaedalusRepository $daedalusRepository;
 
     private DaedalusService $service;
 
@@ -76,6 +78,7 @@ class DaedalusServiceTest extends TestCase
         $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
         $this->localizationConfigRepository = \Mockery::mock(LocalizationConfigRepository::class);
         $this->daedalusInfoRepository = \Mockery::mock(DaedalusInfoRepository::class);
+        $this->daedalusRepository = \Mockery::mock(DaedalusRepository::class);
 
         $this->service = new DaedalusService(
             $this->entityManager,
@@ -86,7 +89,8 @@ class DaedalusServiceTest extends TestCase
             $this->randomService,
             $this->roomLogService,
             $this->localizationConfigRepository,
-            $this->daedalusInfoRepository
+            $this->daedalusInfoRepository,
+            $this->daedalusRepository
         );
     }
 

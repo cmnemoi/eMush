@@ -234,6 +234,8 @@
 			"isNotSuperDirty": "N'est pas super salissant"
 		},
 		"daedalus": {
+			"destroy": "Détruire",
+			"destroyAllDaedaluses": "Détruire tous les Daedalus",
 			"createDaedalus": "Créer un Daedalus",
 			"name": "Nom du Daedalus :",
 			"create": "Créer un Daedalus",

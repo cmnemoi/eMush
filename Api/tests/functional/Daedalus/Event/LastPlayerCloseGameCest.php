@@ -487,7 +487,7 @@ class LastPlayerCloseGameCest
         $alertFire = new Alert();
         $alertFire
             ->setDaedalus($daedalus)
-            ->setName(AlertEnum::FIRES)
+            ->setName(AlertEnum::HUNGER)
             ->addAlertElement($reportedAlert)
         ;
 

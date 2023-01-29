@@ -2,6 +2,7 @@
 
 namespace Mush\Alert\Listener;
 
+use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertService;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -29,6 +30,9 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $alerts = $this->alertService->findByDaedalus($daedalus);
 
         foreach ($alerts as $alert) {
+            if ($alert->getName() === AlertEnum::FIRES) {
+                continue;
+            }
             $this->alertService->delete($alert);
         }
     }

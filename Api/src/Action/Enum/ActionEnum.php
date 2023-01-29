@@ -194,10 +194,6 @@ class ActionEnum
     public static function getActionPointModifierProtectedActions(): array
     {
         return [
-            self::SURGERY,
-            self::SELF_SURGERY,
-            self::CONSUME,
-            self::CONSUME_DRUG,
             self::REJUVENATE,
             self::SUICIDE,
             self::AUTO_DESTROY,

@@ -5,12 +5,14 @@ namespace Mush\Modifier\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Modifier\Entity\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -29,6 +31,38 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
     public function load(ObjectManager $manager): void
     {
+        /** @var ModifierActivationRequirement $notConsumeActionActivationRequirement */
+        $notConsumeActionActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::NOT_REASON);
+        $notConsumeActionActivationRequirement
+            ->setActivationRequirement(ActionEnum::CONSUME)
+            ->buildName()
+        ;
+        $manager->persist($notConsumeActionActivationRequirement);
+
+        /** @var ModifierActivationRequirement $notConsumeDrugActionActivationRequirement */
+        $notConsumeDrugActionActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::NOT_REASON);
+        $notConsumeDrugActionActivationRequirement
+            ->setActivationRequirement(ActionEnum::CONSUME_DRUG)
+            ->buildName()
+        ;
+        $manager->persist($notConsumeDrugActionActivationRequirement);
+
+        /** @var ModifierActivationRequirement $notSurgeryActionActivationRequirement */
+        $notSurgeryActionActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::NOT_REASON);
+        $notSurgeryActionActivationRequirement
+            ->setActivationRequirement(ActionEnum::SURGERY)
+            ->buildName()
+        ;
+        $manager->persist($notSurgeryActionActivationRequirement);
+
+        /** @var ModifierActivationRequirement $notSelfSurgeryActivationRequirement */
+        $notSelfSurgeryActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::NOT_REASON);
+        $notSelfSurgeryActivationRequirement
+            ->setActivationRequirement(ActionEnum::SELF_SURGERY)
+            ->buildName()
+        ;
+        $manager->persist($notSelfSurgeryActivationRequirement);
+
         /** @var ModifierActivationRequirement $notMoveActionActivationRequirement */
         $notMoveActionActivationRequirement = $this->getReference(DisorderModifierConfigFixtures::NOT_REASON_MOVE);
 
@@ -40,6 +74,10 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($notMoveActionActivationRequirement)
+            ->addModifierRequirement($notConsumeActionActivationRequirement)
+            ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
+            ->addModifierRequirement($notSurgeryActionActivationRequirement)
+            ->addModifierRequirement($notSelfSurgeryActivationRequirement)
             ->buildName()
         ;
         $manager->persist($notMoveAction1Increase);
@@ -52,6 +90,10 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($notMoveActionActivationRequirement)
+            ->addModifierRequirement($notConsumeActionActivationRequirement)
+            ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
+            ->addModifierRequirement($notSurgeryActionActivationRequirement)
+            ->addModifierRequirement($notSelfSurgeryActivationRequirement)
             ->buildName()
         ;
         $manager->persist($notMoveAction2Increase);
@@ -64,6 +106,10 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($notMoveActionActivationRequirement)
+            ->addModifierRequirement($notConsumeActionActivationRequirement)
+            ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
+            ->addModifierRequirement($notSurgeryActionActivationRequirement)
+            ->addModifierRequirement($notSelfSurgeryActivationRequirement)
             ->buildName()
         ;
         $manager->persist($notMoveAction3Increase);

@@ -15,6 +15,12 @@
                 <span>{{ child.id }} - {{ child.name }}</span>
             </template>
         </ChildManager>
+        <h3>{{ $t("admin.gameConfig.difficultyConfig") }}</h3>
+        <ChildManager :child="gameConfig.difficultyConfig" @addID="selectNewDifficultyConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildManager>
         <h3>{{ $t("admin.gameConfig.characterConfigs") }}</h3>
         <ChildCollectionManager :children="gameConfig.charactersConfig" @addId="addNewCharacterConfig" @remove="removeCharacterConfig">
             <template #header="child">
@@ -33,6 +39,30 @@
                 <span>{{ child.id }} - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.triumphConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.triumphConfig" @addId="addNewTriumphConfig" @remove="removeTriumphConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.diseaseCauseConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.diseaseCauseConfig" @addId="addNewDiseaseCauseConfig" @remove="removeDiseaseCauseConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.diseaseConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.diseaseConfig" @addId="addNewDiseaseConfig" @remove="removeDiseaseConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.consumableDiseaseConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.consumableDiseaseConfig" @addId="addNewConsumableDiseaseConfig" @remove="removeConsumableDiseaseConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
         <button class="action-button" type="submit" @click="update">
             {{ $t('admin.save') }}
         </button>
@@ -43,10 +73,15 @@
 import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
 import { CharacterConfig } from "@/entities/Config/CharacterConfig";
+import { ConsumableDiseaseConfig } from "@/entities/Config/ConsumableDiseaseConfig";
 import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
+import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
+import { DiseaseCauseConfig } from "@/entities/Config/DiseaseCauseConfig";
+import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
 import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { GameConfig } from "@/entities/Config/GameConfig";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
+import { TriumphConfig } from "@/entities/Config/TriumphConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import ChildManager from "@/components/Utils/ChildManager.vue";
@@ -54,6 +89,8 @@ import Input from "@/components/Utils/Input.vue";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import { removeItem } from "@/utils/misc";
+import { resourceLimits } from "worker_threads";
+import { gameConfig } from "@/store/game_config.module";
 
 interface GameConfigState {
     gameConfig: null|GameConfig
@@ -79,6 +116,7 @@ export default defineComponent({
                 return;
             }
             this.errors = {};
+            // @ts-ignore
             GameConfigService.updateGameConfig(this.gameConfig)
                 .then((res: GameConfig | null) => {
                     this.gameConfig = res;
@@ -90,6 +128,15 @@ export default defineComponent({
 
                                 if (this.gameConfig instanceof GameConfig) {
                                     this.gameConfig.daedalusConfig = daedalusConfig;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'difficulty_config'))
+                            .then((result) => {
+                                const difficultyConfig: DifficultyConfig = new DifficultyConfig();
+                                difficultyConfig.load(result.data);
+
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.difficultyConfig = difficultyConfig;
                                 }
                             });
                         ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'characters_configs'))
@@ -123,6 +170,50 @@ export default defineComponent({
                             
                                 if (this.gameConfig instanceof GameConfig) {
                                     this.gameConfig.statusConfigs = statusConfigs;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'triumph_configs?pagination=false'))
+                            .then((result) => {
+                                const triumphConfigs: TriumphConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    triumphConfigs.push((new TriumphConfig()).load(datum));
+                                });
+                            
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.triumphConfig = triumphConfigs;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'disease_cause_configs?pagination=false'))
+                            .then((result) => {
+                                const diseaseCauseConfigs: DiseaseCauseConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    diseaseCauseConfigs.push((new DiseaseCauseConfig()).load(datum));
+                                });
+                            
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.diseaseCauseConfig = diseaseCauseConfigs;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'disease_configs?pagination=false'))
+                            .then((result) => {
+                                const diseaseConfigs: DiseaseConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    diseaseConfigs.push((new DiseaseConfig()).load(datum));
+                                });
+                            
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.diseaseConfig = diseaseConfigs;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'consumable_disease_configs?pagination=false'))
+                            .then((result) => {
+                                const consumableDiseaseConfigs: ConsumableDiseaseConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    consumableDiseaseConfigs.push((new ConsumableDiseaseConfig()).load(datum));
+                                });
+
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.consumableDiseaseConfig = consumableDiseaseConfigs;
                                 }
                             });
                     }
@@ -184,6 +275,61 @@ export default defineComponent({
                 }
             });
         },
+        selectNewDifficultyConfig(selectedId: integer){
+            GameConfigService.loadDifficultyConfig(selectedId).then((res) => {
+                if (res && this.gameConfig){
+                    this.gameConfig.difficultyConfig = res;
+                }
+            });
+        },
+        addNewTriumphConfig(selectedId: integer){
+            GameConfigService.loadTriumphConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.triumphConfig){
+                    this.gameConfig.triumphConfig.push(res);
+                }
+            });
+        },
+        removeTriumphConfig(triumphConfig: any){
+            if (this.gameConfig && this.gameConfig.triumphConfig){
+                this.gameConfig.triumphConfig = removeItem(this.gameConfig.triumphConfig, triumphConfig);
+            }
+        },
+        addNewDiseaseCauseConfig(selectedId: integer){
+            GameConfigService.loadDiseaseCauseConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.diseaseCauseConfig){
+                    this.gameConfig.diseaseCauseConfig.push(res);
+                }
+            });
+        },
+        removeDiseaseCauseConfig(diseaseCauseConfig: any){
+            if (this.gameConfig && this.gameConfig.diseaseCauseConfig){
+                this.gameConfig.diseaseCauseConfig = removeItem(this.gameConfig.diseaseCauseConfig, diseaseCauseConfig);
+            }
+        },
+        addNewDiseaseConfig(selectedId: integer){
+            GameConfigService.loadDiseaseConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.diseaseConfig){
+                    this.gameConfig.diseaseConfig.push(res);
+                }
+            });
+        },
+        removeDiseaseConfig(diseaseConfig: any){
+            if (this.gameConfig && this.gameConfig.diseaseConfig){
+                this.gameConfig.diseaseConfig = removeItem(this.gameConfig.diseaseConfig, diseaseConfig);
+            }
+        },
+        addConsumableDiseaseConfig(selectedId: integer){
+            GameConfigService.loadConsumableDiseaseConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.consumableDiseaseConfig){
+                    this.gameConfig.consumableDiseaseConfig.push(res);
+                }
+            });
+        },
+        removeConsumableDiseaseConfig(consumableDiseaseConfig: any){
+            if (this.gameConfig && this.gameConfig.consumableDiseaseConfig){
+                this.gameConfig.consumableDiseaseConfig = removeItem(this.gameConfig.consumableDiseaseConfig, consumableDiseaseConfig);
+            }
+        },
     },
     beforeMount() {
         const gameConfigId = Number(this.$route.params.gameConfigId);
@@ -196,6 +342,15 @@ export default defineComponent({
 
                     if (this.gameConfig instanceof GameConfig) {
                         this.gameConfig.daedalusConfig = daedalusConfig;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs', String(gameConfigId), 'difficulty_config'))
+                .then((result) => {
+                    const difficultyConfig: DifficultyConfig = new DifficultyConfig();
+                    difficultyConfig.load(result.data);
+
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.difficultyConfig = difficultyConfig;
                     }
                 });
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs', String(gameConfigId), 'characters_configs'))
@@ -229,6 +384,50 @@ export default defineComponent({
                     
                     if (this.gameConfig instanceof GameConfig) {
                         this.gameConfig.statusConfigs = statusConfigs;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'triumph_configs?pagination=false'))
+                .then((result) => {
+                    const triumphConfigs: TriumphConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        triumphConfigs.push((new TriumphConfig()).load(datum));
+                    });
+                    
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.triumphConfig = triumphConfigs;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'disease_cause_configs?pagination=false'))
+                .then((result) => {
+                    const diseaseCauseConfigs: DiseaseCauseConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        diseaseCauseConfigs.push((new DiseaseCauseConfig()).load(datum));
+                    });
+                    
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.diseaseCauseConfig = diseaseCauseConfigs;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'disease_configs?pagination=false'))
+                .then((result) => {
+                    const diseaseConfigs: DiseaseConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        diseaseConfigs.push((new DiseaseConfig()).load(datum));
+                    });
+                    
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.diseaseConfig = diseaseConfigs;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'consumable_disease_configs?pagination=false'))
+                .then((result) => {
+                    const consumableDiseaseConfigs: ConsumableDiseaseConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        consumableDiseaseConfigs.push((new ConsumableDiseaseConfig()).load(datum));
+                    });
+                    
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.consumableDiseaseConfig = consumableDiseaseConfigs;
                     }
                 });
         });

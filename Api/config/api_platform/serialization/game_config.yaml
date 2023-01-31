@@ -6,9 +6,19 @@ Mush\Game\Entity\GameConfig:
       groups: [ 'game_config_read', 'game_config_write' ]
     daedalusConfig:
       groups: [ 'game_config_read', 'game_config_write' ]
+    difficultyConfig:
+      groups: [ 'game_config_read', 'game_config_write' ]
     charactersConfig:
       groups: [ 'game_config_write' ]
     equipmentsConfig:
       groups: [ 'game_config_write' ]
     statusConfigs:
+      groups: [ 'game_config_write' ]
+    triumphConfig:
+      groups: [ 'game_config_write' ]
+    diseaseCauseConfig:
+      groups: [ 'game_config_write' ]
+    diseaseConfig:
+      groups: [ 'game_config_write' ]
+    consumableDiseaseConfig:
       groups: [ 'game_config_write' ]

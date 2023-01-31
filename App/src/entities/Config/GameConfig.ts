@@ -2,6 +2,11 @@ import { CharacterConfig } from "@/entities/Config/CharacterConfig";
 import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
 import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
+import { TriumphConfig } from "@/entities/Config/TriumphConfig";
+import { DiseaseCauseConfig } from "@/entities/Config/DiseaseCauseConfig";
+import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
+import { ConsumableDiseaseConfig } from "@/entities/Config/ConsumableDiseaseConfig";
+import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
 
 export class GameConfig {
     public iri: string|null;
@@ -11,6 +16,11 @@ export class GameConfig {
     public charactersConfig: CharacterConfig[]|null;
     public equipmentsConfig: EquipmentConfig[]|null;
     public statusConfigs: StatusConfig[]|null;
+    public triumphConfig: TriumphConfig[]|null;
+    public diseaseCauseConfig: DiseaseCauseConfig[]|null;
+    public diseaseConfig: DiseaseConfig[]|null;
+    public consumableDiseaseConfig: ConsumableDiseaseConfig[]|null;
+    public difficultyConfig: DifficultyConfig|null;
 
     constructor() {
         this.iri = null;
@@ -20,6 +30,11 @@ export class GameConfig {
         this.charactersConfig = null;
         this.equipmentsConfig = null;
         this.statusConfigs = null;
+        this.triumphConfig = null;
+        this.diseaseCauseConfig = null;
+        this.diseaseConfig = null;
+        this.consumableDiseaseConfig = null;
+        this.difficultyConfig = null;
     }
     load(object:any) : GameConfig {
         if (typeof object !== "undefined") {
@@ -53,6 +68,42 @@ export class GameConfig {
                 });
                 this.statusConfigs = statusConfigs;
             }
+            if (typeof object.triumphConfig !== "undefined") {
+                const triumphConfigs : TriumphConfig[] = [];
+                object.triumphConfig.forEach((triumphConfigData: any) => {
+                    const triumphConfig = (new TriumphConfig()).load(triumphConfigData);
+                    triumphConfigs.push(triumphConfig);
+                });
+                this.triumphConfig = triumphConfigs;
+            }
+            if (typeof object.diseaseCauseConfig !== "undefined") {
+                const diseaseCauseConfigs : DiseaseCauseConfig[] = [];
+                object.diseaseCauseConfig.forEach((diseaseCauseConfigData: any) => {
+                    const diseaseCauseConfig = (new DiseaseCauseConfig()).load(diseaseCauseConfigData);
+                    diseaseCauseConfigs.push(diseaseCauseConfig);
+                });
+                this.diseaseCauseConfig = diseaseCauseConfigs;
+            }
+            if (typeof object.diseaseConfig !== "undefined") {
+                const diseaseConfigs : DiseaseConfig[] = [];
+                object.diseaseConfig.forEach((diseaseConfigData: any) => {
+                    const diseaseConfig = (new DiseaseConfig()).load(diseaseConfigData);
+                    diseaseConfigs.push(diseaseConfig);
+                });
+                this.diseaseConfig = diseaseConfigs;
+            }
+            if (typeof object.consumableDiseaseConfig !== "undefined") {
+                const consumableDiseaseConfigs : ConsumableDiseaseConfig[] = [];
+                object.consumableDiseaseConfig.forEach((consumableDiseaseConfigData: any) => {
+                    const consumableDiseaseConfig = (new ConsumableDiseaseConfig()).load(consumableDiseaseConfigData);
+                    consumableDiseaseConfigs.push(consumableDiseaseConfig);
+                });
+                this.consumableDiseaseConfig = consumableDiseaseConfigs;
+            }
+            if (typeof object.difficultyConfig !== "undefined") {
+                this.difficultyConfig = (new DifficultyConfig()).load(object.difficultyConfig);
+            }
+
         }
         return this;
     }
@@ -63,6 +114,14 @@ export class GameConfig {
         this.equipmentsConfig?.forEach(equipmentConfig => (typeof equipmentConfig.iri === 'string' ? equipmentsConfig.push(equipmentConfig.iri) : null));
         const statusConfigs : string[] = [];
         this.statusConfigs?.forEach(statusConfig => (typeof statusConfig.iri === 'string' ? statusConfigs.push(statusConfig.iri) : null));
+        const triumphConfigs : string[] = [];
+        this.triumphConfig?.forEach(triumphConfig => (typeof triumphConfig.iri === 'string' ? triumphConfigs.push(triumphConfig.iri) : null));
+        const diseaseCauseConfigs : string[] = [];
+        this.diseaseCauseConfig?.forEach(diseaseCauseConfig => (typeof diseaseCauseConfig.iri === 'string' ? diseaseCauseConfigs.push(diseaseCauseConfig.iri) : null));
+        const diseaseConfigs : string[] = [];
+        this.diseaseConfig?.forEach(diseaseConfig => (typeof diseaseConfig.iri === 'string' ? diseaseConfigs.push(diseaseConfig.iri) : null));
+        const consumableDiseaseConfigs : string[] = [];
+        this.consumableDiseaseConfig?.forEach(consumableDiseaseConfig => (typeof consumableDiseaseConfig.iri === 'string' ? consumableDiseaseConfigs.push(consumableDiseaseConfig.iri) : null));
         const data : any = {
             'id': this.id,
             'name': this.name,
@@ -70,6 +129,11 @@ export class GameConfig {
             'charactersConfig': charactersConfig,
             'equipmentsConfig': equipmentsConfig,
             'statusConfigs': statusConfigs,
+            'triumphConfig': triumphConfigs,
+            'diseaseCauseConfig': diseaseCauseConfigs,
+            'diseaseConfig': diseaseConfigs,
+            'consumableDiseaseConfig': consumableDiseaseConfigs,
+            'difficultyConfig': this.difficultyConfig?.iri,
         };
 
         return data;

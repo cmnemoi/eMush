@@ -78,11 +78,9 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onEndPlayer(PlayerEvent $event): void
     {
-        $player = $event->getPlayer();
-        $playerInfo = $player->getPlayerInfo();
-        $daedalus = $player->getDaedalus();
+        $daedalus = $event->getPlayer()->getDaedalus();
 
-        if ($daedalus->getPlayers()->filter(fn (Player $player) => $playerInfo->getGameStatus() !== GameStatusEnum::CLOSED)->isEmpty() &&
+        if ($daedalus->getPlayers()->filter(fn (Player $player) => $player->getPlayerInfo()->getGameStatus() !== GameStatusEnum::CLOSED)->isEmpty() &&
             $daedalus->getGameStatus() === GameStatusEnum::FINISHED
         ) {
             $this->daedalusService->closeDaedalus($daedalus, $event->getReason(), $event->getTime());

@@ -34,3 +34,22 @@ Mush\Game\Entity\GameConfig:
       subresource:
         resourceClass: 'Mush\Status\Entity\Config\StatusConfig'
         collection: true
+    triumphConfig:
+      subresource:
+        resourceClass: 'Mush\Game\Entity\TriumphConfig'
+        collection: true
+    diseaseCauseConfig:
+      subresource:
+        resourceClass: 'Mush\Disease\Entity\DiseaseCauseConfig'
+        collection: true
+    diseaseConfig:
+      subresource:
+        resourceClass: 'Mush\Disease\Entity\DiseaseConfig'
+        collection: true
+    consumableDiseaseConfig:
+      subresource:
+        resourceClass: 'Mush\Disease\Entity\ConsumableConfig'
+        collection: true
+    difficultyConfig:
+      subresource:
+        resourceClass: 'Mush\Game\Entity\DifficultyConfig'

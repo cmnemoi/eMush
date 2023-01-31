@@ -120,8 +120,12 @@ class GameConfig
     /**
      * @param Collection<int, TriumphConfig> $triumphConfig
      */
-    public function setTriumphConfig(Collection $triumphConfig): self
+    public function setTriumphConfig(Collection|array $triumphConfig): self
     {
+        if (is_array($triumphConfig)) {
+            $triumphConfig = new ArrayCollection($triumphConfig);
+        }
+
         $this->triumphConfig = $triumphConfig;
 
         return $this;
@@ -165,8 +169,12 @@ class GameConfig
     /**
      * @param Collection<int, DiseaseCauseConfig> $diseaseCauseConfig
      */
-    public function setDiseaseCauseConfig(Collection $diseaseCauseConfig): static
+    public function setDiseaseCauseConfig(Collection|array $diseaseCauseConfig): static
     {
+        if (is_array($diseaseCauseConfig)) {
+            $diseaseCauseConfig = new ArrayCollection($diseaseCauseConfig);
+        }
+
         $this->diseaseCauseConfig = $diseaseCauseConfig;
 
         return $this;
@@ -184,8 +192,12 @@ class GameConfig
         return $this->diseaseConfig;
     }
 
-    public function setDiseaseConfig(Collection $diseaseConfig): static
+    public function setDiseaseConfig(Collection|array $diseaseConfig): static
     {
+        if (is_array($diseaseConfig)) {
+            $diseaseConfig = new ArrayCollection($diseaseConfig);
+        }
+
         $this->diseaseConfig = $diseaseConfig;
 
         return $this;
@@ -203,8 +215,12 @@ class GameConfig
         return $this->consumableDiseaseConfig;
     }
 
-    public function setConsumableDiseaseConfig(Collection $consumableDiseaseConfig): static
+    public function setConsumableDiseaseConfig(Collection|array $consumableDiseaseConfig): static
     {
+        if (is_array($consumableDiseaseConfig)) {
+            $consumableDiseaseConfig = new ArrayCollection($consumableDiseaseConfig);
+        }
+
         $this->consumableDiseaseConfig = $consumableDiseaseConfig;
 
         return $this;

@@ -187,9 +187,14 @@
 		"gameConfig": {
 			"name": "Name",
 			"daedalusConfig": "Daedalus config",
+			"difficultyConfig": "Difficulty config",
 			"characterConfigs": "Characters",
 			"statusConfigs": "Statuses",
-			"equipmentConfigs": "Equipment"
+			"equipmentConfigs": "Equipment",
+			"triumphConfigs": "Triumph configs",
+			"diseaseCauseConfigs": "Disease causes",
+			"diseaseConfigs": "Diseases",
+			"consumableDiseaseConfigs": "Consumable disease configs"
 		},
 		"modifierConfig": {
 			"name": "Name",

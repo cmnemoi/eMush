@@ -310,7 +310,7 @@
     <unit id="burnt">
       <segment id="name" state="translated">
         <source>burnt.name</source>
-        <target>Burnt</target>
+        <target>Burned</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>burnt.short_name</source>
@@ -322,17 +322,17 @@
       </segment>
       <segment id="description" state="translated">
         <source>burnt.description</source>
-        <target>You are burnt to death. Fires are commonplace on the Daedalus even if NERON does its best to contain them.</target>
+        <target>You're stone dead. Burned alive. Fires are commonplace on the Daedalus even if NERON does its best to contain them.</target>
       </segment>
     </unit>
     <unit id="clumsiness">
       <segment id="name" state="translated">
         <source>clumsiness.name</source>
-        <target>Unfortunate circumstances</target>
+        <target>Putting the 'fun' in funeral</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>clumsiness.short_name</source>
-        <target>So bad that one little thing finished you off...</target>
+        <target>So badly in fact that you've achieved nothing at all...</target>
       </segment>
       <segment id="category" state="translated">
         <source>clumsiness.category</source>
@@ -340,7 +340,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>clumsiness.description</source>
-        <target>Whatever you did, you did it bad. Very badly. So badly that you hurt yourself. And not just a little. Too bad.</target>
+        <target>Whatever you did, you did it badly. Very badly. So badly that you hurt yourself. And not just a little bit. What a shame.</target>
       </segment>
     </unit>
     <unit id="space_battle">
@@ -358,7 +358,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>space_battle.description</source>
-        <target>You fell in the field of honour, it was a close call but this last hunter was really too skillful.</target>
+        <target>You have fallen on the fields of glory, it was so close, but that last hunter really had some serious skills.</target>
       </segment>
     </unit>
     <unit id="space_asphyxiated">

@@ -112,7 +112,7 @@
     <unit id="terminal_role_restricted">
       <segment id="description" state="translated">
         <source>terminal_role_restricted.description</source>
-        <target>You don't have acces to this terminal. The right to acces certain terminals is subject to possessing specific *Titles* or *skills*.</target>
+        <target>You are not permitted to access this terminal. Permission to access certain terminals is granted to only those with certain *Titles* or *Skills*.</target>
       </segment>
     </unit>
     <unit id="terminal_neron_lock">
@@ -124,13 +124,13 @@
     <unit id="explore_nothing_left">
       <segment id="description" state="translated">
         <source>explore_nothing_left.description</source>
-        <target>This planet has already been completely explored, an additional expedition will not bear any fruit.</target>
+        <target>This planet has been fully explored: There is nothing to gain by further exploration.</target>
       </segment>
     </unit>
     <unit id="explore_not_in_orbit">
       <segment id="description" state="translated">
         <source>explore_not_in_orbit.description</source>
-        <target>We are not in orbit. Please consult *Astrophysicists*.</target>
+        <target>We are not currently in orbit. Please consult the *Astrophysicists*.</target>
       </segment>
     </unit>
     <unit id="fire_out_ammunition">
@@ -142,13 +142,13 @@
     <unit id="unloaded_weapon">
       <segment id="description" state="translated">
         <source>unloaded_weapon.description</source>
-        <target>This weapon is not loaded. It will be reloaded during the next cycle changeover.</target>
+        <target>This weapon is not loaded. It will be reloaded when the next cycle begins.</target>
       </segment>
     </unit>
     <unit id="do_the_thing_already_done">
       <segment id="description" state="translated">
         <source>do_the_thing_already_done.description</source>
-        <target>You already did that today.</target>
+        <target>You have already done that today.</target>
       </segment>
     </unit>
     <unit id="do_the_thing_camera">
@@ -166,19 +166,19 @@
     <unit id="do_the_thing_asleep">
       <segment id="description" state="translated">
         <source>do_the_thing_asleep.description</source>
-        <target>This person is asleep, they don't seem too keen to do anything else...</target>
+        <target>This person sleeping, and they don't seem too keen on doing much else...</target>
       </segment>
     </unit>
     <unit id="do_the_thing_not_interested">
       <segment id="description" state="translated">
         <source>do_the_thing_not_interested.description</source>
-        <target>This person has never showed you any affection...</target>
+        <target>This person has never shown any interest in you...</target>
       </segment>
     </unit>
     <unit id="flirt_already_flirted">
       <segment id="description" state="translated">
         <source>flirt_already_flirted.description</source>
-        <target>You are already very close to this person.</target>
+        <target>You are already very close with this person.</target>
       </segment>
     </unit>
     <unit id="flirt_antisocial">
@@ -190,7 +190,7 @@
     <unit id="flirt_same_family">
       <segment id="description" state="translated">
         <source>flirt_same_family.description</source>
-        <target>This flirting is impossible...</target>
+        <target>You cannot flirt with this person...</target>
       </segment>
     </unit>
     <unit id="daily_spore_limit">
@@ -202,7 +202,7 @@
     <unit id="personal_spore_limit">
       <segment id="description" state="translated">
         <source>personal_spore_limit.description</source>
-        <target>You cannont carry more than two spores.</target>
+        <target>You cannot carry more than two spores.</target>
       </segment>
     </unit>
     <unit id="boobytrap_already_done">
@@ -226,13 +226,13 @@
     <unit id="infect_no_spore">
       <segment id="description" state="translated">
         <source>infect_no_spore.description</source>
-        <target>You have to extract spores before you can spike someone.</target>
+        <target>You must extract spores before you can spike someone.</target>
       </segment>
     </unit>
     <unit id="infect_mush">
       <segment id="description" state="translated">
         <source>infect_mush.description</source>
-        <target>The target is already an agent of Mush.</target>
+        <target>This target is already an agent of Mush.</target>
       </segment>
     </unit>
     <unit id="infect_daily_limit">
@@ -268,7 +268,7 @@
     <unit id="wisper_no_available_chanel">
       <segment id="description" state="translated">
         <source>wisper_no_available_chanel.description</source>
-        <target>This crewmate is alreay too involved in other conversations.</target>
+        <target>This crewmate is already too busy with other conversations.</target>
       </segment>
     </unit>
     <unit id="target_already_outcast">
@@ -286,7 +286,7 @@
     <unit id="lonely_aprenticeship">
       <segment id="description" state="translated">
         <source>lonely_aprenticeship.description</source>
-        <target>You will need other crewmembers to do this.</target>
+        <target>You will need other crew members to do this.</target>
       </segment>
     </unit>
     <unit id="list_alredy_printed">
@@ -298,13 +298,13 @@
     <unit id="list_no_mush">
       <segment id="description" state="translated">
         <source>list_no_mush.description</source>
-        <target>What is the point of printing the list if there are no Mush onboard?</target>
+        <target>What is the point of printing the list, if there are no Mush onboard?</target>
       </segment>
     </unit>
     <unit id="issue_mission_already_issued">
       <segment id="description" state="translated">
         <source>issue_mission_already_issued.description</source>
-        <target>You have already delegated a mission, you can do this again tomorrow or sooner if your subordinate refuses.</target>
+        <target>You have already delegated a mission, you can do this again tomorrow, or sooner, if your subordinate refuses.</target>
       </segment>
     </unit>
     <unit id="issue_mission_no_target">

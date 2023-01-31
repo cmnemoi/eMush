@@ -1,5 +1,6 @@
 <template>
     <div class="ship_userShips_container">
+        <h2>{{ username }}</h2>
         <Datatable
             :headers='fields'
             :uri="uri"
@@ -28,6 +29,7 @@ import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
 import ApiService from "@/services/api.service";
 import { characterEnum } from "@/enums/character";
+import UserService from "@/services/user.service";
 
 export default defineComponent({
     name: "UserPage",
@@ -81,11 +83,17 @@ export default defineComponent({
                 { text: 10, value: 10 },
                 { text: 20, value: 20 }
             ],
+            username: '',
         };
     },
     methods: {
         loadData() {
             this.loading = true;
+            // @ts-ignore
+            UserService.loadUser(this.$route.params.userId).then((user) => {
+                // @ts-ignore
+                this.username = user.username;
+            });
             const params: any = {
                 header: {
                     'accept': 'application/ld+json'
@@ -93,7 +101,6 @@ export default defineComponent({
                 params: { },
                 paramsSerializer: qs.stringify
             };
-            // params.params['userId'] = this.userId;
             if (this.pagination.currentPage) {
                 params.params['page'] = this.pagination.currentPage;
             }
@@ -154,7 +161,7 @@ export default defineComponent({
         },
         getCharacterBodyFromKey(characterKey: string) {
             return characterEnum[characterKey].body;
-        },
+        }
     },
     beforeMount() {
         this.loadData();

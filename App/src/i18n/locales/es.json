@@ -186,22 +186,15 @@
 		},
 		"gameConfig": {
 			"name": "Nom",
-			"language": "Language",
-			"timeZone": "TimeZone",
-			"nbMush": "Nombre de Mushs",
-			"cyclePerGameDay": "Cycles par jour",
-			"cycleLength": "Durée du cycle",
-			"maxNumberPrivateChannel": "Max. Cannaux privées",
-			"maxItemInInventory": "Max Item en inventaire",
-			"initSatiety": "Init Satiété",
-			"initHealthPoint": "Init Point de Vie",
-			"maxHealthPoint": "Max Point de Vie",
-			"initMoralPoint": "Init Morale Point",
-			"maxMoralPoint": "Max Moral Point",
-			"initActionPoint": "Init Action Point",
-			"maxActionPoint": "Max Action Point",
-			"initMovementPoint": "Init Mouvement Point",
-			"maxMovementPoint": "Max Mouvement Point"
+			"daedalusConfig": "Configuration du Daedalus",
+			"difficultyConfig": "Configuration de la difficulté",
+			"characterConfigs": "Personnages",
+			"statusConfigs": "Statuts",
+			"equipmentConfigs": "Équipement",
+			"triumphConfigs": "Sources de triomphe",
+			"diseaseCauseConfigs": "Causes de maladie",
+			"diseaseConfigs": "Maladies",
+			"consumableDiseaseConfigs": "Configuration des maladies des consommables"
 		},
 		"modifierConfig": {
 			"name": "Nom",
@@ -246,6 +239,8 @@
 			"isNotSuperDirty": "N'est pas super salissant"
 		},
 		"daedalus": {
+			"destroy": "Détruire",
+			"destroyAllDaedaluses": "Détruire tous les Daedalus",
 			"createDaedalus": "Créer un Daedalus :",
 			"name": "Nom du Daedalus :",
 			"create": "Créer un Daedalus",

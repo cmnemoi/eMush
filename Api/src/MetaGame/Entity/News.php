@@ -117,5 +117,4 @@ class News
     {
         $this->spanishContent = $spanishContent;
     }
-
 }

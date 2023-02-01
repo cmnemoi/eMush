@@ -15,5 +15,3 @@ Mush\Daedalus\Entity\Daedalus:
   itemOperations:
     get:
       security: 'is_granted("ROLE_MODERATOR")'
-    post:
-      security: 'is_granted("ROLE_ADMIN")'

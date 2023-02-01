@@ -42,7 +42,7 @@ class ActionStrategyService implements ActionStrategyServiceInterface
     public function getAction(string $actionName): ?AbstractAction
     {
         if (!isset($this->actions[$actionName])) {
-            $this->logger->warning("Action {$actionName} not found");
+            $this->logger->warning("ActionStrategyService::getAction() - Action {$actionName} not found");
             return null;
         }
 
@@ -56,14 +56,16 @@ class ActionStrategyService implements ActionStrategyServiceInterface
 
         if (!$action) {
             $errorMessage = "ActionStrategyService::executeAction() - Action not found";
-            $this->logger->warning($errorMessage, ['actionId' => $actionId]);
+            $this->logger->error($errorMessage, ['actionId' => $actionId]);
             throw new NotFoundHttpException($errorMessage);
         }
 
         $actionService = $this->getAction($action->getActionName());
 
         if (null === $actionService) {
-            return new Error('Action do not exist');
+            $errorMessage = "ActionStrategyService::executeAction() - Action do not exist";
+            $this->logger->error($errorMessage, ['actionId' => $actionId]);
+            return new Error($errorMessage);
         }
 
         $actionService->loadParameters($action, $player, $this->loadParameter($params));

@@ -98,7 +98,12 @@ abstract class AbstractAction
             $this->cannotExecuteReason() !== null
         ) { 
             $errorMessage = 'AbstractAction::execute() - Cannot execute action';
-            $this->logger->error($errorMessage);
+            $this->logger->error($errorMessage, [
+                'action' => $this->action->getName(),
+                'player' => $this->player->getId(),
+                'parameter' => $this->parameter->getLogName(),
+                'daedalus' => $this->player->getDaedalus()->getId()
+            ]);
             return new Error($errorMessage);
         }
 

@@ -36,6 +36,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Psr\Log\LoggerInterface;
 
 class DaedalusService implements DaedalusServiceInterface
 {
@@ -49,6 +50,7 @@ class DaedalusService implements DaedalusServiceInterface
     private LocalizationConfigRepository $localizationConfigRepository;
     private DaedalusInfoRepository $daedalusInfoRepository;
     private DaedalusRepository $daedalusRepository;
+    private LoggerInterface $logger;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -60,7 +62,8 @@ class DaedalusService implements DaedalusServiceInterface
         RoomLogServiceInterface $roomLogService,
         LocalizationConfigRepository $localizationConfigRepository,
         DaedalusInfoRepository $daedalusInfoRepository,
-        DaedalusRepository $daedalusRepository
+        DaedalusRepository $daedalusRepository,
+        LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
@@ -72,6 +75,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->localizationConfigRepository = $localizationConfigRepository;
         $this->daedalusInfoRepository = $daedalusInfoRepository;
         $this->daedalusRepository = $daedalusRepository;
+        $this->logger = $logger;
     }
 
     /**
@@ -162,7 +166,9 @@ class DaedalusService implements DaedalusServiceInterface
 
         $localizationConfig = $this->localizationConfigRepository->findByLanguage($language);
         if ($localizationConfig === null) {
-            throw new \Error('there is no localizationConfig for this language');
+            $errorMessage = 'DaedalusService::createDaedalus - there is no localizationConfig for this language';
+            $this->logger->error($errorMessage);
+            throw new \Error($errorMessage);
         }
 
         $neron = new Neron();

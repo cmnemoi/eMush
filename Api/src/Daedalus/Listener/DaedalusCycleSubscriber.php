@@ -15,6 +15,7 @@ use Mush\Game\Event\QuantityEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Psr\Log\LoggerInterface;
 
 class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
@@ -24,15 +25,18 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     private DaedalusServiceInterface $daedalusService;
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
     private EventServiceInterface $eventService;
+    private LoggerInterface $logger;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         DaedalusIncidentServiceInterface $daedalusIncidentService,
-        EventServiceInterface $eventService
+        EventServiceInterface $eventService,
+        LoggerInterface $logger
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusIncidentService = $daedalusIncidentService;
         $this->eventService = $eventService;
+        $this->logger = $logger;
     }
 
     public static function getSubscribedEvents(): array
@@ -64,7 +68,9 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $dailySpores = $daedalus->getVariableFromName(DaedalusVariableEnum::SPORE)->getMaxValue();
 
         if ($dailySpores === null) {
-            throw new \Error('daedalus spore gameVariable should have a maximum value');
+            $errorMessage = 'DaedalusCycleSubscriber::onNewDay - daedalus spore gameVariable should have a maximum value';
+            $this->logger->error($errorMessage);
+            throw new \Error($errorMessage);
         }
         // reset spore count
         $daedalus->setSpores($dailySpores);

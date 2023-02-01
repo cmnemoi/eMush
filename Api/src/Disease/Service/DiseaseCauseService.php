@@ -13,6 +13,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Psr\Log\LoggerInterface;
 
 class DiseaseCauseService implements DiseaseCauseServiceInterface
 {
@@ -22,15 +23,18 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private RandomServiceInterface $randomService;
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
+    private LoggerInterface $logger;
 
     public function __construct(
         PlayerDiseaseServiceInterface $playerDiseaseService,
         RandomServiceInterface $randomService,
         ConsumableDiseaseServiceInterface $consumableDiseaseService,
+        LoggerInterface $logger
     ) {
         $this->playerDiseaseService = $playerDiseaseService;
         $this->randomService = $randomService;
         $this->consumableDiseaseService = $consumableDiseaseService;
+        $this->logger = $logger;
     }
 
     public function handleSpoiledFood(Player $player, GameEquipment $gameEquipment): void
@@ -78,7 +82,15 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
         $causesConfigs = $daedalus->getGameConfig()->getDiseaseCauseConfig()->filter(fn (DiseaseCauseConfig $causeConfig) => $causeConfig->getCauseName() === $causeName);
 
         if ($causesConfigs->count() !== 1) {
-            throw new \Error("there should be exactly 1 diseaseCauseConfig for this cause ({$causeName}).");
+            $errorMessage = "DiseaseCauseService::findCauseConfigByDaedalus: there should be exactly 1 diseaseCauseConfig for this cause ({$causeName}).";
+            $this->logger->error($errorMessage,
+                [
+                    'causeName' => $causeName,
+                    'daedalus' => $daedalus->getId(),
+                    'causesConfigs' => $causesConfigs->toArray(),
+                ]
+            );
+            throw new \Error($errorMessage);
         }
 
         return $causesConfigs->first();

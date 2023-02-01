@@ -14,21 +14,25 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Psr\Log\LoggerInterface;
 
 class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
+    private LoggerInterface $logger;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         RandomServiceInterface $randomService,
-        EventServiceInterface $eventService
+        EventServiceInterface $eventService,
+        LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
         $this->randomService = $randomService;
         $this->eventService = $eventService;
+        $this->logger = $logger;
     }
 
     public function persist(PlayerDisease $playerDisease): PlayerDisease
@@ -123,7 +127,12 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $diseaseConfigs = $daedalus->getGameConfig()->getDiseaseConfig()->filter(fn (DiseaseConfig $diseaseConfig) => $diseaseConfig->getDiseaseName() === $diseaseName);
 
         if ($diseaseConfigs->count() !== 1) {
-            throw new \Error('there should be exactly 1 diseaseConfig with this name');
+            $errorMessage = 'PlayerDiseaseService::findDiseaseConfigByNameAndDaedalus: there should be exactly 1 diseaseConfig with this name';
+            $this->logger->error($errorMessage, [
+                'diseaseName' => $diseaseName,
+                'daedalus' => $daedalus->getId(),
+            ]);
+            throw new \Error($errorMessage);
         }
 
         return $diseaseConfigs->first();

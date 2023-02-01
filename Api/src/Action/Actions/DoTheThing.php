@@ -61,7 +61,7 @@ class DoTheThing extends AbstractAction
         PlayerDiseaseServiceInterface $playerDiseaseService,
         PlayerVariableServiceInterface $playerVariableService,
         RandomServiceInterface $randomService,
-        RoomLogServiceInterface $roomLogService,
+        RoomLogServiceInterface $roomLogService
     ) {
         parent::__construct(
             $eventService,
@@ -191,7 +191,11 @@ class DoTheThing extends AbstractAction
 
         if ($maxMoralePoint === null) {
             $errorMessage = "DoTheThingAction::addMoralPoints() - moralPoints should have a maximum value";
-            $this->logger->error($errorMessage);
+            $this->logger->error($errorMessage, 
+            [
+                'player' => $player->getId(),
+                'daedalus' => $player->getDaedalus()->getId()
+            ]);
             throw new \Error($errorMessage);
         }
 

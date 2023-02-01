@@ -7,6 +7,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Psr\Log\LoggerInterface;
 
 class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
@@ -15,11 +16,14 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
     private const ALREADY_CALLED = 'CLOSED_DAEDALUS_NORMALIZER_ALREADY_CALLED';
 
     private TranslationServiceInterface $translationService;
+    private LoggerInterface $logger;
 
     public function __construct(
         TranslationServiceInterface $translationService,
+        LoggerInterface $logger
     ) {
         $this->translationService = $translationService;
+        $this->logger = $logger;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -45,7 +49,9 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         $data = $this->normalizer->normalize($object, $format, $context);
 
         if (!is_array($data)) {
-            throw new \Error('normalized closedDaedalus should be an array');
+            $errorMessage = 'ClosedDaedalusNormalizer::normalize() - normalized closedDaedalus should be an array';
+            $this->logger->error($errorMessage, ['closedDaedalus' => $daedalus]);
+            throw new \Error($errorMessage);
         }
 
         return $data;

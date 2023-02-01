@@ -90,7 +90,11 @@ class OpenCapsule extends AbstractAction
 
         if ($contentName === null) {
             $errorMessage = 'OpenCapsule::applyEffect() - capsule content should not be empty';
-            $this->logger->error($errorMessage);
+            $this->logger->error($errorMessage, 
+                [
+                    'capsuleContent' => self::$capsuleContent,
+                    'daedalus' => $this->player->getDaedalus()->getId()
+                ]);
             throw new \Error($errorMessage);
         }
 

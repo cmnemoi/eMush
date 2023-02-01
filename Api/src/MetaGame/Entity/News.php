@@ -78,42 +78,42 @@ class News
         $this->frenchContent = $frenchContent;
     }
 
-    public function getEnglishTitle(): string
+    public function getEnglishTitle(): string|null
     {
         return $this->englishTitle;
     }
 
-    public function setEnglishTitle(string $englishTitle): void
+    public function setEnglishTitle(?string $englishTitle): void
     {
         $this->englishTitle = $englishTitle;
     }
 
-    public function getEnglishContent(): string
+    public function getEnglishContent(): string|null
     {
         return $this->englishContent;
     }
 
-    public function setEnglishContent(string $englishContent): void
+    public function setEnglishContent(?string $englishContent): void
     {
         $this->englishContent = $englishContent;
     }
 
-    public function getSpanishTitle(): string
+    public function getSpanishTitle(): string|null
     {
         return $this->spanishTitle;
     }
 
-    public function setSpanishTitle(string $spanishTitle): void
+    public function setSpanishTitle(?string $spanishTitle): void
     {
         $this->spanishTitle = $spanishTitle;
     }
 
-    public function getSpanishContent(): string
+    public function getSpanishContent(): string|null
     {
         return $this->spanishContent;
     }
 
-    public function setSpanishContent(string $spanishContent): void
+    public function setSpanishContent(?string $spanishContent): void
     {
         $this->spanishContent = $spanishContent;
     }

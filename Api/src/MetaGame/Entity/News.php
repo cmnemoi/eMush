@@ -13,9 +13,6 @@ class News
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    private string $title;
-
     #[ORM\Column(type: 'datetime', nullable: false)]
     private \DateTime $createdAt;
 
@@ -49,16 +46,6 @@ class News
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
     }
 
     public function getCreatedAt(): \DateTime

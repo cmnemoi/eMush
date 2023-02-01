@@ -18,6 +18,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Psr\Log\LoggerInterface;
 
 abstract class AbstractAction
 {
@@ -31,15 +32,18 @@ abstract class AbstractAction
     protected EventServiceInterface $eventService;
     protected ActionServiceInterface $actionService;
     protected ValidatorInterface $validator;
+    protected LoggerInterface $logger;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        LoggerInterface $logger
     ) {
         $this->eventService = $eventService;
         $this->actionService = $actionService;
         $this->validator = $validator;
+        $this->logger = $logger;
     }
 
     abstract protected function support(?LogParameterInterface $parameter): bool;
@@ -92,8 +96,10 @@ abstract class AbstractAction
     {
         if (!$this->isVisible() ||
             $this->cannotExecuteReason() !== null
-        ) {
-            return new Error('Cannot execute action');
+        ) { 
+            $errorMessage = 'AbstractAction::execute() - Cannot execute action';
+            $this->logger->error($errorMessage);
+            return new Error($errorMessage);
         }
 
         $parameter = $this->getParameter();

@@ -12,14 +12,18 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Psr\Log\LoggerInterface;
+
 
 class RandomService implements RandomServiceInterface
 {
     private GameEquipmentRepository $gameEquipmentRepository;
+    private LoggerInterface $logger;
 
-    public function __construct(GameEquipmentRepository $gameEquipmentRepository)
+    public function __construct(GameEquipmentRepository $gameEquipmentRepository, LoggerInterface $logger)
     {
         $this->gameEquipmentRepository = $gameEquipmentRepository;
+        $this->logger = $logger;
     }
 
     public function random(int $min, int $max): int
@@ -42,7 +46,9 @@ class RandomService implements RandomServiceInterface
         $chance = $this->randomPercent();
 
         if ($criticalFailRate > $successRate || 100 - $criticalSuccessRate < $successRate) {
-            throw new \Error('$criticalFailRate must be lower than $successRate and 100 - $criticalSuccessRate higher than $successRate');
+            $errorMessage = '$criticalFailRate must be lower than $successRate and 100 - $criticalSuccessRate higher than $successRate';
+            $this->logger->error($errorMessage);
+            throw new \Error($errorMessage);
         }
 
         if ($chance <= $criticalFailRate) {
@@ -55,13 +61,17 @@ class RandomService implements RandomServiceInterface
             return ActionOutputEnum::CRITICAL_SUCCESS;
         }
 
-        throw new \Error('input percentages should range between 0 and 100');
+        $errorMessage = 'outputCriticalChances: chance is not between 0 and 100';
+        $this->logger->error($errorMessage);
+        throw new \Error($errorMessage);
     }
 
     public function getRandomPlayer(PlayerCollection $players): Player
     {
         if ($players->isEmpty()) {
-            throw new \Error('getRandomPlayer: collection is empty');
+            $errorMessage = 'getRandomPlayer: collection is empty';
+            $this->logger->error($errorMessage);
+            throw new \Error($errorMessage);
         }
 
         return current($this->getRandomElements($players->toArray()));
@@ -70,7 +80,9 @@ class RandomService implements RandomServiceInterface
     public function getRandomDisease(PlayerDiseaseCollection $collection): PlayerDisease
     {
         if ($collection->isEmpty()) {
-            throw new \Error('getRandomDisease: collection is empty');
+            $errorMessage = 'getRandomDisease: collection is empty';
+            $this->logger->error($errorMessage);
+            throw new \Error($errorMessage);
         }
 
         return current($this->getRandomElements($collection->toArray()));
@@ -89,7 +101,9 @@ class RandomService implements RandomServiceInterface
     public function getItemInRoom(Place $place): GameItem
     {
         if ($place->getEquipments()->isEmpty()) {
-            throw new \Error('getItemInRoom: room has no items');
+            $errorMessage = 'getItemInRoom: room has no items';
+            $this->logger->error($errorMessage);
+            throw new \Error($errorMessage);
         }
 
         $items = $place->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
@@ -100,6 +114,8 @@ class RandomService implements RandomServiceInterface
     public function getRandomElements(array $array, int $number = 1): array
     {
         if (empty($array) || count($array) < $number) {
+            $this->logger->warning('getRandomElements: array is empty or number is higher than array size',
+                ['array' => $array, 'number' => $number]);
             return [];
         }
 
@@ -119,6 +135,7 @@ class RandomService implements RandomServiceInterface
     public function getSingleRandomElementFromProbaArray(array $array): ?string
     {
         if (count($array) < 1) {
+            $this->logger->warning('getSingleRandomElementFromProbaArray: array is empty');
             return null;
         }
 
@@ -126,7 +143,9 @@ class RandomService implements RandomServiceInterface
         $cumuProba = 0;
         foreach ($array as $event => $proba) {
             if (!is_int($proba)) {
-                throw new \Error('Proba weight should be provided as integers');
+                $errorMessage = 'getSingleRandomElementFromProbaArray: proba weight should be provided as integers';
+                $this->logger->error($errorMessage);
+                throw new \Error($errorMessage);
             }
 
             $cumuProba = $cumuProba + $proba;
@@ -174,6 +193,8 @@ class RandomService implements RandomServiceInterface
             try {
                 $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
             } catch (\Exception $e) {
+                $this->logger->warning('getRandomDaedalusEquipmentFromProbaArray: equipment not found',
+                    ['equipmentName' => $equipmentName, 'daedalus' => $daedalus]);
                 continue;
             }
             $equipments[] = $equipment;
@@ -189,7 +210,9 @@ class RandomService implements RandomServiceInterface
     public function poissonRandom(float $lambda): int
     {
         if ($lambda < 0) {
-            throw new \Error('poissonRandom: lambda must be positive');
+            $errorMessage = 'poissonRandom: lambda must be positive';
+            $this->logger->error($errorMessage);
+            throw new \Error($errorMessage);
         }
 
         $L = exp(-$lambda);

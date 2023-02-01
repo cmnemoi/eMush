@@ -36,6 +36,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Psr\Log\LoggerInterface;
 
 class DoTheThing extends AbstractAction
 {
@@ -55,6 +56,7 @@ class DoTheThing extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        LoggerInterface $logger,
         DiseaseCauseServiceInterface $diseaseCauseService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
         PlayerVariableServiceInterface $playerVariableService,
@@ -64,7 +66,8 @@ class DoTheThing extends AbstractAction
         parent::__construct(
             $eventService,
             $actionService,
-            $validator
+            $validator,
+            $logger
         );
         $this->diseaseCauseService = $diseaseCauseService;
         $this->playerDiseaseService = $playerDiseaseService;
@@ -187,7 +190,9 @@ class DoTheThing extends AbstractAction
         $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::MORAL_POINT);
 
         if ($maxMoralePoint === null) {
-            throw new \Error('moralPoints should have a maximum value');
+            $errorMessage = "DoTheThingAction::addMoralPoints() - moralPoints should have a maximum value";
+            $this->logger->error($errorMessage);
+            throw new \Error($errorMessage);
         }
 
         $firstTimeStatus = $player->getStatusByName(PlayerStatusEnum::FIRST_TIME);

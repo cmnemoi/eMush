@@ -17,21 +17,25 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Psr\Log\LoggerInterface;
 
 class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 {
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
     private GameEquipmentRepository $gameEquipmentRepository;
+    private LoggerInterface $logger;
 
     public function __construct(
         RandomServiceInterface $randomService,
         EventServiceInterface $eventService,
-        GameEquipmentRepository $gameEquipmentRepository
+        GameEquipmentRepository $gameEquipmentRepository,
+        LoggerInterface $logger
     ) {
         $this->randomService = $randomService;
         $this->eventService = $eventService;
         $this->gameEquipmentRepository = $gameEquipmentRepository;
+        $this->logger = $logger;
     }
 
     public function handleFireEvents(Daedalus $daedalus, \DateTime $date): int
@@ -288,6 +292,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             try {
                 $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
             } catch (\Exception $e) {
+                $this->logger->error('getWorkingEquipmentBreakRateDistribution: ' + $e->getMessage());
                 continue;
             }
             if ($equipment->isBroken()) {

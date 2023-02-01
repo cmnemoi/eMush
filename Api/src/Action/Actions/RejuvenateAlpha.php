@@ -12,6 +12,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Psr\Log\LoggerInterface;
 
 class RejuvenateAlpha extends AbstractAction
 {
@@ -24,13 +25,15 @@ class RejuvenateAlpha extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        LoggerInterface $logger,
         PlayerServiceInterface $playerService,
         PlayerVariableServiceInterface $playerVariableService
     ) {
         parent::__construct(
             $eventService,
             $actionService,
-            $validator
+            $validator,
+            $logger
         );
 
         $this->playerService = $playerService;
@@ -55,7 +58,9 @@ class RejuvenateAlpha extends AbstractAction
         $maxHealthPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::HEALTH_POINT);
 
         if ($maxMoralePoint === null || $maxActionPoint === null || $maxMovementPoint === null || $maxHealthPoint === null) {
-            throw new \Error('moral, movement, action and health points should have a maximum value');
+            $errorMessage = 'RejuvenateAlpha::applyEffect() - moral, movement, action and health points should have a maximum value';
+            $this->logger->error($errorMessage);
+            throw new \Error($errorMessage);
         }
 
         $this->player

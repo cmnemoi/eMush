@@ -7,18 +7,22 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Psr\Log\LoggerInterface;
 
 class CycleService implements CycleServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
+    private LoggerInterface $logger;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventServiceInterface $eventService
+        EventServiceInterface $eventService,
+        LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
+        $this->logger = $logger;
     }
 
     public function handleCycleChange(\DateTime $dateTime, Daedalus $daedalus): int
@@ -32,6 +36,7 @@ class CycleService implements CycleServiceInterface
 
         $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
         if ($dateDaedalusLastCycle === null) {
+            $this->logger->error('CycleService->handleCycleChange: Daedalus should have a CycleStartedAt Value');
             throw new \LogicException('Daedalus should have a CycleStartedAt Value');
         } else {
             $dateDaedalusLastCycle = clone $dateDaedalusLastCycle;
@@ -60,6 +65,7 @@ class CycleService implements CycleServiceInterface
                     }
                 }
             } catch (\Exception $exception) {
+                $this->logger->error('CycleService->handleCycleChange: ' . $exception->getMessage());
             } finally {
                 $daedalus->setCycleStartedAt($dateDaedalusLastCycle);
                 $daedalus->setIsCycleChange(false);
@@ -76,6 +82,7 @@ class CycleService implements CycleServiceInterface
         $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
 
         if (($dateDaedalusLastCycle = $daedalus->getCycleStartedAt()) === null) {
+            $this->logger->error('CycleService->getDateStartNextCycle: Daedalus should have a CycleStartedAt Value');
             throw new \LogicException('Daedalus should have a CycleStartedAt Value');
         }
 

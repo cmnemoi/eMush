@@ -26,6 +26,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Implement surgery action
@@ -50,13 +51,15 @@ class Surgery extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        LoggerInterface $logger,
         RandomServiceInterface $randomService,
         ModifierServiceInterface $modifierService
     ) {
         parent::__construct(
             $eventService,
             $actionService,
-            $validator
+            $validator,
+            $logger
         );
 
         $this->randomService = $randomService;
@@ -118,7 +121,9 @@ class Surgery extends AbstractAction
             return new Success();
         }
 
-        return new Error('this output should not exist');
+        $errorMessage = "SelfSurgery::checkResult() : Unexpected result : $result";
+        $this->logger->error($errorMessage);
+        return new Error($errorMessage);
     }
 
     protected function applyEffect(ActionResult $result): void

@@ -19,6 +19,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Psr\Log\LoggerInterface;
 
 class OpenCapsule extends AbstractAction
 {
@@ -38,13 +39,15 @@ class OpenCapsule extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        LoggerInterface $logger,
         RandomServiceInterface $randomService,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
         parent::__construct(
             $eventService,
             $actionService,
-            $validator
+            $validator,
+            $logger
         );
 
         $this->randomService = $randomService;
@@ -86,7 +89,9 @@ class OpenCapsule extends AbstractAction
         $contentName = $this->randomService->getSingleRandomElementFromProbaArray(self::$capsuleContent);
 
         if ($contentName === null) {
-            throw new \Error('capsule content should not be empty');
+            $errorMessage = 'OpenCapsule::applyEffect() - capsule content should not be empty';
+            $this->logger->error($errorMessage);
+            throw new \Error($errorMessage);
         }
 
         $this->gameEquipmentService->createGameEquipmentFromName(

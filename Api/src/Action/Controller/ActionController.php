@@ -15,6 +15,7 @@ use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class UsersController.
@@ -22,11 +23,14 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ActionController extends AbstractFOSRestController
 {
     private ActionStrategyServiceInterface $actionService;
+    private LoggerInterface $logger;
 
     public function __construct(
         ActionStrategyServiceInterface $actionService,
+        LoggerInterface $logger
     ) {
         $this->actionService = $actionService;
+        $this->logger = $logger;
     }
 
     /**
@@ -77,7 +81,11 @@ class ActionController extends AbstractFOSRestController
 
         // @TODO: use Voter
         if ($player->getPlayerInfo()->getUser() !== $user) {
-            throw new AccessDeniedException('player must be the same as user');
+            $this->logger->error('player user must be the same as request user', [
+                'player' => $player->getPlayerInfo()->getUser()->getId(),
+                'user' => $user->getId(),
+            ]);
+            throw new AccessDeniedException('player user must be the same as request user');
         }
 
         try {
@@ -87,6 +95,12 @@ class ActionController extends AbstractFOSRestController
                 $actionRequest->getParams()
             );
         } catch (\InvalidArgumentException $exception) {
+            $this->logger->error('error executing action', [
+                'player' => $player->getId(),
+                'action' => $actionRequest->getAction(),
+                'params' => $actionRequest->getParams(),
+                'error' => $exception->getMessage(),
+            ]);
             return $this->view($this->view(['error' => $exception->getMessage()], 422));
         }
 

@@ -12,12 +12,14 @@ use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
 use Mush\User\Entity\User;
 use Mush\User\Enum\RoleEnum;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Psr\Log\LoggerInterface;
 
 class LoginService
 {
     private UserServiceInterface $userService;
     private RfcOauthClient $oauthClient;
     private JWTEncoderInterface $jwtEncoder;
+    private LoggerInterface $logger;
     private string $admin;
     private string $appEnv;
     private string $etwinUri;
@@ -32,11 +34,13 @@ class LoginService
         string $admin,
         string $appEnv,
         UserServiceInterface $userService,
-        JWTEncoderInterface $jwtEncoder
+        JWTEncoderInterface $jwtEncoder,
+        LoggerInterface $logger
     ) {
         $this->userService = $userService;
         $this->etwinUri = $etwinUri;
         $this->jwtEncoder = $jwtEncoder;
+        $this->logger = $logger;
         $this->admin = $admin;
         $this->appEnv = $appEnv;
         $this->oauthClient = new RfcOauthClient(
@@ -53,17 +57,23 @@ class LoginService
         try {
             $decodedToken = $this->jwtEncoder->decode($codeToken);
         } catch (JWTDecodeFailureException $e) {
-            throw new UnauthorizedHttpException($e->getMessage());
+            $errorMessage = 'login: JWTDecodeFailureException: ' . $e->getMessage();
+            $this->logger->error($errorMessage);
+            throw new UnauthorizedHttpException($errorMessage);
         }
 
         if (!$decodedToken || !($code = $decodedToken['code'])) {
-            throw new UnauthorizedHttpException('Bad Credentials');
+            $errorMessage = 'login: Bad Credentials';
+            $this->logger->error($errorMessage);
+            throw new UnauthorizedHttpException($errorMessage);
         }
 
         $user = $this->userService->findUserByNonceCode($code);
 
         if ($user === null) {
-            throw new UnauthorizedHttpException('Bad Credentials');
+            $errorMessage = 'login: Bad Credentials';
+            $this->logger->error($errorMessage);
+            throw new UnauthorizedHttpException($errorMessage);
         }
 
         $user
@@ -88,8 +98,10 @@ class LoginService
         try {
             $accessToken = $this->oauthClient->getAccessTokenSync($code);
         } catch (GuzzleException $e) {
+            $this->logger->error('verifyCode: GuzzleException: ' . $e->getMessage());
             throw new UnauthorizedHttpException($e->getMessage());
         } catch (\JsonException $e) {
+            $this->logger->error('verifyCode: JsonException: ' . $e->getMessage());
             throw new UnauthorizedHttpException($e->getMessage());
         }
 
@@ -97,7 +109,9 @@ class LoginService
         $apiUser = $apiClient->getSelf(Auth::fromToken($accessToken->getAccessToken()));
 
         if (!$apiUser instanceof AccessTokenAuthContext) {
-            throw new \LogicException('Auth context not supported');
+            $errorMessage = 'verifyCode: Auth context not supported';
+            $this->logger->error($errorMessage);
+            throw new \LogicException($errorMessage);
         }
 
         $userId = $apiUser->getUser()->getId()->getInner()->toString();

@@ -12,6 +12,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Psr\Log\LoggerInterface;
 
 class ActionStrategyService implements ActionStrategyServiceInterface
 {
@@ -19,15 +20,18 @@ class ActionStrategyService implements ActionStrategyServiceInterface
     private PlayerServiceInterface $playerService;
     private GameEquipmentServiceInterface $equipmentService;
     private EntityManagerInterface $entityManager;
+    private LoggerInterface $logger;
 
     public function __construct(
         PlayerServiceInterface $playerService,
         GameEquipmentServiceInterface $equipmentService,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        LoggerInterface $logger
     ) {
         $this->playerService = $playerService;
         $this->equipmentService = $equipmentService;
         $this->entityManager = $entityManager;
+        $this->logger = $logger;
     }
 
     public function addAction(AbstractAction $action): void
@@ -38,6 +42,7 @@ class ActionStrategyService implements ActionStrategyServiceInterface
     public function getAction(string $actionName): ?AbstractAction
     {
         if (!isset($this->actions[$actionName])) {
+            $this->logger->warning("Action {$actionName} not found");
             return null;
         }
 
@@ -50,7 +55,9 @@ class ActionStrategyService implements ActionStrategyServiceInterface
         $action = $this->entityManager->getRepository(Action::class)->find($actionId);
 
         if (!$action) {
-            throw new NotFoundHttpException('This action does not exist');
+            $errorMessage = "ActionStrategyService::executeAction() - Action not found";
+            $this->logger->warning($errorMessage, ['actionId' => $actionId]);
+            throw new NotFoundHttpException($errorMessage);
         }
 
         $actionService = $this->getAction($action->getActionName());

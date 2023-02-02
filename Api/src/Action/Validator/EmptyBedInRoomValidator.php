@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class EmptyBedInRoomValidator extends ConstraintValidator
+class EmptyBedInRoomValidator extends AbstractActionValidator
 {
     public function validate($value, Constraint $constraint): void
     {

@@ -12,15 +12,24 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 /**
  * This class implements a validator for the `areMedicalSuppliesOnReach` constraint.
  */
-class AreMedicalSuppliesOnReachValidator extends ConstraintValidator
+class AreMedicalSuppliesOnReachValidator extends AbstractActionValidator
 {
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
+            $errorMessage = "AreMedicalSuppliesOnReachValidator::validate: value must be an instance of AbstractAction";
+            $this->logger->error($errorMessage);
             throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
         if (!$constraint instanceof AreMedicalSuppliesOnReach) {
+            $errorMessage = "AreMedicalSuppliesOnReachValidator::validate: constraint must be an instance of AreMedicalSuppliesOnReach";
+            $this->logger->error($errorMessage,
+                [   
+                    'daedalus' => $value->getPlayer()->getDaedalus()->getId(),
+                    'player' => $value->getPlayer()->getId(),
+                ]
+            );
             throw new UnexpectedTypeException($constraint, AreMedicalSuppliesOnReach::class);
         }
 

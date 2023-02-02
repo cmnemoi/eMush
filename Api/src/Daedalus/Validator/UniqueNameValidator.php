@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class UniqueNameValidator extends ConstraintValidator
+class UniqueNameValidator extends AbstractActionValidator
 {
     private DaedalusInfoRepository $daedalusRepository;
 

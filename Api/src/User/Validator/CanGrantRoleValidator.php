@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class CanGrantRoleValidator extends ConstraintValidator
+class CanGrantRoleValidator extends AbstractActionValidator
 {
     private RoleHierarchyInterface $roleHierarchy;
     private TokenStorageInterface $tokenStorage;

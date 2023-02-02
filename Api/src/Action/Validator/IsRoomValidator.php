@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class IsRoomValidator extends ConstraintValidator
+class IsRoomValidator extends AbstractActionValidator
 {
     public function validate($value, Constraint $constraint): void
     {

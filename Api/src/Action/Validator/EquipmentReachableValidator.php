@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class EquipmentReachableValidator extends ConstraintValidator
+class EquipmentReachableValidator extends AbstractActionValidator
 {
     private GearToolServiceInterface $gearToolService;
 

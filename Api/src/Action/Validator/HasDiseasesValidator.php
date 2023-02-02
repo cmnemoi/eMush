@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 /**
  * This class implements a validator for the `HasDiseases` constraint.
  */
-class HasDiseasesValidator extends ConstraintValidator
+class HasDiseasesValidator extends AbstractActionValidator
 {
     public function validate($value, Constraint $constraint): void
     {

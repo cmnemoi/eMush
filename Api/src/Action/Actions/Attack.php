@@ -34,6 +34,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -52,14 +53,16 @@ class Attack extends AttemptAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        LoggerInterface $logger,
         RandomServiceInterface $randomService,
         ModifierServiceInterface $modifierService,
-        DiseaseCauseServiceInterface $diseaseCauseService,
+        DiseaseCauseServiceInterface $diseaseCauseService
     ) {
         parent::__construct(
             $eventService,
             $actionService,
             $validator,
+            $logger,
             $randomService
         );
 
@@ -92,14 +95,30 @@ class Attack extends AttemptAction
 
         $knifeItem = $this->getPlayerKnife();
         if ($knifeItem == null) {
-            throw new \Exception("Attack action : {$player->getLogName()} should have a knife");
+            $errorMessage = "Attack::checkResult : player should have a knife";
+            $this->logger->error($errorMessage,
+                [   
+                    'daedalus' => $player->getDaedalus()->getId(),
+                    'player' => $player->getId(),
+                    'playerInventory' => $player->getEquipments()->toArray(),
+                ]
+            );
+            throw new \Exception($errorMessage);
         }
 
         /** @var Weapon $knifeWeapon */
         $knifeWeapon = $knifeItem->getMechanics()->first();
 
         if (!$knifeWeapon instanceof Weapon) {
-            throw new \Exception('Attack action : Knife should have a weapon mechanic');
+            $errorMessage = "Attack::checkResult : Knife should have a weapon mechanic";
+            $this->logger->error($errorMessage,
+                [   
+                    'daedalus' => $player->getDaedalus()->getId(),
+                    'player' => $player->getId(),
+                    'knifeItemMechanics' => $knifeItem->getMechanics()->toArray(),
+                ]
+            );
+            throw new \Exception($errorMessage);
         }
 
         $result = parent::checkResult();
@@ -131,13 +150,29 @@ class Attack extends AttemptAction
 
         $knifeItem = $this->getPlayerKnife();
         if ($knifeItem == null) {
-            throw new \Exception("Attack action : {$player->getLogName()} should have a knife");
+            $errorMessage = "Attack::applyEffect : player should have a knife";
+            $this->logger->error($errorMessage,
+                [   
+                    'daedalus' => $player->getDaedalus()->getId(),
+                    'player' => $player->getId(),
+                    'playerInventory' => $player->getEquipments()->toArray(),
+                ]
+            );
+            throw new \Exception($errorMessage);
         }
 
         /** @var Weapon $knifeWeapon */
         $knifeWeapon = $knifeItem->getMechanics()->first();
         if (!$knifeWeapon instanceof Weapon) {
-            throw new \Exception('Attack action : Knife should have a weapon mechanic');
+            $errorMessage = "Attack::applyEffect : Knife should have a weapon mechanic";
+            $this->logger->error($errorMessage,
+                [   
+                    'daedalus' => $player->getDaedalus()->getId(),
+                    'player' => $player->getId(),
+                    'knifeItemMechanics' => $knifeItem->getMechanics()->toArray(),
+                ]
+            );
+            throw new \Exception($errorMessage);
         }
 
         if ($result instanceof Success) {

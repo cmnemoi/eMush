@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class DailySporesLimitValidator extends ConstraintValidator
+class DailySporesLimitValidator extends AbstractActionValidator
 {
     public function validate($value, Constraint $constraint): void
     {

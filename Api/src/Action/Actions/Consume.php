@@ -45,7 +45,15 @@ class Consume extends AbstractAction
         $rationType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (null === $rationType) {
-            throw new \Exception('Cannot consume this equipment');
+            $errorMessage = 'Consume::checkResult() - Cannot consume this equipment';
+            $this->logger->error($errorMessage,
+                [   
+                    'daedalus' => $this->player->getDaedalus()->getId(),
+                    'player' => $this->player->getId(),
+                    'equipment' => $parameter->getEquipment()->getId(),
+                ]
+            );
+            throw new \Exception($errorMessage);
         }
 
         return new Success();
@@ -58,7 +66,15 @@ class Consume extends AbstractAction
         $rationType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (null === $rationType) {
-            throw new \Exception('Cannot consume this equipment');
+            $errorMessage = 'Consume::applyEffect() - Cannot consume this equipment';
+            $this->logger->error($errorMessage,
+                [   
+                    'daedalus' => $this->player->getDaedalus()->getId(),
+                    'player' => $this->player->getId(),
+                    'equipment' => $parameter->getEquipment()->getId(),
+                ]
+            );
+            throw new \Exception($errorMessage);
         }
 
         $consumeEquipment = new ApplyEffectEvent(

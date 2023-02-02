@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class HasActionValidator extends ConstraintValidator
+class HasActionValidator extends AbstractActionValidator
 {
     private GearToolServiceInterface $gearToolService;
 

@@ -9,6 +9,7 @@ use Mush\Action\Service\ActionSideEffectsServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionSubscriber implements EventSubscriberInterface
@@ -16,15 +17,18 @@ class ActionSubscriber implements EventSubscriberInterface
     private ActionSideEffectsServiceInterface $actionSideEffectsService;
     private GetUp $getUpAction;
     private GearToolServiceInterface $gearToolService;
+    private LoggerInterface $logger;
 
     public function __construct(
         ActionSideEffectsServiceInterface $actionSideEffectsService,
         GetUp $getUp,
         GearToolServiceInterface $gearToolService,
+        LoggerInterface $logger
     ) {
         $this->actionSideEffectsService = $actionSideEffectsService;
         $this->getUpAction = $getUp;
         $this->gearToolService = $gearToolService;
+        $this->logger = $logger;
     }
 
     public static function getSubscribedEvents(): array
@@ -46,7 +50,14 @@ class ActionSubscriber implements EventSubscriberInterface
             $getUpAction = $player->getPlayerInfo()->getCharacterConfig()->getActionByName(ActionEnum::GET_UP);
 
             if ($getUpAction === null) {
-                throw new \LogicException('character do not have get up action');
+                $errorMessage = "ActionSubscriber::onPreAction: character do not have get up action";
+                $this->logger->error($errorMessage,
+                    [   
+                        'daedalus' => $player->getDaedalus()->getId(),
+                        'player' => $player->getId(),
+                    ]
+                );
+                throw new \LogicException($errorMessage);
             }
 
             $this->getUpAction->loadParameters($getUpAction, $player);

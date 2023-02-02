@@ -34,6 +34,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -52,14 +53,16 @@ class Shoot extends AttemptAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        LoggerInterface $logger,
         RandomServiceInterface $randomService,
         ModifierServiceInterface $modifierService,
-        DiseaseCauseServiceInterface $diseaseCauseService,
+        DiseaseCauseServiceInterface $diseaseCauseService
     ) {
         parent::__construct(
             $eventService,
             $actionService,
             $validator,
+            $logger,
             $randomService
         );
 
@@ -101,13 +104,27 @@ class Shoot extends AttemptAction
 
         $blasterItem = $this->getPlayerBlaster();
         if ($blasterItem == null) {
-            throw new \Exception("Attack action : {$player->getLogName()} should have a blaster");
+            $errorMessage = "Shoot::checkResult() - player should have a blaster";
+            $this->logger->error($errorMessage, 
+                [   
+                    'daedalus' => $player->getDaedalus()->getId(),
+                    'player' => $player->getId(),
+                    'playerInventory' => $player->getEquipments()->toArray()
+                ]);
+            throw new \Exception($errorMessage);
         }
 
         /** @var Weapon $blasterWeapon */
         $blasterWeapon = $blasterItem->getMechanics()->first();
         if (!$blasterWeapon instanceof Weapon) {
-            throw new \Exception('Attack action : Blaster should have a weapon mechanic');
+            $errorMessage = "Shoot::checkResult() - blaster should have a weapon mechanic";
+            $this->logger->error($errorMessage, 
+                [   
+                    'daedalus' => $player->getDaedalus()->getId(),
+                    'player' => $player->getId(),
+                    'blaster' => $blasterWeapon->getId(),
+                ]);
+            throw new \Exception($errorMessage);
         }
 
         $result = parent::checkResult();
@@ -139,13 +156,27 @@ class Shoot extends AttemptAction
 
         $blasterItem = $this->getPlayerBlaster();
         if ($blasterItem == null) {
-            throw new \Exception("Attack action : {$player->getLogName()} should have a blaster");
+            $errorMessage = "Shoot::applyEffect() - player should have a blaster";
+            $this->logger->error($errorMessage, 
+                [   
+                    'daedalus' => $player->getDaedalus()->getId(),
+                    'player' => $player->getId(),
+                    'playerInventory' => $player->getEquipments()->toArray()
+                ]);
+            throw new \Exception($errorMessage);
         }
 
         /** @var Weapon $blasterWeapon */
         $blasterWeapon = $blasterItem->getMechanics()->first();
         if (!$blasterWeapon instanceof Weapon) {
-            throw new \Exception('Attack action : Blaster should have a weapon mechanic');
+            $errorMessage = "Shoot::applyEffect() - blaster should have a weapon mechanic";
+            $this->logger->error($errorMessage, 
+                [   
+                    'daedalus' => $player->getDaedalus()->getId(),
+                    'player' => $player->getId(),
+                    'blaster' => $blasterWeapon->getId(),
+                ]);
+            throw new \Exception($errorMessage);
         }
 
         if ($result instanceof Success) {

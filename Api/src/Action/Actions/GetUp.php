@@ -32,7 +32,14 @@ class GetUp extends AbstractAction
     protected function checkResult(): ActionResult
     {
         if (!$this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
-            throw new \LogicException('Player should have a lying down status');
+            $errorMessage = 'GetUp::checkResult() - Player should have a lying down status';
+            $this->logger->error($errorMessage,
+                [   
+                    'daedalus' => $this->player->getDaedalus()->getId(),
+                    'player' => $this->player->getId(),
+                ]
+            );
+            throw new \LogicException($errorMessage);
         }
 
         return new Success();
@@ -41,7 +48,14 @@ class GetUp extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         if (!$lyingDownStatus = $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
-            throw new \LogicException('Player should have a lying down status');
+            $errorMessage = 'GetUp::applyEffect() - Player should have a lying down status';
+            $this->logger->error($errorMessage,
+                [   
+                    'daedalus' => $this->player->getDaedalus()->getId(),
+                    'player' => $this->player->getId(),
+                ]
+            );
+            throw new \LogicException($errorMessage);
         }
 
         $statusEvent = new StatusEvent(

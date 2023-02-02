@@ -68,7 +68,14 @@ class Heal extends AbstractAction
         $quantity = $result->getQuantity();
 
         if ($quantity === null) {
-            throw new \LogicException('no healing quantity');
+            $errorMessage = 'Heal::applyEffect() - Healing quantity is null';
+            $this->logger->error($errorMessage,
+                [
+                    'daedalus' => $this->player->getDaedalus()->getId(),
+                    'player' => $this->player->getId(),
+                ]
+            );
+            throw new \LogicException($errorMessage);
         }
 
         $playerModifierEvent = new PlayerVariableEvent(

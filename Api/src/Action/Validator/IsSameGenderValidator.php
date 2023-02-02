@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class IsSameGenderValidator extends ConstraintValidator
+class IsSameGenderValidator extends AbstractActionValidator
 {
     private function isSameGenderCouple(string $player, string $targetPlayer): bool
     {

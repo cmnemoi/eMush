@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class UniqueCharacterValidator extends ConstraintValidator
+class UniqueCharacterValidator extends AbstractActionValidator
 {
     private DaedalusServiceInterface $daedalusService;
 

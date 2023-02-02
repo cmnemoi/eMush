@@ -52,7 +52,16 @@ abstract class AbstractAction
     {
         if (!$this->support($parameter)) {
             $className = isset($parameter) ? $parameter->getClassName() : '$parameter is null';
-            throw new \InvalidArgumentException("Invalid action parameter, the parameter [{$className}] isn't supported.");
+            $errorMessage = "AbstractAction::loadParameters - Invalid action parameter, the parameter [{$className}] isn't supported.";
+            $this->logger->error($errorMessage,
+                [   
+                    'daedalus' => $player->getDaedalus()->getId(),
+                    'action' => $action->getName(),
+                    'player' => $player->getId(),
+                    'parameter' => $parameter
+                ]
+            );
+            throw new \InvalidArgumentException($errorMessage);
         }
 
         $this->action = $action;

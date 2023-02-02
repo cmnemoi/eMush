@@ -9,7 +9,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class HasStatusValidator extends ConstraintValidator
+class HasStatusValidator extends AbstractActionValidator
 {
     public function validate($value, Constraint $constraint): void
     {

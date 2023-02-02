@@ -7,19 +7,29 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Equipment\Entity\GameItem;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class AreSymptomsPreventingActionValidator extends ConstraintValidator
+class AreSymptomsPreventingActionValidator extends AbstractActionValidator
 {
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
+            $errorMessage = "AreSymptomsPreventingActionValidator::validate: value must be an instance of AbstractAction";
+            $this->logger->error($errorMessage);
             throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
         if (!$constraint instanceof AreSymptomsPreventingAction) {
+            $errorMessage = "AreSymptomsPreventingActionValidator::validate: constraint must be an instance of AreSymptomsPreventingAction";
+            $this->logger->error($errorMessage,
+                [
+                    'daedalus' => $value->getPlayer()->getDaedalus()->getId(),
+                    'player' => $value->getPlayer()->getId(),
+                ]
+            );
             throw new UnexpectedTypeException($constraint, AreSymptomsPreventingAction::class);
         }
 
@@ -56,11 +66,13 @@ class AreSymptomsPreventingActionValidator extends ConstraintValidator
         }
     }
 
-    private function isSymptomActivationRequirementMet(SymptomActivationRequirement $symptomActivationRequirement, \Mush\RoomLog\Entity\LogParameterInterface|null $parameter): bool
+    private function isSymptomActivationRequirementMet(SymptomActivationRequirement $symptomActivationRequirement, LogParameterInterface|null $parameter): bool
     {
         switch ($symptomActivationRequirement->getActivationRequirementName()) {
             case SymptomActivationRequirementEnum::ITEM_STATUS:
                 if (!$parameter instanceof GameItem) {
+                    $errorMessage = "AreSymptomsPreventingActionValidator::isSymptomActivationRequirementMet: parameter must be an instance of GameItem";
+                    $this->logger->error($errorMessage);
                     throw new UnexpectedTypeException($parameter, GameItem::class);
                 }
                 $item = $parameter;

@@ -12,7 +12,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class HasEquipmentValidator extends ConstraintValidator
+class HasEquipmentValidator extends AbstractActionValidator
 {
     public function validate($value, Constraint $constraint): void
     {

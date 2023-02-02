@@ -17,6 +17,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -30,12 +31,14 @@ class Search extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        LoggerInterface $logger,
         StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventService,
             $actionService,
-            $validator
+            $validator,
+            $logger
         );
 
         $this->statusService = $statusService;
@@ -71,7 +74,17 @@ class Search extends AbstractAction
                 !($hiddenBy = $hiddenStatus->getTarget()) ||
                 !$hiddenBy instanceof Player
             ) {
-                throw new \LogicException('invalid hidden status');
+                $errorMessage = "Search::checkResult() - hidden item should have an hidden status, this status should have target or the item should be hidden by a player";
+                $this->logger->error($errorMessage,
+                    [
+                        'daedalus' => $this->player->getDaedalus()->getId(),
+                        'player' => $this->player->getId(),
+                        'hiddenItem' => $mostRecentHiddenItem->getId(),
+                        'hiddenStatus' => $hiddenStatus->getId(),
+                        'hiddenBy' => $hiddenBy->getId()
+                    ]
+                );
+                throw new \LogicException($errorMessage);
             }
 
             $itemFound = $mostRecentHiddenItem;
@@ -93,13 +106,28 @@ class Search extends AbstractAction
         $hiddenItem = $result->getEquipment();
 
         if ($hiddenItem === null) {
-            throw new \LogicException('action should have an hidden item');
+            $errorMessage = "Search::applyEffect() - action should have an hidden item";
+            $this->logger->error($errorMessage,
+                [
+                    'daedalus' => $this->player->getDaedalus()->getId(),
+                    'player' => $this->player->getId(),
+                ]
+            );
+            throw new \LogicException($errorMessage);
         }
 
         $hiddenStatus = $hiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN);
 
         if ($hiddenStatus === null) {
-            throw new \LogicException('item should have an hidden status');
+            $errorMessage = "Search::applyEffect() - hidden item should have an hidden status";
+            $this->logger->error($errorMessage,
+                [
+                    'daedalus' => $this->player->getDaedalus()->getId(),
+                    'player' => $this->player->getId(),
+                    'hiddenItem' => $hiddenItem->getId(),
+                ]
+            );
+            throw new \LogicException($errorMessage);
         }
 
         $hiddenBy = $hiddenStatus->getTarget();

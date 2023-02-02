@@ -10,7 +10,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class GameVariableLevelValidator extends ConstraintValidator
+class GameVariableLevelValidator extends AbstractActionValidator
 {
     public function validate($value, Constraint $constraint): void
     {

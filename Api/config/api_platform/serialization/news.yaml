@@ -1,0 +1,20 @@
+Mush\MetaGame\Entity\News:
+  attributes:
+    id: 
+      groups: [ 'news_read' ]
+    createdAt: 
+      groups: [ 'news_read', 'news_write' ]
+    updatedAt:
+      groups: [ 'news_read', 'news_write' ]
+    frenchTitle:
+      groups: [ 'news_read', 'news_write' ]
+    frenchContent:
+      groups: [ 'news_read', 'news_write' ]
+    englishTitle:
+      groups: [ 'news_read', 'news_write' ]
+    englishContent:
+      groups: [ 'news_read', 'news_write' ]
+    spanishTitle:
+      groups: [ 'news_read', 'news_write' ]
+    spanishContent:
+      groups: [ 'news_read', 'news_write' ]

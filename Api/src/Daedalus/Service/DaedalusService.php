@@ -167,7 +167,11 @@ class DaedalusService implements DaedalusServiceInterface
         $localizationConfig = $this->localizationConfigRepository->findByLanguage($language);
         if ($localizationConfig === null) {
             $errorMessage = 'DaedalusService::createDaedalus - there is no localizationConfig for this language';
-            $this->logger->error($errorMessage);
+            $this->logger->error($errorMessage, 
+                [
+                    'language' => $language,
+                ]
+            );
             throw new \Error($errorMessage);
         }
 

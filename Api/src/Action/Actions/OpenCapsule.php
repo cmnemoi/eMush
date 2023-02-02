@@ -93,7 +93,8 @@ class OpenCapsule extends AbstractAction
             $this->logger->error($errorMessage, 
                 [
                     'capsuleContent' => self::$capsuleContent,
-                    'daedalus' => $this->player->getDaedalus()->getId()
+                    'daedalus' => $this->player->getDaedalus()->getId(),
+                    'player' => $this->player->getId(),
                 ]);
             throw new \Error($errorMessage);
         }

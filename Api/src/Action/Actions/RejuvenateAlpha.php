@@ -59,7 +59,16 @@ class RejuvenateAlpha extends AbstractAction
 
         if ($maxMoralePoint === null || $maxActionPoint === null || $maxMovementPoint === null || $maxHealthPoint === null) {
             $errorMessage = 'RejuvenateAlpha::applyEffect() - moral, movement, action and health points should have a maximum value';
-            $this->logger->error($errorMessage);
+            $this->logger->error($errorMessage,
+                [   
+                    'daedalus' => $this->player->getDaedalus()->getId(),
+                    'player' => $this->player->getId(),
+                    'maxMoralePoint' => $maxMoralePoint,
+                    'maxActionPoint' => $maxActionPoint,
+                    'maxMovementPoint' => $maxMovementPoint,
+                    'maxHealthPoint' => $maxHealthPoint
+                ]
+            );
             throw new \Error($errorMessage);
         }
 

@@ -56,7 +56,12 @@ class ActionStrategyService implements ActionStrategyServiceInterface
 
         if (!$action) {
             $errorMessage = "ActionStrategyService::executeAction() - Action not found";
-            $this->logger->error($errorMessage, ['actionId' => $actionId]);
+            $this->logger->error($errorMessage, 
+                [   
+                    'daedalus' => $player->getDaedalus()->getId(),
+                    'player' => $player->getId(),
+                    'action' => $actionId,
+                ]);
             throw new NotFoundHttpException($errorMessage);
         }
 
@@ -64,7 +69,11 @@ class ActionStrategyService implements ActionStrategyServiceInterface
 
         if (null === $actionService) {
             $errorMessage = "ActionStrategyService::executeAction() - Action do not exist";
-            $this->logger->error($errorMessage, ['actionId' => $actionId]);
+            $this->logger->error($errorMessage, 
+                [
+                    'daedalus' => $player->getDaedalus()->getId(),
+                    'action' => $actionId,
+                ]);
             return new Error($errorMessage);
         }
 

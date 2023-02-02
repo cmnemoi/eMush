@@ -57,13 +57,13 @@ class LoginService
         try {
             $decodedToken = $this->jwtEncoder->decode($codeToken);
         } catch (JWTDecodeFailureException $e) {
-            $errorMessage = 'login: JWTDecodeFailureException: ' . $e->getMessage();
+            $errorMessage = 'LoginService::login: JWTDecodeFailureException: ' . $e->getMessage();
             $this->logger->error($errorMessage);
             throw new UnauthorizedHttpException($errorMessage);
         }
 
         if (!$decodedToken || !($code = $decodedToken['code'])) {
-            $errorMessage = 'login: Bad Credentials';
+            $errorMessage = 'LoginService::login: Bad Credentials';
             $this->logger->error($errorMessage);
             throw new UnauthorizedHttpException($errorMessage);
         }
@@ -71,7 +71,7 @@ class LoginService
         $user = $this->userService->findUserByNonceCode($code);
 
         if ($user === null) {
-            $errorMessage = 'login: Bad Credentials';
+            $errorMessage = 'LoginService::login: Bad Credentials';
             $this->logger->error($errorMessage);
             throw new UnauthorizedHttpException($errorMessage);
         }

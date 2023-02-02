@@ -36,7 +36,11 @@ class CycleService implements CycleServiceInterface
 
         $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
         if ($dateDaedalusLastCycle === null) {
-            $this->logger->error('CycleService->handleCycleChange: Daedalus should have a CycleStartedAt Value');
+            $this->logger->error('CycleService::handleCycleChange: Daedalus should have a CycleStartedAt Value',
+                [
+                    'daedalus' => $daedalus->getId(),
+                ]
+            );
             throw new \LogicException('Daedalus should have a CycleStartedAt Value');
         } else {
             $dateDaedalusLastCycle = clone $dateDaedalusLastCycle;
@@ -65,7 +69,12 @@ class CycleService implements CycleServiceInterface
                     }
                 }
             } catch (\Exception $exception) {
-                $this->logger->error('CycleService->handleCycleChange: ' . $exception->getMessage());
+                $this->logger->error('CycleService::handleCycleChange: ' . $exception->getMessage(),
+                    [
+                        'daedalus' => $daedalus->getId(),
+                        'cycleElapsed' => $cycleElapsed,
+                    ]
+                );
             } finally {
                 $daedalus->setCycleStartedAt($dateDaedalusLastCycle);
                 $daedalus->setIsCycleChange(false);
@@ -82,7 +91,11 @@ class CycleService implements CycleServiceInterface
         $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
 
         if (($dateDaedalusLastCycle = $daedalus->getCycleStartedAt()) === null) {
-            $this->logger->error('CycleService->getDateStartNextCycle: Daedalus should have a CycleStartedAt Value');
+            $this->logger->error('CycleService::getDateStartNextCycle: Daedalus should have a CycleStartedAt Value',
+                [
+                    'daedalus' => $daedalus->getId(),
+                ]
+            );
             throw new \LogicException('Daedalus should have a CycleStartedAt Value');
         }
 

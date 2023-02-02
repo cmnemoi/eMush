@@ -69,7 +69,11 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
         if ($dailySpores === null) {
             $errorMessage = 'DaedalusCycleSubscriber::onNewDay - daedalus spore gameVariable should have a maximum value';
-            $this->logger->error($errorMessage);
+            $this->logger->error($errorMessage,
+                [
+                    'daedalus' => $daedalus->getId()
+                ]
+            );
             throw new \Error($errorMessage);
         }
         // reset spore count

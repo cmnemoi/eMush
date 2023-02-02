@@ -123,7 +123,12 @@ class SelfSurgery extends AbstractAction
         }
 
         $errorMessage = "SelfSurgery::checkResult() : Unexpected result : $result";
-        $this->logger->error($errorMessage);
+        $this->logger->error($errorMessage,
+            [   
+                'daedalus' => $this->player->getDaedalus()->getId(),
+                'player' => $this->player->getId(),
+            ]
+        );
         return new Error($errorMessage);
     }
 

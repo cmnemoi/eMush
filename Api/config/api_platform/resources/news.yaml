@@ -1,0 +1,20 @@
+Mush\MetaGame\Entity\News:
+  shortName: 'News'
+  description: 'eMush News'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'news_read' ]
+    denormalization_context:
+      groups: [ 'news_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+      security: 'is_granted("ROLE_USER")'
+    post:
+      security: 'is_granted("ROLE_MODERATOR")'
+  itemOperations:
+    get: 
+      security: 'is_granted("ROLE_USER")'
+    put:
+      security: 'is_granted("ROLE_MODERATOR")'

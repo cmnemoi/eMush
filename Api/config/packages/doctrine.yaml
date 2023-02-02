@@ -88,3 +88,9 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Modifier/Entity'
                 prefix: 'Mush\Modifier\Entity'
                 alias: GameModifier
+            MetaGame:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/MetaGame/Entity'
+                prefix: 'Mush\MetaGame\Entity'
+                alias: MetaGame

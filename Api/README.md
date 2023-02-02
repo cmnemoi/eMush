@@ -24,6 +24,7 @@
         |-- Disease/
         |-- Equipment/
         |-- Game/
+        |-- MetaGame/
         |-- Modifier/
         |-- Place/
         |-- Player/
@@ -124,6 +125,7 @@ Obvious example:
 - [Disease](./src/Disease/README.md)
 - [Equipment](./src/Equipment/README.md)
 - [Game](./src/Game/README.md)
+- [MetaGame](./src/MetaGame/README.md)
 - [Modifier](./src/Modifier/README.md)
 - [Place](./src/Place/README.md)
 - [Player](./src/Player/README.md)

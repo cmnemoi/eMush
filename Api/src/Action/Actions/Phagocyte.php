@@ -10,7 +10,7 @@ use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasStatus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -57,31 +57,31 @@ class Phagocyte extends AbstractAction
             $this->player,
             PlayerVariableEnum::SPORE,
             -1,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($sporeLossEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($sporeLossEvent, QuantityEventInterface::CHANGE_VARIABLE);
 
         // The Player gains 4 :hp:
         $healthPointGainEvent = new PlayerVariableEvent(
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
             4,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
         $healthPointGainEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventDispatcher->dispatch($healthPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($healthPointGainEvent, QuantityEventInterface::CHANGE_VARIABLE);
 
         // The Player gains 4 :pa:
         $actionPointGainEvent = new PlayerVariableEvent(
             $this->player,
             PlayerVariableEnum::ACTION_POINT,
             4,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
         $actionPointGainEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventDispatcher->dispatch($actionPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($actionPointGainEvent, QuantityEventInterface::CHANGE_VARIABLE);
     }
 }

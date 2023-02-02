@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\HasStatus;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -55,20 +55,20 @@ class RemoveSpore extends AbstractAction
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
             -3,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
 
         // The Player remove a spore
         $sporeLossEvent = new PlayerVariableEvent(
             $this->player,
             PlayerVariableEnum::SPORE,
             -1,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($sporeLossEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($sporeLossEvent, QuantityEventInterface::CHANGE_VARIABLE);
     }
 }

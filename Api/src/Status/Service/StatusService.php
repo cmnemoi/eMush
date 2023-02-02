@@ -9,6 +9,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
@@ -20,21 +21,20 @@ use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Repository\StatusRepository;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class StatusService implements StatusServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private StatusRepository $statusRepository;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         StatusRepository $statusRepository,
     ) {
         $this->entityManager = $entityManager;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->statusRepository = $statusRepository;
     }
 
@@ -56,23 +56,23 @@ class StatusService implements StatusServiceInterface
         return true;
     }
 
-    public function removeAllStatuses(StatusHolderInterface $holder, string $reason, \DateTime $time): void
+    public function removeAllStatuses(StatusHolderInterface $holder, array $reasons, \DateTime $time): void
     {
         /** @var Status $status */
         foreach ($holder->getStatuses() as $status) {
-            $this->removeStatus($status->getName(), $holder, $reason, $time);
+            $this->removeStatus($status->getName(), $holder, $reasons, $time);
         }
     }
 
-    public function removeStatus(string $statusName, StatusHolderInterface $holder, string $reason, \DateTime $time): void
+    public function removeStatus(string $statusName, StatusHolderInterface $holder, array $reasons, \DateTime $time): void
     {
         $statusEvent = new StatusEvent(
             $statusName,
             $holder,
-            $reason,
+            $reasons,
             $time
         );
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
@@ -89,7 +89,7 @@ class StatusService implements StatusServiceInterface
     public function createStatusFromConfig(
         StatusConfig $statusConfig,
         StatusHolderInterface $holder,
-        string $reason,
+        array $reasons,
         \DateTime $time,
         ?StatusHolderInterface $target = null
     ): Status {
@@ -105,11 +105,11 @@ class StatusService implements StatusServiceInterface
         $statusEvent = new StatusEvent(
             $statusConfig->getStatusName(),
             $holder,
-            $reason,
+            $reasons,
             $time
         );
         $statusEvent->setStatusConfig($statusConfig);
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $status;
     }
@@ -118,7 +118,6 @@ class StatusService implements StatusServiceInterface
         string $statusName,
         Daedalus $daedalus,
         StatusHolderInterface $holder,
-        string $reason,
         \DateTime $time,
         ?StatusHolderInterface $target = null
     ): Status {

@@ -65,9 +65,9 @@ class Consume extends AbstractAction
             $this->player,
             $parameter,
             VisibilityEnum::PRIVATE,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($consumeEquipment, ApplyEffectEvent::CONSUME);
+        $this->eventService->callEvent($consumeEquipment, ApplyEffectEvent::CONSUME);
     }
 }

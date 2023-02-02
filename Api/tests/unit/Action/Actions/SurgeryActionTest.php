@@ -34,13 +34,13 @@ class SurgeryActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_HEAL);
+        $this->actionEntity = $this->createActionEntity(ActionEnum::SURGERY);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
 
         $this->action = new Surgery(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -77,14 +77,14 @@ class SurgeryActionTest extends AbstractActionTest
 
         $this->modifierService
             ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::PERCENTAGE, 10, ActionEnum::SURGERY, \Mockery::any())
+            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::PERCENTAGE, 10, [ActionEnum::SURGERY], \Mockery::any())
             ->once()
             ->andReturn(10)
         ;
 
         $this->modifierService
             ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::CRITICAL_PERCENTAGE, 15, ActionEnum::SURGERY, \Mockery::any())
+            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::CRITICAL_PERCENTAGE, 15, [ActionEnum::SURGERY], \Mockery::any())
             ->once()
             ->andReturn(15)
         ;
@@ -95,12 +95,12 @@ class SurgeryActionTest extends AbstractActionTest
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $playerToHeal);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Fail::class, $result);
@@ -127,14 +127,14 @@ class SurgeryActionTest extends AbstractActionTest
 
         $this->modifierService
             ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::PERCENTAGE, 10, ActionEnum::SURGERY, \Mockery::any())
+            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::PERCENTAGE, 10, [ActionEnum::SURGERY], \Mockery::any())
             ->once()
             ->andReturn(10)
         ;
 
         $this->modifierService
             ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::CRITICAL_PERCENTAGE, 15, ActionEnum::SURGERY, \Mockery::any())
+            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::CRITICAL_PERCENTAGE, 15, [ActionEnum::SURGERY], \Mockery::any())
             ->once()
             ->andReturn(15)
         ;
@@ -145,12 +145,12 @@ class SurgeryActionTest extends AbstractActionTest
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $playerToHeal);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
@@ -178,14 +178,14 @@ class SurgeryActionTest extends AbstractActionTest
 
         $this->modifierService
             ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::PERCENTAGE, 10, ActionEnum::SURGERY, \Mockery::any())
+            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::PERCENTAGE, 10, [ActionEnum::SURGERY], \Mockery::any())
             ->once()
             ->andReturn(10)
         ;
 
         $this->modifierService
             ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::CRITICAL_PERCENTAGE, 15, ActionEnum::SURGERY, \Mockery::any())
+            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::CRITICAL_PERCENTAGE, 15, [ActionEnum::SURGERY], \Mockery::any())
             ->once()
             ->andReturn(15)
         ;
@@ -196,12 +196,12 @@ class SurgeryActionTest extends AbstractActionTest
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $playerToHeal);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(CriticalSuccess::class, $result);

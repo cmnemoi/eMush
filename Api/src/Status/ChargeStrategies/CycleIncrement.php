@@ -9,7 +9,7 @@ class CycleIncrement extends AbstractChargeStrategy
 {
     protected string $name = ChargeStrategyTypeEnum::CYCLE_INCREMENT;
 
-    public function apply(ChargeStatus $status, string $reason): ?ChargeStatus
+    public function apply(ChargeStatus $status, array $reasons): ?ChargeStatus
     {
         return $this->statusService->updateCharge($status, 1);
     }

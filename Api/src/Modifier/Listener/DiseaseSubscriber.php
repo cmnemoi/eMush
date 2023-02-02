@@ -4,20 +4,16 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Modifier\Service\DiseaseModifierServiceInterface;
-use Mush\Modifier\Service\ModifierService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DiseaseSubscriber implements EventSubscriberInterface
 {
     private DiseaseModifierServiceInterface $diseaseModifierService;
-    private ModifierService $modifierService;
 
     public function __construct(
         DiseaseModifierServiceInterface $diseaseModifierService,
-        ModifierService $modifierService
     ) {
         $this->diseaseModifierService = $diseaseModifierService;
-        $this->modifierService = $modifierService;
     }
 
     public static function getSubscribedEvents(): array

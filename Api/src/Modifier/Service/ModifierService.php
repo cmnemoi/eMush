@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -22,24 +23,23 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ModifierService implements ModifierServiceInterface
 {
     private const ATTEMPT_INCREASE = 1.25;
     private EntityManagerInterface $entityManager;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private ModifierRequirementServiceInterface $activationRequirementService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ModifierRequirementServiceInterface $activationRequirementService,
         RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->activationRequirementService = $activationRequirementService;
         $this->randomService = $randomService;
     }
@@ -133,7 +133,7 @@ class ModifierService implements ModifierServiceInterface
             $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
         }
 
-        return $this->activationRequirementService->getActiveModifiers($modifiers, $action->getActionName(), $player);
+        return $this->activationRequirementService->getActiveModifiers($modifiers, [$action->getActionName()], $player);
     }
 
     public function getActionModifiedValue(Action $action, Player $player, string $target, ?LogParameterInterface $parameter, ?int $attemptNumber = null): int
@@ -163,13 +163,13 @@ class ModifierService implements ModifierServiceInterface
     {
         $modifiers = $this->getActionModifiers($action, $player, $parameter);
 
-        $this->dispatchModifiersEvent($modifiers, $action->getActionName(), new \DateTime());
+        $this->dispatchModifiersEvent($modifiers, [$action->getActionName()], new \DateTime());
     }
 
     public function isSuccessfulWithModifiers(
         int $successRate,
         array $scopes,
-        string $reason,
+        array $reasons,
         \DateTime $time,
         ModifierHolder $holder
     ): bool {
@@ -187,7 +187,7 @@ class ModifierService implements ModifierServiceInterface
         } else {
             $modifierUsed = false;
         }
-        $this->dispatchModifiersEvent($modifiers, $reason, $time, $modifierUsed);
+        $this->dispatchModifiersEvent($modifiers, $reasons, $time, $modifierUsed);
 
         return $modifiedValue >= $percent;
     }
@@ -197,7 +197,7 @@ class ModifierService implements ModifierServiceInterface
         array $scopes,
         string $target,
         int $initValue,
-        string $reason,
+        array $reasons,
         \DateTime $time,
         bool $applyModifier = true,
     ): int {
@@ -206,12 +206,12 @@ class ModifierService implements ModifierServiceInterface
             ->getTargetedModifiers($target)
         ;
 
-        $modifiers = $this->activationRequirementService->getActiveModifiers($modifiers, $reason, $holder);
+        $modifiers = $this->activationRequirementService->getActiveModifiers($modifiers, $reasons, $holder);
 
         $modifiedValue = $this->getModifiedValue($modifiers, $initValue);
 
         if ($applyModifier) {
-            $this->dispatchModifiersEvent($modifiers, $reason, $time);
+            $this->dispatchModifiersEvent($modifiers, $reasons, $time);
         }
 
         return $modifiedValue;
@@ -220,13 +220,16 @@ class ModifierService implements ModifierServiceInterface
     /**
      * @param ArrayCollection<int, GameModifier> $modifiers
      */
-    private function dispatchModifiersEvent(ArrayCollection $modifiers, string $reason, \DateTime $time, bool $isSuccessful = true): void
+    private function dispatchModifiersEvent(ArrayCollection $modifiers, array $reasons, \DateTime $time, bool $isSuccessful = true): void
     {
         foreach ($modifiers as $modifier) {
-            $reason = $modifier->getModifierConfig()->getModifierName() ?: $reason;
-            $modifierEvent = new ModifierEvent($modifier, $reason, $time, $isSuccessful);
+            $modifierName = $modifier->getModifierConfig()->getModifierName();
+            if ($modifierName !== null) {
+                $reasons[] = $modifierName;
+            }
+            $modifierEvent = new ModifierEvent($modifier, $reasons, $time, $isSuccessful);
 
-            $this->eventDispatcher->dispatch($modifierEvent, ModifierEvent::APPLY_MODIFIER);
+            $this->eventService->callEvent($modifierEvent, ModifierEvent::APPLY_MODIFIER);
         }
     }
 

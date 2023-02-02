@@ -7,7 +7,6 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\HasRole;
 use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\User\Enum\RoleEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -36,8 +35,8 @@ class AutoDestroy extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $deathEvent = new DaedalusEvent($this->player->getDaedalus(), EndCauseEnum::SUPER_NOVA, new \DateTime());
+        $deathEvent = new DaedalusEvent($this->player->getDaedalus(), $this->getAction()->getActionTags(), new \DateTime());
 
-        $this->eventDispatcher->dispatch($deathEvent, DaedalusEvent::FINISH_DAEDALUS);
+        $this->eventService->callEvent($deathEvent, DaedalusEvent::FINISH_DAEDALUS);
     }
 }

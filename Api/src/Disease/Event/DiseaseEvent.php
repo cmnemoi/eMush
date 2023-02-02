@@ -24,12 +24,12 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
 
     public function __construct(
         PlayerDisease $playerDisease,
-        string $cureReason,
+        array $tags,
         \DateTime $time
     ) {
         $this->playerDisease = $playerDisease;
 
-        parent::__construct($cureReason, $time);
+        parent::__construct($tags, $time);
     }
 
     public function getAuthor(): ?Player

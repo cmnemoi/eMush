@@ -22,6 +22,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -32,7 +33,6 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ChannelServiceTest extends TestCase
 {
@@ -45,8 +45,8 @@ class ChannelServiceTest extends TestCase
     /** @var ChannelPlayerRepository|Mockery\mock */
     private ChannelPlayerRepository $channelPlayerRepository;
 
-    /** @var EventDispatcherInterface|Mockery\mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
 
     /** @var StatusServiceInterface|Mockery\mock */
     private StatusServiceInterface $statusService;
@@ -61,14 +61,14 @@ class ChannelServiceTest extends TestCase
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->channelRepository = \Mockery::mock(ChannelRepository::class);
         $this->channelPlayerRepository = \Mockery::mock(ChannelPlayerRepository::class);
-        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new ChannelService(
             $this->entityManager,
             $this->channelRepository,
             $this->channelPlayerRepository,
-            $this->eventDispatcher,
+            $this->eventService,
             $this->statusService
         );
     }
@@ -116,8 +116,8 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (ChannelEvent $event) => ($event->getPlayer() === $player))
             ->once()
         ;
@@ -135,8 +135,8 @@ class ChannelServiceTest extends TestCase
         $player->setPlayerInfo($playerInfo);
         $channel = new Channel();
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (ChannelEvent $event) => ($event->getPlayer() === $player && $event->getChannel() === $channel))
             ->once()
         ;
@@ -151,8 +151,8 @@ class ChannelServiceTest extends TestCase
         $player->setPlayerInfo($playerInfo);
         $channel = new Channel();
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (ChannelEvent $event) => ($event->getPlayer() === $player && $event->getChannel() === $channel))
             ->once()
         ;
@@ -387,7 +387,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -436,7 +436,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -485,7 +485,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -543,7 +543,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -566,7 +566,7 @@ class ChannelServiceTest extends TestCase
             ->andReturn(new ArrayCollection([]))
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }

@@ -45,9 +45,9 @@ class Take extends AbstractAction
             $parameter,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
     }
 }

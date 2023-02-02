@@ -14,10 +14,10 @@ class InteractWithEquipmentEvent extends EquipmentEvent
         GameEquipment $equipment,
         EquipmentHolderInterface $actor,
         string $visibility,
-        string $reason,
+        array $tags,
         \DateTime $time
     ) {
-        parent::__construct($equipment, false, $visibility, $reason, $time);
+        parent::__construct($equipment, false, $visibility, $tags, $time);
 
         $this->actor = $actor;
     }

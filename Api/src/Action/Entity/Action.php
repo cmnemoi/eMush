@@ -92,6 +92,14 @@ class Action
         return $types;
     }
 
+    public function getActionTags(): array
+    {
+        $tags = $this->getTypes();
+        $tags[] = $this->actionName;
+
+        return $tags;
+    }
+
     public function setTypes(array $types): self
     {
         $this->types = $types;

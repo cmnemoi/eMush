@@ -17,16 +17,16 @@ use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class GameEquipmentServiceTest extends TestCase
 {
-    private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
+    private Mockery\Mock|EventServiceInterface $eventService;
 
     private EntityManagerInterface|Mockery\Mock $entityManager;
 
@@ -44,7 +44,7 @@ class GameEquipmentServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->repository = \Mockery::mock(GameEquipmentRepository::class);
         $this->equipmentService = \Mockery::mock(EquipmentServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
@@ -54,7 +54,7 @@ class GameEquipmentServiceTest extends TestCase
             $this->repository,
             $this->equipmentService,
             $this->randomService,
-            $this->eventDispatcher,
+            $this->eventService,
         );
     }
 
@@ -85,11 +85,11 @@ class GameEquipmentServiceTest extends TestCase
             ->shouldReceive('flush')
             ->once();
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $gameItem = $this->service->createGameEquipment(
             $itemConfig,
             $place,
-            'reason'
+            ['reason']
         );
 
         $this->assertInstanceOf(GameItem::class, $gameItem);
@@ -118,11 +118,11 @@ class GameEquipmentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $gameEquipment = $this->service->createGameEquipment(
             $equipmentConfig,
             $place,
-            'reason'
+            ['reason']
         );
 
         $this->assertInstanceOf(GameEquipment::class, $gameEquipment);
@@ -155,19 +155,18 @@ class GameEquipmentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG))
             ->once()
         ;
-
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $gameItem = $this->service->createGameEquipment(
             $itemConfig,
             $place,
-            'reason'
+            ['reason']
         );
 
         $this->assertInstanceOf(GameItem::class, $gameItem);
@@ -198,19 +197,19 @@ class GameEquipmentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::DOCUMENT_CONTENT))
             ->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $gameItem = $this->service->createGameEquipment(
             $itemConfig,
             $place,
-            'reason',
+            ['reason'],
         );
 
         $this->assertInstanceOf(GameItem::class, $gameItem);

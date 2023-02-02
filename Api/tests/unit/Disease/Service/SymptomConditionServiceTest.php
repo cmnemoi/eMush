@@ -80,12 +80,12 @@ class SymptomActivationRequirementServiceTest extends TestCase
 
         $symptomConfigs = new SymptomConfigCollection([$symptomConfig]);
 
-        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, 'reason');
+        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, ['reason']);
         $this->assertEquals($result, $symptomConfigs);
 
         $room->removeEquipment($document);
 
-        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, 'reason');
+        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, ['reason']);
         $this->assertEmpty($result);
     }
 
@@ -103,11 +103,11 @@ class SymptomActivationRequirementServiceTest extends TestCase
         $symptomConfigs = new SymptomConfigCollection([$symptomConfig]);
 
         $this->randomService->shouldReceive('isSuccessful')->with(50)->once()->andReturn(true);
-        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, 'reason');
+        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, ['reason']);
         $this->assertEquals($result, $symptomConfigs);
 
         $this->randomService->shouldReceive('isSuccessful')->with(50)->once()->andReturn(false);
-        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, 'reason');
+        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, ['reason']);
         $this->assertEmpty($result);
     }
 
@@ -124,10 +124,10 @@ class SymptomActivationRequirementServiceTest extends TestCase
 
         $symptomConfigs = new SymptomConfigCollection([$symptomConfig]);
 
-        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, ActionEnum::MOVE);
+        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, [ActionEnum::MOVE]);
         $this->assertEquals($result, $symptomConfigs);
 
-        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, ActionEnum::DROP);
+        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, [ActionEnum::DROP]);
         $this->assertEmpty($result);
     }
 
@@ -153,12 +153,12 @@ class SymptomActivationRequirementServiceTest extends TestCase
 
         $symptomConfigs = new SymptomConfigCollection([$symptomConfig]);
 
-        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, 'reason');
+        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, ['reason']);
         $this->assertEquals($result, $symptomConfigs);
 
         $player->removeEquipment($document);
 
-        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, 'reason');
+        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, ['reason']);
         $this->assertEmpty($result);
     }
 
@@ -200,12 +200,12 @@ class SymptomActivationRequirementServiceTest extends TestCase
 
         $symptomConfigs = new SymptomConfigCollection([$symptomConfig]);
 
-        $result = $this->service->getActiveSymptoms($symptomConfigs, $human, 'reason');
+        $result = $this->service->getActiveSymptoms($symptomConfigs, $human, ['reason']);
         $this->assertEquals($result, $symptomConfigs);
 
         $mush->changePlace($otherRoom);
 
-        $result = $this->service->getActiveSymptoms($symptomConfigs, $human, 'reason');
+        $result = $this->service->getActiveSymptoms($symptomConfigs, $human, ['reason']);
         $this->assertEmpty($result);
     }
 
@@ -241,12 +241,12 @@ class SymptomActivationRequirementServiceTest extends TestCase
 
         $symptomConfigs = new SymptomConfigCollection([$symptomConfig]);
 
-        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, 'reason');
+        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, ['reason']);
         $this->assertEquals($result, $symptomConfigs);
 
         $otherPlayer->changePlace($otherRoom);
 
-        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, 'reason');
+        $result = $this->service->getActiveSymptoms($symptomConfigs, $player, ['reason']);
         $this->assertEmpty($result);
     }
 }

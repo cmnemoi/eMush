@@ -15,14 +15,14 @@ abstract class AbstractChargeStrategy
         $this->statusService = $statusService;
     }
 
-    public function execute(ChargeStatus $status, string $reason): ?ChargeStatus
+    public function execute(ChargeStatus $status, array $reasons): ?ChargeStatus
     {
-        $status = $this->apply($status, $reason);
+        $status = $this->apply($status, $reasons);
 
         return $status;
     }
 
-    abstract protected function apply(ChargeStatus $status, string $reason): ?ChargeStatus;
+    abstract protected function apply(ChargeStatus $status, array $reasons): ?ChargeStatus;
 
     public function getName(): string
     {

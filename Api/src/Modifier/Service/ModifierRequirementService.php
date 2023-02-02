@@ -23,7 +23,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         $this->randomService = $randomService;
     }
 
-    public function getActiveModifiers(ModifierCollection $modifiers, string $reason, ModifierHolder $holder): ModifierCollection
+    public function getActiveModifiers(ModifierCollection $modifiers, array $reasons, ModifierHolder $holder): ModifierCollection
     {
         $validatedModifiers = new ModifierCollection();
 
@@ -33,7 +33,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
                 $chargeStatus === null ||
                 $chargeStatus->getCharge() > 0
             ) {
-                if ($this->checkModifier($modifier, $reason, $holder)) {
+                if ($this->checkModifier($modifier, $reasons, $holder)) {
                     $validatedModifiers->add($modifier);
                 }
             }
@@ -42,12 +42,12 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         return $validatedModifiers;
     }
 
-    private function checkModifier(GameModifier $modifier, string $reason, ModifierHolder $holder): bool
+    private function checkModifier(GameModifier $modifier, array $reasons, ModifierHolder $holder): bool
     {
         $modifierConfig = $modifier->getModifierConfig();
 
         foreach ($modifierConfig->getModifierActivationRequirements() as $activationRequirement) {
-            if (!$this->checkActivationRequirement($activationRequirement, $reason, $holder)) {
+            if (!$this->checkActivationRequirement($activationRequirement, $reasons, $holder)) {
                 return false;
             }
         }
@@ -55,14 +55,14 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         return true;
     }
 
-    private function checkActivationRequirement(ModifierActivationRequirement $activationRequirement, string $reason, ModifierHolder $holder): bool
+    private function checkActivationRequirement(ModifierActivationRequirement $activationRequirement, array $reasons, ModifierHolder $holder): bool
     {
         switch ($activationRequirement->getActivationRequirementName()) {
             case ModifierRequirementEnum::REASON:
-                return $reason === $activationRequirement->getActivationRequirement();
+                return in_array($activationRequirement->getActivationRequirement(), $reasons);
 
             case ModifierRequirementEnum::NOT_REASON:
-                return $reason !== $activationRequirement->getActivationRequirement();
+                return !in_array($activationRequirement->getActivationRequirement(), $reasons);
 
             case ModifierRequirementEnum::RANDOM:
                 return $this->randomService->isSuccessful(intval($activationRequirement->getValue()));

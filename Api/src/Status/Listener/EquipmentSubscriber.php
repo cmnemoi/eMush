@@ -60,25 +60,25 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
-        $this->statusService->removeAllStatuses($equipment, $event->getReason(), $event->getTime());
+        $this->statusService->removeAllStatuses($equipment, $event->getTags(), $event->getTime());
     }
 
     public function onNewEquipmentInInventory(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
-        $reason = $event->getReason();
+        $reasons = $event->getTags();
         $time = $event->getTime();
         $holder = $equipment->getHolder();
 
         if ($holder instanceof Player) {
             if ($equipment->hasStatus(EquipmentStatusEnum::HIDDEN)) {
-                $this->statusService->removeStatus(EquipmentStatusEnum::HIDDEN, $equipment, $reason, $time);
+                $this->statusService->removeStatus(EquipmentStatusEnum::HIDDEN, $equipment, $reasons, $time);
             } elseif (
                 $equipment->hasStatus(EquipmentStatusEnum::HEAVY) &&
                 !$holder->hasStatus(PlayerStatusEnum::BURDENED)
             ) {
                 $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::BURDENED, $holder->getDaedalus());
-                $this->statusService->createStatusFromConfig($statusConfig, $holder, $reason, $time);
+                $this->statusService->createStatusFromConfig($statusConfig, $holder, $reasons, $time);
             }
         }
     }
@@ -86,7 +86,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onEquipmentRemovedFromInventory(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
-        $reason = $event->getReason();
+        $reasons = $event->getTags();
         $time = $event->getTime();
 
         $player = $equipment->getHolder();
@@ -96,7 +96,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 return $item->hasStatus(EquipmentStatusEnum::HEAVY);
             })->count() === 1
         ) {
-            $this->statusService->removeStatus(PlayerStatusEnum::BURDENED, $player, $reason, $time);
+            $this->statusService->removeStatus(PlayerStatusEnum::BURDENED, $player, $reasons, $time);
         }
     }
 }

@@ -39,10 +39,10 @@ class ReportFire extends AbstractAction
             $this->player,
             $this->parameter,
             VisibilityEnum::PRIVATE,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
-        $this->eventDispatcher->dispatch($reportEvent, ApplyEffectEvent::REPORT_FIRE);
+        $this->eventService->callEvent($reportEvent, ApplyEffectEvent::REPORT_FIRE);
     }
 }

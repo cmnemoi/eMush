@@ -3,6 +3,7 @@
 namespace Mush\Test\Player\Event;
 
 use Mockery;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -12,14 +13,13 @@ use Mush\Player\Listener\PlayerVariableSubscriber;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerModifierSubscriberTest extends TestCase
 {
     /** @var PlayerVariableServiceInterface|Mockery\Mock */
     private PlayerVariableServiceInterface $playerVariableService;
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
 
     private PlayerVariableSubscriber $playerModifierSubscriber;
 
@@ -29,11 +29,11 @@ class PlayerModifierSubscriberTest extends TestCase
     public function before()
     {
         $this->playerVariableService = \Mockery::mock(PlayerVariableServiceInterface::class);
-        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = \Mockery::mock(EventServiceInterface::class);
 
         $this->playerModifierSubscriber = new PlayerVariableSubscriber(
             $this->playerVariableService,
-            $this->eventDispatcher,
+            $this->eventService,
         );
     }
 
@@ -53,7 +53,7 @@ class PlayerModifierSubscriberTest extends TestCase
             $player,
             PlayerVariableEnum::MOVEMENT_POINT,
             3,
-            'reason',
+            ['reason'],
             new \DateTime()
         );
 
@@ -74,7 +74,7 @@ class PlayerModifierSubscriberTest extends TestCase
             $player,
             PlayerVariableEnum::ACTION_POINT,
             1,
-            'movement point conversion',
+            ['movement point conversion'],
             new \DateTime()
         );
 
@@ -97,7 +97,7 @@ class PlayerModifierSubscriberTest extends TestCase
             $player,
             PlayerVariableEnum::MORAL_POINT,
             -1,
-            'reason',
+            ['reason'],
             new \DateTime()
         );
 
@@ -130,7 +130,7 @@ class PlayerModifierSubscriberTest extends TestCase
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             1,
-            'reason',
+            ['reason'],
             new \DateTime()
         );
 
@@ -151,7 +151,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
@@ -164,7 +164,7 @@ class PlayerModifierSubscriberTest extends TestCase
             $player,
             PlayerVariableEnum::SATIETY,
             1,
-            'reason',
+            ['reason'],
             new \DateTime()
         );
 

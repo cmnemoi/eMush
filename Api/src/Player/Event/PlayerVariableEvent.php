@@ -2,13 +2,13 @@
 
 namespace Mush\Player\Event;
 
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
-class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface, AbstractQuantityEvent
+class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface, QuantityEventInterface
 {
     private int $quantity;
     private string $modifiedVariable;
@@ -17,13 +17,13 @@ class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface,
         Player $player,
         string $modifiedVariable,
         int $quantity,
-        string $reason,
+        array $tags,
         \DateTime $time
     ) {
         $this->quantity = $quantity;
         $this->modifiedVariable = $modifiedVariable;
 
-        parent::__construct($player, $reason, $time);
+        parent::__construct($player, $tags, $time);
     }
 
     public function getQuantity(): int

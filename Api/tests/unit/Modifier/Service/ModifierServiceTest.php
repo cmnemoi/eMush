@@ -8,6 +8,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionVariables;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -24,7 +25,6 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ModifierServiceTest extends TestCase
 {
@@ -34,8 +34,8 @@ class ModifierServiceTest extends TestCase
     private RandomServiceInterface $randomService;
     /** @var ModifierRequirementServiceInterface|Mockery\Mock */
     private ModifierRequirementServiceInterface $activationRequirementService;
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
 
     private ModifierService $service;
 
@@ -45,13 +45,13 @@ class ModifierServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->activationRequirementService = \Mockery::mock(ModifierRequirementServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new ModifierService(
             $this->entityManager,
-            $this->eventDispatcher,
+            $this->eventService,
             $this->activationRequirementService,
             $this->randomService,
         );
@@ -582,7 +582,7 @@ class ModifierServiceTest extends TestCase
             ->andReturn(new ModifierCollection([$modifier1]))
             ->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->service->applyActionModifiers($action, $player, null);
     }
@@ -596,14 +596,14 @@ class ModifierServiceTest extends TestCase
         $player->setDaedalus($daedalus)->setPlace($room);
 
         $this->activationRequirementService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection())->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
             $player,
             [ModifierScopeEnum::MAX_POINT],
             PlayerVariableEnum::MOVEMENT_POINT,
             12,
-            ModifierScopeEnum::MAX_POINT,
+            [ModifierScopeEnum::MAX_POINT],
             new \DateTime()
         );
         $this->assertEquals(12, $modifiedValue);
@@ -619,14 +619,14 @@ class ModifierServiceTest extends TestCase
         $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
         $this->activationRequirementService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1]))->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
             $player,
             [ModifierScopeEnum::MAX_POINT],
             PlayerVariableEnum::MOVEMENT_POINT,
             12,
-            ModifierScopeEnum::MAX_POINT,
+            [ModifierScopeEnum::MAX_POINT],
             new \DateTime()
         );
         $this->assertEquals(6, $modifiedValue);
@@ -646,7 +646,7 @@ class ModifierServiceTest extends TestCase
         $modifier2 = new GameModifier($player, $modifierConfig2);
         $modifier2->setCharge($status);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->activationRequirementService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1, $modifier2]))->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
@@ -654,7 +654,7 @@ class ModifierServiceTest extends TestCase
             [ModifierScopeEnum::MAX_POINT],
             PlayerVariableEnum::MOVEMENT_POINT,
             12,
-            ModifierScopeEnum::MAX_POINT,
+            [ModifierScopeEnum::MAX_POINT],
             new \DateTime()
         );
         $this->assertEquals(18, $modifiedValue);
@@ -679,14 +679,14 @@ class ModifierServiceTest extends TestCase
         $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
         $this->activationRequirementService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1]))->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
             $player,
             [ModifierScopeEnum::MAX_POINT],
             PlayerVariableEnum::MOVEMENT_POINT,
             4,
-            ModifierScopeEnum::MAX_POINT,
+            [ModifierScopeEnum::MAX_POINT],
             new \DateTime()
         );
         $this->assertEquals(0, $modifiedValue);

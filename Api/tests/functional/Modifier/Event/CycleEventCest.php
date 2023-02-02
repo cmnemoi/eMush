@@ -93,7 +93,7 @@ class CycleEventCest
         $modifier = new GameModifier($player, $modifierConfig);
         $I->haveInRepository($modifier);
 
-        $cycleEvent = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, $time);
+        $cycleEvent = new PlayerCycleEvent($player, [EventEnum::NEW_CYCLE], $time);
 
         $I->refreshEntities($player, $daedalus);
 
@@ -173,7 +173,7 @@ class CycleEventCest
         $modifier = new GameModifier($player, $modifierConfig);
         $I->haveInRepository($modifier);
 
-        $cycleEvent = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, $time);
+        $cycleEvent = new PlayerCycleEvent($player, [EventEnum::NEW_CYCLE], $time);
 
         $I->refreshEntities($player, $daedalus);
 
@@ -259,7 +259,7 @@ class CycleEventCest
         $fitfullModifier = new GameModifier($player, $fitfullModifierConfig);
         $I->haveInRepository($fitfullModifier);
 
-        $cycleEvent = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, $time);
+        $cycleEvent = new PlayerCycleEvent($player, [EventEnum::NEW_CYCLE], $time);
 
         $I->refreshEntities($player, $daedalus);
 

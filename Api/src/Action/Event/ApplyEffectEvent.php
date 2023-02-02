@@ -25,14 +25,14 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
         Player $player,
         ?LogParameterInterface $parameter,
         string $visibility,
-        string $reason,
+        array $tags,
         \DateTime $time
     ) {
         $this->player = $player;
         $this->visibility = $visibility;
         $this->parameter = $parameter;
 
-        parent::__construct($reason, $time);
+        parent::__construct($tags, $time);
     }
 
     public function getPlayer(): Player

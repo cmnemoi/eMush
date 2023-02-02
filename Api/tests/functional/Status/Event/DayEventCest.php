@@ -59,7 +59,7 @@ class DayEventCest
 
         $I->haveInRepository($status);
 
-        $dayEvent = new StatusCycleEvent($status, new Player(), EventEnum::NEW_DAY, $time);
+        $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 
@@ -83,7 +83,7 @@ class DayEventCest
 
         $I->haveInRepository($status);
 
-        $dayEvent = new StatusCycleEvent($status, new Player(), EventEnum::NEW_DAY, $time);
+        $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 
@@ -107,7 +107,7 @@ class DayEventCest
 
         $I->haveInRepository($status);
 
-        $dayEvent = new StatusCycleEvent($status, new Player(), EventEnum::NEW_DAY, $time);
+        $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 

@@ -61,7 +61,7 @@ class ChannelSubscriberCest
         ;
         $I->haveInRepository($privateChannel);
 
-        $event = new ChannelEvent($privateChannel, CommunicationActionEnum::CREATE_CHANNEL, new \DateTime(), $player);
+        $event = new ChannelEvent($privateChannel, [CommunicationActionEnum::CREATE_CHANNEL], new \DateTime(), $player);
         $this->channelSubscriber->onJoinChannel($event);
 
         $I->seeInRepository(ChannelPlayer::class, [
@@ -114,7 +114,7 @@ class ChannelSubscriberCest
         ;
         $I->haveInRepository($channelPlayer);
 
-        $event = new ChannelEvent($privateChannel, CommunicationActionEnum::EXIT, new \DateTime(), $player);
+        $event = new ChannelEvent($privateChannel, [CommunicationActionEnum::EXIT], new \DateTime(), $player);
         $this->channelSubscriber->onExitChannel($event);
 
         $I->dontSeeInRepository(ChannelPlayer::class, [

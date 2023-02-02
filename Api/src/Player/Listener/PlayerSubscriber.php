@@ -2,32 +2,33 @@
 
 namespace Mush\Player\Listener;
 
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableService;
 use Mush\Player\Service\PlayerVariableServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private PlayerServiceInterface $playerService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private PlayerVariableServiceInterface $playerVariableService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         PlayerVariableService $playerVariableService,
         RandomServiceInterface $randomService
     ) {
         $this->playerService = $playerService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->playerVariableService = $playerVariableService;
         $this->randomService = $randomService;
     }
@@ -45,9 +46,13 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onDeathPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
-        $reason = $event->getReason();
+        $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
-        $this->playerService->playerDeath($player, $reason, $event->getTime());
+        if ($endCause === null) {
+            throw new \LogicException('Player should die with a reason');
+        }
+
+        $this->playerService->playerDeath($player, $endCause, $event->getTime());
     }
 
     public function onMetalPlate(PlayerEvent $event): void
@@ -63,10 +68,10 @@ class PlayerSubscriber implements EventSubscriberInterface
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
-            $event->getReason(),
+            $event->getTags(),
             $event->getTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
     }
 
     public function onPanicCrisis(PlayerEvent $event): void
@@ -82,10 +87,12 @@ class PlayerSubscriber implements EventSubscriberInterface
             $player,
             PlayerVariableEnum::MORAL_POINT,
             -$damage,
-            PlayerEvent::PANIC_CRISIS,
+            $event->getTags(),
             $event->getTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+
+        $playerModifierEvent->addTag(PlayerEvent::PANIC_CRISIS);
+        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
     }
 
     public function onConversionPlayer(PlayerEvent $event): void

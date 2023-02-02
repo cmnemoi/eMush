@@ -22,7 +22,8 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -33,7 +34,6 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -52,7 +52,7 @@ class DoTheThing extends AbstractAction
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         DiseaseCauseServiceInterface $diseaseCauseService,
@@ -62,7 +62,7 @@ class DoTheThing extends AbstractAction
         RoomLogServiceInterface $roomLogService,
     ) {
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator
         );
@@ -197,10 +197,10 @@ class DoTheThing extends AbstractAction
             $player,
             PlayerVariableEnum::MORAL_POINT,
             $moralePoints,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
 
         if ($firstTimeStatus) {
             $player->removeStatus($firstTimeStatus);
@@ -212,11 +212,11 @@ class DoTheThing extends AbstractAction
         $statusEvent = new StatusEvent(
             PlayerStatusEnum::DID_THE_THING,
             $player,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     private function addPregnantStatus(Player $player, Player $parameter): void
@@ -227,12 +227,12 @@ class DoTheThing extends AbstractAction
         $pregnantStatus = new StatusEvent(
             PlayerStatusEnum::PREGNANT,
             $femalePlayer,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
         $pregnantStatus->setVisibility(VisibilityEnum::PRIVATE);
 
-        $this->eventDispatcher->dispatch($pregnantStatus, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($pregnantStatus, StatusEvent::STATUS_APPLIED);
     }
 
     private function getPlayerStds(Player $player): PlayerDiseaseCollection
@@ -254,10 +254,10 @@ class DoTheThing extends AbstractAction
                 $mush,
                 PlayerVariableEnum::SPORE,
                 -1,
-                $this->getActionName(),
+                $this->getAction()->getActionTags(),
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
         }
     }
 
@@ -268,7 +268,7 @@ class DoTheThing extends AbstractAction
 
         $this->createDiseaseBySexLog($target, $std->getName());
 
-        $this->playerDiseaseService->createDiseaseFromName($std->getName(), $target, $this->getActionName());
+        $this->playerDiseaseService->createDiseaseFromName($std->getName(), $target, $this->getAction()->getActionTags());
     }
 
     private function createDiseaseBySexLog(PLayer $player, string $disease): void

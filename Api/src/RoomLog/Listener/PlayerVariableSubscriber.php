@@ -2,7 +2,8 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\QuantityEventInterface;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
@@ -22,11 +23,11 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            AbstractQuantityEvent::CHANGE_VARIABLE => 'onChangeVariable',
+            QuantityEventInterface::CHANGE_VARIABLE => 'onChangeVariable',
         ];
     }
 
-    public function onChangeVariable(AbstractQuantityEvent $playerEvent): void
+    public function onChangeVariable(QuantityEventInterface $playerEvent): void
     {
         if (!$playerEvent instanceof PlayerVariableEvent) {
             return;
@@ -40,17 +41,19 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         }
 
         // add special logs
-        $logMap = PlayerModifierLogEnum::PLAYER_VARIABLE_SPECIAL_LOGS;
-        $reason = $playerEvent->getReason();
-        if (isset($logMap[$reason])) {
-            $logKey = $logMap[$reason][PlayerModifierLogEnum::VALUE];
-            $logVisibility = $logMap[$reason][PlayerModifierLogEnum::VISIBILITY];
-            $this->createEventLog($logKey, $playerEvent, $logVisibility);
+        $specialLogMap = PlayerModifierLogEnum::PLAYER_VARIABLE_SPECIAL_LOGS;
+        $specialLogKey = $playerEvent->mapLog($specialLogMap[PlayerModifierLogEnum::VALUE]);
+
+        if ($specialLogKey !== null) {
+            $logVisibility = $playerEvent->mapLog($specialLogMap[PlayerModifierLogEnum::VISIBILITY]);
+
+            $this->createEventLog($specialLogKey, $playerEvent, $logVisibility ?: VisibilityEnum::HIDDEN);
         }
 
         $gainOrLoss = $delta > 0 ? PlayerModifierLogEnum::GAIN : PlayerModifierLogEnum::LOSS;
         $logMap = PlayerModifierLogEnum::PLAYER_VARIABLE_LOGS[$gainOrLoss];
-        if (isset($logMap[$modifiedVariable])) {
+
+        if (key_exists($modifiedVariable, $logMap)) {
             $logKey = $logMap[$modifiedVariable];
             $this->createEventLog($logKey, $playerEvent, $playerEvent->getVisibility());
         }

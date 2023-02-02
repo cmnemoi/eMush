@@ -23,7 +23,7 @@ class RemoveSporeActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::REMOVE_SPORE, 1);
 
         $this->action = new RemoveSpore(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -55,7 +55,7 @@ class RemoveSporeActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->times(2);
+        $this->eventService->shouldReceive('callEvent')->times(2);
 
         $result = $this->action->execute();
 

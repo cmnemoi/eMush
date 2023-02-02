@@ -11,9 +11,9 @@ use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusCycleSubscriber implements EventSubscriberInterface
@@ -23,16 +23,16 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
     private DaedalusServiceInterface $daedalusService;
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         DaedalusIncidentServiceInterface $daedalusIncidentService,
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusIncidentService = $daedalusIncidentService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -79,10 +79,10 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         ) {
             $endDaedalusEvent = new DaedalusEvent(
                 $daedalus,
-                EnumEndCauseEnum::KILLED_BY_NERON,
+                [EnumEndCauseEnum::KILLED_BY_NERON],
                 $time
             );
-            $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
+            $this->eventService->callEvent($endDaedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
 
             return true;
         }
@@ -99,10 +99,10 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             $daedalus,
             DaedalusVariableEnum::OXYGEN,
             $oxygenLoss,
-            EventEnum::NEW_CYCLE,
+            [EventEnum::NEW_CYCLE],
             $date
         );
-        $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($daedalusEvent, QuantityEventInterface::CHANGE_VARIABLE);
 
         if ($daedalus->getOxygen() <= 0) {
             $this->daedalusService->getRandomAsphyxia($daedalus, $date);
@@ -138,19 +138,19 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         if ($timeElapsedSinceStart >= self::LOBBY_TIME_LIMIT && $daedalus->getGameStatus() === GameStatusEnum::STARTING) {
             $daedalusEvent = new DaedalusEvent(
                 $daedalus,
-                EventEnum::NEW_CYCLE,
+                [EventEnum::NEW_CYCLE],
                 $time
             );
-            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
+            $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
         }
 
         if ($newDay) {
             $dayEvent = new DaedalusCycleEvent(
                 $daedalus,
-                EventEnum::NEW_DAY,
+                [EventEnum::NEW_DAY],
                 $time
             );
-            $this->eventDispatcher->dispatch($dayEvent, DaedalusCycleEvent::DAEDALUS_NEW_DAY);
+            $this->eventService->callEvent($dayEvent, DaedalusCycleEvent::DAEDALUS_NEW_DAY);
         }
     }
 }

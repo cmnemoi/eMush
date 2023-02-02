@@ -2,37 +2,37 @@
 
 namespace Mush\Player\Listener;
 
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerVariableSubscriber implements EventSubscriberInterface
 {
     private PlayerVariableServiceInterface $playerVariableService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         PlayerVariableServiceInterface $playerVariableService,
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
         $this->playerVariableService = $playerVariableService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents()
     {
         return [
-            AbstractQuantityEvent::CHANGE_VARIABLE => 'onChangeVariable',
+            QuantityEventInterface::CHANGE_VARIABLE => 'onChangeVariable',
         ];
     }
 
-    public function onChangeVariable(AbstractQuantityEvent $playerEvent): void
+    public function onChangeVariable(QuantityEventInterface $playerEvent): void
     {
         if (!$playerEvent instanceof PlayerVariableEvent) {
             return;
@@ -46,7 +46,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
 
         switch ($playerEvent->getModifiedVariable()) {
             case PlayerVariableEnum::HEALTH_POINT:
-                $this->handleHealthPointModifier($player, $playerEvent->getReason(), $playerEvent->getTime());
+                $this->handleHealthPointModifier($player, $playerEvent, $playerEvent->getTime());
 
                 return;
 
@@ -57,34 +57,25 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function handleHealthPointModifier(Player $player, string $reason, \DateTime $time): void
+    private function handleHealthPointModifier(Player $player, PlayerVariableEvent $event, \DateTime $time): void
     {
-        $deathCause = EndCauseEnum::DEATH_CAUSE_MAP;
-
         if ($player->getHealthPoint() <= 0) {
-            $deathReason = EndCauseEnum::INJURY;
+            $deathReason = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
-            if (isset($deathCause[$reason])) {
-                $deathReason = $deathCause[$reason];
+            if ($deathReason === null) {
+                $event->addTag(EndCauseEnum::INJURY);
             }
 
-            // To be more clear of what's happening
-            $deathEvent = new PlayerEvent(
-                $player,
-                $deathReason,
-                $time
-            );
-
-            $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
+            $this->eventService->callEvent($event, PlayerEvent::DEATH_PLAYER);
         }
     }
 
     private function handleInfection(Player $player, PlayerEvent $playerEvent): void
     {
         if ($player->getSpores() === $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::SPORE)) {
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+            $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
         }
 
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
     }
 }

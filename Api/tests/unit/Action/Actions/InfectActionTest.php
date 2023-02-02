@@ -30,7 +30,7 @@ class InfectActionTest extends AbstractActionTest
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Infect(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->statusService,
@@ -66,7 +66,7 @@ class InfectActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->times(2);
+        $this->eventService->shouldReceive('callEvent')->times(2);
         $this->statusService->shouldReceive('persist')->once();
 
         $result = $this->action->execute();

@@ -109,7 +109,7 @@ class ActionSubscriber implements EventSubscriberInterface
         }
 
         if ($this->randomService->isSuccessful(self::CONTACT_DISEASE_RATE)) {
-            $this->playerDiseaseService->createDiseaseFromName($diseaseToTransmit, $playerToTransmitTo, DiseaseCauseEnum::CONTACT);
+            $this->playerDiseaseService->createDiseaseFromName($diseaseToTransmit, $playerToTransmitTo, [DiseaseCauseEnum::CONTACT]);
         }
     }
 
@@ -119,7 +119,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getAction();
 
         $postActionSymptomConfigs = $this->getPlayerSymptomConfigs($player)->getTriggeredSymptoms([ActionEvent::POST_ACTION]);
-        $postActionSymptomConfigs = $this->symptomActivationRequirementService->getActiveSymptoms($postActionSymptomConfigs, $player, $action->getActionName(), $action);
+        $postActionSymptomConfigs = $this->symptomActivationRequirementService->getActiveSymptoms($postActionSymptomConfigs, $player, $action->getActionTags(), $action);
 
         foreach ($postActionSymptomConfigs as $symptomConfig) {
             $this->symptomService->handleBreakouts($symptomConfig, $player, $event->getTime());

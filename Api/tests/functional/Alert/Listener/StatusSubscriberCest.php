@@ -78,7 +78,7 @@ class StatusSubscriberCest
         $statusEvent = new StatusEvent(
             EquipmentStatusEnum::BROKEN,
             $gravitySimulator,
-            ActionEnum::SABOTAGE,
+            [ActionEnum::SABOTAGE],
             new \DateTime()
         );
         $this->statusSubscriber->onStatusApplied($statusEvent);
@@ -147,7 +147,7 @@ class StatusSubscriberCest
         $statusEvent = new StatusEvent(
             EquipmentStatusEnum::BROKEN,
             $gravitySimulator,
-            ActionEnum::REPAIR,
+            [ActionEnum::REPAIR],
             new \DateTime()
         );
         $this->statusSubscriber->onStatusRemoved($statusEvent);
@@ -198,7 +198,7 @@ class StatusSubscriberCest
         $statusEvent = new StatusEvent(
             EquipmentStatusEnum::BROKEN,
             $gameEquipment,
-            RoomEventEnum::CYCLE_FIRE,
+            [RoomEventEnum::CYCLE_FIRE],
             new \DateTime()
         );
         $this->statusSubscriber->onStatusApplied($statusEvent);
@@ -252,7 +252,7 @@ class StatusSubscriberCest
         $statusEvent = new StatusEvent(
             EquipmentStatusEnum::BROKEN,
             $gameEquipment,
-            EventEnum::NEW_CYCLE,
+            [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
         $this->statusSubscriber->onStatusApplied($statusEvent);
@@ -319,7 +319,7 @@ class StatusSubscriberCest
         $statusEvent = new StatusEvent(
             EquipmentStatusEnum::BROKEN,
             $gravitySimulator,
-            ActionEnum::REPAIR,
+            [ActionEnum::REPAIR],
             new \DateTime()
         );
         $this->statusSubscriber->onStatusRemoved($statusEvent);

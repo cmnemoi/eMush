@@ -49,10 +49,10 @@ class Sabotage extends AttemptAction
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::BROKEN,
                 $parameter,
-                $this->getActionName(),
+                $this->getAction()->getActionTags(),
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
         }
     }
 }

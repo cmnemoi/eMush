@@ -10,7 +10,7 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
 use Mush\Modifier\Entity\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -171,7 +171,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $oscilloscopeRepairModifier = new ModifierConfig();
         $oscilloscopeRepairModifier
-            ->setTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE)
+            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(DaedalusVariableEnum::HULL)
             ->setDelta(2)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
@@ -212,7 +212,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $gravityCycleModifier = new ModifierConfig();
         $gravityCycleModifier
-            ->setTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE)
+            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
@@ -224,7 +224,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $oxygenTankModifier = new ModifierConfig();
         $oxygenTankModifier
-            ->setTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE)
+            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(DaedalusVariableEnum::OXYGEN)
             ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)

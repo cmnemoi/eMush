@@ -71,11 +71,11 @@ class ModifierActivationRequirementServiceTest extends TestCase
         $modifierCollection = new ModifierCollection([$modifier]);
 
         $this->randomService->shouldReceive('isSuccessful')->with(50)->once()->andReturn(true);
-        $result = $this->service->getActiveModifiers($modifierCollection, 'reason', $room);
+        $result = $this->service->getActiveModifiers($modifierCollection, ['reason'], $room);
         $this->assertEquals($result, $modifierCollection);
 
         $this->randomService->shouldReceive('isSuccessful')->with(50)->once()->andReturn(false);
-        $result = $this->service->getActiveModifiers($modifierCollection, 'reason', $room);
+        $result = $this->service->getActiveModifiers($modifierCollection, ['reason'], $room);
         $this->assertEmpty($result);
     }
 
@@ -103,10 +103,10 @@ class ModifierActivationRequirementServiceTest extends TestCase
 
         $modifierCollection = new ModifierCollection([$modifier]);
 
-        $result = $this->service->getActiveModifiers($modifierCollection, ActionEnum::HIDE, $room);
+        $result = $this->service->getActiveModifiers($modifierCollection, [ActionEnum::HIDE], $room);
         $this->assertEquals($result, $modifierCollection);
 
-        $result = $this->service->getActiveModifiers($modifierCollection, ActionEnum::DROP, $room);
+        $result = $this->service->getActiveModifiers($modifierCollection, [ActionEnum::DROP], $room);
         $this->assertEmpty($result);
     }
 
@@ -136,12 +136,12 @@ class ModifierActivationRequirementServiceTest extends TestCase
 
         $modifierCollection = new ModifierCollection([$modifier]);
 
-        $result = $this->service->getActiveModifiers($modifierCollection, ActionEnum::HIDE, $player1);
+        $result = $this->service->getActiveModifiers($modifierCollection, [ActionEnum::HIDE], $player1);
         $this->assertEmpty($result);
 
         $player2 = new Player();
         $player2->setPlace($room);
-        $result = $this->service->getActiveModifiers($modifierCollection, ActionEnum::DROP, $player1);
+        $result = $this->service->getActiveModifiers($modifierCollection, [ActionEnum::DROP], $player1);
         $this->assertEquals($result, $modifierCollection);
     }
 }

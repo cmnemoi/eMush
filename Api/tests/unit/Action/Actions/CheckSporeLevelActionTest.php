@@ -24,7 +24,7 @@ class CheckSporeLevelActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::CHECK_SPORE_LEVEL);
 
         $this->action = new CheckSporeLevel(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

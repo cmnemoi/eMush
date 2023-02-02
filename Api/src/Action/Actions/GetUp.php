@@ -47,10 +47,10 @@ class GetUp extends AbstractAction
         $statusEvent = new StatusEvent(
             $lyingDownStatus->getName(),
             $this->player,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
         $statusEvent->setStatusTarget($lyingDownStatus->getTarget());
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 }

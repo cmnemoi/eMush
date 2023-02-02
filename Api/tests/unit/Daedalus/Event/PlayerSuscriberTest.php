@@ -12,20 +12,20 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerEvent;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerSuscriberTest extends TestCase
 {
     /** @var DaedalusServiceInterface|Mockery\Mock */
     private DaedalusServiceInterface $daedalusService;
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
 
     private PlayerSubscriber $playerSubscriber;
 
@@ -35,11 +35,11 @@ class PlayerSuscriberTest extends TestCase
     public function before()
     {
         $this->daedalusService = \Mockery::mock(DaedalusServiceInterface::class);
-        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = \Mockery::mock(EventServiceInterface::class);
 
         $this->playerSubscriber = new PlayerSubscriber(
             $this->daedalusService,
-            $this->eventDispatcher
+            $this->eventService
         );
     }
 
@@ -74,11 +74,11 @@ class PlayerSuscriberTest extends TestCase
 
         $event = new PlayerEvent(
             $player,
-            DaedalusEvent::FINISH_DAEDALUS,
+            [DaedalusEvent::FINISH_DAEDALUS],
             $date
         );
 
-        $this->eventDispatcher->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::FINISH_DAEDALUS))
             ->once();
 

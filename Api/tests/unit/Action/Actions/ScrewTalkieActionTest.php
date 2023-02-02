@@ -28,7 +28,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SCREW_TALKIE, 2);
 
         $this->action = new ScrewTalkie(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -64,7 +64,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->twice();
+        $this->eventService->shouldReceive('callEvent')->twice();
         // Success
         $result = $this->action->execute();
 
@@ -99,7 +99,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         // Success
         $result = $this->action->execute();
 

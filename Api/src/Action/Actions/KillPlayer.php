@@ -10,13 +10,13 @@ use Mush\Action\Validator\HasRole;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\User\Enum\RoleEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -33,13 +33,13 @@ class KillPlayer extends AbstractAction
     protected RandomServiceInterface $randomService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validationService,
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
         ) {
-        parent::__construct($eventDispatcher, $actionService, $validationService);
+        parent::__construct($eventService, $actionService, $validationService);
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
     }
@@ -65,7 +65,7 @@ class KillPlayer extends AbstractAction
         /** @var Player $playerToKill */
         $playerToKill = $this->parameter;
 
-        $deathEvent = new PlayerEvent($playerToKill, EndCauseEnum::QUARANTINE, new \DateTime());
-        $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
+        $deathEvent = new PlayerEvent($playerToKill, [EndCauseEnum::QUARANTINE], new \DateTime());
+        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
     }
 }

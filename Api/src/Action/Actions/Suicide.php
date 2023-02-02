@@ -6,7 +6,6 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\HasRole;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\User\Enum\RoleEnum;
@@ -36,7 +35,7 @@ class Suicide extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $deathEvent = new PlayerEvent($this->player, EndCauseEnum::SUICIDE, new \DateTime());
-        $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
+        $deathEvent = new PlayerEvent($this->player, $this->getAction()->getActionTags(), new \DateTime());
+        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
     }
 }

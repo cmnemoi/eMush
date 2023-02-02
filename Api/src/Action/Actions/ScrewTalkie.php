@@ -87,19 +87,19 @@ class ScrewTalkie extends AbstractAction
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::BROKEN,
                 $talkie,
-                $this->getActionName(),
+                $this->getAction()->getActionTags(),
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
         }
 
         $statusEvent = new StatusEvent(
             PlayerStatusEnum::TALKIE_SCREWED,
             $this->player,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
         $statusEvent->setStatusTarget($parameter);
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 }

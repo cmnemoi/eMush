@@ -3,19 +3,19 @@
 namespace Mush\Place\Listener;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Event\PlaceCycleEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -31,10 +31,10 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         foreach ($event->getDaedalus()->getRooms() as $place) {
             $newRoomCycle = new PlaceCycleEvent(
                 $place,
-                $event->getReason(),
+                $event->getTags(),
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($newRoomCycle, PlaceCycleEvent::PLACE_NEW_CYCLE);
+            $this->eventService->callEvent($newRoomCycle, PlaceCycleEvent::PLACE_NEW_CYCLE);
         }
     }
 
@@ -46,10 +46,10 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         foreach ($daedalus->getRooms() as $place) {
             $newRoomDay = new PlaceCycleEvent(
                 $place,
-                $event->getReason(),
+                $event->getTags(),
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($newRoomDay, PlaceCycleEvent::PLACE_NEW_DAY);
+            $this->eventService->callEvent($newRoomDay, PlaceCycleEvent::PLACE_NEW_DAY);
         }
     }
 }

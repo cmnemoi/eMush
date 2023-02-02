@@ -2,20 +2,20 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Event\RoomEvent;
 use Mush\Status\Entity\Status;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RoomSubscriber implements EventSubscriberInterface
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -34,10 +34,10 @@ class RoomSubscriber implements EventSubscriberInterface
             $statusEvent = new StatusEvent(
                 $status->getName(),
                 $place,
-                $event->getReason(),
+                $event->getTags(),
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
         }
     }
 }

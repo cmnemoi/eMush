@@ -43,7 +43,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
         }
 
         $cycleSymptomConfigs = $this->getPlayerSymptomConfigs($player)->getTriggeredSymptoms([EventEnum::NEW_CYCLE]);
-        $cycleSymptomConfigs = $this->symptomActivationRequirementService->getActiveSymptoms($cycleSymptomConfigs, $player, EventEnum::NEW_CYCLE);
+        $cycleSymptomConfigs = $this->symptomActivationRequirementService->getActiveSymptoms($cycleSymptomConfigs, $player, [EventEnum::NEW_CYCLE]);
 
         foreach ($cycleSymptomConfigs as $symptomConfig) {
             $this->symptomService->handleCycleSymptom($symptomConfig, $player, $event->getTime());

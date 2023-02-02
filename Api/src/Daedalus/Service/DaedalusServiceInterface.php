@@ -30,17 +30,17 @@ interface DaedalusServiceInterface
 
     public function createDaedalus(GameConfig $gameConfig, string $name, string $language): Daedalus;
 
-    public function endDaedalus(Daedalus $daedalus, string $reason, \DateTime $date): ClosedDaedalus;
+    public function endDaedalus(Daedalus $daedalus, string $cause, \DateTime $date): ClosedDaedalus;
 
     public function startDaedalus(Daedalus $daedalus): Daedalus;
 
-    public function closeDaedalus(Daedalus $daedalus, string $reason, \DateTime $date): DaedalusInfo;
+    public function closeDaedalus(Daedalus $daedalus, array $reasons, \DateTime $date): DaedalusInfo;
 
     public function selectAlphaMush(Daedalus $daedalus, \DateTime $date): Daedalus;
 
     public function getRandomAsphyxia(Daedalus $daedalus, \DateTime $date): Daedalus;
 
-    public function killRemainingPlayers(Daedalus $daedalus, string $cause, \DateTime $date): Daedalus;
+    public function killRemainingPlayers(Daedalus $daedalus, array $reasons, \DateTime $date): Daedalus;
 
     public function changeVariable(string $variableName, Daedalus $daedalus, int $change, \DateTime $date): Daedalus;
 }

@@ -57,41 +57,27 @@ class PlayerModifierLogEnum
     ];
 
     public const PLAYER_VARIABLE_SPECIAL_LOGS = [
-        ModifierNameEnum::ANTISOCIAL_MODIFIER => [
-            self::VISIBILITY => VisibilityEnum::PRIVATE,
-            self::VALUE => self::ANTISOCIAL_MORALE_LOSS,
+        self::VALUE => [
+            ModifierNameEnum::ANTISOCIAL_MODIFIER => self::ANTISOCIAL_MORALE_LOSS,
+            ModifierNameEnum::STARVING => self::HUNGER,
+            ModifierNameEnum::SCREAMING => self::SCREAMING,
+            ModifierNameEnum::WALL_HEAD_BANG => self::WALL_HEAD_BANG,
+            ModifierNameEnum::RUN_IN_CIRCLES => self::RUN_IN_CIRCLES,
+            ModifierNameEnum::LYING_DOWN_MODIFIER => self::LYING_DOWN,
+            ModifierNameEnum::FITFULL_SLEEP => self::FITFULL_SLEEP,
+            PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
+            ModifierScopeEnum::EVENT_CLUMSINESS => self::CLUMSINESS,
         ],
-        ModifierNameEnum::STARVING => [
-            self::VISIBILITY => VisibilityEnum::PRIVATE,
-            self::VALUE => self::HUNGER,
-        ],
-        ModifierNameEnum::SCREAMING => [
-            self::VISIBILITY => VisibilityEnum::PUBLIC,
-            self::VALUE => self::SCREAMING,
-        ],
-        ModifierNameEnum::WALL_HEAD_BANG => [
-            self::VISIBILITY => VisibilityEnum::PUBLIC,
-            self::VALUE => self::WALL_HEAD_BANG,
-        ],
-        ModifierNameEnum::RUN_IN_CIRCLES => [
-            self::VISIBILITY => VisibilityEnum::PUBLIC,
-            self::VALUE => self::RUN_IN_CIRCLES,
-        ],
-        ModifierNameEnum::LYING_DOWN_MODIFIER => [
-            self::VISIBILITY => VisibilityEnum::HIDDEN,
-            self::VALUE => self::LYING_DOWN,
-        ],
-        ModifierNameEnum::FITFULL_SLEEP => [
-            self::VISIBILITY => VisibilityEnum::PRIVATE,
-            self::VALUE => self::FITFULL_SLEEP,
-        ],
-        PlayerEvent::PANIC_CRISIS => [
-            self::VISIBILITY => VisibilityEnum::PRIVATE,
-            self::VALUE => self::PANIC_CRISIS,
-        ],
-        ModifierScopeEnum::EVENT_CLUMSINESS => [
-            self::VISIBILITY => VisibilityEnum::PRIVATE,
-            self::VALUE => self::CLUMSINESS,
+        self::VISIBILITY => [
+            ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
+            ModifierNameEnum::STARVING => VisibilityEnum::PRIVATE,
+            ModifierNameEnum::SCREAMING => VisibilityEnum::PUBLIC,
+            ModifierNameEnum::WALL_HEAD_BANG => VisibilityEnum::PUBLIC,
+            ModifierNameEnum::RUN_IN_CIRCLES => VisibilityEnum::PUBLIC,
+            ModifierNameEnum::LYING_DOWN_MODIFIER => VisibilityEnum::HIDDEN,
+            ModifierNameEnum::FITFULL_SLEEP => VisibilityEnum::PRIVATE,
+            PlayerEvent::PANIC_CRISIS => VisibilityEnum::PRIVATE,
+            ModifierScopeEnum::EVENT_CLUMSINESS => VisibilityEnum::PRIVATE,
         ],
     ];
 }

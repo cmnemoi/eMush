@@ -25,14 +25,14 @@ class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
         GameEquipment $equipment,
         bool $created,
         string $visibility,
-        string $reason,
+        array $tags,
         \DateTime $time
     ) {
         $this->equipment = $equipment;
         $this->visibility = $visibility;
         $this->created = $created;
 
-        parent::__construct($reason, $time);
+        parent::__construct($tags, $time);
     }
 
     public function getEquipment(): GameEquipment

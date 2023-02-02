@@ -4,7 +4,7 @@ namespace Mush\Game\Event;
 
 use Mush\Modifier\Entity\ModifierHolder;
 
-interface AbstractQuantityEvent
+interface QuantityEventInterface
 {
     public const CHANGE_VARIABLE = 'change.variable';
 
@@ -14,7 +14,7 @@ interface AbstractQuantityEvent
 
     public function getModifiedVariable(): string;
 
-    public function getReason(): string;
+    public function getTags(): array;
 
     public function getModifierHolder(): ModifierHolder;
 

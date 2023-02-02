@@ -7,19 +7,18 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CycleService implements CycleServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
         $this->entityManager = $entityManager;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public function handleCycleChange(\DateTime $dateTime, Daedalus $daedalus): int
@@ -50,10 +49,10 @@ class CycleService implements CycleServiceInterface
                     $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($daedalusConfig->getCycleLength()) . 'M'));
                     $cycleEvent = new DaedalusCycleEvent(
                         $daedalus,
-                        EventEnum::NEW_CYCLE,
+                        [EventEnum::NEW_CYCLE],
                         $dateDaedalusLastCycle
                     );
-                    $this->eventDispatcher->dispatch($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+                    $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
                     // Do not continue make cycle if Daedalus is finish
                     if ($daedalusInfo->getGameStatus() === GameStatusEnum::FINISHED) {

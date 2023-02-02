@@ -3,22 +3,22 @@
 namespace Mush\Place\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Event\RoomEvent;
 use Mush\Place\Service\PlaceServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusSubscriber implements EventSubscriberInterface
 {
     private PlaceServiceInterface $placeService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         PlaceServiceInterface $placeService,
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
         $this->placeService = $placeService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -33,10 +33,10 @@ class DaedalusSubscriber implements EventSubscriberInterface
         foreach ($event->getDaedalus()->getRooms() as $place) {
             $deleteEvent = new RoomEvent(
                 $place,
-                $event->getReason(),
+                $event->getTags(),
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($deleteEvent, RoomEvent::DELETE_PLACE);
+            $this->eventService->callEvent($deleteEvent, RoomEvent::DELETE_PLACE);
 
             $this->placeService->delete($place);
         }

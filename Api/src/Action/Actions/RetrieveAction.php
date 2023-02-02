@@ -11,9 +11,9 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class RetrieveAction extends AbstractAction
@@ -22,12 +22,12 @@ abstract class RetrieveAction extends AbstractAction
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
-        parent::__construct($eventDispatcher, $actionService, $validator);
+        parent::__construct($eventService, $actionService, $validator);
 
         $this->gameEquipmentService = $gameEquipmentService;
     }
@@ -49,7 +49,7 @@ abstract class RetrieveAction extends AbstractAction
         $this->gameEquipmentService->createGameEquipmentFromName(
             $this->getItemName(),
             $this->player,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             VisibilityEnum::HIDDEN
         );
 
@@ -57,10 +57,10 @@ abstract class RetrieveAction extends AbstractAction
             $this->player->getDaedalus(),
             $this->getDaedalusVariable(),
             -1,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             $time
         );
-        $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($daedalusEvent, QuantityEventInterface::CHANGE_VARIABLE);
     }
 
     abstract protected function getDaedalusVariable(): string;

@@ -30,7 +30,7 @@ class ConsumeActionTest extends AbstractActionTest
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Consume(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -70,7 +70,7 @@ class ConsumeActionTest extends AbstractActionTest
         ;
 
         $this->playerService->shouldReceive('persist');
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $player = $this->createPlayer($daedalus, $room);
 

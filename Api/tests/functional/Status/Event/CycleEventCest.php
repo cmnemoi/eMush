@@ -67,7 +67,7 @@ class CycleEventCest
         $I->haveInRepository($status);
         $id = $status->getId();
 
-        $cycleEvent = new StatusCycleEvent($status, new Player(), EventEnum::NEW_CYCLE, $time);
+        $cycleEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_CYCLE], $time);
 
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
@@ -171,7 +171,7 @@ class CycleEventCest
         ;
         $I->haveInRepository($status);
 
-        $cycleEvent = new StatusCycleEvent($status, $room, EventEnum::NEW_CYCLE, $time);
+        $cycleEvent = new StatusCycleEvent($status, $room, [EventEnum::NEW_CYCLE], $time);
 
         $I->refreshEntities($player, $daedalus);
 

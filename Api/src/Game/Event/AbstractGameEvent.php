@@ -6,13 +6,24 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class AbstractGameEvent extends Event
 {
+    private string $eventName;
     protected \DateTime $time;
-    protected string $reason;
+    protected array $tags;
 
-    public function __construct(string $reason, \DateTime $time)
+    public function __construct(array $tags, \DateTime $time)
     {
-        $this->reason = $reason;
+        $this->tags = $tags;
         $this->time = $time;
+    }
+
+    public function setEventName(string $eventName): void
+    {
+        $this->eventName = $eventName;
+    }
+
+    public function getEventName(): string
+    {
+        return $this->eventName;
     }
 
     public function getTime(): \DateTime
@@ -20,15 +31,38 @@ class AbstractGameEvent extends Event
         return $this->time;
     }
 
-    public function getReason(): string
+    public function getTags(): array
     {
-        return $this->reason;
+        return $this->tags;
     }
 
-    public function setReason(string $reason): self
+    public function setTags(array $tags): self
     {
-        $this->reason = $reason;
+        $this->tags = $tags;
 
         return $this;
+    }
+
+    public function addTag(string $tag): self
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    public function haveTag(string $tag): bool
+    {
+        return in_array($tag, $this->tags);
+    }
+
+    public function mapLog(array $map): ?string
+    {
+        $logs = array_intersect_key($map, array_flip($this->tags));
+
+        if (count($logs) > 0) {
+            return reset($logs);
+        }
+
+        return null;
     }
 }

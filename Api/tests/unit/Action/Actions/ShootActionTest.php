@@ -42,7 +42,7 @@ class ShootActionTest extends AbstractActionTest
         $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
 
         $this->action = new Shoot(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -94,7 +94,7 @@ class ShootActionTest extends AbstractActionTest
         $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(0);
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaArray')->andReturn(1)->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
@@ -171,7 +171,7 @@ class ShootActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(true)->twice();
         $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(100)->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->action->execute();
 
         $this->assertInstanceOf(OneShot::class, $result);

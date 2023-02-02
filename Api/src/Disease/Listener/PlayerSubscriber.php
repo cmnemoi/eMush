@@ -65,7 +65,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             [PlayerEvent::CYCLE_DISEASE],
             ModifierTargetEnum::PERCENTAGE,
             $difficultyConfig->getCycleDiseaseRate(),
-            EventEnum::NEW_CYCLE,
+            [EventEnum::NEW_CYCLE],
             $event->getTime()
         );
 
@@ -124,7 +124,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
         $characterConfig = $player->getPlayerInfo()->getCharacterConfig();
-        $reason = $event->getReason();
+        $reasons = $event->getTags();
 
         $initDiseases = $characterConfig->getInitDiseases();
         // get diseases name from initDiseases configs with a closure
@@ -139,7 +139,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             $this->playerDiseaseService->createDiseaseFromName(
                 $diseaseName,
                 $player,
-                $reason,
+                $reasons,
             );
         }
     }

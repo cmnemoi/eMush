@@ -19,6 +19,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
@@ -28,16 +29,15 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\User\Entity\User;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CreateDestroyEquipmentSubscriberCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I): void
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
@@ -100,7 +100,7 @@ class CreateDestroyEquipmentSubscriberCest
         $this->gameEquipmentService->createGameEquipmentFromName(
             $name,
             $player,
-            'a test reason',
+            ['a test reason'],
             VisibilityEnum::PUBLIC
         );
 
@@ -168,7 +168,7 @@ class CreateDestroyEquipmentSubscriberCest
         $this->gameEquipmentService->createGameEquipmentFromName(
             $name,
             $player,
-            'a test reason',
+            ['a test reason'],
             VisibilityEnum::PUBLIC
         );
 
@@ -234,7 +234,7 @@ class CreateDestroyEquipmentSubscriberCest
         $this->gameEquipmentService->createGameEquipmentFromName(
             $name,
             $player,
-            'a test reason',
+            ['a test reason'],
             VisibilityEnum::PUBLIC
         );
 
@@ -305,7 +305,7 @@ class CreateDestroyEquipmentSubscriberCest
         $equipment = $this->gameEquipmentService->createGameEquipmentFromName(
             $name,
             $player,
-            'a test reason',
+            ['a test reason'],
             VisibilityEnum::PUBLIC
         );
 
@@ -313,10 +313,10 @@ class CreateDestroyEquipmentSubscriberCest
             $equipment,
             false,
             VisibilityEnum::PUBLIC,
-            ActionEnum::COFFEE,
+            [ActionEnum::COFFEE],
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($destroyEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($destroyEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 0);
@@ -394,14 +394,14 @@ class CreateDestroyEquipmentSubscriberCest
         $gameEquipment = $this->gameEquipmentService->createGameEquipmentFromName(
             $name,
             $player,
-            'a test reason',
+            ['a test reason'],
             VisibilityEnum::PUBLIC
         );
 
         $gameEquipment2 = $this->gameEquipmentService->createGameEquipmentFromName(
             $name,
             $player,
-            'a test reason',
+            ['a test reason'],
             VisibilityEnum::PUBLIC
         );
 
@@ -411,10 +411,10 @@ class CreateDestroyEquipmentSubscriberCest
             $gameEquipment,
             false,
             VisibilityEnum::PUBLIC,
-            ActionEnum::COFFEE,
+            [ActionEnum::COFFEE],
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($destroyEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($destroyEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->assertEquals(0, $room->getEquipments()->count());
         $I->assertEquals(1, $player->getEquipments()->count());
@@ -513,7 +513,7 @@ class CreateDestroyEquipmentSubscriberCest
         $gameEquipment = $this->gameEquipmentService->createGameEquipmentFromName(
             ItemEnum::OXYGEN_CAPSULE,
             $player,
-            'a test reason',
+            ['a test reason'],
             VisibilityEnum::PUBLIC
         );
 
@@ -521,7 +521,7 @@ class CreateDestroyEquipmentSubscriberCest
             ItemEnum::APPRENTON,
             $gameEquipment,
             $player,
-            'a test reason',
+            ['a test reason'],
             VisibilityEnum::PUBLIC
         );
 

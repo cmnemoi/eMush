@@ -13,6 +13,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -21,15 +22,14 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EquipmentEventCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testHeavyStatusOverflowingInventory(FunctionalTester $I)
@@ -88,10 +88,10 @@ class EquipmentEventCest
             $equipment,
             true,
             VisibilityEnum::PUBLIC,
-            ActionEnum::COFFEE,
+            [ActionEnum::COFFEE],
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEmpty($player->getEquipments());
         $I->assertEquals(1, $room->getEquipments()->count());

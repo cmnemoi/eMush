@@ -24,6 +24,7 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Repository\LocalizationConfigRepository;
 use Mush\Game\Service\CycleServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -35,12 +36,11 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DaedalusService implements DaedalusServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private DaedalusRepository $repository;
     private CycleServiceInterface $cycleService;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -52,7 +52,7 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         DaedalusRepository $repository,
         CycleServiceInterface $cycleService,
         GameEquipmentServiceInterface $gameEquipmentService,
@@ -63,7 +63,7 @@ class DaedalusService implements DaedalusServiceInterface
         DaedalusRepository $daedalusRepository
     ) {
         $this->entityManager = $entityManager;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->repository = $repository;
         $this->cycleService = $cycleService;
         $this->gameEquipmentService = $gameEquipmentService;
@@ -176,17 +176,17 @@ class DaedalusService implements DaedalusServiceInterface
         $daedalusEvent = new DaedalusInitEvent(
             $daedalus,
             $daedalusConfig,
-            EventEnum::CREATE_DAEDALUS,
+            [EventEnum::CREATE_DAEDALUS],
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
+        $this->eventService->callEvent($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
 
         return $daedalus;
     }
 
-    public function endDaedalus(Daedalus $daedalus, string $reason, \DateTime $date): ClosedDaedalus
+    public function endDaedalus(Daedalus $daedalus, string $cause, \DateTime $date): ClosedDaedalus
     {
-        $this->killRemainingPlayers($daedalus, $reason, $date);
+        $this->killRemainingPlayers($daedalus, [$cause], $date);
 
         $daedalus->setFinishedAt(new \DateTime());
 
@@ -197,7 +197,7 @@ class DaedalusService implements DaedalusServiceInterface
 
         // update closedDaedalus entity
         $closedDaedalus = $daedalusInfo->getClosedDaedalus();
-        $closedDaedalus->updateEnd($daedalus, $reason);
+        $closedDaedalus->updateEnd($daedalus, $cause);
         $daedalusInfo->setClosedDaedalus($closedDaedalus);
         $this->persistDaedalusInfo($daedalusInfo);
 
@@ -219,7 +219,7 @@ class DaedalusService implements DaedalusServiceInterface
         return $closedDaedalus;
     }
 
-    public function closeDaedalus(Daedalus $daedalus, string $reason, \DateTime $date): DaedalusInfo
+    public function closeDaedalus(Daedalus $daedalus, array $reasons, \DateTime $date): DaedalusInfo
     {
         $daedalusInfo = $daedalus->getDaedalusInfo();
 
@@ -227,10 +227,10 @@ class DaedalusService implements DaedalusServiceInterface
 
         $daedalusEvent = new DaedalusEvent(
             $daedalus,
-            $reason,
+            $reasons,
             $date
         );
-        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::DELETE_DAEDALUS);
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::DELETE_DAEDALUS);
 
         $this->delete($daedalus);
 
@@ -288,10 +288,10 @@ class DaedalusService implements DaedalusServiceInterface
                 $currentPlayer = $mushPlayers->first();
                 $playerEvent = new PlayerEvent(
                     $currentPlayer,
-                    DaedalusEvent::FULL_DAEDALUS,
+                    [DaedalusEvent::FULL_DAEDALUS],
                     $date
                 );
-                $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+                $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
             }
         }
 
@@ -305,11 +305,11 @@ class DaedalusService implements DaedalusServiceInterface
         if ($this->getOxygenCapsuleCount($player) === 0) {
             $playerEvent = new PlayerEvent(
                 $player,
-                EndCauseEnum::ASPHYXIA,
+                [EndCauseEnum::ASPHYXIA],
                 $date
             );
 
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
         } else {
             $capsule = $player->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
 
@@ -355,7 +355,7 @@ class DaedalusService implements DaedalusServiceInterface
         return $player->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count();
     }
 
-    public function killRemainingPlayers(Daedalus $daedalus, string $cause, \DateTime $date): Daedalus
+    public function killRemainingPlayers(Daedalus $daedalus, array $reasons, \DateTime $date): Daedalus
     {
         $playerAliveNb = $daedalus->getPlayers()->getPlayerAlive()->count();
         for ($i = 0; $i < $playerAliveNb; ++$i) {
@@ -363,10 +363,10 @@ class DaedalusService implements DaedalusServiceInterface
 
             $playerEvent = new PlayerEvent(
                 $player,
-                $cause,
+                $reasons,
                 $date
             );
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
 
         return $daedalus;
@@ -387,11 +387,11 @@ class DaedalusService implements DaedalusServiceInterface
                 if ($newVariableValuePoint === 0) {
                     $daedalusEvent = new DaedalusEvent(
                         $daedalus,
-                        EndCauseEnum::DAEDALUS_DESTROYED,
+                        [EndCauseEnum::DAEDALUS_DESTROYED],
                         $date
                     );
 
-                    $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
+                    $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
                 }
                 break;
         }

@@ -11,9 +11,9 @@ class DaedalusInitEvent extends DaedalusCycleEvent
 
     private DaedalusConfig $daedalusConfig;
 
-    public function __construct(Daedalus $daedalus, DaedalusConfig $daedalusConfig, string $reason, \DateTime $time)
+    public function __construct(Daedalus $daedalus, DaedalusConfig $daedalusConfig, array $tags, \DateTime $time)
     {
-        parent::__construct($daedalus, $reason, $time);
+        parent::__construct($daedalus, $tags, $time);
 
         $this->daedalusConfig = $daedalusConfig;
     }

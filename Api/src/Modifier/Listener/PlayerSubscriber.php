@@ -2,26 +2,27 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Service\ModifierService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private ModifierService $modifierService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         ModifierService $modifierService,
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
         $this->modifierService = $modifierService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -47,19 +48,20 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         /** @var GameModifier $modifier */
         foreach ($eventModifiers as $modifier) {
-            $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReason());
+            /** @var AbstractGameEvent $event */
+            $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getTags());
 
-            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
         }
     }
 
-    private function createQuantityEvent(Player $player, GameModifier $modifier, \DateTime $time, string $eventReason): AbstractQuantityEvent
+    private function createQuantityEvent(Player $player, GameModifier $modifier, \DateTime $time, array $reasons): QuantityEventInterface
     {
         $modifierConfig = $modifier->getModifierConfig();
 
         $target = $modifierConfig->getTargetVariable();
         $value = intval($modifierConfig->getDelta());
-        $reason = $modifierConfig->getModifierName() ?: $eventReason;
+        $reasons[] = $modifierConfig->getModifierName();
 
         switch (true) {
             case $player instanceof Player:
@@ -67,7 +69,7 @@ class PlayerSubscriber implements EventSubscriberInterface
                     $player,
                     $target,
                     $value,
-                    $reason,
+                    $reasons,
                     $time,
                 );
             default:

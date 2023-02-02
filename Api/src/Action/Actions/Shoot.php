@@ -22,7 +22,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -33,7 +34,6 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -49,7 +49,7 @@ class Shoot extends AttemptAction
     protected RandomServiceInterface $randomService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
@@ -57,7 +57,7 @@ class Shoot extends AttemptAction
         DiseaseCauseServiceInterface $diseaseCauseService,
     ) {
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator,
             $randomService
@@ -150,13 +150,15 @@ class Shoot extends AttemptAction
 
         if ($result instanceof Success) {
             if ($result instanceof OneShot) {
+                $reasons = $this->getAction()->getActionTags();
+                $reasons[] = EndCauseEnum::BEHEADED;
                 $deathEvent = new PlayerEvent(
                     $target,
-                    EndCauseEnum::BEHEADED,
+                    $reasons,
                     new \DateTime()
                 );
 
-                $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
+                $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
                 return;
             }
@@ -172,7 +174,7 @@ class Shoot extends AttemptAction
                     [ModifierScopeEnum::INJURY],
                     PlayerVariableEnum::HEALTH_POINT,
                     $damage,
-                    $this->getActionName(),
+                    $this->getAction()->getActionTags(),
                     new \DateTime()
                 );
             }
@@ -199,8 +201,8 @@ class Shoot extends AttemptAction
             [ActionTypeEnum::ACTION_SHOOT],
             ModifierTargetEnum::CRITICAL_PERCENTAGE,
             $blaster->getCriticalFailRate(),
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
         return $this->randomService->isSuccessful($criticalFailRate);
@@ -213,8 +215,8 @@ class Shoot extends AttemptAction
             [ActionTypeEnum::ACTION_SHOOT],
             ModifierTargetEnum::CRITICAL_PERCENTAGE,
             $blaster->getCriticalSuccessRate(),
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
         return $this->randomService->isSuccessful($criticalSuccessRate);
@@ -227,8 +229,8 @@ class Shoot extends AttemptAction
             [ActionTypeEnum::ACTION_SHOOT],
             ModifierTargetEnum::CRITICAL_PERCENTAGE,
             $blaster->getOneShotRate(),
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
         return $this->randomService->isSuccessful($oneShotRate);
@@ -240,13 +242,13 @@ class Shoot extends AttemptAction
             $target,
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
-        $this->eventDispatcher->dispatch(
+        $this->eventService->callEvent(
             $damageEvent,
-            AbstractQuantityEvent::CHANGE_VARIABLE
+            QuantityEventInterface::CHANGE_VARIABLE
         );
     }
 }

@@ -9,7 +9,7 @@ use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Validator\AreMedicalSuppliesOnReach;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -69,19 +69,19 @@ class SelfHeal extends AbstractAction
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
             $quantity,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
 
         $healEvent = new ApplyEffectEvent(
             $this->player,
             $this->player,
             VisibilityEnum::PRIVATE,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
+        $this->eventService->callEvent($healEvent, ApplyEffectEvent::HEAL);
     }
 }

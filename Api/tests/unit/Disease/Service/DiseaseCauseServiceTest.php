@@ -119,7 +119,7 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->playerDiseaseService
             ->shouldReceive('createDiseaseFromName')
-            ->with($diseaseName, $player, DiseaseCauseEnum::PERISHED_FOOD, null, null)
+            ->with($diseaseName, $player, [DiseaseCauseEnum::PERISHED_FOOD], null, null)
             ->once()
         ;
 
@@ -181,7 +181,7 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->playerDiseaseService
             ->shouldReceive('createDiseaseFromName')
-            ->with($diseaseName, $player, DiseaseCauseEnum::PERISHED_FOOD, null, null)
+            ->with($diseaseName, $player, [DiseaseCauseEnum::PERISHED_FOOD], null, null)
             ->once()
         ;
 
@@ -339,7 +339,7 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->playerDiseaseService
             ->shouldReceive('createDiseaseFromName')
-            ->with($diseaseName, $player, DiseaseCauseEnum::PERISHED_FOOD, null, null)
+            ->with($diseaseName, $player, [DiseaseCauseEnum::PERISHED_FOOD], null, null)
             ->once()
         ;
 

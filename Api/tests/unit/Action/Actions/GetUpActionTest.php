@@ -26,7 +26,7 @@ class GetUpActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::GET_UP);
 
         $this->action = new GetUp(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -66,7 +66,7 @@ class GetUpActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();
 

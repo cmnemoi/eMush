@@ -24,7 +24,7 @@ class ExtractSporeActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::EXTRACT_SPORE, 2);
 
         $this->action = new ExtractSpore(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -66,7 +66,7 @@ class ExtractSporeActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->times(2);
+        $this->eventService->shouldReceive('callEvent')->times(2);
 
         $result = $this->action->execute();
 

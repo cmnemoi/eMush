@@ -5,6 +5,7 @@ namespace Mush\RoomLog\Listener;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -54,12 +55,14 @@ class PlayerSubscriber implements EventSubscriberInterface
         $language = $player->getDaedalus()->getLanguage();
 
         if ($logKey == LogEnum::DEATH) {
-            if (!($reason = $event->getReason())) {
+            $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
+
+            if ($endCause === null) {
                 throw new \LogicException('Player should die with a reason');
             }
 
             $logParameters[LanguageEnum::END_CAUSE] = $this->translationService->translate(
-                $reason,
+                $endCause,
                 [],
                 'end_cause',
                 $language

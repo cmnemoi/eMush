@@ -48,9 +48,9 @@ class WaterPlant extends AbstractAction
         $statusEvent = new StatusEvent(
             $status->getName(),
             $parameter,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 }

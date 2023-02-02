@@ -44,8 +44,8 @@ class Ungag extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $statusEvent = new StatusEvent(PlayerStatusEnum::GAGGED, $this->player, $this->getActionName(), new \DateTime());
+        $statusEvent = new StatusEvent(PlayerStatusEnum::GAGGED, $this->player, $this->getAction()->getActionTags(), new \DateTime());
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 }

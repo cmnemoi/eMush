@@ -10,7 +10,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 
 abstract class InsertAction extends AbstractAction
@@ -36,20 +36,20 @@ abstract class InsertAction extends AbstractAction
             $toInsert,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             $time
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // Add to container
         $daedalusEvent = new DaedalusVariableEvent(
             $this->player->getDaedalus(),
             $this->getDaedalusVariable(),
             1,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             $time
         );
-        $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($daedalusEvent, QuantityEventInterface::CHANGE_VARIABLE);
     }
 
     abstract protected function getDaedalusVariable(): string;

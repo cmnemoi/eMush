@@ -12,22 +12,22 @@ use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\User\Entity\User;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerDeathCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testDispatchPlayerDeath(FunctionalTester $I)
@@ -97,10 +97,10 @@ class PlayerDeathCest
 
         $playerEvent = new PlayerEvent(
             $player,
-            VisibilityEnum::PUBLIC,
+            [EndCauseEnum::BLED],
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertCount(1, $publicChannel->getMessages());
         $I->assertCount(1, $privateChannel->getMessages());

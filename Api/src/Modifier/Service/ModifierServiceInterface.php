@@ -36,7 +36,7 @@ interface ModifierServiceInterface
         array $scopes,
         string $target,
         int $initValue,
-        string $reason,
+        array $reasons,
         \DateTime $time,
         bool $applyModifier = true
     ): int;
@@ -44,7 +44,7 @@ interface ModifierServiceInterface
     public function isSuccessfulWithModifiers(
         int $successRate,
         array $scopes,
-        string $reason,
+        array $reasons,
         \DateTime $time,
         ModifierHolder $holder
     ): bool;

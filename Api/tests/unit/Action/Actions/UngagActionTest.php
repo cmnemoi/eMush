@@ -20,7 +20,7 @@ class UngagActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::UNGAG, 1);
 
         $this->action = new Ungag(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -45,7 +45,7 @@ class UngagActionTest extends AbstractActionTest
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();
 

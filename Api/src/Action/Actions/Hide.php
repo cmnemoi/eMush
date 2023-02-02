@@ -52,21 +52,21 @@ class Hide extends AbstractAction
         $statusEvent = new StatusEvent(
             EquipmentStatusEnum::HIDDEN,
             $parameter,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             $time
         );
         $statusEvent->setStatusTarget($this->player);
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         if ($parameter->getHolder() instanceof Player) {
             $equipmentEvent = new InteractWithEquipmentEvent(
                 $parameter,
                 $this->player,
                 VisibilityEnum::HIDDEN,
-                $this->getActionName(),
+                $this->getAction()->getActionTags(),
                 $time
             );
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
         }
     }
 }

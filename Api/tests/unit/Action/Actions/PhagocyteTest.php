@@ -29,7 +29,7 @@ class PhagocyteTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::PHAGOCYTE);
         $this->action = new Phagocyte(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -63,7 +63,7 @@ class PhagocyteTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->times(3);
+        $this->eventService->shouldReceive('callEvent')->times(3);
 
         $result = $this->action->execute();
 

@@ -55,11 +55,10 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayerDisease()->getPlayer();
 
-        $reason = $event->getReason();
+        $reasons = $event->getTags();
 
-        if (key_exists($reason, self::CURE_LOG_MAP)) {
-            $key = self::CURE_LOG_MAP[$reason];
-        } else {
+        $key = $event->mapLog(self::CURE_LOG_MAP);
+        if ($key === null) {
             $key = LogEnum::DISEASE_CURED;
         }
 
@@ -81,11 +80,10 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayerDisease()->getPlayer();
 
-        $reason = $event->getReason();
+        $reasons = $event->getTags();
 
-        if (key_exists($reason, self::TREAT_LOG_MAP)) {
-            $key = self::TREAT_LOG_MAP[$reason];
-        } else {
+        $key = $event->mapLog(self::TREAT_LOG_MAP);
+        if ($key === null) {
             $key = LogEnum::DISEASE_TREATED;
         }
 

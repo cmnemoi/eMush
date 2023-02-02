@@ -9,7 +9,8 @@ use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Service\ModifierRequirementService;
@@ -17,19 +18,18 @@ use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerVariableEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CycleEventSubscriber implements EventSubscriberInterface
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private ModifierRequirementService $modifierActivationRequirementService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ModifierRequirementService $modifierActivationRequirementService,
     ) {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->modifierActivationRequirementService = $modifierActivationRequirementService;
     }
 
@@ -53,14 +53,15 @@ class CycleEventSubscriber implements EventSubscriberInterface
         $holder = $this->getModifierHolder($event);
 
         $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_CYCLE]);
-        $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, EventEnum::NEW_CYCLE, $holder);
+        $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, [EventEnum::NEW_CYCLE], $holder);
         $cycleModifiers = $cycleModifiers->sortModifiersByDelta(false);
 
         /** @var GameModifier $modifier */
         foreach ($cycleModifiers as $modifier) {
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
+            /** @var AbstractGameEvent $event */
+            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getTags());
 
-            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
         }
     }
 
@@ -69,14 +70,15 @@ class CycleEventSubscriber implements EventSubscriberInterface
         $holder = $this->getModifierHolder($event);
 
         $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_DAY]);
-        $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, EventEnum::NEW_CYCLE, $holder);
+        $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, [EventEnum::NEW_CYCLE], $holder);
         $cycleModifiers = $cycleModifiers->sortModifiersByDelta(false);
 
         /** @var GameModifier $modifier */
         foreach ($cycleModifiers as $modifier) {
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
+            /** @var AbstractGameEvent $event */
+            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getTags());
 
-            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
         }
     }
 
@@ -85,14 +87,15 @@ class CycleEventSubscriber implements EventSubscriberInterface
         $holder = $event->getPlayer();
 
         $modifiers = $holder->getModifiers()->getScopedModifiers([ActionEvent::POST_ACTION]);
-        $modifiers = $this->modifierActivationRequirementService->getActiveModifiers($modifiers, $event->getReason(), $holder);
+        $modifiers = $this->modifierActivationRequirementService->getActiveModifiers($modifiers, $event->getTags(), $holder);
         $modifiers = $modifiers->sortModifiersByDelta(false);
 
         /** @var GameModifier $modifier */
         foreach ($modifiers as $modifier) {
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
+            /** @var AbstractGameEvent $event */
+            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getTags());
 
-            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
         }
     }
 
@@ -112,13 +115,16 @@ class CycleEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function createQuantityEvent(ModifierHolder $holder, GameModifier $modifier, \DateTime $time, string $eventReason): AbstractQuantityEvent
+    private function createQuantityEvent(ModifierHolder $holder, GameModifier $modifier, \DateTime $time, array $reasons): QuantityEventInterface
     {
         $modifierConfig = $modifier->getModifierConfig();
 
         $target = $modifierConfig->getTargetVariable();
         $value = intval($modifierConfig->getDelta());
-        $reason = $modifierConfig->getModifierName() ?: $eventReason;
+
+        if (($modifierName = $modifierConfig->getModifierName()) !== null) {
+            $reasons[] = $modifierName;
+        }
 
         switch (true) {
             case $holder instanceof Player:
@@ -126,7 +132,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
                     $holder,
                     $target,
                     $value,
-                    $reason,
+                    $reasons,
                     $time,
                 );
 
@@ -135,7 +141,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
                     $holder,
                     $target,
                     $value,
-                    $reason,
+                    $reasons,
                     $time,
                 );
             default:

@@ -17,10 +17,10 @@ class StatusCycleEvent extends AbstractGameEvent
     public function __construct(
         Status $status,
         StatusHolderInterface $holder,
-        string $reason,
+        array $tags,
         \DateTime $time
     ) {
-        parent::__construct($reason, $time);
+        parent::__construct($tags, $time);
 
         $this->status = $status;
         $this->holder = $holder;

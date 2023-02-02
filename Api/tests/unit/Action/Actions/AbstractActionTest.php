@@ -9,19 +9,19 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractActionTest extends TestCase
 {
-    protected Mockery\Mock|EventDispatcherInterface $eventDispatcher;
+    protected Mockery\Mock|EventServiceInterface $eventService;
 
     protected ActionServiceInterface|Mockery\Mock $actionService;
 
@@ -35,9 +35,9 @@ abstract class AbstractActionTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService = \Mockery::mock(EventServiceInterface::class);
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof ActionEvent &&
                 $event->getAction() === $this->actionEntity
             )

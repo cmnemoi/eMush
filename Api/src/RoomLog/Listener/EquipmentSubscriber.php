@@ -19,6 +19,18 @@ class EquipmentSubscriber implements EventSubscriberInterface
 {
     private RoomLogServiceInterface $roomLogService;
 
+    private const CREATION_LOG_MAP = [
+        EventEnum::PLANT_PRODUCTION => PlantLogEnum::PLANT_NEW_FRUIT,
+        ActionEnum::BUILD => ActionLogEnum::BUILD_SUCCESS,
+        ActionEnum::TRANSPLANT => ActionLogEnum::TRANSPLANT_SUCCESS,
+        ActionEnum::OPEN => ActionLogEnum::OPEN_SUCCESS,
+    ];
+
+    private const DESTRUCTION_LOG_MAP = [
+        EventEnum::FIRE => LogEnum::EQUIPMENT_DESTROYED,
+        PlantLogEnum::PLANT_DEATH => PlantLogEnum::PLANT_DEATH,
+    ];
+
     public function __construct(RoomLogServiceInterface $roomLogService)
     {
         $this->roomLogService = $roomLogService;
@@ -41,40 +53,18 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentCreated(EquipmentEvent $event): void
     {
-        switch ($event->getReason()) {
-            case EventEnum::PLANT_PRODUCTION:
-                $logKey = PlantLogEnum::PLANT_NEW_FRUIT;
-                break;
-
-            case ActionEnum::BUILD:
-                $logKey = ActionLogEnum::BUILD_SUCCESS;
-                break;
-
-            case ActionEnum::TRANSPLANT:
-                $logKey = ActionLogEnum::TRANSPLANT_SUCCESS;
-                break;
-
-            case ActionEnum::OPEN:
-                $logKey = ActionLogEnum::OPEN_SUCCESS;
-                break;
-            default:
-                return;
+        $logKey = $event->mapLog(self::CREATION_LOG_MAP);
+        if ($logKey !== null) {
+            $this->createEventLog($logKey, $event, $event->getVisibility());
         }
-
-        $this->createEventLog($logKey, $event, $event->getVisibility());
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        switch ($event->getReason()) {
-            case EventEnum::FIRE:
-                $this->createEventLog(LogEnum::EQUIPMENT_DESTROYED, $event, VisibilityEnum::PUBLIC);
+        $logKey = $event->mapLog(self::DESTRUCTION_LOG_MAP);
 
-                return;
-            case PlantLogEnum::PLANT_DEATH:
-                $this->createEventLog(PlantLogEnum::PLANT_DEATH, $event, VisibilityEnum::PUBLIC);
-
-                return;
+        if ($logKey !== null) {
+            $this->createEventLog($logKey, $event, $event->getVisibility());
         }
     }
 

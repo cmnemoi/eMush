@@ -85,7 +85,7 @@ class PlayerCycleSubscriberCest
 
         $event = new PlayerCycleEvent(
             $player,
-            EventEnum::NEW_CYCLE,
+            [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
 
@@ -148,7 +148,7 @@ class PlayerCycleSubscriberCest
 
         $I->refreshEntities($player);
 
-        $event = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, new \DateTime());
+        $event = new PlayerCycleEvent($player, [EventEnum::NEW_CYCLE], new \DateTime());
 
         $this->subscriber->onPlayerNewCycle($event);
 
@@ -216,7 +216,7 @@ class PlayerCycleSubscriberCest
 
         $I->refreshEntities($player);
 
-        $event = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, new \DateTime());
+        $event = new PlayerCycleEvent($player, [EventEnum::NEW_CYCLE], new \DateTime());
 
         $this->subscriber->onPlayerNewCycle($event);
 
@@ -310,7 +310,7 @@ class PlayerCycleSubscriberCest
 
         $I->refreshEntities($player);
 
-        $event = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, new \DateTime());
+        $event = new PlayerCycleEvent($player, [EventEnum::NEW_CYCLE], new \DateTime());
 
         $this->subscriber->onPlayerNewCycle($event);
 

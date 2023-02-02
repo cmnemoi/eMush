@@ -5,6 +5,7 @@ namespace Mush\Daedalus\Listener;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Player\Enum\EndCauseEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusSubscriber implements EventSubscriberInterface
@@ -29,13 +30,13 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public function onDaedalusFinish(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $reason = $event->getReason();
+        $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
-        if (!$reason) {
+        if (!$endCause) {
             throw new \LogicException('daedalus should end with a reason');
         }
 
-        $this->daedalusService->endDaedalus($daedalus, $reason, $event->getTime());
+        $this->daedalusService->endDaedalus($daedalus, $endCause, $event->getTime());
     }
 
     public function onDaedalusFull(DaedalusEvent $event): void

@@ -10,7 +10,7 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
 use Mush\Modifier\Entity\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -212,7 +212,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $mushConsumeSatietyModifier = new ModifierConfig();
         $mushConsumeSatietyModifier
-            ->setTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE)
+            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::SATIETY)
             ->setDelta(4)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
@@ -224,7 +224,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $mushConsumeHealthModifier = new ModifierConfig();
         $mushConsumeHealthModifier
-            ->setTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE)
+            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(0)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
@@ -236,7 +236,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $mushConsumeMoralModifier = new ModifierConfig();
         $mushConsumeMoralModifier
-            ->setTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE)
+            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(0)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
@@ -248,7 +248,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $mushConsumeActionModifier = new ModifierConfig();
         $mushConsumeActionModifier
-            ->setTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE)
+            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(0)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
@@ -260,7 +260,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $mushConsumeMovementModifier = new ModifierConfig();
         $mushConsumeMovementModifier
-            ->setTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE)
+            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(0)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)

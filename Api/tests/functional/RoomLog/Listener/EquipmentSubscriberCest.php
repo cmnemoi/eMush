@@ -13,20 +13,20 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EquipmentSubscriberCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testCreateNewFruit(FunctionalTester $I)
@@ -63,10 +63,10 @@ class EquipmentSubscriberCest
             $equipment,
             true,
             VisibilityEnum::PUBLIC,
-            EventEnum::PLANT_PRODUCTION,
+            [EventEnum::PLANT_PRODUCTION],
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(0, $player->getEquipments());

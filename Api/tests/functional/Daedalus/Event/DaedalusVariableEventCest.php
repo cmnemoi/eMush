@@ -11,22 +11,22 @@ use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DaedalusVariableEventCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testChangeOxygenWithTanks(FunctionalTester $I)
@@ -52,10 +52,10 @@ class DaedalusVariableEventCest
             $daedalus,
             DaedalusVariableEnum::OXYGEN,
             -2,
-            EventEnum::NEW_CYCLE,
+            [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
 
         $I->assertEquals(30, $daedalus->getOxygen());
 
@@ -72,7 +72,7 @@ class DaedalusVariableEventCest
             ->setTargetVariable(DaedalusVariableEnum::OXYGEN)
             ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
-            ->setTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE)
+            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->addModifierRequirement($modifierActivationRequirement)
             ->buildName()
         ;
@@ -85,10 +85,10 @@ class DaedalusVariableEventCest
             $daedalus,
             DaedalusVariableEnum::OXYGEN,
             -2,
-            'other_reason',
+            ['other_reason'],
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
 
         $I->assertEquals(28, $daedalus->getOxygen());
 
@@ -96,10 +96,10 @@ class DaedalusVariableEventCest
             $daedalus,
             DaedalusVariableEnum::OXYGEN,
             -2,
-            EventEnum::NEW_CYCLE,
+            [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
 
         $I->assertEquals(27, $daedalus->getOxygen());
     }

@@ -14,10 +14,10 @@ class PlaceInitEvent extends PlaceCycleEvent
     public function __construct(
         Place $place,
         PlaceConfig $placeConfig,
-        string $reason,
+        array $tags,
         \DateTime $time
     ) {
-        parent::__construct($place, $reason, $time);
+        parent::__construct($place, $tags, $time);
 
         $this->placeConfig = $placeConfig;
     }

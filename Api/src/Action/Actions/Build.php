@@ -20,8 +20,8 @@ use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -33,14 +33,14 @@ class Build extends AbstractAction
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GearToolServiceInterface $gearToolService,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator
         );
@@ -109,11 +109,11 @@ class Build extends AbstractAction
                     $ingredient,
                     $this->player,
                     VisibilityEnum::HIDDEN,
-                    $this->getActionName(),
+                    $this->getAction()->getActionTags(),
                     $time
                 );
 
-                $this->eventDispatcher->dispatch($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+                $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }
 
@@ -121,16 +121,16 @@ class Build extends AbstractAction
             $parameter,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             $time
         );
-        $this->eventDispatcher->dispatch($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // Create the equipment
         $blueprintResult = $this->gameEquipmentService->createGameEquipment(
             $blueprintMechanic->getEquipment(),
             $this->player,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             VisibilityEnum::PRIVATE
         );
     }

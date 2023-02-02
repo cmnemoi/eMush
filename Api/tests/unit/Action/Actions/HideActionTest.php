@@ -31,7 +31,7 @@ class HideActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::HIDE, 1);
 
         $this->action = new Hide(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -71,8 +71,8 @@ class HideActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::HIDDEN &&
                 $event->getStatusHolder() === $gameItem &&
@@ -80,12 +80,12 @@ class HideActionTest extends AbstractActionTest
             )
             ->once()
         ;
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof InteractWithEquipmentEvent &&
                 $event->getEquipment() === $gameItem &&
                 $event->getActor() === $player &&
-                $event->getReason() === ActionEnum::HIDE
+                $event->getTags() === [ActionEnum::HIDE]
             )
             ->once()
         ;

@@ -2,7 +2,6 @@
 
 namespace Mush\Disease\Listener;
 
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
@@ -73,7 +72,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->playerDiseaseService->healDisease($event->getPlayer(), $diseaseToHeal, $event->getReason(), $event->getTime());
+        $this->playerDiseaseService->healDisease($event->getPlayer(), $diseaseToHeal, $event->getTags(), $event->getTime());
     }
 
     /**
@@ -87,19 +86,9 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $actionName = $event->getReason();
-        if ($actionName === ActionEnum::MAKE_SICK) {
-            $this->diseaseCauseService->handleDiseaseForCause(
-                $event->getReason(),
-                $player,
-                self::MAKE_SICK_DELAY_MIN,
-                self::MAKE_SICK_DELAY_LENGTH
-            );
+        $actionName = $event->getEventName();
 
-            return;
-        }
-
-        $this->diseaseCauseService->handleDiseaseForCause($event->getReason(), $player);
+        $this->diseaseCauseService->handleDiseaseForCause($actionName, $player);
     }
 
     /**
@@ -118,7 +107,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
 
         $this->playerDiseaseService->removePlayerDisease(
             $injuryToHeal,
-            $event->getReason(),
+            $event->getTags(),
             $event->getTime(),
             $event->getVisibility(),
             $event->getPlayer(),

@@ -40,9 +40,9 @@ class SpreadFire extends AbstractAction
         $statusEvent = new StatusEvent(
             StatusEnum::FIRE,
             $this->player->getPlace(),
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 }

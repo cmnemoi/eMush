@@ -23,7 +23,7 @@ class TakeActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::TRANSPLANT);
 
         $this->action = new Take(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -55,7 +55,7 @@ class TakeActionTest extends AbstractActionTest
         $player = $this->createPlayer($daedalus, $room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
@@ -82,7 +82,7 @@ class TakeActionTest extends AbstractActionTest
         $player = $this->createPlayer($daedalus, $room);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

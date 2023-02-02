@@ -25,12 +25,12 @@ class SymptomActivationRequirementService implements SymptomActivationRequiremen
         $this->randomService = $randomService;
     }
 
-    public function getActiveSymptoms(SymptomConfigCollection $symptomConfigs, Player $player, string $reason, ?Action $action = null): SymptomConfigCollection
+    public function getActiveSymptoms(SymptomConfigCollection $symptomConfigs, Player $player, array $tags, ?Action $action = null): SymptomConfigCollection
     {
         $activeSymptoms = new SymptomConfigCollection();
 
         foreach ($symptomConfigs as $symptomConfig) {
-            if ($this->checkSymptom($symptomConfig, $player, $reason, $action)) {
+            if ($this->checkSymptom($symptomConfig, $player, $tags, $action)) {
                 $activeSymptoms->add($symptomConfig);
             }
         }
@@ -38,7 +38,7 @@ class SymptomActivationRequirementService implements SymptomActivationRequiremen
         return $activeSymptoms;
     }
 
-    private function checkActivationRequirement(SymptomActivationRequirement $activationRequirement, Player $player, string $reason, ?Action $action): bool
+    private function checkActivationRequirement(SymptomActivationRequirement $activationRequirement, Player $player, array $tags, ?Action $action): bool
     {
         switch ($activationRequirement->getActivationRequirementName()) {
             case SymptomActivationRequirementEnum::ACTION_DIRTY_RATE:
@@ -51,7 +51,7 @@ class SymptomActivationRequirementService implements SymptomActivationRequiremen
                 return $this->randomService->isSuccessful(intval($activationRequirement->getValue()));
 
             case SymptomActivationRequirementEnum::REASON:
-                return $reason === $activationRequirement->getActivationRequirement();
+                return in_array($activationRequirement->getActivationRequirement(), $tags);
 
             case SymptomActivationRequirementEnum::PLAYER_EQUIPMENT:
                 return $this->checkPlayerEquipmentActivationRequirement($activationRequirement->getActivationRequirement(), $player);
@@ -67,10 +67,10 @@ class SymptomActivationRequirementService implements SymptomActivationRequiremen
         }
     }
 
-    private function checkSymptom(SymptomConfig $symptomConfig, Player $player, string $reason, ?Action $action): bool
+    private function checkSymptom(SymptomConfig $symptomConfig, Player $player, array $tags, ?Action $action): bool
     {
         foreach ($symptomConfig->getSymptomActivationRequirements() as $activationRequirement) {
-            if (!$this->checkActivationRequirement($activationRequirement, $player, $reason, $action)) {
+            if (!$this->checkActivationRequirement($activationRequirement, $player, $tags, $action)) {
                 return false;
             }
         }
@@ -90,7 +90,7 @@ class SymptomActivationRequirementService implements SymptomActivationRequiremen
         return $this->modifierService->isSuccessfulWithModifiers(
             $dirtyRate,
             [ModifierScopeEnum::EVENT_DIRTY],
-            $action->getActionName(),
+            $action->getActionTags(),
             new \DateTime(),
             $player
         ) || $isSuperDirty;

@@ -11,7 +11,7 @@ use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -75,18 +75,18 @@ class Heal extends AbstractAction
             $parameter,
             PlayerVariableEnum::HEALTH_POINT,
             $quantity,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
 
         $healEvent = new ApplyEffectEvent(
             $this->player,
             $parameter,
             VisibilityEnum::PUBLIC,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
+        $this->eventService->callEvent($healEvent, ApplyEffectEvent::HEAL);
     }
 }

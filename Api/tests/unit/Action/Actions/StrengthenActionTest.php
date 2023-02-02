@@ -34,7 +34,7 @@ class StrengthenActionTest extends AbstractActionTest
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->action = new StrengthenHull(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -106,8 +106,8 @@ class StrengthenActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         // Success
         $result = $this->action->execute();

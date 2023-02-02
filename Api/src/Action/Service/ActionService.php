@@ -4,7 +4,8 @@ namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
@@ -14,7 +15,6 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ActionService implements ActionServiceInterface
 {
@@ -22,21 +22,21 @@ class ActionService implements ActionServiceInterface
     public const BASE_MOVEMENT_POINT_CONVERSION_GAIN = 2;
     public const BASE_MOVEMENT_POINT_CONVERSION_COST = 1;
 
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private ModifierServiceInterface $modifierService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ModifierServiceInterface $modifierService,
     ) {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->modifierService = $modifierService;
     }
 
     public function applyCostToPlayer(Player $player, Action $action, ?LogParameterInterface $parameter): Player
     {
         if (($actionPointCost = $this->getTotalActionPointCost($player, $action, $parameter)) > 0) {
-            $this->triggerPlayerModifierEvent($player, -$actionPointCost, PlayerVariableEnum::ACTION_POINT);
+            $this->triggerPlayerModifierEvent($player, $action->getActionTags(), -$actionPointCost, PlayerVariableEnum::ACTION_POINT);
         }
 
         if (($movementPointCost = $this->getTotalMovementPointCost($player, $action, $parameter)) > 0) {
@@ -48,14 +48,14 @@ class ActionService implements ActionServiceInterface
 
                 $conversionGain = $numberOfConversions * $movementPointGain;
 
-                $this->triggerPlayerModifierEvent($player, $conversionGain, PlayerVariableEnum::MOVEMENT_POINT);
+                $this->triggerPlayerModifierEvent($player, $action->getActionTags(), $conversionGain, PlayerVariableEnum::MOVEMENT_POINT);
             }
 
-            $this->triggerPlayerModifierEvent($player, -$movementPointCost, PlayerVariableEnum::MOVEMENT_POINT);
+            $this->triggerPlayerModifierEvent($player, $action->getActionTags(), -$movementPointCost, PlayerVariableEnum::MOVEMENT_POINT);
         }
 
         if (($moralPointCost = $this->getTotalMoralPointCost($player, $action, $parameter)) > 0) {
-            $this->triggerPlayerModifierEvent($player, -$moralPointCost, PlayerVariableEnum::MORAL_POINT);
+            $this->triggerPlayerModifierEvent($player, $action->getActionTags(), -$moralPointCost, PlayerVariableEnum::MORAL_POINT);
         }
 
         return $player;
@@ -68,7 +68,7 @@ class ActionService implements ActionServiceInterface
             [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
             PlayerVariableEnum::ACTION_POINT,
             self::BASE_MOVEMENT_POINT_CONVERSION_COST,
-            ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION,
+            [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
             new \DateTime(),
             $consumeCharge
         );
@@ -81,7 +81,7 @@ class ActionService implements ActionServiceInterface
             [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
             PlayerVariableEnum::MOVEMENT_POINT,
             self::BASE_MOVEMENT_POINT_CONVERSION_GAIN,
-            ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION,
+            [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
             new \DateTime(),
             $consumeCharge
         );
@@ -167,17 +167,17 @@ class ActionService implements ActionServiceInterface
         return 0;
     }
 
-    private function triggerPlayerModifierEvent(Player $player, int $delta, string $variable): void
+    private function triggerPlayerModifierEvent(Player $player, array $tags, int $delta, string $variable): void
     {
         $playerModifierEvent = new PlayerVariableEvent(
             $player,
             $variable,
             $delta,
-            'action_cost', // @TODO fix that
+            $tags, // @TODO fix that
             new \DateTime()
         );
 
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
     }
 }

@@ -19,7 +19,8 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -35,15 +36,14 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerEventCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testDispatchPlayerDeath(FunctionalTester $I)
@@ -106,10 +106,10 @@ class PlayerEventCest
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
 
-        $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
+        $playerEvent = new PlayerEvent($player, [EndCauseEnum::CLUMSINESS], new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
         $closedPlayer = $playerInfo->getClosedPlayer();
@@ -191,10 +191,10 @@ class PlayerEventCest
         $status = new Status($player, $mushConfig);
         $I->haveInRepository($status);
 
-        $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
+        $playerEvent = new PlayerEvent($player, [EndCauseEnum::CLUMSINESS], new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
         $closedPlayer = $playerInfo->getClosedPlayer();
@@ -279,23 +279,23 @@ class PlayerEventCest
             $player,
             PlayerVariableEnum::SPORE,
             1,
-            ActionEnum::INFECT,
+            [ActionEnum::INFECT],
             new \DateTime()
         );
 
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
 
         $I->assertCount(0, $player->getStatuses());
         $I->assertEquals(1, $player->getSpores());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
 
         $I->assertCount(0, $player->getStatuses());
         $I->assertEquals(2, $player->getSpores());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
 
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(0, $player->getSpores());
@@ -344,9 +344,9 @@ class PlayerEventCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $playerEvent = new PlayerEvent($player, ActionEnum::INFECT, new \DateTime());
+        $playerEvent = new PlayerEvent($player, [ActionEnum::INFECT], new \DateTime());
 
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
 
         $sporesVariable = $player->getVariableByName(PlayerVariableEnum::SPORE);
 

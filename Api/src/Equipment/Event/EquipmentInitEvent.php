@@ -16,10 +16,10 @@ class EquipmentInitEvent extends AbstractGameEvent
     public function __construct(
         GameEquipment $gameEquipment,
         EquipmentConfig $equipmentConfig,
-        string $reason,
+        array $tags,
         \DateTime $time
     ) {
-        parent::__construct($reason, $time);
+        parent::__construct($tags, $time);
 
         $this->equipmentConfig = $equipmentConfig;
         $this->gameEquipment = $gameEquipment;

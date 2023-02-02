@@ -5,7 +5,7 @@ namespace Mush\Alert\Listener;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -23,11 +23,11 @@ class QuantityEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            AbstractQuantityEvent::CHANGE_VARIABLE => ['onChangeVariable', -10], // Applied after player modification
+            QuantityEventInterface::CHANGE_VARIABLE => ['onChangeVariable', -10], // Applied after player modification
         ];
     }
 
-    public function onChangeVariable(AbstractQuantityEvent $event): void
+    public function onChangeVariable(QuantityEventInterface $event): void
     {
         if ($event instanceof PlayerVariableEvent) {
             $this->handlePlayerChange($event);

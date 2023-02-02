@@ -62,7 +62,7 @@ class FireStatusSubscriberCest
         $statusEvent = new StatusEvent(
             StatusEnum::FIRE,
             $room,
-            EventEnum::NEW_CYCLE,
+            [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
         $this->statusSubscriber->onStatusApplied($statusEvent);
@@ -116,7 +116,7 @@ class FireStatusSubscriberCest
         $statusEvent = new StatusEvent(
             StatusEnum::FIRE,
             $room,
-            ActionEnum::EXTINGUISH,
+            [ActionEnum::EXTINGUISH],
             new \DateTime()
         );
         $this->statusSubscriber->onStatusRemoved($statusEvent);

@@ -18,6 +18,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -27,15 +28,14 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\User\Entity\User;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class NeronMessageCycleCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testNewFire(FunctionalTester $I)
@@ -152,12 +152,12 @@ class NeronMessageCycleCest
 
         $room->addStatus($status);
 
-        $cycleEvent = new StatusCycleEvent($status, $room, EventEnum::NEW_CYCLE, $time);
+        $cycleEvent = new StatusCycleEvent($status, $room, [EventEnum::NEW_CYCLE], $time);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);
 
-        $this->eventDispatcher->dispatch($cycleEvent, StatusCycleEvent::STATUS_NEW_CYCLE);
+        $this->eventService->callEvent($cycleEvent, StatusCycleEvent::STATUS_NEW_CYCLE);
 
         $message = $I->grabEntityFromRepository(Message::class, ['message' => NeronMessageEnum::CYCLE_FAILURES]);
         $fireMessages = $channel->getMessages()->filter(fn (Message $message) => $message->getMessage() === NeronMessageEnum::NEW_FIRE);

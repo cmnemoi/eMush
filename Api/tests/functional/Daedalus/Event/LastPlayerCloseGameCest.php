@@ -26,6 +26,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
@@ -41,15 +42,14 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class LastPlayerCloseGameCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testLastPlayerCloseGameSimpleCase(FunctionalTester $I)
@@ -113,8 +113,8 @@ class LastPlayerCloseGameCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $event = new PlayerEvent($player, ActionEnum::HIT, new \DateTime());
-        $this->eventDispatcher->dispatch($event, PlayerEvent::END_PLAYER);
+        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
         $I->assertEquals(GameStatusEnum::CLOSED, $daedalusInfo->getGameStatus());
@@ -209,8 +209,8 @@ class LastPlayerCloseGameCest
         $player2->setPlayerInfo($playerInfo2);
         $I->refreshEntities($player2);
 
-        $event = new PlayerEvent($player, ActionEnum::HIT, new \DateTime());
-        $this->eventDispatcher->dispatch($event, PlayerEvent::END_PLAYER);
+        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
         $I->assertEquals(GameStatusEnum::CLOSED, $daedalusInfo->getGameStatus());
@@ -312,8 +312,8 @@ class LastPlayerCloseGameCest
         $equipmentStatus = new Status($gameEquipment, $mushConfig);
         $I->haveInRepository($equipmentStatus);
 
-        $event = new PlayerEvent($player, ActionEnum::HIT, new \DateTime());
-        $this->eventDispatcher->dispatch($event, PlayerEvent::END_PLAYER);
+        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
         $I->assertEquals(GameStatusEnum::CLOSED, $daedalusInfo->getGameStatus());
@@ -402,8 +402,8 @@ class LastPlayerCloseGameCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $event = new PlayerEvent($player, ActionEnum::HIT, new \DateTime());
-        $this->eventDispatcher->dispatch($event, PlayerEvent::END_PLAYER);
+        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
         $I->assertEquals(GameStatusEnum::CLOSED, $daedalusInfo->getGameStatus());
@@ -493,8 +493,8 @@ class LastPlayerCloseGameCest
 
         $I->haveInRepository($alertFire);
 
-        $event = new PlayerEvent($player, ActionEnum::HIT, new \DateTime());
-        $this->eventDispatcher->dispatch($event, PlayerEvent::END_PLAYER);
+        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
         $I->assertEquals(GameStatusEnum::CLOSED, $daedalusInfo->getGameStatus());
@@ -596,8 +596,8 @@ class LastPlayerCloseGameCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $event = new PlayerEvent($player, ActionEnum::HIT, new \DateTime());
-        $this->eventDispatcher->dispatch($event, PlayerEvent::END_PLAYER);
+        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
         $I->assertEquals(GameStatusEnum::CLOSED, $daedalusInfo->getGameStatus());
@@ -705,8 +705,8 @@ class LastPlayerCloseGameCest
         $modifierEquipment = new GameModifier($gameEquipment, $modifierConfig);
         $I->haveInRepository($modifierEquipment);
 
-        $event = new PlayerEvent($player, ActionEnum::HIT, new \DateTime());
-        $this->eventDispatcher->dispatch($event, PlayerEvent::END_PLAYER);
+        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
 
         $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
         $I->assertEquals(GameStatusEnum::CLOSED, $daedalusInfo->getGameStatus());

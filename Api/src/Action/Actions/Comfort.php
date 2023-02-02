@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -55,9 +55,9 @@ class Comfort extends AbstractAction
             $parameter,
             PlayerVariableEnum::MORAL_POINT,
             self::BASE_CONFORT,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
     }
 }

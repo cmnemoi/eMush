@@ -10,7 +10,7 @@ use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasStatus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -58,18 +58,18 @@ class ExtractSpore extends AbstractAction
             $player,
             PlayerVariableEnum::SPORE,
             1,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
 
         $daedalusModifierEvent = new DaedalusVariableEvent(
             $player->getDaedalus(),
             DaedalusVariableEnum::SPORE,
             -1,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($daedalusModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($daedalusModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
     }
 }

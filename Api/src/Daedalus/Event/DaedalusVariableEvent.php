@@ -3,11 +3,11 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\QuantityEventInterface;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Player\Entity\Player;
 
-class DaedalusVariableEvent extends DaedalusEvent implements AbstractQuantityEvent
+class DaedalusVariableEvent extends DaedalusEvent implements QuantityEventInterface
 {
     private int $quantity;
     private string $modifiedVariable;
@@ -17,13 +17,13 @@ class DaedalusVariableEvent extends DaedalusEvent implements AbstractQuantityEve
         Daedalus $daedalus,
         string $modifiedVariable,
         int $quantity,
-        string $reason,
+        array $tags,
         \DateTime $time
     ) {
         $this->modifiedVariable = $modifiedVariable;
         $this->quantity = $quantity;
 
-        parent::__construct($daedalus, $reason, $time);
+        parent::__construct($daedalus, $tags, $time);
     }
 
     public function setQuantity(int $quantity): self

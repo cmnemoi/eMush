@@ -13,7 +13,7 @@ interface PlayerDiseaseServiceInterface
 
     public function removePlayerDisease(
         PlayerDisease $playerDisease,
-        string $cause,
+        array $causes,
         \DateTime $time,
         string $visibility,
         Player $author = null): bool;
@@ -21,12 +21,12 @@ interface PlayerDiseaseServiceInterface
     public function createDiseaseFromName(
         string $diseaseName,
         Player $player,
-        string $cause,
+        array $reasons,
         int $delayMin = null,
         int $delayLength = null
     ): ?PlayerDisease;
 
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void;
 
-    public function healDisease(Player $author, PlayerDisease $playerDisease, string $reason, \DateTime $time): void;
+    public function healDisease(Player $author, PlayerDisease $playerDisease, array $reasons, \DateTime $time): void;
 }

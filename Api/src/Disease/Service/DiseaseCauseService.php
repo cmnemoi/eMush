@@ -55,7 +55,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
                     $this->playerDiseaseService->createDiseaseFromName(
                         $disease->getDisease(),
                         $player,
-                        DiseaseCauseEnum::CONSUMABLE_EFFECT,
+                        [DiseaseCauseEnum::CONSUMABLE_EFFECT],
                         $disease->getDelayMin(),
                         $disease->getDelayLength()
                     );
@@ -67,7 +67,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
                 if (($disease = $player->getMedicalConditionByName($cure->getDisease())) !== null &&
                     $this->randomService->isSuccessful($cure->getRate())
                 ) {
-                    $this->playerDiseaseService->removePlayerDisease($disease, DiseaseStatusEnum::DRUG_HEALED, new \DateTime(), VisibilityEnum::PRIVATE);
+                    $this->playerDiseaseService->removePlayerDisease($disease, [DiseaseStatusEnum::DRUG_HEALED], new \DateTime(), VisibilityEnum::PRIVATE);
                 }
             }
         }
@@ -110,6 +110,6 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
             return;
         }
 
-        $this->playerDiseaseService->createDiseaseFromName($diseaseName, $player, $cause, $delayMin, $delayLength);
+        $this->playerDiseaseService->createDiseaseFromName($diseaseName, $player, [$cause], $delayMin, $delayLength);
     }
 }

@@ -24,6 +24,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -34,17 +35,16 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\User\Entity\User;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ExtinguishManuallyActionCest
 {
     private ExtinguishManually $extinguishManually;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
         $this->extinguishManually = $I->grabService(ExtinguishManually::class);
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testExtinguishManually(FunctionalTester $I)
@@ -97,9 +97,9 @@ class ExtinguishManuallyActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $statusEvent = new StatusEvent(StatusEnum::FIRE, $room, EventEnum::NEW_CYCLE, new \DateTime());
+        $statusEvent = new StatusEvent(StatusEnum::FIRE, $room, [EventEnum::NEW_CYCLE], new \DateTime());
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $action = new Action();
         $action

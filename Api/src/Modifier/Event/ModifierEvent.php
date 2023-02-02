@@ -14,11 +14,11 @@ class ModifierEvent extends AbstractGameEvent
 
     public function __construct(
         GameModifier $modifier,
-        string $reason,
+        array $tags,
         \DateTime $time,
         bool $wasModifierUsed
     ) {
-        parent::__construct($reason, $time);
+        parent::__construct($tags, $time);
 
         $this->modifier = $modifier;
         $this->wasModifierUsed = $wasModifierUsed;

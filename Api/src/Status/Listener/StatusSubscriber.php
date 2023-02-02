@@ -4,25 +4,25 @@ namespace Mush\Status\Listener;
 
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class StatusSubscriber implements EventSubscriberInterface
 {
     private StatusServiceInterface $statusService;
-    protected EventDispatcherInterface $eventDispatcher;
+    protected EventServiceInterface $eventService;
 
     public function __construct(
         StatusServiceInterface $statusService,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
     ) {
         $this->statusService = $statusService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -40,7 +40,6 @@ class StatusSubscriber implements EventSubscriberInterface
                 $event->getStatusName(),
                 $event->getPlace()->getDaedalus(),
                 $event->getStatusHolder(),
-                $event->getReason(),
                 $event->getTime(),
                 $event->getStatusTarget()
             );
@@ -73,10 +72,10 @@ class StatusSubscriber implements EventSubscriberInterface
                 $removeEvent = new StatusEvent(
                     $screwedTalkieStatus->getName(),
                     $screwedTalkieStatus->getOwner(),
-                    $event->getReason(),
+                    $event->getTags(),
                     $event->getTime()
                 );
-                $this->eventDispatcher->dispatch($removeEvent, StatusEvent::STATUS_REMOVED);
+                $this->eventService->callEvent($removeEvent, StatusEvent::STATUS_REMOVED);
             }
         }
 

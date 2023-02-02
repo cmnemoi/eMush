@@ -15,7 +15,7 @@ class PlantStrategy extends AbstractChargeStrategy
         parent::__construct($statusService);
     }
 
-    public function apply(ChargeStatus $status, string $reason): ?ChargeStatus
+    public function apply(ChargeStatus $status, array $reasons): ?ChargeStatus
     {
         // @TODO: Handle garden
 

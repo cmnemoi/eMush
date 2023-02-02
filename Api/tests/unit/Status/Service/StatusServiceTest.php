@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Attempt;
@@ -28,15 +29,14 @@ use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Repository\StatusRepository;
 use Mush\Status\Service\StatusService;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class StatusServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    protected EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    protected EventServiceInterface $eventService;
 
     /** @var StatusRepository|Mockery\Mock */
     private StatusRepository $repository;
@@ -49,12 +49,12 @@ class StatusServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->repository = \Mockery::mock(StatusRepository::class);
 
         $this->service = new StatusService(
             $this->entityManager,
-            $this->eventDispatcher,
+            $this->eventService,
             $this->repository,
         );
     }
@@ -170,9 +170,9 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
-        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, 'reason', new \DateTime());
+        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
 
         $this->assertEquals($result->getOwner(), $gameEquipment);
         $this->assertEquals($result->getName(), PlayerStatusEnum::EUREKA_MOMENT);
@@ -195,9 +195,9 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
-        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, 'reason', new \DateTime());
+        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
 
         $this->assertEquals($result->getOwner(), $gameEquipment);
         $this->assertEquals($result->getName(), PlayerStatusEnum::GUARDIAN);

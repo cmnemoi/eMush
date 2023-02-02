@@ -27,6 +27,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -41,17 +42,16 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\User\Entity\User;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DoTheThingCest
 {
     private DoTheThing $doTheThingAction;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testDoTheThing(FunctionalTester $I)
@@ -214,12 +214,12 @@ class DoTheThingCest
         $pregnantStatusEvent = new StatusEvent(
             PlayerStatusEnum::PREGNANT,
             $player,
-            $this->doTheThingAction->getActionName(),
+            $this->doTheThingAction->getAction()->getActionTags(),
             new \DateTime()
         );
         $pregnantStatusEvent->setVisibility(VisibilityEnum::PRIVATE);
 
-        $this->eventDispatcher->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getName(),

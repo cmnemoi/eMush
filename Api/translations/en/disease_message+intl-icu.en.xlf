@@ -227,6 +227,18 @@
                     other {invalid adjective}
                     }</target>
       </segment>
+      <segment id="adjective_coprolalia" state="translated">
+            <source>adjective_coprolalia</source>
+            <target>{adjective, select,
+                1 {drunk}
+                2 {coprophage}
+                3 {sluggish}
+                4 {rumpled}
+                5 {drugged}
+                6 {beheaded}
+                other {invalid adjective}
+                }</target>
+      </segment>
       <segment id="preposition" state="translated">
         <source>preposition_coprolalia</source>
         <target>{adjective, select,

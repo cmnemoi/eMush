@@ -30,19 +30,25 @@ class TranslationService implements TranslationServiceInterface
     private function getTranslateParameters(array $parameters, string $language): array
     {
         if (array_key_exists($language, $translationMap = LanguageEnum::TRANSLATE_PARAMETERS)) {
-            $parameterTranslationMap = $translationMap[$language];
-        } else {
-            throw new \Error('No parameter translation map for this language');
-        }
+            $parameterTranslationMaps = $translationMap[$language];
 
-        foreach ($parameters as $paramKey => $element) {
-            $parameters = $this->getTranslateParameter(
-                $paramKey,
-                $element,
-                $parameters,
-                $parameterTranslationMap,
-                $language
-            );
+            foreach ($parameters as $paramKey => $element) {
+                $convertedKey = LanguageEnum::convertParameterKeyToTranslationKey($paramKey);
+
+                if (array_key_exists($convertedKey, $parameterTranslationMaps)) {
+                    $parameterTranslationMap = $parameterTranslationMaps[$convertedKey];
+                } else {
+                    $parameterTranslationMap = ['name'];
+                }
+
+                $parameters = $this->getTranslateParameter(
+                    $paramKey,
+                    $element,
+                    $parameters,
+                    $parameterTranslationMap,
+                    $language
+                );
+            }
         }
 
         return $parameters;
@@ -58,27 +64,25 @@ class TranslationService implements TranslationServiceInterface
         if (!array_key_exists($initialKey, LanguageEnum::PARAMETER_KEY_TO_DOMAIN)) {
             return $parameters;
         }
-
-        $domain = LanguageEnum::PARAMETER_KEY_TO_DOMAIN[$initialKey];
         $parameterKey = LanguageEnum::convertParameterKeyToTranslationKey($initialKey);
 
-        if (array_key_exists($parameterKey, $parameterTranslationMap)) {
-            foreach ($parameterTranslationMap[$parameterKey] as $additionalInfoKey) {
-                $keyInMainString = $this->getKeyInMainTranslation($parameterKey, $additionalInfoKey);
+        $domain = LanguageEnum::PARAMETER_KEY_TO_DOMAIN[$initialKey];
 
-                $translationId = $this->getParameterTranslationId($parameterKey, $additionalInfoKey, $parameterTranslationId);
+        foreach ($parameterTranslationMap as $additionalInfoKey) {
+            $keyInMainString = $this->getKeyInMainTranslation($parameterKey, $additionalInfoKey);
 
-                $parameters[$keyInMainString] = $this->translator->trans(
-                    $translationId,
-                    $parameters,
-                    $domain,
-                    $language
-                );
-            }
+            $translationId = $this->getParameterTranslationId($parameterKey, $additionalInfoKey, $parameterTranslationId);
 
-            if ($domain === LanguageEnum::CHARACTERS) {
-                $parameters[$parameterKey . '_gender'] = (CharacterEnum::isMale($parameterTranslationId) ? 'male' : 'female');
-            }
+            $parameters[$keyInMainString] = $this->translator->trans(
+                $translationId,
+                $parameters,
+                $domain,
+                $language
+            );
+        }
+
+        if ($domain === LanguageEnum::CHARACTERS) {
+            $parameters[$parameterKey . '_gender'] = (CharacterEnum::isMale($parameterTranslationId) ? 'male' : 'female');
         }
 
         return $parameters;

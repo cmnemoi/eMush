@@ -111,7 +111,6 @@ class LanguageEnum
             LogDeclinationEnum::PREFIX_COPROLALIA => ['prefix_coprolalia'],
             LogDeclinationEnum::ADJECTIVE_COPROLALIA => ['adjective_coprolalia'],
             LogDeclinationEnum::ANIMAL_COPROLALIA => [
-                'preposition_coprolalia',
                 'animal_coprolalia',
                 'animal_plural_coprolalia',
             ],

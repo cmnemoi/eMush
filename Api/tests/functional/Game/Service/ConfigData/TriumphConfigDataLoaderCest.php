@@ -23,6 +23,9 @@ class TriumphConfigDataLoaderCest
         $I->haveInRepository(GameConfig::class, [
             'name' => 'default',
         ]);
+        $defaultGameConfig = $I->grabEntityFromRepository(GameConfig::class, [
+            'name' => 'default',
+        ]);
 
         $this->triumphConfigDataLoader->loadConfigData();
 
@@ -32,7 +35,11 @@ class TriumphConfigDataLoaderCest
             'isAllCrew' => false,
             'team' => VisibilityEnum::PUBLIC,
         ]);
+
+        // check that we've loaded all the triumph configs
         $I->seeNumRecords(43, TriumphConfig::class);
+        // check that we've associated successfully the triumph configs with the default game config
+        $I->assertCount(43, $defaultGameConfig->getTriumphConfig());
     }
 
     public function testLoadConfigDataConfigAlreadyExists(FunctionalTester $I)

@@ -6,7 +6,7 @@ use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\QuantityEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Service\ModifierService;
+use Mush\Modifier\Service\PlayerModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -14,14 +14,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
-    private ModifierService $modifierService;
+    private PlayerModifierServiceInterface $playerModifierService;
     private EventServiceInterface $eventService;
 
     public function __construct(
-        ModifierService $modifierService,
+        PlayerModifierServiceInterface $playerModifierService,
         EventServiceInterface $eventService
     ) {
-        $this->modifierService = $modifierService;
+        $this->playerModifierService = $playerModifierService;
         $this->eventService = $eventService;
     }
 
@@ -37,7 +37,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
 
-        $this->modifierService->playerLeaveRoom($player);
+        $this->playerModifierService->playerLeaveRoom($player);
     }
 
     public function onPlayerInfection(PlayerEvent $event): void

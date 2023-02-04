@@ -20,9 +20,9 @@ class GameConfigDataLoader extends ConfigDataLoader
         $this->gameConfigRepository = $gameConfigRepository;
     }
 
-    public function loadConfigData(): void
+    public function loadConfigsData(): void
     {
-        $gameConfigDataArray = $this->getGameConfigData();
+        $gameConfigDataArray = $this->getGameConfigsData();
 
         foreach ($gameConfigDataArray as $gameConfigData) {
             $gameConfig = $this->gameConfigRepository->findOneBy(['name' => $gameConfigData['name']]);
@@ -37,7 +37,7 @@ class GameConfigDataLoader extends ConfigDataLoader
         $this->entityManager->flush();
     }
 
-    private function getGameConfigData(): array
+    private function getGameConfigsData(): array
     {
         return [
             ['name' => GameConfigEnum::DEFAULT],

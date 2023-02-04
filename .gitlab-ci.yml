@@ -91,7 +91,8 @@ release:
     - npm install -g semantic-release @semantic-release/gitlab @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/git
   variables:
     GL_TOKEN: $semantic_release_token
+    version: 0.4.4
   script:
-    - semantic-release --branches test-semantic-release7 -p @semantic-release/git @semantic-release/gitlab @semantic-release/commit-analyzer @semantic-release/changelog
+    - semantic-release --branches test-semantic-release7 -p @semantic-release/git @semantic-release/gitlab @semantic-release/commit-analyzer @semantic-release/changelog -t "${version}"
   rules:
     - if: $CI_COMMIT_BRANCH == "test-semantic-release7"

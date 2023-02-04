@@ -89,6 +89,8 @@ release:
   <<: *node_template
   before_script:
     - npm install -g semantic-release @semantic-release/gitlab @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/npm
+  variables:
+    GL_TOKEN: $GITLAB_TOKEN
   script:
     - semantic-release --branches test-semantic-release7 -p @semantic-release/gitlab @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/npm
   rules:

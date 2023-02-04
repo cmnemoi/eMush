@@ -25,9 +25,9 @@ class TriumphConfigDataLoader extends ConfigDataLoader
         $this->triumphConfigRepository = $triumphConfigRepository;
     }
 
-    public function loadConfigData(): void
+    public function loadConfigsData(): void
     {
-        $triumphConfigDataArray = $this->getTriumphData();
+        $triumphConfigDataArray = $this->getTriumphConfigsData();
 
         /** @var GameConfig $defaultGameConfig */
         $defaultGameConfig = $this->gameConfigRepository->findOneBy(['name' => 'default']);
@@ -56,7 +56,7 @@ class TriumphConfigDataLoader extends ConfigDataLoader
         $this->entityManager->flush();
     }
 
-    private function getTriumphData(): array
+    private function getTriumphConfigsData(): array
     {
         return [
             ['name' => 'alien_science', 'triumph' => 16, 'is_all_crew' => false, 'team' => VisibilityEnum::PUBLIC],

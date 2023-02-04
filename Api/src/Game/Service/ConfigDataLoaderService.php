@@ -20,9 +20,12 @@ class ConfigDataLoaderService
     public function __construct(EntityManagerInterface $entityManager,
                                 GameConfigRepository $gameConfigRepository,
                                 TriumphConfigRepository $triumphConfigRepository
-    ) {
+    ) { 
+        /** @var ConfigDataLoader $triumphConfigDataLoader */
         $triumphConfigDataLoader = new TriumphConfigDataLoader($entityManager, $gameConfigRepository, $triumphConfigRepository);
+        /** @var ConfigDataLoader $gameConfigDataLoader */
         $gameConfigDataLoader = new GameConfigDataLoader($entityManager, $gameConfigRepository);
+        
         $this->setDataLoaders(new ArrayCollection(
             [
                 $triumphConfigDataLoader,
@@ -35,10 +38,11 @@ class ConfigDataLoaderService
     {
         /** @var ConfigDataLoader $dataLoader */
         foreach ($this->dataLoaders as $dataLoader) {
-            $dataLoader->loadConfigData();
+            $dataLoader->loadConfigsData();
         }
     }
 
+    /** @psalm-param ArrayCollection<0|1, ConfigDataLoader> $dataLoaders **/
     private function setDataLoaders(ArrayCollection $dataLoaders): void
     {
         $this->dataLoaders = $dataLoaders;

@@ -14,7 +14,7 @@ abstract class ConfigDataLoader
     }
 
     /**
-     * Load config data.
+     * Load configs data.
      */
-    abstract public function loadConfigData(): void;
+    abstract public function loadConfigsData(): void;
 }

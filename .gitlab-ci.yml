@@ -88,11 +88,11 @@
 release:
   <<: *node_template
   before_script:
-    - npm install -g semantic-release @semantic-release/gitlab @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/git @semantic-release/release-notes-generator
+    - npm install -g semantic-release @semantic-release/gitlab @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/git
   variables:
     GL_TOKEN: $semantic_release_token
     version: '${version}'
   script:
-    - semantic-release --branches test-semantic-release7 -p @semantic-release/git @semantic-release/gitlab @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/release-notes-generator -t $version -d
+    - semantic-release --branches test-semantic-release7 -p @semantic-release/changelog @semantic-release/git @semantic-release/gitlab @semantic-release/commit-analyzer -t $version -d
   rules:
     - if: $CI_COMMIT_BRANCH == "test-semantic-release7"

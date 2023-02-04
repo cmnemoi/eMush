@@ -18,16 +18,13 @@ class TriumphConfigDataLoaderCest
         $this->triumphConfigDataLoader = $I->grabService(TriumphConfigDataLoader::class);
     }
 
-    public function testloadConfigsData(FunctionalTester $I)
+    public function testLoadConfigData(FunctionalTester $I)
     {
         $I->haveInRepository(GameConfig::class, [
             'name' => 'default',
         ]);
-        $defaultGameConfig = $I->grabEntityFromRepository(GameConfig::class, [
-            'name' => 'default',
-        ]);
 
-        $this->triumphConfigDataLoader->loadConfigsData();
+        $this->triumphConfigDataLoader->loadConfigData();
 
         $I->seeInRepository(TriumphConfig::class, [
             'name' => TriumphEnum::ALIEN_SCIENCE,
@@ -35,14 +32,10 @@ class TriumphConfigDataLoaderCest
             'isAllCrew' => false,
             'team' => VisibilityEnum::PUBLIC,
         ]);
-
-        // check that we've loaded all the triumph configs
         $I->seeNumRecords(43, TriumphConfig::class);
-        // check that we've associated successfully the triumph configs with the default game config
-        $I->assertCount(43, $defaultGameConfig->getTriumphConfig());
     }
 
-    public function testloadConfigsDataConfigAlreadyExists(FunctionalTester $I)
+    public function testLoadConfigDataConfigAlreadyExists(FunctionalTester $I)
     {
         $I->haveInRepository(GameConfig::class, [
             'name' => 'default',
@@ -55,7 +48,7 @@ class TriumphConfigDataLoaderCest
             'team' => VisibilityEnum::PUBLIC,
         ]);
 
-        $this->triumphConfigDataLoader->loadConfigsData();
+        $this->triumphConfigDataLoader->loadConfigData();
 
         $I->seeNumRecords(1, TriumphConfig::class, [
             'name' => TriumphEnum::ALIEN_SCIENCE,

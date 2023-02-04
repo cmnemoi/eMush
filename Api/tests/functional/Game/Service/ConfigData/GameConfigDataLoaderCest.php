@@ -15,18 +15,18 @@ class GameConfigDataLoaderCest
         $this->gameConfigDataLoader = $I->grabService(GameConfigDataLoader::class);
     }
 
-    public function testloadConfigsData(FunctionalTester $I)
+    public function testLoadConfigData(FunctionalTester $I)
     {
-        $this->gameConfigDataLoader->loadConfigsData();
+        $this->gameConfigDataLoader->loadConfigData();
 
         $I->seeInRepository(GameConfig::class, ['name' => 'default']);
     }
 
-    public function testloadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
+    public function testLoadConfigDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
         $I->have(GameConfig::class, ['name' => 'default']);
 
-        $this->gameConfigDataLoader->loadConfigsData();
+        $this->gameConfigDataLoader->loadConfigData();
 
         $I->seeNumRecords(1, GameConfig::class, ['name' => 'default']);
     }

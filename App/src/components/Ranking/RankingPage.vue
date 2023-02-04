@@ -1,9 +1,7 @@
 <template>
     <RankingBanner></RankingBanner>
     <div class="ranking-container">
-        <div class="box-container">
-            <router-view></router-view>
-        </div>
+        <router-view></router-view>
     </div>
 </template>
 
@@ -21,9 +19,5 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-
-.box-container {
-    margin-top: 0;
-}
 
 </style>

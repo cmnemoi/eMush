@@ -396,7 +396,7 @@ export default defineComponent ({
 <style lang="scss" scoped>
 
 .container {
-    max-width: 1080px;
+    max-width: 785px;
     width: 100%;
     margin: 0 auto;
     align-items: center;
@@ -532,8 +532,8 @@ h2 {
 
 .star-card {
     margin: 0 0.5rem 2rem;
-    max-width: 785px;
-    align-self: center;
+    // width: 100%;
+    align-self: stretch;
 
     & > div { padding: 1rem 1rem 1rem 15rem }
 
@@ -737,6 +737,14 @@ a.back {
     margin: auto;
 }
 
+@media only screen and (max-width: 560px) {
+    // ARBITRARY, NEEDED
+
+        .star-card .triumph .score {
+            width: 100%;
+            margin: 0 auto 0.8em;
+        }
+}
 
 @media only screen and (max-width: $breakpoint-mobile-l) {
 
@@ -745,21 +753,19 @@ a.back {
 
         .avatar { top: 1.6em; }
 
+        .dude { margin-bottom: 12rem; }
+
         .epitaph {
-            margin: 14rem 0 1rem 0;
+            margin-right: 0;
+            margin-bottom: 0;
             font-size: 1.15em;
+            padding: .6em;
 
             &::before {
                 top: -7px;
                 left: 14px;
                 transform: rotate(45deg);
             }
-        }
-
-        .triumph .score {
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
         }
     }
 

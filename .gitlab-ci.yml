@@ -92,5 +92,4 @@ release:
   script:
     - semantic-release
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == "test-semantic-release7"

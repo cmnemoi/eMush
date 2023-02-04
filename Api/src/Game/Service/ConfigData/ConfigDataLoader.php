@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Game\Service\ConfigData;
+namespace Mush\Game\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -14,7 +14,7 @@ abstract class ConfigDataLoader
     }
 
     /**
-     * Load configs data.
+     * Load config data.
      */
-    abstract public function loadConfigsData(): void;
+    abstract public function loadConfigData(): void;
 }

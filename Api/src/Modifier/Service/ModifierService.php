@@ -13,6 +13,7 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -90,17 +91,20 @@ class ModifierService implements ModifierServiceInterface
 
         /** @var GameModifier $modifier */
         foreach ($modifierCollection as $modifier) {
-            switch ($modifier->getModifierConfig()->getMode()) {
-                case ModifierModeEnum::SET_VALUE:
-                    return intval($modifier->getModifierConfig()->getDelta());
-                case ModifierModeEnum::ADDITIVE:
-                    $additiveDelta += $modifier->getModifierConfig()->getDelta();
-                    break;
-                case ModifierModeEnum::MULTIPLICATIVE:
-                    $multiplicativeDelta *= $modifier->getModifierConfig()->getDelta();
-                    break;
-                default:
-                    throw new \LogicException('this modifier mode is not handled');
+            $modifierConfig = $modifier->getModifierConfig();
+            if ($modifierConfig instanceof VariableEventModifierConfig) {
+                switch ($modifierConfig->getMode()) {
+                    case ModifierModeEnum::SET_VALUE:
+                        return intval($modifierConfig->getDelta());
+                    case ModifierModeEnum::ADDITIVE:
+                        $additiveDelta += $modifierConfig->getDelta();
+                        break;
+                    case ModifierModeEnum::MULTIPLICATIVE:
+                        $multiplicativeDelta *= $modifierConfig->getDelta();
+                        break;
+                    default:
+                        throw new \LogicException('this modifier mode is not handled');
+                }
             }
         }
 
@@ -239,7 +243,7 @@ class ModifierService implements ModifierServiceInterface
 
         foreach ($player->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
-            /** @var ModifierConfig $modifierConfig */
+            /** @var VariableEventModifierConfig $modifierConfig */
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
                 if ($modifierConfig->getModifierHolderClass() === ModifierHolderClassEnum::PLACE) {
                     $this->createModifier($modifierConfig, $place);
@@ -254,7 +258,7 @@ class ModifierService implements ModifierServiceInterface
 
         foreach ($player->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
-            /** @var ModifierConfig $modifierConfig */
+            /** @var VariableEventModifierConfig $modifierConfig */
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
                 if ($modifierConfig->getModifierHolderClass() === ModifierHolderClassEnum::PLACE) {
                     $this->deleteModifier($modifierConfig, $place);

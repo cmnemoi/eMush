@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
@@ -66,7 +66,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         /** @var ModifierActivationRequirement $notMoveActionActivationRequirement */
         $notMoveActionActivationRequirement = $this->getReference(DisorderModifierConfigFixtures::NOT_REASON_MOVE);
 
-        $notMoveAction1Increase = new ModifierConfig();
+        $notMoveAction1Increase = new VariableEventModifierConfig();
         $notMoveAction1Increase
             ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -82,7 +82,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($notMoveAction1Increase);
 
-        $notMoveAction2Increase = new ModifierConfig();
+        $notMoveAction2Increase = new VariableEventModifierConfig();
         $notMoveAction2Increase
             ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -98,7 +98,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($notMoveAction2Increase);
 
-        $notMoveAction3Increase = new ModifierConfig();
+        $notMoveAction3Increase = new VariableEventModifierConfig();
         $notMoveAction3Increase
             ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -114,7 +114,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($notMoveAction3Increase);
 
-        $reduceMax3MovementPoint = new ModifierConfig();
+        $reduceMax3MovementPoint = new VariableEventModifierConfig();
         $reduceMax3MovementPoint
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
@@ -125,7 +125,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($reduceMax3MovementPoint);
 
-        $reduceMax5MovementPoint = new ModifierConfig();
+        $reduceMax5MovementPoint = new VariableEventModifierConfig();
         $reduceMax5MovementPoint
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
@@ -136,7 +136,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($reduceMax5MovementPoint);
 
-        $reduceMax12MovementPoint = new ModifierConfig();
+        $reduceMax12MovementPoint = new VariableEventModifierConfig();
         $reduceMax12MovementPoint
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
@@ -147,7 +147,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($reduceMax12MovementPoint);
 
-        $shootAction15PercentAccuracyLost = new ModifierConfig();
+        $shootAction15PercentAccuracyLost = new VariableEventModifierConfig();
         $shootAction15PercentAccuracyLost
             ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
@@ -158,7 +158,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($shootAction15PercentAccuracyLost);
 
-        $shootAction20PercentAccuracyLost = new ModifierConfig();
+        $shootAction20PercentAccuracyLost = new VariableEventModifierConfig();
         $shootAction20PercentAccuracyLost
             ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
@@ -169,7 +169,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($shootAction20PercentAccuracyLost);
 
-        $shootAction40PercentAccuracyLost = new ModifierConfig();
+        $shootAction40PercentAccuracyLost = new VariableEventModifierConfig();
         $shootAction40PercentAccuracyLost
             ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)

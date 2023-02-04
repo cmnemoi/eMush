@@ -7,8 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -128,7 +128,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
     private function deleteGearModifiers(GameEquipment $gameEquipment, array $reaches, ?Player $player): void
     {
-        /* @var ModifierConfig $modifierConfig */
+        /* @var VariableEventModifierConfig $modifierConfig */
         foreach ($this->getGearModifierConfigs($gameEquipment) as $modifierConfig) {
             if (in_array($modifierConfig->getModifierHolderClass(), $reaches)) {
                 $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
@@ -172,7 +172,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         foreach ($gameEquipment->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
 
-            /** @var ModifierConfig $modifierConfig */
+            /** @var VariableEventModifierConfig $modifierConfig */
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
                 if (in_array($modifierConfig->getModifierHolderClass(), $reaches)) {
                     $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
@@ -192,7 +192,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         GameEquipment $gameEquipment,
         ?Player $player
     ): void {
-        /* @var ModifierConfig $modifierConfig */
+        /* @var VariableEventModifierConfig $modifierConfig */
         foreach ($modifiers as $modifierConfig) {
             if (in_array($modifierConfig->getModifierHolderClass(), $reaches)) {
                 $charge = $this->getChargeStatus($modifierConfig->getTargetEvent(), $gameEquipment);
@@ -211,7 +211,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         }
     }
 
-    private function getModifierHolderFromConfig(GameEquipment $gameEquipment, ModifierConfig $modifierConfig, ?Player $player): ?ModifierHolder
+    private function getModifierHolderFromConfig(GameEquipment $gameEquipment, VariableEventModifierConfig $modifierConfig, ?Player $player): ?ModifierHolder
     {
         switch ($modifierConfig->getModifierHolderClass()) {
             case ModifierHolderClassEnum::DAEDALUS:

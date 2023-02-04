@@ -29,7 +29,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Place\Entity\Place;
@@ -196,7 +196,7 @@ class ConsumeChargeOnActionCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($equipment);
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
@@ -334,7 +334,7 @@ class ConsumeChargeOnActionCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($equipment);
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)

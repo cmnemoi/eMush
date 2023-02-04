@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Enum\TypeEnum;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
@@ -29,7 +29,7 @@ class DiseaseConfig implements LogParameterInterface
     #[ORM\Column(type: 'string', nullable: false)]
     private string $type = TypeEnum::DISEASE;
 
-    #[ORM\ManyToMany(targetEntity: ModifierConfig::class)]
+    #[ORM\ManyToMany(targetEntity: VariableEventModifierConfig::class)]
     private Collection $modifierConfigs;
 
     #[ORM\Column(type: 'integer', nullable: false)]
@@ -113,7 +113,7 @@ class DiseaseConfig implements LogParameterInterface
     }
 
     /**
-     * @psalm-param ArrayCollection<int, ModifierConfig> $modifierConfigs
+     * @psalm-param ArrayCollection<int, VariableEventModifierConfig> $modifierConfigs
      */
     public function setModifierConfigs(Collection|array $modifierConfigs): self
     {

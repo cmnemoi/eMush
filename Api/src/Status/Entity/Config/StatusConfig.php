@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
@@ -97,7 +98,7 @@ class StatusConfig
     }
 
     /**
-     * @param array<int, ModifierConfig>|Collection<int, ModifierConfig> $modifierConfigs
+     * @param array<int, VariableEventModifierConfig>|Collection<int, VariableEventModifierConfig> $modifierConfigs
      */
     public function setModifierConfigs(array|Collection $modifierConfigs): static
     {

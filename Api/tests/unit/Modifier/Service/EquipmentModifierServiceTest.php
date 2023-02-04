@@ -9,7 +9,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Service\EquipmentModifierService;
@@ -56,7 +56,7 @@ class EquipmentModifierServiceTest extends TestCase
         $room->setDaedalus($daedalus);
 
         // create a gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
@@ -111,7 +111,7 @@ class EquipmentModifierServiceTest extends TestCase
         $this->service->gearCreated($gameEquipment);
 
         // gear with 2 modifiers
-        $modifierConfig2 = new ModifierConfig();
+        $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
@@ -153,7 +153,7 @@ class EquipmentModifierServiceTest extends TestCase
         $room->setDaedalus($daedalus);
 
         // gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
@@ -202,7 +202,7 @@ class EquipmentModifierServiceTest extends TestCase
         $player->setPlace($room)->setDaedalus($daedalus);
 
         // gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
@@ -228,7 +228,7 @@ class EquipmentModifierServiceTest extends TestCase
         $this->service->takeEquipment($gameEquipment, $player);
 
         // gear with player GameModifier
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
             ->setModifierHolderClass(ModifierHolderClassEnum::TARGET_PLAYER)
             ->setTargetEvent('action')
@@ -283,7 +283,7 @@ class EquipmentModifierServiceTest extends TestCase
         $player->setPlace($room)->setDaedalus($daedalus);
 
         // gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
@@ -306,7 +306,7 @@ class EquipmentModifierServiceTest extends TestCase
         $this->service->dropEquipment($gameEquipment, $player);
 
         // gear with player GameModifier
-        $modifierConfig2 = new ModifierConfig();
+        $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
             ->setModifierHolderClass(ModifierHolderClassEnum::TARGET_PLAYER)
             ->setTargetEvent('action')

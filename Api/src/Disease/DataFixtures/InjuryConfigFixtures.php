@@ -17,7 +17,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\DisorderModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\InjuryModifierConfigFixtures;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 
 class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -26,43 +26,43 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        /** @var ModifierConfig $consume2ActionLoss */
+        /** @var VariableEventModifierConfig $consume2ActionLoss */
         $consume2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_2_ACTION_LOSS);
-        /** @var ModifierConfig $cycle1HealthLost */
+        /** @var VariableEventModifierConfig $cycle1HealthLost */
         $cycle1HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST);
-        /** @var ModifierConfig $cycle2HealthLost */
+        /** @var VariableEventModifierConfig $cycle2HealthLost */
         $cycle2HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_2_HEALTH_LOST);
-        /** @var ModifierConfig $increaseCycleDiseaseChances10 */
+        /** @var VariableEventModifierConfig $increaseCycleDiseaseChances10 */
         $increaseCycleDiseaseChances10 = $this->getReference(DiseaseModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_10);
-        /** @var ModifierConfig $moveIncreaseMovement */
+        /** @var VariableEventModifierConfig $moveIncreaseMovement */
         $moveIncreaseMovement = $this->getReference(DiseaseModifierConfigFixtures::MOVE_INCREASE_MOVEMENT);
-        /** @var ModifierConfig $notMoveAction1Increase */
+        /** @var VariableEventModifierConfig $notMoveAction1Increase */
         $notMoveAction1Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_1_INCREASE);
-        /** @var ModifierConfig $notMoveAction2Increase */
+        /** @var VariableEventModifierConfig $notMoveAction2Increase */
         $notMoveAction2Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_2_INCREASE);
-        /** @var ModifierConfig $notMoveAction3Increase */
+        /** @var VariableEventModifierConfig $notMoveAction3Increase */
         $notMoveAction3Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_3_INCREASE);
-        /** @var ModifierConfig $reduceMax1HealthPoint */
+        /** @var VariableEventModifierConfig $reduceMax1HealthPoint */
         $reduceMax1HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_HEALTH_POINT);
-        /** @var ModifierConfig $reduceMax2HealthPoint */
+        /** @var VariableEventModifierConfig $reduceMax2HealthPoint */
         $reduceMax2HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_HEALTH_POINT);
-        /** @var ModifierConfig $reduceMax1MoralPoint */
+        /** @var VariableEventModifierConfig $reduceMax1MoralPoint */
         $reduceMax1MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_MORAL_POINT);
-        /** @var ModifierConfig $reduceMax2MoralPoint */
+        /** @var VariableEventModifierConfig $reduceMax2MoralPoint */
         $reduceMax2MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_MORAL_POINT);
-        /** @var ModifierConfig $reduceMax3MoralPoint */
+        /** @var VariableEventModifierConfig $reduceMax3MoralPoint */
         $reduceMax3MoralPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_3_MORAL_POINT);
-        /** @var ModifierConfig $reduceMax3MovementPoint */
+        /** @var VariableEventModifierConfig $reduceMax3MovementPoint */
         $reduceMax3MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_3_MOVEMENT_POINT);
-        /** @var ModifierConfig $reduceMax5MovementPoint */
+        /** @var VariableEventModifierConfig $reduceMax5MovementPoint */
         $reduceMax5MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_5_MOVEMENT_POINT);
-        /** @var ModifierConfig $reduceMax12MovementPoint */
+        /** @var VariableEventModifierConfig $reduceMax12MovementPoint */
         $reduceMax12MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_12_MOVEMENT_POINT);
-        /** @var ModifierConfig $shootAction10PercentAccuracyLost */
+        /** @var VariableEventModifierConfig $shootAction10PercentAccuracyLost */
         $shootAction10PercentAccuracyLost = $this->getReference(DiseaseModifierConfigFixtures::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST);
-        /** @var ModifierConfig $shootAction20PercentAccuracyLost */
+        /** @var VariableEventModifierConfig $shootAction20PercentAccuracyLost */
         $shootAction20PercentAccuracyLost = $this->getReference(InjuryModifierConfigFixtures::SHOOT_ACTION_20_PERCENT_ACCURACY_LOST);
-        /** @var ModifierConfig $shootAction40PercentAccuracyLost */
+        /** @var VariableEventModifierConfig $shootAction40PercentAccuracyLost */
         $shootAction40PercentAccuracyLost = $this->getReference(InjuryModifierConfigFixtures::SHOOT_ACTION_40_PERCENT_ACCURACY_LOST);
 
         /** @var SymptomConfig $cantMove */

@@ -9,7 +9,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
@@ -56,7 +56,7 @@ class ModifierActivationRequirementServiceTest extends TestCase
         $modifierActivationRequirement->setValue(50);
 
         // create a gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
@@ -89,7 +89,7 @@ class ModifierActivationRequirementServiceTest extends TestCase
         $modifierActivationRequirement->setActivationRequirement(ActionEnum::HIDE);
 
         // create a gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
@@ -122,7 +122,7 @@ class ModifierActivationRequirementServiceTest extends TestCase
         $modifierActivationRequirement->setActivationRequirement(ModifierRequirementEnum::NOT_ALONE);
 
         // create a gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')

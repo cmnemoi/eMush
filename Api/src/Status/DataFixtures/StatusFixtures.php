@@ -11,7 +11,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -65,7 +65,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        /** @var ModifierConfig $increaseCycleDiseaseChances30 */
+        /** @var VariableEventModifierConfig $increaseCycleDiseaseChances30 */
         $increaseCycleDiseaseChances30 = $this->getReference(StatusModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_30);
 
         $alienArtefact = new StatusConfig();
@@ -132,7 +132,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($decomposing);
 
-        /** @var ModifierConfig $frozenModifier */
+        /** @var VariableEventModifierConfig $frozenModifier */
         $frozenModifier = $this->getReference(StatusModifierConfigFixtures::FROZEN_MODIFIER);
 
         $frozen = new StatusConfig();
@@ -184,7 +184,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($reinforced);
 
-        /** @var ModifierConfig $antisocialModifier */
+        /** @var VariableEventModifierConfig $antisocialModifier */
         $antisocialModifier = $this->getReference(StatusModifierConfigFixtures::ANTISOCIAL_MODIFIER);
 
         $antisocial = new StatusConfig();
@@ -212,7 +212,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($brainsync);
 
-        /** @var ModifierConfig $burdenedModifier */
+        /** @var VariableEventModifierConfig $burdenedModifier */
         $burdenedModifier = $this->getReference(StatusModifierConfigFixtures::BURDENED_MODIFIER);
         $burdened = new StatusConfig();
         $burdened
@@ -240,9 +240,9 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($dirty);
 
-        /** @var ModifierConfig $disabledConversionModifier */
+        /** @var VariableEventModifierConfig $disabledConversionModifier */
         $disabledConversionModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_CONVERSION_MODIFIER);
-        /** @var ModifierConfig $disabledNotAloneModifier */
+        /** @var VariableEventModifierConfig $disabledNotAloneModifier */
         $disabledNotAloneModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_NOT_ALONE_MODIFIER);
         $disabled = new StatusConfig();
         $disabled
@@ -325,7 +325,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($inactive);
 
-        /** @var ModifierConfig $lostModifier */
+        /** @var VariableEventModifierConfig $lostModifier */
         $lostModifier = $this->getReference(StatusModifierConfigFixtures::LOST_MODIFIER);
 
         $lost = new StatusConfig();
@@ -337,7 +337,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($lost);
 
-        /** @var ModifierConfig $lyingDownModifier */
+        /** @var VariableEventModifierConfig $lyingDownModifier */
         $lyingDownModifier = $this->getReference(StatusModifierConfigFixtures::LYING_DOWN_MODIFIER);
         $lyingDown = new StatusConfig();
         $lyingDown
@@ -364,7 +364,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($outcast);
 
-        /** @var ModifierConfig $pacifistModifier */
+        /** @var VariableEventModifierConfig $pacifistModifier */
         $pacifistModifier = $this->getReference(StatusModifierConfigFixtures::PACIFIST_MODIFIER);
         $pacifist = new StatusConfig();
         $pacifist
@@ -383,7 +383,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($pregnant);
 
-        /** @var ModifierConfig $starvingModifier */
+        /** @var VariableEventModifierConfig $starvingModifier */
         $starvingModifier = $this->getReference(StatusModifierConfigFixtures::STARVING_MODIFIER);
         $starving = new StatusConfig();
         $starving

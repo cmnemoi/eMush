@@ -25,9 +25,10 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Entity\EventTriggerModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -110,16 +111,15 @@ class ShowerActionCest
         ;
         $I->haveInRepository($showerActionActivationRequirement);
 
-        $mushShowerModifier = new ModifierConfig();
+        $mushShowerModifier = new EventTriggerModifierConfig();
         $mushShowerModifier
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-3)
+            ->setQuantity(-3)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierRequirement($showerActionActivationRequirement)
             ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
-            ->buildName()
+            ->setName(ModifierNameEnum::MUSH_SHOWER_MALUS)
         ;
         $I->haveInRepository($mushShowerModifier);
 
@@ -153,7 +153,7 @@ class ShowerActionCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
@@ -196,7 +196,7 @@ class ShowerActionCest
 
     private function createSoapItem(FunctionalTester $I): GameItem
     {
-        $modifier = new ModifierConfig();
+        $modifier = new VariableEventModifierConfig();
         $modifier
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)

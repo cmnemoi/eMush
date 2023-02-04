@@ -12,7 +12,7 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\QuantityEventInterface;
 use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -44,7 +44,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
     public function load(ObjectManager $manager): void
     {
-        $frozenModifier = new ModifierConfig();
+        $frozenModifier = new VariableEventModifierConfig();
 
         $frozenModifier
             ->setTargetEvent(ActionEnum::CONSUME)
@@ -56,7 +56,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($frozenModifier);
 
-        $disabledConversionModifier = new ModifierConfig();
+        $disabledConversionModifier = new VariableEventModifierConfig();
         $disabledConversionModifier
             ->setTargetEvent(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
@@ -74,7 +74,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($notAloneActivationRequirement);
 
-        $disabledNotAloneModifier = new ModifierConfig();
+        $disabledNotAloneModifier = new VariableEventModifierConfig();
         $disabledNotAloneModifier
             ->setTargetEvent(ActionEnum::MOVE)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
@@ -86,7 +86,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($disabledNotAloneModifier);
 
-        $pacifistModifier = new ModifierConfig();
+        $pacifistModifier = new VariableEventModifierConfig();
         $pacifistModifier
             ->setTargetEvent(ActionTypeEnum::ACTION_AGGRESSIVE)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -97,7 +97,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($pacifistModifier);
 
-        $burdenedModifier = new ModifierConfig();
+        $burdenedModifier = new VariableEventModifierConfig();
         $burdenedModifier
             ->setTargetEvent(ActionEnum::MOVE)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
@@ -108,7 +108,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($burdenedModifier);
 
-        $antisocialModifier = new ModifierConfig();
+        $antisocialModifier = new VariableEventModifierConfig();
         $antisocialModifier
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
@@ -121,7 +121,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($antisocialModifier);
 
-        $lostModifier = new ModifierConfig();
+        $lostModifier = new VariableEventModifierConfig();
         $lostModifier
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
@@ -132,7 +132,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($lostModifier);
 
-        $lyingDownModifier = new ModifierConfig();
+        $lyingDownModifier = new VariableEventModifierConfig();
         $lyingDownModifier
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -144,7 +144,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($lyingDownModifier);
 
-        $starvingModifier = new ModifierConfig();
+        $starvingModifier = new VariableEventModifierConfig();
         $starvingModifier
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -156,7 +156,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($starvingModifier);
 
-        $increaseCycleDiseaseChances30 = new ModifierConfig();
+        $increaseCycleDiseaseChances30 = new VariableEventModifierConfig();
         $increaseCycleDiseaseChances30
             ->setTargetEvent(PlayerEvent::CYCLE_DISEASE)
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
@@ -174,7 +174,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($showerActionActivationRequirement);
 
-        $mushShowerModifier = new ModifierConfig();
+        $mushShowerModifier = new VariableEventModifierConfig();
         $mushShowerModifier
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -194,7 +194,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($sinkActionActivationRequirement);
 
-        $mushSinkModifier = new ModifierConfig();
+        $mushSinkModifier = new VariableEventModifierConfig();
         $mushSinkModifier
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -210,7 +210,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         /** @var ModifierActivationRequirement $consumeActionActivationRequirement */
         $consumeActionActivationRequirement = $this->getReference(DiseaseModifierConfigFixtures::REASON_CONSUME);
 
-        $mushConsumeSatietyModifier = new ModifierConfig();
+        $mushConsumeSatietyModifier = new VariableEventModifierConfig();
         $mushConsumeSatietyModifier
             ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::SATIETY)
@@ -222,7 +222,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($mushConsumeSatietyModifier);
 
-        $mushConsumeHealthModifier = new ModifierConfig();
+        $mushConsumeHealthModifier = new VariableEventModifierConfig();
         $mushConsumeHealthModifier
             ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -234,7 +234,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($mushConsumeHealthModifier);
 
-        $mushConsumeMoralModifier = new ModifierConfig();
+        $mushConsumeMoralModifier = new VariableEventModifierConfig();
         $mushConsumeMoralModifier
             ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
@@ -246,7 +246,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($mushConsumeMoralModifier);
 
-        $mushConsumeActionModifier = new ModifierConfig();
+        $mushConsumeActionModifier = new VariableEventModifierConfig();
         $mushConsumeActionModifier
             ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -258,7 +258,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($mushConsumeActionModifier);
 
-        $mushConsumeMovementModifier = new ModifierConfig();
+        $mushConsumeMovementModifier = new VariableEventModifierConfig();
         $mushConsumeMovementModifier
             ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)

@@ -9,7 +9,7 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -104,7 +104,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
     private function getModifierEffects(DiseaseConfig $diseaseConfig, string $description, string $language): string
     {
         // Get GameModifier effect description
-        /** @var ModifierConfig $modifierConfig */
+        /** @var VariableEventModifierConfig $modifierConfig */
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
             $delta = $modifierConfig->getDelta();
             $mode = $modifierConfig->getMode();
@@ -161,7 +161,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         return $description;
     }
 
-    private function getModifierChance(ModifierConfig $modifierConfig): int
+    private function getModifierChance(VariableEventModifierConfig $modifierConfig): int
     {
         $randomActivationRequirement = $modifierConfig->getModifierActivationRequirements()
                 ->filter(fn (ModifierActivationRequirement $activationRequirement) => $activationRequirement->getActivationRequirementName() === SymptomActivationRequirementEnum::RANDOM);
@@ -172,7 +172,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         }
     }
 
-    private function getModifierAction(ModifierConfig $modifierConfig): ?string
+    private function getModifierAction(VariableEventModifierConfig $modifierConfig): ?string
     {
         $reasonActivationRequirement = $modifierConfig->getModifierActivationRequirements()
             ->filter(fn (ModifierActivationRequirement $activationRequirement) => $activationRequirement->getActivationRequirementName() === SymptomActivationRequirementEnum::REASON);

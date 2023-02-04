@@ -12,7 +12,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
 use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -107,7 +107,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($lyingDownActivationRequirement);
 
-        $moveIncreaseMovement = new ModifierConfig();
+        $moveIncreaseMovement = new VariableEventModifierConfig();
         $moveIncreaseMovement
             ->setTargetEvent(ActionEnum::MOVE)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
@@ -118,7 +118,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($moveIncreaseMovement);
 
-        $reduceMax1HealthPoint = new ModifierConfig();
+        $reduceMax1HealthPoint = new VariableEventModifierConfig();
         $reduceMax1HealthPoint
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -129,7 +129,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($reduceMax1HealthPoint);
 
-        $reduceMax2HealthPoint = new ModifierConfig();
+        $reduceMax2HealthPoint = new VariableEventModifierConfig();
         $reduceMax2HealthPoint
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -140,7 +140,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($reduceMax2HealthPoint);
 
-        $reduceMax4HealthPoint = new ModifierConfig();
+        $reduceMax4HealthPoint = new VariableEventModifierConfig();
         $reduceMax4HealthPoint
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -151,7 +151,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($reduceMax4HealthPoint);
 
-        $reduceMax1MoralPoint = new ModifierConfig();
+        $reduceMax1MoralPoint = new VariableEventModifierConfig();
         $reduceMax1MoralPoint
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
@@ -162,7 +162,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($reduceMax1MoralPoint);
 
-        $reduceMax2MoralPoint = new ModifierConfig();
+        $reduceMax2MoralPoint = new VariableEventModifierConfig();
         $reduceMax2MoralPoint
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
@@ -173,7 +173,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($reduceMax2MoralPoint);
 
-        $cycle1HealthLost = new ModifierConfig();
+        $cycle1HealthLost = new VariableEventModifierConfig();
         $cycle1HealthLost
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -184,7 +184,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1HealthLost);
 
-        $cycle2HealthLost = new ModifierConfig();
+        $cycle2HealthLost = new VariableEventModifierConfig();
         $cycle2HealthLost
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -195,7 +195,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle2HealthLost);
 
-        $cycle4HealthLost = new ModifierConfig();
+        $cycle4HealthLost = new VariableEventModifierConfig();
         $cycle4HealthLost
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -206,7 +206,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle4HealthLost);
 
-        $cycle1MovementLost = new ModifierConfig();
+        $cycle1MovementLost = new VariableEventModifierConfig();
         $cycle1MovementLost
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
@@ -217,7 +217,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1MovementLost);
 
-        $cycle1SatietyLost = new ModifierConfig();
+        $cycle1SatietyLost = new VariableEventModifierConfig();
         $cycle1SatietyLost
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::SATIETY)
@@ -228,7 +228,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1SatietyLost);
 
-        $cycle1ActionLostRand10 = new ModifierConfig();
+        $cycle1ActionLostRand10 = new VariableEventModifierConfig();
         $cycle1ActionLostRand10
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -240,7 +240,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1ActionLostRand10);
 
-        $cycle1HealthLostRand10 = new ModifierConfig();
+        $cycle1HealthLostRand10 = new VariableEventModifierConfig();
         $cycle1HealthLostRand10
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -252,7 +252,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1HealthLostRand10);
 
-        $cycle1ActionLostRand16 = new ModifierConfig();
+        $cycle1ActionLostRand16 = new VariableEventModifierConfig();
         $cycle1ActionLostRand16
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -264,7 +264,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1ActionLostRand16);
 
-        $cycle1HealthLostRand16 = new ModifierConfig();
+        $cycle1HealthLostRand16 = new VariableEventModifierConfig();
         $cycle1HealthLostRand16
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -276,7 +276,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1HealthLostRand16);
 
-        $cycle1ActionLostRand20 = new ModifierConfig();
+        $cycle1ActionLostRand20 = new VariableEventModifierConfig();
         $cycle1ActionLostRand20
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -288,7 +288,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1ActionLostRand20);
 
-        $cycle1ActionLostRand30 = new ModifierConfig();
+        $cycle1ActionLostRand30 = new VariableEventModifierConfig();
         $cycle1ActionLostRand30
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -300,7 +300,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1ActionLostRand30);
 
-        $cycle2ActionLostRand40 = new ModifierConfig();
+        $cycle2ActionLostRand40 = new VariableEventModifierConfig();
         $cycle2ActionLostRand40
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -312,7 +312,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle2ActionLostRand40);
 
-        $cycle1MovementLostRand50 = new ModifierConfig();
+        $cycle1MovementLostRand50 = new VariableEventModifierConfig();
         $cycle1MovementLostRand50
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
@@ -324,7 +324,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1MovementLostRand50);
 
-        $cycle1HealthLostRand50 = new ModifierConfig();
+        $cycle1HealthLostRand50 = new VariableEventModifierConfig();
         $cycle1HealthLostRand50
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -343,7 +343,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($consumeActionActivationRequirement);
 
-        $consume1ActionLoss = new ModifierConfig();
+        $consume1ActionLoss = new VariableEventModifierConfig();
         $consume1ActionLoss
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -355,7 +355,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($consume1ActionLoss);
 
-        $consume2ActionLoss = new ModifierConfig();
+        $consume2ActionLoss = new VariableEventModifierConfig();
         $consume2ActionLoss
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -367,7 +367,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($consume2ActionLoss);
 
-        $infected4HealthLost = new ModifierConfig();
+        $infected4HealthLost = new VariableEventModifierConfig();
         $infected4HealthLost
             ->setTargetEvent(PlayerEvent::INFECTION_PLAYER)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -385,7 +385,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($takeCatActivationRequirement);
 
-        $takeCat6HealthLost = new ModifierConfig();
+        $takeCat6HealthLost = new VariableEventModifierConfig();
         $takeCat6HealthLost
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
@@ -397,7 +397,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($takeCat6HealthLost);
 
-        $cycle1SatietyIncrease = new ModifierConfig();
+        $cycle1SatietyIncrease = new VariableEventModifierConfig();
         $cycle1SatietyIncrease
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::SATIETY)
@@ -408,7 +408,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1SatietyIncrease);
 
-        $shootAction10PercentAccuracyLost = new ModifierConfig();
+        $shootAction10PercentAccuracyLost = new VariableEventModifierConfig();
         $shootAction10PercentAccuracyLost
             ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
@@ -419,7 +419,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($shootAction10PercentAccuracyLost);
 
-        $increaseCycleDiseaseChances10 = new ModifierConfig();
+        $increaseCycleDiseaseChances10 = new VariableEventModifierConfig();
         $increaseCycleDiseaseChances10
             ->setTargetEvent(PlayerEvent::CYCLE_DISEASE)
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
@@ -430,7 +430,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($increaseCycleDiseaseChances10);
 
-        $cycle1ActionLostRand16FitfullSleep = new ModifierConfig();
+        $cycle1ActionLostRand16FitfullSleep = new VariableEventModifierConfig();
         $cycle1ActionLostRand16FitfullSleep
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)

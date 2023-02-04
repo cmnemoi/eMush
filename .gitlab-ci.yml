@@ -84,3 +84,13 @@ front-test:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH == "develop"'
+
+release:
+  <<: *node_template
+  before_script:
+    - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
+    - npm install -g semantic-release @semantic-release/gitlab
+  script:
+    - semantic-release
+  rules:
+    - if: $CI_COMMIT_BRANCH == "test-semantic-release7"

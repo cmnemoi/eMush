@@ -92,6 +92,6 @@ release:
   variables:
     GL_TOKEN: $semantic_release_token
   script:
-    - "semantic-release --branches {name: 'test-semantic-release7', prerelease: true} -p @semantic-release/git @semantic-release/gitlab @semantic-release/commit-analyzer @semantic-release/changelog"
+    - semantic-release --branches test-semantic-release7 -p @semantic-release/git @semantic-release/gitlab @semantic-release/commit-analyzer @semantic-release/changelog
   rules:
     - if: $CI_COMMIT_BRANCH == "test-semantic-release7"

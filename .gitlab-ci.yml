@@ -92,6 +92,10 @@ release:
   variables:
     GL_TOKEN: $semantic_release_token
     version: '${version}'
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - CHANGELOG.md
   script:
     - semantic-release --branches test-semantic-release7 -p @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/release-notes-generator -t $version
   rules:

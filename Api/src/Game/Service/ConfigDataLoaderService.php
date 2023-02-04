@@ -2,17 +2,14 @@
 
 namespace Mush\Game\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\Repository\GameConfigRepository;
 use Mush\Game\Repository\TriumphConfigRepository;
-use Mush\Game\Service\ConfigData\ConfigDataLoader;
-use Mush\Game\Service\ConfigData\GameConfigDataLoader;
-use Mush\Game\Service\ConfigData\TriumphConfigDataLoader;
 
 class ConfigDataLoaderService
 {
-    private ArrayCollection $dataLoaders;
+    private Collection $dataLoaders;
     private EntityManagerInterface $entityManager;
     private GameConfigRepository $gameConfigRepository;
     private TriumphConfigRepository $triumphConfigRepository;
@@ -21,30 +18,25 @@ class ConfigDataLoaderService
                                 GameConfigRepository $gameConfigRepository,
                                 TriumphConfigRepository $triumphConfigRepository
     ) {
-        /** @var ConfigDataLoader $triumphConfigDataLoader */
-        $triumphConfigDataLoader = new TriumphConfigDataLoader($entityManager, $gameConfigRepository, $triumphConfigRepository);
-        /** @var ConfigDataLoader $gameConfigDataLoader */
-        $gameConfigDataLoader = new GameConfigDataLoader($entityManager, $gameConfigRepository);
-
-        $this->setDataLoaders(new ArrayCollection(
-            [
-                $triumphConfigDataLoader,
-                $gameConfigDataLoader,
-            ]
-        ));
+        $this->addDataLoader(
+            new TriumphConfigDataLoader(
+                $entityManager,
+                $gameConfigRepository,
+                $triumphConfigRepository
+            )
+        );
     }
 
     public function loadData(): void
     {
         /** @var ConfigDataLoader $dataLoader */
         foreach ($this->dataLoaders as $dataLoader) {
-            $dataLoader->loadConfigsData();
+            $dataLoader->loadConfigData();
         }
     }
 
-    /** @psalm-param ArrayCollection<0|1, ConfigDataLoader> $dataLoaders **/
-    private function setDataLoaders(ArrayCollection $dataLoaders): void
+    private function addDataLoader(ConfigDataLoader $dataLoader): void
     {
-        $this->dataLoaders = $dataLoaders;
+        $this->dataLoaders->add($dataLoader);
     }
 }

@@ -6,7 +6,7 @@
   before_script:
     - php -v
     - cd Api
-    Install all project dependencies
+    # Install all project dependencies
     - composer install
     - cp .env.gitlab .env
 
@@ -21,7 +21,7 @@
   before_script:
     - php -v
     - cd Api
-    Install all project dependencies
+    # Install all project dependencies
     - composer install
     - cp .env.gitlab .env.test
     - cp .env.gitlab .env
@@ -85,6 +85,7 @@ front-test:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH == "develop"'
 
+# Generate a CHANGELOG.md file and create a new release on Gitlab while merging to master
 release:
   <<: *node_template
   before_script:
@@ -98,3 +99,5 @@ release:
       - CHANGELOG.md
   script:
     - semantic-release --branches master -t $version -p @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/gitlab 
+  only:
+    - master

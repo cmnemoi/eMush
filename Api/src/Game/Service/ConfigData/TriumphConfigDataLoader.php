@@ -27,7 +27,7 @@ class TriumphConfigDataLoader extends ConfigDataLoader
 
     public function loadConfigData(): void
     {
-        $triumphDataArray = $this->getTriumphData();
+        $triumphConfigDataArray = $this->getTriumphData();
 
         /** @var GameConfig $defaultGameConfig */
         $defaultGameConfig = $this->gameConfigRepository->findOneBy(['name' => 'default']);
@@ -35,16 +35,16 @@ class TriumphConfigDataLoader extends ConfigDataLoader
             throw new \Exception('Default game config not found');
         }
 
-        foreach ($triumphDataArray as $triumphData) {
-            $triumphConfig = $this->triumphConfigRepository->findOneBy(['name' => $triumphData['name']]);
+        foreach ($triumphConfigDataArray as $triumphConfigData) {
+            $triumphConfig = $this->triumphConfigRepository->findOneBy(['name' => $triumphConfigData['name']]);
 
             if ($triumphConfig == null) {
                 $triumphConfig = new TriumphConfig();
                 $triumphConfig
-                    ->setName($triumphData['name'])
-                    ->setTriumph($triumphData['triumph'])
-                    ->setIsAllCrew($triumphData['is_all_crew'])
-                    ->setTeam($triumphData['team'])
+                    ->setName($triumphConfigData['name'])
+                    ->setTriumph($triumphConfigData['triumph'])
+                    ->setIsAllCrew($triumphConfigData['is_all_crew'])
+                    ->setTeam($triumphConfigData['team'])
                 ;
 
                 $this->entityManager->persist($triumphConfig);

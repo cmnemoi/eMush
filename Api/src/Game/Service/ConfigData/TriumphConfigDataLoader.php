@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Game\Service;
+namespace Mush\Game\Service\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\Entity\GameConfig;

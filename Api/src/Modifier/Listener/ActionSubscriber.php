@@ -7,19 +7,23 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Service\EquipmentModifierServiceInterface;
 use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\PlayerModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionSubscriber implements EventSubscriberInterface
 {
     private EquipmentModifierServiceInterface $equipmentModifierService;
     private ModifierServiceInterface $modifierService;
+    private PlayerModifierServiceInterface $playerModifierService;
 
     public function __construct(
         EquipmentModifierServiceInterface $equipmentModifierService,
-        ModifierServiceInterface $modifierService
+        ModifierServiceInterface $modifierService,
+        PlayerModifierServiceInterface $playerModifierService
     ) {
         $this->equipmentModifierService = $equipmentModifierService;
         $this->modifierService = $modifierService;
+        $this->playerModifierService = $playerModifierService;
     }
 
     public static function getSubscribedEvents(): array
@@ -66,7 +70,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
                 // handle movement of a player
             case ActionEnum::MOVE:
-                $this->modifierService->playerEnterRoom($player);
+                $this->playerModifierService->playerEnterRoom($player);
 
                 foreach ($player->getEquipments() as $equipment) {
                     $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace());
@@ -82,7 +86,7 @@ class ActionSubscriber implements EventSubscriberInterface
         switch ($actionName) {
             case ActionEnum::MOVE:
                 // handle movement of a player
-                $this->modifierService->playerLeaveRoom($player);
+                $this->playerModifierService->playerLeaveRoom($player);
 
                 foreach ($player->getEquipments() as $equipment) {
                     $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace());

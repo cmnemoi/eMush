@@ -388,19 +388,19 @@
     <unit id="no_pilgred">
       <segment id="description" state="translated">
         <source>no_pilgred.description</source>
-        <target>Pilgred is not operational.</target>
+        <target>PILGRED is not operational.</target>
       </segment>
     </unit>
     <unit id="not_enought_map_fragments">
       <segment id="description" state="translated">
         <source>not_enought_map_fragments.description</source>
-        <target>This shard of the starmap is interesting, maybe with a bit more counterparts, you could learn more about its origin.</target>
+        <target>This starmap shard is interesting. Maybe with a few more pieces, you could learn more about its origin.</target>
       </segment>
     </unit>
     <unit id="no_direction_picked">
       <segment id="description" state="translated">
         <source>no_direction_picked.description</source>
-        <target>You have to choose a direction to be able to orient the ship.</target>
+        <target>You must choose a direction in which to point the vessel.</target>
       </segment>
     </unit>
     <unit id="coms_already_attempted">
@@ -430,13 +430,13 @@
     <unit id="no_project_left">
       <segment id="description" state="translated">
         <source>no_project_left.description</source>
-        <target>You have reached the hightest NERON level possible.</target>
+        <target>You have reached the highest NERON level possible.</target>
       </segment>
     </unit>
     <unit id="coms_not_officer">
       <segment id="description" state="translated">
         <source>coms_not_officer.description</source>
-        <target>You must be a Communications Officer to do this.</target>
+        <target>Only the **Communications Officer** can perform this action!</target>
       </segment>
     </unit>
     <unit id="deal_lack_ressources">

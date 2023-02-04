@@ -203,8 +203,8 @@
                     other {invalid adjective}
                     }</target>
       </segment>
-      <segment id="adjective_female_single" state="translated">
-        <source>adjective_female_single_coprolalia</source>
+      <segment id="adjective_coprolalia" state="translated">
+        <source>adjective_coprolalia</source>
         <target>{adjective, select,
                     1 {bourrée}
                     2 {coprophage}
@@ -215,8 +215,8 @@
                     other {invalid adjective}
                     }</target>
       </segment>
-      <segment id="adjective_female_plural" state="translated">
-        <source>adjective_female_plural_coprolalia</source>
+      <segment id="adjective_female_single" state="translated">
+        <source>adjective_female_single_coprolalia</source>
         <target>{adjective, select,
                     1 {bourrées}
                     2 { coprophages}
@@ -227,9 +227,9 @@
                     other {invalid adjective}
                     }</target>
       </segment>
-      <segment id="adjective_coprolalia" state="translated">
-            <source>adjective_coprolalia</source>
-            <target>{adjective, select,
+      <segment id="adjective_female_plural" state="translated">
+        <source>adjective_female_plural_coprolalia</source>
+        <target>{adjective, select,
                 1 {drunk}
                 2 {coprophage}
                 3 {sluggish}

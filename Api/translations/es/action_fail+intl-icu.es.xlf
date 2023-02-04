@@ -388,7 +388,7 @@
     <unit id="no_pilgred">
       <segment id="description" state="translated">
         <source>no_pilgred.description</source>
-        <target>Pilgred no está operativo.</target>
+        <target>PILGRED no está operativo.</target>
       </segment>
     </unit>
     <unit id="not_enought_map_fragments">

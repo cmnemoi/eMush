@@ -11,7 +11,7 @@
   "release":{
     "branches": [
       "master",
-      "next",
+      "test-semantic-release7"
     ],
     "plugins": [
       "@semantic-release/commit-analyzer",

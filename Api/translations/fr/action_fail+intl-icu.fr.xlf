@@ -419,7 +419,7 @@
     <unit id="no_pilgred">
       <segment id="description" state="translated">
         <source>no_pilgred.description</source>
-        <target>Pilgred n'est pas opérationnel.</target>
+        <target>PILGRED n'est pas opérationnel.</target>
       </segment>
     </unit>
     <unit id="not_enought_map_fragments">

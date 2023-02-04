@@ -39,7 +39,7 @@
                         19 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
                         20 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
                         other {de }
-                    }{word_plural_coprolalia}, où vous cachez vos {balls_coprolalia}}
+                    }{word_plural_coprolalia}, où vous cachez vos {balls_coprolalia} ?}
                     3 {Une vrai ribambelles {word, select,
                         1 {d''} 4 {d''} 8 {d''}
                         19 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
@@ -52,10 +52,10 @@
                     6 {Vous rempotez des {balls_coprolalia}, nan ?}
                     7 {Vous n'avez rien dans les {balls_coprolalia}, hein !}
                     8 {Les admins, ce sont vraiment des {word_plural_coprolalia}.}
-                    9 {{prefix_coprolalia} d'admins de daube}
+                    9 {{prefix_coprolalia} d'admins de daube.}
                     10 {{prefix_coprolalia} de {word_plural_coprolalia}.}
-                    11 {Vous et votre courage de {prefix_coprolalia} de daube}
-                    12 {{prefix_coprolalia} de daube}
+                    11 {Vous et votre courage de {prefix_coprolalia} de daube.}
+                    12 {{prefix_coprolalia} de daube.}
                     13 {Tu sais ce qu'il te dit le sac à {balls_coprolalia} ? bonjouurrrrrrrr !}
                     other {invalid version}
                     }</target>
@@ -204,8 +204,8 @@
                     }</target>
       </segment>
       <segment id="adjective_coprolalia" state="initial">
-            <source>adjective_coprolalia</source>
-            <target>adjective_coprolalia</target>
+        <source>adjective_coprolalia</source>
+        <target>adjective_coprolalia</target>
       </segment>
       <segment id="adjective_female_single" state="translated">
         <source>adjective_female_single_coprolalia</source>
@@ -299,7 +299,7 @@
                         2 {L'équipe de recherche}
                         3 {L'admin NERON}
                         other {Le commandant}
-                    } {paranoia_version6, select,
+                    } fait {paranoia_version6, select,
                         1 {nimp.}
                         2 {nawak.}
                         3 {n'importe quoi.}
@@ -362,6 +362,5 @@
         <target>...</target>
       </segment>
     </unit>
-    
   </file>
 </xliff>

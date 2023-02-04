@@ -42,6 +42,10 @@
         <source>adjective_male_plural_coprolalia</source>
         <target>adjective_male_plural_coprolalia</target>
       </segment>
+      <segment id="adjective_coprolalia" state="initial">
+        <source>adjective_coprolalia</source>
+        <target>adjective_coprolalia</target>
+      </segment>
       <segment id="adjective_female_single" state="initial">
         <source>adjective_female_single_coprolalia</source>
         <target>adjective_female_single_coprolalia</target>

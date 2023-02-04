@@ -8,9 +8,9 @@ use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\VariableEventModifierConfig;
-use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
@@ -111,7 +111,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
             $scope = $modifierConfig->getTargetEvent();
             $target = $modifierConfig->getTargetVariable();
 
-            if ($mode == ModifierModeEnum::MULTIPLICATIVE) {
+            if ($mode == VariableModifierModeEnum::MULTIPLICATIVE) {
                 if ($delta < 1) {
                     $key = $modifierConfig->getTargetEvent() . '_decrease';
                 } else {

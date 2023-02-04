@@ -11,14 +11,14 @@ use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\QuantityEventInterface;
-use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\VariableEventModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 
 class GearModifierConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -48,7 +48,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(-100)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setModifierName(ModifierNameEnum::APRON_MODIFIER)
             ->buildName()
         ;
@@ -60,7 +60,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::TARGET_PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($armorModifier);
@@ -71,7 +71,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;
         $manager->persist($wrenchModifier);
@@ -82,7 +82,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->setModifierName(ModifierNameEnum::GLOVES_MODIFIER)
             ->buildName()
         ;
@@ -94,7 +94,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($soapModifier);
@@ -105,7 +105,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($soapSinkModifier);
@@ -116,7 +116,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;
         $manager->persist($aimModifier);
@@ -127,7 +127,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(2)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($antiGravScooterModifier);
@@ -145,7 +145,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($evenCyclesActivationRequirement)
             ->buildName()
         ;
@@ -157,7 +157,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;
         $manager->persist($oscilloscopeSuccessModifier);
@@ -175,7 +175,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(DaedalusVariableEnum::HULL)
             ->setDelta(2)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->addModifierRequirement($strengthenActivationRequirement)
             ->buildName()
         ;
@@ -187,7 +187,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($antennaModifier);
@@ -198,7 +198,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($gravityConversionModifier);
@@ -216,7 +216,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($cycleEventActivationRequirement)
             ->buildName()
         ;
@@ -228,7 +228,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(DaedalusVariableEnum::OXYGEN)
             ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($cycleEventActivationRequirement)
             ->buildName()
         ;

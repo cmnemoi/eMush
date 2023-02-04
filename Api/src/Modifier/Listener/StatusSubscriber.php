@@ -6,9 +6,9 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\QuantityEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Modifier\Entity\EventTriggerModifierConfig;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\EquipmentModifierServiceInterface;
@@ -116,7 +116,7 @@ class StatusSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function getModifierHolderFromConfig(StatusHolderInterface $statusHolder, ModifierConfig $modifierConfig): ?ModifierHolder
+    private function getModifierHolderFromConfig(StatusHolderInterface $statusHolder, AbstractModifierConfig $modifierConfig): ?ModifierHolder
     {
         switch ($modifierConfig->getModifierHolderClass()) {
             case ModifierHolderClassEnum::DAEDALUS:
@@ -197,7 +197,7 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         $modifierConfig = $modifier->getModifierConfig();
 
-        if ($modifierConfig instanceof EventTriggerModifierConfig &&
+        if ($modifierConfig instanceof TriggerEventModifierConfig &&
             ($target = $modifierConfig->getModifiedVariable()) !== null &&
             $holder instanceof Player
         ) {

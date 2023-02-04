@@ -11,14 +11,14 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\QuantityEventInterface;
-use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\VariableEventModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 
@@ -51,7 +51,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::EQUIPMENT)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($frozenModifier);
@@ -62,7 +62,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-2)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($disabledConversionModifier);
@@ -80,7 +80,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($notAloneActivationRequirement)
             ->buildName()
         ;
@@ -92,7 +92,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLACE)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($pacifistModifier);
@@ -103,7 +103,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(2)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($burdenedModifier);
@@ -114,7 +114,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($notAloneActivationRequirement)
             ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
             ->buildName()
@@ -127,7 +127,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($lostModifier);
@@ -139,7 +139,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::LYING_DOWN_MODIFIER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($lyingDownModifier);
@@ -150,7 +150,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setModifierName(ModifierNameEnum::STARVING)
             ->buildName()
         ;
@@ -162,7 +162,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(30)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($increaseCycleDiseaseChances30);
@@ -180,7 +180,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(-3)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->addModifierRequirement($showerActionActivationRequirement)
             ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
             ->buildName()
@@ -196,14 +196,14 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $mushSinkModifier = new VariableEventModifierConfig();
         $mushSinkModifier
-            ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(-3)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->buildName()
+            ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierRequirement($sinkActionActivationRequirement)
             ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
-            ->buildName()
         ;
         $manager->persist($mushSinkModifier);
 
@@ -212,61 +212,56 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $mushConsumeSatietyModifier = new VariableEventModifierConfig();
         $mushConsumeSatietyModifier
-            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::SATIETY)
             ->setDelta(4)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
-            ->addModifierRequirement($consumeActionActivationRequirement)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->buildName()
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->addModifierRequirement($consumeActionActivationRequirement)
         ;
         $manager->persist($mushConsumeSatietyModifier);
 
         $mushConsumeHealthModifier = new VariableEventModifierConfig();
         $mushConsumeHealthModifier
-            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(0)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
-            ->addModifierRequirement($consumeActionActivationRequirement)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->buildName()
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->addModifierRequirement($consumeActionActivationRequirement)
         ;
         $manager->persist($mushConsumeHealthModifier);
 
         $mushConsumeMoralModifier = new VariableEventModifierConfig();
         $mushConsumeMoralModifier
-            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(0)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
-            ->addModifierRequirement($consumeActionActivationRequirement)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->buildName()
+            ->addModifierRequirement($consumeActionActivationRequirement)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($mushConsumeMoralModifier);
 
         $mushConsumeActionModifier = new VariableEventModifierConfig();
         $mushConsumeActionModifier
-            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(0)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
-            ->addModifierRequirement($consumeActionActivationRequirement)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->buildName()
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->addModifierRequirement($consumeActionActivationRequirement)
         ;
         $manager->persist($mushConsumeActionModifier);
 
         $mushConsumeMovementModifier = new VariableEventModifierConfig();
         $mushConsumeMovementModifier
-            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(0)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
-            ->addModifierRequirement($consumeActionActivationRequirement)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->buildName()
+            ->addModifierRequirement($consumeActionActivationRequirement)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($mushConsumeMovementModifier);
 

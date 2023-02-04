@@ -4,7 +4,7 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Game\Event\QuantityEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Modifier\Entity\EventTriggerModifierConfig;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Service\PlayerModifierServiceInterface;
 use Mush\Player\Entity\Player;
@@ -55,7 +55,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     private function createQuantityEvent(Player $player, GameModifier $modifier, \DateTime $time, array $reasons): void
     {
         $modifierConfig = $modifier->getModifierConfig();
-        if ($modifierConfig instanceof EventTriggerModifierConfig &&
+        if ($modifierConfig instanceof TriggerEventModifierConfig &&
             ($target = $modifierConfig->getModifiedVariable()) !== null
         ) {
             $value = $modifierConfig->getQuantity();

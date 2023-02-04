@@ -11,7 +11,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\QuantityEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Modifier\Entity\EventTriggerModifierConfig;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Service\ModifierRequirementService;
@@ -108,7 +108,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
     {
         $modifierConfig = $modifier->getModifierConfig();
 
-        if ($modifierConfig instanceof EventTriggerModifierConfig &&
+        if ($modifierConfig instanceof TriggerEventModifierConfig &&
             ($target = $modifierConfig->getModifiedVariable()) !== null
         ) {
             $value = $modifierConfig->getQuantity();

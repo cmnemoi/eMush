@@ -5,18 +5,17 @@ namespace Mush\Test\Modifier\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionVariables;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Modifier\Service\ModifierRequirementServiceInterface;
 use Mush\Modifier\Service\ModifierService;
 use Mush\Place\Entity\Place;
@@ -196,7 +195,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
@@ -206,7 +205,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('notThisAction')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier2 = new GameModifier($daedalus, $modifierConfig2);
 
@@ -227,7 +226,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier3 = new GameModifier($daedalus, $modifierConfig3);
 
@@ -248,7 +247,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('type1')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier4 = new GameModifier($daedalus, $modifierConfig4);
 
@@ -286,7 +285,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
@@ -297,7 +296,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(3)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier2 = new GameModifier($room, $modifierConfig2);
 
@@ -308,7 +307,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(5)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier3 = new GameModifier($player, $modifierConfig3);
 
@@ -319,7 +318,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(7)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier4 = new GameModifier($gameEquipment, $modifierConfig4);
 
@@ -356,7 +355,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
@@ -385,7 +384,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
@@ -420,7 +419,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(-10)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
@@ -458,7 +457,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
         ;
         $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
@@ -479,7 +478,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(10)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier2 = new GameModifier($daedalus, $modifierConfig2);
 
@@ -532,7 +531,7 @@ class ModifierServiceTest extends TestCase
 //            ->setTargetEvent('action')
 //            ->setTarget(PlayerVariableEnum::ACTION_POINT)
 //            ->setDelta(5)
-//            ->setMode(ModifierModeEnum::ADDITIVE)
+//            ->setMode(VariableModifierModeEnum::ADDITIVE)
 //        ;
 //        $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 //
@@ -571,7 +570,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier1 = new GameModifier($player, $modifierConfig1);
         $modifier1->setCharge($status);
@@ -614,7 +613,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-6)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
@@ -641,7 +640,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(2)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
         ;
         $modifier2 = new GameModifier($player, $modifierConfig2);
         $modifier2->setCharge($status);
@@ -674,7 +673,7 @@ class ModifierServiceTest extends TestCase
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-6)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
         $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 

@@ -25,14 +25,14 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\EventTriggerModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -111,10 +111,10 @@ class ShowerActionCest
         ;
         $I->haveInRepository($showerActionActivationRequirement);
 
-        $mushShowerModifier = new EventTriggerModifierConfig();
+        $mushShowerModifier = new TriggerEventModifierConfig();
         $mushShowerModifier
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
+            ->setModifiedVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setQuantity(-3)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($showerActionActivationRequirement)
@@ -159,7 +159,7 @@ class ShowerActionCest
             ->setDelta(-1)
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setModifierHolderClass(ReachEnum::INVENTORY)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
@@ -202,7 +202,7 @@ class ShowerActionCest
             ->setDelta(-1)
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setModifierHolderClass(ReachEnum::INVENTORY)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
 
         $soapGear = new Gear();

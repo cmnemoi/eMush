@@ -8,13 +8,13 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\VariableEventModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 
 class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -72,7 +72,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($notMoveActionActivationRequirement)
             ->addModifierRequirement($notConsumeActionActivationRequirement)
             ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
@@ -88,7 +88,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($notMoveActionActivationRequirement)
             ->addModifierRequirement($notConsumeActionActivationRequirement)
             ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
@@ -104,7 +104,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(3)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($notMoveActionActivationRequirement)
             ->addModifierRequirement($notConsumeActionActivationRequirement)
             ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
@@ -120,7 +120,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-3)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($reduceMax3MovementPoint);
@@ -131,7 +131,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-5)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($reduceMax5MovementPoint);
@@ -142,7 +142,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-12)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($reduceMax12MovementPoint);
@@ -153,7 +153,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0.85)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;
         $manager->persist($shootAction15PercentAccuracyLost);
@@ -164,7 +164,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0.80)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;
         $manager->persist($shootAction20PercentAccuracyLost);
@@ -175,7 +175,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0.60)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;
         $manager->persist($shootAction40PercentAccuracyLost);

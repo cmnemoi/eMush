@@ -1,13 +1,13 @@
 <?php
 
-namespace Mush\Modifier\Entity;
+namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Event\QuantityEventInterface;
-use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 
 #[ORM\Entity]
-class VariableEventModifierConfig extends ModifierConfig
+class VariableEventModifierConfig extends AbstractModifierConfig
 {
     #[ORM\Column(type: 'float', nullable: false)]
     private float $delta = 0;
@@ -16,7 +16,10 @@ class VariableEventModifierConfig extends ModifierConfig
     private string $targetVariable;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $mode = ModifierModeEnum::ADDITIVE;
+    private string $mode = VariableModifierModeEnum::ADDITIVE;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $appliesOn = VariableModifierModeEnum::VALUE;
 
     public function __construct()
     {
@@ -42,20 +45,20 @@ class VariableEventModifierConfig extends ModifierConfig
 
         $mode = $this->mode;
         $delta = $this->delta;
-        $target = $this->targetVariable;
+        $targetVariable = $this->targetVariable;
         switch ($mode) {
-            case ModifierModeEnum::ADDITIVE:
+            case VariableModifierModeEnum::ADDITIVE:
                 if ($delta > 0) {
-                    $name = $name . '_+' . strval($delta) . $target;
+                    $name = $name . '_+' . strval($delta) . $targetVariable;
                 } elseif ($delta < 0) {
-                    $name = $name . '_-' . strval(-$delta) . $target;
+                    $name = $name . '_-' . strval(-$delta) . $targetVariable;
                 }
                 break;
-            case ModifierModeEnum::SET_VALUE:
-                $name = $name . '_set_' . strval($delta) . $target;
+            case VariableModifierModeEnum::SET_VALUE:
+                $name = $name . '_set_' . strval($delta) . $targetVariable;
                 break;
-            case ModifierModeEnum::MULTIPLICATIVE:
-                $name = $name . '_x' . strval($delta) . $target;
+            case VariableModifierModeEnum::MULTIPLICATIVE:
+                $name = $name . '_x' . strval($delta) . $targetVariable;
                 break;
         }
 
@@ -103,6 +106,18 @@ class VariableEventModifierConfig extends ModifierConfig
     public function setMode(string $mode): self
     {
         $this->mode = $mode;
+
+        return $this;
+    }
+
+    public function getAppliesOn(): string
+    {
+        return $this->appliesOn;
+    }
+
+    public function setAppliesOn(string $appliesOn): self
+    {
+        $this->appliesOn = $appliesOn;
 
         return $this;
     }

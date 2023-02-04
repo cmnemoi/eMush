@@ -3,8 +3,8 @@
 namespace Mush\Modifier\Service;
 
 use Mush\Action\Entity\Action;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -17,13 +17,13 @@ interface ModifierServiceInterface
     public function delete(GameModifier $modifier): void;
 
     public function createModifier(
-        ModifierConfig $modifierConfig,
+        AbstractModifierConfig $modifierConfig,
         ModifierHolder $holder,
         ?ChargeStatus $chargeStatus = null
     ): void;
 
     public function deleteModifier(
-        ModifierConfig $modifierConfig,
+        AbstractModifierConfig $modifierConfig,
         ModifierHolder $holder
     ): void;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Modifier\Entity;
+namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,10 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
-    'event_trigger_config' => EventTriggerModifierConfig::class,
+    'event_trigger_config' => TriggerEventModifierConfig::class,
     'variable_event_modifier' => VariableEventModifierConfig::class,
 ])]
-class ModifierConfig
+abstract class AbstractModifierConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

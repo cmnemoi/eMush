@@ -10,14 +10,14 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Modifier\Entity\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -60,7 +60,7 @@ class ModifierService implements ModifierServiceInterface
     }
 
     public function createModifier(
-        ModifierConfig $modifierConfig,
+        AbstractModifierConfig $modifierConfig,
         ModifierHolder $holder,
         ?ChargeStatus $chargeStatus = null
     ): void {
@@ -74,7 +74,7 @@ class ModifierService implements ModifierServiceInterface
     }
 
     public function deleteModifier(
-        ModifierConfig $modifierConfig,
+        AbstractModifierConfig $modifierConfig,
         ModifierHolder $holder,
     ): void {
         $modifier = $holder->getModifiers()->getModifierFromConfig($modifierConfig);
@@ -94,12 +94,12 @@ class ModifierService implements ModifierServiceInterface
             $modifierConfig = $modifier->getModifierConfig();
             if ($modifierConfig instanceof VariableEventModifierConfig) {
                 switch ($modifierConfig->getMode()) {
-                    case ModifierModeEnum::SET_VALUE:
+                    case VariableModifierModeEnum::SET_VALUE:
                         return intval($modifierConfig->getDelta());
-                    case ModifierModeEnum::ADDITIVE:
+                    case VariableModifierModeEnum::ADDITIVE:
                         $additiveDelta += $modifierConfig->getDelta();
                         break;
-                    case ModifierModeEnum::MULTIPLICATIVE:
+                    case VariableModifierModeEnum::MULTIPLICATIVE:
                         $multiplicativeDelta *= $modifierConfig->getDelta();
                         break;
                     default:

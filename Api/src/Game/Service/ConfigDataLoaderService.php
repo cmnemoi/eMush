@@ -2,14 +2,17 @@
 
 namespace Mush\Game\Service;
 
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\Repository\GameConfigRepository;
 use Mush\Game\Repository\TriumphConfigRepository;
+use Mush\Game\Service\ConfigData\ConfigDataLoader;
+use Mush\Game\Service\ConfigData\GameConfigDataLoader;
+use Mush\Game\Service\ConfigData\TriumphConfigDataLoader;
 
 class ConfigDataLoaderService
 {
-    private Collection $dataLoaders;
+    private ArrayCollection $dataLoaders;
     private EntityManagerInterface $entityManager;
     private GameConfigRepository $gameConfigRepository;
     private TriumphConfigRepository $triumphConfigRepository;
@@ -18,13 +21,14 @@ class ConfigDataLoaderService
                                 GameConfigRepository $gameConfigRepository,
                                 TriumphConfigRepository $triumphConfigRepository
     ) {
-        $this->addDataLoader(
-            new TriumphConfigDataLoader(
-                $entityManager,
-                $gameConfigRepository,
-                $triumphConfigRepository
-            )
-        );
+        $triumphConfigDataLoader = new TriumphConfigDataLoader($entityManager, $gameConfigRepository, $triumphConfigRepository);
+        $gameConfigDataLoader = new GameConfigDataLoader($entityManager, $gameConfigRepository);
+        $this->setDataLoaders(new ArrayCollection(
+            [
+                $triumphConfigDataLoader,
+                $gameConfigDataLoader,
+            ]
+        ));
     }
 
     public function loadData(): void
@@ -35,8 +39,8 @@ class ConfigDataLoaderService
         }
     }
 
-    private function addDataLoader(ConfigDataLoader $dataLoader): void
+    private function setDataLoaders(ArrayCollection $dataLoaders): void
     {
-        $this->dataLoaders->add($dataLoader);
+        $this->dataLoaders = $dataLoaders;
     }
 }

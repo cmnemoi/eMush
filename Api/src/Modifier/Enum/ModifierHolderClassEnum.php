@@ -14,7 +14,6 @@ namespace Mush\Modifier\Enum;
 class ModifierHolderClassEnum
 {
     public const PLAYER = 'player';
-    public const TARGET_PLAYER = 'target_player';
     public const PLACE = 'place';
     public const DAEDALUS = 'daedalus';
     public const EQUIPMENT = 'equipment';
@@ -25,7 +24,6 @@ class ModifierHolderClassEnum
             self::DAEDALUS,
             self::PLACE,
             self::PLAYER,
-            self::TARGET_PLAYER,
             self::EQUIPMENT,
         ];
     }

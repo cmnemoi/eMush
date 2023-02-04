@@ -23,7 +23,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         $this->randomService = $randomService;
     }
 
-    public function getActiveModifiers(ModifierCollection $modifiers, array $reasons, ModifierHolder $holder): ModifierCollection
+    public function getActiveModifiers(ModifierCollection $modifiers, array $reasons): ModifierCollection
     {
         $validatedModifiers = new ModifierCollection();
 
@@ -33,7 +33,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
                 $chargeStatus === null ||
                 $chargeStatus->getCharge() > 0
             ) {
-                if ($this->checkModifier($modifier, $reasons, $holder)) {
+                if ($this->checkModifier($modifier, $reasons, $modifier->getModifierHolder())) {
                     $validatedModifiers->add($modifier);
                 }
             }

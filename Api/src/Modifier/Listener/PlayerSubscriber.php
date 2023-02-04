@@ -44,7 +44,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
 
-        $eventModifiers = $player->getModifiers()->getScopedModifiers([PlayerEvent::INFECTION_PLAYER]);
+        $eventModifiers = $player->getModifiers()->getModifiersByEvent([PlayerEvent::INFECTION_PLAYER]);
 
         /** @var GameModifier $modifier */
         foreach ($eventModifiers as $modifier) {

@@ -2,10 +2,13 @@
 
 namespace Mush\Modifier\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\Action;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Event\ModifierEvent;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
@@ -48,4 +51,8 @@ interface ModifierServiceInterface
         \DateTime $time,
         ModifierHolder $holder
     ): bool;
+
+    public function getActiveModifiers(ModifierCollection $modifiers, array $reasons): ModifierCollection;
+
+    public function createModifierEvent(GameModifier $modifier, array $reasons, \DateTime $time, bool $isSuccessful = true): ModifierEvent;
 }

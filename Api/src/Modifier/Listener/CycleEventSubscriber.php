@@ -53,7 +53,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
     {
         $holder = $this->getModifierHolder($event);
 
-        $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_CYCLE]);
+        $cycleModifiers = $holder->getModifiers()->getModifiersByEvent([EventEnum::NEW_CYCLE]);
         $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, [EventEnum::NEW_CYCLE], $holder);
 
         /** @var GameModifier $modifier */
@@ -66,7 +66,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
     {
         $holder = $this->getModifierHolder($event);
 
-        $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_DAY]);
+        $cycleModifiers = $holder->getModifiers()->getModifiersByEvent([EventEnum::NEW_DAY]);
         $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, [EventEnum::NEW_CYCLE], $holder);
 
         /** @var GameModifier $modifier */
@@ -79,7 +79,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
     {
         $holder = $event->getPlayer();
 
-        $modifiers = $holder->getModifiers()->getScopedModifiers([ActionEvent::POST_ACTION]);
+        $modifiers = $holder->getModifiers()->getModifiersByEvent([ActionEvent::POST_ACTION]);
         $modifiers = $this->modifierActivationRequirementService->getActiveModifiers($modifiers, $event->getTags(), $holder);
 
         /** @var GameModifier $modifier */

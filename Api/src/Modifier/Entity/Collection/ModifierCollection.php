@@ -24,14 +24,24 @@ class ModifierCollection extends ArrayCollection
             $modifierConfig->getTargetVariable() === $target));
     }
 
-    public function getReachedModifiers(string $reach): self
+    public function getModifiersByHolderClass(string $reach): self
     {
         return $this->filter(fn (GameModifier $modifier) => $modifier->getModifierConfig()->getModifierHolderClass() === $reach);
     }
 
-    public function getScopedModifiers(array $scopes): self
+    public function getActionParameterModifiers(): self
     {
-        return $this->filter(fn (GameModifier $modifier) => in_array($modifier->getModifierConfig()->getTargetEvent(), $scopes));
+        return $this->filter(fn (GameModifier $modifier) => !$modifier->getModifierConfig()->getIsOnTargetOnly());
+    }
+
+    public function getNoActionParameterModifiers(): self
+    {
+        return $this->filter(fn (GameModifier $modifier) => $modifier->getModifierConfig()->getIsOnTargetOnly());
+    }
+
+    public function getModifiersByEvent(string $event): self
+    {
+        return $this->filter(fn (GameModifier $modifier) => $modifier->getModifierConfig()->getTargetEvent() === $event);
     }
 
     public function getModifierFromConfig(AbstractModifierConfig $modifierConfig): ?GameModifier

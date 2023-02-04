@@ -2,13 +2,17 @@
 
 namespace Mush\Action\Event;
 
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Event\ModifiableEventInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
-class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterface
+class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterface, ModifiableEventInterface
 {
     public const CONSUME = 'action.consume';
     public const HEAL = 'action.heal';
@@ -53,6 +57,20 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
     public function getParameter(): ?LogParameterInterface
     {
         return $this->parameter;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        $modifiers = $this->player->getAllModifiers()->getNoActionParameterModifiers();
+
+        $parameter = $this->parameter;
+        if ($parameter instanceof GameEquipment) {
+            $modifiers->addModifiers($parameter->getModifiers()->getActionParameterModifiers());
+        } else if ($parameter instanceof Player) {
+            $modifiers->addModifiers($parameter->getModifiers()->getActionParameterModifiers());
+        }
+
+        return $modifiers;
     }
 
     public function getLogParameters(): array

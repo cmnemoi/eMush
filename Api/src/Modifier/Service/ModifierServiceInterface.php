@@ -48,8 +48,4 @@ interface ModifierServiceInterface
         \DateTime $time,
         ModifierHolder $holder
     ): bool;
-
-    public function playerEnterRoom(Player $player): void;
-
-    public function playerLeaveRoom(Player $player): void;
 }

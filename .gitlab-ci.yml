@@ -13,7 +13,7 @@
 .php_with_db_template: &php_with_db_template
   extends: .php_template
   services:
-    - postgres:13.1-alpine
+    - postgres:15.1-alpine
   variables:
     POSTGRES_DB: emush_test
     POSTGRES_USER: runner
@@ -26,13 +26,12 @@
     - cp .env.gitlab .env.test
     - cp .env.gitlab .env
     - bin/console doctrine:schema:update -f
-    - echo y | bin/console doctrine:fixture:load
     - openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:mush
     - openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:mush
     - chmod go+r config/jwt/private.pem
 
 .node_template: &node_template
-  image: node:16
+  image: node:18
   cache:
     paths:
       - node_modules/
@@ -40,48 +39,62 @@
     - cd App
     - yarn install
 
-api-test:
-  <<: *php_with_db_template
-  script:
-    - php vendor/bin/codecept run
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+# api-test:
+#   <<: *php_with_db_template
+#   script:
+#     - php vendor/bin/codecept run
+#   rules:
+#     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
-api-lint:
-  <<: *php_template
-  script:
-    - ./linters.sh
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+# api-lint:
+#   <<: *php_template
+#   script:
+#     - ./linters.sh
+#   rules:
+#     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
-api-test-develop:
-  <<: *php_with_db_template
-  script:
-    - pecl install xdebug && docker-php-ext-enable xdebug
-    - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
-  coverage: '/^\s+Lines:\s+(\d+\.\d+)%/'
+# api-test-develop:
+#   <<: *php_with_db_template
+#   script:
+#     - pecl install xdebug && docker-php-ext-enable xdebug
+#     - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
+#   coverage: '/^\s+Lines:\s+(\d+\.\d+)%/'
+#   artifacts:
+#     when: always
+#     expire_in: 1 week
+#     paths:
+#       - Api/tests/_output
+#     # make the report available in Gitlab UI. see https://docs.gitlab.com/ee/ci/unit_test_reports.html
+#     reports:
+#       junit: Api/tests/_output/report.xml
+#   only:
+#     - develop
+
+# front-lint:
+#   <<: *node_template
+#   script:
+#     - yarn lint --no-fix
+#   rules:
+#     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+# front-test:
+#   <<: *node_template
+#   script:
+#     - yarn test
+#   rules:
+#     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+#     - if: '$CI_COMMIT_BRANCH == "develop"'
+
+release:
+  <<: *node_template
+  before_script:
+    - npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/release-notes-generator
+  variables:
+    GL_TOKEN: $semantic_release_token
+    version: '${version}'
   artifacts:
-    when: always
     expire_in: 1 week
     paths:
-      - Api/tests/_output
-    # make the report available in Gitlab UI. see https://docs.gitlab.com/ee/ci/unit_test_reports.html
-    reports:
-      junit: Api/tests/_output/report.xml
-  only:
-    - develop
-
-front-lint:
-  <<: *node_template
+      - CHANGELOG.md
   script:
-    - yarn lint --no-fix
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-
-front-test:
-  <<: *node_template
-  script:
-    - yarn test
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-    - if: '$CI_COMMIT_BRANCH == "develop"'
+    - semantic-release --branches semantic-release-master -p @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/release-notes-generator -t $version

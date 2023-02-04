@@ -90,6 +90,6 @@ release:
   before_script:
     - npm install -g semantic-release @semantic-release/gitlab
   script:
-    - semantic-release
+    - semantic-release --branches test-semantic-release7 -p ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/npm', '@semantic-release/gitlab']
   rules:
     - if: $CI_COMMIT_BRANCH == "test-semantic-release7"

@@ -9,11 +9,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: 'mush:load-config-data',
-    description: 'Load config data.',
+    name: 'mush:load-configs-data',
+    description: 'Load configs data.',
     hidden: false
 )]
-class LoadConfigDataCommand extends Command
+class LoadConfigsDataCommand extends Command
 {
     private ConfigDataLoaderService $configDataLoaderService;
 
@@ -26,11 +26,11 @@ class LoadConfigDataCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln('Loading config data...');
+        $output->writeln('Loading configs data...');
 
         $this->configDataLoaderService->loadData();
 
-        $output->writeln('Config data loaded.');
+        $output->writeln('Configs data loaded.');
 
         return Command::SUCCESS;
     }

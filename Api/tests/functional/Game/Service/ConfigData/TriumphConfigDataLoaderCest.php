@@ -18,7 +18,7 @@ class TriumphConfigDataLoaderCest
         $this->triumphConfigDataLoader = $I->grabService(TriumphConfigDataLoader::class);
     }
 
-    public function testLoadConfigData(FunctionalTester $I)
+    public function testloadConfigsData(FunctionalTester $I)
     {
         $I->haveInRepository(GameConfig::class, [
             'name' => 'default',
@@ -27,7 +27,7 @@ class TriumphConfigDataLoaderCest
             'name' => 'default',
         ]);
 
-        $this->triumphConfigDataLoader->loadConfigData();
+        $this->triumphConfigDataLoader->loadConfigsData();
 
         $I->seeInRepository(TriumphConfig::class, [
             'name' => TriumphEnum::ALIEN_SCIENCE,
@@ -42,7 +42,7 @@ class TriumphConfigDataLoaderCest
         $I->assertCount(43, $defaultGameConfig->getTriumphConfig());
     }
 
-    public function testLoadConfigDataConfigAlreadyExists(FunctionalTester $I)
+    public function testloadConfigsDataConfigAlreadyExists(FunctionalTester $I)
     {
         $I->haveInRepository(GameConfig::class, [
             'name' => 'default',
@@ -55,7 +55,7 @@ class TriumphConfigDataLoaderCest
             'team' => VisibilityEnum::PUBLIC,
         ]);
 
-        $this->triumphConfigDataLoader->loadConfigData();
+        $this->triumphConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, TriumphConfig::class, [
             'name' => TriumphEnum::ALIEN_SCIENCE,

@@ -100,4 +100,4 @@ release:
   script:
     - semantic-release --branches master -t $version -p @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/gitlab 
   only:
-    - master
+    - semantic-release-master

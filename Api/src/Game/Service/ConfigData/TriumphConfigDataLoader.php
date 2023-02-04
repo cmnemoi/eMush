@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Game\Service\ConfigData;
+namespace Mush\Game\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\Entity\GameConfig;
@@ -25,9 +25,9 @@ class TriumphConfigDataLoader extends ConfigDataLoader
         $this->triumphConfigRepository = $triumphConfigRepository;
     }
 
-    public function loadConfigsData(): void
+    public function loadConfigData(): void
     {
-        $triumphConfigDataArray = $this->getTriumphConfigsData();
+        $triumphDataArray = $this->getTriumphData();
 
         /** @var GameConfig $defaultGameConfig */
         $defaultGameConfig = $this->gameConfigRepository->findOneBy(['name' => 'default']);
@@ -35,16 +35,16 @@ class TriumphConfigDataLoader extends ConfigDataLoader
             throw new \Exception('Default game config not found');
         }
 
-        foreach ($triumphConfigDataArray as $triumphConfigData) {
-            $triumphConfig = $this->triumphConfigRepository->findOneBy(['name' => $triumphConfigData['name']]);
+        foreach ($triumphDataArray as $triumphData) {
+            $triumphConfig = $this->triumphConfigRepository->findOneBy(['name' => $triumphData['name']]);
 
-            if ($triumphConfig === null) {
+            if ($triumphConfig == null) {
                 $triumphConfig = new TriumphConfig();
                 $triumphConfig
-                    ->setName($triumphConfigData['name'])
-                    ->setTriumph($triumphConfigData['triumph'])
-                    ->setIsAllCrew($triumphConfigData['is_all_crew'])
-                    ->setTeam($triumphConfigData['team'])
+                    ->setName($triumphData['name'])
+                    ->setTriumph($triumphData['triumph'])
+                    ->setIsAllCrew($triumphData['is_all_crew'])
+                    ->setTeam($triumphData['team'])
                 ;
 
                 $this->entityManager->persist($triumphConfig);
@@ -56,7 +56,7 @@ class TriumphConfigDataLoader extends ConfigDataLoader
         $this->entityManager->flush();
     }
 
-    private function getTriumphConfigsData(): array
+    private function getTriumphData(): array
     {
         return [
             ['name' => 'alien_science', 'triumph' => 16, 'is_all_crew' => false, 'team' => VisibilityEnum::PUBLIC],

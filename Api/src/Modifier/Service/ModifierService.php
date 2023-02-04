@@ -236,34 +236,4 @@ class ModifierService implements ModifierServiceInterface
             $this->eventService->callEvent($modifierEvent, ModifierEvent::APPLY_MODIFIER);
         }
     }
-
-    public function playerEnterRoom(Player $player): void
-    {
-        $place = $player->getPlace();
-
-        foreach ($player->getStatuses() as $status) {
-            $statusConfig = $status->getStatusConfig();
-            /** @var VariableEventModifierConfig $modifierConfig */
-            foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
-                if ($modifierConfig->getModifierHolderClass() === ModifierHolderClassEnum::PLACE) {
-                    $this->createModifier($modifierConfig, $place);
-                }
-            }
-        }
-    }
-
-    public function playerLeaveRoom(Player $player): void
-    {
-        $place = $player->getPlace();
-
-        foreach ($player->getStatuses() as $status) {
-            $statusConfig = $status->getStatusConfig();
-            /** @var VariableEventModifierConfig $modifierConfig */
-            foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
-                if ($modifierConfig->getModifierHolderClass() === ModifierHolderClassEnum::PLACE) {
-                    $this->deleteModifier($modifierConfig, $place);
-                }
-            }
-        }
-    }
 }

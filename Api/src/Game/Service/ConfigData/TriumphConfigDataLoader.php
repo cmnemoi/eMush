@@ -38,7 +38,7 @@ class TriumphConfigDataLoader extends ConfigDataLoader
         foreach ($triumphConfigDataArray as $triumphConfigData) {
             $triumphConfig = $this->triumphConfigRepository->findOneBy(['name' => $triumphConfigData['name']]);
 
-            if ($triumphConfig == null) {
+            if ($triumphConfig === null) {
                 $triumphConfig = new TriumphConfig();
                 $triumphConfig
                     ->setName($triumphConfigData['name'])

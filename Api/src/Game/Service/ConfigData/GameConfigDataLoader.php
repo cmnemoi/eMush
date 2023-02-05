@@ -27,7 +27,7 @@ class GameConfigDataLoader extends ConfigDataLoader
         foreach ($gameConfigDataArray as $gameConfigData) {
             $gameConfig = $this->gameConfigRepository->findOneBy(['name' => $gameConfigData['name']]);
 
-            if ($gameConfig == null) {
+            if ($gameConfig === null) {
                 $gameConfig = new GameConfig();
                 $gameConfig->setName($gameConfigData['name']);
 

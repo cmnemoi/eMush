@@ -15,11 +15,11 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -172,13 +172,13 @@ class ActionServiceCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-1)
             ->setTargetEvent(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
 

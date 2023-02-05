@@ -8,13 +8,13 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 
 class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -66,118 +66,118 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         /** @var ModifierActivationRequirement $notMoveActionActivationRequirement */
         $notMoveActionActivationRequirement = $this->getReference(DisorderModifierConfigFixtures::NOT_REASON_MOVE);
 
-        $notMoveAction1Increase = new ModifierConfig();
+        $notMoveAction1Increase = new VariableEventModifierConfig();
         $notMoveAction1Increase
-            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($notMoveActionActivationRequirement)
             ->addModifierRequirement($notConsumeActionActivationRequirement)
             ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
             ->addModifierRequirement($notSurgeryActionActivationRequirement)
             ->addModifierRequirement($notSelfSurgeryActivationRequirement)
-            ->buildName()
         ;
+        $notMoveAction1Increase->buildName();
         $manager->persist($notMoveAction1Increase);
 
-        $notMoveAction2Increase = new ModifierConfig();
+        $notMoveAction2Increase = new VariableEventModifierConfig();
         $notMoveAction2Increase
-            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($notMoveActionActivationRequirement)
             ->addModifierRequirement($notConsumeActionActivationRequirement)
             ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
             ->addModifierRequirement($notSurgeryActionActivationRequirement)
             ->addModifierRequirement($notSelfSurgeryActivationRequirement)
-            ->buildName()
         ;
+        $notMoveAction2Increase->buildName();
         $manager->persist($notMoveAction2Increase);
 
-        $notMoveAction3Increase = new ModifierConfig();
+        $notMoveAction3Increase = new VariableEventModifierConfig();
         $notMoveAction3Increase
-            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(3)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($notMoveActionActivationRequirement)
             ->addModifierRequirement($notConsumeActionActivationRequirement)
             ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
             ->addModifierRequirement($notSurgeryActionActivationRequirement)
             ->addModifierRequirement($notSelfSurgeryActivationRequirement)
-            ->buildName()
         ;
+        $notMoveAction3Increase->buildName();
         $manager->persist($notMoveAction3Increase);
 
-        $reduceMax3MovementPoint = new ModifierConfig();
+        $reduceMax3MovementPoint = new VariableEventModifierConfig();
         $reduceMax3MovementPoint
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-3)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->buildName()
         ;
+        $reduceMax3MovementPoint->buildName();
         $manager->persist($reduceMax3MovementPoint);
 
-        $reduceMax5MovementPoint = new ModifierConfig();
+        $reduceMax5MovementPoint = new VariableEventModifierConfig();
         $reduceMax5MovementPoint
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-5)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->buildName()
         ;
+        $reduceMax5MovementPoint->buildName();
         $manager->persist($reduceMax5MovementPoint);
 
-        $reduceMax12MovementPoint = new ModifierConfig();
+        $reduceMax12MovementPoint = new VariableEventModifierConfig();
         $reduceMax12MovementPoint
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-12)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->buildName()
         ;
+        $reduceMax12MovementPoint->buildName();
         $manager->persist($reduceMax12MovementPoint);
 
-        $shootAction15PercentAccuracyLost = new ModifierConfig();
+        $shootAction15PercentAccuracyLost = new VariableEventModifierConfig();
         $shootAction15PercentAccuracyLost
-            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0.85)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-            ->buildName()
         ;
+        $shootAction15PercentAccuracyLost->buildName();
         $manager->persist($shootAction15PercentAccuracyLost);
 
-        $shootAction20PercentAccuracyLost = new ModifierConfig();
+        $shootAction20PercentAccuracyLost = new VariableEventModifierConfig();
         $shootAction20PercentAccuracyLost
-            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0.80)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-            ->buildName()
         ;
+        $shootAction20PercentAccuracyLost->buildName();
         $manager->persist($shootAction20PercentAccuracyLost);
 
-        $shootAction40PercentAccuracyLost = new ModifierConfig();
+        $shootAction40PercentAccuracyLost = new VariableEventModifierConfig();
         $shootAction40PercentAccuracyLost
-            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0.60)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-            ->buildName()
         ;
+        $shootAction40PercentAccuracyLost->buildName();
         $manager->persist($shootAction40PercentAccuracyLost);
 
         $manager->flush();

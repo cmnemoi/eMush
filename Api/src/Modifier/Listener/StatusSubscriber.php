@@ -4,11 +4,11 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\QuantityEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\EquipmentModifierServiceInterface;
@@ -84,9 +84,7 @@ class StatusSubscriber implements EventSubscriberInterface
 
             /** @var GameModifier $modifier */
             foreach ($modifiers as $modifier) {
-                $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getTags());
-                $event->setVisibility(VisibilityEnum::HIDDEN);
-                $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+                $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getTags());
             }
         }
     }
@@ -118,7 +116,7 @@ class StatusSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function getModifierHolderFromConfig(StatusHolderInterface $statusHolder, ModifierConfig $modifierConfig): ?ModifierHolder
+    private function getModifierHolderFromConfig(StatusHolderInterface $statusHolder, AbstractModifierConfig $modifierConfig): ?ModifierHolder
     {
         switch ($modifierConfig->getModifierHolderClass()) {
             case ModifierHolderClassEnum::DAEDALUS:
@@ -195,25 +193,26 @@ class StatusSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function createQuantityEvent(ModifierHolder $holder, GameModifier $modifier, \DateTime $time, array $eventReasons): PlayerVariableEvent
+    private function createQuantityEvent(ModifierHolder $holder, GameModifier $modifier, \DateTime $time, array $eventReasons): void
     {
         $modifierConfig = $modifier->getModifierConfig();
 
-        $target = $modifierConfig->getTargetVariable();
-        $value = intval($modifierConfig->getDelta());
-        $eventReasons[] = $modifierConfig->getModifierName();
+        if ($modifierConfig instanceof VariableEventModifierConfig &&
+            $holder instanceof Player
+        ) {
+            $target = $modifierConfig->getTargetVariable();
+            $value = intval($modifierConfig->getDelta());
+            $eventReasons[] = $modifierConfig->getModifierName();
 
-        switch (true) {
-            case $holder instanceof Player:
-                return new PlayerVariableEvent(
-                    $holder,
-                    $target,
-                    $value,
-                    $eventReasons,
-                    $time,
-                );
-            default:
-                throw new \LogicException('Unexpected modifier holder type');
+            $event = new PlayerVariableEvent(
+                $holder,
+                $target,
+                $value,
+                $eventReasons,
+                $time,
+            );
+
+            $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
         }
     }
 }

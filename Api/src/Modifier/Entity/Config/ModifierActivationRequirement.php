@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Modifier\Entity;
+namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
 

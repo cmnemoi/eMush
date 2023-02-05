@@ -2,7 +2,7 @@
 
 namespace Mush\Modifier\Service;
 
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Entity\Player;
 
@@ -22,7 +22,7 @@ class PlayerModifierService implements PlayerModifierServiceInterface
 
         foreach ($player->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
-            /** @var ModifierConfig $modifierConfig */
+            /** @var AbstractModifierConfig $modifierConfig */
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
                 if ($modifierConfig->getModifierHolderClass() === ModifierHolderClassEnum::PLACE) {
                     $this->modifierService->createModifier($modifierConfig, $place);
@@ -37,7 +37,7 @@ class PlayerModifierService implements PlayerModifierServiceInterface
 
         foreach ($player->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
-            /** @var ModifierConfig $modifierConfig */
+            /** @var AbstractModifierConfig $modifierConfig */
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
                 if ($modifierConfig->getModifierHolderClass() === ModifierHolderClassEnum::PLACE) {
                     $this->modifierService->deleteModifier($modifierConfig, $place);

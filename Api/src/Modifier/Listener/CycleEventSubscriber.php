@@ -11,6 +11,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\QuantityEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Service\ModifierRequirementService;
@@ -54,14 +55,10 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_CYCLE]);
         $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, [EventEnum::NEW_CYCLE], $holder);
-        $cycleModifiers = $cycleModifiers->sortModifiersByDelta(false);
 
         /** @var GameModifier $modifier */
         foreach ($cycleModifiers as $modifier) {
-            /** @var AbstractGameEvent $event */
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getTags());
-
-            $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getTags());
         }
     }
 
@@ -71,14 +68,10 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_DAY]);
         $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, [EventEnum::NEW_CYCLE], $holder);
-        $cycleModifiers = $cycleModifiers->sortModifiersByDelta(false);
 
         /** @var GameModifier $modifier */
         foreach ($cycleModifiers as $modifier) {
-            /** @var AbstractGameEvent $event */
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getTags());
-
-            $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getTags());
         }
     }
 
@@ -88,14 +81,10 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         $modifiers = $holder->getModifiers()->getScopedModifiers([ActionEvent::POST_ACTION]);
         $modifiers = $this->modifierActivationRequirementService->getActiveModifiers($modifiers, $event->getTags(), $holder);
-        $modifiers = $modifiers->sortModifiersByDelta(false);
 
         /** @var GameModifier $modifier */
         foreach ($modifiers as $modifier) {
-            /** @var AbstractGameEvent $event */
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getTags());
-
-            $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getTags());
         }
     }
 
@@ -115,37 +104,39 @@ class CycleEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function createQuantityEvent(ModifierHolder $holder, GameModifier $modifier, \DateTime $time, array $reasons): QuantityEventInterface
+    private function createQuantityEvent(ModifierHolder $holder, GameModifier $modifier, \DateTime $time, array $reasons): void
     {
         $modifierConfig = $modifier->getModifierConfig();
 
-        $target = $modifierConfig->getTargetVariable();
-        $value = intval($modifierConfig->getDelta());
+        if ($modifierConfig instanceof VariableEventModifierConfig) {
+            $target = $modifierConfig->getTargetVariable();
+            $value = intval($modifierConfig->getDelta());
 
-        if (($modifierName = $modifierConfig->getModifierName()) !== null) {
-            $reasons[] = $modifierName;
-        }
+            if (($modifierName = $modifierConfig->getModifierName()) !== null) {
+                $reasons[] = $modifierName;
+            }
 
-        switch (true) {
-            case $holder instanceof Player:
-                return new PlayerVariableEvent(
+            if ($holder instanceof Player) {
+                $event = new PlayerVariableEvent(
                     $holder,
                     $target,
                     $value,
                     $reasons,
                     $time,
                 );
+                $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+            }
 
-            case $holder instanceof Daedalus:
-                return new DaedalusVariableEvent(
+            if ($holder instanceof Daedalus) {
+                $event = new DaedalusVariableEvent(
                     $holder,
                     $target,
                     $value,
                     $reasons,
                     $time,
                 );
-            default:
-                throw new \LogicException('Unexpected modifier holder type');
+                $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+            }
         }
     }
 }

@@ -30,7 +30,7 @@ For example creating modifiers on a player when it takes gears in its inventory.
   - target: What parameter is modified by the modifier ([player variable](../Player/Enum/PlayerVariableEnum.php), [Daedalus variable](../Daedalus/Enum/DaedalusVariableEnum.php) or [target](./Enum/ModifierTargetEnum.php))
   - scope: on which event or action is the modifier applied (either the name of the action event or one of the additional [scope](./Enum/ModifierScopeEnum.php))
   - [reach](./Enum/ModifierHolderClassEnum.php): Entity class to which the modifier will be linked
-  - [mode](./Enum/ModifierModeEnum.php): how the input value is modified
+  - [mode](./Enum/VariableModifierModeEnum.php): how the input value is modified
   - modifierActivationRequirement: a collection of conditions that must be complied for the modifier to apply
 
 ### Listener

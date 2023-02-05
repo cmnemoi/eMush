@@ -1,6 +1,6 @@
-Mush\Modifier\Entity\ModifierConfig:
-  shortName: 'ModifierConfig'
-  description: 'eMush ModifierConfig'
+Mush\Modifier\Entity\Config\VariableEventModifierConfig:
+  shortName: 'VariableModifierConfig'
+  description: 'eMush VariableEventModifierConfig'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_USER")'

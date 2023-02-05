@@ -20,9 +20,9 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -43,13 +43,13 @@ class CreateDestroyEquipmentSubscriberCest
 
     public function testCreateGearPlayerScope(FunctionalTester $I): void
     {
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
@@ -113,13 +113,13 @@ class CreateDestroyEquipmentSubscriberCest
 
     public function testCreateGearPlayerScopeInventoryFull(FunctionalTester $I): void
     {
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
@@ -180,13 +180,13 @@ class CreateDestroyEquipmentSubscriberCest
 
     public function testCreateGearPlaceReach(FunctionalTester $I)
     {
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLACE)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
@@ -255,13 +255,13 @@ class CreateDestroyEquipmentSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
@@ -334,13 +334,13 @@ class CreateDestroyEquipmentSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
@@ -432,24 +432,24 @@ class CreateDestroyEquipmentSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifierConfig2 = new ModifierConfig();
+        $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig2);

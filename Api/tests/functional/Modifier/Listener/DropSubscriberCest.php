@@ -17,10 +17,10 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -76,13 +76,13 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
@@ -159,13 +159,13 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
@@ -245,13 +245,13 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLACE)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
@@ -335,24 +335,24 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifierConfig2 = new ModifierConfig();
+        $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig2);
@@ -456,13 +456,13 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);

@@ -33,13 +33,15 @@ class ConfigDataLoaderService
         /** @var ConfigDataLoader $triumphConfigDataLoader */
         $triumphConfigDataLoader = new TriumphConfigDataLoader($entityManager, $gameConfigRepository, $triumphConfigRepository);
 
-        $this->setDataLoaders(new ArrayCollection(
+        /** @var ArrayCollection<int, ConfigDataLoader> $dataLoaders */
+        $dataLoaders = new ArrayCollection(
             [
                 $actionDataLoader,
                 $gameConfigDataLoader,
                 $triumphConfigDataLoader,
             ]
-        ));
+        );
+        $this->setDataLoaders($dataLoaders);
     }
 
     public function loadAllConfigsData(): void
@@ -50,7 +52,7 @@ class ConfigDataLoaderService
         }
     }
 
-    /** @psalm-param ArrayCollection<0|1, ConfigDataLoader> $dataLoaders **/
+    /** @psalm-param ArrayCollection<int, ConfigDataLoader> $dataLoaders **/
     private function setDataLoaders(ArrayCollection $dataLoaders): void
     {
         $this->dataLoaders = $dataLoaders;

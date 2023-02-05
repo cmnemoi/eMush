@@ -44,7 +44,7 @@ class ConfigDataLoaderService
         ));
     }
 
-    public function loadData(): void
+    public function loadAllConfigsData(): void
     {
         /** @var ConfigDataLoader $dataLoader */
         foreach ($this->dataLoaders as $dataLoader) {

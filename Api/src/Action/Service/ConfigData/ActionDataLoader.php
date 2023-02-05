@@ -9,12 +9,12 @@ use Mush\Game\Service\ConfigData\ConfigDataLoader;
 
 class ActionDataLoader extends ConfigDataLoader
 {
-    private ActionRepository $actionRepository;
     private EntityManagerInterface $entityManager;
+    private ActionRepository $actionRepository;
 
     public function __construct(
-        ActionRepository $actionRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        ActionRepository $actionRepository
     ) {
         $this->entityManager = $entityManager;
         $this->actionRepository = $actionRepository;

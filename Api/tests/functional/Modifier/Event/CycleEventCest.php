@@ -11,7 +11,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
-use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -78,11 +78,11 @@ class CycleEventCest
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
 
-        $modifierConfig = new TriggerEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setModifiedVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setQuantity(1)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setName('test')
         ;
@@ -155,11 +155,11 @@ class CycleEventCest
         ;
         $I->haveInRepository($notAloneActivationRequirement);
 
-        $modifierConfig = new TriggerEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setModifiedVariable(PlayerVariableEnum::MORAL_POINT)
-            ->setQuantity(-1)
+            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
+            ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
             ->addModifierRequirement($notAloneActivationRequirement)
@@ -227,11 +227,11 @@ class CycleEventCest
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
 
-        $modifierConfig = new TriggerEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setModifiedVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setQuantity(1)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setName('test1')
         ;
@@ -240,11 +240,11 @@ class CycleEventCest
         $modifier = new GameModifier($player, $modifierConfig);
         $I->haveInRepository($modifier);
 
-        $fitfullModifierConfig = new TriggerEventModifierConfig();
+        $fitfullModifierConfig = new VariableEventModifierConfig();
         $fitfullModifierConfig
             ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setModifiedVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setQuantity(-1)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::FITFULL_SLEEP)
             ->setName('test')

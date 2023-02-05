@@ -9,6 +9,9 @@ use Mush\Game\Enum\VisibilityEnum;
 class TriggerEventModifierConfig extends AbstractModifierConfig
 {
     #[ORM\Column(type: 'string', nullable: false)]
+    private string $triggeredEvent;
+
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $visibility = VisibilityEnum::PUBLIC;
 
     #[ORM\Column(type: 'string')]
@@ -16,13 +19,6 @@ class TriggerEventModifierConfig extends AbstractModifierConfig
 
     #[ORM\Column(type: 'integer')]
     private int $quantity = 0;
-
-    public function __construct(string $modifierName)
-    {
-        $this->modifierName = $modifierName;
-
-        parent::__construct();
-    }
 
     public function getModifierName(): ?string
     {
@@ -37,6 +33,8 @@ class TriggerEventModifierConfig extends AbstractModifierConfig
 
         if ($modifiedVariable !== null) {
             $baseName = strval($quantity) . $modifiedVariable;
+        } elseif ($baseName === null) {
+            $baseName = $this->triggeredEvent;
         }
 
         $this->name = $baseName . '_ON_' . $this->getTargetEvent() . '_' . $configName;
@@ -45,6 +43,18 @@ class TriggerEventModifierConfig extends AbstractModifierConfig
         foreach ($this->modifierActivationRequirements as $requirement) {
             $this->name = $this->name . '_if_' . $requirement->getName();
         }
+
+        return $this;
+    }
+
+    public function getTriggeredEvent(): string
+    {
+        return $this->triggeredEvent;
+    }
+
+    public function setTriggeredEvent(string $triggeredEvent): self
+    {
+        $this->triggeredEvent = $triggeredEvent;
 
         return $this;
     }

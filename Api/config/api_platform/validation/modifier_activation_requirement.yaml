@@ -1,4 +1,4 @@
-Mush\Modifier\Entity\ModifierActivationRequirement:
+Mush\Modifier\Entity\Config\ModifierActivationRequirement:
   properties:
     name:
       - NotBlank: ~

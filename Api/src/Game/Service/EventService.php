@@ -25,8 +25,6 @@ class EventService implements EventServiceInterface
         }
         $event->setEventName($name);
 
-
-
         $this->eventDispatcher->dispatch($event, $name);
     }
 }

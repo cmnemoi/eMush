@@ -1,4 +1,4 @@
-Mush\Modifier\Entity\ModifierConfig:
+Mush\Modifier\Entity\Config\VariableEventModifierConfig:
   attributes:
     id:
       groups: [ 'modifier_config_read' ]

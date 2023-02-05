@@ -29,6 +29,9 @@ abstract class AbstractModifierConfig
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $targetEvent;
 
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    protected bool $applyOnActionParameter = false;
+
     #[ORM\Column(type: 'string', nullable: false)]
     protected ?string $modifierHolderClass = null;
 
@@ -77,6 +80,18 @@ abstract class AbstractModifierConfig
     public function setTargetEvent(string $targetEvent): self
     {
         $this->targetEvent = $targetEvent;
+
+        return $this;
+    }
+
+    public function getApplyOnParameterOnly(): bool
+    {
+        return $this->applyOnActionParameter;
+    }
+
+    public function setApplyOnParameterOnly(bool $onTargetOnly): self
+    {
+        $this->applyOnActionParameter = $onTargetOnly;
 
         return $this;
     }

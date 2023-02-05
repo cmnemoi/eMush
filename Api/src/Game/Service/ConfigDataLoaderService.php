@@ -13,14 +13,13 @@ use Mush\Game\Service\ConfigData\GameConfigDataLoader;
 use Mush\Game\Service\ConfigData\TriumphConfigDataLoader;
 
 class ConfigDataLoaderService
-{   
+{
     private EntityManagerInterface $entityManager;
     private ActionRepository $actionRepository;
     private GameConfigRepository $gameConfigRepository;
     private TriumphConfigRepository $triumphConfigRepository;
-    
+
     private ArrayCollection $dataLoaders;
-    
 
     public function __construct(EntityManagerInterface $entityManager,
                                 ActionRepository $actionRepository,
@@ -33,10 +32,9 @@ class ConfigDataLoaderService
         $gameConfigDataLoader = new GameConfigDataLoader($entityManager, $gameConfigRepository);
         /** @var ConfigDataLoader $triumphConfigDataLoader */
         $triumphConfigDataLoader = new TriumphConfigDataLoader($entityManager, $gameConfigRepository, $triumphConfigRepository);
-        
 
         $this->setDataLoaders(new ArrayCollection(
-            [   
+            [
                 $actionDataLoader,
                 $gameConfigDataLoader,
                 $triumphConfigDataLoader,

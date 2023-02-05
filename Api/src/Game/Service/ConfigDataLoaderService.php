@@ -4,6 +4,8 @@ namespace Mush\Game\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Action\Repository\ActionRepository;
+use Mush\Action\Service\ConfigData\ActionDataLoader;
 use Mush\Game\Repository\GameConfigRepository;
 use Mush\Game\Repository\TriumphConfigRepository;
 use Mush\Game\Service\ConfigData\ConfigDataLoader;
@@ -11,25 +13,33 @@ use Mush\Game\Service\ConfigData\GameConfigDataLoader;
 use Mush\Game\Service\ConfigData\TriumphConfigDataLoader;
 
 class ConfigDataLoaderService
-{
-    private ArrayCollection $dataLoaders;
+{   
     private EntityManagerInterface $entityManager;
+    private ActionRepository $actionRepository;
     private GameConfigRepository $gameConfigRepository;
     private TriumphConfigRepository $triumphConfigRepository;
+    
+    private ArrayCollection $dataLoaders;
+    
 
     public function __construct(EntityManagerInterface $entityManager,
+                                ActionRepository $actionRepository,
                                 GameConfigRepository $gameConfigRepository,
                                 TriumphConfigRepository $triumphConfigRepository
     ) {
-        /** @var ConfigDataLoader $triumphConfigDataLoader */
-        $triumphConfigDataLoader = new TriumphConfigDataLoader($entityManager, $gameConfigRepository, $triumphConfigRepository);
+        /** @var ActionDataLoader $actionDataLoader */
+        $actionDataLoader = new ActionDataLoader($entityManager, $actionRepository);
         /** @var ConfigDataLoader $gameConfigDataLoader */
         $gameConfigDataLoader = new GameConfigDataLoader($entityManager, $gameConfigRepository);
+        /** @var ConfigDataLoader $triumphConfigDataLoader */
+        $triumphConfigDataLoader = new TriumphConfigDataLoader($entityManager, $gameConfigRepository, $triumphConfigRepository);
+        
 
         $this->setDataLoaders(new ArrayCollection(
-            [
-                $triumphConfigDataLoader,
+            [   
+                $actionDataLoader,
                 $gameConfigDataLoader,
+                $triumphConfigDataLoader,
             ]
         ));
     }

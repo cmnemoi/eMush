@@ -6,12 +6,22 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class storing the various information needed to create and apply a modifier.
+ *
+ * name: a unique name needed for the DB
+ * modifierName: the name of the modifier is used to create log associated with a modifier (apply modifier)
+ * targetEvent: the name of the event that trigger this modifier (apply modifier)
+ * applyOnActionParameter: specify if the modifier only is applied when the holder is the target of an action (apply modifier)
+ * modifierHolderClass: the class that will hold the GameModifier entity (create modifier)
+ */
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
-    'event_trigger_config' => TriggerEventModifierConfig::class,
+    'trigger_event_config' => TriggerEventModifierConfig::class,
     'variable_event_modifier' => VariableEventModifierConfig::class,
+    'trigger_variable_event_config' => TriggerVariableEventModifierConfig::class,
 ])]
 abstract class AbstractModifierConfig
 {

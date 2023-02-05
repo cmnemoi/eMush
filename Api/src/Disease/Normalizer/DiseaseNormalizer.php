@@ -8,9 +8,9 @@ use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
@@ -104,14 +104,14 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
     private function getModifierEffects(DiseaseConfig $diseaseConfig, string $description, string $language): string
     {
         // Get GameModifier effect description
-        /** @var ModifierConfig $modifierConfig */
+        /** @var VariableEventModifierConfig $modifierConfig */
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
             $delta = $modifierConfig->getDelta();
             $mode = $modifierConfig->getMode();
             $scope = $modifierConfig->getTargetEvent();
             $target = $modifierConfig->getTargetVariable();
 
-            if ($mode == ModifierModeEnum::MULTIPLICATIVE) {
+            if ($mode == VariableModifierModeEnum::MULTIPLICATIVE) {
                 if ($delta < 1) {
                     $key = $modifierConfig->getTargetEvent() . '_decrease';
                 } else {
@@ -161,7 +161,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         return $description;
     }
 
-    private function getModifierChance(ModifierConfig $modifierConfig): int
+    private function getModifierChance(VariableEventModifierConfig $modifierConfig): int
     {
         $randomActivationRequirement = $modifierConfig->getModifierActivationRequirements()
                 ->filter(fn (ModifierActivationRequirement $activationRequirement) => $activationRequirement->getActivationRequirementName() === SymptomActivationRequirementEnum::RANDOM);
@@ -172,7 +172,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         }
     }
 
-    private function getModifierAction(ModifierConfig $modifierConfig): ?string
+    private function getModifierAction(VariableEventModifierConfig $modifierConfig): ?string
     {
         $reasonActivationRequirement = $modifierConfig->getModifierActivationRequirements()
             ->filter(fn (ModifierActivationRequirement $activationRequirement) => $activationRequirement->getActivationRequirementName() === SymptomActivationRequirementEnum::REASON);

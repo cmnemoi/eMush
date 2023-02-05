@@ -18,10 +18,10 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -98,13 +98,13 @@ class MoveSubscriberCest
         $I->refreshEntities($player);
 
         // first let create a gear with an irrelevant reach
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig1);
@@ -135,13 +135,13 @@ class MoveSubscriberCest
         $I->refreshEntities($player);
 
         // let's create a gear with room reach in player inventory
-        $modifierConfig2 = new ModifierConfig();
+        $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLACE)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig2);

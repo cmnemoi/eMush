@@ -14,7 +14,7 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
 class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -23,61 +23,61 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        /** @var ModifierConfig $reduceMax1HealthPoint */
+        /** @var VariableEventModifierConfig $reduceMax1HealthPoint */
         $reduceMax1HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_HEALTH_POINT);
-        /** @var ModifierConfig $reduceMax2HealthPoint */
+        /** @var VariableEventModifierConfig $reduceMax2HealthPoint */
         $reduceMax2HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_HEALTH_POINT);
-        /** @var ModifierConfig $reduceMax4HealthPoint */
+        /** @var VariableEventModifierConfig $reduceMax4HealthPoint */
         $reduceMax4HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_4_HEALTH_POINT);
-        /** @var ModifierConfig $reduceMax1MoralPoint */
+        /** @var VariableEventModifierConfig $reduceMax1MoralPoint */
         $reduceMax1MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_MORAL_POINT);
-        /** @var ModifierConfig $reduceMax2MoralPoint */
+        /** @var VariableEventModifierConfig $reduceMax2MoralPoint */
         $reduceMax2MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_MORAL_POINT);
-        /** @var ModifierConfig $cycle1HealthLost */
+        /** @var VariableEventModifierConfig $cycle1HealthLost */
         $cycle1HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST);
-        /** @var ModifierConfig $cycle2HealthLost */
+        /** @var VariableEventModifierConfig $cycle2HealthLost */
         $cycle2HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_2_HEALTH_LOST);
-        /** @var ModifierConfig $cycle4HealthLost */
+        /** @var VariableEventModifierConfig $cycle4HealthLost */
         $cycle4HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_4_HEALTH_LOST);
-        /** @var ModifierConfig $cycle1MovementLost */
+        /** @var VariableEventModifierConfig $cycle1MovementLost */
         $cycle1MovementLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_MOVEMENT_LOST);
-        /** @var ModifierConfig $cycle1SatietyLost */
+        /** @var VariableEventModifierConfig $cycle1SatietyLost */
         $cycle1SatietyLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_SATIETY_LOST);
-        /** @var ModifierConfig $cycle1SatietyIncrease */
+        /** @var VariableEventModifierConfig $cycle1SatietyIncrease */
         $cycle1SatietyIncrease = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_SATIETY_INCREASE);
-        /** @var ModifierConfig $cycle1ActionLostRand10 */
+        /** @var VariableEventModifierConfig $cycle1ActionLostRand10 */
         $cycle1ActionLostRand10 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_10);
-        /** @var ModifierConfig $cycle1HealthLostRand10 */
+        /** @var VariableEventModifierConfig $cycle1HealthLostRand10 */
         $cycle1HealthLostRand10 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST_RAND_10);
-        /** @var ModifierConfig $cycle1ActionLostRand16 */
+        /** @var VariableEventModifierConfig $cycle1ActionLostRand16 */
         $cycle1ActionLostRand16 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_16);
-        /** @var ModifierConfig $cycle1ActionLostRand16FitfullSleep */
+        /** @var VariableEventModifierConfig $cycle1ActionLostRand16FitfullSleep */
         $cycle1ActionLostRand16FitfullSleep = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_16_FITFULL_SLEEP);
-        /** @var ModifierConfig $cycle1HealthLostRand16 */
+        /** @var VariableEventModifierConfig $cycle1HealthLostRand16 */
         $cycle1HealthLostRand16 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST_RAND_16);
-        /** @var ModifierConfig $cycle1ActionLostRand20 */
+        /** @var VariableEventModifierConfig $cycle1ActionLostRand20 */
         $cycle1ActionLostRand20 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_20);
-        /** @var ModifierConfig $cycle1ActionLostRand30 */
+        /** @var VariableEventModifierConfig $cycle1ActionLostRand30 */
         $cycle1ActionLostRand30 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_30);
-        /** @var ModifierConfig $cycle2ActionLostRand40 */
+        /** @var VariableEventModifierConfig $cycle2ActionLostRand40 */
         $cycle2ActionLostRand40 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_2_ACTION_LOST_RAND_40);
-        /** @var ModifierConfig $cycle1MovementLostRand50 */
+        /** @var VariableEventModifierConfig $cycle1MovementLostRand50 */
         $cycle1MovementLostRand50 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_MOVEMENT_LOST_RAND_50);
-        /** @var ModifierConfig $cycle1HealthLostRand50 */
+        /** @var VariableEventModifierConfig $cycle1HealthLostRand50 */
         $cycle1HealthLostRand50 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST_RAND_50);
-        /** @var ModifierConfig $consume1ActionLoss */
+        /** @var VariableEventModifierConfig $consume1ActionLoss */
         $consume1ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_1_ACTION_LOSS);
-        /** @var ModifierConfig $consume2ActionLoss */
+        /** @var VariableEventModifierConfig $consume2ActionLoss */
         $consume2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_2_ACTION_LOSS);
-        /** @var ModifierConfig $moveIncreaseMovement */
+        /** @var VariableEventModifierConfig $moveIncreaseMovement */
         $moveIncreaseMovement = $this->getReference(DiseaseModifierConfigFixtures::MOVE_INCREASE_MOVEMENT);
-        /** @var ModifierConfig $infected4HealthLoss */
+        /** @var VariableEventModifierConfig $infected4HealthLoss */
         $infected4HealthLoss = $this->getReference(DiseaseModifierConfigFixtures::INFECTED_4_HEALTH_LOSS);
-        /** @var ModifierConfig $takeCat6HealthLoss */
+        /** @var VariableEventModifierConfig $takeCat6HealthLoss */
         $takeCat6HealthLoss = $this->getReference(DiseaseModifierConfigFixtures::TAKE_CAT_6_HEALTH_LOSS);
-        /** @var ModifierConfig $shootAction10PercentAccuracyLost */
+        /** @var VariableEventModifierConfig $shootAction10PercentAccuracyLost */
         $shootAction10PercentAccuracyLost = $this->getReference(DiseaseModifierConfigFixtures::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST);
-        /** @var ModifierConfig $increaseCycleDiseaseChances10 */
+        /** @var VariableEventModifierConfig $increaseCycleDiseaseChances10 */
         $increaseCycleDiseaseChances10 = $this->getReference(DiseaseModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_10);
 
         /** @var SymptomConfig $biting */

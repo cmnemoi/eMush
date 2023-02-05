@@ -16,7 +16,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -212,17 +212,17 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($firstTime);
 
-        /** @var ModifierConfig $showerModifier */
+        /** @var VariableEventModifierConfig $showerModifier */
         $showerModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_SHOWER_MODIFIER);
-        /** @var ModifierConfig $consumeSatietyModifier */
+        /** @var VariableEventModifierConfig $consumeSatietyModifier */
         $consumeSatietyModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_SATIETY_MODIFIER);
-        /** @var ModifierConfig $consumeActionModifier */
+        /** @var VariableEventModifierConfig $consumeActionModifier */
         $consumeActionModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_ACTION_MODIFIER);
-        /** @var ModifierConfig $consumeMovementModifier */
+        /** @var VariableEventModifierConfig $consumeMovementModifier */
         $consumeMovementModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_MOVEMENT_MODIFIER);
-        /** @var ModifierConfig $consumeHealthModifier */
+        /** @var VariableEventModifierConfig $consumeHealthModifier */
         $consumeHealthModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_HEALTH_MODIFIER);
-        /** @var ModifierConfig $consumeMoralModifier */
+        /** @var VariableEventModifierConfig $consumeMoralModifier */
         $consumeMoralModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_MORAL_MODIFIER);
 
         $mushStatus = new ChargeStatusConfig();

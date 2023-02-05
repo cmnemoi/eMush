@@ -2,9 +2,9 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\QuantityEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Service\PlayerModifierServiceInterface;
 use Mush\Player\Entity\Player;
@@ -48,32 +48,26 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         /** @var GameModifier $modifier */
         foreach ($eventModifiers as $modifier) {
-            /** @var AbstractGameEvent $event */
-            $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getTags());
-
-            $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getTags());
         }
     }
 
-    private function createQuantityEvent(Player $player, GameModifier $modifier, \DateTime $time, array $reasons): QuantityEventInterface
+    private function createQuantityEvent(Player $player, GameModifier $modifier, \DateTime $time, array $reasons): void
     {
         $modifierConfig = $modifier->getModifierConfig();
+        if ($modifierConfig instanceof VariableEventModifierConfig) {
+            $target = $modifierConfig->getTargetVariable();
+            $value = intval($modifierConfig->getDelta());
+            $reasons[] = $modifierConfig->getModifierName();
 
-        $target = $modifierConfig->getTargetVariable();
-        $value = intval($modifierConfig->getDelta());
-        $reasons[] = $modifierConfig->getModifierName();
-
-        switch (true) {
-            case $player instanceof Player:
-                return new PlayerVariableEvent(
-                    $player,
-                    $target,
-                    $value,
-                    $reasons,
-                    $time,
-                );
-            default:
-                throw new \LogicException('Unexpected modifier holder type : should be Player');
+            $event = new PlayerVariableEvent(
+                $player,
+                $target,
+                $value,
+                $reasons,
+                $time,
+            );
+            $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
         }
     }
 }

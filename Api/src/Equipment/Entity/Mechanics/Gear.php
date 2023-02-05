@@ -7,12 +7,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
 #[ORM\Entity]
 class Gear extends EquipmentMechanic
 {
-    #[ORM\ManyToMany(targetEntity: ModifierConfig::class)]
+    #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;
 
     public function getMechanics(): array
@@ -29,7 +30,7 @@ class Gear extends EquipmentMechanic
     }
 
     /**
-     * @param Collection<int, ModifierConfig> $modifierConfigs
+     * @param Collection<int, VariableEventModifierConfig> $modifierConfigs
      */
     public function setModifierConfigs(Collection|array $modifierConfigs): static
     {

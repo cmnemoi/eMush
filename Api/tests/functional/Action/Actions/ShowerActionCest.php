@@ -25,13 +25,13 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -110,16 +110,15 @@ class ShowerActionCest
         ;
         $I->haveInRepository($showerActionActivationRequirement);
 
-        $mushShowerModifier = new ModifierConfig();
+        $mushShowerModifier = new VariableEventModifierConfig();
         $mushShowerModifier
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(-3)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierRequirement($showerActionActivationRequirement)
             ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
-            ->buildName()
+            ->setName(ModifierNameEnum::MUSH_SHOWER_MALUS)
         ;
         $I->haveInRepository($mushShowerModifier);
 
@@ -153,13 +152,13 @@ class ShowerActionCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setModifierHolderClass(ReachEnum::INVENTORY)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
@@ -196,13 +195,13 @@ class ShowerActionCest
 
     private function createSoapItem(FunctionalTester $I): GameItem
     {
-        $modifier = new ModifierConfig();
+        $modifier = new VariableEventModifierConfig();
         $modifier
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setModifierHolderClass(ReachEnum::INVENTORY)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
 
         $soapGear = new Gear();

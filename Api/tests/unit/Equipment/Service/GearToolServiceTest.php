@@ -15,7 +15,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GearToolService;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -313,7 +313,7 @@ class GearToolServiceTest extends TestCase
             ->setCharge(1)
         ;
 
-        $modifier1 = new ModifierConfig();
+        $modifier1 = new VariableEventModifierConfig();
         $modifier1
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
@@ -333,7 +333,7 @@ class GearToolServiceTest extends TestCase
             ->setEquipment($gearConfig1)
         ;
 
-        $modifier2 = new ModifierConfig();
+        $modifier2 = new VariableEventModifierConfig();
         $modifier2
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
@@ -357,7 +357,7 @@ class GearToolServiceTest extends TestCase
             ->setCharge(1)
         ;
 
-        $modifier3 = new ModifierConfig();
+        $modifier3 = new VariableEventModifierConfig();
         $modifier3
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)

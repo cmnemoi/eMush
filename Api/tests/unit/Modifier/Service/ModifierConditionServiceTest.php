@@ -7,12 +7,12 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Modifier\Service\ModifierRequirementService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -56,13 +56,13 @@ class ModifierActivationRequirementServiceTest extends TestCase
         $modifierActivationRequirement->setValue(50);
 
         // create a gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($modifierActivationRequirement)
         ;
 
@@ -89,13 +89,13 @@ class ModifierActivationRequirementServiceTest extends TestCase
         $modifierActivationRequirement->setActivationRequirement(ActionEnum::HIDE);
 
         // create a gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($modifierActivationRequirement)
         ;
 
@@ -122,13 +122,13 @@ class ModifierActivationRequirementServiceTest extends TestCase
         $modifierActivationRequirement->setActivationRequirement(ModifierRequirementEnum::NOT_ALONE);
 
         // create a gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($modifierActivationRequirement)
         ;
 

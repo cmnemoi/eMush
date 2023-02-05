@@ -18,7 +18,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationService;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -101,7 +101,7 @@ class DiseaseNormalizerTest extends TestCase
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $player->setDaedalus($daedalus);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setDelta(-6)
             ->setTargetEvent(ModifierScopeEnum::INJURY)

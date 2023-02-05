@@ -1,4 +1,4 @@
-Mush\Modifier\Entity\ModifierActivationRequirement:
+Mush\Modifier\Entity\Config\ModifierActivationRequirement:
   attributes:
     id:
       groups: [ 'modifier_activation_requirement_read' ]

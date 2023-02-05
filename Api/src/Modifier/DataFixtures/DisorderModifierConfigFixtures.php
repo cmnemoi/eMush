@@ -9,13 +9,13 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
-use Mush\Modifier\Entity\ModifierActivationRequirement;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 
 class DisorderModifierConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -66,137 +66,137 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         ;
         $manager->persist($randActivationRequirement70);
 
-        $catInRoomMove2MovementIncrease = new ModifierConfig();
+        $catInRoomMove2MovementIncrease = new VariableEventModifierConfig();
         $catInRoomMove2MovementIncrease
-            ->setTargetEvent(ActionEnum::MOVE)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(2)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ActionEnum::MOVE)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($catInRoomActivationRequirement)
-            ->buildName()
         ;
+        $catInRoomMove2MovementIncrease->buildName();
         $manager->persist($catInRoomMove2MovementIncrease);
 
-        $catInRoomNotMove2ActionIncrease = new ModifierConfig();
+        $catInRoomNotMove2ActionIncrease = new VariableEventModifierConfig();
         $catInRoomNotMove2ActionIncrease
-            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($catInRoomActivationRequirement)
             ->addModifierRequirement($notMoveActionActivationRequirement)
-            ->buildName()
         ;
+        $catInRoomNotMove2ActionIncrease->buildName();
         $manager->persist($catInRoomNotMove2ActionIncrease);
 
-        $cycle1ActionLostRand16WithScreaming = new ModifierConfig();
+        $cycle1ActionLostRand16WithScreaming = new VariableEventModifierConfig();
         $cycle1ActionLostRand16WithScreaming
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::SCREAMING)
-            ->buildName()
         ;
+        $cycle1ActionLostRand16WithScreaming->buildName();
         $manager->persist($cycle1ActionLostRand16WithScreaming);
 
-        $cycle1HealthLostRand16WithWallHeadBang = new ModifierConfig();
+        $cycle1HealthLostRand16WithWallHeadBang = new VariableEventModifierConfig();
         $cycle1HealthLostRand16WithWallHeadBang
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(-1)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::WALL_HEAD_BANG)
-            ->buildName()
         ;
+        $cycle1HealthLostRand16WithWallHeadBang->buildName();
         $manager->persist($cycle1HealthLostRand16WithWallHeadBang);
 
-        $cycle1MoralLostRand70 = new ModifierConfig();
+        $cycle1MoralLostRand70 = new VariableEventModifierConfig();
         $cycle1MoralLostRand70
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierRequirement($randActivationRequirement70)
-            ->buildName()
         ;
+        $cycle1MoralLostRand70->buildName();
         $manager->persist($cycle1MoralLostRand70);
 
-        $cycle2MovementLostRand16WithRunInCircles = new ModifierConfig();
+        $cycle2MovementLostRand16WithRunInCircles = new VariableEventModifierConfig();
         $cycle2MovementLostRand16WithRunInCircles
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-2)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::RUN_IN_CIRCLES)
-            ->buildName()
         ;
+        $cycle2MovementLostRand16WithRunInCircles->buildName();
         $manager->persist($cycle2MovementLostRand16WithRunInCircles);
 
-        $fourPeopleOneActionIncrease = new ModifierConfig();
+        $fourPeopleOneActionIncrease = new VariableEventModifierConfig();
         $fourPeopleOneActionIncrease
-            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($fourPeopleInRoomActivationRequirement)
-            ->buildName()
         ;
+        $fourPeopleOneActionIncrease->buildName();
         $manager->persist($fourPeopleOneActionIncrease);
 
-        $fourPeopleOneMovementIncrease = new ModifierConfig();
+        $fourPeopleOneMovementIncrease = new VariableEventModifierConfig();
         $fourPeopleOneMovementIncrease
-            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($fourPeopleInRoomActivationRequirement)
-            ->buildName()
         ;
+        $fourPeopleOneMovementIncrease->buildName();
         $manager->persist($fourPeopleOneMovementIncrease);
 
-        $reduceMax2ActionPoint = new ModifierConfig();
+        $reduceMax2ActionPoint = new VariableEventModifierConfig();
         $reduceMax2ActionPoint
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-2)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->buildName()
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
         ;
+        $reduceMax2ActionPoint->buildName();
         $manager->persist($reduceMax2ActionPoint);
 
-        $reduceMax3MoralPoint = new ModifierConfig();
+        $reduceMax3MoralPoint = new VariableEventModifierConfig();
         $reduceMax3MoralPoint
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-3)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->buildName()
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
         ;
+        $reduceMax3MoralPoint->buildName();
         $manager->persist($reduceMax3MoralPoint);
 
-        $reduceMax4MoralPoint = new ModifierConfig();
+        $reduceMax4MoralPoint = new VariableEventModifierConfig();
         $reduceMax4MoralPoint
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-4)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->buildName()
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
         ;
+        $reduceMax4MoralPoint->buildName();
         $manager->persist($reduceMax4MoralPoint);
 
         $manager->flush();

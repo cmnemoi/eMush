@@ -27,9 +27,9 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -619,13 +619,13 @@ class LastPlayerCloseGameCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setModifierHolderClass(ReachEnum::INVENTORY)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
@@ -720,7 +720,7 @@ class LastPlayerCloseGameCest
 
         $I->dontSeeInRepository(Place::class);
         $I->dontSeeInRepository(GameModifier::class);
-        $I->seeInRepository(ModifierConfig::class);
+        $I->seeInRepository(VariableEventModifierConfig::class);
         $I->dontSeeInRepository(GameEquipment::class);
     }
 }

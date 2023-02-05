@@ -17,7 +17,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\DisorderModifierConfigFixtures;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
 class DisorderConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -26,31 +26,31 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        /** @var ModifierConfig $catInRoomMove2MovementIncrease */
+        /** @var VariableEventModifierConfig $catInRoomMove2MovementIncrease */
         $catInRoomMove2MovementIncrease = $this->getReference(DisorderModifierConfigFixtures::CAT_IN_ROOM_MOVE_2_MOVEMENT_INCREASE);
-        /** @var ModifierConfig $catInRoomNotMove2ActionIncrease */
+        /** @var VariableEventModifierConfig $catInRoomNotMove2ActionIncrease */
         $catInRoomNotMove2ActionIncrease = $this->getReference(DisorderModifierConfigFixtures::CAT_IN_ROOM_NOT_MOVE_2_ACTION_INCREASE);
-        /** @var ModifierConfig $cycle1ActionLostRand16 */
+        /** @var VariableEventModifierConfig $cycle1ActionLostRand16 */
         $cycle1ActionLostRand16 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_16);
-        /** @var ModifierConfig $cycle1ActionLostRand16WithScreaming */
+        /** @var VariableEventModifierConfig $cycle1ActionLostRand16WithScreaming */
         $cycle1ActionLostRand16WithScreaming = $this->getReference(DisorderModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_16_WITH_SCREAMING);
-        /** @var ModifierConfig $cycle1HealthLostRand16WithWallHeadBang */
+        /** @var VariableEventModifierConfig $cycle1HealthLostRand16WithWallHeadBang */
         $cycle1HealthLostRand16WithWallHeadBang = $this->getReference(DisorderModifierConfigFixtures::CYCLE_1_HEALTH_LOST_RAND_16_WITH_WALL_HEAD_BANG);
-        /** @var ModifierConfig $cycle1MoralLostRand70 */
+        /** @var VariableEventModifierConfig $cycle1MoralLostRand70 */
         $cycle1MoralLostRand70 = $this->getReference(DisorderModifierConfigFixtures::CYCLE_1_MORAL_LOST_RAND_70);
-        /** @var ModifierConfig $cycle2MovementLostRand16WithRunInCircles */
+        /** @var VariableEventModifierConfig $cycle2MovementLostRand16WithRunInCircles */
         $cycle2MovementLostRand16WithRunInCircles = $this->getReference(DisorderModifierConfigFixtures::CYCLE_2_MOVEMENT_LOST_RAND_16_WITH_RUN_IN_CIRCLES);
-        /** @var ModifierConfig $fourPeopleOneActionIncrease */
+        /** @var VariableEventModifierConfig $fourPeopleOneActionIncrease */
         $fourPeopleOneActionIncrease = $this->getReference(DisorderModifierConfigFixtures::FOUR_PEOPLE_ONE_ACTION_INCREASE);
-        /** @var ModifierConfig $fourPeopleOneMovementIncrease */
+        /** @var VariableEventModifierConfig $fourPeopleOneMovementIncrease */
         $fourPeopleOneMovementIncrease = $this->getReference(DisorderModifierConfigFixtures::FOUR_PEOPLE_ONE_MOVEMENT_INCREASE);
-        /** @var ModifierConfig $reduceMax2MoralPoint */
+        /** @var VariableEventModifierConfig $reduceMax2MoralPoint */
         $reduceMax2MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_MORAL_POINT);
-        /** @var ModifierConfig $reduceMax2ActionPoint */
+        /** @var VariableEventModifierConfig $reduceMax2ActionPoint */
         $reduceMax2ActionPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_2_ACTION_POINT);
-        /** @var ModifierConfig $reduceMax3MoralPoint */
+        /** @var VariableEventModifierConfig $reduceMax3MoralPoint */
         $reduceMax3MoralPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_3_MORAL_POINT);
-        /** @var ModifierConfig $reduceMax4MoralPoint */
+        /** @var VariableEventModifierConfig $reduceMax4MoralPoint */
         $reduceMax4MoralPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_4_MORAL_POINT);
 
         /** @var SymptomConfig $biting */

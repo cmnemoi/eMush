@@ -24,7 +24,7 @@ import { TriumphConfig } from "@/entities/Config/TriumphConfig";
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
 // @ts-ignore
-const MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_configs");
+const MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "variable_modifier_configs");
 // @ts-ignore
 const MODIFIER_REQUIREMENT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_activation_requirements");
 // @ts-ignore

@@ -9,23 +9,23 @@ use Mush\Modifier\Service\ConfigData\ModifierActivationRequirementDataLoader;
 
 class ModifierActivationRequirementDataLoaderCest
 {
-    private ModifierActivationRequirementDataLoader $modifierActivationRequirementLoader;
+    private ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
 
     public function _before(FunctionalTester $I)
     {
-        $this->modifierActivationRequirementLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
+        $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
     }
 
     public function testLoadConfigsData(FunctionalTester $I)
     {
-        $this->modifierActivationRequirementLoader->loadConfigsData();
+        $this->modifierActivationRequirementDataLoader->loadConfigsData();
 
-        foreach (ModifierActivationRequirementData::$dataArray as $modifierActivationRequirementData) {
+        foreach (ModifierActivationRequirementData::$dataArray as $modifierActivationRequirementDataData) {
             $I->seeInRepository(ModifierActivationRequirement::class, [
-                'name' => $modifierActivationRequirementData['name'],
-                'activationRequirementName' => $modifierActivationRequirementData['activationRequirementName'],
-                'activationRequirement' => $modifierActivationRequirementData['activationRequirement'],
-                'value' => $modifierActivationRequirementData['value'],
+                'name' => $modifierActivationRequirementDataData['name'],
+                'activationRequirementName' => $modifierActivationRequirementDataData['activationRequirementName'],
+                'activationRequirement' => $modifierActivationRequirementDataData['activationRequirement'],
+                'value' => $modifierActivationRequirementDataData['value'],
             ]);
         }
 
@@ -36,7 +36,7 @@ class ModifierActivationRequirementDataLoaderCest
     {
         $I->haveInRepository(ModifierActivationRequirement::class, ModifierActivationRequirementData::$dataArray[0]);
 
-        $this->modifierActivationRequirementLoader->loadConfigsData();
+        $this->modifierActivationRequirementDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, ModifierActivationRequirement::class, ModifierActivationRequirementData::$dataArray[0]);
     }

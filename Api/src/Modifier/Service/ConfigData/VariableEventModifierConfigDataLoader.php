@@ -41,15 +41,15 @@ class VariableEventModifierConfigDataLoader extends ConfigDataLoader
 
             $modifierConfig = new VariableEventModifierConfig();
             $modifierConfig
+                ->setDelta($modifierConfigData['delta'])
+                ->setTargetVariable($modifierConfigData['targetVariable'])
+                ->setMode($modifierConfigData['mode'])
+                ->setAppliesOn($modifierConfigData['appliesOn'])
                 ->setName($modifierConfigData['name'])
                 ->setModifierName($modifierConfigData['modifierName'])
                 ->setTargetEvent($modifierConfigData['targetEvent'])
                 ->setApplyOnParameterOnly($modifierConfigData['applyOnActionParameter'])
                 ->setModifierHolderClass($modifierConfigData['modifierHolderClass'])
-                ->setDelta($modifierConfigData['delta'])
-                ->setTargetVariable($modifierConfigData['targetVariable'])
-                ->setMode($modifierConfigData['mode'])
-                ->setAppliesOn($modifierConfigData['appliesOn'])
             ;
             $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);
 
@@ -60,13 +60,13 @@ class VariableEventModifierConfigDataLoader extends ConfigDataLoader
 
     private function setModifierConfigActivationRequirements(ModifierConfig $modifierConfig, array $modifierConfigData): void
     {
-        $modifierActivationRequirements = new ArrayCollection([]);
+        $modifierActivationRequirements = [];
         foreach ($modifierConfigData['modifierActivationRequirements'] as $activationRequirementName) {
             $modifierActivationRequirement = $this->modifierActivationRequirementRepository->findOneBy(['name' => $activationRequirementName]);
             if ($modifierActivationRequirement === null) {
                 throw new \Exception('Modifier activation requirement not found: ' . $activationRequirementName);
             }
-            $modifierActivationRequirements->add($modifierActivationRequirement);
+            $modifierActivationRequirements[] = $modifierActivationRequirement;
         }
         $modifierConfig->setModifierActivationRequirements($modifierActivationRequirements);
     }

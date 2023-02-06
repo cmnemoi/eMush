@@ -36,3 +36,7 @@ services:
   Mush\Daedalus\Normalizer\ClosedDaedalusNormalizer:
     tags:
       - { name: 'serializer.normalizer', priority: 64 }
+  
+  # need this for tests to work
+  Mush\Daedalus\Service\ConfigData\RandomItemPlacesDataLoader:
+    public: true

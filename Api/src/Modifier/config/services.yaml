@@ -14,3 +14,6 @@ services:
       - '../Enum/'
       - '../Kernel.php'
       - '../Tests/'
+
+  Mush\Modifier\Service\ConfigData\ModifierActivationRequirementDataLoader:
+    public: true

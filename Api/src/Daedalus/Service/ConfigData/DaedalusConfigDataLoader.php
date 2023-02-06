@@ -76,7 +76,7 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
     private function setDaedalusConfigPlaceConfigs(DaedalusConfig $daedalusConfig, array $daedalusConfigData): void
     {
         $placeConfigNames = $daedalusConfigData['placeConfigs'];
-        $placeConfigs = new ArrayCollection();
+        $placeConfigs = [];
 
         foreach ($placeConfigNames as $placeConfigName) {
             $placeConfig = $this->placeConfigRepository->findOneBy(['name' => $placeConfigName]);
@@ -85,9 +85,9 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
                 throw new \Exception("PlaceConfig {$placeConfigName} not found!");
             }
 
-            $placeConfigs->add($placeConfig);
+            $placeConfigs[] = $placeConfig;
         }
 
-        $daedalusConfig->setPlaceConfigs($placeConfigs);
+        $daedalusConfig->setPlaceConfigs(new ArrayCollection($placeConfigs));
     }
 }

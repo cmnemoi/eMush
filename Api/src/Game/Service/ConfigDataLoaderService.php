@@ -6,9 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Repository\ActionRepository;
 use Mush\Action\Service\ConfigData\ActionDataLoader;
+use Mush\Game\Repository\DifficultyConfigRepository;
 use Mush\Game\Repository\GameConfigRepository;
 use Mush\Game\Repository\TriumphConfigRepository;
 use Mush\Game\Service\ConfigData\ConfigDataLoader;
+use Mush\Game\Service\ConfigData\DifficultyConfigDataLoader;
 use Mush\Game\Service\ConfigData\GameConfigDataLoader;
 use Mush\Game\Service\ConfigData\TriumphConfigDataLoader;
 
@@ -16,6 +18,7 @@ class ConfigDataLoaderService
 {
     private EntityManagerInterface $entityManager;
     private ActionRepository $actionRepository;
+    private DifficultyConfigRepository $difficultyConfigRepository;
     private GameConfigRepository $gameConfigRepository;
     private TriumphConfigRepository $triumphConfigRepository;
 
@@ -23,11 +26,14 @@ class ConfigDataLoaderService
 
     public function __construct(EntityManagerInterface $entityManager,
                                 ActionRepository $actionRepository,
+                                DifficultyConfigRepository $difficultyConfigRepository,
                                 GameConfigRepository $gameConfigRepository,
                                 TriumphConfigRepository $triumphConfigRepository
     ) {
-        /** @var ActionDataLoader $actionDataLoader */
+        /** @var ConfigDataLoader $actionDataLoader */
         $actionDataLoader = new ActionDataLoader($entityManager, $actionRepository);
+        /** @var ConfigDataLoader $difficultyConfigDataLoader */
+        $difficultyConfigDataLoader = new DifficultyConfigDataLoader($entityManager, $difficultyConfigRepository);
         /** @var ConfigDataLoader $gameConfigDataLoader */
         $gameConfigDataLoader = new GameConfigDataLoader($entityManager, $gameConfigRepository);
         /** @var ConfigDataLoader $triumphConfigDataLoader */
@@ -37,6 +43,7 @@ class ConfigDataLoaderService
         $dataLoaders = new ArrayCollection(
             [
                 $actionDataLoader,
+                $difficultyConfigDataLoader,
                 $gameConfigDataLoader,
                 $triumphConfigDataLoader,
             ]

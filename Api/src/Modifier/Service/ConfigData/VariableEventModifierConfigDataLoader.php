@@ -2,7 +2,6 @@
 
 namespace Mush\Modifier\Service\ConfigData;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\Service\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig as ModifierConfig;

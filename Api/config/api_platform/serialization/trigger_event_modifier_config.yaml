@@ -1,10 +1,12 @@
-Mush\Modifier\Entity\Config\VariableEventModifierConfig:
+Mush\Modifier\Entity\Config\TriggerEventModifierConfig:
   attributes:
     id:
       groups: [ 'modifier_config_read' ]
     name:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     modifierName:
+      groups: [ 'modifier_config_read' , 'modifier_config_write' ]
+    triggeredEvent:
       groups: [ 'modifier_config_read' , 'modifier_config_write' ]
     delta:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
@@ -14,7 +16,9 @@ Mush\Modifier\Entity\Config\VariableEventModifierConfig:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     modifierHolderClass:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    mode:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
     modifierActivationRequirements:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    applyOnActionParameter:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    visibility:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]

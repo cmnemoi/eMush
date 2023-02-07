@@ -1,0 +1,28 @@
+Mush\Modifier\Entity\Config\AbstractModifierConfig:
+  attributes:
+    id:
+      groups: [ 'modifier_config_read' ]
+    name:
+      groups: [ 'modifier_config_read' ]
+    modifierName:
+      groups: [ 'modifier_config_read' ]
+    delta:
+      groups: [ 'modifier_config_read' ]
+    targetVariable:
+      groups: [ 'modifier_config_read' ]
+    targetEvent:
+      groups: [ 'modifier_config_read' ]
+    modifierHolderClass:
+      groups: [ 'modifier_config_read' ]
+    mode:
+      groups: [ 'modifier_config_read' ]
+    applyOnActionParameter:
+      groups: [ 'modifier_config_read' ]
+    applyOn:
+      groups: [ 'modifier_config_read' ]
+    modifierActivationRequirements:
+      groups: [ 'modifier_config_read' ]
+    triggeredEvent:
+      groups: [ 'modifier_config_read' ]
+    visibility:
+      groups: [ 'modifier_config_read' ]

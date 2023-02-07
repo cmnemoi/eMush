@@ -3,6 +3,7 @@ import { ModifierActivationRequirement } from "@/entities/Config/ModifierActivat
 export class ModifierConfig {
     public iri: string|null;
     public id: number|null;
+    public type: string|null;
     public name: string|null;
     public modifierName: string|null;
     public delta: number|null;
@@ -10,12 +11,15 @@ export class ModifierConfig {
     public targetEvent: string|null;
     public modifierHolderClass: string|null;
     public mode: string|null;
+    public triggeredEvent: string|null;
+    public applyOnActionParameter: boolean|null;
+    public applyOn: string|null;
     public modifierActivationRequirements:ModifierActivationRequirement[]|null;
-
 
     constructor() {
         this.iri = null;
         this.id = null;
+        this.type = null;
         this.name = null;
         this.modifierName = null;
         this.delta = null;
@@ -23,11 +27,15 @@ export class ModifierConfig {
         this.targetEvent = null;
         this.modifierHolderClass = null;
         this.mode = null;
+        this.applyOn = null;
+        this.triggeredEvent = null;
+        this.applyOnActionParameter = null;
         this.modifierActivationRequirements = null;
     }
     load(object:any) : ModifierConfig {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
+            this.type = object['@type'];
             this.id = object.id;
             this.name = object.name;
             this.modifierName = object.modifierName;
@@ -35,6 +43,9 @@ export class ModifierConfig {
             this.targetVariable = object.targetVariable;
             this.targetEvent = object.targetEvent;
             this.modifierHolderClass = object.modifierHolderClass;
+            this.applyOn = object.applyOn;
+            this.applyOnActionParameter = object.applyOnActionParameter;
+            this.triggeredEvent = object.triggeredEvent;
             this.mode = object.mode;
         }
         return this;
@@ -51,6 +62,9 @@ export class ModifierConfig {
             'targetEvent': this.targetEvent,
             'modifierHolderClass': this.modifierHolderClass,
             'mode': this.mode,
+            'triggeredEvent': this.triggeredEvent,
+            'applyOn': this.applyOn,
+            'applyOnActionParameter': this.applyOnActionParameter,
             'modifierActivationRequirements': modifierActivationRequirements
         };
     }

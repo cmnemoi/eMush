@@ -111,7 +111,7 @@ export default defineComponent({
         }
     },
     beforeMount() {
-        const modifierActivationRequirementId = Number(this.$route.params.modifierActivationRequirementId);
+        const modifierActivationRequirementId = Number(this.$route.params.configId);
         GameConfigService.loadModifierActivationRequirement(modifierActivationRequirementId).then((res: ModifierActivationRequirement | null) => {
             this.modifierActivationRequirement = res;
         });

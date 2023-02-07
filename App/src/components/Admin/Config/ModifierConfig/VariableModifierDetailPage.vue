@@ -32,13 +32,6 @@
         </div>
         <div class="flex-row">
             <Input
-                :label="$t('admin.modifierConfig.targetEvent')"
-                id="modifierConfig_targetEvent"
-                v-model="modifierConfig.targetEvent"
-                type="text"
-                :errors="errors.targetEvent"
-            />
-            <Input
                 :label="$t('admin.modifierConfig.modifierHolderClass')"
                 id="modifierConfig_modifierHolderClass"
                 v-model="modifierConfig.modifierHolderClass"
@@ -51,6 +44,13 @@
                 v-model="modifierConfig.mode"
                 type="text"
                 :errors="errors.mode"
+            />
+            <Input
+                :label="$t('admin.modifierConfig.applyOnActionParameter')"
+                type="checkbox"
+                class="configCheckbox"
+                id="modifierConfig_applyOnActionParameter"
+                v-model="modifierConfig.applyOnActionParameter"
             />
         </div>
         <h3>Modifier Requirement</h3>
@@ -87,7 +87,7 @@ interface ModifierConfigState {
 }
 
 export default defineComponent({
-    name: "ModifierConfigState",
+    name: "VariableEventModifierConfigState",
     components: {
         ChildCollectionManager,
         Input,
@@ -134,7 +134,7 @@ export default defineComponent({
                 .then((res: ModifierConfig | null) => {
                     this.modifierConfig = res;
                     if (this.modifierConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_event_modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
                             .then((result) => {
                                 const modifierActivationRequirements : ModifierActivationRequirement[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -175,11 +175,12 @@ export default defineComponent({
         }
     },
     beforeMount() {
-        const modifierConfigId = String(this.$route.params.modifierConfigId);
+        console.log('coucou');
+        const modifierConfigId = String(this.$route.params.configId);
         GameConfigService.loadModifierConfig(Number(modifierConfigId)).then((res: ModifierConfig | null) => {
             if (res instanceof ModifierConfig) {
                 this.modifierConfig = res;
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs', modifierConfigId, 'modifier_activation_requirements'))
+                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_event_modifier_configs', modifierConfigId, 'modifier_activation_requirements'))
                     .then((result) => {
                         const modifierActivationRequirements : ModifierActivationRequirement[] = [];
                         result.data['hydra:member'].forEach((datum: any) => {
@@ -199,5 +200,8 @@ export default defineComponent({
 
 
 <style lang="scss" scoped>
-
+   .configCheckbox {
+       margin-left: 10px;
+       margin-right: 10px;
+   }
 </style>

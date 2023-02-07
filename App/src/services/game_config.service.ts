@@ -26,6 +26,10 @@ const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs"
 // @ts-ignore
 const MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_configs");
 // @ts-ignore
+const VARIABLE_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "variable_event_modifier_configs");
+// @ts-ignore
+const TARGET_EVENT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "target_event_modifier_configs");
+// @ts-ignore
 const MODIFIER_REQUIREMENT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_activation_requirements");
 // @ts-ignore
 const CONFIG_STATUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "status_configs");
@@ -89,6 +93,11 @@ const MECHANICS_ENDPOINTS: Map<string, string> = new Map([
     ['ration', RATION_ENDPOINT],
     ['weapon', WEAPON_ENDPOINTS]
 ]);
+
+const MODIFIER_CONFIG_ENDPOINTS: Map<string, string> = new Map([
+    ['variable_event_modifier_config', VARIABLE_MODIFIER_CONFIG_ENDPOINT],
+    ['target_event_modifier_config', TARGET_EVENT_MODIFIER_CONFIG_ENDPOINT],
+]);
     
 
 const GameConfigService = {
@@ -124,9 +133,13 @@ const GameConfigService = {
 
     createModifierConfig: async(modifierConfig: ModifierConfig): Promise<ModifierConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const modifierConfigRecord: Record<string, any> = modifierConfig.jsonEncode();
+        const modifierType = modifierConfig.type?.toLocaleLowerCase();
+        if (modifierType === undefined) {
+            throw new Error('Mechanics type is not defined');
+        }
 
-        const modifierConfigData = await ApiService.post(MODIFIER_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', modifierConfigRecord)
+        const modifierConfigRecord: Record<string, any> = modifierConfig.jsonEncode();
+        const modifierConfigData = await ApiService.post(MODIFIER_CONFIG_ENDPOINTS.get(modifierType)+ '?XDEBUG_SESSION_START=PHPSTORM', modifierConfigRecord)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (modifierConfigData.data) {
@@ -139,6 +152,7 @@ const GameConfigService = {
 
     loadModifierConfig: async(modifierConfigId: number): Promise<ModifierConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
+
         const modifierConfigData = await ApiService.get(MODIFIER_CONFIG_ENDPOINT + '/' + modifierConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -152,7 +166,12 @@ const GameConfigService = {
 
     updateModifierConfig: async(modifierConfig: ModifierConfig): Promise<ModifierConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const modifierConfigData = await ApiService.put(MODIFIER_CONFIG_ENDPOINT + '/' + modifierConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', modifierConfig.jsonEncode())
+        const modifierType = modifierConfig.type?.toLocaleLowerCase();
+        if (modifierType === undefined) {
+            throw new Error('Mechanics type is not defined');
+        }
+
+        const modifierConfigData = await ApiService.put(MODIFIER_CONFIG_ENDPOINTS.get(modifierType) + '/' + modifierConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', modifierConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;

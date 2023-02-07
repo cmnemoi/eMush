@@ -1,0 +1,62 @@
+<?php
+
+namespace Mush\Game\Service\ConfigData;
+
+use Mush\Equipment\Enum\EquipmentEnum;
+
+/** @codeCoverageIgnore */
+class DifficultyConfigData
+{
+    public static $dataArray = [
+        [
+            'name' => 'default',
+            'equipmentBreakRate' => 30,
+            'doorBreakRate' => 40,
+            'equipmentFireBreakRate' => 30,
+            'startingFireRate' => 2,
+            'propagatingFireRate' => 30,
+            'hullFireDamageRate' => 20,
+            'tremorRate' => 5,
+            'electricArcRate' => 5,
+            'metalPlateRate' => 5,
+            'panicCrisisRate' => 5,
+            'firePlayerDamage' => [2 => 1],
+            'fireHullDamage' => [2 => 1, 4 => 1],
+            'electricArcPlayerDamage' => [3 => 1],
+            'tremorPlayerDamage' => [1 => 1, 2 => 1, 3 => 1],
+            'metalPlatePlayerDamage' => [4 => 1, 5 => 1, 6 => 1],
+            'panicCrisisPlayerDamage' => [3 => 1],
+            'plantDiseaseRate' => 5,
+            'cycleDiseaseRate' => 20,
+            'equipmentBreakRateDistribution' => [
+                EquipmentEnum::BIOS_TERMINAL => 3,
+                EquipmentEnum::COMMUNICATION_CENTER => 6,
+                EquipmentEnum::NERON_CORE => 6,
+                EquipmentEnum::RESEARCH_LABORATORY => 6,
+                EquipmentEnum::CALCULATOR => 6,
+                EquipmentEnum::EMERGENCY_REACTOR => 6,
+                EquipmentEnum::REACTOR_LATERAL => 6,
+                EquipmentEnum::GRAVITY_SIMULATOR => 6,
+                EquipmentEnum::ASTRO_TERMINAL => 12,
+                EquipmentEnum::COMMAND_TERMINAL => 12,
+                EquipmentEnum::PLANET_SCANNER => 12,
+                EquipmentEnum::JUKEBOX => 12,
+                EquipmentEnum::ANTENNA => 12,
+                EquipmentEnum::PATROL_SHIP => 12,
+                EquipmentEnum::PASIPHAE => 12,
+                EquipmentEnum::COMBUSTION_CHAMBER => 12,
+                EquipmentEnum::KITCHEN => 12,
+                EquipmentEnum::DYNARCADE => 12,
+                EquipmentEnum::COFFEE_MACHINE => 12,
+                EquipmentEnum::MYCOSCAN => 12,
+                EquipmentEnum::TURRET_COMMAND => 12,
+                EquipmentEnum::SURGERY_PLOT => 12,
+                EquipmentEnum::THALASSO => 25,
+                EquipmentEnum::CAMERA_EQUIPMENT => 25,
+                EquipmentEnum::SHOWER => 25,
+                EquipmentEnum::FUEL_TANK => 25,
+                EquipmentEnum::OXYGEN_TANK => 25,
+            ],
+        ],
+    ];
+}

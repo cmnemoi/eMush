@@ -5,38 +5,28 @@ namespace Mush\Modifier\Entity\Config;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Enum\VisibilityEnum;
 
+/**
+ * One of the modifier type
+ * This type of modifier trigger an additional event when the target event is dispatched.
+ *
+ * visibility: the visibility of the triggered event
+ * triggeredEvent: the name of the triggered event
+ */
 #[ORM\Entity]
 class TriggerEventModifierConfig extends AbstractModifierConfig
 {
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $visibility = VisibilityEnum::PUBLIC;
+    protected string $triggeredEvent;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $modifiedVariable = null;
-
-    #[ORM\Column(type: 'integer')]
-    private int $quantity = 0;
-
-    public function __construct(string $modifierName)
-    {
-        $this->modifierName = $modifierName;
-
-        parent::__construct();
-    }
-
-    public function getModifierName(): ?string
-    {
-        return $this->modifierName;
-    }
+    #[ORM\Column(type: 'string', nullable: false)]
+    protected string $visibility = VisibilityEnum::PUBLIC;
 
     public function buildName(string $configName): self
     {
-        $quantity = $this->quantity;
-        $modifiedVariable = $this->modifiedVariable;
         $baseName = $this->modifierName;
 
-        if ($modifiedVariable !== null) {
-            $baseName = strval($quantity) . $modifiedVariable;
+        if ($baseName === null) {
+            $baseName = $this->triggeredEvent;
         }
 
         $this->name = $baseName . '_ON_' . $this->getTargetEvent() . '_' . $configName;
@@ -49,6 +39,18 @@ class TriggerEventModifierConfig extends AbstractModifierConfig
         return $this;
     }
 
+    public function getTriggeredEvent(): string
+    {
+        return $this->triggeredEvent;
+    }
+
+    public function setTriggeredEvent(string $triggeredEvent): self
+    {
+        $this->triggeredEvent = $triggeredEvent;
+
+        return $this;
+    }
+
     public function getVisibility(): string
     {
         return $this->visibility;
@@ -57,30 +59,6 @@ class TriggerEventModifierConfig extends AbstractModifierConfig
     public function setVisibility(string $visibility): self
     {
         $this->visibility = $visibility;
-
-        return $this;
-    }
-
-    public function getQuantity(): int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): self
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getModifiedVariable(): ?string
-    {
-        return $this->modifiedVariable;
-    }
-
-    public function setModifiedVariable(string $modifiedVariable): self
-    {
-        $this->modifiedVariable = $modifiedVariable;
 
         return $this;
     }

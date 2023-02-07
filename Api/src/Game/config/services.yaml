@@ -14,3 +14,11 @@ services:
       - '../Entity/'
       - '../Kernel.php'
       - '../Tests/'
+
+  # need this for tests working somehow
+  Mush\Game\Service\ConfigData\DifficultyConfigDataLoader:
+    public: true
+  Mush\Game\Service\ConfigData\GameConfigDataLoader:
+    public: true
+  Mush\Game\Service\ConfigData\TriumphConfigDataLoader:
+    public: true

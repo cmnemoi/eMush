@@ -6,5 +6,5 @@ framework:
                 - '%kernel.project_dir%/config/api_platform/validation/daedalus_info.yaml'
                 - '%kernel.project_dir%/config/api_platform/validation/game_config.yaml'
                 - '%kernel.project_dir%/config/api_platform/validation/modifier_activation_requirement.yaml'
-                - '%kernel.project_dir%/config/api_platform/validation/modifier_config.yaml'
+                - '%kernel.project_dir%/config/api_platform/validation/variable_event_modifier_config.yaml'
                 - '%kernel.project_dir%/config/api_platform/validation/user.yaml'

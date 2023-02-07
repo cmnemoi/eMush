@@ -26,7 +26,6 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
-use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -111,11 +110,11 @@ class ShowerActionCest
         ;
         $I->haveInRepository($showerActionActivationRequirement);
 
-        $mushShowerModifier = new TriggerEventModifierConfig();
+        $mushShowerModifier = new VariableEventModifierConfig();
         $mushShowerModifier
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setModifiedVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setQuantity(-3)
+            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
+            ->setDelta(-3)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($showerActionActivationRequirement)
             ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)

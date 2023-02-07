@@ -7,7 +7,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\QuantityEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
-use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -79,7 +79,7 @@ class StatusSubscriber implements EventSubscriberInterface
         // handle modifiers triggered by player status
         $player = $this->getPlayer($statusHolder);
         if ($player !== null) {
-            $modifiers = $player->getModifiers()->getModifiersByEvent([StatusEvent::STATUS_APPLIED]);
+            $modifiers = $player->getModifiers()->getScopedModifiers([StatusEvent::STATUS_APPLIED]);
             $modifiers = $this->modifierActivationRequirementService->getActiveModifiers($modifiers, $event->getTags(), $player);
 
             /** @var GameModifier $modifier */
@@ -197,11 +197,11 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         $modifierConfig = $modifier->getModifierConfig();
 
-        if ($modifierConfig instanceof TriggerEventModifierConfig &&
-            ($target = $modifierConfig->getModifiedVariable()) !== null &&
+        if ($modifierConfig instanceof VariableEventModifierConfig &&
             $holder instanceof Player
         ) {
-            $value = $modifierConfig->getQuantity();
+            $target = $modifierConfig->getTargetVariable();
+            $value = intval($modifierConfig->getDelta());
             $eventReasons[] = $modifierConfig->getModifierName();
 
             $event = new PlayerVariableEvent(
@@ -212,7 +212,6 @@ class StatusSubscriber implements EventSubscriberInterface
                 $time,
             );
 
-            $event->setVisibility($modifierConfig->getVisibility());
             $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
         }
     }

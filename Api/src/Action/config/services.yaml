@@ -23,3 +23,7 @@ services:
   Mush\Action\Actions\:
     resource: '../Actions/'
     tags: ['mush.action']
+
+  # need this for tests to work
+  Mush\Action\Service\ConfigData\ActionDataLoader:
+    public: true

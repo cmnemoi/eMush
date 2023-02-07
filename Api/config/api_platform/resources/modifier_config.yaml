@@ -1,13 +1,11 @@
-Mush\Modifier\Entity\ModifierConfig:
-  shortName: 'VariableEventModifierConfig'
-  description: 'eMush VariableEventModifierConfig'
+Mush\Modifier\Entity\Config\AbstractModifierConfig:
+  shortName: 'ModifierConfig'
+  description: 'eMush TriggerEventModifierConfig'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_USER")'
     normalization_context:
       groups: [ 'modifier_config_read' ]
-    denormalization_context:
-      groups: [ 'modifier_config_write' ]
   collectionOperations:
     get:
       security: 'is_granted("ROLE_MODERATOR")'

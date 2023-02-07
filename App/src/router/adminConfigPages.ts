@@ -1,9 +1,7 @@
 import GameConfigListPage from "@/components/Admin/Config/GameConfig/GameConfigListPage.vue";
 import GameConfigDetailPage from "@/components/Admin/Config/GameConfig/GameConfigDetailPage.vue";
 import ModifierConfigListPage from "@/components/Admin/Config/ModifierConfig/ModifierConfigListPage.vue";
-import ModifierConfigDetailPage from "@/components/Admin/Config/ModifierConfig/ModifierConfigDetailPage.vue";
-import ModifierActivationRequirementListPage from "@/components/Admin/Config/ModifierActivationRequirement/ModifierActivationRequirementListPage.vue";
-import ModifierActivationRequirementDetailPage from "@/components/Admin/Config/ModifierActivationRequirement/ModifierActivationRequirementDetailPage.vue";
+import ModifierActivationRequirementDetailPage from "@/components/Admin/Config/ModifierConfig/ModifierActivationRequirementDetailPage.vue";
 import StatusConfigListPage from "@/components/Admin/Config/StatusConfig/StatusConfigListPage.vue";
 import StatusConfigDetailPage from "@/components/Admin/Config/StatusConfig/StatusConfigDetailPage.vue";
 import ActionConfigListPage from "@/components/Admin/Config/ActionConfig/ActionConfigListPage.vue";
@@ -34,6 +32,9 @@ import DiseaseCauseConfigListPage from "@/components/Admin/Config/DiseaseCauseCo
 import DiseaseCauseConfigDetailPage from "@/components/Admin/Config/DiseaseCauseConfig/DiseaseCauseConfigDetailPage.vue";
 import TriumphConfigListPage from "@/components/Admin/Config/TriumphConfig/TriumphConfigListPage.vue";
 import TriumphConfigDetailPage from "@/components/Admin/Config/TriumphConfig/TriumphConfigDetailPage.vue";
+import VariableModifierDetailPage from "@/components/Admin/Config/ModifierConfig/VariableModifierDetailPage.vue";
+import TriggerEventModifierDetailPage
+    from "@/components/Admin/Config/ModifierConfig/TriggerEventModifierDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -52,18 +53,18 @@ export const adminConfigRoutes = [
         component: ModifierConfigListPage
     },
     {
-        name: "AdminModifierConfigDetail",
-        path: 'modifier-config/:modifierConfigId',
-        component: ModifierConfigDetailPage
+        name: "AdminVariableModifierConfigDetail",
+        path: 'variable-modifier-config/:configId',
+        component: VariableModifierDetailPage
     },
     {
-        name: "AdminModifierActivationRequirementList",
-        path: 'modifier-activation-requirement-list',
-        component: ModifierActivationRequirementListPage
+        name: "AdminTriggerEventModifierConfigDetail",
+        path: 'event-trigger-modifier-config/:configId',
+        component: TriggerEventModifierDetailPage
     },
     {
         name: "AdminModifierActivationRequirementDetail",
-        path: 'modifier-activation-requirement/:modifierActivationRequirementId',
+        path: 'modifier-activation-requirement/:configId',
         component: ModifierActivationRequirementDetailPage
     },
     {

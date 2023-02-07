@@ -1,0 +1,22 @@
+Mush\Modifier\Entity\Config\VariableEventModifierConfig:
+  properties:
+    name:
+      - NotBlank: ~
+      - Type: string
+    modifierName:
+      - Type: string
+    delta:
+      - NotBlank: ~
+      - Type: float
+    targetVariable:
+      - NotBlank: ~
+      - Type: string
+    modifierHolderClass:
+      - NotBlank: ~
+      - Type: string
+    mode:
+      - NotBlank: ~
+      - Type: string
+    applyOnActionParameter:
+      - NotBlank: ~
+      - Type: boolean

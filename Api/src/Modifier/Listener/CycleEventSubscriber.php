@@ -11,7 +11,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\QuantityEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Service\ModifierRequirementService;
@@ -53,7 +53,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
     {
         $holder = $this->getModifierHolder($event);
 
-        $cycleModifiers = $holder->getModifiers()->getModifiersByEvent([EventEnum::NEW_CYCLE]);
+        $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_CYCLE]);
         $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, [EventEnum::NEW_CYCLE], $holder);
 
         /** @var GameModifier $modifier */
@@ -66,7 +66,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
     {
         $holder = $this->getModifierHolder($event);
 
-        $cycleModifiers = $holder->getModifiers()->getModifiersByEvent([EventEnum::NEW_DAY]);
+        $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_DAY]);
         $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, [EventEnum::NEW_CYCLE], $holder);
 
         /** @var GameModifier $modifier */
@@ -79,7 +79,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
     {
         $holder = $event->getPlayer();
 
-        $modifiers = $holder->getModifiers()->getModifiersByEvent([ActionEvent::POST_ACTION]);
+        $modifiers = $holder->getModifiers()->getScopedModifiers([ActionEvent::POST_ACTION]);
         $modifiers = $this->modifierActivationRequirementService->getActiveModifiers($modifiers, $event->getTags(), $holder);
 
         /** @var GameModifier $modifier */
@@ -108,10 +108,9 @@ class CycleEventSubscriber implements EventSubscriberInterface
     {
         $modifierConfig = $modifier->getModifierConfig();
 
-        if ($modifierConfig instanceof TriggerEventModifierConfig &&
-            ($target = $modifierConfig->getModifiedVariable()) !== null
-        ) {
-            $value = $modifierConfig->getQuantity();
+        if ($modifierConfig instanceof VariableEventModifierConfig) {
+            $target = $modifierConfig->getTargetVariable();
+            $value = intval($modifierConfig->getDelta());
 
             if (($modifierName = $modifierConfig->getModifierName()) !== null) {
                 $reasons[] = $modifierName;
@@ -125,7 +124,6 @@ class CycleEventSubscriber implements EventSubscriberInterface
                     $reasons,
                     $time,
                 );
-                $event->setVisibility($modifierConfig->getVisibility());
                 $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
             }
 

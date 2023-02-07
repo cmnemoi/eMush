@@ -6,12 +6,22 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class storing the various information needed to create and apply a modifier.
+ *
+ * name: a unique name needed for the DB
+ * modifierName: the name of the modifier is used to create log associated with a modifier (apply modifier)
+ * targetEvent: the name of the event that trigger this modifier (apply modifier)
+ * applyOnActionParameter: specify if the modifier only is applied when the holder is the target of an action (apply modifier)
+ * modifierHolderClass: the class that will hold the GameModifier entity (create modifier)
+ */
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
-    'event_trigger_config' => TriggerEventModifierConfig::class,
-    'variable_event_modifier' => VariableEventModifierConfig::class,
+    'trigger_event_modifier_config' => TriggerEventModifierConfig::class,
+    'variable_event_modifier_config' => VariableEventModifierConfig::class,
+    'trigger_variable_event_modifier_config' => TriggerVariableEventModifierConfig::class,
 ])]
 abstract class AbstractModifierConfig
 {
@@ -29,7 +39,7 @@ abstract class AbstractModifierConfig
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $targetEvent;
 
-    #[ORM\Column(type: 'bool', nullable: false)]
+    #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $applyOnActionParameter = false;
 
     #[ORM\Column(type: 'string', nullable: false)]
@@ -84,12 +94,12 @@ abstract class AbstractModifierConfig
         return $this;
     }
 
-    public function getIsOnTargetOnly(): bool
+    public function getApplyOnParameterOnly(): bool
     {
         return $this->applyOnActionParameter;
     }
 
-    public function setIsOnTargetOnly(bool $onTargetOnly): self
+    public function setApplyOnParameterOnly(bool $onTargetOnly): self
     {
         $this->applyOnActionParameter = $onTargetOnly;
 

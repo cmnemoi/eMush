@@ -6,6 +6,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Event\QuantityEventInterface;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 
+/**
+ * One of the modifier type
+ * This type of modifier change the output of an AbstractQuantityEvent
+ * It can modify the applied modification but also the maximum and minimum values.
+ *
+ * delta: the amount of modification
+ * targetVariable: the name of the variable that can be modified
+ * mode: specify the mode of application of the delta (additive, multiplicative or set)
+ * applyOn: specify if the modification is on the value or on the possible range of the value
+ */
 #[ORM\Entity]
 class VariableEventModifierConfig extends AbstractModifierConfig
 {

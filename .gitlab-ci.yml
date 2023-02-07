@@ -84,3 +84,20 @@ front-test:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH == "develop"'
+
+# Generate a CHANGELOG.md file and create a new release on GitLab while merging to master
+release:
+  <<: *node_template
+  before_script:
+    - npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/release-notes-generator @semantic-release/gitlab
+  variables:
+    GL_TOKEN: $semantic_release_token
+    version: '${version}'
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - CHANGELOG.md
+  script:
+    - semantic-release --branches master -t $version -p @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/gitlab 
+  only:
+    - master

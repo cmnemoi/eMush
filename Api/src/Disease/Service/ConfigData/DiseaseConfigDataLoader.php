@@ -2,11 +2,13 @@
 
 namespace Mush\Disease\Service\ConfigData;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Disease\Repository\SymptomConfigRepository;
 use Mush\Game\Service\ConfigData\ConfigDataLoader;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Repository\ModifierConfigRepository;
 
 class DiseaseConfigDataLoader extends ConfigDataLoader
@@ -39,7 +41,7 @@ class DiseaseConfigDataLoader extends ConfigDataLoader
                 continue;
             }
 
-            $diseaseConfig = new DiseaseConfig($diseaseConfigData['diseaseName']);
+            $diseaseConfig = new DiseaseConfig();
             $diseaseConfig
                 ->setName($diseaseConfigData['name'])
                 ->setDiseaseName($diseaseConfigData['diseaseName'])
@@ -63,13 +65,14 @@ class DiseaseConfigDataLoader extends ConfigDataLoader
     {
         $modifierConfigs = [];
         foreach ($diseaseConfigData['modifierConfigs'] as $modifierConfigName) {
+            /** @var VariableEventModifierConfig $modifierConfig */
             $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigName]);
             if ($modifierConfig === null) {
                 throw new \Exception('Modifier config not found: ' . $modifierConfigName);
             }
             $modifierConfigs[] = $modifierConfig;
         }
-        $diseaseConfig->setModifierConfigs($modifierConfigs);
+        $diseaseConfig->setModifierConfigs(new ArrayCollection($modifierConfigs));
     }
 
     private function setDiseaseConfigSymptomConfigs(DiseaseConfig $diseaseConfig, array $diseaseConfigData): void

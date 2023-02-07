@@ -227,4 +227,16 @@ class Action
 
         return $this;
     }
+
+    public function setCriticalRate(int $criticalRate): self
+    {
+        $this->actionVariables->setValueByName($criticalRate, ActionVariableEnum::PERCENTAGE_CRITICAL);
+
+        return $this;
+    }
+
+    public function getCriticalRate(): int
+    {
+        return $this->actionVariables->getValueByName(ActionVariableEnum::PERCENTAGE_CRITICAL);
+    }
 }

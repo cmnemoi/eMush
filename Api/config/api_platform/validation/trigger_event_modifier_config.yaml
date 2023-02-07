@@ -1,4 +1,4 @@
-Mush\Modifier\Entity\Config\VariableEventModifierConfig:
+Mush\Modifier\Entity\Config\TriggerEventModifierConfig:
   properties:
     name:
       - NotBlank: ~
@@ -6,15 +6,16 @@ Mush\Modifier\Entity\Config\VariableEventModifierConfig:
     modifierName:
       - Type: string
     delta:
-      - NotBlank: ~
-      - Type: float
+      - Type: int
     targetVariable:
+      - Type: string
+    targetEvent:
       - NotBlank: ~
       - Type: string
     modifierHolderClass:
       - NotBlank: ~
       - Type: string
-    mode:
+    triggeredEvent:
       - NotBlank: ~
       - Type: string
     applyOnActionParameter:

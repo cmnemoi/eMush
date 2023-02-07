@@ -12,6 +12,17 @@
                     </option>
                 </select>
             </label>
+            <label>{{ $t('admin.class') }}
+                <select v-model="entityType" @change="updateFilter">
+                    <option
+                        v-for="option in entityTypeOption"
+                        :value=option.value
+                        :key=option.value
+                    >
+                        {{ $t(option.key) }}
+                    </option>
+                </select>
+            </label>
             <label>{{ $t('admin.search') }}:
                 <input
                     v-model="filter"
@@ -37,7 +48,7 @@
                 Actions
             </template>
             <template #row-actions="slotProps">
-                <router-link :to="{ name: 'AdminModifierConfigDetail', params: { modifierConfigId : slotProps.id } }">{{ $t('admin.edit') }}</router-link>
+                <router-link :to="{ name: this.entityType.detailPage, params: { configId : slotProps.id } }">{{ $t('admin.edit') }}</router-link>
             </template>
         </Datatable>
     </div>
@@ -57,6 +68,21 @@ export default defineComponent({
     },
     data() {
         return {
+            entityType: {endpoint: 'variable_modifier_configs', detailPage: 'AdminVariableModifierConfigDetail'},
+            entityTypeOption: [
+                { key: 'admin.modifierConfig.variableModifier', value: {
+                    endpoint: 'variable_modifier_configs',
+                    detailPage: 'AdminVariableModifierConfigDetail'
+                }},
+                { key: 'admin.modifierConfig.triggerEventModifier', value: {
+                    endpoint: 'trigger_event_modifier_configs',
+                    detailPage: 'AdminTriggerEventModifierConfigDetail'
+                }},
+                { key: 'admin.modifierConfig.modifierRequirement', value: {
+                    endpoint: 'modifier_activation_requirements',
+                    detailPage: 'AdminModifierActivationRequirementDetail'
+                }},
+            ],
             fields: [
                 {
                     key: 'id',
@@ -115,7 +141,7 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_modifier_configs'), params)
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+this.entityType.endpoint), params)
                 .then((result) => {
                     return result.data;
                 })

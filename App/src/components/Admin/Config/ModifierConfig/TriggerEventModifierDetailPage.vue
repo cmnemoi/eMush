@@ -46,11 +46,18 @@
                 :errors="errors.modifierHolderClass"
             />
             <Input
-                :label="$t('admin.modifierConfig.mode')"
-                id="modifierConfig_mode"
-                v-model="modifierConfig.mode"
+                :label="$t('admin.modifierConfig.triggeredEvent')"
+                id="triggeredEvent"
+                v-model="modifierConfig.triggeredEvent"
                 type="text"
-                :errors="errors.mode"
+                :errors="errors.triggeredEvent"
+            />
+            <Input
+                :label="$t('admin.modifierConfig.applyOnActionParameter')"
+                id="modifierConfig_applyOnActionParameter"
+                v-model="modifierConfig.applyOnActionParameter"
+                type="text"
+                :errors="errors.applyOnActionParameter"
             />
         </div>
         <h3>Modifier Requirement</h3>
@@ -175,7 +182,7 @@ export default defineComponent({
         }
     },
     beforeMount() {
-        const modifierConfigId = String(this.$route.params.modifierConfigId);
+        const modifierConfigId = String(this.$route.params.configId);
         GameConfigService.loadModifierConfig(Number(modifierConfigId)).then((res: ModifierConfig | null) => {
             if (res instanceof ModifierConfig) {
                 this.modifierConfig = res;

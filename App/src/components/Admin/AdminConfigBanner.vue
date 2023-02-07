@@ -15,7 +15,6 @@
             <router-link :to="{ name: 'AdminDiseaseConfigList' }">Disease Config</router-link>
             <router-link :to="{ name: 'AdminConsumableDiseaseConfigList' }">Consumable Disease Config</router-link>
             <router-link :to="{ name: 'AdminModifierConfigList' }">Modifier Config</router-link>
-            <router-link :to="{ name: 'AdminModifierActivationRequirementList' }">Modifier Requirements</router-link>
             <router-link :to="{ name: 'AdminSymptomConfigList' }">Symptom Config</router-link>
             <router-link :to="{ name: 'AdminSymptomActivationRequirementList' }">Symptom Requirements</router-link>
         </div>

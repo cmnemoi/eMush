@@ -68,20 +68,20 @@ export default defineComponent({
     },
     data() {
         return {
-            entityType: {endpoint: 'variable_event_modifier_configs', detailPage: 'AdminVariableModifierConfigDetail'},
+            entityType: { endpoint: 'variable_event_modifier_configs', detailPage: 'AdminVariableModifierConfigDetail' },
             entityTypeOption: [
                 { key: 'admin.modifierConfig.variableModifier', value: {
                     endpoint: 'variable_event_modifier_configs',
                     detailPage: 'AdminVariableModifierConfigDetail'
-                }},
+                } },
                 { key: 'admin.modifierConfig.triggerEventModifier', value: {
                     endpoint: 'trigger_event_modifier_configs',
                     detailPage: 'AdminTriggerEventModifierConfigDetail'
-                }},
+                } },
                 { key: 'admin.modifierConfig.modifierRequirement', value: {
                     endpoint: 'modifier_activation_requirements',
                     detailPage: 'AdminModifierActivationRequirementDetail'
-                }},
+                } },
             ],
             fields: [
                 {

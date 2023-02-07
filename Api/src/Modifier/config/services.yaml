@@ -17,5 +17,7 @@ services:
 
   Mush\Modifier\Service\ConfigData\ModifierActivationRequirementDataLoader:
     public: true
+  Mush\Modifier\Service\ConfigData\TriggerEventModifierConfigDataLoader:
+    public: true
   Mush\Modifier\Service\ConfigData\VariableEventModifierConfigDataLoader:
     public: true

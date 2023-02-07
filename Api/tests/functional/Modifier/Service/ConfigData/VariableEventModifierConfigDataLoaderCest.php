@@ -27,6 +27,9 @@ class VariableEventModifierConfigDataLoaderCest
         $this->variableEventModifierConfigDataLoader->loadConfigsData();
 
         foreach (ModifierConfigData::$dataArray as $variableEventModifierConfigData) {
+            if ($variableEventModifierConfigData['type'] !== 'variable_event_modifier') {
+                continue;
+            }
             $variableEventModifierConfigData = $this->dropFields($variableEventModifierConfigData);
             $I->seeInRepository(VariableEventModifierConfig::class, $variableEventModifierConfigData);
         }

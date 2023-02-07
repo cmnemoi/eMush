@@ -202,7 +202,12 @@
 			"targetVariable": "Variable cible",
 			"targetEvent": "Évènement déclencheur",
 			"modifierHolderClass": "Entité porteuse du modificateur",
-			"mode": "Mode de calcul"
+			"mode": "Mode de calcul",
+			"variableModifier": "Modificateur de variables",
+			"triggerEventModifier": "Déclencheurs d'événements",
+			"modifierRequirement": "Conditions d'activation",
+			"triggeredEvent": "Nom de l'événement déclenché",
+			"applyOnActionParameter": "Application uniquement sur cible d'action"
 		},
 		"modifierActivationRequirement": {
 			"name": "Nom",
@@ -252,6 +257,7 @@
 		"search": "Rechercher",
 		"edit": "Modifier",
 		"updatedAt": "Mis à jour le",
+		"class": "Type d'entité",
 		"daedalusConfig": {
 			"name": "Nom",
 			"initOxygen": "Oxygène de départ",

@@ -1,7 +1,6 @@
 import GameConfigListPage from "@/components/Admin/Config/GameConfig/GameConfigListPage.vue";
 import GameConfigDetailPage from "@/components/Admin/Config/GameConfig/GameConfigDetailPage.vue";
 import ModifierConfigListPage from "@/components/Admin/Config/ModifierConfig/ModifierConfigListPage.vue";
-import ModifierConfigDetailPage from "@/components/Admin/Config/ModifierConfig/VariableModifierDetailPage.vue";
 import ModifierActivationRequirementDetailPage from "@/components/Admin/Config/ModifierConfig/ModifierActivationRequirementDetailPage.vue";
 import StatusConfigListPage from "@/components/Admin/Config/StatusConfig/StatusConfigListPage.vue";
 import StatusConfigDetailPage from "@/components/Admin/Config/StatusConfig/StatusConfigDetailPage.vue";
@@ -55,12 +54,12 @@ export const adminConfigRoutes = [
     },
     {
         name: "AdminVariableModifierConfigDetail",
-        path: 'modifier-config/:configId',
+        path: 'variable-modifier-config/:configId',
         component: VariableModifierDetailPage
     },
     {
         name: "AdminTriggerEventModifierConfigDetail",
-        path: 'modifier-config/:configId',
+        path: 'event-trigger-modifier-config/:configId',
         component: TriggerEventModifierDetailPage
     },
     {

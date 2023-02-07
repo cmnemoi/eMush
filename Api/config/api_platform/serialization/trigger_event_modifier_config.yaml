@@ -20,3 +20,5 @@ Mush\Modifier\Entity\Config\TriggerEventModifierConfig:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     applyOnActionParameter:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    visibility:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]

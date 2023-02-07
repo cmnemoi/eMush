@@ -68,10 +68,10 @@ export default defineComponent({
     },
     data() {
         return {
-            entityType: {endpoint: 'variable_modifier_configs', detailPage: 'AdminVariableModifierConfigDetail'},
+            entityType: {endpoint: 'variable_event_modifier_configs', detailPage: 'AdminVariableModifierConfigDetail'},
             entityTypeOption: [
                 { key: 'admin.modifierConfig.variableModifier', value: {
-                    endpoint: 'variable_modifier_configs',
+                    endpoint: 'variable_event_modifier_configs',
                     detailPage: 'AdminVariableModifierConfigDetail'
                 }},
                 { key: 'admin.modifierConfig.triggerEventModifier', value: {

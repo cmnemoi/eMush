@@ -19,7 +19,7 @@
                 :label="$t('admin.modifierConfig.delta')"
                 id="modifierConfig_delta"
                 v-model="modifierConfig.delta"
-                type="text"
+                type="number"
                 :errors="errors.delta"
             />
             <Input
@@ -94,7 +94,7 @@ interface ModifierConfigState {
 }
 
 export default defineComponent({
-    name: "ModifierConfigState",
+    name: "TriggerEventModifierConfigState",
     components: {
         ChildCollectionManager,
         Input,

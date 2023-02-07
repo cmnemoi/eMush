@@ -47,10 +47,10 @@
             />
             <Input
                 :label="$t('admin.modifierConfig.applyOnActionParameter')"
+                type="checkbox"
+                class="configCheckbox"
                 id="modifierConfig_applyOnActionParameter"
                 v-model="modifierConfig.applyOnActionParameter"
-                type="text"
-                :errors="errors.applyOnActionParameter"
             />
         </div>
         <h3>Modifier Requirement</h3>
@@ -87,7 +87,7 @@ interface ModifierConfigState {
 }
 
 export default defineComponent({
-    name: "ModifierConfigState",
+    name: "VariableEventModifierConfigState",
     components: {
         ChildCollectionManager,
         Input,
@@ -134,7 +134,7 @@ export default defineComponent({
                 .then((res: ModifierConfig | null) => {
                     this.modifierConfig = res;
                     if (this.modifierConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_event_modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
                             .then((result) => {
                                 const modifierActivationRequirements : ModifierActivationRequirement[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -175,11 +175,12 @@ export default defineComponent({
         }
     },
     beforeMount() {
+        console.log('coucou');
         const modifierConfigId = String(this.$route.params.configId);
         GameConfigService.loadModifierConfig(Number(modifierConfigId)).then((res: ModifierConfig | null) => {
             if (res instanceof ModifierConfig) {
                 this.modifierConfig = res;
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_modifier_configs', modifierConfigId, 'modifier_activation_requirements'))
+                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_event_modifier_configs', modifierConfigId, 'modifier_activation_requirements'))
                     .then((result) => {
                         const modifierActivationRequirements : ModifierActivationRequirement[] = [];
                         result.data['hydra:member'].forEach((datum: any) => {
@@ -199,5 +200,8 @@ export default defineComponent({
 
 
 <style lang="scss" scoped>
-
+   .configCheckbox {
+       margin-left: 10px;
+       margin-right: 10px;
+   }
 </style>

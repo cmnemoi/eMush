@@ -205,7 +205,9 @@
 			"mode": "Mode de calcul",
 			"variableModifier": "Modificateur de variables",
 			"triggerEventModifier": "Déclencheurs d'événements",
-			"modifierRequirement": "Conditions d'activation"
+			"modifierRequirement": "Conditions d'activation",
+			"triggeredEvent": "Nom de l'événement déclenché",
+			"applyOnActionParameter": "Application uniquement sur cible d'action"
 		},
 		"modifierActivationRequirement": {
 			"name": "Nom",

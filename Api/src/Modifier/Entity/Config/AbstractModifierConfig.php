@@ -19,9 +19,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
-    'trigger_event_config' => TriggerEventModifierConfig::class,
-    'variable_event_modifier' => VariableEventModifierConfig::class,
-    'trigger_variable_event_config' => TriggerVariableEventModifierConfig::class,
+    'trigger_event_modifier_config' => TriggerEventModifierConfig::class,
+    'variable_event_modifier_config' => VariableEventModifierConfig::class,
+    'trigger_variable_event_modifier_config' => TriggerVariableEventModifierConfig::class,
 ])]
 abstract class AbstractModifierConfig
 {

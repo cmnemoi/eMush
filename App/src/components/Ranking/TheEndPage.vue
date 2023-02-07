@@ -119,7 +119,7 @@
                  :key="key"
                  class="card extra-card">
                 <div>
-                    <img class="avatar" :src="getPlayerCharacterPortrait(player)" :alt="getPlayerCharacterCompleteName(player)">
+                    <!-- <img class="avatar" :src="getPlayerCharacterPortrait(player)" :alt="getPlayerCharacterCompleteName(player)"> -->
                     <div class="dude">
                         <img class="body" :src="getPlayerCharacterBody(player)" :alt="getPlayerCharacterCompleteName(player)">
                         <div>
@@ -532,8 +532,8 @@ h2 {
 
 .star-card {
     margin: 0 0.5rem 2rem;
-    // width: 100%;
     align-self: stretch;
+    min-height: 300px;
 
     & > div { padding: 1rem 1rem 1rem 15rem }
 

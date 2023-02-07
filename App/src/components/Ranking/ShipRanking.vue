@@ -1,5 +1,5 @@
 <template>
-    <div class="ship_ranking_container">
+    <div class="ship_ranking_container box-container">
         <!--        <div class="ship_ranking_options">
             <select v-model="pagination.pageSize" @change="updateFilter">
                 <option
@@ -155,6 +155,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
+.box-container {
+      margin-top: 0;
+}
+
 .user_filter_options {
     display: flex;
     flex-grow: 1;

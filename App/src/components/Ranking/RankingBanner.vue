@@ -36,7 +36,7 @@ export default defineComponent ({
         text-transform: uppercase;
         text-decoration: none;
 
-        @include corner-bezel(8px);
+        @include corner-bezel(14px, 14px, 0);
 
         opacity: .8;
 

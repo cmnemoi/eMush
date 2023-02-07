@@ -15,5 +15,7 @@ services:
       - '../Kernel.php'
       - '../Tests/'
   
+  Mush\Disease\Service\ConfigData\SymptomConfigDataLoader:
+    public: true
   Mush\Disease\Service\ConfigData\SymptomActivationRequirementDataLoader:
     public: true

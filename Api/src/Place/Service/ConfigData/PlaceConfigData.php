@@ -2,6 +2,7 @@
 
 namespace Mush\Place\Service\ConfigData;
 
+/** @codeCoverageIgnore */
 class PlaceConfigData
 {
     public static $dataArray = [

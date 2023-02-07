@@ -7,6 +7,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Place\Enum\RoomEnum;
 
+/** @codeCoverageIgnore */
 class RandomItemPlacesData
 {
     public static array $dataArray = [

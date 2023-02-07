@@ -14,3 +14,12 @@ services:
       - '../Enum/'
       - '../Kernel.php'
       - '../Tests/'
+
+  Mush\Modifier\Service\ConfigData\ModifierActivationRequirementDataLoader:
+    public: true
+  Mush\Modifier\Service\ConfigData\TriggerVariableEventModifierConfigDataLoader:
+    public: true
+  Mush\Modifier\Service\ConfigData\TriggerEventModifierConfigDataLoader:
+    public: true
+  Mush\Modifier\Service\ConfigData\VariableEventModifierConfigDataLoader:
+    public: true

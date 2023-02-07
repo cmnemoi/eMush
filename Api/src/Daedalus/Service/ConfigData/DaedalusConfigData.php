@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Service\ConfigData;
 
 use Mush\Place\Enum\RoomEnum;
 
+/** @codeCoverageIgnore */
 class DaedalusConfigData
 {
     public static array $dataArray = [

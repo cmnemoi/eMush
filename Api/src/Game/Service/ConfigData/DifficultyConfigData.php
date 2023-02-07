@@ -4,6 +4,7 @@ namespace Mush\Game\Service\ConfigData;
 
 use Mush\Equipment\Enum\EquipmentEnum;
 
+/** @codeCoverageIgnore */
 class DifficultyConfigData
 {
     public static $dataArray = [

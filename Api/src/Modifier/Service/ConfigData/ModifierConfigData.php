@@ -2,6 +2,7 @@
 
 namespace Mush\Modifier\Service\ConfigData;
 
+/** @codeCoverageIgnore */
 class ModifierConfigData
 {
     public static array $dataArray = [

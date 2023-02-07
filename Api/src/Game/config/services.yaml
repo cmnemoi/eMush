@@ -15,7 +15,9 @@ services:
       - '../Kernel.php'
       - '../Tests/'
 
-  # need to make those services public to be able to find them for tests working somehow
+  # need this for tests working somehow
+  Mush\Game\Service\ConfigData\DifficultyConfigDataLoader:
+    public: true
   Mush\Game\Service\ConfigData\GameConfigDataLoader:
     public: true
   Mush\Game\Service\ConfigData\TriumphConfigDataLoader:

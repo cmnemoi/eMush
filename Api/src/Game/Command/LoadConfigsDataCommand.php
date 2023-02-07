@@ -28,7 +28,7 @@ class LoadConfigsDataCommand extends Command
     {
         $output->writeln('Loading configs data...');
 
-        $this->configDataLoaderService->loadData();
+        $this->configDataLoaderService->loadAllConfigsData();
 
         $output->writeln('Configs data loaded.');
 

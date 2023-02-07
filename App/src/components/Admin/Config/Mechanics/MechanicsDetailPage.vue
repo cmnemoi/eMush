@@ -33,13 +33,15 @@
         </ChildCollectionManager>
         
         <div v-if="mechanics.mechanicsType == 'Blueprint'">
-            <h3>{{ $t('admin.mechanics.equipment') }}</h3>
-            <ChildManager :child="mechanics.equipment" @addId="selectNewEquipment" @remove="removeEquipment">
-                <template #header="child">
-                    <span>{{ child.id }} - {{ child.name }}</span>
-                </template>
-            </ChildManager>
-
+            <div class="flex-row">
+                <Input
+                    :label="$t('admin.mechanics.equipment')"
+                    id="mechanics_equipment"
+                    v-model="mechanics.equipment"
+                    type="text"
+                    :errors="errors.equipment"
+                />
+            </div>
             <h3>{{ $t('admin.mechanics.ingredients') }}</h3>
             <pre>{{ mechanics.ingredients }}</pre>
             <label for="ingredients">{{ $t('admin.mechanics.addIngredients') }}</label>
@@ -214,7 +216,6 @@ import { Mechanics } from "@/entities/Config/Mechanics";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
-import ChildManager from "@/components/Utils/ChildManager.vue";
 import Input from "@/components/Utils/Input.vue";
 import MapManager from "@/components/Utils/MapManager.vue";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
@@ -233,7 +234,6 @@ export default defineComponent({
     name: "MechanicsDetailPage",
     components: {
         ChildCollectionManager,
-        ChildManager,
         Input,
         MapManager,
         UpdateConfigButtons,
@@ -321,18 +321,6 @@ export default defineComponent({
                         console.error('Error', error.message);
                     }
                 });
-        },
-        selectNewEquipment(selectedId: any) {
-            GameConfigService.loadEquipmentConfig(selectedId).then((res) => {
-                if (res && this.mechanics && this.mechanics.equipment) {
-                    this.mechanics.equipment = res;
-                }
-            });
-        },
-        removeEquipment() {
-            if (this.mechanics && this.mechanics.equipment) {
-                this.mechanics.equipment = null;
-            }
         },
         selectNewAction(selectedId: any) {
             ActionService.loadAction(selectedId).then((res) => {
@@ -494,15 +482,6 @@ export default defineComponent({
                             this.mechanics.actions = actions;
                         }
                     });
-                if (this.mechanics.mechanicsType == "Blueprint"){
-                    ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'blueprints', String(mechanicsId), 'equipment'))
-                        .then((result) => {
-                            const equipment : EquipmentConfig = (new EquipmentConfig()).load(result.data);
-                            if (this.mechanics instanceof Mechanics) {
-                                this.mechanics.equipment = equipment;
-                            }
-                        });
-                }
                 if (this.mechanics.mechanicsType == "Gear"){
                     ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'gears', String(mechanicsId), 'modifier_configs'))
                         .then((result) => {

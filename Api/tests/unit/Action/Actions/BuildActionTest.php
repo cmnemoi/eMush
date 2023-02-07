@@ -76,7 +76,8 @@ class BuildActionTest extends AbstractActionTest
         $blueprint = new Blueprint();
         $blueprint
             ->setIngredients(['metal_scraps' => 1])
-            ->setEquipment($product);
+            ->setCraftedEquipmentName($product->getEquipmentName())
+        ;
         $item->setMechanics(new ArrayCollection([$blueprint]));
 
         $gameIngredient = new GameItem($room);
@@ -94,7 +95,7 @@ class BuildActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameIngredient]))->once();
 
-        $this->gameEquipmentService->shouldReceive('createGameEquipment')->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
         $this->eventService->shouldReceive('callEvent')->times(2);
 
         $result = $this->action->execute();

@@ -126,7 +126,7 @@ class BuildActionCest
         $blueprint = new Blueprint();
         $blueprint
             ->setIngredients($ingredients)
-            ->setEquipment($product)
+            ->setCraftedEquipmentName($product->getEquipmentName())
             ->addAction($buildAction)
         ;
 

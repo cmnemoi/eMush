@@ -3,14 +3,13 @@
 namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
 #[ORM\Entity]
 class Blueprint extends Tool
 {
-    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class)]
-    private EquipmentConfig $equipment;
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    private string $craftedEquipmentName;
 
     /**
      * @var array<string, int>
@@ -26,14 +25,14 @@ class Blueprint extends Tool
         return $mechanics;
     }
 
-    public function getEquipment(): EquipmentConfig
+    public function getCraftedEquipmentName(): string
     {
-        return $this->equipment;
+        return $this->craftedEquipmentName;
     }
 
-    public function setEquipment(EquipmentConfig $equipment): static
+    public function setCraftedEquipmentName(string $craftedEquipmentName): static
     {
-        $this->equipment = $equipment;
+        $this->craftedEquipmentName = $craftedEquipmentName;
 
         return $this;
     }

@@ -261,7 +261,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
                 }
                 $blueprint = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
                 if ($blueprint instanceof Blueprint) {
-                    $name = $name . $blueprint->getEquipment()->getEquipmentName();
+                    $name = $name . $blueprint->getCraftedEquipmentName();
                 }
 
                 if (!isset($itemsGroup[$name])) {

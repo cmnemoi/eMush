@@ -8,7 +8,7 @@ Mush\Equipment\Entity\EquipmentMechanic:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
     actions:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
-    equipment:
+    craftedEquipmentName:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
     ingredients:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]

@@ -205,7 +205,7 @@ class EquipmentNormalizerTest extends TestCase
         $resultEquipment->setEquipmentName(EquipmentEnum::ASTRO_TERMINAL);
         $blueprint = new Blueprint();
         $blueprint
-            ->setEquipment($resultEquipment)
+            ->setCraftedEquipmentName($resultEquipment->getEquipmentName())
             ->setIngredients([ItemEnum::BLASTER => 1, ItemEnum::ECHOLOCATOR => 2])
         ;
 

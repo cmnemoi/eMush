@@ -3,6 +3,9 @@ Mush\Equipment\Entity\Mechanics\Blueprint:
     name:
       - NotBlank: ~
       - Type: string
+    craftedEquipmentName:
+      - NotBlank: ~
+      - Type: string
     mechanics:
       - Type: array
     ingredients:

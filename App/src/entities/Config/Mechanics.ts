@@ -9,7 +9,7 @@ export class Mechanics {
     public name: string|null;
     public mechanics: Array<string>|null;
     public actions: Action[]|null;
-    public equipment: EquipmentConfig|null;
+    public equipment: string|null;
     public ingredients: Map<string, number>|null;
     public skill: string|null;
     public content: string|null;
@@ -133,14 +133,7 @@ export class Mechanics {
     private addBlueprintAttributes(object: any){
         if(!this.mechanics?.includes("blueprint")) return;
 
-        this.equipment = (new EquipmentConfig()).load(object.equipment);
-        if (typeof object.ingredients !== 'undefined') {
-            for (const [key, value] of Object.entries(object.ingredients)) {
-                if (typeof key === 'string' && typeof value === 'number') {
-                    this.ingredients?.set(key, value);
-                }
-            }
-        }
+        this.equipment = object.craftedEquipmentName;
     }
 
     private encodeBlueprintAttributes(data: any){
@@ -152,7 +145,7 @@ export class Mechanics {
             ingredients[key] = value;
         });
 
-        data.equipment = this.equipment?.iri;
+        data.equipment = this.equipment;
         data.ingredients = ingredients;
     }
 

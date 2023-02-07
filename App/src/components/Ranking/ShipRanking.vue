@@ -156,10 +156,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
-.box-container {
-      margin-top: 0;
-}
-
 .user_filter_options {
     display: flex;
     flex-grow: 1;

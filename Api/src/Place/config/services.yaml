@@ -15,3 +15,7 @@ services:
       - '../Enum/'
       - '../Kernel.php'
       - '../Tests/'
+  
+  # need this for tests to work
+  Mush\Place\Service\ConfigData\PlaceConfigDataLoader:
+    public: true

@@ -15,6 +15,8 @@ services:
       - '../Kernel.php'
       - '../Tests/'
   
+  Mush\Disease\Service\ConfigData\ConsumableDiseaseConfigDataLoader:
+    public: true
   Mush\Disease\Service\ConfigData\DiseaseCauseConfigDataLoader:
     public: true
   Mush\Disease\Service\ConfigData\DiseaseConfigDataLoader:

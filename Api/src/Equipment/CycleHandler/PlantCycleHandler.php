@@ -200,8 +200,8 @@ class PlantCycleHandler extends AbstractCycleHandler
         // If plant is not in a room, it is in player inventory
         $place = $gamePlant->getPlace();
 
-        $fruit = $this->gameEquipmentService->createGameEquipment(
-            $plantType->getFruit(),
+        $fruit = $this->gameEquipmentService->createGameEquipmentFromName(
+            $plantType->getFruitName(),
             $place,
             [EventEnum::PLANT_PRODUCTION],
             VisibilityEnum::PUBLIC

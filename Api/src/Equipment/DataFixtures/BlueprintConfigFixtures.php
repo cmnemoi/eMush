@@ -37,34 +37,11 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
-        /** @var ItemConfig $echolocator */
-        $echolocator = $this->getReference(ItemEnum::ECHOLOCATOR);
-        /** @var ItemConfig $whiteFlag */
-        $whiteFlag = $this->getReference(ItemEnum::WHITE_FLAG);
-        /** @var ItemConfig $thermosensor */
-        $thermosensor = $this->getReference(ItemEnum::THERMOSENSOR);
-        /** @var ItemConfig $babelModule */
-        $babelModule = $this->getReference(ItemEnum::BABEL_MODULE);
-        /** @var ItemConfig $grenade */
-        $grenade = $this->getReference(ItemEnum::GRENADE);
-        /** @var ItemConfig $oldFaithful */
-        $oldFaithful = $this->getReference(ItemEnum::OLD_FAITHFUL);
-        /** @var ItemConfig $lizaroJungle */
-        $lizaroJungle = $this->getReference(ItemEnum::LIZARO_JUNGLE);
-        /** @var ItemConfig $rocketLauncher */
-        $rocketLauncher = $this->getReference(ItemEnum::ROCKET_LAUNCHER);
-        /** @var ItemConfig $extinguisher */
-        $extinguisher = $this->getReference(ToolItemEnum::EXTINGUISHER);
-        /** @var ItemConfig $oscilloscope */
-        $oscilloscope = $this->getReference(GearItemEnum::OSCILLOSCOPE);
-        /** @var ItemConfig $sniperHelmet */
-        $sniperHelmet = $this->getReference(GearItemEnum::SNIPER_HELMET);
-
         // @TODO add support_drone and swedish_sofa
 
         $blueprintEcholocatorMechanic = new Blueprint();
         $blueprintEcholocatorMechanic
-            ->setEquipment($echolocator)
+            ->setCraftedEquipmentName(ItemEnum::ECHOLOCATOR)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
             ->addAction($buildAction)
             ->buildName(ItemEnum::ECHOLOCATOR . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT)
@@ -85,7 +62,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintWhiteFlagMechanic = new Blueprint();
         $blueprintWhiteFlagMechanic
-            ->setEquipment($whiteFlag)
+            ->setCraftedEquipmentName(ItemEnum::WHITE_FLAG)
             ->setIngredients([GearItemEnum::SOAP => 1, ItemEnum::OLD_T_SHIRT => 1])
             ->addAction($buildAction)
             ->buildName(ItemEnum::WHITE_FLAG . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT)
@@ -106,7 +83,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintThermosensorMechanic = new Blueprint();
         $blueprintThermosensorMechanic
-            ->setEquipment($thermosensor)
+            ->setCraftedEquipmentName(ItemEnum::THERMOSENSOR)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
             ->addAction($buildAction)
             ->buildName(ItemEnum::THERMOSENSOR . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT)
@@ -127,7 +104,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintBabelModuleMechanic = new Blueprint();
         $blueprintBabelModuleMechanic
-            ->setEquipment($babelModule)
+            ->setCraftedEquipmentName(ItemEnum::BABEL_MODULE)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
             ->addAction($buildAction)
             ->buildName(ItemEnum::BABEL_MODULE . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT)
@@ -148,7 +125,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintGrenadeMechanic = new Blueprint();
         $blueprintGrenadeMechanic
-            ->setEquipment($grenade)
+            ->setCraftedEquipmentName(ItemEnum::GRENADE)
             ->setIngredients([ItemEnum::OXYGEN_CAPSULE => 1, ItemEnum::FUEL_CAPSULE => 1])
             ->addAction($buildAction)
             ->buildName(ItemEnum::GRENADE . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT)
@@ -169,7 +146,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintOldFaithfulMechanic = new Blueprint();
         $blueprintOldFaithfulMechanic
-            ->setEquipment($oldFaithful)
+            ->setCraftedEquipmentName(ItemEnum::OLD_FAITHFUL)
             ->setIngredients([ItemEnum::METAL_SCRAPS => 4])
             ->addAction($buildAction)
             ->buildName(ItemEnum::OLD_FAITHFUL . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT)
@@ -190,7 +167,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintLizaroJungleMechanic = new Blueprint();
         $blueprintLizaroJungleMechanic
-            ->setEquipment($lizaroJungle)
+            ->setCraftedEquipmentName(ItemEnum::LIZARO_JUNGLE)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
             ->addAction($buildAction)
             ->buildName(ItemEnum::LIZARO_JUNGLE . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT)
@@ -211,7 +188,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintRocketLauncherMechanic = new Blueprint();
         $blueprintRocketLauncherMechanic
-            ->setEquipment($rocketLauncher)
+            ->setCraftedEquipmentName(ItemEnum::ROCKET_LAUNCHER)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
             ->addAction($buildAction)
             ->buildName(ItemEnum::ROCKET_LAUNCHER . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT)
@@ -232,7 +209,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintExtinguisherMechanic = new Blueprint();
         $blueprintExtinguisherMechanic
-            ->setEquipment($extinguisher)
+            ->setCraftedEquipmentName(ToolItemEnum::EXTINGUISHER)
             ->setIngredients([ItemEnum::OXYGEN_CAPSULE => 1, ItemEnum::METAL_SCRAPS => 1])
             ->addAction($buildAction)
             ->buildName(ToolItemEnum::EXTINGUISHER . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT)
@@ -253,7 +230,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintOscilloscopeMechanic = new Blueprint();
         $blueprintOscilloscopeMechanic
-            ->setEquipment($oscilloscope)
+            ->setCraftedEquipmentName(GearItemEnum::OSCILLOSCOPE)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
             ->addAction($buildAction)
             ->buildName(GearItemEnum::OSCILLOSCOPE . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT)
@@ -274,7 +251,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintSniperHelmetMechanic = new Blueprint();
         $blueprintSniperHelmetMechanic
-            ->setEquipment($sniperHelmet)
+            ->setCraftedEquipmentName(GearItemEnum::SNIPER_HELMET)
             ->setIngredients([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
             ->addAction($buildAction)
             ->buildName(GearItemEnum::SNIPER_HELMET . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT)

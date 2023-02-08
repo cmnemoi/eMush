@@ -236,7 +236,7 @@ class PlantCycleHandlerTest extends TestCase
         $plant
             ->setEquipmentName('plant name');
         $plantType = new Plant();
-        $plantType->setFruit($newFruit);
+        $plantType->setFruitName($newFruit->getEquipmentName());
 
         $plant->setMechanics(new ArrayCollection([$plantType]));
 
@@ -266,7 +266,7 @@ class PlantCycleHandlerTest extends TestCase
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10
             )->once();
-        $this->gameEquipmentService->shouldReceive('createGameEquipment')->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         // Mature Plant, no problem
         $this->plantCycleHandler->handleNewDay($gamePlant, $time);
@@ -295,7 +295,7 @@ class PlantCycleHandlerTest extends TestCase
         $plant
             ->setEquipmentName('plant name');
         $plantType = new Plant();
-        $plantType->setFruit($newFruit);
+        $plantType->setFruitName($newFruit->getEquipmentName());
 
         $plant->setMechanics(new ArrayCollection([$plantType]));
 
@@ -357,7 +357,7 @@ class PlantCycleHandlerTest extends TestCase
             ->setEquipmentName('plant name')
         ;
         $plantType = new Plant();
-        $plantType->setFruit($newFruit);
+        $plantType->setFruitName($newFruit->getEquipmentName());
 
         $plant->setMechanics(new ArrayCollection([$plantType]));
 

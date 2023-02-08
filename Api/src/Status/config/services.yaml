@@ -22,3 +22,8 @@ services:
   Mush\Status\CycleHandler\:
     resource: '../CycleHandler/'
     tags: ['mush.status.cycle_handler']
+
+  Mush\Status\Service\ConfigData\ChargeStatusConfigDataLoader:
+    public: true
+  Mush\Status\Service\ConfigData\StatusConfigDataLoader:
+    public: true

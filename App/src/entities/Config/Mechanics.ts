@@ -18,7 +18,7 @@ export class Mechanics {
     public isPerishable: boolean|null;
     public plantName: string|null;
     public modifierConfigs: ModifierConfig[]|null;
-    public fruit: EquipmentConfig|null;
+    public fruit: string|null;
     public maturationTime: Map<integer, integer>|null;
     public oxygen: Map<integer, integer>|null;
     public healthPoints: Map<integer, integer>|null;
@@ -210,7 +210,8 @@ export class Mechanics {
     private addPlantAttributes(object: any){
         if(!this.mechanics?.includes("plant"))return;
 
-        this.fruit = (new EquipmentConfig()).load(object.fruit);
+        this.fruit = object.fruitName;
+
         if (typeof object.maturationTime !== 'undefined') {
             for (const [key, value] of Object.entries(object.maturationTime)) {
                 if (typeof key === 'string' && typeof value === 'number') {
@@ -218,6 +219,7 @@ export class Mechanics {
                 }
             }
         }
+
         if (typeof object.oxygen !== 'undefined') {
             for (const [key, value] of Object.entries(object.oxygen)) {
                 if (typeof key === 'string' && typeof value === 'number') {
@@ -242,7 +244,7 @@ export class Mechanics {
             healthPoints[key] = value;
         });
 
-        data.fruit = this.fruit?.iri;
+        data.fruit = this.fruit;
         data.maturationTime = maturationTime;
         data.healthPoints = healthPoints;
     }

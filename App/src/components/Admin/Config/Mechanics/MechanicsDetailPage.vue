@@ -495,15 +495,6 @@ export default defineComponent({
                             }
                         });
                 }
-                if (this.mechanics.mechanicsType == "Fruit"){
-                    ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'plants', String(mechanicsId), 'fruit'))
-                        .then((result) => {
-                            const fruit : EquipmentConfig = (new EquipmentConfig()).load(result.data);
-                            if (this.mechanics instanceof Mechanics) {
-                                this.mechanics.fruit = fruit;
-                            }
-                        });
-                }
             }
         });
     }

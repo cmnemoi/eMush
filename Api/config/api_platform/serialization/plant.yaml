@@ -8,7 +8,7 @@ Mush\Equipment\Entity\Mechanics\Plant:
       groups: [ 'plant_write' ]
     actions:
       groups: [ 'plant_write' ]
-    fruit:
+    fruitName:
       groups: [ 'plant_read', 'plant_write' ]
     maturationTime:
       groups: [ 'plant_read', 'plant_write' ]

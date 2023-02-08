@@ -26,7 +26,7 @@ Mush\Equipment\Entity\EquipmentMechanic:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
     modifierConfigs:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
-    fruit:
+    fruitName:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
     maturationTime:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]

@@ -25,8 +25,6 @@ class SymptomConfigDataLoaderCest
     {
         $this->symptomConfigDataLoader->loadConfigsData();
 
-        dump($I->grabRepository(SymptomConfig::class)->findAll());
-
         foreach (SymptomConfigData::$dataArray as $symptomConfigData) {
             // this can't be compared
             unset($symptomConfigData['symptomActivationRequirements']);

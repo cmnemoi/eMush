@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
@@ -201,8 +200,8 @@ class EquipmentNormalizerTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $resultEquipment = new EquipmentConfig();
-        $resultEquipment->setEquipmentName(EquipmentEnum::ASTRO_TERMINAL);
+        $resultEquipment = new ItemConfig();
+        $resultEquipment->setEquipmentName(ItemEnum::NATAMY_RIFLE);
         $blueprint = new Blueprint();
         $blueprint
             ->setCraftedEquipmentName($resultEquipment->getEquipmentName())
@@ -225,7 +224,7 @@ class EquipmentNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('blueprint.name', ['equipment' => EquipmentEnum::ASTRO_TERMINAL], 'equipments', LanguageEnum::FRENCH)
+            ->with('blueprint.name', ['item' => ItemEnum::NATAMY_RIFLE], 'equipments', LanguageEnum::FRENCH)
             ->andReturn('translated name')
             ->once()
         ;

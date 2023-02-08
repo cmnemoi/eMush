@@ -77,7 +77,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $bananaTreeMechanic = new Plant();
         //  possibilities are stored as key, array value represent the probability to get the key value
         $bananaTreeMechanic
-            ->setFruit($banana)
+            ->setFruitName($banana->getEquipmentName())
             ->setMaturationTime([36 => 1])
             ->setOxygen([1 => 1])
             ->setActions($plantActions)
@@ -140,7 +140,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
 
             $alienPlantMechanic = new Plant();
             $alienPlantMechanic
-                ->setFruit($alienFruit)
+                ->setFruitName($alienFruit->getEquipmentName())
                 ->setMaturationTime([2 => 7, 4 => 7, 8 => 24, 12 => 14, 16 => 7, 24 => 7, 48 => 7])
                 ->setOxygen([1 => 1])
                 ->setActions($plantActions)
@@ -190,7 +190,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
 
         $bumpjunkinMechanic = new Plant();
         $bumpjunkinMechanic
-            ->setFruit($junkin)
+            ->setFruitName($junkin->getEquipmentName())
             ->setMaturationTime([8 => 1])
             ->setOxygen([1 => 1])
             ->setActions($plantActions)

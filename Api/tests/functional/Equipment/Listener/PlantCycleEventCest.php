@@ -79,7 +79,7 @@ class PlantCycleEventCest
         $plantMechanic
             ->setMaturationTime([8 => 1])
             ->setOxygen([1 => 1])
-            ->setFruit($fruitConfig)
+            ->setFruitName($fruitConfig->getEquipmentName())
             ->setName('plant_test')
         ;
         $I->haveInRepository($plantMechanic);
@@ -187,7 +187,7 @@ class PlantCycleEventCest
         $plantMechanic
             ->setMaturationTime([8 => 1])
             ->setOxygen([1 => 1])
-            ->setFruit($fruitConfig)
+            ->setFruitName($fruitConfig->getEquipmentName())
             ->setName('plant_name')
         ;
 

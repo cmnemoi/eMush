@@ -127,8 +127,8 @@ class Build extends AbstractAction
         $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // Create the equipment
-        $blueprintResult = $this->gameEquipmentService->createGameEquipment(
-            $blueprintMechanic->getEquipment(),
+        $blueprintResult = $this->gameEquipmentService->createGameEquipmentFromName(
+            $blueprintMechanic->getCraftedEquipmentName(),
             $this->player,
             $this->getAction()->getActionTags(),
             VisibilityEnum::PRIVATE

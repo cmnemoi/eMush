@@ -3369,7 +3369,7 @@ class EquipmentConfigData
             'dismountedProducts' => [],
             'isPersonal' => false,
             'type' => 'item_config',
-            'isStackable' => null,
+            'isStackable' => true,
             'actions' => [
                 'take',
                 'drop',

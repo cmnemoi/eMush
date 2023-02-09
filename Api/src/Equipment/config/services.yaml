@@ -19,3 +19,5 @@ services:
     tags: ['mush.equipment.cycle_handler']
   Mush\Equipment\ConfigData\ToolDataLoader:
     public: true
+  Mush\Equipment\ConfigData\WeaponDataLoader:
+    public: true

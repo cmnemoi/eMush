@@ -15,11 +15,11 @@ use Mush\Status\Repository\StatusConfigRepository;
 
 class EquipmentConfigDataLoader extends ConfigDataLoader
 {
-    protected EntityManagerInterface $entityManager;
-    protected EquipmentConfigRepository $equipmentConfigRepository;
-    protected ActionRepository $actionRepository;
-    protected MechanicsRepository $mechanicsRepository;
-    protected StatusConfigRepository $statusConfigRepository;
+    private EntityManagerInterface $entityManager;
+    private EquipmentConfigRepository $equipmentConfigRepository;
+    private ActionRepository $actionRepository;
+    private MechanicsRepository $mechanicsRepository;
+    private StatusConfigRepository $statusConfigRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,

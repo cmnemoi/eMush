@@ -17,3 +17,5 @@ services:
   Mush\Equipment\CycleHandler\:
     resource: '../CycleHandler/'
     tags: ['mush.equipment.cycle_handler']
+  Mush\Equipment\ConfigData\ToolDataLoader:
+    public: true

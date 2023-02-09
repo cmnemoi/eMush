@@ -3,8 +3,8 @@
 namespace Mush\Tests\functional\Action\ConfigData;
 
 use App\Tests\FunctionalTester;
-use Mush\Action\Entity\Action;
 use Mush\Action\ConfigData\ActionDataLoader;
+use Mush\Action\Entity\Action;
 use Mush\Game\Entity\GameVariable;
 
 class ActionDataLoaderCest

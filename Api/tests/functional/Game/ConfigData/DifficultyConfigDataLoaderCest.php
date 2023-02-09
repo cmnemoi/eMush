@@ -3,9 +3,9 @@
 namespace Mush\Tests\functional\Triumph\ConfigData;
 
 use App\Tests\FunctionalTester;
-use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\ConfigData\DifficultyConfigData;
 use Mush\Game\ConfigData\DifficultyConfigDataLoader;
+use Mush\Game\Entity\DifficultyConfig;
 
 class DifficultyConfigDataLoaderCest
 {

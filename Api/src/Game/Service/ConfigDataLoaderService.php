@@ -4,15 +4,15 @@ namespace Mush\Game\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\Repository\ActionRepository;
 use Mush\Action\ConfigData\ActionDataLoader;
-use Mush\Game\Repository\DifficultyConfigRepository;
-use Mush\Game\Repository\GameConfigRepository;
-use Mush\Game\Repository\TriumphConfigRepository;
+use Mush\Action\Repository\ActionRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Game\ConfigData\DifficultyConfigDataLoader;
 use Mush\Game\ConfigData\GameConfigDataLoader;
 use Mush\Game\ConfigData\TriumphConfigDataLoader;
+use Mush\Game\Repository\DifficultyConfigRepository;
+use Mush\Game\Repository\GameConfigRepository;
+use Mush\Game\Repository\TriumphConfigRepository;
 
 class ConfigDataLoaderService
 {

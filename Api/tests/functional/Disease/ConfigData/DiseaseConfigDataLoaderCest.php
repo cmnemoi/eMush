@@ -3,11 +3,11 @@
 namespace Mush\Tests\functional\Disease\ConfigData;
 
 use App\Tests\FunctionalTester;
-use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\ConfigData\DiseaseConfigData;
 use Mush\Disease\ConfigData\DiseaseConfigDataLoader;
 use Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader;
 use Mush\Disease\ConfigData\SymptomConfigDataLoader;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 

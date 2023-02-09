@@ -5,7 +5,6 @@ namespace Mush\Game\ConfigData;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\TriumphConfig;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Repository\GameConfigRepository;
 use Mush\Game\Repository\TriumphConfigRepository;
 
@@ -53,5 +52,4 @@ class TriumphConfigDataLoader extends ConfigDataLoader
         }
         $this->entityManager->flush();
     }
-
 }

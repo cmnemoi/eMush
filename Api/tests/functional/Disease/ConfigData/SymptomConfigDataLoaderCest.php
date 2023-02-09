@@ -3,10 +3,10 @@
 namespace Mush\Tests\functional\Disease\ConfigData;
 
 use App\Tests\FunctionalTester;
-use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader;
 use Mush\Disease\ConfigData\SymptomConfigData;
 use Mush\Disease\ConfigData\SymptomConfigDataLoader;
+use Mush\Disease\Entity\Config\SymptomConfig;
 
 class SymptomConfigDataLoaderCest
 {

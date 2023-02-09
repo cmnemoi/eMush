@@ -8,9 +8,9 @@ use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\TriggerVariableEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
-use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\ConfigData\StatusConfigData;
 use Mush\Status\ConfigData\StatusConfigDataLoader;
+use Mush\Status\Entity\Config\StatusConfig;
 
 class StatusConfigDataLoaderCest
 {

@@ -3,9 +3,9 @@
 namespace Mush\Tests\functional\Modifier\ConfigData;
 
 use App\Tests\FunctionalTester;
-use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementData;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 
 class ModifierActivationRequirementDataLoaderCest
 {

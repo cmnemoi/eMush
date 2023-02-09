@@ -14,7 +14,7 @@ Consequently, it is present in 2 different places at once.
     |-- config
     |-- Criteria
     |-- CycleHandler
-    |-- DataFixtures
+    |-- ConfigData/DataFixtures
     |-- DependencyInjection
     |-- Entity
     |-- Enum

@@ -42,6 +42,7 @@ class RationDataLoaderCest
         $config = [
             'name' => 'ration_standard_ration_default',
             'satiety' => 4,
+            'isPerishable' => false,
         ];
 
         $config = $this->dropFields($config);
@@ -59,7 +60,8 @@ class RationDataLoaderCest
     {
         $configData = array_filter($configData, function ($key) {
             return $key === 'name'
-            || $key === 'satiety';
+            || $key === 'satiety'
+            || $key === 'isPerishable';
         }, ARRAY_FILTER_USE_KEY);
 
         return $configData;

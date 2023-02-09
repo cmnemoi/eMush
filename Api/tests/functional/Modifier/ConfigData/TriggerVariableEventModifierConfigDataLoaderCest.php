@@ -4,10 +4,10 @@ namespace Mush\Tests\functional\Modifier\ConfigData;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Modifier\Entity\Config\TriggerVariableEventModifierConfig;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\ConfigData\TriggerVariableEventModifierConfigDataLoader;
+use Mush\Modifier\Entity\Config\TriggerVariableEventModifierConfig;
 
 class TriggerVariableEventModifierConfigDataLoaderCest
 {

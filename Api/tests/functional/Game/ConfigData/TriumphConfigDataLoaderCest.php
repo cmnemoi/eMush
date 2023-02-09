@@ -3,11 +3,11 @@
 namespace Mush\Tests\functional\Triumph\ConfigData;
 
 use App\Tests\FunctionalTester;
+use Mush\Game\ConfigData\TriumphConfigDataLoader;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\TriumphConfig;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\ConfigData\TriumphConfigDataLoader;
 
 class TriumphConfigDataLoaderCest
 {

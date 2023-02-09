@@ -4,7 +4,6 @@ namespace Mush\Game\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Repository\GameConfigRepository;
 
 class GameConfigDataLoader extends ConfigDataLoader
@@ -34,5 +33,4 @@ class GameConfigDataLoader extends ConfigDataLoader
         }
         $this->entityManager->flush();
     }
-
 }

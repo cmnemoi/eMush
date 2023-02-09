@@ -3,9 +3,9 @@
 namespace Mush\Tests\functional\Daedalus\ConfigData;
 
 use App\Tests\FunctionalTester;
-use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Daedalus\ConfigData\RandomItemPlacesData;
 use Mush\Daedalus\ConfigData\RandomItemPlacesDataLoader;
+use Mush\Daedalus\Entity\RandomItemPlaces;
 
 class RandomItemPlacesDataLoaderCest
 {

@@ -3,9 +3,9 @@
 namespace Mush\Tests\functional\Disease\ConfigData;
 
 use App\Tests\FunctionalTester;
-use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\ConfigData\ConsumableDiseaseConfigData;
 use Mush\Disease\ConfigData\ConsumableDiseaseConfigDataLoader;
+use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 
 class ConsumableDiseaseConfigDataLoaderCest
 {

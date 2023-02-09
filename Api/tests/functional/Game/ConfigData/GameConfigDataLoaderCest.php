@@ -3,8 +3,8 @@
 namespace Mush\Tests\functional\Game\ConfigData;
 
 use App\Tests\FunctionalTester;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\ConfigData\GameConfigDataLoader;
+use Mush\Game\Entity\GameConfig;
 
 class GameConfigDataLoaderCest
 {

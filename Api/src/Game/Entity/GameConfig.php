@@ -92,9 +92,9 @@ class GameConfig
     }
 
     /**
-     * @param Collection<int, CharacterConfig> $charactersConfig
+     * @psalm-param ArrayCollection<int, CharacterConfig> $charactersConfig
      */
-    public function setCharactersConfig(Collection|array $charactersConfig): static
+    public function setCharactersConfig(ArrayCollection|array $charactersConfig): static
     {
         if (is_array($charactersConfig)) {
             $charactersConfig = new ArrayCollection($charactersConfig);
@@ -118,9 +118,9 @@ class GameConfig
     }
 
     /**
-     * @param Collection<int, TriumphConfig> $triumphConfig
+     * @psalm-param ArrayCollection<int, TriumphConfig> $triumphConfig
      */
-    public function setTriumphConfig(Collection|array $triumphConfig): self
+    public function setTriumphConfig(ArrayCollection|array $triumphConfig): self
     {
         if (is_array($triumphConfig)) {
             $triumphConfig = new ArrayCollection($triumphConfig);
@@ -143,7 +143,10 @@ class GameConfig
         return $this->equipmentsConfig;
     }
 
-    public function setEquipmentsConfig(Collection|array $equipmentsConfig): static
+    /**
+     * @psalm-param ArrayCollection<int, EquipmentConfig> $equipmentsConfig
+     */
+    public function setEquipmentsConfig(ArrayCollection|array $equipmentsConfig): static
     {
         if (is_array($equipmentsConfig)) {
             $equipmentsConfig = new ArrayCollection($equipmentsConfig);
@@ -167,9 +170,9 @@ class GameConfig
     }
 
     /**
-     * @param Collection<int, DiseaseCauseConfig> $diseaseCauseConfig
+     * @psalm-param ArrayCollection<int, DiseaseCauseConfig> $diseaseCauseConfig
      */
-    public function setDiseaseCauseConfig(Collection|array $diseaseCauseConfig): static
+    public function setDiseaseCauseConfig(ArrayCollection|array $diseaseCauseConfig): static
     {
         if (is_array($diseaseCauseConfig)) {
             $diseaseCauseConfig = new ArrayCollection($diseaseCauseConfig);
@@ -192,7 +195,10 @@ class GameConfig
         return $this->diseaseConfig;
     }
 
-    public function setDiseaseConfig(Collection|array $diseaseConfig): static
+    /**
+     * @psalm-param ArrayCollection<int, DiseaseConfig> $diseaseConfig
+     */
+    public function setDiseaseConfig(ArrayCollection|array $diseaseConfig): static
     {
         if (is_array($diseaseConfig)) {
             $diseaseConfig = new ArrayCollection($diseaseConfig);
@@ -215,7 +221,10 @@ class GameConfig
         return $this->consumableDiseaseConfig;
     }
 
-    public function setConsumableDiseaseConfig(Collection|array $consumableDiseaseConfig): static
+    /**
+     * @psalm-param ArrayCollection<int, ConsumableDiseaseConfig> $consumableDiseaseConfig
+     */
+    public function setConsumableDiseaseConfig(ArrayCollection|array $consumableDiseaseConfig): static
     {
         if (is_array($consumableDiseaseConfig)) {
             $consumableDiseaseConfig = new ArrayCollection($consumableDiseaseConfig);
@@ -258,9 +267,9 @@ class GameConfig
     }
 
     /**
-     * @param Collection<int, StatusConfig> $statusConfigs
+     * @psalm-param ArrayCollection<int, StatusConfig> $statusConfigs
      */
-    public function setStatusConfigs(Collection|array $statusConfigs): static
+    public function setStatusConfigs(ArrayCollection|array $statusConfigs): static
     {
         if (is_array($statusConfigs)) {
             $statusConfigs = new ArrayCollection($statusConfigs);

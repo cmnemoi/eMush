@@ -2,7 +2,7 @@
 
 namespace Mush\Player\Listener;
 
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -28,11 +28,11 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            QuantityEventInterface::CHANGE_VARIABLE => 'onChangeVariable',
+            VariableEventInterface::CHANGE_VARIABLE => 'onChangeVariable',
         ];
     }
 
-    public function onChangeVariable(QuantityEventInterface $playerEvent): void
+    public function onChangeVariable(VariableEventInterface $playerEvent): void
     {
         if (!$playerEvent instanceof PlayerVariableEvent) {
             return;
@@ -40,11 +40,11 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
 
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
-        $variableName = $playerEvent->getModifiedVariable();
+        $variableName = $playerEvent->getVariableName();
 
         $this->playerVariableService->handleGameVariableChange($variableName, $delta, $player);
 
-        switch ($playerEvent->getModifiedVariable()) {
+        switch ($playerEvent->getVariableName()) {
             case PlayerVariableEnum::HEALTH_POINT:
                 $this->handleHealthPointModifier($player, $playerEvent, $playerEvent->getTime());
 

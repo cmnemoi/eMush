@@ -10,7 +10,7 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -175,7 +175,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(DaedalusVariableEnum::HULL)
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
-            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($strengthenActivationRequirement)
         ;
@@ -217,7 +217,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
-            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->addModifierRequirement($cycleEventActivationRequirement)
         ;
         $gravityCycleModifier->buildName();
@@ -228,7 +228,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetVariable(DaedalusVariableEnum::OXYGEN)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->addModifierRequirement($cycleEventActivationRequirement)
         ;

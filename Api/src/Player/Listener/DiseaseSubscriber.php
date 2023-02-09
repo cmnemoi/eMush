@@ -36,8 +36,8 @@ class DiseaseSubscriber implements EventSubscriberInterface
             $maxAmount = $this->playerVariableService->getMaxPlayerVariable($player, $variableName);
 
             if ($maxAmount !== null) {
-                if ($player->getVariableValueFromName($variableName) > $maxAmount) {
-                    $player->setVariableValueFromName($variableName, $maxAmount);
+                if ($player->getVariableValueByName($variableName) > $maxAmount) {
+                    $player->setVariableValueByName($variableName, $maxAmount);
                     $this->playerService->persist($player);
                 }
             }

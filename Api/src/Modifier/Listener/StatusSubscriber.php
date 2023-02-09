@@ -4,7 +4,7 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -212,7 +212,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 $time,
             );
 
-            $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 }

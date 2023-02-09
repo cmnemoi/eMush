@@ -13,7 +13,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -110,8 +110,8 @@ class FireTest extends TestCase
             ->shouldReceive('callEvent')
             ->withArgs(fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                 intval($playerEvent->getQuantity()) === -2 &&
-                $eventName === QuantityEventInterface::CHANGE_VARIABLE &&
-                $playerEvent->getModifiedVariable() === PlayerVariableEnum::HEALTH_POINT
+                $eventName === VariableEventInterface::CHANGE_VARIABLE &&
+                $playerEvent->getVariableName() === PlayerVariableEnum::HEALTH_POINT
             ))
             ->once()
         ;
@@ -119,7 +119,7 @@ class FireTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (DaedalusVariableEvent $daedalusEvent, string $eventName) => (
-                $eventName === QuantityEventInterface::CHANGE_VARIABLE &&
+                $eventName === VariableEventInterface::CHANGE_VARIABLE &&
                 $daedalusEvent->getModifiedVariable() === DaedalusVariableEnum::HULL
             ))
             ->once()

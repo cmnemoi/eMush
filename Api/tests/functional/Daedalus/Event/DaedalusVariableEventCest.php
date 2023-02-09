@@ -11,7 +11,7 @@ use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -55,7 +55,7 @@ class DaedalusVariableEventCest
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
 
         $I->assertEquals(30, $daedalus->getOxygen());
 
@@ -72,7 +72,7 @@ class DaedalusVariableEventCest
             ->setTargetVariable(DaedalusVariableEnum::OXYGEN)
             ->setDelta(1)
             ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
-            ->setTargetEvent(QuantityEventInterface::CHANGE_VARIABLE)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->addModifierRequirement($modifierActivationRequirement)
             ->buildName()
         ;
@@ -88,7 +88,7 @@ class DaedalusVariableEventCest
             ['other_reason'],
             new \DateTime()
         );
-        $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
 
         $I->assertEquals(28, $daedalus->getOxygen());
 
@@ -99,7 +99,7 @@ class DaedalusVariableEventCest
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
 
         $I->assertEquals(27, $daedalus->getOxygen());
     }

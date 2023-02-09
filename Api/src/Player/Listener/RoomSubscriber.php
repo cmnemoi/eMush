@@ -2,7 +2,7 @@
 
 namespace Mush\Player\Listener;
 
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
@@ -57,7 +57,7 @@ class RoomSubscriber implements EventSubscriberInterface
                 [EndCauseEnum::INJURY],
                 $event->getTime()
             );
-            $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 
@@ -80,7 +80,7 @@ class RoomSubscriber implements EventSubscriberInterface
                 [EndCauseEnum::ELECTROCUTED],
                 $event->getTime()
             );
-            $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 

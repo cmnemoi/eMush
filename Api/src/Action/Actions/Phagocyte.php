@@ -10,7 +10,7 @@ use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasStatus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -60,7 +60,7 @@ class Phagocyte extends AbstractAction
             $this->getAction()->getActionTags(),
             new \DateTime()
         );
-        $this->eventService->callEvent($sporeLossEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($sporeLossEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         // The Player gains 4 :hp:
         $healthPointGainEvent = new PlayerVariableEvent(
@@ -71,7 +71,7 @@ class Phagocyte extends AbstractAction
             new \DateTime(),
         );
         $healthPointGainEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventService->callEvent($healthPointGainEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($healthPointGainEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         // The Player gains 4 :pa:
         $actionPointGainEvent = new PlayerVariableEvent(
@@ -82,6 +82,6 @@ class Phagocyte extends AbstractAction
             new \DateTime(),
         );
         $actionPointGainEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventService->callEvent($actionPointGainEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($actionPointGainEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

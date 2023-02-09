@@ -34,7 +34,7 @@ class GameVariableLevelValidator extends ConstraintValidator
     {
         switch ($target) {
             case GameVariableLevel::DAEDALUS:
-                $targetVariables = $value->getPlayer()->getDaedalus()->getDaedalusVariables();
+                $targetVariables = $value->getPlayer()->getDaedalus()->getGameVariables();
                 break;
             case GameVariableLevel::PLAYER:
                 $targetVariables = $value->getPlayer()->getPlayerVariables();

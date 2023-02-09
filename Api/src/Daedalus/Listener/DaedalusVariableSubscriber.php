@@ -4,7 +4,7 @@ namespace Mush\Daedalus\Listener;
 
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusVariableSubscriber implements EventSubscriberInterface
@@ -20,11 +20,11 @@ class DaedalusVariableSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            QuantityEventInterface::CHANGE_VARIABLE => 'onChangeVariable',
+            VariableEventInterface::CHANGE_VARIABLE => 'onChangeVariable',
         ];
     }
 
-    public function onChangeVariable(QuantityEventInterface $event): void
+    public function onChangeVariable(VariableEventInterface $event): void
     {
         if (!$event instanceof DaedalusVariableEvent) {
             return;

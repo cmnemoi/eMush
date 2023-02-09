@@ -7,7 +7,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
@@ -92,7 +92,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs($eventDispatched(-1, QuantityEventInterface::CHANGE_VARIABLE))
+            ->withArgs($eventDispatched(-1, VariableEventInterface::CHANGE_VARIABLE))
             ->once();
 
         $this->service->applyCostToPlayer($player, $action, null);
@@ -129,7 +129,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs($eventDispatched(-1, QuantityEventInterface::CHANGE_VARIABLE))
+            ->withArgs($eventDispatched(-1, VariableEventInterface::CHANGE_VARIABLE))
             ->once()
         ;
 
@@ -166,7 +166,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs($eventDispatched(-1, QuantityEventInterface::CHANGE_VARIABLE))
+            ->withArgs($eventDispatched(-1, VariableEventInterface::CHANGE_VARIABLE))
             ->once()
         ;
 
@@ -207,7 +207,7 @@ class ActionServiceTest extends TestCase
             ->withArgs(
                 fn (PlayerVariableEvent $event, string $eventName) => (
                     $event->getQuantity() === -1 &&
-                    $eventName === QuantityEventInterface::CHANGE_VARIABLE)
+                    $eventName === VariableEventInterface::CHANGE_VARIABLE)
             )
             ->twice()
         ;
@@ -246,7 +246,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs($eventDispatched(-3, QuantityEventInterface::CHANGE_VARIABLE))
+            ->withArgs($eventDispatched(-3, VariableEventInterface::CHANGE_VARIABLE))
             ->once()
         ;
 

@@ -2,7 +2,7 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
@@ -67,7 +67,7 @@ class PlayerSubscriber implements EventSubscriberInterface
                 $reasons,
                 $time,
             );
-            $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 }

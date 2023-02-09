@@ -22,7 +22,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -200,7 +200,7 @@ class DoTheThing extends AbstractAction
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );
-        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         if ($firstTimeStatus) {
             $player->removeStatus($firstTimeStatus);
@@ -248,7 +248,7 @@ class DoTheThing extends AbstractAction
 
     private function infect(Player $mush, Player $target)
     {
-        $sporeNumber = $mush->getVariableValueFromName(PlayerVariableEnum::SPORE);
+        $sporeNumber = $mush->getVariableValueByName(PlayerVariableEnum::SPORE);
         if ($sporeNumber > 0) {
             $playerModifierEvent = new PlayerVariableEvent(
                 $mush,
@@ -257,7 +257,7 @@ class DoTheThing extends AbstractAction
                 $this->getAction()->getActionTags(),
                 new \DateTime()
             );
-            $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 

@@ -2,7 +2,7 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -19,18 +19,18 @@ class QuantityEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            QuantityEventInterface::CHANGE_VARIABLE => ['onQuantityEvent', 100], // Applied before the modification is applied
+            VariableEventInterface::CHANGE_VARIABLE => ['onQuantityEvent', 100], // Applied before the modification is applied
         ];
     }
 
-    public function onQuantityEvent(QuantityEventInterface $event): void
+    public function onQuantityEvent(VariableEventInterface $event): void
     {
         $initQuantity = $event->getQuantity();
 
         $event->setQuantity($this->modifierService->getEventModifiedValue(
             $event->getModifierHolder(),
-            [QuantityEventInterface::CHANGE_VARIABLE],
-            $event->getModifiedVariable(),
+            [VariableEventInterface::CHANGE_VARIABLE],
+            $event->getVariableName(),
             $initQuantity,
             $event->getTags(),
             $event->getTime()

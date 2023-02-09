@@ -3,7 +3,8 @@
 namespace Mush\Game\Service;
 
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
@@ -50,36 +51,47 @@ class EventService implements EventServiceInterface
         }
 
         $modifiers = $event->getModifiers()->getModifiersByEvent($event->getEventName());
-
         $modifiers = $this->modifierService->getActiveModifiers($modifiers, $event->getTags());
 
-        foreach ($modifiers as $modifier) {
-            $event = $this->applyModifier($modifier, $event, $dispatch);
+        $triggerModifiers = $modifiers->getTriggerEventModifiers();
+
+        if ($dispatch === true) {
+            $this->applyTriggerModifiers($triggerModifiers, $event);
         }
+
+        $event = $this->applyVariableModifiers($modifiers, $event, $dispatch);
 
 
         return $event;
     }
 
-    private function applyModifier(GameModifier $modifier, AbstractGameEvent $event, bool $dispatch = true): AbstractGameEvent
+    private function applyTriggerModifiers(ModifierCollection $triggerModifiers, AbstractGameEvent $event): void
     {
-        $modifierConfig = $modifier->getModifierConfig();
-
-        if ($dispatch && $modifierConfig instanceof TriggerEventModifierConfig) {
-            $triggeredEvent = $this->modifierService->createTriggeredEvent($modifierConfig);
-
-            $this->callEvent($triggeredEvent, $triggeredEvent->getName());
-        } else if ($modifierConfig instanceof VariableEventModifierConfig) {
-            if (!($event instanceof QuantityEventInterface)) {
-                throw new \Error('variableEventModifiers only apply on quantityEventInterface');
-            }
-
-            $event = $this->modifierService->updateEvent($modifierConfig, $event);
-        }
-
-        if ($dispatch) {
+        foreach ($triggerModifiers as $modifier) {
+            /** @var TriggerEventModifierConfig $modifierConfig */
+            $modifierConfig = $modifier->getModifierConfig();
+            $triggeredEvent = $this->modifierService->createTriggeredEvent($modifierConfig, $event);
+            $this->callEvent($triggeredEvent, $triggeredEvent->getEventName());
             $modifierEvent = $this->modifierService->createModifierEvent($modifier, $event->getTags(), $event->getTime());
             $this->callEvent($modifierEvent, ModifierEvent::APPLY_MODIFIER);
+        }
+    }
+
+    private function applyVariableModifiers(ModifierCollection $modifiers, AbstractGameEvent $event, bool $dispatch = true): AbstractGameEvent
+    {
+        if (!($event instanceof VariableEventInterface)) {
+            throw new \Error('variableEventModifiers only apply on quantityEventInterface');
+        }
+
+        $variableModifiers = $modifiers->getVariableEventModifiers($event->getVariableName());
+
+        $event = $this->modifierService->modifyVariableEvent($variableModifiers, $event);
+
+        if ($dispatch) {
+            foreach ($variableModifiers as $modifier) {
+                $modifierEvent = $this->modifierService->createModifierEvent($modifier, $event->getTags(), $event->getTime());
+                $this->callEvent($modifierEvent, ModifierEvent::APPLY_MODIFIER);
+            }
         }
 
         return $event;

@@ -22,7 +22,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -240,7 +240,7 @@ class Attack extends AttemptAction
 
         $this->eventService->callEvent(
             $damageEvent,
-            QuantityEventInterface::CHANGE_VARIABLE
+            VariableEventInterface::CHANGE_VARIABLE
         );
     }
 }

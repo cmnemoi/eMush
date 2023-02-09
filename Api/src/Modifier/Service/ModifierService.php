@@ -7,14 +7,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use functional\Player\Event\PlayerModifierEventCest;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
+use Mush\Modifier\Entity\Config\TriggerVariableEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -26,6 +28,8 @@ use Mush\Modifier\Event\ModifiableEventInterface;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerCycleEvent;
+use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
@@ -86,32 +90,32 @@ class ModifierService implements ModifierServiceInterface
         }
     }
 
-//    private function getModifiedValue(ModifierCollection $modifierCollection, ?float $initValue): int
-//    {
-//        $multiplicativeDelta = 1;
-//        $additiveDelta = 0;
-//
-//        /** @var GameModifier $modifier */
-//        foreach ($modifierCollection as $modifier) {
-//            $modifierConfig = $modifier->getModifierConfig();
-//            if ($modifierConfig instanceof VariableEventModifierConfig) {
-//                switch ($modifierConfig->getMode()) {
-//                    case VariableModifierModeEnum::SET_VALUE:
-//                        return intval($modifierConfig->getDelta());
-//                    case VariableModifierModeEnum::ADDITIVE:
-//                        $additiveDelta += $modifierConfig->getDelta();
-//                        break;
-//                    case VariableModifierModeEnum::MULTIPLICATIVE:
-//                        $multiplicativeDelta *= $modifierConfig->getDelta();
-//                        break;
-//                    default:
-//                        throw new \LogicException('this modifier mode is not handled');
-//                }
-//            }
-//        }
-//
-//        return $this->computeModifiedValue($initValue, $multiplicativeDelta, $additiveDelta);
-//    }
+    private function getModifiedValue(ModifierCollection $modifierCollection, ?float $initValue): int
+    {
+        $multiplicativeDelta = 1;
+        $additiveDelta = 0;
+
+        /** @var GameModifier $modifier */
+        foreach ($modifierCollection as $modifier) {
+            $modifierConfig = $modifier->getModifierConfig();
+            if ($modifierConfig instanceof VariableEventModifierConfig) {
+                switch ($modifierConfig->getMode()) {
+                    case VariableModifierModeEnum::SET_VALUE:
+                        return intval($modifierConfig->getDelta());
+                    case VariableModifierModeEnum::ADDITIVE:
+                        $additiveDelta += $modifierConfig->getDelta();
+                        break;
+                    case VariableModifierModeEnum::MULTIPLICATIVE:
+                        $multiplicativeDelta *= $modifierConfig->getDelta();
+                        break;
+                    default:
+                        throw new \LogicException('this modifier mode is not handled');
+                }
+            }
+        }
+
+        return $this->computeModifiedValue($initValue, $multiplicativeDelta, $additiveDelta);
+    }
 
     private function computeModifiedValue(?float $initValue, float $multiplicativeDelta, float $additiveDelta): int
     {
@@ -127,11 +131,58 @@ class ModifierService implements ModifierServiceInterface
         return $modifiedValue;
     }
 
-    public function createTriggeredEvent(TriggerEventModifierConfig $modifierConfig): AbstractGameEvent
+    public function createTriggeredEvent(TriggerEventModifierConfig $modifierConfig, AbstractGameEvent $sourceEvent): AbstractGameEvent
     {
-        if ($modifierConfig->getModifierName() === QuantityEventInterface::CHANGE_VARIABLE) {
-            $this->createQuantityEvent($modifierConfig, )
+        if ($modifierConfig instanceof TriggerVariableEventModifierConfig) {
+            return $this->createQuantityEvent($modifierConfig, $sourceEvent);
         }
+
+        return ;
+    }
+
+    public function applyVariableModifiers(ModifierCollection $modifiers, AbstractGameEvent $event): AbstractGameEvent
+    {
+        if (!($event instanceof VariableEventInterface)) {
+            throw new \Error('variableEventModifiers only apply on quantityEventInterface');
+        }
+
+        $variable = $event->getVariable();
+        $variableName = $variable->getName();
+
+        if ($event instanceof PlayerCycleEvent &&
+            $variableName === ActionVariableEnum::PERCENTAGE_SUCCESS
+        ) {
+            if ($attemptNumber === null) {
+                throw new InvalidTypeException('number of attempt should be provided');
+            }
+            $initialValue = $action->getSuccessRate() * self::ATTEMPT_INCREASE ** $attemptNumber;
+
+            return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $initialValue);
+        }
+
+    }
+
+    public function getActionModifiedValue(Action $action, Player $player, string $target, ?LogParameterInterface $parameter, ?int $attemptNumber = null): int
+    {
+        $modifiers = $this->getActionModifiers($action, $player, $parameter);
+
+        if ($target === ModifierTargetEnum::PERCENTAGE) {
+            if ($attemptNumber === null) {
+                throw new InvalidTypeException('number of attempt should be provided');
+            }
+            $initialValue = $action->getSuccessRate() * self::ATTEMPT_INCREASE ** $attemptNumber;
+
+            return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $initialValue);
+        }
+
+        if ($target === PlayerVariableEnum::ACTION_POINT &&
+            in_array($action->getActionName(), ActionEnum::getActionPointModifierProtectedActions())) {
+            $actionPoints = $action->getActionVariables()->getValueByName(PlayerVariableEnum::ACTION_POINT);
+
+            return $actionPoints ? $actionPoints : 0;
+        }
+
+        return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionVariables()->getValueByName($target));
     }
 
 //    private function getActionModifiers(Action $action, Player $player, ?LogParameterInterface $parameter): ModifierCollection

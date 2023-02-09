@@ -12,7 +12,7 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -85,7 +85,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 [ActionEnum::CONSUME],
                 new \DateTime()
             );
-            $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getMovementPoint()) !== null) {
             $playerModifierEvent = new PlayerVariableEvent(
@@ -95,7 +95,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 [ActionEnum::CONSUME],
                 new \DateTime()
             );
-            $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getHealthPoint()) !== null) {
             $playerModifierEvent = new PlayerVariableEvent(
@@ -105,7 +105,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 [ActionEnum::CONSUME],
                 new \DateTime()
             );
-            $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getMoralPoint()) !== null &&
             !($isFrozen && $delta > 0)) {
@@ -116,7 +116,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 [ActionEnum::CONSUME],
                 new \DateTime()
             );
-            $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getSatiety()) !== null) {
             $playerModifierEvent = new PlayerVariableEvent(
@@ -126,7 +126,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 [ActionEnum::CONSUME],
                 new \DateTime()
             );
-            $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 
@@ -139,6 +139,6 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             [ActionEnum::CONSUME],
             new \DateTime()
         );
-        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

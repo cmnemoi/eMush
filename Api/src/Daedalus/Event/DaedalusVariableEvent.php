@@ -3,24 +3,28 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Entity\GameVariable;
+use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Event\ModifiableEventInterface;
 use Mush\Player\Entity\Player;
 
-class DaedalusVariableEvent extends DaedalusEvent implements QuantityEventInterface
+class DaedalusVariableEvent extends DaedalusEvent implements VariableEventInterface, ModifiableEventInterface
 {
     private int $quantity;
-    private string $modifiedVariable;
+    private string $variableName;
     private ?Player $player = null;
 
     public function __construct(
-        Daedalus $daedalus,
-        string $modifiedVariable,
-        int $quantity,
-        array $tags,
+        Daedalus  $daedalus,
+        string    $variableName,
+        int       $quantity,
+        array     $tags,
         \DateTime $time
     ) {
-        $this->modifiedVariable = $modifiedVariable;
+        $this->variableName = $variableName;
         $this->quantity = $quantity;
 
         parent::__construct($daedalus, $tags, $time);
@@ -38,9 +42,19 @@ class DaedalusVariableEvent extends DaedalusEvent implements QuantityEventInterf
         return $this->quantity;
     }
 
-    public function getModifiedVariable(): string
+    public function getVariable(): GameVariable
     {
-        return $this->modifiedVariable;
+        return $this->daedalus->getVariableByName($this->variableName);
+    }
+
+    public function getVariableName(): string
+    {
+        return $this->variableName;
+    }
+
+    public function getVariableHolder(): GameVariableHolderInterface
+    {
+        return $this->daedalus;
     }
 
     public function getPlayer(): ?Player
@@ -55,12 +69,12 @@ class DaedalusVariableEvent extends DaedalusEvent implements QuantityEventInterf
         return $this;
     }
 
-    public function getModifierHolder(): ModifierHolder
+    public function getModifiers(): ModifierCollection
     {
         if ($this->player !== null) {
-            return $this->player;
+            return $this->player->getAllModifiers();
         }
 
-        return $this->daedalus;
+        return $this->daedalus->getAllModifiers();
     }
 }

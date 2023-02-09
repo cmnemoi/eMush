@@ -3,7 +3,7 @@
 namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 
 /**
@@ -33,7 +33,7 @@ class VariableEventModifierConfig extends AbstractModifierConfig
 
     public function __construct()
     {
-        $this->targetEvent = QuantityEventInterface::CHANGE_VARIABLE;
+        $this->targetEvent = VariableEventInterface::CHANGE_VARIABLE;
 
         parent::__construct();
     }

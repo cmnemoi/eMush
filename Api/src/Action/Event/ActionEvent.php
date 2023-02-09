@@ -8,6 +8,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Event\ModifiableEventInterface;
 use Mush\Player\Entity\Player;
@@ -65,10 +66,8 @@ class ActionEvent extends AbstractGameEvent implements ModifiableEventInterface
         $modifiers = $this->player->getAllModifiers()->getNoActionParameterModifiers();
 
         $parameter = $this->actionParameter;
-        if ($parameter instanceof GameEquipment) {
-            $modifiers->addModifiers($parameter->getModifiers()->getActionParameterModifiers());
-        } else if ($parameter instanceof Player) {
-            $modifiers->addModifiers($parameter->getModifiers()->getActionParameterModifiers());
+        if ($parameter instanceof ModifierHolder) {
+            $modifiers->addModifiers($parameter->getAllModifiers()->getActionParameterModifiers());
         }
 
         return $modifiers;

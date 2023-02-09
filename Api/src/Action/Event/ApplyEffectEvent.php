@@ -5,6 +5,7 @@ namespace Mush\Action\Event;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Event\ModifiableEventInterface;
 use Mush\Place\Entity\Place;
@@ -64,10 +65,8 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
         $modifiers = $this->player->getAllModifiers()->getNoActionParameterModifiers();
 
         $parameter = $this->parameter;
-        if ($parameter instanceof GameEquipment) {
-            $modifiers->addModifiers($parameter->getModifiers()->getActionParameterModifiers());
-        } else if ($parameter instanceof Player) {
-            $modifiers->addModifiers($parameter->getModifiers()->getActionParameterModifiers());
+        if ($parameter instanceof ModifierHolder) {
+            $modifiers->addModifiers($parameter->getAllModifiers()->getActionParameterModifiers());
         }
 
         return $modifiers;

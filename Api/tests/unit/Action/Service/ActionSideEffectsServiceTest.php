@@ -7,7 +7,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionSideEffectsService;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -183,8 +183,8 @@ class ActionSideEffectsServiceTest extends TestCase
             ->withArgs(
                 fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                     $playerEvent->getQuantity() === -2 &&
-                    $eventName === QuantityEventInterface::CHANGE_VARIABLE &&
-                    $playerEvent->getModifiedVariable() === PlayerVariableEnum::HEALTH_POINT
+                    $eventName === VariableEventInterface::CHANGE_VARIABLE &&
+                    $playerEvent->getVariableName() === PlayerVariableEnum::HEALTH_POINT
                 )
             )
             ->once()

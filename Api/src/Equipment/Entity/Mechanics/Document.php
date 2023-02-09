@@ -25,7 +25,7 @@ class Document extends Tool
         return $mechanics;
     }
 
-    public function getContent(): string
+    public function getContent(): string|null
     {
         return $this->content;
     }

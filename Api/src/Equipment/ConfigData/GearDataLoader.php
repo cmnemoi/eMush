@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Repository\ActionRepository;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Repository\MechanicsRepository;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Repository\ModifierConfigRepository;
 
 class GearDataLoader extends MechanicsDataLoader

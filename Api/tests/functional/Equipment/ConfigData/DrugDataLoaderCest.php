@@ -5,8 +5,8 @@ namespace Mush\Tests\functional\Equipment\ConfigData;
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Service\ConfigData\ActionDataLoader;
-use Mush\Equipment\ConfigData\MechanicsData;
 use Mush\Equipment\ConfigData\DrugDataLoader;
+use Mush\Equipment\ConfigData\MechanicsData;
 use Mush\Equipment\Entity\Mechanics\Drug;
 
 class DrugDataLoaderCest

@@ -9,7 +9,7 @@ use Mush\Action\Repository\ActionRepository;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Repository\EquipmentConfigRepository;
-use Mush\Game\Service\ConfigData\ConfigDataLoader;
+use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Repository\CharacterConfigRepository;
 use Mush\Status\Repository\StatusConfigRepository;

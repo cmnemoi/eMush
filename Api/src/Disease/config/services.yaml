@@ -15,13 +15,13 @@ services:
       - '../Kernel.php'
       - '../Tests/'
   
-  Mush\Disease\Service\ConfigData\ConsumableDiseaseConfigDataLoader:
+  Mush\Disease\ConfigData\ConsumableDiseaseConfigDataLoader:
     public: true
-  Mush\Disease\Service\ConfigData\DiseaseCauseConfigDataLoader:
+  Mush\Disease\ConfigData\DiseaseCauseConfigDataLoader:
     public: true
-  Mush\Disease\Service\ConfigData\DiseaseConfigDataLoader:
+  Mush\Disease\ConfigData\DiseaseConfigDataLoader:
     public: true
-  Mush\Disease\Service\ConfigData\SymptomConfigDataLoader:
+  Mush\Disease\ConfigData\SymptomConfigDataLoader:
     public: true
-  Mush\Disease\Service\ConfigData\SymptomActivationRequirementDataLoader:
+  Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader:
     public: true

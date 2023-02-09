@@ -8,7 +8,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Repository\ActionRepository;
 use Mush\Equipment\Entity\EquipmentMechanic as Mechanics;
 use Mush\Equipment\Repository\MechanicsRepository;
-use Mush\Game\Service\ConfigData\ConfigDataLoader;
+use Mush\Game\ConfigData\ConfigDataLoader;
 
 abstract class MechanicsDataLoader extends ConfigDataLoader
 {

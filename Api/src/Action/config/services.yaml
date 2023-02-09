@@ -25,5 +25,5 @@ services:
     tags: ['mush.action']
 
   # need this for tests to work
-  Mush\Action\Service\ConfigData\ActionDataLoader:
+  Mush\Action\ConfigData\ActionDataLoader:
     public: true

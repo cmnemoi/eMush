@@ -3,10 +3,10 @@
 namespace Mush\Tests\functional\Equipment\ConfigData;
 
 use App\Tests\FunctionalTester;
-use Mush\Action\Service\ConfigData\ActionDataLoader;
-use Mush\Disease\Service\ConfigData\DiseaseConfigDataLoader;
-use Mush\Disease\Service\ConfigData\SymptomActivationRequirementDataLoader;
-use Mush\Disease\Service\ConfigData\SymptomConfigDataLoader;
+use Mush\Action\ConfigData\ActionDataLoader;
+use Mush\Disease\ConfigData\DiseaseConfigDataLoader;
+use Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader;
+use Mush\Disease\ConfigData\SymptomConfigDataLoader;
 use Mush\Equipment\ConfigData\BlueprintDataLoader;
 use Mush\Equipment\ConfigData\BookDataLoader;
 use Mush\Equipment\ConfigData\DocumentDataLoader;
@@ -18,13 +18,13 @@ use Mush\Equipment\ConfigData\PlantDataLoader;
 use Mush\Equipment\ConfigData\RationDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
-use Mush\Modifier\Service\ConfigData\ModifierActivationRequirementDataLoader;
-use Mush\Modifier\Service\ConfigData\VariableEventModifierConfigDataLoader;
+use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
+use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Player\ConfigData\CharacterConfigData;
 use Mush\Player\ConfigData\CharacterConfigDataLoader;
 use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Status\Service\ConfigData\ChargeStatusConfigDataLoader;
-use Mush\Status\Service\ConfigData\StatusConfigDataLoader;
+use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
+use Mush\Status\ConfigData\StatusConfigDataLoader;
 
 class CharacterConfigDataLoaderCest
 {

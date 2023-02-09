@@ -34,23 +34,22 @@ class ToolDataLoaderCest
             $I->seeInRepository(Tool::class, $toolData);
         }
 
-        // TODO: find a way to grab only tools
         $I->seeNumRecords($this->getNumberOfTools(), Tool::class);
     }
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
-        $dummyConfig = [
-            'name' => 'dummy',
+        $config = [
+            'name' => 'tools_hacker_kit_default',
         ];
 
-        $dummyConfig = $this->dropFields($dummyConfig);
+        $config = $this->dropFields($config);
 
-        $I->haveInRepository(Tool::class, $dummyConfig);
+        $I->haveInRepository(Tool::class, $config);
 
         $this->toolDataLoader->loadConfigsData();
 
-        $I->seeNumRecords(1, Tool::class, $dummyConfig);
+        $I->seeNumRecords(1, Tool::class, $config);
     }
 
     /** need to drop those fields because they are not in the Tool entity.

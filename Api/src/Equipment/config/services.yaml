@@ -23,6 +23,8 @@ services:
     public: true
   Mush\Equipment\ConfigData\DocumentDataLoader:
     public: true
+  Mush\Equipment\ConfigData\DrugDataLoader:
+    public: true
   Mush\Equipment\ConfigData\RationDataLoader:
     public: true
   Mush\Equipment\ConfigData\ToolDataLoader:

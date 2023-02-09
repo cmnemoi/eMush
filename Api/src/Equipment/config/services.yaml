@@ -21,6 +21,8 @@ services:
     public: true
   Mush\Equipment\ConfigData\BookDataLoader:
     public: true
+  Mush\Equipment\ConfigData\DocumentDataLoader:
+    public: true
   Mush\Equipment\ConfigData\ToolDataLoader:
     public: true
   Mush\Equipment\ConfigData\WeaponDataLoader:

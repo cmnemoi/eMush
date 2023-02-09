@@ -8,8 +8,8 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 #[ORM\Entity]
 class Document extends Tool
 {
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $content;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $content;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isTranslated = false;
@@ -30,7 +30,7 @@ class Document extends Tool
         return $this->content;
     }
 
-    public function setContent(string $content): static
+    public function setContent(string|null $content): static
     {
         $this->content = $content;
 

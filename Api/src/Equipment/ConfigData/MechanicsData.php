@@ -34,7 +34,6 @@ class MechanicsData
             'actions' => [
                 'read_document',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'commanders_manual_default',
@@ -65,7 +64,6 @@ class MechanicsData
             'actions' => [
                 'read_document',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'mush_research_review_default',
@@ -96,7 +94,6 @@ class MechanicsData
             'actions' => [
                 'read_document',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'post_it_default',
@@ -127,7 +124,6 @@ class MechanicsData
             'actions' => [
                 'read_document',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_astrophysicist_default',
@@ -158,7 +154,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_biologist_default',
@@ -189,7 +184,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_botanist_default',
@@ -220,7 +214,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_diplomat_default',
@@ -251,7 +244,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_firefighter_default',
@@ -282,7 +274,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_ chef_default',
@@ -313,7 +304,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_it_expert_default',
@@ -344,7 +334,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_logistics_expert_default',
@@ -375,7 +364,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_medic_default',
@@ -406,7 +394,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_pilot_default',
@@ -437,7 +424,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_ radio_expert_default',
@@ -468,7 +454,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_robotics_expert_default',
@@ -499,7 +484,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_shooter_default',
@@ -530,7 +514,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_shrink_default',
@@ -561,7 +544,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_sprinter_default',
@@ -592,7 +574,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'apprenton_technician_default',
@@ -623,7 +604,6 @@ class MechanicsData
             'actions' => [
                 'read_book',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'drug_default',
@@ -654,7 +634,6 @@ class MechanicsData
             'actions' => [
                 'consume_drug',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_banana_tree_default',
@@ -686,7 +665,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_creepist_default',
@@ -718,7 +696,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_cactax_default',
@@ -750,7 +727,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_bifflon_default',
@@ -782,7 +758,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_pulminagro_default',
@@ -814,7 +789,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_recatus_default',
@@ -846,7 +820,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_buttalien_default',
@@ -878,7 +851,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_platacia_default',
@@ -910,7 +882,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_tubiliscus_default',
@@ -942,7 +913,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_graapshoot_default',
@@ -974,7 +944,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_Fiboniccus_default',
@@ -1006,7 +975,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_mycopia_default',
@@ -1038,7 +1006,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_asperagunk_default',
@@ -1070,7 +1037,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'plant_bumpjunkin_default',
@@ -1102,7 +1068,6 @@ class MechanicsData
                 'treat_plant',
                 'water_plant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_banana_default',
@@ -1134,7 +1099,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_creepnut_default',
@@ -1166,7 +1130,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_meztine_default',
@@ -1198,7 +1161,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_guntiflop_default',
@@ -1230,7 +1192,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_ploshmina_default',
@@ -1262,7 +1223,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_precati_default',
@@ -1294,7 +1254,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_bottine_default',
@@ -1326,7 +1285,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_fragilane_default',
@@ -1358,7 +1316,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_anemole_default',
@@ -1390,7 +1347,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_peniraft_default',
@@ -1422,7 +1378,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_kubinus_default',
@@ -1454,7 +1409,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_caleboot_default',
@@ -1486,7 +1440,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_filandra_default',
@@ -1518,7 +1471,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'fruit_junkin_default',
@@ -1550,7 +1502,6 @@ class MechanicsData
                 'consume',
                 'transplant',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'ration_standard_ration_default',
@@ -1581,7 +1532,6 @@ class MechanicsData
             'actions' => [
                 'consume',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'ration_cooked_ration_default',
@@ -1612,7 +1562,6 @@ class MechanicsData
             'actions' => [
                 'consume',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'ration_alien_steak_default',
@@ -1643,7 +1592,6 @@ class MechanicsData
             'actions' => [
                 'consume',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'ration_coffee_default',
@@ -1674,7 +1622,6 @@ class MechanicsData
             'actions' => [
                 'consume',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'ration_anabolic_default',
@@ -1705,7 +1652,6 @@ class MechanicsData
             'actions' => [
                 'consume',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'ration_lombrick_bar_default',
@@ -1736,7 +1682,6 @@ class MechanicsData
             'actions' => [
                 'consume',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'ration_organic_waste_default',
@@ -1767,7 +1712,6 @@ class MechanicsData
             'actions' => [
                 'consume',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'ration_proactive_puffed_rice_default',
@@ -1798,7 +1742,6 @@ class MechanicsData
             'actions' => [
                 'consume',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'ration_space_potato_default',
@@ -1829,7 +1772,6 @@ class MechanicsData
             'actions' => [
                 'consume',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'ration_supervitamin_bar_default',
@@ -1860,7 +1802,6 @@ class MechanicsData
             'actions' => [
                 'consume',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'tools_hacker_kit_default',
@@ -1889,7 +1830,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'tools_duct_tape_default',
@@ -1920,7 +1860,6 @@ class MechanicsData
             'actions' => [
                 'gag',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'tools_microwave_default',
@@ -1951,7 +1890,6 @@ class MechanicsData
             'actions' => [
                 'express_cook',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'tools_superfreezer_default',
@@ -1982,7 +1920,6 @@ class MechanicsData
             'actions' => [
                 'hyperfreeze',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'tools_retro_fungal_serum_default',
@@ -2013,7 +1950,6 @@ class MechanicsData
             'actions' => [
                 'cure',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'gear_stainproof_apron_default',
@@ -2042,9 +1978,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [
-                'apron_modifier_for_player_-100percentage_on_event_dirty',
-            ],
         ],
         [
             'name' => 'gear_plastenite_armor_default',
@@ -2073,9 +2006,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [
-                'modifier_for_target_player_-1healthPoint_on_injury',
-            ],
         ],
         [
             'name' => 'gear_adjustable_wrench_default',
@@ -2104,9 +2034,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [
-                'modifier_for_player_x1.5percentage_on_action_technician',
-            ],
         ],
         [
             'name' => 'gear_protective_gloves_default',
@@ -2135,9 +2062,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [
-                'gloves_modifier_for_player_set_0percentage_on_event_clumsiness',
-            ],
         ],
         [
             'name' => 'gear_soap_default',
@@ -2166,10 +2090,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [
-                'modifier_for_player_-1actionPoint_on_shower',
-                'modifier_for_player_-1actionPoint_on_wash_in_sink',
-            ],
         ],
         [
             'name' => 'gear_sniper_helmet_default',
@@ -2198,9 +2118,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [
-                'modifier_for_player_x1.1percentage_on_action_shoot',
-            ],
         ],
         [
             'name' => 'gear_antigrav_scooter_default',
@@ -2229,9 +2146,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [
-                'modifier_for_player_+2movementPoint_on_event_action_movement_conversion',
-            ],
         ],
         [
             'name' => 'gear_rolling_boulder_default',
@@ -2260,9 +2174,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [
-                'modifier_for_player_+1movementPoint_on_event_action_movement_conversion_if_cycle_even',
-            ],
         ],
         [
             'name' => 'gear_ncc_lenses_default',
@@ -2291,9 +2202,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [
-                'modifier_for_player_x1.1percentage_on_action_shoot',
-            ],
         ],
         [
             'name' => 'gear_oscilloscope_default',
@@ -2322,10 +2230,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [
-                'modifier_for_player_x2hull_on_change.variable_if_reason_strengthen_hull',
-                'modifier_for_player_x1.5percentage_on_strengthen_hull',
-            ],
         ],
         [
             'name' => 'weapon_blaster_default',
@@ -2356,7 +2260,6 @@ class MechanicsData
             'actions' => [
                 'shoot',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'weapon_knife_default',
@@ -2387,7 +2290,6 @@ class MechanicsData
             'actions' => [
                 'attack',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'weapon_grenade_default',
@@ -2418,7 +2320,6 @@ class MechanicsData
             'actions' => [
                 'attack',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'weapon_natamy_rifle_default',
@@ -2449,7 +2350,6 @@ class MechanicsData
             'actions' => [
                 'attack',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'weapon_old_faithful_default',
@@ -2480,7 +2380,6 @@ class MechanicsData
             'actions' => [
                 'attack',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'weapon_lizaro_jungle_default',
@@ -2511,7 +2410,6 @@ class MechanicsData
             'actions' => [
                 'attack',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'weapon_rocket_launcher_default',
@@ -2542,7 +2440,6 @@ class MechanicsData
             'actions' => [
                 'attack',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'tools_kitchen_default',
@@ -2573,7 +2470,6 @@ class MechanicsData
             'actions' => [
                 'cook',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'tools_surgery_plot_default',
@@ -2604,7 +2500,6 @@ class MechanicsData
             'actions' => [
                 'self_surgery',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'tools_fuel_tank_default',
@@ -2635,7 +2530,6 @@ class MechanicsData
             'actions' => [
                 'insert_fuel',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'tools_oxygen_tank_default',
@@ -2666,7 +2560,6 @@ class MechanicsData
             'actions' => [
                 'insert_oxygen',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'gear_antenna_default',
@@ -2695,9 +2588,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [
-                'modifier_for_daedalus_-1actionPoint_on_TODO comms. action',
-            ],
         ],
         [
             'name' => 'gear_gravity_simulator_default',
@@ -2726,10 +2616,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [
-                'modifier_for_daedalus_+1movementPoint_on_event_action_movement_conversion',
-                'modifier_for_daedalus_+1movementPoint_on_change.variable_if_reason_new_cycle',
-            ],
         ],
         [
             'name' => 'gear_oxygen_tank_default',
@@ -2758,9 +2644,6 @@ class MechanicsData
             'criticalFailRate' => null,
             'oneShotRate' => null,
             'actions' => [],
-            'modifierConfigs' => [
-                'modifier_for_daedalus_+1oxygen_on_change.variable_if_reason_new_cycle',
-            ],
         ],
         [
             'name' => 'echolocator_blueprint_default',
@@ -2791,7 +2674,6 @@ class MechanicsData
             'actions' => [
                 'build',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'white_flag_blueprint_default',
@@ -2822,7 +2704,6 @@ class MechanicsData
             'actions' => [
                 'build',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'thermosensor_blueprint_default',
@@ -2853,7 +2734,6 @@ class MechanicsData
             'actions' => [
                 'build',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'babel_module_blueprint_default',
@@ -2884,7 +2764,6 @@ class MechanicsData
             'actions' => [
                 'build',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'grenade_blueprint_default',
@@ -2915,7 +2794,6 @@ class MechanicsData
             'actions' => [
                 'build',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'old_faithful_blueprint_default',
@@ -2946,7 +2824,6 @@ class MechanicsData
             'actions' => [
                 'build',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'lizaro_jungle_blueprint_default',
@@ -2977,7 +2854,6 @@ class MechanicsData
             'actions' => [
                 'build',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'rocket_launcher_blueprint_default',
@@ -3008,7 +2884,6 @@ class MechanicsData
             'actions' => [
                 'build',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'extinguisher_blueprint_default',
@@ -3039,7 +2914,6 @@ class MechanicsData
             'actions' => [
                 'build',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'oscilloscope_blueprint_default',
@@ -3070,7 +2944,6 @@ class MechanicsData
             'actions' => [
                 'build',
             ],
-            'modifierConfigs' => [],
         ],
         [
             'name' => 'sniper_helmet_blueprint_default',
@@ -3101,7 +2974,6 @@ class MechanicsData
             'actions' => [
                 'build',
             ],
-            'modifierConfigs' => [],
         ],
     ];
 }

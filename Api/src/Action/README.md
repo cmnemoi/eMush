@@ -7,7 +7,7 @@ This module handle the actions executed by the player. If applies effects and co
     |-- Actions
     |-- config
     |-- Controller
-    |-- DataFixtures
+    |-- ConfigData/DataFixtures
     |-- DependencyIjection
     |-- Entity
     |-- Enum
@@ -25,7 +25,7 @@ Contain a file for every available action, each action being its own class.
 All action classes extend [AbstractAction](./Actions/AbstractAction.php).
 Actions with a success rate extend [AttemptAction](./Actions/AttemptAction.php).
 
-### DataFixtures
+### ConfigData / DataFixtures
 - Action cost are initialized in [ActionCostFixtures](./DataFixtures/ActionCostFixture.php).
 - Actions are initialized in [ActionsFixtures](./DataFixtures/ActionsFixtures.php).
   - name: the key of the action

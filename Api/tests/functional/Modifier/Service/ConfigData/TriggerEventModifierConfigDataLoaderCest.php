@@ -38,7 +38,8 @@ class TriggerEventModifierConfigDataLoaderCest
     }
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
-    {
+    {   
+        // TODO: replace by an actual config when they are implemented
         $dummyConfig = [
             'name' => 'dummy',
             'modifierName' => null,

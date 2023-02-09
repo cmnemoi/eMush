@@ -38,8 +38,8 @@ services:
       - { name: 'serializer.normalizer', priority: 64 }
   
   # need this for tests to work
-  Mush\Daedalus\Service\ConfigData\DaedalusConfigDataLoader:
+  Mush\Daedalus\ConfigData\DaedalusConfigDataLoader:
     public: true
-  Mush\Daedalus\Service\ConfigData\RandomItemPlacesDataLoader:
+  Mush\Daedalus\ConfigData\RandomItemPlacesDataLoader:
     public: true
   

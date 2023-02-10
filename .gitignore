@@ -25,3 +25,6 @@ docker/docker-compose.dev.yml
 .php_cs.cache
 
 .phpunit.result.cache
+
+*.ipynb
+**/ConfigData/*.json

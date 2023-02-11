@@ -46,6 +46,7 @@ class CreateDaedalusCommand extends Command
         if ($input->getOption('dev')) {
             if ($this->service->existAvailableDaedalusWithName('dev')) {
                 $io->info("A 'dev' Daedalus is already available.");
+
                 return Command::SUCCESS;
             }
             $this->createDevDaedalus();

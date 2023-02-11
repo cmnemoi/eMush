@@ -10,7 +10,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\EquipmentMechanic as Mechanics;
 use Mush\Equipment\Repository\EquipmentConfigRepository;
 use Mush\Equipment\Repository\MechanicsRepository;
-use Mush\Game\Service\ConfigData\ConfigDataLoader;
+use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Status\Repository\StatusConfigRepository;
 
 class EquipmentConfigDataLoader extends ConfigDataLoader

@@ -4,7 +4,7 @@ namespace Mush\Tests\functional\Equipment\ConfigData;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Service\ConfigData\ActionDataLoader;
+use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Equipment\ConfigData\BlueprintDataLoader;
 use Mush\Equipment\ConfigData\BookDataLoader;
 use Mush\Equipment\ConfigData\DocumentDataLoader;
@@ -18,10 +18,10 @@ use Mush\Equipment\ConfigData\RationDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Modifier\Service\ConfigData\ModifierActivationRequirementDataLoader;
-use Mush\Modifier\Service\ConfigData\VariableEventModifierConfigDataLoader;
-use Mush\Status\Service\ConfigData\ChargeStatusConfigDataLoader;
-use Mush\Status\Service\ConfigData\StatusConfigDataLoader;
+use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
+use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
+use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
+use Mush\Status\ConfigData\StatusConfigDataLoader;
 
 class EquipmentConfigDataLoaderCest
 {

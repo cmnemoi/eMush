@@ -15,11 +15,11 @@ services:
       - '../Kernel.php'
       - '../Tests/'
 
-  Mush\Modifier\Service\ConfigData\ModifierActivationRequirementDataLoader:
+  Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader:
     public: true
-  Mush\Modifier\Service\ConfigData\TriggerVariableEventModifierConfigDataLoader:
+  Mush\Modifier\ConfigData\TriggerVariableEventModifierConfigDataLoader:
     public: true
-  Mush\Modifier\Service\ConfigData\TriggerEventModifierConfigDataLoader:
+  Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader:
     public: true
-  Mush\Modifier\Service\ConfigData\VariableEventModifierConfigDataLoader:
+  Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader:
     public: true

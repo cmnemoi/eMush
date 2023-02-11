@@ -10,7 +10,7 @@ Some statuses are visible by the players but other only serve game mechanics and
     |-- config
     |-- Criteria
     |-- CycleHandler
-    |-- DataFixtures
+    |-- ConfigData/DataFixtures
     |-- DependencyInjection
     |-- Controller
     |-- Entity
@@ -36,7 +36,7 @@ This directory contains the implementation of the different [strategies](./Enum/
 ### CycleHandler
 Some statuses have an effect on cycle changes. This directory implement the effects.
 
-### DataFixtures
+### ConfigData / DataFixtures
 - Information needed to create a new status:
   - associated game config
   - name

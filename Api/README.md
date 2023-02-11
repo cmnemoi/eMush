@@ -12,6 +12,7 @@
         |-- Daedalus/
             |-- config
             |-- Controller
+            |-- ConfigData
             |-- DataFixtures
             |-- Entity
             |-- Enum
@@ -61,9 +62,12 @@ Config for the module/folder
 #### Controller
 Responsible for declaring the routes (with annotations), it receives the request and send the response
 There should be no logic inside the controller except calling some services and verify the request
-#### DataFixtures
+#### ConfigData
 Store all the initialization data.
 This folder can be easily change to tweak game parameters such as action cost, intensity of effects...
+#### DataFixtures
+Same as ConfigData but for local development, it is used to populate the database with some data
+Should not be used in production (work in progress)
 #### Entity
 The class that holds the data, some of them are stored in database
 #### Enum

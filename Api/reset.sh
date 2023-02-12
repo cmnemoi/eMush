@@ -8,15 +8,7 @@ function generate-test-database
     php bin/console doctrine:schema:update --env=test -f
 }
 
-function generate-new-migration
-{
-    echo 'Generating a new migration...'
-    rm -rf ./migrations/*
-    php bin/console doctrine:schema:drop --full-database -f
-    php bin/console doctrine:migrations:diff
-}
-
 composer install
 generate-test-database
-generate-new-migration
+php bin/console doctrine:migrations:diff --no-interaction # generating new migration here because somehow it doesn't work in mush:migrate command (it does not detecting new migration)
 php bin/console mush:migrate --dev

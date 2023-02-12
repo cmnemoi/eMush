@@ -50,7 +50,7 @@ class CreateDaedalusCommand extends Command
                 return Command::SUCCESS;
             }
             $this->createDevDaedalus();
-            $io->success("A 'dev' Daedalus created.");
+            $io->success("'dev' Daedalus created.");
 
             return Command::SUCCESS;
         }

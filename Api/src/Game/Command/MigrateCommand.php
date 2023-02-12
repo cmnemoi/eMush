@@ -30,7 +30,7 @@ class MigrateCommand extends Command
 
     protected function configure(): void
     {
-        $this->addOption('dev', null, InputOption::VALUE_NONE, 'Create a dev Daedalus. (French only)');
+        $this->addOption('dev', null, InputOption::VALUE_NONE, 'Execute the command in dev mode.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

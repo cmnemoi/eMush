@@ -28,6 +28,10 @@ interface DaedalusServiceInterface
 
     public function existAvailableDaedalus(): bool;
 
+    public function existAvailableDaedalusInLanguage(string $language): bool;
+
+    public function existAvailableDaedalusWithName(string $name): bool;
+
     public function createDaedalus(GameConfig $gameConfig, string $name, string $language): Daedalus;
 
     public function endDaedalus(Daedalus $daedalus, string $cause, \DateTime $date): ClosedDaedalus;

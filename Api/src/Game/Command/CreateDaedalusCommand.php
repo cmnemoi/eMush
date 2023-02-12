@@ -3,13 +3,16 @@
 namespace Mush\Game\Command;
 
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Uid\Uuid;
 
 #[AsCommand(
     name: 'mush:create-daedalus',
@@ -31,30 +34,68 @@ class CreateDaedalusCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->addArgument('daedalusName', InputArgument::OPTIONAL, 'The name of the Daedalus to create.')
-            ->addArgument('language', InputArgument::OPTIONAL, 'The language of the Daedalus to create.')
-        ;
+        $this->addOption('dev', null, InputOption::VALUE_NONE, 'Create a dev Daedalus. (French only)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if (!$this->service->existAvailableDaedalus()) {
-            $output->writeln('Creating Daedalus...');
+        $io = new SymfonyStyle($input, $output);
 
-            $name = $input->getArgument('daedalusName') ? $input->getArgument('daedalusName') : 'test';
-            $language = $input->getArgument('language') ? $input->getArgument('language') : LanguageEnum::FRENCH;
-            $config = $this->gameConfigService->getConfigByName('default');
+        $io->title('Creating Daedalus...');
 
-            $this->service->createDaedalus($config, $name, $language);
+        if ($input->getOption('dev')) {
+            if ($this->service->existAvailableDaedalusWithName('dev')) {
+                $io->info("A 'dev' Daedalus is already available.");
 
-            $output->writeln("Daedalus '{$name}' created.");
+                return Command::SUCCESS;
+            }
+            $this->createDevDaedalus();
+            $io->success("'dev' Daedalus created.");
 
             return Command::SUCCESS;
-        } else {
-            $output->writeln('There is an available Daedalus.');
-
-            return Command::FAILURE;
         }
+
+        if ($this->service->existAvailableDaedalusInLanguage(LanguageEnum::FRENCH)) {
+            $io->info('A French Daedalus is already available.');
+        } else {
+            $this->createFrenchDaedalus();
+            $io->success('French Daedalus created.');
+        }
+
+        if ($this->service->existAvailableDaedalusInLanguage(LanguageEnum::ENGLISH)) {
+            $io->success('An English Daedalus is already available.');
+        } else {
+            $this->createEnglishDaedalus();
+            $io->success('English Daedalus created.');
+        }
+
+        return Command::SUCCESS;
+    }
+
+    private function createDevDaedalus(): void
+    {
+        $name = 'dev';
+        $language = LanguageEnum::FRENCH;
+        $config = $this->gameConfigService->getConfigByName(GameConfigEnum::DEFAULT);
+
+        $this->service->createDaedalus($config, $name, $language);
+    }
+
+    private function createEnglishDaedalus(): void
+    {
+        $name = Uuid::v4()->toRfc4122();
+        $language = LanguageEnum::ENGLISH;
+        $config = $this->gameConfigService->getConfigByName(GameConfigEnum::DEFAULT);
+
+        $this->service->createDaedalus($config, $name, $language);
+    }
+
+    private function createFrenchDaedalus(): void
+    {
+        $name = Uuid::v4()->toRfc4122();
+        $language = LanguageEnum::FRENCH;
+        $config = $this->gameConfigService->getConfigByName(GameConfigEnum::DEFAULT);
+
+        $this->service->createDaedalus($config, $name, $language);
     }
 }

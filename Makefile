@@ -1,12 +1,12 @@
 
 docker-start: docker-stop
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --no-recreate
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --no-recreate
 
 docker-watch:
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-recreate
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-recreate
 
 docker-stop:
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml stop
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml stop
 
 bash-api:
 	docker exec -udev -it mush_php bash
@@ -26,13 +26,13 @@ bash-mysql:
 reset-dependencies: install-api install-front install-eternal-twin
 
 build:
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml build
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-start
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml build
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-start
 
 install: build install-api reset-eternal-twin-database
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u node mush_front yarn install
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u node eternal_twin yarn install
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u node eternal_twin yarn etwin db create
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u node mush_front yarn install
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u node eternal_twin yarn install
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u node eternal_twin yarn etwin db create
 
 remove-all: #Warning, it will remove EVERY container, images, volumes and network not only emushs ones
 	docker system prune --volumes -a

@@ -10,8 +10,10 @@ function generate-test-database
 
 composer install
 generate-test-database
-if [ ! -d "./migrations" ]; then
-    mkdir migrations
+if  [[ $1 = "--init" ]]; then
+    php bin/console doctrine:schema:drop --full-database -f
+    php bin/console mush:migrate --dev
+else
+    php bin/console doctrine:migrations:diff --no-interaction
+    php bin/console mush:migrate --dev
 fi
-php bin/console doctrine:migrations:diff --no-interaction # generating new migration here because somehow it doesn't work in mush:migrate command (it does not detecting new migration)
-php bin/console mush:migrate --dev

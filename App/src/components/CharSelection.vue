@@ -21,7 +21,9 @@
                 v-for="(character, key) in characters"
                 :key="key"
                 class="char"
-                @click="selectCharacter(character)"
+                @click="selectedCharacter = character; characterSelected = true;"
+                @mouseenter="hoveredCharacter = character; characterHovered = true; "
+                @mouseleave="characterHovered = false"
             >
                 <div class="header">
                     <p class="level" />
@@ -37,8 +39,8 @@
                 </div>
             </section>
         </div>
-        <div style="display:none;" class="banner">
-            <div class="skills">
+        <div class="banner">
+            <div class="skills" style="display:none">
                 <div class="Expert radio">
                     <img src="@/assets/images/skills/human/cook.png" alt="cook">
                     <p>Expert radio</p>
@@ -53,13 +55,14 @@
                 </div>
             </div>
             <div class="description">
-                <p>Brilliant biologist and hardcore rebel markswoman, she is driven by the need to recontact Kivanç Terzi. Her technical and logistical skills are highly prized.</p>
+                <p v-if="characterHovered">{{ hoveredCharacter.abstract }}</p>
+                <p v-else-if="characterSelected">{{ selectedCharacter.abstract }}</p>
             </div>
-            <div class="gamestart">
+            <div class="gamestart" v-if="selectedCharacter">
                 <p class="choice">
-                    Vous avez choisi... <strong>Eleesha Williams</strong>.
+                    Vous avez choisi... <strong>{{ characterCompleteName(selectedCharacter) }}</strong>.
                 </p>
-                <a class="start" href="#"><span>Démarrer la partie</span></a>
+                <a class="start" href="#" @click="selectCharacter(characterSelected)"><span>Démarrer la partie</span></a>
             </div>
         </div>
     </div>
@@ -85,8 +88,12 @@ export default defineComponent ({
         return {
             loading: false,
             daedalusId: -1,
-            characters: [],
+            characters: Array<Character>(),
             daedalusName: '',
+            characterHovered: false,
+            hoveredCharacter: null,
+            characterSelected: false,
+            selectedCharacter: null,
             error: false
         };
     },
@@ -120,6 +127,9 @@ export default defineComponent ({
         },
         characterBody: function(character: Character) {
             return characterEnum[character.key] ? characterEnum[character.key].body : require('@/assets/images/items/todo.jpg');
+        },
+        characterCompleteName: function(character: Character) {
+            return characterEnum[character.key] ? characterEnum[character.key].completeName : 'Unknown';
         },
         selectCharacter: function(character: Character) {
             PlayerService.selectCharacter(this.getUserInfo.userId, this.daedalusId, character.key)

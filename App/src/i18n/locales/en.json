@@ -13,6 +13,8 @@
 		"issue": "Please report the encountered bugs on"
 	},
 	"footer": {
+		"alphaVersion": "Alpha Version",
+		"crowdin": "You can help us translating the game on ",
 		"developers": "Development",
 		"thanks": "Thanks",
 		"alpha-testers": "All alpha testers :)",

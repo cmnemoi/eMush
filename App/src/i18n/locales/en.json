@@ -451,10 +451,11 @@
 			"team": "Team"
 		}
 	},
-	"charselection": {
-		"findShip": "Find a ship:",
-		"select": "Select",
-		"shipNotFound": "No ship was found under this name. Please check and input the name again."
+	"charSelection": {
+		"selectLanguage": "Select a language :",
+		"shipNotFound": "No ship was found for this language. It is probably not supported yet :'(.",
+		"startGame": "Start the game",
+		"youChoose": "You choose "
 	},
 	"game": {
 		"communications": {

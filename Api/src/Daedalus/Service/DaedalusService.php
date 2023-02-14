@@ -135,6 +135,17 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalusInfo->getDaedalus();
     }
 
+    public function findAvailableDaedalusInLanguage(string $language): ?Daedalus
+    {
+        $daedalusInfo = $this->daedalusInfoRepository->findAvailableDaedalusInLanguage($language);
+
+        if ($daedalusInfo === null) {
+            return null;
+        }
+
+        return $daedalusInfo->getDaedalus();
+    }
+
     public function existAvailableDaedalus(): bool
     {
         return $this->daedalusInfoRepository->existAvailableDaedalus();

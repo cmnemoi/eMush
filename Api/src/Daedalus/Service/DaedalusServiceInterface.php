@@ -24,6 +24,8 @@ interface DaedalusServiceInterface
 
     public function findAvailableDaedalus(string $name): ?Daedalus;
 
+    public function findAvailableDaedalusInLanguage(string $language): ?Daedalus;
+
     public function findAllNonFinishedDaedaluses(): DaedalusCollection;
 
     public function existAvailableDaedalus(): bool;

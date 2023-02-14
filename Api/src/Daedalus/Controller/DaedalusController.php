@@ -67,9 +67,9 @@ class DaedalusController extends AbstractFOSRestController
      */
     public function getAvailableCharacter(Request $request): View
     {
-        $name = $request->get('name', '');
+        $language = $request->get('language', '');
 
-        $daedalus = $this->daedalusService->findAvailableDaedalus($name);
+        $daedalus = $this->daedalusService->findAvailableDaedalusInLanguage($language);
 
         if ($daedalus === null) {
             return $this->view(['error' => 'Daedalus not found'], 404);

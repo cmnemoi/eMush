@@ -3,20 +3,21 @@
         <Spinner :loading="loading"></Spinner>
         <form class="daedalus-selection" onsubmit="return false">
             <div>
-                <label>{{ $t('charselection.findShip') }}</label>
-                <input
-                    v-model="daedalusName"
-                    type="search"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    @keyup.enter="loadAvailableCharacters"
-                >
-                <button type="button" @click="loadAvailableCharacters">{{ $t('charselection.select') }}</button>
+                <label>{{ $t('charSelection.selectLanguage') }}</label>
+                <ol class="flag-list">
+                    <img
+                        v-for="(lang, i) in languages"
+                        :key="`Lang${i}`"
+                        :value="lang.caption"
+                        @click="resetValues(); loadAvailableCharacters(i);"
+                        :src="lang.icon" 
+                        class="flag"
+                    />
+                </ol>
             </div>
-            <span v-if="error" class="error">{{ $t('charselection.shipNotFound') }}</span>
+            <span v-if="error" class="error">{{ $t('charSelection.shipNotFound') }}</span>
         </form>
-        <div class="char-selection">
+        <div class="char-selection" v-if="!error">
             <section
                 v-for="(character, key) in characters"
                 :key="key"
@@ -39,7 +40,7 @@
                 </div>
             </section>
         </div>
-        <div class="banner">
+        <div class="banner" v-if="!error">
             <div class="skills" style="display:none">
                 <div class="Expert radio">
                     <img src="@/assets/images/skills/human/cook.png" alt="cook">
@@ -60,9 +61,9 @@
             </div>
             <div class="gamestart" v-if="selectedCharacter">
                 <p class="choice">
-                    Vous avez choisi... <strong>{{ characterCompleteName(selectedCharacter) }}</strong>.
+                    {{ $t("charSelection.youChoose") }} <strong>{{ characterCompleteName(selectedCharacter) }}</strong>.
                 </p>
-                <a class="start" href="#" @click="selectCharacter(characterSelected)"><span>Démarrer la partie</span></a>
+                <a class="start" href="#" @click="selectCharacter(selectedCharacter)"><span>{{ $t("charSelection.startGame") }}</span></a>
             </div>
         </div>
     </div>
@@ -76,6 +77,8 @@ import { Character } from "@/entities/Character";
 import Spinner from "@/components/Utils/Spinner.vue";
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
+import { gameLocales } from "@/i18n";
+import { daedalus } from "@/store/daedalus.module";
 
 export default defineComponent ({
     name: 'CharSelection',
@@ -89,12 +92,14 @@ export default defineComponent ({
             loading: false,
             daedalusId: -1,
             characters: Array<Character>(),
+            daedaluses: Array<any>(),
             daedalusName: '',
             characterHovered: false,
             hoveredCharacter: null,
             characterSelected: false,
             selectedCharacter: null,
-            error: false
+            error: false,
+            languages: gameLocales,
         };
     },
     computed: {
@@ -103,24 +108,21 @@ export default defineComponent ({
         ])
     },
     methods: {
-        loadAvailableCharacters() {
-            if (this.daedalusName.length > 0) {
-                this.loading = true;
-                console.log('hi');
-                ApiService.get('daedaluses/available-characters', { params: { name: this.daedalusName } })
-                    .then((response) => {
-                        this.daedalusId = response.data.daedalus;
-                        this.characters = response.data.characters;
-                        this.error = false;
-                        this.loading = false;
-                    })
-                    .catch((error) => {
-                        this.clearError();
-                        this.error = true;
-                        this.loading = false;
-
-                    });
-            }
+        loadAvailableCharacters(language: string) {
+            this.loading = true;
+            ApiService.get('daedaluses/available-characters', { params: { language: language } })
+                .then((response) => {
+                    this.daedalusId = response.data.daedalus;
+                    this.characters = response.data.characters;
+                    this.error = false;
+                    this.loading = false;
+                })
+                .catch((error) => {
+                    this.clearError();
+                    this.error = true;
+                    this.loading = false;
+                });
+            
         },
         characterPortrait: function(character: Character) {
             return characterEnum[character.key] ? characterEnum[character.key].portrait : require('@/assets/images/items/todo.jpg');
@@ -130,6 +132,12 @@ export default defineComponent ({
         },
         characterCompleteName: function(character: Character) {
             return characterEnum[character.key] ? characterEnum[character.key].completeName : 'Unknown';
+        },
+        resetValues: function() {
+            this.characterHovered = false;
+            this.hoveredCharacter = null;
+            this.characterSelected = false;
+            this.selectedCharacter = null;
         },
         selectCharacter: function(character: Character) {
             PlayerService.selectCharacter(this.getUserInfo.userId, this.daedalusId, character.key)
@@ -144,7 +152,7 @@ export default defineComponent ({
         ...mapActions('error', [
             'clearError'
         ])
-    }
+    },
 });
 </script>
 
@@ -176,6 +184,14 @@ h1 {
         align-items: center;
 
         & > * { margin: 0 .15em; }
+
+        select option .placeholder {
+            color: red;
+        }
+
+        .flag {
+            margin: 4% 15% 0 15%;
+        }
     }
 
     label {
@@ -195,6 +211,7 @@ h1 {
         font-size: .9em;
         font-style: italic;
     }
+
 }
 
 .char-selection {

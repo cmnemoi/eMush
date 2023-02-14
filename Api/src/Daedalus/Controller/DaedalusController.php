@@ -10,6 +10,7 @@ use Mush\Daedalus\Entity\Dto\DaedalusCreateRequest;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\EndCauseEnum;
@@ -37,19 +38,22 @@ class DaedalusController extends AbstractFOSRestController
     private TranslationServiceInterface $translationService;
     private PlayerInfoRepository $playerInfoRepository;
     private ValidatorInterface $validator;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         DaedalusWidgetServiceInterface $daedalusWidgetService,
         TranslationServiceInterface $translationService,
         PlayerInfoRepository $playerInfoRepository,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        RandomServiceInterface $randomService
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusWidgetService = $daedalusWidgetService;
         $this->translationService = $translationService;
         $this->playerInfoRepository = $playerInfoRepository;
         $this->validator = $validator;
+        $this->randomService = $randomService;
     }
 
     /**
@@ -63,15 +67,16 @@ class DaedalusController extends AbstractFOSRestController
      */
     public function getAvailableCharacter(Request $request): View
     {
-        $name = $request->get('name', '');
+        $language = $request->get('language', '');
 
-        $daedalus = $this->daedalusService->findAvailableDaedalus($name);
+        $daedalus = $this->daedalusService->findAvailableDaedalusInLanguage($language);
 
         if ($daedalus === null) {
             return $this->view(['error' => 'Daedalus not found'], 404);
         }
 
         $availableCharacters = $this->daedalusService->findAvailableCharacterForDaedalus($daedalus);
+        $availableCharacters = $this->randomService->getRandomElements($availableCharacters->toArray(), 4);
         $characters = [];
         /** @var CharacterConfig $character */
         foreach ($availableCharacters as $character) {
@@ -79,6 +84,12 @@ class DaedalusController extends AbstractFOSRestController
                 'key' => $character->getCharacterName(),
                 'name' => $this->translationService->translate(
                     $character->getCharacterName() . '.name',
+                    [],
+                    'characters',
+                    $daedalus->getLanguage()
+                ),
+                'abstract' => $this->translationService->translate(
+                    $character->getCharacterName() . '.abstract',
                     [],
                     'characters',
                     $daedalus->getLanguage()

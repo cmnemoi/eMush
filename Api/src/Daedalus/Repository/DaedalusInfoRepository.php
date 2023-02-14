@@ -33,6 +33,23 @@ class DaedalusInfoRepository extends ServiceEntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
+    public function findAvailableDaedalusInLanguage(string $language): ?DaedalusInfo
+    {
+        $qb = $this->createQueryBuilder('daedalus_info');
+
+        $qb
+            ->select('daedalus_info')
+            ->leftJoin('daedalus_info.localizationConfig', 'language')
+            ->where($qb->expr()->in('daedalus_info.gameStatus', ':game_status'))
+            ->andWhere($qb->expr()->eq('language.name', ':language'))
+            ->setMaxResults(1)
+            ->setParameter('language', $language)
+            ->setParameter('game_status', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
+        ;
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
     public function existAvailableDaedalus(): bool
     {
         $qb = $this->createQueryBuilder('daedalus_info');

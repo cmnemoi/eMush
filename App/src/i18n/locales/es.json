@@ -13,6 +13,8 @@
 		"issue": "Merci de signaler les bugs rencontrés sur"
 	},
 	"footer": {
+		"alphaVersion": "Version Alpha",
+		"crowdin": "Vous pouvez nous aider à traduire le jeu sur ",
 		"developers": "Développement",
 		"thanks": "Remerciements",
 		"alpha-testers": "Tous les alpha testeurs :)",
@@ -202,7 +204,12 @@
 			"targetVariable": "Variable cible",
 			"targetEvent": "Déclencheur",
 			"modifierHolderClass": "Entité porteuse du modificateur",
-			"mode": "Mode"
+			"mode": "Mode",
+			"variableModifier": "Modificateur de variables",
+			"triggerEventModifier": "Déclencheurs d'événements",
+			"modifierRequirement": "Conditions d'activation",
+			"triggeredEvent": "Nom de l'événement déclenché",
+			"applyOnActionParameter": "Application uniquement sur cible d'action"
 		},
 		"modifierActivationRequirement": {
 			"name": "Nom",
@@ -252,6 +259,7 @@
 		"search": "Chercher",
 		"edit": "Éditer",
 		"updatedAt": "Mis à jour le",
+		"class": "Type d'entité",
 		"daedalusConfig": {
 			"name": "Nom",
 			"initOxygen": "Oxygène de départ",
@@ -450,9 +458,10 @@
 		}
 	},
 	"charSelection": {
-		"findShip": "Trouver un vaisseau :",
-		"select": "Sélectionner",
-		"shipNotFound": "Aucun vaisseau avec ce nom n'a été trouvé. Vérifiez son orthographe et réessayez."
+		"selectLanguage": "Sélectionnez une langue :",
+		"shipNotFound": "Aucun vaisseau avec ce nom n'a été trouvé. Vérifiez son orthographe et réessayez.",
+		"startGame": "Démarrer la partie",
+		"youChoose": "Vous avez choisi "
 	},
 	"game": {
 		"communications": {

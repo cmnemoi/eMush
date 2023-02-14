@@ -350,7 +350,7 @@
       </segment>
       <segment id="abstract" state="translated">
         <source>hua.abstract</source>
-        <target>Spécialisée dans les missions d'approches de planète inconnue, Hua est capable d'attérir dans n'importes quelles conditions sur à peu près n'importes quelles surfaces. Elle était présente dans L'Epygron, premier vaisseau d'exploration à rencontrer une forme de vie extra-terrestre.</target>
+        <target>Spécialisée dans les missions d'approches de planète inconnue, Hua est capable d'atterrir dans n'importes quelles conditions sur à peu près n'importes quelles surfaces. Elle était présente dans L'Epygron, premier vaisseau d'exploration à rencontrer une forme de vie extra-terrestre.</target>
       </segment>
       <segment id="biography" state="translated">
         <source>hua.biography</source>
@@ -428,7 +428,7 @@
       </segment>
       <segment id="abstract" state="translated">
         <source>jin_su.abstract</source>
-        <target>Il a débuté très jeune dans des missions d'analyse sur Barnard Star. Il est rapidement promu au rang de Commandant et se voit confier des expéditions importantes sur Ross 154 et Epsilon Indi. Sur Tau-Ceti, la découverte de plusieurs gisements de Boxylium font de Jin-Su une célébrité interplanétaire. En 3146, il est nommé par la Fédération pour commander l'exécution du projet Magellan. Suite à l'invasion du Mush sur Sol, il conçoit les plans du Daedalus avec Lai Kuan-Ti, et rassemble un équipage d'élite pour assurer la survie de l'espèce humaine dans une autre galaxie.</target>
+        <target>Jin Su a débuté très jeune dans des missions d'analyse sur Barnard Star. Il est rapidement promu au rang de Commandant et se voit confier des expéditions importantes sur Ross 154 et Epsilon Indi. Sur Tau-Ceti, la découverte de plusieurs gisements de Boxylium font de Jin-Su une célébrité interplanétaire. En 3146, il est nommé par la Fédération pour commander l'exécution du projet Magellan. Suite à l'invasion du Mush sur Sol, il conçoit les plans du Daedalus avec Lai Kuan Ti, et rassemble un équipage d'élite pour assurer la survie de l'espèce humaine dans une autre galaxie.</target>
       </segment>
       <segment id="biography" state="translated">
         <source>jin_su.biography</source>
@@ -467,7 +467,7 @@
       </segment>
       <segment id="abstract" state="translated">
         <source>kuan_ti.abstract</source>
-        <target>Lai Kuan-Ti est l'un des deux concepteurs du Daedalus. Il ne prête guère attention à l'arrivée du Mush sur Tau-Ceti jusqu’à ce que Eleesha Williams lui apprenne le stade avancé de propagation du mycélium à l’intérieur du système Sol. Kuan-Ti, Raluca et Jin-Su décident alors d'avancer de 8 ans le lancement de leur programme d'exploration avant que la Fédération n'y mette un terme.</target>
+        <target>Lai Kuan Ti est l'un des deux concepteurs du Daedalus. Il ne prête guère attention à l'arrivée du Mush sur Tau-Ceti jusqu’à ce que Eleesha Williams lui apprenne le stade avancé de propagation du mycélium à l’intérieur du système Sol. Kuan Ti, Raluca et Jin Su décident alors d'avancer de 8 ans le lancement de leur programme d'exploration avant que la Fédération n'y mette un terme.</target>
       </segment>
       <segment id="biography" state="translated">
         <source>kuan_ti.biography</source>
@@ -505,7 +505,7 @@
       </segment>
       <segment id="abstract" state="translated">
         <source>paola.abstract</source>
-        <target>Fille de l'armateur Gioele Rinaldo. Elle vit dans le désir constant d'une aventure qui bouleversera son existence. Pour dénoncer le système néo-colonialiste de la Féderation, elle monte une radio pirate dans son campus avec son petit-ami Kivanç Terzi . A cette occasion, Elle intercepte accidentellement des communications Mush troublantes révélant une invasion prochaine. En fuite, elle rejoint son père qui lui permet d'embarquer sur le Daedalus, abandonnant sur Sol l'homme de sa vie.</target>
+        <target>Fille de l'armateur Gioele Rinaldo. Elle vit dans le désir constant d'une aventure qui bouleversera son existence. Pour dénoncer le système néo-colonialiste de la Féderation, elle monte une radio pirate dans son campus avec son petit-ami Kivanç Terzi. A cette occasion, elle intercepte accidentellement des communications Mush troublantes révélant une invasion prochaine. En fuite, elle rejoint son père qui lui permet d'embarquer sur le Daedalus, abandonnant sur Sol l'homme de sa vie.</target>
       </segment>
       <segment id="biography" state="translated">
         <source>paola.biography</source>
@@ -542,7 +542,7 @@
       </segment>
       <segment id="abstract" state="translated">
         <source>raluca.abstract</source>
-        <target>Génie de la physique dès l'âge de 11 ans, Raluca est l'inventeuse du réacteur à combustion réversible PILGRED équipé sur le Daedalus. Elle a également conçu avec Lai Kuan-Ti la quasi-totalité des modules du vaisseau et peut encore les améliorer. Souffrant de troubles autistiques, Raluca ne supporte que la présence de son chat Schrödinger qu'elle a réussi à faire monter à bord contre l'avis des médecins. Ses disputes avec NERON sont légendaires.</target>
+        <target>Génie de la physique dès l'âge de 11 ans, Raluca est l'inventeuse du réacteur à combustion réversible PILGRED équipé sur le Daedalus. Elle a également conçu avec Lai Kuan Ti la quasi-totalité des modules du vaisseau et peut encore les améliorer. Souffrant de troubles autistiques, Raluca ne supporte que la présence de son chat Schrödinger qu'elle a réussi à faire monter à bord contre l'avis des médecins. Ses disputes avec NERON sont légendaires.</target>
       </segment>
       <segment id="biography" state="translated">
         <source>raluca.biography</source>

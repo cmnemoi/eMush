@@ -204,7 +204,12 @@
 			"targetVariable": "Target variable",
 			"targetEvent": "Trigger event",
 			"modifierHolderClass": "Modifier holder entity",
-			"mode": "Calculation Mode"
+			"mode": "Calculation Mode",
+			"variableModifier": "Modificateur de variables",
+			"triggerEventModifier": "Déclencheurs d'événements",
+			"modifierRequirement": "Conditions d'activation",
+			"triggeredEvent": "Nom de l'événement déclenché",
+			"applyOnActionParameter": "Application uniquement sur cible d'action"
 		},
 		"modifierActivationRequirement": {
 			"name": "Name",
@@ -254,6 +259,7 @@
 		"search": "Search",
 		"edit": "Edit",
 		"updatedAt": "Updated at",
+		"class": "Type d'entité",
 		"daedalusConfig": {
 			"name": "Name",
 			"initOxygen": "Initial Oxygen",

@@ -16,8 +16,10 @@ services:
     build: Api/php
     container_name: mush_php
     environment:
-      - PHP_IDE_CONFIG=serverName=mush
-      - PHP_CS_FIXER_IGNORE_ENV=1
+      PHP_IDE_CONFIG: serverName=mush
+      PHP_CS_FIXER_IGNORE_ENV: 1
+      SSMTP_MAILHUB: mailhog:1025
+      PHP_SENDMAIL_PATH: "/usr/sbin/ssmtp -t -f"
     volumes:
       - ../Api:/www
     networks:
@@ -71,6 +73,12 @@ services:
       - mush_network
     stdin_open: true
     tty: true
+
+  mush_mailhog:
+    image: mailhog/mailhog
+    container_name: mush_mailhog
+    networks:
+      - mush_network
 
 networks:
   mush_network:

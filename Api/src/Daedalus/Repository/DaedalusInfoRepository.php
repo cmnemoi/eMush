@@ -6,15 +6,20 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\User\Entity\User;
+use Mush\User\Service\UserServiceInterface;
 
 /**
  * @template-extends ServiceEntityRepository<DaedalusInfo>
  */
 class DaedalusInfoRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private UserServiceInterface $userService;
+
+    public function __construct(ManagerRegistry $registry, UserServiceInterface $userService)
     {
         parent::__construct($registry, DaedalusInfo::class);
+        $this->userService = $userService;
     }
 
     public function findAvailableDaedalus(string $name): ?DaedalusInfo
@@ -45,6 +50,27 @@ class DaedalusInfoRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->setParameter('language', $language)
             ->setParameter('game_status', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
+        ;
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function findAvailableDaedalusInLanguageForUser(string $language, User $user): ?DaedalusInfo
+    {
+        $userDaedaluses = $this->userService->findUserDaedaluses($user);
+
+        $qb = $this->createQueryBuilder('daedalus_info');
+
+        $qb
+            ->select('daedalus_info')
+            ->leftJoin('daedalus_info.localizationConfig', 'language')
+            ->where($qb->expr()->in('daedalus_info.gameStatus', ':game_status'))
+            ->andWhere($qb->expr()->eq('language.name', ':language'))
+            ->andWhere($qb->expr()->notIn('daedalus_info', ':user_daedaluses'))
+            ->setMaxResults(1)
+            ->setParameter('language', $language)
+            ->setParameter('game_status', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
+            ->setParameter('user_daedaluses', $userDaedaluses)
         ;
 
         return $qb->getQuery()->getOneOrNullResult();

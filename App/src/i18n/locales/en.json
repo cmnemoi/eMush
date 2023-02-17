@@ -459,7 +459,7 @@
 	},
 	"charSelection": {
 		"selectLanguage": "Select a language :",
-		"shipNotFound": "No ship was found for this language. It is probably not supported yet :'(.",
+		"shipNotFound": "No ship was found. Either one will be created in the incoming hour, or this language is not supported yet. :'(",
 		"startGame": "Start the game",
 		"youChoose": "You choose "
 	},

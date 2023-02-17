@@ -401,7 +401,7 @@ class ChannelController extends AbstractFOSRestController
 
         $messageCreate->setChannel($channel);
 
-        $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
+        $this->denyAccessUnlessGranted(ChannelVoter::POST, $channel);
 
         if (count($violations = $this->validator->validate($messageCreate))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);

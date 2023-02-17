@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ChannelVoter extends Voter
-{   
+{
     public const POST = 'post';
     public const VIEW = 'view';
 
@@ -84,9 +84,9 @@ class ChannelVoter extends Voter
 
         $playerCanCommunicate = $this->channelService->canPlayerCommunicate($player);
 
-        return $playerCanCommunicate && ( 
-        $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
-            ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
+        return $playerCanCommunicate && (
+            $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
+                ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
         );
     }
 }

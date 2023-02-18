@@ -74,7 +74,7 @@ class CreateDaedalusCommand extends Command
 
     private function createDevDaedalus(): void
     {
-        $name = 'dev';
+        $name = Uuid::v4()->toRfc4122();
         $language = LanguageEnum::FRENCH;
         $config = $this->gameConfigService->getConfigByName(GameConfigEnum::DEFAULT);
 

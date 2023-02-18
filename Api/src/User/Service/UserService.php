@@ -62,4 +62,9 @@ class UserService implements UserServiceInterface
 
         return $user;
     }
+
+    public function findUserDaedaluses(User $user): array
+    {
+        return $this->repository->findUserDaedaluses($user);
+    }
 }

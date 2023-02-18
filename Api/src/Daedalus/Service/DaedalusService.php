@@ -36,6 +36,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class DaedalusService implements DaedalusServiceInterface
 {
@@ -138,6 +139,17 @@ class DaedalusService implements DaedalusServiceInterface
     public function findAvailableDaedalusInLanguage(string $language): ?Daedalus
     {
         $daedalusInfo = $this->daedalusInfoRepository->findAvailableDaedalusInLanguage($language);
+
+        if ($daedalusInfo === null) {
+            return null;
+        }
+
+        return $daedalusInfo->getDaedalus();
+    }
+
+    public function findAvailableDaedalusInLanguageForUser(string $language, User $user): ?Daedalus
+    {
+        $daedalusInfo = $this->daedalusInfoRepository->findAvailableDaedalusInLanguageForUser($language, $user);
 
         if ($daedalusInfo === null) {
             return null;

@@ -17,4 +17,6 @@ interface UserServiceInterface
     public function createUser(string $userId, string $username): User;
 
     public function findUserByNonceCode(string $nonceCode): ?User;
+
+    public function findUserDaedaluses(User $user): array;
 }

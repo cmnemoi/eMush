@@ -459,7 +459,7 @@
 	},
 	"charSelection": {
 		"selectLanguage": "Sélectionnez une langue :",
-		"shipNotFound": "Aucun vaisseau n'a été trouvé dans cette langue. Elle n'est probablement pas encore supportée. :'(",
+		"shipNotFound": "Aucun vaisseau n'a été trouvé. Un nouveau devrait être créé dans l'heure, ou bien cette langue n'est pas encore supportée :'(",
 		"startGame": "Démarrer la partie",
 		"youChoose": "Vous avez choisi "
 	},

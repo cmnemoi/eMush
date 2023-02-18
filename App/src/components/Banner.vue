@@ -8,7 +8,7 @@
             <router-link v-if="loggedIn" :to="{ name: 'MePage' }">{{ $t("banner.user") }}</router-link>
             <router-link v-if="loggedIn" :to="{ name: 'RankingPage' }">{{ $t("banner.ranking") }}</router-link>
             <router-link v-if="isAdmin" :to="{ name: 'Admin' }">Admin</router-link>
-            <router-link :to="{ name: 'NewsPage' }">{{ $t("banner.news") }}</router-link>
+            <router-link v-if="loggedIn" :to="{ name: 'NewsPage' }">{{ $t("banner.news") }}</router-link>
             <Login />
         </div>
     </div>

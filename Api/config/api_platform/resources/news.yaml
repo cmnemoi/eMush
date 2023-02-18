@@ -13,5 +13,6 @@ Mush\MetaGame\Entity\News:
     post:
       security: 'is_granted("ROLE_MODERATOR")'
   itemOperations:
+    get: ~
     put:
       security: 'is_granted("ROLE_MODERATOR")'

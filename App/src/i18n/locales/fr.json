@@ -455,6 +455,14 @@
 			"isAllCrew": "Gagné par tout l'équipage",
 			"isNotAllCrew": "Non gagné par tout l'équipage",
 			"team": "Équipe"
+		},
+		"news" : {
+			"frenchTitle": "Titre français",
+			"englishTitle": "Titre anglais",
+			"spanishTitle": "Titre espagnol",
+			"frenchContent": "Contenu français",
+			"englishContent": "Contenu anglais",
+			"spanishContent": "Contenu espagnol"
 		}
 	},
 	"charSelection": {

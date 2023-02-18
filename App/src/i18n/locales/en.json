@@ -456,7 +456,12 @@
 			"isNotAllCrew": "Non earned by all crew",
 			"team": "Team"
 		},
-		"news" : {
+		"newsList" : {
+			"create": "Write a news",
+			"newsTitle": "Title",
+			"updatedAt": "Last update"
+		},
+		"newsWrite" : {
 			"frenchTitle": "French title",
 			"englishTitle": "English title",
 			"spanishTitle": "Spanish title",

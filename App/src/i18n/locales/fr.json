@@ -456,7 +456,12 @@
 			"isNotAllCrew": "Non gagné par tout l'équipage",
 			"team": "Équipe"
 		},
-		"news" : {
+		"newsList": {
+			"create": "Écrire une news",
+			"newsTitle": "Titre",
+			"updatedAt": "Dernière date de modification"
+		},
+		"newsWrite" : {
 			"frenchTitle": "Titre français",
 			"englishTitle": "Titre anglais",
 			"spanishTitle": "Titre espagnol",

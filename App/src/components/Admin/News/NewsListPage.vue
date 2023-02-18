@@ -52,13 +52,13 @@ export default defineComponent({
         return {
             fields: [
                 {
-                    key: 'id',
-                    name: 'newsId',
+                    key: 'frenchTitle',
+                    name: 'admin.newsList.newsTitle',
                     sortable: true
                 },
                 {
-                    key: 'frenchTitle',
-                    name: 'newsTitle',
+                    key: 'updatedAt',
+                    name: 'admin.newsList.updatedAt',
                     sortable: true
                 },
                 {

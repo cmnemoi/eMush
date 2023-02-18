@@ -3,27 +3,27 @@
         <table>
             <tbody>
                 <tr>
-                    <td>{{ $t('admin.news.frenchTitle') }}</td>
+                    <td>{{ $t('admin.newsWrite.frenchTitle') }}</td>
                     <td><Input v-model="news.frenchTitle" :errors="errors.frenchTitle" /></td>
                 </tr>
                 <tr>
-                    <td>{{ $t('admin.news.englishTitle') }}</td>
+                    <td>{{ $t('admin.newsWrite.englishTitle') }}</td>
                     <td><Input v-model="news.englishTitle" :errors="errors.englishTitle"/></td>
                 </tr>
                 <tr>
-                    <td>{{ $t('admin.news.spanishTitle') }}</td>
+                    <td>{{ $t('admin.newsWrite.spanishTitle') }}</td>
                     <td><Input v-model="news.spanishTitle" :errors="errors.spanishTitle"/></td>
                 </tr>
                 <tr>
-                    <td>{{ $t('admin.news.frenchContent') }}</td>
+                    <td>{{ $t('admin.newsWrite.frenchContent') }}</td>
                     <td><textarea v-model="news.frenchContent" /></td>
                 </tr>
                 <tr>
-                    <td>{{ $t('admin.news.englishContent') }}</td>
+                    <td>{{ $t('admin.newsWrite.englishContent') }}</td>
                     <td><textarea v-model="news.englishContent" /></td>
                 </tr>
                 <tr>
-                    <td>{{ $t('admin.news.spanishContent') }}</td>
+                    <td>{{ $t('admin.newsWrite.spanishContent') }}</td>
                     <td><textarea v-model="news.spanishContent" /></td>
                 </tr>
             </tbody>

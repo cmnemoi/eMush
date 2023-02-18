@@ -1,42 +1,37 @@
 <template>
     <div v-if="news" class="news_detail">
-        <div class="flex-row">
-            <Input
-                :label="$t('admin.newsWrite.frenchtitle')"
-                id="news_frenchTitle"
-                v-model="news.frenchTitle"
-                type="text"
-                :errors="errors.frenchTitle"
-            />
-            <Input
-                :label="$t('admin.newsWrite.englishTitle')"
-                id="news_englishTitle"
-                v-model="news.englishTitle"
-                type="text"
-            />
-            <Input
-                :label="$t('admin.newsWrite.spanishTitle')"
-                id="news_spanishTitle"
-                v-model="news.spanishTitle"
-                type="text"
-            />
-        </div>
-        <textarea
-            :placeholder="$t('admin.newsWrite.frenchContent')"
-            id="news_frenchContent"
-            v-model="news.frenchContent"
-        />
-        <textarea
-            :placeholder="$t('admin.newsWrite.englishContent')"
-            id="news_englishContent"
-            v-model="news.englishContent"
-        />
-        <textarea
-            :placeholder="$t('admin.newsWrite.spanishContent')"
-            id="news_spanishContent"
-            v-model="news.spanishContent"
-        />
-        <button class="action-button" type="submit" @click="update">
+        <table>
+            <tbody>
+                <tr>
+                    <td>{{ $t('admin.news.frenchTitle') }}</td>
+                    <td><Input v-model="news.frenchTitle" :errors="errors.frenchTitle" /></td>
+                </tr>
+                <tr>
+                    <td>{{ $t('admin.news.englishTitle') }}</td>
+                    <td><Input v-model="news.englishTitle" :errors="errors.englishTitle"/></td>
+                </tr>
+                <tr>
+                    <td>{{ $t('admin.news.spanishTitle') }}</td>
+                    <td><Input v-model="news.spanishTitle" :errors="errors.spanishTitle"/></td>
+                </tr>
+                <tr>
+                    <td>{{ $t('admin.news.frenchContent') }}</td>
+                    <td><textarea v-model="news.frenchContent" /></td>
+                </tr>
+                <tr>
+                    <td>{{ $t('admin.news.englishContent') }}</td>
+                    <td><textarea v-model="news.englishContent" /></td>
+                </tr>
+                <tr>
+                    <td>{{ $t('admin.news.spanishContent') }}</td>
+                    <td><textarea v-model="news.spanishContent" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="action-button"
+                type="submit"
+                @click="update"
+                v-if="news.frenchTitle && news.frenchContent">
             {{ $t('admin.save') }}
         </button>
     </div>
@@ -44,9 +39,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import Input from "@/components/Utils/Input.vue";
 import NewsService from "@/services/news.service";
 import { News } from "@/entities/News";
-import Input from "@/components/Utils/Input.vue";
 import { handleErrors } from "@/utils/apiValidationErrors";
 
 interface NewsData {
@@ -57,7 +52,7 @@ interface NewsData {
 export default defineComponent({
     name: "NewsWritePage",
     components: {
-        Input,
+        Input
     },
     data() : NewsData {
         return {
@@ -89,7 +84,6 @@ export default defineComponent({
                 this.create();
                 return;
             }
-            this.news.updatedAt = new Date();
             NewsService.updateNews(this.news)
                 .then((result: News | null) => {
                     this.news = result;
@@ -119,5 +113,49 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+    table {
+    background: #222b6b;
+    border-radius: 5px;
+    border-collapse: collapse;
+    border: thin solid #1B2256;
+    margin-bottom: 1%;
 
+    tbody tr {
+        border-top: 1px solid rgba(0,0,0,0.2);
+
+        &:hover,
+        &:active { background: rgba(255, 255, 255, .03); }
+
+        textarea {
+            background: transparent;
+            border: thin solid rgba(255, 255, 255, .25);
+            color: #fff;
+            font-size: 1.2em;
+            font-weight: 300;
+            letter-spacing: .05em;
+            padding: 0.5em 0.5em 0.5em 0;
+            width: 100%;
+        }
+    }
+
+    th, td {
+        padding: 1em 0.5em 1em 1.2em;
+        vertical-align: middle;
+        &::v-deep a, &::v-deep button {
+            @include button-style();
+            width: fit-content;
+            padding: 2px 15px 4px;
+        }
+    }
+
+    th {
+        position: relative;
+        opacity: .75;
+        letter-spacing: .05em;
+        text-align: left;
+        font-weight: bold;
+        border-bottom: 1px solid rgba(255, 255, 255, .75);
+    }
+
+}
 </style>

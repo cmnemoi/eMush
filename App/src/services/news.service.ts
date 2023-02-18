@@ -41,9 +41,6 @@ const NewsService = {
         
         const newsData = await ApiService.put(NEWS_ENDPOINT + '/' + news.id, news)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
-        
-        console.log('news' + JSON.stringify(news));
-        console.log('newsData: ' + JSON.stringify(newsData));
                 
         let updatedNews = null;
         if (newsData.data) {

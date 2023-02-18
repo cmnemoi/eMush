@@ -29,38 +29,75 @@
                 <p>{{ item.spanishContent }}</p>²
             </div>
         </div>
+        <div class="datable-pagination-container">
+            <Pagination
+                :page-count="Math.ceil(pagination.totalPage)"
+                :click-handler="paginationClick"
+                :prev-text="$t('util.prev')"
+                :next-text="$t('util.next')"
+                :container-class="'className'"
+            ></Pagination>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import urlJoin from "url-join";
+import qs from "qs";
 import ApiService from "@/services/api.service";
 import { GameLocales } from "@/i18n";
 import { News } from "@/entities/News";
+import Pagination from "@/components/Utils/Datatable/Pagination.vue";
 
-
-interface NewsState {
-    news: News[];
-}
 
 export default defineComponent ({
     name: 'TheEnd',
-    data: function (): NewsState {
+    components: {
+        Pagination
+    },
+    data() {
         return {
-            news: [],
+            news: new Array<News>(),
+            pagination: {
+                currentPage: 1,
+                pageSize: 10,
+                totalItem: 1,
+                totalPage: 1
+            },
+            
         };
     },
     methods: {
         async getNews() {
-            await ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'news'))
+            const params: any = {
+                header: {
+                    'accept': 'application/ld+json'
+                },
+                params: {},
+                paramsSerializer: qs.stringify
+            };
+            if (this.pagination.currentPage) {
+                params.params['page'] = this.pagination.currentPage;
+            }
+            if (this.pagination.pageSize) {
+                params.params['itemsPerPage'] = this.pagination.pageSize;
+            }
+            qs.stringify(params.params['order'] = { 'id': 'DESC' });
+            await ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'news'), params)
                 .then((result) => {
+                    this.news = new Array<News>();
                     for (const newsData of result.data['hydra:member']) {
                         this.news.push((new News()).load(newsData));
                     }
                     this.fillEmptyNews();
-                    this.sortNewsByUpdatedAt();
                     this.displayFirstNews();
+
+                    return result.data;
+                })
+                .then((data) => {
+                    this.pagination.totalItem = data['hydra:totalItems'];
+                    this.pagination.totalPage = data['hydra:totalItems'] / this.pagination.pageSize;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -68,28 +105,6 @@ export default defineComponent ({
         },
         displayFirstNews() {
             this.news[0].hidden = false;
-        },
-        toggleNews(news: News) {
-            // do not hide the first news (it's ugly)
-            if (news !== this.news[0])
-            {
-                news.hidden = !news.hidden;
-            }
-        },
-        localeIsFrench() {
-            return this.$i18n.locale.split('-')[0] === GameLocales.FR;
-        },
-        localeIsEnglish() {
-            return this.$i18n.locale.split('-')[0] === GameLocales.EN;
-        },
-        localeIsSpanish() {
-            return this.$i18n.locale.split('-')[0] === GameLocales.ES;
-        },
-        formatDate(date: Date) {
-            if (date === null) {
-                return '';
-            }
-            return date.toLocaleDateString(this.$i18n.locale);
         },
         fillEmptyNews() {
             this.news.forEach((news) => {
@@ -107,16 +122,31 @@ export default defineComponent ({
                 }
             });
         },
-        sortNewsByUpdatedAt() {
-            this.news.sort((a, b) => {
-                if (a.updatedAt === null) {
-                    return 1;
-                }
-                if (b.updatedAt === null) {
-                    return -1;
-                }
-                return b.updatedAt.getTime() - a.updatedAt.getTime();
-            });
+        localeIsFrench() {
+            return this.$i18n.locale.split('-')[0] === GameLocales.FR;
+        },
+        localeIsEnglish() {
+            return this.$i18n.locale.split('-')[0] === GameLocales.EN;
+        },
+        localeIsSpanish() {
+            return this.$i18n.locale.split('-')[0] === GameLocales.ES;
+        },
+        formatDate(date: Date) {
+            if (date === null) {
+                return '';
+            }
+            return date.toLocaleDateString(this.$i18n.locale);
+        },
+        paginationClick(page: number) {
+            this.pagination.currentPage = page;
+            this.getNews();
+        },
+        toggleNews(news: News) {
+            // do not hide the first news (it's ugly)
+            if (news !== this.news[0])
+            {
+                news.hidden = !news.hidden;
+            }
         },
     },
     async mounted() {
@@ -173,6 +203,15 @@ export default defineComponent ({
         color: #D24781;
         margin-bottom: 13.6px;
     }
+}
+
+.datable-pagination-container {
+    grid-column: 2 / 200;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
 }
 
 </style>

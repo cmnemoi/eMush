@@ -1,7 +1,8 @@
 <template>
     <div class="banner">
         <div class="logo">
-            <router-link :to="{ name: 'HomePage' }"><img src="@/assets/images/logo_new.png" alt=""></router-link>
+            <router-link v-if="loggedIn" :to="{ name: 'GamePage' }"><img src="@/assets/images/logo_new.png" alt=""></router-link>
+            <router-link v-else :to="{ name: 'HomePage' }"><img src="@/assets/images/logo_new.png" alt=""></router-link>
         </div>
         <div class="mainmenu">
             <router-link v-if="loggedIn"  :to="{ name: 'GamePage' }">Daedalus</router-link>

@@ -29,7 +29,7 @@
                 <p>{{ item.spanishContent }}</p>²
             </div>
         </div>
-        <div class="datable-pagination-container">
+        <div class="pagination-container">
             <Pagination
                 :page-count="Math.ceil(pagination.totalPage)"
                 :click-handler="paginationClick"
@@ -205,7 +205,7 @@ export default defineComponent ({
     }
 }
 
-.datable-pagination-container {
+.pagination-container {
     grid-column: 2 / 200;
     display: flex;
     flex-grow: 1;

@@ -3,21 +3,18 @@
 namespace Mush\MetaGame\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'news')]
 class News
 {
+    use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
-
-    #[ORM\Column(type: 'datetime', nullable: false)]
-    private \DateTime $createdAt;
-
-    #[ORM\Column(type: 'datetime', nullable: false)]
-    private \DateTime $updatedAt;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $frenchTitle;
@@ -37,25 +34,9 @@ class News
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $spanishContent = null;
 
-    public function __construct()
-    {
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
-    }
-
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt(): \DateTime
-    {
-        return $this->updatedAt;
     }
 
     public function getFrenchTitle(): string

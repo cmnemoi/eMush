@@ -455,6 +455,19 @@
 			"isAllCrew": "Earned by all crew",
 			"isNotAllCrew": "Non earned by all crew",
 			"team": "Team"
+		},
+		"newsList" : {
+			"create": "Write a news",
+			"newsTitle": "Title",
+			"updatedAt": "Last update"
+		},
+		"newsWrite" : {
+			"frenchTitle": "French title",
+			"englishTitle": "English title",
+			"spanishTitle": "Spanish title",
+			"frenchContent": "French content",
+			"englishContent": "English content",
+			"spanishContent": "Spanish content"
 		}
 	},
 	"charSelection": {

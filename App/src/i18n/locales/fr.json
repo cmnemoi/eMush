@@ -13,6 +13,8 @@
 		"issue": "Merci de signaler les bugs rencontrés sur"
 	},
 	"footer": {
+		"alphaVersion": "Version Alpha",
+		"crowdin": "Vous pouvez nous aider à traduire le jeu sur ",
 		"developers": "Développement",
 		"thanks": "Remerciements",
 		"alpha-testers": "Tous les alpha testeurs :)",
@@ -453,12 +455,26 @@
 			"isAllCrew": "Gagné par tout l'équipage",
 			"isNotAllCrew": "Non gagné par tout l'équipage",
 			"team": "Équipe"
+		},
+		"newsList": {
+			"create": "Écrire une news",
+			"newsTitle": "Titre",
+			"updatedAt": "Dernière date de modification"
+		},
+		"newsWrite" : {
+			"frenchTitle": "Titre français",
+			"englishTitle": "Titre anglais",
+			"spanishTitle": "Titre espagnol",
+			"frenchContent": "Contenu français",
+			"englishContent": "Contenu anglais",
+			"spanishContent": "Contenu espagnol"
 		}
 	},
-	"charselection": {
-		"findShip": "Trouver un vaisseau :",
-		"select": "Sélectionner",
-		"shipNotFound": "Aucun vaisseau avec ce nom n'a été trouvé. Vérifiez son orthographe et réessayez."
+	"charSelection": {
+		"selectLanguage": "Sélectionnez une langue :",
+		"shipNotFound": "Aucun vaisseau n'a été trouvé. Un nouveau devrait être créé dans l'heure, ou bien cette langue n'est pas encore supportée :'(",
+		"startGame": "Démarrer la partie",
+		"youChoose": "Vous avez choisi "
 	},
 	"game": {
 		"communications": {

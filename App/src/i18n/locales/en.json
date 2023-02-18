@@ -13,6 +13,8 @@
 		"issue": "Please report the encountered bugs on"
 	},
 	"footer": {
+		"alphaVersion": "Alpha Version",
+		"crowdin": "You can help us translating the game on ",
 		"developers": "Development",
 		"thanks": "Thanks",
 		"alpha-testers": "All alpha testers :)",
@@ -202,7 +204,12 @@
 			"targetVariable": "Target variable",
 			"targetEvent": "Trigger event",
 			"modifierHolderClass": "Modifier holder entity",
-			"mode": "Calculation Mode"
+			"mode": "Calculation Mode",
+			"variableModifier": "Modificateur de variables",
+			"triggerEventModifier": "Déclencheurs d'événements",
+			"modifierRequirement": "Conditions d'activation",
+			"triggeredEvent": "Nom de l'événement déclenché",
+			"applyOnActionParameter": "Application uniquement sur cible d'action"
 		},
 		"modifierActivationRequirement": {
 			"name": "Name",
@@ -252,6 +259,7 @@
 		"search": "Search",
 		"edit": "Edit",
 		"updatedAt": "Updated at",
+		"class": "Type d'entité",
 		"daedalusConfig": {
 			"name": "Name",
 			"initOxygen": "Initial Oxygen",
@@ -447,12 +455,26 @@
 			"isAllCrew": "Earned by all crew",
 			"isNotAllCrew": "Non earned by all crew",
 			"team": "Team"
+		},
+		"newsList" : {
+			"create": "Write a news",
+			"newsTitle": "Title",
+			"updatedAt": "Last update"
+		},
+		"newsWrite" : {
+			"frenchTitle": "French title",
+			"englishTitle": "English title",
+			"spanishTitle": "Spanish title",
+			"frenchContent": "French content",
+			"englishContent": "English content",
+			"spanishContent": "Spanish content"
 		}
 	},
-	"charselection": {
-		"findShip": "Find a ship:",
-		"select": "Select",
-		"shipNotFound": "No ship was found under this name. Please check and input the name again."
+	"charSelection": {
+		"selectLanguage": "Select a language :",
+		"shipNotFound": "No ship was found. Either one will be created in the incoming hour, or this language is not supported yet. :'(",
+		"startGame": "Start the game",
+		"youChoose": "You choose "
 	},
 	"game": {
 		"communications": {

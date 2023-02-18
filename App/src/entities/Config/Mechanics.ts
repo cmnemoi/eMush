@@ -133,6 +133,13 @@ export class Mechanics {
     private addBlueprintAttributes(object: any){
         if(!this.mechanics?.includes("blueprint")) return;
 
+        if (typeof object.ingredients !== 'undefined') {
+            for (const [key, value] of Object.entries(object.ingredients)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.ingredients?.set(key, value);
+                }
+            }
+        }
         this.equipment = object.craftedEquipmentName;
     }
 

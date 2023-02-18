@@ -17,7 +17,7 @@ export default createStore({
         player,
         room,
         communication,
-        daedalus
+        daedalus,
     }
 })
 ;

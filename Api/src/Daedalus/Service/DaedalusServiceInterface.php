@@ -9,6 +9,7 @@ use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
+use Mush\User\Entity\User;
 
 interface DaedalusServiceInterface
 {
@@ -24,9 +25,17 @@ interface DaedalusServiceInterface
 
     public function findAvailableDaedalus(string $name): ?Daedalus;
 
+    public function findAvailableDaedalusInLanguage(string $language): ?Daedalus;
+
+    public function findAvailableDaedalusInLanguageForUser(string $language, User $user): ?Daedalus;
+
     public function findAllNonFinishedDaedaluses(): DaedalusCollection;
 
     public function existAvailableDaedalus(): bool;
+
+    public function existAvailableDaedalusInLanguage(string $language): bool;
+
+    public function existAvailableDaedalusWithName(string $name): bool;
 
     public function createDaedalus(GameConfig $gameConfig, string $name, string $language): Daedalus;
 

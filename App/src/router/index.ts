@@ -16,6 +16,8 @@ import AdminConfigPage from "@/components/Admin/AdminConfigPage.vue";
 import TheEndPage from "@/components/Ranking/TheEndPage.vue";
 import UserPage from "@/components/User/UserPage.vue";
 import UserShips from "@/components/User/UserShips.vue";
+import NewsListPage from "@/components/Admin/News/NewsListPage.vue";
+import NewsWritePage from "@/components/Admin/News/NewsWritePage.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 
 const routes = [
@@ -126,6 +128,21 @@ const routes = [
                 name: "AdminUserDetail",
                 path: 'user/:userId',
                 component: UserDetailPage
+            },
+            {
+                name: "AdminNewsList",
+                path: 'news-list',
+                component: NewsListPage
+            },
+            {
+                name: "AdminNewsWrite",
+                path: 'write-news',
+                component: NewsWritePage
+            },
+            {
+                name: "AdminNewsEdit",
+                path: 'edit-news/:newsId',
+                component: NewsWritePage
             }
         ]
     },

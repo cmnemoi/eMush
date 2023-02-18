@@ -9,7 +9,7 @@ For example creating modifiers on a player when it takes gears in its inventory.
 
 ## Directory Tree:
     |-- config
-    |-- DataFixtures
+    |-- ConfigData/DataFixtures
     |-- Entity
     |-- Enum
     |-- Event

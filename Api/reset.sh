@@ -1,15 +1,19 @@
 #!/bin/bash
 
-FIRST_DAEDALUS_NAME=$1
-FIRST_DAEDALUS_LANGUAGE=$2
+function generate-test-database
+{
+    echo 'Creating a database for functional tests...'
+    php bin/console doctrine:database:create --env=test --if-not-exists
+    php bin/console doctrine:schema:drop --full-database --env=test -f
+    php bin/console doctrine:schema:update --env=test -f
+}
 
 composer install
-php bin/console doctrine:database:create --env=test --if-not-exists
-php bin/console doctrine:schema:drop --full-database -f
-php bin/console doctrine:schema:drop --full-database --env=test -f
-php bin/console doctrine:schema:update -f
-php bin/console doctrine:schema:update --env=test --force
-yes | php bin/console doctrine:fixture:load
-php bin/console mush:create-daedalus $FIRST_DAEDALUS_NAME $FIRST_DAEDALUS_LANGUAGE
-
-
+generate-test-database
+if  [[ $1 = "--init" ]]; then
+    php bin/console doctrine:schema:drop --full-database -f
+    php bin/console mush:migrate --dev
+else
+    php bin/console doctrine:migrations:diff --no-interaction
+    php bin/console mush:migrate --dev
+fi

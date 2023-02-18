@@ -7,7 +7,7 @@ Those can be room but also space or planets
 
 ## Directory Tree:
     |-- config
-    |-- DataFixtures
+    |-- ConfigData/DataFixtures
     |-- Entity
     |-- Enum
     |-- Event

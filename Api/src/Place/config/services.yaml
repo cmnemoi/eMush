@@ -17,5 +17,5 @@ services:
       - '../Tests/'
   
   # need this for tests to work
-  Mush\Place\Service\ConfigData\PlaceConfigDataLoader:
+  Mush\Place\ConfigData\PlaceConfigDataLoader:
     public: true

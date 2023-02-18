@@ -19,7 +19,7 @@ There is three types of medical conditions:
 
 ## Directory Tree:
     |-- config
-    |-- DataFixtures
+    |-- ConfigData/DataFixtures
     |-- Entity
     |-- Enum
     |-- Event

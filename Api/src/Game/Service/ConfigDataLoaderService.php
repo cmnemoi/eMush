@@ -3,49 +3,113 @@
 namespace Mush\Game\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\Repository\ActionRepository;
-use Mush\Action\Service\ConfigData\ActionDataLoader;
-use Mush\Game\Repository\DifficultyConfigRepository;
-use Mush\Game\Repository\GameConfigRepository;
-use Mush\Game\Repository\TriumphConfigRepository;
-use Mush\Game\Service\ConfigData\ConfigDataLoader;
-use Mush\Game\Service\ConfigData\DifficultyConfigDataLoader;
-use Mush\Game\Service\ConfigData\GameConfigDataLoader;
-use Mush\Game\Service\ConfigData\TriumphConfigDataLoader;
+use Mush\Action\ConfigData\ActionDataLoader;
+use Mush\Daedalus\ConfigData\DaedalusConfigDataLoader;
+use Mush\Daedalus\ConfigData\RandomItemPlacesDataLoader;
+use Mush\Disease\ConfigData\ConsumableDiseaseConfigDataLoader;
+use Mush\Disease\ConfigData\DiseaseCauseConfigDataLoader;
+use Mush\Disease\ConfigData\DiseaseConfigDataLoader;
+use Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader;
+use Mush\Disease\ConfigData\SymptomConfigDataLoader;
+use Mush\Equipment\ConfigData\BlueprintDataLoader;
+use Mush\Equipment\ConfigData\BookDataLoader;
+use Mush\Equipment\ConfigData\DocumentDataLoader;
+use Mush\Equipment\ConfigData\DrugDataLoader;
+use Mush\Equipment\ConfigData\EquipmentConfigDataLoader;
+use Mush\Equipment\ConfigData\FruitDataLoader;
+use Mush\Equipment\ConfigData\GearDataLoader;
+use Mush\Equipment\ConfigData\ItemConfigDataLoader;
+use Mush\Equipment\ConfigData\PlantDataLoader;
+use Mush\Equipment\ConfigData\RationDataLoader;
+use Mush\Equipment\ConfigData\ToolDataLoader;
+use Mush\Equipment\ConfigData\WeaponDataLoader;
+use Mush\Game\ConfigData\ConfigDataLoader;
+use Mush\Game\ConfigData\DifficultyConfigDataLoader;
+use Mush\Game\ConfigData\GameConfigDataLoader;
+use Mush\Game\ConfigData\LocalizationConfigDataLoader;
+use Mush\Game\ConfigData\TriumphConfigDataLoader;
+use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
+use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
+use Mush\Modifier\ConfigData\TriggerVariableEventModifierConfigDataLoader;
+use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
+use Mush\Place\ConfigData\PlaceConfigDataLoader;
+use Mush\Player\ConfigData\CharacterConfigDataLoader;
+use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
+use Mush\Status\ConfigData\StatusConfigDataLoader;
 
 class ConfigDataLoaderService
 {
-    private EntityManagerInterface $entityManager;
-    private ActionRepository $actionRepository;
-    private DifficultyConfigRepository $difficultyConfigRepository;
-    private GameConfigRepository $gameConfigRepository;
-    private TriumphConfigRepository $triumphConfigRepository;
-
     private ArrayCollection $dataLoaders;
 
-    public function __construct(EntityManagerInterface $entityManager,
-                                ActionRepository $actionRepository,
-                                DifficultyConfigRepository $difficultyConfigRepository,
-                                GameConfigRepository $gameConfigRepository,
-                                TriumphConfigRepository $triumphConfigRepository
+    public function __construct(ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader,
+                                VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader,
+                                TriggerEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader,
+                                TriggerVariableEventModifierConfigDataLoader $triggerVariableEventModifierConfigDataLoader,
+                                ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader,
+                                StatusConfigDataLoader $statusConfigDataLoader,
+                                SymptomActivationRequirementDataLoader $symptomActivationRequirementDataLoader,
+                                SymptomConfigDataLoader $symptomConfigDataLoader,
+                                DiseaseConfigDataLoader $diseaseConfigDataLoader,
+                                ActionDataLoader $actionDataLoader,
+                                BookDataLoader $bookDataLoader,
+                                BlueprintDataLoader $blueprintDataLoader,
+                                DocumentDataLoader $documentDataLoader,
+                                DrugDataLoader $drugDataLoader,
+                                FruitDataLoader $fruitDataLoader,
+                                GearDataLoader $gearDataLoader,
+                                PlantDataLoader $plantDataLoader,
+                                RationDataLoader $rationDataLoader,
+                                ToolDataLoader $toolDataLoader,
+                                WeaponDataLoader $weaponDataLoader,
+                                ItemConfigDataLoader $itemConfigDataLoader,
+                                EquipmentConfigDataLoader $equipmentConfigDataLoader,
+                                CharacterConfigDataLoader $characterConfigDataLoader,
+                                RandomItemPlacesDataLoader $randomItemPlacesDataLoader,
+                                PlaceConfigDataLoader $placeConfigDataLoader,
+                                DaedalusConfigDataLoader $daedalusConfigDataLoader,
+                                DifficultyConfigDataLoader $difficultyConfigDataLoader,
+                                TriumphConfigDataLoader $triumphConfigDataLoader,
+                                DiseaseCauseConfigDataLoader $diseaseCauseConfigDataLoader,
+                                ConsumableDiseaseConfigDataLoader $consumableDiseaseConfigDataLoader,
+                                GameConfigDataLoader $gameConfigDataLoader,
+                                LocalizationConfigDataLoader $localizationConfigDataLoader
     ) {
-        /** @var ConfigDataLoader $actionDataLoader */
-        $actionDataLoader = new ActionDataLoader($entityManager, $actionRepository);
-        /** @var ConfigDataLoader $difficultyConfigDataLoader */
-        $difficultyConfigDataLoader = new DifficultyConfigDataLoader($entityManager, $difficultyConfigRepository);
-        /** @var ConfigDataLoader $gameConfigDataLoader */
-        $gameConfigDataLoader = new GameConfigDataLoader($entityManager, $gameConfigRepository);
-        /** @var ConfigDataLoader $triumphConfigDataLoader */
-        $triumphConfigDataLoader = new TriumphConfigDataLoader($entityManager, $gameConfigRepository, $triumphConfigRepository);
-
+        // add data loaders in order of dependencies
         /** @var ArrayCollection<int, ConfigDataLoader> $dataLoaders */
         $dataLoaders = new ArrayCollection(
             [
+                $modifierActivationRequirementDataLoader,
+                $variableEventModifierConfigDataLoader,
+                $triggerEventModifierConfigDataLoader,
+                $triggerVariableEventModifierConfigDataLoader,
+                $chargeStatusConfigDataLoader,
+                $statusConfigDataLoader,
+                $symptomActivationRequirementDataLoader,
+                $symptomConfigDataLoader,
+                $diseaseConfigDataLoader,
                 $actionDataLoader,
+                $blueprintDataLoader,
+                $bookDataLoader,
+                $documentDataLoader,
+                $drugDataLoader,
+                $fruitDataLoader,
+                $gearDataLoader,
+                $plantDataLoader,
+                $rationDataLoader,
+                $toolDataLoader,
+                $weaponDataLoader,
+                $equipmentConfigDataLoader,
+                $itemConfigDataLoader,
+                $characterConfigDataLoader,
+                $randomItemPlacesDataLoader,
+                $placeConfigDataLoader,
+                $daedalusConfigDataLoader,
                 $difficultyConfigDataLoader,
-                $gameConfigDataLoader,
                 $triumphConfigDataLoader,
+                $diseaseCauseConfigDataLoader,
+                $consumableDiseaseConfigDataLoader,
+                $gameConfigDataLoader,
+                $localizationConfigDataLoader,
             ]
         );
         $this->setDataLoaders($dataLoaders);

@@ -374,13 +374,13 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function changeVariable(string $variableName, Daedalus $daedalus, int $change, \DateTime $date): Daedalus
     {
-        $gameVariable = $daedalus->getVariableFromName($variableName);
+        $gameVariable = $daedalus->getVariableByName($variableName);
 
         $newVariableValuePoint = $gameVariable->getValue() + $change;
         $maxVariableValuePoint = $gameVariable->getMaxValue();
         $newVariableValuePoint = $this->getValueInInterval($newVariableValuePoint, 0, $maxVariableValuePoint);
 
-        $daedalus->setVariableValueFromName($newVariableValuePoint, $variableName);
+        $daedalus->setVariableValueByName($newVariableValuePoint, $variableName);
 
         switch ($variableName) {
             case DaedalusVariableEnum::HULL:

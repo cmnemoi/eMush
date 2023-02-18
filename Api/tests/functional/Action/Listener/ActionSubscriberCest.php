@@ -289,7 +289,7 @@ class ActionSubscriberCest
         //       $gear = new Gear();
         $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setDelta(-100)
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setTargetEvent(ModifierScopeEnum::EVENT_DIRTY)

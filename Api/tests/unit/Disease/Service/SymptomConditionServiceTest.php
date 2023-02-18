@@ -15,7 +15,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -28,8 +28,8 @@ use PHPUnit\Framework\TestCase;
 
 class SymptomActivationRequirementServiceTest extends TestCase
 {
-    /** @var ModifierServiceInterface|Mockery\Mock */
-    private ModifierServiceInterface $modifierService;
+    /** @var EventModifierServiceInterface|Mockery\Mock */
+    private EventModifierServiceInterface $modifierService;
 
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
@@ -41,7 +41,7 @@ class SymptomActivationRequirementServiceTest extends TestCase
      */
     public function before()
     {
-        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
+        $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new SymptomActivationRequirementService(

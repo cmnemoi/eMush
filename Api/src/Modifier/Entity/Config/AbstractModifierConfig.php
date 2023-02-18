@@ -7,21 +7,21 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class storing the various information needed to create and apply a modifier.
+ * Class storing the various information needed to create and apply Modifiers.
  *
  * name: a unique name needed for the DB
  * modifierName: the name of the modifier is used to create log associated with a modifier (apply modifier)
- * targetEvent: the name of the event that trigger this modifier (apply modifier)
- * applyOnActionParameter: specify if the modifier only is applied when the holder is the target of an action (apply modifier)
- * modifierHolderClass: the class that will hold the GameModifier entity (create modifier)
+ * modifierRange: the class that will hold the GameModifier entity (create modifier)
+ * modifierActivationRequirements: requirements that need to be fulfilled for the modifier to activate
  */
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
+    'event_modifier_config' => EventModifierConfig::class,
     'trigger_event_modifier_config' => TriggerEventModifierConfig::class,
     'variable_event_modifier_config' => VariableEventModifierConfig::class,
-    'trigger_variable_event_modifier_config' => TriggerVariableEventModifierConfig::class,
+    'direct_modifier_config' => DirectModifierConfig::class,
 ])]
 abstract class AbstractModifierConfig
 {
@@ -37,13 +37,7 @@ abstract class AbstractModifierConfig
     protected ?string $modifierName = null;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    protected string $targetEvent;
-
-    #[ORM\Column(type: 'boolean', nullable: false)]
-    protected bool $applyOnActionParameter = false;
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    protected ?string $modifierHolderClass = null;
+    protected string $modifierRange;
 
     #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
     protected Collection $modifierActivationRequirements;
@@ -82,38 +76,14 @@ abstract class AbstractModifierConfig
         return $this->modifierName;
     }
 
-    public function getTargetEvent(): string
+    public function getModifierRange(): string
     {
-        return $this->targetEvent;
+        return $this->modifierRange;
     }
 
-    public function setTargetEvent(string $targetEvent): self
+    public function setModifierRange(string $modifierRange): self
     {
-        $this->targetEvent = $targetEvent;
-
-        return $this;
-    }
-
-    public function getApplyOnParameterOnly(): bool
-    {
-        return $this->applyOnActionParameter;
-    }
-
-    public function setApplyOnParameterOnly(bool $onTargetOnly): self
-    {
-        $this->applyOnActionParameter = $onTargetOnly;
-
-        return $this;
-    }
-
-    public function getModifierHolderClass(): ?string
-    {
-        return $this->modifierHolderClass;
-    }
-
-    public function setModifierHolderClass(string $modifierHolderClass): self
-    {
-        $this->modifierHolderClass = $modifierHolderClass;
+        $this->modifierRange = $modifierRange;
 
         return $this;
     }

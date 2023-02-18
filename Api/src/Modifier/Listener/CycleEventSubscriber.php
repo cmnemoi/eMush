@@ -9,7 +9,7 @@ use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
@@ -124,7 +124,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
                     $reasons,
                     $time,
                 );
-                $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+                $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
             }
 
             if ($holder instanceof Daedalus) {
@@ -135,7 +135,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
                     $reasons,
                     $time,
                 );
-                $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+                $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
             }
         }
     }

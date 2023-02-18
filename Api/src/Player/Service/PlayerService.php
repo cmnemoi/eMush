@@ -10,7 +10,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -231,7 +231,7 @@ class PlayerService implements PlayerServiceInterface
             self::CYCLE_ACTION_CHANGE,
             [EventEnum::NEW_CYCLE],
             $date);
-        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $playerModifierEvent = new PlayerVariableEvent(
             $player,
@@ -240,7 +240,7 @@ class PlayerService implements PlayerServiceInterface
             [EventEnum::NEW_CYCLE],
             $date
         );
-        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $playerModifierEvent = new PlayerVariableEvent(
             $player,
@@ -249,7 +249,7 @@ class PlayerService implements PlayerServiceInterface
             [EventEnum::NEW_CYCLE],
             $date
         );
-        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $triumphChange = 0;
 
@@ -295,7 +295,7 @@ class PlayerService implements PlayerServiceInterface
             [EventEnum::NEW_DAY],
             $date
         );
-        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         if (!$player->isMush()) {
             $playerModifierEvent = new PlayerVariableEvent(
@@ -305,7 +305,7 @@ class PlayerService implements PlayerServiceInterface
                 [EventEnum::NEW_DAY],
                 $date
             );
-            $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
 
         return $this->persist($player);
@@ -350,7 +350,7 @@ class PlayerService implements PlayerServiceInterface
                         [EventEnum::PLAYER_DEATH],
                         $time
                     );
-                    $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+                    $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
                 }
             }
         }

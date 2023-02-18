@@ -3,7 +3,7 @@
 namespace Mush\Modifier\Listener;
 
 use Mush\Disease\Event\DiseaseEvent;
-use Mush\Modifier\Service\DiseaseModifierServiceInterface;
+use Mush\Modifier\Service\ModifierListenerService\DiseaseModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DiseaseSubscriber implements EventSubscriberInterface
@@ -26,11 +26,11 @@ class DiseaseSubscriber implements EventSubscriberInterface
 
     public function onDiseaseAppear(DiseaseEvent $event): void
     {
-        $this->diseaseModifierService->newDisease($event->getPlayer(), $event->getDiseaseConfig());
+        $this->diseaseModifierService->newDisease($event->getPlayer(), $event->getDiseaseConfig(), $event->getTags(), $event->getTime());
     }
 
     public function onDiseaseCured(DiseaseEvent $event): void
     {
-        $this->diseaseModifierService->cureDisease($event->getPlayer(), $event->getDiseaseConfig());
+        $this->diseaseModifierService->cureDisease($event->getPlayer(), $event->getDiseaseConfig(), $event->getTags(), $event->getTime());
     }
 }

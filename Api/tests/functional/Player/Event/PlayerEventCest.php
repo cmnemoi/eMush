@@ -19,7 +19,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -283,19 +283,19 @@ class PlayerEventCest
             new \DateTime()
         );
 
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $I->assertCount(0, $player->getStatuses());
         $I->assertEquals(1, $player->getSpores());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $I->assertCount(0, $player->getStatuses());
         $I->assertEquals(2, $player->getSpores());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(0, $player->getSpores());

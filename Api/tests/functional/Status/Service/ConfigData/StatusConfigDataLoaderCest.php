@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Status\Service\ConfigData;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Modifier\Service\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\Service\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\Service\ConfigData\TriggerEventModifierConfigDataLoader;
-use Mush\Modifier\Service\ConfigData\TriggerVariableEventModifierConfigDataLoader;
 use Mush\Modifier\Service\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Service\ConfigData\StatusConfigData;
@@ -17,7 +17,7 @@ class StatusConfigDataLoaderCest
     private StatusConfigDataLoader $statusConfigDataLoader;
     private ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
     private TriggerEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader;
-    private TriggerVariableEventModifierConfigDataLoader $triggerVariableEventModifierConfigDataLoader;
+    private DirectModifierConfigDataLoader $triggerVariableEventModifierConfigDataLoader;
     private VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader;
 
     public function _before(FunctionalTester $I)
@@ -25,7 +25,7 @@ class StatusConfigDataLoaderCest
         // load dependencies
         $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
         $this->triggerEventModifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
-        $this->triggerVariableEventModifierConfigDataLoader = $I->grabService(TriggerVariableEventModifierConfigDataLoader::class);
+        $this->triggerVariableEventModifierConfigDataLoader = $I->grabService(DirectModifierConfigDataLoader::class);
         $this->variableEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
 
         $this->modifierActivationRequirementDataLoader->loadConfigsData();

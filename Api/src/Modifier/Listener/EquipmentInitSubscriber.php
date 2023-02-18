@@ -3,7 +3,7 @@
 namespace Mush\Modifier\Listener;
 
 use Mush\Equipment\Event\EquipmentInitEvent;
-use Mush\Modifier\Service\EquipmentModifierServiceInterface;
+use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentInitSubscriber implements EventSubscriberInterface
@@ -26,6 +26,6 @@ class EquipmentInitSubscriber implements EventSubscriberInterface
     public function onNewEquipment(EquipmentInitEvent $event): void
     {
         $equipment = $event->getGameEquipment();
-        $this->gearModifierService->gearCreated($equipment);
+        $this->gearModifierService->gearCreated($equipment, $event->getTags(), $event->getTime());
     }
 }

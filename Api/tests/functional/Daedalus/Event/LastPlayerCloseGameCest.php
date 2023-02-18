@@ -624,7 +624,7 @@ class LastPlayerCloseGameCest
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setTargetEvent(ActionEnum::SHOWER)
-            ->setModifierHolderClass(ReachEnum::INVENTORY)
+            ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;

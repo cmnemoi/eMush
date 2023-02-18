@@ -99,6 +99,31 @@ class GameVariable
         return $this;
     }
 
+    public function changeMaxValue(int $delta): static
+    {
+        if ($this->maxValue === null) {
+            return $this;
+        }
+
+        $value = $this->value;
+        $this->maxValue += $delta;
+
+        if ($this->maxValue < $value) {
+            $this->value = $this->maxValue;
+        }
+
+        return $this;
+    }
+
+    public function isMax(): bool
+    {
+        if ($this->maxValue === null) {
+            return false;
+        }
+
+        return $this->maxValue === $this->value;
+    }
+
     public function getMaxValue(): ?int
     {
         return $this->maxValue;

@@ -18,10 +18,10 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -37,7 +37,7 @@ class SymptomService implements SymptomServiceInterface
 {
     private ActionServiceInterface $actionService;
     private EventServiceInterface $eventService;
-    private ModifierServiceInterface $modifierService;
+    private EventModifierServiceInterface $modifierService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private DiseaseCauseServiceInterface $diseaseCauseService;
     private PlayerServiceInterface $playerService;
@@ -48,7 +48,7 @@ class SymptomService implements SymptomServiceInterface
     public function __construct(
         ActionServiceInterface $actionService,
         EventServiceInterface $eventService,
-        ModifierServiceInterface $modifierService,
+        EventModifierServiceInterface $modifierService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
         DiseaseCauseServiceInterface $diseaseCauseService,
         PlayerServiceInterface $playerService,
@@ -116,7 +116,7 @@ class SymptomService implements SymptomServiceInterface
             $time
         );
 
-        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
     public function handleBreakouts(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
@@ -151,7 +151,7 @@ class SymptomService implements SymptomServiceInterface
             $time
         );
 
-        $this->eventService->callEvent($damageEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($damageEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $this->playerDiseaseService->createDiseaseFromName(DiseaseEnum::QUINCKS_OEDEMA, $player, [$symptomConfig->getSymptomName()]);
 

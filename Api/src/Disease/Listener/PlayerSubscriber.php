@@ -10,7 +10,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -26,14 +26,14 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private DiseaseCauseServiceInterface $diseaseCauseService;
-    private ModifierServiceInterface $modifierService;
+    private EventModifierServiceInterface $modifierService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         PlayerDiseaseServiceInterface $playerDiseaseService,
         DiseaseCauseServiceInterface $diseaseCauseService,
-        ModifierServiceInterface $modifierService,
+        EventModifierServiceInterface $modifierService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService
     ) {

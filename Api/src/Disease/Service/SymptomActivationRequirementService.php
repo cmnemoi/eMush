@@ -9,16 +9,16 @@ use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Entity\Player;
 
 class SymptomActivationRequirementService implements SymptomActivationRequirementServiceInterface
 {
-    private ModifierServiceInterface $modifierService;
+    private EventModifierServiceInterface $modifierService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
-        ModifierServiceInterface $modifierService,
+        EventModifierServiceInterface $modifierService,
         RandomServiceInterface $randomService,
     ) {
         $this->modifierService = $modifierService;

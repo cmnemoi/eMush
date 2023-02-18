@@ -120,7 +120,7 @@ class RepairActionCest
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
             ->setTargetEvent(ActionTypeEnum::ACTION_TECHNICIAN)
-            ->setModifierHolderClass(ReachEnum::INVENTORY)
+            ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;

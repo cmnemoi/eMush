@@ -7,7 +7,7 @@ use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -96,7 +96,7 @@ class Fire extends AbstractStatusCycleHandler
                 [StatusEnum::FIRE],
                 $date
             );
-            $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
 
         foreach ($room->getEquipments() as $equipment) {
@@ -114,7 +114,7 @@ class Fire extends AbstractStatusCycleHandler
                 $date
             );
 
-            $this->eventService->callEvent($daedalusEvent, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);
 
             $this->daedalusService->persist($room->getDaedalus());
         }

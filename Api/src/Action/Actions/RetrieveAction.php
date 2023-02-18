@@ -11,7 +11,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -60,7 +60,7 @@ abstract class RetrieveAction extends AbstractAction
             $this->getAction()->getActionTags(),
             $time
         );
-        $this->eventService->callEvent($daedalusEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
     abstract protected function getDaedalusVariable(): string;

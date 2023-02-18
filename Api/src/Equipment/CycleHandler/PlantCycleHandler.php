@@ -17,7 +17,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Enum\PlantLogEnum;
@@ -220,7 +220,7 @@ class PlantCycleHandler extends AbstractCycleHandler
                 [EventEnum::PLANT_PRODUCTION],
                 $date
             );
-            $this->eventService->callEvent($daedalusEvent, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 }

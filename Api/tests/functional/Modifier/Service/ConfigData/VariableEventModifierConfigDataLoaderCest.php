@@ -64,8 +64,8 @@ class VariableEventModifierConfigDataLoaderCest
     }
 
     /**
-     * ModifierConfigData::$dataArray contains all the ModifierConfigsData, including the ones that are not VariableEventModifierConfig,
-     * so this method returns the number of VariableEventModifierConfig in the array.
+     * ModifierConfigData::$dataArray contains all the ModifierConfigsData, including the ones that are not VariableEventModifierConfigYo,
+     * so this method returns the number of VariableEventModifierConfigYo in the array.
      */
     private function getNumberOfVariableEventModifierConfigs(): int
     {

@@ -4,6 +4,7 @@ namespace Mush\Modifier\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 
@@ -26,12 +27,14 @@ class ModifierCollection extends ArrayCollection
 
     public function getReachedModifiers(string $reach): self
     {
-        return $this->filter(fn (GameModifier $modifier) => $modifier->getModifierConfig()->getModifierHolderClass() === $reach);
+        return $this->filter(fn (GameModifier $modifier) => $modifier->getModifierConfig()->getModifierRange() === $reach);
     }
 
     public function getScopedModifiers(array $scopes): self
     {
-        return $this->filter(fn (GameModifier $modifier) => in_array($modifier->getModifierConfig()->getTargetEvent(), $scopes));
+        return $this->filter(fn (GameModifier $modifier) => (
+            $modifierConfig = $modifier->getModifierConfig()) instanceof EventModifierConfig &&
+            in_array($modifierConfig->getTargetEvent(), $scopes));
     }
 
     public function getModifierFromConfig(AbstractModifierConfig $modifierConfig): ?GameModifier

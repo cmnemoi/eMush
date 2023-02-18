@@ -21,15 +21,14 @@ class VariableEventModifierConfigDataLoader extends ModifierConfigDataLoader
 
             $modifierConfig = new VariableEventModifierConfig();
             $modifierConfig
+                ->setMode($modifierConfigData['mode'])
                 ->setDelta($modifierConfigData['delta'])
                 ->setTargetVariable($modifierConfigData['targetVariable'])
-                ->setMode($modifierConfigData['mode'])
-                ->setAppliesOn($modifierConfigData['appliesOn'])
-                ->setName($modifierConfigData['name'])
-                ->setModifierName($modifierConfigData['modifierName'])
                 ->setTargetEvent($modifierConfigData['targetEvent'])
                 ->setApplyOnParameterOnly($modifierConfigData['applyOnActionParameter'])
-                ->setModifierHolderClass($modifierConfigData['modifierHolderClass'])
+                ->setModifierRange($modifierConfigData['modifierRange'])
+                ->setName($modifierConfigData['name'])
+                ->setModifierName($modifierConfigData['modifierName'])
             ;
             $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);
 

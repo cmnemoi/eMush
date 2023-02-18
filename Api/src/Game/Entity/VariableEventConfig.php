@@ -1,0 +1,113 @@
+<?php
+
+namespace Mush\Game\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
+use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Player\Entity\Player;
+use Mush\Player\Event\PlayerVariableEvent;
+
+/**
+ * Class storing the various information needed to create a variableEvent.
+ *
+ * name: a unique name needed for the DB
+ * targetVariable: the name of the game Variable modified by the event
+ * variableHolderClass: the name of the class on which the event will be applied (should be a variableHolderInterface)
+ * mode: what pat of the game variable is modified (value, max or min)
+ * quantity: the amount of point modified
+ */
+#[ORM\Entity]
+class VariableEventConfig extends AbstractEventConfig
+{
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $quantity = 0;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $targetVariable;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $variableHolderClass;
+
+    public function buildName(): static
+    {
+        $this->name = $this->eventName . '_' . $this->variableHolderClass . '_' . strval($this->quantity) . '_' . $this->targetVariable;
+
+        return $this;
+    }
+
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    public function getTargetVariable(): string
+    {
+        return $this->targetVariable;
+    }
+
+    public function setTargetVariable(string $targetVariable): self
+    {
+        $this->targetVariable = $targetVariable;
+
+        return $this;
+    }
+
+    public function getVariableHolderClass(): string
+    {
+        return $this->variableHolderClass;
+    }
+
+    public function setVariableHolderClass(string $variableHolderClass): self
+    {
+        $this->variableHolderClass = $variableHolderClass;
+
+        return $this;
+    }
+
+    public function createEvent(array $tags, \DateTime $date, GameVariableHolderInterface $variableHolder = null): AbstractGameEvent
+    {
+        switch ($this->variableHolderClass) {
+            case ModifierHolderClassEnum::PLAYER:
+                if (!$variableHolder instanceof Player) {
+                    throw new \Error('a player should be provided to create a playerVariableEvent');
+                }
+                $event = new PlayerVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
+                $event->setEventName($this->eventName);
+
+                return $event;
+            case ModifierHolderClassEnum::DAEDALUS:
+                if (!$variableHolder instanceof Daedalus) {
+                    throw new \Error('a daedalus should be provided to create a daedalusVariableEvent');
+                }
+                $event = new DaedalusVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
+                $event->setEventName($this->eventName);
+
+                return $event;
+            default:
+                throw new \Error('unexpected variableClassHolder');
+        }
+    }
+
+    public function revertEvent(): ?AbstractEventConfig
+    {
+        $reverseEvent = new VariableEventConfig();
+        $reverseEvent
+            ->setTargetVariable($this->targetVariable)
+            ->setVariableHolderClass($this->variableHolderClass)
+            ->setQuantity(-$this->quantity)
+            ->setEventName($this->getEventName())
+        ;
+
+        return $reverseEvent;
+    }
+}

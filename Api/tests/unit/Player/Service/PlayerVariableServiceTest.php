@@ -4,7 +4,7 @@ namespace Mush\Test\Player\Service;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -17,8 +17,8 @@ use PHPUnit\Framework\TestCase;
 
 class PlayerVariableServiceTest extends TestCase
 {
-    /** @var ModifierServiceInterface|Mockery\Mock */
-    private ModifierServiceInterface $modifierService;
+    /** @var EventModifierServiceInterface|Mockery\Mock */
+    private EventModifierServiceInterface $modifierService;
     /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
 
@@ -29,7 +29,7 @@ class PlayerVariableServiceTest extends TestCase
      */
     public function before()
     {
-        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
+        $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->service = new PlayerVariableService(

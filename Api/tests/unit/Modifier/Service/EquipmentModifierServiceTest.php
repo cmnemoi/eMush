@@ -12,8 +12,8 @@ use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
-use Mush\Modifier\Service\EquipmentModifierService;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
+use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -24,8 +24,8 @@ use PHPUnit\Framework\TestCase;
 
 class EquipmentModifierServiceTest extends TestCase
 {
-    /** @var ModifierServiceInterface|Mockery\Mock */
-    private ModifierServiceInterface $modifierService;
+    /** @var EventModifierServiceInterface|Mockery\Mock */
+    private EventModifierServiceInterface $modifierService;
 
     private EquipmentModifierService $service;
 
@@ -34,7 +34,7 @@ class EquipmentModifierServiceTest extends TestCase
      */
     public function before()
     {
-        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
+        $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
 
         $this->service = new EquipmentModifierService(
             $this->modifierService,
@@ -58,7 +58,7 @@ class EquipmentModifierServiceTest extends TestCase
         // create a gear with daedalus modifier
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -113,7 +113,7 @@ class EquipmentModifierServiceTest extends TestCase
         // gear with 2 modifiers
         $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
@@ -155,7 +155,7 @@ class EquipmentModifierServiceTest extends TestCase
         // gear with daedalus modifier
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -204,7 +204,7 @@ class EquipmentModifierServiceTest extends TestCase
         // gear with daedalus modifier
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -230,7 +230,7 @@ class EquipmentModifierServiceTest extends TestCase
         // gear with player GameModifier
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::TARGET_PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -285,7 +285,7 @@ class EquipmentModifierServiceTest extends TestCase
         // gear with daedalus modifier
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -308,7 +308,7 @@ class EquipmentModifierServiceTest extends TestCase
         // gear with player GameModifier
         $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
-            ->setModifierHolderClass(ModifierHolderClassEnum::TARGET_PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)

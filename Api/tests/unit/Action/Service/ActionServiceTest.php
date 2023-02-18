@@ -7,10 +7,10 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -25,8 +25,8 @@ class ActionServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
-    /** @var ModifierServiceInterface|Mockery\Mock */
-    private ModifierServiceInterface $modifierService;
+    /** @var EventModifierServiceInterface|Mockery\Mock */
+    private EventModifierServiceInterface $modifierService;
 
     /** @var ValidatorInterface|Mockery\Mock */
     protected ValidatorInterface $validator;
@@ -42,7 +42,7 @@ class ActionServiceTest extends TestCase
     public function before()
     {
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
-        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
+        $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
 
         $this->actionService = \Mockery::mock(ActionServiceInterface::class);
         $this->validator = \Mockery::mock(ValidatorInterface::class);
@@ -92,7 +92,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs($eventDispatched(-1, QuantityEventInterface::CHANGE_VARIABLE))
+            ->withArgs($eventDispatched(-1, VariableEventInterface::CHANGE_VARIABLE))
             ->once();
 
         $this->service->applyCostToPlayer($player, $action, null);
@@ -129,7 +129,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs($eventDispatched(-1, QuantityEventInterface::CHANGE_VARIABLE))
+            ->withArgs($eventDispatched(-1, VariableEventInterface::CHANGE_VARIABLE))
             ->once()
         ;
 
@@ -166,7 +166,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs($eventDispatched(-1, QuantityEventInterface::CHANGE_VARIABLE))
+            ->withArgs($eventDispatched(-1, VariableEventInterface::CHANGE_VARIABLE))
             ->once()
         ;
 
@@ -207,7 +207,7 @@ class ActionServiceTest extends TestCase
             ->withArgs(
                 fn (PlayerVariableEvent $event, string $eventName) => (
                     $event->getQuantity() === -1 &&
-                    $eventName === QuantityEventInterface::CHANGE_VARIABLE)
+                    $eventName === VariableEventInterface::CHANGE_VARIABLE)
             )
             ->twice()
         ;
@@ -246,7 +246,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs($eventDispatched(-3, QuantityEventInterface::CHANGE_VARIABLE))
+            ->withArgs($eventDispatched(-3, VariableEventInterface::CHANGE_VARIABLE))
             ->once()
         ;
 

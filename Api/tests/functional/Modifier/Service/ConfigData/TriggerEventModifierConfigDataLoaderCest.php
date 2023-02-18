@@ -65,7 +65,7 @@ class TriggerEventModifierConfigDataLoaderCest
 
     /** need to drop those fields
      * type, delta, targetVariable, mode, applyOnActionParameter, modifierActivationRequirements
-     *(type is only used to determine the class, targetVariable, mode, applyOnActionParameter, appliesOn are only used by VariableEventModifierConfig)
+     *(type is only used to determine the class, targetVariable, mode, applyOnActionParameter, appliesOn are only used by VariableEventModifierConfigYo)
      * modifierActivationRequirements is a collection and can't be compared.
      */
     private function dropFields(array $configData): array
@@ -82,8 +82,8 @@ class TriggerEventModifierConfigDataLoaderCest
     }
 
     /**
-     * ModifierConfigData::$dataArray contains all the ModifierConfigsData, including the ones that are not TriggerEventModifierConfig,
-     * so this method returns the number of TriggerEventModifierConfig in the array.
+     * ModifierConfigData::$dataArray contains all the ModifierConfigsData, including the ones that are not TriggerEventModifierConfigYo,
+     * so this method returns the number of TriggerEventModifierConfigYo in the array.
      */
     private function getNumberOfTriggerEventModifierConfigs(): int
     {

@@ -5,13 +5,13 @@ namespace Mush\Tests\functional\Modifier\Service\ConfigData;
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Modifier\Entity\Config\TriggerVariableEventModifierConfig;
+use Mush\Modifier\Service\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\Service\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\Service\ConfigData\ModifierConfigData;
-use Mush\Modifier\Service\ConfigData\TriggerVariableEventModifierConfigDataLoader;
 
 class TriggerVariableEventModifierConfigDataLoaderCest
 {
-    private TriggerVariableEventModifierConfigDataLoader $triggerVariableEventModifierConfigDataLoader;
+    private DirectModifierConfigDataLoader $triggerVariableEventModifierConfigDataLoader;
     private ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
 
     public function _before(FunctionalTester $I)
@@ -19,7 +19,7 @@ class TriggerVariableEventModifierConfigDataLoaderCest
         $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
         $this->modifierActivationRequirementDataLoader->loadConfigsData();
 
-        $this->triggerVariableEventModifierConfigDataLoader = $I->grabService(TriggerVariableEventModifierConfigDataLoader::class);
+        $this->triggerVariableEventModifierConfigDataLoader = $I->grabService(DirectModifierConfigDataLoader::class);
     }
 
     public function testLoadConfigsData(FunctionalTester $I)
@@ -65,7 +65,7 @@ class TriggerVariableEventModifierConfigDataLoaderCest
 
     /** need to drop those fields
      * type, mode, applyOnActionParameter, modifierActivationRequirements
-     *(type is only used to determine the class, mode, applyOnActionParameter, appliesOn are only used by VariableEventModifierConfig)
+     *(type is only used to determine the class, mode, applyOnActionParameter, appliesOn are only used by VariableEventModifierConfigYo)
      * modifierActivationRequirements is a collection and can't be compared.
      */
     private function dropFields(array $configData): array

@@ -1,8 +1,6 @@
 <template>
     <div class="homepage-container">
-        <div class="daedalus-container">
-            <img src="@/assets/images/daedalus_home.png" alt="Daedalus" />
-        </div>
+        <img class="daedalus-container" src="@/assets/images/daedalus_home.png" alt="Daedalus" />
         <div class="trailer-container">
             <video v-if="localeIsFrench()"
                    controls
@@ -19,10 +17,8 @@
                 Sorry, your browser doesn't support embedded videos.
             </video>
         </div>
-        <div class="award-container">
-            <img v-if="localeIsFrench()" src="@/assets/images/eigd_fr.png" alt="Award" />
-            <img v-else src="@/assets/images/eigd_en.png" alt="Award" />
-        </div>
+        <img class="award-container" v-if="localeIsFrench()" src="@/assets/images/eigd_fr.png" alt="Award" />
+        <img class="award-container" v-else src="@/assets/images/eigd_en.png" alt="Award" />
         <div class="box-container" id="play-container">
             <p v-html="$t('homePage.synopsis')" />
             <router-link v-if="loggedIn" class="action-button" :to="{ name: 'GamePage' }">
@@ -71,43 +67,27 @@ export default defineComponent ({
 
 .homepage-container {
     display: grid;
-    grid-template-columns: 33% 1fr 33%;
+    grid-template-columns: 1fr 33% 1fr;
     max-width: 1080px;
-    margin: -6% 10% 0 10%;
-    
-    .daedalus-container {
-        grid-column: 1;
-        width: 33%;
-        margin-top: 20%;
+    margin: 0 auto;
 
-        img {
-            background: none;
-        }
-    }
-    .trailer-container {
-        grid-column: 2 / 4;
-        margin-top: 20%;
-
-        video {
-            border: 1px solid #26378C;
-            box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.5);
-        }
+    #play-container {
+        grid-column: 2;
+        grid-row: 2;
     }
 
     .award-container {
-        grid-column: 4;
-        margin-top: 70%;
-        padding-left: 25%;
-        
-        img {
-            background: none;
-        }
+        margin: auto;
     }
 
-    #play-container {
-        grid-column: 2 / 4;
-        grid-row: 2;
-        margin: -10% auto 0 auto;
+    .daedalus-container {
+        grid-column: 1;
+        margin: auto;
+    }
+
+    .trailer-container {
+        grid-column: 2;
+        margin : auto 0;
     }
 
     p {
@@ -122,7 +102,7 @@ export default defineComponent ({
         margin: 0.6em auto .1em;
         padding: .6em;
         border-radius: .4em;
-        background-color: rgba(15, 15, 67, .5);
+        background: none;
     }
 
     &::v-deep a {
@@ -142,19 +122,13 @@ export default defineComponent ({
             text-decoration-color:#ff4e64;
         }
     }
-
+  
     .action-button {
     @include button-style();
     padding: 2px 15px 4px;
 }
 
-@each $character, $face-position-x, $face-position-y in $face-position { // adjust the image position in the character avatar div
-    $translate-x : (50% - $face-position-x);
-    $translate-y : (50% - $face-position-y);
-    .character-image img {
-        transform: translate($translate-x, $translate-y);
-    }
-}
+
 }
 
 </style>

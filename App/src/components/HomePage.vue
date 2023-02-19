@@ -17,8 +17,14 @@
                 Sorry, your browser doesn't support embedded videos.
             </video>
         </div>
-        <img class="award-container" v-if="localeIsFrench()" src="@/assets/images/eigd_fr.png" alt="Award" />
-        <img class="award-container" v-else src="@/assets/images/eigd_en.png" alt="Award" />
+        <img class="award-container"
+             v-if="localeIsFrench()"
+             src="@/assets/images/eigd_fr.png"
+             alt="Award" />
+        <img class="award-container"
+             v-else
+             src="@/assets/images/eigd_en.png"
+             alt="Award" />
         <div class="box-container" id="play-container">
             <p v-html="$t('homePage.synopsis')" />
             <router-link v-if="loggedIn" class="action-button" :to="{ name: 'GamePage' }">
@@ -115,6 +121,8 @@ export default defineComponent ({
         max-width: 1080px;
         margin: 0 auto
     }
+
+    // TODO : display .daedalus-container and .award-container on desktop
 
 }
 

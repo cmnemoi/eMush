@@ -66,28 +66,20 @@ export default defineComponent ({
 <style lang="scss" scoped>
 
 .homepage-container {
-    display: grid;
-    grid-template-columns: 1fr 33% 1fr;
-    max-width: 1080px;
-    margin: 0 auto;
 
-    #play-container {
-        grid-column: 2;
-        grid-row: 2;
+    .daedalus-container {
+        display: none;
     }
 
     .award-container {
-        margin: auto;
-    }
-
-    .daedalus-container {
-        grid-column: 1;
-        margin: auto;
+        display: none;
     }
 
     .trailer-container {
-        grid-column: 2;
-        margin : auto 0;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1em;
     }
 
     p {
@@ -96,18 +88,8 @@ export default defineComponent ({
         line-height: 1.4;
     }
 
-    img {
-        width: auto;
-        height: auto;
-        margin: 0.6em auto .1em;
-        padding: .6em;
-        border-radius: .4em;
-        background: none;
-    }
-
-    &::v-deep a {
-        color: $green;
-        &:hover { color: #e9ebf3; }
+    #play-container {
+        width: 80%;
     }
 
     &::v-deep em {
@@ -115,19 +97,36 @@ export default defineComponent ({
         font-size: 1.2em;
         font-style: normal;
         font-weight: bold;
-
-        &.red {
-            color: inherit;
-            text-decoration: underline;
-            text-decoration-color:#ff4e64;
-        }
     }
-  
+
     .action-button {
-    @include button-style();
-    padding: 2px 15px 4px;
+        @include button-style();
+        padding: 2px 15px 4px;
+    }
+
+
 }
 
+@media screen and (min-width: 720px) {
+  
+
+    .homepage-container {
+        display: grid;
+        grid-template-columns: 1fr 33% 1fr;
+        max-width: 1080px;
+        margin: 0 auto;
+
+
+        img {
+            width: auto;
+            height: auto;
+            margin: 0.6em auto .1em;
+            padding: .6em;
+            border-radius: .4em;
+            background: none;
+        }
+
+    }
 
 }
 

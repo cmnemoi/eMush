@@ -6,7 +6,7 @@
         <div class="trailer-container">
             <video v-if="localeIsFrench()" controls ref="trailer" preload="metadata">
                 <source src="@/assets/videos/trailer_fr.mp4#t=1" type="video/mp4"/>
-                Sorry, your browser doesn't support embedded videos.
+                Désolé, votre navigateur ne supporte pas les vidéos intégrées.
             </video>
             <video v-else controls ref="trailer" preload="metadata">
                 <source src="@/assets/videos/trailer_en.mp4#t=1" type="video/mp4"/>
@@ -18,16 +18,12 @@
             <img v-else src="@/assets/images/eigd_en.png" alt="Award" />
         </div>
         <div class="box-container" id="play-container">
-            <p>
-                Vous allez vous réveiller avec 15 autres joueurs dans le Daedalus. 
-                Comme vous, ils fuient le <em>Mush</em>, 
-                un champignon qui ravage la planète Terre et menace l'Humanité.
-            </p>
+            <p v-html="$t('homePage.synopsis')" />
             <router-link v-if="loggedIn" class="action-button" :to="{ name: 'GamePage' }">
-                Jouer !
+                {{ $t('homePage.play') }}
             </router-link>
             <button v-else class="action-button" @click="redirectToLogin">
-                Jouer !
+                {{ $t('homePage.joinUs') }}
             </button>
         </div>
         <div class="box-container" id="character-animation-container" style="display:none">

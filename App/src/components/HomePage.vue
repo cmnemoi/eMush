@@ -112,21 +112,8 @@ export default defineComponent ({
   
 
     .homepage-container {
-        display: grid;
-        grid-template-columns: 1fr 33% 1fr;
         max-width: 1080px;
-        margin: 0 auto;
-
-
-        img {
-            width: auto;
-            height: auto;
-            margin: 0.6em auto .1em;
-            padding: .6em;
-            border-radius: .4em;
-            background: none;
-        }
-
+        margin: 0 auto
     }
 
 }

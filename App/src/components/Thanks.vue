@@ -105,6 +105,11 @@
                         </span>
                     </div>
                 </div>
+                <div class="boring-stuff">
+                    <a href="https://eternal-twin.net/legal" target="_blank">{{
+                        $t('footer.legal')
+                    }}</a>
+                </div>
             </div>
             <div class="box small thanks">
                 <h3>{{ $t('footer.thanks') }} :</h3>
@@ -183,6 +188,8 @@ footer {
     a, button {
         color: $green;
 
+        text-decoration: none;
+
         &:hover, &:focus, &:active { color: white; }
     }
 
@@ -246,9 +253,12 @@ footer {
     margin-top: 1em;
     border-top: 2px solid $box-border-color;
     padding-top: 1em;
-    width: 100%;
 
-    a { text-decoration: none; }
+    margin-bottom: 1em;
+    border-bottom: 2px solid $box-border-color;
+    padding-bottom: 1em;
+
+    width: 100%;
 
     svg {
         height: 0.9em;

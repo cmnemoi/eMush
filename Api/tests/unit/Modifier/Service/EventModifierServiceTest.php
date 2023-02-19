@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Modifier\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Action\Entity\Action;
 use Mush\Daedalus\Entity\Daedalus;
@@ -27,8 +26,6 @@ use PHPUnit\Framework\TestCase;
 
 class ModifierServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface|Mockery\Mock */
-    private EntityManagerInterface $entityManager;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
     /** @var ModifierRequirementServiceInterface|Mockery\Mock */
@@ -43,13 +40,11 @@ class ModifierServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->activationRequirementService = \Mockery::mock(ModifierRequirementServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new EventModifierService(
-            $this->entityManager,
             $this->eventService,
             $this->activationRequirementService,
             $this->randomService,
@@ -62,104 +57,6 @@ class ModifierServiceTest extends TestCase
     public function after()
     {
         \Mockery::close();
-    }
-
-    public function testPersist()
-    {
-        $playerModifier = new GameModifier(new Player(), new VariableEventModifierConfig());
-
-        $this->entityManager->shouldReceive('persist')->with($playerModifier)->once();
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->persist($playerModifier);
-    }
-
-    public function testDelete()
-    {
-        $playerModifier = new GameModifier(new Player(), new VariableEventModifierConfig());
-
-        $this->entityManager->shouldReceive('remove')->with($playerModifier)->once();
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->delete($playerModifier);
-    }
-
-    public function testCreateModifier()
-    {
-        $daedalus = new Daedalus();
-
-        // create a daedalus GameModifier
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
-
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
-            ->once();
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->createGameEventModifier($modifierConfig, $daedalus);
-
-        // create a place GameModifier
-        $room = new Place();
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig->setModifierRange(ModifierHolderClassEnum::PLACE);
-
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Place)
-            ->once()
-        ;
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->createGameEventModifier($modifierConfig, $room);
-
-        // create a player GameModifier
-        $player = new Player();
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER);
-
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Player)
-            ->once()
-        ;
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->createGameEventModifier($modifierConfig, $player);
-
-        // create a player GameModifier with charge
-        $player = new Player();
-        $charge = new ChargeStatus($player, new ChargeStatusConfig());
-
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER);
-
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => (
-                $modifier->getModifierHolder() === $player &&
-                $modifier->getModifierConfig() === $modifierConfig &&
-                $modifier->getCharge() === $charge
-            ))
-            ->once()
-        ;
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->createGameEventModifier($modifierConfig, $player, $charge);
-
-        // create an equipment GameModifier
-        $equipment = new GameEquipment(new Place());
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
-
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof GameEquipment)
-            ->once();
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->createGameEventModifier($modifierConfig, $equipment);
     }
 
     public function testGetActionModifiedActionPointCost()

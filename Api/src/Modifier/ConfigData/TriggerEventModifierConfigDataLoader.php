@@ -41,7 +41,7 @@ class TriggerEventModifierConfigDataLoader extends ModifierConfigDataLoader
     protected function setEventConfig(TriggerEventModifierConfig $modifierConfig, string $eventConfigName): TriggerEventModifierConfig
     {
         /** @var AbstractEventConfig $eventConfig */
-        $eventConfig = $this->modifierConfigRepository->findOneBy(['name' => $eventConfigName]);
+        $eventConfig = $this->eventConfigRepository->findOneBy(['name' => $eventConfigName]);
         if ($eventConfig === null) {
             throw new \Exception("Event config {$eventConfigName} not found");
         }

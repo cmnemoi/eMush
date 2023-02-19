@@ -17,12 +17,12 @@ class ModifierCreationService implements ModifierCreationServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
-    private EventCreationService $eventCreationService;
+    private EventCreationServiceInterface $eventCreationService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
-        EventCreationService $eventCreationService,
+        EventCreationServiceInterface $eventCreationService,
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;

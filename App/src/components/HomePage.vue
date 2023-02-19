@@ -4,13 +4,18 @@
             <img src="@/assets/images/daedalus_home.png" alt="Daedalus" />
         </div>
         <div class="trailer-container">
-            <video controls ref="trailer" preload="metadata">
-                <source src="@/assets/videos/trailer_fr.mp4#t=1" type="video/mp4"  />
+            <video v-if="localeIsFrench()" controls ref="trailer" preload="metadata">
+                <source src="@/assets/videos/trailer_fr.mp4#t=1" type="video/mp4"/>
+                Sorry, your browser doesn't support embedded videos.
+            </video>
+            <video v-else controls ref="trailer" preload="metadata">
+                <source src="@/assets/videos/trailer_en.mp4#t=1" type="video/mp4"/>
                 Sorry, your browser doesn't support embedded videos.
             </video>
         </div>
         <div class="award-container">
-            <img src="@/assets/images/eigd_fr.png" alt="Award" />
+            <img v-if="localeIsFrench()" src="@/assets/images/eigd_fr.png" alt="Award" />
+            <img v-else src="@/assets/images/eigd_en.png" alt="Award" />
         </div>
         <div class="box-container" id="play-container">
             <p>
@@ -52,7 +57,10 @@ export default defineComponent ({
     methods: {
         ...mapActions('auth', [
             'redirectToLogin',
-        ])
+        ]),
+        localeIsFrench() {
+            return this.$i18n.locale.split('-')[0] === 'fr';
+        },
     }
 });
 </script>

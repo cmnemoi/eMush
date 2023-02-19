@@ -4,11 +4,17 @@
             <img src="@/assets/images/daedalus_home.png" alt="Daedalus" />
         </div>
         <div class="trailer-container">
-            <video v-if="localeIsFrench()" controls ref="trailer" preload="metadata">
+            <video v-if="localeIsFrench()"
+                   controls
+                   ref="trailer"
+                   preload="metadata">
                 <source src="@/assets/videos/trailer_fr.mp4#t=1" type="video/mp4"/>
                 Désolé, votre navigateur ne supporte pas les vidéos intégrées.
             </video>
-            <video v-else controls ref="trailer" preload="metadata">
+            <video v-else
+                   controls
+                   ref="trailer"
+                   preload="metadata">
                 <source src="@/assets/videos/trailer_en.mp4#t=1" type="video/mp4"/>
                 Sorry, your browser doesn't support embedded videos.
             </video>

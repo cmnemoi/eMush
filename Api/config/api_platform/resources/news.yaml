@@ -10,8 +10,10 @@ Mush\MetaGame\Entity\News:
   collectionOperations:
     get:
       filters: [ 'default.search_filter', 'default.order_filter' ]
+      security: ~
     post:
       security: 'is_granted("ROLE_MODERATOR")'
   itemOperations:
+    get: ~
     put:
       security: 'is_granted("ROLE_MODERATOR")'

@@ -1,20 +1,16 @@
 <template>
     <div class="banner">
         <div class="logo">
-            <router-link :to="{ name: 'HomePage' }"><img src="@/assets/images/logo_new.png" alt=""></router-link>
+            <router-link v-if="loggedIn" :to="{ name: 'GamePage' }"><img src="@/assets/images/logo_new.png" alt=""></router-link>
+            <router-link v-else :to="{ name: 'HomePage' }"><img src="@/assets/images/logo_new.png" alt=""></router-link>
         </div>
         <div class="mainmenu">
             <router-link v-if="loggedIn"  :to="{ name: 'GamePage' }">Daedalus</router-link>
             <router-link v-if="loggedIn" :to="{ name: 'MePage' }">{{ $t("banner.user") }}</router-link>
             <router-link v-if="loggedIn" :to="{ name: 'RankingPage' }">{{ $t("banner.ranking") }}</router-link>
             <router-link v-if="isAdmin" :to="{ name: 'Admin' }">Admin</router-link>
+            <router-link v-if="loggedIn" :to="{ name: 'NewsPage' }">{{ $t("banner.news") }}</router-link>
             <Login />
-            <!--
-        <a class="unavailable" href="/#">Mon Compte</a>
-        <a class="unavailable" href="/#">Castings</a>
-        <a class="unavailable" href="/#">Classement</a>
-        <a class="unavailable" href="/#">Forum</a>
-      -->
         </div>
     </div>
 </template>

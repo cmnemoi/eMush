@@ -7,6 +7,8 @@ export class News {
     public frenchContent: string|null;
     public englishContent: string|null;
     public spanishContent: string|null;
+    public updatedAt: Date|null;
+    public hidden: boolean|null;
 
     constructor() {
         this.iri = null;
@@ -17,6 +19,8 @@ export class News {
         this.frenchContent = null;
         this.englishContent = null;
         this.spanishContent = null;
+        this.updatedAt = null;
+        this.hidden = true;
     }
     load(object: any): News {
         if (typeof object !== "undefined") {
@@ -27,6 +31,8 @@ export class News {
             this.spanishTitle = object.spanishTitle;
             this.frenchContent = object.frenchContent;
             this.englishContent = object.englishContent;
+            this.spanishContent = object.spanishContent;
+            this.updatedAt = new Date(object.updatedAt);
         }
         
         return this;

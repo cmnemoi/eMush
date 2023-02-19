@@ -26,14 +26,14 @@ class LocalizationConfigDataLoader extends ConfigDataLoader
 
             if ($localizationConfig === null) {
                 $localizationConfig = new LocalizationConfig();
-                $localizationConfig
-                    ->setName($localizationConfigData['name'])
-                    ->setTimeZone($localizationConfigData['timeZone'])
-                    ->setLanguage($localizationConfigData['language'])
-                ;
-
-                $this->entityManager->persist($localizationConfig);
             }
+            $localizationConfig
+                ->setName($localizationConfigData['name'])
+                ->setTimeZone($localizationConfigData['timeZone'])
+                ->setLanguage($localizationConfigData['language'])
+            ;
+
+            $this->entityManager->persist($localizationConfig);
         }
         $this->entityManager->flush();
     }

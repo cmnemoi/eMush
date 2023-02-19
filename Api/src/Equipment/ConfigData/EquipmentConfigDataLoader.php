@@ -44,11 +44,9 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
 
             $equipmentConfig = $this->equipmentConfigRepository->findOneBy(['name' => $equipmentConfigData['name']]);
 
-            if ($equipmentConfig !== null) {
-                continue;
+            if ($equipmentConfig === null) {
+                $equipmentConfig = new EquipmentConfig();
             }
-
-            $equipmentConfig = new EquipmentConfig();
 
             $this->setEquipmentConfigAttributes($equipmentConfig, $equipmentConfigData);
             $this->setEquipmentConfigActions($equipmentConfig, $equipmentConfigData);

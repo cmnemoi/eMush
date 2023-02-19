@@ -15,11 +15,13 @@ class ToolDataLoader extends MechanicsDataLoader
 
             $tool = $this->mechanicsRepository->findOneBy(['name' => $toolData['name']]);
 
-            if ($tool !== null) {
-                continue;
+            if ($tool === null) {
+                $tool = new Tool();
+            } elseif (!($tool instanceof Tool)) {
+                $this->entityManager->remove($tool);
+                $tool = new Tool();
             }
 
-            $tool = new Tool();
             $tool->setName($toolData['name']);
             $this->setMechanicsActions($tool, $toolData);
 

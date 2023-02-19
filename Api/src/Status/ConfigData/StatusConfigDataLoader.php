@@ -34,11 +34,10 @@ class StatusConfigDataLoader extends ConfigDataLoader
             }
             $statusConfig = $this->statusConfigRepository->findOneBy(['name' => $statusConfigData['name']]);
 
-            if ($statusConfig !== null) {
-                continue;
+            if ($statusConfig === null) {
+                $statusConfig = new StatusConfig();
             }
 
-            $statusConfig = new StatusConfig();
             $statusConfig
                 ->setName($statusConfigData['name'])
                 ->setStatusName($statusConfigData['statusName'])

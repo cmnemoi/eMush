@@ -25,11 +25,10 @@ class ModifierActivationRequirementDataLoader extends ConfigDataLoader
         foreach (ModifierActivationRequirementData::$dataArray as $modifierActivationRequirementData) {
             $modifierActivationRequirement = $this->modifierActivationRequirementRepository->findOneBy(['name' => $modifierActivationRequirementData['name']]);
 
-            if ($modifierActivationRequirement !== null) {
-                continue;
+            if ($modifierActivationRequirement === null) {
+                $modifierActivationRequirement = new ModifierActivationRequirement($modifierActivationRequirementData['activationRequirementName']);
             }
 
-            $modifierActivationRequirement = new ModifierActivationRequirement($modifierActivationRequirementData['activationRequirementName']);
             $modifierActivationRequirement
                 ->setName($modifierActivationRequirementData['name'])
                 ->setActivationRequirement($modifierActivationRequirementData['activationRequirement'])

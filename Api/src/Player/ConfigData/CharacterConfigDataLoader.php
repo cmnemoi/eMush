@@ -44,11 +44,9 @@ class CharacterConfigDataLoader extends ConfigDataLoader
         foreach (CharacterConfigData::$dataArray as $characterConfigData) {
             $characterConfig = $this->characterConfigRepository->findOneBy(['name' => $characterConfigData['name']]);
 
-            if ($characterConfig !== null) {
-                continue;
+            if ($characterConfig === null) {
+                $characterConfig = new CharacterConfig();
             }
-
-            $characterConfig = new CharacterConfig();
 
             $this->setCharacterConfigAttributes($characterConfig, $characterConfigData);
             $this->setCharacterConfigActions($characterConfig, $characterConfigData);

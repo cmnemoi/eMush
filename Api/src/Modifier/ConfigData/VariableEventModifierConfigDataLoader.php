@@ -2,6 +2,7 @@
 
 namespace Mush\Modifier\ConfigData;
 
+use Mush\Equipment\CycleHandler\ModifierConfigDataLoader;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
 class VariableEventModifierConfigDataLoader extends ModifierConfigDataLoader
@@ -15,11 +16,13 @@ class VariableEventModifierConfigDataLoader extends ModifierConfigDataLoader
 
             $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigData['name']]);
 
-            if ($modifierConfig !== null) {
-                continue;
+            if ($modifierConfig === null) {
+                $modifierConfig = new VariableEventModifierConfig();
+            } elseif (!($modifierConfig instanceof VariableEventModifierConfig)) {
+                $this->entityManager->remove($modifierConfig);
+                $modifierConfig = new VariableEventModifierConfig();
             }
 
-            $modifierConfig = new VariableEventModifierConfig();
             $modifierConfig
                 ->setDelta($modifierConfigData['delta'])
                 ->setTargetVariable($modifierConfigData['targetVariable'])

@@ -15,7 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
  * modifierActivationRequirements: requirements that need to be fulfilled for the modifier to activate
  */
 #[ORM\Entity]
-#[ORM\Table(name: 'modifier_config')]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([

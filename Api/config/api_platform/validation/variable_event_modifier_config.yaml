@@ -5,16 +5,7 @@ Mush\Modifier\Entity\Config\VariableEventModifierConfig:
       - Type: string
     modifierName:
       - Type: string
-    delta:
-      - NotBlank: ~
-      - Type: float
-    targetVariable:
-      - NotBlank: ~
-      - Type: string
-    modifierHolderClass:
-      - NotBlank: ~
-      - Type: string
-    mode:
+    modifierRange:
       - NotBlank: ~
       - Type: string
     applyOnActionParameter:

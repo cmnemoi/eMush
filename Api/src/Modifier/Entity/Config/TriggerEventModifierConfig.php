@@ -16,7 +16,7 @@ use Mush\Game\Enum\VisibilityEnum;
 #[ORM\Entity]
 class TriggerEventModifierConfig extends EventModifierConfig
 {
-    #[ORM\ManyToMany(targetEntity: AbstractEventConfig::class)]
+    #[ORM\ManyToOne(targetEntity: AbstractEventConfig::class)]
     protected AbstractEventConfig $triggeredEvent;
 
     #[ORM\Column(type: 'string', nullable: false)]

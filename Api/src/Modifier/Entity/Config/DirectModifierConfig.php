@@ -16,7 +16,7 @@ use Mush\Game\Entity\AbstractEventConfig;
 #[ORM\Entity]
 class DirectModifierConfig extends AbstractModifierConfig
 {
-    #[ORM\ManyToMany(targetEntity: AbstractEventConfig::class)]
+    #[ORM\ManyToOne(targetEntity: AbstractEventConfig::class)]
     protected AbstractEventConfig $triggeredEvent;
 
     #[ORM\Column(type: 'boolean', nullable: false)]

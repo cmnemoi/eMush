@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Modifier\Service\ConfigData;
+namespace Mush\Modifier\ConfigData;
 
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;

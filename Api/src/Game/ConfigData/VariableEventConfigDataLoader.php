@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Game\Service\ConfigData;
+namespace Mush\Game\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\Entity\VariableEventConfig;
@@ -34,8 +34,8 @@ class VariableEventConfigDataLoader extends ConfigDataLoader
                 ->setTargetVariable($variableEventConfigData['targetVariable'])
                 ->setVariableHolderClass($variableEventConfigData['variableHolderClass'])
                 ->setEventName($variableEventConfigData['eventName'])
+                ->setName($variableEventConfigData['name'])
             ;
-            $variableEventConfig->buildName();
 
             $this->entityManager->persist($variableEventConfig);
         }

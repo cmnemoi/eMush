@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class storing the various information needed to create events.
  */
 #[ORM\Entity]
+#[ORM\Table(name: 'event_config')]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
@@ -29,6 +30,13 @@ abstract class AbstractEventConfig
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getName(): string

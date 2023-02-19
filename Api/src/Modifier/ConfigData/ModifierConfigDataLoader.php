@@ -1,9 +1,9 @@
 <?php
 
-namespace Mush\Modifier\Service\ConfigData;
+namespace Mush\Modifier\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Game\Service\ConfigData\ConfigDataLoader;
+use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Repository\ModifierActivationRequirementRepository;
 use Mush\Modifier\Repository\ModifierConfigRepository;

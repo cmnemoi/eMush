@@ -4,8 +4,8 @@
             <img src="@/assets/images/daedalus_home.png" alt="Daedalus" />
         </div>
         <div class="trailer-container">
-            <video controls ref="trailer">
-                <source src="@/assets/videos/trailer_fr.mp4" type="video/mp4" />
+            <video controls ref="trailer" preload="metadata">
+                <source src="@/assets/videos/trailer_fr.mp4#t=1" type="video/mp4"  />
                 Sorry, your browser doesn't support embedded videos.
             </video>
         </div>
@@ -18,9 +18,12 @@
                 Comme vous, ils fuient le <em>Mush</em>, 
                 un champignon qui ravage la planète Terre et menace l'Humanité.
             </p>
-            <router-link class="action-button" :to="{ name: 'GamePage' }">
+            <router-link v-if="loggedIn" class="action-button" :to="{ name: 'GamePage' }">
                 Jouer !
             </router-link>
+            <button v-else class="action-button" @click="redirectToLogin">
+                Jouer !
+            </button>
         </div>
         <div class="box-container" id="character-animation-container" style="display:none">
             <h2>18 personnages, prêts à chasser le Mush avec vous !</h2>
@@ -37,9 +40,20 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default defineComponent ({
-    name: "HomePage"
+    name: "HomePage",
+    computed: {
+        ...mapGetters('auth', [
+            'loggedIn',
+        ])
+    },
+    methods: {
+        ...mapActions('auth', [
+            'redirectToLogin',
+        ])
+    }
 });
 </script>
 
@@ -49,11 +63,12 @@ export default defineComponent ({
     display: grid;
     grid-template-columns: 33% 1fr 33%;
     max-width: 1080px;
-    margin: -3% 10% 0 10%;
+    margin: -6% 10% 0 10%;
     
     .daedalus-container {
         grid-column: 1;
         width: 33%;
+        margin-top: 20%;
 
         img {
             background: none;
@@ -61,13 +76,18 @@ export default defineComponent ({
     }
     .trailer-container {
         grid-column: 2 / 4;
-        margin-top: 12.5%;
+        margin-top: 20%;
+
+        video {
+            border: 1px solid #26378C;
+            box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.5);
+        }
     }
 
     .award-container {
         grid-column: 4;
-        margin-top: 40%;
-        padding-left: 20%;
+        margin-top: 70%;
+        padding-left: 25%;
         
         img {
             background: none;
@@ -77,7 +97,7 @@ export default defineComponent ({
     #play-container {
         grid-column: 2 / 4;
         grid-row: 2;
-        margin: 0;
+        margin: -10% auto 0 auto;
     }
 
     p {

@@ -15,11 +15,13 @@ class WeaponDataLoader extends MechanicsDataLoader
 
             $weapon = $this->mechanicsRepository->findOneBy(['name' => $weaponData['name']]);
 
-            if ($weapon !== null) {
-                continue;
+            if ($weapon === null) {
+                $weapon = new Weapon();
+            } elseif (!($weapon instanceof Weapon)) {
+                $this->entityManager->remove($weapon);
+                $weapon = new Weapon();
             }
 
-            $weapon = new Weapon();
             $weapon
                 ->setName($weaponData['name'])
                 ->setBaseAccuracy($weaponData['baseAccuracy'])

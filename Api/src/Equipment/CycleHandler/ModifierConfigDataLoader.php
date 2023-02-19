@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Modifier\ConfigData;
+namespace Mush\Equipment\CycleHandler;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\ConfigData\ConfigDataLoader;

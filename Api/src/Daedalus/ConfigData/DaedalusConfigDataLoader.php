@@ -34,11 +34,10 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
         foreach (DaedalusConfigData::$dataArray as $daedalusConfigData) {
             $daedalusConfig = $this->daedalusConfigRepository->findOneBy(['name' => $daedalusConfigData['name']]);
 
-            if ($daedalusConfig !== null) {
-                continue;
+            if ($daedalusConfig === null) {
+                $daedalusConfig = new DaedalusConfig();
             }
 
-            $daedalusConfig = new DaedalusConfig();
             $daedalusConfig
                 ->setName($daedalusConfigData['name'])
                 ->setInitOxygen($daedalusConfigData['initOxygen'])

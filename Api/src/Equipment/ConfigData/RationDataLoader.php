@@ -15,11 +15,12 @@ class RationDataLoader extends MechanicsDataLoader
 
             $ration = $this->mechanicsRepository->findOneBy(['name' => $rationData['name']]);
 
-            if ($ration !== null) {
-                continue;
+            if ($ration === null) {
+                $ration = new Ration();
+            } elseif (!($ration instanceof Ration)) {
+                $this->entityManager->remove($ration);
+                $ration = new Ration();
             }
-
-            $ration = new Ration();
 
             $this->setRationAttributes($ration, $rationData);
             $this->setMechanicsActions($ration, $rationData);

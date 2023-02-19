@@ -25,11 +25,10 @@ class SymptomActivationRequirementDataLoader extends ConfigDataLoader
         foreach (SymptomActivationRequirementData::$dataArray as $modifierActivationRequirementData) {
             $modifierActivationRequirement = $this->modifierActivationRequirementRepository->findOneBy(['name' => $modifierActivationRequirementData['name']]);
 
-            if ($modifierActivationRequirement !== null) {
-                continue;
+            if ($modifierActivationRequirement === null) {
+                $modifierActivationRequirement = new SymptomActivationRequirement($modifierActivationRequirementData['activationRequirementName']);
             }
 
-            $modifierActivationRequirement = new SymptomActivationRequirement($modifierActivationRequirementData['activationRequirementName']);
             $modifierActivationRequirement
                 ->setName($modifierActivationRequirementData['name'])
                 ->setActivationRequirement($modifierActivationRequirementData['activationRequirement'])

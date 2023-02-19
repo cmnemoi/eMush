@@ -15,11 +15,13 @@ class PlantDataLoader extends RationDataLoader
 
             $plant = $this->mechanicsRepository->findOneBy(['name' => $plantData['name']]);
 
-            if ($plant !== null) {
-                continue;
+            if ($plant === null) {
+                $plant = new Plant();
+            } elseif (!($plant instanceof Plant)) {
+                $this->entityManager->remove($plant);
+                $plant = new Plant();
             }
 
-            $plant = new Plant();
             $plant
                 ->setName($plantData['name'])
                 ->setFruitName($plantData['fruitName'])

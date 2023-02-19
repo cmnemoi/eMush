@@ -25,11 +25,10 @@ class PlaceConfigDataLoader extends ConfigDataLoader
         foreach (PlaceConfigData::$dataArray as $placeConfigData) {
             $placeConfig = $this->placeConfigRepository->findOneBy(['name' => $placeConfigData['name']]);
 
-            if ($placeConfig !== null) {
-                continue;
+            if ($placeConfig === null) {
+                $placeConfig = new PlaceConfig();
             }
 
-            $placeConfig = new PlaceConfig();
             $placeConfig
                 ->setName($placeConfigData['name'])
                 ->setPlaceName($placeConfigData['placeName'])

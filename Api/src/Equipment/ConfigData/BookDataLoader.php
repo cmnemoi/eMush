@@ -15,11 +15,13 @@ class BookDataLoader extends MechanicsDataLoader
 
             $book = $this->mechanicsRepository->findOneBy(['name' => $bookData['name']]);
 
-            if ($book !== null) {
-                continue;
+            if ($book === null) {
+                $book = new Book();
+            } elseif (!($book instanceof Book)) {
+                $this->entityManager->remove($book);
+                $book = new Book();
             }
 
-            $book = new Book();
             $book
                 ->setName($bookData['name'])
                 ->setSkill($bookData['skill'])

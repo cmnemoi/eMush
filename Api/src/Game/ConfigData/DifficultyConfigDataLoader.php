@@ -24,11 +24,10 @@ class DifficultyConfigDataLoader extends ConfigDataLoader
         foreach (DifficultyConfigData::$dataArray as $difficultyConfigData) {
             $difficultyConfig = $this->difficultyConfigRepository->findOneBy(['name' => $difficultyConfigData['name']]);
 
-            if ($difficultyConfig !== null) {
-                continue;
+            if ($difficultyConfig === null) {
+                $difficultyConfig = new DifficultyConfig();
             }
 
-            $difficultyConfig = new DifficultyConfig();
             $difficultyConfig
                 ->setName($difficultyConfigData['name'])
                 ->setEquipmentBreakRate($difficultyConfigData['equipmentBreakRate'])

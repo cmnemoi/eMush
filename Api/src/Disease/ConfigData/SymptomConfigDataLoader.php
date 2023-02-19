@@ -29,11 +29,10 @@ class SymptomConfigDataLoader extends ConfigDataLoader
         foreach (SymptomConfigData::$dataArray as $symptomConfigData) {
             $symptomConfig = $this->symptomConfigRepository->findOneBy(['name' => $symptomConfigData['name']]);
 
-            if ($symptomConfig !== null) {
-                continue;
+            if ($symptomConfig === null) {
+                $symptomConfig = new SymptomConfig($symptomConfigData['symptomName']);
             }
 
-            $symptomConfig = new SymptomConfig($symptomConfigData['symptomName']);
             $symptomConfig
                 ->setName($symptomConfigData['name'])
                 ->setSymptomName($symptomConfigData['symptomName'])

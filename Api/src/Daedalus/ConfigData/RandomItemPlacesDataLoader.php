@@ -25,11 +25,10 @@ class RandomItemPlacesDataLoader extends ConfigDataLoader
         foreach (RandomItemPlacesData::$dataArray as $randomItemPlacesData) {
             $randomItemPlaces = $this->randomItemPlacesRepository->findOneBy(['name' => $randomItemPlacesData['name']]);
 
-            if ($randomItemPlaces !== null) {
-                continue;
+            if ($randomItemPlaces === null) {
+                $randomItemPlaces = new RandomItemPlaces();
             }
 
-            $randomItemPlaces = new RandomItemPlaces();
             $randomItemPlaces
                 ->setName($randomItemPlacesData['name'])
                 ->setItems($randomItemPlacesData['items'])

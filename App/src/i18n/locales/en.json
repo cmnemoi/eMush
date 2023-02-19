@@ -26,6 +26,7 @@
 		"next": "Next page"
 	},
 	"banner": {
+		"news": "News",
 		"ranking": "Rankings",
 		"user": "My account"
 	},
@@ -475,6 +476,9 @@
 		"shipNotFound": "No ship was found. Either one will be created in the incoming hour, or this language is not supported yet. :'(",
 		"startGame": "Start the game",
 		"youChoose": "You choose "
+	},
+	"newsPage" : {
+		"updatedAt": "Updated at "
 	},
 	"game": {
 		"communications": {

@@ -26,6 +26,7 @@
 		"next": "Page suivante"
 	},
 	"banner": {
+		"news": "News",
 		"ranking": "Classements",
 		"user": "Mon Compte"
 	},
@@ -475,6 +476,9 @@
 		"shipNotFound": "Aucun vaisseau n'a été trouvé. Un nouveau devrait être créé dans l'heure, ou bien cette langue n'est pas encore supportée :'(",
 		"startGame": "Démarrer la partie",
 		"youChoose": "Vous avez choisi "
+	},
+	"newsPage" : {
+		"updatedAt": "Mis à jour le "
 	},
 	"game": {
 		"communications": {

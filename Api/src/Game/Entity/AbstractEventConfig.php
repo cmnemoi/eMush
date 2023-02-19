@@ -24,7 +24,7 @@ abstract class AbstractEventConfig
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
     protected string $name;
 
-    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[ORM\Column(type: 'string', nullable: false)]
     protected string $eventName;
 
     public function getId(): ?int

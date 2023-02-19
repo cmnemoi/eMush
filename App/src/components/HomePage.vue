@@ -90,6 +90,7 @@ export default defineComponent ({
 
     #play-container {
         width: 80%;
+        margin-bottom: 0;
     }
 
     &::v-deep em {
@@ -107,7 +108,7 @@ export default defineComponent ({
 
 }
 
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 950px) {
   
 
     .homepage-container {

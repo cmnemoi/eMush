@@ -34,11 +34,13 @@ class GearDataLoader extends MechanicsDataLoader
 
             $gear = $this->mechanicsRepository->findOneBy(['name' => $gearData['name']]);
 
-            if ($gear !== null) {
-                continue;
+            if ($gear === null) {
+                $gear = new Gear();
+            } elseif (!($gear instanceof Gear)) {
+                $this->entityManager->remove($gear);
+                $gear = new Gear();
             }
 
-            $gear = new Gear();
             $gear->setName($gearData['name']);
 
             $this->setGearModifierConfigs($gear, $gearData);

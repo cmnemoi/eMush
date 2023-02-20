@@ -25,11 +25,9 @@ class ActionDataLoader extends ConfigDataLoader
         foreach (ActionData::$dataArray as $actionData) {
             $action = $this->actionRepository->findOneBy(['name' => $actionData['name']]);
 
-            if ($action !== null) {
-                continue;
+            if ($action === null) {
+                $action = new Action();
             }
-
-            $action = new Action();
 
             $action
                 ->setName($actionData['name'])

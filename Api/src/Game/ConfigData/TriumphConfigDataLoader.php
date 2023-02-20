@@ -26,15 +26,15 @@ class TriumphConfigDataLoader extends ConfigDataLoader
 
             if ($triumphConfig === null) {
                 $triumphConfig = new TriumphConfig();
-                $triumphConfig
-                    ->setName($triumphConfigData['name'])
-                    ->setTriumph($triumphConfigData['triumph'])
-                    ->setIsAllCrew($triumphConfigData['is_all_crew'])
-                    ->setTeam($triumphConfigData['team'])
-                ;
-
-                $this->entityManager->persist($triumphConfig);
             }
+            $triumphConfig
+                ->setName($triumphConfigData['name'])
+                ->setTriumph($triumphConfigData['triumph'])
+                ->setIsAllCrew($triumphConfigData['is_all_crew'])
+                ->setTeam($triumphConfigData['team'])
+            ;
+
+            $this->entityManager->persist($triumphConfig);
         }
         $this->entityManager->flush();
     }

@@ -15,11 +15,13 @@ class ItemConfigDataLoader extends EquipmentConfigDataLoader
 
             $itemConfig = $this->equipmentConfigRepository->findOneBy(['name' => $itemConfigData['name']]);
 
-            if ($itemConfig !== null) {
-                continue;
+            if ($itemConfig === null) {
+                $itemConfig = new ItemConfig();
+            } elseif (!($itemConfig instanceof ItemConfig)) {
+                $this->entityManager->remove($itemConfig);
+                $itemConfig = new ItemConfig();
             }
 
-            $itemConfig = new ItemConfig();
             $itemConfig->setIsStackable($itemConfigData['isStackable']);
 
             $this->setEquipmentConfigAttributes($itemConfig, $itemConfigData);

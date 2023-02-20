@@ -15,11 +15,13 @@ class BlueprintDataLoader extends MechanicsDataLoader
 
             $blueprint = $this->mechanicsRepository->findOneBy(['name' => $blueprintData['name']]);
 
-            if ($blueprint !== null) {
-                continue;
+            if ($blueprint === null) {
+                $blueprint = new Blueprint();
+            } elseif (!($blueprint instanceof Blueprint)) {
+                $this->entityManager->remove($blueprint);
+                $blueprint = new Blueprint();
             }
 
-            $blueprint = new Blueprint();
             $blueprint
                 ->setName($blueprintData['name'])
                 ->setCraftedEquipmentName($blueprintData['craftedEquipmentName'])

@@ -15,11 +15,13 @@ class DocumentDataLoader extends MechanicsDataLoader
 
             $document = $this->mechanicsRepository->findOneBy(['name' => $documentData['name']]);
 
-            if ($document !== null) {
-                continue;
+            if ($document === null) {
+                $document = new Document();
+            } elseif (!($document instanceof Document)) {
+                $this->entityManager->remove($document);
+                $document = new Document();
             }
 
-            $document = new Document();
             $document
                 ->setName($documentData['name'])
                 ->setContent($documentData['content'])

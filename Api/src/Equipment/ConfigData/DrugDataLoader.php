@@ -15,11 +15,12 @@ class DrugDataLoader extends RationDataLoader
 
             $drug = $this->mechanicsRepository->findOneBy(['name' => $drugData['name']]);
 
-            if ($drug !== null) {
-                continue;
+            if ($drug === null) {
+                $drug = new Drug();
+            } elseif (!($drug instanceof Drug)) {
+                $this->entityManager->remove($drug);
+                $drug = new Drug();
             }
-
-            $drug = new Drug();
 
             $this->setRationAttributes($drug, $drugData);
             $this->setMechanicsActions($drug, $drugData);

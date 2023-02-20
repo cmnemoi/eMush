@@ -19,13 +19,15 @@
 		"thanks": "Thanks",
 		"alpha-testers": "All alpha testers :)",
 		"emush": "eMush",
-		"eternaltwin": "eMush is a non-commercial website operated by hobbyists. It belongs to the Eternaltwin project whose purpose is to archive Motion Twin's games. This means we want to ensure they remain available even if the official website closes. <strong>We are not related to Motion Twin</strong>."
+		"eternaltwin": "eMush is a non-commercial website operated by hobbyists. It belongs to the Eternaltwin project whose purpose is to archive Motion Twin's games. This means we want to ensure they remain available even if the official website closes. <strong>We are not related to Motion Twin</strong>.",
+		"legal": "Legal notice"
 	},
 	"util": {
 		"prev": "Previous page",
 		"next": "Next page"
 	},
 	"banner": {
+		"news": "News",
 		"ranking": "Rankings",
 		"user": "My account"
 	},
@@ -475,6 +477,14 @@
 		"shipNotFound": "No ship was found. Either one will be created in the incoming hour, or this language is not supported yet. :'(",
 		"startGame": "Start the game",
 		"youChoose": "You choose "
+	},
+	"newsPage" : {
+		"updatedAt": "Updated at "
+	},
+	"homePage" : {
+		"joinUs": "Join us !",
+		"play": "Play now !",
+		"synopsis": "You're about to wake up aboard the Daedalus with 15 other rebels. Like you, they are fleeing the <em>Mush</em>, a parasitic fungus which is ravaging Earth and threatens Humanity."
 	},
 	"game": {
 		"communications": {

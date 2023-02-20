@@ -63,20 +63,20 @@ class GameConfigDataLoader extends ConfigDataLoader
 
             if ($gameConfig === null) {
                 $gameConfig = new GameConfig();
-                $gameConfig->setName($gameConfigData['name']);
-
-                $this->setGameConfigDaedalusConfig($gameConfig, $gameConfigData);
-                $this->setGameConfigDifficultyConfig($gameConfig, $gameConfigData);
-                $this->setGameConfigCharacterConfigs($gameConfig, $gameConfigData);
-                $this->setGameConfigStatusConfigs($gameConfig, $gameConfigData);
-                $this->setGameConfigEquipmentConfigs($gameConfig, $gameConfigData);
-                $this->setGameConfigTriumphConfigs($gameConfig, $gameConfigData);
-                $this->setGameConfigDiseaseCauseConfigs($gameConfig, $gameConfigData);
-                $this->setGameConfigDiseaseConfigs($gameConfig, $gameConfigData);
-                $this->setGameConfigConsumableDiseaseConfigs($gameConfig, $gameConfigData);
-
-                $this->entityManager->persist($gameConfig);
             }
+            $gameConfig->setName($gameConfigData['name']);
+
+            $this->setGameConfigDaedalusConfig($gameConfig, $gameConfigData);
+            $this->setGameConfigDifficultyConfig($gameConfig, $gameConfigData);
+            $this->setGameConfigCharacterConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigStatusConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigEquipmentConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigTriumphConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigDiseaseCauseConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigDiseaseConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigConsumableDiseaseConfigs($gameConfig, $gameConfigData);
+
+            $this->entityManager->persist($gameConfig);
         }
         $this->entityManager->flush();
     }

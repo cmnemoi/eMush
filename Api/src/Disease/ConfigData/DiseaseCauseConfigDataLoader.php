@@ -25,11 +25,10 @@ class DiseaseCauseConfigDataLoader extends ConfigDataLoader
         foreach (DiseaseCauseConfigData::$dataArray as $diseaseCauseConfigData) {
             $diseaseCauseConfig = $this->diseaseCauseConfigRepository->findOneBy(['name' => $diseaseCauseConfigData['name']]);
 
-            if ($diseaseCauseConfig !== null) {
-                continue;
+            if ($diseaseCauseConfig === null) {
+                $diseaseCauseConfig = new DiseaseCauseConfig();
             }
 
-            $diseaseCauseConfig = new DiseaseCauseConfig();
             $diseaseCauseConfig
                 ->setName($diseaseCauseConfigData['name'])
                 ->setCauseName($diseaseCauseConfigData['causeName'])

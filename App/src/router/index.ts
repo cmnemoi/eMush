@@ -18,6 +18,7 @@ import UserPage from "@/components/User/UserPage.vue";
 import UserShips from "@/components/User/UserShips.vue";
 import NewsListPage from "@/components/Admin/News/NewsListPage.vue";
 import NewsWritePage from "@/components/Admin/News/NewsWritePage.vue";
+import NewsPage from "@/components/NewsPage.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 
 const routes = [
@@ -145,6 +146,11 @@ const routes = [
                 component: NewsWritePage
             }
         ]
+    },
+    {
+        path: "/news",
+        name: "NewsPage",
+        component: NewsPage
     },
     {
         path: "/token",

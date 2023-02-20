@@ -59,6 +59,10 @@ class DaedalusInfoRepository extends ServiceEntityRepository
     {
         $userDaedaluses = $this->userService->findUserDaedaluses($user);
 
+        if (count($userDaedaluses) === 0) {
+            return $this->findAvailableDaedalusInLanguage($language);
+        }
+
         $qb = $this->createQueryBuilder('daedalus_info');
 
         $qb

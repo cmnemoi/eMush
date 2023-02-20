@@ -14,11 +14,13 @@ class ChargeStatusConfigDataLoader extends StatusConfigDataLoader
             }
             $statusConfig = $this->statusConfigRepository->findOneBy(['name' => $statusConfigData['name']]);
 
-            if ($statusConfig !== null) {
-                continue;
+            if ($statusConfig === null) {
+                $statusConfig = new ChargeStatusConfig();
+            } elseif (!($statusConfig instanceof ChargeStatusConfig)) {
+                $this->entityManager->remove($statusConfig);
+                $statusConfig = new ChargeStatusConfig();
             }
 
-            $statusConfig = new ChargeStatusConfig();
             $statusConfig
                 ->setName($statusConfigData['name'])
                 ->setStatusName($statusConfigData['statusName'])

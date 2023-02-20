@@ -19,13 +19,15 @@
 		"thanks": "Remerciements",
 		"alpha-testers": "Tous les alpha testeurs :)",
 		"emush": "eMush",
-		"eternaltwin": "eMush est un site web non-commercial géré par des amateurs. Il fait partie du projet Eternaltwin dont le but est d'archiver les jeux de Motion Twin, c'est à dire les garder accessibles même en cas de fermeture du site officiel. <strong>Nous ne sommes pas liés à Motion Twin</strong>."
+		"eternaltwin": "eMush est un site web non-commercial géré par des amateurs. Il fait partie du projet Eternaltwin dont le but est d'archiver les jeux de Motion Twin, c'est à dire les garder accessibles même en cas de fermeture du site officiel. <strong>Nous ne sommes pas liés à Motion Twin</strong>.",
+		"legal": "Mentions légales"
 	},
 	"util": {
 		"prev": "Page précédente",
 		"next": "Page suivante"
 	},
 	"banner": {
+		"news": "News",
 		"ranking": "Classements",
 		"user": "Mon Compte"
 	},
@@ -475,6 +477,14 @@
 		"shipNotFound": "Aucun vaisseau n'a été trouvé. Un nouveau devrait être créé dans l'heure, ou bien cette langue n'est pas encore supportée :'(",
 		"startGame": "Démarrer la partie",
 		"youChoose": "Vous avez choisi "
+	},
+	"newsPage" : {
+		"updatedAt": "Mis à jour le "
+	},
+	"homePage" : {
+		"joinUs": "Inscrivez-vous !",
+		"play": "Jouer !",
+		"synopsis": "Vous allez vous réveiller avec 15 autres joueurs dans le Daedalus. Comme vous, ils fuient le <em>Mush</em>, un champignon qui ravage la planète Terre et menace l'Humanité."
 	},
 	"game": {
 		"communications": {

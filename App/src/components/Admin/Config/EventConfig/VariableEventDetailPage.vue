@@ -1,69 +1,44 @@
 <template>
-    <div v-if="modifierConfig" class="center">
+    <div v-if="eventConfig" class="center">
         <div class="flex-row">
             <Input
-                :label="$t('admin.modifierConfig.name')"
-                id="modifierConfig_name"
-                v-model="modifierConfig.name"
+                :label="$t('admin.eventConfig.name')"
+                id="eventConfig_name"
+                v-model="eventConfig.name"
                 type="text"
                 :errors="errors.name"
             />
             <Input
-                :label="$t('admin.modifierConfig.modifierName')"
-                id="modifierConfig_modifierName"
-                v-model="modifierConfig.modifierName"
+                :label="$t('admin.eventConfig.eventName')"
+                id="eventConfig_eventName"
+                v-model="eventConfig.eventName"
                 type="text"
-                :errors="errors.modifierName"
+                :errors="errors.eventName"
             />
             <Input
-                :label="$t('admin.modifierConfig.delta')"
-                id="modifierConfig_delta"
-                v-model="modifierConfig.delta"
+                :label="$t('admin.eventConfig.quantity')"
+                id="eventConfig_quantity"
+                v-model="eventConfig.quantity"
                 type="text"
-                :errors="errors.delta"
-            />
-            <Input
-                :label="$t('admin.modifierConfig.targetVariable')"
-                id="modifierConfig_targetVariable"
-                v-model="modifierConfig.targetVariable"
-                type="text"
-                :errors="errors.targetVariable"
+                :errors="errors.quantity"
             />
         </div>
         <div class="flex-row">
             <Input
-                :label="$t('admin.modifierConfig.modifierHolderClass')"
-                id="modifierConfig_modifierHolderClass"
-                v-model="modifierConfig.modifierRange"
+                :label="$t('admin.eventConfig.targetVariable')"
+                id="eventConfig_targetVariable"
+                v-model="eventConfig.targetVariable"
                 type="text"
-                :errors="errors.modifierRange"
+                :errors="errors.targetVariable"
             />
             <Input
-                :label="$t('admin.modifierConfig.mode')"
-                id="modifierConfig_mode"
-                v-model="modifierConfig.mode"
+                :label="$t('admin.eventConfig.variableHolderClass')"
+                id="eventConfig_variableHolderClass"
+                v-model="eventConfig.variableHolderClass"
                 type="text"
-                :errors="errors.mode"
-            />
-            <Input
-                :label="$t('admin.modifierConfig.applyOnActionParameter')"
-                type="checkbox"
-                class="configCheckbox"
-                id="modifierConfig_applyOnActionParameter"
-                v-model="modifierConfig.applyOnActionParameter"
+                :errors="errors.variableHolderClass"
             />
         </div>
-        <h3>Modifier Requirement</h3>
-        <ChildCollectionManager :children="modifierConfig.modifierActivationRequirements" @addId="selectNewChild" @remove="removeChild">
-            <template #header="child">
-                <span>{{ child.id }} - {{ child.modifierName }}</span>
-            </template>
-            <template #body="child">
-                <span>name: {{ child.modifierName }}</span>
-                <span>activationRequirement: {{ child.activationRequirement }}</span>
-                <span>value: {{ child.value }}</span>
-            </template>
-        </ChildCollectionManager>
         <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
@@ -80,36 +55,37 @@ import Input from "@/components/Utils/Input.vue";
 import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import {EventConfig} from "@/entities/Config/EventConfig";
 
-interface ModifierConfigState {
-    modifierConfig: null|ModifierConfig
+interface EventConfigState {
+    eventConfig: null|EventConfig
     errors: any
 }
 
 export default defineComponent({
-    name: "VariableEventModifierConfigState",
+    name: "VariableEventConfigState",
     components: {
         ChildCollectionManager,
         Input,
         UpdateConfigButtons
     },
-    data: function (): ModifierConfigState {
+    data: function (): EventConfigState {
         return {
-            modifierConfig: null,
+            eventConfig: null,
             errors: {}
         };
     },
     methods: {
         create(): void {
-            if (this.modifierConfig === null) return;
+            if (this.eventConfig === null) return;
 
-            const newModifierConfig = this.modifierConfig;
-            newModifierConfig.id = null;
+            const newEventConfig = this.eventConfig;
+            newEventConfig.id = null;
 
-            GameConfigService.createModifierConfig(newModifierConfig)
-                .then((res: ModifierConfig | null) => {
-                    const newModifierConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/modifier-config', String(res?.id));
-                    window.location.href = newModifierConfigUrl;
+            GameConfigService.createEventConfig(newEventConfig)
+                .then((res: EventConfig | null) => {
+                    const newEventConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/event-config', String(res?.id));
+                    window.location.href = newEventConfigUrl;
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -126,26 +102,13 @@ export default defineComponent({
                 });
         },
         update(): void {
-            if (this.modifierConfig === null) {
+            if (this.eventConfig === null) {
                 return;
             }
             this.errors = {};
-            GameConfigService.updateModifierConfig(this.modifierConfig)
-                .then((res: ModifierConfig | null) => {
-                    this.modifierConfig = res;
-                    if (this.modifierConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_event_modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
-                            .then((result) => {
-                                const modifierActivationRequirements : ModifierActivationRequirement[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
-                                    const currentCondition = (new ModifierActivationRequirement()).load(datum);
-                                    modifierActivationRequirements.push(currentCondition);
-                                });
-                                if (this.modifierConfig instanceof ModifierConfig) {
-                                    this.modifierConfig.modifierActivationRequirements = modifierActivationRequirements;
-                                }
-                            });
-                    }
+            GameConfigService.updateEventConfig(this.eventConfig)
+                .then((res: EventConfig | null) => {
+                    this.eventConfig = res;
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -161,36 +124,13 @@ export default defineComponent({
                     }
                 });
         },
-        selectNewChild(selectedId: any) {
-            GameConfigService.loadModifierActivationRequirement(selectedId).then((res) => {
-                if (res && this.modifierConfig && this.modifierConfig.modifierActivationRequirements) {
-                    this.modifierConfig.modifierActivationRequirements.push(res);
-                }
-            });
-        },
-        removeChild(child: any) {
-            if (this.modifierConfig && this.modifierConfig.modifierActivationRequirements) {
-                this.modifierConfig.modifierActivationRequirements = removeItem(this.modifierConfig.modifierActivationRequirements, child);
-            }
-        }
     },
     beforeMount() {
         console.log('coucou');
-        const modifierConfigId = String(this.$route.params.configId);
-        GameConfigService.loadModifierConfig(Number(modifierConfigId)).then((res: ModifierConfig | null) => {
-            if (res instanceof ModifierConfig) {
-                this.modifierConfig = res;
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_event_modifier_configs', modifierConfigId, 'modifier_activation_requirements'))
-                    .then((result) => {
-                        const modifierActivationRequirements : ModifierActivationRequirement[] = [];
-                        result.data['hydra:member'].forEach((datum: any) => {
-                            const currentRequirement = (new ModifierActivationRequirement()).load(datum);
-                            modifierActivationRequirements.push(currentRequirement);
-                        });
-                        if (this.modifierConfig instanceof ModifierConfig) {
-                            this.modifierConfig.modifierActivationRequirements = modifierActivationRequirements;
-                        }
-                    });
+        const eventConfigId = String(this.$route.params.configId);
+        GameConfigService.loadEventConfig(Number(eventConfigId)).then((res: EventConfig | null) => {
+            if (res instanceof EventConfig) {
+                this.eventConfig = res;
             }
         });
 

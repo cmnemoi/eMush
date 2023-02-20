@@ -202,16 +202,27 @@
 		},
 		"modifierConfig": {
 			"name": "Nom",
+			"modifierName": "Nom du modificateur",
 			"delta": "Delta",
 			"targetVariable": "Variable cible",
 			"targetEvent": "Évènement déclencheur",
 			"modifierHolderClass": "Entité porteuse du modificateur",
+			"modifierRange": "Portée du modificateur",
 			"mode": "Mode de calcul",
 			"variableModifier": "Modificateur de variables",
 			"triggerEventModifier": "Déclencheurs d'événements",
+			"directModifier": "Modificateur direct",
 			"modifierRequirement": "Conditions d'activation",
-			"triggeredEvent": "Nom de l'événement déclenché",
-			"applyOnActionParameter": "Application uniquement sur cible d'action"
+			"triggeredEvent": "Événement déclenché",
+			"applyOnActionParameter": "Application uniquement sur cible d'action",
+			"revertOnRemove": "Inverser lors de la suppression"
+		},
+		"eventConfig": {
+			"name": "Nom",
+			"eventName": "Nom de l'événement",
+			"quantity": "Quantité",
+			"targetVariable": "Variable cible",
+			"variableHolderClass": "Entité porteuse de la variable"
 		},
 		"modifierActivationRequirement": {
 			"name": "Nom",

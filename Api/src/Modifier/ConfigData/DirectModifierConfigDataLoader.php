@@ -16,11 +16,13 @@ class DirectModifierConfigDataLoader extends ModifierConfigDataLoader
 
             $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigData['name']]);
 
-            if ($modifierConfig !== null) {
-                continue;
+            if ($modifierConfig === null) {
+                $modifierConfig = new DirectModifierConfig();
+            } elseif (!($modifierConfig instanceof DirectModifierConfig)) {
+                $this->entityManager->remove($modifierConfig);
+                $modifierConfig = new DirectModifierConfig();
             }
 
-            $modifierConfig = new DirectModifierConfig();
             $modifierConfig
                 ->setRevertOnRemove($modifierConfigData['revertOnRemove'])
                 ->setName($modifierConfigData['name'])

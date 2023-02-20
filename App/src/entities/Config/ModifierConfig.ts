@@ -1,4 +1,5 @@
 import { ModifierActivationRequirement } from "@/entities/Config/ModifierActivationRequirement";
+import { EventConfig } from "@/entities/Config/EventConfig";
 
 export class ModifierConfig {
     public iri: string|null;
@@ -9,11 +10,11 @@ export class ModifierConfig {
     public delta: number|null;
     public targetVariable: string|null;
     public targetEvent: string|null;
-    public modifierHolderClass: string|null;
+    public modifierRange: string|null;
     public mode: string|null;
-    public triggeredEvent: string|null;
+    public triggeredEvent: EventConfig|null;
     public applyOnActionParameter: boolean|null;
-    public applyOn: string|null;
+    public reverseOnRemove: boolean|null;
     public modifierActivationRequirements:ModifierActivationRequirement[]|null;
 
     constructor() {
@@ -25,9 +26,9 @@ export class ModifierConfig {
         this.delta = null;
         this.targetVariable = null;
         this.targetEvent = null;
-        this.modifierHolderClass = null;
+        this.modifierRange = null;
         this.mode = null;
-        this.applyOn = null;
+        this.reverseOnRemove = null;
         this.triggeredEvent = null;
         this.applyOnActionParameter = null;
         this.modifierActivationRequirements = null;
@@ -42,11 +43,14 @@ export class ModifierConfig {
             this.delta = object.delta;
             this.targetVariable = object.targetVariable;
             this.targetEvent = object.targetEvent;
-            this.modifierHolderClass = object.modifierHolderClass;
-            this.applyOn = object.applyOn;
+            this.modifierRange = object.modifierRange;
+            this.reverseOnRemove = object.reverseOnRemove;
             this.applyOnActionParameter = object.applyOnActionParameter;
             this.triggeredEvent = object.triggeredEvent;
             this.mode = object.mode;
+            if (typeof object.triggeredEvent !== "undefined") {
+                this.triggeredEvent = (new EventConfig()).load(object.triggeredEvent);
+            }
         }
         return this;
     }
@@ -60,12 +64,12 @@ export class ModifierConfig {
             'delta': this.delta,
             'targetVariable': this.targetVariable,
             'targetEvent': this.targetEvent,
-            'modifierHolderClass': this.modifierHolderClass,
+            'modifierRange': this.modifierRange,
             'mode': this.mode,
-            'triggeredEvent': this.triggeredEvent,
-            'applyOn': this.applyOn,
+            'reverseOnRemove': this.reverseOnRemove,
             'applyOnActionParameter': this.applyOnActionParameter,
-            'modifierActivationRequirements': modifierActivationRequirements
+            'modifierActivationRequirements': modifierActivationRequirements,
+            'triggeredEvent': this.triggeredEvent?.iri,
         };
     }
     decode(jsonString : string): ModifierConfig {

@@ -1,11 +1,13 @@
-Mush\Modifier\Entity\Config\AbstractModifierConfig:
-  shortName: 'ModifierConfig'
-  description: 'eMush TriggerEventModifierConfig'
+Mush\Game\Entity\VariableEventConfig:
+  shortName: 'VariableEventConfig'
+  description: 'eMush VariableEventConfig'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_USER")'
     normalization_context:
-      groups: [ 'modifier_config_read' ]
+      groups: [ 'event_config_read' ]
+    denormalization_context:
+      groups: [ 'event_config_write' ]
   collectionOperations:
     get:
       security: 'is_granted("ROLE_MODERATOR")'
@@ -17,8 +19,3 @@ Mush\Modifier\Entity\Config\AbstractModifierConfig:
       security: 'is_granted("ROLE_MODERATOR")'
     put:
       security: 'is_granted("ROLE_ADMIN")'
-  properties:
-    modifierActivationRequirements:
-      subresource:
-        resourceClass: 'Mush\Modifier\Entity\ModifierActivationRequirement'
-        collection: true

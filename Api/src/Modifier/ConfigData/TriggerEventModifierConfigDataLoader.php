@@ -16,11 +16,13 @@ class TriggerEventModifierConfigDataLoader extends ModifierConfigDataLoader
 
             $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigData['name']]);
 
-            if ($modifierConfig !== null) {
-                continue;
+            if ($modifierConfig === null) {
+                $modifierConfig = new TriggerEventModifierConfig();
+            } elseif (!($modifierConfig instanceof TriggerEventModifierConfig)) {
+                $this->entityManager->remove($modifierConfig);
+                $modifierConfig = new TriggerEventModifierConfig();
             }
 
-            $modifierConfig = new TriggerEventModifierConfig();
             $modifierConfig
                 ->setVisibility($modifierConfigData['visibility'])
                 ->setTargetEvent($modifierConfigData['targetEvent'])

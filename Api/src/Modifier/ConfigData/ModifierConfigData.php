@@ -853,7 +853,7 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
         ],
         [
-            'name' => 'direct_modifier_player_-12_movement_moralPoint',
+            'name' => 'direct_modifier_player_-12_max_movementPoint',
             'modifierName' => null,
             'revertOnRemove' => true,
             'modifierRange' => 'player',

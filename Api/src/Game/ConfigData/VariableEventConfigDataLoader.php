@@ -21,7 +21,7 @@ class VariableEventConfigDataLoader extends ConfigDataLoader
 
     public function loadConfigsData(): void
     {
-        foreach (VariableEventConfigData::$dataArray as $variableEventConfigData) {
+        foreach (EventConfigData::$dataArray as $variableEventConfigData) {
             if ($variableEventConfigData['type'] !== 'variable_event_config') {
                 continue;
             }

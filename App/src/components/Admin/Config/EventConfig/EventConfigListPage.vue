@@ -62,29 +62,17 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 
 export default defineComponent({
-    name: "ModifierConfigListPage",
+    name: "EventConfigListPage",
     components: {
         Datatable
     },
     data() {
         return {
-            entityType: { endpoint: 'variable_event_modifier_configs', detailPage: 'AdminVariableModifierConfigDetail' },
+            entityType: { endpoint: 'variable_event_configs', detailPage: 'AdminVariableEventConfigDetail' },
             entityTypeOption: [
-                { key: 'admin.modifierConfig.variableModifier', value: {
-                    endpoint: 'variable_event_modifier_configs',
-                    detailPage: 'AdminVariableModifierConfigDetail'
-                } },
-                { key: 'admin.modifierConfig.triggerEventModifier', value: {
-                    endpoint: 'trigger_event_modifier_configs',
-                    detailPage: 'AdminTriggerEventModifierConfigDetail'
-                } },
-                { key: 'admin.modifierConfig.directModifier', value: {
-                    endpoint: 'direct_modifier_configs',
-                    detailPage: 'AdminDirectModifierConfigDetail'
-                } },
-                { key: 'admin.modifierConfig.modifierRequirement', value: {
-                    endpoint: 'modifier_activation_requirements',
-                    detailPage: 'AdminModifierActivationRequirementDetail'
+                { key: 'admin.eventConfig.variableEvent', value: {
+                    endpoint: 'variable_event_configs',
+                    detailPage: 'AdminVariableEventConfigDetail'
                 } },
             ],
             fields: [

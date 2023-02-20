@@ -1,6 +1,6 @@
 Mush\Modifier\Entity\Config\TriggerEventModifierConfig:
-  shortName: 'TriggerEventModifierConfigYo'
-  description: 'eMush TriggerEventModifierConfigYo'
+  shortName: 'TriggerEventModifierConfig'
+  description: 'eMush TriggerEventModifierConfig'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_USER")'

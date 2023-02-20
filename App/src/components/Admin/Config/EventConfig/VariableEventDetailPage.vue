@@ -33,7 +33,7 @@
         <div class="flex-row">
             <Input
                 :label="$t('admin.modifierConfig.modifierHolderClass')"
-                id="modifierConfig_modifierRange"
+                id="modifierConfig_modifierHolderClass"
                 v-model="modifierConfig.modifierRange"
                 type="text"
                 :errors="errors.modifierRange"

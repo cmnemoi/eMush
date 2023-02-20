@@ -1,6 +1,6 @@
-Mush\Modifier\Entity\Config\VariableEventModifierConfig:
-  shortName: 'VariableEventModifierConfig'
-  description: 'eMush VariableEventModifierConfig'
+Mush\Modifier\Entity\Config\DirectModifierConfig:
+  shortName: 'DirectModifierConfig'
+  description: 'eMush DirectModifierConfig'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_USER")'
@@ -24,3 +24,6 @@ Mush\Modifier\Entity\Config\VariableEventModifierConfig:
       subresource:
         resourceClass: 'Mush\Modifier\Entity\ModifierActivationRequirement'
         collection: true
+    triggeredEvent:
+      subresource:
+        resourceClass: 'Mush\Game\Entity\AbstractEventConfig'

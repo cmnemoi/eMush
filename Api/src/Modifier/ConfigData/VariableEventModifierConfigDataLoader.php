@@ -2,7 +2,6 @@
 
 namespace Mush\Modifier\ConfigData;
 
-use Mush\Equipment\CycleHandler\ModifierConfigDataLoader;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
 class VariableEventModifierConfigDataLoader extends ModifierConfigDataLoader

@@ -7,7 +7,7 @@ use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 
 /** @codeCoverageIgnore */
-class VariableEventConfigData
+class EventConfigData
 {
     public static $dataArray = [
         [

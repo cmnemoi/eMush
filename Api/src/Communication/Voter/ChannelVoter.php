@@ -71,10 +71,10 @@ class ChannelVoter extends Voter
 
         // check for pirated channels
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
-
+        
         $playerCanCommunicate = $this->channelService->canPlayerCommunicate($player);
 
-        return (!$player->isAlive() || $player->isAlive() && $playerCanCommunicate) && (
+        return ( (!$player->isAlive()) || ($player->isAlive() && $playerCanCommunicate) ) && (
             $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
                 ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
         );

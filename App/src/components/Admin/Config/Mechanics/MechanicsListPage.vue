@@ -72,15 +72,15 @@ export default defineComponent({
         return {
             entityType: 'blueprints',
             entityTypeOption: [
-                { key: 'admin.mechanics.blueprint', value: 'blueprints'},
-                { key: 'admin.mechanics.book', value: 'books'},
-                { key: 'admin.mechanics.document', value: 'documents'},
-                { key: 'admin.mechanics.drug', value: 'drugs'},
-                { key: 'admin.mechanics.fruit', value: 'fruits'},
-                { key: 'admin.mechanics.gear', value: 'gears'},
-                { key: 'admin.mechanics.plant', value: 'plants'},
-                { key: 'admin.mechanics.ration', value: 'rations'},
-                { key: 'admin.mechanics.weapon', value: 'weapons'},
+                { key: 'admin.mechanics.blueprint', value: 'blueprints' },
+                { key: 'admin.mechanics.book', value: 'books' },
+                { key: 'admin.mechanics.document', value: 'documents' },
+                { key: 'admin.mechanics.drug', value: 'drugs' },
+                { key: 'admin.mechanics.fruit', value: 'fruits' },
+                { key: 'admin.mechanics.gear', value: 'gears' },
+                { key: 'admin.mechanics.plant', value: 'plants' },
+                { key: 'admin.mechanics.ration', value: 'rations' },
+                { key: 'admin.mechanics.weapon', value: 'weapons' },
             ],
             fields: [
                 {

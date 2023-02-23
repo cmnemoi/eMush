@@ -20,7 +20,7 @@ import { ConsumableDiseaseConfig } from "@/entities/Config/ConsumableDiseaseConf
 import { ConsumableDiseaseAttribute } from "@/entities/ConsumableDiseaseAttribute";
 import { DiseaseCauseConfig } from "@/entities/Config/DiseaseCauseConfig";
 import { TriumphConfig } from "@/entities/Config/TriumphConfig";
-import {EventConfig} from "@/entities/Config/EventConfig";
+import { EventConfig } from "@/entities/Config/EventConfig";
 
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");

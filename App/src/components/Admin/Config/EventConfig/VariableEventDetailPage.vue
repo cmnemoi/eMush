@@ -47,15 +47,10 @@
 import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
 import { handleErrors } from "@/utils/apiValidationErrors";
-import { ModifierConfig } from "@/entities/Config/ModifierConfig";
-import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
-import { ModifierActivationRequirement } from "@/entities/Config/ModifierActivationRequirement";
 import Input from "@/components/Utils/Input.vue";
-import { removeItem } from "@/utils/misc";
-import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
-import {EventConfig} from "@/entities/Config/EventConfig";
+import { EventConfig } from "@/entities/Config/EventConfig";
 
 interface EventConfigState {
     eventConfig: null|EventConfig
@@ -65,7 +60,6 @@ interface EventConfigState {
 export default defineComponent({
     name: "VariableEventConfigState",
     components: {
-        ChildCollectionManager,
         Input,
         UpdateConfigButtons
     },

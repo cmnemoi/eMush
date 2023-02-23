@@ -63,9 +63,7 @@ import Input from "@/components/Utils/Input.vue";
 import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
-import {DaedalusConfig} from "@/entities/Config/DaedalusConfig";
-import {GameConfig} from "@/entities/Config/GameConfig";
-import {EventConfig} from "@/entities/Config/EventConfig";
+import { EventConfig } from "@/entities/Config/EventConfig";
 import ChildManager from "@/components/Utils/ChildManager.vue";
 
 interface ModifierConfigState {

@@ -11,6 +11,7 @@ class ChannelEvent extends AbstractGameEvent
     public const NEW_CHANNEL = 'new_channel';
     public const JOIN_CHANNEL = 'join_channel';
     public const EXIT_CHANNEL = 'exit_channel';
+    public const REQUEST_CHANNEL = 'request_channel';
 
     private Channel $channel;
 

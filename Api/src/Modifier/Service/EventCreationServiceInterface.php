@@ -13,6 +13,7 @@ interface EventCreationServiceInterface
         ModifierHolder $modifierRange,
         ?Player $player,
         array $tags,
-        \DateTime $time
+        \DateTime $time,
+        bool $reverse = false
     ): array;
 }

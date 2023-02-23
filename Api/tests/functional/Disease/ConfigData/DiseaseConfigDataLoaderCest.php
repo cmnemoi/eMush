@@ -8,6 +8,8 @@ use Mush\Disease\ConfigData\DiseaseConfigDataLoader;
 use Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader;
 use Mush\Disease\ConfigData\SymptomConfigDataLoader;
 use Mush\Disease\Entity\Config\DiseaseConfig;
+use Mush\Game\ConfigData\VariableEventConfigDataLoader;
+use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 
@@ -16,22 +18,28 @@ class DiseaseConfigDataLoaderCest
     // @TODO : remove SymptomConfig logic when it will be definitely deprecated
 
     private DiseaseConfigDataLoader $diseaseConfigDataLoader;
+    private VariableEventConfigDataLoader $eventConfigDataLoader;
     private ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
     private SymptomActivationRequirementDataLoader $symptomActivationRequirementDataLoader;
-    private VariableEventModifierConfigDataLoader $modifierConfigDataLoader;
+    private VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader;
+    private DirectModifierConfigDataLoader $directModifierConfigDataLoader;
     private SymptomConfigDataLoader $symptomConfigDataLoader;
 
     public function _before(FunctionalTester $I)
     {
         // load dependencies
+        $this->eventConfigDataLoader = $I->grabService(VariableEventConfigDataLoader::class);
         $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
         $this->symptomActivationRequirementDataLoader = $I->grabService(SymptomActivationRequirementDataLoader::class);
-        $this->modifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
+        $this->variableEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
+        $this->directModifierConfigDataLoader = $I->grabService(DirectModifierConfigDataLoader::class);
         $this->symptomConfigDataLoader = $I->grabService(SymptomConfigDataLoader::class);
 
         $this->modifierActivationRequirementDataLoader->loadConfigsData();
+        $this->eventConfigDataLoader->loadConfigsData();
         $this->symptomActivationRequirementDataLoader->loadConfigsData();
-        $this->modifierConfigDataLoader->loadConfigsData();
+        $this->variableEventModifierConfigDataLoader->loadConfigsData();
+        $this->directModifierConfigDataLoader->loadConfigsData();
         $this->symptomConfigDataLoader->loadConfigsData();
 
         $this->diseaseConfigDataLoader = $I->grabService(DiseaseConfigDataLoader::class);

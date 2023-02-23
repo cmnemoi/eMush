@@ -4,20 +4,16 @@ namespace Mush\Modifier\Service\ModifierListenerService;
 
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Entity\Player;
 
 class PlayerModifierService implements PlayerModifierServiceInterface
 {
-    private EventModifierServiceInterface $modifierService;
     private ModifierCreationServiceInterface $modifierCreationService;
 
     public function __construct(
-        EventModifierServiceInterface $modifierService,
         ModifierCreationServiceInterface $modifierCreationService,
     ) {
-        $this->modifierService = $modifierService;
         $this->modifierCreationService = $modifierCreationService;
     }
 

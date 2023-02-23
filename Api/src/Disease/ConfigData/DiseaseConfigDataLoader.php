@@ -2,7 +2,6 @@
 
 namespace Mush\Disease\ConfigData;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Repository\DiseaseConfigRepository;
@@ -71,7 +70,7 @@ class DiseaseConfigDataLoader extends ConfigDataLoader
             }
             $modifierConfigs[] = $modifierConfig;
         }
-        $diseaseConfig->setModifierConfigs(new ArrayCollection($modifierConfigs));
+        $diseaseConfig->setModifierConfigs($modifierConfigs);
     }
 
     private function setDiseaseConfigSymptomConfigs(DiseaseConfig $diseaseConfig, array $diseaseConfigData): void

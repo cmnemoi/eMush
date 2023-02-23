@@ -18,6 +18,7 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
@@ -396,7 +397,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         $gear = new Gear();
 
-        /** @var ArrayCollection<int, VariableEventModifierConfig> */
+        /** @var ArrayCollection<int, AbstractModifierConfig> */
         $modifierConfigs = new ArrayCollection();
         foreach ($modifierConfigNames as $modifierConfigName) {
             $currentModifierConfig = $this->getReference($modifierConfigName);

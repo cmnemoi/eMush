@@ -3,7 +3,7 @@
 namespace Mush\Modifier\Service\ModifierListenerService;
 
 use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
@@ -27,7 +27,7 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
                 return;
             }
 
-            $this->modifierCreationService->createModifier($modifierConfig, $player, $tags, $time, $player);
+            $this->modifierCreationService->createModifier($modifierConfig, $holder, $tags, $time, $player);
         }
     }
 
@@ -39,11 +39,11 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
                 return;
             }
 
-            $this->modifierCreationService->deleteModifier($modifierConfig, $player, $tags, $time, $player);
+            $this->modifierCreationService->deleteModifier($modifierConfig, $holder, $tags, $time, $player);
         }
     }
 
-    private function getModifierHolderFromConfig(Player $player, VariableEventModifierConfig $modifierConfig): ?ModifierHolder
+    private function getModifierHolderFromConfig(Player $player, AbstractModifierConfig $modifierConfig): ?ModifierHolder
     {
         switch ($modifierConfig->getModifierRange()) {
             case ModifierHolderClassEnum::DAEDALUS:

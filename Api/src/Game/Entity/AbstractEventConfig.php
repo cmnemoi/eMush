@@ -56,7 +56,7 @@ abstract class AbstractEventConfig
         return $this;
     }
 
-    public function reverseEvent(): ?AbstractEventConfig
+    public function revertEvent(): ?AbstractEventConfig
     {
         return null;
     }

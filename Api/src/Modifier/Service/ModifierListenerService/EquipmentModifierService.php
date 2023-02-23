@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
@@ -215,7 +215,6 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         foreach ($gameEquipment->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
 
-            /** @var VariableEventModifierConfig $modifierConfig */
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
                 if (in_array($modifierConfig->getModifierRange(), $reaches)) {
                     $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
@@ -237,7 +236,6 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         \DateTime $time,
         ?Player $player
     ): void {
-        /* @var VariableEventModifierConfig $modifierConfig */
         foreach ($modifiers as $modifierConfig) {
             if (in_array($modifierConfig->getModifierRange(), $reaches)) {
                 $charge = $this->getChargeStatus($modifierConfig->getTargetEvent(), $gameEquipment);
@@ -259,7 +257,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         }
     }
 
-    private function getModifierHolderFromConfig(GameEquipment $gameEquipment, VariableEventModifierConfig $modifierConfig, ?Player $player): ?ModifierHolder
+    private function getModifierHolderFromConfig(GameEquipment $gameEquipment, AbstractModifierConfig $modifierConfig, ?Player $player): ?ModifierHolder
     {
         switch ($modifierConfig->getModifierRange()) {
             case ModifierHolderClassEnum::DAEDALUS:

@@ -3,7 +3,6 @@
 namespace Mush\Status\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -139,7 +138,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $frozen
             ->setStatusName(EquipmentStatusEnum::FROZEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$frozenModifier]))
+            ->setModifierConfigs([$frozenModifier])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($frozen);
@@ -191,7 +190,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $antisocial
             ->setStatusName(PlayerStatusEnum::ANTISOCIAL)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$antisocialModifier]))
+            ->setModifierConfigs([$antisocialModifier])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($antisocial);
@@ -218,7 +217,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $burdened
             ->setStatusName(PlayerStatusEnum::BURDENED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$burdenedModifier]))
+            ->setModifierConfigs([$burdenedModifier])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($burdened);
@@ -227,7 +226,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $demoralized
             ->setStatusName(PlayerStatusEnum::DEMORALIZED)
             ->setVisibility(VisibilityEnum::PRIVATE)
-            ->setModifierConfigs(new ArrayCollection([$increaseCycleDiseaseChances30]))
+            ->setModifierConfigs([$increaseCycleDiseaseChances30])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($demoralized);
@@ -248,7 +247,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $disabled
             ->setStatusName(PlayerStatusEnum::DISABLED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$disabledNotAloneModifier, $disabledConversionModifier]))
+            ->setModifierConfigs([$disabledNotAloneModifier, $disabledConversionModifier])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($disabled);
@@ -332,7 +331,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $lost
             ->setStatusName(PlayerStatusEnum::LOST)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$lostModifier]))
+            ->setModifierConfigs([$lostModifier])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($lost);
@@ -343,7 +342,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $lyingDown
             ->setStatusName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$lyingDownModifier]))
+            ->setModifierConfigs([$lyingDownModifier])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($lyingDown);
@@ -370,7 +369,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $pacifist
             ->setStatusName(PlayerStatusEnum::PACIFIST)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$pacifistModifier]))
+            ->setModifierConfigs([$pacifistModifier])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($pacifist);
@@ -389,7 +388,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $starving
             ->setStatusName(PlayerStatusEnum::STARVING)
             ->setVisibility(VisibilityEnum::PRIVATE)
-            ->setModifierConfigs(new ArrayCollection([$starvingModifier]))
+            ->setModifierConfigs([$starvingModifier])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($starving);
@@ -406,7 +405,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $suicidal
             ->setStatusName(PlayerStatusEnum::SUICIDAL)
             ->setVisibility(VisibilityEnum::PRIVATE)
-            ->setModifierConfigs(new ArrayCollection([$increaseCycleDiseaseChances30]))
+            ->setModifierConfigs([$increaseCycleDiseaseChances30])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($suicidal);

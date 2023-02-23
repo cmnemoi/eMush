@@ -19,8 +19,13 @@ class EventCreationService implements EventCreationServiceInterface
         ModifierHolder $modifierRange,
         ?Player $player,
         array $tags,
-        \DateTime $time
+        \DateTime $time,
+        bool $reverse = false
     ): array {
+        if ($reverse) {
+            $eventConfig = $eventConfig->revertEvent();
+        }
+
         if ($eventConfig instanceof VariableEventConfig) {
             return $this->createVariableEvents($eventConfig, $tags, $time, $modifierRange);
         } else {

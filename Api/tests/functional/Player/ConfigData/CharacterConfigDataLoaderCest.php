@@ -18,6 +18,8 @@ use Mush\Equipment\ConfigData\PlantDataLoader;
 use Mush\Equipment\ConfigData\RationDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
+use Mush\Game\ConfigData\VariableEventConfigDataLoader;
+use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Player\ConfigData\CharacterConfigData;
@@ -34,8 +36,10 @@ class CharacterConfigDataLoaderCest
     private ActionDataLoader $actionDataLoader;
 
     // init statuses
+    private VariableEventConfigDataLoader $eventConfigDataLoader;
     private ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
-    private VariableEventModifierConfigDataLoader $modifierConfigDataLoader;
+    private VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader;
+    private DirectModifierConfigDataLoader $directModifierConfigDataLoader;
     private ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader;
     private StatusConfigDataLoader $statusConfigDataLoader;
 
@@ -63,8 +67,10 @@ class CharacterConfigDataLoaderCest
         $this->actionDataLoader = $I->grabService(ActionDataLoader::class);
 
         // init statuses
+        $this->eventConfigDataLoader = $I->grabService(VariableEventConfigDataLoader::class);
         $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
-        $this->modifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
+        $this->variableEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
+        $this->directModifierConfigDataLoader = $I->grabService(DirectModifierConfigDataLoader::class);
         $this->chargeStatusConfigDataLoader = $I->grabService(ChargeStatusConfigDataLoader::class);
         $this->statusConfigDataLoader = $I->grabService(StatusConfigDataLoader::class);
 
@@ -89,8 +95,10 @@ class CharacterConfigDataLoaderCest
         // load dependencies
         $this->actionDataLoader->loadConfigsData();
 
+        $this->eventConfigDataLoader->loadConfigsData();
         $this->modifierActivationRequirementDataLoader->loadConfigsData();
-        $this->modifierConfigDataLoader->loadConfigsData();
+        $this->directModifierConfigDataLoader->loadConfigsData();
+        $this->variableEventModifierConfigDataLoader->loadConfigsData();
         $this->chargeStatusConfigDataLoader->loadConfigsData();
         $this->statusConfigDataLoader->loadConfigsData();
 

@@ -6,7 +6,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Entity\VariableEventConfig;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -22,6 +25,7 @@ class ModifierCreationServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
+    /** @var EventCreationServiceInterface|Mockery\Mock */
     private EventCreationServiceInterface $eventCreationService;
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
@@ -72,7 +76,7 @@ class ModifierCreationServiceTest extends TestCase
         $this->service->delete($playerModifier);
     }
 
-    public function testCreateModifier()
+    public function testCreateEventModifier()
     {
         $daedalus = new Daedalus();
 
@@ -148,5 +152,121 @@ class ModifierCreationServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $equipment, [], new \DateTime(), null);
+    }
+
+    public function testDeleteEventModifier()
+    {
+        $daedalus = new Daedalus();
+
+        // create a daedalus GameModifier
+        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+
+        $gameModifier = new GameModifier($daedalus, $modifierConfig);
+
+        $this->entityManager->shouldReceive('remove')->with($gameModifier)->once();
+        $this->entityManager->shouldReceive('flush')->once();
+
+        $this->service->deleteModifier($modifierConfig, $daedalus, [], new \DateTime(), null);
+    }
+
+    public function testCreateDirectModifier()
+    {
+        $daedalus = new Daedalus();
+
+        $eventConfig = new VariableEventConfig();
+
+        $modifierConfig = new DirectModifierConfig();
+        $modifierConfig
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setTriggeredEvent($eventConfig)
+        ;
+        $time = new \DateTime();
+        $tags = [];
+
+        $event1 = new AbstractGameEvent($tags, $time);
+        $event1->setEventName('event1');
+        $event2 = new AbstractGameEvent($tags, $time);
+        $event2->setEventName('event2');
+
+        $events = [$event1, $event2];
+        $this->eventCreationService
+            ->shouldReceive('createEvents')
+            ->with($eventConfig, $daedalus, null, $tags, $time, false)
+            ->andReturn($events)
+            ->once();
+
+        $this->eventService->shouldReceive('callEvent')->twice();
+
+        $this->service->createModifier($modifierConfig, $daedalus, $tags, $time, null);
+    }
+
+    public function testDeleteDirectModifierReverse()
+    {
+        $daedalus = new Daedalus();
+
+        $eventConfig = new VariableEventConfig();
+        $eventConfig
+            ->setEventName('eventName')
+            ->setTargetVariable('variable')
+            ->setVariableHolderClass('holder')
+            ->setQuantity(1)
+        ;
+
+        $modifierConfig = new DirectModifierConfig();
+        $modifierConfig
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setTriggeredEvent($eventConfig)
+            ->setRevertOnRemove(true)
+        ;
+        $time = new \DateTime();
+        $tags = [];
+
+        $event = new AbstractGameEvent($tags, $time);
+        $event->setEventName('eventName');
+
+        $events = [$event];
+        $this->eventCreationService
+            ->shouldReceive('createEvents')
+            ->with($eventConfig, $daedalus, null, $tags, $time, true)
+            ->andReturn($events)
+            ->once()
+        ;
+
+        $this->eventService->shouldReceive('callEvent')->once();
+
+        $this->service->deleteModifier($modifierConfig, $daedalus, $tags, $time, null);
+    }
+
+    public function testDeleteDirectModifierNoReverse()
+    {
+        $daedalus = new Daedalus();
+
+        $eventConfig = new VariableEventConfig();
+        $eventConfig
+            ->setEventName('eventName')
+            ->setTargetVariable('variable')
+            ->setVariableHolderClass('holder')
+            ->setQuantity(1)
+        ;
+
+        $modifierConfig = new DirectModifierConfig();
+        $modifierConfig
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setTriggeredEvent($eventConfig)
+            ->setRevertOnRemove(false)
+        ;
+        $time = new \DateTime();
+        $tags = [];
+
+        $this->eventCreationService
+            ->shouldReceive('createEvents')
+            ->with($eventConfig, $daedalus, null, $tags, $time, true)
+            ->never()
+        ;
+
+        $this->eventService->shouldReceive('callEvent')->never();
+
+        $this->service->deleteModifier($modifierConfig, $daedalus, $tags, $time, null);
     }
 }

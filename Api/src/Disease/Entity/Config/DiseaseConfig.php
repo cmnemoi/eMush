@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
@@ -114,7 +113,7 @@ class DiseaseConfig implements LogParameterInterface
     }
 
     /**
-     * @psalm-param ArrayCollection<int, VariableEventModifierConfig> $modifierConfigs
+     * @param array<int, AbstractModifierConfig>|Collection<int, AbstractModifierConfig> $modifierConfigs
      */
     public function setModifierConfigs(Collection|array $modifierConfigs): self
     {

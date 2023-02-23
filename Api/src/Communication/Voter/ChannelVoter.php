@@ -57,21 +57,11 @@ class ChannelVoter extends Voter
         $channel = $subject;
 
         switch ($attribute) {
-            case self::POST:
-                return $this->canPost($playerInfo);
             case self::VIEW:
                 return $this->canView($channel, $playerInfo);
         }
 
         throw new \LogicException('This code should not be reached!');
-    }
-
-    private function canPost(PlayerInfo $playerInfo): bool
-    {
-        /** @var Player $player */
-        $player = $playerInfo->getPlayer();
-
-        return $this->channelService->canPlayerCommunicate($player);
     }
 
     private function canView(Channel $channel, PlayerInfo $playerInfo): bool
@@ -84,7 +74,7 @@ class ChannelVoter extends Voter
 
         $playerCanCommunicate = $this->channelService->canPlayerCommunicate($player);
 
-        return $playerCanCommunicate && (
+        return ((!$player->isAlive()) || ($player->isAlive() && $playerCanCommunicate)) && (
             $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
                 ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
         );

@@ -12,6 +12,17 @@
                     </option>
                 </select>
             </label>
+            <label>{{ $t('admin.class') }}
+                <select v-model="entityType" @change="updateFilter">
+                    <option
+                        v-for="option in entityTypeOption"
+                        :value=option.value
+                        :key=option.value
+                    >
+                        {{ $t(option.key) }}
+                    </option>
+                </select>
+            </label>
             <label>{{ $t('admin.search') }}:
                 <input
                     v-model="filter"
@@ -55,8 +66,22 @@ export default defineComponent({
     components: {
         Datatable
     },
+
+
     data() {
         return {
+            entityType: 'blueprints',
+            entityTypeOption: [
+                { key: 'admin.mechanics.blueprint', value: 'blueprints'},
+                { key: 'admin.mechanics.book', value: 'books'},
+                { key: 'admin.mechanics.document', value: 'documents'},
+                { key: 'admin.mechanics.drug', value: 'drugs'},
+                { key: 'admin.mechanics.fruit', value: 'fruits'},
+                { key: 'admin.mechanics.gear', value: 'gears'},
+                { key: 'admin.mechanics.plant', value: 'plants'},
+                { key: 'admin.mechanics.ration', value: 'rations'},
+                { key: 'admin.mechanics.weapon', value: 'weapons'},
+            ],
             fields: [
                 {
                     key: 'id',
@@ -115,7 +140,7 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'mechanics'), params)
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+this.entityType), params)
                 .then((result) => {
                     return result.data;
                 })

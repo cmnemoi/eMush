@@ -418,7 +418,16 @@
 			"canShred": "Peut être déchiré",
 			"cannotShred": "Ne peut pas être déchiré",
 			"modifierConfigs": "Modificateurs",
-			"equipment": "Équipement assemblé"
+			"equipment": "Équipement assemblé",
+			"blueprint": "Plans de construction",
+			"book": "Apprentons",
+			"document": "Documents",
+			"drug": "Drogues",
+			"fruit": "Fruits",
+			"gear": "Outils",
+			"plant": "Plantes",
+			"ration": "Nourriture",
+			"weapon": "Armes"
 		},
 		"buttons": {
 			"add": "Ajouter",

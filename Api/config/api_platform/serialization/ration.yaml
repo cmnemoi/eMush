@@ -3,7 +3,7 @@ Mush\Equipment\Entity\Mechanics\Ration:
     id: 
       groups: [ 'ration_read' ]
     name:
-      groups: [ 'ration_write' ]
+      groups: [ 'ration_write', 'ration_read' ]
     mechanics:
       groups: [ 'ration_write' ]
     actions:

@@ -153,7 +153,7 @@ class GameConfigDataLoaderCest
         $I->assertCount(count(DiseaseCauseConfigData::$dataArray), $gameConfig->getDiseaseCauseConfig());
         $I->assertCount(count(ConsumableDiseaseConfigData::$dataArray), $gameConfig->getConsumableDiseaseConfig());
         $I->assertCount(count(DaedalusConfigData::$dataArray), [$gameConfig->getDaedalusConfig()]);
-        $I->assertCount(16, $gameConfig->getCharactersConfig()); // 18 characters exist, but only 16 per game config
+        $I->assertCount(17, $gameConfig->getCharactersConfig()); // 19 characters exist, but only 17 (16 + admin characters) per game config
         $I->assertCount(count(StatusConfigData::$dataArray), $gameConfig->getStatusConfigs());
         $I->assertCount(count(DiseaseConfigData::$dataArray), $gameConfig->getDiseaseConfig());
         $I->assertCount(count(EquipmentConfigData::$dataArray), $gameConfig->getEquipmentsConfig());

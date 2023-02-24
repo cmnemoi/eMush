@@ -225,6 +225,39 @@ class DaedalusServiceTest extends TestCase
         $this->assertCount(0, $result);
     }
 
+    public function testFindAvailableCharacterForDaedalusNotReturningAdminCharacter()
+    {
+        $daedalus = new Daedalus();
+        $gameConfig = new GameConfig();
+
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+
+        $characterConfigCollection = new ArrayCollection();
+        $gameConfig->setCharactersConfig($characterConfigCollection);
+
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('character_1');
+        $adminCharacterConfig = new CharacterConfig();
+        $adminCharacterConfig->setCharacterName('admin');
+        $characterConfigCollection->add($characterConfig);
+        $characterConfigCollection->add($adminCharacterConfig);
+
+        $result = $this->service->findAvailableCharacterForDaedalus($daedalus);
+
+        $this->assertCount(1, $result);
+        $this->assertEquals($characterConfig, $result->first());
+
+        $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
+        $player->setPlayerInfo($playerInfo);
+        $daedalus->addPlayer($player);
+
+        $result = $this->service->findAvailableCharacterForDaedalus($daedalus);
+
+        $this->assertCount(0, $result);
+    }
+
+
     public function testGetRandomAsphyxia()
     {
         $daedalus = new Daedalus();

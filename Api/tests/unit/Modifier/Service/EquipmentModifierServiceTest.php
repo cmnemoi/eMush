@@ -12,8 +12,8 @@ use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
-use Mush\Modifier\Service\EquipmentModifierService;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\ModifierCreationServiceInterface;
+use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -24,8 +24,8 @@ use PHPUnit\Framework\TestCase;
 
 class EquipmentModifierServiceTest extends TestCase
 {
-    /** @var ModifierServiceInterface|Mockery\Mock */
-    private ModifierServiceInterface $modifierService;
+    /** @var ModifierCreationServiceInterface|Mockery\Mock */
+    private ModifierCreationServiceInterface $modifierService;
 
     private EquipmentModifierService $service;
 
@@ -34,7 +34,7 @@ class EquipmentModifierServiceTest extends TestCase
      */
     public function before()
     {
-        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
+        $this->modifierService = \Mockery::mock(ModifierCreationServiceInterface::class);
 
         $this->service = new EquipmentModifierService(
             $this->modifierService,
@@ -58,7 +58,7 @@ class EquipmentModifierServiceTest extends TestCase
         // create a gear with daedalus modifier
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -79,12 +79,13 @@ class EquipmentModifierServiceTest extends TestCase
             ->setName($equipmentConfig->getEquipmentName())
         ;
 
+        $date = new \DateTime();
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, null)
+            ->with($modifierConfig1, $daedalus, [], $date, null, null)
             ->once()
         ;
-        $this->service->gearCreated($gameEquipment);
+        $this->service->gearCreated($gameEquipment, [], $date);
 
         // with a player holding the gear
         $player = new Player();
@@ -93,10 +94,10 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, null)
+            ->with($modifierConfig1, $daedalus, [], $date, $player, null)
             ->once()
         ;
-        $this->service->gearCreated($gameEquipment);
+        $this->service->gearCreated($gameEquipment, [], $date);
 
         // with a charge
         $chargeConfig = new ChargeStatusConfig();
@@ -105,15 +106,15 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, $charge)
+            ->with($modifierConfig1, $daedalus, [], $date, $player, $charge)
             ->once()
         ;
-        $this->service->gearCreated($gameEquipment);
+        $this->service->gearCreated($gameEquipment, [], $date);
 
         // gear with 2 modifiers
         $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
@@ -135,15 +136,15 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, null)
+            ->with($modifierConfig1, $daedalus, [], $date, null, null)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig2, $daedalus, null)
+            ->with($modifierConfig2, $daedalus, [], $date, null, null)
             ->once()
         ;
-        $this->service->gearCreated($gameEquipment);
+        $this->service->gearCreated($gameEquipment, [], $date);
     }
 
     public function testGearDestroyed()
@@ -155,7 +156,7 @@ class EquipmentModifierServiceTest extends TestCase
         // gear with daedalus modifier
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -173,12 +174,13 @@ class EquipmentModifierServiceTest extends TestCase
         $gameEquipment = new GameItem($room);
         $gameEquipment->setEquipment($equipmentConfig);
 
+        $date = new \DateTime();
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig1, $daedalus)
+            ->with($modifierConfig1, $daedalus, [], $date, null)
             ->once()
         ;
-        $this->service->gearDestroyed($gameEquipment);
+        $this->service->gearDestroyed($gameEquipment, [], $date);
 
         // with a player holding the gear
         $player = new Player();
@@ -187,10 +189,10 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig1, $daedalus)
+            ->with($modifierConfig1, $daedalus, [], $date, $player)
             ->once()
         ;
-        $this->service->gearDestroyed($gameEquipment);
+        $this->service->gearDestroyed($gameEquipment, [], $date);
     }
 
     public function testTakeGear()
@@ -204,7 +206,7 @@ class EquipmentModifierServiceTest extends TestCase
         // gear with daedalus modifier
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -225,12 +227,13 @@ class EquipmentModifierServiceTest extends TestCase
             ->setName($equipmentConfig->getEquipmentName())
         ;
 
-        $this->service->takeEquipment($gameEquipment, $player);
+        $date = new \DateTime();
+        $this->service->takeEquipment($gameEquipment, $player, [], $date);
 
         // gear with player GameModifier
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::TARGET_PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -253,10 +256,10 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $player, null)
+            ->with($modifierConfig1, $player, [], $date, $player, null)
             ->once()
         ;
-        $this->service->takeEquipment($gameEquipment, $player);
+        $this->service->takeEquipment($gameEquipment, $player, [], $date);
 
         // GameModifier with a charge
         $chargeConfig = new ChargeStatusConfig();
@@ -268,10 +271,10 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $player, $charge)
+            ->with($modifierConfig1, $player, [], $date, $player, $charge)
             ->once()
         ;
-        $this->service->takeEquipment($gameEquipment, $player);
+        $this->service->takeEquipment($gameEquipment, $player, [], $date);
     }
 
     public function testDropGear()
@@ -285,7 +288,7 @@ class EquipmentModifierServiceTest extends TestCase
         // gear with daedalus modifier
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -303,12 +306,13 @@ class EquipmentModifierServiceTest extends TestCase
         $gameEquipment = new GameItem($room);
         $gameEquipment->setEquipment($equipmentConfig);
 
-        $this->service->dropEquipment($gameEquipment, $player);
+        $date = new \DateTime();
+        $this->service->dropEquipment($gameEquipment, $player, [], $date);
 
         // gear with player GameModifier
         $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
-            ->setModifierHolderClass(ModifierHolderClassEnum::TARGET_PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -330,9 +334,9 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig2, $player)
+            ->with($modifierConfig2, $player, [], $date, $player)
             ->once()
         ;
-        $this->service->dropEquipment($gameEquipment, $player);
+        $this->service->dropEquipment($gameEquipment, $player, [], $date);
     }
 }

@@ -1,0 +1,8 @@
+Mush\Game\Entity\AbstractEventConfig:
+  attributes:
+    id:
+      groups: [ 'event_config_read' ]
+    name:
+      groups: [ 'event_config_read', 'event_config_write' ]
+    eventName:
+      groups: [ 'event_config_read' , 'event_config_write' ]

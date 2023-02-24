@@ -10,7 +10,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -92,11 +92,11 @@ class PlayerModifierEventCest
             new \DateTime()
         );
 
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         $I->assertEquals(4, $player->getMoralPoint());
         $I->assertCount(0, $player->getStatuses());
 
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         $I->assertEquals(3, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
         $I->seeInRepository(
@@ -111,7 +111,7 @@ class PlayerModifierEventCest
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         $I->assertEquals(1, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
         $I->dontSeeInRepository(
@@ -130,7 +130,7 @@ class PlayerModifierEventCest
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         $I->assertEquals(0, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
         $I->dontSeeInRepository(
@@ -149,7 +149,7 @@ class PlayerModifierEventCest
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         $I->assertEquals(7, $player->getMoralPoint());
         $I->assertCount(0, $player->getStatuses());
     }
@@ -211,7 +211,7 @@ class PlayerModifierEventCest
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         $I->assertEquals(-1, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
@@ -222,7 +222,7 @@ class PlayerModifierEventCest
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         $I->assertEquals(2, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
@@ -233,7 +233,7 @@ class PlayerModifierEventCest
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         $I->assertEquals(3, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
 
@@ -244,7 +244,7 @@ class PlayerModifierEventCest
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         $I->assertEquals(2, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
@@ -255,7 +255,7 @@ class PlayerModifierEventCest
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         $I->assertEquals(-25, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
     }
@@ -318,7 +318,7 @@ class PlayerModifierEventCest
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         $I->assertEquals(-1, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
 
@@ -329,7 +329,7 @@ class PlayerModifierEventCest
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         $I->assertEquals(4, $player->getSatiety());
         $I->assertCount(2, $player->getStatuses());
 
@@ -340,7 +340,7 @@ class PlayerModifierEventCest
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->eventService->callEvent($playerEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         $I->assertEquals(-25, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
     }

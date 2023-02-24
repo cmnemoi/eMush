@@ -11,6 +11,7 @@ use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableCollection;
+use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -21,7 +22,7 @@ use Mush\Player\Entity\Player;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus')]
-class Daedalus implements ModifierHolder
+class Daedalus implements ModifierHolder, GameVariableHolderInterface
 {
     use TimestampableEntity;
 
@@ -176,26 +177,31 @@ class Daedalus implements ModifierHolder
         return $this;
     }
 
-    public function getVariableFromName(string $variableName): GameVariable
+    public function getVariableByName(string $variableName): GameVariable
     {
         return $this->daedalusVariables->getVariableByName($variableName);
     }
 
-    public function getVariableValueFromName(string $variableName): int
+    public function getVariableValueByName(string $variableName): int
     {
         return $this->daedalusVariables->getValueByName($variableName);
     }
 
-    public function setVariableValueFromName(int $value, string $variableName): static
+    public function setVariableValueByName(int $value, string $variableName): static
     {
         $this->daedalusVariables->setValueByName($value, $variableName);
 
         return $this;
     }
 
-    public function getDaedalusVariables(): DaedalusVariables
+    public function getGameVariables(): DaedalusVariables
     {
         return $this->daedalusVariables;
+    }
+
+    public function hasVariable(string $variableName): bool
+    {
+        return $this->daedalusVariables->hasVariable($variableName);
     }
 
     public function setDaedalusVariables(DaedalusConfig $daedalusConfig): static
@@ -207,60 +213,60 @@ class Daedalus implements ModifierHolder
 
     public function getOxygen(): int
     {
-        return $this->getVariableValueFromName(DaedalusVariableEnum::OXYGEN);
+        return $this->getVariableValueByName(DaedalusVariableEnum::OXYGEN);
     }
 
     public function setOxygen(int $oxygen): static
     {
-        $this->setVariableValueFromName($oxygen, DaedalusVariableEnum::OXYGEN);
+        $this->setVariableValueByName($oxygen, DaedalusVariableEnum::OXYGEN);
 
         return $this;
     }
 
     public function getFuel(): int
     {
-        return $this->getVariableValueFromName(DaedalusVariableEnum::FUEL);
+        return $this->getVariableValueByName(DaedalusVariableEnum::FUEL);
     }
 
     public function setFuel(int $fuel): static
     {
-        $this->setVariableValueFromName($fuel, DaedalusVariableEnum::FUEL);
+        $this->setVariableValueByName($fuel, DaedalusVariableEnum::FUEL);
 
         return $this;
     }
 
     public function getHull(): int
     {
-        return $this->getVariableValueFromName(DaedalusVariableEnum::HULL);
+        return $this->getVariableValueByName(DaedalusVariableEnum::HULL);
     }
 
     public function setHull(int $hull): static
     {
-        $this->setVariableValueFromName($hull, DaedalusVariableEnum::HULL);
+        $this->setVariableValueByName($hull, DaedalusVariableEnum::HULL);
 
         return $this;
     }
 
     public function getShield(): int
     {
-        return $this->getVariableValueFromName(DaedalusVariableEnum::SHIELD);
+        return $this->getVariableValueByName(DaedalusVariableEnum::SHIELD);
     }
 
     public function setShield(int $shield): static
     {
-        $this->setVariableValueFromName($shield, DaedalusVariableEnum::SHIELD);
+        $this->setVariableValueByName($shield, DaedalusVariableEnum::SHIELD);
 
         return $this;
     }
 
     public function getSpores(): int
     {
-        return $this->getVariableValueFromName(DaedalusVariableEnum::SPORE);
+        return $this->getVariableValueByName(DaedalusVariableEnum::SPORE);
     }
 
     public function setSpores(int $spores): static
     {
-        $this->setVariableValueFromName($spores, DaedalusVariableEnum::SPORE);
+        $this->setVariableValueByName($spores, DaedalusVariableEnum::SPORE);
 
         return $this;
     }

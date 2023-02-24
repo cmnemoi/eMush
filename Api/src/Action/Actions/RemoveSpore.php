@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\HasStatus;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -40,7 +40,7 @@ class RemoveSpore extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        $nbSpores = $this->player->getVariableValueFromName(PlayerVariableEnum::SPORE);
+        $nbSpores = $this->player->getVariableValueByName(PlayerVariableEnum::SPORE);
 
         if ($nbSpores > 0) {
             return new Success();
@@ -59,7 +59,7 @@ class RemoveSpore extends AbstractAction
             new \DateTime(),
         );
 
-        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         // The Player remove a spore
         $sporeLossEvent = new PlayerVariableEvent(
@@ -69,6 +69,6 @@ class RemoveSpore extends AbstractAction
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );
-        $this->eventService->callEvent($sporeLossEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($sporeLossEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

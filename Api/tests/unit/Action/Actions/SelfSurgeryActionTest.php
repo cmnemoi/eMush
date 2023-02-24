@@ -20,7 +20,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Place\Entity\Place;
 
 class SelfSurgeryActionTest extends AbstractActionTest
@@ -28,8 +28,8 @@ class SelfSurgeryActionTest extends AbstractActionTest
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
-    /** @var ModifierServiceInterface|Mockery\Mock */
-    private ModifierServiceInterface $modifierService;
+    /** @var EventModifierServiceInterface|Mockery\Mock */
+    private EventModifierServiceInterface $modifierService;
 
     /**
      * @before
@@ -40,7 +40,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_SURGERY);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
-        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
+        $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
 
         $this->action = new SelfSurgery(
             $this->eventService,

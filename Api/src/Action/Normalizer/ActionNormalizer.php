@@ -66,7 +66,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         // translation parameters
         $translationParameters = [$currentPlayer->getLogKey() => $currentPlayer->getLogName()];
         if ($actionName === ActionEnum::EXTRACT_SPORE) {
-            $translationParameters['quantity'] = $currentPlayer->getDaedalus()->getVariableFromName(DaedalusVariableEnum::SPORE)->getMaxValue();
+            $translationParameters['quantity'] = $currentPlayer->getDaedalus()->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();
         }
         if ($parameter instanceof Player) {
             $translationParameters['target.' . $parameter->getLogKey()] = $parameter->getLogName();

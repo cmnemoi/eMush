@@ -1,24 +1,25 @@
 <?php
 
-namespace Mush\Modifier\Service;
+namespace Mush\Modifier\Service\ModifierListenerService;
 
 use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Entity\Player;
 
 class DiseaseModifierService implements DiseaseModifierServiceInterface
 {
-    private ModifierServiceInterface $modifierService;
+    private ModifierCreationServiceInterface $modifierCreationService;
 
     public function __construct(
-        ModifierServiceInterface $modifierService,
+        ModifierCreationServiceInterface $modifierCreationService,
     ) {
-        $this->modifierService = $modifierService;
+        $this->modifierCreationService = $modifierCreationService;
     }
 
-    public function newDisease(Player $player, DiseaseConfig $diseaseConfig): void
+    public function newDisease(Player $player, DiseaseConfig $diseaseConfig, array $tags, \DateTime $time): void
     {
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
             $holder = $this->getModifierHolderFromConfig($player, $modifierConfig);
@@ -26,11 +27,11 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
                 return;
             }
 
-            $this->modifierService->createModifier($modifierConfig, $player);
+            $this->modifierCreationService->createModifier($modifierConfig, $holder, $tags, $time, $player);
         }
     }
 
-    public function cureDisease(Player $player, DiseaseConfig $diseaseConfig): void
+    public function cureDisease(Player $player, DiseaseConfig $diseaseConfig, array $tags, \DateTime $time): void
     {
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
             $holder = $this->getModifierHolderFromConfig($player, $modifierConfig);
@@ -38,13 +39,13 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
                 return;
             }
 
-            $this->modifierService->deleteModifier($modifierConfig, $player);
+            $this->modifierCreationService->deleteModifier($modifierConfig, $holder, $tags, $time, $player);
         }
     }
 
-    private function getModifierHolderFromConfig(Player $player, VariableEventModifierConfig $modifierConfig): ?ModifierHolder
+    private function getModifierHolderFromConfig(Player $player, AbstractModifierConfig $modifierConfig): ?ModifierHolder
     {
-        switch ($modifierConfig->getModifierHolderClass()) {
+        switch ($modifierConfig->getModifierRange()) {
             case ModifierHolderClassEnum::DAEDALUS:
                 return $player->getDaedalus();
             case ModifierHolderClassEnum::PLACE:

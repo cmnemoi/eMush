@@ -201,7 +201,7 @@ class ConsumeChargeOnActionCest
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setTargetEvent(ActionEnum::COFFEE)
-            ->setModifierHolderClass(ReachEnum::INVENTORY)
+            ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -339,7 +339,7 @@ class ConsumeChargeOnActionCest
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setTargetEvent(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setModifierHolderClass(ReachEnum::INVENTORY)
+            ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;

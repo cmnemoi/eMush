@@ -86,7 +86,7 @@ class CreateDaedalusCest
         // GameModifier configs
         $gravityModifier = new VariableEventModifierConfig();
         $gravityModifier
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent(ActionEnum::MOVE)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->buildName()

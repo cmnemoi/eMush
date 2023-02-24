@@ -2,7 +2,7 @@
 
 namespace Mush\Status\Listener;
 
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Service\PlayerStatusServiceInterface;
@@ -21,11 +21,11 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            QuantityEventInterface::CHANGE_VARIABLE => ['onChangeVariable', -10], // Applied after player modification
+            VariableEventInterface::CHANGE_VARIABLE => ['onChangeVariable', -10], // Applied after player modification
         ];
     }
 
-    public function onChangeVariable(QuantityEventInterface $playerEvent): void
+    public function onChangeVariable(VariableEventInterface $playerEvent): void
     {
         if (!$playerEvent instanceof PlayerVariableEvent) {
             return;
@@ -34,7 +34,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
         $date = $playerEvent->getTime();
 
-        switch ($playerEvent->getModifiedVariable()) {
+        switch ($playerEvent->getVariableName()) {
             case PlayerVariableEnum::MORAL_POINT:
                 if (!$player->isMush()) {
                     $this->playerStatus->handleMoralStatus($player, $date);

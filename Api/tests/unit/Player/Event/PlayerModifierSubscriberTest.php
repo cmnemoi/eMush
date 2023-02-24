@@ -10,12 +10,16 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Listener\PlayerVariableSubscriber;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class PlayerModifierSubscriberTest extends TestCase
 {
+    /** @var PlayerServiceInterface|Mockery\Mock */
+    private PlayerServiceInterface $playerService;
+
     /** @var PlayerVariableServiceInterface|Mockery\Mock */
     private PlayerVariableServiceInterface $playerVariableService;
     /** @var EventServiceInterface|Mockery\Mock */
@@ -28,10 +32,12 @@ class PlayerModifierSubscriberTest extends TestCase
      */
     public function before()
     {
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
         $this->playerVariableService = \Mockery::mock(PlayerVariableServiceInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
 
         $this->playerModifierSubscriber = new PlayerVariableSubscriber(
+            $this->playerService,
             $this->playerVariableService,
             $this->eventService,
         );

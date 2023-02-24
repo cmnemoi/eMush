@@ -42,7 +42,7 @@ class CheckSporeLevel extends AbstractAction
         if ($player->isMush()) {
             $nbSpores = 0;
         } else {
-            $nbSpores = $player->getVariableValueFromName(PlayerVariableEnum::SPORE);
+            $nbSpores = $player->getVariableValueByName(PlayerVariableEnum::SPORE);
         }
 
         $success = new Success();

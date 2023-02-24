@@ -20,6 +20,7 @@ import { ConsumableDiseaseConfig } from "@/entities/Config/ConsumableDiseaseConf
 import { ConsumableDiseaseAttribute } from "@/entities/ConsumableDiseaseAttribute";
 import { DiseaseCauseConfig } from "@/entities/Config/DiseaseCauseConfig";
 import { TriumphConfig } from "@/entities/Config/TriumphConfig";
+import { EventConfig } from "@/entities/Config/EventConfig";
 
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
@@ -29,6 +30,12 @@ const MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_
 const VARIABLE_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "variable_event_modifier_configs");
 // @ts-ignore
 const TARGET_EVENT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "target_event_modifier_configs");
+// @ts-ignore
+const DIRECT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "direct_modifier_configs");
+// @ts-ignore
+const EVENT_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "event_configs");
+// @ts-ignore
+const VARIABLE_EVENT_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "variable_event_configs");
 // @ts-ignore
 const MODIFIER_REQUIREMENT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_activation_requirements");
 // @ts-ignore
@@ -97,6 +104,11 @@ const MECHANICS_ENDPOINTS: Map<string, string> = new Map([
 const MODIFIER_CONFIG_ENDPOINTS: Map<string, string> = new Map([
     ['variable_event_modifier_config', VARIABLE_MODIFIER_CONFIG_ENDPOINT],
     ['target_event_modifier_config', TARGET_EVENT_MODIFIER_CONFIG_ENDPOINT],
+    ['direct_modifier_config', DIRECT_MODIFIER_CONFIG_ENDPOINT],
+]);
+
+const EVENT_CONFIG_ENDPOINTS: Map<string, string> = new Map([
+    ['variable_event_config', VARIABLE_EVENT_CONFIG_ENDPOINT],
 ]);
     
 
@@ -919,6 +931,61 @@ const GameConfigService = {
         }
 
         return triumphConfig;
-    }
+    },
+
+    createEventConfig: async(eventConfig: EventConfig): Promise<EventConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const eventType = eventConfig.type?.toLocaleLowerCase();
+        if (eventType === undefined) {
+            throw new Error('eventConfig type is not defined');
+        }
+
+        const eventConfigRecord: Record<string, any> = eventConfig.jsonEncode();
+        const eventConfigData = await ApiService.post(EVENT_CONFIG_ENDPOINTS.get(eventType)+ '?XDEBUG_SESSION_START=PHPSTORM', eventConfigRecord)
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        if (eventConfigData.data) {
+            eventConfig = (new EventConfig()).load(eventConfigData.data);
+        }
+
+        return eventConfig;
+
+    },
+
+    loadEventConfig: async(eventConfigId: number): Promise<EventConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+
+        const eventConfigData = await ApiService.get(EVENT_CONFIG_ENDPOINT + '/' + eventConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let eventConfig = null;
+        if (eventConfigData.data) {
+            eventConfig = (new EventConfig()).load(eventConfigData.data);
+        }
+
+        return eventConfig;
+    },
+
+    updateEventConfig: async(eventConfig: EventConfig): Promise<EventConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const eventType = eventConfig.type?.toLocaleLowerCase();
+        if (eventType === undefined) {
+            throw new Error('Event type is not defined');
+        }
+
+        const eventConfigData = await ApiService.put(EVENT_CONFIG_ENDPOINTS.get(eventType) + '/' + eventConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', eventConfig.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (eventConfigData.data) {
+            eventConfig = (new EventConfig()).load(eventConfigData.data);
+        }
+
+        return eventConfig;
+    },
 };
 export default GameConfigService;

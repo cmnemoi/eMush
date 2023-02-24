@@ -2,7 +2,7 @@
 
 namespace Mush\Modifier\ConfigData;
 
-use Mush\Equipment\CycleHandler\ModifierConfigDataLoader;
+use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 
 class TriggerEventModifierConfigDataLoader extends ModifierConfigDataLoader
@@ -24,18 +24,32 @@ class TriggerEventModifierConfigDataLoader extends ModifierConfigDataLoader
             }
 
             $modifierConfig
-                ->setTriggeredEvent($modifierConfigData['triggeredEvent'])
                 ->setVisibility($modifierConfigData['visibility'])
-                ->setName($modifierConfigData['name'])
-                ->setModifierName($modifierConfigData['modifierName'])
                 ->setTargetEvent($modifierConfigData['targetEvent'])
                 ->setApplyOnParameterOnly($modifierConfigData['applyOnActionParameter'])
-                ->setModifierHolderClass($modifierConfigData['modifierHolderClass'])
+                ->setModifierRange($modifierConfigData['modifierRange'])
+                ->setName($modifierConfigData['name'])
+                ->setModifierName($modifierConfigData['modifierName'])
             ;
+            $modifierConfig = $this->setEventConfig($modifierConfig, $modifierConfigData['triggeredEvent']);
+
             $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);
 
             $this->entityManager->persist($modifierConfig);
         }
         $this->entityManager->flush();
+    }
+
+    protected function setEventConfig(TriggerEventModifierConfig $modifierConfig, string $eventConfigName): TriggerEventModifierConfig
+    {
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->eventConfigRepository->findOneBy(['name' => $eventConfigName]);
+        if ($eventConfig === null) {
+            throw new \Exception("Event config {$eventConfigName} not found");
+        }
+
+        $modifierConfig->setTriggeredEvent($eventConfig);
+
+        return $modifierConfig;
     }
 }

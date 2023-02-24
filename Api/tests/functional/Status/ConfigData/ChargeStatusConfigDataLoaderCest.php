@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
-use Mush\Modifier\ConfigData\TriggerVariableEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigData;
@@ -17,7 +16,6 @@ class ChargeStatusConfigDataLoaderCest
     private ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader;
     private ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
     private TriggerEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader;
-    private TriggerVariableEventModifierConfigDataLoader $triggerVariableEventModifierConfigDataLoader;
     private VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader;
 
     public function _before(FunctionalTester $I)
@@ -25,12 +23,10 @@ class ChargeStatusConfigDataLoaderCest
         // load dependencies
         $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
         $this->triggerEventModifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
-        $this->triggerVariableEventModifierConfigDataLoader = $I->grabService(TriggerVariableEventModifierConfigDataLoader::class);
         $this->variableEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
 
         $this->modifierActivationRequirementDataLoader->loadConfigsData();
         $this->triggerEventModifierConfigDataLoader->loadConfigsData();
-        $this->triggerVariableEventModifierConfigDataLoader->loadConfigsData();
         $this->variableEventModifierConfigDataLoader->loadConfigsData();
 
         $this->chargeStatusConfigDataLoader = $I->grabService(ChargeStatusConfigDataLoader::class);

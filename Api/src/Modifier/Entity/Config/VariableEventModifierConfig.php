@@ -3,7 +3,7 @@
 namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 
 /**
@@ -17,7 +17,7 @@ use Mush\Modifier\Enum\VariableModifierModeEnum;
  * applyOn: specify if the modification is on the value or on the possible range of the value
  */
 #[ORM\Entity]
-class VariableEventModifierConfig extends AbstractModifierConfig
+class VariableEventModifierConfig extends EventModifierConfig
 {
     #[ORM\Column(type: 'float', nullable: false)]
     private float $delta = 0;
@@ -28,12 +28,9 @@ class VariableEventModifierConfig extends AbstractModifierConfig
     #[ORM\Column(type: 'string', nullable: false)]
     private string $mode = VariableModifierModeEnum::ADDITIVE;
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $appliesOn = VariableModifierModeEnum::VALUE;
-
     public function __construct()
     {
-        $this->targetEvent = QuantityEventInterface::CHANGE_VARIABLE;
+        $this->targetEvent = VariableEventInterface::CHANGE_VARIABLE;
 
         parent::__construct();
     }
@@ -48,10 +45,7 @@ class VariableEventModifierConfig extends AbstractModifierConfig
             $name = $modifierName;
         }
 
-        $reach = $this->modifierHolderClass;
-        if ($reach !== null) {
-            $name = $name . '_for_' . $reach;
-        }
+        $name = $name . '_for_' . $this->modifierRange;
 
         $mode = $this->mode;
         $delta = $this->delta;
@@ -116,18 +110,6 @@ class VariableEventModifierConfig extends AbstractModifierConfig
     public function setMode(string $mode): self
     {
         $this->mode = $mode;
-
-        return $this;
-    }
-
-    public function getAppliesOn(): string
-    {
-        return $this->appliesOn;
-    }
-
-    public function setAppliesOn(string $appliesOn): self
-    {
-        $this->appliesOn = $appliesOn;
 
         return $this;
     }

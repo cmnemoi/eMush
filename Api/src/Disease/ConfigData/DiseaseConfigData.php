@@ -17,7 +17,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-1healthPoint_on_max_point',
+                'direct_modifier_player_-1_max_healthPoint',
             ],
             'symptomConfigs' => [
                 'vomiting_ON_post.action_consume_drug_default',
@@ -102,7 +102,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-2moralPoint_on_max_point',
+                'direct_modifier_player_-2_max_moralPoint',
                 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_16',
             ],
             'symptomConfigs' => [],
@@ -119,8 +119,8 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_20',
-                'modifier_for_player_-2healthPoint_on_max_point',
-                'modifier_for_player_-2moralPoint_on_max_point',
+                'direct_modifier_player_-2_max_healthPoint',
+                'direct_modifier_player_-2_max_moralPoint',
                 'modifier_for_player_set_-1healthPoint_on_new_cycle_if_random_10',
             ],
             'symptomConfigs' => [
@@ -141,8 +141,8 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-2healthPoint_on_max_point',
-                'modifier_for_player_-2moralPoint_on_max_point',
+                'direct_modifier_player_-2_max_healthPoint',
+                'direct_modifier_player_-2_max_moralPoint',
             ],
             'symptomConfigs' => [
                 'dirtiness_ON_new_cycle_default',
@@ -160,7 +160,7 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'modifier_for_player_set_-1movementPoint_on_new_cycle',
-                'modifier_for_player_-1healthPoint_on_max_point',
+                'direct_modifier_player_-1_max_healthPoint',
                 'modifier_for_player_set_-1healthPoint_on_new_cycle_if_random_16',
                 'modifier_for_player_set_-1actionPoint_on_post.action_if_reason_consume',
             ],
@@ -227,8 +227,8 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-4healthPoint_on_max_point',
                 'modifier_for_player_+1movementPoint_on_move',
+                'direct_modifier_player_-4_max_healthPoint',
             ],
             'symptomConfigs' => [],
         ],
@@ -260,8 +260,8 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-1healthPoint_on_max_point',
-                'modifier_for_player_-1moralPoint_on_max_point',
+                'direct_modifier_player_-1_max_healthPoint',
+                'direct_modifier_player_-1_max_moralPoint',
                 'modifier_for_player_set_-1movementPoint_on_new_cycle_if_random_50',
             ],
             'symptomConfigs' => [],
@@ -339,10 +339,10 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-2healthPoint_on_max_point',
                 'modifier_for_player_set_-1healthPoint_on_new_cycle_if_random_50',
                 'modifier_for_player_set_-2actionPoint_on_new_cycle_if_random_40',
-                'modifier_for_player_-2moralPoint_on_max_point',
+                'direct_modifier_player_-2_max_healthPoint',
+                'direct_modifier_player_-2_max_moralPoint',
             ],
             'symptomConfigs' => [],
         ],
@@ -378,7 +378,7 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_set_-2actionPoint_on_new_cycle_if_random_40',
                 'modifier_for_player_x0.9percentage_on_action_shoot',
-                'modifier_for_player_-2moralPoint_on_max_point',
+                'direct_modifier_player_-2_max_moralPoint',
             ],
             'symptomConfigs' => [],
         ],
@@ -458,7 +458,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-2moralPoint_on_max_point',
+                'direct_modifier_player_-2_max_moralPoint',
             ],
             'symptomConfigs' => [],
         ],
@@ -474,7 +474,7 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'modifier_for_player_set_-2healthPoint_on_new_cycle',
-                'modifier_for_player_-2healthPoint_on_max_point',
+                'direct_modifier_player_-2_max_healthPoint',
             ],
             'symptomConfigs' => [],
         ],
@@ -489,7 +489,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-1healthPoint_on_max_point',
+                'direct_modifier_player_-1_max_healthPoint',
                 'modifier_for_player_set_-1healthPoint_on_new_cycle',
             ],
             'symptomConfigs' => [],
@@ -535,7 +535,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => ['damaged_ears'],
             'modifierConfigs' => [
-                'modifier_for_player_-1moralPoint_on_max_point',
+                'direct_modifier_player_-1_max_moralPoint',
             ],
             'symptomConfigs' => [
                 'deaf_ON_new_message_default',
@@ -552,7 +552,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-3moralPoint_on_max_point',
+                'direct_modifier_player_-3_max_moralPoint',
             ],
             'symptomConfigs' => [
                 'septicemia_ON_status.applied_default',
@@ -571,7 +571,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => ['head_trauma'],
             'modifierConfigs' => [
-                'modifier_for_player_-2moralPoint_on_max_point',
+                'direct_modifier_player_-2_max_moralPoint',
             ],
             'symptomConfigs' => [
                 'septicemia_ON_status.applied_default',
@@ -653,7 +653,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => ['broken_foot'],
             'modifierConfigs' => [
-                'modifier_for_player_-3movementPoint_on_max_point',
+                'direct_modifier_player_-3_max_movementPoint',
                 'modifier_for_player_+1movementPoint_on_move',
             ],
             'symptomConfigs' => [],
@@ -669,7 +669,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-5movementPoint_on_max_point',
+                'direct_modifier_player_-5_max_movementPoint',
                 'modifier_for_player_+1movementPoint_on_move',
             ],
             'symptomConfigs' => [],
@@ -685,7 +685,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => ['broken_leg', 'broken_foot', 'mashed_foot'],
             'modifierConfigs' => [
-                'modifier_for_player_-12movementPoint_on_max_point',
+                'direct_modifier_player_-12_max_movementPoint',
             ],
             'symptomConfigs' => [
                 'cant_move_ON_move_default',
@@ -785,7 +785,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-1healthPoint_on_max_point',
+                'direct_modifier_player_-1_max_healthPoint',
                 'modifier_for_player_+1actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
             ],
             'symptomConfigs' => [],
@@ -866,7 +866,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-1healthPoint_on_max_point',
+                'direct_modifier_player_-1_max_healthPoint',
                 'modifier_for_player_x0.9percentage_on_action_shoot',
             ],
             'symptomConfigs' => [],
@@ -882,7 +882,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => ['bruised_shoulder'],
             'modifierConfigs' => [
-                'modifier_for_player_-1healthPoint_on_max_point',
+                'direct_modifier_player_-1_max_healthPoint',
                 'modifier_for_player_x0.8percentage_on_action_shoot',
             ],
             'symptomConfigs' => [
@@ -954,7 +954,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => ['migraine'],
             'modifierConfigs' => [
-                'modifier_for_player_-2moralPoint_on_max_point',
+                'direct_modifier_player_-2_max_moralPoint',
                 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_16',
             ],
             'symptomConfigs' => [],
@@ -985,7 +985,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-4moralPoint_on_max_point',
+                'direct_modifier_player_-4_max_moralPoint',
             ],
             'symptomConfigs' => [
                 'coprolalia_messages_ON_new_message_default',
@@ -1005,7 +1005,7 @@ class DiseaseConfigData
                 'run_in_circles_for_player_set_-2movementPoint_on_new_cycle_if_random_16',
                 'wall_head_bang_for_player_set_-1healthPoint_on_new_cycle_if_random_16',
                 'screaming_for_player_set_-1actionPoint_on_new_cycle_if_random_16',
-                'modifier_for_player_-4moralPoint_on_max_point',
+                'direct_modifier_player_-4_max_moralPoint',
             ],
             'symptomConfigs' => [],
         ],
@@ -1020,8 +1020,8 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-2actionPoint_on_max_point',
-                'modifier_for_player_-2moralPoint_on_max_point',
+                'direct_modifier_player_-2_max_actionPoint',
+                'direct_modifier_player_-2_max_moralPoint',
             ],
             'symptomConfigs' => [],
         ],
@@ -1036,7 +1036,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_-3moralPoint_on_max_point',
+                'direct_modifier_player_-3_max_moralPoint',
             ],
             'symptomConfigs' => [
                 'paranoia_messages_ON_new_message_default',

@@ -17,6 +17,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableCollection;
+use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -37,7 +38,7 @@ use Mush\User\Entity\User;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolder, EquipmentHolderInterface
+class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolder, EquipmentHolderInterface, GameVariableHolderInterface
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -345,7 +346,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function getPlayerVariables(): PlayerVariables
+    public function getGameVariables(): PlayerVariables
     {
         return $this->playerVariables;
     }
@@ -453,12 +454,17 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->playerVariables->getVariableByName($variableName);
     }
 
-    public function getVariableValueFromName(string $variableName): int
+    public function hasVariable(string $variableName): bool
+    {
+        return $this->playerVariables->hasVariable($variableName);
+    }
+
+    public function getVariableValueByName(string $variableName): int
     {
         return $this->playerVariables->getValueByName($variableName);
     }
 
-    public function setVariableValueFromName(string $variableName, int $value): static
+    public function setVariableValueByName(string $variableName, int $value): static
     {
         $this->playerVariables->setValueByName($value, $variableName);
 

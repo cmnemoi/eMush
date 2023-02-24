@@ -3,14 +3,12 @@
 namespace Mush\Modifier\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -22,66 +20,23 @@ use Mush\Modifier\Event\ModifierEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 
-class ModifierService implements ModifierServiceInterface
+class EventModifierService implements EventModifierServiceInterface
 {
     private const ATTEMPT_INCREASE = 1.25;
-    private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
     private ModifierRequirementServiceInterface $activationRequirementService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
-        EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         ModifierRequirementServiceInterface $activationRequirementService,
         RandomServiceInterface $randomService
     ) {
-        $this->entityManager = $entityManager;
         $this->eventService = $eventService;
         $this->activationRequirementService = $activationRequirementService;
         $this->randomService = $randomService;
-    }
-
-    public function persist(GameModifier $modifier): GameModifier
-    {
-        $this->entityManager->persist($modifier);
-        $this->entityManager->flush();
-
-        return $modifier;
-    }
-
-    public function delete(GameModifier $modifier): void
-    {
-        $this->entityManager->remove($modifier);
-        $this->entityManager->flush();
-    }
-
-    public function createModifier(
-        AbstractModifierConfig $modifierConfig,
-        ModifierHolder $holder,
-        ?ChargeStatus $chargeStatus = null
-    ): void {
-        $modifier = new GameModifier($holder, $modifierConfig);
-
-        if ($chargeStatus) {
-            $modifier->setCharge($chargeStatus);
-        }
-
-        $this->persist($modifier);
-    }
-
-    public function deleteModifier(
-        AbstractModifierConfig $modifierConfig,
-        ModifierHolder $holder,
-    ): void {
-        $modifier = $holder->getModifiers()->getModifierFromConfig($modifierConfig);
-
-        if ($modifier) {
-            $this->delete($modifier);
-        }
     }
 
     private function getModifiedValue(ModifierCollection $modifierCollection, ?float $initValue): int

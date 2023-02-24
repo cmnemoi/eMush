@@ -15,7 +15,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -60,7 +60,7 @@ class StrengthenHull extends AttemptAction
             );
 
             $daedalusEvent->setPlayer($this->player);
-            $this->eventService->callEvent($daedalusEvent, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);
 
             $equipmentEvent = new InteractWithEquipmentEvent(
                 $parameter,

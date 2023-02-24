@@ -3,6 +3,7 @@
 namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Enum\VisibilityEnum;
 
 /**
@@ -10,13 +11,13 @@ use Mush\Game\Enum\VisibilityEnum;
  * This type of modifier trigger an additional event when the target event is dispatched.
  *
  * visibility: the visibility of the triggered event
- * triggeredEvent: the name of the triggered event
+ * triggeredEventConfig: a config to create the triggered event
  */
 #[ORM\Entity]
-class TriggerEventModifierConfig extends AbstractModifierConfig
+class TriggerEventModifierConfig extends EventModifierConfig
 {
-    #[ORM\Column(type: 'string', nullable: false)]
-    protected string $triggeredEvent;
+    #[ORM\ManyToOne(targetEntity: AbstractEventConfig::class)]
+    protected AbstractEventConfig $triggeredEvent;
 
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $visibility = VisibilityEnum::PUBLIC;
@@ -26,7 +27,7 @@ class TriggerEventModifierConfig extends AbstractModifierConfig
         $baseName = $this->modifierName;
 
         if ($baseName === null) {
-            $baseName = $this->triggeredEvent;
+            $baseName = $this->triggeredEvent->getName();
         }
 
         $this->name = $baseName . '_ON_' . $this->getTargetEvent() . '_' . $configName;
@@ -39,12 +40,12 @@ class TriggerEventModifierConfig extends AbstractModifierConfig
         return $this;
     }
 
-    public function getTriggeredEvent(): string
+    public function getTriggeredEvent(): AbstractEventConfig
     {
         return $this->triggeredEvent;
     }
 
-    public function setTriggeredEvent(string $triggeredEvent): self
+    public function setTriggeredEvent(AbstractEventConfig $triggeredEvent): self
     {
         $this->triggeredEvent = $triggeredEvent;
 

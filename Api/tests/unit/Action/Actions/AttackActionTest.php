@@ -17,14 +17,14 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Place\Entity\Place;
 
 class AttackActionTest extends AbstractActionTest
 {
     private RandomServiceInterface|Mockery\Mock $randomService;
 
-    private ModifierServiceInterface|Mockery\Mock $modifierService;
+    private EventModifierServiceInterface|Mockery\Mock $modifierService;
 
     private DiseaseCauseServiceInterface|Mockery\Mock $diseaseCauseService;
 
@@ -38,7 +38,7 @@ class AttackActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::ATTACK);
 
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
-        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
+        $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
         $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
 
         $this->action = new Attack(

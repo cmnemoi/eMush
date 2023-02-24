@@ -4,7 +4,6 @@ namespace Mush\Test\Player\Service;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -17,8 +16,6 @@ use PHPUnit\Framework\TestCase;
 
 class PlayerVariableServiceTest extends TestCase
 {
-    /** @var ModifierServiceInterface|Mockery\Mock */
-    private ModifierServiceInterface $modifierService;
     /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
 
@@ -29,11 +26,9 @@ class PlayerVariableServiceTest extends TestCase
      */
     public function before()
     {
-        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->service = new PlayerVariableService(
-            $this->modifierService,
             $this->playerService,
         );
     }
@@ -100,9 +95,6 @@ class PlayerVariableServiceTest extends TestCase
 
         // go below 4 moral
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::MORAL_POINT, -2, $player);
 
@@ -110,9 +102,6 @@ class PlayerVariableServiceTest extends TestCase
 
         // go below 1 moral
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::MORAL_POINT, -2, $player);
 
@@ -120,9 +109,6 @@ class PlayerVariableServiceTest extends TestCase
 
         // regain more moral than suicidal threshold
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::MORAL_POINT, 2, $player);
 
@@ -132,9 +118,6 @@ class PlayerVariableServiceTest extends TestCase
 
         // gain more than morale threshold
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::MORAL_POINT, 22, $player);
 
@@ -157,9 +140,6 @@ class PlayerVariableServiceTest extends TestCase
         ;
 
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::ACTION_POINT, -2, $player);
 
@@ -167,9 +147,6 @@ class PlayerVariableServiceTest extends TestCase
 
         // less than 0
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::ACTION_POINT, -6, $player);
 
@@ -177,9 +154,6 @@ class PlayerVariableServiceTest extends TestCase
 
         // more than threshold
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::ACTION_POINT, 35, $player);
 
@@ -202,9 +176,6 @@ class PlayerVariableServiceTest extends TestCase
         ;
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
 
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleGameVariableChange(PlayerVariableEnum::HEALTH_POINT, -2, $player);
 

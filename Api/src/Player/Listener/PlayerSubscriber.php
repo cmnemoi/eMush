@@ -2,7 +2,7 @@
 
 namespace Mush\Player\Listener;
 
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
@@ -71,7 +71,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             $event->getTags(),
             $event->getTime()
         );
-        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
     public function onPanicCrisis(PlayerEvent $event): void
@@ -92,7 +92,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         );
 
         $playerModifierEvent->addTag(PlayerEvent::PANIC_CRISIS);
-        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
     public function onConversionPlayer(PlayerEvent $event): void

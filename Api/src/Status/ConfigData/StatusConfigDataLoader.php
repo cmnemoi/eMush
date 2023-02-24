@@ -2,7 +2,6 @@
 
 namespace Mush\Status\ConfigData;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -61,6 +60,6 @@ class StatusConfigDataLoader extends ConfigDataLoader
             }
             $modifierConfigs[] = $modifierConfig;
         }
-        $statusConfig->setModifierConfigs(new ArrayCollection($modifierConfigs));
+        $statusConfig->setModifierConfigs($modifierConfigs);
     }
 }

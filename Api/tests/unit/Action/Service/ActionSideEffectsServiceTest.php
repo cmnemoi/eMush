@@ -7,11 +7,11 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionSideEffectsService;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -29,8 +29,8 @@ class ActionSideEffectsServiceTest extends TestCase
     private RoomLogServiceInterface $roomLogService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var ModifierServiceInterface|Mockery\Mock */
-    private ModifierServiceInterface $modifierService;
+    /** @var EventModifierServiceInterface|Mockery\Mock */
+    private EventModifierServiceInterface $modifierService;
 
     private ActionSideEffectsServiceInterface $actionService;
 
@@ -42,7 +42,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
-        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
+        $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
 
         $this->actionService = new ActionSideEffectsService(
             $this->eventService,
@@ -183,8 +183,8 @@ class ActionSideEffectsServiceTest extends TestCase
             ->withArgs(
                 fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                     $playerEvent->getQuantity() === -2 &&
-                    $eventName === QuantityEventInterface::CHANGE_VARIABLE &&
-                    $playerEvent->getModifiedVariable() === PlayerVariableEnum::HEALTH_POINT
+                    $eventName === VariableEventInterface::CHANGE_VARIABLE &&
+                    $playerEvent->getVariableName() === PlayerVariableEnum::HEALTH_POINT
                 )
             )
             ->once()

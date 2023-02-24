@@ -20,7 +20,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -43,14 +43,14 @@ class SelfSurgery extends AbstractAction
     public const CRITICAL_SUCCESS_CHANCES = 5;
 
     private RandomServiceInterface $randomService;
-    private ModifierServiceInterface $modifierService;
+    private EventModifierServiceInterface $modifierService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        ModifierServiceInterface $modifierService
+        EventModifierServiceInterface $modifierService
     ) {
         parent::__construct(
             $eventService,

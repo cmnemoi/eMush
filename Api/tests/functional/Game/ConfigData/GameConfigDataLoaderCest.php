@@ -34,8 +34,11 @@ use Mush\Game\ConfigData\DifficultyConfigDataLoader;
 use Mush\Game\ConfigData\GameConfigDataLoader;
 use Mush\Game\ConfigData\TriumphConfigData;
 use Mush\Game\ConfigData\TriumphConfigDataLoader;
+use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
+use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Place\ConfigData\PlaceConfigDataLoader;
 use Mush\Player\ConfigData\CharacterConfigDataLoader;
@@ -92,8 +95,11 @@ class GameConfigDataLoaderCest
     public function _before(FunctionalTester $I)
     {
         $this->dependenciesDataLoaders = [
+            $I->grabService(VariableEventConfigDataLoader::class),
             $I->grabService(ModifierActivationRequirementDataLoader::class),
             $I->grabService(VariableEventModifierConfigDataLoader::class),
+            $I->grabService(TriggerEventModifierConfigDataLoader::class),
+            $I->grabService(DirectModifierConfigDataLoader::class),
             $I->grabService(ChargeStatusConfigDataLoader::class),
             $I->grabService(StatusConfigDataLoader::class),
             $I->grabService(SymptomActivationRequirementDataLoader::class),

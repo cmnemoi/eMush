@@ -72,12 +72,12 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ModifierScopeEnum::ACTIONS)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($notMoveActionActivationRequirement)
             ->addModifierRequirement($notConsumeActionActivationRequirement)
             ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
             ->addModifierRequirement($notSurgeryActionActivationRequirement)
             ->addModifierRequirement($notSelfSurgeryActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $notMoveAction1Increase->buildName();
         $manager->persist($notMoveAction1Increase);
@@ -88,12 +88,12 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ModifierScopeEnum::ACTIONS)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($notMoveActionActivationRequirement)
             ->addModifierRequirement($notConsumeActionActivationRequirement)
             ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
             ->addModifierRequirement($notSurgeryActionActivationRequirement)
             ->addModifierRequirement($notSelfSurgeryActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $notMoveAction2Increase->buildName();
         $manager->persist($notMoveAction2Increase);
@@ -104,12 +104,12 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(3)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ModifierScopeEnum::ACTIONS)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($notMoveActionActivationRequirement)
             ->addModifierRequirement($notConsumeActionActivationRequirement)
             ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
             ->addModifierRequirement($notSurgeryActionActivationRequirement)
             ->addModifierRequirement($notSelfSurgeryActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $notMoveAction3Increase->buildName();
         $manager->persist($notMoveAction3Increase);
@@ -120,7 +120,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-3)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $reduceMax3MovementPoint->buildName();
         $manager->persist($reduceMax3MovementPoint);
@@ -131,7 +131,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-5)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $reduceMax5MovementPoint->buildName();
         $manager->persist($reduceMax5MovementPoint);
@@ -142,7 +142,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-12)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $reduceMax12MovementPoint->buildName();
         $manager->persist($reduceMax12MovementPoint);
@@ -153,7 +153,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(0.85)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $shootAction15PercentAccuracyLost->buildName();
         $manager->persist($shootAction15PercentAccuracyLost);
@@ -164,7 +164,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(0.80)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $shootAction20PercentAccuracyLost->buildName();
         $manager->persist($shootAction20PercentAccuracyLost);
@@ -175,7 +175,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(0.60)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $shootAction40PercentAccuracyLost->buildName();
         $manager->persist($shootAction40PercentAccuracyLost);

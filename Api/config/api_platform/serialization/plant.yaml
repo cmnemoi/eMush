@@ -3,7 +3,7 @@ Mush\Equipment\Entity\Mechanics\Plant:
     id: 
       groups: [ 'plant_read' ]
     name:
-      groups: [ 'plant_write' ]
+      groups: [ 'plant_write', 'plant_read' ]
     mechanics:
       groups: [ 'plant_write' ]
     actions:

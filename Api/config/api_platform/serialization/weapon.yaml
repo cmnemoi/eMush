@@ -3,7 +3,7 @@ Mush\Equipment\Entity\Mechanics\Weapon:
     id: 
       groups: [ 'weapon_read' ]
     name:
-      groups: [ 'weapon_write' ]
+      groups: [ 'weapon_write', 'weapon_read' ]
     mechanics:
       groups: [ 'weapon_write' ]
     actions:

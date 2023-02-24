@@ -3,7 +3,7 @@ Mush\Equipment\Entity\Mechanics\Drug:
     id: 
       groups: [ 'drug_read' ]
     name:
-      groups: [ 'drug_write' ]
+      groups: [ 'drug_write', 'drug_read' ]
     mechanics:
       groups: [ 'drug_write' ]
     actions:

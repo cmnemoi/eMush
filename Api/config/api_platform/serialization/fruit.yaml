@@ -3,7 +3,7 @@ Mush\Equipment\Entity\Mechanics\Fruit:
     id: 
       groups: [ 'fruit_read' ]
     name:
-      groups: [ 'fruit_write' ]
+      groups: [ 'fruit_write', 'fruit_read' ]
     mechanics:
       groups: [ 'fruit_write' ]
     actions:

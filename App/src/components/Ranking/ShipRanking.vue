@@ -53,12 +53,12 @@ export default defineComponent({
                     sortable: false
                 },
                 {
-                    key: 'endDay',
+                    key: 'daysSurvived',
                     name: 'ranking.day',
                     sortable: true,
                 },
                 {
-                    key: 'endCycle',
+                    key: 'cyclesSurvived',
                     name: 'ranking.cycle',
                     sortable: false,
                 },
@@ -110,6 +110,8 @@ export default defineComponent({
                 .then((result) => {
                     for (const closedDaedalus of result.data['hydra:member']) {
                         closedDaedalus.endCause = this.$t('ranking.endCause.' + closedDaedalus.endCause);
+                        closedDaedalus.daysSurvived = closedDaedalus.endDay - 1;
+                        closedDaedalus.cyclesSurvived = (closedDaedalus.endDay - 1) * 8 + closedDaedalus.endCycle - closedDaedalus.startCycle;
                     }
                     return result.data;
                 })

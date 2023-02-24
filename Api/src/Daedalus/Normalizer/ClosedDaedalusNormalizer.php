@@ -3,6 +3,7 @@
 namespace Mush\Daedalus\Normalizer;
 
 use Mush\Daedalus\Entity\ClosedDaedalus;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -14,11 +15,14 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
 
     private const ALREADY_CALLED = 'CLOSED_DAEDALUS_NORMALIZER_ALREADY_CALLED';
 
+    private CycleServiceInterface $cycleService;
     private TranslationServiceInterface $translationService;
 
     public function __construct(
-        TranslationServiceInterface $translationService,
+        CycleServiceInterface $cycleService,
+        TranslationServiceInterface $translationService
     ) {
+        $this->cycleService = $cycleService;
         $this->translationService = $translationService;
     }
 
@@ -46,6 +50,10 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
 
         if (!is_array($data)) {
             throw new \Error('normalized closedDaedalus should be an array');
+        }
+
+        if ($daedalus->isDaedalusFinished()) {
+            $data['startCycle'] = $this->cycleService->getInDayCycleFromDate($daedalus->getCreatedAt(), $daedalus);
         }
 
         return $data;

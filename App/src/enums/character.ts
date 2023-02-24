@@ -19,7 +19,8 @@ export enum CharacterEnum {
     ROLAND = "roland",
     STEPHEN = "stephen",
     TERRENCE = "terrence",
-    NERON = "neron"
+    NERON = "neron",
+    ADMIN = "admin",
 }
 
 export interface CharacterInfos {
@@ -163,8 +164,13 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
         'head': require('@/assets/images/comms/neron_chat.png'),
         'body': require('@/assets/images/comms/neron_chat.png')
     },
+    [CharacterEnum.ADMIN]: {
+        'name': 'Admin',
+        'head': require('@/assets/images/char/head/lambda_f.png'),
+        'body': require('@/assets/images/char/body/lambda_f.png')
+    },
     [DEFAULT]: {
-        'name': 'Hero',
+        'name': 'Admin',
         'head': require('@/assets/images/char/head/lambda_f.png'),
         'body': require('@/assets/images/char/body/lambda_f.png')
     }

@@ -6,8 +6,9 @@ import es from './locales/es.json';
 export enum GameLocales {
 	EN = 'en',
 	FR = 'fr',
-    DE = 'de',
-    ES = 'es',
+    // TODO: not supported yet
+    // DE = 'de',
+    // ES = 'es',
 }
 
 export interface LangInfos {
@@ -24,21 +25,23 @@ export const gameLocales : {[index: string]: LangInfos}  = {
         'caption': 'Français',
         'icon': require('@/assets/images/lang_fr.png')
     },
-    [GameLocales.ES]: {
-        'caption': 'Spanish',
-        'icon': require('@/assets/images/lang_es.png')
-    },
-    [GameLocales.DE]: {
-        'caption': 'German',
-        'icon': require('@/assets/images/lang_de.png')
-    }
+    // TODO: not supported yet
+    // [GameLocales.ES]: {
+    //     'caption': 'Spanish',
+    //     'icon': require('@/assets/images/lang_es.png')
+    // },
+    // [GameLocales.DE]: {
+    //     'caption': 'German',
+    //     'icon': require('@/assets/images/lang_de.png')
+    // }
 };
 
 
 export const messages = {
     [GameLocales.EN]: en,
-    [GameLocales.DE]: de,
-    [GameLocales.ES]: es,
     [GameLocales.FR]: fr
+    // TODO: not supported yet
+    // [GameLocales.DE]: de,
+    // [GameLocales.ES]: es,
 };
 export const defaultLocale = GameLocales.FR;

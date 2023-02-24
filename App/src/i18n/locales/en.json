@@ -474,7 +474,7 @@
 	},
 	"charSelection": {
 		"selectLanguage": "Select a language :",
-		"shipNotFound": "No ship was found. Either one will be created in the incoming hour, or this language is not supported yet. :'(",
+		"shipNotFound": "No ship was found. One should be created in the incoming hour!",
 		"startGame": "Start the game",
 		"youChoose": "You choose "
 	},

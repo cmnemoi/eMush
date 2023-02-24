@@ -3,6 +3,7 @@
 namespace Mush\Game\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\EventEnum;
@@ -85,7 +86,7 @@ class CycleService implements CycleServiceInterface
     }
 
     // get day cycle from date (value between 1 and $gameConfig->getCyclePerGameDay())
-    public function getInDayCycleFromDate(\DateTime $date, Daedalus $daedalus): int
+    public function getInDayCycleFromDate(\DateTime $date, ClosedDaedalus|Daedalus $daedalus): int
     {
         $daedalusInfo = $daedalus->getDaedalusInfo();
 

@@ -3,6 +3,7 @@
 namespace Mush\Player\Normalizer;
 
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -16,15 +17,18 @@ class ClosedPlayerNormalizer implements ContextAwareNormalizerInterface, Normali
 
     private const ALREADY_CALLED = 'CLOSED_PLAYER_NORMALIZER_ALREADY_CALLED';
 
+    private CycleServiceInterface $cycleService;
     private PlayerServiceInterface $playerService;
     private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
 
     public function __construct(
+        CycleServiceInterface $cycleService,
         PlayerServiceInterface $playerService,
         TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService
     ) {
+        $this->cycleService = $cycleService;
         $this->playerService = $playerService;
         $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
@@ -57,6 +61,7 @@ class ClosedPlayerNormalizer implements ContextAwareNormalizerInterface, Normali
 
         if ($daedalus->isDaedalusFinished()) {
             $data['characterKey'] = $closedPlayer->getPlayerInfo()->getCharacterConfig()->getCharacterName();
+            $data['startCycle'] = $this->cycleService->getInDayCycleFromDate($closedPlayer->getCreatedAt(), $daedalus);
             $data['userId'] = $closedPlayer->getPlayerInfo()->getUser()->getUserId();
             $data['username'] = $closedPlayer->getPlayerInfo()->getUser()->getUsername();
         }

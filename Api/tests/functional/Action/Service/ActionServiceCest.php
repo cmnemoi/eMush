@@ -177,7 +177,7 @@ class ActionServiceCest
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-1)
             ->setTargetEvent(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;

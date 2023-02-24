@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -58,6 +58,6 @@ class Comfort extends AbstractAction
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );
-        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

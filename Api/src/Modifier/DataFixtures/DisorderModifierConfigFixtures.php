@@ -72,8 +72,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionEnum::MOVE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($catInRoomActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $catInRoomMove2MovementIncrease->buildName();
         $manager->persist($catInRoomMove2MovementIncrease);
@@ -84,9 +84,9 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ModifierScopeEnum::ACTIONS)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($catInRoomActivationRequirement)
             ->addModifierRequirement($notMoveActionActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $catInRoomNotMove2ActionIncrease->buildName();
         $manager->persist($catInRoomNotMove2ActionIncrease);
@@ -97,9 +97,9 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(-1)
             ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::SCREAMING)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $cycle1ActionLostRand16WithScreaming->buildName();
         $manager->persist($cycle1ActionLostRand16WithScreaming);
@@ -110,9 +110,9 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(-1)
             ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::WALL_HEAD_BANG)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $cycle1HealthLostRand16WithWallHeadBang->buildName();
         $manager->persist($cycle1HealthLostRand16WithWallHeadBang);
@@ -123,8 +123,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(-1)
             ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($randActivationRequirement70)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $cycle1MoralLostRand70->buildName();
         $manager->persist($cycle1MoralLostRand70);
@@ -135,9 +135,9 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(-2)
             ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::RUN_IN_CIRCLES)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $cycle2MovementLostRand16WithRunInCircles->buildName();
         $manager->persist($cycle2MovementLostRand16WithRunInCircles);
@@ -148,8 +148,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ModifierScopeEnum::ACTIONS)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($fourPeopleInRoomActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $fourPeopleOneActionIncrease->buildName();
         $manager->persist($fourPeopleOneActionIncrease);
@@ -160,8 +160,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ModifierScopeEnum::ACTIONS)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($fourPeopleInRoomActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $fourPeopleOneMovementIncrease->buildName();
         $manager->persist($fourPeopleOneMovementIncrease);
@@ -171,8 +171,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $reduceMax2ActionPoint->buildName();
         $manager->persist($reduceMax2ActionPoint);
@@ -182,8 +182,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-3)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $reduceMax3MoralPoint->buildName();
         $manager->persist($reduceMax3MoralPoint);
@@ -193,8 +193,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-4)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $reduceMax4MoralPoint->buildName();
         $manager->persist($reduceMax4MoralPoint);

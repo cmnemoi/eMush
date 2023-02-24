@@ -22,12 +22,12 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -44,7 +44,7 @@ class Shoot extends AttemptAction
 {
     protected string $name = ActionEnum::SHOOT;
 
-    private ModifierServiceInterface $modifierService;
+    private EventModifierServiceInterface $modifierService;
     private DiseaseCauseServiceInterface $diseaseCauseService;
     protected RandomServiceInterface $randomService;
 
@@ -53,7 +53,7 @@ class Shoot extends AttemptAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        ModifierServiceInterface $modifierService,
+        EventModifierServiceInterface $modifierService,
         DiseaseCauseServiceInterface $diseaseCauseService,
     ) {
         parent::__construct(
@@ -248,7 +248,7 @@ class Shoot extends AttemptAction
 
         $this->eventService->callEvent(
             $damageEvent,
-            QuantityEventInterface::CHANGE_VARIABLE
+            VariableEventInterface::CHANGE_VARIABLE
         );
     }
 }

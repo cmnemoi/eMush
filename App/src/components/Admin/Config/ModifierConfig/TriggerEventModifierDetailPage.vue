@@ -41,9 +41,9 @@
             <Input
                 :label="$t('admin.modifierConfig.modifierHolderClass')"
                 id="modifierConfig_modifierHolderClass"
-                v-model="modifierConfig.modifierHolderClass"
+                v-model="modifierConfig.modifierRange"
                 type="text"
-                :errors="errors.modifierHolderClass"
+                :errors="errors.modifierRange"
             />
             <Input
                 :label="$t('admin.modifierConfig.triggeredEvent')"
@@ -54,10 +54,10 @@
             />
             <Input
                 :label="$t('admin.modifierConfig.applyOnActionParameter')"
+                type="checkbox"
+                class="configCheckbox"
                 id="modifierConfig_applyOnActionParameter"
                 v-model="modifierConfig.applyOnActionParameter"
-                type="text"
-                :errors="errors.applyOnActionParameter"
             />
         </div>
         <h3>Modifier Requirement</h3>

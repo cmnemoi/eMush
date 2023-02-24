@@ -12,7 +12,7 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -65,7 +65,7 @@ class Hit extends AttemptAction
                     new \DateTime()
                 );
 
-                $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+                $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
             }
         }
     }

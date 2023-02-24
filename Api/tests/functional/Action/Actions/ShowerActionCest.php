@@ -115,7 +115,7 @@ class ShowerActionCest
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(-3)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($showerActionActivationRequirement)
             ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
             ->setName(ModifierNameEnum::MUSH_SHOWER_MALUS)
@@ -157,7 +157,7 @@ class ShowerActionCest
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setTargetEvent(ActionEnum::SHOWER)
-            ->setModifierHolderClass(ReachEnum::INVENTORY)
+            ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -200,7 +200,7 @@ class ShowerActionCest
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setTargetEvent(ActionEnum::SHOWER)
-            ->setModifierHolderClass(ReachEnum::INVENTORY)
+            ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
 

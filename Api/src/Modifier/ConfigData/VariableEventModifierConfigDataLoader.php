@@ -2,7 +2,6 @@
 
 namespace Mush\Modifier\ConfigData;
 
-use Mush\Equipment\CycleHandler\ModifierConfigDataLoader;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
 class VariableEventModifierConfigDataLoader extends ModifierConfigDataLoader
@@ -24,15 +23,14 @@ class VariableEventModifierConfigDataLoader extends ModifierConfigDataLoader
             }
 
             $modifierConfig
+                ->setMode($modifierConfigData['mode'])
                 ->setDelta($modifierConfigData['delta'])
                 ->setTargetVariable($modifierConfigData['targetVariable'])
-                ->setMode($modifierConfigData['mode'])
-                ->setAppliesOn($modifierConfigData['appliesOn'])
-                ->setName($modifierConfigData['name'])
-                ->setModifierName($modifierConfigData['modifierName'])
                 ->setTargetEvent($modifierConfigData['targetEvent'])
                 ->setApplyOnParameterOnly($modifierConfigData['applyOnActionParameter'])
-                ->setModifierHolderClass($modifierConfigData['modifierHolderClass'])
+                ->setModifierRange($modifierConfigData['modifierRange'])
+                ->setName($modifierConfigData['name'])
+                ->setModifierName($modifierConfigData['modifierName'])
             ;
             $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);
 

@@ -48,7 +48,7 @@ class CreateDestroyEquipmentSubscriberCest
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -118,7 +118,7 @@ class CreateDestroyEquipmentSubscriberCest
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -185,7 +185,7 @@ class CreateDestroyEquipmentSubscriberCest
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLACE)
+            ->setModifierRange(ModifierHolderClassEnum::PLACE)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -260,7 +260,7 @@ class CreateDestroyEquipmentSubscriberCest
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -339,7 +339,7 @@ class CreateDestroyEquipmentSubscriberCest
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -437,7 +437,7 @@ class CreateDestroyEquipmentSubscriberCest
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -448,7 +448,7 @@ class CreateDestroyEquipmentSubscriberCest
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
         ;

@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Modifier\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Action\Entity\Action;
 use Mush\Daedalus\Entity\Daedalus;
@@ -16,8 +15,8 @@ use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
+use Mush\Modifier\Service\EventModifierService;
 use Mush\Modifier\Service\ModifierRequirementServiceInterface;
-use Mush\Modifier\Service\ModifierService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -27,8 +26,6 @@ use PHPUnit\Framework\TestCase;
 
 class ModifierServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface|Mockery\Mock */
-    private EntityManagerInterface $entityManager;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
     /** @var ModifierRequirementServiceInterface|Mockery\Mock */
@@ -36,20 +33,18 @@ class ModifierServiceTest extends TestCase
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
 
-    private ModifierService $service;
+    private EventModifierService $service;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->activationRequirementService = \Mockery::mock(ModifierRequirementServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
-        $this->service = new ModifierService(
-            $this->entityManager,
+        $this->service = new EventModifierService(
             $this->eventService,
             $this->activationRequirementService,
             $this->randomService,
@@ -62,104 +57,6 @@ class ModifierServiceTest extends TestCase
     public function after()
     {
         \Mockery::close();
-    }
-
-    public function testPersist()
-    {
-        $playerModifier = new GameModifier(new Player(), new VariableEventModifierConfig());
-
-        $this->entityManager->shouldReceive('persist')->with($playerModifier)->once();
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->persist($playerModifier);
-    }
-
-    public function testDelete()
-    {
-        $playerModifier = new GameModifier(new Player(), new VariableEventModifierConfig());
-
-        $this->entityManager->shouldReceive('remove')->with($playerModifier)->once();
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->delete($playerModifier);
-    }
-
-    public function testCreateModifier()
-    {
-        $daedalus = new Daedalus();
-
-        // create a daedalus GameModifier
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS);
-
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
-            ->once();
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->createModifier($modifierConfig, $daedalus);
-
-        // create a place GameModifier
-        $room = new Place();
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig->setModifierHolderClass(ModifierHolderClassEnum::PLACE);
-
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Place)
-            ->once()
-        ;
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->createModifier($modifierConfig, $room);
-
-        // create a player GameModifier
-        $player = new Player();
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig->setModifierHolderClass(ModifierHolderClassEnum::TARGET_PLAYER);
-
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Player)
-            ->once()
-        ;
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->createModifier($modifierConfig, $player);
-
-        // create a player GameModifier with charge
-        $player = new Player();
-        $charge = new ChargeStatus($player, new ChargeStatusConfig());
-
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig->setModifierHolderClass(ModifierHolderClassEnum::TARGET_PLAYER);
-
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => (
-                $modifier->getModifierHolder() === $player &&
-                $modifier->getModifierConfig() === $modifierConfig &&
-                $modifier->getCharge() === $charge
-            ))
-            ->once()
-        ;
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->createModifier($modifierConfig, $player, $charge);
-
-        // create an equipment GameModifier
-        $equipment = new GameEquipment(new Place());
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig->setModifierHolderClass(ModifierHolderClassEnum::EQUIPMENT);
-
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof GameEquipment)
-            ->once();
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $this->service->createModifier($modifierConfig, $equipment);
     }
 
     public function testGetActionModifiedActionPointCost()
@@ -191,7 +88,7 @@ class ModifierServiceTest extends TestCase
         // get action point modified with irrelevant modifiers
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -201,7 +98,7 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('notThisAction')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
@@ -222,7 +119,7 @@ class ModifierServiceTest extends TestCase
         // now add a relevant modifier
         $modifierConfig3 = new VariableEventModifierConfig();
         $modifierConfig3
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
@@ -243,7 +140,7 @@ class ModifierServiceTest extends TestCase
         // add another relevant modifier
         $modifierConfig4 = new VariableEventModifierConfig();
         $modifierConfig4
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('type1')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
@@ -281,7 +178,7 @@ class ModifierServiceTest extends TestCase
         // Daedalus GameModifier
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
@@ -292,7 +189,7 @@ class ModifierServiceTest extends TestCase
         // Place GameModifier
         $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLACE)
+            ->setModifierRange(ModifierHolderClassEnum::PLACE)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(3)
@@ -303,7 +200,7 @@ class ModifierServiceTest extends TestCase
         // Player GameModifier
         $modifierConfig3 = new VariableEventModifierConfig();
         $modifierConfig3
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(5)
@@ -314,7 +211,7 @@ class ModifierServiceTest extends TestCase
         // Equipment GameModifier
         $modifierConfig4 = new VariableEventModifierConfig();
         $modifierConfig4
-            ->setModifierHolderClass(ModifierHolderClassEnum::EQUIPMENT)
+            ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(7)
@@ -351,7 +248,7 @@ class ModifierServiceTest extends TestCase
         // Movement Point
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-1)
@@ -380,7 +277,7 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
@@ -415,7 +312,7 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(-10)
@@ -453,7 +350,7 @@ class ModifierServiceTest extends TestCase
         // multiplicative
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
@@ -474,7 +371,7 @@ class ModifierServiceTest extends TestCase
         // multiplicative and additive
         $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(10)
@@ -525,7 +422,7 @@ class ModifierServiceTest extends TestCase
 //        $action = new Action();
 //        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionVariables($actionCost);
 //
-//        $modifierConfig1 = new VariableEventModifierConfig();
+//        $modifierConfig1 = new VariableEventModifierConfigYo();
 //        $modifierConfig1
 //            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
 //            ->setTargetEvent('action')
@@ -566,7 +463,7 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
@@ -609,7 +506,7 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-6)
@@ -636,7 +533,7 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(2)
@@ -669,7 +566,7 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-6)

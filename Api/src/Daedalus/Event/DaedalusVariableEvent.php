@@ -3,24 +3,26 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Entity\GameVariable;
+use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Player\Entity\Player;
 
-class DaedalusVariableEvent extends DaedalusEvent implements QuantityEventInterface
+class DaedalusVariableEvent extends DaedalusEvent implements VariableEventInterface
 {
     private int $quantity;
-    private string $modifiedVariable;
+    private string $variableName;
     private ?Player $player = null;
 
     public function __construct(
         Daedalus $daedalus,
-        string $modifiedVariable,
+        string $variableName,
         int $quantity,
         array $tags,
         \DateTime $time
     ) {
-        $this->modifiedVariable = $modifiedVariable;
+        $this->variableName = $variableName;
         $this->quantity = $quantity;
 
         parent::__construct($daedalus, $tags, $time);
@@ -38,14 +40,14 @@ class DaedalusVariableEvent extends DaedalusEvent implements QuantityEventInterf
         return $this->quantity;
     }
 
-    public function getModifiedVariable(): string
+    public function getVariable(): GameVariable
     {
-        return $this->modifiedVariable;
+        return $this->daedalus->getVariableByName($this->variableName);
     }
 
-    public function getPlayer(): ?Player
+    public function getVariableName(): string
     {
-        return $this->player;
+        return $this->variableName;
     }
 
     public function setPlayer(Player $player): self
@@ -53,6 +55,11 @@ class DaedalusVariableEvent extends DaedalusEvent implements QuantityEventInterf
         $this->player = $player;
 
         return $this;
+    }
+
+    public function getVariableHolder(): GameVariableHolderInterface
+    {
+        return $this->daedalus;
     }
 
     public function getModifierHolder(): ModifierHolder

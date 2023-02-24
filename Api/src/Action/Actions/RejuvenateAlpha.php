@@ -49,10 +49,10 @@ class RejuvenateAlpha extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $maxActionPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::ACTION_POINT);
-        $maxMovementPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::MOVEMENT_POINT);
-        $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::MORAL_POINT);
-        $maxHealthPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::HEALTH_POINT);
+        $maxActionPoint = $this->player->getVariableByName(PlayerVariableEnum::ACTION_POINT)->getMaxValue();
+        $maxMovementPoint = $this->player->getVariableByName(PlayerVariableEnum::MOVEMENT_POINT)->getMaxValue();
+        $maxMoralePoint = $this->player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->getMaxValue();
+        $maxHealthPoint = $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->getMaxValue();
 
         if ($maxMoralePoint === null || $maxActionPoint === null || $maxMovementPoint === null || $maxHealthPoint === null) {
             throw new \Error('moral, movement, action and health points should have a maximum value');

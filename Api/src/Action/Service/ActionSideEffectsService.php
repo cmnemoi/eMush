@@ -4,10 +4,10 @@ namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -19,11 +19,11 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
     public const ACTION_INJURY_MODIFIER = -2;
 
     private EventServiceInterface $eventService;
-    private ModifierServiceInterface $modifierService;
+    private EventModifierServiceInterface $modifierService;
 
     public function __construct(
         EventServiceInterface $eventService,
-        ModifierServiceInterface $modifierService
+        EventModifierServiceInterface $modifierService
     ) {
         $this->eventService = $eventService;
         $this->modifierService = $modifierService;
@@ -91,6 +91,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             [ModifierScopeEnum::EVENT_CLUMSINESS],
             $dateTime
         );
-        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

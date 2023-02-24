@@ -2,7 +2,6 @@
 
 namespace Mush\Equipment\ConfigData;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Repository\ActionRepository;
 use Mush\Equipment\Entity\Mechanics\Gear;
@@ -62,6 +61,6 @@ class GearDataLoader extends MechanicsDataLoader
             }
             $modifierConfigs[] = $modifierConfig;
         }
-        $gear->setModifierConfigs(new ArrayCollection($modifierConfigs));
+        $gear->setModifierConfigs($modifierConfigs);
     }
 }

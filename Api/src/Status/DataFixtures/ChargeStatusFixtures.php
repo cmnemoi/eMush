@@ -3,7 +3,6 @@
 namespace Mush\Status\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
@@ -233,14 +232,14 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_RESET)
             ->setMaxCharge(1)
             ->setStartCharge(1)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $showerModifier,
                 $consumeActionModifier,
                 $consumeHealthModifier,
                 $consumeMoralModifier,
                 $consumeMovementModifier,
                 $consumeSatietyModifier,
-            ]))
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($mushStatus);

@@ -2,11 +2,11 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Service\PlayerModifierServiceInterface;
+use Mush\Modifier\Service\ModifierListenerService\PlayerModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -37,7 +37,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
 
-        $this->playerModifierService->playerLeaveRoom($player);
+        $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
     }
 
     public function onPlayerInfection(PlayerEvent $event): void
@@ -67,7 +67,7 @@ class PlayerSubscriber implements EventSubscriberInterface
                 $reasons,
                 $time,
             );
-            $this->eventService->callEvent($event, QuantityEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 }

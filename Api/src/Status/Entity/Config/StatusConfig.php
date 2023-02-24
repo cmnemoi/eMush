@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
@@ -31,7 +31,7 @@ class StatusConfig
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $visibility = VisibilityEnum::PUBLIC;
 
-    #[ORM\ManyToMany(targetEntity: VariableEventModifierConfig::class)]
+    #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;
 
     public function __construct()
@@ -97,7 +97,7 @@ class StatusConfig
     }
 
     /**
-     * @param array<int, VariableEventModifierConfig>|Collection<int, VariableEventModifierConfig> $modifierConfigs
+     * @param array<int, AbstractModifierConfig>|Collection<int, AbstractModifierConfig> $modifierConfigs
      */
     public function setModifierConfigs(array|Collection $modifierConfigs): static
     {

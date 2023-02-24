@@ -28,9 +28,10 @@ use Mush\Game\ConfigData\DifficultyConfigDataLoader;
 use Mush\Game\ConfigData\GameConfigDataLoader;
 use Mush\Game\ConfigData\LocalizationConfigDataLoader;
 use Mush\Game\ConfigData\TriumphConfigDataLoader;
+use Mush\Game\ConfigData\VariableEventConfigDataLoader;
+use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
-use Mush\Modifier\ConfigData\TriggerVariableEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Place\ConfigData\PlaceConfigDataLoader;
 use Mush\Player\ConfigData\CharacterConfigDataLoader;
@@ -44,7 +45,8 @@ class ConfigDataLoaderService
     public function __construct(ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader,
                                 VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader,
                                 TriggerEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader,
-                                TriggerVariableEventModifierConfigDataLoader $triggerVariableEventModifierConfigDataLoader,
+                                DirectModifierConfigDataLoader $directModifierConfigDataLoader,
+                                VariableEventConfigDataLoader $variableEventConfigDataLoader,
                                 ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader,
                                 StatusConfigDataLoader $statusConfigDataLoader,
                                 SymptomActivationRequirementDataLoader $symptomActivationRequirementDataLoader,
@@ -78,10 +80,11 @@ class ConfigDataLoaderService
         /** @var ArrayCollection<int, ConfigDataLoader> $dataLoaders */
         $dataLoaders = new ArrayCollection(
             [
+                $variableEventConfigDataLoader,
                 $modifierActivationRequirementDataLoader,
                 $variableEventModifierConfigDataLoader,
                 $triggerEventModifierConfigDataLoader,
-                $triggerVariableEventModifierConfigDataLoader,
+                $directModifierConfigDataLoader,
                 $chargeStatusConfigDataLoader,
                 $statusConfigDataLoader,
                 $symptomActivationRequirementDataLoader,

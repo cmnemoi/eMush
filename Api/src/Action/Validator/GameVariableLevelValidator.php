@@ -34,15 +34,15 @@ class GameVariableLevelValidator extends ConstraintValidator
     {
         switch ($target) {
             case GameVariableLevel::DAEDALUS:
-                $targetVariables = $value->getPlayer()->getDaedalus()->getDaedalusVariables();
+                $targetVariables = $value->getPlayer()->getDaedalus()->getGameVariables();
                 break;
             case GameVariableLevel::PLAYER:
-                $targetVariables = $value->getPlayer()->getPlayerVariables();
+                $targetVariables = $value->getPlayer()->getGameVariables();
                 break;
             case GameVariableLevel::TARGET_PLAYER:
                 /** @var Player $targetPlayer */
                 $targetPlayer = $value->getParameter();
-                $targetVariables = $targetPlayer->getPlayerVariables();
+                $targetVariables = $targetPlayer->getGameVariables();
                 break;
             default:
                 throw new LogicException('unsupported target');

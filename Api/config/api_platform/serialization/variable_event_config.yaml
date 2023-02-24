@@ -1,0 +1,14 @@
+Mush\Game\Entity\VariableEventConfig:
+  attributes:
+    id:
+      groups: [ 'event_config_read' ]
+    name:
+      groups: [ 'event_config_read', 'event_config_write' ]
+    eventName:
+      groups: [ 'event_config_read' , 'event_config_write' ]
+    quantity:
+      groups: [ 'event_config_read' , 'event_config_write' ]
+    targetVariable:
+      groups: [ 'event_config_read' , 'event_config_write' ]
+    variableHolderClass:
+      groups: [ 'event_config_read' , 'event_config_write' ]

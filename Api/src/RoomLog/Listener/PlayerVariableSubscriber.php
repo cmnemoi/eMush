@@ -3,7 +3,7 @@
 namespace Mush\RoomLog\Listener;
 
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
@@ -23,18 +23,18 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            QuantityEventInterface::CHANGE_VARIABLE => 'onChangeVariable',
+            VariableEventInterface::CHANGE_VARIABLE => 'onChangeVariable',
         ];
     }
 
-    public function onChangeVariable(QuantityEventInterface $playerEvent): void
+    public function onChangeVariable(VariableEventInterface $playerEvent): void
     {
         if (!$playerEvent instanceof PlayerVariableEvent) {
             return;
         }
 
         $delta = $playerEvent->getQuantity();
-        $modifiedVariable = $playerEvent->getModifiedVariable();
+        $modifiedVariable = $playerEvent->getVariableName();
 
         if ($delta === 0) {
             return;

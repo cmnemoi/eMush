@@ -50,8 +50,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionEnum::CONSUME)
-            ->setModifierHolderClass(ModifierHolderClassEnum::EQUIPMENT)
             ->setApplyOnParameterOnly(true)
+            ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT)
         ;
         $frozenModifier->buildName();
         $manager->persist($frozenModifier);
@@ -62,7 +62,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $disabledConversionModifier->buildName();
         $manager->persist($disabledConversionModifier);
@@ -80,8 +80,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionEnum::MOVE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($notAloneActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $disabledNotAloneModifier->buildName();
         $manager->persist($disabledNotAloneModifier);
@@ -92,7 +92,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionTypeEnum::ACTION_AGGRESSIVE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLACE)
+            ->setModifierRange(ModifierHolderClassEnum::PLACE)
         ;
         $pacifistModifier->buildName();
         $manager->persist($pacifistModifier);
@@ -103,7 +103,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionEnum::MOVE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $burdenedModifier->buildName();
         $manager->persist($burdenedModifier);
@@ -113,9 +113,9 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->addModifierRequirement($notAloneActivationRequirement)
             ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->addModifierRequirement($notAloneActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
         ;
         $antisocialModifier->buildName();
@@ -127,7 +127,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $lostModifier->buildName();
         $manager->persist($lostModifier);
@@ -138,7 +138,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::LYING_DOWN_MODIFIER)
         ;
         $lyingDownModifier->buildName();
@@ -150,7 +150,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::STARVING)
         ;
         $starvingModifier->buildName();
@@ -162,7 +162,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(30)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(PlayerEvent::CYCLE_DISEASE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $increaseCycleDiseaseChances30->buildName();
         $manager->persist($increaseCycleDiseaseChances30);
@@ -180,9 +180,9 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-3)
             ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($showerActionActivationRequirement)
             ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $mushShowerModifier->buildName();
         $manager->persist($mushShowerModifier);
@@ -199,10 +199,10 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(-3)
             ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->addModifierRequirement($sinkActionActivationRequirement)
             ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $mushSinkModifier->buildName();
         $manager->persist($mushSinkModifier);
@@ -215,8 +215,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::SATIETY)
             ->setDelta(4)
             ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($consumeActionActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $mushConsumeSatietyModifier->buildName();
         $manager->persist($mushConsumeSatietyModifier);
@@ -226,8 +226,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(0)
             ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($consumeActionActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $mushConsumeHealthModifier->buildName();
         $manager->persist($mushConsumeHealthModifier);
@@ -238,7 +238,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(0)
             ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->addModifierRequirement($consumeActionActivationRequirement)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $mushConsumeMoralModifier->buildName();
         $manager->persist($mushConsumeMoralModifier);
@@ -248,8 +248,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(0)
             ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($consumeActionActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $mushConsumeActionModifier->buildName();
         $manager->persist($mushConsumeActionModifier);
@@ -260,7 +260,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(0)
             ->setMode(VariableModifierModeEnum::SET_VALUE)
             ->addModifierRequirement($consumeActionActivationRequirement)
-            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $mushConsumeMovementModifier->buildName();
         $manager->persist($mushConsumeMovementModifier);

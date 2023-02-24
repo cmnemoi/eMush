@@ -35,6 +35,9 @@ import TriumphConfigDetailPage from "@/components/Admin/Config/TriumphConfig/Tri
 import VariableModifierDetailPage from "@/components/Admin/Config/ModifierConfig/VariableModifierDetailPage.vue";
 import TriggerEventModifierDetailPage
     from "@/components/Admin/Config/ModifierConfig/TriggerEventModifierDetailPage.vue";
+import DirectModifierDetailPage from "@/components/Admin/Config/ModifierConfig/DirectModifierDetailPage.vue";
+import VariableEventDetailPage from "@/components/Admin/Config/EventConfig/VariableEventDetailPage.vue";
+import EventConfigListPage from "@/components/Admin/Config/EventConfig/EventConfigListPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -61,6 +64,11 @@ export const adminConfigRoutes = [
         name: "AdminTriggerEventModifierConfigDetail",
         path: 'event-trigger-modifier-config/:configId',
         component: TriggerEventModifierDetailPage
+    },
+    {
+        name: "AdminDirectModifierConfigDetail",
+        path: 'direct-modifier-config/:configId',
+        component: DirectModifierDetailPage
     },
     {
         name: "AdminModifierActivationRequirementDetail",
@@ -216,5 +224,15 @@ export const adminConfigRoutes = [
         name: "AdminTriumphConfigDetail",
         path: 'triumph-config/:triumphConfigId',
         component: TriumphConfigDetailPage
+    },
+    {
+        name: "AdminEventConfigList",
+        path: 'event-config-list',
+        component: EventConfigListPage
+    },
+    {
+        name: "AdminVariableEventConfigDetail",
+        path: 'event-config/:configId',
+        component: VariableEventDetailPage
     },
 ];

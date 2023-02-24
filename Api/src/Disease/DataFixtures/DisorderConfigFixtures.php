@@ -3,7 +3,6 @@
 namespace Mush\Disease\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
@@ -74,10 +73,10 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $agoraphobia
             ->setDiseaseName(DisorderEnum::AGORAPHOBIA)
             ->setType(TypeEnum::DISORDER)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $fourPeopleOneActionIncrease,
                 $fourPeopleOneMovementIncrease,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $noPilotingActions,
             ]))
@@ -89,10 +88,10 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $ailurophobia
             ->setDiseaseName(DisorderEnum::AILUROPHOBIA)
             ->setType(TypeEnum::DISORDER)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $catInRoomMove2MovementIncrease,
                 $catInRoomNotMove2ActionIncrease,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $fearOfCats,
             ]))
@@ -104,10 +103,10 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $chronicMigraine
             ->setDiseaseName(DisorderEnum::CHRONIC_MIGRAINE)
             ->setType(TypeEnum::DISORDER)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $reduceMax2MoralPoint,
                 $cycle1ActionLostRand16,
-            ]))
+            ])
             ->setOverride([DiseaseEnum::MIGRAINE])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -128,9 +127,9 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $coprolalia
             ->setDiseaseName(DisorderEnum::COPROLALIA)
             ->setType(TypeEnum::DISORDER)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $reduceMax4MoralPoint,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([$coprolaliaSymptom]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -140,12 +139,12 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $crabism
             ->setDiseaseName(DisorderEnum::CRABISM)
             ->setType(TypeEnum::DISORDER)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $reduceMax4MoralPoint,
                 $cycle1ActionLostRand16WithScreaming,
                 $cycle1HealthLostRand16WithWallHeadBang,
                 $cycle2MovementLostRand16WithRunInCircles,
-            ]))
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($crabism);
@@ -154,10 +153,10 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $depression
             ->setDiseaseName(DisorderEnum::DEPRESSION)
             ->setType(TypeEnum::DISORDER)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $reduceMax2MoralPoint,
                 $reduceMax2ActionPoint,
-            ]))
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($depression);
@@ -166,9 +165,9 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $paranoia
             ->setDiseaseName(DisorderEnum::PARANOIA)
             ->setType(TypeEnum::DISORDER)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $reduceMax3MoralPoint,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([$paranoiaSymptom]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -190,9 +189,9 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $spleen
             ->setDiseaseName(DisorderEnum::SPLEEN)
             ->setType(TypeEnum::DISORDER)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $cycle1MoralLostRand70,
-            ]))
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($spleen);

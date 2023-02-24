@@ -73,4 +73,11 @@ abstract class GameVariableCollection
 
         return $variable;
     }
+
+    public function hasVariable(string $name): bool
+    {
+        return !$this->gameVariables
+            ->filter(fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)->isEmpty()
+        ;
+    }
 }

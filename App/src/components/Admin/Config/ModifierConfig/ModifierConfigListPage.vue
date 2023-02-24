@@ -78,6 +78,10 @@ export default defineComponent({
                     endpoint: 'trigger_event_modifier_configs',
                     detailPage: 'AdminTriggerEventModifierConfigDetail'
                 } },
+                { key: 'admin.modifierConfig.directModifier', value: {
+                    endpoint: 'direct_modifier_configs',
+                    detailPage: 'AdminDirectModifierConfigDetail'
+                } },
                 { key: 'admin.modifierConfig.modifierRequirement', value: {
                     endpoint: 'modifier_activation_requirements',
                     detailPage: 'AdminModifierActivationRequirementDetail'

@@ -12,7 +12,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -74,7 +74,7 @@ class PublicBroadcast extends AbstractAction
         );
 
         $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventService->callEvent($playerModifierEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
     private function addWatchedPublicBroadcastStatus(Player $player): void

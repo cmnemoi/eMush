@@ -11,7 +11,7 @@ use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Event\QuantityEventInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -61,7 +61,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
 
-        $dailySpores = $daedalus->getVariableFromName(DaedalusVariableEnum::SPORE)->getMaxValue();
+        $dailySpores = $daedalus->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();
 
         if ($dailySpores === null) {
             throw new \Error('daedalus spore gameVariable should have a maximum value');
@@ -102,7 +102,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             [EventEnum::NEW_CYCLE],
             $date
         );
-        $this->eventService->callEvent($daedalusEvent, QuantityEventInterface::CHANGE_VARIABLE);
+        $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         if ($daedalus->getOxygen() <= 0) {
             $this->daedalusService->getRandomAsphyxia($daedalus, $date);

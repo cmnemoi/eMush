@@ -2,52 +2,27 @@
 
 namespace Mush\Player\Service;
 
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 
 class PlayerVariableService implements PlayerVariableServiceInterface
 {
-    private ModifierServiceInterface $modifierService;
     private PlayerServiceInterface $playerService;
 
     public function __construct(
-        ModifierServiceInterface $modifierService,
         PlayerServiceInterface $playerService,
     ) {
-        $this->modifierService = $modifierService;
         $this->playerService = $playerService;
-    }
-
-    public function getMaxPlayerVariable(Player $player, string $variableName): ?int
-    {
-        $variable = $player->getVariableByName($variableName);
-
-        $maxValue = $variable->getMaxValue();
-
-        if ($maxValue === null) {
-            return null;
-        }
-
-        return $this->modifierService->getEventModifiedValue(
-            $player,
-            [ModifierScopeEnum::MAX_POINT],
-            $variableName,
-            $maxValue,
-            [ModifierScopeEnum::MAX_POINT],
-            new \DateTime()
-        );
     }
 
     public function setPlayerVariableToMax(Player $player, string $variableName, \DateTime $date = null): Player
     {
-        $maxAmount = $this->getMaxPlayerVariable($player, $variableName);
-        $delta = $maxAmount - $player->getVariableValueFromName($variableName);
+        $maxAmount = $player->getVariableByName($variableName)->getMaxValue();
+        $delta = $maxAmount - $player->getVariableValueByName($variableName);
 
         $newAmount = $this->getValueInInterval($maxAmount + $delta, 0, $maxAmount);
 
-        $player->setVariableValueFromName($variableName, $newAmount);
+        $player->setVariableValueByName($variableName, $newAmount);
 
         return $this->playerService->persist($player);
     }
@@ -57,12 +32,12 @@ class PlayerVariableService implements PlayerVariableServiceInterface
         if ($variableName === PlayerVariableEnum::SATIETY) {
             $newVariableValuePoint = $this->getSatietyChange($delta, $player);
         } else {
-            $newVariableValuePoint = $player->getVariableValueFromName($variableName) + $delta;
-            $maxVariableValuePoint = $this->getMaxPlayerVariable($player, $variableName);
+            $newVariableValuePoint = $player->getVariableValueByName($variableName) + $delta;
+            $maxVariableValuePoint = $player->getVariableByName($variableName)->getMaxValue();
             $newVariableValuePoint = $this->getValueInInterval($newVariableValuePoint, 0, $maxVariableValuePoint);
         }
 
-        $player->setVariableValueFromName($variableName, $newVariableValuePoint);
+        $player->setVariableValueByName($variableName, $newVariableValuePoint);
 
         return $this->playerService->persist($player);
     }

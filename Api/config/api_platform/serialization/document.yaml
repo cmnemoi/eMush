@@ -3,7 +3,7 @@ Mush\Equipment\Entity\Mechanics\Document:
     id: 
       groups: [ 'document_read' ]
     name:
-      groups: [ 'document_write' ]
+      groups: [ 'document_write', 'document_read' ]
     mechanics:
       groups: [ 'document_write' ]
     actions:

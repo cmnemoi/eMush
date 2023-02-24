@@ -3,7 +3,7 @@ Mush\Equipment\Entity\Mechanics\Blueprint:
     id: 
       groups: [ 'blueprint_read' ]
     name:
-      groups: [  'blueprint_write' ]
+      groups: [  'blueprint_write', 'blueprint_read'  ]
     mechanics:
       groups: [  'blueprint_write' ]
     actions:

@@ -46,7 +46,7 @@ export default defineComponent({
                     image: 'characterBody'
                 },
                 {
-                    key: 'dayDeath',
+                    key: 'daysSurvived',
                     name: 'userShips.day',
                     sortable: true,
                 },
@@ -115,7 +115,8 @@ export default defineComponent({
                 .then((result) => {
                     for (const closedPlayer of result.data['hydra:member']) {
                         closedPlayer.endCause = 'userShips.endCause.' + closedPlayer.endCause; // translation key
-                        closedPlayer.cyclesSurvived = closedPlayer.dayDeath - 1 + closedPlayer.cycleDeath;
+                        closedPlayer.daysSurvived = closedPlayer.dayDeath - 1;
+                        closedPlayer.cyclesSurvived = (closedPlayer.dayDeath - 1) * 8 + closedPlayer.cycleDeath - closedPlayer.startCycle;
                         closedPlayer.character = this.getCharacterNameFromKey(closedPlayer.characterKey);
                         closedPlayer.characterBody = this.getCharacterBodyFromKey(closedPlayer.characterKey);
                         closedPlayer.closedDaedalusId = closedPlayer.closedDaedalus.split('/').pop();

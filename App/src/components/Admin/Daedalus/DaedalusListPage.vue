@@ -54,6 +54,17 @@
                     {{ $t("admin.daedalus.destroy") }}
                 </button>
             </template>
+            <template #header-join>
+                join
+            </template>
+            <template #row-join="slotProps">
+                <button v-if="slotProps.gameStatus != 'finished'"
+                        class="action-button"
+                        type="button"
+                        @click="joinDaedalusAsAdmin(slotProps.id)">
+                    {{ $t("admin.daedalus.join") }}
+                </button>
+            </template>
 
         </Datatable>
     </div>
@@ -61,6 +72,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
 import urlJoin from "url-join";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
@@ -68,11 +80,18 @@ import ApiService from "@/services/api.service";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import DaedalusService from "@/services/daedalus.service";
+import PlayerService from "@/services/player.service";
+import { CharacterEnum } from "@/enums/character";
 
 export default defineComponent({
     name: "DeadalusListPage",
     components: {
         Datatable
+    },
+    computed: {
+        ...mapGetters('auth', [
+            'userId'
+        ])
     },
     data() {
         return {
@@ -95,6 +114,12 @@ export default defineComponent({
                 {
                     key: 'cycle',
                     name: 'Cycle/Day',
+                    sortable: false,
+                    slot: true
+                },
+                {
+                    key: 'join',
+                    name: 'join',
                     sortable: false,
                     slot: true
                 },
@@ -193,7 +218,12 @@ export default defineComponent({
             DaedalusService.destroyAllDaedaluses().then(() => {
                 this.loadData();
             });
-        }
+        },
+        joinDaedalusAsAdmin(daedalusId: number) {
+            PlayerService.selectCharacter(this.userId, daedalusId, CharacterEnum.ADMIN).then(() => {
+                this.loadData();
+            });
+        },
     },
     beforeMount() {
         this.loadData();

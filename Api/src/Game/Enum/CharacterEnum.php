@@ -23,6 +23,7 @@ class CharacterEnum
     public const CHAO = 'chao';
     public const CHUN = 'chun';
     public const NERON = 'neron';
+    public const ADMIN = 'admin';
 
     public static function getAll(): array
     {

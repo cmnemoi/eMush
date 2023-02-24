@@ -19,6 +19,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -178,8 +179,10 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalus->getGameConfig()->getCharactersConfig()->filter(
             fn (CharacterConfig $characterConfig) => !$daedalus->getPlayers()->exists(
                 fn (int $key, Player $player) => ($player->getName() === $characterConfig->getCharacterName())
-            )
-        );
+            ))
+            ->filter( 
+                fn (CharacterConfig $characterConfig) => $characterConfig->getCharacterName() !== CharacterEnum::ADMIN
+            );
     }
 
     public function createDaedalus(GameConfig $gameConfig, string $name, string $language): Daedalus

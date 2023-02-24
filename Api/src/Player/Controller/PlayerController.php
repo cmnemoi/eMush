@@ -7,6 +7,7 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
@@ -16,6 +17,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Voter\PlayerVoter;
 use Mush\User\Entity\User;
+use Mush\User\Enum\RoleEnum;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -119,9 +121,14 @@ class PlayerController extends AbstractFOSRestController
 
         $daedalus = $playerCreateRequest->getDaedalus();
         $character = $playerCreateRequest->getCharacter();
+        $user = $playerCreateRequest->getUser();
 
         if (!$daedalus || !$character) {
             return $this->view(['invalid parameters'], 422);
+        }
+
+        if ($character === CharacterEnum::ADMIN && !$user->isAdmin()) {
+            return $this->view(['character not found'], 404);
         }
 
         /** @var User $user */

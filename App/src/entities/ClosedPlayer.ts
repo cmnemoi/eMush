@@ -4,6 +4,7 @@ export class ClosedPlayer {
     public message: string|null;
     public endCause: string|null;
     public dayDeath: integer|null;
+    public startCycle: integer|null;
     public cycleDeath: integer|null;
     public cyclesSurvived: integer|null;
     public likes: integer|null;
@@ -18,6 +19,7 @@ export class ClosedPlayer {
         this.message = null;
         this.endCause = null;
         this.dayDeath = null;
+        this.startCycle = null;
         this.cycleDeath = null;
         this.cyclesSurvived = null;
         this.likes = null;
@@ -33,6 +35,7 @@ export class ClosedPlayer {
             this.message = object.message;
             this.endCause = object.endCause;
             this.dayDeath = object.dayDeath;
+            this.startCycle = object.startCycle;
             this.cycleDeath = object.cycleDeath;
             this.likes = object.likes;
             this.isMush = object.isMush;
@@ -40,8 +43,8 @@ export class ClosedPlayer {
             this.username = object.username;
             this.userId = object.userId;
         }
-        if (this.dayDeath && this.cycleDeath){
-            this.cyclesSurvived = (this.dayDeath - 1) * 8 + this.cycleDeath;
+        if (this.dayDeath && this.cycleDeath && this.startCycle){
+            this.cyclesSurvived = (this.dayDeath - 1) * 8 + this.cycleDeath - this.startCycle;
         }
         
         return this;
@@ -53,6 +56,7 @@ export class ClosedPlayer {
             'endCause': this.endCause,
             'dayDeath': this.dayDeath,
             'cycleDeath': this.cycleDeath,
+            'startCycle': this.startCycle,
             'cyclesSurvived': this.cyclesSurvived,
             'likes': this.likes,
             'isMush': this.isMush,

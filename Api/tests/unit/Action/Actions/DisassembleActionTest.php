@@ -57,6 +57,7 @@ class DisassembleActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
+        $room->setDaedalus($daedalus);
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
@@ -89,6 +90,7 @@ class DisassembleActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
+        $room->setDaedalus($daedalus);
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);

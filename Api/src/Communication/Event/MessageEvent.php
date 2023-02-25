@@ -5,7 +5,7 @@ namespace Mush\Communication\Event;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 
 class MessageEvent extends AbstractGameEvent
 {
@@ -17,6 +17,11 @@ class MessageEvent extends AbstractGameEvent
     {
         parent::__construct($tags, $time);
         $this->message = $message;
+
+        $author = $this->message->getAuthor();
+        if ($author instanceof PlayerInfo) {
+            $this->player = $author->getPlayer();
+        }
     }
 
     public function getMessage(): Message
@@ -27,16 +32,5 @@ class MessageEvent extends AbstractGameEvent
     public function getChannel(): Channel
     {
         return $this->message->getChannel();
-    }
-
-    public function getPlayer(): ?Player
-    {
-        $author = $this->message->getAuthor();
-
-        if ($author !== null) {
-            return $author->getPlayer();
-        }
-
-        return null;
     }
 }

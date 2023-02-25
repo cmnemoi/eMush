@@ -60,6 +60,13 @@
                 v-model="modifierConfig.applyOnActionParameter"
             />
         </div>
+        <h3>{{ $t('admin.modifierConfig.tagConstraints') }}</h3>
+        <MapManager
+            :map="modifierConfig.tagConstraints"
+            mapIndexesType="string"
+            mapValuesType="string"
+        >
+        </MapManager>
         <h3>Modifier Requirement</h3>
         <ChildCollectionManager :children="modifierConfig.modifierActivationRequirements" @addId="selectNewChild" @remove="removeChild">
             <template #header="child">
@@ -87,6 +94,7 @@ import Input from "@/components/Utils/Input.vue";
 import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import MapManager from "@/components/Utils/MapManager.vue";
 
 interface ModifierConfigState {
     modifierConfig: null|ModifierConfig
@@ -96,6 +104,7 @@ interface ModifierConfigState {
 export default defineComponent({
     name: "TriggerEventModifierConfigState",
     components: {
+        MapManager,
         ChildCollectionManager,
         Input,
         UpdateConfigButtons

@@ -26,11 +26,11 @@ class DiseaseSubscriber implements EventSubscriberInterface
 
     public function onDiseaseAppear(DiseaseEvent $event): void
     {
-        $this->diseaseModifierService->newDisease($event->getPlayer(), $event->getDiseaseConfig(), $event->getTags(), $event->getTime());
+        $this->diseaseModifierService->newDisease($event->getTargetPlayer(), $event->getDiseaseConfig(), $event->getTags(), $event->getTime());
     }
 
     public function onDiseaseCured(DiseaseEvent $event): void
     {
-        $this->diseaseModifierService->cureDisease($event->getPlayer(), $event->getDiseaseConfig(), $event->getTags(), $event->getTime());
+        $this->diseaseModifierService->cureDisease($event->getTargetPlayer(), $event->getDiseaseConfig(), $event->getTags(), $event->getTime());
     }
 }

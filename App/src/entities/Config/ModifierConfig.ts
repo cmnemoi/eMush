@@ -13,9 +13,10 @@ export class ModifierConfig {
     public modifierRange: string|null;
     public mode: string|null;
     public triggeredEvent: EventConfig|null;
-    public applyOnActionParameter: boolean|null;
+    public applyOnTarget: boolean|null;
     public reverseOnRemove: boolean|null;
     public modifierActivationRequirements:ModifierActivationRequirement[]|null;
+    public tagConstraints: Map<string, string>|null;
 
     constructor() {
         this.iri = null;
@@ -30,8 +31,9 @@ export class ModifierConfig {
         this.mode = null;
         this.reverseOnRemove = null;
         this.triggeredEvent = null;
-        this.applyOnActionParameter = null;
+        this.applyOnTarget = null;
         this.modifierActivationRequirements = null;
+        this.tagConstraints = null;
     }
     load(object:any) : ModifierConfig {
         if (typeof object !== "undefined") {
@@ -45,11 +47,18 @@ export class ModifierConfig {
             this.targetEvent = object.targetEvent;
             this.modifierRange = object.modifierRange;
             this.reverseOnRemove = object.reverseOnRemove;
-            this.applyOnActionParameter = object.applyOnActionParameter;
+            this.applyOnTarget = object.applyOnTarget;
             this.triggeredEvent = object.triggeredEvent;
             this.mode = object.mode;
             if (typeof object.triggeredEvent !== "undefined") {
                 this.triggeredEvent = (new EventConfig()).load(object.triggeredEvent);
+            }
+            if (typeof object.tagConstraints !== 'undefined') {
+                for (const [key, value] of Object.entries(object.tagConstraints)) {
+                    if (typeof value === 'string') {
+                        this.tagConstraints?.set(key, value);
+                    }
+                }
             }
         }
         return this;
@@ -57,6 +66,13 @@ export class ModifierConfig {
     jsonEncode() : any {
         const modifierActivationRequirements : string[] = [];
         this.modifierActivationRequirements?.forEach(modifierActivationRequirement => (typeof modifierActivationRequirement.iri === 'string' ? modifierActivationRequirements.push(modifierActivationRequirement.iri) : null));
+
+        const tagsConstraints : object = {};
+        this.tagConstraints?.forEach((value, key) => {
+            // @ts-ignore
+            tagsConstraints[key] = value;
+        });
+
         return {
             'id': this.id,
             'name': this.name,
@@ -67,9 +83,10 @@ export class ModifierConfig {
             'modifierRange': this.modifierRange,
             'mode': this.mode,
             'reverseOnRemove': this.reverseOnRemove,
-            'applyOnActionParameter': this.applyOnActionParameter,
+            'applyOnTarget': this.applyOnTarget,
             'modifierActivationRequirements': modifierActivationRequirements,
             'triggeredEvent': this.triggeredEvent?.iri,
+            'tagConstraints': tagsConstraints,
         };
     }
     decode(jsonString : string): ModifierConfig {

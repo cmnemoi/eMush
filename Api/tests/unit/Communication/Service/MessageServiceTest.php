@@ -81,6 +81,7 @@ class MessageServiceTest extends TestCase
         $this->diseaseMessageService
             ->shouldReceive('applyDiseaseEffects')
             ->with(Message::class)
+            ->andReturn($messageClass)
             ->once();
 
         $messageClass->shouldReceive('setAuthor')->with($player);
@@ -89,6 +90,7 @@ class MessageServiceTest extends TestCase
         $messageClass->shouldReceive('setParent')->with(null);
         $messageClass->shouldReceive('getParent')->andReturn(null);
 
+        $messageClass->shouldReceive('getAuthor')->andReturn($player->getPlayerInfo());
         $this->eventService->shouldReceive('callEvent')->once();
 
         $message = $this->service->createPlayerMessage($player, $playerMessageDto);
@@ -119,6 +121,7 @@ class MessageServiceTest extends TestCase
         $this->diseaseMessageService
             ->shouldReceive('applyDiseaseEffects')
             ->with(Message::class)
+            ->andReturn($messageClass)
             ->once()
         ;
 
@@ -129,6 +132,8 @@ class MessageServiceTest extends TestCase
 
         $messageClass->shouldReceive('getParent')->andReturn($message);
         $messageClass->shouldReceive('getParent')->with($message)->andReturn(null);
+
+        $messageClass->shouldReceive('getAuthor');
         $this->eventService->shouldReceive('callEvent')->once();
 
         $messageWithParent = $this->service->createPlayerMessage($player, $playerMessageDto);

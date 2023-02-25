@@ -47,7 +47,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentTransform(TransformEquipmentEvent $event): void
     {
-        $newEquipment = $event->getEquipment();
+        $newEquipment = $event->getGameEquipment();
         $oldEquipment = $event->getEquipmentFrom();
 
         /** @var Status $status */
@@ -59,13 +59,13 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
+        $equipment = $event->getGameEquipment();
         $this->statusService->removeAllStatuses($equipment, $event->getTags(), $event->getTime());
     }
 
     public function onNewEquipmentInInventory(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
+        $equipment = $event->getGameEquipment();
         $reasons = $event->getTags();
         $time = $event->getTime();
         $holder = $equipment->getHolder();
@@ -85,7 +85,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentRemovedFromInventory(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
+        $equipment = $event->getGameEquipment();
         $reasons = $event->getTags();
         $time = $event->getTime();
 

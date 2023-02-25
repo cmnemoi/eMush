@@ -11,6 +11,8 @@ Mush\Modifier\Entity\Config\TriggerEventModifierConfig:
     modifierRange:
       - NotBlank: ~
       - Type: string
-    applyOnActionParameter:
+    applyOnTarget:
       - NotBlank: ~
       - Type: boolean
+    tagConstraints:
+      - Type: array

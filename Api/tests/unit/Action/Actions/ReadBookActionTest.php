@@ -44,7 +44,9 @@ class ReadBookActionTest extends AbstractActionTest
 
     public function testExecute()
     {
+        $daedalus = new Daedalus();
         $room = new Place();
+        $room->setDaedalus($daedalus);
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $book = new Book();
@@ -57,7 +59,7 @@ class ReadBookActionTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent');
 
-        $player = $this->createPlayer(new Daedalus(), $room);
+        $player = $this->createPlayer($daedalus, $room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);

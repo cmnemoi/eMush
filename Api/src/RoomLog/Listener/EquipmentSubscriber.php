@@ -71,10 +71,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onInventoryOverflow(EquipmentEvent $event): void
     {
         /** @var Player $holder */
-        $holder = $event->getEquipment()->getHolder();
+        $holder = $event->getGameEquipment()->getHolder();
 
         $characterConfig = $holder->getPlayerInfo()->getCharacterConfig();
-        $equipment = $event->getEquipment();
+        $equipment = $event->getGameEquipment();
 
         if (
             $equipment instanceof GameItem &&
@@ -88,14 +88,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         /* @var Player|null $player */
         if ($event instanceof InteractWithEquipmentEvent) {
-            $actor = $event->getActor();
+            $actor = $event->getAuthor();
             if ($actor instanceof Player) {
                 $player = $actor;
             } else {
                 $player = null;
             }
         } elseif ($event->isCreated()) {
-            $holder = $event->getEquipment()->getHolder();
+            $holder = $event->getGameEquipment()->getHolder();
             if ($holder instanceof Player) {
                 $player = $holder;
             } else {

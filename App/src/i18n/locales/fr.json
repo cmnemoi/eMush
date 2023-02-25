@@ -215,7 +215,8 @@
 			"modifierRequirement": "Conditions d'activation",
 			"triggeredEvent": "Événement déclenché",
 			"applyOnActionParameter": "Application uniquement sur cible d'action",
-			"revertOnRemove": "Inverser lors de la suppression"
+			"revertOnRemove": "Inverser lors de la suppression",
+			"tagConstraints": "Condition sur les tags de l'événement"
 		},
 		"eventConfig": {
 			"name": "Nom",

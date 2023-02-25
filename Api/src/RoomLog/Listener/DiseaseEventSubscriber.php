@@ -53,7 +53,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 
     public function onDiseaseCure(DiseaseEvent $event): void
     {
-        $player = $event->getPlayerDisease()->getPlayer();
+        $player = $event->getTargetPlayer();
 
         $reasons = $event->getTags();
 
@@ -78,7 +78,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 
     public function onDiseaseTreated(DiseaseEvent $event): void
     {
-        $player = $event->getPlayerDisease()->getPlayer();
+        $player = $event->getTargetPlayer();
 
         $reasons = $event->getTags();
 
@@ -94,7 +94,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 
     public function onDiseaseAppear(DiseaseEvent $event): void
     {
-        $player = $event->getPlayer();
+        $player = $event->getTargetPlayer();
         $diseaseConfig = $event->getDiseaseConfig();
         $key = match ($diseaseConfig->getType()) {
             TypeEnum::DISEASE => LogEnum::DISEASE_APPEAR,

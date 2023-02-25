@@ -21,7 +21,7 @@
             :label="$t('admin.mapManager.mapValueToAdd')"
             id="mapValue"
             v-model="mapValueToAdd"
-            type="number"
+            :type="mapValuesType"
         ></Input>
         <button class="action-button" @click="$emit('addTuple', [mapIndexToAdd, mapValueToAdd])">
             {{ $t("admin.buttons.add") }}
@@ -40,7 +40,8 @@ export default {
     props: {
         label: String,
         map: Map,
-        mapIndexesType: String
+        mapIndexesType: String,
+        mapValuesType: String
     },
     emits: ['addTuple', 'removeIndex'],
     data: function () {

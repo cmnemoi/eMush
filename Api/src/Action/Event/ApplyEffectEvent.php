@@ -3,6 +3,8 @@
 namespace Mush\Action\Event;
 
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -17,7 +19,6 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
     public const PLAYER_GET_SICK = 'player.get.sick';
     public const PLAYER_CURE_INJURY = 'player.cure.injury';
 
-    private Player $player;
     private string $visibility;
     private ?LogParameterInterface $parameter;
 
@@ -37,12 +38,17 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
 
     public function getPlayer(): Player
     {
-        return $this->player;
+        $player = $this->player;
+        if ($player === null) {
+            throw new \Error('applyEffectEvent should have a player');
+        }
+
+        return $player;
     }
 
     public function getPlace(): Place
     {
-        return $this->player->getPlace();
+        return $this->getPlayer()->getPlace();
     }
 
     public function getVisibility(): string
@@ -55,11 +61,24 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
         return $this->parameter;
     }
 
+    public function getModifiers(): ModifierCollection
+    {
+        $modifiers = $this->getPlayer()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false);
+
+        $parameter = $this->parameter;
+        if ($parameter instanceof ModifierHolder) {
+            $modifiers->addModifiers($parameter->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true));
+        }
+
+        return $modifiers;
+    }
+
     public function getLogParameters(): array
     {
+        $player = $this->getPlayer();
         $logParameters = [
-            'character' => $this->player->getLogName(),
-            'place' => $this->player->getPlace()->getName(),
+            'character' => $player->getLogName(),
+            'place' => $player->getPlace()->getName(),
         ];
 
         if (($actionParameter = $this->getParameter()) !== null) {

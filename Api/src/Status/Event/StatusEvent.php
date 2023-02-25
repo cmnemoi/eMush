@@ -5,6 +5,8 @@ namespace Mush\Status\Event;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
@@ -106,5 +108,16 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         }
 
         return $parameters;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        $holder = $this->holder;
+
+        if ($holder instanceof ModifierHolder) {
+            return $holder->getAllModifiers()->getEventModifiers($this);
+        }
+
+        return new ModifierCollection();
     }
 }

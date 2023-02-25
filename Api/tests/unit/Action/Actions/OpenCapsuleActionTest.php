@@ -55,7 +55,9 @@ class OpenCapsuleActionTest extends AbstractActionTest
 
     public function testExecute()
     {
+        $daedalus = new Daedalus();
         $room = new Place();
+        $room->setDaedalus($daedalus);
 
         $gameSpaceCapsule = new GameEquipment($room);
         $spaceCapsule = new EquipmentConfig();
@@ -67,7 +69,6 @@ class OpenCapsuleActionTest extends AbstractActionTest
 
         $spaceCapsule->setActions(new ArrayCollection([$this->actionEntity]));
 
-        $daedalus = new Daedalus();
         $player = $this->createPlayer($daedalus, $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameSpaceCapsule);

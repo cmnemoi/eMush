@@ -39,7 +39,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         if ($event instanceof TransformEquipmentEvent) {
             $equipment = $event->getEquipmentFrom();
         } else {
-            $equipment = $event->getEquipment();
+            $equipment = $event->getGameEquipment();
         }
 
         $this->gearModifierService->gearDestroyed($equipment, $event->getTags(), $event->getTime());
@@ -47,7 +47,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onInventoryOverflow(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
+        $equipment = $event->getGameEquipment();
         $holder = $equipment->getHolder();
 
         if (

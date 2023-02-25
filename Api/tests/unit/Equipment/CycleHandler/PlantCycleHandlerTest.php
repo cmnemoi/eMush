@@ -381,7 +381,7 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getEquipment() === $gamePlant
+                $event->getGameEquipment() === $gamePlant
             )->once()
         ;
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();

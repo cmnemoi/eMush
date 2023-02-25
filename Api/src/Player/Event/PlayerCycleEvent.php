@@ -10,8 +10,6 @@ class PlayerCycleEvent extends AbstractGameEvent
     public const PLAYER_NEW_CYCLE = 'player.new.cycle';
     public const PLAYER_NEW_DAY = 'player.new.day';
 
-    protected Player $player;
-
     public function __construct(
         Player $player,
         array $tags,
@@ -24,6 +22,12 @@ class PlayerCycleEvent extends AbstractGameEvent
 
     public function getPlayer(): Player
     {
-        return $this->player;
+        $player = $this->player;
+
+        if ($player === null) {
+            throw new \Error('applyEffectEvent should have a player');
+        }
+
+        return $player;
     }
 }

@@ -39,7 +39,9 @@ class TakeActionTest extends AbstractActionTest
 
     public function testExecute()
     {
+        $daedalus = new Daedalus();
         $room = new Place();
+        $room->setDaedalus($daedalus);
         $gameItem = new GameItem($room);
 
         $item = new ItemConfig();
@@ -49,8 +51,6 @@ class TakeActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
         ;
-
-        $daedalus = new Daedalus();
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -66,7 +66,9 @@ class TakeActionTest extends AbstractActionTest
 
     public function testTakeHeavyObject()
     {
+        $daedalus = new Daedalus();
         $room = new Place();
+        $room->setDaedalus($daedalus);
         $gameItem = new GameItem($room);
 
         $item = new ItemConfig();
@@ -76,8 +78,6 @@ class TakeActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
         ;
-
-        $daedalus = new Daedalus();
 
         $player = $this->createPlayer($daedalus, $room);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);

@@ -40,7 +40,9 @@ class ShredActionTest extends AbstractActionTest
 
     public function testExecute()
     {
+        $daedalus = new Daedalus();
         $room = new Place();
+        $room->setDaedalus($daedalus);
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $document = new Document();
@@ -53,7 +55,7 @@ class ShredActionTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent');
 
-        $player = $this->createPlayer(new Daedalus(), $room);
+        $player = $this->createPlayer($daedalus, $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

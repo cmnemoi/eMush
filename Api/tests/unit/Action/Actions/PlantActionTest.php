@@ -52,7 +52,9 @@ class PlantActionTest extends AbstractActionTest
 
     public function testExecute()
     {
+        $daedalus = new Daedalus();
         $room = new Place();
+        $room->setDaedalus($daedalus);
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
@@ -82,7 +84,7 @@ class PlantActionTest extends AbstractActionTest
                     ->setName(ItemEnum::HYDROPOT)
         ;
 
-        $player = $this->createPlayer(new Daedalus(), $room);
+        $player = $this->createPlayer($daedalus, $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

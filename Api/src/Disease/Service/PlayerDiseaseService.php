@@ -57,7 +57,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             $causes,
             $time
         );
-        $event->setAuthor($author)->setVisibility($visibility);
+        $event->setVisibility($visibility)->setPlayer($author);
         $this->eventService->callEvent($event, DiseaseEvent::CURE_DISEASE);
 
         $this->delete($playerDisease);
@@ -212,7 +212,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
                 $reasons,
                 $time
             );
-            $event->setAuthor($author);
+            $event->setPlayer($author);
             $this->eventService->callEvent($event, DiseaseEvent::TREAT_DISEASE);
 
             $playerDisease->setResistancePoint($playerDisease->getResistancePoint() - 1);

@@ -16,7 +16,9 @@ Mush\Modifier\Entity\Config\VariableEventModifierConfig:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     mode:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    applyOnActionParameter:
+    applyOnTarget:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     modifierActivationRequirements:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    tagConstraints:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]

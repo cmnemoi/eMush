@@ -49,4 +49,8 @@ class ModifierRequirementEnum
     public const PLAYER_EQUIPMENT = 'player_equipment';
 
     public const PLAYER_STATUS = 'player_status';
+
+    public const ANY_TAGS = 'any_tags';
+    public const NONE_TAGS = 'none_tags';
+    public const ALL_TAGS = 'all_tags';
 }

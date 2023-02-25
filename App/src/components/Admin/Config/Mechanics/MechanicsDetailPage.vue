@@ -110,26 +110,31 @@
             <MapManager :label="$t('admin.mechanics.actionPoints')"
                         :map="mechanics.actionPoints" 
                         mapIndexesType="number"
-                        @addTuple="addActionPoints" 
+                        mapValuesType="number"
+                        @addTuple="addActionPoints"
                         @removeIndex="removeActionPoints"></MapManager>
             <MapManager :map="mechanics.moralPoints"
                         :label="$t('admin.mechanics.moralPoints')"
                         mapIndexesType="number"
+                        mapValuesType="number"
                         @addTuple="addMoralPoints" 
                         @removeIndex="removeMoralPoints"></MapManager>
             <MapManager :map="mechanics.healthPoints" 
                         :label="$t('admin.mechanics.healthPoints')"
                         mapIndexesType="number"
+                        mapValuesType="number"
                         @addTuple="addHealthPoints" 
                         @removeIndex="removeHealthPoints"></MapManager>
             <MapManager :map="mechanics.movementPoints" 
                         :label="$t('admin.mechanics.movementPoints')"
                         mapIndexesType="number"
+                        mapValuesType="number"
                         @addTuple="addMovementPoints" 
                         @removeIndex="removeMovementPoints"></MapManager>
             <MapManager :map="mechanics.extraEffects" 
                         :label="$t('admin.mechanics.extraEffects')"
                         mapIndexesType="string"
+                        mapValuesType="number"
                         @addTuple="addExtraEffects" 
                         @removeIndex="removeExtraEffects"></MapManager>
         </div>
@@ -147,13 +152,15 @@
             <h3>{{ $t('admin.mechanics.maturationTime') }}</h3>
             <MapManager :map="mechanics.maturationTime" 
                         mapIndexesType="number"
-                        @addTuple="addMaturationTime" 
+                        mapValuesType="number"
+                        @addTuple="addMaturationTime"
                         @removeIndex="removeMaturationTime"></MapManager>
             
             <h3>{{ $t('admin.mechanics.oxygen') }}</h3>
             <MapManager :map="mechanics.oxygen" 
                         mapIndexesType="number"
-                        @addTuple="addOxygen" 
+                        mapValuesType="number"
+                        @addTuple="addOxygen"
                         @removeIndex="removeOxygen"></MapManager>
         </div>
 
@@ -198,7 +205,8 @@
             <h3>{{ $t('admin.mechanics.baseDamageRange') }}</h3>
             <MapManager :map="mechanics.baseDamageRange" 
                         mapIndexesType="number"
-                        @addTuple="addBaseDamageRange" 
+                        mapValuesType="number"
+                        @addTuple="addBaseDamageRange"
                         @removeIndex="removeBaseDamageRange"></MapManager>
         </div>
         <UpdateConfigButtons @create="create" @update="update"/>

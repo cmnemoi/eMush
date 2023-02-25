@@ -56,7 +56,9 @@ class BuildActionTest extends AbstractActionTest
 
     public function testExecute()
     {
+        $daedalus = new Daedalus();
         $room = new Place();
+        $room->setDaedalus($daedalus);
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $item->setEquipmentName('blueprint');
@@ -88,7 +90,7 @@ class BuildActionTest extends AbstractActionTest
             ->setName('metal_scraps')
         ;
 
-        $player = $this->createPlayer(new Daedalus(), $room);
+        $player = $this->createPlayer($daedalus, $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

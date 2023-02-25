@@ -36,13 +36,13 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
 
     public function getPlace(): Place
     {
-        return $this->player->getPlace();
+        return $this->getPlayer()->getPlace();
     }
 
     public function getLogParameters(): array
     {
         return [
-            $this->player->getLogKey() => $this->player->getLogName(),
+            $this->getPlayer()->getLogKey() => $this->getPlayer()->getLogName(),
         ];
     }
 

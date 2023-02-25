@@ -30,11 +30,11 @@ class TransformEquipmentEvent extends EquipmentEvent
     {
         $logParameters = [];
 
-        $logParameters['target_' . $this->getEquipment()->getLogKey()] = $this->getEquipment()->getLogName();
+        $logParameters['target_' . $this->getGameEquipment()->getLogKey()] = $this->getGameEquipment()->getLogName();
 
         $logParameters[$this->from->getLogKey()] = $this->from->getLogName();
 
-        $holder = $this->getEquipment()->getHolder();
+        $holder = $this->getGameEquipment()->getHolder();
         if ($holder instanceof Player) {
             $logParameters[$holder->getLogKey()] = $holder->getLogName();
         }

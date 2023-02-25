@@ -21,6 +21,7 @@
             :label="$t('admin.consumableDiseaseConfig.curesName')"
             :map="consumableDiseaseConfig.curesName"
             mapIndexesType="string"
+            mapValuesType="number"
             @addTuple="addCuresName"
             @removeIndex="removeCuresName"
         />
@@ -28,6 +29,7 @@
             :label="$t('admin.consumableDiseaseConfig.diseasesName')"
             :map="consumableDiseaseConfig.diseasesName"
             mapIndexesType="string"
+            mapValuesType="number"
             @addTuple="addDiseasesName"
             @removeIndex="removeDiseasesName"
         />
@@ -35,6 +37,7 @@
             :label="$t('admin.consumableDiseaseConfig.diseasesChances')"
             :map="consumableDiseaseConfig.diseasesChances"
             mapIndexesType="number"
+            mapValuesType="number"
             @addTuple="addDiseasesChances"
             @removeIndex="removeDiseasesChances"
         />
@@ -42,6 +45,7 @@
             :label="$t('admin.consumableDiseaseConfig.curesChances')"
             :map="consumableDiseaseConfig.curesChances"
             mapIndexesType="number"
+            mapValuesType="number"
             @addTuple="addCuresChances"
             @removeIndex="removeCuresChances"
         />
@@ -49,6 +53,7 @@
             :label="$t('admin.consumableDiseaseConfig.diseasesDelayMin')"
             :map="consumableDiseaseConfig.diseasesDelayMin"
             mapIndexesType="number"
+            mapValuesType="number"
             @addTuple="addDiseasesDelayMin"
             @removeIndex="removeDiseasesDelayMin"
         />
@@ -56,6 +61,7 @@
             :label="$t('admin.consumableDiseaseConfig.diseasesDelayLength')"
             :map="consumableDiseaseConfig.diseasesDelayLength"
             mapIndexesType="number"
+            mapValuesType="number"
             @addTuple="addDiseasesDelayLength"
             @removeIndex="removeDiseasesDelayLength"
         />
@@ -63,6 +69,7 @@
             :label="$t('admin.consumableDiseaseConfig.effectNumber')"
             :map="consumableDiseaseConfig.effectNumber"
             mapIndexesType="number"
+            mapValuesType="number"
             @addTuple="addEffectNumber"
             @removeIndex="removeEffectNumber"
         />

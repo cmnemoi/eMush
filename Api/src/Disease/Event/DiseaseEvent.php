@@ -7,6 +7,7 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
@@ -18,7 +19,6 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
     public const TREAT_DISEASE = 'disease.treat';
     public const CURE_DISEASE = 'disease.cure';
 
-    private ?Player $author = null;
     private PlayerDisease $playerDisease;
     private string $visibility = VisibilityEnum::PUBLIC;
 
@@ -32,19 +32,7 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
         parent::__construct($tags, $time);
     }
 
-    public function getAuthor(): ?Player
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?Player $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    public function getPlayer(): Player
+    public function getTargetPlayer(): Player
     {
         return $this->playerDisease->getPlayer();
     }
@@ -84,10 +72,22 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
             'character_gender' => CharacterEnum::isMale($this->playerDisease->getPlayer()->getName()) ? 'male' : 'female',
         ];
 
-        if (($author = $this->author) !== null) {
+        if (($author = $this->player) !== null) {
             $logParameters[$author->getLogKey()] = $author->getLogName();
         }
 
         return $logParameters;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        $modifiers = $this->getTargetPlayer()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true);
+
+        $author = $this->player;
+        if ($author !== null) {
+            $modifiers->addModifiers($author->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false));
+        }
+
+        return $modifiers;
     }
 }

@@ -34,6 +34,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         return [
             VariableEventInterface::CHANGE_VARIABLE => 'onChangeVariable',
             VariableEventInterface::CHANGE_VALUE_MAX => 'onChangeMaxValue',
+            VariableEventInterface::SET_VALUE => 'onSetValue',
         ];
     }
 
@@ -47,19 +48,23 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         $delta = $playerEvent->getQuantity();
         $variableName = $playerEvent->getVariableName();
 
-        $this->playerVariableService->handleGameVariableChange($variableName, $delta, $player);
+        $this->handlePlayerVariableChange($playerEvent, $player, $variableName, $delta);
+    }
 
-        switch ($playerEvent->getVariableName()) {
-            case PlayerVariableEnum::HEALTH_POINT:
-                $this->handleHealthPointModifier($player, $playerEvent, $playerEvent->getTime());
-
-                return;
-
-            case PlayerVariableEnum::SPORE:
-                $this->handleInfection($player, $playerEvent);
-
-                return;
+    public function onSetValue(VariableEventInterface $playerEvent): void
+    {
+        if (!$playerEvent instanceof PlayerVariableEvent) {
+            return;
         }
+
+        $player = $playerEvent->getPlayer();
+        $newValue = $playerEvent->getQuantity();
+        $variable = $playerEvent->getVariable();
+        $variableName = $variable->getName();
+
+        $delta = $newValue - $variable->getValue();
+
+        $this->handlePlayerVariableChange($playerEvent, $player, $variableName, $delta);
     }
 
     public function onChangeMaxValue(VariableEventInterface $playerEvent): void
@@ -77,6 +82,23 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         $this->playerService->persist($player);
     }
 
+    private function handlePlayerVariableChange(PlayerVariableEvent $playerEvent, Player $player, string $variableName, int $delta): void
+    {
+        $player = $this->playerVariableService->handleGameVariableChange($variableName, $delta, $player);
+
+        switch ($playerEvent->getVariableName()) {
+            case PlayerVariableEnum::HEALTH_POINT:
+                $this->handleHealthPointModifier($player, $playerEvent, $playerEvent->getTime());
+
+                return;
+
+            case PlayerVariableEnum::SPORE:
+                $this->handleInfection($player, $playerEvent);
+
+                return;
+        }
+    }
+
     private function handleHealthPointModifier(Player $player, PlayerVariableEvent $event, \DateTime $time): void
     {
         if ($player->getHealthPoint() <= 0) {
@@ -90,12 +112,14 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function handleInfection(Player $player, PlayerEvent $playerEvent): void
+    private function handleInfection(Player $player, PlayerVariableEvent $playerEvent): void
     {
-        if ($player->getVariableByName(PlayerVariableEnum::SPORE)->isMax()) {
-            $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+        if ($playerEvent->getQuantity() > 0 && !$player->isMush()) {
+            $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
         }
 
-        $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        if ($player->getVariableByName(PlayerVariableEnum::SPORE)->isMax() && !$player->isMush()) {
+            $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+        }
     }
 }

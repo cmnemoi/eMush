@@ -19,7 +19,7 @@ class DaedalusConfigData
             'maxHull' => 100,
             'maxShield' => 100,
             'dailySporeNb' => 4,
-            'nbMush' => 3,
+            'nbMush' => 2,
             'cyclePerGameDay' => 8,
             'cycleLength' => 180,
             'randomItemPlaces' => 'default',

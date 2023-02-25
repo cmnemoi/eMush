@@ -13,7 +13,6 @@ class DaedalusVariableEvent extends DaedalusEvent implements VariableEventInterf
 {
     private int $quantity;
     private string $variableName;
-    private ?Player $player = null;
 
     public function __construct(
         Daedalus $daedalus,
@@ -48,13 +47,6 @@ class DaedalusVariableEvent extends DaedalusEvent implements VariableEventInterf
     public function getVariableName(): string
     {
         return $this->variableName;
-    }
-
-    public function setPlayer(Player $player): self
-    {
-        $this->player = $player;
-
-        return $this;
     }
 
     public function getVariableHolder(): GameVariableHolderInterface

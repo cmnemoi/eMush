@@ -32,7 +32,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
+        $equipment = $event->getGameEquipment();
 
         if ($equipment->isBroken()) {
             $alert = $this->alertService->findByNameAndDaedalus(
@@ -51,7 +51,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentTransform(TransformEquipmentEvent $event): void
     {
-        $newEquipment = $event->getEquipment();
+        $newEquipment = $event->getGameEquipment();
         $oldEquipment = $event->getEquipmentFrom();
 
         if ($oldEquipment->isBroken()) {

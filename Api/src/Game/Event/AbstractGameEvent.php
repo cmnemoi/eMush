@@ -2,11 +2,14 @@
 
 namespace Mush\Game\Event;
 
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Player\Entity\Player;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class AbstractGameEvent extends Event
 {
     private string $eventName;
+    protected ?Player $player = null;
     protected \DateTime $time;
     protected array $tags;
 
@@ -25,6 +28,19 @@ class AbstractGameEvent extends Event
     {
         return $this->eventName;
     }
+
+    public function setPlayer(?Player $player): self
+    {
+        $this->player = $player;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
 
     public function getTime(): \DateTime
     {
@@ -64,5 +80,16 @@ class AbstractGameEvent extends Event
         }
 
         return null;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        $player = $this->player;
+
+        if ($player === null) {
+            return new ModifierCollection();
+        }
+
+        return $player->getAllModifiers()->getEventModifiers($this);
     }
 }

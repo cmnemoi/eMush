@@ -3,6 +3,7 @@
 namespace Mush\Place\Event;
 
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Place\Entity\Place;
 
 class PlaceCycleEvent extends AbstractGameEvent
@@ -25,5 +26,16 @@ class PlaceCycleEvent extends AbstractGameEvent
     public function getPlace(): Place
     {
         return $this->place;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        $player = $this->player;
+
+        if ($player === null) {
+            return $this->getPlace()->getAllModifiers()->getEventModifiers($this);
+        }
+
+        return $player->getAllModifiers()->getEventModifiers($this);
     }
 }

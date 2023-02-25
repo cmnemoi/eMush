@@ -70,6 +70,6 @@ class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface,
 
     public function getModifierHolder(): ModifierHolder
     {
-        return $this->player;
+        return $this->getPlayer();
     }
 }

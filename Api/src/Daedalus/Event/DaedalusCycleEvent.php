@@ -4,6 +4,8 @@ namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Event\ModifiableEventInterface;
 
 class DaedalusCycleEvent extends AbstractGameEvent
 {
@@ -22,5 +24,16 @@ class DaedalusCycleEvent extends AbstractGameEvent
     public function getDaedalus(): Daedalus
     {
         return $this->daedalus;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        $player = $this->player;
+
+        if ($player === null) {
+            return $this->getDaedalus()->getAllModifiers()->getEventModifiers($this);
+        }
+
+        return $player->getAllModifiers()->getEventModifiers($this);
     }
 }

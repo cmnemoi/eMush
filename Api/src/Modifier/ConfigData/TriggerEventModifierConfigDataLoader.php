@@ -26,7 +26,7 @@ class TriggerEventModifierConfigDataLoader extends ModifierConfigDataLoader
             $modifierConfig
                 ->setVisibility($modifierConfigData['visibility'])
                 ->setTargetEvent($modifierConfigData['targetEvent'])
-                ->setApplyOnParameterOnly($modifierConfigData['applyOnActionParameter'])
+                ->setApplyOnTarget($modifierConfigData['applyOnActionParameter'])
                 ->setModifierRange($modifierConfigData['modifierRange'])
                 ->setName($modifierConfigData['name'])
                 ->setModifierName($modifierConfigData['modifierName'])

@@ -27,7 +27,7 @@ class VariableEventModifierConfigDataLoader extends ModifierConfigDataLoader
                 ->setDelta($modifierConfigData['delta'])
                 ->setTargetVariable($modifierConfigData['targetVariable'])
                 ->setTargetEvent($modifierConfigData['targetEvent'])
-                ->setApplyOnParameterOnly($modifierConfigData['applyOnActionParameter'])
+                ->setApplyOnTarget($modifierConfigData['applyOnActionParameter'])
                 ->setModifierRange($modifierConfigData['modifierRange'])
                 ->setName($modifierConfigData['name'])
                 ->setModifierName($modifierConfigData['modifierName'])

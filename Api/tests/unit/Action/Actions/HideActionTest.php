@@ -83,8 +83,8 @@ class HideActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof InteractWithEquipmentEvent &&
-                $event->getEquipment() === $gameItem &&
-                $event->getActor() === $player &&
+                $event->getGameEquipment() === $gameItem &&
+                $event->getAuthor() === $player &&
                 $event->getTags() === [ActionEnum::HIDE]
             )
             ->once()

@@ -33,10 +33,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $equipmentName = $event->getEquipment()->getName();
+        $equipmentName = $event->getGameEquipment()->getName();
 
         if (in_array($equipmentName, [EquipmentEnum::SHOWER, EquipmentEnum::THALASSO])) {
-            $holder = $event->getEquipment()->getHolder();
+            $holder = $event->getGameEquipment()->getHolder();
 
             $daedalus = $holder->getPlace()->getDaedalus();
 

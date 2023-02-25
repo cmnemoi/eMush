@@ -54,7 +54,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function initModifier(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
+        $equipment = $event->getGameEquipment();
         $config = $equipment->getEquipment();
         $reasons = $event->getTags();
         $time = $event->getTime();
@@ -79,7 +79,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         if ($event instanceof TransformEquipmentEvent) {
             $equipment = $event->getEquipmentFrom();
         } else {
-            $equipment = $event->getEquipment();
+            $equipment = $event->getGameEquipment();
         }
 
         $this->gameEquipmentService->delete($equipment);
@@ -87,14 +87,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onInventoryOverflow(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
+        $equipment = $event->getGameEquipment();
         $equipment->setHolder($equipment->getPlace());
         $this->gameEquipmentService->persist($equipment);
     }
 
     public function checkInventoryOverflow(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
+        $equipment = $event->getGameEquipment();
         $holder = $equipment->getHolder();
 
         if ($holder instanceof Player &&
@@ -114,13 +114,13 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onChangeHolder(InteractWithEquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
+        $equipment = $event->getGameEquipment();
         $holder = $equipment->getHolder();
 
         if ($holder instanceof Player) {
             $equipment->setHolder($holder->getPlace());
         } else {
-            $equipment->setHolder($event->getActor());
+            $equipment->setHolder($event->getAuthor());
         }
 
         $this->gameEquipmentService->persist($equipment);

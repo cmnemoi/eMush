@@ -8,33 +8,37 @@ use Mush\Player\Entity\Player;
 
 class InteractWithEquipmentEvent extends EquipmentEvent
 {
-    protected EquipmentHolderInterface $actor;
+    protected EquipmentHolderInterface $author;
 
     public function __construct(
-        GameEquipment $equipment,
-        EquipmentHolderInterface $actor,
-        string $visibility,
-        array $tags,
-        \DateTime $time
+        GameEquipment            $equipment,
+        EquipmentHolderInterface $author,
+        string                   $visibility,
+        array                    $tags,
+        \DateTime                $time
     ) {
         parent::__construct($equipment, false, $visibility, $tags, $time);
 
-        $this->actor = $actor;
+        $this->author = $author;
+
+        if ($author instanceof Player) {
+            $this->player = $author;
+        }
     }
 
-    public function getActor(): EquipmentHolderInterface
+    public function getAuthor(): EquipmentHolderInterface
     {
-        return $this->actor;
+        return $this->author;
     }
 
     public function getLogParameters(): array
     {
         $logParameters = [];
 
-        $logParameters['target_' . $this->getEquipment()->getLogKey()] = $this->getEquipment()->getLogName();
+        $logParameters['target_' . $this->getGameEquipment()->getLogKey()] = $this->getGameEquipment()->getLogName();
 
-        if ($this->actor instanceof Player) {
-            $logParameters[$this->actor->getLogKey()] = $this->actor->getLogName();
+        if ($this->author instanceof Player) {
+            $logParameters[$this->author->getLogKey()] = $this->author->getLogName();
         }
 
         return $logParameters;

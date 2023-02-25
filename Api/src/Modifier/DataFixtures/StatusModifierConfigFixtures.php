@@ -50,7 +50,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionEnum::CONSUME)
-            ->setApplyOnParameterOnly(true)
+            ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT)
         ;
         $frozenModifier->buildName();

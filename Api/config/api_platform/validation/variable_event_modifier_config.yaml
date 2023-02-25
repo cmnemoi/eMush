@@ -8,6 +8,8 @@ Mush\Modifier\Entity\Config\VariableEventModifierConfig:
     modifierRange:
       - NotBlank: ~
       - Type: string
-    applyOnActionParameter:
+    applyOnTarget:
       - NotBlank: ~
       - Type: boolean
+    tagConstraints:
+      - Type: array

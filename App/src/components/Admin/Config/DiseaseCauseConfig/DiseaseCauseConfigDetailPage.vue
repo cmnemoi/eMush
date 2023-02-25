@@ -21,6 +21,7 @@
             :label="$t('admin.diseaseCauseConfig.diseases')"
             :map="diseaseCauseConfig.diseases"
             mapIndexesType="string"
+            mapValuesType="number"
             @addTuple="addDisease"
             @removeIndex="removeDisease"
         />

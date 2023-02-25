@@ -106,6 +106,9 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         // Get GameModifier effect description
         /** @var VariableEventModifierConfig $modifierConfig */
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
+            if (!$modifierConfig instanceof VariableEventModifierConfig) {
+                continue;
+            }
             $delta = $modifierConfig->getDelta();
             $mode = $modifierConfig->getMode();
             $scope = $modifierConfig->getTargetEvent();

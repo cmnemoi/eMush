@@ -21,6 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
     'event_modifier_config' => EventModifierConfig::class,
     'trigger_event_modifier_config' => TriggerEventModifierConfig::class,
     'variable_event_modifier_config' => VariableEventModifierConfig::class,
+    'prevent_event_modifier_config' => PreventEventModifierConfig::class,
     'direct_modifier_config' => DirectModifierConfig::class,
 ])]
 abstract class AbstractModifierConfig

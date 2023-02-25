@@ -1,4 +1,4 @@
-Mush\Modifier\Entity\Config\VariableEventModifierConfig:
+Mush\Modifier\Entity\Config\PreventEventModifierConfig:
   properties:
     name:
       - NotBlank: ~
@@ -8,15 +8,6 @@ Mush\Modifier\Entity\Config\VariableEventModifierConfig:
     modifierRange:
       - NotBlank: ~
       - Type: string
-    mode:
-      - NotBlank: ~
-      - Type: string
-    targetVariable:
-      - NotBlank: ~
-      - Type: string
-    delta:
-      - NotBlank: ~
-      - Type: integer
     applyOnTarget:
       - NotBlank: ~
       - Type: boolean

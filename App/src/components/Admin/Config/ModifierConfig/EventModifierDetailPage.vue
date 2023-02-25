@@ -16,21 +16,12 @@
                 :errors="errors.modifierName"
             />
             <Input
-                :label="$t('admin.modifierConfig.delta')"
-                id="modifierConfig_delta"
-                v-model="modifierConfig.delta"
-                type="number"
-                :errors="errors.delta"
-            />
-            <Input
-                :label="$t('admin.modifierConfig.targetVariable')"
-                id="modifierConfig_targetVariable"
-                v-model="modifierConfig.targetVariable"
+                :label="$t('admin.modifierConfig.modifierHolderClass')"
+                id="modifierConfig_modifierHolderClass"
+                v-model="modifierConfig.modifierRange"
                 type="text"
-                :errors="errors.targetVariable"
+                :errors="errors.modifierRange"
             />
-        </div>
-        <div class="flex-row">
             <Input
                 :label="$t('admin.modifierConfig.targetEvent')"
                 id="modifierConfig_targetEvent"
@@ -39,26 +30,48 @@
                 :errors="errors.targetEvent"
             />
             <Input
-                :label="$t('admin.modifierConfig.modifierHolderClass')"
-                id="modifierConfig_modifierHolderClass"
-                v-model="modifierConfig.modifierRange"
-                type="text"
-                :errors="errors.modifierRange"
-            />
-            <Input
-                :label="$t('admin.modifierConfig.triggeredEvent')"
-                id="triggeredEvent"
-                v-model="modifierConfig.triggeredEvent"
-                type="text"
-                :errors="errors.triggeredEvent"
-            />
-            <Input
                 :label="$t('admin.modifierConfig.applyOnActionParameter')"
                 type="checkbox"
                 class="configCheckbox"
                 id="modifierConfig_applyOnActionParameter"
                 v-model="modifierConfig.applyOnActionParameter"
             />
+        </div>
+        <div class="flex-row">
+            <div v-if="modifierConfig.type === 'VariableEventModifierConfig'">
+                <div class="flex-row">
+                    <Input
+                        :label="$t('admin.modifierConfig.targetVariable')"
+                        id="modifierConfig_targetVariable"
+                        v-model="modifierConfig.targetVariable"
+                        type="text"
+                        :errors="errors.targetVariable"
+                    />
+                    <Input
+                        :label="$t('admin.modifierConfig.delta')"
+                        id="modifierConfig_delta"
+                        v-model="modifierConfig.delta"
+                        type="text"
+                        :errors="errors.delta"
+                    />
+                    <Input
+                        :label="$t('admin.modifierConfig.mode')"
+                        id="modifierConfig_mode"
+                        v-model="modifierConfig.mode"
+                        type="text"
+                        :errors="errors.mode"
+                    />
+                </div>
+            </div>
+            <div v-if="modifierConfig.type === 'TriggerEventModifierConfig'">
+                <Input
+                    :label="$t('admin.modifierConfig.triggeredEvent')"
+                    id="triggeredEvent"
+                    v-model="modifierConfig.triggeredEvent"
+                    type="text"
+                    :errors="errors.triggeredEvent"
+                />
+            </div>
         </div>
         <h3>{{ $t('admin.modifierConfig.tagConstraints') }}</h3>
         <MapManager
@@ -102,7 +115,7 @@ interface ModifierConfigState {
 }
 
 export default defineComponent({
-    name: "TriggerEventModifierConfigState",
+    name: "EventModifierConfigState",
     components: {
         MapManager,
         ChildCollectionManager,
@@ -112,7 +125,7 @@ export default defineComponent({
     data: function (): ModifierConfigState {
         return {
             modifierConfig: null,
-            errors: {}
+            errors: {},
         };
     },
     methods: {
@@ -142,6 +155,7 @@ export default defineComponent({
                 });
         },
         update(): void {
+            console.log(this.modifierConfig);
             if (this.modifierConfig === null) {
                 return;
             }
@@ -150,7 +164,7 @@ export default defineComponent({
                 .then((res: ModifierConfig | null) => {
                     this.modifierConfig = res;
                     if (this.modifierConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
                             .then((result) => {
                                 const modifierActivationRequirements : ModifierActivationRequirement[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -195,7 +209,7 @@ export default defineComponent({
         GameConfigService.loadModifierConfig(Number(modifierConfigId)).then((res: ModifierConfig | null) => {
             if (res instanceof ModifierConfig) {
                 this.modifierConfig = res;
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_modifier_configs', modifierConfigId, 'modifier_activation_requirements'))
+                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs', modifierConfigId, 'modifier_activation_requirements'))
                     .then((result) => {
                         const modifierActivationRequirements : ModifierActivationRequirement[] = [];
                         result.data['hydra:member'].forEach((datum: any) => {
@@ -208,7 +222,6 @@ export default defineComponent({
                     });
             }
         });
-
     }
 });
 </script>

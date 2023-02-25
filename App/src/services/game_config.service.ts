@@ -31,6 +31,8 @@ const VARIABLE_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "
 // @ts-ignore
 const TARGET_EVENT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "target_event_modifier_configs");
 // @ts-ignore
+const PREVENT_EVENT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "prevent_event_modifier_configs");
+// @ts-ignore
 const DIRECT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "direct_modifier_configs");
 // @ts-ignore
 const EVENT_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "event_configs");
@@ -102,13 +104,14 @@ const MECHANICS_ENDPOINTS: Map<string, string> = new Map([
 ]);
 
 const MODIFIER_CONFIG_ENDPOINTS: Map<string, string> = new Map([
-    ['variable_event_modifier_config', VARIABLE_MODIFIER_CONFIG_ENDPOINT],
-    ['target_event_modifier_config', TARGET_EVENT_MODIFIER_CONFIG_ENDPOINT],
-    ['direct_modifier_config', DIRECT_MODIFIER_CONFIG_ENDPOINT],
+    ['variableeventmodifierconfig', VARIABLE_MODIFIER_CONFIG_ENDPOINT],
+    ['targeteventmodifierconfig', TARGET_EVENT_MODIFIER_CONFIG_ENDPOINT],
+    ['preventeventmodifierconfig', PREVENT_EVENT_MODIFIER_CONFIG_ENDPOINT],
+    ['directmodifierconfig', DIRECT_MODIFIER_CONFIG_ENDPOINT],
 ]);
 
 const EVENT_CONFIG_ENDPOINTS: Map<string, string> = new Map([
-    ['variable_event_config', VARIABLE_EVENT_CONFIG_ENDPOINT],
+    ['variableeventconfig', VARIABLE_EVENT_CONFIG_ENDPOINT],
 ]);
     
 
@@ -182,6 +185,9 @@ const GameConfigService = {
         if (modifierType === undefined) {
             throw new Error('Mechanics type is not defined');
         }
+
+        console.log(modifierType);
+        console.log(modifierConfig.id);
 
         const modifierConfigData = await ApiService.put(MODIFIER_CONFIG_ENDPOINTS.get(modifierType) + '/' + modifierConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', modifierConfig.jsonEncode())
             .catch((e) => {

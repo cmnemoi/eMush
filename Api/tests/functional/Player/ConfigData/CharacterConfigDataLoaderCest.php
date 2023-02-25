@@ -145,7 +145,7 @@ class CharacterConfigDataLoaderCest
             'maxMovementPoint' => 12,
             'maxItemInInventory' => 3,
             'initHealthPoint' => 14,
-            'initMoralPoint' => 14,
+            'initMoralPoint' => 7,
             'initSatiety' => 0,
             'initActionPoint' => 8,
             'initMovementPoint' => 12,

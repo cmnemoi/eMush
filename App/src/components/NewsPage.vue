@@ -12,14 +12,14 @@
                 <p>{{ $t('newsPage.updatedAt') }} {{ formatDate(item.updatedAt) }}</p>
             </div>
             <div class="news-french-content" v-if="localeIsFrench()">
-                <p>{{ item.frenchContent }}</p>
+                <p v-html="item.frenchContent" />
             </div>
             <div class="news-english-title" v-if="localeIsEnglish()" @click="toggleNews(item)">
                 <h2>{{ item.englishTitle }}</h2>
                 <p>{{ $t('newsPage.updatedAt') }} {{ formatDate(item.updatedAt) }}</p>
             </div>
             <div class="news-english-content" v-if="localeIsEnglish()">
-                <p>{{ item.englishContent }}</p>
+                <p v-html="item.englishContent" />
             </div>
         </div>
         <div class="pagination-container">
@@ -42,7 +42,6 @@ import ApiService from "@/services/api.service";
 import { GameLocales } from "@/i18n";
 import { News } from "@/entities/News";
 import Pagination from "@/components/Utils/Datatable/Pagination.vue";
-
 
 export default defineComponent ({
     name: 'TheEnd',

@@ -54,7 +54,7 @@ class CharacterConfigData
             ],
             'initDiseases' => [],
             'startingItems' => [
-                'itrackie_default'
+                'itrackie_default',
             ],
             'initStatuses' => [],
         ],
@@ -108,7 +108,7 @@ class CharacterConfigData
             ],
             'initDiseases' => [],
             'startingItems' => [
-                'itrackie_default'
+                'itrackie_default',
             ],
             'initStatuses' => [],
         ],
@@ -161,7 +161,7 @@ class CharacterConfigData
             ],
             'initDiseases' => [],
             'startingItems' => [
-                'itrackie_default'
+                'itrackie_default',
             ],
             'initStatuses' => [
                 'immunized_default',
@@ -216,7 +216,7 @@ class CharacterConfigData
             ],
             'initDiseases' => [],
             'startingItems' => [
-                'itrackie_default'
+                'itrackie_default',
             ],
             'initStatuses' => [
                 'first_time_default',
@@ -274,7 +274,7 @@ class CharacterConfigData
                 'chronic_vertigo_default',
             ],
             'startingItems' => [
-                'itrackie_default'
+                'itrackie_default',
             ],
             'initStatuses' => [],
         ],
@@ -381,7 +381,7 @@ class CharacterConfigData
             ],
             'initDiseases' => [],
             'startingItems' => [
-                'itrackie_default'
+                'itrackie_default',
             ],
             'initStatuses' => [],
         ],
@@ -489,7 +489,7 @@ class CharacterConfigData
             ],
             'initDiseases' => [],
             'startingItems' => [
-                'itrackie_default'
+                'itrackie_default',
             ],
             'initStatuses' => [],
         ],
@@ -543,7 +543,7 @@ class CharacterConfigData
             ],
             'initDiseases' => [],
             'startingItems' => [
-                'itrackie_default'
+                'itrackie_default',
             ],
             'initStatuses' => [
                 'pacifist_default',
@@ -814,7 +814,7 @@ class CharacterConfigData
             ],
             'initDiseases' => [],
             'startingItems' => [
-                'itrackie_default'
+                'itrackie_default',
             ],
             'initStatuses' => [
                 'antisocial_default',
@@ -870,7 +870,7 @@ class CharacterConfigData
             ],
             'initDiseases' => [],
             'startingItems' => [
-                'itrackie_default'
+                'itrackie_default',
             ],
             'initStatuses' => [],
         ],
@@ -924,7 +924,7 @@ class CharacterConfigData
             ],
             'initDiseases' => [],
             'startingItems' => [
-                'itrackie_default'
+                'itrackie_default',
             ],
             'initStatuses' => [],
         ],

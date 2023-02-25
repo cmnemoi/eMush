@@ -33,6 +33,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class DaedalusController extends AbstractFOSRestController
 {
+    private const MAX_CHARACTERS_TO_RETURN = 4;
+    
     private DaedalusServiceInterface $daedalusService;
     private DaedalusWidgetServiceInterface $daedalusWidgetService;
     private TranslationServiceInterface $translationService;
@@ -76,7 +78,10 @@ class DaedalusController extends AbstractFOSRestController
         }
 
         $availableCharacters = $this->daedalusService->findAvailableCharacterForDaedalus($daedalus);
-        $availableCharacters = $this->randomService->getRandomElements($availableCharacters->toArray(), 4);
+        
+        $nbCharactersToReturn = min(self::MAX_CHARACTERS_TO_RETURN, count($availableCharacters));
+        
+        $availableCharacters = $this->randomService->getRandomElements($availableCharacters->toArray(), $nbCharactersToReturn);
         $characters = [];
         /** @var CharacterConfig $character */
         foreach ($availableCharacters as $character) {

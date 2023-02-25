@@ -41,7 +41,6 @@ class AbstractGameEvent extends Event
         return $this->player;
     }
 
-
     public function getTime(): \DateTime
     {
         return $this->time;

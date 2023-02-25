@@ -7,7 +7,6 @@ use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Player\Entity\Player;
 
 class DaedalusVariableEvent extends DaedalusEvent implements VariableEventInterface
 {

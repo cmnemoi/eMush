@@ -11,11 +11,11 @@ class InteractWithEquipmentEvent extends EquipmentEvent
     protected EquipmentHolderInterface $author;
 
     public function __construct(
-        GameEquipment            $equipment,
+        GameEquipment $equipment,
         EquipmentHolderInterface $author,
-        string                   $visibility,
-        array                    $tags,
-        \DateTime                $time
+        string $visibility,
+        array $tags,
+        \DateTime $time
     ) {
         parent::__construct($equipment, false, $visibility, $tags, $time);
 

@@ -53,7 +53,6 @@ class EventModifierConfig extends AbstractModifierConfig
         return $this;
     }
 
-
     public function setTagConstraints(array $tagConstraints): self
     {
         $this->tagConstraints = $tagConstraints;

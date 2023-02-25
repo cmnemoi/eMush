@@ -5,9 +5,6 @@ namespace Mush\Communication\Event;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Event\ModifiableEventInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 
 class MessageEvent extends AbstractGameEvent

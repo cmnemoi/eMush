@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
@@ -32,7 +31,6 @@ class EquipmentEvent extends EquipmentCycleEvent implements LoggableEventInterfa
 
         parent::__construct($equipment, $equipment->getDaedalus(), $tags, $time);
     }
-
 
     public function isCreated(): bool
     {

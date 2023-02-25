@@ -59,13 +59,14 @@ class VariableEventModifierConfigDataLoaderCest
         unset($configData['triggeredEvent']);
         unset($configData['visibility']);
         unset($configData['modifierActivationRequirements']);
+        unset($configData['tagConstraints']);
 
         return $configData;
     }
 
     /**
      * ModifierConfigData::$dataArray contains all the ModifierConfigsData, including the ones that are not VariableEventModifierConfigYo,
-     * so this method returns the number of VariableEventModifierConfigYo in the array.
+     * so this method returns the number of VariableEventModifierConfig in the array.
      */
     private function getNumberOfVariableEventModifierConfigs(): int
     {

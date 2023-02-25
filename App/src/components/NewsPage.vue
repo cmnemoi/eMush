@@ -21,13 +21,6 @@
             <div class="news-english-content" v-if="localeIsEnglish()">
                 <p>{{ item.englishContent }}</p>
             </div>
-            <div class="news-spanish-title" v-if="localeIsSpanish()" @click="toggleNews(item)">
-                <h2>{{ item.spanishTitle }}</h2>
-                <p>{{ $t('newsPage.updatedAt') }} {{ formatDate(item.updatedAt) }}</p>
-            </div>
-            <div class="news-spanish-content" v-if="localeIsSpanish()">
-                <p>{{ item.spanishContent }}</p>²
-            </div>
         </div>
         <div class="pagination-container">
             <Pagination
@@ -127,9 +120,6 @@ export default defineComponent ({
         },
         localeIsEnglish() {
             return this.$i18n.locale.split('-')[0] === GameLocales.EN;
-        },
-        localeIsSpanish() {
-            return this.$i18n.locale.split('-')[0] === GameLocales.ES;
         },
         formatDate(date: Date) {
             if (date === null) {

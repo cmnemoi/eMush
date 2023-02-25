@@ -4,13 +4,14 @@ namespace unit\Action\Service;
 
 use Mockery;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -18,15 +19,14 @@ use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ActionServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
-    /** @var ModifierServiceInterface|Mockery\Mock */
-    private ModifierServiceInterface $modifierService;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
+    /** @var EventModifierServiceInterface|Mockery\Mock */
+    private EventModifierServiceInterface $modifierService;
 
     /** @var ValidatorInterface|Mockery\Mock */
     protected ValidatorInterface $validator;
@@ -41,14 +41,14 @@ class ActionServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
+        $this->eventService = \Mockery::mock(EventServiceInterface::class);
+        $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
 
-        $this->actionService = Mockery::mock(ActionServiceInterface::class);
-        $this->validator = Mockery::mock(ValidatorInterface::class);
+        $this->actionService = \Mockery::mock(ActionServiceInterface::class);
+        $this->validator = \Mockery::mock(ValidatorInterface::class);
 
         $this->service = new ActionService(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->modifierService,
         );
     }
@@ -58,14 +58,14 @@ class ActionServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
-    public function testApplyCostToPlayer()
+    public function testApplyCostToPlayerActionPoints()
     {
         // ActionPoint
         $player = $this->createPlayer(5, 5, 5);
-        $action = $this->createAction(1, null, null);
+        $action = $this->createAction(1, 0, 0);
 
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
@@ -77,7 +77,7 @@ class ActionServiceTest extends TestCase
             ->shouldReceive('getActionModifiedValue')
             ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
             ->andReturn(0)
-            ->once()
+            ->times(2)
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
@@ -90,17 +90,19 @@ class ActionServiceTest extends TestCase
             return fn (PlayerVariableEvent $event, string $eventName) => $event->getQuantity() === $delta && $eventName === $name;
         };
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
-            ->once()
-        ;
+        $this->eventService
+            ->shouldReceive('callEvent')
+            ->withArgs($eventDispatched(-1, VariableEventInterface::CHANGE_VARIABLE))
+            ->once();
 
         $this->service->applyCostToPlayer($player, $action, null);
+    }
 
+    public function testApplyCostToPlayerMovementPoints()
+    {
         // movement cost
         $player = $this->createPlayer(5, 5, 5);
-        $action = $this->createAction(null, 1, null);
+        $action = $this->createAction(0, 1, 0);
 
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
@@ -112,7 +114,7 @@ class ActionServiceTest extends TestCase
             ->shouldReceive('getActionModifiedValue')
             ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
             ->andReturn(1)
-            ->once()
+            ->times(2)
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
@@ -121,17 +123,23 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
+        $eventDispatched = static function (int $delta, string $name) {
+            return fn (PlayerVariableEvent $event, string $eventName) => $event->getQuantity() === $delta && $eventName === $name;
+        };
+
+        $this->eventService
+            ->shouldReceive('callEvent')
+            ->withArgs($eventDispatched(-1, VariableEventInterface::CHANGE_VARIABLE))
             ->once()
         ;
 
         $this->service->applyCostToPlayer($player, $action, null);
+    }
 
-        // moral cost
+    public function testApplyCostToPlayerMoralPoints()
+    {
         $player = $this->createPlayer(5, 5, 5);
-        $action = $this->createAction(null, null, 1);
+        $action = $this->createAction(0, 0, 1);
 
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
@@ -143,7 +151,7 @@ class ActionServiceTest extends TestCase
             ->shouldReceive('getActionModifiedValue')
             ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
             ->andReturn(0)
-            ->once()
+            ->times(2)
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
@@ -152,17 +160,24 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
+        $eventDispatched = static function (int $delta, string $name) {
+            return fn (PlayerVariableEvent $event, string $eventName) => $event->getQuantity() === $delta && $eventName === $name;
+        };
+
+        $this->eventService
+            ->shouldReceive('callEvent')
+            ->withArgs($eventDispatched(-1, VariableEventInterface::CHANGE_VARIABLE))
             ->once()
         ;
 
         $this->service->applyCostToPlayer($player, $action, null);
+    }
 
+    public function testApplyCostToPlayerVariousPoints()
+    {
         // mixed cost
         $player = $this->createPlayer(5, 5, 5);
-        $action = $this->createAction(1, null, 1);
+        $action = $this->createAction(1, 0, 1);
 
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
@@ -174,7 +189,7 @@ class ActionServiceTest extends TestCase
             ->shouldReceive('getActionModifiedValue')
             ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
             ->andReturn(0)
-            ->once()
+            ->times(2)
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
@@ -183,21 +198,28 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $eventDispatched = static function (int $delta, string $name) {
+            return fn (PlayerVariableEvent $event, string $eventName) => $event->getQuantity() === $delta && $eventName === $name;
+        };
+
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(
                 fn (PlayerVariableEvent $event, string $eventName) => (
                     $event->getQuantity() === -1 &&
-                    $eventName === AbstractQuantityEvent::CHANGE_VARIABLE)
+                    $eventName === VariableEventInterface::CHANGE_VARIABLE)
             )
             ->twice()
         ;
 
         $this->service->applyCostToPlayer($player, $action, null);
+    }
 
+    public function testApplyCostToPlayerActionPointsWithModifiers()
+    {
         // ActionPoint with modifiers
         $player = $this->createPlayer(5, 5, 5);
-        $action = $this->createAction(1, null, null);
+        $action = $this->createAction(1, 0, 0);
 
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
@@ -209,7 +231,7 @@ class ActionServiceTest extends TestCase
             ->shouldReceive('getActionModifiedValue')
             ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
             ->andReturn(0)
-            ->once()
+            ->times(2)
         ;
         $this->modifierService
             ->shouldReceive('getActionModifiedValue')
@@ -218,9 +240,13 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->withArgs($eventDispatched(-3, AbstractQuantityEvent::CHANGE_VARIABLE))
+        $eventDispatched = static function (int $delta, string $name) {
+            return fn (PlayerVariableEvent $event, string $eventName) => $event->getQuantity() === $delta && $eventName === $name;
+        };
+
+        $this->eventService
+            ->shouldReceive('callEvent')
+            ->withArgs($eventDispatched(-3, VariableEventInterface::CHANGE_VARIABLE))
             ->once()
         ;
 
@@ -232,16 +258,14 @@ class ActionServiceTest extends TestCase
         $player = $this->createPlayer(5, 5, 5);
 
         $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setName(StatusEnum::ATTEMPT);
+        $statusConfig->setStatusName(StatusEnum::ATTEMPT);
         $attempt = new Attempt($player, $statusConfig);
         $attempt
             ->setAction(ActionEnum::TAKE)
             ->setCharge(0)
         ;
 
-        $action = $this->createAction(null, 1, null);
-
-        $action->setSuccessRate(20);
+        $action = $this->createAction(0, 1, 0, 20);
 
         $this->modifierService->shouldReceive('getActionModifiedValue')
             ->with($action, $player, ModifierTargetEnum::PERCENTAGE, null, 0)
@@ -250,7 +274,7 @@ class ActionServiceTest extends TestCase
         ;
         $this->assertEquals(20, $this->service->getSuccessRate($action, $player, null));
 
-        // With Modifier
+        // With GameModifier
         $this->modifierService->shouldReceive('getActionModifiedValue')
             ->with($action, $player, ModifierTargetEnum::PERCENTAGE, null, 0)
             ->andReturn(40)
@@ -301,30 +325,33 @@ class ActionServiceTest extends TestCase
 
     private function createPlayer(int $actionPoint, int $movementPoint, int $moralPoint): Player
     {
+        $characterConfig = new CharacterConfig();
+        $characterConfig
+            ->setInitActionPoint($actionPoint)
+            ->setMaxActionPoint(12)
+            ->setInitMoralPoint($moralPoint)
+            ->setMaxMoralPoint(12)
+            ->setMaxMovementPoint(12)
+            ->setInitMovementPoint($movementPoint)
+        ;
         $player = new Player();
         $player
-            ->setActionPoint($actionPoint)
-            ->setMovementPoint($movementPoint)
-            ->setMoralPoint($moralPoint)
+            ->setPlayerVariables($characterConfig)
         ;
 
         return $player;
     }
 
-    private function createAction(?int $actionPointCost, ?int $movementPointCost, ?int $moralPointCost): Action
+    private function createAction(int $actionPointCost, int $movementPointCost, int $moralPointCost, int $successRate = 100): Action
     {
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost($actionPointCost)
-            ->setMovementPointCost($movementPointCost)
-            ->setMoralPointCost($moralPointCost)
-        ;
-
         $action = new Action();
 
         $action
-            ->setName(ActionEnum::TAKE)
-            ->setActionCost($actionCost)
+            ->setActionCost($actionPointCost)
+            ->setMoralCost($moralPointCost)
+            ->setMovementCost($movementPointCost)
+            ->setSuccessRate($successRate)
+            ->setActionName(ActionEnum::TAKE)
         ;
 
         return $action;

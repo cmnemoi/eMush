@@ -28,13 +28,28 @@ In case of trouble when running tests
 ```
 vendor/bin/codecept clean
 vendor/bin/psalm --no-cache
+PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix
 ```
 Test should cover at least 70 % of the lines. To check test coverage run:
 ```
 XDEBUG_MODE=coverage php vendor/bin/codecept run  --coverage
 ```
 
-4- Issue a Merge Request describing summarizing what you have done, wait a moment (ideally 24h) or the approval of an other developper before merging
+4- Issue a Merge Request describing summarizing what you have done, wait a moment (ideally 24h) or the approval of another developer before merging
+
+eMush uses [semantic-release](https://semantic-release.gitbook.io/semantic-release/) to generate changelogs and versioning.
+Therefore, your Merge Request title must follow the [Conventional commits convention](https://www.conventionalcommits.org/en/v1.0.0/#summary).
+In short, your MR title must be prefixed by one of the following:
+- feat: A new feature
+- fix: A bug fix
+- docs: Documentation only changes
+- style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+- refactor: A code change that neither fixes a bug nor adds a feature
+- perf: A code change that improves performance
+- test: Adding missing tests or correcting existing tests
+- ci: Changes to our CI configuration files and scripts
+- chore: Other changes that don't modify src or test files
+
 ## Code of Conduct
 
 ### Our Pledge

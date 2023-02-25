@@ -3,7 +3,6 @@
 namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Drop;
 use Mush\Action\Enum\ActionEnum;
@@ -24,7 +23,7 @@ class DropActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::DROP);
 
         $this->action = new Drop(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -35,13 +34,13 @@ class DropActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
 
         $item = new ItemConfig();
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -49,7 +48,7 @@ class DropActionTest extends AbstractActionTest
         $gameItem->setEquipment($item);
 
         $item
-            ->setName('itemName')
+            ->setEquipmentName('itemName')
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -60,7 +59,7 @@ class DropActionTest extends AbstractActionTest
         ;
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 

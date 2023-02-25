@@ -11,6 +11,8 @@ class PlayerVariableEnum
     public const SATIETY = 'satiety';
     public const TRIUMPH = 'triumph';
 
+    public const SPORE = 'spore';
+
     public static function getCappedPlayerVariables(): array
     {
         return [

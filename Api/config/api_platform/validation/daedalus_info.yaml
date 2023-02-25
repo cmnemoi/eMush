@@ -1,0 +1,6 @@
+Mush\Daedalus\Entity\DaedalusInfo:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+  properties:
+    name:
+      - NotBlank: ~

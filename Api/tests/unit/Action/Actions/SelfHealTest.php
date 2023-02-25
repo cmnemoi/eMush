@@ -24,11 +24,11 @@ class SelfHealActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_HEAL);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new SelfHeal(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->playerService,
@@ -40,7 +40,7 @@ class SelfHealActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -48,14 +48,14 @@ class SelfHealActionTest extends AbstractActionTest
         $room = new Place();
 
         $this->playerService->shouldReceive('persist');
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

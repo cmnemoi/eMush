@@ -4,22 +4,21 @@ namespace Mush\Equipment\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Repository\EquipmentRepository;
 
 class EquipmentService implements EquipmentServiceInterface
 {
-    private EquipmentRepository $equipmentRepository;
-
-    /**
-     * EquipmentService constructor.
-     */
-    public function __construct(EquipmentRepository $equipmentRepository)
-    {
-        $this->equipmentRepository = $equipmentRepository;
-    }
-
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): EquipmentConfig
     {
-        return $this->equipmentRepository->findByNameAndDaedalus($name, $daedalus);
+        $items = $daedalus
+            ->getGameConfig()
+            ->getEquipmentsConfig()
+            ->filter(fn (EquipmentConfig $item) => $item->getEquipmentName() === $name)
+        ;
+
+        if ($items->count() !== 1) {
+            throw new \Error('there should be exactly one equipmentConfig with this name');
+        }
+
+        return $items->first();
     }
 }

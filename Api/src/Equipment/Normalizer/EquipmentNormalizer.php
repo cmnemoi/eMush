@@ -20,7 +20,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -60,7 +59,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
-        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $currentPlayer->getDaedalus()->getLanguage();
 
         $key = $object->getName();
         $nameParameters = [];
@@ -86,8 +85,8 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
 
         if (($blueprint = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) instanceof Blueprint) {
             $key = ItemEnum::BLUEPRINT;
-            $resultEquipment = $blueprint->getEquipment();
-            $nameParameters[$resultEquipment->getLogKey()] = $blueprint->getEquipment()->getName();
+            $resultEquipmentName = $blueprint->getCraftedEquipmentName();
+            $nameParameters['item'] = $resultEquipmentName;
         }
 
         if (($book = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK)) instanceof Book) {
@@ -140,7 +139,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
     private function getContextActions(GameEquipment $gameEquipment, Player $currentPlayer): Collection
     {
         $scopes = [ActionScopeEnum::ROOM];
-        $scopes[] = ($gameEquipment->getPlace() instanceof Place) ? ActionScopeEnum::SHELVE : ActionScopeEnum::INVENTORY;
+        $scopes[] = ($gameEquipment->isInShelf()) ? ActionScopeEnum::SHELVE : ActionScopeEnum::INVENTORY;
 
         if ($gameEquipment instanceof GameItem) {
             $target = GameItem::class;
@@ -153,7 +152,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
 
     private function getRationsEffect(GameEquipment $gameEquipment, Daedalus $daedalus): array
     {
-        $language = $daedalus->getGameConfig()->getLanguage();
+        $language = $daedalus->getLanguage();
         /** @var Ration $ration */
         $ration = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
         if ($ration === null) {

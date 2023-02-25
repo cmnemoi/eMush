@@ -6,6 +6,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Equipment\Entity\PlantEffect;
 
+/**
+ * @template-extends ServiceEntityRepository<PlantEffect>
+ */
 class PlantEffectRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -19,5 +22,11 @@ class PlantEffectRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
 
         return $plantEffect;
+    }
+
+    public function remove(PlantEffect $plantEffect): void
+    {
+        $this->getEntityManager()->remove($plantEffect);
+        $this->getEntityManager()->flush();
     }
 }

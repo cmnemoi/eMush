@@ -13,10 +13,9 @@ Mush\User\Entity\User:
       filters: ['user.search_filter', 'user.order_filter']
   itemOperations:
     get:
-      security: 'is_granted("ROLE_MODERATOR") or object == user'
+      security: 'is_granted("ROLE_USER") or object == user'
     patch:
       security: 'is_granted("ROLE_ADMIN") and is_granted("EDIT_USER_ROLE", object)'
-
   properties:
     id:
       identifier: false

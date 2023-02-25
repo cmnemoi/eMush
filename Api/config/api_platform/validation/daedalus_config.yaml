@@ -1,0 +1,55 @@
+Mush\Daedalus\Entity\DaedalusConfig:
+  properties:
+    name:
+      - NotBlank: ~
+      - Length:
+          min: 3
+          max: 255
+    initOxygen:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    initFuel:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    initHull:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    initShield:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    dailySporeNb:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    maxOxygen:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    maxFuel:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    maxHull:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    maxShield:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    nbMush:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    cyclePerGameDay:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+    cycleLength:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer

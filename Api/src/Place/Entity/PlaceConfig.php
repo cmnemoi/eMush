@@ -3,27 +3,24 @@
 namespace Mush\Place\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Game\Entity\ConfigInterface;
-use Mush\Game\Entity\GameConfig;
 use Mush\Place\Enum\PlaceTypeEnum;
 
 /**
  * @ORM\Entity()
  */
 #[ORM\Entity]
-class PlaceConfig implements ConfigInterface
+class PlaceConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: DaedalusConfig::class, inversedBy: 'placeConfigs')]
-    private DaedalusConfig $daedalusConfig;
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    private string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $name;
+    private string $placeName;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $type = PlaceTypeEnum::ROOM;
@@ -42,19 +39,14 @@ class PlaceConfig implements ConfigInterface
         return $this->id;
     }
 
-    public function getDaedalusConfig(): DaedalusConfig
+    public function getPlaceName(): string
     {
-        return $this->daedalusConfig;
+        return $this->placeName;
     }
 
-    public function getGameConfig(): GameConfig
+    public function setPlaceName(string $placeName): static
     {
-        return $this->daedalusConfig->getGameConfig();
-    }
-
-    public function setDaedalusConfig(DaedalusConfig $daedalusConfig): static
-    {
-        $this->daedalusConfig = $daedalusConfig;
+        $this->placeName = $placeName;
 
         return $this;
     }
@@ -67,6 +59,13 @@ class PlaceConfig implements ConfigInterface
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function buildName(string $configName): static
+    {
+        $this->name = $this->placeName . '_' . $configName;
 
         return $this;
     }

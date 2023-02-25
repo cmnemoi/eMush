@@ -7,8 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Enum\TypeEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
@@ -21,8 +20,8 @@ class DiseaseConfig implements LogParameterInterface
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
-    private GameConfig $gameConfig;
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $diseaseName;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
@@ -30,7 +29,7 @@ class DiseaseConfig implements LogParameterInterface
     #[ORM\Column(type: 'string', nullable: false)]
     private string $type = TypeEnum::DISEASE;
 
-    #[ORM\ManyToMany(targetEntity: ModifierConfig::class)]
+    #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;
 
     #[ORM\Column(type: 'integer', nullable: false)]
@@ -65,14 +64,14 @@ class DiseaseConfig implements LogParameterInterface
         return $this->id;
     }
 
-    public function getGameConfig(): GameConfig
+    public function getDiseaseName(): string
     {
-        return $this->gameConfig;
+        return $this->diseaseName;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): self
+    public function setDiseaseName(string $diseaseName): self
     {
-        $this->gameConfig = $gameConfig;
+        $this->diseaseName = $diseaseName;
 
         return $this;
     }
@@ -85,6 +84,13 @@ class DiseaseConfig implements LogParameterInterface
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function buildName(string $configName): self
+    {
+        $this->name = $this->diseaseName . '_' . $configName;
 
         return $this;
     }
@@ -107,10 +113,14 @@ class DiseaseConfig implements LogParameterInterface
     }
 
     /**
-     * @return static
+     * @param array<int, AbstractModifierConfig>|Collection<int, AbstractModifierConfig> $modifierConfigs
      */
-    public function setModifierConfigs(Collection $modifierConfigs): self
+    public function setModifierConfigs(Collection|array $modifierConfigs): self
     {
+        if (is_array($modifierConfigs)) {
+            $modifierConfigs = new ArrayCollection($modifierConfigs);
+        }
+
         $this->modifierConfigs = $modifierConfigs;
 
         return $this;
@@ -138,8 +148,12 @@ class DiseaseConfig implements LogParameterInterface
         return $symptomConfigs;
     }
 
-    public function setSymptomConfigs(SymptomConfigCollection $symptomConfigs): self
+    public function setSymptomConfigs(SymptomConfigCollection|array $symptomConfigs): self
     {
+        if (is_array($symptomConfigs)) {
+            $symptomConfigs = new SymptomConfigCollection($symptomConfigs);
+        }
+
         $this->symptomConfigs = $symptomConfigs;
 
         return $this;
@@ -152,7 +166,7 @@ class DiseaseConfig implements LogParameterInterface
 
     public function getLogName(): string
     {
-        return $this->getName();
+        return $this->getDiseaseName();
     }
 
     public function getLogKey(): string

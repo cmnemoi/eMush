@@ -6,17 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'triumph_config')]
-class TriumphConfig implements ConfigInterface
+class TriumphConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: GameConfig::class, inversedBy: 'triumphConfig')]
-    private GameConfig $gameConfig;
-
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
 
     #[ORM\Column(type: 'integer', nullable: false)]
@@ -31,18 +28,6 @@ class TriumphConfig implements ConfigInterface
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getGameConfig(): GameConfig
-    {
-        return $this->gameConfig;
-    }
-
-    public function setGameConfig(GameConfig $gameConfig): self
-    {
-        $this->gameConfig = $gameConfig;
-
-        return $this;
     }
 
     public function getName(): string
@@ -67,6 +52,12 @@ class TriumphConfig implements ConfigInterface
         $this->triumph = $triumph;
 
         return $this;
+    }
+
+    // Getter for API Platform serialization
+    public function getIsAllCrew(): bool
+    {
+        return $this->isAllCrew;
     }
 
     public function isAllCrew(): bool

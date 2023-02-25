@@ -10,7 +10,10 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Voter\MessageVoter;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -20,6 +23,8 @@ class MessageVoterTest extends TestCase
 {
     /** @var ChannelServiceInterface|Mockery\mock */
     private ChannelServiceInterface $channelService;
+    /** @var PlayerInfoRepository|Mockery\mock */
+    private PlayerInfoRepository $playerInfoRepository;
 
     private Voter $voter;
 
@@ -28,16 +33,25 @@ class MessageVoterTest extends TestCase
      */
     public function before()
     {
-        $this->channelService = Mockery::mock(ChannelServiceInterface::class);
+        $this->channelService = \Mockery::mock(ChannelServiceInterface::class);
+        $this->playerInfoRepository = \Mockery::mock(PlayerInfoRepository::class);
 
-        $this->voter = new MessageVoter($this->channelService);
+        $this->voter = new MessageVoter($this->channelService, $this->playerInfoRepository);
     }
 
     public function testCanView()
     {
         $user = new User();
         $player = new Player();
-        $user->setCurrentGame($player);
+        $playerInfo = new PlayerInfo($player, $user, new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
+
+        $this->playerInfoRepository
+            ->shouldReceive('findCurrentGameByUser')
+            ->with($user)
+            ->andReturn($playerInfo)
+            ->once()
+        ;
 
         yield 'anonymous cannot edit' => [
             MessageVoter::VIEW,
@@ -54,17 +68,31 @@ class MessageVoterTest extends TestCase
         $user = new User();
         $channel = new Channel();
         $player = new Player();
-        $user->setCurrentGame($player);
+        $playerInfo = new PlayerInfo($player, $user, new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
 
         $message = new Message();
         $message->setChannel($channel);
-        $player->setGameStatus(GameStatusEnum::CURRENT);
+
+        $this->playerInfoRepository
+            ->shouldReceive('findCurrentGameByUser')
+            ->with($user)
+            ->andReturn($playerInfo)
+            ->once()
+        ;
         $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
         $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
         $this->testVote(MessageVoter::CREATE, $message, $user, Voter::ACCESS_GRANTED);
 
-        $player->setGameStatus(GameStatusEnum::FINISHED);
+        $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
+
+        $this->playerInfoRepository
+            ->shouldReceive('findCurrentGameByUser')
+            ->with($user)
+            ->andReturn($playerInfo)
+            ->once()
+        ;
         $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
         $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
@@ -77,11 +105,18 @@ class MessageVoterTest extends TestCase
         $channel = new Channel();
         $channel->setScope(ChannelScopeEnum::PRIVATE);
         $player = new Player();
-        $user->setCurrentGame($player);
+        $playerInfo = new PlayerInfo($player, $user, new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
 
         $message = new Message();
         $message->setChannel($channel);
-        $player->setGameStatus(GameStatusEnum::CURRENT);
+
+        $this->playerInfoRepository
+            ->shouldReceive('findCurrentGameByUser')
+            ->with($user)
+            ->andReturn($playerInfo)
+            ->once()
+        ;
         $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
         $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
@@ -90,15 +125,29 @@ class MessageVoterTest extends TestCase
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($channel)
-            ->setParticipant($player)
+            ->setParticipant($playerInfo)
         ;
         $channel->addParticipant($channelPlayer);
+
+        $this->playerInfoRepository
+            ->shouldReceive('findCurrentGameByUser')
+            ->with($user)
+            ->andReturn($playerInfo)
+            ->once()
+        ;
         $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
         $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
         $this->testVote(MessageVoter::CREATE, $message, $user, Voter::ACCESS_GRANTED);
 
-        $player->setGameStatus(GameStatusEnum::FINISHED);
+        $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
+
+        $this->playerInfoRepository
+            ->shouldReceive('findCurrentGameByUser')
+            ->with($user)
+            ->andReturn($playerInfo)
+            ->once()
+        ;
         $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
         $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 

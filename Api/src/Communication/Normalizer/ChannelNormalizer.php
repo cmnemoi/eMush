@@ -35,7 +35,7 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
-        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $currentPlayer->getDaedalus()->getLanguage();
 
         if (key_exists('piratedPlayer', $context)) {
             /** @var Player $piratedPlayer */
@@ -49,7 +49,7 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
         /** @var ChannelPlayer $participant */
         foreach ($object->getParticipants() as $participant) {
             $player = $participant->getParticipant();
-            $character = $player->getCharacterConfig()->getName();
+            $character = $player->getName();
             $participants[] = [
                 'id' => $player->getId(),
                 'character' => [

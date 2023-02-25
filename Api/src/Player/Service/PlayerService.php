@@ -4,27 +4,29 @@ namespace Mush\Player\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\DeadPlayerInfo;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
-use Mush\Player\Repository\DeadPlayerInfoRepository;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerService implements PlayerServiceInterface
 {
@@ -33,33 +35,35 @@ class PlayerService implements PlayerServiceInterface
     public const CYCLE_SATIETY_CHANGE = -1;
     public const DAY_HEALTH_CHANGE = 1;
     public const DAY_MORAL_CHANGE = -2;
+    public const NB_ORGANIC_WASTE_MIN = 3;
+    public const NB_ORGANIC_WASTE_MAX = 4;
 
     private EntityManagerInterface $entityManager;
 
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     private PlayerRepository $repository;
-
-    private DeadPlayerInfoRepository $deadPlayerRepository;
 
     private RoomLogServiceInterface $roomLogService;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
+    private RandomServiceInterface $randomService;
+
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         PlayerRepository $repository,
-        DeadPlayerInfoRepository $deadPlayerRepository,
         RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
+        RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->repository = $repository;
-        $this->deadPlayerRepository = $deadPlayerRepository;
         $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
+        $this->randomService = $randomService;
     }
 
     public function persist(Player $player): Player
@@ -68,6 +72,38 @@ class PlayerService implements PlayerServiceInterface
         $this->entityManager->flush();
 
         return $player;
+    }
+
+    public function persistPlayerInfo(PlayerInfo $player): PlayerInfo
+    {
+        $this->entityManager->persist($player);
+        $this->entityManager->flush();
+
+        return $player;
+    }
+
+    public function persistClosedPlayer(ClosedPlayer $player): ClosedPlayer
+    {
+        $this->entityManager->persist($player);
+        $this->entityManager->flush();
+
+        return $player;
+    }
+
+    public function delete(Player $player): bool
+    {
+        $playerInfo = $player->getPlayerInfo();
+        $playerInfo->deletePlayer();
+        $this->persistPlayerInfo($playerInfo);
+
+        $daedalus = $player->getDaedalus();
+        $daedalus->removePlayer($player);
+        $this->entityManager->persist($daedalus);
+
+        $this->entityManager->remove($player);
+        $this->entityManager->flush();
+
+        return true;
     }
 
     public function findById(int $id): ?Player
@@ -84,14 +120,9 @@ class PlayerService implements PlayerServiceInterface
 
     public function findUserCurrentGame(User $user): ?Player
     {
-        $player = $this->repository->findOneBy(['user' => $user, 'gameStatus' => GameStatusEnum::CURRENT]);
+        $playerInfo = $this->repository->findOneBy(['user' => $user, 'gameStatus' => GameStatusEnum::CURRENT]);
 
-        return $player instanceof Player ? $player : null;
-    }
-
-    public function findDeadPlayerInfo(Player $player): ?DeadPlayerInfo
-    {
-        return $this->deadPlayerRepository->findOneByPlayer($player);
+        return $playerInfo instanceof PlayerInfo ? $playerInfo->getPlayer() : null;
     }
 
     public function createPlayer(Daedalus $daedalus, User $user, string $character): Player
@@ -107,45 +138,45 @@ class PlayerService implements PlayerServiceInterface
         }
 
         $player
-            ->setUser($user)
-            ->setGameStatus(GameStatusEnum::CURRENT)
             ->setDaedalus($daedalus)
             ->setPlace(
                 $daedalus->getRooms()
                     ->filter(fn (Place $room) => RoomEnum::LABORATORY === $room->getName())
                     ->first()
             )
-            ->setCharacterConfig($characterConfig)
             ->setSkills([])
-            ->setHealthPoint($gameConfig->getInitHealthPoint())
-            ->setMoralPoint($gameConfig->getInitMoralPoint())
-            ->setActionPoint($gameConfig->getInitActionPoint())
-            ->setMovementPoint($gameConfig->getInitMovementPoint())
-            ->setSatiety($gameConfig->getInitSatiety())
-            ->setSatiety($gameConfig->getInitSatiety())
+            ->setPlayerVariables($characterConfig)
         ;
 
-        $user->setCurrentGame($player);
+        $playerInfo = new PlayerInfo(
+            $player,
+            $user,
+            $characterConfig
+        );
 
-        $this->persist($player);
+        $this->persistPlayerInfo($playerInfo);
+
+        $user->startGame();
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
 
         $playerEvent = new PlayerEvent(
             $player,
-            EventEnum::CREATE_DAEDALUS,
+            [EventEnum::CREATE_DAEDALUS],
             $time
         );
         $playerEvent
             ->setCharacterConfig($characterConfig)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::NEW_PLAYER);
 
-        foreach ($characterConfig->getStartingItem() as $itemConfig) {
+        foreach ($characterConfig->getStartingItems() as $itemConfig) {
             // Create the equipment
             $item = $this->gameEquipmentService->createGameEquipment(
                 $itemConfig,
                 $player,
-                PlayerEvent::NEW_PLAYER,
+                [PlayerEvent::NEW_PLAYER],
                 VisibilityEnum::PRIVATE
             );
         }
@@ -155,24 +186,24 @@ class PlayerService implements PlayerServiceInterface
 
     public function endPlayer(Player $player, string $message): Player
     {
-        $deadPlayerInfo = $this->findDeadPlayerInfo($player);
-        if ($deadPlayerInfo === null) {
-            throw new \LogicException('unable to find deadPlayerInfo');
-        }
+        $playerInfo = $player->getPlayerInfo();
 
-        $deadPlayerInfo->setMessage($message);
+        /** @var ClosedPlayer $closedPlayer */
+        $closedPlayer = $playerInfo->getClosedPlayer();
 
-        $player->setGameStatus(GameStatusEnum::CLOSED);
+        $closedPlayer
+            ->setMessage($message)
+        ;
+
+        $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
+        $this->persistPlayerInfo($playerInfo);
 
         $playerEvent = new PlayerEvent(
             $player,
-            PlayerEvent::END_PLAYER,
+            [PlayerEvent::END_PLAYER],
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::END_PLAYER);
-
-        $this->entityManager->persist($deadPlayerInfo);
-        $this->persist($player);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::END_PLAYER);
 
         return $player;
     }
@@ -186,10 +217,10 @@ class PlayerService implements PlayerServiceInterface
         if ($player->getMoralPoint() === 0) {
             $playerEvent = new PlayerEvent(
                 $player,
-                EndCauseEnum::DEPRESSION,
+                [EndCauseEnum::DEPRESSION],
                 $date
             );
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
             return $player;
         }
@@ -198,27 +229,27 @@ class PlayerService implements PlayerServiceInterface
             $player,
             PlayerVariableEnum::ACTION_POINT,
             self::CYCLE_ACTION_CHANGE,
-            EventEnum::NEW_CYCLE,
+            [EventEnum::NEW_CYCLE],
             $date);
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $playerModifierEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MOVEMENT_POINT,
             self::CYCLE_MOVEMENT_CHANGE,
-            EventEnum::NEW_CYCLE,
+            [EventEnum::NEW_CYCLE],
             $date
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $playerModifierEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::SATIETY,
             self::CYCLE_SATIETY_CHANGE,
-            EventEnum::NEW_CYCLE,
+            [EventEnum::NEW_CYCLE],
             $date
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $triumphChange = 0;
 
@@ -261,42 +292,49 @@ class PlayerService implements PlayerServiceInterface
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             self::DAY_HEALTH_CHANGE,
-            EventEnum::NEW_DAY,
+            [EventEnum::NEW_DAY],
             $date
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         if (!$player->isMush()) {
             $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::MORAL_POINT,
                 self::DAY_MORAL_CHANGE,
-                EventEnum::NEW_DAY,
+                [EventEnum::NEW_DAY],
                 $date
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
 
         return $this->persist($player);
     }
 
-    public function playerDeath(Player $player, ?string $reason, \DateTime $time): Player
+    public function playerDeath(Player $player, string $endReason, \DateTime $time): Player
     {
-        if (!$reason) {
-            $reason = 'missing end reason';
+        $currentRoom = $player->getPlace();
+        foreach ($player->getEquipments() as $item) {
+            $item->setHolder($currentRoom);
+            $this->gameEquipmentService->persist($item);
         }
 
-        $deadPlayerInfo = new DeadPlayerInfo();
-        $deadPlayerInfo
-            ->setPlayer($player)
-            ->setDayDeath($player->getDaedalus()->getDay())
-            ->setCycleDeath($player->getDaedalus()->getCycle())
-            ->setEndStatus($reason)
+        if ($endReason === EndCauseEnum::QUARANTINE) {
+            $this->handleQuarantineCompensation($player->getPlace());
+        }
+
+        $playerInfo = $player->getPlayerInfo();
+        $closedPlayer = $playerInfo->getClosedPlayer();
+        $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
+        $closedPlayer
+            ->setDayCycleDeath($player->getDaedalus())
+            ->setEndCause($endReason)
+            ->setIsMush($player->isMush())
+            ->setClosedDaedalus($player->getDaedalus()->getDaedalusInfo()->getClosedDaedalus())
         ;
+        $this->persistPlayerInfo($playerInfo);
 
-        $this->entityManager->persist($deadPlayerInfo);
-
-        if ($reason !== EndCauseEnum::DEPRESSION) {
+        if (!in_array($endReason, [EndCauseEnum::DEPRESSION, EndCauseEnum::QUARANTINE])) {
             $moraleLoss = -1;
             if ($player->hasStatus(PlayerStatusEnum::PREGNANT)) {
                 $moraleLoss = -2;
@@ -304,31 +342,39 @@ class PlayerService implements PlayerServiceInterface
 
             /** @var Player $daedalusPlayer */
             foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
-                if ($daedalusPlayer !== $player) {
+                if ($daedalusPlayer !== $player && !$daedalusPlayer->isMush()) {
                     $playerModifierEvent = new PlayerVariableEvent(
                         $daedalusPlayer,
                         PlayerVariableEnum::MORAL_POINT,
                         $moraleLoss,
-                        EventEnum::PLAYER_DEATH,
+                        [EventEnum::PLAYER_DEATH],
                         $time
                     );
-                    $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+                    $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
                 }
             }
         }
 
-        $currentRoom = $player->getPlace();
-        foreach ($player->getEquipments() as $item) {
-            $item->setHolder($currentRoom);
-            $this->gameEquipmentService->persist($item);
-        }
-
-        // @TODO in case of assassination chance of disorder for roommates
-
-        $player->setGameStatus(GameStatusEnum::FINISHED);
-
-        $this->persist($player);
-
         return $player;
+    }
+
+    /**
+     * This function handle the compensation for a player who died because of quarantine.
+     * Currently it drops 3-4 organic waste.
+     * TODO: add more powerful compensation?
+     *
+     * @param Place $playerPlace
+     */
+    private function handleQuarantineCompensation(Place $playerDeathPlace)
+    {
+        $nbOrganicWaste = $this->randomService->random(self::NB_ORGANIC_WASTE_MIN, self::NB_ORGANIC_WASTE_MAX);
+
+        for ($i = 0; $i < $nbOrganicWaste; ++$i) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                GameRationEnum::ORGANIC_WASTE,
+                $playerDeathPlace,
+                [EndCauseEnum::QUARANTINE],
+            );
+        }
     }
 }

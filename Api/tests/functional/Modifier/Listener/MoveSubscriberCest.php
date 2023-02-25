@@ -6,28 +6,32 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Game\Entity\GameConfig;
-use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierModeEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class MoveSubscriberCest
 {
@@ -42,33 +46,35 @@ class MoveSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
-        $actionCost = new ActionCost();
-        $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
-        $door = new Door();
+        $doorConfig = $I->have(EquipmentConfig::class, [
+            'name' => 'door_test',
+            'actions' => new ArrayCollection([$moveActionEntity]),
+        ]);
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
         $I->haveInRepository($door);
         $room->addDoor($door);
@@ -81,37 +87,47 @@ class MoveSubscriberCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'characterConfig' => $characterConfig,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         // first let create a gear with an irrelevant reach
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig();
         $modifierConfig1
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::MORAL_POINT)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig1);
         $I->refreshEntities($player);
-        $modifier = new Modifier($player, $modifierConfig1);
+        $modifier = new GameModifier($player, $modifierConfig1);
         $I->haveInRepository($modifier);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig1]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
-            'gameConfig' => $gameConfig,
+            'name' => 'test_1',
             'mechanics' => new ArrayCollection([$gear]),
         ]);
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($player);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment);
         $I->refreshEntities($player);
@@ -119,30 +135,32 @@ class MoveSubscriberCest
         $I->refreshEntities($player);
 
         // let's create a gear with room reach in player inventory
-        $modifierConfig2 = new ModifierConfig();
+        $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::MORAL_POINT)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLACE)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setModifierRange(ModifierHolderClassEnum::PLACE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig2);
-        $modifier2 = new Modifier($room, $modifierConfig2);
+        $modifier2 = new GameModifier($room, $modifierConfig2);
         $I->haveInRepository($modifier2);
 
         $gear2 = new Gear();
-        $gear2->setModifierConfigs(new ArrayCollection([$modifierConfig2]));
+        $gear2
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig2]))
+            ->setName('gear_test_2')
+        ;
         $I->haveInRepository($gear2);
         /** @var ItemConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, [
-            'gameConfig' => $gameConfig,
+            'name' => 'test_2',
             'mechanics' => new ArrayCollection([$gear2]),
         ]);
 
-        $gameEquipment2 = $equipmentConfig2
-            ->createGameItem()
-            ->setHolder($player);
+        $gameEquipment2 = $equipmentConfig2->createGameItem($player);
 
         $I->haveInRepository($gameEquipment2);
         $I->refreshEntities($player);
@@ -150,21 +168,21 @@ class MoveSubscriberCest
         $I->refreshEntities($player);
 
         // let's create a status with modifier with room reach on player
-        $modifier3 = new Modifier($room, $modifierConfig2);
+        $modifier3 = new GameModifier($room, $modifierConfig2);
         $I->haveInRepository($modifier3);
 
         $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(PlayerStatusEnum::MUSH)
+            ->setStatusName(PlayerStatusEnum::MUSH)
             ->setModifierConfigs(new ArrayCollection([$modifierConfig2]))
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
         $statusPlayer = new Status($player, $statusConfig);
         $I->haveInRepository($statusPlayer);
 
         // let's create a status with modifier with room reach on equipment2
-        $modifier4 = new Modifier($room, $modifierConfig2);
+        $modifier4 = new GameModifier($room, $modifierConfig2);
         $I->haveInRepository($modifier4);
 
         $I->haveInRepository($statusConfig);

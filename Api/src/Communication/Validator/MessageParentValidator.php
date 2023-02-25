@@ -7,14 +7,13 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use UnexpectedValueException;
 
 class MessageParentValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof CreateMessage) {
-            throw new UnexpectedValueException($value);
+            throw new \UnexpectedValueException($value);
         }
 
         if (!$constraint instanceof MessageParent) {

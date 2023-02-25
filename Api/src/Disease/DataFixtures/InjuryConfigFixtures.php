@@ -3,7 +3,6 @@
 namespace Mush\Disease\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
@@ -13,86 +12,56 @@ use Mush\Disease\Enum\InjuryEnum;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\DisorderModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\InjuryModifierConfigFixtures;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
 class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const BROKEN_FINGER = 'broken_finger';
-    public const BROKEN_FOOT = 'broken_foot';
-    public const BROKEN_LEG = 'broken_leg';
-    public const BROKEN_RIBS = 'broken_ribs';
-    public const BRUISED_SHOULDER = 'bruised_shoulder';
-    public const BURNS_50_OF_BODY = 'burns_50_of_body';
-    public const BURNS_90_OF_BODY = 'burns_90_of_body';
-    public const BURNT_ARMS = 'burnt_arms';
-    public const BURNT_HAND = 'burnt_hand';
-    public const BURST_NOSE = 'burst_nose';
-    public const BUSTED_ARM_JOINT = 'busted_arm_joint';
-    public const BUSTED_SHOULDER = 'busted_shoulder';
-    public const CRITICAL_HAEMORRHAGE = 'critical_haemorrhage';
-    public const HAEMORRHAGE = 'haemorrhage';
-    public const MINOR_HAEMORRHAGE = 'minor_haemorrhage';
-    public const DAMAGED_EARS = 'damaged_ears';
-    public const DESTROYED_EARS = 'destroyed_ears';
-    public const DISFUNCTIONAL_LIVER = 'disfunctional_liver';
-    public const HEAD_TRAUMA = 'head_trauma';
-    public const IMPLANTED_BULLET = 'implanted_bullet';
-    public const INNER_EAR_DAMAGED = 'inner_ear_damaged';
-    public const MASHED_FOOT = 'mashed_foot';
-    public const MASHED_HAND = 'mashed_hand';
-    public const MISSING_FINGER = 'missing_finger';
-    public const OPEN_AIR_BRAIN = 'open_air_brain';
-    public const PUNCTURED_LUNG = 'punctured_lung';
-    public const SMASHED_ARMS = 'smashed_arms';
-    public const SMASHED_LEGS = 'smashed_legs';
-    public const TORN_TONGUE = 'torn_tongue';
-    public const BROKEN_SHOULDER = 'broken_shoulder';
-
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        /** @var ModifierConfig $consume2ActionLoss */
+        /** @var VariableEventModifierConfig $consume2ActionLoss */
         $consume2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_2_ACTION_LOSS);
-        /** @var ModifierConfig $cycle1HealthLoss */
+        /** @var VariableEventModifierConfig $cycle1HealthLost */
         $cycle1HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST);
-        /** @var ModifierConfig $cycle2HealthLoss */
+        /** @var VariableEventModifierConfig $cycle2HealthLost */
         $cycle2HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_2_HEALTH_LOST);
-        /** @var ModifierConfig $increaseCycleDiseaseChances10 */
+        /** @var VariableEventModifierConfig $increaseCycleDiseaseChances10 */
         $increaseCycleDiseaseChances10 = $this->getReference(DiseaseModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_10);
-        /** @var ModifierConfig $moveIncreaseMovement */
+        /** @var VariableEventModifierConfig $moveIncreaseMovement */
         $moveIncreaseMovement = $this->getReference(DiseaseModifierConfigFixtures::MOVE_INCREASE_MOVEMENT);
-        /** @var ModifierConfig $notMoveAction1Increase */
+        /** @var VariableEventModifierConfig $notMoveAction1Increase */
         $notMoveAction1Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_1_INCREASE);
-        /** @var ModifierConfig $notMoveAction2Increase */
+        /** @var VariableEventModifierConfig $notMoveAction2Increase */
         $notMoveAction2Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_2_INCREASE);
-        /** @var ModifierConfig $notMoveAction3Increase */
+        /** @var VariableEventModifierConfig $notMoveAction3Increase */
         $notMoveAction3Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_3_INCREASE);
-        /** @var ModifierConfig $reduceMax1HealthPoint */
+        /** @var VariableEventModifierConfig $reduceMax1HealthPoint */
         $reduceMax1HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_HEALTH_POINT);
-        /** @var ModifierConfig $reduceMax2HealthPoint */
+        /** @var VariableEventModifierConfig $reduceMax2HealthPoint */
         $reduceMax2HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_HEALTH_POINT);
-        /** @var ModifierConfig $reduceMax1MoralPoint */
+        /** @var VariableEventModifierConfig $reduceMax1MoralPoint */
         $reduceMax1MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_MORAL_POINT);
-        /** @var ModifierConfig $reduceMax2MoralPoint */
+        /** @var VariableEventModifierConfig $reduceMax2MoralPoint */
         $reduceMax2MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_MORAL_POINT);
-        /** @var ModifierConfig $reduceMax3MoralPoint */
+        /** @var VariableEventModifierConfig $reduceMax3MoralPoint */
         $reduceMax3MoralPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_3_MORAL_POINT);
-        /** @var ModifierConfig $reduce3MaxMovementPoint */
+        /** @var VariableEventModifierConfig $reduceMax3MovementPoint */
         $reduceMax3MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_3_MOVEMENT_POINT);
-        /** @var ModifierConfig $reduce5MaxMovementPoint */
+        /** @var VariableEventModifierConfig $reduceMax5MovementPoint */
         $reduceMax5MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_5_MOVEMENT_POINT);
-        /** @var ModifierConfig $reduce12MaxMovementPoint */
+        /** @var VariableEventModifierConfig $reduceMax12MovementPoint */
         $reduceMax12MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_12_MOVEMENT_POINT);
-        /** @var ModifierConfig $shootAction10PercentAccuracyLost */
+        /** @var VariableEventModifierConfig $shootAction10PercentAccuracyLost */
         $shootAction10PercentAccuracyLost = $this->getReference(DiseaseModifierConfigFixtures::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST);
-        /** @var ModifierConfig $shootAction20PercentAccuracyLost */
+        /** @var VariableEventModifierConfig $shootAction20PercentAccuracyLost */
         $shootAction20PercentAccuracyLost = $this->getReference(InjuryModifierConfigFixtures::SHOOT_ACTION_20_PERCENT_ACCURACY_LOST);
-        /** @var ModifierConfig $shootAction40PercentAccuracyLost */
+        /** @var VariableEventModifierConfig $shootAction40PercentAccuracyLost */
         $shootAction40PercentAccuracyLost = $this->getReference(InjuryModifierConfigFixtures::SHOOT_ACTION_40_PERCENT_ACCURACY_LOST);
 
         /** @var SymptomConfig $cantMove */
@@ -121,357 +90,356 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         // burn
         $burns50OfBody = new DiseaseConfig();
         $burns50OfBody
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::BURNS_50_OF_BODY)
+            ->setDiseaseName(InjuryEnum::BURNS_50_OF_BODY)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $notMoveAction1Increase,
                 $increaseCycleDiseaseChances10,
-                ]))
+                ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($burns50OfBody);
 
         $burns90OfBody = new DiseaseConfig();
         $burns90OfBody
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::BURNS_90_OF_BODY)
+            ->setDiseaseName(InjuryEnum::BURNS_90_OF_BODY)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $increaseCycleDiseaseChances10,
-                ]))
+                ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $septicemiaOnCycleChange,
                 $septicemiaOnDirtyEvent,
                 $septicemiaOnPostAction,
             ]))
             ->setOverride([InjuryEnum::BURNS_50_OF_BODY])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($burns90OfBody);
 
         $burstNose = new DiseaseConfig();
         $burstNose
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::BURST_NOSE)
+            ->setDiseaseName(InjuryEnum::BURST_NOSE)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $reduceMax2MoralPoint,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($burstNose);
 
         // Haemorrhage
         $criticalHaemorrhage = new DiseaseConfig();
         $criticalHaemorrhage
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::CRITICAL_HAEMORRHAGE)
+            ->setDiseaseName(InjuryEnum::CRITICAL_HAEMORRHAGE)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $cycle2HealthLost,
                 $reduceMax2HealthPoint,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($criticalHaemorrhage);
 
         $haemorrhage = new DiseaseConfig();
         $haemorrhage
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::HAEMORRHAGE)
+            ->setDiseaseName(InjuryEnum::HAEMORRHAGE)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $cycle1HealthLost,
                 $reduceMax1HealthPoint,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($haemorrhage);
 
         $minorHaemorrhage = new DiseaseConfig();
         $minorHaemorrhage
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::MINOR_HAEMORRHAGE)
+            ->setDiseaseName(InjuryEnum::MINOR_HAEMORRHAGE)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $cycle1HealthLost,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($minorHaemorrhage);
 
         // Ears
         $damagedEars = new DiseaseConfig();
         $damagedEars
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::DAMAGED_EARS)
+            ->setDiseaseName(InjuryEnum::DAMAGED_EARS)
             ->setType(TypeEnum::INJURY)
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $deaf,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($damagedEars);
 
         $destroyedEars = new DiseaseConfig();
         $destroyedEars
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::DESTROYED_EARS)
+            ->setDiseaseName(InjuryEnum::DESTROYED_EARS)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $reduceMax1MoralPoint,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $deaf,
             ]))
             ->setOverride([InjuryEnum::DAMAGED_EARS])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($destroyedEars);
 
         $headTrauma = new DiseaseConfig();
         $headTrauma
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::HEAD_TRAUMA)
+            ->setDiseaseName(InjuryEnum::HEAD_TRAUMA)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $reduceMax3MoralPoint,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $septicemiaOnCycleChange,
                 $septicemiaOnDirtyEvent,
                 $septicemiaOnPostAction,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($headTrauma);
 
         $openAirBrain = new DiseaseConfig();
         $openAirBrain
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::OPEN_AIR_BRAIN)
+            ->setDiseaseName(InjuryEnum::OPEN_AIR_BRAIN)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $reduceMax2MoralPoint,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $septicemiaOnCycleChange,
                 $septicemiaOnDirtyEvent,
                 $septicemiaOnPostAction,
             ]))
             ->setOverride([InjuryEnum::HEAD_TRAUMA])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($openAirBrain);
 
         $implantedBullet = new DiseaseConfig();
         $implantedBullet
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::IMPLANTED_BULLET)
+            ->setDiseaseName(InjuryEnum::IMPLANTED_BULLET)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $notMoveAction1Increase,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($implantedBullet);
 
         $innerEarDamaged = new DiseaseConfig();
         $innerEarDamaged
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::INNER_EAR_DAMAGED)
+            ->setDiseaseName(InjuryEnum::INNER_EAR_DAMAGED)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $notMoveAction1Increase,
                 $moveIncreaseMovement,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $noPilotingActions,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($innerEarDamaged);
 
         $tornTongue = new DiseaseConfig();
         $tornTongue
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::TORN_TONGUE)
+            ->setDiseaseName(InjuryEnum::TORN_TONGUE)
             ->setType(TypeEnum::INJURY)
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $mute,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($tornTongue);
 
         // foot and leg
         $brokenFoot = new DiseaseConfig();
         $brokenFoot
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::BROKEN_FOOT)
+            ->setDiseaseName(InjuryEnum::BROKEN_FOOT)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $moveIncreaseMovement,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($brokenFoot);
 
         $mashedFoot = new DiseaseConfig();
         $mashedFoot
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::MASHED_FOOT)
+            ->setDiseaseName(InjuryEnum::MASHED_FOOT)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $moveIncreaseMovement,
                 $reduceMax3MovementPoint,
-            ]))
+            ])
             ->setOverride([InjuryEnum::BROKEN_FOOT])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($mashedFoot);
 
         $brokenLeg = new DiseaseConfig();
         $brokenLeg
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::BROKEN_LEG)
+            ->setDiseaseName(InjuryEnum::BROKEN_LEG)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $reduceMax5MovementPoint,
                 $moveIncreaseMovement,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($brokenLeg);
 
         $mashedLegs = new DiseaseConfig();
         $mashedLegs
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::MASHED_LEGS)
+            ->setDiseaseName(InjuryEnum::MASHED_LEGS)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $reduceMax12MovementPoint,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $cantMove,
             ]))
             ->setOverride([InjuryEnum::BROKEN_LEG, InjuryEnum::BROKEN_FOOT, InjuryEnum::MASHED_FOOT])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($mashedLegs);
 
         // Torso
         $disfunctionalLiver = new DiseaseConfig();
         $disfunctionalLiver
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::DISFUNCTIONAL_LIVER)
+            ->setDiseaseName(InjuryEnum::DISFUNCTIONAL_LIVER)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $notMoveAction1Increase,
                 $consume2ActionLoss,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $consumeVomiting,
                 $drooling,
                 $moveVomiting,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($disfunctionalLiver);
 
         $puncturedLung = new DiseaseConfig();
         $puncturedLung
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::PUNCTURED_LUNG)
+            ->setDiseaseName(InjuryEnum::PUNCTURED_LUNG)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $cycle2HealthLost,
                 $notMoveAction2Increase,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $mute,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($puncturedLung);
 
         $brokenRibs = new DiseaseConfig();
         $brokenRibs
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::BROKEN_RIBS)
+            ->setDiseaseName(InjuryEnum::BROKEN_RIBS)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $shootAction20PercentAccuracyLost,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($brokenRibs);
 
         // finger, arm and shoulder
         $brokenFinger = new DiseaseConfig();
         $brokenFinger
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::BROKEN_FINGER)
+            ->setDiseaseName(InjuryEnum::BROKEN_FINGER)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $notMoveAction1Increase,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($brokenFinger);
 
         $missingFinger = new DiseaseConfig();
         $missingFinger
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::MISSING_FINGER)
+            ->setDiseaseName(InjuryEnum::MISSING_FINGER)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $notMoveAction1Increase,
-            ]))
+            ])
             ->setOverride([InjuryEnum::BROKEN_FINGER])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($missingFinger);
 
         $burntHand = new DiseaseConfig();
         $burntHand
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::BURNT_HAND)
+            ->setDiseaseName(InjuryEnum::BURNT_HAND)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $notMoveAction1Increase,
                 $reduceMax1HealthPoint,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($burntHand);
 
         $mashedHand = new DiseaseConfig();
         $mashedHand
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::MASHED_HAND)
+            ->setDiseaseName(InjuryEnum::MASHED_HAND)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $notMoveAction2Increase,
                 $shootAction40PercentAccuracyLost,
-            ]))
+            ])
             ->setOverride([InjuryEnum::MISSING_FINGER, InjuryEnum::BROKEN_FINGER, InjuryEnum::BURNT_HAND])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($mashedHand);
 
         $burntArms = new DiseaseConfig();
         $burntArms
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::BURNT_ARMS)
+            ->setDiseaseName(InjuryEnum::BURNT_ARMS)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $notMoveAction2Increase,
                 $increaseCycleDiseaseChances10,
                 $shootAction20PercentAccuracyLost,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($burntArms);
 
         $bustedArmJoint = new DiseaseConfig();
         $bustedArmJoint
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::BUSTED_ARM_JOINT)
+            ->setDiseaseName(InjuryEnum::BUSTED_ARM_JOINT)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $notMoveAction2Increase,
                 $shootAction40PercentAccuracyLost,
-            ]))
+            ])
             ->setOverride([InjuryEnum::MASHED_ARMS])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($bustedArmJoint);
 
         $mashedArms = new DiseaseConfig();
         $mashedArms
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::MASHED_ARMS)
+            ->setDiseaseName(InjuryEnum::MASHED_ARMS)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $notMoveAction3Increase,
                 $shootAction40PercentAccuracyLost,
-            ]))
+            ])
             ->setOverride([
                 InjuryEnum::BURNT_HAND,
                 InjuryEnum::BROKEN_FINGER,
@@ -479,44 +447,44 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 InjuryEnum::MASHED_HAND,
                 InjuryEnum::BUSTED_ARM_JOINT,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($mashedArms);
 
         $bruisedShoulder = new DiseaseConfig();
         $bruisedShoulder
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::BRUISED_SHOULDER)
+            ->setDiseaseName(InjuryEnum::BRUISED_SHOULDER)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $reduceMax1HealthPoint,
                 $shootAction10PercentAccuracyLost,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($bruisedShoulder);
 
         $brokenShoulder = new DiseaseConfig();
         $brokenShoulder
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::BROKEN_SHOULDER)
+            ->setDiseaseName(InjuryEnum::BROKEN_SHOULDER)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $reduceMax1HealthPoint,
                 $shootAction20PercentAccuracyLost,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([$cantPickUpHeavyItems]))
             ->setOverride([InjuryEnum::BRUISED_SHOULDER])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($brokenShoulder);
 
         $bustedShoulder = new DiseaseConfig();
         $bustedShoulder
-            ->setGameConfig($gameConfig)
-            ->setName(InjuryEnum::BUSTED_SHOULDER)
+            ->setDiseaseName(InjuryEnum::BUSTED_SHOULDER)
             ->setType(TypeEnum::INJURY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $shootAction40PercentAccuracyLost,
                 $notMoveAction2Increase,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $cantPickUpHeavyItems,
             ]))
@@ -530,41 +498,45 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 InjuryEnum::BRUISED_SHOULDER,
                 InjuryEnum::BROKEN_SHOULDER,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($bustedShoulder);
 
-        $manager->flush();
+        $gameConfig
+            ->addDiseaseConfig($brokenFinger)
+            ->addDiseaseConfig($brokenFoot)
+            ->addDiseaseConfig($brokenLeg)
+            ->addDiseaseConfig($brokenRibs)
+            ->addDiseaseConfig($bruisedShoulder)
+            ->addDiseaseConfig($burns50OfBody)
+            ->addDiseaseConfig($burns90OfBody)
+            ->addDiseaseConfig($burntArms)
+            ->addDiseaseConfig($burntHand)
+            ->addDiseaseConfig($burstNose)
+            ->addDiseaseConfig($bustedArmJoint)
+            ->addDiseaseConfig($bustedShoulder)
+            ->addDiseaseConfig($criticalHaemorrhage)
+            ->addDiseaseConfig($haemorrhage)
+            ->addDiseaseConfig($minorHaemorrhage)
+            ->addDiseaseConfig($damagedEars)
+            ->addDiseaseConfig($destroyedEars)
+            ->addDiseaseConfig($disfunctionalLiver)
+            ->addDiseaseConfig($headTrauma)
+            ->addDiseaseConfig($implantedBullet)
+            ->addDiseaseConfig($innerEarDamaged)
+            ->addDiseaseConfig($mashedFoot)
+            ->addDiseaseConfig($mashedHand)
+            ->addDiseaseConfig($missingFinger)
+            ->addDiseaseConfig($openAirBrain)
+            ->addDiseaseConfig($puncturedLung)
+            ->addDiseaseConfig($mashedArms)
+            ->addDiseaseConfig($mashedLegs)
+            ->addDiseaseConfig($tornTongue)
+            ->addDiseaseConfig($brokenShoulder)
+        ;
+        $manager->persist($gameConfig);
 
-        $this->addReference(self::BROKEN_FINGER, $brokenFinger);
-        $this->addReference(self::BROKEN_FOOT, $brokenFoot);
-        $this->addReference(self::BROKEN_LEG, $brokenLeg);
-        $this->addReference(self::BROKEN_RIBS, $brokenRibs);
-        $this->addReference(self::BRUISED_SHOULDER, $bruisedShoulder);
-        $this->addReference(self::BURNS_50_OF_BODY, $burns50OfBody);
-        $this->addReference(self::BURNS_90_OF_BODY, $burns90OfBody);
-        $this->addReference(self::BURNT_ARMS, $burntArms);
-        $this->addReference(self::BURNT_HAND, $burntHand);
-        $this->addReference(self::BURST_NOSE, $burstNose);
-        $this->addReference(self::BUSTED_ARM_JOINT, $bustedArmJoint);
-        $this->addReference(self::BUSTED_SHOULDER, $bustedShoulder);
-        $this->addReference(self::CRITICAL_HAEMORRHAGE, $criticalHaemorrhage);
-        $this->addReference(self::HAEMORRHAGE, $haemorrhage);
-        $this->addReference(self::MINOR_HAEMORRHAGE, $minorHaemorrhage);
-        $this->addReference(self::DAMAGED_EARS, $damagedEars);
-        $this->addReference(self::DESTROYED_EARS, $destroyedEars);
-        $this->addReference(self::DISFUNCTIONAL_LIVER, $disfunctionalLiver);
-        $this->addReference(self::HEAD_TRAUMA, $headTrauma);
-        $this->addReference(self::IMPLANTED_BULLET, $implantedBullet);
-        $this->addReference(self::INNER_EAR_DAMAGED, $innerEarDamaged);
-        $this->addReference(self::MASHED_FOOT, $mashedFoot);
-        $this->addReference(self::MASHED_HAND, $mashedHand);
-        $this->addReference(self::MISSING_FINGER, $missingFinger);
-        $this->addReference(self::OPEN_AIR_BRAIN, $openAirBrain);
-        $this->addReference(self::PUNCTURED_LUNG, $puncturedLung);
-        $this->addReference(self::SMASHED_ARMS, $mashedArms);
-        $this->addReference(self::SMASHED_LEGS, $mashedLegs);
-        $this->addReference(self::TORN_TONGUE, $tornTongue);
-        $this->addReference(self::BROKEN_SHOULDER, $brokenShoulder);
+        $manager->flush();
     }
 
     public function getDependencies()

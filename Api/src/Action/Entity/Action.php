@@ -3,8 +3,10 @@
 namespace Mush\Action\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 
 #[ORM\Entity]
 class Action
@@ -14,8 +16,11 @@ class Action
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $actionName;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $types = [];
@@ -32,17 +37,13 @@ class Action
         ActionOutputEnum::FAIL => VisibilityEnum::PRIVATE,
     ];
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $successRate = 100;
+    #[ORM\ManyToOne(targetEntity: ActionVariables::class, cascade: ['ALL'])]
+    private ActionVariables $actionVariables;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $injuryRate = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $dirtyRate = 0;
-
-    #[ORM\ManyToOne(targetEntity: ActionCost::class)]
-    private ActionCost $actionCost;
+    public function __construct()
+    {
+        $this->actionVariables = new ActionVariables();
+    }
 
     public function getId(): ?int
     {
@@ -61,6 +62,25 @@ class Action
         return $this;
     }
 
+    public function buildName(string $configName): self
+    {
+        $this->name = $this->actionName . '_' . $configName;
+
+        return $this;
+    }
+
+    public function getActionName(): string
+    {
+        return $this->actionName;
+    }
+
+    public function setActionName(string $actionName): self
+    {
+        $this->actionName = $actionName;
+
+        return $this;
+    }
+
     public function getTypes(): array
     {
         $types = $this->types;
@@ -70,6 +90,14 @@ class Action
         }
 
         return $types;
+    }
+
+    public function getActionTags(): array
+    {
+        $tags = $this->getTypes();
+        $tags[] = $this->actionName;
+
+        return $tags;
     }
 
     public function setTypes(array $types): self
@@ -103,50 +131,83 @@ class Action
         return $this;
     }
 
+    public function getActionVariables(): ActionVariables
+    {
+        return $this->actionVariables;
+    }
+
+    public function getActionVariablesArray(): array
+    {
+        return $this->actionVariables->getVariablesAsArray();
+    }
+
+    public function setActionVariablesArray(array $actionVariables): self
+    {
+        $this->actionVariables->updateVariablesFromArray($actionVariables);
+
+        return $this;
+    }
+
+    public function setActionCost(int $actionCost): self
+    {
+        $this->actionVariables->setValueByName($actionCost, PlayerVariableEnum::ACTION_POINT);
+
+        return $this;
+    }
+
+    public function setMovementCost(int $movementCost): self
+    {
+        $this->actionVariables->setValueByName($movementCost, PlayerVariableEnum::MOVEMENT_POINT);
+
+        return $this;
+    }
+
+    public function setMoralCost(int $moralCost): self
+    {
+        $this->actionVariables->setValueByName($moralCost, PlayerVariableEnum::MORAL_POINT);
+
+        return $this;
+    }
+
     public function getSuccessRate(): int
     {
-        return $this->successRate;
+        return $this->actionVariables->getValueByName(ActionVariableEnum::PERCENTAGE_SUCCESS);
     }
 
     public function setSuccessRate(int $successRate): self
     {
-        $this->successRate = $successRate;
+        $this->actionVariables->setValueByName($successRate, ActionVariableEnum::PERCENTAGE_SUCCESS);
 
         return $this;
     }
 
     public function getInjuryRate(): int
     {
-        return $this->injuryRate;
+        return $this->actionVariables->getValueByName(ActionVariableEnum::PERCENTAGE_INJURY);
     }
 
     public function setInjuryRate(int $injuryRate): self
     {
-        $this->injuryRate = $injuryRate;
+        $this->actionVariables->setValueByName($injuryRate, ActionVariableEnum::PERCENTAGE_INJURY);
 
         return $this;
     }
 
     public function getDirtyRate(): int
     {
-        return $this->dirtyRate;
+        return $this->actionVariables->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS);
     }
 
-    public function setDirtyRate(int $dirtyRate): self
+    public function setDirtyRate(int $dirtyRate, bool $isSuperDirty = false): self
     {
-        $this->dirtyRate = $dirtyRate;
+        $gameVariable = $this->actionVariables->getVariableByName(ActionVariableEnum::PERCENTAGE_DIRTINESS);
+        $gameVariable->setValue($dirtyRate);
 
-        return $this;
-    }
-
-    public function getActionCost(): ActionCost
-    {
-        return $this->actionCost;
-    }
-
-    public function setActionCost(ActionCost $actionCost): self
-    {
-        $this->actionCost = $actionCost;
+        if ($isSuperDirty) {
+            $gameVariable->setMinValue($dirtyRate);
+        } else {
+            $gameVariable->setMinValue(0);
+        }
 
         return $this;
     }
@@ -165,5 +226,17 @@ class Action
         $this->visibilities[$actionOutput] = $visibility;
 
         return $this;
+    }
+
+    public function setCriticalRate(int $criticalRate): self
+    {
+        $this->actionVariables->setValueByName($criticalRate, ActionVariableEnum::PERCENTAGE_CRITICAL);
+
+        return $this;
+    }
+
+    public function getCriticalRate(): int
+    {
+        return $this->actionVariables->getValueByName(ActionVariableEnum::PERCENTAGE_CRITICAL);
     }
 }

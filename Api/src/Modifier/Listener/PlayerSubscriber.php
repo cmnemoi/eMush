@@ -2,26 +2,27 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Service\ModifierService;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Service\ModifierListenerService\PlayerModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
-    private ModifierService $modifierService;
-    private EventDispatcherInterface $eventDispatcher;
+    private PlayerModifierServiceInterface $playerModifierService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
-        ModifierService $modifierService,
-        EventDispatcherInterface $eventDispatcher
+        PlayerModifierServiceInterface $playerModifierService,
+        EventServiceInterface $eventService
     ) {
-        $this->modifierService = $modifierService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->playerModifierService = $playerModifierService;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -36,7 +37,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
 
-        $this->modifierService->playerLeaveRoom($player);
+        $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
     }
 
     public function onPlayerInfection(PlayerEvent $event): void
@@ -45,33 +46,28 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $eventModifiers = $player->getModifiers()->getScopedModifiers([PlayerEvent::INFECTION_PLAYER]);
 
-        /** @var Modifier $modifier */
+        /** @var GameModifier $modifier */
         foreach ($eventModifiers as $modifier) {
-            $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReason());
-
-            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getTags());
         }
     }
 
-    private function createQuantityEvent(Player $player, Modifier $modifier, \DateTime $time, string $eventReason): AbstractQuantityEvent
+    private function createQuantityEvent(Player $player, GameModifier $modifier, \DateTime $time, array $reasons): void
     {
         $modifierConfig = $modifier->getModifierConfig();
+        if ($modifierConfig instanceof VariableEventModifierConfig) {
+            $target = $modifierConfig->getTargetVariable();
+            $value = intval($modifierConfig->getDelta());
+            $reasons[] = $modifierConfig->getModifierName();
 
-        $target = $modifierConfig->getTarget();
-        $value = intval($modifierConfig->getDelta());
-        $reason = $modifierConfig->getName() ?: $eventReason;
-
-        switch (true) {
-            case $player instanceof Player:
-                return new PlayerVariableEvent(
-                    $player,
-                    $target,
-                    $value,
-                    $reason,
-                    $time,
-                );
-            default:
-                throw new \LogicException('Unexpected modifier holder type : should be Player');
+            $event = new PlayerVariableEvent(
+                $player,
+                $target,
+                $value,
+                $reasons,
+                $time,
+            );
+            $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 }

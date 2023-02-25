@@ -2,21 +2,18 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\ExtractSpore;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 class ExtractSporeActionTest extends AbstractActionTest
 {
-    private StatusServiceInterface|Mockery\Mock $statusService;
-
     /**
      * @before
      */
@@ -26,13 +23,10 @@ class ExtractSporeActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::EXTRACT_SPORE, 2);
 
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
-
         $this->action = new ExtractSpore(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->statusService,
         );
     }
 
@@ -41,41 +35,42 @@ class ExtractSporeActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
+            ->setDailySporeNb(1)
+            ->setInitOxygen(1)
+            ->setInitFuel(1)
+            ->setInitHull(1)
+            ->setInitShield(1)
+        ;
         $daedalus = new Daedalus();
-        $daedalus->setSpores(1);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
+        $player->setSpores(1);
 
         $mushConfig = new ChargeStatusConfig();
-        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus
-            ->setCharge(1)
-        ;
-
-        $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig->setName(PlayerStatusEnum::SPORES);
-        $sporeStatus = new ChargeStatus($player, $sporeConfig);
-        $sporeStatus
             ->setCharge(1)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->statusService->shouldReceive('persist')->once();
+        $this->eventService->shouldReceive('callEvent')->times(2);
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $player->getStatuses());
-        $this->assertEquals(2, $player->getStatusByName(PlayerStatusEnum::SPORES)->getCharge());
+        $this->assertCount(1, $player->getStatuses());
     }
 }

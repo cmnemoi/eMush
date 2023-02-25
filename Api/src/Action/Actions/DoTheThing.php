@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -16,29 +15,25 @@ use Mush\Action\Validator\IsSameGender;
 use Mush\Action\Validator\NumberPlayersInRoom;
 use Mush\Action\Validator\Reach;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
-use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
-use Mush\Disease\Repository\DiseaseCausesConfigRepository;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -50,35 +45,32 @@ class DoTheThing extends AbstractAction
 
     protected string $name = ActionEnum::DO_THE_THING;
 
-    private DiseaseCausesConfigRepository $diseaseCausesConfigRepository;
-    private StatusServiceInterface $statusService;
+    private DiseaseCauseServiceInterface $diseaseCauseService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private PlayerVariableServiceInterface $playerVariableService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        DiseaseCausesConfigRepository $diseaseCausesConfigRepository,
+        DiseaseCauseServiceInterface $diseaseCauseService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
         PlayerVariableServiceInterface $playerVariableService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
-        StatusServiceInterface $statusService
     ) {
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator
         );
-        $this->diseaseCausesConfigRepository = $diseaseCausesConfigRepository;
+        $this->diseaseCauseService = $diseaseCauseService;
         $this->playerDiseaseService = $playerDiseaseService;
         $this->playerVariableService = $playerVariableService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
-        $this->statusService = $statusService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -155,10 +147,8 @@ class DoTheThing extends AbstractAction
         // @TODO add confirmation pop up
 
         // give two moral points, or max morale if it is their first time
-        $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::MORAL_POINT);
-
-        $this->addMoralPoints($player, $maxMoralePoint);
-        $this->addMoralPoints($parameter, $maxMoralePoint);
+        $this->addMoralPoints($player);
+        $this->addMoralPoints($parameter);
 
         // if one is mush and has a spore, infect other player
         if ($player->isMush() && !$parameter->isMush()) {
@@ -192,8 +182,14 @@ class DoTheThing extends AbstractAction
         $this->addDidTheThingStatus($parameter);
     }
 
-    private function addMoralPoints(Player $player, int $maxMoralePoint): void
+    private function addMoralPoints(Player $player): void
     {
+        $maxMoralePoint = $this->player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->getMaxValue();
+
+        if ($maxMoralePoint === null) {
+            throw new \Error('moralPoints should have a maximum value');
+        }
+
         $firstTimeStatus = $player->getStatusByName(PlayerStatusEnum::FIRST_TIME);
         $moralePoints = $firstTimeStatus ? $maxMoralePoint : self::BASE_CONFORT;
 
@@ -201,10 +197,10 @@ class DoTheThing extends AbstractAction
             $player,
             PlayerVariableEnum::MORAL_POINT,
             $moralePoints,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         if ($firstTimeStatus) {
             $player->removeStatus($firstTimeStatus);
@@ -216,34 +212,32 @@ class DoTheThing extends AbstractAction
         $statusEvent = new StatusEvent(
             PlayerStatusEnum::DID_THE_THING,
             $player,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     private function addPregnantStatus(Player $player, Player $parameter): void
     {
+        $characterName = $player->getPlayerInfo()->getCharacterConfig()->getCharacterName();
         /** @var StatusHolderInterface $femalePlayer */
-        $femalePlayer = CharacterEnum::isMale($player->getCharacterConfig()->getName()) ? $parameter : $player;
+        $femalePlayer = CharacterEnum::isMale($characterName) ? $parameter : $player;
         $pregnantStatus = new StatusEvent(
             PlayerStatusEnum::PREGNANT,
             $femalePlayer,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
         $pregnantStatus->setVisibility(VisibilityEnum::PRIVATE);
 
-        $this->eventDispatcher->dispatch($pregnantStatus, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($pregnantStatus, StatusEvent::STATUS_APPLIED);
     }
 
     private function getPlayerStds(Player $player): PlayerDiseaseCollection
     {
-        /** @var DiseaseCauseConfig $sexDiseaseCauseConfig */
-        $sexDiseaseCauseConfig = $this->diseaseCausesConfigRepository->findBy([
-            'causeName' => DiseaseCauseEnum::SEX,
-        ])[0];
+        $sexDiseaseCauseConfig = $this->diseaseCauseService->findCauseConfigByDaedalus(DiseaseCauseEnum::SEX, $player->getDaedalus());
 
         $stds = array_keys($sexDiseaseCauseConfig->getDiseases());
 
@@ -254,19 +248,16 @@ class DoTheThing extends AbstractAction
 
     private function infect(Player $mush, Player $target)
     {
-        /** @var ?ChargeStatus $sporeStatus */
-        $sporeStatus = $mush->getStatusByName(PlayerStatusEnum::SPORES);
-
-        if ($sporeStatus === null) {
-            throw new Error('Player should have a spore status');
-        }
-
-        if ($sporeStatus->getCharge() > 0) {
-            $playerEvent = new PlayerEvent($target, $this->getActionName(), new \DateTime());
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
-
-            $sporeStatus->addCharge(-1);
-            $this->statusService->persist($sporeStatus);
+        $sporeNumber = $mush->getVariableValueByName(PlayerVariableEnum::SPORE);
+        if ($sporeNumber > 0) {
+            $playerModifierEvent = new PlayerVariableEvent(
+                $mush,
+                PlayerVariableEnum::SPORE,
+                -1,
+                $this->getAction()->getActionTags(),
+                new \DateTime()
+            );
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 
@@ -277,7 +268,7 @@ class DoTheThing extends AbstractAction
 
         $this->createDiseaseBySexLog($target, $std->getName());
 
-        $this->playerDiseaseService->createDiseaseFromName($std->getName(), $target, $this->getActionName());
+        $this->playerDiseaseService->createDiseaseFromName($std->getName(), $target, $this->getAction()->getActionTags());
     }
 
     private function createDiseaseBySexLog(PLayer $player, string $disease): void

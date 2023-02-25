@@ -32,6 +32,7 @@ class PlayerStatusEnum
     public const OUTCAST = 'outcast';
     public const PACIFIST = 'pacifist';
     public const PREGNANT = 'pregnant';
+
     public const SPORES = 'spores';
     public const STARVING = 'starving';
     public const STUCK_IN_THE_SHIP = 'stuck_in_the_ship';

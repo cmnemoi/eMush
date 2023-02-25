@@ -6,13 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Entity\ConfigInterface;
-use Mush\Game\Entity\GameConfig;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
@@ -22,18 +22,18 @@ use Mush\Status\Entity\Config\StatusConfig;
     'equipment_config' => EquipmentConfig::class,
     'item_config' => ItemConfig::class,
 ])]
-class EquipmentConfig implements ConfigInterface
+class EquipmentConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: GameConfig::class, inversedBy: 'equipmentsConfig')]
-    private GameConfig $gameConfig;
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    private string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $name;
+    private string $equipmentName;
 
     #[ORM\ManyToMany(targetEntity: EquipmentMechanic::class)]
     private Collection $mechanics;
@@ -54,7 +54,7 @@ class EquipmentConfig implements ConfigInterface
     private Collection $actions;
 
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
-    private Collection $initStatus;
+    private Collection $initStatuses;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isPersonal = false;
@@ -63,14 +63,14 @@ class EquipmentConfig implements ConfigInterface
     {
         $this->mechanics = new ArrayCollection();
         $this->actions = new ArrayCollection();
-        $this->initStatus = new ArrayCollection();
+        $this->initStatuses = new ArrayCollection();
     }
 
-    public function createGameEquipment(): GameEquipment
+    public function createGameEquipment(EquipmentHolderInterface $holder): GameEquipment
     {
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($holder);
         $gameEquipment
-            ->setName($this->getShortName())
+            ->setName($this->getEquipmentShortName())
             ->setEquipment($this)
         ;
 
@@ -82,14 +82,25 @@ class EquipmentConfig implements ConfigInterface
         return $this->id;
     }
 
-    public function getGameConfig(): GameConfig
+    public function getEquipmentName(): string
     {
-        return $this->gameConfig;
+        return $this->equipmentName;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): static
+    public function getEquipmentShortName(): string
     {
-        $this->gameConfig = $gameConfig;
+        if ($this->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) {
+            return ItemEnum::BLUEPRINT;
+        } elseif ($this->getMechanicByName(EquipmentMechanicEnum::BOOK)) {
+            return ItemEnum::APPRENTON;
+        }
+
+        return $this->equipmentName;
+    }
+
+    public function setEquipmentName(string $equipmentName): static
+    {
+        $this->equipmentName = $equipmentName;
 
         return $this;
     }
@@ -99,20 +110,16 @@ class EquipmentConfig implements ConfigInterface
         return $this->name;
     }
 
-    public function getShortName(): string
-    {
-        if ($this->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) {
-            return ItemEnum::BLUEPRINT;
-        } elseif ($this->getMechanicByName(EquipmentMechanicEnum::BOOK)) {
-            return ItemEnum::APPRENTON;
-        }
-
-        return $this->name;
-    }
-
-    public function setName(string $name): static
+    public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function buildName(string $configName): self
+    {
+        $this->name = $this->equipmentName . '_' . $configName;
 
         return $this;
     }
@@ -122,8 +129,15 @@ class EquipmentConfig implements ConfigInterface
         return $this->mechanics;
     }
 
-    public function setMechanics(Collection $mechanics): static
+    /**
+     * @psalm-param ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Blueprint>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Book>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Document>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Drug>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Fruit>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Gear>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Plant>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Ration>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Tool>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Weapon>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Gear|\Mush\Equipment\Entity\Mechanics\Tool>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Gear|\Mush\Equipment\Entity\EquipmentMechanic> $mechanics
+     */
+    public function setMechanics(Collection|array $mechanics): static
     {
+        if (is_array($mechanics)) {
+            $mechanics = new ArrayCollection($mechanics);
+        }
+
         $this->mechanics = $mechanics;
 
         return $this;
@@ -136,9 +150,15 @@ class EquipmentConfig implements ConfigInterface
         return $equipmentMechanics->count() > 0 ? $equipmentMechanics->first() : null;
     }
 
-    public function isFireDestroyable(): bool
+    // this is needed for api_platform to work
+    public function getIsFireDestroyable(): bool
     {
         return $this->isFireDestroyable;
+    }
+
+    public function isFireDestroyable(): bool
+    {
+        return $this->getIsFireDestroyable();
     }
 
     public function setIsFireDestroyable(bool $isFireDestroyable): static
@@ -148,9 +168,15 @@ class EquipmentConfig implements ConfigInterface
         return $this;
     }
 
-    public function isFireBreakable(): bool
+    // this is needed for api_platform to work
+    public function getIsFireBreakable(): bool
     {
         return $this->isFireBreakable;
+    }
+
+    public function isFireBreakable(): bool
+    {
+        return $this->getIsFireBreakable();
     }
 
     public function setIsFireBreakable(bool $isFireBreakable): static
@@ -160,9 +186,15 @@ class EquipmentConfig implements ConfigInterface
         return $this;
     }
 
-    public function isBreakable(): bool
+    // this is needed for api_platform to work
+    public function getIsBreakable(): bool
     {
         return $this->isBreakable;
+    }
+
+    public function isBreakable(): bool
+    {
+        return $this->getIsBreakable();
     }
 
     public function setIsBreakable(bool $isBreakable): static
@@ -172,8 +204,15 @@ class EquipmentConfig implements ConfigInterface
         return $this;
     }
 
-    public function setActions(Collection $actions): static
+    /**
+     * @param Collection<int, Action> $actions
+     */
+    public function setActions(Collection|array $actions): static
     {
+        if (is_array($actions)) {
+            $actions = new ArrayCollection($actions);
+        }
+
         $this->actions = $actions;
 
         return $this;
@@ -191,21 +230,28 @@ class EquipmentConfig implements ConfigInterface
         return new ArrayCollection($actions);
     }
 
-    public function setInitStatus(Collection $initStatus): static
+    /**
+     * @psalm-param ArrayCollection<int, ChargeStatusConfig>|ArrayCollection<int, StatusConfig> $initStatuses
+     */
+    public function setInitStatuses(ArrayCollection|array $initStatuses): static
     {
-        $this->initStatus = $initStatus;
+        if (is_array($initStatuses)) {
+            $initStatuses = new ArrayCollection($initStatuses);
+        }
+
+        $this->initStatuses = $initStatuses;
 
         return $this;
     }
 
-    public function getInitStatus(): Collection
+    public function getInitStatuses(): Collection
     {
-        return $this->initStatus;
+        return $this->initStatuses;
     }
 
     public function hasAction(string $actionName): bool
     {
-        return $this->getActions()->exists(fn (int $id, Action $action) => $action->getName() === $actionName);
+        return $this->getActions()->exists(fn (int $id, Action $action) => $action->getActionName() === $actionName);
     }
 
     public function getDismountedProducts(): array
@@ -225,9 +271,15 @@ class EquipmentConfig implements ConfigInterface
         return LogParameterKeyEnum::EQUIPMENT;
     }
 
-    public function isPersonal(): bool
+    // this is needed for api_platform to work
+    public function getIsPersonal(): bool
     {
         return $this->isPersonal;
+    }
+
+    public function isPersonal(): bool
+    {
+        return $this->getIsPersonal();
     }
 
     public function setIsPersonal(bool $isPersonal): static

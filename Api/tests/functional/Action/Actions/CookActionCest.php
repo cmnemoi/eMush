@@ -12,10 +12,11 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 class CookActionCest
 {
@@ -37,7 +38,7 @@ class CookActionCest
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room2);
 
         $cookActionEntity = new Action();
-        $cookActionEntity->setName(ActionEnum::COOK);
+        $cookActionEntity->setActionName(ActionEnum::COOK);
 
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$cookActionEntity]));
@@ -65,7 +66,7 @@ class CookActionCest
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room);
 
         $cookActionEntity = new Action();
-        $cookActionEntity->setName(ActionEnum::COOK);
+        $cookActionEntity->setActionName(ActionEnum::COOK);
 
         $this->cookAction->loadParameters($cookActionEntity, $player, $gameEquipment);
 
@@ -89,7 +90,7 @@ class CookActionCest
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room);
 
         $cookActionEntity = new Action();
-        $cookActionEntity->setName(ActionEnum::COOK);
+        $cookActionEntity->setActionName(ActionEnum::COOK);
 
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$cookActionEntity]));
@@ -99,7 +100,7 @@ class CookActionCest
 
         $I->assertTrue($this->cookAction->isVisible());
 
-        $gameEquipment->getEquipment()->setName(GameRationEnum::COFFEE);
+        $gameEquipment->getEquipment()->setEquipmentName(GameRationEnum::COFFEE);
 
         $I->assertFalse($this->cookAction->isVisible());
     }
@@ -107,27 +108,31 @@ class CookActionCest
     private function createPlayer(Daedalus $daedalus, Place $room): Player
     {
         $characterConfig = new CharacterConfig();
-        $characterConfig->setName('character name');
+        $characterConfig
+            ->setName('character name')
+            ->setInitActionPoint(10)
+            ->setInitMovementPoint(10)
+            ->setInitMoralPoint(10)
+        ;
 
         $player = new Player();
         $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
+            ->setPlayerVariables($characterConfig)
             ->setDaedalus($daedalus)
             ->setPlace($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-            ->setCharacterConfig($characterConfig)
         ;
+
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
+        $player->setPlayerInfo($playerInfo);
 
         return $player;
     }
 
     private function createEquipment(string $name, Place $place): GameEquipment
     {
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($place);
         $equipment = new EquipmentConfig();
-        $equipment->setName($name);
+        $equipment->setEquipmentName($name);
         $gameEquipment
             ->setEquipment($equipment)
             ->setHolder($place)

@@ -13,6 +13,9 @@ class RandomItemPlaces
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    private string $name;
+
     #[ORM\Column(type: 'array', nullable: false)]
     private array $places;
 
@@ -22,6 +25,21 @@ class RandomItemPlaces
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return static
+     */
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getPlaces(): array

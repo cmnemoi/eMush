@@ -6,23 +6,18 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
-use Mush\Communication\Repository\ChannelRepository;
 use Mush\Communication\Services\ChannelPlayerService;
 use Mush\Communication\Services\ChannelPlayerServiceInterface;
-use Mush\Communication\Services\ChannelServiceInterface;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class ChannelPlayerServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
-
-    /** @var ChannelRepository|Mockery\mock */
-    private ChannelRepository $channelRepository;
-
-    /** @var ChannelServiceInterface|Mockery\mock */
-    private ChannelServiceInterface $channelService;
 
     private ChannelPlayerServiceInterface $service;
 
@@ -31,14 +26,10 @@ class ChannelPlayerServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->channelRepository = Mockery::mock(ChannelRepository::class);
-        $this->channelService = Mockery::mock(ChannelServiceInterface::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
 
         $this->service = new ChannelPlayerService(
             $this->entityManager,
-            $this->channelService,
-            $this->channelRepository
         );
     }
 
@@ -47,25 +38,26 @@ class ChannelPlayerServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testAddPlayer()
     {
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $channel = new Channel();
 
         $this->entityManager
             ->shouldReceive('persist')
             ->withArgs(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getChannel() === $channel &&
-                $channelPlayer->getParticipant() === $player
+                $channelPlayer->getParticipant() === $playerInfo
             )
             ->once()
         ;
 
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->addPlayer($player, $channel);
+        $this->service->addPlayer($playerInfo, $channel);
     }
 
     public function testRemovePlayer()
@@ -73,12 +65,15 @@ class ChannelPlayerServiceTest extends TestCase
         $channel = new Channel();
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
         $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($player);
+        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
 
         $player2 = new Player();
+        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
         $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2);
+        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
 
         $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
 
@@ -90,6 +85,6 @@ class ChannelPlayerServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->removePlayer($player, $channel);
+        $this->service->removePlayer($playerInfo, $channel);
     }
 }

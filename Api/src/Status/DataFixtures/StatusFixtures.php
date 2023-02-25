@@ -3,14 +3,14 @@
 namespace Mush\Status\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -64,375 +64,411 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        /** @var ModifierConfig $increaseCycleDiseaseChances30 */
+        /** @var VariableEventModifierConfig $increaseCycleDiseaseChances30 */
         $increaseCycleDiseaseChances30 = $this->getReference(StatusModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_30);
 
         $alienArtefact = new StatusConfig();
         $alienArtefact
-            ->setName(EquipmentStatusEnum::ALIEN_ARTEFACT)
+            ->setStatusName(EquipmentStatusEnum::ALIEN_ARTEFACT)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($alienArtefact);
 
         $heavy = new StatusConfig();
         $heavy
-            ->setName(EquipmentStatusEnum::HEAVY)
+            ->setStatusName(EquipmentStatusEnum::HEAVY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($heavy);
 
         $moduleAccess = new StatusConfig();
         $moduleAccess
-            ->setName(EquipmentStatusEnum::MODULE_ACCESS)
+            ->setStatusName(EquipmentStatusEnum::MODULE_ACCESS)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($moduleAccess);
 
         $hidden = new StatusConfig();
         $hidden
-            ->setName(EquipmentStatusEnum::HIDDEN)
+            ->setStatusName(EquipmentStatusEnum::HIDDEN)
             ->setVisibility(VisibilityEnum::PRIVATE)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($hidden);
 
         $broken = new StatusConfig();
         $broken
-            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($broken);
 
         $unstable = new StatusConfig();
         $unstable
-            ->setName(EquipmentStatusEnum::UNSTABLE)
+            ->setStatusName(EquipmentStatusEnum::UNSTABLE)
             ->setVisibility(VisibilityEnum::COOK_RESTRICTED)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($unstable);
 
         $hazardous = new StatusConfig();
         $hazardous
-            ->setName(EquipmentStatusEnum::HAZARDOUS)
+            ->setStatusName(EquipmentStatusEnum::HAZARDOUS)
             ->setVisibility(VisibilityEnum::COOK_RESTRICTED)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($hazardous);
 
         $decomposing = new StatusConfig();
         $decomposing
-            ->setName(EquipmentStatusEnum::DECOMPOSING)
+            ->setStatusName(EquipmentStatusEnum::DECOMPOSING)
             ->setVisibility(VisibilityEnum::COOK_RESTRICTED)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($decomposing);
 
-        /** @var ModifierConfig $frozenModifier */
+        /** @var VariableEventModifierConfig $frozenModifier */
         $frozenModifier = $this->getReference(StatusModifierConfigFixtures::FROZEN_MODIFIER);
 
         $frozen = new StatusConfig();
         $frozen
-            ->setName(EquipmentStatusEnum::FROZEN)
+            ->setStatusName(EquipmentStatusEnum::FROZEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$frozenModifier]))
-            ->setGameConfig($gameConfig)
+            ->setModifierConfigs([$frozenModifier])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($frozen);
 
         $plantThirsty = new StatusConfig();
         $plantThirsty
-            ->setName(EquipmentStatusEnum::PLANT_THIRSTY)
+            ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($plantThirsty);
 
         $plantDry = new StatusConfig();
         $plantDry
-            ->setName(EquipmentStatusEnum::PLANT_DRY)
+            ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($plantDry);
 
         $plantDiseased = new StatusConfig();
         $plantDiseased
-            ->setName(EquipmentStatusEnum::PLANT_DISEASED)
+            ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($plantDiseased);
 
         $documentContent = new StatusConfig();
         $documentContent
-            ->setName(EquipmentStatusEnum::DOCUMENT_CONTENT)
+            ->setStatusName(EquipmentStatusEnum::DOCUMENT_CONTENT)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($documentContent);
 
         $reinforced = new StatusConfig();
         $reinforced
-            ->setName(EquipmentStatusEnum::REINFORCED)
+            ->setStatusName(EquipmentStatusEnum::REINFORCED)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($reinforced);
 
-        /** @var ModifierConfig $frozenModifier */
+        /** @var VariableEventModifierConfig $antisocialModifier */
         $antisocialModifier = $this->getReference(StatusModifierConfigFixtures::ANTISOCIAL_MODIFIER);
 
         $antisocial = new StatusConfig();
         $antisocial
-            ->setName(PlayerStatusEnum::ANTISOCIAL)
+            ->setStatusName(PlayerStatusEnum::ANTISOCIAL)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$antisocialModifier]))
-            ->setGameConfig($gameConfig)
+            ->setModifierConfigs([$antisocialModifier])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($antisocial);
 
         $berzerk = new StatusConfig();
         $berzerk
-            ->setName(PlayerStatusEnum::BERZERK)
+            ->setStatusName(PlayerStatusEnum::BERZERK)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($berzerk);
 
         $brainsync = new StatusConfig();
         $brainsync
-            ->setName(PlayerStatusEnum::BRAINSYNC)
+            ->setStatusName(PlayerStatusEnum::BRAINSYNC)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($brainsync);
 
-        /** @var ModifierConfig $burdenedModifier */
+        /** @var VariableEventModifierConfig $burdenedModifier */
         $burdenedModifier = $this->getReference(StatusModifierConfigFixtures::BURDENED_MODIFIER);
         $burdened = new StatusConfig();
         $burdened
-            ->setName(PlayerStatusEnum::BURDENED)
+            ->setStatusName(PlayerStatusEnum::BURDENED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$burdenedModifier]))
-            ->setGameConfig($gameConfig)
+            ->setModifierConfigs([$burdenedModifier])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($burdened);
 
         $demoralized = new StatusConfig();
         $demoralized
-            ->setName(PlayerStatusEnum::DEMORALIZED)
+            ->setStatusName(PlayerStatusEnum::DEMORALIZED)
             ->setVisibility(VisibilityEnum::PRIVATE)
-            ->setGameConfig($gameConfig)
-            ->setModifierConfigs(new ArrayCollection([$increaseCycleDiseaseChances30]))
+            ->setModifierConfigs([$increaseCycleDiseaseChances30])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($demoralized);
 
         $dirty = new StatusConfig();
         $dirty
-            ->setName(PlayerStatusEnum::DIRTY)
+            ->setStatusName(PlayerStatusEnum::DIRTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($dirty);
 
-        /** @var ModifierConfig $disabledConversionModifier */
+        /** @var VariableEventModifierConfig $disabledConversionModifier */
         $disabledConversionModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_CONVERSION_MODIFIER);
-        /** @var ModifierConfig $disabledNotAloneModifier */
+        /** @var VariableEventModifierConfig $disabledNotAloneModifier */
         $disabledNotAloneModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_NOT_ALONE_MODIFIER);
         $disabled = new StatusConfig();
         $disabled
-            ->setName(PlayerStatusEnum::DISABLED)
+            ->setStatusName(PlayerStatusEnum::DISABLED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$disabledNotAloneModifier, $disabledConversionModifier]))
-            ->setGameConfig($gameConfig)
+            ->setModifierConfigs([$disabledNotAloneModifier, $disabledConversionModifier])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($disabled);
 
         $focused = new StatusConfig();
         $focused
-            ->setName(PlayerStatusEnum::FOCUSED)
+            ->setStatusName(PlayerStatusEnum::FOCUSED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($focused);
 
         $fullStomach = new StatusConfig();
         $fullStomach
-            ->setName(PlayerStatusEnum::FULL_STOMACH)
+            ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
             ->setVisibility(VisibilityEnum::PRIVATE)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($fullStomach);
 
         $gagged = new StatusConfig();
         $gagged
-            ->setName(PlayerStatusEnum::GAGGED)
+            ->setStatusName(PlayerStatusEnum::GAGGED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($gagged);
 
         $germaphobe = new StatusConfig();
         $germaphobe
-            ->setName(PlayerStatusEnum::GERMAPHOBE)
+            ->setStatusName(PlayerStatusEnum::GERMAPHOBE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($germaphobe);
 
         $guardian = new StatusConfig();
         $guardian
-            ->setName(PlayerStatusEnum::GUARDIAN)
+            ->setStatusName(PlayerStatusEnum::GUARDIAN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($guardian);
 
         $highlyInactive = new StatusConfig();
         $highlyInactive
-            ->setName(PlayerStatusEnum::HIGHLY_INACTIVE)
+            ->setStatusName(PlayerStatusEnum::HIGHLY_INACTIVE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($highlyInactive);
 
         $hyperactive = new StatusConfig();
         $hyperactive
-            ->setName(PlayerStatusEnum::HYPERACTIVE)
+            ->setStatusName(PlayerStatusEnum::HYPERACTIVE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($hyperactive);
 
         $immunized = new StatusConfig();
         $immunized
-            ->setName(PlayerStatusEnum::IMMUNIZED)
+            ->setStatusName(PlayerStatusEnum::IMMUNIZED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($immunized);
 
         $inactive = new StatusConfig();
         $inactive
-            ->setName(PlayerStatusEnum::INACTIVE)
+            ->setStatusName(PlayerStatusEnum::INACTIVE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($inactive);
 
-        /** @var ModifierConfig $lostModifier */
+        /** @var VariableEventModifierConfig $lostModifier */
         $lostModifier = $this->getReference(StatusModifierConfigFixtures::LOST_MODIFIER);
 
         $lost = new StatusConfig();
         $lost
-            ->setName(PlayerStatusEnum::LOST)
+            ->setStatusName(PlayerStatusEnum::LOST)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$lostModifier]))
-            ->setGameConfig($gameConfig)
+            ->setModifierConfigs([$lostModifier])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($lost);
 
-        /** @var ModifierConfig $disabledConversionModifier */
+        /** @var VariableEventModifierConfig $lyingDownModifier */
         $lyingDownModifier = $this->getReference(StatusModifierConfigFixtures::LYING_DOWN_MODIFIER);
         $lyingDown = new StatusConfig();
         $lyingDown
-            ->setName(PlayerStatusEnum::LYING_DOWN)
+            ->setStatusName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$lyingDownModifier]))
-            ->setGameConfig($gameConfig)
+            ->setModifierConfigs([$lyingDownModifier])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($lyingDown);
 
         $multiTeamster = new StatusConfig();
         $multiTeamster
-            ->setName(PlayerStatusEnum::MULTI_TEAMSTER)
+            ->setStatusName(PlayerStatusEnum::MULTI_TEAMSTER)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($multiTeamster);
 
         $outcast = new StatusConfig();
         $outcast
-            ->setName(PlayerStatusEnum::OUTCAST)
+            ->setStatusName(PlayerStatusEnum::OUTCAST)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($outcast);
 
-        /** @var ModifierConfig $pacifistModifier */
+        /** @var VariableEventModifierConfig $pacifistModifier */
         $pacifistModifier = $this->getReference(StatusModifierConfigFixtures::PACIFIST_MODIFIER);
         $pacifist = new StatusConfig();
         $pacifist
-            ->setName(PlayerStatusEnum::PACIFIST)
+            ->setStatusName(PlayerStatusEnum::PACIFIST)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$pacifistModifier]))
-            ->setGameConfig($gameConfig)
+            ->setModifierConfigs([$pacifistModifier])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($pacifist);
 
         $pregnant = new StatusConfig();
         $pregnant
-            ->setName(PlayerStatusEnum::PREGNANT)
+            ->setStatusName(PlayerStatusEnum::PREGNANT)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($pregnant);
 
-        /** @var ModifierConfig $pacifistModifier */
+        /** @var VariableEventModifierConfig $starvingModifier */
         $starvingModifier = $this->getReference(StatusModifierConfigFixtures::STARVING_MODIFIER);
         $starving = new StatusConfig();
         $starving
-            ->setName(PlayerStatusEnum::STARVING)
+            ->setStatusName(PlayerStatusEnum::STARVING)
             ->setVisibility(VisibilityEnum::PRIVATE)
-            ->setModifierConfigs(new ArrayCollection([$starvingModifier]))
-            ->setGameConfig($gameConfig)
+            ->setModifierConfigs([$starvingModifier])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($starving);
 
         $stuckInTheShip = new StatusConfig();
         $stuckInTheShip
-            ->setName(PlayerStatusEnum::STUCK_IN_THE_SHIP)
+            ->setStatusName(PlayerStatusEnum::STUCK_IN_THE_SHIP)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($stuckInTheShip);
 
         $suicidal = new StatusConfig();
         $suicidal
-            ->setName(PlayerStatusEnum::SUICIDAL)
+            ->setStatusName(PlayerStatusEnum::SUICIDAL)
             ->setVisibility(VisibilityEnum::PRIVATE)
-            ->setGameConfig($gameConfig)
-            ->setModifierConfigs(new ArrayCollection([$increaseCycleDiseaseChances30]))
+            ->setModifierConfigs([$increaseCycleDiseaseChances30])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($suicidal);
 
         $watched_public_broadcast = new StatusConfig();
         $watched_public_broadcast
-            ->setName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
+            ->setStatusName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
             ->setVisibility(VisibilityEnum::PRIVATE)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($watched_public_broadcast);
 
-        $washed_in_the_sink = new StatusConfig();
-        $washed_in_the_sink
-            ->setName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
-            ->setVisibility(VisibilityEnum::PRIVATE)
-            ->setGameConfig($gameConfig)
-        ;
-        $manager->persist($washed_in_the_sink);
-
         $screwedTalkie = new StatusConfig();
         $screwedTalkie
-            ->setName(PlayerStatusEnum::TALKIE_SCREWED)
+            ->setStatusName(PlayerStatusEnum::TALKIE_SCREWED)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setGameConfig($gameConfig)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($screwedTalkie);
+
+        $gameConfig
+            ->addStatusConfig($alienArtefact)
+            ->addStatusConfig($heavy)
+            ->addStatusConfig($moduleAccess)
+            ->addStatusConfig($hidden)
+            ->addStatusConfig($broken)
+            ->addStatusConfig($unstable)
+            ->addStatusConfig($hazardous)
+            ->addStatusConfig($decomposing)
+            ->addStatusConfig($frozen)
+            ->addStatusConfig($plantThirsty)
+            ->addStatusConfig($plantDry)
+            ->addStatusConfig($plantDiseased)
+            ->addStatusConfig($documentContent)
+            ->addStatusConfig($reinforced)
+            ->addStatusConfig($antisocial)
+            ->addStatusConfig($berzerk)
+            ->addStatusConfig($brainsync)
+            ->addStatusConfig($burdened)
+            ->addStatusConfig($demoralized)
+            ->addStatusConfig($dirty)
+            ->addStatusConfig($disabled)
+            ->addStatusConfig($focused)
+            ->addStatusConfig($fullStomach)
+            ->addStatusConfig($gagged)
+            ->addStatusConfig($germaphobe)
+            ->addStatusConfig($guardian)
+            ->addStatusConfig($highlyInactive)
+            ->addStatusConfig($hyperactive)
+            ->addStatusConfig($immunized)
+            ->addStatusConfig($inactive)
+            ->addStatusConfig($lost)
+            ->addStatusConfig($lyingDown)
+            ->addStatusConfig($multiTeamster)
+            ->addStatusConfig($outcast)
+            ->addStatusConfig($pacifist)
+            ->addStatusConfig($pregnant)
+            ->addStatusConfig($starving)
+            ->addStatusConfig($stuckInTheShip)
+            ->addStatusConfig($suicidal)
+            ->addStatusConfig($watched_public_broadcast)
+        ;
+        $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
         $this->addReference(self::HEAVY_STATUS, $heavy);

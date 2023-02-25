@@ -3,7 +3,6 @@
 namespace Mush\Tests\Alert\Listener;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
@@ -12,9 +11,12 @@ use Mush\Alert\Listener\StatusSubscriber;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -38,11 +40,18 @@ class FireStatusSubscriberCest
         $I->haveInRepository($neron);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo
+            ->setNeron($neron)
+        ;
+        $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC)
         ;
         $I->haveInRepository($channel);
@@ -53,8 +62,8 @@ class FireStatusSubscriberCest
         $statusEvent = new StatusEvent(
             StatusEnum::FIRE,
             $room,
-            EventEnum::NEW_CYCLE,
-            new DateTime()
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
         );
         $this->statusSubscriber->onStatusApplied($statusEvent);
 
@@ -72,11 +81,18 @@ class FireStatusSubscriberCest
         $I->haveInRepository($neron);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo
+            ->setNeron($neron)
+        ;
+        $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC)
         ;
         $I->haveInRepository($channel);
@@ -100,8 +116,8 @@ class FireStatusSubscriberCest
         $statusEvent = new StatusEvent(
             StatusEnum::FIRE,
             $room,
-            ActionEnum::EXTINGUISH,
-            new DateTime()
+            [ActionEnum::EXTINGUISH],
+            new \DateTime()
         );
         $this->statusSubscriber->onStatusRemoved($statusEvent);
 

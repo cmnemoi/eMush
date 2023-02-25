@@ -1,45 +1,50 @@
-import { GameConfig } from "@/entities/Config/GameConfig";
-
 export class DiseaseCauseConfig {
     public iri: string|null;
     public id: number|null;
-    public gameConfig: GameConfig|null;
+    public name: string|null;
     public causeName: string|null;
-    public diseases: Array<any>|null;
+    public diseases: Map<string, integer>|null;
 
     constructor() {
         this.iri = null;
         this.id = null;
-        this.gameConfig = null;
+        this.name = null;
         this.causeName = null;
-        this.diseases = [];
+        this.diseases = new Map();
     }
     load(object:any) : DiseaseCauseConfig {
         if (typeof object !== "undefined") {
-            this.iri = object.iri;
+            this.iri = object['@id'];
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
+            this.name = object.name;
             this.causeName = object.causeName;
-            this.diseases = object.diseases;
+            if (typeof object.diseases !== 'undefined') {
+                for (const [key, value] of Object.entries(object.diseases)) {
+                    if (typeof key === 'string' && typeof value === 'number') {
+                        this.diseases?.set(key, value);
+                    }
+                }
+            }
         }
         return this;
     }
     jsonEncode() : object {
+        const diseases : object = {};
+        this.diseases?.forEach((value, key) => {
+            // @ts-ignore
+            diseases[key] = value;
+        });
         return {
             'id': this.id,
-            'gameConfig': this.gameConfig?.iri,
+            'name': this.name,
             'causeName': this.causeName,
-            'diseases': this.diseases
+            'diseases': diseases
         };
     }
     decode(jsonString : string): DiseaseCauseConfig {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.iri = object.iri;
-            this.id = object.id;
-            this.gameConfig = object.gameConfig;
-            this.causeName = object.causeName;
-            this.diseases = object.diseases;
+            this.load(object);
         }
 
         return this;

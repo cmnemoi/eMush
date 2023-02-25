@@ -3,13 +3,18 @@
 namespace Mush\Communication\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Enum\ChannelScopeEnum;
-use Mush\Game\Enum\GameStatusEnum;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 
+/**
+ * @template-extends ServiceEntityRepository<ChannelPlayer>
+ */
 class ChannelPlayerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -17,7 +22,7 @@ class ChannelPlayerRepository extends ServiceEntityRepository
         parent::__construct($registry, ChannelPlayer::class);
     }
 
-    public function findAvailablePlayerForPrivateChannel(Channel $channel, int $maxChannel): array
+    public function findAvailablePlayerForPrivateChannel(Channel $channel, Daedalus $daedalus, int $maxChannel): array
     {
         // Sub-query that gets all players that have more than $maxChannel private channel open
         $subQuery = $this->createQueryBuilder('sub_query');
@@ -40,23 +45,22 @@ class ChannelPlayerRepository extends ServiceEntityRepository
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
         $queryBuilder
-            ->select('player')
-            ->from(Player::class, 'player')
-            ->where($queryBuilder->expr()->eq('player.daedalus', ':daedalus'))
-            ->andWhere($queryBuilder->expr()->eq('player.gameStatus', ':currentGameStatus'))
+            ->select('playerInfo')
+            ->from(PlayerInfo::class, 'playerInfo')
+            ->leftJoin(Player::class, 'game_player', Join::WITH, 'playerInfo.player = game_player')
+            ->where($queryBuilder->expr()->eq('game_player.daedalus', ':daedalus'))
             ->andWhere($queryBuilder->expr()->notIn(
-                'player.id',
+                'playerInfo.id',
                 $subQuery->getDQL()
             ))
             ->andWhere($queryBuilder->expr()->notIn(
-                'player.id',
+                'playerInfo.id',
                 $subQuery2->getDQL()
             ))
             ->setParameter('private', ChannelScopeEnum::PRIVATE)
             ->setParameter('currentChannel', $channel)
             ->setParameter('maxChannel', $maxChannel)
-            ->setParameter('currentGameStatus', GameStatusEnum::CURRENT)
-            ->setParameter('daedalus', $channel->getDaedalus())
+            ->setParameter('daedalus', $daedalus)
         ;
 
         return $queryBuilder->getQuery()->getResult();

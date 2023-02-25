@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+  <file id="daedalus.ext">
+    <unit id="oxygen">
+      <segment id="name" state="translated">
+        <source>oxygen.name</source>
+        <target>Oxígeno en la nave [ {quantity}  / 32 ]</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>oxygen.description</source>
+        <target>Cantidad disponible de **Oxígeno (o²) ** en el Daedalus. Para abastecer la nave organiza **exploraciones** o trabaja en el **jardín**.</target>
+      </segment>
+    </unit>
+    <unit id="fuel">
+      <segment id="name" state="translated">
+        <source>fuel.name</source>
+        <target>Combustible en reserva [ {quantity}  / 32 ]</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>fuel.description</source>
+        <target>El **combustible** es indispensable para no quedarse flotando en el espacio infinito. Encuentra este recurso **explorando** planetas. Este contador no muestra el combustible en la **Cámara de Combustión**.</target>
+      </segment>
+    </unit>
+    <unit id="shield">
+      <segment id="name" state="translated">
+        <source>shield.name</source>
+        <target>Blindaje: {quantity}</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shield.description</source>
+        <target>El escudo de plasma ha sido desactivado por el administrador NERON.
+//
+Indica el estado global del casco de la nave. Cuando es **0, la nave se destruirá** al no poder mantenerse ensamblada.</target>
+      </segment>
+    </unit>
+    <unit id="hull">
+      <segment id="name" state="translated">
+        <source>hull.name</source>
+        <target>Blindaje: {quantity}</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>hull.description</source>
+        <target>Indica el estado global del casco de la nave. Cuando es **0, la nave se destruirá** al no poder mantenerse ensamblada.</target>
+      </segment>
+    </unit>
+    <unit id="crewPlayer">
+      <segment id="name" state="translated">
+        <source>crewPlayer.name</source>
+        <target>Compañeros</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>crewPlayer.description</source>
+        <target>{playerAlive, plural, one {# Compañero activo} other {# Compañeros activos}}, dont {mushAlive, plural, one {# Mush} other {# Mushs}}. {humanDead, plural, one {# compañeros muerto} other {# compañeros muertos}}, dont {mushDead, plural, one {# Mush} other {# Mushs}}. {cryogenizedPlayers, plural, one {# criogénico} other {# criogénicos}}.</target>
+      </segment>
+    </unit>
+    <unit id="currentCycle">
+      <segment id="name" state="translated">
+        <source>currentCycle.name</source>
+        <target>Tiempo de juego</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>currentCycle.description</source>
+        <target>Los días del juego corresponden a los días de la vida real.
+Un **ciclo dura 3 horas**. ¡En cada Ciclo acumulas más :pm::pa:, indispensables para realizar acciones!</target>
+      </segment>
+    </unit>
+    <unit id="triumph">
+      <segment id="name" state="translated">
+        <source>triumph.name</source>
+        <target>Gloria personal</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>triumph.description</source>
+        <target>Gloria acumulada durante el viaje. Esta puntuación será calculada al final de la aventura y determina tu posición en la clasificación de la nave.</target>
+      </segment>
+    </unit>
+    <unit id="calendar.name">
+      <segment state="initial">
+        <source>calendar.name</source>
+        <target>calendar.name</target>
+      </segment>
+    </unit>
+    <unit id="calendar.description">
+      <segment state="initial">
+        <source>calendar.description</source>
+        <target>calendar.description</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

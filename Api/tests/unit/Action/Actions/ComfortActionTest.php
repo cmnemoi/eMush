@@ -22,10 +22,10 @@ class ComfortActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::COMFORT);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Comfort(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator
         );
@@ -36,7 +36,7 @@ class ComfortActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -44,7 +44,7 @@ class ComfortActionTest extends AbstractActionTest
         $room = new Place();
 
         $this->playerService->shouldReceive('persist');
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
 
         $player = $this->createPlayer(new Daedalus(), $room);
         $playerTarget = $this->createPlayer(new Daedalus(), $room);
@@ -52,7 +52,7 @@ class ComfortActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $playerTarget);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

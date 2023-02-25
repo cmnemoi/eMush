@@ -8,16 +8,20 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierModeEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -25,21 +29,27 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class BreakRepairEquipmentSubscriberCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testRepairGearPlaceReach(FunctionalTester $I)
     {
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig])]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -47,11 +57,17 @@ class BreakRepairEquipmentSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
-            ->setDaedalus($daedalus)
-            ->setScope(ChannelScopeEnum::PUBLIC);
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -62,48 +78,47 @@ class BreakRepairEquipmentSubscriberCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifier = new Modifier($daedalus, $modifierConfig);
+        $modifier = new GameModifier($daedalus, $modifierConfig);
         $I->haveInRepository($modifier);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['mechanics' => new ArrayCollection([$gear])]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($player);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setholder($player)
         ;
         $I->haveInRepository($gameEquipment);
-
-        $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::BROKEN)->setGameConfig($gameConfig);
-        $I->haveInRepository($statusConfig);
 
         $statusEvent = new StatusEvent(
             EquipmentStatusEnum::BROKEN,
             $gameEquipment,
-            ActionEnum::COFFEE,
+            [ActionEnum::COFFEE],
             new \DateTime()
         );
         $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -115,12 +130,12 @@ class BreakRepairEquipmentSubscriberCest
         $statusEvent = new StatusEvent(
             EquipmentStatusEnum::BROKEN,
             $gameEquipment,
-            ActionEnum::COFFEE,
+            [ActionEnum::COFFEE],
             new \DateTime()
         );
         $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);

@@ -30,7 +30,7 @@ It also includes services to build NERON messages
   - translate the log parameters
 
 
-## DataFixtures
+## ConfigData / DataFixtures
 Contains various information for ship initialization:
 - DifficultyConfigFixture: control the overall difficulty with rates of event and intensity of consequences.
 - GameConfigFixtures: store information on starting and max player variables.

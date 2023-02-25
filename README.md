@@ -86,6 +86,8 @@ chmod go+r config/jwt/private.pem
 ```
 Use mush as passphrase or update the .env with your passphrase
 
+Finally, create a local Eternaltwin account by registering on http://localhost:50320/register, note the ID of the account you just created and update the `Api/.env` file with it. You will need it to connect to eMush with admin rights.
+
 If everything went well you should be able to access:
   - Swagger : http://localhost:8080/swagger/
   - Front end : http://localhost

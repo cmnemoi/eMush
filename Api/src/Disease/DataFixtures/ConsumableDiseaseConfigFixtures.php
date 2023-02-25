@@ -16,6 +16,7 @@ use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 
 class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -32,8 +33,7 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
         foreach (GameFruitEnum::getAlienFruits() as $fruitName) {
             $alienFruitDiseasesConfig = new ConsumableDiseaseConfig();
             $alienFruitDiseasesConfig
-                ->setName($fruitName)
-                ->setGameConfig($gameConfig)
+                ->setCauseName($fruitName)
                 ->setDiseasesName($diseases)
                 ->setCuresName($diseases)
                 ->setDiseasesChances([100 => 64, 25 => 1, 30 => 2, 35 => 3, 40 => 4, 45 => 5,
@@ -44,8 +44,10 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
                     6 => 1, 7 => 1, 8 => 1, 9 => 1, 10 => 1, 11 => 1, ])
                 ->setDiseasesDelayLength([0 => 1, 1 => 1, 2 => 1, 3 => 1, 4 => 1, 5 => 1, 6 => 1, 7 => 1, 8 => 1])
                 ->setEffectNumber([0 => 35, 1 => 40, 2 => 15, 3 => 9, 4 => 1])
+                ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
             ;
             $manager->persist($alienFruitDiseasesConfig);
+            $gameConfig->addConsumableDiseaseConfig($alienFruitDiseasesConfig);
         }
 
         $junkbumpkinitis = new ConsumableDiseaseAttribute();
@@ -55,13 +57,14 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
 
         $junkinDiseasesConfig = new ConsumableDiseaseConfig();
         $junkinDiseasesConfig
-            ->setName(GameFruitEnum::JUNKIN)
-            ->setGameConfig($gameConfig)
+            ->setCauseName(GameFruitEnum::JUNKIN)
             ->setAttributes(new ArrayCollection([$junkbumpkinitis]))
+            ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
         ;
         $junkbumpkinitis->setConsumableDiseaseConfig($junkinDiseasesConfig);
 
         $manager->persist($junkinDiseasesConfig);
+        $gameConfig->addConsumableDiseaseConfig($junkinDiseasesConfig);
 
         $acidReflux = new ConsumableDiseaseAttribute();
         $acidReflux
@@ -81,13 +84,14 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
 
         $alienSteak = new ConsumableDiseaseConfig();
         $alienSteak
-            ->setGameConfig($gameConfig)
-            ->setName(GameRationEnum::ALIEN_STEAK)
+            ->setCauseName(GameRationEnum::ALIEN_STEAK)
             ->setAttributes(new ArrayCollection([$acidReflux, $tapeworm]))
+            ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
         ;
         $acidReflux->setConsumableDiseaseConfig($alienSteak);
         $tapeworm->setConsumableDiseaseConfig($alienSteak);
         $manager->persist($alienSteak);
+        $gameConfig->addConsumableDiseaseConfig($alienSteak);
 
         $nausea = new ConsumableDiseaseAttribute();
         $nausea
@@ -98,13 +102,14 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
 
         $vitaminBar = new ConsumableDiseaseConfig();
         $vitaminBar
-            ->setGameConfig($gameConfig)
-            ->setName(GameRationEnum::SUPERVITAMIN_BAR)
+            ->setCauseName(GameRationEnum::SUPERVITAMIN_BAR)
             ->setAttributes(new ArrayCollection([$nausea]))
+            ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
         ;
 
         $nausea->setConsumableDiseaseConfig($vitaminBar);
         $manager->persist($vitaminBar);
+        $gameConfig->addConsumableDiseaseConfig($vitaminBar);
 
         $cures = [
             DiseaseEnum::VITAMIN_DEFICIENCY => 1,
@@ -124,15 +129,18 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
         foreach (GameDrugEnum::getAll() as $drugName) {
             $drugDiseaseConfig = new ConsumableDiseaseConfig();
             $drugDiseaseConfig
-                ->setName($drugName)
-                ->setGameConfig($gameConfig)
+                ->setCauseName($drugName)
                 ->setCuresName($cures)
                 ->setCuresChances([100 => 1])
                 ->setEffectNumber([1 => 60, 2 => 30, 3 => 8, 4 => 1])
+                ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
+
             ;
             $manager->persist($drugDiseaseConfig);
+            $gameConfig->addConsumableDiseaseConfig($drugDiseaseConfig);
         }
 
+        $manager->persist($gameConfig);
         $manager->flush();
     }
 

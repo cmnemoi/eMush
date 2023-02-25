@@ -2,13 +2,13 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\ChargedValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -35,7 +35,7 @@ class ChargedValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -43,16 +43,16 @@ class ChargedValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setIsBreakable(true);
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
 
         $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategy(ActionEnum::EXPRESS_COOK);
+        $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategy(ActionEnum::EXPRESS_COOK);
         $chargeStatus = new ChargeStatus($target, $statusConfig);
 
         $chargeStatus->setCharge(1);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -75,10 +75,10 @@ class ChargedValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setIsBreakable(false);
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -91,7 +91,7 @@ class ChargedValidatorTest extends TestCase
         ;
 
         $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategy(ActionEnum::EXPRESS_COOK);
+        $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategy(ActionEnum::EXPRESS_COOK);
         $chargeStatus = new ChargeStatus($target, $statusConfig);
         $chargeStatus
             ->setCharge(0)
@@ -105,8 +105,8 @@ class ChargedValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

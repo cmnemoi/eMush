@@ -13,6 +13,7 @@ use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 
 class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -22,11 +23,11 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
-        /** @var Action $takeAction */
+        /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
         /** @var Action $consumeDrugAction */
         $consumeDrugAction = $this->getReference(ActionsFixtures::DRUG_CONSUME);
-        /** @var Action $buildAction */
+        /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
@@ -40,23 +41,25 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setActionPoints([0 => 98, 1 => 1, 3 => 1])
             ->setMovementPoints([0 => 98, 2 => 1, 4 => 1])
             ->addAction($consumeDrugAction)
+            ->buildName('drug', GameConfigEnum::DEFAULT)
         ;
 
         foreach (GameDrugEnum::getAll() as $drugName) {
             $drug = new ItemConfig();
             $drug
-                ->setGameConfig($gameConfig)
-                ->setName($drugName)
+                ->setEquipmentName($drugName)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
                 ->setMechanics(new ArrayCollection([$drugMechanic]))
                 ->setActions($actions)
+                ->buildName(GameConfigEnum::DEFAULT)
             ;
             $manager->persist($drug);
+            $gameConfig->addEquipmentConfig($drug);
         }
         $manager->persist($drugMechanic);
-
+        $manager->persist($gameConfig);
         $manager->flush();
     }
 

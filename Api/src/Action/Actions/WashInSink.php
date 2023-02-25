@@ -69,9 +69,9 @@ class WashInSink extends AbstractAction
         $statusEvent = new StatusEvent(
             PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK,
             $this->player,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\CheckSporeLevel;
 use Mush\Action\Enum\ActionEnum;
@@ -25,7 +24,7 @@ class CheckSporeLevelActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::CHECK_SPORE_LEVEL);
 
         $this->action = new CheckSporeLevel(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -36,7 +35,7 @@ class CheckSporeLevelActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -49,13 +48,13 @@ class CheckSporeLevelActionTest extends AbstractActionTest
         $player = $this->createPlayer($daedalus, $room);
 
         $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig->setName(PlayerStatusEnum::SPORES);
+        $sporeConfig->setStatusName(PlayerStatusEnum::SPORES);
         $sporeStatus = new ChargeStatus($player, $sporeConfig);
         $sporeStatus
             ->setCharge(1)
         ;
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 

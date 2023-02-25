@@ -12,10 +12,14 @@ use Mush\Communication\Services\MessageService;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class MessageServiceTest extends TestCase
@@ -24,6 +28,8 @@ class MessageServiceTest extends TestCase
     private EntityManagerInterface $entityManager;
     /** @var DiseaseMessageServiceInterface|Mockery\mock */
     private DiseaseMessageServiceInterface $diseaseMessageService;
+    /** @var EventServiceInterface|Mockery\mock */
+    private EventServiceInterface $eventService;
 
     private MessageServiceInterface $service;
 
@@ -32,8 +38,9 @@ class MessageServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->diseaseMessageService = Mockery::mock(DiseaseMessageServiceInterface::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->diseaseMessageService = \Mockery::mock(DiseaseMessageServiceInterface::class);
+        $this->eventService = \Mockery::mock(EventServiceInterface::class);
 
         $this->entityManager->shouldReceive([
             'persist' => null,
@@ -42,7 +49,8 @@ class MessageServiceTest extends TestCase
 
         $this->service = new MessageService(
             $this->entityManager,
-            $this->diseaseMessageService
+            $this->diseaseMessageService,
+            $this->eventService
         );
     }
 
@@ -51,17 +59,19 @@ class MessageServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testCreatePlayerMessage()
     {
-        $messageClass = Mockery::mock(Message::class);
+        $messageClass = \Mockery::mock(Message::class);
 
         $channel = new Channel();
         $player = new Player();
         $daedalus = new Daedalus();
-        $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
+        $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
 
         $playerMessageDto = new CreateMessage();
         $playerMessageDto
@@ -79,6 +89,8 @@ class MessageServiceTest extends TestCase
         $messageClass->shouldReceive('setParent')->with(null);
         $messageClass->shouldReceive('getParent')->andReturn(null);
 
+        $this->eventService->shouldReceive('callEvent')->once();
+
         $message = $this->service->createPlayerMessage($player, $playerMessageDto);
 
         $this->assertInstanceOf(Message::class, $message);
@@ -86,14 +98,16 @@ class MessageServiceTest extends TestCase
 
     public function testCreatePlayerMessageWithParent()
     {
-        $messageClass = Mockery::mock(Message::class);
+        $messageClass = \Mockery::mock(Message::class);
 
         $message = new Message();
 
         $channel = new Channel();
         $player = new Player();
         $daedalus = new Daedalus();
-        $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
+        $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
 
         $playerMessageDto = new CreateMessage();
         $playerMessageDto
@@ -115,6 +129,7 @@ class MessageServiceTest extends TestCase
 
         $messageClass->shouldReceive('getParent')->andReturn($message);
         $messageClass->shouldReceive('getParent')->with($message)->andReturn(null);
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $messageWithParent = $this->service->createPlayerMessage($player, $playerMessageDto);
 
@@ -126,14 +141,18 @@ class MessageServiceTest extends TestCase
         $player = new Player();
         $channel = new Channel();
 
-        $player->setGameStatus(GameStatusEnum::FINISHED);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
+        $player->setPlayerInfo($playerInfo);
         $this->assertFalse($this->service->canPlayerPostMessage($player, $channel));
 
-        $player->setGameStatus(GameStatusEnum::CURRENT);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
+        $player->setPlayerInfo($playerInfo);
         $this->assertTrue($this->service->canPlayerPostMessage($player, $channel));
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::GAGGED);
+        $statusConfig->setStatusName(PlayerStatusEnum::GAGGED);
         $status = new Status($player, $statusConfig);
         $this->assertFalse($this->service->canPlayerPostMessage($player, $channel));
     }

@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="characters.ext">
+    <unit id="Neron">
+      <segment id="name" state="translated">
+        <source>neron.name</source>
+        <target>Neron</target>
+      </segment>
+      <segment id="fullname" state="translated">
+        <source>neron.fullname</source>
+        <target>Neron</target>
+      </segment>
+    </unit>
+    <unit id="Andie">
+      <segment id="name" state="translated">
+        <source>andie.name</source>
+        <target>Andie</target>
+      </segment>
+      <segment id="fullname" state="translated">
+        <source>andie.fullname</source>
+        <target>Andie Graham</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>andie.age</source>
+        <target>andie.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>andie.description</source>
+        <target>Federation boot-licker.</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>andie.employment</source>
+        <target>andie.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>andie.abstract</source>
+        <target>Sub-Lieutenant Andie Graham is still not aware that the Daedalus has cut all ties with the SDF. Still operating under the illusion that he/she is on a Federation-sanctioned mission, he/she is still working towards the mission objective. Upon discovering that their idol, Sgt Derek Hogan has joined the crew of the Daedalus, Andie applies for a position on board. Andie's unique skillset makes him/her invaluable in ensuring mission success.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>andie.biography</source>
+        <target>andie.biography</target>
+      </segment>
+    </unit>
+    <unit id="Chao">
+      <segment id="name" state="translated">
+        <source>chao.name</source>
+        <target>Chao</target>
+      </segment>
+      <segment id="fullname" state="translated">
+        <source>chao.fullname</source>
+        <target>Wang Chao</target>
+      </segment>
+      <segment id="age" state="translated">
+        <source>chao.age</source>
+        <target>34 years old</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>chao.description</source>
+        <target>Head of Security aboard the Daedalus, a blaster-toting psychopath</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>chao.employment</source>
+        <target>chao.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>chao.abstract</source>
+        <target>Wang Chao is assigned to crew protection detail. His chaotic personality makes him as much of a threat to his allies as his enemies. Despite errors made in his youth, Chao managed to earn the trust of his team by organising the emergency evacuation convoy from the Daedalus and successfully protecting them against ex-members of the SDF.
+</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>chao.biography</source>
+        <target>chao.biography</target>
+      </segment>
+    </unit>
+    <unit id="Chun">
+      <segment id="name" state="translated">
+        <source>chun.name</source>
+        <target>Chun</target>
+      </segment>
+      <segment id="fullname" state="translated">
+        <source>chun.fullname</source>
+        <target>Zhong Chun</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>chun.age</source>
+        <target>chun.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>chun.description</source>
+        <target>Everyone on board is important, but she is Humanity's last hope!</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>chun.employment</source>
+        <target>chun.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>chun.abstract</source>
+        <target>As the only surviving member of the Tamina medical team, Chun was forced to board the Daedelus to be subjected to numerous tests. Cryogenically frozen by the Federation for over 9 years to ensure her silence, then harassed by journalists, Chun has never known an ordinary life. However, as the key to the survival of the human race, Zhong Chun must survive at all costs.
+</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>chun.biography</source>
+        <target>chun.biography</target>
+      </segment>
+    </unit>
+    <unit id="Derek">
+      <segment id="name" state="translated">
+        <source>derek.name</source>
+        <target>Derek</target>
+      </segment>
+      <segment id="fullname" state="translated">
+        <source>derek.fullname</source>
+        <target>Derek Hogan</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>derek.age</source>
+        <target>derek.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>derek.description</source>
+        <target>A true hero in spite of everything.</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>derek.employment</source>
+        <target>derek.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>derek.abstract</source>
+        <target>Derek Hogan is assigned to the security of the Daedalus. Robust and self-confident, he will be a significant asset for the success of this extreme mission. His past is a succession of events, each more incredible than the last. Derek has experienced everything, Sol's battlefields, the suicide missions of Tau-Ceti... Yet, he is always looking for a soul mate. Since his hasty departure from his home, Derek has dedicated his existence to women, but without success.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>derek.biography</source>
+        <target>derek.biography</target>
+      </segment>
+    </unit>
+    <unit id="Eleesha">
+      <segment id="name" state="translated">
+        <source>eleesha.name</source>
+        <target>Eleesha</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>eleesha.fullname</source>
+        <target>eleesha.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>eleesha.age</source>
+        <target>eleesha.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eleesha.description</source>
+        <target>Deposed first-rate investigator on the run from the Federation.</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>eleesha.employment</source>
+        <target>eleesha.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>eleesha.abstract</source>
+        <target>Eleesha is an investigative journalist for SNC (Sol News Channel). She managed to obtain the medical files of several financial and political leaders in the Federation, proving their Mush infection. After her report was taken off the air, Eleesha fled to Jupiter for fear of being eliminated. She revealed all this to the crew of the Daedalus and is currently on board posing as a mechanic.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>eleesha.biography</source>
+        <target>eleesha.biography</target>
+      </segment>
+    </unit>
+    <unit id="Finola">
+      <segment id="name" state="translated">
+        <source>finola.name</source>
+        <target>Finola</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>finola.fullname</source>
+        <target>finola.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>finola.age</source>
+        <target>finola.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>finola.description</source>
+        <target>Internationally renowned biologist and pioneer abducted from Earth.</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>finola.employment</source>
+        <target>finola.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>finola.abstract</source>
+        <target>Finola was there when most of the key discoveries were made about Mush.When she is contacted by Lai Kuan-Ti who told her about the Daedalus project, she refused to leave Antemis where she was working on her own fungicide project. Assisted by his henchmen, Kuan-Ti kidnapped Finola, had her cryogenically frozen against her will and took her along on the mission.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>finola.biography</source>
+        <target>finola.biography</target>
+      </segment>
+    </unit>
+    <unit id="Frieda">
+      <segment id="name" state="translated">
+        <source>frieda.name</source>
+        <target>Frieda</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>frieda.fullname</source>
+        <target>frieda.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>frieda.age</source>
+        <target>frieda.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>frieda.description</source>
+        <target>Vintage Astro-Physicist. Allegedly a descendant of Copernicus...</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>frieda.employment</source>
+        <target>frieda.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>frieda.abstract</source>
+        <target>Born in the 21st Century, she has over 45 years of experience in cross-system navigation. While she was studying, she proved the existence of Shapiro's slingshot effect. Woken from cryosleep in the 31st Century, her work on locating celestial bodies had already been most useful to great explorers such as GL Maubrick and Kim Jin-Su. Despite having retired to Bavaria, she is called to Xyloph-17 to serve as the navigator of the Daedalus.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>frieda.biography</source>
+        <target>frieda.biography</target>
+      </segment>
+    </unit>
+    <unit id="Gioele">
+      <segment id="name" state="translated">
+        <source>gioele.name</source>
+        <target>Gioele</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>gioele.fullname</source>
+        <target>gioele.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>gioele.age</source>
+        <target>gioele.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>gioele.description</source>
+        <target>Ship-owning combat-ready caffeine-junkie.</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>gioele.employment</source>
+        <target>gioele.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>gioele.abstract</source>
+        <target>Gioele is the ship-owner. He is a billionaire from Earth who is obsessed by space travel, and who financed the initial Daedalus project. Faced with the Mush menace, Gioele panicked and in extremis, with the help of the designers, managed to get a job aboard the ship as a navigator. He also managed to eject a biologist from the original crew to make space for his daughter Paola.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>gioele.biography</source>
+        <target>gioele.biography</target>
+      </segment>
+    </unit>
+    <unit id="Hua">
+      <segment id="name" state="translated">
+        <source>hua.name</source>
+        <target>Hua</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>hua.fullname</source>
+        <target>hua.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>hua.age</source>
+        <target>hua.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>hua.description</source>
+        <target>An extreme explorer with an irrational fear of balloon animals.</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>hua.employment</source>
+        <target>hua.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>hua.abstract</source>
+        <target>Specialist in approach missions to unknown planets, Hua can land on pretty much any surface in any conditions. She was aboard the Epygron, the first exploration vessel to encounter extra-terrestrial life.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>hua.biography</source>
+        <target>hua.biography</target>
+      </segment>
+    </unit>
+    <unit id="Ian">
+      <segment id="name" state="translated">
+        <source>ian.name</source>
+        <target>Ian</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>ian.fullname</source>
+        <target>ian.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>ian.age</source>
+        <target>ian.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>ian.description</source>
+        <target>Flexible fructivorous researcher. Better living through botany!</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>ian.employment</source>
+        <target>ian.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>ian.abstract</source>
+        <target>Ian Soulton actively participated in Mush research. An authority on the subject, and also on botany, he prepared a study into numerous extra-terrestrial species and created several hundred hybrids using plants from earth. His curiosity for fruit species is particularly evident.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>ian.biography</source>
+        <target>ian.biography</target>
+      </segment>
+    </unit>
+    <unit id="jin_su">
+      <segment id="name" state="translated">
+        <source>jin_su.name</source>
+        <target>Jin Su</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>jin_su.fullname</source>
+        <target>jin_su.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>jin_su.age</source>
+        <target>jin_su.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>jin_su.description</source>
+        <target>Supreme Commander of the Daedalus.</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>jin_su.employment</source>
+        <target>jin_su.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>jin_su.abstract</source>
+        <target>Jin Su started exploring at a young age, on research missions on Barnard Star. He was quickly promoted to the rank of Commander and was placed in charge of important missions on Ross 154 and Epsilon Indi. Jin Su's discovery of multiple Boxylium deposits on Tau-ceti made him an instant interplanetary celebrity. In 3146 the Federation named him as Executive Commander of the Magellan project. Following the Mush invasion of Sol, he drew up the plans for the Daedalus with Lai Kuan Ti, and assembled an elite crew to ensure the survival of the human race in another galaxy.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>jin_su.biography</source>
+        <target>jin_su.biography</target>
+      </segment>
+    </unit>
+    <unit id="kuan_ti">
+      <segment id="name" state="translated">
+        <source>kuan_ti.name</source>
+        <target>Kuan Ti</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>kuan_ti.fullname</source>
+        <target>kuan_ti.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>kuan_ti.age</source>
+        <target>kuan_ti.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>kuan_ti.description</source>
+        <target>Grand Architect of the Daedalus. His knowledge of the ship is unmatched.</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>kuan_ti.employment</source>
+        <target>kuan_ti.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>kuan_ti.abstract</source>
+        <target>Kuan Ti is one of the two designers of the Daedalus. He paid no attention whatsoever to the existence of Mush on Tau-Ceti until Eleesha William told him of the advanced stage of propagation of mycelium within the Sol system. Kuan Ti, Raluca and Jin Su decide to move the launch of the Magellan program forward by 8 years before the Federation can put an end to it.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>kuan_ti.biography</source>
+        <target>kuan_ti.biography</target>
+      </segment>
+    </unit>
+    <unit id="Paola">
+      <segment id="name" state="translated">
+        <source>paola.name</source>
+        <target>Paola</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>paola.fullname</source>
+        <target>paola.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>paola.age</source>
+        <target>paola.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>paola.description</source>
+        <target>Chief Communications Officer and former political activist.</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>paola.employment</source>
+        <target>paola.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>paola.abstract</source>
+        <target>Daughter of the shipowner Gioele Rinaldo. She lives in the constant hope of leading an adventure which will shake up her life. To denounce the Federation's post-colonial system, she starts a pirate radio station on her campus with her boyfriend Kivanç Terzi. On this occasion, she accidentally intercepted disturbing communications informing her of an impending Mush invasion. Fleeing for her life, she meets up with her father who permits her to board the Daedalus, abandoning the man of her life on Earth.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>paola.biography</source>
+        <target>paola.biography</target>
+      </segment>
+    </unit>
+    <unit id="Raluca">
+      <segment id="name" state="translated">
+        <source>raluca.name</source>
+        <target>Raluca</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>raluca.fullname</source>
+        <target>raluca.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>raluca.age</source>
+        <target>raluca.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>raluca.description</source>
+        <target>Reclusive cat-loving quantum physicist prodigy and electronics genius.</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>raluca.employment</source>
+        <target>raluca.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>raluca.abstract</source>
+        <target>Physics genius at the age of 11, Raluca is the inventor of the PILGRED reversible combustion reactor as equipped on the Daedalus. Alongside Lai Kuan Ti, she also designed almost all of the on-board modules and is capable of improving them further. Suffering from autism, Raluca will only tolerate the presence of Schrödinger, her cat which she managed to smuggle on board in spite of the doctor's recommendations. Her disputes with NERON are legendary.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>raluca.biography</source>
+        <target>raluca.biography</target>
+      </segment>
+    </unit>
+    <unit id="Roland">
+      <segment id="name" state="translated">
+        <source>roland.name</source>
+        <target>Roland</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>roland.fullname</source>
+        <target>roland.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>roland.age</source>
+        <target>roland.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>roland.description</source>
+        <target>Amateur comedian and elite fighter pilot. Born to destroy Hunters.</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>roland.employment</source>
+        <target>roland.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>roland.abstract</source>
+        <target>After a tumultuous but nonetheless brilliant ascent to the FDS Academy for elite pilots, Roland Zuccali is finally grounded after testing positive for a Mush infection. Manipulated by his superiors despite being proven innocent, Roland loses all confidence in the FDS and finally deserts during the Dirty War against the rebels. He then becomes the pilot of the Daedalus.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>roland.biography</source>
+        <target>roland.biography</target>
+      </segment>
+    </unit>
+    <unit id="Stephen">
+      <segment id="name" state="translated">
+        <source>stephen.name</source>
+        <target>Stephen</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>stephen.fullname</source>
+        <target>stephen.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>stephen.age</source>
+        <target>stephen.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>stephen.description</source>
+        <target>The most dangerous cook in history. Keep your fingers out of his soup!</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>stephen.employment</source>
+        <target>stephen.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>stephen.abstract</source>
+        <target>Stephen was a bellboy on an interplanetary train, then a slave in a Mexican cobalt mine, a senator in the Chili Con Latte coalition, a space mercenary, a private federal tax collector, money launderer, kidnapper of young girls, Boxylium miner, SDF military chef, and condemned to death. His trip takes him to Xyloph-17 where he is accidentally cryogenized, and shipped aboard the Daedalus.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>stephen.biography</source>
+        <target>stephen.biography</target>
+      </segment>
+    </unit>
+    <unit id="Terrence">
+      <segment id="name" state="translated">
+        <source>terrence.name</source>
+        <target>Terrence</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>terrence.fullname</source>
+        <target>terrence.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>terrence.age</source>
+        <target>terrence.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>terrence.description</source>
+        <target>Disillusioned motorized technophile with an unhealthy drone fixation.</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>terrence.employment</source>
+        <target>terrence.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>terrence.abstract</source>
+        <target>Seriously injured during an over-ambitious raid against the rebels on Sol, Terrence spent 6 months in a coma. He returns to civilian life broken and bruised, stuck in a wheelchair. Terrence decided to dedicate his life to advanced engineering and the creation of drones. His life's dream is to develop unmanned fighter craft and remote-controlled drones.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>terrence.biography</source>
+        <target>terrence.biography</target>
+      </segment>
+    </unit>
+    <unit id="janice">
+      <segment id="name" state="translated">
+        <source>janice.name</source>
+        <target>Janice</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>janice.fullname</source>
+        <target>janice.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>janice.age</source>
+        <target>janice.age</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>janice.description</source>
+        <target>A Digital Psychologist and one-woman enigma machine.</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>janice.employment</source>
+        <target>janice.employment</target>
+      </segment>
+      <segment id="abstract" state="translated">
+        <source>janice.abstract</source>
+        <target>Janice takes care of the Daedalus' IT requirements. She manages NERON's regular psychological breakdowns and put the A-TRUE protocol in place, which allows the central computer to name its own administrator. Janice also manages the psychological needs of the crew of the Daedalus.</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>janice.biography</source>
+        <target>janice.biography</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

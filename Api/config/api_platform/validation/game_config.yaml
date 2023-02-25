@@ -1,0 +1,7 @@
+Mush\Game\Entity\GameConfig:
+  properties:
+    name:
+      - NotBlank: ~
+      - Length:
+          max: 48
+      - Type: string

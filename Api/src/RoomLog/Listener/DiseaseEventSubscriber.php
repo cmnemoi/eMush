@@ -51,15 +51,14 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onDiseaseCure(DiseaseEvent $event)
+    public function onDiseaseCure(DiseaseEvent $event): void
     {
         $player = $event->getPlayerDisease()->getPlayer();
 
-        $reason = $event->getReason();
+        $reasons = $event->getTags();
 
-        if (key_exists($reason, self::CURE_LOG_MAP)) {
-            $key = self::CURE_LOG_MAP[$reason];
-        } else {
+        $key = $event->mapLog(self::CURE_LOG_MAP);
+        if ($key === null) {
             $key = LogEnum::DISEASE_CURED;
         }
 
@@ -77,15 +76,14 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         $this->createEventLog($key, $event, $player);
     }
 
-    public function onDiseaseTreated(DiseaseEvent $event)
+    public function onDiseaseTreated(DiseaseEvent $event): void
     {
         $player = $event->getPlayerDisease()->getPlayer();
 
-        $reason = $event->getReason();
+        $reasons = $event->getTags();
 
-        if (key_exists($reason, self::TREAT_LOG_MAP)) {
-            $key = self::TREAT_LOG_MAP[$reason];
-        } else {
+        $key = $event->mapLog(self::TREAT_LOG_MAP);
+        if ($key === null) {
             $key = LogEnum::DISEASE_TREATED;
         }
 
@@ -94,7 +92,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         $this->createEventLog($key, $event, $player);
     }
 
-    public function onDiseaseAppear(DiseaseEvent $event)
+    public function onDiseaseAppear(DiseaseEvent $event): void
     {
         $player = $event->getPlayer();
         $diseaseConfig = $event->getDiseaseConfig();

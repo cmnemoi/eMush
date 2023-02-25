@@ -4,9 +4,11 @@ Mush\Disease\Entity\Config\SymptomConfig:
       groups: [ 'symptom_config_read' ]
     name:
       groups: [ 'symptom_config_read', 'symptom_config_write' ]
+    symptomName:
+      groups: [ 'symptom_config_read', 'symptom_config_write' ]
     trigger:
       groups: [ 'symptom_config_read', 'symptom_config_write' ]
     visibility:
       groups: [ 'symptom_config_read', 'symptom_config_write' ]
-    symptomConditions:
+    symptomActivationRequirements:
       groups: [ 'symptom_config_read', 'symptom_config_write' ]

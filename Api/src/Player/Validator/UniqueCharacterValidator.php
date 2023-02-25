@@ -2,19 +2,20 @@
 
 namespace Mush\Player\Validator;
 
+use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Player\Entity\Dto\PlayerCreateRequest;
-use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class UniqueCharacterValidator extends ConstraintValidator
 {
-    private PlayerServiceInterface $playerService;
+    private DaedalusServiceInterface $daedalusService;
 
-    public function __construct(PlayerServiceInterface $playerService)
+    public function __construct(DaedalusServiceInterface $daedalusService)
     {
-        $this->playerService = $playerService;
+        $this->daedalusService = $daedalusService;
     }
 
     public function validate($value, Constraint $constraint): void
@@ -31,8 +32,7 @@ class UniqueCharacterValidator extends ConstraintValidator
         $character = $value->getCharacter();
 
         if ($daedalus !== null &&
-            $character !== null &&
-            $this->playerService->findOneByCharacter($character, $daedalus) !== null
+            !$daedalus->getPlayers()->filter(fn (Player $player) => $player->getName() === $character)->isEmpty()
         ) {
             $this->context
                 ->buildViolation($constraint->message)

@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\NumberPlayersInRoom;
 use Mush\Action\Validator\NumberPlayersInRoomValidator;
@@ -31,7 +30,7 @@ class NumberPlayersInRoomValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -49,7 +48,7 @@ class NumberPlayersInRoomValidatorTest extends TestCase
         $player3 = new Player();
         $player3->setPlace($room);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -69,7 +68,7 @@ class NumberPlayersInRoomValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -92,7 +91,7 @@ class NumberPlayersInRoomValidatorTest extends TestCase
         $player2 = new Player();
         $player2->setPlace($room);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -105,8 +104,8 @@ class NumberPlayersInRoomValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

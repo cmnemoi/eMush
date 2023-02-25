@@ -87,7 +87,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
 
         $normalizedItems = $this->normalizeItems($items, $currentPlayer, $format, $context);
 
-        $language = $room->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $room->getDaedalus()->getLanguage();
 
         return [
             'id' => $room->getId(),
@@ -261,7 +261,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
                 }
                 $blueprint = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
                 if ($blueprint instanceof Blueprint) {
-                    $name = $name . $blueprint->getEquipment()->getName();
+                    $name = $name . $blueprint->getCraftedEquipmentName();
                 }
 
                 if (!isset($itemsGroup[$name])) {

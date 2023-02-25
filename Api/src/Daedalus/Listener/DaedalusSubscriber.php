@@ -5,6 +5,7 @@ namespace Mush\Daedalus\Listener;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Player\Enum\EndCauseEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusSubscriber implements EventSubscriberInterface
@@ -22,39 +23,26 @@ class DaedalusSubscriber implements EventSubscriberInterface
         return [
             DaedalusEvent::START_DAEDALUS => 'onDaedalusStart',
             DaedalusEvent::FULL_DAEDALUS => 'onDaedalusFull',
-            DaedalusEvent::END_DAEDALUS => 'onDaedalusEnd',
+            DaedalusEvent::FINISH_DAEDALUS => 'onDaedalusFinish',
         ];
     }
 
-    public function onDaedalusEnd(DaedalusEvent $event): void
+    public function onDaedalusFinish(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $reason = $event->getReason();
+        $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
-        if (!$reason) {
+        if (!$endCause) {
             throw new \LogicException('daedalus should end with a reason');
         }
 
-        $this->daedalusService->killRemainingPlayers($daedalus, $reason, $event->getTime());
-
-        // @TODO: create logs
-        // @TODO: remove all fire and charged statuses
-
-        $daedalus->getPlaces()->map(static function ($room) {
-            /** @var \Mush\Place\Entity\Place $room */
-            foreach ($room->getStatuses() as $status) {
-                $room->removeStatus($status);
-            }
-        });
-
-        $daedalus->setFinishedAt(new \DateTime());
-        $daedalus->setGameStatus(GameStatusEnum::FINISHED);
-        $this->daedalusService->persist($daedalus);
+        $this->daedalusService->endDaedalus($daedalus, $endCause, $event->getTime());
     }
 
     public function onDaedalusFull(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
+        $daedalusInfo = $daedalus->getDaedalusInfo();
 
         // @TODO give titles
 
@@ -62,7 +50,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $this->daedalusService->selectAlphaMush($daedalus, $event->getTime());
 
         $daedalus->setFilledAt(new \DateTime());
-        $daedalus->setGameStatus(GameStatusEnum::CURRENT);
+        $daedalusInfo->setGameStatus(GameStatusEnum::CURRENT);
         $this->daedalusService->persist($daedalus);
     }
 

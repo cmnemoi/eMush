@@ -8,7 +8,7 @@ They store the state of the character (health, morale, action...)
 ## Directory Tree:
     |-- config
     |-- Controller
-    |-- DataFixtures
+    |-- ConfigData/DataFixtures
     |-- Entity
     |-- Enum
     |-- Event
@@ -55,7 +55,7 @@ They store the state of the character (health, morale, action...)
   - player end (after death validation)
 - PlayerVariableEvent: events that modify player variables (health, morale, movement, action)
 
-## DataFixtures
+## ConfigData / DataFixtures
 When creating a new character, you need to specify:
 - name
 - initial statuses: all characters have a spore status by default

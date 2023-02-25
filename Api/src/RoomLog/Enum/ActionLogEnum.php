@@ -246,7 +246,7 @@ class ActionLogEnum
         ],
 
         ActionEnum::MOVE => [
-            ActionOutputEnum::SUCCESS => self::ENTER_ROOM,
+            ActionOutputEnum::SUCCESS => self::EXIT_ROOM,
         ],
 
         ActionEnum::DO_THE_THING => [

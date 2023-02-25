@@ -2,16 +2,17 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\ReachValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -35,7 +36,7 @@ class ReachValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValidForPlayer()
@@ -51,12 +52,17 @@ class ReachValidatorTest extends TestCase
         ;
 
         $target = new Player();
+        $playerInfo = new PlayerInfo(
+            $target,
+            new User(),
+            new CharacterConfig()
+        );
         $target
             ->setPlace($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
+            ->setPlayerInfo($playerInfo)
         ;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -80,10 +86,10 @@ class ReachValidatorTest extends TestCase
         $player->setPlace($room);
 
         $targetConfig = new ItemConfig();
-        $target = new GameItem();
-        $target->setHolder($room)->setEquipment($targetConfig);
+        $target = new GameItem($room);
+        $target->setEquipment($targetConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -108,12 +114,18 @@ class ReachValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace(new Place());
         $target = new Player();
+
+        $playerInfo = new PlayerInfo(
+            $target,
+            new User(),
+            new CharacterConfig()
+        );
         $target
             ->setPlace(new Place())
-            ->setGameStatus(GameStatusEnum::CURRENT)
+            ->setPlayerInfo($playerInfo)
         ;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -136,10 +148,10 @@ class ReachValidatorTest extends TestCase
         $player->setPlace(new Place());
 
         $itemConfig = new ItemConfig();
-        $target = new GameItem();
-        $target->setHolder(new Place())->setEquipment($itemConfig);
+        $target = new GameItem(new Place());
+        $target->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -162,12 +174,12 @@ class ReachValidatorTest extends TestCase
     {
         $this->constraint->reach = ReachEnum::INVENTORY;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
 
         $player = new Player();
         $player->addEquipment($gameItem);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -185,11 +197,11 @@ class ReachValidatorTest extends TestCase
     {
         $this->constraint->reach = ReachEnum::INVENTORY;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
 
         $player = new Player();
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -212,10 +224,9 @@ class ReachValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $gameItem = new GameItem();
-        $gameItem->setHolder($room);
+        $gameItem = new GameItem($room);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -238,10 +249,9 @@ class ReachValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $gameItem = new GameItem();
-        $gameItem->setHolder(new Place());
+        $gameItem = new GameItem(new Place());
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -257,8 +267,8 @@ class ReachValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

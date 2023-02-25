@@ -42,45 +42,45 @@ class GameEquipmentRepositoryCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus2]);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, [
+            'name' => 'test_1',
+        ]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName('equipment 1')
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+        $doorConfig = $I->have(EquipmentConfig::class, [
+            'name' => 'door_test',
+        ]);
 
-        $door = new Door();
+        $door = new Door($room);
         $door
             ->setName('equipment 1')
-            ->setHolder($room)
             ->setEquipment($doorConfig)
         ;
         $I->haveInRepository($door);
 
         /** @var EquipmentConfig $equipmentConfig2 */
-        $equipmentConfig2 = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
+        $equipmentConfig2 = $I->have(ItemConfig::class, ['name' => 'test_2']);
 
-        $gameEquipment2 = new GameItem();
+        $gameEquipment2 = new GameItem($player);
         $gameEquipment2
             ->setName('item 2')
-            ->setHolder($player)
             ->setEquipment($equipmentConfig2)
         ;
         $I->haveInRepository($gameEquipment2);
 
         /** @var EquipmentConfig $equipmentConfig3 */
-        $equipmentConfig3 = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+        $equipmentConfig3 = $I->have(EquipmentConfig::class, ['name' => 'test_3']);
 
-        $gameEquipment3 = new GameEquipment();
+        $gameEquipment3 = new GameEquipment($room2);
         $gameEquipment3
             ->setName('equipment 3')
-            ->setHolder($room2)
             ->setEquipment($equipmentConfig3)
         ;
         $I->haveInRepository($gameEquipment3);
@@ -112,7 +112,7 @@ class GameEquipmentRepositoryCest
     public function testFindByBreakable(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
+        $gameConfig = $I->have(GameConfig::class);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
@@ -122,23 +122,21 @@ class GameEquipmentRepositoryCest
         $player = $I->have(Player::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $breakableConfig */
-        $breakableConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'isBreakable' => true]);
+        $breakableConfig = $I->have(EquipmentConfig::class, ['name' => 'breakable_test', 'isBreakable' => true]);
 
         /** @var EquipmentConfig $unbreakableConfig */
-        $unbreakableConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'isBreakable' => false]);
+        $unbreakableConfig = $I->have(ItemConfig::class, ['name' => 'unbreakable_test', 'isBreakable' => false]);
 
-        $breakableEquipment = new GameEquipment();
+        $breakableEquipment = new GameEquipment($room);
         $breakableEquipment
             ->setName('equipment 1')
-            ->setHolder($room)
             ->setEquipment($breakableConfig)
         ;
         $I->haveInRepository($breakableEquipment);
 
-        $unbreakableItem = new GameItem();
+        $unbreakableItem = new GameItem($player);
         $unbreakableItem
             ->setName('item 2')
-            ->setHolder($player)
             ->setEquipment($unbreakableConfig)
         ;
         $I->haveInRepository($unbreakableItem);
@@ -162,7 +160,7 @@ class GameEquipmentRepositoryCest
     public function testFindByInstanceOf(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
+        $gameConfig = $I->have(GameConfig::class);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
@@ -170,35 +168,32 @@ class GameEquipmentRepositoryCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['name' => 'test_1']);
 
         // Case of a game Equipment
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName('equipment 1')
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+        $doorConfig = $I->have(EquipmentConfig::class, ['name' => 'door_test']);
 
-        $door = new Door();
+        $door = new Door($room);
         $door
             ->setName('door 1')
-            ->setHolder($room)
             ->setEquipment($doorConfig)
         ;
         $I->haveInRepository($door);
 
         /** @var EquipmentConfig $equipmentConfig2 */
-        $equipmentConfig2 = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
+        $equipmentConfig2 = $I->have(ItemConfig::class, ['name' => 'test_2']);
 
-        $item = new GameItem();
+        $item = new GameItem($room);
         $item
             ->setName('item 2')
-            ->setHolder($room)
             ->setEquipment($equipmentConfig2)
         ;
         $I->haveInRepository($item);
@@ -233,7 +228,7 @@ class GameEquipmentRepositoryCest
     public function testFindByNotInstanceOf(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
+        $gameConfig = $I->have(GameConfig::class);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
@@ -241,35 +236,32 @@ class GameEquipmentRepositoryCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['name' => 'test_1']);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName('equipment 1')
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+        $doorConfig = $I->have(EquipmentConfig::class, ['name' => 'door_test']);
 
         // Case of a game Equipment
-        $door = new Door();
+        $door = new Door($room);
         $door
             ->setName('door 1')
-            ->setHolder($room)
             ->setEquipment($doorConfig)
         ;
         $I->haveInRepository($door);
 
         /** @var EquipmentConfig $equipmentConfig2 */
-        $equipmentConfig2 = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
+        $equipmentConfig2 = $I->have(ItemConfig::class, ['name' => 'test_2']);
 
-        $item = new GameItem();
+        $item = new GameItem($room);
         $item
             ->setName('item 2')
-            ->setHolder($room)
             ->setEquipment($equipmentConfig2)
         ;
         $I->haveInRepository($item);
@@ -320,45 +312,41 @@ class GameEquipmentRepositoryCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus2]);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['name' => 'test_1']);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName('equipment1')
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+        $doorConfig = $I->have(EquipmentConfig::class, ['name' => 'door_test']);
 
-        $door = new Door();
+        $door = new Door($room);
         $door
             ->setName('equipment1')
-            ->setHolder($room)
             ->setEquipment($doorConfig)
         ;
         $I->haveInRepository($door);
 
         /** @var EquipmentConfig $equipmentConfig2 */
-        $equipmentConfig2 = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
+        $equipmentConfig2 = $I->have(ItemConfig::class, ['name' => 'test_2']);
 
-        $gameEquipment2 = new GameItem();
+        $gameEquipment2 = new GameItem($player);
         $gameEquipment2
             ->setName('equipment2')
-            ->setHolder($player)
             ->setEquipment($equipmentConfig2)
         ;
         $I->haveInRepository($gameEquipment2);
 
         /** @var EquipmentConfig $equipmentConfig3 */
-        $equipmentConfig3 = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+        $equipmentConfig3 = $I->have(EquipmentConfig::class, ['name' => 'test_3']);
 
-        $gameEquipment3 = new GameEquipment();
+        $gameEquipment3 = new GameEquipment($room2);
         $gameEquipment3
             ->setName('equipment1')
-            ->setHolder($room2)
             ->setEquipment($equipmentConfig3)
         ;
         $I->haveInRepository($gameEquipment3);

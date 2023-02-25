@@ -1,82 +1,92 @@
-import { GameConfig } from "@/entities/Config/GameConfig";
-
 export class ConsumableDiseaseConfig {
     public iri: string|null;
     public id: number|null;
-    public gameConfig: GameConfig|null;
     public name: string|null;
-    public diseasesName: Array<any>|null;
-    public curesName: Array<any>|null;
-    public diseasesChances: Array<any>|null;
-    public curesChances: Array<any>|null;
-    public diseasesDelayMin: Array<any>|null;
-    public diseasesDelayLength: Array<any>|null;
-    public effectNumber: Array<any>|null;
-    public consumableAttributes: Array<any>|null;
+    public causeName: string|null;
+    public diseasesName: Map<string, integer>|null;
+    public curesName: Map<string, integer>|null;
+    public diseasesChances: Map<integer, integer>|null;
+    public curesChances: Map<integer, integer>|null;
+    public diseasesDelayMin: Map<integer, integer>|null;
+    public diseasesDelayLength: Map<integer, integer>|null;
+    public effectNumber: Map<integer, integer>|null;
 
     constructor() {
         this.iri = null;
         this.id = null;
-        this.gameConfig = null;
         this.name = null;
-        this.diseasesName = [];
-        this.curesName = [];
-        this.diseasesChances = [];
-        this.curesChances = [];
-        this.diseasesDelayMin = [];
-        this.diseasesDelayLength = [];
-        this.effectNumber = [];
-        this.consumableAttributes = [];
+        this.causeName = null;
+        this.diseasesName = new Map();
+        this.curesName = new Map();
+        this.diseasesChances = new Map();
+        this.curesChances = new Map();
+        this.diseasesDelayMin = new Map();
+        this.diseasesDelayLength = new Map();
+        this.effectNumber = new Map();
     }
     load(object:any) : ConsumableDiseaseConfig {
         if (typeof object !== "undefined") {
-            this.iri = object.iri;
+            this.iri = object['@id'];
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
             this.name = object.name;
-            this.diseasesName = object.diseasesName;
-            this.curesName = object.curesName;
-            this.diseasesChances = object.diseasesChances;
-            this.curesChances = object.curesChances;
-            this.diseasesDelayMin = object.diseasesDelayMin;
-            this.diseasesDelayLength = object.diseasesDelayLength;
-            this.effectNumber = object.effectNumber;
-            this.consumableAttributes = object.consumableAttributes;
+            this.causeName = object.causeName;
+            this.loadMapAttribute(object, 'diseasesName', this.diseasesName);
+            this.loadMapAttribute(object, 'curesName', this.curesName);
+            this.loadMapAttribute(object, 'diseasesChances', this.diseasesChances);
+            this.loadMapAttribute(object, 'curesChances', this.curesChances);
+            this.loadMapAttribute(object, 'diseasesDelayMin', this.diseasesDelayMin);
+            this.loadMapAttribute(object, 'diseasesDelayLength', this.diseasesDelayLength);
+            this.loadMapAttribute(object, 'effectNumber', this.effectNumber);
         }
         return this;
     }
     jsonEncode() : object {
-        return {
+        const data: any = {
             'id': this.id,
-            'gameConfig': this.gameConfig?.iri,
             'name': this.name,
-            'diseasesName': this.diseasesName,
-            'curesName': this.curesName,
-            'diseasesChances': this.diseasesChances,
-            'curesChances': this.curesChances,
-            'diseasesDelayMin': this.diseasesDelayMin,
-            'diseasesDelayLength': this.diseasesDelayLength,
-            'effectNumber': this.effectNumber,
-            'consumableAttributes': this.consumableAttributes
+            'causeName': this.causeName,
         };
+        this.encodeMapAttribute(data, 'diseasesName', this.diseasesName);
+        this.encodeMapAttribute(data, 'curesName', this.curesName);
+        this.encodeMapAttribute(data, 'diseasesChances', this.diseasesChances);
+        this.encodeMapAttribute(data, 'curesChances', this.curesChances);
+        this.encodeMapAttribute(data, 'diseasesDelayMin', this.diseasesDelayMin);
+        this.encodeMapAttribute(data, 'diseasesDelayLength', this.diseasesDelayLength);
+        this.encodeMapAttribute(data, 'effectNumber', this.effectNumber);
+
+        return data;
     }
     decode(jsonString : string): ConsumableDiseaseConfig {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.iri = object.iri;
-            this.id = object.id;
-            this.gameConfig = object.gameConfig;
-            this.name = object.name;
-            this.diseasesName = object.diseasesName;
-            this.curesName = object.curesName;
-            this.diseasesChances = object.diseasesChances;
-            this.curesChances = object.curesChances;
-            this.diseasesDelayMin = object.diseasesDelayMin;
-            this.diseasesDelayLength = object.diseasesDelayLength;
-            this.effectNumber = object.effectNumber;
-            this.consumableAttributes = object.consumableAttributes;
+            this.load(object);
         }
 
         return this;
+    }
+    private loadMapAttribute(object: any, attributeName: string, map: Map<any, number> | null) {
+        if (map === null) {
+            return;
+        }
+        
+        if (typeof object[attributeName] !== 'undefined') {
+            for (const [key, value] of Object.entries(object[attributeName])) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    map.set(key, value);
+                }
+            }
+        }
+    }
+    private encodeMapAttribute(data: any, attributeName: string, map: Map<any, number> | null) {
+        if (map === null) {
+            return;
+        }
+
+        const mapObject : object = {};
+        map.forEach((value, key) => {
+            // @ts-ignore
+            mapObject[key] = value;
+        });
+        data[attributeName] = mapObject;
     }
 }

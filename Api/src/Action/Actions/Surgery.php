@@ -17,13 +17,13 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -44,17 +44,17 @@ class Surgery extends AbstractAction
     private const CRITICAL_SUCCESS_CHANCES = 15;
 
     private RandomServiceInterface $randomService;
-    private ModifierServiceInterface $modifierService;
+    private EventModifierServiceInterface $modifierService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        ModifierServiceInterface $modifierService
+        EventModifierServiceInterface $modifierService
     ) {
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator
         );
@@ -96,7 +96,7 @@ class Surgery extends AbstractAction
             [ActionEnum::SURGERY],
             ModifierTargetEnum::PERCENTAGE,
             self::FAIL_CHANCES,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             $date,
         );
         $criticalSuccessChances = $this->modifierService->getEventModifiedValue(
@@ -104,7 +104,7 @@ class Surgery extends AbstractAction
             [ActionEnum::SURGERY],
             ModifierTargetEnum::CRITICAL_PERCENTAGE,
             self::CRITICAL_SUCCESS_CHANCES,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             $date,
         );
 
@@ -136,17 +136,17 @@ class Surgery extends AbstractAction
         }
     }
 
-    private function successSurgery(Player $targetPlayer, string $reason, \DateTime $time): void
+    private function successSurgery(Player $targetPlayer, string $result, \DateTime $time): void
     {
         $diseaseEvent = new ApplyEffectEvent(
             $this->player,
             $targetPlayer,
             VisibilityEnum::PUBLIC,
-            $this->getActionName() . '_' . $reason,
+            [$this->getActionName() . '_' . $result],
             $time
         );
 
-        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
+        $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
     }
 
     private function failedSurgery(Player $targetPlayer, \DateTime $time): ActionResult
@@ -155,10 +155,10 @@ class Surgery extends AbstractAction
             $this->player,
             $targetPlayer,
             VisibilityEnum::PUBLIC,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             $time
         );
-        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
+        $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
 
         return new Fail();
     }

@@ -6,6 +6,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 
+/**
+ * @template-extends ServiceEntityRepository<ConsumableDiseaseConfig>
+ */
 class ConsumableDiseaseConfigRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

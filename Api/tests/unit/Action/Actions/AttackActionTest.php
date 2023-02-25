@@ -11,22 +11,22 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Attack;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Place\Entity\Place;
 
 class AttackActionTest extends AbstractActionTest
 {
     private RandomServiceInterface|Mockery\Mock $randomService;
 
-    private ModifierServiceInterface|Mockery\Mock $modifierService;
+    private EventModifierServiceInterface|Mockery\Mock $modifierService;
 
-    private PlayerDiseaseServiceInterface|Mockery\Mock $playerDiseaseService;
+    private DiseaseCauseServiceInterface|Mockery\Mock $diseaseCauseService;
 
     /**
      * @before
@@ -37,17 +37,17 @@ class AttackActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::ATTACK);
 
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
-        $this->playerDiseaseService = Mockery::mock(PlayerDiseaseServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
+        $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
 
         $this->action = new Attack(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
             $this->modifierService,
-            $this->playerDiseaseService,
+            $this->diseaseCauseService,
         );
     }
 
@@ -56,7 +56,7 @@ class AttackActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testSuccessful()
@@ -71,18 +71,17 @@ class AttackActionTest extends AbstractActionTest
         $mechanic = new Weapon();
         $mechanic
             ->setCriticalFailRate(0)
-            ->setCriticalSucessRate(0)
+            ->setCriticalSuccessRate(0)
             ->setBaseDamageRange([1 => 100])
             ->setOneShotRate(0)
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($player);
         $item = new ItemConfig();
         $item->setMechanics(new ArrayCollection([$mechanic]));
         $gameItem->setEquipment($item);
         $gameItem
             ->setName(ItemEnum::KNIFE)
-            ->setHolder($player)
         ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -95,7 +94,7 @@ class AttackActionTest extends AbstractActionTest
         $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(0);
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaArray')->andReturn(1)->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
@@ -113,18 +112,17 @@ class AttackActionTest extends AbstractActionTest
         $mechanic = new Weapon();
         $mechanic
             ->setCriticalFailRate(0)
-            ->setCriticalSucessRate(0)
+            ->setCriticalSuccessRate(0)
             ->setBaseDamageRange([1 => 100])
             ->setOneShotRate(0)
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($player);
         $item = new ItemConfig();
         $item->setMechanics(new ArrayCollection([$mechanic]));
         $gameItem->setEquipment($item);
         $gameItem
             ->setName(ItemEnum::KNIFE)
-            ->setHolder($player)
         ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -152,18 +150,17 @@ class AttackActionTest extends AbstractActionTest
         $mechanic = new Weapon();
         $mechanic
             ->setCriticalFailRate(0)
-            ->setCriticalSucessRate(0)
+            ->setCriticalSuccessRate(0)
             ->setBaseDamageRange([1 => 100])
             ->setOneShotRate(100)
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($player);
         $item = new ItemConfig();
         $item->setMechanics(new ArrayCollection([$mechanic]));
         $gameItem->setEquipment($item);
         $gameItem
             ->setName(ItemEnum::KNIFE)
-            ->setHolder($player)
         ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -174,7 +171,7 @@ class AttackActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(true)->twice();
         $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(100)->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->action->execute();
 
         $this->assertInstanceOf(OneShot::class, $result);
@@ -192,18 +189,17 @@ class AttackActionTest extends AbstractActionTest
         $mechanic = new Weapon();
         $mechanic
             ->setCriticalFailRate(100)
-            ->setCriticalSucessRate(0)
+            ->setCriticalSuccessRate(0)
             ->setBaseDamageRange([1 => 100])
             ->setOneShotRate(0)
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($player);
         $item = new ItemConfig();
         $item->setMechanics(new ArrayCollection([$mechanic]));
         $gameItem->setEquipment($item);
         $gameItem
             ->setName(ItemEnum::KNIFE)
-            ->setHolder($player)
         ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -214,7 +210,7 @@ class AttackActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('isSuccessful')->with(0)->andReturn(false)->once();
         $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(true)->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(100)->once();
-        $this->playerDiseaseService->shouldReceive('handleDiseaseForCause')->once();
+        $this->diseaseCauseService->shouldReceive('handleDiseaseForCause')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 

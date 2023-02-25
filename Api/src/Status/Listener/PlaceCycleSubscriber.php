@@ -2,18 +2,18 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Status\Event\StatusCycleEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlaceCycleSubscriber implements EventSubscriberInterface
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher)
+    public function __construct(EventServiceInterface $eventService)
     {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -32,10 +32,10 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
             $statusNewCycle = new StatusCycleEvent(
                 $status,
                 $place,
-                $event->getReason(),
+                $event->getTags(),
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
+            $this->eventService->callEvent($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
         }
     }
 
@@ -47,10 +47,10 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
             $statusNewDay = new StatusCycleEvent(
                 $status,
                 $room,
-                $event->getReason(),
+                $event->getTags(),
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY);
+            $this->eventService->callEvent($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY);
         }
     }
 }

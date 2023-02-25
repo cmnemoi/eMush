@@ -12,7 +12,7 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -61,11 +61,11 @@ class Hit extends AttemptAction
                     $parameter,
                     PlayerVariableEnum::HEALTH_POINT,
                     -$damage,
-                    $this->getActionName(),
+                    $this->getAction()->getActionTags(),
                     new \DateTime()
                 );
 
-                $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+                $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
             }
         }
     }

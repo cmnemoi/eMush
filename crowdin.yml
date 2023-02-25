@@ -1,0 +1,14 @@
+base_path: /
+preserve_hierarchy: 1
+base_url: 'https://eternaltwin.crowdin.com'
+pull_request_title: 'patch(translations): new Crowdin translations'
+files:
+  - source: /Api/translations/fr/*.fr.xlf
+    translation: /Api/translations/%two_letters_code%/%file_name%.%two_letters_code%.xlf
+    translation_replace: {
+      ".fr.en": ".en",
+      ".fr.fr": ".fr",
+      ".fr.es": ".es",
+    }
+  - source: /App/src/i18n/locales/fr.json
+    translation: /App/src/i18n/locales/%two_letters_code%.json

@@ -7,10 +7,11 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionSideEffectsService;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -19,18 +20,17 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ActionSideEffectsServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
     /** @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var ModifierServiceInterface|Mockery\Mock */
-    private ModifierServiceInterface $modifierService;
+    /** @var EventModifierServiceInterface|Mockery\Mock */
+    private EventModifierServiceInterface $modifierService;
 
     private ActionSideEffectsServiceInterface $actionService;
 
@@ -39,13 +39,13 @@ class ActionSideEffectsServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
+        $this->eventService = \Mockery::mock(EventServiceInterface::class);
+        $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
 
         $this->actionService = new ActionSideEffectsService(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->modifierService
         );
     }
@@ -55,7 +55,7 @@ class ActionSideEffectsServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testHandleActionSideEffectDirty()
@@ -66,26 +66,24 @@ class ActionSideEffectsServiceTest extends TestCase
         $player->setPlace($room);
 
         $action
-            ->setDirtyRate(0)
-            ->setInjuryRate(0)
-            ->setName(ActionEnum::DROP)
+            ->setActionName(ActionEnum::DROP)
         ;
 
         $date = new \DateTime();
 
         $this->modifierService
             ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(0, [ModifierScopeEnum::EVENT_DIRTY], ActionEnum::DROP, $date, $player)
+            ->with(0, [ModifierScopeEnum::EVENT_DIRTY], [ActionEnum::DROP], $date, $player)
             ->andReturn(false)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(0, [ModifierScopeEnum::EVENT_CLUMSINESS], ActionEnum::DROP, $date, $player)
+            ->with(0, [ModifierScopeEnum::EVENT_CLUMSINESS], [ActionEnum::DROP], $date, $player)
             ->andReturn(false)
             ->twice()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
@@ -95,12 +93,12 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(10, [ModifierScopeEnum::EVENT_DIRTY], ActionEnum::DROP, $date, $player)
+            ->with(10, [ModifierScopeEnum::EVENT_DIRTY], [ActionEnum::DROP], $date, $player)
             ->andReturn(true)
             ->once()
         ;
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DIRTY && $event->getStatusHolder() === $player)
             ->once()
         ;
@@ -119,23 +117,22 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $action
             ->setDirtyRate(100)
-            ->setInjuryRate(0)
-            ->setName(ActionEnum::DROP)
+            ->setActionName(ActionEnum::DROP)
         ;
 
         $this->modifierService
             ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(100, [ModifierScopeEnum::EVENT_DIRTY], ActionEnum::DROP, $date, $player)
+            ->with(100, [ModifierScopeEnum::EVENT_DIRTY], [ActionEnum::DROP], $date, $player)
             ->andReturn(false)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(0, [ModifierScopeEnum::EVENT_CLUMSINESS], ActionEnum::DROP, $date, $player)
+            ->with(0, [ModifierScopeEnum::EVENT_CLUMSINESS], [ActionEnum::DROP], $date, $player)
             ->andReturn(false)
             ->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
@@ -151,42 +148,43 @@ class ActionSideEffectsServiceTest extends TestCase
         $date = new \DateTime();
 
         $action
-            ->setDirtyRate(0)
-            ->setInjuryRate(0)
-            ->setName(ActionEnum::DROP)
+            ->setActionName(ActionEnum::DROP)
         ;
 
         $this->modifierService
             ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(0, [ModifierScopeEnum::EVENT_CLUMSINESS], ActionEnum::DROP, $date, $player)
+            ->with(0, [ModifierScopeEnum::EVENT_CLUMSINESS], [ActionEnum::DROP], $date, $player)
             ->andReturn(false)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(0, [ModifierScopeEnum::EVENT_DIRTY], ActionEnum::DROP, $date, $player)
+            ->with(0, [ModifierScopeEnum::EVENT_DIRTY], [ActionEnum::DROP], $date, $player)
             ->andReturn(false)
             ->twice()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
-        $action->setInjuryRate(100)->setName(ActionEnum::DROP);
+        $action
+            ->setInjuryRate(100)
+            ->setActionName(ActionEnum::DROP)
+        ;
 
         $this->modifierService
             ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(100, [ModifierScopeEnum::EVENT_CLUMSINESS], ActionEnum::DROP, $date, $player)
+            ->with(100, [ModifierScopeEnum::EVENT_CLUMSINESS], [ActionEnum::DROP], $date, $player)
             ->andReturn(true)
             ->once()
         ;
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(
                 fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                     $playerEvent->getQuantity() === -2 &&
-                    $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
-                    $playerEvent->getModifiedVariable() === PlayerVariableEnum::HEALTH_POINT
+                    $eventName === VariableEventInterface::CHANGE_VARIABLE &&
+                    $playerEvent->getVariableName() === PlayerVariableEnum::HEALTH_POINT
                 )
             )
             ->once()

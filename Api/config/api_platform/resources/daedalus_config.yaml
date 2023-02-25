@@ -14,3 +14,15 @@ Mush\Daedalus\Entity\DaedalusConfig:
       security: 'is_granted("ROLE_ADMIN")'
   itemOperations:
     get:
+      security: 'is_granted("ROLE_ADMIN")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'
+  properties:
+    placeConfigs:
+      subresource:
+        resourceClass: 'Mush\Daedalus\Entity\PlaceConfig'
+        collection: true
+    randomItemPlaces:
+      subresource:
+        resourceClass: 'Mush\Daedalus\Entity\RandomItemPlaces'
+

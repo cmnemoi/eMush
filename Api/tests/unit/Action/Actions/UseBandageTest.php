@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\UseBandage;
 use Mush\Action\Enum\ActionEnum;
@@ -23,7 +22,7 @@ class UseBandageActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::USE_BANDAGE);
 
         $this->action = new UseBandage(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -34,28 +33,28 @@ class UseBandageActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
             ->setName('item')
             ->setEquipment($item)
-            ->setHolder($room);
+        ;
 
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch');
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
+        $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

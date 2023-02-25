@@ -21,6 +21,10 @@ services:
     resource: '../Controller/'
     tags: ['controller.service_arguments']
 
+  Mush\Daedalus\ParamConverter\DaedalusCreateRequestConverter:
+    tags:
+      - { name: 'request.param_converter', converter: DaedalusCreateRequestConverter }
+
   Mush\Daedalus\Event\DaedalusPostLoadListener:
     tags:
       -
@@ -28,3 +32,14 @@ services:
         name: 'doctrine.orm.entity_listener'
         event: 'postLoad'
         entity: 'Mush\Daedalus\Entity\Daedalus'
+
+  Mush\Daedalus\Normalizer\ClosedDaedalusNormalizer:
+    tags:
+      - { name: 'serializer.normalizer', priority: 64 }
+  
+  # need this for tests to work
+  Mush\Daedalus\ConfigData\DaedalusConfigDataLoader:
+    public: true
+  Mush\Daedalus\ConfigData\RandomItemPlacesDataLoader:
+    public: true
+  

@@ -3,7 +3,6 @@
 namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\LieDown;
 use Mush\Action\Enum\ActionEnum;
@@ -29,7 +28,7 @@ class LieDownActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::LIE_DOWN);
 
         $this->action = new LieDown(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -40,7 +39,7 @@ class LieDownActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -50,24 +49,23 @@ class LieDownActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
         $item
-            ->setName(EquipmentEnum::BED)
+            ->setEquipmentName(EquipmentEnum::BED)
             ->setMechanics(new ArrayCollection([$tool]))
         ;
 
         $gameEquipment
             ->setEquipment($item)
-            ->setHolder($room)
             ->setName(EquipmentEnum::BED)
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === PlayerStatusEnum::LYING_DOWN &&
                 $event->getStatusHolder() === $player &&

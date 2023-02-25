@@ -2,7 +2,6 @@
 
 namespace Mush\Disease\Listener;
 
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
@@ -41,6 +40,9 @@ class ActionEffectSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @return void
+     */
     public function onConsume(ApplyEffectEvent $event)
     {
         $equipment = $event->getParameter();
@@ -53,6 +55,9 @@ class ActionEffectSubscriber implements EventSubscriberInterface
         $this->diseaseCauseService->handleConsumable($event->getPlayer(), $equipment);
     }
 
+    /**
+     * @return void
+     */
     public function onHeal(ApplyEffectEvent $event)
     {
         $player = $event->getParameter();
@@ -67,9 +72,12 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->playerDiseaseService->healDisease($event->getPlayer(), $diseaseToHeal, $event->getReason(), $event->getTime());
+        $this->playerDiseaseService->healDisease($event->getPlayer(), $diseaseToHeal, $event->getTags(), $event->getTime());
     }
 
+    /**
+     * @return void
+     */
     public function onPlayerGetSick(ApplyEffectEvent $event)
     {
         $player = $event->getParameter();
@@ -78,21 +86,14 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $actionName = $event->getReason();
-        if ($actionName === ActionEnum::MAKE_SICK) {
-            $this->playerDiseaseService->handleDiseaseForCause(
-                $event->getReason(),
-                $player,
-                self::MAKE_SICK_DELAY_MIN,
-                self::MAKE_SICK_DELAY_LENGTH
-            );
+        $actionName = $event->getEventName();
 
-            return;
-        }
-
-        $this->playerDiseaseService->handleDiseaseForCause($event->getReason(), $player);
+        $this->diseaseCauseService->handleDiseaseForCause($actionName, $player);
     }
 
+    /**
+     * @return void
+     */
     public function onPlayerCureInjury(ApplyEffectEvent $event)
     {
         // Get a random injury on target player
@@ -106,7 +107,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
 
         $this->playerDiseaseService->removePlayerDisease(
             $injuryToHeal,
-            $event->getReason(),
+            $event->getTags(),
             $event->getTime(),
             $event->getVisibility(),
             $event->getPlayer(),

@@ -5,19 +5,26 @@ namespace Mush\Communication\Voter;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ChannelVoter extends Voter
 {
+    public const POST = 'post';
     public const VIEW = 'view';
 
     private ChannelServiceInterface $channelService;
+    private PlayerInfoRepository $playerInfoRepository;
 
-    public function __construct(ChannelServiceInterface $channelService)
-    {
+    public function __construct(
+        ChannelServiceInterface $channelService,
+        PlayerInfoRepository $playerInfoRepository
+    ) {
         $this->channelService = $channelService;
+        $this->playerInfoRepository = $playerInfoRepository;
     }
 
     protected function supports(string $attribute, $subject): bool
@@ -36,10 +43,12 @@ class ChannelVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
+        /** @var User $user */
         $user = $token->getUser();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
         // User must be logged in and have a current game
-        if (!$user instanceof User || !($player = $user->getCurrentGame())) {
+        if ($playerInfo === null) {
             return false;
         }
 
@@ -49,18 +58,25 @@ class ChannelVoter extends Voter
 
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView($channel, $player);
+                return $this->canView($channel, $playerInfo);
         }
 
         throw new \LogicException('This code should not be reached!');
     }
 
-    private function canView(Channel $channel, Player $player): bool
+    private function canView(Channel $channel, PlayerInfo $playerInfo): bool
     {
+        /** @var Player $player */
+        $player = $playerInfo->getPlayer();
+
         // check for pirated channels
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
-        return $channel->isPublic() || $channel->isPlayerParticipant($player) ||
-            ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer));
+        $playerCanCommunicate = $this->channelService->canPlayerCommunicate($player);
+
+        return ((!$player->isAlive()) || ($player->isAlive() && $playerCanCommunicate)) && (
+            $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
+                ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
+        );
     }
 }

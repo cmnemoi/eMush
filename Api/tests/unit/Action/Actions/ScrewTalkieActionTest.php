@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\ScrewTalkie;
 use Mush\Action\Enum\ActionEnum;
@@ -29,7 +28,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SCREW_TALKIE, 2);
 
         $this->action = new ScrewTalkie(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -40,23 +39,23 @@ class ScrewTalkieActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
 
         $player = $this->createPlayer($daedalus, $room);
 
         $targetPlayer = $this->createPlayer($daedalus, $room);
+
+        $gameItem = new GameItem($targetPlayer);
         $item = new ItemConfig();
         $gameItem
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($item)
-            ->setHolder($targetPlayer)
         ;
 
         $mushStatus = new ChargeStatus($player, new ChargeStatusConfig());
@@ -65,7 +64,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->twice();
+        $this->eventService->shouldReceive('callEvent')->twice();
         // Success
         $result = $this->action->execute();
 
@@ -77,11 +76,12 @@ class ScrewTalkieActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
 
         $player = $this->createPlayer($daedalus, $room);
 
         $targetPlayer = $this->createPlayer($daedalus, $room);
+
+        $gameItem = new GameItem($targetPlayer);
         $item = new ItemConfig();
         $gameItem
             ->setName(ItemEnum::ITRACKIE)
@@ -90,7 +90,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
         ;
 
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $brokenStatus = new Status($gameItem, $brokenConfig);
 
         $mushStatus = new ChargeStatus($player, new ChargeStatusConfig());
@@ -99,7 +99,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         // Success
         $result = $this->action->execute();
 

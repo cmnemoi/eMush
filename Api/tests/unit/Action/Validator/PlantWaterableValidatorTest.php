@@ -2,12 +2,12 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\PlantWaterable;
 use Mush\Action\Validator\PlantWaterableValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -35,7 +35,7 @@ class PlantWaterableValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -43,10 +43,10 @@ class PlantWaterableValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setIsBreakable(true);
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -54,16 +54,16 @@ class PlantWaterableValidatorTest extends TestCase
         ;
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::PLANT_THIRSTY);
+        $statusConfig->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY);
         $status = new Status($target, $statusConfig);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -71,7 +71,7 @@ class PlantWaterableValidatorTest extends TestCase
         ;
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::PLANT_DRY);
+        $statusConfig->setStatusName(EquipmentStatusEnum::PLANT_DRY);
         $status = new Status($target, $statusConfig);
 
         $this->initValidator();
@@ -82,9 +82,9 @@ class PlantWaterableValidatorTest extends TestCase
 
     public function testNotValid()
     {
-        $target = new GameItem();
+        $target = new GameItem(new Place());
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -95,7 +95,7 @@ class PlantWaterableValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::GUARDIAN);
+        $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN);
         $status = new Status($target, $statusConfig);
 
         $this->initValidator($this->constraint->message);
@@ -106,8 +106,8 @@ class PlantWaterableValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

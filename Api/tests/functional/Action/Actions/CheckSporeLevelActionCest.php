@@ -6,24 +6,28 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\CheckSporeLevel;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class CheckSporeLevelActionCest
 {
@@ -36,11 +40,16 @@ class CheckSporeLevelActionCest
 
     public function testCheckSporeLevel(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
@@ -51,37 +60,25 @@ class CheckSporeLevelActionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'characterConfig' => $characterConfig,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player->setActionPoint(2)->setSpores(2);
+        $I->flushToDatabase($player);
 
-        $sporeStatusConfig = new ChargeStatusConfig();
-        $sporeStatusConfig
-            ->setName(PlayerStatusEnum::SPORES)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->setChargeVisibility(VisibilityEnum::MUSH)
-            ->setGameConfig($gameConfig)
-        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $I->haveInRepository($sporeStatusConfig);
-
-        $sporeStatus = new ChargeStatus($player, $sporeStatusConfig);
-        $sporeStatus
-            ->setCharge(2)
-        ;
-
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(0)
-        ;
-        $I->haveInRepository($actionCost);
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::CHECK_SPORE_LEVEL)
+            ->setActionName(ActionEnum::CHECK_SPORE_LEVEL)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost($actionCost)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 
@@ -91,11 +88,10 @@ class CheckSporeLevelActionCest
             'actions' => new ArrayCollection([$action]),
         ]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::MYCOSCAN)
             ->setEquipment($equipmentConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -108,8 +104,9 @@ class CheckSporeLevelActionCest
         $I->assertEquals(2, $player->getActionPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room,
-            'player' => $player,
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $player->getPlayerInfo(),
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::CHECK_SPORE_LEVEL,
         ]);

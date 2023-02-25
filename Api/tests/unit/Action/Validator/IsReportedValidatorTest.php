@@ -13,11 +13,14 @@ use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -35,7 +38,7 @@ class IsReportedValidatorTest extends TestCase
      */
     public function before()
     {
-        $this->alertService = Mockery::mock(AlertServiceInterface::class);
+        $this->alertService = \Mockery::mock(AlertServiceInterface::class);
 
         $this->validator = new IsReportedValidator($this->alertService);
         $this->constraint = new IsReported();
@@ -46,7 +49,7 @@ class IsReportedValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValidFire()
@@ -62,7 +65,7 @@ class IsReportedValidatorTest extends TestCase
         $room->setDaedalus($daedalus);
 
         $fireConfig = new StatusConfig();
-        $fireConfig->setName(StatusEnum::FIRE);
+        $fireConfig->setStatusName(StatusEnum::FIRE);
         $fireStatus = new Status($room, $fireConfig);
 
         $alertElement = new AlertElement();
@@ -71,7 +74,7 @@ class IsReportedValidatorTest extends TestCase
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::FIRES)->addAlertElement($alertElement);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -100,19 +103,24 @@ class IsReportedValidatorTest extends TestCase
             ->setDaedalus($daedalus)
             ->setPlace($room)
         ;
+        $playerInfo = new PlayerInfo(
+            $player,
+            new User(),
+            new CharacterConfig()
+        );
         $room->setDaedalus($daedalus);
 
         $fireConfig = new StatusConfig();
-        $fireConfig->setName(StatusEnum::FIRE);
+        $fireConfig->setStatusName(StatusEnum::FIRE);
         $fireStatus = new Status($room, $fireConfig);
 
         $alertElement = new AlertElement();
-        $alertElement->setPlace($room)->setPlayer($player);
+        $alertElement->setPlace($room)->setPlayerInfo($playerInfo);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::FIRES)->addAlertElement($alertElement);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -145,9 +153,9 @@ class IsReportedValidatorTest extends TestCase
         ;
         $room->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($gameEquipment, $brokenConfig);
 
         $alertElement = new AlertElement();
@@ -156,7 +164,7 @@ class IsReportedValidatorTest extends TestCase
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::BROKEN_EQUIPMENTS)->addAlertElement($alertElement);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -185,20 +193,25 @@ class IsReportedValidatorTest extends TestCase
             ->setDaedalus($daedalus)
             ->setPlace($room)
         ;
+        $playerInfo = new PlayerInfo(
+            $player,
+            new User(),
+            new CharacterConfig()
+        );
         $room->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($gameEquipment, $brokenConfig);
 
         $alertElement = new AlertElement();
-        $alertElement->setEquipment($gameEquipment)->setPlace($room)->setPlayer($player);
+        $alertElement->setEquipment($gameEquipment)->setPlace($room)->setPlayerInfo($playerInfo);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::BROKEN_EQUIPMENTS)->addAlertElement($alertElement);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -221,8 +234,8 @@ class IsReportedValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

@@ -13,10 +13,11 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 class BuildActionCest
 {
@@ -35,7 +36,7 @@ class BuildActionCest
         $player = $this->createPlayer(new Daedalus(), $room1);
 
         $buildActionEntity = new Action();
-        $buildActionEntity->setName(ActionEnum::BUILD);
+        $buildActionEntity->setActionName(ActionEnum::BUILD);
 
         $gameEquipment = $this->createEquipment('blueprint', $room2);
 
@@ -61,7 +62,7 @@ class BuildActionCest
         $gameEquipment = $this->createEquipment('blueprint', $room);
 
         $buildActionEntity = new Action();
-        $buildActionEntity->setName(ActionEnum::BUILD);
+        $buildActionEntity->setActionName(ActionEnum::BUILD);
 
         $this->buildAction->loadParameters($buildActionEntity, $player, $gameEquipment);
 
@@ -77,30 +78,33 @@ class BuildActionCest
     private function createPlayer(Daedalus $daedalus, Place $room): Player
     {
         $characterConfig = new CharacterConfig();
-        $characterConfig->setName('character name');
+        $characterConfig
+            ->setName('character name')
+            ->setInitActionPoint(10)
+            ->setInitMovementPoint(10)
+            ->setInitMoralPoint(10)
+        ;
 
         $player = new Player();
         $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
+            ->setPlayerVariables($characterConfig)
             ->setDaedalus($daedalus)
             ->setPlace($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-            ->setCharacterConfig($characterConfig)
         ;
+
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
+        $player->setPlayerInfo($playerInfo);
 
         return $player;
     }
 
     private function createEquipment(string $name, Place $place): GameEquipment
     {
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($place);
         $equipment = new EquipmentConfig();
-        $equipment->setName($name);
+        $equipment->setEquipmentName($name);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setHolder($place)
             ->setName($name)
         ;
 
@@ -111,8 +115,8 @@ class BuildActionCest
     {
         if ($product === null) {
             $product = new ItemConfig();
-            $product->setName('product');
-            $gameProduct = new GameItem();
+            $product->setEquipmentName('product');
+            $gameProduct = new GameItem(new Place());
             $gameProduct
                 ->setEquipment($product)
                 ->setName('product')
@@ -122,7 +126,7 @@ class BuildActionCest
         $blueprint = new Blueprint();
         $blueprint
             ->setIngredients($ingredients)
-            ->setEquipment($product)
+            ->setCraftedEquipmentName($product->getEquipmentName())
             ->addAction($buildAction)
         ;
 

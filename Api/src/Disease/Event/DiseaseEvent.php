@@ -4,6 +4,7 @@ namespace Mush\Disease\Event;
 
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
@@ -23,12 +24,12 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
 
     public function __construct(
         PlayerDisease $playerDisease,
-        string $cureReason,
+        array $tags,
         \DateTime $time
     ) {
         $this->playerDisease = $playerDisease;
 
-        parent::__construct($cureReason, $time);
+        parent::__construct($tags, $time);
     }
 
     public function getAuthor(): ?Player
@@ -80,6 +81,7 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
         $logParameters = [
             $this->getPlayerDisease()->getDiseaseConfig()->getLogKey() => $this->getPlayerDisease()->getDiseaseConfig()->getLogName(),
             'target_' . $this->playerDisease->getPlayer()->getLogKey() => $this->playerDisease->getPlayer()->getLogName(),
+            'character_gender' => CharacterEnum::isMale($this->playerDisease->getPlayer()->getName()) ? 'male' : 'female',
         ];
 
         if (($author = $this->author) !== null) {

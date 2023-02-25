@@ -27,14 +27,14 @@ class ShowerActionTest extends AbstractActionTest
     public function before()
     {
         parent::before();
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SHOWER, 2);
 
         $this->action = new Shower(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->playerService,
@@ -46,18 +46,17 @@ class ShowerActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $room = new Place();
 
-        $gameItem = new GameEquipment();
+        $gameItem = new GameEquipment($room);
         $item = new EquipmentConfig();
         $gameItem
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));

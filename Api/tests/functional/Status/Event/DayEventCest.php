@@ -3,9 +3,9 @@
 namespace Mush\Tests\Status\Event;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -30,7 +30,7 @@ class DayEventCest
     {
         // Day Increment
         $daedalus = new Daedalus();
-        $time = new DateTime();
+        $time = new \DateTime();
         $player = $I->have(Player::class);
 
         $daedalus->setCycle(1);
@@ -44,11 +44,12 @@ class DayEventCest
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::FROZEN)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setMaxCharge(1)
             ->setAutoRemove(false)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
         $status = new ChargeStatus($player, $statusConfig);
@@ -58,7 +59,7 @@ class DayEventCest
 
         $I->haveInRepository($status);
 
-        $dayEvent = new StatusCycleEvent($status, new Player(), EventEnum::NEW_DAY, $time);
+        $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 
@@ -67,11 +68,12 @@ class DayEventCest
         // Day decrement
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::FROZEN)
+            ->setStatusName(EquipmentStatusEnum::FROZEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setMaxCharge(1)
             ->setAutoRemove(false)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
         $status = new ChargeStatus($player, $statusConfig);
@@ -81,7 +83,7 @@ class DayEventCest
 
         $I->haveInRepository($status);
 
-        $dayEvent = new StatusCycleEvent($status, new Player(), EventEnum::NEW_DAY, $time);
+        $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 
@@ -90,11 +92,12 @@ class DayEventCest
         // Day reset
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::FROZEN)
+            ->setStatusName(EquipmentStatusEnum::DECOMPOSING)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setMaxCharge(5)
             ->setAutoRemove(true)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_RESET)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
         $status = new ChargeStatus($player, $statusConfig);
@@ -104,7 +107,7 @@ class DayEventCest
 
         $I->haveInRepository($status);
 
-        $dayEvent = new StatusCycleEvent($status, new Player(), EventEnum::NEW_DAY, $time);
+        $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 

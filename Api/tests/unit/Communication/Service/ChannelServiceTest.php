@@ -15,18 +15,24 @@ use Mush\Communication\Repository\ChannelRepository;
 use Mush\Communication\Services\ChannelService;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ChannelServiceTest extends TestCase
 {
@@ -39,8 +45,8 @@ class ChannelServiceTest extends TestCase
     /** @var ChannelPlayerRepository|Mockery\mock */
     private ChannelPlayerRepository $channelPlayerRepository;
 
-    /** @var EventDispatcherInterface|Mockery\mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
 
     /** @var StatusServiceInterface|Mockery\mock */
     private StatusServiceInterface $statusService;
@@ -52,17 +58,17 @@ class ChannelServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->channelRepository = Mockery::mock(ChannelRepository::class);
-        $this->channelPlayerRepository = Mockery::mock(ChannelPlayerRepository::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->channelRepository = \Mockery::mock(ChannelRepository::class);
+        $this->channelPlayerRepository = \Mockery::mock(ChannelPlayerRepository::class);
+        $this->eventService = \Mockery::mock(EventServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new ChannelService(
             $this->entityManager,
             $this->channelRepository,
             $this->channelPlayerRepository,
-            $this->eventDispatcher,
+            $this->eventService,
             $this->statusService
         );
     }
@@ -72,12 +78,12 @@ class ChannelServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testCreatePublicChannel()
     {
-        $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo(new Daedalus(), new GameConfig(), new LocalizationConfig());
 
         $this->entityManager
             ->shouldReceive([
@@ -87,16 +93,19 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $publicChannel = $this->service->createPublicChannel($daedalus);
+        $publicChannel = $this->service->createPublicChannel($daedalusInfo);
 
         $this->assertEquals(ChannelScopeEnum::PUBLIC, $publicChannel->getScope());
-        $this->assertEquals($daedalus, $publicChannel->getDaedalus());
+        $this->assertEquals($daedalusInfo, $publicChannel->getDaedalusInfo());
     }
 
     public function testCreatePrivateChannel()
     {
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $player->setDaedalus($daedalus);
 
         $this->entityManager
@@ -107,8 +116,8 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (ChannelEvent $event) => ($event->getPlayer() === $player))
             ->once()
         ;
@@ -116,16 +125,18 @@ class ChannelServiceTest extends TestCase
         $privateChannel = $this->service->createPrivateChannel($player);
 
         $this->assertEquals(ChannelScopeEnum::PRIVATE, $privateChannel->getScope());
-        $this->assertEquals($daedalus, $privateChannel->getDaedalus());
+        $this->assertEquals($daedalusInfo, $privateChannel->getDaedalusInfo());
     }
 
     public function testInvitePlayerToChannel()
     {
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $channel = new Channel();
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (ChannelEvent $event) => ($event->getPlayer() === $player && $event->getChannel() === $channel))
             ->once()
         ;
@@ -136,10 +147,12 @@ class ChannelServiceTest extends TestCase
     public function testExitChannel()
     {
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $channel = new Channel();
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (ChannelEvent $event) => ($event->getPlayer() === $player && $event->getChannel() === $channel))
             ->once()
         ;
@@ -150,9 +163,11 @@ class ChannelServiceTest extends TestCase
     public function testCanPlayerCommunicateWithTalkie()
     {
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $place = new Place();
 
-        $talkie = new GameItem();
+        $talkie = new GameItem($player);
         $talkie->setName(ItemEnum::WALKIE_TALKIE);
 
         $player->setPlace($place)->addEquipment($talkie);
@@ -165,13 +180,14 @@ class ChannelServiceTest extends TestCase
     public function testPlayerCannotCommunicate()
     {
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $place = new Place();
 
-        $talkie = new GameItem();
+        $talkie = new GameItem($place);
         $talkie->setName(ItemEnum::WALKIE_TALKIE);
 
         $player->setPlace($place);
-        $place->addEquipment($talkie);
 
         $canPlayerCommunicate = $this->service->canPlayerCommunicate($player);
 
@@ -181,13 +197,14 @@ class ChannelServiceTest extends TestCase
     public function testPlayerCanCommunicateWithCommCenter()
     {
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $place = new Place();
 
-        $commCenter = new GameEquipment();
+        $commCenter = new GameEquipment($place);
         $commCenter->setName(EquipmentEnum::COMMUNICATION_CENTER);
 
         $player->setPlace($place);
-        $place->addEquipment($commCenter);
 
         $canPlayerCommunicate = $this->service->canPlayerCommunicate($player);
 
@@ -197,10 +214,12 @@ class ChannelServiceTest extends TestCase
     public function testPlayerCanCommunicateWithBrainSync()
     {
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $place = new Place();
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::BRAINSYNC);
+        $statusConfig->setStatusName(PlayerStatusEnum::BRAINSYNC);
 
         $status = new Status($player, $statusConfig);
 
@@ -217,14 +236,17 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($player);
+        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
 
         $player2 = new Player();
+        $playerInfo2 = new PlayerInfo($player2, new User(), new CharacterConfig());
         $player2->setPlace($place);
         $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2);
+        $channelPlayer2->setChannel($channel)->setParticipant($playerInfo2);
 
         $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
 
@@ -238,25 +260,28 @@ class ChannelServiceTest extends TestCase
         $channel = new Channel();
         $place = new Place();
 
-        $item2 = new GameItem();
-        $item2->setName(ItemEnum::ITRACKIE);
-        $item3 = new GameItem();
-        $item3->setName(ItemEnum::ITRACKIE);
-
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($player);
+        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
 
         $player2 = new Player();
-        $player2->setPlace($place)->addEquipment($item2);
+        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $item2 = new GameItem($player2);
+        $item2->setName(ItemEnum::ITRACKIE);
+        $player2->setPlace($place);
         $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2);
+        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
 
         $player3 = new Player();
-        $player3->setPlace(new Place())->addEquipment($item3);
+        $player3Info = new PlayerInfo($player3, new User(), new CharacterConfig());
+        $item3 = new GameItem($player3);
+        $item3->setName(ItemEnum::ITRACKIE);
+        $player3->setPlace(new Place());
         $channelPlayer3 = new ChannelPlayer();
-        $channelPlayer3->setChannel($channel)->setParticipant($player3);
+        $channelPlayer3->setChannel($channel)->setParticipant($player3Info);
 
         $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2)->addParticipant($channelPlayer3);
 
@@ -271,19 +296,23 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($player);
+        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
 
         $player2 = new Player();
+        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
         $player2->setPlace(new Place());
         $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2);
+        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
 
         $player3 = new Player();
+        $player3Info = new PlayerInfo($player, new User(), new CharacterConfig());
         $player3->setPlace(new Place());
         $channelPlayer3 = new ChannelPlayer();
-        $channelPlayer3->setChannel($channel)->setParticipant($player3);
+        $channelPlayer3->setChannel($channel)->setParticipant($player3Info);
 
         $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2)->addParticipant($channelPlayer3);
 
@@ -297,6 +326,8 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $player->setPlace($place);
 
         $player2 = new Player();
@@ -320,27 +351,28 @@ class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME;
 
-        $item = new GameItem();
-        $item->setName(ItemEnum::ITRACKIE);
-
-        $item2 = new GameItem();
-        $item2->setName(ItemEnum::ITRACKIE);
-
         $player = new Player();
-        $player->setPlace($place)->addEquipment($item);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
+        $item = new GameItem($player);
+        $item->setName(ItemEnum::ITRACKIE);
+        $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($player);
+        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
 
         $player2 = new Player();
-        $player2->setPlace($place2)->addEquipment($item2);
+        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $item2 = new GameItem($player2);
+        $item2->setName(ItemEnum::ITRACKIE);
+        $player2->setPlace($place2);
         $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2);
+        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
 
         $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
 
         $this->channelRepository
             ->shouldReceive('findByPlayer')
-            ->with($player, true)
+            ->with($playerInfo, true)
             ->andReturn(new ArrayCollection([$channel]))
         ;
 
@@ -355,7 +387,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -370,24 +402,26 @@ class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME;
 
-        $item2 = new GameItem();
-        $item2->setName(ItemEnum::ITRACKIE);
-
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($player);
+        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
 
         $player2 = new Player();
-        $player2->setPlace($place)->addEquipment($item2);
+        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $item2 = new GameItem($player2);
+        $item2->setName(ItemEnum::ITRACKIE);
+        $player2->setPlace($place);
         $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2);
+        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
 
         $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
 
         $this->channelRepository
             ->shouldReceive('findByPlayer')
-            ->with($player, true)
+            ->with($playerInfo, true)
             ->andReturn(new ArrayCollection([$channel]))
         ;
 
@@ -402,7 +436,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -417,24 +451,26 @@ class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME;
 
-        $item2 = new GameItem();
-        $item2->setName(ItemEnum::ITRACKIE);
-
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($player);
+        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
 
         $player2 = new Player();
-        $player2->setPlace($place2)->addEquipment($item2);
+        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $item2 = new GameItem($player2);
+        $item2->setName(ItemEnum::ITRACKIE);
+        $player2->setPlace($place2);
         $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2);
+        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
 
         $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
 
         $this->channelRepository
             ->shouldReceive('findByPlayer')
-            ->with($player, true)
+            ->with($playerInfo, true)
             ->andReturn(new ArrayCollection([$channel]))
         ;
 
@@ -449,7 +485,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -464,34 +500,35 @@ class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME;
 
-        $item2 = new GameItem();
-        $item2->setName(ItemEnum::ITRACKIE);
-
-        $item3 = new GameItem();
-        $item3->setName(ItemEnum::ITRACKIE);
-
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($player);
+        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
 
         $player2 = new Player();
-        $player2->setPlace($place2)->addEquipment($item2);
+        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $item2 = new GameItem($player2);
+        $item2->setName(ItemEnum::ITRACKIE);
+        $player2->setPlace($place2);
         $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2);
+        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
 
         $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
 
         $player3 = new Player();
-        $player3->setPlace($place)->addEquipment($item3);
+        $item3 = new GameItem($player3);
+        $item3->setName(ItemEnum::ITRACKIE);
+        $player3->setPlace($place);
         $piratedStatusConfig = new StatusConfig();
-        $piratedStatusConfig->setName(PlayerStatusEnum::TALKIE_SCREWED);
+        $piratedStatusConfig->setStatusName(PlayerStatusEnum::TALKIE_SCREWED);
         $piratedStatus = new Status($player3, $piratedStatusConfig);
         $piratedStatus->setTarget($player);
 
         $this->channelRepository
             ->shouldReceive('findByPlayer')
-            ->with($player, true)
+            ->with($playerInfo, true)
             ->andReturn(new ArrayCollection([$channel]))
         ;
 
@@ -506,7 +543,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -519,15 +556,17 @@ class ChannelServiceTest extends TestCase
         $reason = ActionEnum::CONSUME;
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $player->setPlace($place);
 
         $this->channelRepository
             ->shouldReceive('findByPlayer')
-            ->with($player, true)
+            ->with($playerInfo, true)
             ->andReturn(new ArrayCollection([]))
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -540,11 +579,13 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $player->setPlace($place);
 
         $this->channelRepository
             ->shouldReceive('findByPlayer')
-            ->with($player, true)
+            ->with($playerInfo, true)
             ->andReturn(new ArrayCollection([$channel]))
         ;
 
@@ -563,11 +604,13 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $player->setPlace($place);
 
         $this->channelRepository
             ->shouldReceive('findByPlayer')
-            ->with($player, false)
+            ->with($playerInfo, false)
             ->andReturn(new ArrayCollection([$channel, $channel2]))
         ;
 
@@ -585,15 +628,16 @@ class ChannelServiceTest extends TestCase
 
         $place = new Place();
 
-        $item = new GameItem();
-        $item->setName(ItemEnum::ITRACKIE);
-
         $player = new Player();
-        $player->setPlace($place)->addEquipment($item);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
+        $item = new GameItem($player);
+        $item->setName(ItemEnum::ITRACKIE);
+        $player->setPlace($place);
 
         $this->channelRepository
             ->shouldReceive('findByPlayer')
-            ->with($player, false)
+            ->with($playerInfo, false)
             ->andReturn(new ArrayCollection([$channel, $channel2]))
         ;
 
@@ -605,10 +649,12 @@ class ChannelServiceTest extends TestCase
     public function testGetPiratePlayer()
     {
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
 
         $player2 = new Player();
         $piratedStatusConfig = new StatusConfig();
-        $piratedStatusConfig->setName(PlayerStatusEnum::TALKIE_SCREWED);
+        $piratedStatusConfig->setStatusName(PlayerStatusEnum::TALKIE_SCREWED);
         $piratedStatus = new Status($player2, $piratedStatusConfig);
         $piratedStatus->setTarget($player);
 
@@ -633,11 +679,13 @@ class ChannelServiceTest extends TestCase
     public function testGetPiratedPlayer()
     {
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
 
         $player2 = new Player();
 
         $piratedStatusConfig = new StatusConfig();
-        $piratedStatusConfig->setName(PlayerStatusEnum::TALKIE_SCREWED);
+        $piratedStatusConfig->setStatusName(PlayerStatusEnum::TALKIE_SCREWED);
         $piratedStatus = new Status($player2, $piratedStatusConfig);
         $piratedStatus->setTarget($player);
 
@@ -656,15 +704,17 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $player->setPlace($place);
 
         $playerParticipant = new ChannelPlayer();
-        $playerParticipant->setChannel($channel)->setParticipant($player);
+        $playerParticipant->setChannel($channel)->setParticipant($playerInfo);
         $channel->addParticipant($playerParticipant);
 
         $this->channelRepository
             ->shouldReceive('findByPlayer')
-            ->with($player)
+            ->with($playerInfo)
             ->andReturn(new ArrayCollection([$channel]))
         ;
 
@@ -681,15 +731,17 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
         $player->setPlace($place);
 
         $playerParticipant = new ChannelPlayer();
-        $playerParticipant->setChannel($channel)->setParticipant($player);
+        $playerParticipant->setChannel($channel)->setParticipant($playerInfo);
         $channel->addParticipant($playerParticipant);
 
         $this->channelRepository
             ->shouldReceive('findByPlayer')
-            ->with($player)
+            ->with($playerInfo)
             ->andReturn(new ArrayCollection([$channel]))
         ;
 

@@ -9,7 +9,6 @@ use FOS\RestBundle\View\View;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Entity\Dto\ActionRequest;
 use Mush\Action\Service\ActionStrategyServiceInterface;
-use Mush\Game\Service\CycleServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -23,14 +22,11 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ActionController extends AbstractFOSRestController
 {
     private ActionStrategyServiceInterface $actionService;
-    private CycleServiceInterface $cycleService;
 
     public function __construct(
         ActionStrategyServiceInterface $actionService,
-        CycleServiceInterface $cycleService
     ) {
         $this->actionService = $actionService;
-        $this->cycleService = $cycleService;
     }
 
     /**
@@ -79,8 +75,8 @@ class ActionController extends AbstractFOSRestController
         /** @var User $user */
         $user = $this->getUser();
 
-        // @TODO: use voter
-        if ($player !== $user->getCurrentGame()) {
+        // @TODO: use Voter
+        if ($player->getPlayerInfo()->getUser() !== $user) {
             throw new AccessDeniedException('player must be the same as user');
         }
 

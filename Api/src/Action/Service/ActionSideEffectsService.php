@@ -4,28 +4,28 @@ namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 {
     public const ACTION_INJURY_MODIFIER = -2;
 
-    private EventDispatcherInterface $eventDispatcher;
-    private ModifierServiceInterface $modifierService;
+    private EventServiceInterface $eventService;
+    private EventModifierServiceInterface $modifierService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ModifierServiceInterface $modifierService
+        EventServiceInterface $eventService,
+        EventModifierServiceInterface $modifierService
     ) {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->modifierService = $modifierService;
     }
 
@@ -50,7 +50,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $isSoiled = $this->modifierService->isSuccessfulWithModifiers(
                 $baseDirtyRate,
                 [ModifierScopeEnum::EVENT_DIRTY],
-                $action->getName(),
+                $action->getActionTags(),
                 $date,
                 $player,
             );
@@ -60,9 +60,9 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             }
         }
 
-        $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, $action->getName(), new \DateTime());
+        $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, $action->getActionTags(), new \DateTime());
         $statusEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     private function handleInjury(Action $action, Player $player, \DateTime $date): void
@@ -72,7 +72,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         $isHurt = $this->modifierService->isSuccessfulWithModifiers(
             $baseInjuryRate,
             [ModifierScopeEnum::EVENT_CLUMSINESS],
-            $action->getName(),
+            $action->getActionTags(),
             $date,
             $player,
         );
@@ -88,9 +88,9 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             self::ACTION_INJURY_MODIFIER,
-            ModifierScopeEnum::EVENT_CLUMSINESS,
+            [ModifierScopeEnum::EVENT_CLUMSINESS],
             $dateTime
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

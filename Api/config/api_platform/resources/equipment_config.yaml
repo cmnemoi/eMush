@@ -14,3 +14,20 @@ Mush\Equipment\Entity\Config\EquipmentConfig:
       security: 'is_granted("ROLE_ADMIN")'
   itemOperations:
     get:
+      security: 'is_granted("ROLE_ADMIN")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'
+  properties:
+    mechanics:
+      subresource:
+        resourceClass: 'Mush\Equipment\Entity\EquipmentMechanic'
+        collection: true
+    actions:
+      subresource:
+        resourceClass: 'Mush\Action\Entity\Action'
+        collection: true
+    initStatuses:
+      subresource:
+        resourceClass: 'Mush\Status\Entity\Config\StatusConfig'
+        collection: true
+

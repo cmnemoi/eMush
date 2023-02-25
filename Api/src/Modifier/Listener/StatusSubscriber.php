@@ -4,42 +4,43 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Service\EquipmentModifierService;
-use Mush\Modifier\Service\ModifierConditionService;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Service\ModifierCreationServiceInterface;
+use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
+use Mush\Modifier\Service\ModifierRequirementServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class StatusSubscriber implements EventSubscriberInterface
 {
-    private EquipmentModifierService $gearModifierService;
-    private ModifierServiceInterface $modifierService;
-    private ModifierConditionService $modifierConditionService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EquipmentModifierServiceInterface $gearModifierService;
+    private ModifierCreationServiceInterface $modifierCreationService;
+    private ModifierRequirementServiceInterface $modifierActivationRequirementService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
-        EquipmentModifierService $gearModifierService,
-        ModifierServiceInterface $modifierService,
-        ModifierConditionService $modifierConditionService,
-        EventDispatcherInterface $eventDispatcher
+        EquipmentModifierServiceInterface $gearModifierService,
+        ModifierCreationServiceInterface $modifierCreationService,
+        ModifierRequirementServiceInterface $modifierActivationRequirementService,
+        EventServiceInterface $eventService
     ) {
         $this->gearModifierService = $gearModifierService;
-        $this->modifierService = $modifierService;
-        $this->modifierConditionService = $modifierConditionService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->modifierCreationService = $modifierCreationService;
+        $this->modifierActivationRequirementService = $modifierActivationRequirementService;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -61,11 +62,17 @@ class StatusSubscriber implements EventSubscriberInterface
 
         foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
             $modifierHolder = $this->getModifierHolderFromConfig($statusHolder, $modifierConfig);
-            if ($modifierHolder === null) {
+            if ($modifierHolder === null || !($modifierConfig instanceof EventModifierConfig)) {
                 return;
             }
 
-            $this->modifierService->createModifier($modifierConfig, $modifierHolder);
+            $this->modifierCreationService->createModifier(
+                $modifierConfig,
+                $modifierHolder,
+                $event->getTags(),
+                $event->getTime(),
+                null
+            );
         }
 
         // handle broken gears
@@ -73,21 +80,18 @@ class StatusSubscriber implements EventSubscriberInterface
             if (!$statusHolder instanceof GameEquipment) {
                 throw new UnexpectedTypeException($statusHolder, GameEquipment::class);
             }
-            $this->gearModifierService->gearDestroyed($statusHolder);
+            $this->gearModifierService->gearDestroyed($statusHolder, $event->getTags(), $event->getTime());
         }
 
         // handle modifiers triggered by player status
         $player = $this->getPlayer($statusHolder);
         if ($player !== null) {
             $modifiers = $player->getModifiers()->getScopedModifiers([StatusEvent::STATUS_APPLIED]);
-            $modifiers = $this->modifierConditionService->getActiveModifiers($modifiers, $event->getReason(), $player);
+            $modifiers = $this->modifierActivationRequirementService->getActiveModifiers($modifiers, $event->getTags(), $player);
 
-            /** @var Modifier $modifier */
+            /** @var GameModifier $modifier */
             foreach ($modifiers as $modifier) {
-                /** @var  */
-                $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReason());
-                $event->setVisibility(VisibilityEnum::HIDDEN);
-                $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+                $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getTags());
             }
         }
     }
@@ -106,30 +110,30 @@ class StatusSubscriber implements EventSubscriberInterface
             if (!$statusHolder instanceof GameEquipment) {
                 throw new UnexpectedTypeException($statusHolder, GameEquipment::class);
             }
-            $this->gearModifierService->gearCreated($statusHolder);
+            $this->gearModifierService->gearCreated($statusHolder, $event->getTags(), $event->getTime());
         }
 
         foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
             $modifierHolder = $this->getModifierHolderFromConfig($statusHolder, $modifierConfig);
-            if ($modifierHolder === null) {
+            if ($modifierHolder === null || !($modifierConfig instanceof EventModifierConfig)) {
                 return;
             }
 
-            $this->modifierService->deleteModifier($modifierConfig, $modifierHolder);
+            $this->modifierCreationService->deleteModifier($modifierConfig, $modifierHolder, $event->getTags(), $event->getTime(), null);
         }
     }
 
-    private function getModifierHolderFromConfig(StatusHolderInterface $statusHolder, ModifierConfig $modifierConfig): ?ModifierHolder
+    private function getModifierHolderFromConfig(StatusHolderInterface $statusHolder, AbstractModifierConfig $modifierConfig): ?ModifierHolder
     {
-        switch ($modifierConfig->getReach()) {
-            case ModifierReachEnum::DAEDALUS:
+        switch ($modifierConfig->getModifierRange()) {
+            case ModifierHolderClassEnum::DAEDALUS:
                 return $this->getDaedalus($statusHolder);
-            case ModifierReachEnum::PLACE:
+            case ModifierHolderClassEnum::PLACE:
                 return $this->getPlace($statusHolder);
-            case ModifierReachEnum::PLAYER:
-            case ModifierReachEnum::TARGET_PLAYER:
+            case ModifierHolderClassEnum::PLAYER:
+            case ModifierHolderClassEnum::TARGET_PLAYER:
                 return $this->getPlayer($statusHolder);
-            case ModifierReachEnum::EQUIPMENT:
+            case ModifierHolderClassEnum::EQUIPMENT:
                 return $this->getEquipment($statusHolder);
         }
 
@@ -144,7 +148,7 @@ class StatusSubscriber implements EventSubscriberInterface
             case $statusHolder instanceof Place:
                 return $statusHolder->getDaedalus();
             case $statusHolder instanceof GameEquipment:
-                return $statusHolder->getPlace()->getDaedalus();
+                return $statusHolder->getDaedalus();
             default:
                 throw new \LogicException('unknown statusholder type');
         }
@@ -196,25 +200,26 @@ class StatusSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function createQuantityEvent(ModifierHolder $holder, Modifier $modifier, \DateTime $time, string $eventReason): PlayerVariableEvent
+    private function createQuantityEvent(ModifierHolder $holder, GameModifier $modifier, \DateTime $time, array $eventReasons): void
     {
         $modifierConfig = $modifier->getModifierConfig();
 
-        $target = $modifierConfig->getTarget();
-        $value = intval($modifierConfig->getDelta());
-        $reason = $modifierConfig->getName() ?: $eventReason;
+        if ($modifierConfig instanceof VariableEventModifierConfig &&
+            $holder instanceof Player
+        ) {
+            $target = $modifierConfig->getTargetVariable();
+            $value = intval($modifierConfig->getDelta());
+            $eventReasons[] = $modifierConfig->getModifierName();
 
-        switch (true) {
-            case $holder instanceof Player:
-                return new PlayerVariableEvent(
-                    $holder,
-                    $target,
-                    $value,
-                    $reason,
-                    $time,
-                );
-            default:
-                throw new \LogicException('Unexpected modifier holder type');
+            $event = new PlayerVariableEvent(
+                $holder,
+                $target,
+                $value,
+                $eventReasons,
+                $time,
+            );
+
+            $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 }

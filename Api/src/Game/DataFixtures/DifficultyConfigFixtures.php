@@ -5,8 +5,10 @@ namespace Mush\Game\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 
 class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -18,7 +20,7 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
         $difficultyConfig = new DifficultyConfig();
 
         $difficultyConfig
-            ->setGameConfig($gameConfig)
+            ->setName(GameConfigEnum::DEFAULT)
             ->setEquipmentBreakRate(30)
             ->setDoorBreakRate(40)
             ->setEquipmentFireBreakRate(30)
@@ -37,9 +39,41 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setPanicCrisisPlayerDamage([3 => 1])
             ->setPlantDiseaseRate(5)
             ->setCycleDiseaseRate(20)
+            ->setEquipmentBreakRateDistribution([
+                EquipmentEnum::BIOS_TERMINAL => 3,
+                EquipmentEnum::COMMUNICATION_CENTER => 6,
+                EquipmentEnum::NERON_CORE => 6,
+                EquipmentEnum::RESEARCH_LABORATORY => 6,
+                EquipmentEnum::CALCULATOR => 6,
+                EquipmentEnum::EMERGENCY_REACTOR => 6,
+                EquipmentEnum::REACTOR_LATERAL => 6,
+                EquipmentEnum::GRAVITY_SIMULATOR => 6,
+                EquipmentEnum::ASTRO_TERMINAL => 12,
+                EquipmentEnum::COMMAND_TERMINAL => 12,
+                EquipmentEnum::PLANET_SCANNER => 12,
+                EquipmentEnum::JUKEBOX => 12,
+                EquipmentEnum::ANTENNA => 12,
+                EquipmentEnum::PATROL_SHIP => 12,
+                EquipmentEnum::PASIPHAE => 12,
+                EquipmentEnum::COMBUSTION_CHAMBER => 12,
+                EquipmentEnum::KITCHEN => 12,
+                EquipmentEnum::DYNARCADE => 12,
+                EquipmentEnum::COFFEE_MACHINE => 12,
+                EquipmentEnum::MYCOSCAN => 12,
+                EquipmentEnum::TURRET_COMMAND => 12,
+                EquipmentEnum::SURGERY_PLOT => 12,
+                EquipmentEnum::THALASSO => 25,
+                EquipmentEnum::CAMERA_EQUIPMENT => 25,
+                EquipmentEnum::SHOWER => 25,
+                EquipmentEnum::FUEL_TANK => 25,
+                EquipmentEnum::OXYGEN_TANK => 25,
+            ])
         ;
 
         $manager->persist($difficultyConfig);
+
+        $gameConfig->setDifficultyConfig($difficultyConfig);
+        $manager->persist($gameConfig);
 
         $manager->flush();
     }

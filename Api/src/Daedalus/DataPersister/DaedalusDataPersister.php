@@ -5,6 +5,7 @@ namespace Mush\Daedalus\DataPersister;
 use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 
 class DaedalusDataPersister implements ContextAwareDataPersisterInterface
@@ -25,11 +26,16 @@ class DaedalusDataPersister implements ContextAwareDataPersisterInterface
 
     public function persist($data, array $context = [])
     {
-        $config = $this->gameConfigService->getConfig();
+        $config = $this->gameConfigService->getConfigByName('default');
+        // @TODO implement choice of language
+        $language = LanguageEnum::FRENCH;
 
-        return $this->daedalusService->createDaedalus($config, $data->getName());
+        return $this->daedalusService->createDaedalus($config, $data->getName(), $language);
     }
 
+    /**
+     * @return void
+     */
     public function remove($data, array $context = [])
     {
         // TODO: Implement remove() method.

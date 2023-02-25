@@ -43,6 +43,9 @@ abstract class EquipmentMechanic
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    private string $name;
+
     protected array $mechanics = [];
 
     #[ORM\ManyToMany(targetEntity: Action::class)]
@@ -63,6 +66,25 @@ abstract class EquipmentMechanic
         return $this->id;
     }
 
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function buildName(string $name, string $configName): static
+    {
+        $this->name = $name . '_' . $configName;
+
+        return $this;
+    }
+
     public function getMechanics(): array
     {
         return $this->mechanics;
@@ -73,8 +95,15 @@ abstract class EquipmentMechanic
         return $this->actions;
     }
 
-    public function setActions(Collection $actions): static
+    /**
+     * @param Collection<int, Action> $actions
+     */
+    public function setActions(Collection|array $actions): static
     {
+        if (is_array($actions)) {
+            $actions = new ArrayCollection($actions);
+        }
+
         $this->actions = $actions;
 
         return $this;

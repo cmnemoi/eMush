@@ -29,12 +29,12 @@ class SabotageActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SABOTAGE, 2);
 
         $this->action = new Sabotage(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -46,18 +46,17 @@ class SabotageActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $item->setIsBreakable(true);
         $gameItem
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -89,7 +88,7 @@ class SabotageActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
 
         // Success
         $result = $this->action->execute();

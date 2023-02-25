@@ -3,21 +3,25 @@
 namespace Mush\Tests\Status\Event;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -25,6 +29,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
+use Mush\User\Entity\User;
 
 class CycleEventCest
 {
@@ -40,16 +45,18 @@ class CycleEventCest
     {
         // Cycle Increment
         $daedalus = new Daedalus();
-        $time = new DateTime();
+        $time = new \DateTime();
+        /** @var Player $player */
         $player = $I->have(Player::class);
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::FROZEN)
+            ->setStatusName(EquipmentStatusEnum::FROZEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setMaxCharge(1)
             ->setAutoRemove(true)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
         $status = new ChargeStatus($player, $statusConfig);
@@ -60,7 +67,7 @@ class CycleEventCest
         $I->haveInRepository($status);
         $id = $status->getId();
 
-        $cycleEvent = new StatusCycleEvent($status, new Player(), EventEnum::NEW_CYCLE, $time);
+        $cycleEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_CYCLE], $time);
 
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
@@ -69,24 +76,45 @@ class CycleEventCest
 
     public function testFireStatusCycleSubscriber(FunctionalTester $I)
     {
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setStatusName(StatusEnum::FIRE)
+            ->setModifierConfigs(new ArrayCollection([]))
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class, [
             'propagatingFireRate' => 100,
-            'hullFireDamageRate' => 100, ]);
+            'hullFireDamageRate' => 100,
+        ]);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+        $gameConfig = $I->have(GameConfig::class, [
+            'difficultyConfig' => $difficultyConfig,
+            'statusConfigs' => new ArrayCollection([$statusConfig]),
+        ]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => GameConfigEnum::TEST]);
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class);
+        $daedalus->setDaedalusVariables($daedalusConfig);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC)
         ;
         $I->haveInRepository($channel);
@@ -100,25 +128,29 @@ class CycleEventCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['isFireBreakable' => false, 'isFireDestroyable' => false, 'gameConfig' => $gameConfig]);
-
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig
-            ->setName(StatusEnum::FIRE)
-            ->setGameConfig($gameConfig)
-            ->setModifierConfigs(new ArrayCollection([]))
-        ;
-        $I->haveInRepository($statusConfig);
+        $doorConfig = $I->have(EquipmentConfig::class, [
+            'isFireBreakable' => false,
+            'isFireDestroyable' => false,
+            'name' => 'door_test',
+        ]);
 
         $doorConfig
-            ->setGameConfig($daedalus->getGameConfig())
             ->setIsFireBreakable(false)
-            ->setIsFireDestroyable(false);
+            ->setIsFireDestroyable(false)
+        ;
 
-        $door = new Door();
+        $door = new Door($room);
         $door
              ->setName('door name')
              ->setEquipment($doorConfig)
@@ -131,18 +163,15 @@ class CycleEventCest
         $moralPointBefore = $player->getMoralPoint();
         $hullPointBefore = $daedalus->getHull();
 
-        $time = new DateTime();
+        $time = new \DateTime();
 
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setName(StatusEnum::FIRE);
-        $I->haveInRepository($statusConfig);
         $status = new ChargeStatus($room, $statusConfig);
         $status
             ->setCharge(1)
         ;
         $I->haveInRepository($status);
 
-        $cycleEvent = new StatusCycleEvent($status, $room, EventEnum::NEW_CYCLE, $time);
+        $cycleEvent = new StatusCycleEvent($status, $room, [EventEnum::NEW_CYCLE], $time);
 
         $I->refreshEntities($player, $daedalus);
 

@@ -7,10 +7,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
@@ -19,7 +22,6 @@ use Mush\Place\Repository\PlaceRepository;
 use Mush\Place\Service\PlaceService;
 use Mush\Place\Service\PlaceServiceInterface;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlaceServiceTest extends TestCase
 {
@@ -27,8 +29,8 @@ class PlaceServiceTest extends TestCase
 
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
     /** @var PlaceRepository|Mockery\Mock */
     private PlaceRepository $repository;
 
@@ -37,13 +39,13 @@ class PlaceServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->repository = Mockery::mock(PlaceRepository::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->eventService = \Mockery::mock(EventServiceInterface::class);
+        $this->repository = \Mockery::mock(PlaceRepository::class);
 
         $this->placeService = new PlaceService(
             $this->entityManager,
-            $this->eventDispatcher,
+            $this->eventService,
             $this->repository,
         );
     }
@@ -53,7 +55,7 @@ class PlaceServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testCreateRoom()
@@ -63,7 +65,7 @@ class PlaceServiceTest extends TestCase
         $gameConfig = new GameConfig();
         $daedalusConfig = new DaedalusConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $equipmentConfigCollection = new ArrayCollection();
         $equipmentConfigCollection->add($this->createEquipmentConfig(EquipmentEnum::DOOR));
@@ -74,8 +76,8 @@ class PlaceServiceTest extends TestCase
 
         $roomConfig = $this->createRoomConfig('bridge', $daedalusConfig);
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (PlaceInitEvent $event) => (
                 $event->getPlaceConfig() === $roomConfig)
             )
@@ -91,7 +93,7 @@ class PlaceServiceTest extends TestCase
             ->once()
         ;
 
-        $result = $this->placeService->createPlace($roomConfig, $daedalus, 'daedalus_start', new \DateTime());
+        $result = $this->placeService->createPlace($roomConfig, $daedalus, ['daedalus_start'], new \DateTime());
 
         $this->assertInstanceOf(Place::class, $result);
         $this->assertCount(0, $result->getDoors());
@@ -103,8 +105,7 @@ class PlaceServiceTest extends TestCase
         $roomConfig = new PlaceConfig();
 
         $roomConfig
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName($name)
+            ->setPlaceName($name)
             ->setDoors([
                 DoorEnum::BRIDGE_FRONT_ALPHA_TURRET,
                 DoorEnum::BRIDGE_FRONT_BRAVO_TURRET,
@@ -126,7 +127,7 @@ class PlaceServiceTest extends TestCase
         $equipmentConfig = new EquipmentConfig();
 
         $equipmentConfig
-            ->setName($name)
+            ->setEquipmentName($name)
         ;
 
         return $equipmentConfig;

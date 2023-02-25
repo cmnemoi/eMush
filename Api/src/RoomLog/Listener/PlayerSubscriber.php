@@ -4,6 +4,8 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -12,11 +14,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private RoomLogServiceInterface $roomLogService;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
+        TranslationServiceInterface $translationService,
     ) {
         $this->roomLogService = $roomLogService;
+        $this->translationService = $translationService;
     }
 
     public static function getSubscribedEvents()
@@ -47,13 +52,21 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
         $logParameters = $event->getLogParameters();
+        $language = $player->getDaedalus()->getLanguage();
 
         if ($logKey == LogEnum::DEATH) {
-            if (!($reason = $event->getReason())) {
+            $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
+
+            if ($endCause === null) {
                 throw new \LogicException('Player should die with a reason');
             }
 
-            $logParameters[LanguageEnum::END_CAUSE] = $reason;
+            $logParameters[LanguageEnum::END_CAUSE] = $this->translationService->translate(
+                $endCause,
+                [],
+                'end_cause',
+                $language
+            );
         }
 
         $this->roomLogService->createLog(

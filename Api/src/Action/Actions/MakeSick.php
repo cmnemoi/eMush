@@ -5,15 +5,17 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\ApplyEffectEvent;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class implementing the "Make sick" action.
@@ -25,7 +27,22 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  */
 class MakeSick extends AbstractAction
 {
+    public const MAKE_SICK_DELAY_MIN = 1;
+    public const MAKE_SICK_DELAY_LENGTH = 4;
+
     protected string $name = ActionEnum::MAKE_SICK;
+    protected DiseaseCauseServiceInterface $diseaseCauseService;
+
+    public function __construct(
+        EventServiceInterface $eventService,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        DiseaseCauseServiceInterface $diseaseCauseService
+    ) {
+        parent::__construct($eventService, $actionService, $validator);
+
+        $this->diseaseCauseService = $diseaseCauseService;
+    }
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -53,13 +70,11 @@ class MakeSick extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        $diseaseEvent = new ApplyEffectEvent(
-            $this->player,
-            $parameter,
-            VisibilityEnum::PUBLIC,
+        $this->diseaseCauseService->handleDiseaseForCause(
             $this->getActionName(),
-            new \DateTime()
+            $parameter,
+            self::MAKE_SICK_DELAY_MIN,
+            self::MAKE_SICK_DELAY_LENGTH
         );
-        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
     }
 }

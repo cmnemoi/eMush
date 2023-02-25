@@ -4,6 +4,7 @@ namespace Mush\Communication\Listener;
 
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\NeronMessageServiceInterface;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -32,10 +33,12 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $time = $event->getTime();
 
-        if (!($reason = $event->getReason())) {
+        $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
+
+        if ($endCause === null) {
             throw new \LogicException('Player should die with a reason');
         }
-        $this->neronMessageService->createPlayerDeathMessage($player, $reason, $time);
+        $this->neronMessageService->createPlayerDeathMessage($player, $endCause, $time);
 
         $channels = $this->channelService->getPlayerChannels($player, true);
 

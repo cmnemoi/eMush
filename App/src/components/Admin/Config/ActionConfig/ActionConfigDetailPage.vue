@@ -9,6 +9,13 @@
                 :errors="errors.name"
             ></Input>
             <Input
+                :label="$t('admin.actionConfig.actionName')"
+                id="actionConfig_actionName"
+                v-model="actionConfig.actionName"
+                type="text"
+                :errors="errors.actionName"
+            ></Input>
+            <Input
                 :label="$t('admin.actionConfig.target')"
                 id="actionConfig_target"
                 v-model="actionConfig.target"
@@ -32,30 +39,68 @@
         </div>
         <div class="flex-row">
             <Input
-                :label="$t('admin.actionConfig.successRate')"
-                id="actionConfig_successRate"
-                v-model="actionConfig.successRate"
+                :label="$t('admin.actionConfig.actionPoint')"
+                id="actionConfig_actionPoint"
+                v-model="actionConfig.actionVariablesArray.actionPoint"
                 type="number"
-                :errors="errors.successRate"
+                :errors="errors.actionPoint"
             ></Input>
             <Input
-                :label="$t('admin.actionConfig.injuryRate')"
-                id="actionConfig_injuryRate"
-                v-model="actionConfig.injuryRate"
+                :label="$t('admin.actionConfig.movementPoint')"
+                id="actionConfig_movementPoint"
+                v-model="actionConfig.actionVariablesArray.movementPoint"
                 type="number"
-                :errors="errors.injuryRate"
+                :errors="errors.movementPoint"
             ></Input>
             <Input
-                :label="$t('admin.actionConfig.dirtyRate')"
-                id="actionConfig_dirtyRate"
-                v-model="actionConfig.dirtyRate"
+                :label="$t('admin.actionConfig.moralPoint')"
+                id="actionConfig_moralPoint"
+                v-model="actionConfig.actionVariablesArray.moralPoint"
                 type="number"
-                :errors="errors.dirtyRate"
+                :errors="errors.moralPoint"
             ></Input>
         </div>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('save') }}
-        </button>
+        <div class="flex-row">
+            <Input
+                :label="$t('admin.actionConfig.percentageSuccess')"
+                id="actionConfig_percentageSuccess"
+                v-model="actionConfig.actionVariablesArray.percentageSuccess"
+                type="number"
+                :errors="errors.percentageSuccess"
+            ></Input>
+            <Input
+                :label="$t('admin.actionConfig.percentageCritical')"
+                id="actionConfig_percentageCritical"
+                v-model="actionConfig.actionVariablesArray.percentageCritical"
+                type="number"
+                :errors="errors.percentageCritical"
+            ></Input>
+        </div>
+        <div class="flex-row">
+            <Input
+                :label="$t('admin.actionConfig.percentageInjury')"
+                id="actionConfig_percentageInjury"
+                v-model="actionConfig.actionVariablesArray.percentageInjury"
+                type="number"
+                :errors="errors.percentageInjury"
+            ></Input>
+            <Input
+                :label="$t('admin.actionConfig.percentageDirtiness')"
+                id="actionConfig_dirtyRate"
+                v-model="actionConfig.actionVariablesArray.percentageDirtiness"
+                type="number"
+                :errors="errors.percentageDirtiness"
+            ></Input>
+            <input
+                type="checkbox"
+                class="actionConfigCheckbox"
+                id="actionConfig_isSuperDirty"
+                v-model="actionConfig.actionVariablesArray.isSuperDirty"
+            />
+            <label for="actionConfig_isSuperDirty">{{ actionConfig.actionVariablesArray.isSuperDirty ? $t('admin.actionConfig.isSuperDirty') : $t('admin.actionConfig.isNotSuperDirty') }}</label>
+
+        </div>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -65,6 +110,8 @@ import GameConfigService from "@/services/game_config.service";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import Input from "@/components/Utils/Input.vue";
 import { ActionConfig } from "@/entities/Config/ActionConfig";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import urlJoin from "url-join";
 
 interface ActionConfigState {
     actionConfig: null|ActionConfig
@@ -74,7 +121,8 @@ interface ActionConfigState {
 export default defineComponent({
     name: "ActionConfigDetailPage",
     components: {
-        Input
+        Input,
+        UpdateConfigButtons
     },
     data: function (): ActionConfigState {
         return {
@@ -83,6 +131,32 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if (this.actionConfig === null) return;
+
+            const newActionConfig = this.actionConfig;
+            newActionConfig.id = null;
+
+            // @ts-ignore
+            GameConfigService.createActionConfig(newActionConfig)
+                .then((res: ActionConfig | null) => {
+                    const newActionConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/action-config', String(res?.id));
+                    window.location.href = newActionConfigUrl;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+        },
         update(): void {
             if (this.actionConfig === null) {
                 return;

@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\InsertFuel;
 use Mush\Action\Enum\ActionEnum;
@@ -14,7 +13,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 
 class InsertFuelTest extends AbstractActionTest
@@ -29,7 +27,7 @@ class InsertFuelTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::INSERT_FUEL);
 
         $this->action = new InsertFuel(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -40,41 +38,37 @@ class InsertFuelTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $player = $this->createPlayer($daedalus, $room);
+
+        $gameItem = new GameItem($player);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
 
-        $item->setName(ItemEnum::FUEL_CAPSULE);
+        $item->setEquipmentName(ItemEnum::FUEL_CAPSULE);
 
-        $player = $this->createPlayer($daedalus, $room);
-        $gameItem->setName(ItemEnum::FUEL_CAPSULE)->setHolder($player);
+        $gameItem->setName(ItemEnum::FUEL_CAPSULE);
 
         $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setMaxFuel(32);
+        $daedalusConfig->setMaxFuel(32)->setInitFuel(10);
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxItemInInventory(3);
-        $gameConfig->setDaedalusConfig($daedalusConfig);
-
-        $daedalus->setGameConfig($gameConfig);
-        $daedalus->setFuel(10);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $tank = new EquipmentConfig();
-        $tank->setName(EquipmentEnum::FUEL_TANK);
+        $tank->setEquipmentName(EquipmentEnum::FUEL_TANK);
 
-        $gameTank = new GameEquipment();
-        $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK)->setHolder($room);
+        $gameTank = new GameEquipment($room);
+        $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

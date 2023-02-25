@@ -12,8 +12,8 @@ class Neron
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    #[ORM\OneToOne(mappedBy: 'neron', targetEntity: Daedalus::class)]
-    private Daedalus $daedalus;
+    #[ORM\OneToOne(mappedBy: 'neron', targetEntity: DaedalusInfo::class)]
+    private DaedalusInfo $daedalusInfo;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isInhibited = true;
@@ -23,14 +23,14 @@ class Neron
         return $this->id;
     }
 
-    public function getDaedalus(): Daedalus
+    public function getDaedalusInfo(): DaedalusInfo
     {
-        return $this->daedalus;
+        return $this->daedalusInfo;
     }
 
-    public function setDaedalus(Daedalus $daedalus): self
+    public function setDaedalusInfo(DaedalusInfo $daedalusInfo): self
     {
-        $this->daedalus = $daedalus;
+        $this->daedalusInfo = $daedalusInfo;
 
         return $this;
     }

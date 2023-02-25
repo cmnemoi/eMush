@@ -3,7 +3,6 @@
 namespace Mush\Test\Action\Validator;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\Mechanic;
 use Mush\Action\Validator\MechanicValidator;
@@ -11,6 +10,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Place\Entity\Place;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -34,7 +34,7 @@ class MechanicValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -44,10 +44,10 @@ class MechanicValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setMechanics(new ArrayCollection([$documentMechanic]));
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -66,10 +66,10 @@ class MechanicValidatorTest extends TestCase
     {
         $itemConfig = new ItemConfig();
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -92,8 +92,8 @@ class MechanicValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

@@ -7,8 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Communication\Enum\ChannelScopeEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Player\Entity\Player;
+use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Player\Entity\PlayerInfo;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'communication_channel')]
@@ -24,8 +24,8 @@ class Channel
     #[ORM\Column(type: 'string', nullable: false)]
     private string $scope = ChannelScopeEnum::PUBLIC;
 
-    #[ORM\ManyToOne(targetEntity: Daedalus::class)]
-    private Daedalus $daedalus;
+    #[ORM\ManyToOne(targetEntity: DaedalusInfo::class)]
+    private DaedalusInfo $daedalusInfo;
 
     #[ORM\OneToMany(mappedBy: 'channel', targetEntity: ChannelPlayer::class)]
     private Collection $participants;
@@ -44,14 +44,14 @@ class Channel
         return $this->id;
     }
 
-    public function getDaedalus(): Daedalus
+    public function getDaedalusInfo(): DaedalusInfo
     {
-        return $this->daedalus;
+        return $this->daedalusInfo;
     }
 
-    public function setDaedalus(Daedalus $daedalus): static
+    public function setDaedalus(DaedalusInfo $daedalusInfo): static
     {
-        $this->daedalus = $daedalus;
+        $this->daedalusInfo = $daedalusInfo;
 
         return $this;
     }
@@ -85,9 +85,9 @@ class Channel
         return $this;
     }
 
-    public function isPlayerParticipant(Player $player): bool
+    public function isPlayerParticipant(PlayerInfo $playerInfo): bool
     {
-        return !$this->getParticipants()->filter(fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $player))->isEmpty();
+        return !$this->getParticipants()->filter(fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $playerInfo))->isEmpty();
     }
 
     public function getMessages(): Collection

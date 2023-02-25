@@ -31,13 +31,13 @@ class OpenCapsuleActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new OpenCapsule(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -50,20 +50,19 @@ class OpenCapsuleActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $room = new Place();
 
-        $gameSpaceCapsule = new GameEquipment();
+        $gameSpaceCapsule = new GameEquipment($room);
         $spaceCapsule = new EquipmentConfig();
-        $spaceCapsule->setName(EquipmentEnum::COFFEE_MACHINE);
+        $spaceCapsule->setEquipmentName(EquipmentEnum::COFFEE_MACHINE);
         $gameSpaceCapsule
             ->setEquipment($spaceCapsule)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
-            ->setHolder($room)
         ;
 
         $spaceCapsule->setActions(new ArrayCollection([$this->actionEntity]));
@@ -73,10 +72,10 @@ class OpenCapsuleActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $gameSpaceCapsule);
 
-        $gameMetalScrap = new GameItem();
+        $gameMetalScrap = new GameItem(new Place());
         $metalScrap = new ItemConfig();
         $metalScrap
-            ->setName(ItemEnum::METAL_SCRAPS)
+            ->setEquipmentName(ItemEnum::METAL_SCRAPS)
         ;
         $gameMetalScrap
         ->setEquipment($metalScrap)
@@ -91,7 +90,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();
 

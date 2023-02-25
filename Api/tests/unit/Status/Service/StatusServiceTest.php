@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Status\Service;
 
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
@@ -10,8 +9,12 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Attempt;
@@ -23,25 +26,20 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Repository\StatusConfigRepository;
 use Mush\Status\Repository\StatusRepository;
 use Mush\Status\Service\StatusService;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class StatusServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    protected EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    protected EventServiceInterface $eventService;
 
     /** @var StatusRepository|Mockery\Mock */
     private StatusRepository $repository;
-
-    /** @var StatusConfigRepository|Mockery\Mock */
-    private StatusConfigRepository $configRepository;
 
     private StatusService $service;
 
@@ -50,16 +48,14 @@ class StatusServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->repository = Mockery::mock(StatusRepository::class);
-        $this->configRepository = Mockery::mock(StatusConfigRepository::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->eventService = \Mockery::mock(EventServiceInterface::class);
+        $this->repository = \Mockery::mock(StatusRepository::class);
 
         $this->service = new StatusService(
             $this->entityManager,
-            $this->eventDispatcher,
+            $this->eventService,
             $this->repository,
-            $this->configRepository
         );
     }
 
@@ -68,12 +64,12 @@ class StatusServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testPersist()
     {
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem(new Place());
         $status = new Status($gameEquipment, new StatusConfig());
 
         $this->entityManager->shouldReceive('persist')->with($status)->once();
@@ -83,7 +79,7 @@ class StatusServiceTest extends TestCase
 
     public function testRemove()
     {
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem(new Place());
         $status = new Status($gameEquipment, new StatusConfig());
 
         $this->entityManager->shouldReceive('remove')->with($status)->once();
@@ -96,27 +92,27 @@ class StatusServiceTest extends TestCase
         $daedalus = new Daedalus();
         $room = new Place();
 
-        $item1 = new GameItem();
-        $item1->setHolder($room)->setName('item 1');
-        $item2 = new GameItem();
-        $item2->setHolder($room)->setName('item 2');
-        $item3 = new GameItem();
-        $item3->setHolder($room)->setName('item 3');
+        $item1 = new GameItem($room);
+        $item1->setName('item 1');
+        $item2 = new GameItem($room);
+        $item2->setName('item 2');
+        $item3 = new GameItem($room);
+        $item3->setName('item 3');
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::HIDDEN);
+        $statusConfig->setStatusName(EquipmentStatusEnum::HIDDEN);
 
         $hidden1 = new Status($item1, $statusConfig);
         $hidden1
-            ->setCreatedAt(new DateTime());
+            ->setCreatedAt(new \DateTime());
 
         $hidden2 = new Status($item3, $statusConfig);
         $hidden2
-            ->setCreatedAt(new DateTime());
+            ->setCreatedAt(new \DateTime());
 
         $hidden3 = new Status($item2, $statusConfig);
         $hidden3
-            ->setCreatedAt(new DateTime());
+            ->setCreatedAt(new \DateTime());
 
         $mostRecent = $this->service->getMostRecent('hidden', new ArrayCollection([$item1, $item2, $item3]));
 
@@ -125,7 +121,7 @@ class StatusServiceTest extends TestCase
 
     public function testChangeCharge()
     {
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem(new Place());
         $chargeStatusConfig = new ChargeStatusConfig();
         $chargeStatusConfig
             ->setMaxCharge(6)
@@ -165,18 +161,18 @@ class StatusServiceTest extends TestCase
 
     public function testCreateStatusFromConfig()
     {
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem(new Place());
         $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(PlayerStatusEnum::EUREKA_MOMENT)
+            ->setStatusName(PlayerStatusEnum::EUREKA_MOMENT)
             ->setVisibility(VisibilityEnum::MUSH)
         ;
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
-        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, 'reason', new \DateTime());
+        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
 
         $this->assertEquals($result->getOwner(), $gameEquipment);
         $this->assertEquals($result->getName(), PlayerStatusEnum::EUREKA_MOMENT);
@@ -185,10 +181,10 @@ class StatusServiceTest extends TestCase
 
     public function testCreateChargeStatusFromConfig()
     {
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem(new Place());
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(PlayerStatusEnum::GUARDIAN)
+            ->setStatusName(PlayerStatusEnum::GUARDIAN)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setAutoRemove(true)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
@@ -199,9 +195,9 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
-        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, 'reason', new \DateTime());
+        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
 
         $this->assertEquals($result->getOwner(), $gameEquipment);
         $this->assertEquals($result->getName(), PlayerStatusEnum::GUARDIAN);
@@ -215,21 +211,19 @@ class StatusServiceTest extends TestCase
 
     public function testCreateAttemptStatus()
     {
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
+
+        $gameConfig = new GameConfig();
+        $gameConfig->addStatusConfig($attemptConfig);
+
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig->setName(StatusEnum::ATTEMPT);
-
         $actionResult = new Fail();
 
-        $this->configRepository
-            ->shouldReceive('findByNameAndDaedalus')
-            ->with(StatusEnum::ATTEMPT, $daedalus)
-            ->once()
-            ->andReturn($attemptConfig)
-        ;
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult);
@@ -245,7 +239,7 @@ class StatusServiceTest extends TestCase
         $player = new Player();
         $actionResult = new Fail();
         $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig->setName(StatusEnum::ATTEMPT);
+        $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
 
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
@@ -269,7 +263,7 @@ class StatusServiceTest extends TestCase
         $player = new Player();
         $actionResult = new Fail();
         $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig->setName(StatusEnum::ATTEMPT);
+        $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
 
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
@@ -294,7 +288,7 @@ class StatusServiceTest extends TestCase
 
         $actionResult = new Success();
         $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig->setName(StatusEnum::ATTEMPT);
+        $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
 
         $attempt = new Attempt($player, $attemptConfig);
         $attempt

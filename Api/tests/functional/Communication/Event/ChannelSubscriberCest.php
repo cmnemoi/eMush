@@ -12,8 +12,13 @@ use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Event\ChannelEvent;
 use Mush\Communication\Listener\ChannelSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 class ChannelSubscriberCest
 {
@@ -26,26 +31,42 @@ class ChannelSubscriberCest
 
     public function testInvite(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $privateChannel = new Channel();
         $privateChannel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PRIVATE)
         ;
         $I->haveInRepository($privateChannel);
 
-        $event = new ChannelEvent($privateChannel, CommunicationActionEnum::CREATE_CHANNEL, new \DateTime(), $player);
+        $event = new ChannelEvent($privateChannel, [CommunicationActionEnum::CREATE_CHANNEL], new \DateTime(), $player);
         $this->channelSubscriber->onJoinChannel($event);
 
         $I->seeInRepository(ChannelPlayer::class, [
             'channel' => $privateChannel->getId(),
-            'participant' => $player->getId(),
+            'participant' => $playerInfo->getId(),
         ]);
 
         $I->seeInRepository(Message::class, [
@@ -56,16 +77,32 @@ class ChannelSubscriberCest
 
     public function testLeave(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $privateChannel = new Channel();
         $privateChannel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::class)
         ;
         $I->haveInRepository($privateChannel);
@@ -73,11 +110,11 @@ class ChannelSubscriberCest
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($privateChannel)
-            ->setParticipant($player)
+            ->setParticipant($playerInfo)
         ;
         $I->haveInRepository($channelPlayer);
 
-        $event = new ChannelEvent($privateChannel, CommunicationActionEnum::EXIT, new \DateTime(), $player);
+        $event = new ChannelEvent($privateChannel, [CommunicationActionEnum::EXIT], new \DateTime(), $player);
         $this->channelSubscriber->onExitChannel($event);
 
         $I->dontSeeInRepository(ChannelPlayer::class, [

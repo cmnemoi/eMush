@@ -1,7 +1,7 @@
 <template>
     <div class="user_list_container">
         <div class="user_filter_options">
-            <label>Show
+            <label>{{ $t('admin.show') }}
                 <select v-model="pagination.pageSize" @change="updateFilter">
                     <option
                         v-for="option in pageSizeOptions"
@@ -12,7 +12,18 @@
                     </option>
                 </select>
             </label>
-            <label>Search:
+            <label>{{ $t('admin.class') }}
+                <select v-model="entityType" @change="updateFilter">
+                    <option
+                        v-for="option in entityTypeOption"
+                        :value=option.value
+                        :key=option.value
+                    >
+                        {{ $t(option.key) }}
+                    </option>
+                </select>
+            </label>
+            <label>{{ $t('admin.search') }}:
                 <input
                     v-model="filter"
                     type="search"
@@ -37,7 +48,7 @@
                 Actions
             </template>
             <template #row-actions="slotProps">
-                <router-link :to="{ name: 'AdminModifierConfigDetail', params: { modifierConfigId : slotProps.id } }">Edit</router-link>
+                <router-link :to="{ name: this.entityType.detailPage, params: { configId : slotProps.id } }">{{ $t('admin.edit') }}</router-link>
             </template>
         </Datatable>
     </div>
@@ -57,6 +68,25 @@ export default defineComponent({
     },
     data() {
         return {
+            entityType: { endpoint: 'variable_event_modifier_configs', detailPage: 'AdminVariableModifierConfigDetail' },
+            entityTypeOption: [
+                { key: 'admin.modifierConfig.variableModifier', value: {
+                    endpoint: 'variable_event_modifier_configs',
+                    detailPage: 'AdminVariableModifierConfigDetail'
+                } },
+                { key: 'admin.modifierConfig.triggerEventModifier', value: {
+                    endpoint: 'trigger_event_modifier_configs',
+                    detailPage: 'AdminTriggerEventModifierConfigDetail'
+                } },
+                { key: 'admin.modifierConfig.directModifier', value: {
+                    endpoint: 'direct_modifier_configs',
+                    detailPage: 'AdminDirectModifierConfigDetail'
+                } },
+                { key: 'admin.modifierConfig.modifierRequirement', value: {
+                    endpoint: 'modifier_activation_requirements',
+                    detailPage: 'AdminModifierActivationRequirementDetail'
+                } },
+            ],
             fields: [
                 {
                     key: 'id',
@@ -115,7 +145,7 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs'), params)
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+this.entityType.endpoint), params)
                 .then((result) => {
                     return result.data;
                 })

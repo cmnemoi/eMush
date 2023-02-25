@@ -2,8 +2,6 @@ Mush\Game\Entity\TriumphConfig:
   attributes:
     id:
       groups: [ 'triumph_config_read' ]
-    gameConfig:
-      groups: [ 'triumph_config_read', 'triumph_config_write' ]
     name:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]
     triumph:

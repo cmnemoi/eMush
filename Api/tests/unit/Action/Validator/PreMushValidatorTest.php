@@ -2,11 +2,13 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\PreMushValidator;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
@@ -32,18 +34,18 @@ class PreMushValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
     {
         $daedalus = new Daedalus();
-        $daedalus->setGameStatus(GameStatusEnum::CURRENT);
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
 
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -53,7 +55,7 @@ class PreMushValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $daedalus->setGameStatus(GameStatusEnum::FINISHED);
+        $daedalusInfo->setGameStatus(GameStatusEnum::FINISHED);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -64,12 +66,13 @@ class PreMushValidatorTest extends TestCase
     public function testNotValid()
     {
         $daedalus = new Daedalus();
-        $daedalus->setGameStatus(GameStatusEnum::STARTING);
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
+        $daedalusInfo->setGameStatus(GameStatusEnum::STARTING);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -84,8 +87,8 @@ class PreMushValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

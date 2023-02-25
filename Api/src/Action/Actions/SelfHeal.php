@@ -7,9 +7,9 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Validator\AreMedicalSuppliesOnReach;
-use Mush\Action\Validator\FullHealth;
+use Mush\Action\Validator\GameVariableLevel;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -38,7 +38,12 @@ class SelfHeal extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new FullHealth(['target' => FullHealth::PLAYER, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new GameVariableLevel([
+            'target' => GameVariableLevel::PLAYER,
+            'checkMode' => GameVariableLevel::IS_MAX,
+            'variableName' => PlayerVariableEnum::HEALTH_POINT,
+            'groups' => ['visibility'],
+        ]));
         $metadata->addConstraint(new AreMedicalSuppliesOnReach([
             'groups' => ['visibility'],
         ]));
@@ -64,19 +69,19 @@ class SelfHeal extends AbstractAction
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
             $quantity,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $healEvent = new ApplyEffectEvent(
             $this->player,
             $this->player,
             VisibilityEnum::PRIVATE,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
+        $this->eventService->callEvent($healEvent, ApplyEffectEvent::HEAL);
     }
 }

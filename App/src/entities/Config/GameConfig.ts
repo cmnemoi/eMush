@@ -1,94 +1,147 @@
+import { CharacterConfig } from "@/entities/Config/CharacterConfig";
+import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
+import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
+import { StatusConfig } from "@/entities/Config/StatusConfig";
+import { TriumphConfig } from "@/entities/Config/TriumphConfig";
+import { DiseaseCauseConfig } from "@/entities/Config/DiseaseCauseConfig";
+import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
+import { ConsumableDiseaseConfig } from "@/entities/Config/ConsumableDiseaseConfig";
+import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
+
 export class GameConfig {
     public iri: string|null;
     public id: number|null;
     public name: string|null;
-    public nbMush: number|null;
-    public cyclePerGameDay: number|null;
-    public cycleLength: number|null;
-    public timeZone: string|null;
-    public maxNumberPrivateChannel: number|null;
-    public language: string|null;
-    public initHealthPoint: number|null;
-    public maxHealthPoint: number|null;
-    public initMoralPoint: number|null;
-    public maxMoralPoint: number|null;
-    public initSatiety: number|null;
-    public initActionPoint: number|null;
-    public maxActionPoint: number|null;
-    public initMovementPoint: number|null;
-    public maxMovementPoint: number|null;
-    public maxItemInInventory: number|null;
+    public daedalusConfig: DaedalusConfig|null;
+    public charactersConfig: CharacterConfig[]|null;
+    public equipmentsConfig: EquipmentConfig[]|null;
+    public statusConfigs: StatusConfig[]|null;
+    public triumphConfig: TriumphConfig[]|null;
+    public diseaseCauseConfig: DiseaseCauseConfig[]|null;
+    public diseaseConfig: DiseaseConfig[]|null;
+    public consumableDiseaseConfig: ConsumableDiseaseConfig[]|null;
+    public difficultyConfig: DifficultyConfig|null;
 
     constructor() {
         this.iri = null;
         this.id = null;
         this.name = null;
-        this.nbMush = null;
-        this.cyclePerGameDay = null;
-        this.cycleLength = null;
-        this.timeZone = null;
-        this.maxNumberPrivateChannel = null;
-        this.language = null;
-        this.initHealthPoint = null;
-        this.maxHealthPoint = null;
-        this.initMoralPoint = null;
-        this.maxMoralPoint = null;
-        this.initSatiety = null;
-        this.initActionPoint = null;
-        this.maxActionPoint = null;
-        this.initMovementPoint = null;
-        this.maxMovementPoint = null;
-        this.maxItemInInventory = null;
+        this.daedalusConfig = null;
+        this.charactersConfig = null;
+        this.equipmentsConfig = null;
+        this.statusConfigs = null;
+        this.triumphConfig = null;
+        this.diseaseCauseConfig = null;
+        this.diseaseConfig = null;
+        this.consumableDiseaseConfig = null;
+        this.difficultyConfig = null;
     }
     load(object:any) : GameConfig {
         if (typeof object !== "undefined") {
-            this.iri = object.iri;
+            this.iri = object['@id'];
             this.id = object.id;
             this.name = object.name;
-            this.nbMush = object.nbMush;
-            this.cyclePerGameDay = object.cyclePerGameDay;
-            this.cycleLength = object.cycleLength;
-            this.timeZone = object.timeZone;
-            this.maxNumberPrivateChannel = object.maxNumberPrivateChannel;
-            this.language = object.language;
-            this.initHealthPoint = object.initHealthPoint;
-            this.maxHealthPoint = object.maxHealthPoint;
-            this.initMoralPoint = object.initMoralPoint;
-            this.maxMoralPoint = object.maxMoralPoint;
-            this.initSatiety = object.initSatiety;
-            this.initActionPoint = object.initActionPoint;
-            this.maxActionPoint = object.maxActionPoint;
-            this.initMovementPoint = object.initMovementPoint;
-            this.maxMovementPoint = object.maxMovementPoint;
-            this.maxItemInInventory = object.maxItemInInventory;
+            if (typeof object.daedalusConfig !== "undefined") {
+                this.daedalusConfig = new DaedalusConfig().load(object.daedalusConfig);
+            }
+            if (typeof object.charactersConfig !== "undefined") {
+                const charactersConfig : CharacterConfig[] = [];
+                object.charactersConfig.forEach((charactersConfigData: any) => {
+                    const characterConfig = (new CharacterConfig()).load(charactersConfigData);
+                    charactersConfig.push(characterConfig);
+                });
+                this.charactersConfig = charactersConfig;
+            }
+            if (typeof object.equipmentsConfig !== "undefined") {
+                const equipmentsConfig : EquipmentConfig[] = [];
+                object.equipmentsConfig.forEach((equipmentsConfigData: any) => {
+                    const equipmentConfig = (new EquipmentConfig()).load(equipmentsConfigData);
+                    equipmentsConfig.push(equipmentConfig);
+                });
+                this.equipmentsConfig = equipmentsConfig;
+            }
+            if (typeof object.statusConfigs !== "undefined") {
+                const statusConfigs : StatusConfig[] = [];
+                object.statusConfigs.forEach((statusConfigsData: any) => {
+                    const statusConfig = (new StatusConfig()).load(statusConfigsData);
+                    statusConfigs.push(statusConfig);
+                });
+                this.statusConfigs = statusConfigs;
+            }
+            if (typeof object.triumphConfig !== "undefined") {
+                const triumphConfigs : TriumphConfig[] = [];
+                object.triumphConfig.forEach((triumphConfigData: any) => {
+                    const triumphConfig = (new TriumphConfig()).load(triumphConfigData);
+                    triumphConfigs.push(triumphConfig);
+                });
+                this.triumphConfig = triumphConfigs;
+            }
+            if (typeof object.diseaseCauseConfig !== "undefined") {
+                const diseaseCauseConfigs : DiseaseCauseConfig[] = [];
+                object.diseaseCauseConfig.forEach((diseaseCauseConfigData: any) => {
+                    const diseaseCauseConfig = (new DiseaseCauseConfig()).load(diseaseCauseConfigData);
+                    diseaseCauseConfigs.push(diseaseCauseConfig);
+                });
+                this.diseaseCauseConfig = diseaseCauseConfigs;
+            }
+            if (typeof object.diseaseConfig !== "undefined") {
+                const diseaseConfigs : DiseaseConfig[] = [];
+                object.diseaseConfig.forEach((diseaseConfigData: any) => {
+                    const diseaseConfig = (new DiseaseConfig()).load(diseaseConfigData);
+                    diseaseConfigs.push(diseaseConfig);
+                });
+                this.diseaseConfig = diseaseConfigs;
+            }
+            if (typeof object.consumableDiseaseConfig !== "undefined") {
+                const consumableDiseaseConfigs : ConsumableDiseaseConfig[] = [];
+                object.consumableDiseaseConfig.forEach((consumableDiseaseConfigData: any) => {
+                    const consumableDiseaseConfig = (new ConsumableDiseaseConfig()).load(consumableDiseaseConfigData);
+                    consumableDiseaseConfigs.push(consumableDiseaseConfig);
+                });
+                this.consumableDiseaseConfig = consumableDiseaseConfigs;
+            }
+            if (typeof object.difficultyConfig !== "undefined") {
+                this.difficultyConfig = (new DifficultyConfig()).load(object.difficultyConfig);
+            }
+
         }
         return this;
     }
     jsonEncode() : string {
-        return JSON.stringify(this);
+        const charactersConfig : string[] = [];
+        this.charactersConfig?.forEach(characterConfig => (typeof characterConfig.iri === 'string' ? charactersConfig.push(characterConfig.iri) : null));
+        const equipmentsConfig : string[] = [];
+        this.equipmentsConfig?.forEach(equipmentConfig => (typeof equipmentConfig.iri === 'string' ? equipmentsConfig.push(equipmentConfig.iri) : null));
+        const statusConfigs : string[] = [];
+        this.statusConfigs?.forEach(statusConfig => (typeof statusConfig.iri === 'string' ? statusConfigs.push(statusConfig.iri) : null));
+        const triumphConfigs : string[] = [];
+        this.triumphConfig?.forEach(triumphConfig => (typeof triumphConfig.iri === 'string' ? triumphConfigs.push(triumphConfig.iri) : null));
+        const diseaseCauseConfigs : string[] = [];
+        this.diseaseCauseConfig?.forEach(diseaseCauseConfig => (typeof diseaseCauseConfig.iri === 'string' ? diseaseCauseConfigs.push(diseaseCauseConfig.iri) : null));
+        const diseaseConfigs : string[] = [];
+        this.diseaseConfig?.forEach(diseaseConfig => (typeof diseaseConfig.iri === 'string' ? diseaseConfigs.push(diseaseConfig.iri) : null));
+        const consumableDiseaseConfigs : string[] = [];
+        this.consumableDiseaseConfig?.forEach(consumableDiseaseConfig => (typeof consumableDiseaseConfig.iri === 'string' ? consumableDiseaseConfigs.push(consumableDiseaseConfig.iri) : null));
+        const data : any = {
+            'id': this.id,
+            'name': this.name,
+            'daedalusConfig': this.daedalusConfig?.iri,
+            'charactersConfig': charactersConfig,
+            'equipmentsConfig': equipmentsConfig,
+            'statusConfigs': statusConfigs,
+            'triumphConfig': triumphConfigs,
+            'diseaseCauseConfig': diseaseCauseConfigs,
+            'diseaseConfig': diseaseConfigs,
+            'consumableDiseaseConfig': consumableDiseaseConfigs,
+            'difficultyConfig': this.difficultyConfig?.iri,
+        };
+
+        return data;
     }
     decode(jsonString : string): GameConfig {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.iri = object.iri;
-            this.id = object.id;
-            this.name = object.name;
-            this.nbMush = object.nbMush;
-            this.cyclePerGameDay = object.cyclePerGameDay;
-            this.cycleLength = object.cycleLength;
-            this.timeZone = object.timeZone;
-            this.maxNumberPrivateChannel = object.maxNumberPrivateChannel;
-            this.language = object.language;
-            this.initHealthPoint = object.initHealthPoint;
-            this.maxHealthPoint = object.maxHealthPoint;
-            this.initMoralPoint = object.initMoralPoint;
-            this.maxMoralPoint = object.maxMoralPoint;
-            this.initSatiety = object.initSatiety;
-            this.initActionPoint = object.initActionPoint;
-            this.maxActionPoint = object.maxActionPoint;
-            this.initMovementPoint = object.initMovementPoint;
-            this.maxMovementPoint = object.maxMovementPoint;
-            this.maxItemInInventory = object.maxItemInInventory;
+            this.load(object);
         }
 
         return this;

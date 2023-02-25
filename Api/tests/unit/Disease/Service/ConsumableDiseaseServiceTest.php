@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
@@ -14,6 +15,7 @@ use Mush\Disease\Repository\ConsumableDiseaseConfigRepository;
 use Mush\Disease\Repository\ConsumableDiseaseRepository;
 use Mush\Disease\Service\ConsumableDiseaseService;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -38,10 +40,10 @@ class ConsumableDiseaseServiceTest extends TestCase
      */
     public function before()
     {
-        $this->consumableDiseaseRepository = Mockery::mock(ConsumableDiseaseRepository::class);
-        $this->consumableDiseaseConfigRepository = Mockery::mock(ConsumableDiseaseConfigRepository::class);
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->consumableDiseaseRepository = \Mockery::mock(ConsumableDiseaseRepository::class);
+        $this->consumableDiseaseConfigRepository = \Mockery::mock(ConsumableDiseaseConfigRepository::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->consumableDiseaseService = new ConsumableDiseaseService(
             $this->consumableDiseaseRepository,
@@ -56,30 +58,27 @@ class ConsumableDiseaseServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testCreateConsumableDiseasesWithPredefinedDiseases()
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $disease1 = new ConsumableDiseaseAttribute();
         $disease1->setDisease('Disease 1');
         $disease2 = new ConsumableDiseaseAttribute();
         $disease2->setDisease('Disease 2');
 
-        $diseaseConfig = new ConsumableDiseaseConfig();
-        $diseaseConfig
+        $consumableDiseaseConfig = new ConsumableDiseaseConfig();
+        $consumableDiseaseConfig
+            ->setCauseName('name')
             ->setAttributes(new ArrayCollection([$disease1, $disease2]))
         ;
 
-        $this->consumableDiseaseConfigRepository
-            ->shouldReceive('findOneBy')
-            ->andReturn($diseaseConfig)
-            ->once()
-        ;
+        $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
         $this->entityManager
             ->shouldReceive('persist')
@@ -101,23 +100,20 @@ class ConsumableDiseaseServiceTest extends TestCase
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
-        $diseaseConfig = new ConsumableDiseaseConfig();
-        $diseaseConfig
+        $consumableDiseaseConfig = new ConsumableDiseaseConfig();
+        $consumableDiseaseConfig
             ->setEffectNumber([1 => 1, 2 => 10])
             ->setDiseasesName(['Disease 1' => 5, 'Disease 2' => 10])
             ->setCuresName(['Disease 1' => 10])
             ->setCuresChances([30 => 1, 45 => 2])
             ->setDiseasesChances([20 => 1, 25 => 2])
             ->setDiseasesDelayMin([0 => 1])
+            ->setCauseName('name')
         ;
 
-        $this->consumableDiseaseConfigRepository
-            ->shouldReceive('findOneBy')
-            ->andReturn($diseaseConfig)
-            ->once()
-        ;
+        $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaArray')
@@ -189,10 +185,10 @@ class ConsumableDiseaseServiceTest extends TestCase
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
-        $diseaseConfig = new ConsumableDiseaseConfig();
-        $diseaseConfig
+        $consumableDiseaseConfig = new ConsumableDiseaseConfig();
+        $consumableDiseaseConfig
             ->setEffectNumber([1 => 1])
             ->setDiseasesName(['Disease 1' => 5])
             ->setCuresName([])
@@ -200,13 +196,10 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->setDiseasesChances([20 => 1])
             ->setDiseasesDelayMin([1 => 1])
             ->setDiseasesDelayLength([5 => 1, 8 => 5])
+            ->setCauseName('name')
         ;
 
-        $this->consumableDiseaseConfigRepository
-            ->shouldReceive('findOneBy')
-            ->andReturn($diseaseConfig)
-            ->once()
-        ;
+        $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaArray')
@@ -273,10 +266,10 @@ class ConsumableDiseaseServiceTest extends TestCase
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
-        $diseaseConfig = new ConsumableDiseaseConfig();
-        $diseaseConfig
+        $consumableDiseaseConfig = new ConsumableDiseaseConfig();
+        $consumableDiseaseConfig
             ->setEffectNumber([1 => 1])
             ->setDiseasesName(['Disease 1' => 5])
             ->setCuresName([])
@@ -284,13 +277,10 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->setDiseasesChances([100 => 1])
             ->setDiseasesDelayMin([1 => 1])
             ->setDiseasesDelayLength([5 => 1, 8 => 5])
+            ->setCauseName('name')
         ;
 
-        $this->consumableDiseaseConfigRepository
-            ->shouldReceive('findOneBy')
-            ->andReturn($diseaseConfig)
-            ->once()
-        ;
+        $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaArray')
@@ -352,10 +342,10 @@ class ConsumableDiseaseServiceTest extends TestCase
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
-        $diseaseConfig = new ConsumableDiseaseConfig();
-        $diseaseConfig
+        $consumableDiseaseConfig = new ConsumableDiseaseConfig();
+        $consumableDiseaseConfig
             ->setEffectNumber([1 => 1])
             ->setCuresName(['Disease 1' => 5])
             ->setDiseasesName([])
@@ -363,13 +353,10 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->setDiseasesChances([])
             ->setDiseasesDelayMin([1 => 1])
             ->setDiseasesDelayLength([5 => 1, 8 => 5])
+            ->setCauseName('name')
         ;
 
-        $this->consumableDiseaseConfigRepository
-            ->shouldReceive('findOneBy')
-            ->andReturn($diseaseConfig)
-            ->once()
-        ;
+        $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaArray')

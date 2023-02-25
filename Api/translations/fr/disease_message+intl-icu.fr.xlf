@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
-    <file id="disease_message.ext">
-        <unit id="coprolalia">
-            <segment id="pre">
-                <source>pre_coprolalia</source>
-                <target>{version, select,
+  <file id="disease_message.ext">
+    <unit id="coprolalia">
+      <segment id="pre" state="translated">
+        <source>pre_coprolalia</source>
+        <target>{version, select,
                         1 {Hey bande {word, select,
                         1 {d''} 4 {d''} 8 {d''}
                         19 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
@@ -15,10 +15,10 @@
                     3 {Dis donc {word_coprolalia}, }
                     other {invalid version}
                 }</target>
-            </segment>
-            <segment id="post">
-                <source>post_coprolalia</source>
-                <target>{version, select,
+      </segment>
+      <segment id="post" state="translated">
+        <source>post_coprolalia</source>
+        <target>{version, select,
                     1 {, tous des {word_plural_coprolalia} de tte façon.}
                     2 {, vraiment des {word_plural_coprolalia}...}
                     3 {, si c'est pas une belle bande de {prefix_coprolalia} {word, select,
@@ -29,17 +29,17 @@
                     }{word_plural_coprolalia}...}
                     other {invalid version}
                 }</target>
-            </segment>
-            <segment id="replace">
-                <source>replace_coprolalia</source>
-                <target>{version, select,
+      </segment>
+      <segment id="replace" state="translated">
+        <source>replace_coprolalia</source>
+        <target>{version, select,
                     1 {Tous des {word_plural_coprolalia}.}
                     2 {Bande {word, select,
                         1 {d''} 4 {d''} 8 {d''}
                         19 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
                         20 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
                         other {de }
-                    }{word_plural_coprolalia}, où vous cachez vos {balls_coprolalia}}
+                    }{word_plural_coprolalia}, où vous cachez vos {balls_coprolalia} ?}
                     3 {Une vrai ribambelles {word, select,
                         1 {d''} 4 {d''} 8 {d''}
                         19 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
@@ -52,17 +52,17 @@
                     6 {Vous rempotez des {balls_coprolalia}, nan ?}
                     7 {Vous n'avez rien dans les {balls_coprolalia}, hein !}
                     8 {Les admins, ce sont vraiment des {word_plural_coprolalia}.}
-                    9 {{prefix_coprolalia} d'admins de daube}
+                    9 {{prefix_coprolalia} d'admins de daube.}
                     10 {{prefix_coprolalia} de {word_plural_coprolalia}.}
-                    11 {Vous et votre courage de {prefix_coprolalia} de daube}
-                    12 {{prefix_coprolalia} de daube}
+                    11 {Vous et votre courage de {prefix_coprolalia} de daube.}
+                    12 {{prefix_coprolalia} de daube.}
                     13 {Tu sais ce qu'il te dit le sac à {balls_coprolalia} ? bonjouurrrrrrrr !}
                     other {invalid version}
                     }</target>
-            </segment>
-            <segment id="word">
-                <source>word_coprolalia</source>
-                <target>{word, select,
+      </segment>
+      <segment id="word" state="translated">
+        <source>word_coprolalia</source>
+        <target>{word, select,
                     1 {analphabète}
                     2 {barbapapa}
                     3 {blair}
@@ -91,10 +91,10 @@
                     21 {youpi banane}
                     other {invalid version}
                     }</target>
-            </segment>
-            <segment id="word_plural">
-                <source>word_plural_coprolalia</source>
-                <target>{word, select,
+      </segment>
+      <segment id="word_plural" state="translated">
+        <source>word_plural_coprolalia</source>
+        <target>{word, select,
                     1 {analphabètes}
                     2 {barbapapas}
                     3 {blairs}
@@ -123,10 +123,10 @@
                     21 {youpi bananes}
                     other {invalid version}
                     }</target>
-            </segment>
-            <segment id="animal">
-                <source>animal_coprolalia</source>
-                <target>{animal, select,
+      </segment>
+      <segment id="animal" state="translated">
+        <source>animal_coprolalia</source>
+        <target>{animal, select,
                     1 {loutre}
                     2 {marsouin}
                     3 {ornithorynque}
@@ -143,10 +143,10 @@
                     14 {zèbre}
                     other {invalid version}
                 }</target>
-            </segment>
-            <segment id="animal_plural">
-                <source>animal_plural_coprolalia</source>
-                <target>{animal, select,
+      </segment>
+      <segment id="animal_plural" state="translated">
+        <source>animal_plural_coprolalia</source>
+        <target>{animal, select,
                     1 {loutres}
                     2 {marsouins}
                     3 {ornithorynques}
@@ -163,10 +163,10 @@
                     14 {zèbres}
                     other {invalid version}
                     }</target>
-            </segment>
-            <segment id="balls">
-                <source>balls_coprolalia</source>
-                <target>{balls, select,
+      </segment>
+      <segment id="balls" state="translated">
+        <source>balls_coprolalia</source>
+        <target>{balls, select,
                     1 {bouloches}
                     2 {roubignettes}
                     3 {sacs à poutre}
@@ -178,10 +178,10 @@
                     9 {balls}
                     other {invalid version}
                 }</target>
-            </segment>
-            <segment id="adjective_male_single">
-                <source>adjective_male_single_coprolalia</source>
-                <target>{adjective, select,
+      </segment>
+      <segment id="adjective_male_single" state="translated">
+        <source>adjective_male_single_coprolalia</source>
+        <target>{adjective, select,
                     1 {bourré}
                     2 {coprophage}
                     3 {mou}
@@ -190,10 +190,10 @@
                     6 {décapité}
                     other {invalid adjective}
                 }</target>
-            </segment>
-            <segment id="adjective_male_plural">
-                <source>adjective_male_plural_coprolalia</source>
-                <target>{adjective, select,
+      </segment>
+      <segment id="adjective_male_plural" state="translated">
+        <source>adjective_male_plural_coprolalia</source>
+        <target>{adjective, select,
                     1 {bourrés}
                     2 {coprophages}
                     3 {mous}
@@ -202,10 +202,14 @@
                     6 {décapités}
                     other {invalid adjective}
                     }</target>
-            </segment>
-            <segment id="adjective_female_single">
-                <source>adjective_female_single_coprolalia</source>
-                <target>{adjective, select,
+      </segment>
+      <segment id="adjective_coprolalia" state="initial">
+        <source>adjective_coprolalia</source>
+        <target>adjective_coprolalia</target>
+      </segment>
+      <segment id="adjective_female_single" state="translated">
+        <source>adjective_female_single_coprolalia</source>
+        <target>{adjective, select,
                     1 {bourrée}
                     2 {coprophage}
                     3 {molle}
@@ -214,10 +218,10 @@
                     6 {décapitée}
                     other {invalid adjective}
                     }</target>
-            </segment>
-            <segment id="adjective_female_plural">
-                <source>adjective_female_plural_coprolalia</source>
-                <target>{adjective, select,
+      </segment>
+      <segment id="adjective_female_plural" state="translated">
+        <source>adjective_female_plural_coprolalia</source>
+        <target>{adjective, select,
                     1 {bourrées}
                     2 { coprophages}
                     3 { molles}
@@ -226,10 +230,10 @@
                     6 { décapitées}
                     other {invalid adjective}
                     }</target>
-            </segment>
-            <segment id="preposition">
-                <source>preposition_coprolalia</source>
-                <target>{adjective, select,
+      </segment>
+      <segment id="preposition" state="translated">
+        <source>preposition_coprolalia</source>
+        <target>{adjective, select,
                     1 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}{animal_coprolalia}}
                     2 {de derrière {animal, select, 3{d''} 9{d''} 11{d''} other {de }}{animal_coprolalia}}
                     3 {de laine {animal, select, 3{d''} 9{d''} 11{d''} other {de }}{animal_coprolalia}}
@@ -238,30 +242,30 @@
                     6 {de rate {animal, select, 3{d''} 9{d''} 11{d''} other {de }}{animal_coprolalia}}
                     other {invalid version}
                 }</target>
-            </segment>
-            <segment id="prefix">
-                <source>prefix_coprolalia</source>
-                <target>{prefix, select,
+      </segment>
+      <segment id="prefix" state="translated">
+        <source>prefix_coprolalia</source>
+        <target>{prefix, select,
                     1 {purée}
                     2 {punaise}
                     3 {bordel}
                     4 {giclée}
                     other {invalid version}
                     }</target>
-            </segment>
-        </unit>
-        <unit id="paranoia">
-            <segment id="replace">
-                <source>replace_paranoia</source>
-                <target>{version, select,
+      </segment>
+    </unit>
+    <unit id="paranoia">
+      <segment id="replace" state="translated">
+        <source>replace_paranoia</source>
+        <target>{version, select,
                     1 {Cette partie est vraiment nulle…}
-                    2 {Je ne sais {paranoia_version_4, select,
+                    2 {Je ne sais {paranoia_version4, select,
                         1 {pas trop}
                         2 {pas bien}
                         3 {pas du tout}
                         other {pas}
                     } comment on va s'en sortir…}
-                    3 {Je {paranoia_version_4, select,
+                    3 {Je {paranoia_version4, select,
                         1 {ne vois pas trop}
                         2 {vois mal}
                         3 {ne vois pas du tout}
@@ -271,31 +275,31 @@
                     5 {Les Mush sont partout…}
                     6 {On est tous foutus…}
                     7 {Quel jeu de merde…}
-                    8 {Je {paranoia_version_4, select,
+                    8 {Je {paranoia_version4, select,
                         1 {pense}
                         2 {crois}
                         3 {vous jure}
                         other {kroa}
                     } qu'il y a un admin qui nous matte…}
-                    9 {Je {paranoia_version_4, select,
+                    9 {Je {paranoia_version4, select,
                         1 {pense}
                         2 {crois}
                         3 {vous jure}
                         other {kroa}
                     } qu'on veut ma peau…}
                     10 {Je suis sûr que c'est cheaté…}
-                    11 {Je {paranoia_version_4, select,
+                    11 {Je {paranoia_version4, select,
                         1 {pense}
                         2 {crois}
                         3 {vous jure}
                         other {kroa}
                     } qu'il y a un admin qui nous plombe…}
-                    12 {{paranoia_version_4, select,
+                    12 {{paranoia_version4, select,
                         1 {NERON}
                         2 {L'équipe de recherche}
                         3 {L'admin NERON}
                         other {Le commandant}
-                    } {paranoia_version_6, select,
+                    } fait {paranoia_version6, select,
                         1 {nimp.}
                         2 {nawak.}
                         3 {n'importe quoi.}
@@ -305,17 +309,17 @@
                     }}
                     other {invalid version}
                     }</target>
-            </segment>
-            <segment id="accuse">
-                <source>accuse_paranoia</source>
-                <target>{version, select,
+      </segment>
+      <segment id="accuse" state="translated">
+        <source>accuse_paranoia</source>
+        <target>{version, select,
                     1 {Tu sais, {character} est du Mush…}
-                    2 {Je {paranoia_version_4, select,
+                    2 {Je {paranoia_version4, select,
                         1 {pense}
                         2 {crois}
                         3 {vous jure}
                         other {kroa}
-                    } que je vais {paranoia_version_6, select,
+                    } que je vais {paranoia_version6, select,
                         1 {fumer}
                         2 {tuer}
                         3 {me débarrasser de}
@@ -330,7 +334,7 @@
                     7 {{character} est un danger pour nous tous.}
                     8 {{character} est une menace pour nous tous.}
                     9 {{character} n'a pas arrosé les plantes, à mon avis, c'est un mush…}
-                    10 {{character} fait {paranoia_version_6, select,
+                    10 {{character} fait {paranoia_version6, select,
                         1 {nimp.}
                         2 {nawak.}
                         3 {n'importe quoi.}
@@ -340,23 +344,23 @@
                     }}
                     other {invalid version}
                     }</target>
-            </segment>
-            <segment id="pre">
-                <source>pre_paranoia</source>
-                <target>{version, select,
-                    1 {Ptain, }
-                    2 {Bordel, }
-                    3 {Fait iech, }
-                    4 {Iech, }
+      </segment>
+      <segment id="pre" state="translated">
+        <source>pre_paranoia</source>
+        <target>{version, select,
+                    {Ptain, }
+                    {Bordel, }
+                    {Fait iech, }
+                    {Iech, }
                     other {invalid version}
                     }</target>
-            </segment>
-        </unit>
-        <unit id="deaf">
-            <segment id="deaf">
-                <source>deaf</source>
-                <target>...</target>
-            </segment>
-        </unit>
-    </file>
+      </segment>
+    </unit>
+    <unit id="deaf">
+      <segment id="deaf" state="translated">
+        <source>deaf</source>
+        <target>...</target>
+      </segment>
+    </unit>
+  </file>
 </xliff>

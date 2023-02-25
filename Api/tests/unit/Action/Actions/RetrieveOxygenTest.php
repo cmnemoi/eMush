@@ -16,7 +16,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 
 class RetrieveOxygenTest extends AbstractActionTest
@@ -29,11 +28,11 @@ class RetrieveOxygenTest extends AbstractActionTest
     public function before()
     {
         parent::before();
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_OXYGEN);
 
         $this->action = new RetrieveOxygen(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -45,19 +44,19 @@ class RetrieveOxygenTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
 
         $item
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
+            ->setEquipmentName(ItemEnum::OXYGEN_CAPSULE)
         ;
 
         $player = $this->createPlayer($daedalus, $room);
@@ -66,19 +65,17 @@ class RetrieveOxygenTest extends AbstractActionTest
         ;
 
         $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setMaxOxygen(32);
+        $daedalusConfig
+            ->setMaxOxygen(32)
+            ->setInitOxygen(10)
+        ;
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxItemInInventory(3);
-        $gameConfig->setDaedalusConfig($daedalusConfig);
-        $daedalus->setGameConfig($gameConfig);
-
-        $daedalus->setOxygen(10);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $tank = new EquipmentConfig();
         $tank->setActions(new ArrayCollection([$this->actionEntity]));
 
-        $gameTank = new GameEquipment();
+        $gameTank = new GameEquipment($room);
         $gameTank
             ->setEquipment($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)
@@ -86,7 +83,7 @@ class RetrieveOxygenTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameTank);

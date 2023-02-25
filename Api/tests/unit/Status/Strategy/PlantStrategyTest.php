@@ -24,7 +24,7 @@ class PlantStrategyTest extends TestCase
      */
     public function before()
     {
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->strategy = new PlantStrategy($this->statusService);
     }
@@ -34,7 +34,7 @@ class PlantStrategyTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testIncrement()
@@ -43,7 +43,7 @@ class PlantStrategyTest extends TestCase
 
         $this->statusService->shouldReceive('updateCharge')->with($status, 1)->once();
 
-        $this->strategy->execute($status, EventEnum::NEW_CYCLE);
+        $this->strategy->execute($status, [EventEnum::NEW_CYCLE]);
     }
 
     private function createStatus(): ChargeStatus

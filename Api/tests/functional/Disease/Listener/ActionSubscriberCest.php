@@ -7,24 +7,25 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Entity\Config\SymptomCondition;
+use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
-use Mush\Disease\Enum\SymptomConditionEnum;
+use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Listener\ActionSubscriber;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -36,12 +37,16 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\User\Entity\User;
 
 class ActionSubscriberCest
 {
@@ -54,38 +59,41 @@ class ActionSubscriberCest
 
     public function testOnPostActionBreakoutsSymptom(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => 'default']);
 
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+        ]);
+
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
-        $actionCost = new ActionCost();
-
-        $I->haveInRepository($actionCost);
-
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
 
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
 
         $I->haveInRepository($door);
@@ -95,33 +103,44 @@ class ActionSubscriberCest
 
         $I->refreshEntities($room, $room2, $door);
 
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionSymptomCondition
-            ->setCondition(ActionEnum::MOVE)
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $moveActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::MOVE)
+            ->buildName()
         ;
 
-        $I->haveInRepository($moveActionSymptomCondition);
+        $I->haveInRepository($moveActionSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig('breakouts');
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionSymptomCondition)
+            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -144,8 +163,9 @@ class ActionSubscriberCest
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
-            'place' => $room2,
+            'playerInfo' => $playerInfo,
+            'place' => $room2->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::BREAKOUTS,
         ]);
     }
@@ -154,72 +174,81 @@ class ActionSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $actionCost = new ActionCost();
-
-        $I->haveInRepository($actionCost);
-
         $takeActionEntity = new Action();
         $takeActionEntity
-            ->setName(ActionEnum::TAKE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
 
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$takeActionEntity])]);
 
-        $cat = new GameItem();
+        $cat = new GameItem($room);
         $cat
             ->setName(ItemEnum::SCHRODINGER)
             ->setEquipment($itemConfig)
-            ->setHolder($room)
         ;
 
         $I->haveInRepository($cat);
 
-        $takeActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $takeActionSymptomCondition
-            ->setCondition(ActionEnum::TAKE)
+        $takeActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $takeActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::TAKE)
+            ->buildName()
         ;
 
-        $I->haveInRepository($takeActionSymptomCondition);
+        $I->haveInRepository($takeActionSymptomActivationRequirement);
 
-        $holdCatSymptomCondition = new SymptomCondition(SymptomConditionEnum::PLAYER_EQUIPMENT);
-        $holdCatSymptomCondition
-            ->setCondition(ItemEnum::SCHRODINGER);
+        $holdCatSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::PLAYER_EQUIPMENT);
+        $holdCatSymptomActivationRequirement
+            ->setActivationRequirement(ItemEnum::SCHRODINGER)
+            ->buildName()
+        ;
 
-        $I->haveInRepository($holdCatSymptomCondition);
+        $I->haveInRepository($holdCatSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::CAT_ALLERGY);
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($takeActionSymptomCondition)
-            ->addSymptomCondition($holdCatSymptomCondition)
+            ->addSymptomActivationRequirement($takeActionSymptomActivationRequirement)
+            ->addSymptomActivationRequirement($holdCatSymptomActivationRequirement)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName(DiseaseEnum::CAT_ALLERGY)
+            ->setDiseaseName(DiseaseEnum::CAT_ALLERGY)
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -245,7 +274,8 @@ class ActionSubscriberCest
 
         // $I->seeInRepository(RoomLog::class, [
         //     'player' => $player,
-        //     'place' => $room,
+        //     'place' => $room->getName(),
+        //     'daedalusInfo' => $daedalusInfo,
         //     'log' => SymptomEnum::CAT_ALLERGY
         // ]);
     }
@@ -254,36 +284,33 @@ class ActionSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
-        $actionCost = new ActionCost();
-
-        $I->haveInRepository($actionCost);
-
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
 
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
 
         $I->haveInRepository($door);
@@ -293,33 +320,44 @@ class ActionSubscriberCest
 
         $I->refreshEntities($room, $room2, $door);
 
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionSymptomCondition
-            ->setCondition(ActionEnum::MOVE)
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $moveActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::MOVE)
+            ->buildName()
         ;
 
-        $I->haveInRepository($moveActionSymptomCondition);
+        $I->haveInRepository($moveActionSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::DROOLING);
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionSymptomCondition)
+            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -342,8 +380,9 @@ class ActionSubscriberCest
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
-            'place' => $room2,
+            'playerInfo' => $playerInfo,
+            'place' => $room2->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::DROOLING,
         ]);
     }
@@ -352,36 +391,33 @@ class ActionSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
-        $actionCost = new ActionCost();
-
-        $I->haveInRepository($actionCost);
-
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
 
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
 
         $I->haveInRepository($door);
@@ -391,33 +427,44 @@ class ActionSubscriberCest
 
         $I->refreshEntities($room, $room2, $door);
 
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionSymptomCondition
-            ->setCondition(ActionEnum::MOVE)
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $moveActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::MOVE)
+            ->buildName()
         ;
 
-        $I->haveInRepository($moveActionSymptomCondition);
+        $I->haveInRepository($moveActionSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::FOAMING_MOUTH);
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionSymptomCondition)
+            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -440,8 +487,9 @@ class ActionSubscriberCest
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
-            'place' => $room2,
+            'playerInfo' => $playerInfo,
+            'place' => $room2->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::FOAMING_MOUTH,
         ]);
     }
@@ -450,36 +498,33 @@ class ActionSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
-        $actionCost = new ActionCost();
-
-        $I->haveInRepository($actionCost);
-
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
 
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
 
         $I->haveInRepository($door);
@@ -489,33 +534,44 @@ class ActionSubscriberCest
 
         $I->refreshEntities($room, $room2, $door);
 
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionSymptomCondition
-            ->setCondition(ActionEnum::MOVE)
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $moveActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::MOVE)
+            ->buildName()
         ;
 
-        $I->haveInRepository($moveActionSymptomCondition);
+        $I->haveInRepository($moveActionSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::SNEEZING);
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionSymptomCondition)
+            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -538,68 +594,64 @@ class ActionSubscriberCest
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
-            'place' => $room2,
+            'playerInfo' => $playerInfo,
+            'place' => $room2->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::SNEEZING,
         ]);
     }
 
     public function testOnPostActionVomitingSymptom(FunctionalTester $I)
     {
+        $dirtyStatusConfig = new StatusConfig();
+        $dirtyStatusConfig
+            ->setStatusName('dirty')
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($dirtyStatusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$dirtyStatusConfig])]);
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
-        $actionCost = new ActionCost();
-
-        $I->haveInRepository($actionCost);
-
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
         $consumeActionEntity = new Action();
         $consumeActionEntity
-            ->setName(ActionEnum::CONSUME)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::CONSUME)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($consumeActionEntity);
 
         $consumeDrugActionEntity = new Action();
         $consumeDrugActionEntity
-            ->setName(ActionEnum::CONSUME_DRUG)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::CONSUME_DRUG)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($consumeDrugActionEntity);
-
-        $dirtyStatusConfig = new StatusConfig();
-        $dirtyStatusConfig
-            ->setName('dirty')
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($dirtyStatusConfig);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
 
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
@@ -614,7 +666,10 @@ class ActionSubscriberCest
         $I->refreshEntities($room, $room2, $door);
 
         $ration = new Ration();
-        $ration->setActions(new ArrayCollection([$consumeActionEntity]));
+        $ration
+            ->setActions(new ArrayCollection([$consumeActionEntity]))
+            ->setName('ration_test')
+        ;
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
@@ -634,51 +689,60 @@ class ActionSubscriberCest
             'mechanics' => new ArrayCollection([$ration]),
             'place' => $room,
             'name' => 'ration',
+            'equipmentName' => 'ration',
         ]);
 
         $equipmentConfig
             ->setMechanics(new ArrayCollection([$ration]))
-            ->setName('ration')
+            ->setEquipmentName('ration')
         ;
 
         $I->haveInRepository($equipmentConfig);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $gameItem
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName('ration')
         ;
         $I->haveInRepository($gameItem);
 
-        $characterConfig = $I->have(CharacterConfig::class);
-        $characterConfig->setActions(new ArrayCollection([$moveActionEntity]));
-
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$moveActionEntity])]);
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room,
-            'satiety' => 0,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionSymptomCondition
-            ->setCondition(ActionEnum::MOVE)
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $moveActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::MOVE)
+            ->buildName()
         ;
 
-        $I->haveInRepository($moveActionSymptomCondition);
+        $I->haveInRepository($moveActionSymptomActivationRequirement);
 
-        $consumeActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $consumeActionSymptomCondition
-            ->setCondition(ActionEnum::CONSUME)
+        $consumeActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $consumeActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::CONSUME)
+            ->buildName()
         ;
 
-        $I->haveInRepository($consumeActionSymptomCondition);
+        $I->haveInRepository($consumeActionSymptomActivationRequirement);
 
         $moveVomitingConfig = new SymptomConfig(SymptomEnum::VOMITING);
         $moveVomitingConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionSymptomCondition)
+            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
+            ->buildName(GameConfigEnum::TEST, ActionEnum::MOVE)
         ;
 
         $I->haveInRepository($moveVomitingConfig);
@@ -686,15 +750,17 @@ class ActionSubscriberCest
         $consumeVomitingConfig = new SymptomConfig(SymptomEnum::VOMITING);
         $consumeVomitingConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($consumeActionSymptomCondition)
+            ->addSymptomActivationRequirement($consumeActionSymptomActivationRequirement)
+            ->buildName(GameConfigEnum::TEST, ActionEnum::CONSUME)
         ;
 
         $I->haveInRepository($consumeVomitingConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$moveVomitingConfig, $consumeVomitingConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -717,8 +783,9 @@ class ActionSubscriberCest
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
-            'place' => $room2,
+            'playerInfo' => $playerInfo,
+            'place' => $room2->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::VOMITING,
         ]);
 
@@ -728,8 +795,9 @@ class ActionSubscriberCest
         $consumeAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
-            'place' => $room2,
+            'playerInfo' => $playerInfo,
+            'place' => $room2->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::VOMITING,
         ]);
     }
@@ -738,8 +806,12 @@ class ActionSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -749,42 +821,35 @@ class ActionSubscriberCest
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
 
-        $cat = new GameItem();
+        $cat = new GameItem($room);
         $cat
             ->setName(ItemEnum::SCHRODINGER)
             ->setEquipment($itemConfig)
-            ->setHolder($room)
         ;
 
         $I->haveInRepository($cat);
 
-        $actionCost = new ActionCost();
-
-        $I->haveInRepository($actionCost);
-
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = new EquipmentConfig();
         $doorConfig
+            ->setEquipmentName('door')
             ->setName('door')
             ->setActions(new ArrayCollection([$moveActionEntity]))
         ;
         $I->haveInRepository($doorConfig);
 
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
 
         $I->haveInRepository($door);
@@ -794,41 +859,54 @@ class ActionSubscriberCest
 
         $I->refreshEntities($room, $room2, $door);
 
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         $characterConfig->setActions(new ArrayCollection([$moveActionEntity]));
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room2,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionSymptomCondition
-            ->setCondition(ActionEnum::MOVE)
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $moveActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::MOVE)
+            ->buildName()
         ;
 
-        $I->haveInRepository($moveActionSymptomCondition);
+        $I->haveInRepository($moveActionSymptomActivationRequirement);
 
-        $catInRoomSymptomCondition = new SymptomCondition(SymptomConditionEnum::ITEM_IN_ROOM);
-        $catInRoomSymptomCondition
-            ->setCondition(ItemEnum::SCHRODINGER);
+        $catInRoomSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::ITEM_IN_ROOM);
+        $catInRoomSymptomActivationRequirement
+            ->setActivationRequirement(ItemEnum::SCHRODINGER)
+            ->buildName()
+        ;
 
-        $I->haveInRepository($catInRoomSymptomCondition);
+        $I->haveInRepository($catInRoomSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::FEAR_OF_CATS);
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionSymptomCondition)
-            ->addSymptomCondition($catInRoomSymptomCondition)
+            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
+            ->addSymptomActivationRequirement($catInRoomSymptomActivationRequirement)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -851,114 +929,141 @@ class ActionSubscriberCest
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
-            'place' => $room,
+            'playerInfo' => $playerInfo,
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::FEAR_OF_CATS,
         ]);
     }
 
     public function testPostActionPsychoticAttackSymptom(FunctionalTester $I)
     {
-        $gameConfig = $I->have(GameConfig::class, ['language' => LanguageEnum::FRENCH]);
+        $symptomConfig = new SymptomConfig('psychotic_attacks');
+        $symptomConfig
+            ->setTrigger(ActionEvent::POST_ACTION)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($symptomConfig);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setDiseaseName('Name')
+            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($diseaseConfig);
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setDiseases(['Name' => 1])
+            ->setCauseName(DiseaseCauseEnum::TRAUMA)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($diseaseCauseConfig);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'diseaseCauseConfig' => new ArrayCollection([$diseaseCauseConfig]),
+            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+        ]);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo
+            ->setNeron($neron)
+        ;
+        $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC)
         ;
         $I->haveInRepository($channel);
 
-        $actionCost = new ActionCost();
-
         $attackAction = new Action();
         $attackAction
-            ->setName(ActionEnum::ATTACK)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::ATTACK)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setInjuryRate(0)
-            ->setSuccessRate(100)
-            ->setActionCost($actionCost);
+            ->buildName(GameConfigEnum::TEST)
+        ;
 
         $searchAction = new Action();
         $searchAction
-            ->setName(ActionEnum::SEARCH)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::SEARCH)
             ->setScope(ActionScopeEnum::SELF)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->buildName(GameConfigEnum::TEST)
+        ;
 
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($attackAction);
         $I->haveInRepository($searchAction);
 
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
-        $characterConfig = $I->have(CharacterConfig::class);
-        $otherCharacterConfig = $I->have(CharacterConfig::class);
 
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var CharacterConfig $otherCharacterConfig */
+        $otherCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::TERRENCE]);
+
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
-            'healthPoint' => 14,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player->setHealthPoint(14);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var Player $otherPlayer */
         $otherPlayer = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
-            'healthPoint' => 14,
         ]);
+        $otherPlayer->setPlayerVariables($characterConfig);
+        $otherPlayer->setHealthPoint(1);
+        $otherPlayerInfo = new PlayerInfo($otherPlayer, $user, $otherCharacterConfig);
+
+        $I->haveInRepository($otherPlayerInfo);
+        $otherPlayer->setPlayerInfo($otherPlayerInfo);
+        $I->refreshEntities($otherPlayer);
 
         $knifeMechanic = new Weapon();
         $knifeMechanic
             ->setBaseDamageRange([1 => 100])
             ->setActions(new ArrayCollection([$attackAction]))
+            ->setName('weapon_knife_test')
         ;
         $I->haveInRepository($knifeMechanic);
 
+        /** @var ItemConfig $knifeItemConfig */
         $knifeItemConfig = $I->have(ItemConfig::class, [
             'gameConfig' => $gameConfig,
             'name' => ItemEnum::KNIFE,
             'mechanics' => new ArrayCollection([$knifeMechanic]),
         ]);
 
-        $knife = new GameItem();
+        $knife = new GameItem($player);
         $knife
             ->setName(ItemEnum::KNIFE)
             ->setEquipment($knifeItemConfig)
-            ->setHolder($player)
         ;
         $I->haveInRepository($knife);
-
-        $symptomConfig = new SymptomConfig('psychotic_attacks');
-        $symptomConfig
-            ->setTrigger(ActionEvent::POST_ACTION)
-        ;
-
-        $I->haveInRepository($symptomConfig);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setName('Name')
-            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
-        ;
-        $I->haveInRepository($diseaseConfig);
-
-        $diseaseCauseConfig = new DiseaseCauseConfig();
-        $diseaseCauseConfig
-            ->setDiseases(['Name' => 1])
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseCauseEnum::TRAUMA)
-        ;
-        $I->haveInRepository($diseaseCauseConfig);
 
         $playerDisease = new PlayerDisease();
         $playerDisease
@@ -977,8 +1082,9 @@ class ActionSubscriberCest
         $this->subscriber->onPostAction($event);
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
-            'place' => $place,
+            'playerInfo' => $playerInfo,
+            'place' => $place->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => 'attack_success',
         ]);
     }

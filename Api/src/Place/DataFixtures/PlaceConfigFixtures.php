@@ -3,6 +3,7 @@
 namespace Mush\Place\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
@@ -26,6 +27,7 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
@@ -40,8 +42,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $bridge = new PlaceConfig();
         $bridge
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::BRIDGE)
+            ->setPlaceName(RoomEnum::BRIDGE)
             ->setDoors([
                 DoorEnum::BRIDGE_FRONT_ALPHA_TURRET,
                 DoorEnum::BRIDGE_FRONT_BRAVO_TURRET,
@@ -55,14 +56,14 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setItems([
                 ItemEnum::TABULATRIX,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
 
         $manager->persist($bridge);
 
         $alphaBay = new PlaceConfig();
         $alphaBay
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::ALPHA_BAY)
+            ->setPlaceName(RoomEnum::ALPHA_BAY)
             ->setDoors([
                 DoorEnum::ALPHA_BAY_ALPHA_DORM,
                 DoorEnum::ALPHA_BAY_CENTER_ALPHA_STORAGE,
@@ -75,14 +76,14 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::PATROL_SHIP,
                 EquipmentEnum::PATROL_SHIP,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
 
         $manager->persist($alphaBay);
 
         $bravoBay = new PlaceConfig();
         $bravoBay
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::BRAVO_BAY)
+            ->setPlaceName(RoomEnum::BRAVO_BAY)
             ->setDoors([
                 DoorEnum::BRAVO_BAY_BRAVO_DORM,
                 DoorEnum::BRAVO_BAY_CENTER_BRAVO_STORAGE,
@@ -95,13 +96,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::PATROL_SHIP,
                 EquipmentEnum::PATROL_SHIP,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($bravoBay);
 
         $alphaBay2 = new PlaceConfig();
         $alphaBay2
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::ALPHA_BAY_2)
+            ->setPlaceName(RoomEnum::ALPHA_BAY_2)
             ->setDoors([
                 DoorEnum::ALPHA_BAY_ALPHA_BAY_2,
                 DoorEnum::ENGINE_ROOM_BAY_ALPHA_2,
@@ -133,13 +134,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 ToolItemEnum::SPACE_CAPSULE,
                 ToolItemEnum::SPACE_CAPSULE,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($alphaBay2);
 
         $nexus = new PlaceConfig();
         $nexus
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::NEXUS)
+            ->setPlaceName(RoomEnum::NEXUS)
             ->setDoors([
                 DoorEnum::REAR_CORRIDOR_NEXUS,
             ])
@@ -148,13 +149,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::BIOS_TERMINAL,
                 EquipmentEnum::CALCULATOR,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($nexus);
 
         $medLab = new PlaceConfig();
         $medLab
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::MEDLAB)
+            ->setPlaceName(RoomEnum::MEDLAB)
             ->setItems([
                 GameDrugEnum::BACTA,
                 GameDrugEnum::BACTA,
@@ -183,13 +184,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 ToolItemEnum::JAR_OF_ALIEN_OIL,
                 ToolItemEnum::SPORE_SUCKER,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($medLab);
 
         $laboratory = new PlaceConfig();
         $laboratory
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::LABORATORY)
+            ->setPlaceName(RoomEnum::LABORATORY)
             ->setItems([
                 ItemEnum::APPRENTON . '_' . SkillEnum::PILOT,
                 GearItemEnum::SNIPER_HELMET . '_' . ItemEnum::BLUEPRINT,
@@ -215,13 +216,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::CRYO_MODULE,
                 EquipmentEnum::MYCOSCAN,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($laboratory);
 
         $refectory = new PlaceConfig();
         $refectory
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::REFECTORY)
+            ->setPlaceName(RoomEnum::REFECTORY)
             ->setDoors([
                 DoorEnum::REFECTORY_CENTRAL_CORRIDOR,
             ])
@@ -266,13 +267,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::KITCHEN,
                 EquipmentEnum::COFFEE_MACHINE,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($refectory);
 
         $garden = new PlaceConfig();
         $garden
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::HYDROPONIC_GARDEN)
+            ->setPlaceName(RoomEnum::HYDROPONIC_GARDEN)
             ->setDoors([
                 DoorEnum::FRONT_CORRIDOR_GARDEN,
                 DoorEnum::FRONT_STORAGE_GARDEN,
@@ -282,13 +283,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 GamePlantEnum::BANANA_TREE,
                 GamePlantEnum::BANANA_TREE,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($garden);
 
         $engineRoom = new PlaceConfig();
         $engineRoom
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::ENGINE_ROOM)
+            ->setPlaceName(RoomEnum::ENGINE_ROOM)
             ->setDoors([
                 DoorEnum::ENGINE_ROOM_BAY_ALPHA_2,
                 DoorEnum::ENGINE_ROOM_BAY_ICARUS,
@@ -306,13 +307,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::EMERGENCY_REACTOR,
                 EquipmentEnum::COMBUSTION_CHAMBER,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($engineRoom);
 
         $frontAlphaTurret = new PlaceConfig();
         $frontAlphaTurret
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::FRONT_ALPHA_TURRET)
+            ->setPlaceName(RoomEnum::FRONT_ALPHA_TURRET)
             ->setDoors([
                 DoorEnum::BRIDGE_FRONT_ALPHA_TURRET,
                 DoorEnum::FRONT_CORRIDOR_FRONT_ALPHA_TURRET,
@@ -320,13 +321,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::TURRET_COMMAND,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($frontAlphaTurret);
 
         $centerAlphaTurret = new PlaceConfig();
         $centerAlphaTurret
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::CENTRE_ALPHA_TURRET)
+            ->setPlaceName(RoomEnum::CENTRE_ALPHA_TURRET)
             ->setDoors([
                 DoorEnum::FRONT_STORAGE_CENTRAL_ALPHA_TURRET,
                 DoorEnum::ALPHA_BAY_CENTRAL_ALPHA_TURRET,
@@ -334,13 +335,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::TURRET_COMMAND,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($centerAlphaTurret);
 
         $rearAlphaTurret = new PlaceConfig();
         $rearAlphaTurret
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::REAR_ALPHA_TURRET)
+            ->setPlaceName(RoomEnum::REAR_ALPHA_TURRET)
             ->setDoors([
                 DoorEnum::REAR_ALPHA_TURRET_BAY_ALPHA_2,
                 DoorEnum::ENGINE_ROOM_REAR_ALPHA_TURRET,
@@ -348,13 +349,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::TURRET_COMMAND,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($rearAlphaTurret);
 
         $frontBravoTurret = new PlaceConfig();
         $frontBravoTurret
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::FRONT_BRAVO_TURRET)
+            ->setPlaceName(RoomEnum::FRONT_BRAVO_TURRET)
             ->setDoors([
                 DoorEnum::BRIDGE_FRONT_BRAVO_TURRET,
                 DoorEnum::FRONT_CORRIDOR_FRONT_BRAVO_TURRET,
@@ -362,13 +363,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::TURRET_COMMAND,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($frontBravoTurret);
 
         $centreBravoTurret = new PlaceConfig();
         $centreBravoTurret
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::CENTRE_BRAVO_TURRET)
+            ->setPlaceName(RoomEnum::CENTRE_BRAVO_TURRET)
             ->setDoors([
                 DoorEnum::MEDLAB_CENTRAL_BRAVO_TURRET,
                 DoorEnum::BRAVO_BAY_CENTRAL_BRAVO_TURRET,
@@ -376,13 +377,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::TURRET_COMMAND,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($centreBravoTurret);
 
         $rearBravoTurret = new PlaceConfig();
         $rearBravoTurret
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::REAR_BRAVO_TURRET)
+            ->setPlaceName(RoomEnum::REAR_BRAVO_TURRET)
             ->setDoors([
                 DoorEnum::REAR_BRAVO_TURRET_BAY_ICARUS,
                 DoorEnum::ENGINE_ROOM_REAR_BRAVO_TURRET,
@@ -390,13 +391,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::TURRET_COMMAND,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($rearBravoTurret);
 
         $frontCorridor = new PlaceConfig();
         $frontCorridor
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::FRONT_CORRIDOR)
+            ->setPlaceName(RoomEnum::FRONT_CORRIDOR)
             ->setDoors([
                 DoorEnum::FRONT_CORRIDOR_FRONT_ALPHA_TURRET,
                 DoorEnum::FRONT_CORRIDOR_FRONT_BRAVO_TURRET,
@@ -407,26 +408,26 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::FRONT_CORRIDOR_MEDLAB,
                 DoorEnum::FRONT_CORRIDOR_CENTRAL_CORRIDOR,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($frontCorridor);
 
         $centralCorridor = new PlaceConfig();
         $centralCorridor
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::CENTRAL_CORRIDOR)
+            ->setPlaceName(RoomEnum::CENTRAL_CORRIDOR)
             ->setDoors([
                 DoorEnum::REFECTORY_CENTRAL_CORRIDOR,
                 DoorEnum::FRONT_CORRIDOR_CENTRAL_CORRIDOR,
                 DoorEnum::ALPHA_BAY_CENTRAL_CORRIDOR,
                 DoorEnum::BRAVO_BAY_CENTRAL_CORRIDOR,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($centralCorridor);
 
         $rearCorridor = new PlaceConfig();
         $rearCorridor
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::REAR_CORRIDOR)
+            ->setPlaceName(RoomEnum::REAR_CORRIDOR)
             ->setDoors([
                 DoorEnum::REAR_CORRIDOR_NEXUS,
                 DoorEnum::REAR_CORRIDOR_BAY_ALPHA_2,
@@ -437,13 +438,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::REAR_CORRIDOR_REAR_BRAVO_STORAGE,
                 DoorEnum::BRAVO_BAY_REAR_CORRIDOR,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($rearCorridor);
 
         $icarusBay = new PlaceConfig();
         $icarusBay
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::ICARUS_BAY)
+            ->setPlaceName(RoomEnum::ICARUS_BAY)
             ->setDoors([
                 DoorEnum::REAR_CORRIDOR_BAY_ICARUS,
                 DoorEnum::REAR_BRAVO_TURRET_BAY_ICARUS,
@@ -452,13 +453,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::ICARUS,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($icarusBay);
 
         $alphaDorm = new PlaceConfig();
         $alphaDorm
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::ALPHA_DORM)
+            ->setPlaceName(RoomEnum::ALPHA_DORM)
             ->setDoors([
                 DoorEnum::ALPHA_BAY_ALPHA_DORM,
                 DoorEnum::REAR_CORRIDOR_ALPHA_DORM,
@@ -469,13 +470,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::BED,
                 EquipmentEnum::SHOWER,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($alphaDorm);
 
         $bravoDorm = new PlaceConfig();
         $bravoDorm
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::BRAVO_DORM)
+            ->setPlaceName(RoomEnum::BRAVO_DORM)
             ->setDoors([
                 DoorEnum::BRAVO_BAY_BRAVO_DORM,
                 DoorEnum::REAR_CORRIDOR_BRAVO_DORM,
@@ -486,51 +487,51 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::BED,
                 EquipmentEnum::THALASSO,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($bravoDorm);
 
         $frontStorage = new PlaceConfig();
         $frontStorage
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::FRONT_STORAGE)
+            ->setPlaceName(RoomEnum::FRONT_STORAGE)
             ->setDoors([
                 DoorEnum::FRONT_STORAGE_CENTRAL_ALPHA_TURRET,
                 DoorEnum::FRONT_STORAGE_GARDEN,
                 DoorEnum::FRONT_CORRIDOR_FRONT_STORAGE,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($frontStorage);
 
         $centerAlphaStorage = new PlaceConfig();
         $centerAlphaStorage
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::CENTER_ALPHA_STORAGE)
+            ->setPlaceName(RoomEnum::CENTER_ALPHA_STORAGE)
             ->setDoors([
                 DoorEnum::ALPHA_BAY_CENTER_ALPHA_STORAGE,
             ])
             ->setEquipments([
                 EquipmentEnum::OXYGEN_TANK,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($centerAlphaStorage);
 
         $centreBravoStorage = new PlaceConfig();
         $centreBravoStorage
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::CENTER_BRAVO_STORAGE)
+            ->setPlaceName(RoomEnum::CENTER_BRAVO_STORAGE)
             ->setDoors([
                 DoorEnum::BRAVO_BAY_CENTER_BRAVO_STORAGE,
             ])
             ->setEquipments([
                 EquipmentEnum::OXYGEN_TANK,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($centreBravoStorage);
 
         $rearAlphaStorage = new PlaceConfig();
         $rearAlphaStorage
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::REAR_ALPHA_STORAGE)
+            ->setPlaceName(RoomEnum::REAR_ALPHA_STORAGE)
             ->setDoors([
                 DoorEnum::REAR_CORRIDOR_REAR_ALPHA_STORAGE,
                 DoorEnum::ENGINE_ROOM_REAR_ALPHA_STORAGE,
@@ -538,13 +539,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::FUEL_TANK,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($rearAlphaStorage);
 
         $rearBravoStorage = new PlaceConfig();
         $rearBravoStorage
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::REAR_BRAVO_STORAGE)
+            ->setPlaceName(RoomEnum::REAR_BRAVO_STORAGE)
             ->setDoors([
                 DoorEnum::REAR_CORRIDOR_REAR_BRAVO_STORAGE,
                 DoorEnum::ENGINE_ROOM_REAR_BRAVO_STORAGE,
@@ -552,9 +553,21 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::FUEL_TANK,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($rearBravoStorage);
 
+        $daedalusConfig->setPlaceConfigs(new ArrayCollection([
+            $bridge,
+            $alphaBay, $bravoBay, $alphaBay2, $icarusBay,
+            $nexus, $medLab, $laboratory,
+            $refectory, $garden, $engineRoom,
+            $frontAlphaTurret, $centerAlphaTurret, $rearAlphaTurret, $frontBravoTurret, $centreBravoTurret, $rearBravoTurret,
+            $frontCorridor, $centralCorridor, $rearCorridor,
+            $alphaDorm, $bravoDorm,
+            $frontStorage, $centerAlphaStorage, $centreBravoStorage, $rearAlphaStorage, $rearBravoStorage,
+        ]));
+        $manager->persist($daedalusConfig);
         $manager->flush();
 
         $this->addReference(RoomEnum::BRIDGE, $bridge);

@@ -10,7 +10,7 @@ interface ModifierHolder
 
     public function getAllModifiers(): ModifierCollection;
 
-    public function addModifier(Modifier $modifier): self;
+    public function addModifier(GameModifier $modifier): self;
 
     public function getClassName(): string;
 }

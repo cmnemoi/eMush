@@ -3,7 +3,6 @@
 namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\RemoveSpore;
 use Mush\Action\Enum\ActionEnum;
@@ -11,15 +10,9 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 class RemoveSporeActionTest extends AbstractActionTest
 {
-    private StatusServiceInterface|Mockery\Mock $statusService;
-
     /**
      * @before
      */
@@ -29,13 +22,10 @@ class RemoveSporeActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::REMOVE_SPORE, 1);
 
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
-
         $this->action = new RemoveSpore(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->statusService,
         );
     }
 
@@ -44,7 +34,7 @@ class RemoveSporeActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -54,29 +44,18 @@ class RemoveSporeActionTest extends AbstractActionTest
         $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
+        $player->setSpores(1);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
-        $gameItem
-            ->setHolder($room)
-        ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
-
-        $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig->setName(PlayerStatusEnum::SPORES);
-        $sporeStatus = new ChargeStatus($player, $sporeConfig);
-        $sporeStatus
-            ->setCharge(1)
-        ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->statusService->shouldReceive('updateCharge')->with($sporeStatus, -1)->andReturn($sporeStatus)->once();
-        $this->statusService->shouldReceive('persist')->once();
+        $this->eventService->shouldReceive('callEvent')->times(2);
 
         $result = $this->action->execute();
 

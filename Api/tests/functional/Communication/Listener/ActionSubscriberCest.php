@@ -11,15 +11,19 @@ use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Listener\ActionSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 class ActionSubscriberCest
 {
@@ -40,7 +44,13 @@ class ActionSubscriberCest
         $I->haveInRepository($neron);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
@@ -49,43 +59,52 @@ class ActionSubscriberCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $player2 */
-        $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room2, 'characterConfig' => $characterConfig]);
+        $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room2]);
+        $player2Info = new PlayerInfo($player2, $user, $characterConfig);
+
+        $I->haveInRepository($player2Info);
+        $player2->setPlayerInfo($player2Info);
+        $I->refreshEntities($player2);
 
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie = new GameItem();
+        $iTrackie = new GameItem($room);
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($iTrackie);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
 
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($privateChannel);
 
         $privateChannelParticipant = new ChannelPlayer();
-        $privateChannelParticipant->setParticipant($player)->setChannel($privateChannel);
+        $privateChannelParticipant->setParticipant($playerInfo)->setChannel($privateChannel);
         $I->haveInRepository($privateChannelParticipant);
 
         $privateChannelParticipant2 = new ChannelPlayer();
-        $privateChannelParticipant2->setParticipant($player2)->setChannel($privateChannel);
+        $privateChannelParticipant2->setParticipant($player2Info)->setChannel($privateChannel);
         $I->haveInRepository($privateChannelParticipant2);
 
         $privateChannel->addParticipant($privateChannelParticipant)->addParticipant($privateChannelParticipant2);
@@ -94,14 +113,14 @@ class ActionSubscriberCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($publicChannel);
 
         $I->refreshEntities($publicChannel);
 
         $dropAction = new Action();
-        $dropAction->setName(ActionEnum::DROP);
+        $dropAction->setActionName(ActionEnum::DROP);
 
         $actionEvent = new ActionEvent($dropAction, $player, $iTrackie);
 
@@ -110,7 +129,7 @@ class ActionSubscriberCest
         $I->assertEmpty($publicChannel->getMessages());
         $I->assertCount(1, $privateChannel->getMessages());
         $I->assertCount(1, $privateChannel->getParticipants());
-        $I->assertEquals($player2, $privateChannel->getParticipants()->first()->getParticipant());
+        $I->assertEquals($player2Info, $privateChannel->getParticipants()->first()->getParticipant());
     }
 
     public function testPlayerDropTalkieKickWhisperingPlayerInSameRoom(FunctionalTester $I)
@@ -123,7 +142,13 @@ class ActionSubscriberCest
         $I->haveInRepository($neron);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
@@ -132,50 +157,62 @@ class ActionSubscriberCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $player2 */
-        $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room2, 'characterConfig' => $characterConfig]);
+        $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room2]);
+        $player2Info = new PlayerInfo($player2, $user, $characterConfig);
+        $I->haveInRepository($player2Info);
+        $player2->setPlayerInfo($player2Info);
+        $I->refreshEntities($player2);
 
         /** @var Player $player3 */
-        $player3 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player3 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player3Info = new PlayerInfo($player3, $user, $characterConfig);
+        $I->haveInRepository($player3Info);
+        $player3->setPlayerInfo($player3Info);
+        $I->refreshEntities($player3);
 
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie = new GameItem();
+        $iTrackie = new GameItem($room);
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($iTrackie);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
 
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($privateChannel);
 
         $privateChannelParticipant = new ChannelPlayer();
-        $privateChannelParticipant->setParticipant($player)->setChannel($privateChannel);
+        $privateChannelParticipant->setParticipant($playerInfo)->setChannel($privateChannel);
         $I->haveInRepository($privateChannelParticipant);
 
         $privateChannelParticipant2 = new ChannelPlayer();
-        $privateChannelParticipant2->setParticipant($player2)->setChannel($privateChannel);
+        $privateChannelParticipant2->setParticipant($player2Info)->setChannel($privateChannel);
         $I->haveInRepository($privateChannelParticipant2);
 
         $privateChannelParticipant3 = new ChannelPlayer();
-        $privateChannelParticipant3->setParticipant($player3)->setChannel($privateChannel);
+        $privateChannelParticipant3->setParticipant($player3Info)->setChannel($privateChannel);
         $I->haveInRepository($privateChannelParticipant3);
 
         $privateChannel
@@ -188,14 +225,14 @@ class ActionSubscriberCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($publicChannel);
 
         $I->refreshEntities($publicChannel);
 
         $dropAction = new Action();
-        $dropAction->setName(ActionEnum::DROP);
+        $dropAction->setActionName(ActionEnum::DROP);
 
         $actionEvent = new ActionEvent($dropAction, $player, $iTrackie);
 
@@ -204,7 +241,7 @@ class ActionSubscriberCest
         $I->assertEmpty($publicChannel->getMessages());
         $I->assertCount(2, $privateChannel->getMessages());
         $I->assertCount(1, $privateChannel->getParticipants());
-        $I->assertEquals($player2, $privateChannel->getParticipants()->first()->getParticipant());
+        $I->assertEquals($player2Info, $privateChannel->getParticipants()->first()->getParticipant());
     }
 
     public function testPlayerDropTalkieButCanWhisper(FunctionalTester $I)
@@ -217,50 +254,66 @@ class ActionSubscriberCest
         $I->haveInRepository($neron);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player2Info = new PlayerInfo($player2, $user, $characterConfig);
+
+        $I->haveInRepository($player2Info);
+        $player2->setPlayerInfo($player2Info);
+        $I->refreshEntities($player2);
 
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie = new GameItem();
+        $iTrackie = new GameItem($room);
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($iTrackie);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
 
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($privateChannel);
 
         $privateChannelParticipant = new ChannelPlayer();
-        $privateChannelParticipant->setParticipant($player)->setChannel($privateChannel);
+        $privateChannelParticipant->setParticipant($playerInfo)->setChannel($privateChannel);
         $I->haveInRepository($privateChannelParticipant);
 
         $privateChannelParticipant2 = new ChannelPlayer();
-        $privateChannelParticipant2->setParticipant($player2)->setChannel($privateChannel);
+        $privateChannelParticipant2->setParticipant($player2Info)->setChannel($privateChannel);
         $I->haveInRepository($privateChannelParticipant2);
 
         $privateChannel->addParticipant($privateChannelParticipant)->addParticipant($privateChannelParticipant2);
@@ -269,14 +322,14 @@ class ActionSubscriberCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($publicChannel);
 
         $I->refreshEntities($publicChannel);
 
         $dropAction = new Action();
-        $dropAction->setName(ActionEnum::DROP);
+        $dropAction->setActionName(ActionEnum::DROP);
 
         $actionEvent = new ActionEvent($dropAction, $player, $iTrackie);
 
@@ -297,7 +350,13 @@ class ActionSubscriberCest
         $I->haveInRepository($neron);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room */
@@ -306,43 +365,53 @@ class ActionSubscriberCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $player2 */
-        $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room2, 'characterConfig' => $characterConfig]);
+        $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room2]);
+        $player2Info = new PlayerInfo($player2, $user, $characterConfig);
+
+        $I->haveInRepository($player2Info);
+        $player2->setPlayerInfo($player2Info);
+        $I->refreshEntities($player2);
 
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie = new GameItem();
+        $iTrackie = new GameItem($player);
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player)
         ;
         $I->haveInRepository($iTrackie);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
 
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($privateChannel);
 
         $privateChannelParticipant = new ChannelPlayer();
-        $privateChannelParticipant->setParticipant($player)->setChannel($privateChannel);
+        $privateChannelParticipant->setParticipant($playerInfo)->setChannel($privateChannel);
         $I->haveInRepository($privateChannelParticipant);
 
         $privateChannelParticipant2 = new ChannelPlayer();
-        $privateChannelParticipant2->setParticipant($player2)->setChannel($privateChannel);
+        $privateChannelParticipant2->setParticipant($player2Info)->setChannel($privateChannel);
         $I->haveInRepository($privateChannelParticipant2);
 
         $privateChannel->addParticipant($privateChannelParticipant)->addParticipant($privateChannelParticipant2);
@@ -351,14 +420,14 @@ class ActionSubscriberCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($publicChannel);
 
         $I->refreshEntities($publicChannel);
 
         $moveAction = new Action();
-        $moveAction->setName(ActionEnum::MOVE);
+        $moveAction->setActionName(ActionEnum::MOVE);
 
         $actionEvent = new ActionEvent($moveAction, $player, null);
 
@@ -379,7 +448,13 @@ class ActionSubscriberCest
         $I->haveInRepository($neron);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room */
@@ -388,35 +463,46 @@ class ActionSubscriberCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $player2 */
-        $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room2, 'characterConfig' => $characterConfig]);
+        $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room2]);
+        $player2Info = new PlayerInfo($player2, $user, $characterConfig);
+
+        $I->haveInRepository($player2Info);
+        $player2->setPlayerInfo($player2Info);
+        $I->refreshEntities($player2);
 
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
 
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($privateChannel);
 
         $privateChannelParticipant = new ChannelPlayer();
-        $privateChannelParticipant->setParticipant($player)->setChannel($privateChannel);
+        $privateChannelParticipant->setParticipant($playerInfo)->setChannel($privateChannel);
         $I->haveInRepository($privateChannelParticipant);
 
         $privateChannelParticipant2 = new ChannelPlayer();
-        $privateChannelParticipant2->setParticipant($player2)->setChannel($privateChannel);
+        $privateChannelParticipant2->setParticipant($player2Info)->setChannel($privateChannel);
         $I->haveInRepository($privateChannelParticipant2);
 
         $privateChannel->addParticipant($privateChannelParticipant)->addParticipant($privateChannelParticipant2);
@@ -425,14 +511,14 @@ class ActionSubscriberCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($publicChannel);
 
         $I->refreshEntities($publicChannel);
 
         $moveAction = new Action();
-        $moveAction->setName(ActionEnum::MOVE);
+        $moveAction->setActionName(ActionEnum::MOVE);
 
         $actionEvent = new ActionEvent($moveAction, $player, null);
 
@@ -441,20 +527,26 @@ class ActionSubscriberCest
         $I->assertEmpty($publicChannel->getMessages());
         $I->assertCount(1, $privateChannel->getMessages());
         $I->assertCount(1, $privateChannel->getParticipants());
-        $I->assertEquals($player2, $privateChannel->getParticipants()->first()->getParticipant());
+        $I->assertEquals($player2Info, $privateChannel->getParticipants()->first()->getParticipant());
     }
 
     public function testPlayerMoveWithTalkieButOtherPlayerCannotCommunicate(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
+        $gameConfig = $I->have(GameConfig::class);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room */
@@ -463,35 +555,46 @@ class ActionSubscriberCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $player2 */
-        $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room2, 'characterConfig' => $characterConfig]);
+        $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room2]);
+        $player2Info = new PlayerInfo($player2, $user, $characterConfig);
+
+        $I->haveInRepository($player2Info);
+        $player2->setPlayerInfo($player2Info);
+        $I->refreshEntities($player2);
 
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new GameItem($player);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player)
         ;
         $I->haveInRepository($iTrackie2);
 
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($privateChannel);
 
         $privateChannelParticipant = new ChannelPlayer();
-        $privateChannelParticipant->setParticipant($player)->setChannel($privateChannel);
+        $privateChannelParticipant->setParticipant($playerInfo)->setChannel($privateChannel);
         $I->haveInRepository($privateChannelParticipant);
 
         $privateChannelParticipant2 = new ChannelPlayer();
-        $privateChannelParticipant2->setParticipant($player2)->setChannel($privateChannel);
+        $privateChannelParticipant2->setParticipant($player2Info)->setChannel($privateChannel);
         $I->haveInRepository($privateChannelParticipant2);
 
         $privateChannel->addParticipant($privateChannelParticipant)->addParticipant($privateChannelParticipant2);
@@ -500,14 +603,14 @@ class ActionSubscriberCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($publicChannel);
 
         $I->refreshEntities($publicChannel);
 
         $moveAction = new Action();
-        $moveAction->setName(ActionEnum::MOVE);
+        $moveAction->setActionName(ActionEnum::MOVE);
 
         $actionEvent = new ActionEvent($moveAction, $player, null);
 
@@ -516,6 +619,6 @@ class ActionSubscriberCest
         $I->assertEmpty($publicChannel->getMessages());
         $I->assertCount(1, $privateChannel->getMessages());
         $I->assertCount(1, $privateChannel->getParticipants());
-        $I->assertEquals($player, $privateChannel->getParticipants()->first()->getParticipant());
+        $I->assertEquals($playerInfo, $privateChannel->getParticipants()->first()->getParticipant());
     }
 }

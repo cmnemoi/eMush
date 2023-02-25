@@ -1,5 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import GamePage from "@/components/GamePage.vue";
+import RankingPage from "@/components/Ranking/RankingPage.vue";
+import ShipRanking from "@/components/Ranking/ShipRanking.vue";
 import Token from "@/components/Token.vue";
 import { is_granted, UserRole } from "@/enums/user_role.enum";
 import store from "@/store";
@@ -11,6 +13,12 @@ import DaedalusDetailPage from "@/components/Admin/Daedalus/DaedalusDetailPage.v
 import AdminHomePage from "@/components/Admin/AdminHomePage.vue";
 import AdminPage from "@/components/Admin/AdminPage.vue";
 import AdminConfigPage from "@/components/Admin/AdminConfigPage.vue";
+import TheEndPage from "@/components/Ranking/TheEndPage.vue";
+import UserPage from "@/components/User/UserPage.vue";
+import UserShips from "@/components/User/UserShips.vue";
+import NewsListPage from "@/components/Admin/News/NewsListPage.vue";
+import NewsWritePage from "@/components/Admin/News/NewsWritePage.vue";
+import NewsPage from "@/components/NewsPage.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 
 const routes = [
@@ -24,6 +32,64 @@ const routes = [
         name: "GamePage",
         component: GamePage,
         meta: { authorize: [UserRole.USER] }
+    },
+    {
+        path: "/user/:userId",
+        name: "UserPage",
+        component: UserPage,
+        redirect: { name: 'UserShips' },
+        meta: { authorize: [UserRole.USER] },
+        children: [
+            {
+                name: "UserShips",
+                path: '',
+                component: UserShips
+            }
+        ]
+    },
+    {
+        path: "/me",
+        name: "MePage",
+        component: UserPage,
+        meta: { authorize: [UserRole.USER] },
+        // @ts-ignore
+        beforeEnter: (to, from, next) => {
+            const currentUser = store.getters["auth/getUserInfo"];
+            if (currentUser) {
+                next({ name: 'UserPage', params: { userId: currentUser.userId } });
+            } else {
+                next({ name: 'HomePage' });
+            }
+        }
+        
+    },
+    {
+        path: "/ranking",
+        name: "RankingPage",
+        component: RankingPage,
+        redirect: { name: 'ShipRanking' },
+        meta: { authorize: [UserRole.USER] },
+        children: [
+            {
+                name: "ShipRanking",
+                path: '',
+                component: ShipRanking,
+            },
+            {
+                name: "TheEnd",
+                path: '/the-end/:closedDaedalusId',
+                component: TheEndPage,
+                children: [
+                    {
+                        name: "TheEndUserPage",
+                        path: '/user/:userId',
+                        component: UserPage,
+                        redirect: { name: 'UserPage' },
+                    }
+                ]
+
+            }
+        ]
     },
     {
         path: "/admin",
@@ -63,8 +129,28 @@ const routes = [
                 name: "AdminUserDetail",
                 path: 'user/:userId',
                 component: UserDetailPage
+            },
+            {
+                name: "AdminNewsList",
+                path: 'news-list',
+                component: NewsListPage
+            },
+            {
+                name: "AdminNewsWrite",
+                path: 'write-news',
+                component: NewsWritePage
+            },
+            {
+                name: "AdminNewsEdit",
+                path: 'edit-news/:newsId',
+                component: NewsWritePage
             }
         ]
+    },
+    {
+        path: "/news",
+        name: "NewsPage",
+        component: NewsPage
     },
     {
         path: "/token",
@@ -75,6 +161,7 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
+    // @ts-ignore
     routes
 });
 

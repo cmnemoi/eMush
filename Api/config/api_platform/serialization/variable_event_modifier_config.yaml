@@ -1,0 +1,22 @@
+Mush\Modifier\Entity\Config\VariableEventModifierConfig:
+  attributes:
+    id:
+      groups: [ 'modifier_config_read' ]
+    name:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    modifierName:
+      groups: [ 'modifier_config_read' , 'modifier_config_write' ]
+    delta:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    targetVariable:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    targetEvent:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    modifierRange:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    mode:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    applyOnActionParameter:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    modifierActivationRequirements:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]

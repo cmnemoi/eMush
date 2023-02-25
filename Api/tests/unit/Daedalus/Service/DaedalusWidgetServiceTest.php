@@ -9,13 +9,15 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusWidgetService;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\StatusEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class DaedalusWidgetServiceTest extends TestCase
@@ -28,7 +30,7 @@ class DaedalusWidgetServiceTest extends TestCase
      */
     public function before()
     {
-        $this->alertService = Mockery::mock(AlertServiceInterface::class);
+        $this->alertService = \Mockery::mock(AlertServiceInterface::class);
 
         $this->service = new DaedalusWidgetService(
             $this->alertService,
@@ -40,7 +42,7 @@ class DaedalusWidgetServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testgetMinimap()
@@ -57,12 +59,11 @@ class DaedalusWidgetServiceTest extends TestCase
         ;
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
 
-        $tracker = new GameItem();
+        $tracker = new GameItem($player);
         $tracker->setName(ItemEnum::TRACKER);
-        $player->addEquipment($tracker);
-
-        $player->setGameStatus(GameStatusEnum::CURRENT); // player is alive
 
         $room2->addPlayer($player);
 
@@ -101,8 +102,8 @@ class DaedalusWidgetServiceTest extends TestCase
         ;
 
         $player = new Player();
-
-        $player->setGameStatus(GameStatusEnum::CURRENT); // player is alive
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
 
         $room2->addPlayer($player);
 
@@ -135,9 +136,8 @@ class DaedalusWidgetServiceTest extends TestCase
 
         $player = new Player();
 
-        $tracker = new GameItem();
+        $tracker = new GameItem($player);
         $tracker->setName(ItemEnum::TRACKER);
-        $player->addEquipment($tracker);
 
         $daedalus = new Daedalus();
         $daedalus
@@ -147,7 +147,7 @@ class DaedalusWidgetServiceTest extends TestCase
         ;
 
         $fireConfig = new StatusConfig();
-        $fireConfig->setName(StatusEnum::FIRE);
+        $fireConfig->setStatusName(StatusEnum::FIRE);
 
         $fire1 = new Status($room, $fireConfig);
         $fire2 = new Status($room2, $fireConfig);

@@ -25,14 +25,13 @@ class PhagocyteTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::PHAGOCYTE);
         $this->action = new Phagocyte(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->statusService
         );
     }
 
@@ -41,7 +40,7 @@ class PhagocyteTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -52,23 +51,19 @@ class PhagocyteTest extends AbstractActionTest
         $player = $this->createPlayer($daedalus, $room);
 
         $mushConfig = new ChargeStatusConfig();
-        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus->setCharge(1);
 
         $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig->setName(PlayerStatusEnum::SPORES);
+        $sporeConfig->setStatusName(PlayerStatusEnum::SPORES);
         $sporeStatus = new ChargeStatus($player, $sporeConfig);
         $sporeStatus->setCharge(1);
 
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->statusService
-            ->shouldReceive('updateCharge')
-            ->with($sporeStatus, -1)
-            ->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->times(2);
+        $this->eventService->shouldReceive('callEvent')->times(3);
 
         $result = $this->action->execute();
 

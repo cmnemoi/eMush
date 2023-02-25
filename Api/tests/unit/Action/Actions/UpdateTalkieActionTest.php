@@ -26,10 +26,10 @@ class UpdateTalkieActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::UPDATE_TALKIE);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new UpdateTalkie(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -41,7 +41,7 @@ class UpdateTalkieActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecuteRation()
@@ -52,19 +52,17 @@ class UpdateTalkieActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $talkie = new GameItem();
+        $talkie = new GameItem($player);
         $talkie
-            ->setHolder($player)
             ->setName(ItemEnum::WALKIE_TALKIE)
         ;
 
-        $tracker = new GameItem();
+        $tracker = new GameItem($player);
         $tracker
-            ->setHolder($player)
             ->setName(ItemEnum::TRACKER)
         ;
 
-        $neronCore = new GameEquipment();
+        $neronCore = new GameEquipment($room);
         $neronCore
             ->setName(EquipmentEnum::NERON_CORE)
             ->setHolder($room)
@@ -73,7 +71,7 @@ class UpdateTalkieActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $talkie);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
 
         $result = $this->action->execute();

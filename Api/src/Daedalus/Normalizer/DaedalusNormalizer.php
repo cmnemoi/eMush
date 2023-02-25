@@ -41,7 +41,7 @@ class DaedalusNormalizer implements NormalizerInterface
         $mushAlive = $daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count();
         $mushDead = $daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count();
 
-        $language = $gameConfig->getLanguage();
+        $language = $daedalus->getLanguage();
 
         return [
                 'id' => $object->getId(),
@@ -87,8 +87,9 @@ class DaedalusNormalizer implements NormalizerInterface
 
     private function normalizeDaedalusVariable(Daedalus $daedalus, string $variable, string $language): array
     {
-        $quantity = $daedalus->getVariableFromName($variable);
-        $maxValue = $daedalus->getGameConfig()->getDaedalusConfig()->getVariableFromName($variable);
+        $gameVariable = $daedalus->getVariableByName($variable);
+        $maxValue = $gameVariable->getMaxValue();
+        $quantity = $gameVariable->getValue();
 
         return [
             'quantity' => $quantity,

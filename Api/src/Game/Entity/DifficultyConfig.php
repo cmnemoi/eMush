@@ -7,7 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'config_difficulty')]
-class DifficultyConfig implements ConfigInterface
+class DifficultyConfig
 {
     use TimestampableEntity;
 
@@ -16,8 +16,8 @@ class DifficultyConfig implements ConfigInterface
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: GameConfig::class, inversedBy: 'difficultyConfig')]
-    private GameConfig $gameConfig;
+    #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
+    private string $name;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $equipmentBreakRate = 0;
@@ -73,19 +73,22 @@ class DifficultyConfig implements ConfigInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $cycleDiseaseRate = 0;
 
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $equipmentBreakRateDistribution = [];
+
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function getGameConfig(): GameConfig
+    public function getName(): string
     {
-        return $this->gameConfig;
+        return $this->name;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): static
+    public function setName(string $name): static
     {
-        $this->gameConfig = $gameConfig;
+        $this->name = $name;
 
         return $this;
     }
@@ -302,6 +305,18 @@ class DifficultyConfig implements ConfigInterface
     public function setCycleDiseaseRate(int $cycleDiseaseRate): static
     {
         $this->cycleDiseaseRate = $cycleDiseaseRate;
+
+        return $this;
+    }
+
+    public function getEquipmentBreakRateDistribution(): array
+    {
+        return $this->equipmentBreakRateDistribution;
+    }
+
+    public function setEquipmentBreakRateDistribution(array $equipmentBreakRateDistribution): static
+    {
+        $this->equipmentBreakRateDistribution = $equipmentBreakRateDistribution;
 
         return $this;
     }

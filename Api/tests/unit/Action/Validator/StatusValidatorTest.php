@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\HasStatusValidator;
@@ -36,16 +35,16 @@ class StatusValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValidParameter()
     {
         $this->constraint->target = HasStatus::PARAMETER;
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -59,7 +58,7 @@ class StatusValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($target, $brokenConfig);
         $this->constraint->contain = true;
 
@@ -73,9 +72,9 @@ class StatusValidatorTest extends TestCase
     {
         $this->constraint->target = HasStatus::PARAMETER;
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -89,7 +88,7 @@ class StatusValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($target, $brokenConfig);
         $this->constraint->contain = true;
         $this->constraint->status = EquipmentStatusEnum::FROZEN;
@@ -106,7 +105,7 @@ class StatusValidatorTest extends TestCase
 
         $player = new Player();
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -120,7 +119,7 @@ class StatusValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($player, $brokenConfig);
         $this->constraint->contain = true;
 
@@ -136,7 +135,7 @@ class StatusValidatorTest extends TestCase
 
         $player = new Player();
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -150,7 +149,7 @@ class StatusValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($player, $brokenConfig);
         $this->constraint->contain = true;
         $this->constraint->status = EquipmentStatusEnum::FROZEN;
@@ -170,7 +169,7 @@ class StatusValidatorTest extends TestCase
         $room = new Place();
         $player->setPlace($room);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -184,7 +183,7 @@ class StatusValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($room, $brokenConfig);
         $this->constraint->contain = true;
 
@@ -203,7 +202,7 @@ class StatusValidatorTest extends TestCase
         $room = new Place();
         $player->setPlace($room);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -217,7 +216,7 @@ class StatusValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($room, $brokenConfig);
 
         $this->constraint->contain = true;
@@ -235,9 +234,9 @@ class StatusValidatorTest extends TestCase
 
         $player = new Player();
 
-        $target = new GameEquipment();
+        $target = new GameEquipment(new Place());
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -246,7 +245,7 @@ class StatusValidatorTest extends TestCase
         ;
 
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($target, $brokenConfig);
         $status->setTarget($player);
         $this->constraint->contain = true;
@@ -266,8 +265,8 @@ class StatusValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

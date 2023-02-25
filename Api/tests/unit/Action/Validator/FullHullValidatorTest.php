@@ -2,13 +2,15 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\FullHull;
-use Mush\Action\Validator\FullHullValidator;
+use Mush\Action\Validator\GameVariableLevel;
+use Mush\Action\Validator\GameVariableLevelValidator;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -16,16 +18,16 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 class FullHullValidatorTest extends TestCase
 {
-    private FullHullValidator $validator;
-    private FullHull $constraint;
+    private GameVariableLevelValidator $validator;
+    private GameVariableLevel $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new FullHullValidator();
-        $this->constraint = new FullHull();
+        $this->validator = new GameVariableLevelValidator();
+        $this->constraint = new GameVariableLevel();
     }
 
     /**
@@ -33,25 +35,36 @@ class FullHullValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
     {
+        $this->constraint->target = GameVariableLevel::DAEDALUS;
+        $this->constraint->checkMode = GameVariableLevel::IS_MAX;
+        $this->constraint->variableName = DaedalusVariableEnum::HULL;
+
         $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setMaxHull(100);
+        $daedalusConfig
+            ->setMaxHull(100)
+            ->setInitOxygen(1)
+            ->setInitShield(1)
+            ->setInitHull(99)
+            ->setInitFuel(1)
+        ;
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
         $daedalus = new Daedalus();
-        $daedalus->setHull(99);
-        $daedalus->setGameConfig($gameConfig);
+        $daedalus->setDaedalusVariables($daedalusConfig);
+
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $player = new Player();
         $player
             ->setDaedalus($daedalus)
         ;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -64,20 +77,31 @@ class FullHullValidatorTest extends TestCase
 
     public function testNotValid()
     {
+        $this->constraint->target = GameVariableLevel::DAEDALUS;
+        $this->constraint->checkMode = GameVariableLevel::IS_MAX;
+        $this->constraint->variableName = DaedalusVariableEnum::HULL;
+
         $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setMaxHull(100);
+        $daedalusConfig
+            ->setMaxHull(100)
+            ->setInitOxygen(1)
+            ->setInitShield(1)
+            ->setInitHull(100)
+            ->setInitFuel(1)
+        ;
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
         $daedalus = new Daedalus();
-        $daedalus->setHull(100);
-        $daedalus->setGameConfig($gameConfig);
+        $daedalus->setDaedalusVariables($daedalusConfig);
+
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $player = new Player();
         $player
             ->setDaedalus($daedalus)
         ;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -90,8 +114,8 @@ class FullHullValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

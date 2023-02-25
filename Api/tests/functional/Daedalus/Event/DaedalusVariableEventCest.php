@@ -3,90 +3,103 @@
 namespace functional\Daedalus\Event;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierCondition;
-use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierConditionEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DaedalusVariableEventCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testChangeOxygenWithTanks(FunctionalTester $I)
     {
-        /** @var DaedalusConfig $gameConfig */
+        /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'oxygen' => 32]);
+        $daedalus = $I->have(Daedalus::class);
+        $daedalus->setDaedalusVariables($daedalusConfig);
+        $daedalus->setOxygen(32);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $event = new DaedalusModifierEvent(
+        $event = new DaedalusVariableEvent(
             $daedalus,
             DaedalusVariableEnum::OXYGEN,
             -2,
-            EventEnum::NEW_CYCLE,
-            new DateTime()
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
         );
-        $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
 
         $I->assertEquals(30, $daedalus->getOxygen());
 
         // add an oxygen tank
-        $modifierCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $modifierCondition->setCondition(EventEnum::NEW_CYCLE);
-        $I->haveInRepository($modifierCondition);
+        $modifierActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::REASON);
+        $modifierActivationRequirement
+            ->setActivationRequirement(EventEnum::NEW_CYCLE)
+            ->buildName()
+        ;
+        $I->haveInRepository($modifierActivationRequirement);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
-            ->setTarget(DaedalusVariableEnum::OXYGEN)
+            ->setTargetVariable(DaedalusVariableEnum::OXYGEN)
             ->setDelta(1)
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope(AbstractQuantityEvent::CHANGE_VARIABLE)
-            ->addModifierCondition($modifierCondition)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
+            ->addModifierRequirement($modifierActivationRequirement)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifier = new Modifier($daedalus, $modifierConfig);
+        $modifier = new GameModifier($daedalus, $modifierConfig);
         $I->haveInRepository($modifier);
 
-        $event = new DaedalusModifierEvent(
+        $event = new DaedalusVariableEvent(
             $daedalus,
             DaedalusVariableEnum::OXYGEN,
             -2,
-            'other_reason',
-            new DateTime()
+            ['other_reason'],
+            new \DateTime()
         );
-        $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
 
         $I->assertEquals(28, $daedalus->getOxygen());
 
-        $event = new DaedalusModifierEvent(
+        $event = new DaedalusVariableEvent(
             $daedalus,
             DaedalusVariableEnum::OXYGEN,
             -2,
-            EventEnum::NEW_CYCLE,
-            new DateTime()
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
         );
-        $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
 
         $I->assertEquals(27, $daedalus->getOxygen());
     }

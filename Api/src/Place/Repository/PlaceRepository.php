@@ -6,6 +6,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Place\Entity\Place;
 
+/**
+ * @template-extends ServiceEntityRepository<Place>
+ */
 class PlaceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

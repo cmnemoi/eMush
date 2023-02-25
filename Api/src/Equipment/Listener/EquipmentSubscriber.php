@@ -8,21 +8,21 @@ use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -52,26 +52,26 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function initModifier(EquipmentEvent $event)
+    public function initModifier(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
         $config = $equipment->getEquipment();
-        $reason = $event->getReason();
+        $reasons = $event->getTags();
         $time = $event->getTime();
 
         $equipmentEvent = new EquipmentInitEvent(
             $equipment,
             $config,
-            $reason,
+            $reasons,
             $time
         );
 
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
+        $this->eventService->callEvent($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $this->eventDispatcher->dispatch($event, EquipmentEvent::EQUIPMENT_DELETE);
+        $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_DELETE);
     }
 
     public function onEquipmentDelete(EquipmentEvent $event): void
@@ -82,7 +82,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $equipment = $event->getEquipment();
         }
 
-        $equipment->setHolder(null);
         $this->gameEquipmentService->delete($equipment);
     }
 
@@ -93,27 +92,23 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $this->gameEquipmentService->persist($equipment);
     }
 
-    public function checkInventoryOverflow(EquipmentEvent $event)
+    public function checkInventoryOverflow(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
         $holder = $equipment->getHolder();
 
-        if ($holder === null) {
-            throw new \LogicException('no equipment holder');
-        }
-
-        $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
-
-        if ($holder instanceof Player && $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()) {
+        if ($holder instanceof Player &&
+            $holder->getEquipments()->count() > $holder->getPlayerInfo()->getCharacterConfig()->getMaxItemInInventory()
+        ) {
             $equipmentEvent = new InteractWithEquipmentEvent(
                 $equipment,
                 $holder,
                 VisibilityEnum::HIDDEN,
-                EquipmentEvent::INVENTORY_OVERFLOW,
+                $event->getTags(),
                 new \DateTime()
             );
 
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::INVENTORY_OVERFLOW);
+            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::INVENTORY_OVERFLOW);
         }
     }
 

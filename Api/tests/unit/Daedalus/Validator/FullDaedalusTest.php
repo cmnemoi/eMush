@@ -3,11 +3,12 @@
 namespace Mush\Test\Daedalus\Validator;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Validator\FullDaedalus;
 use Mush\Daedalus\Validator\FullDaedalusValidator;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
@@ -31,7 +32,7 @@ class FullDaedalusTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -47,7 +48,7 @@ class FullDaedalusTest extends TestCase
 
         $gameConfig = new GameConfig();
         $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig(), new CharacterConfig()]));
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $this->validator->validate($daedalus, $constraint);
 
@@ -68,7 +69,7 @@ class FullDaedalusTest extends TestCase
         $gameConfig = new GameConfig();
         $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig()]));
 
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $this->validator->validate($daedalus, $constraint);
 
@@ -77,8 +78,8 @@ class FullDaedalusTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

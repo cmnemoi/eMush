@@ -9,6 +9,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 
 class DaedalusFactory extends \Codeception\Module
@@ -18,6 +20,7 @@ class DaedalusFactory extends \Codeception\Module
         $factory = $this->getModule('DataFactory');
 
         $factory->_define(DifficultyConfig::class, [
+            'name' => GameConfigEnum::TEST,
             'equipmentBreakRate' => 0,
             'doorBreakRate' => 0,
             'equipmentFireBreakRate' => 0,
@@ -38,44 +41,32 @@ class DaedalusFactory extends \Codeception\Module
             'cycleDiseaseRate' => 0,
         ]);
         $factory->_define(DaedalusConfig::class, [
+            'name' => 'testDaedalusConfig',
             'maxOxygen' => 32,
             'maxFuel' => 32,
             'maxHull' => 100,
-            'initOxygen' => 32,
-            'initFuel' => 32,
+            'initOxygen' => 10,
+            'initFuel' => 10,
             'initHull' => 100,
             'initShield' => -2,
             'dailySporeNb' => 4,
+            'nbMush' => 2,
+            'cycleLength' => 3 * 60,
+            'cyclePerGameDay' => 8,
         ]);
 
         $factory->_define(GameConfig::class, [
-            'name' => 'default',
+            'name' => GameConfigEnum::TEST,
             'difficultyConfig' => 'entity|' . DifficultyConfig::class,
             'daedalusConfig' => 'entity|' . DaedalusConfig::class,
-            'nbMush' => 2,
-            'cycleLength' => 3,
-            'cyclePerGameDay' => 8,
-            'timeZone' => 'Europe/Paris',
+        ]);
+
+        $factory->_define(LocalizationConfig::class, [
+            'timeZone' => 'UTC',
             'language' => LanguageEnum::FRENCH,
-            'maxNumberPrivateChannel' => 3,
-            'initHealthPoint' => 12,
-            'maxHealthPoint' => 12,
-            'initMoralPoint' => 12,
-            'maxMoralPoint' => 12,
-            'initSatiety' => 0,
-            'initActionPoint' => 12,
-            'maxActionPoint' => 12,
-            'initMovementPoint' => 12,
-            'maxMovementPoint' => 12,
-            'maxItemInInventory' => 12,
         ]);
 
         $factory->_define(Daedalus::class, [
-            'gameConfig' => 'entity|' . GameConfig::class,
-            'oxygen' => 10,
-            'fuel' => 10,
-            'hull' => 100,
-            'shield' => -2,
             'day' => 1,
             'cycle' => 1,
             'cycleStartedAt' => new \DateTime('today midnight'),

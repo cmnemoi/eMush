@@ -2,27 +2,31 @@
 
 namespace Mush\Player\Listener;
 
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RoomSubscriber implements EventSubscriberInterface
 {
     private RandomServiceInterface $randomService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
+    private PlayerServiceInterface $playerService;
 
     public function __construct(
+        PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
+        $this->playerService = $playerService;
         $this->randomService = $randomService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -30,6 +34,7 @@ class RoomSubscriber implements EventSubscriberInterface
         return [
             RoomEvent::TREMOR => 'onTremor',
             RoomEvent::ELECTRIC_ARC => 'onElectricArc',
+            RoomEvent::DELETE_PLACE => 'onDeletePlace',
         ];
     }
 
@@ -49,10 +54,10 @@ class RoomSubscriber implements EventSubscriberInterface
                 $player,
                 PlayerVariableEnum::HEALTH_POINT,
                 -$damage,
-                EndCauseEnum::INJURY,
+                [EndCauseEnum::INJURY],
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 
@@ -72,10 +77,17 @@ class RoomSubscriber implements EventSubscriberInterface
                 $player,
                 PlayerVariableEnum::HEALTH_POINT,
                 -$damage,
-                EndCauseEnum::ELECTROCUTED,
+                [EndCauseEnum::ELECTROCUTED],
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+        }
+    }
+
+    public function onDeletePlace(RoomEvent $event): void
+    {
+        foreach ($event->getPlace()->getPlayers() as $player) {
+            $this->playerService->delete($player);
         }
     }
 }

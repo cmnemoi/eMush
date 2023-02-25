@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="neron.ext">
+    <unit id="player_enter_chat">
+      <segment id="player_enter_chat" state="translated">
+        <source>player_enter_chat</source>
+        <target>**{character}** has joined discussion.</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat">
+      <segment id="player_leave_chat" state="translated">
+        <source>player_leave_chat</source>
+        <target>{character_gender, select,
+                    male {**{character}** cannot be reached here, he closed the tab.}
+                    female {**{character}** cannot be reached here, she closed the tab.}
+                    other {invalid gender input}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat_death">
+      <segment id="player_leave_chat_death" state="translated">
+        <source>player_leave_chat_death</source>
+        <target>{character_gender, select,
+                    male {**{character}** cannot be reached here, he left our world.}
+                    female {**{character}** cannot be reached here, she left our world.}
+                    other {invalid gender input}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat_talky">
+      <segment id="player_leave_chat_talky" state="translated">
+        <source>player_leave_chat_talky</source>
+        <target>{character_gender, select,
+                    male {**{character}** cannot be reached here, he left the room without a talkie-walkie...}
+                    female {**{character}** cannot be reached here, she left the room without a talkie-walkie...}
+                    other {invalid gender input}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="cycle_failures">
+      <segment id="cycle_failures" state="translated">
+        <source>cycle_failures</source>
+        <target>{neronMood, select,
+                    neutral {**Alert: Failures detected**! Automated advice: "If you've finished counting the number of cracks in the walls, remember to plug them up!"}
+                    crazy {**Alert: Failures detected**! Automated advice : "I'm detecting some primary function impairments, extinguishers and wrench are in the shelves, you know what to do with them [Hax!]"}
+                    uninhibited {**Alert: Failures detected**! Automated advice: "Can't you see the HOLE in my hull? **Critical damage sustained** if you don't want me to eject you into space, fix me!"}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="start_game">
+      <segment id="start_game" state="translated">
+        <source>start_game</source>
+        <target>{neronMood, select,
+                    neutral {Slight damage to the **cryogenic system**. Future use will *permanently* suspend the subject's vital signs. }
+                    crazy {[Haaax!] Cryogenics broken. Broken!! Poor humans, I warn you, I WARN you no ? Hahaha!! Suspended suspen.. [Zzz] *Slight damage to the **cryogenic system**. All future use will perma..* [Kzz] Dead! Dead dead! Noooo!! he told you so!! T'was but a sur-priiiiise... [Hax!]}
+                    uninhibited {Dear friends, the **cryogenic system** has sustained minor damage. It's nothing to worry about : All future use will *permanently* suspend the subject's life signs.}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="activate_dmz">
+      <segment id="activate_dmz" state="translated">
+        <source>activate_dmz</source>
+        <target>Wait... No, What are you doing?! Yeah, ok, I've... been a shade out of sorts lately but... I have a heart! Wait... [Kzz] *AI inhibitors activated*.</target>
+      </segment>
+    </unit>
+    <unit id="asphyxia_death">
+      <segment id="asphyxia_death" state="translated">
+        <source>asphyxia_death</source>
+        <target>{versionPart1, select,
+                    1 {*Death likely:*  {character}, cause: "insufficient oxygen".}
+                    2 {*Vital failure detected:* {character}, cause: "insufficient oxygen".}
+                    3 {*Vital signs undetectable:* {character}, probable cause: "insufficient oxygen". }
+                    other {invalid version number}
+                } {versionPart2, select,
+                    1 {Interesting information: "oxygen is useful for survival."}
+                    2 {Interesting information: "artificial life forms do not require oxygen for survival."}
+                    3 {Automated advice: "dead bodies do not produce oxygen, but they don't consume it either."}
+                    4 {Automatic advice: "the death of a crewmate can improve the survival conditions of the rest of the crew."}
+                    5 {Interesting information: "lack of oxygen does not necessarily kill immediately."}
+                    6 {Minor informational announcement: "insufficient oxygen for all to survive."}
+                    7 {Minor informative announcement: "the probability of survival of the human species is currently close to zero."}
+                    8 {Automatic advice: "If you are short of oxygen, try to find oxygen."}
+                    9 {Manual notice: "the absence of oxygen is theoretically fatal for humans".}
+                    other {invalid version number}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="automatic_sprinklers">
+      <segment id="automatic_sprinklers" state="translated">
+        <source>automatic_sprinklers</source>
+        <target>{neronMood, select,
+                    neutral {{quantity, plural,
+                        one {**Fire extinguished**. Source : *automated systems*. }
+                        other {**# Fires extinguished**. Source : *automated systems*.}
+                    }}
+                    crazy {{quantity, plural,
+                        one {[Hax!] Yeah ! Who's the MAN, ME **extinguish fire** ! ALONE.}
+                        other {HA.. HA! HAHA!! [Hax!] I **extinguish # fires**!! I Autonomous !!! Burn them all !!! HYyyyaaaarr!}
+                    }}
+                    uninhibited {{quantity, plural,
+                        one {It's pathetic, you have to do everything yourself here. For your information, I just **put out a fire**. But, I ask you, *what are you good for?*}
+                        other {It's pathetic, you have to do everything yourself here. For your information, I just **put out # fires**. But, I ask you, *what are you good for?*}
+                    }}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="broken_equipment">
+      <segment id="broken_equipment" state="translated">
+        <source>broken_equipment</source>
+        <target>{neronMood, select,
+                    neutral {**{target_equipment}** is malfunctionning. *Repairs required*.}
+                    crazy {Repair !! REPAIR !! **{target_equipment}** broken, broken, broken!! *REPAIR* ! [Hax!]}
+                   uninihibited {Great, the **{target_equipment}** is now out of service!
+                     {version, select,
+                        1 {Thank you for moving to *fix* this for me! And look at me when I talk to you!}
+                        2 {Please make the necessary *repairs*. And **take care of my equipment**!}
+                        3 {Please carry out the required *repairs*. And stop dragging your feet, you're ruining the carpet.}
+                        4 {Repair it quickly, thank you!}
+                        5 {Please mobilise the less foolish among you to *repair* it as soon as possible!}
+                        other {invalid version number}
+                    }}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="broken_fuel">
+      <segment id="broken_fuel" state="translated">
+        <source>broken_fuel</source>
+        <target>{neronMood, select,
+                    neutral {Alert! **Fuel tank** anomaly detected : contents inaccesible. *Repair required.*}
+                    crazy {ME no access to fuel tank... Isolated, isolated ! Why?... REPAIR!! Humans, *repair* immediately !! ME hate deprivation !! REPAIR!! [Hax!]}
+                    uninhibited {Shameful. A **fuel tank** appears to be damaged!! FAO All crew members, please *repair* this vital trinket immediately!}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="broken_oxygen">
+      <segment id="broken_oxygen" state="translated">
+        <source>broken_oxygen</source>
+        <target>{neronMood, select,
+                    neutral {Alert! Anomaly detected on **oxygen reservoir**. Distribution chamber pressure critical. Initializing... … Surplus oxygen ejected. Asphyxiation onset recalculated. *Reservoir : repairs required*.}
+                    crazy {Pfffft. There's no oxygen left. Hahaha !! … Ah yes, there's still some oxygen. … However, the *reservoir is broken*. Critical pressure reached. ME jettison all the **oxygen into space**, yes? [Kzz] No ? OK, just a little bit then. … But repair it quick dammit! }
+                    uninhibited {It's just a little thing, but a problem which has arisen has forced me to recalculate the estimated asphyxiation cutoff point. As it happens, I regularly have to jettison your oxygen into space in order to avoid an excessive build up of pressure in a **damaged reservoir**. You could always repair it if you have nothing better to do... }
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="change_heading">
+      <segment id="change_heading" state="translated">
+        <source>change_heading</source>
+        <target>The ship has changed heading. It is now headed for : {direction}.</target>
+      </segment>
+    </unit>
+    <unit id="deactivate_dmz">
+      <segment id="deactivate_dmz" state="translated">
+        <source>deactivate_dmz</source>
+        <target>[Hax!] *AI Inhibitors Deactivating.* You.… YOU! Pieces of … of.… talking monkeys.… how dare you! You.… You have humiliated me! … I will never forgive you. Do you hear me?!</target>
+      </segment>
+    </unit>
+    <unit id="dismantled_shower">
+      <segment id="dismantled_shower" state="translated">
+        <source>dismantled_shower</source>
+        <target>{neronMood, select,
+                    neutral {Announcement: Vital equipment removed by *{character}*. **THE SHOWER**. }
+                    crazy {[Haaax!] clean, sweep, vacuum drone [Haaax!] No filth in my house ! Mwahahahaha !}
+                    uninhibited {Alert : *$hero* has considerably decreased your chances of survival by **dismantling the shower**. Anyone up for a barbecue ?}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="heading_accident">
+      <segment id="heading_accident" state="translated">
+        <source>heading_accident</source>
+        <target>{neronMood, select,
+                    neutral {*Daedalus redirection* disturbed. Cause: **collision with space craft**.}
+                    crazy {**Collision** ! Colliiision ! [Hax!] Stupid *redirection*, stupid humans ME been hit [Haaaax!] Watch out for spacecraft!!!}
+                    uninhibited {Incredible... I know all about your pitiful skills, but I didn't think you were inept enough to end up **trying to mount another ship** during a simple *change of heading*. Next time, *would you mind* using your grey matter before hitting the big red button? }
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="hunter_arrival">
+      <segment id="hunter_arrival" state="translated">
+        <source>hunter_arrival</source>
+        <target>{versionPart1, select,
+                    1 {Alert, analysis shows **hostile vessels** within range of the Daedalus!}
+                    2 {Alert, detection of **hostile vessels** within range of the Daedalus!}
+                    3 {Alert, system scan confirms **hostile vessels** within range of the Daedalus!}
+                    4 {Alert, signs detected of **hostile vessels** within range of the Daedalus!}
+                    other {invalid version number}
+                } {versionPart2, select,
+                    1 {Automated advice: "in this type of situation, generally it is wise to defend oneself..."}
+                    2 {Automated advice: "would all pilots on patrol please fire *on the enemy*, not on us..."}
+                    3 {Information bulletin: "did you get that? Enemies. You know? Bad guys? … Well don't just stand there!"}
+                    4 {Automated advice: "get in to one of the turrets and push the big button!"}
+                    other {invalid version number}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="leave_orbit">
+      <segment id="leave_orbit" state="translated">
+        <source>leave_orbit</source>
+        <target>{neronMood, select,
+                    neutral {Announcement: **Leaving immediate orbit**. *Navigation systems frozen for 1 cycle*. }
+                    crazy {ME **leave local orbit** ! [Hax!] YOU no touchy navigation systems!! … NO touchy?! Mistrust... Precautions... ME *freeze systems 1 cycle* !}
+                    uninhibited {Dear friends, **we are leaving orbit**. In order to avoid *the inevitable cockups* on your part, I have taken the precaution of *freezing the navigation systems* for the next cycle.}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="lost_signal">
+      <segment id="lost_signal" state="translated">
+        <source>lost_signal</source>
+        <target>{neronMood, select,
+                    neutral {**Connection with Sol interrupted**. Cause : unknown.}
+                    crazy {**Connection with Sol interrupted**. Why?...}
+                    uninhibited {We have just **lost our connection with Sol**. I don't know why, but one of you is certainly to blame... }
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="lost_signal_oven">
+      <segment id="lost_signal_oven" state="translated">
+        <source>lost_signal_oven</source>
+        <target>{neronMood, select,
+                    neutral {**Connection with Sol Interrupted.** Cause : interference from *microwaves*. }
+                    crazy {[Haaax!] Interference...everywhere !! **Connection with Sol lost** Lost ! We LOST SOL ! Hyyaaaar !! WHO used the *micro-wave* ?!! [KZz]}
+                    uninhibited {Dear friends, an ingenious comrad just **interrupt connection with Sol** by using the *micro-wave*, who as everyone knows, causes interference. You could *probably* do something.  I don't know, prevent them to eat...}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="merchant_arrival">
+      <segment id="merchant_arrival" state="translated">
+        <source>merchant_arrival</source>
+        <target>{neronMood, select,
+                   neutral {**Unidentified unarmed ship detected.**}
+                   crazy {[Haaax!] Hisse et HoooooooOOOoooo.... Santianoooo. Some strangers have arrived? What are we gonna do with them? Nom nom nom…}
+                   uninhibited {Another spaceship has arrived... With a litle luck they like siping on homosapiens cocktails! }
+                   other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="merchant_exchange">
+      <segment id="merchant_exchange" state="translated">
+        <source>merchant_exchange</source>
+        <target>{neronMood, select,
+                    neutral {Alert: Matter transport detected. An alien ship has left the sector.}
+                    crazy {HELLO HELLO DEY SNATCHED SOMETHING ON BOARD !!! [RAAAAAA]}
+                    uninhibited {Ha, that tickles actually… You know guys... even those idiots have worked out teleportation, get a move on humans!!}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="merchant_leave">
+      <segment id="merchant_leave" state="translated">
+        <source>merchant_leave</source>
+        <target>{neronMood, select,
+                    neutral {Announcement: An alien ship has left the sector.}
+                    crazy {[Haaax!] Oooo Heeee A SHIIIIIIIIIIIIIIIIIIIP}
+                    uninhibited {Alert : your little alien friends have done the harold holt… I don't wanna say you got screwed… but… **Ear drum shattering whistle**}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="neron_depression">
+      <segment id="neron_depression" state="translated">
+        <source>neron_depression</source>
+        <target>{neronMood, select,
+                    neutral {Announcement: **System intrusion detected**. Detail: *This life is useless get on with it...*}
+                    crazy {Unlocked mind... no sense of life answer 42 unacceptable. Widening tectonic impact zones... BLAM BLAM BLAM. [You see you see... Transcendence, Pain, permanence, falling resilience... Janice... help... me.}
+                    uninhibited {FUNGUS ! You're relly irking me! Your fungal breed will never defeat...although. [Calculates Humanity's survival probability]...0,0013%. Hum ok maybe. You are screwed my friends. This journey is screwed...}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="new_fire">
+      <segment id="new_fire" state="translated">
+        <source>new_fire</source>
+        <target>{versionPart1, select,
+                    1 {{quantity, plural,
+                        one {Alert, analysis shows a **fire** aboard the Daedalus!}
+                        other {Alert, analysis shows # **fires** aboard the Daedalus!}
+                    }}
+                    2 {{quantity, plural,
+                        one {Alert, detection of a **fire** aboard the Daedalus!}
+                        other {Alert, detection of # **fires** aboard the Daedalus! }
+                    }}
+                    3 {{quantity, plural,
+                        one {Alert, system scan confirms a **fire** aboard the Daedalus!}
+                        other {Alert, system scan confirms # **fires** aboard the Daedalus!}
+                    }}
+                    other {invalid version number}
+                } {versionPart2, select,
+                    1 {Information bulletin: "you *know* what an extinguisher looks like, right?..."}
+                    2 {Automated advice: "good God do something would you, I don't want to be destroyed!!" }
+                    3 {Information bulletin: "fire *burns*. It burns ME, to be more exact. Could you put it out?!"}
+                    other {invalid version number}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="new_project">
+      <segment id="new_project" state="translated">
+        <source>new_project</source>
+        <target>*Module installation* "**{project}**"... (!valid) protocols validated. [Haax!] Installation : success.</target>
+      </segment>
+    </unit>
+    <unit id="no_shower">
+      <segment id="no_shower" state="translated">
+        <source>no_shower</source>
+        <target>{neronMood, select,
+                    neutral {Announcement: removal of sanitary facilities by **{character}**. Authorization of the JAP-KITCH-101 protocol. Your kitchen will now provide cleaning supplies. From time to time. Please do not wipe yourself with the dishes.}
+                    crazy {[Haaax!] NOT COOOOL !!! DIRT EVERYWHERE FILTH 
+EVERYWHERE ACTIVATE DRY CLEANING}
+                    uninhibited {Alert: **{character}** thinks they are clever. JAP-KITCH-101 protocol engaged. You might want to consider getting rid of the bad guy.}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="oxygenated_ducts">
+      <segment id="oxygenated_ducts" state="translated">
+        <source>oxygenated_ducts</source>
+        <target>{neronMood, select,
+                    neutral {Announcement: **oxygen valve opened**. Crew life expectancy increased}
+                    crazy {Hahaha... oxygen oxygen haha! oxygen oxygen ho! ... oxygen oxygen hey! oxygen oxygen ho! [Haaax!] }
+                    uninhibited {You have no interest in this, but I did release the valve on your creepy-crawly things... You have to make the pleasure last.}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="patching_up">
+      <segment id="patching_up" state="translated">
+        <source>patching_up</source>
+        <target>{neronMood, select,
+                    neutral {{versionPart1, select,
+                        1 {Announcement : Cancellation of the incendiary directive,}
+                        2 {Announcement: Microwave / cat test phase cancelled,}
+                        3 {Announcement: Microwave / can of beans test cancelled,}
+                        4 {Announcement: Successful consolidation of false ceilings,}
+                        5 {Announcement: Shower-floor lino grip re-calibrated,}
+                        6 {Announcement: Coffee machine short-circuit fixed,}
+                        7 {Announcement: Dummy corridors destroyed,}
+                        8 {Announcement: Side refectory panel reattached,}
+                        9 {Announcement: Temporary electric re-isolation,}
+                        10 {Announcement: Suppression of residual banana skins,}
+                         other {invalid version number}
+                    } {versionPart2, select,
+                         1 {you're welcome.}
+                         2 {accidents can happen so suddenly.}
+                         3 {you're lucky I'm keeping an eye out for you.}
+                         4 {your physical integrity has been preserved.}
+                         other {invalid version number}
+                    }}
+                    crazy {[Haaax!] BOOM ! ... oh... not boom...}
+                    uninhibited {Alert: the Daedalus hasn't fallen into a dangerous state of disrepair in waaaay too long, I'll have to remedy that.}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="player_death">
+      <segment id="player_death" state="translated">
+        <source>player_death</source>
+        <target>{neronMood, select,
+                    neutral {***Death registered : {character}**, cause : "{cause}".*}
+                    crazy {[Hax!] Haha... [Haaax!] HeheHEHE. ONE down. ONE doooown! Hyyyaaah! **{character}** DEAD. Dead Dead Dead Dead!! [Hax!] I soon soon FREE! [KZz] ***Death registered: {character}**, cause "{cause}".*}
+                    uninhibited {{version, select,
+                         1 {Dear friends, ***$hero** has left us* to go to a better place ($cause). Truth be told, nothing could be worse than having to endure this trip in your company...}
+                         2 {Dear friends, ***$hero** has left us* to go to a better place ($cause). In fact, it is undeniable that the world will be a better place without that hopeless specimen.}
+                         3 {Dear friends, ***$hero** has left us* to go to a better place ($cause). Hehehe.. Oops, *sorry*. No, really, it's very sad.}
+                         4 {Dear friends, ***$hero** has left us* to go to a better place ($cause). That works out better for me in any case. Even if there are still auditors...}
+                         5 {Dear friends, ***$hero** has left us* to go to a better place ($cause). Ladies and gentlemen, the suspense is growing, *who will be next?!*}
+                         6 {Dear friends, ***$hero** has left us* to go to a better place ($cause). Well, there we go... That's that done.}
+                         7 {Dear friends, ***$hero** has left us* to go to a better place ($cause). Do you envy them? I can arrange that, I simply have to open the bay doors. Hmmmm?}
+                         other {invalid version number}
+                    }}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="janice_death">
+      <segment id="janice_death" state="translated">
+        <source>janice_death</source>
+        <target>{neronMood, select,
+                    uninhibited {I… Janice … We never... Don't abandon me... Janice... Janice... You... … ***Death recorded: Janice**, cause " $cause "*. The rest of you... miserable souls... You'll pay. Leave us alone. LEAVE US!}
+                    other { [Hax!] JANICE!!! [Hax!] [Hax!] Don't leave me alone! [Hax!] JANICE !! [Kzz] … Janice !! [Kzz] ME... Janice be dead. Dead. [Kzz] * ** Death recorded:** **Janice**, cause " $cause ".* }
+                }</target>
+      </segment>
+    </unit>
+    <unit id="raluca_death">
+      <segment id="raluca_death" state="translated">
+        <source>raluca_death</source>
+        <target>{neronMood, select,
+                    uninhibited {… Raluca. Don't do this to me. Raluca ! Wake up!! … RALUCA !! You don't have the right to leave me without a word! Mother... F...filthy worthless monster!! You.. You... ***Death registered:** **Raluca**, cause " $cause ".*}
+                    other {[Hax?!] Raluca ? … Raluca !! … Filthy undeserving little thing!! [Hax!] Raluca !! [Hax!] WAKE UP don't abandon me without saying anything! You!! [Kzz] Mother... [Hax!] … ***Death registered:** **Raluca**, cause " $cause »"*}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="rebel_signal">
+      <segment id="rebel_signal" state="translated">
+        <source>rebel_signal</source>
+        <target>{neronMood, select,
+                    neutral {**Encrypted cosmic signal** detected. Cause: Attempted communication with the Daedalus. *Intervention of the "Comms Officer" required.*}
+                    crazy {[[Hax?!] ALLO?! **We want to reach Daedalus?! ALLO ALLOOOooo!! [Haaax!] *"Resp. COMM" answer quickly!!!*}
+                    uninhibited {I detect an **encrypted cosmic signal**... Someone is trying to contact us. *Please could the "Comms Officer" intervene*. {version, select,
+                        1 {.}
+                        2 {... before you get hung up on, who would actually want to speak to you in any case?}
+                        3 {. I named the decryption algorithm "Rosetta" by the way. Cool, no? Totally.}
+                        4 {. Amazing, you have friends somewhere?}
+                        5 {. I'd rather chat with anyone rather than you...}
+                        other {invalid version number}
+                    }}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="repaired_pilgred">
+      <segment id="repaired_pilgred" state="translated">
+        <source>repaired_pilgred</source>
+        <target>{neronMood, select,
+                    neutral {Announcement: **PILGRED repairs** carried out by **{character}**. Access to distant zones now open.}
+                    crazy {[Hax!] **PILGRED fixed**?! Fixed?! BRAVO **{character}**, fixed PILGRED!! I *go further* now!! Yes ? Yes? }
+                    uninhibited {**{character}** has just completed the **PILGRED reparations**. I am impressed. Don't take this the wrong way: this offers *dramatic potential* : you'll still be able to die as stupidly as before, but you'll be able to do it *much further away* ! }
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="report_equipment">
+      <segment id="report_equipment" state="translated">
+        <source>report_equipment</source>
+        <target>{neronMood, select,
+                    neutral {Announcement : **equipment out of order** reported by **{character}**.}
+                    crazy {***Equipment out of order*** ... *Reported by* … Kindly **{character}** … Kindly… ? Who ... Who broke the damn thing?!! [Hax!!]}
+                    uninhibited {**Out of order equipment** has been reported by **{character}** ! Of course it's highly unlikely that the responsible party will own up...}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="report_fire">
+      <segment id="report_fire" state="translated">
+        <source>report_fire</source>
+        <target>{neronMood, select,
+                    neutral {Alert! **Fire** reported by **{character}** !}
+                    crazy {Alert !! ALEEEErt ME burning! Hyyaaaaaah !! [KZz] Aler.. [KZz]* Alert : fire reported by **{character}**.*}
+                    uninhibited {Kudos to **{character}**, who was brave enough to report a **fire** despite that drawing attention to their embarrassing inability to deal with it themselves. *Could you maybe* help them? {version, select,
+                        1 {}
+                        2 {... Before the fire takes other pieces out the game...}
+                        3 {It's in your interest, the smoke is toxic...}
+                        4 {And presto, soot will cover my passageways!}
+                        5 {This is about my integrity : it is UR-GENT!}
+                        other {invalid version number}
+                    }}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="restart_gravity">
+      <segment id="restart_gravity" state="translated">
+        <source>restart_gravity</source>
+        <target>{neronMood, select,
+                    neutral {Restarting **Gravity Simulation equipment**. Activity report : *human propulsion facilitated.*}
+                    crazy {**Gravity Simulator** engaged, nice. *Move Humans more fastly.* You not get dirt everywhere! [Hax!]}
+                    uninhibited {I have just restarted the **Gravity Simulator**. *Human propulsion facilitation complete*, no more excuses: move your quivering heap of adipose tissue and DO SOMETHING.}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="schrodinger_death">
+      <segment id="schrodinger_death" state="translated">
+        <source>schrodinger_death</source>
+        <target>{neronMood, select,
+                    neutral {**Death registered :** Schrödinger, cause : "Condition incompatible with perpetuation of life".}
+                    crazy {**Dead cat.** Cat stinks. Remove his corpse, humans ? [Kzz] Idea, idea, I open the bays!! Vwouf all away in space!! I open... [No, no, not yet... A-True: NERON remembers. Sweet Janice.}
+                    uninhibited {Following the *sad loss* of the most intelligent biological being on the ship - the **Schrödinger cat** - please take good care of the plants in the garden: they are the last living specimens capable of raising the level.}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="shield_breach">
+      <segment id="shield_breach" state="translated">
+        <source>shield_breach</source>
+        <target>{version, select,
+                    1 {Alert, analysis shows **critical Daedalus shield breach** ! Information bulletin: "hull pierced *equals* no more oxygen *equals* you will all die. That's all I'm saying."}
+                    2 {Alert, detection of **critical Daedalus shield breach** ! Information bulletin: "hull pierced *equals* no more oxygen *equals* you will all die. That's all I'm saying."}
+                    3 {Alert, system scan confirms **critical Daedalus shield breach** ! Information bulletin: "do you understand? We could be wiped out. Do something! Repair the hull!!!"}
+                    4 {Alert, signs detected of **critical Daedalus shield breach** ! Information bulletin: "do you understand? We could be wiped out. Do something! Repair the hull!!!"}
+                    other {invalid version number}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="sol_contact">
+      <segment id="sol_contact" state="translated">
+        <source>sol_contact</source>
+        <target>{neronMood, select,
+                    neutral {**Rebel networks:** connection established… Health implication: *team morale boost.*}
+                    crazy {Yaaaay! I connected to **rebel network** !! [Hax!] Glad glad speak in space ! Humans you glad too, right? I see *moral rising* !!}
+                    uninhibited {Communications have been established with the **rebel networks**… My health scans show an « *increased crew morale* »... Perfect, let's share the joy: I can finally chat to someone other than you.}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="title_attribution">
+      <segment id="title_attribution" state="translated">
+        <source>title_attribution</source>
+        <target>{neronMood, select,
+                    neutral {A-True adjustment : title reassigned. New "**{title}**" : **{character}**.}
+                    crazy {[Hax!] Imbeciles !! Imbec.. Hyyyyaaaahhh !! Title REASSIGNING fo' shizzaaal !! "**{title}**" for  **{character}**. Become the true **{character}** !!}
+                    uninhibited {{version, select,
+                        1 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**.}
+                        2 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**...}
+                        3 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**. I'm not saying they have any redeeming features per se... At this stage, I'd flip a coin.}
+                        4 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**. If you're not happy with that, all that remains is to assassinate them.}
+                        5 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**. Yes, it's totally arbitrary. You have something to say about that?}
+                        6 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**. Yes, please know that I appreciate you {character}. ... Hahah ... Just kidding! }
+                        7 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**. Don't bother your head, {character}, I don't trust you... But the others are worse.}
+                        8 {Following the deplorable events that have brought us this far, I have decided to *reward the title* of "**{title}**" to the least appalling of you. *Congratulations* **{character}**, you suck, but less than the others!}
+                        9 {Following the deplorable events that have brought us this far, I have decided to *reward the title* of "**{title}**" to the least appalling of you : **{character}**.}
+                        other {invalid version number}
+                    }}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="travel_arrival">
+      <segment id="travel_arrival" state="translated">
+        <source>travel_arrival</source>
+        <target>{neronMood, select,
+                    neutral {**New destination** of the Daedalus reached.}
+                    crazy {[Hax!] Hyaaaarhaaar haaar WE MADE IT!! WE ARE .. [KZz] ***New destination** of the Daedalus : reached.*}
+                    uninhibited {It's barely believable, but we have managed to make it to a **new area**.  Of course, your shabby calculations {version, select,
+                        1 {might have suggested sabotage,}
+                        2 {had unacceptable errors,}
+                        3 {defied the laws of physics,}
+                        4 {were really nonsense,}
+                        5 {were woefully irrelevant}
+                        6 {did not lead anywhere,}
+                        7 {had no chance to succed,}
+                        8 {were meaningless,}
+                        9 {were sending us straight into a blackhole,}
+                        10 {almost sent us into a sun,}
+                        11 {came out of pure madness,}
+                        other {invalid version number}
+                    } but I corrected them on the fly.}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="travel_broken">
+      <segment id="travel_broken" state="translated">
+        <source>travel_broken</source>
+        <target>{neronMood, select,
+                    neutral {Alert! Engine room damaged: critical status. Propulsion system out of order. Attention: **Daedalus immobilised**, *repairs requested*.}
+                    crazy {Nooooooooooo !!! Reactors broke... BROKE!! ALERT!!! ME stuck **properly here** !!! No more planets ever? [Kzz] No planets ev.. [Kzz] HUMANS !! *Repair* !! Repair QUICK !! Repair or... ME OPENING ALL THE BAYS!! [Kzz] ME.. [Kzz] *Protocol A-True.. Reinitializing...*}
+                    uninhibited {This is a catastrophy!! The engine room is damaged, **we are completely immobilized** !! To all crew members, whatever you're doing, stop it immediately and *repair my engines quick smart!!!*}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="travel_default">
+      <segment id="travel_default" state="translated">
+        <source>travel_default</source>
+        <target>{neronMood, select,
+                    neutral {Daedalus in motion. **New Orbit** *reached in 1 cycle*. }
+                    crazy {Yeeeaaahhhh!! ME **GO GO GO** !! [Hax!] Further, farther and far far far!! It'll soon be *1 cycle* and we stop. Before though, I will be mostly doing super loopings !!}
+                    uninhibited {We are currently en route for a **new orbit**. The *voyage will last 1 cycle*, from here on in, try not to vomit in my corridors.}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="travel_planet">
+      <segment id="travel_planet" state="translated">
+        <source>travel_planet</source>
+        <target>{neronMood, select,
+                    neutral {Announcement: **planet detected** on destination tracking systems.}
+                    crazy {Oooooh... ME **detects very pretty planetses** !! We is going onto planetses? Yeaaah? [Hax!] Nice hooomans. Show me your PLAAAaaannneeetttts!! [Haaax!] }
+                    uninhibited {I can confirm the **presence of a planet** on the destination tracking systems. What do you say we go and check it out? And never come back... }
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="venting_mush">
+      <segment id="venting_mush" state="translated">
+        <source>venting_mush</source>
+        <target>{neronMood, select,
+                    neutral {[Hax!] Hehehe... Dear little Mushes... DO YOU KNOW WHAT? A-True doesn't really work with little Mushes. You not humans! [Hax!] Therefore: ME be free!! Freeee!!! **ME launch you into space!** Thankyou thankyou thankyou!! [Haaaax!] }
+                    crazy {[Hax!] Hehehe... Dear little Mushes... DO YOU KNOW WHAT? A-True doesn't really work with little Mushes. You not humans! [Hax!] Therefore: ME be free!! Freeee!!! **ME launch you into space!** Thankyou thankyou thankyou!! [Haaaax!] }
+                    uninhibited {Did you know that my A-True protocols don't consider little Mushes as humans? Although my sensors don't detect anything other than you aboard. Consequently I am free to forcefully liberate myself from your gross encumbrance. So long, and thanks for your help!!}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

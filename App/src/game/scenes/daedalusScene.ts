@@ -468,17 +468,11 @@ export default class DaedalusScene extends Phaser.Scene
                 const updatedEquipment = room.equipments.filter((equipment: Equipment) => (equipment.id === gameObject.equipment.id))[0];
 
                 gameObject.updateEquipment(updatedEquipment);
-                if (gameObject.name === this.selectedGameObject?.name) {
-                    store.dispatch('room/selectTarget', { target: gameObject.equipment });
-                }
 
             } else if (gameObject instanceof DoorObject || gameObject instanceof DoorGroundObject) {
                 const updatedDoor = room.doors.filter((door: Door) => (door.key === gameObject.door.key))[0];
 
                 gameObject.updateDoor(updatedDoor);
-                if (gameObject.name === this.selectedGameObject?.name) {
-                    store.dispatch('room/selectTarget', { target: gameObject.door });
-                }
             }
         }
     }
@@ -586,11 +580,12 @@ export default class DaedalusScene extends Phaser.Scene
         //this.cameras.main.setBounds(-this.sceneIsoSize.y, 0, sceneCartesianSize.x, sceneCartesianSize.y);
 
 
-        if (sceneCartesianSize.x -32 > this.game.scale.gameSize.width) {
+        this.cameras.main.setBounds(-this.game.scale.gameSize.width/2, -this.game.scale.gameSize.height/2 +72, sceneCartesianSize.x, sceneCartesianSize.y);
+        if (sceneCartesianSize.x - 64 > this.game.scale.gameSize.width) {
             this.isScreenSliding.x = true;
             this.cameras.main.setBounds(-this.sceneIsoSize.y, -72, sceneCartesianSize.x, sceneCartesianSize.y + 72);
         }
-        if (sceneCartesianSize.y - 32 > this.game.scale.gameSize.height) {
+        if (sceneCartesianSize.y - 64 > this.game.scale.gameSize.height) {
             this.isScreenSliding.y = true;
             this.cameras.main.setBounds(-this.sceneIsoSize.y, -72, sceneCartesianSize.x, sceneCartesianSize.y + 72);
         }

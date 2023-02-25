@@ -27,10 +27,10 @@ class TryKubeTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::TRY_KUBE, 1);
 
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->action = new TryKube(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -42,7 +42,7 @@ class TryKubeTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testUnsuccessful()
@@ -53,12 +53,9 @@ class TryKubeTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
-        $gameItem
-            ->setHolder($room)
-        ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -80,12 +77,9 @@ class TryKubeTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
-        $gameItem
-            ->setHolder($room)
-        ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 

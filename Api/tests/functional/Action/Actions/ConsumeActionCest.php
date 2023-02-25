@@ -6,22 +6,30 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class ConsumeActionCest
 {
@@ -34,10 +42,16 @@ class ConsumeActionCest
 
     public function testConsume(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -46,31 +60,38 @@ class ConsumeActionCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 5,
-            'healthPoint' => 5,
-            'moralPoint' => 5,
-            'movementPoint' => 5,
-            'satiety' => 0,
-            'characterConfig' => $characterConfig,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(5)
+            ->setHealthPoint(5)
+            ->setMoralPoint(5)
+            ->setMovementPoint(5)
+        ;
+        $I->flushToDatabase($player);
 
-        $actionCost = new ActionCost();
-        $I->haveInRepository($actionCost);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $consumeActionEntity = new Action();
         $consumeActionEntity
-            ->setName(ActionEnum::CONSUME)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::CONSUME)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
-        $consumeActionEntity->setActionCost($actionCost);
 
         $I->haveInRepository($consumeActionEntity);
 
         $ration = new Ration();
-        $ration->setActions(new ArrayCollection([$consumeActionEntity]));
+        $ration
+            ->setActions(new ArrayCollection([$consumeActionEntity]))
+            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
@@ -88,20 +109,16 @@ class ConsumeActionCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$ration]),
-            'place' => $room,
-            'name' => 'ration',
+            'name' => GameRationEnum::STANDARD_RATION,
         ]);
-
-        $equipmentConfig
-            ->setMechanics(new ArrayCollection([$ration]))
-            ->setName('ration')
-        ;
 
         $I->haveInRepository($equipmentConfig);
 
-        $gameItem = new GameItem();
+        $gameConfig->addEquipmentConfig($equipmentConfig);
+        $I->refreshEntities($gameConfig);
+
+        $gameItem = new GameItem($room);
         $gameItem
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName('ration')
         ;
@@ -123,10 +140,16 @@ class ConsumeActionCest
 
     public function testConsumeWithNegativeSatiety(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -135,31 +158,39 @@ class ConsumeActionCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 5,
-            'healthPoint' => 5,
-            'moralPoint' => 5,
-            'movementPoint' => 5,
-            'satiety' => -7,
-            'characterConfig' => $characterConfig,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(5)
+            ->setHealthPoint(5)
+            ->setMoralPoint(5)
+            ->setMovementPoint(5)
+            ->setSatiety(-7)
+        ;
+        $I->flushToDatabase($player);
 
-        $actionCost = new ActionCost();
-        $I->haveInRepository($actionCost);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $consumeActionEntity = new Action();
         $consumeActionEntity
-            ->setName(ActionEnum::CONSUME)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::CONSUME)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
-        $consumeActionEntity->setActionCost($actionCost);
 
         $I->haveInRepository($consumeActionEntity);
 
         $ration = new Ration();
-        $ration->setActions(new ArrayCollection([$consumeActionEntity]));
+        $ration
+            ->setActions(new ArrayCollection([$consumeActionEntity]))
+            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
@@ -183,14 +214,13 @@ class ConsumeActionCest
 
         $equipmentConfig
             ->setMechanics(new ArrayCollection([$ration]))
-            ->setName('ration')
+            ->setEquipmentName('ration')
         ;
 
         $I->haveInRepository($equipmentConfig);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $gameItem
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName('ration')
         ;
@@ -212,10 +242,33 @@ class ConsumeActionCest
 
     public function testMushConsume(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $mushConfig = new StatusConfig();
+        $mushConfig
+            ->setStatusName(PlayerStatusEnum::MUSH)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($mushConfig);
+
+        $fullStomach = new StatusConfig();
+        $fullStomach
+            ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($fullStomach);
+
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig->setStatusConfigs(new ArrayCollection([$mushConfig, $fullStomach]));
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -224,41 +277,39 @@ class ConsumeActionCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 5,
-            'healthPoint' => 5,
-            'moralPoint' => 5,
-            'movementPoint' => 5,
-            'satiety' => 0,
-            'characterConfig' => $characterConfig,
         ]);
-
-        $mushConfig = new StatusConfig();
-        $mushConfig
-            ->setName(PlayerStatusEnum::MUSH)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(5)
+            ->setHealthPoint(5)
+            ->setMoralPoint(5)
+            ->setMovementPoint(5)
         ;
-        $I->haveInRepository($mushConfig);
+        $I->flushToDatabase($player);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
         $mushStatus = new Status($player, $mushConfig);
         $I->haveInRepository($mushStatus);
 
-        $actionCost = new ActionCost();
-        $I->haveInRepository($actionCost);
-
         $consumeActionEntity = new Action();
         $consumeActionEntity
-            ->setName(ActionEnum::CONSUME)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::CONSUME)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
-        $consumeActionEntity->setActionCost($actionCost);
-
         $I->haveInRepository($consumeActionEntity);
 
         $ration = new Ration();
-        $ration->setActions(new ArrayCollection([$consumeActionEntity]));
+        $ration
+            ->setActions(new ArrayCollection([$consumeActionEntity]))
+            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
@@ -269,13 +320,6 @@ class ConsumeActionCest
         ;
         $I->haveInRepository($effect);
 
-        $statusDirty = new StatusConfig();
-        $statusDirty
-            ->setName(PlayerStatusEnum::FULL_STOMACH)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($statusDirty);
-
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$ration]),
@@ -285,14 +329,13 @@ class ConsumeActionCest
 
         $equipmentConfig
             ->setMechanics(new ArrayCollection([$ration]))
-            ->setName('ration')
+            ->setEquipmentName('ration')
         ;
 
         $I->haveInRepository($equipmentConfig);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $gameItem
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName('ration')
         ;

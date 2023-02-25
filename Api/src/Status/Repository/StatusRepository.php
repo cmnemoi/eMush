@@ -15,6 +15,9 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 
+/**
+ * @template-extends ServiceEntityRepository<Status>
+ */
 class StatusRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -51,11 +54,11 @@ class StatusRepository extends ServiceEntityRepository
             if (is_array($name)) {
                 $queryBuilder
                     ->join(StatusConfig::class, 'status_config', Join::WITH, 'status_config = status.statusConfig')
-                    ->andWhere($queryBuilder->expr()->in('status_config.name', ':name'));
+                    ->andWhere($queryBuilder->expr()->in('status_config.statusName', ':name'));
             } else {
                 $queryBuilder
                     ->join(StatusConfig::class, 'status_config', Join::WITH, 'status_config = status.statusConfig')
-                    ->andWhere($queryBuilder->expr()->eq('status_config.name', ':name'));
+                    ->andWhere($queryBuilder->expr()->eq('status_config.statusName', ':name'));
             }
             $queryBuilder->setParameter('name', $name);
         }

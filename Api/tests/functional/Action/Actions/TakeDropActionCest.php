@@ -8,24 +8,31 @@ use Mush\Action\Actions\Drop;
 use Mush\Action\Actions\Hide;
 use Mush\Action\Actions\Take;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class TakeDropActionCest
 {
@@ -42,10 +49,17 @@ class TakeDropActionCest
 
     public function testTakeDropItem(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var CharacterConfig $characterConfig */
@@ -54,45 +68,42 @@ class TakeDropActionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(0)
-            ->setMovementPointCost(0)
-            ->setMoralPointCost(0);
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionTake = new Action();
         $actionTake
-            ->setName(ActionEnum::TAKE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $actionDrop = new Action();
         $actionDrop
-            ->setName(ActionEnum::DROP)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($actionTake);
         $I->haveInRepository($actionDrop);
 
-        /** @var EquipmentConfig $itemConfig */
+        /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$actionTake, $actionDrop])]);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($itemConfig)
             ->setName('shower')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameItem);
 
@@ -111,8 +122,9 @@ class TakeDropActionCest
         $I->assertCount(0, $player->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
-            'player' => $player->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::TAKE,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -132,8 +144,9 @@ class TakeDropActionCest
         $I->assertCount(0, $player->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
-            'player' => $player->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::DROP,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -141,10 +154,27 @@ class TakeDropActionCest
 
     public function TakeDropHeavyItem(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $burdenedStatusConfig = new StatusConfig();
+        $burdenedStatusConfig
+            ->setStatusName(PlayerStatusEnum::BURDENED)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($burdenedStatusConfig);
+
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$burdenedStatusConfig]))
+        ;
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var CharacterConfig $characterConfig */
@@ -153,54 +183,50 @@ class TakeDropActionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $burdenedStatusConfig = new StatusConfig();
-        $burdenedStatusConfig->setName(PlayerStatusEnum::BURDENED)->setGameConfig($gameConfig);
-        $I->haveInRepository($burdenedStatusConfig);
-
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(0)
-            ->setMovementPointCost(0)
-            ->setMoralPointCost(0);
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionTake = new Action();
         $actionTake
-            ->setName(ActionEnum::TAKE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $actionDrop = new Action();
         $actionDrop
-            ->setName(ActionEnum::DROP)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($actionTake);
         $I->haveInRepository($actionDrop);
 
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$actionTake, $actionDrop])]);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($itemConfig)
             ->setName('shower')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameItem);
 
         $heavyConfig = new StatusConfig();
-        $heavyConfig->setName(EquipmentStatusEnum::HEAVY)->setGameConfig($gameConfig);
+        $heavyConfig
+            ->setStatusName(EquipmentStatusEnum::HEAVY)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($heavyConfig);
         $heavyStatus = new Status($gameItem, $heavyConfig);
         $I->haveInRepository($heavyStatus);
@@ -221,8 +247,9 @@ class TakeDropActionCest
         $I->assertCount(1, $gameItem->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
-            'player' => $player->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::TAKE,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -243,8 +270,9 @@ class TakeDropActionCest
         $I->assertCount(1, $gameItem->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
-            'player' => $player->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::DROP,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -252,10 +280,27 @@ class TakeDropActionCest
 
     public function TakeHiddenItem(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $hiddenConfig = new StatusConfig();
+        $hiddenConfig
+            ->setStatusName(EquipmentStatusEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($hiddenConfig);
+
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$hiddenConfig]))
+        ;
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var CharacterConfig $characterConfig */
@@ -264,43 +309,38 @@ class TakeDropActionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(6)
+            ->setHealthPoint(2)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(0)
-            ->setMovementPointCost(0)
-            ->setMoralPointCost(0);
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionTake = new Action();
         $actionTake
-            ->setName(ActionEnum::TAKE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
-
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($actionTake);
 
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$actionTake])]);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($itemConfig)
             ->setName('shower')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameItem);
 
-        $hiddenConfig = new StatusConfig();
-        $hiddenConfig->setName(EquipmentStatusEnum::HIDDEN)->setGameConfig($gameConfig);
-        $I->haveInRepository($hiddenConfig);
         $hiddenStatus = new Status($gameItem, $hiddenConfig);
         $hiddenStatus->setTarget($player);
         $I->haveInRepository($hiddenStatus);
@@ -319,8 +359,9 @@ class TakeDropActionCest
         $I->assertCount(0, $gameItem->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
-            'player' => $player->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::TAKE,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -328,10 +369,33 @@ class TakeDropActionCest
 
     public function HideHeavyItemInInventory(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $hiddenStatusConfig = new StatusConfig();
+        $hiddenStatusConfig
+            ->setStatusName(EquipmentStatusEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($hiddenStatusConfig);
+        $burdenedStatusConfig = new StatusConfig();
+        $burdenedStatusConfig
+            ->setStatusName(PlayerStatusEnum::BURDENED)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($burdenedStatusConfig);
+
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$hiddenStatusConfig, $burdenedStatusConfig]))
+        ;
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var CharacterConfig $characterConfig */
@@ -340,51 +404,46 @@ class TakeDropActionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $hideStatusConfig = new StatusConfig();
-        $hideStatusConfig->setName(EquipmentStatusEnum::HIDDEN)->setGameConfig($gameConfig);
-        $I->haveInRepository($hideStatusConfig);
-
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(0)
-            ->setMovementPointCost(0)
-            ->setMoralPointCost(0);
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionHide = new Action();
         $actionHide
-            ->setName(ActionEnum::HIDE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::HIDE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($actionHide);
 
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$actionHide])]);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($player);
         $gameItem
             ->setEquipment($itemConfig)
             ->setName('shower')
-            ->setHolder($player)
         ;
         $I->haveInRepository($gameItem);
 
-        $burdenedStatusConfig = new StatusConfig();
-        $burdenedStatusConfig->setName(PlayerStatusEnum::BURDENED)->setGameConfig($gameConfig);
-        $I->haveInRepository($burdenedStatusConfig);
         $burdenedStatus = new Status($player, $burdenedStatusConfig);
         $I->haveInRepository($burdenedStatus);
         $heavyConfig = new StatusConfig();
 
-        $heavyConfig->setName(EquipmentStatusEnum::HEAVY)->setGameConfig($gameConfig);
+        $heavyConfig
+            ->setStatusName(EquipmentStatusEnum::HEAVY)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($heavyConfig);
         $heavyStatus = new Status($gameItem, $heavyConfig);
         $I->haveInRepository($heavyStatus);

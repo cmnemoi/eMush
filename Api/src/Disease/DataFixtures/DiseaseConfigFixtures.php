@@ -3,7 +3,6 @@
 namespace Mush\Disease\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
@@ -12,8 +11,9 @@ use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
 class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -22,61 +22,61 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        /** @var ModifierConfig $reduceMax1HealthPoint */
+        /** @var VariableEventModifierConfig $reduceMax1HealthPoint */
         $reduceMax1HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_HEALTH_POINT);
-        /** @var ModifierConfig $reduceMax2HealthPoint */
+        /** @var VariableEventModifierConfig $reduceMax2HealthPoint */
         $reduceMax2HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_HEALTH_POINT);
-        /** @var ModifierConfig $reduceMax4HealthPoint */
+        /** @var VariableEventModifierConfig $reduceMax4HealthPoint */
         $reduceMax4HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_4_HEALTH_POINT);
-        /** @var ModifierConfig $reduceMax1MoralPoint */
+        /** @var VariableEventModifierConfig $reduceMax1MoralPoint */
         $reduceMax1MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_MORAL_POINT);
-        /** @var ModifierConfig $reduceMax2MoralPoint */
+        /** @var VariableEventModifierConfig $reduceMax2MoralPoint */
         $reduceMax2MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_MORAL_POINT);
-        /** @var ModifierConfig $cycle1HealthLost */
+        /** @var VariableEventModifierConfig $cycle1HealthLost */
         $cycle1HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST);
-        /** @var ModifierConfig $cycle2HealthLost */
+        /** @var VariableEventModifierConfig $cycle2HealthLost */
         $cycle2HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_2_HEALTH_LOST);
-        /** @var ModifierConfig $cycle4HealthLost */
+        /** @var VariableEventModifierConfig $cycle4HealthLost */
         $cycle4HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_4_HEALTH_LOST);
-        /** @var ModifierConfig $cycle1MovementLost */
+        /** @var VariableEventModifierConfig $cycle1MovementLost */
         $cycle1MovementLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_MOVEMENT_LOST);
-        /** @var ModifierConfig $cycle1SatietyLost */
+        /** @var VariableEventModifierConfig $cycle1SatietyLost */
         $cycle1SatietyLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_SATIETY_LOST);
-        /** @var ModifierConfig $cycle1SatietyIncrease */
+        /** @var VariableEventModifierConfig $cycle1SatietyIncrease */
         $cycle1SatietyIncrease = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_SATIETY_INCREASE);
-        /** @var ModifierConfig $cycle1ActionLostRand10 */
+        /** @var VariableEventModifierConfig $cycle1ActionLostRand10 */
         $cycle1ActionLostRand10 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_10);
-        /** @var ModifierConfig $cycle1HealthLostRand10 */
+        /** @var VariableEventModifierConfig $cycle1HealthLostRand10 */
         $cycle1HealthLostRand10 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST_RAND_10);
-        /** @var ModifierConfig $cycle1ActionLostRand16 */
+        /** @var VariableEventModifierConfig $cycle1ActionLostRand16 */
         $cycle1ActionLostRand16 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_16);
-        /** @var ModifierConfig $cycle1ActionLostRand16FitfullSleep */
+        /** @var VariableEventModifierConfig $cycle1ActionLostRand16FitfullSleep */
         $cycle1ActionLostRand16FitfullSleep = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_16_FITFULL_SLEEP);
-        /** @var ModifierConfig $cycle1HealthLostRand16 */
+        /** @var VariableEventModifierConfig $cycle1HealthLostRand16 */
         $cycle1HealthLostRand16 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST_RAND_16);
-        /** @var ModifierConfig $cycle1ActionLostRand20 */
+        /** @var VariableEventModifierConfig $cycle1ActionLostRand20 */
         $cycle1ActionLostRand20 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_20);
-        /** @var ModifierConfig $cycle1ActionLostRand30 */
+        /** @var VariableEventModifierConfig $cycle1ActionLostRand30 */
         $cycle1ActionLostRand30 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_30);
-        /** @var ModifierConfig $cycle2ActionLostRand40 */
+        /** @var VariableEventModifierConfig $cycle2ActionLostRand40 */
         $cycle2ActionLostRand40 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_2_ACTION_LOST_RAND_40);
-        /** @var ModifierConfig $cycle1MovementLostRand50 */
+        /** @var VariableEventModifierConfig $cycle1MovementLostRand50 */
         $cycle1MovementLostRand50 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_MOVEMENT_LOST_RAND_50);
-        /** @var ModifierConfig $cycle1HealthLostRand50 */
+        /** @var VariableEventModifierConfig $cycle1HealthLostRand50 */
         $cycle1HealthLostRand50 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST_RAND_50);
-        /** @var ModifierConfig $consume1ActionLoss */
+        /** @var VariableEventModifierConfig $consume1ActionLoss */
         $consume1ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_1_ACTION_LOSS);
-        /** @var ModifierConfig $consume2ActionLoss */
+        /** @var VariableEventModifierConfig $consume2ActionLoss */
         $consume2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_2_ACTION_LOSS);
-        /** @var ModifierConfig $moveIncreaseMovement */
+        /** @var VariableEventModifierConfig $moveIncreaseMovement */
         $moveIncreaseMovement = $this->getReference(DiseaseModifierConfigFixtures::MOVE_INCREASE_MOVEMENT);
-        /** @var ModifierConfig $infected4HealthLoss */
+        /** @var VariableEventModifierConfig $infected4HealthLoss */
         $infected4HealthLoss = $this->getReference(DiseaseModifierConfigFixtures::INFECTED_4_HEALTH_LOSS);
-        /** @var ModifierConfig $takeCat6HealthLoss */
+        /** @var VariableEventModifierConfig $takeCat6HealthLoss */
         $takeCat6HealthLoss = $this->getReference(DiseaseModifierConfigFixtures::TAKE_CAT_6_HEALTH_LOSS);
-        /** @var ModifierConfig $shootAction10PercentAccuracyLost */
+        /** @var VariableEventModifierConfig $shootAction10PercentAccuracyLost */
         $shootAction10PercentAccuracyLost = $this->getReference(DiseaseModifierConfigFixtures::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST);
-        /** @var ModifierConfig $increaseCycleDiseaseChances10 */
+        /** @var VariableEventModifierConfig $increaseCycleDiseaseChances10 */
         $increaseCycleDiseaseChances10 = $this->getReference(DiseaseModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_10);
 
         /** @var SymptomConfig $biting */
@@ -106,304 +106,310 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $foodPoisoning = new DiseaseConfig();
         $foodPoisoning
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::FOOD_POISONING)
-            ->setModifierConfigs(new ArrayCollection([$reduceMax1HealthPoint]))
+            ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
+            ->setModifierConfigs([$reduceMax1HealthPoint])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $consumeDrugVomiting,
                 $consumeVomiting,
                 $moveVomiting,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($foodPoisoning);
 
         $acidReflux = new DiseaseConfig();
         $acidReflux
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::ACID_REFLUX)
-            ->setModifierConfigs(new ArrayCollection([$consume2ActionLoss]))
+            ->setDiseaseName(DiseaseEnum::ACID_REFLUX)
+            ->setModifierConfigs([$consume2ActionLoss])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $consumeDrugVomiting,
                 $consumeVomiting,
                 $moveVomiting,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($acidReflux);
 
         $blackBite = new DiseaseConfig();
         $blackBite
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::BLACK_BITE)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setDiseaseName(DiseaseEnum::BLACK_BITE)
+            ->setModifierConfigs([
                 $cycle1ActionLostRand10,
                 $infected4HealthLoss,
-                ]))
+                ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($blackBite);
 
         $catAllergy = new DiseaseConfig();
         $catAllergy
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::CAT_ALLERGY)
+            ->setDiseaseName(DiseaseEnum::CAT_ALLERGY)
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $catAllergySymptom,
                 $catSneezing,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($catAllergy);
 
         $cold = new DiseaseConfig();
         $cold
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::COLD)
-            ->setModifierConfigs(new ArrayCollection([$cycle1ActionLostRand20]))
+            ->setDiseaseName(DiseaseEnum::COLD)
+            ->setModifierConfigs([$cycle1ActionLostRand20])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($cold);
 
         $extremeTinnitus = new DiseaseConfig();
         $extremeTinnitus
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::EXTREME_TINNITUS)
-            ->setModifierConfigs(new ArrayCollection([$cycle1ActionLostRand16, $reduceMax2MoralPoint]))
+            ->setDiseaseName(DiseaseEnum::EXTREME_TINNITUS)
+            ->setModifierConfigs([$cycle1ActionLostRand16, $reduceMax2MoralPoint])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($extremeTinnitus);
 
         $flu = new DiseaseConfig();
         $flu
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::FLU)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setDiseaseName(DiseaseEnum::FLU)
+            ->setModifierConfigs([
                 $cycle1HealthLostRand10,
                 $cycle1ActionLostRand20,
                 $reduceMax2MoralPoint,
                 $reduceMax2HealthPoint,
-                ]))
+                ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                     $consumeDrugVomiting,
                     $consumeVomiting,
                     $cycleDirtinessRand40,
                     $moveVomiting,
                 ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($flu);
 
         $fungicInfection = new DiseaseConfig();
         $fungicInfection
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::FUNGIC_INFECTION)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setDiseaseName(DiseaseEnum::FUNGIC_INFECTION)
+            ->setModifierConfigs([
                 $reduceMax2MoralPoint,
                 $reduceMax2HealthPoint,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $cycleDirtiness,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($fungicInfection);
 
         $gastroenteritis = new DiseaseConfig();
         $gastroenteritis
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::GASTROENTERIS)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setDiseaseName(DiseaseEnum::GASTROENTERIS)
+            ->setModifierConfigs([
                 $consume1ActionLoss,
                 $cycle1HealthLostRand16,
                 $cycle1MovementLost,
                 $reduceMax1HealthPoint,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $consumeDrugVomiting,
                 $consumeVomiting,
                 $cycleDirtiness,
                 $moveVomiting,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($gastroenteritis);
 
         $junkbumpkinitis = new DiseaseConfig();
         $junkbumpkinitis
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::JUNKBUMPKINITIS)
+            ->setDiseaseName(DiseaseEnum::JUNKBUMPKINITIS)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($junkbumpkinitis);
 
         $migraine = new DiseaseConfig();
         $migraine
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::MIGRAINE)
-            ->setModifierConfigs(new ArrayCollection([$cycle1ActionLostRand20]))
+            ->setDiseaseName(DiseaseEnum::MIGRAINE)
+            ->setModifierConfigs([$cycle1ActionLostRand20])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($migraine);
 
         $mushAllergy = new DiseaseConfig();
         $mushAllergy
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::MUSH_ALLERGY)
+            ->setDiseaseName(DiseaseEnum::MUSH_ALLERGY)
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $mushSneezing,
             ]))
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $infected4HealthLoss,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($mushAllergy);
 
         $quincksOedema = new DiseaseConfig();
         $quincksOedema
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::QUINCKS_OEDEMA)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setDiseaseName(DiseaseEnum::QUINCKS_OEDEMA)
+            ->setModifierConfigs([
                 $moveIncreaseMovement,
                 $reduceMax4HealthPoint,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($quincksOedema);
 
         $rejuvenation = new DiseaseConfig();
         $rejuvenation
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::REJUVENATION)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setDiseaseName(DiseaseEnum::REJUVENATION)
+            ->setModifierConfigs([
                 $cycle1ActionLostRand16FitfullSleep,
                 $cycle1ActionLostRand20,
                 $increaseCycleDiseaseChances10,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($rejuvenation);
 
         $rubella = new DiseaseConfig();
         $rubella
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::RUBELLA)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setDiseaseName(DiseaseEnum::RUBELLA)
+            ->setModifierConfigs([
                 $cycle1MovementLostRand50,
                 $reduceMax1HealthPoint,
                 $reduceMax1MoralPoint,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($rubella);
 
         $sepsis = new DiseaseConfig();
         $sepsis
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::SEPSIS)
-            ->setModifierConfigs(new ArrayCollection([$cycle4HealthLost]))
+            ->setDiseaseName(DiseaseEnum::SEPSIS)
+            ->setModifierConfigs([$cycle4HealthLost])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($sepsis);
 
         $sinusStorm = new DiseaseConfig();
         $sinusStorm
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::SINUS_STORM)
-            ->setModifierConfigs(new ArrayCollection([$cycle1ActionLostRand30]))
+            ->setDiseaseName(DiseaseEnum::SINUS_STORM)
+            ->setModifierConfigs([$cycle1ActionLostRand30])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($sinusStorm);
 
         $skinInflammation = new DiseaseConfig();
         $skinInflammation
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::SKIN_INFLAMMATION)
+            ->setDiseaseName(DiseaseEnum::SKIN_INFLAMMATION)
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $breakouts,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
 
         $manager->persist($skinInflammation);
 
         $nausea = new DiseaseConfig();
         $nausea
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::SLIGHT_NAUSEA)
+            ->setDiseaseName(DiseaseEnum::SLIGHT_NAUSEA)
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $moveVomiting,
             ]))
-            ->setModifierConfigs(new ArrayCollection([
+            ->setModifierConfigs([
                 $cycle1SatietyIncrease,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($nausea);
 
         $smallPox = new DiseaseConfig();
         $smallPox
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::SMALLPOX)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setDiseaseName(DiseaseEnum::SMALLPOX)
+            ->setModifierConfigs([
                 $cycle2ActionLostRand40,
                 $cycle1HealthLostRand50,
                 $reduceMax2HealthPoint,
                 $reduceMax2MoralPoint,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($smallPox);
 
         $spaceRabies = new DiseaseConfig();
         $spaceRabies
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::SPACE_RABIES)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setDiseaseName(DiseaseEnum::SPACE_RABIES)
+            ->setModifierConfigs([
                 $cycle2HealthLost,
-            ]))
+            ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $biting,
                 $drooling,
                 $foamingMouth,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($spaceRabies);
 
         $syphilis = new DiseaseConfig();
         $syphilis
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::SYPHILIS)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setDiseaseName(DiseaseEnum::SYPHILIS)
+            ->setModifierConfigs([
                 $reduceMax2MoralPoint,
                 $cycle2ActionLostRand40,
                 $shootAction10PercentAccuracyLost,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($syphilis);
 
         $tapeworm = new DiseaseConfig();
         $tapeworm
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::TAPEWORM)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setDiseaseName(DiseaseEnum::TAPEWORM)
+            ->setModifierConfigs([
                 $cycle1SatietyLost,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($tapeworm);
 
         $vitaminDeficiency = new DiseaseConfig();
         $vitaminDeficiency
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::VITAMIN_DEFICIENCY)
-            ->setModifierConfigs(new ArrayCollection([
+            ->setDiseaseName(DiseaseEnum::VITAMIN_DEFICIENCY)
+            ->setModifierConfigs([
                 $cycle1ActionLostRand10,
-            ]))
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($vitaminDeficiency);
+
+        $gameConfig
+            ->addDiseaseConfig($foodPoisoning)
+            ->addDiseaseConfig($vitaminDeficiency)
+            ->addDiseaseConfig($tapeworm)
+            ->addDiseaseConfig($syphilis)
+            ->addDiseaseConfig($spaceRabies)
+            ->addDiseaseConfig($smallPox)
+            ->addDiseaseConfig($nausea)
+            ->addDiseaseConfig($skinInflammation)
+            ->addDiseaseConfig($sinusStorm)
+            ->addDiseaseConfig($sepsis)
+            ->addDiseaseConfig($rubella)
+            ->addDiseaseConfig($rejuvenation)
+            ->addDiseaseConfig($quincksOedema)
+            ->addDiseaseConfig($mushAllergy)
+            ->addDiseaseConfig($migraine)
+            ->addDiseaseConfig($junkbumpkinitis)
+            ->addDiseaseConfig($gastroenteritis)
+            ->addDiseaseConfig($fungicInfection)
+            ->addDiseaseConfig($flu)
+            ->addDiseaseConfig($extremeTinnitus)
+            ->addDiseaseConfig($cold)
+            ->addDiseaseConfig($catAllergy)
+            ->addDiseaseConfig($blackBite)
+            ->addDiseaseConfig($acidReflux)
+        ;
+        $manager->persist($gameConfig);
 
         $manager->flush();
 

@@ -50,12 +50,13 @@ class NeronMessageService implements NeronMessageServiceInterface
         \DateTime $dateTime,
         ?Message $parent = null
     ): Message {
-        $publicChannel = $this->channelService->getPublicChannel($daedalus);
+        $daedalusInfo = $daedalus->getDaedalusInfo();
+        $publicChannel = $this->channelService->getPublicChannel($daedalusInfo);
         if ($publicChannel === null) {
             throw new \LogicException('Daedalus do not have a public channel');
         }
 
-        $neron = $daedalus->getNeron();
+        $neron = $daedalusInfo->getNeron();
         // Get Neron personality
         if (!$neron->isInhibited()) {
             $parameters['neronMood'] = NeronPersonalitiesEnum::UNINHIBITED;
@@ -100,7 +101,7 @@ class NeronMessageService implements NeronMessageServiceInterface
 
     public function createPlayerDeathMessage(Player $player, string $cause, \DateTime $time): void
     {
-        $playerName = $player->getCharacterConfig()->getName();
+        $playerName = $player->getName();
 
         switch ($playerName) {
             case CharacterEnum::RALUCA:
@@ -122,7 +123,7 @@ class NeronMessageService implements NeronMessageServiceInterface
             $cause . '.name',
             [],
             'end_cause',
-            $player->getDaedalus()->getGameConfig()->getLanguage()
+            $player->getDaedalus()->getLanguage()
         );
         $parameters = ['character' => $playerName, 'cause' => $cause];
         $this->createNeronMessage($message, $player->getDaedalus(), $parameters, $time);
@@ -132,7 +133,7 @@ class NeronMessageService implements NeronMessageServiceInterface
     {
         $equipmentName = $equipment->getName();
 
-        $daedalus = $equipment->getPlace()->getDaedalus();
+        $daedalus = $equipment->getDaedalus();
 
         switch ($equipmentName) {
             case EquipmentEnum::OXYGEN_TANK:

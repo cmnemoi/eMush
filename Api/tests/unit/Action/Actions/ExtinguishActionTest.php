@@ -30,10 +30,10 @@ class ExtinguishActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPAIR, 1);
 
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->action = new Extinguish(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -45,7 +45,7 @@ class ExtinguishActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecuteFail()
@@ -53,12 +53,9 @@ class ExtinguishActionTest extends AbstractActionTest
         $room = new Place();
         $fire = new Status($room, new StatusConfig());
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
-        $gameItem
-            ->setHolder($room)
-        ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -86,12 +83,9 @@ class ExtinguishActionTest extends AbstractActionTest
         $room = new Place();
         $fire = new Status($room, new StatusConfig());
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
-        $gameItem
-            ->setHolder($room)
-        ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -105,7 +99,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         // Success
         $result = $this->action->execute();

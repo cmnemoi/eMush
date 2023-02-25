@@ -31,7 +31,7 @@ class DaedalusInitSubscriber implements EventSubscriberInterface
 
         /** @var PlaceConfig $placeConfig */
         foreach ($daedalusConfig->getPlaceConfigs() as $placeConfig) {
-            $place = $this->placeService->createPlace($placeConfig, $daedalus, $event->getReason(), $event->getTime());
+            $place = $this->placeService->createPlace($placeConfig, $daedalus, $event->getTags(), $event->getTime());
             $daedalus->addPlace($place);
         }
     }

@@ -32,13 +32,13 @@ class DispenseActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new Dispense(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -51,7 +51,7 @@ class DispenseActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -59,12 +59,12 @@ class DispenseActionTest extends AbstractActionTest
         $room = new Place();
 
         $distillerMachine = new EquipmentConfig();
-        $gameDistillerMachine = new GameEquipment();
-        $distillerMachine->setName(EquipmentEnum::NARCOTIC_DISTILLER);
+        $gameDistillerMachine = new GameEquipment($room);
+        $distillerMachine->setEquipmentName(EquipmentEnum::NARCOTIC_DISTILLER);
         $gameDistillerMachine
             ->setEquipment($distillerMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
-            ->setHolder($room);
+        ;
 
         $distillerMachine->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -74,10 +74,10 @@ class DispenseActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $gameDistillerMachine);
 
-        $gameDrug = new GameItem();
+        $gameDrug = new GameItem(new Place());
         $drug = new ItemConfig();
         $drug
-            ->setName(GameDrugEnum::PHUXX);
+            ->setEquipmentName(GameDrugEnum::PHUXX);
         $gameDrug
             ->setEquipment($drug)
             ->setName(GameDrugEnum::PHUXX);

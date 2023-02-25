@@ -16,24 +16,24 @@ use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Disease\Enum\DiseaseCauseEnum;
-use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -44,27 +44,27 @@ class Attack extends AttemptAction
 {
     protected string $name = ActionEnum::ATTACK;
 
-    private ModifierServiceInterface $modifierService;
-    private PlayerDiseaseServiceInterface $playerDiseaseService;
+    private EventModifierServiceInterface $modifierService;
+    private DiseaseCauseServiceInterface $diseaseCauseService;
     protected RandomServiceInterface $randomService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        ModifierServiceInterface $modifierService,
-        PlayerDiseaseServiceInterface $playerDiseaseService,
+        EventModifierServiceInterface $modifierService,
+        DiseaseCauseServiceInterface $diseaseCauseService,
     ) {
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator,
             $randomService
         );
 
         $this->modifierService = $modifierService;
-        $this->playerDiseaseService = $playerDiseaseService;
+        $this->diseaseCauseService = $diseaseCauseService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -142,13 +142,15 @@ class Attack extends AttemptAction
 
         if ($result instanceof Success) {
             if ($result instanceof OneShot) {
+                $reasons = $this->getAction()->getActionTags();
+                $reasons[] = EndCauseEnum::BLED;
                 $deathEvent = new PlayerEvent(
                     $target,
-                    EndCauseEnum::BLED,
+                    $reasons,
                     new \DateTime()
                 );
 
-                $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
+                $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
                 return;
             }
@@ -156,7 +158,7 @@ class Attack extends AttemptAction
             $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($knifeWeapon->getBaseDamageRange()));
 
             if ($result instanceof CriticalSuccess) {
-                $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
+                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
             } else {
                 // handle modifiers on damage : armor, hard boiled, etc
                 $damage = $this->modifierService->getEventModifiedValue(
@@ -164,7 +166,7 @@ class Attack extends AttemptAction
                     [ModifierScopeEnum::INJURY],
                     PlayerVariableEnum::HEALTH_POINT,
                     $damage,
-                    $this->getActionName(),
+                    $this->getAction()->getActionTags(),
                     new \DateTime()
                 );
             }
@@ -172,7 +174,7 @@ class Attack extends AttemptAction
             $this->inflictDamage($damage, $target);
         } else {
             if ($result instanceof CriticalFail) {
-                $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_FAIL_KNIFE, $player);
+                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_FAIL_KNIFE, $player);
             }
         }
     }
@@ -191,8 +193,8 @@ class Attack extends AttemptAction
             [ActionTypeEnum::ACTION_ATTACK],
             ModifierTargetEnum::CRITICAL_PERCENTAGE,
             $knife->getCriticalFailRate(),
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
         return $this->randomService->isSuccessful($criticalFailRate);
@@ -204,9 +206,9 @@ class Attack extends AttemptAction
             $player,
             [ActionTypeEnum::ACTION_ATTACK],
             ModifierTargetEnum::CRITICAL_PERCENTAGE,
-            $knife->getCriticalSucessRate(),
-            $this->getActionName(),
-            new \DateTime()
+            $knife->getCriticalSuccessRate(),
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
         return $this->randomService->isSuccessful($criticalSuccessRate);
@@ -219,8 +221,8 @@ class Attack extends AttemptAction
             [ActionTypeEnum::ACTION_ATTACK],
             ModifierTargetEnum::CRITICAL_PERCENTAGE,
             $knife->getOneShotRate(),
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
         return $this->randomService->isSuccessful($oneShotRate);
@@ -232,13 +234,13 @@ class Attack extends AttemptAction
             $target,
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
-        $this->eventDispatcher->dispatch(
+        $this->eventService->callEvent(
             $damageEvent,
-            AbstractQuantityEvent::CHANGE_VARIABLE
+            VariableEventInterface::CHANGE_VARIABLE
         );
     }
 }

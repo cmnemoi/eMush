@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\GetUp;
 use Mush\Action\Enum\ActionEnum;
@@ -27,7 +26,7 @@ class GetUpActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::GET_UP);
 
         $this->action = new GetUp(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -38,7 +37,7 @@ class GetUpActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -47,19 +46,18 @@ class GetUpActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameItem = new GameEquipment();
+        $gameItem = new GameEquipment($room);
         $item = new EquipmentConfig();
         $item
-            ->setName(EquipmentEnum::BED)
+            ->setEquipmentName(EquipmentEnum::BED)
         ;
         $gameItem
             ->setEquipment($item)
-            ->setHolder($room)
             ->setName(EquipmentEnum::BED)
         ;
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);
+        $statusConfig->setStatusName(PlayerStatusEnum::LYING_DOWN);
         $status = new Status($player, $statusConfig);
         $status
             ->setTarget($gameItem)
@@ -68,7 +66,7 @@ class GetUpActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();
 

@@ -145,10 +145,10 @@ class AlertService implements AlertServiceInterface
     public function handleEquipmentBreak(GameEquipment $equipment): void
     {
         if ($equipment instanceof Door) {
-            $daedalus = $equipment->getRooms()->first()->getDaedalus();
+            $daedalus = $equipment->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_DOORS);
         } else {
-            $daedalus = $equipment->getPlace()->getDaedalus();
+            $daedalus = $equipment->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_EQUIPMENTS);
         }
 
@@ -170,7 +170,7 @@ class AlertService implements AlertServiceInterface
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
         } else {
-            $daedalus = $equipment->getPlace()->getDaedalus();
+            $daedalus = $equipment->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $daedalus);
         }
 
@@ -188,12 +188,13 @@ class AlertService implements AlertServiceInterface
     public function getAlertEquipmentElement(Alert $alert, GameEquipment $equipment): AlertElement
     {
         $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment);
+        $alertEquipment = $filteredList->first();
 
-        if ($filteredList->count() !== 1) {
+        if ($filteredList->count() !== 1 || !$alertEquipment) {
             throw new \LogicException('this equipment should be reported exactly one time');
         }
 
-        return $filteredList->first();
+        return $alertEquipment;
     }
 
     public function handleFireStart(Place $place): void
@@ -231,12 +232,13 @@ class AlertService implements AlertServiceInterface
     public function getAlertFireElement(Alert $alert, Place $place): AlertElement
     {
         $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getPlace() === $place);
+        $fireAlert = $filteredList->first();
 
-        if ($filteredList->count() !== 1) {
+        if ($filteredList->count() !== 1 || !$fireAlert) {
             throw new \LogicException('this fire should be reported exactly one time');
         }
 
-        return $filteredList->first();
+        return $fireAlert;
     }
 
     private function getAlert(Daedalus $daedalus, string $alertName): Alert
@@ -304,12 +306,12 @@ class AlertService implements AlertServiceInterface
             return false;
         }
 
-        return $this->getAlertFireElement($alert, $room)->getPlayer() !== null;
+        return $this->getAlertFireElement($alert, $room)->getPlayerInfo() !== null;
     }
 
     public function isEquipmentReported(GameEquipment $equipment): bool
     {
-        $daedalus = $equipment->getPlace()->getDaedalus();
+        $daedalus = $equipment->getDaedalus();
         if (!$equipment->isBroken()) {
             return false;
         }
@@ -324,6 +326,6 @@ class AlertService implements AlertServiceInterface
             return false;
         }
 
-        return $this->getAlertEquipmentElement($alert, $equipment)->getPlayer() !== null;
+        return $this->getAlertEquipmentElement($alert, $equipment)->getPlayerInfo() !== null;
     }
 }

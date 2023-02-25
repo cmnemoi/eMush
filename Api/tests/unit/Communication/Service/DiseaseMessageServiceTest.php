@@ -8,6 +8,7 @@ use Mush\Communication\Enum\DiseaseMessagesEnum;
 use Mush\Communication\Services\DiseaseMessageService;
 use Mush\Communication\Services\DiseaseMessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomConfig;
@@ -15,6 +16,7 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\LanguageEnum;
@@ -24,7 +26,9 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class DiseaseMessageServiceTest extends TestCase
@@ -41,8 +45,8 @@ class DiseaseMessageServiceTest extends TestCase
      */
     public function before()
     {
-        $this->translationService = Mockery::mock(TranslationService::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->translationService = \Mockery::mock(TranslationService::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new DiseaseMessageService(
             $this->randomService,
@@ -55,15 +59,16 @@ class DiseaseMessageServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testDeafPlayer()
     {
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $symptomConfig = new SymptomConfig(SymptomEnum::DEAF);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
         $playerDisease = new PlayerDisease();
@@ -75,7 +80,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('some message');
+        $message->setAuthor($playerInfo)->setMessage('some message');
 
         $modifiedMessage = $this->service->applyDiseaseEffects($message);
 
@@ -85,15 +90,18 @@ class DiseaseMessageServiceTest extends TestCase
     public function testCoprolaliaPlayerNoTrigger()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setDaedalus($daedalus);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
@@ -107,7 +115,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('some message');
+        $message->setAuthor($playerInfo)->setMessage('some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
@@ -119,15 +127,18 @@ class DiseaseMessageServiceTest extends TestCase
     public function testCoprolaliaPlayerTriggerReplace()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
@@ -141,7 +152,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('some message');
+        $message->setAuthor($playerInfo)->setMessage('some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
@@ -174,15 +185,18 @@ class DiseaseMessageServiceTest extends TestCase
     public function testCoprolaliaPlayerTriggerPre()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
 
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
         $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
@@ -196,7 +210,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('Some message');
+        $message->setAuthor($playerInfo)->setMessage('Some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
@@ -230,15 +244,18 @@ class DiseaseMessageServiceTest extends TestCase
     public function testParanoiaPlayerTriggerReplaceAware()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
 
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
@@ -252,7 +269,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('some message');
+        $message->setAuthor($playerInfo)->setMessage('some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
@@ -285,15 +302,17 @@ class DiseaseMessageServiceTest extends TestCase
     public function testParanoiaPlayerTriggerReplaceNotAware()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
@@ -307,7 +326,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('Some message');
+        $message->setAuthor($playerInfo)->setMessage('Some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
@@ -345,24 +364,29 @@ class DiseaseMessageServiceTest extends TestCase
     public function testParanoiaPlayerTriggerAccuse()
     {
         $characterConfig1 = new CharacterConfig();
-        $characterConfig1->setName(CharacterEnum::ANDIE);
+        $characterConfig1->setCharacterName(CharacterEnum::ANDIE);
         $characterConfig2 = new CharacterConfig();
-        $characterConfig2->setName(CharacterEnum::TERRENCE);
+        $characterConfig2->setCharacterName(CharacterEnum::TERRENCE);
 
         $gameConfig = new GameConfig();
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+
         $gameConfig
             ->setCharactersConfig(new CharacterConfigCollection([$characterConfig1, $characterConfig2]))
-            ->setLanguage(LanguageEnum::FRENCH)
         ;
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $player = new Player();
-        $player->setCharacterConfig($characterConfig1)->setDaedalus($daedalus);
+
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
+
+        $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
@@ -376,7 +400,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('Some message');
+        $message->setAuthor($playerInfo)->setMessage('Some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();

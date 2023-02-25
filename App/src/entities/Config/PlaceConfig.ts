@@ -3,18 +3,18 @@ import { GameConfig } from "@/entities/Config/GameConfig";
 export class PlaceConfig {
     public iri: string|null;
     public id: number|null;
-    public gameConfig: GameConfig|null;
     public name: string|null;
+    public placeName: string|null;
     public type: string|null;
-    public doors: Array<any>|null;
-    public items: Array<any>|null;
-    public equipments: Array<any>|null;
+    public doors: Array<string>|null;
+    public items: Array<string>|null;
+    public equipments: Array<string>|null;
 
     constructor() {
         this.iri = null;
         this.id = null;
-        this.gameConfig = null;
         this.name = null;
+        this.placeName = null;
         this.type = null;
         this.doors = [];
         this.items = [];
@@ -22,10 +22,10 @@ export class PlaceConfig {
     }
     load(object:any) : PlaceConfig {
         if (typeof object !== "undefined") {
-            this.iri = object.iri;
+            this.iri = object["@id"];
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
             this.name = object.name;
+            this.placeName = object.placeName;
             this.type = object.type;
             this.doors = object.doors;
             this.items = object.items;
@@ -36,8 +36,8 @@ export class PlaceConfig {
     jsonEncode() : object {
         return {
             'id': this.id,
-            'gameConfig': this.gameConfig?.iri,
             'name': this.name,
+            'placeName': this.placeName,
             'type': this.type,
             'doors': this.doors,
             'items': this.items,
@@ -49,8 +49,8 @@ export class PlaceConfig {
             const object = JSON.parse(jsonString);
             this.iri = object.iri;
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
             this.name = object.name;
+            this.placeName = object.placeName;
             this.type = object.type;
             this.doors = object.doors;
             this.items = object.items;

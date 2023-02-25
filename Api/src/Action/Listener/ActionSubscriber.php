@@ -30,7 +30,7 @@ class ActionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ActionEvent::PRE_ACTION => 'onPreAction',
+            ActionEvent::PRE_ACTION => ['onPreAction', 1],
             ActionEvent::POST_ACTION => 'onPostAction',
         ];
     }
@@ -40,10 +40,10 @@ class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getAction();
         $player = $event->getPlayer();
 
-        if ($action->getName() !== $this->getUpAction->getActionName() &&
+        if ($action->getActionName() !== $this->getUpAction->getActionName() &&
             $lyingDownStatus = $player->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
-            $getUpAction = $player->getCharacterConfig()->getActionByName(ActionEnum::GET_UP);
+            $getUpAction = $player->getPlayerInfo()->getCharacterConfig()->getActionByName(ActionEnum::GET_UP);
 
             if ($getUpAction === null) {
                 throw new \LogicException('character do not have get up action');
@@ -62,10 +62,10 @@ class ActionSubscriber implements EventSubscriberInterface
 
         $this->actionSideEffectsService->handleActionSideEffect($action, $player, new \DateTime());
 
-        $this->gearToolService->applyChargeCost($player, $action->getName(), $action->getTypes());
+        $this->gearToolService->applyChargeCost($player, $action->getActionName(), $action->getTypes());
 
         if ($actionParameter instanceof Player &&
-            in_array($action->getName(), ActionEnum::getForceGetUpActions()) &&
+            in_array($action->getActionName(), ActionEnum::getForceGetUpActions()) &&
             $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
             $actionParameter->removeStatus($lyingDownStatus);

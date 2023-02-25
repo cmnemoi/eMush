@@ -10,7 +10,27 @@ Mush\Player\Entity\Config\CharacterConfig:
   collectionOperations:
     get:
       filters: [ 'default.search_filter', 'default.order_filter' ]
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
   itemOperations:
-    get: ~
+    get: 
+      security: 'is_granted("ROLE_ADMIN")'
     put:
       security: 'is_granted("ROLE_ADMIN")'
+  properties:
+    initStatuses:
+      subresource:
+        resourceClass: 'Mush\Status\Entity\Config\StatusConfig'
+        collection: true
+    actions:
+      subresource:
+        resourceClass: 'Mush\Action\Entity\Action'
+        collection: true
+    startingItems:
+      subresource:
+        resourceClass: 'Mush\Equipment\Entity\Config\ItemConfig'
+        collection: true
+    initDiseases:
+      subresource:
+        resourceClass: 'Mush\Disease\Entity\Config\DiseaseConfig'
+        collection: true

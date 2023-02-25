@@ -65,10 +65,10 @@ class Gag extends AbstractAction
         $statusEvent = new StatusEvent(
             PlayerStatusEnum::GAGGED,
             $parameter,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 }

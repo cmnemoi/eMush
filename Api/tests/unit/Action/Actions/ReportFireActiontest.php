@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\ReportFire;
 use Mush\Action\Enum\ActionEnum;
@@ -21,7 +20,7 @@ class ReportFireActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPORT_FIRE, 1);
 
         $this->action = new ReportFire(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -32,7 +31,7 @@ class ReportFireActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -45,7 +44,7 @@ class ReportFireActionTest extends AbstractActionTest
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();
 

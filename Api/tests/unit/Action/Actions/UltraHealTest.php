@@ -30,11 +30,11 @@ class UltraHealActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::ULTRAHEAL);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->playerVariableService = Mockery::mock(PlayerVariableServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
+        $this->playerVariableService = \Mockery::mock(PlayerVariableServiceInterface::class);
 
         $this->action = new UltraHeal(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->playerService,
@@ -47,19 +47,18 @@ class UltraHealActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
             ->setName('item')
             ->setEquipment($item)
-            ->setHolder($room);
-
+        ;
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->playerVariableService
@@ -70,8 +69,8 @@ class UltraHealActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch');
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
+        $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

@@ -1,0 +1,12 @@
+Mush\Modifier\Entity\Config\ModifierActivationRequirement:
+  attributes:
+    id:
+      groups: [ 'modifier_activation_requirement_read' ]
+    name:
+      groups: [ 'modifier_activation_requirement_read', 'modifier_activation_requirement_write' ]
+    activationRequirementName:
+      groups: [ 'modifier_activation_requirement_read', 'modifier_activation_requirement_write' ]
+    activationRequirement:
+      groups: [ 'modifier_activation_requirement_read', 'modifier_activation_requirement_write' ]
+    value:
+      groups: [ 'modifier_activation_requirement_read', 'modifier_activation_requirement_write' ]

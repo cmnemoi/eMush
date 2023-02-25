@@ -8,129 +8,63 @@
                 type="text"
                 :errors="errors.name"
             />
-            <Input
-                :label="$t('admin.gameConfig.language')"
-                id="gameConfig_language"
-                v-model="gameConfig.language"
-                type="text"
-                :errors="errors.language"
-            />
-            <Input
-                :label="$t('admin.gameConfig.timeZone')"
-                id="gameConfig_timeZone"
-                v-model="gameConfig.timeZone"
-                type="text"
-                :errors="errors.timeZone"
-            />
         </div>
-        <div class="flex-row">
-            <Input
-                :label="$t('admin.gameConfig.nbMush')"
-                id="gameConfig_nbMush"
-                v-model="gameConfig.nbMush"
-                type="number"
-                :errors="errors.nbMush"
-            />
-            <Input
-                :label="$t('admin.gameConfig.cyclePerGameDay')"
-                id="gameConfig_cyclePerGameDay"
-                v-model="gameConfig.cyclePerGameDay"
-                type="number"
-                :errors="errors.cyclePerGameDay"
-            />
-            <Input
-                :label="$t('admin.gameConfig.cycleLength')"
-                id="gameConfig_cycleLength"
-                v-model="gameConfig.cycleLength"
-                type="number"
-                :errors="errors.cycleLength"
-            />
-        </div>
-        <div class="flex-row">
-            <Input
-                :label="$t('admin.gameConfig.maxNumberPrivateChannel')"
-                id="gameConfig_maxNumberPrivateChannel"
-                v-model="gameConfig.maxNumberPrivateChannel"
-                type="number"
-                :errors="errors.maxNumberPrivateChannel"
-            />
-            <Input
-                :label="$t('admin.gameConfig.maxItemInInventory')"
-                id="gameConfig_maxItemInInventory"
-                v-model="gameConfig.maxItemInInventory"
-                type="number"
-                :errors="errors.maxItemInInventory"
-            />
-            <Input
-                :label="$t('admin.gameConfig.initSatiety')"
-                id="gameConfig_initSatiety"
-                v-model="gameConfig.initSatiety"
-                type="number"
-                :errors="errors.initSatiety"
-            />
-        </div>
-        <div class="flex-row">
-            <Input
-                :label="$t('admin.gameConfig.initHealthPoint')"
-                id="gameConfig_initHealthPoint"
-                v-model="gameConfig.initHealthPoint"
-                type="number"
-                :errors="errors.initHealthPoint"
-            />
-            <Input
-                :label="$t('admin.gameConfig.maxHealthPoint')"
-                id="gameConfig_maxHealthPoint"
-                v-model="gameConfig.maxHealthPoint"
-                type="number"
-                :errors="errors.maxHealthPoint"
-            />
-            <Input
-                :label="$t('admin.gameConfig.initMoralPoint')"
-                id="gameConfig_initMoralPoint"
-                v-model="gameConfig.initMoralPoint"
-                type="number"
-                :errors="errors.initMoralPoint"
-            />
-            <Input
-                :label="$t('admin.gameConfig.maxMoralPoint')"
-                id="gameConfig_maxMoralPoint"
-                v-model="gameConfig.maxMoralPoint"
-                type="number"
-                :errors="errors.maxMoralPoint"
-            />
-        </div>
-        <div class="flex-row">
-            <Input
-                :label="$t('admin.gameConfig.initActionPoint')"
-                id="gameConfig_initActionPoint"
-                v-model="gameConfig.initActionPoint"
-                type="number"
-                :errors="errors.initActionPoint"
-            />
-            <Input
-                :label="$t('admin.gameConfig.maxActionPoint')"
-                id="gameConfig_maxActionPoint"
-                v-model="gameConfig.maxActionPoint"
-                type="number"
-                :errors="errors.maxActionPoint"
-            />
-            <Input
-                :label="$t('admin.gameConfig.initMovementPoint')"
-                id="gameConfig_initMovementPoint"
-                v-model="gameConfig.initMovementPoint"
-                type="number"
-                :errors="errors.initMovementPoint"
-            />
-            <Input
-                :label="$t('admin.gameConfig.maxMovementPoint')"
-                id="gameConfig_maxMovementPoint"
-                v-model="gameConfig.maxMovementPoint"
-                type="number"
-                :errors="errors.maxMovementPoint"
-            />
-        </div>
+        <h3>{{ $t("admin.gameConfig.daedalusConfig") }}</h3>
+        <ChildManager :child="gameConfig.daedalusConfig" @addId="selectNewDaedalusConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildManager>
+        <h3>{{ $t("admin.gameConfig.difficultyConfig") }}</h3>
+        <ChildManager :child="gameConfig.difficultyConfig" @addID="selectNewDifficultyConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildManager>
+        <h3>{{ $t("admin.gameConfig.characterConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.charactersConfig" @addId="addNewCharacterConfig" @remove="removeCharacterConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.statusConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.statusConfigs" @addId="addNewStatusConfig" @remove="removeStatusConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.equipmentConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.equipmentsConfig" @addId="addNewEquipmentConfig" @remove="removeEquipmentConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.triumphConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.triumphConfig" @addId="addNewTriumphConfig" @remove="removeTriumphConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.diseaseCauseConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.diseaseCauseConfig" @addId="addNewDiseaseCauseConfig" @remove="removeDiseaseCauseConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.diseaseConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.diseaseConfig" @addId="addNewDiseaseConfig" @remove="removeDiseaseConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.consumableDiseaseConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.consumableDiseaseConfig" @addId="addNewConsumableDiseaseConfig" @remove="removeConsumableDiseaseConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
         <button class="action-button" type="submit" @click="update">
-            {{ $t('save') }}
+            {{ $t('admin.save') }}
         </button>
     </div>
 </template>
@@ -138,9 +72,25 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
+import { CharacterConfig } from "@/entities/Config/CharacterConfig";
+import { ConsumableDiseaseConfig } from "@/entities/Config/ConsumableDiseaseConfig";
+import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
+import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
+import { DiseaseCauseConfig } from "@/entities/Config/DiseaseCauseConfig";
+import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
+import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { GameConfig } from "@/entities/Config/GameConfig";
+import { StatusConfig } from "@/entities/Config/StatusConfig";
+import { TriumphConfig } from "@/entities/Config/TriumphConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
+import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
+import ChildManager from "@/components/Utils/ChildManager.vue";
 import Input from "@/components/Utils/Input.vue";
+import ApiService from "@/services/api.service";
+import urlJoin from "url-join";
+import { removeItem } from "@/utils/misc";
+import { resourceLimits } from "worker_threads";
+import { gameConfig } from "@/store/game_config.module";
 
 interface GameConfigState {
     gameConfig: null|GameConfig
@@ -150,7 +100,9 @@ interface GameConfigState {
 export default defineComponent({
     name: "GameConfigDetailPage",
     components: {
-        Input
+        ChildCollectionManager,
+        ChildManager,
+        Input,
     },
     data: function (): GameConfigState {
         return {
@@ -164,9 +116,107 @@ export default defineComponent({
                 return;
             }
             this.errors = {};
+            // @ts-ignore
             GameConfigService.updateGameConfig(this.gameConfig)
                 .then((res: GameConfig | null) => {
                     this.gameConfig = res;
+                    if (this.gameConfig !== null){
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'daedalus_config'))
+                            .then((result) => {
+                                const daedalusConfig: DaedalusConfig = new DaedalusConfig();
+                                daedalusConfig.load(result.data);
+
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.daedalusConfig = daedalusConfig;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'difficulty_config'))
+                            .then((result) => {
+                                const difficultyConfig: DifficultyConfig = new DifficultyConfig();
+                                difficultyConfig.load(result.data);
+
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.difficultyConfig = difficultyConfig;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'characters_configs'))
+                            .then((result) => {
+                                const charactersConfig: CharacterConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    charactersConfig.push((new CharacterConfig()).load(datum));
+                                });
+
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.charactersConfig = charactersConfig;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'equipments_configs?pagination=false'))
+                            .then((result) => {
+                                const equipmentsConfig: EquipmentConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    equipmentsConfig.push((new EquipmentConfig()).load(datum));
+                                });
+                            
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.equipmentsConfig = equipmentsConfig;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'status_configs?pagination=false'))
+                            .then((result) => {
+                                const statusConfigs: StatusConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    statusConfigs.push((new StatusConfig()).load(datum));
+                                });
+                            
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.statusConfigs = statusConfigs;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'triumph_configs?pagination=false'))
+                            .then((result) => {
+                                const triumphConfigs: TriumphConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    triumphConfigs.push((new TriumphConfig()).load(datum));
+                                });
+                            
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.triumphConfig = triumphConfigs;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'disease_cause_configs?pagination=false'))
+                            .then((result) => {
+                                const diseaseCauseConfigs: DiseaseCauseConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    diseaseCauseConfigs.push((new DiseaseCauseConfig()).load(datum));
+                                });
+                            
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.diseaseCauseConfig = diseaseCauseConfigs;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'disease_configs?pagination=false'))
+                            .then((result) => {
+                                const diseaseConfigs: DiseaseConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    diseaseConfigs.push((new DiseaseConfig()).load(datum));
+                                });
+                            
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.diseaseConfig = diseaseConfigs;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'consumable_disease_configs?pagination=false'))
+                            .then((result) => {
+                                const consumableDiseaseConfigs: ConsumableDiseaseConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    consumableDiseaseConfigs.push((new ConsumableDiseaseConfig()).load(datum));
+                                });
+
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.consumableDiseaseConfig = consumableDiseaseConfigs;
+                                }
+                            });
+                    }
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -181,12 +231,205 @@ export default defineComponent({
                         console.error('Error', error.message);
                     }
                 });
-        }
+        },
+        addNewCharacterConfig(selectedId: integer){
+            GameConfigService.loadCharacterConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.charactersConfig){
+                    this.gameConfig.charactersConfig.push(res);
+                }
+            });
+        },
+        removeCharacterConfig(characterConfig: any){
+            if (this.gameConfig && this.gameConfig.charactersConfig){
+                this.gameConfig.charactersConfig = removeItem(this.gameConfig.charactersConfig, characterConfig);
+            }
+        },
+        addNewEquipmentConfig(selectedId: integer){
+            GameConfigService.loadEquipmentConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.equipmentsConfig){
+                    this.gameConfig.equipmentsConfig.push(res);
+                }
+            });
+        },
+        removeEquipmentConfig(equipmentConfig: any){
+            if (this.gameConfig && this.gameConfig.equipmentsConfig){
+                this.gameConfig.equipmentsConfig = removeItem(this.gameConfig.equipmentsConfig, equipmentConfig);
+            }
+        },
+        addNewStatusConfig(selectedId: integer){
+            GameConfigService.loadStatusConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.statusConfigs){
+                    this.gameConfig.statusConfigs.push(res);
+                }
+            });
+        },
+        removeStatusConfig(statusConfig: any){
+            if (this.gameConfig && this.gameConfig.statusConfigs){
+                this.gameConfig.statusConfigs = removeItem(this.gameConfig.statusConfigs, statusConfig);
+            }
+        },
+        selectNewDaedalusConfig(selectedId: integer){
+            GameConfigService.loadDaedalusConfig(selectedId).then((res) => {
+                if (res && this.gameConfig){
+                    this.gameConfig.daedalusConfig = res;
+                }
+            });
+        },
+        selectNewDifficultyConfig(selectedId: integer){
+            GameConfigService.loadDifficultyConfig(selectedId).then((res) => {
+                if (res && this.gameConfig){
+                    this.gameConfig.difficultyConfig = res;
+                }
+            });
+        },
+        addNewTriumphConfig(selectedId: integer){
+            GameConfigService.loadTriumphConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.triumphConfig){
+                    this.gameConfig.triumphConfig.push(res);
+                }
+            });
+        },
+        removeTriumphConfig(triumphConfig: any){
+            if (this.gameConfig && this.gameConfig.triumphConfig){
+                this.gameConfig.triumphConfig = removeItem(this.gameConfig.triumphConfig, triumphConfig);
+            }
+        },
+        addNewDiseaseCauseConfig(selectedId: integer){
+            GameConfigService.loadDiseaseCauseConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.diseaseCauseConfig){
+                    this.gameConfig.diseaseCauseConfig.push(res);
+                }
+            });
+        },
+        removeDiseaseCauseConfig(diseaseCauseConfig: any){
+            if (this.gameConfig && this.gameConfig.diseaseCauseConfig){
+                this.gameConfig.diseaseCauseConfig = removeItem(this.gameConfig.diseaseCauseConfig, diseaseCauseConfig);
+            }
+        },
+        addNewDiseaseConfig(selectedId: integer){
+            GameConfigService.loadDiseaseConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.diseaseConfig){
+                    this.gameConfig.diseaseConfig.push(res);
+                }
+            });
+        },
+        removeDiseaseConfig(diseaseConfig: any){
+            if (this.gameConfig && this.gameConfig.diseaseConfig){
+                this.gameConfig.diseaseConfig = removeItem(this.gameConfig.diseaseConfig, diseaseConfig);
+            }
+        },
+        addConsumableDiseaseConfig(selectedId: integer){
+            GameConfigService.loadConsumableDiseaseConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.consumableDiseaseConfig){
+                    this.gameConfig.consumableDiseaseConfig.push(res);
+                }
+            });
+        },
+        removeConsumableDiseaseConfig(consumableDiseaseConfig: any){
+            if (this.gameConfig && this.gameConfig.consumableDiseaseConfig){
+                this.gameConfig.consumableDiseaseConfig = removeItem(this.gameConfig.consumableDiseaseConfig, consumableDiseaseConfig);
+            }
+        },
     },
     beforeMount() {
         const gameConfigId = Number(this.$route.params.gameConfigId);
         GameConfigService.loadGameConfig(gameConfigId).then((res: GameConfig | null) => {
             this.gameConfig = res;
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs', String(gameConfigId), 'daedalus_config'))
+                .then((result) => {
+                    const daedalusConfig: DaedalusConfig = new DaedalusConfig();
+                    daedalusConfig.load(result.data);
+
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.daedalusConfig = daedalusConfig;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs', String(gameConfigId), 'difficulty_config'))
+                .then((result) => {
+                    const difficultyConfig: DifficultyConfig = new DifficultyConfig();
+                    difficultyConfig.load(result.data);
+
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.difficultyConfig = difficultyConfig;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs', String(gameConfigId), 'characters_configs'))
+                .then((result) => {
+                    const charactersConfig: CharacterConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        charactersConfig.push((new CharacterConfig()).load(datum));
+                    });
+
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.charactersConfig = charactersConfig;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'equipments_configs?pagination=false'))
+                .then((result) => {
+                    const equipmentsConfig: EquipmentConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        equipmentsConfig.push((new EquipmentConfig()).load(datum));
+                    });
+                    
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.equipmentsConfig = equipmentsConfig;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'status_configs?pagination=false'))
+                .then((result) => {
+                    const statusConfigs: StatusConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        statusConfigs.push((new StatusConfig()).load(datum));
+                    });
+                    
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.statusConfigs = statusConfigs;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'triumph_configs?pagination=false'))
+                .then((result) => {
+                    const triumphConfigs: TriumphConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        triumphConfigs.push((new TriumphConfig()).load(datum));
+                    });
+                    
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.triumphConfig = triumphConfigs;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'disease_cause_configs?pagination=false'))
+                .then((result) => {
+                    const diseaseCauseConfigs: DiseaseCauseConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        diseaseCauseConfigs.push((new DiseaseCauseConfig()).load(datum));
+                    });
+                    
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.diseaseCauseConfig = diseaseCauseConfigs;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'disease_configs?pagination=false'))
+                .then((result) => {
+                    const diseaseConfigs: DiseaseConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        diseaseConfigs.push((new DiseaseConfig()).load(datum));
+                    });
+                    
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.diseaseConfig = diseaseConfigs;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'consumable_disease_configs?pagination=false'))
+                .then((result) => {
+                    const consumableDiseaseConfigs: ConsumableDiseaseConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        consumableDiseaseConfigs.push((new ConsumableDiseaseConfig()).load(datum));
+                    });
+                    
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.consumableDiseaseConfig = consumableDiseaseConfigs;
+                    }
+                });
         });
     }
 });

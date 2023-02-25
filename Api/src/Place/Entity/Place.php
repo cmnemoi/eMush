@@ -11,7 +11,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Repository\PlaceRepository;
@@ -55,7 +55,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     #[ORM\OneToMany(mappedBy: 'place', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
 
-    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Modifier::class)]
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
     public function __construct()
@@ -184,7 +184,6 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     {
         if ($this->equipments->contains($gameEquipment)) {
             $this->equipments->removeElement($gameEquipment);
-            $gameEquipment->setHolder(null);
         }
 
         return $this;
@@ -255,7 +254,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $allModifiers->addModifiers($this->daedalus->getModifiers());
     }
 
-    public function addModifier(Modifier $modifier): static
+    public function addModifier(GameModifier $modifier): static
     {
         $this->modifiers->add($modifier);
 

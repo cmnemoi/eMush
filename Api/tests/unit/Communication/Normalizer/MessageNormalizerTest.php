@@ -8,6 +8,7 @@ use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\DiseaseMessagesEnum;
 use Mush\Communication\Normalizer\MessageNormalizer;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
@@ -17,12 +18,15 @@ use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class MessageNormalizerTest extends TestCase
@@ -37,7 +41,7 @@ class MessageNormalizerTest extends TestCase
      */
     public function before()
     {
-        $this->translationService = Mockery::mock(TranslationServiceInterface::class);
+        $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->normalizer = new MessageNormalizer(
             $this->translationService,
@@ -49,27 +53,29 @@ class MessageNormalizerTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testNormalizePlayerMessage()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), $playerConfig);
 
         $createdAt = new \DateTime();
 
         $message = new Message();
         $message
-            ->setAuthor($player)
+            ->setAuthor($playerInfo)
             ->setMessage('message')
             ->setCreatedAt($createdAt)
         ;
@@ -88,7 +94,10 @@ class MessageNormalizerTest extends TestCase
         ;
 
         $currentPlayer = new Player();
-        $currentPlayer->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $currentPlayer
+            ->setDaedalus($daedalus)
+            ->setPlayerInfo(new PlayerInfo($currentPlayer, new User(), new CharacterConfig()))
+        ;
 
         $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
@@ -105,15 +114,17 @@ class MessageNormalizerTest extends TestCase
     public function testNormalizeNeronMessage()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $neron = new Neron();
-        $neron->setDaedalus($daedalus);
+        $neron->setDaedalusInfo($daedalusInfo);
 
         $createdAt = new \DateTime();
 
@@ -147,7 +158,10 @@ class MessageNormalizerTest extends TestCase
         ;
 
         $currentPlayer = new Player();
-        $currentPlayer->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $currentPlayer
+            ->setDaedalus($daedalus)
+            ->setPlayerInfo(new PlayerInfo($currentPlayer, new User(), new CharacterConfig()))
+        ;
 
         $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
@@ -164,27 +178,29 @@ class MessageNormalizerTest extends TestCase
     public function testNormalizeNeronMessageWithChild()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $neron = new Neron();
-        $neron->setDaedalus($daedalus);
+        $neron->setDaedalusInfo($daedalusInfo);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), $playerConfig);
 
         $createdAt = new \DateTime();
 
         $playerMessage = new Message();
         $playerMessage
-            ->setAuthor($player)
+            ->setAuthor($playerInfo)
             ->setMessage('message child')
             ->setCreatedAt($createdAt)
         ;
@@ -205,7 +221,7 @@ class MessageNormalizerTest extends TestCase
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('name' . '.name', [], 'characters', LanguageEnum::FRENCH)
+            ->with('name.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translated player name')
             ->once()
         ;
@@ -223,7 +239,10 @@ class MessageNormalizerTest extends TestCase
         ;
 
         $currentPlayer = new Player();
-        $currentPlayer->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $currentPlayer
+            ->setDaedalus($daedalus)
+            ->setPlayerInfo(new PlayerInfo($currentPlayer, new User(), new CharacterConfig()))
+        ;
 
         $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($neronMessage, null, $context);
@@ -246,15 +265,18 @@ class MessageNormalizerTest extends TestCase
     public function testNormalizeDeafPlayerMessage()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), $playerConfig);
+        $player->setDaedalus($daedalus);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::DEAF);
         $diseaseConfig = new DiseaseConfig();
@@ -271,7 +293,7 @@ class MessageNormalizerTest extends TestCase
 
         $message = new Message();
         $message
-            ->setAuthor($player)
+            ->setAuthor($playerInfo)
             ->setMessage('message')
             ->setCreatedAt($createdAt)
         ;
@@ -309,18 +331,23 @@ class MessageNormalizerTest extends TestCase
     public function testNormalizeParanoiacPlayerMessage()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $player
+            ->setDaedalus($daedalus)
+            ->setPlayerInfo(new PlayerInfo($player, new User(), new CharacterConfig()))
+        ;
 
         $otherPlayer = new Player();
-        $otherPlayer->setCharacterConfig($playerConfig);
+        $otherPlayerInfo = new PlayerInfo($otherPlayer, new User(), $playerConfig);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
         $diseaseConfig = new DiseaseConfig();
@@ -337,7 +364,7 @@ class MessageNormalizerTest extends TestCase
 
         $message = new Message();
         $message
-            ->setAuthor($otherPlayer)
+            ->setAuthor($otherPlayerInfo)
             ->setMessage('modified message')
             ->setCreatedAt($createdAt)
             ->setTranslationParameters([
@@ -373,15 +400,18 @@ class MessageNormalizerTest extends TestCase
     public function testNormalizeParanoiacPlayerMessageSelf()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), $playerConfig);
+        $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
         $diseaseConfig = new DiseaseConfig();
@@ -398,7 +428,7 @@ class MessageNormalizerTest extends TestCase
 
         $message = new Message();
         $message
-            ->setAuthor($player)
+            ->setAuthor($playerInfo)
             ->setMessage('modified message')
             ->setCreatedAt($createdAt)
             ->setTranslationParameters([

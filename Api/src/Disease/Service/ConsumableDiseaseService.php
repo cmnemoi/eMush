@@ -31,6 +31,15 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
         $this->randomService = $randomService;
     }
 
+    public function removeAllConsumableDisease(Daedalus $daedalus): void
+    {
+        $consumableEffects = $this->consumableDiseaseRepository->findBy(['daedalus' => $daedalus]);
+        foreach ($consumableEffects as $effect) {
+            $this->entityManager->remove($effect);
+            $this->entityManager->flush();
+        }
+    }
+
     public function findConsumableDiseases(string $name, Daedalus $daedalus): ?ConsumableDisease
     {
         $consumableDisease = $this->consumableDiseaseRepository->findOneBy(
@@ -46,12 +55,23 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
         return $consumableDisease;
     }
 
+    private function findConsumableDiseaseConfigByNameAndDaedalus(string $name, Daedalus $daedalus): ?ConsumableDiseaseConfig
+    {
+        $consumableDiseaseConfigs = $daedalus->getGameConfig()
+            ->getConsumableDiseaseConfig()->filter(fn (ConsumableDiseaseConfig $consumableDiseaseConfig) => $consumableDiseaseConfig->getCauseName() === $name);
+
+        if ($consumableDiseaseConfigs->count() === 0) {
+            return null;
+        }
+
+        return $consumableDiseaseConfigs->first();
+    }
+
     public function createConsumableDiseases(string $name, Daedalus $daedalus): ?ConsumableDisease
     {
-        /** @var ConsumableDiseaseConfig $consumableDiseaseConfig */
-        $consumableDiseaseConfig = $this->consumableDiseaseConfigRepository->findOneBy(['name' => $name, 'gameConfig' => $daedalus->getGameConfig()]);
+        $consumableDiseaseConfig = $this->findConsumableDiseaseConfigByNameAndDaedalus($name, $daedalus);
 
-        if (!$consumableDiseaseConfig instanceof ConsumableDiseaseConfig) {
+        if ($consumableDiseaseConfig === null) {
             return null;
         }
 

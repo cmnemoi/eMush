@@ -8,6 +8,9 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 
+/**
+ * @template-extends ServiceEntityRepository<Daedalus>
+ */
 class DaedalusRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -22,8 +25,9 @@ class DaedalusRepository extends ServiceEntityRepository
         $qb
             ->select('daedalus')
             ->leftJoin('daedalus.players', 'player')
+            ->leftJoin('daedalus.daedalusInfo', 'daedalus_info')
             ->groupBy('daedalus')
-            ->where($qb->expr()->in('daedalus.gameStatus', ':gameStatus'))
+            ->where($qb->expr()->in('daedalus_info.gameStatus', ':gameStatus'))
             ->having('count(player) < ' . 16)
             ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
         ;
@@ -40,14 +44,16 @@ class DaedalusRepository extends ServiceEntityRepository
             ->select('count(characterConfig.id)')
             ->from(GameConfig::class, 'config')
             ->leftJoin('config.charactersConfig', 'characterConfig')
-            ->where($qb->expr()->eq('config.id', 'daedalus.gameConfig'))
+            ->leftJoin('daedalus.daedalusInfo', 'daedalus_info')
+            ->where($qb->expr()->eq('config.id', 'daedalus_info.gameConfig'))
         ;
 
         $qb
             ->select('daedalus')
             ->leftJoin('daedalus.players', 'player')
-            ->andWhere($qb->expr()->in('daedalus.gameStatus', ':gameStatus'))
-            ->andWhere($qb->expr()->eq('daedalus.name', ':name'))
+            ->leftJoin('daedalus.daedalusInfo', 'daedalus_info')
+            ->andWhere($qb->expr()->in('daedalus_info.gameStatus', ':gameStatus'))
+            ->andWhere($qb->expr()->eq('daedalus_info.name', ':name'))
             ->groupBy('daedalus')
             ->having('count(player.id) < (' . $daedalusConfig->getDQL() . ')')
             ->setMaxResults(1)
@@ -56,5 +62,19 @@ class DaedalusRepository extends ServiceEntityRepository
         ;
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function findNonFinishedDaedaluses()
+    {
+        $qb = $this->createQueryBuilder('daedalus');
+
+        $qb
+            ->select('daedalus')
+            ->leftJoin('daedalus.daedalusInfo', 'daedalus_info')
+            ->where($qb->expr()->notIn('daedalus_info.gameStatus', ':gameStatus'))
+            ->setParameter('gameStatus', [GameStatusEnum::FINISHED, GameStatusEnum::CLOSED])
+        ;
+
+        return $qb->getQuery()->getResult();
     }
 }

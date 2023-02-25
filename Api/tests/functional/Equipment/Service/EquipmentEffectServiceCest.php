@@ -43,6 +43,7 @@ class EquipmentEffectServiceCest
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([1 => 1, 3 => 1])
             ->setMoralPoints([1000 => 1000])
+            ->setName('ration_test')
         ;
         $I->haveInRepository($rationEffect);
 
@@ -85,6 +86,7 @@ class EquipmentEffectServiceCest
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([1 => 1])
             ->setMoralPoints([1 => 1])
+            ->setName('fruit_banana_test')
         ;
 
         return $bananaMechanic;
@@ -98,6 +100,7 @@ class EquipmentEffectServiceCest
             ->setActionPoints([1 => 90, 2 => 9, 3 => 1])
             ->setMoralPoints([0 => 30, 1 => 70])
             ->setExtraEffects([ExtraEffectEnum::EXTRA_PA_GAIN => 50])
+            ->setName('fruit_alien_test')
         ;
 
         return $alienFruitMechanic;

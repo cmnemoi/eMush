@@ -5,9 +5,8 @@ namespace Mush\Status\Entity\Config;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
@@ -23,16 +22,16 @@ class StatusConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     protected int $id;
 
-    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
-    private GameConfig $gameConfig;
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    protected string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    protected string $name;
+    protected string $statusName;
 
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $visibility = VisibilityEnum::PUBLIC;
 
-    #[ORM\ManyToMany(targetEntity: ModifierConfig::class)]
+    #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;
 
     public function __construct()
@@ -45,14 +44,14 @@ class StatusConfig
         return $this->id;
     }
 
-    public function getGameConfig(): GameConfig
+    public function getStatusName(): string
     {
-        return $this->gameConfig;
+        return $this->statusName;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): self
+    public function setStatusName(string $statusName): static
     {
-        $this->gameConfig = $gameConfig;
+        $this->statusName = $statusName;
 
         return $this;
     }
@@ -65,6 +64,17 @@ class StatusConfig
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function buildName(string $configName, ?string $details = null): static
+    {
+        if ($details === null) {
+            $this->name = $this->statusName . '_' . $configName;
+        } else {
+            $this->name = $this->statusName . '_' . $details . '_' . $configName;
+        }
 
         return $this;
     }
@@ -86,6 +96,9 @@ class StatusConfig
         return $this->modifierConfigs;
     }
 
+    /**
+     * @param array<int, AbstractModifierConfig>|Collection<int, AbstractModifierConfig> $modifierConfigs
+     */
     public function setModifierConfigs(array|Collection $modifierConfigs): static
     {
         if (is_array($modifierConfigs)) {

@@ -43,10 +43,10 @@ class Extinguish extends AttemptAction
             $statusEvent = new StatusEvent(
                 StatusEnum::FIRE,
                 $this->player->getPlace(),
-                $this->getActionName(),
+                $this->getAction()->getActionTags(),
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
         }
     }
 }

@@ -6,7 +6,6 @@ use Mush\Communication\Entity\Message;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use UnexpectedValueException;
 
 class MaxNestedParentValidator extends ConstraintValidator
 {
@@ -21,7 +20,7 @@ class MaxNestedParentValidator extends ConstraintValidator
         }
 
         if (!$value instanceof Message) {
-            throw new UnexpectedValueException($value);
+            throw new \UnexpectedValueException($value);
         }
 
         if ($value->getParent()) {

@@ -6,12 +6,14 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Event\ApplyEffectEvent;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasDiseases;
 use Mush\Disease\Enum\TypeEnum;
-use Mush\Game\Enum\VisibilityEnum;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class implementing the "Fake disease" action.
@@ -22,6 +24,18 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 class FakeDisease extends AbstractAction
 {
     protected string $name = ActionEnum::FAKE_DISEASE;
+    protected DiseaseCauseServiceInterface $diseaseCauseService;
+
+    public function __construct(
+        EventServiceInterface $eventService,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        DiseaseCauseServiceInterface $diseaseCauseService
+    ) {
+        parent::__construct($eventService, $actionService, $validator);
+
+        $this->diseaseCauseService = $diseaseCauseService;
+    }
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -47,13 +61,6 @@ class FakeDisease extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $diseaseEvent = new ApplyEffectEvent(
-            $this->player,
-            $this->player,
-            VisibilityEnum::PUBLIC,
-            $this->getActionName(),
-            new \DateTime()
-        );
-        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
+        $this->diseaseCauseService->handleDiseaseForCause($this->getActionName(), $this->player);
     }
 }

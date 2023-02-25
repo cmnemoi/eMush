@@ -5,16 +5,15 @@ namespace Mush\Disease\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Disease\Entity\Config\SymptomCondition;
+use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Entity\Config\SymptomConfig;
-use Mush\Disease\Enum\SymptomConditionEnum;
+use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Disease\Enum\SymptomEnum;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameConfigEnum;
 
 class DisorderSymptomConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -28,66 +27,71 @@ class DisorderSymptomConfigFixtures extends Fixture implements DependentFixtureI
 
     public function load(ObjectManager $manager): void
     {
-        $catIsInRoomCondition = new SymptomCondition(SymptomConditionEnum::ITEM_IN_ROOM);
-        $catIsInRoomCondition->setCondition(ItemEnum::SCHRODINGER);
-        $manager->persist($catIsInRoomCondition);
+        /** @var SymptomActivationRequirement $catIsInRoomActivationRequirement */
+        $catIsInRoomActivationRequirement = $this->getReference(DiseaseSymptomConfigFixtures::ITEM_IN_ROOM_CAT);
+        /** @var SymptomActivationRequirement $moveActionActivationRequirement */
+        $moveActionActivationRequirement = $this->getReference(DiseaseSymptomConfigFixtures::REASON_MOVE);
+        /** @var SymptomActivationRequirement $randActivationRequirement16 */
+        $randActivationRequirement16 = $this->getReference(DiseaseSymptomConfigFixtures::RANDOM_16);
 
-        $moveActionCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionCondition->setCondition(ActionEnum::MOVE);
-        $manager->persist($moveActionCondition);
-
-        $randCondition16 = new SymptomCondition(SymptomConditionEnum::RANDOM);
-        $randCondition16->setValue(16);
-        $manager->persist($randCondition16);
-
-        $randCondition50 = new SymptomCondition(SymptomConditionEnum::RANDOM);
-        $randCondition50->setValue(50);
-        $manager->persist($randCondition50);
+        $randActivationRequirement50 = new SymptomActivationRequirement(SymptomActivationRequirementEnum::RANDOM);
+        $randActivationRequirement50
+            ->setValue(50)
+            ->buildName()
+        ;
+        $manager->persist($randActivationRequirement50);
 
         $fearOfCats = new SymptomConfig(SymptomEnum::FEAR_OF_CATS);
         $fearOfCats
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($catIsInRoomCondition)
-            ->addSymptomCondition($moveActionCondition)
-            ->addSymptomCondition($randCondition50)
+            ->addSymptomActivationRequirement($catIsInRoomActivationRequirement)
+            ->addSymptomActivationRequirement($moveActionActivationRequirement)
+            ->addSymptomActivationRequirement($randActivationRequirement50)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($fearOfCats);
 
         $noAttackActions = new SymptomConfig(SymptomEnum::NO_ATTACK_ACTIONS);
         $noAttackActions
             ->setTrigger(ActionTypeEnum::ACTION_ATTACK)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($noAttackActions);
 
         $noPilotingActions = new SymptomConfig(SymptomEnum::NO_PILOTING_ACTIONS);
         $noPilotingActions
             ->setTrigger(ActionTypeEnum::ACTION_PILOT)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($noPilotingActions);
 
         $noShootActions = new SymptomConfig(SymptomEnum::NO_SHOOT_ACTIONS);
         $noShootActions
             ->setTrigger(ActionTypeEnum::ACTION_SHOOT)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($noShootActions);
 
         $psychoticAttacks = new SymptomConfig(SymptomEnum::PSYCHOTIC_ATTACKS);
         $psychoticAttacks
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionCondition)
-            ->addSymptomCondition($randCondition16)
+            ->addSymptomActivationRequirement($moveActionActivationRequirement)
+            ->addSymptomActivationRequirement($randActivationRequirement16)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($psychoticAttacks);
 
         $coprolalia = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
         $coprolalia
-            ->setTrigger(EventEnum::ON_NEW_MESSAGE)
+            ->setTrigger(EventEnum::NEW_MESSAGE)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($coprolalia);
 
         $paranoia = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
         $paranoia
-            ->setTrigger(EventEnum::ON_NEW_MESSAGE)
+            ->setTrigger(EventEnum::NEW_MESSAGE)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($paranoia);
 
@@ -106,6 +110,7 @@ class DisorderSymptomConfigFixtures extends Fixture implements DependentFixtureI
     {
         return [
             GameConfigFixtures::class,
+            DiseaseSymptomConfigFixtures::class,
         ];
     }
 }

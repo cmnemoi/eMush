@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\EmptyBedInRoom;
 use Mush\Action\Validator\EmptyBedInRoomValidator;
@@ -37,7 +36,7 @@ class EmptyBedInRoomValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -47,10 +46,10 @@ class EmptyBedInRoomValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $gameEquipment = new GameItem();
-        $gameEquipment->setName(EquipmentEnum::MEDLAB_BED)->setHolder($room);
+        $gameEquipment = new GameItem($room);
+        $gameEquipment->setName(EquipmentEnum::MEDLAB_BED);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -68,17 +67,17 @@ class EmptyBedInRoomValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $gameEquipment = new GameItem();
-        $gameEquipment->setName(EquipmentEnum::BED)->setHolder($room);
+        $gameEquipment = new GameItem($room);
+        $gameEquipment->setName(EquipmentEnum::BED);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setVisibility(VisibilityEnum::PUBLIC)->setName(PlayerStatusEnum::LYING_DOWN);
+        $statusConfig->setVisibility(VisibilityEnum::PUBLIC)->setStatusName(PlayerStatusEnum::LYING_DOWN);
         $lyingDownStatus = new Status($player, $statusConfig);
         $lyingDownStatus
             ->setTarget($gameEquipment)
         ;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -96,7 +95,7 @@ class EmptyBedInRoomValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -109,8 +108,8 @@ class EmptyBedInRoomValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

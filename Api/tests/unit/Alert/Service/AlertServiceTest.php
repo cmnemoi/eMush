@@ -12,15 +12,18 @@ use Mush\Alert\Repository\AlertRepository;
 use Mush\Alert\Service\AlertService;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class AlertServiceTest extends TestCase
@@ -36,8 +39,8 @@ class AlertServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->repository = Mockery::mock(AlertRepository::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->repository = \Mockery::mock(AlertRepository::class);
 
         $this->alertService = new AlertService(
             $this->entityManager,
@@ -50,13 +53,16 @@ class AlertServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testNoOxygenAlert()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitOxygen(15);
+
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(15);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         // oxygen don't go bellow the threshold of 8 oxygen
         $this->entityManager->shouldReceive('persist')->never();
@@ -69,8 +75,11 @@ class AlertServiceTest extends TestCase
 
     public function testOxygenAlert()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitOxygen(8);
+
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(8);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->never();
@@ -82,8 +91,11 @@ class AlertServiceTest extends TestCase
 
     public function testSolveOxygenAlert()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitOxygen(9);
+
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(9);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::LOW_OXYGEN);
@@ -101,8 +113,11 @@ class AlertServiceTest extends TestCase
 
     public function testNoHullAlert()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitHull(95);
+
         $daedalus = new Daedalus();
-        $daedalus->setHull(95);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         // oxygen don't go bellow the threshold of 8 oxygen
         $this->entityManager->shouldReceive('persist')->never();
@@ -115,8 +130,11 @@ class AlertServiceTest extends TestCase
 
     public function testHullAlert()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitHull(20);
+
         $daedalus = new Daedalus();
-        $daedalus->setHull(20);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->never();
@@ -128,8 +146,11 @@ class AlertServiceTest extends TestCase
 
     public function testSolveHullAlert()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitHull(90);
+
         $daedalus = new Daedalus();
-        $daedalus->setHull(90);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::LOW_HULL);
@@ -182,8 +203,7 @@ class AlertServiceTest extends TestCase
 
         $room = new Place();
         $room->setDaedalus($daedalus);
-        $gameEquipment = new GameEquipment();
-        $gameEquipment->setHolder($room);
+        $gameEquipment = new GameEquipment($room);
 
         $this->repository->shouldReceive('findOneBy')
             ->andReturn(null)
@@ -203,7 +223,7 @@ class AlertServiceTest extends TestCase
 
         $room = new Place();
         $room->setDaedalus($daedalus);
-        $gameEquipment = new Door();
+        $gameEquipment = new Door($room);
         $gameEquipment->addRoom($room);
 
         $doorElement = new AlertElement();
@@ -233,8 +253,7 @@ class AlertServiceTest extends TestCase
         $daedalus = new Daedalus();
         $room = new Place();
         $room->setDaedalus($daedalus);
-        $gameEquipment = new GameEquipment();
-        $gameEquipment->setHolder($room);
+        $gameEquipment = new GameEquipment($room);
 
         $equipmentElement1 = new AlertElement();
         $equipmentElement1->setEquipment($gameEquipment);
@@ -268,8 +287,7 @@ class AlertServiceTest extends TestCase
         $daedalus = new Daedalus();
         $room = new Place();
         $room->setDaedalus($daedalus);
-        $gameEquipment = new GameEquipment();
-        $gameEquipment->setHolder($room);
+        $gameEquipment = new GameEquipment($room);
 
         $equipmentElement1 = new AlertElement();
         $equipmentElement1->setEquipment($gameEquipment);
@@ -379,20 +397,26 @@ class AlertServiceTest extends TestCase
 
     public function testSatietyAlertActivate()
     {
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setInitSatiety(-24);
+
         $daedalus = new Daedalus();
 
         $player1 = new Player();
         $player1
             ->setDaedalus($daedalus)
-            ->setSatiety(-24)
-            ->setGameStatus(GameStatusEnum::CURRENT)
+            ->setPlayerVariables($characterConfig)
         ;
+        $playerInfo1 = new PlayerInfo($player1, new User(), new CharacterConfig());
+        $player1->setPlayerInfo($playerInfo1);
+
         $player2 = new Player();
         $player2
             ->setDaedalus($daedalus)
-            ->setSatiety(-24)
-            ->setGameStatus(GameStatusEnum::CURRENT)
+            ->setPlayerVariables($characterConfig)
         ;
+        $playerInfo2 = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $player2->setPlayerInfo($playerInfo2);
 
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::HUNGER])
@@ -409,20 +433,26 @@ class AlertServiceTest extends TestCase
 
     public function testSatietyAlertAlreadyActive()
     {
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setInitSatiety(-24);
+
         $daedalus = new Daedalus();
 
         $player1 = new Player();
         $player1
             ->setDaedalus($daedalus)
-            ->setSatiety(-24)
-            ->setGameStatus(GameStatusEnum::CURRENT)
+            ->setPlayerVariables($characterConfig)
         ;
+        $playerInfo1 = new PlayerInfo($player1, new User(), new CharacterConfig());
+        $player1->setPlayerInfo($playerInfo1);
+
         $player2 = new Player();
         $player2
             ->setDaedalus($daedalus)
-            ->setSatiety(-24)
-            ->setGameStatus(GameStatusEnum::CURRENT)
+            ->setPlayerVariables($characterConfig)
         ;
+        $playerInfo2 = new PlayerInfo($player1, new User(), new CharacterConfig());
+        $player2->setPlayerInfo($playerInfo2);
 
         $alert = new Alert();
         $alert->setName(AlertEnum::HUNGER)->setDaedalus($daedalus);
@@ -442,20 +472,27 @@ class AlertServiceTest extends TestCase
 
     public function testSatietyAlertDeactivate()
     {
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setInitSatiety(-24);
+
         $daedalus = new Daedalus();
 
         $player1 = new Player();
         $player1
             ->setDaedalus($daedalus)
+            ->setPlayerVariables($characterConfig)
             ->setSatiety(-22)
-            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
+        $playerInfo1 = new PlayerInfo($player1, new User(), new CharacterConfig());
+        $player1->setPlayerInfo($playerInfo1);
+
         $player2 = new Player();
         $player2
             ->setDaedalus($daedalus)
-            ->setSatiety(-24)
-            ->setGameStatus(GameStatusEnum::CURRENT)
+            ->setPlayerVariables($characterConfig)
         ;
+        $playerInfo2 = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $player2->setPlayerInfo($playerInfo2);
 
         $alert = new Alert();
         $alert->setName(AlertEnum::HUNGER)->setDaedalus($daedalus);
@@ -524,7 +561,7 @@ class AlertServiceTest extends TestCase
         $room->setDaedalus($daedalus);
 
         $fireConfig = new StatusConfig();
-        $fireConfig->setName(StatusEnum::FIRE);
+        $fireConfig->setStatusName(StatusEnum::FIRE);
         $fireStatus = new Status($room, $fireConfig);
 
         $alertElement = new AlertElement();
@@ -552,14 +589,17 @@ class AlertServiceTest extends TestCase
             ->setDaedalus($daedalus)
             ->setPlace($room)
         ;
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
+
         $room->setDaedalus($daedalus);
 
         $fireConfig = new StatusConfig();
-        $fireConfig->setName(StatusEnum::FIRE);
+        $fireConfig->setStatusName(StatusEnum::FIRE);
         $fireStatus = new Status($room, $fireConfig);
 
         $alertElement = new AlertElement();
-        $alertElement->setPlace($room)->setPlayer($player);
+        $alertElement->setPlace($room)->setPlayerInfo($playerInfo);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::FIRES)->addAlertElement($alertElement);
@@ -585,10 +625,9 @@ class AlertServiceTest extends TestCase
         ;
         $room->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
-        $gameEquipment->setHolder($room);
+        $gameEquipment = new GameEquipment($room);
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($gameEquipment, $brokenConfig);
 
         $alertElement = new AlertElement();
@@ -616,16 +655,18 @@ class AlertServiceTest extends TestCase
             ->setDaedalus($daedalus)
             ->setPlace($room)
         ;
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
+
         $room->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
-        $gameEquipment->setHolder($room);
+        $gameEquipment = new GameEquipment($room);
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($gameEquipment, $brokenConfig);
 
         $alertElement = new AlertElement();
-        $alertElement->setEquipment($gameEquipment)->setPlace($room)->setPlayer($player);
+        $alertElement->setEquipment($gameEquipment)->setPlace($room)->setPlayerInfo($playerInfo);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::BROKEN_EQUIPMENTS)->addAlertElement($alertElement);

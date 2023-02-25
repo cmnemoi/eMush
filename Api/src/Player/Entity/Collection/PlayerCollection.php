@@ -5,6 +5,9 @@ namespace Mush\Player\Entity\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Player\Entity\Player;
 
+/**
+ * @template-extends ArrayCollection<int, Player>
+ */
 class PlayerCollection extends ArrayCollection
 {
     public function getPlayerAlive(): self

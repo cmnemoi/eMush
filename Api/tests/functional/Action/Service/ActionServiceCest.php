@@ -4,22 +4,30 @@ namespace functional\Action\Service;
 
 use App\Tests\FunctionalTester;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierModeEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\User\Entity\User;
 
 class ActionServiceCest
 {
@@ -32,8 +40,15 @@ class ActionServiceCest
 
     public function testApplyCostToPlayer(FunctionalTester $I)
     {
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $I->flushToDatabase();
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
@@ -44,32 +59,49 @@ class ActionServiceCest
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
-            'actionPoint' => 10,
-            'characterConfig' => $characterConfig,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+        ;
 
-        $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(5);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $action = new Action();
-        $action->setName('some name');
-        $action->setActionCost($actionCost);
+        $action
+            ->setActionName('some name')
+            ->setActionCost(5)
+        ;
 
         $this->actionService->applyCostToPlayer($player, $action, null);
 
         $I->assertEquals(5, $player->getActionPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $player->getPlace(),
-            'player' => $player,
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalus->getDaedalusInfo(),
+            'playerInfo' => $player->getPlayerInfo(),
             'visibility' => VisibilityEnum::HIDDEN,
         ]);
     }
 
     public function testApplyCostToPlayerWithMovementPointConversion(FunctionalTester $I)
     {
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $I->flushToDatabase();
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
@@ -80,17 +112,23 @@ class ActionServiceCest
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
-            'actionPoint' => 10,
-            'movementPoint' => 0,
-            'characterConfig' => $characterConfig,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(0)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $actionCost = new ActionCost();
-        $actionCost->setMovementPointCost(1);
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $action = new Action();
-        $action->setName('some name');
-        $action->setActionCost($actionCost);
+        $action->setActionName('some name');
+        $action->setMovementCost(1);
 
         $this->actionService->applyCostToPlayer($player, $action, null);
 
@@ -100,8 +138,15 @@ class ActionServiceCest
 
     public function testApplyCostToPlayerWithMovementPointConversionAndModifier(FunctionalTester $I)
     {
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $I->flushToDatabase();
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
@@ -112,32 +157,40 @@ class ActionServiceCest
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
-            'actionPoint' => 10,
-            'movementPoint' => 0,
-            'characterConfig' => $characterConfig,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(0)
+        ;
 
-        $modifierConfig = new ModifierConfig();
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-1)
-            ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
 
         $I->haveInRepository($modifierConfig);
 
-        $disabledModifier = new Modifier($player, $modifierConfig);
+        $disabledModifier = new GameModifier($player, $modifierConfig);
 
         $I->haveInRepository($disabledModifier);
 
-        $actionCost = new ActionCost();
-        $actionCost->setMovementPointCost(1);
-
         $action = new Action();
-        $action->setName('some name');
-        $action->setActionCost($actionCost);
+        $action->setActionName('some name');
+        $action->setMovementCost(1);
 
         $this->actionService->applyCostToPlayer($player, $action, null);
 

@@ -6,9 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -30,9 +32,9 @@ class DaedalusNormalizerTest extends TestCase
      */
     public function before()
     {
-        $this->cycleService = Mockery::mock(CycleServiceInterface::class);
-        $this->translationService = Mockery::mock(TranslationServiceInterface::class);
-        $this->daedalusWidgetService = Mockery::mock(DaedalusWidgetServiceInterface::class);
+        $this->cycleService = \Mockery::mock(CycleServiceInterface::class);
+        $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
+        $this->daedalusWidgetService = \Mockery::mock(DaedalusWidgetServiceInterface::class);
 
         $this->normalizer = new DaedalusNormalizer($this->cycleService, $this->translationService, $this->daedalusWidgetService);
     }
@@ -42,39 +44,43 @@ class DaedalusNormalizerTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testNormalizer()
     {
         $nextCycle = new \DateTime();
         $this->cycleService->shouldReceive('getDateStartNextCycle')->andReturn($nextCycle);
-        $daedalus = Mockery::mock(Daedalus::class);
+        $daedalus = \Mockery::mock(Daedalus::class);
         $daedalus->shouldReceive('getId')->andReturn(2);
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());
         $daedalus->setPlaces(new ArrayCollection());
+
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
 
         $daedalusConfig = new DaedalusConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
-
-        $daedalus->setGameConfig($gameConfig);
 
         $daedalusConfig
             ->setMaxFuel(100)
             ->setMaxHull(100)
             ->setMaxOxygen(100)
             ->setMaxShield(100)
+            ->setInitFuel(24)
+            ->setInitHull(100)
+            ->setInitOxygen(24)
+            ->setInitShield(100)
         ;
+
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+
         $daedalus
             ->setCycle(4)
             ->setDay(4)
-            ->setHull(100)
-            ->setOxygen(24)
-            ->setFuel(24)
-            ->setShield(100)
+            ->setDaedalusVariables($daedalusConfig)
         ;
 
         $this->translationService

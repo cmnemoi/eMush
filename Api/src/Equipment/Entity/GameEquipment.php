@@ -6,9 +6,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -52,16 +53,22 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: Modifier::class)]
+    #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
     #[ORM\ManyToOne(targetEntity: Player::class)]
     private ?Player $owner = null;
 
-    public function __construct()
-    {
+    public function __construct(
+        EquipmentHolderInterface $equipmentHolder,
+    ) {
         $this->statuses = new ArrayCollection();
         $this->modifiers = new ModifierCollection();
+
+        if ($equipmentHolder instanceof Place) {
+            $this->place = $equipmentHolder;
+            $equipmentHolder->addEquipment($this);
+        }
     }
 
     public function getId(): int
@@ -95,40 +102,42 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function getPlace(): Place
     {
-        if (($holder = $this->getHolder()) === null) {
+        $place = $this->place;
+        if ($place === null) {
             throw new \LogicException('Cannot find place of the GameEquipment');
         }
 
-        return $holder->getPlace();
+        return $place;
     }
 
-    public function getHolder(): ?EquipmentHolderInterface
+    public function getHolder(): EquipmentHolderInterface
     {
+        if ($this->place === null) {
+            throw new \Error('equipment should have a holder');
+        }
+
         return $this->place;
     }
 
-    public function setHolder(?EquipmentHolderInterface $holder): static
+    public function setHolder(EquipmentHolderInterface $holder): static
     {
-        if ($holder === null) {
-            $this->place = null;
-
-            return $this;
-        }
-
         if (!$holder instanceof Place) {
             throw new UnexpectedTypeException($holder, Place::class);
         }
 
         if ($holder !== ($oldPlace = $this->getHolder())) {
-            if ($oldPlace !== null) {
-                $oldPlace->removeEquipment($this);
-            }
+            $oldPlace->removeEquipment($this);
 
             $this->place = $holder;
             $holder->addEquipment($this);
         }
 
         return $this;
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        return $this->getHolder()->getDaedalus();
     }
 
     public function getName(): string
@@ -169,10 +178,10 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
         $allModifiers = $allModifiers->addModifiers($this->getPlace()->getModifiers());
 
-        return $allModifiers->addModifiers($this->getPlace()->getDaedalus()->getModifiers());
+        return $allModifiers->addModifiers($this->getDaedalus()->getModifiers());
     }
 
-    public function addModifier(Modifier $modifier): static
+    public function addModifier(GameModifier $modifier): static
     {
         $this->modifiers->add($modifier);
 
@@ -203,10 +212,10 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     {
         /** @var Status $status */
         foreach ($this->getStatuses() as $status) {
-            if (in_array($status->getStatusConfig()->getName(), EquipmentStatusEnum::getOutOfOrderStatuses())) {
+            if (in_array($status->getStatusConfig()->getStatusName(), EquipmentStatusEnum::getOutOfOrderStatuses())) {
                 return false;
             }
-            if (($status->getStatusConfig()->getName() === EquipmentStatusEnum::ELECTRIC_CHARGES) &&
+            if (($status->getStatusConfig()->getStatusName() === EquipmentStatusEnum::ELECTRIC_CHARGES) &&
                  $status instanceof ChargeStatus &&
                  $status->getCharge() === 0
             ) {
@@ -220,6 +229,11 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     public function isBreakable(): bool
     {
         return $this->getEquipment()->isBreakable();
+    }
+
+    public function isInShelf(): bool
+    {
+        return true;
     }
 
     public function getLogName(): string

@@ -32,13 +32,13 @@ class BuildActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new Build(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gearToolService,
@@ -51,40 +51,40 @@ class BuildActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
-        $item->setName('blueprint');
+        $item->setEquipmentName('blueprint');
         $gameItem
             ->setEquipment($item)
-            ->setHolder($room)
             ->setName('blueprint')
         ;
 
         $product = new ItemConfig();
-        $product->setName('product');
-        $gameProduct = new GameItem();
+        $product->setEquipmentName('product');
+        $gameProduct = new GameItem(new Place());
         $gameProduct
             ->setEquipment($product)
-            ->setName('product');
+            ->setName('product')
+        ;
 
         $blueprint = new Blueprint();
         $blueprint
             ->setIngredients(['metal_scraps' => 1])
-            ->setEquipment($product);
+            ->setCraftedEquipmentName($product->getEquipmentName())
+        ;
         $item->setMechanics(new ArrayCollection([$blueprint]));
 
-        $gameIngredient = new GameItem();
+        $gameIngredient = new GameItem($room);
         $ingredient = new ItemConfig();
-        $ingredient->setName('metal_scraps');
+        $ingredient->setEquipmentName('metal_scraps');
         $gameIngredient
             ->setEquipment($ingredient)
-            ->setHolder($room)
             ->setName('metal_scraps')
         ;
 
@@ -95,8 +95,8 @@ class BuildActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameIngredient]))->once();
 
-        $this->gameEquipmentService->shouldReceive('createGameEquipment')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->times(2);
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
+        $this->eventService->shouldReceive('callEvent')->times(2);
 
         $result = $this->action->execute();
 

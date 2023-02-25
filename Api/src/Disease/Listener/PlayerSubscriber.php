@@ -3,13 +3,14 @@
 namespace Mush\Disease\Listener;
 
 use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -24,17 +25,20 @@ class PlayerSubscriber implements EventSubscriberInterface
     private const TRAUMA_PROBABILTY = 33;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private ModifierServiceInterface $modifierService;
+    private DiseaseCauseServiceInterface $diseaseCauseService;
+    private EventModifierServiceInterface $modifierService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         PlayerDiseaseServiceInterface $playerDiseaseService,
-        ModifierServiceInterface $modifierService,
+        DiseaseCauseServiceInterface $diseaseCauseService,
+        EventModifierServiceInterface $modifierService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService
     ) {
         $this->playerDiseaseService = $playerDiseaseService;
+        $this->diseaseCauseService = $diseaseCauseService;
         $this->modifierService = $modifierService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
@@ -61,7 +65,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             [PlayerEvent::CYCLE_DISEASE],
             ModifierTargetEnum::PERCENTAGE,
             $difficultyConfig->getCycleDiseaseRate(),
-            EventEnum::NEW_CYCLE,
+            [EventEnum::NEW_CYCLE],
             $event->getTime()
         );
 
@@ -71,7 +75,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             } else {
                 $cause = DiseaseCauseEnum::CYCLE;
             }
-            $this->playerDiseaseService->handleDiseaseForCause($cause, $player);
+            $this->diseaseCauseService->handleDiseaseForCause($cause, $player);
         }
     }
 
@@ -91,8 +95,14 @@ class PlayerSubscriber implements EventSubscriberInterface
                     ['character_gender' => $characterGender],
                     $event->getTime()
                 );
-                $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::TRAUMA, $player);
+                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::TRAUMA, $player);
             }
+        }
+
+        // remove disease of the player
+        $diseases = $event->getPlayer()->getMedicalConditions();
+        foreach ($diseases as $disease) {
+            $this->playerDiseaseService->delete($disease);
         }
     }
 
@@ -101,7 +111,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
 
         if ($this->randomService->isSuccessful(self::INFECTION_DISEASE_RATE)) {
-            $this->playerDiseaseService->handleDiseaseForCause(
+            $this->diseaseCauseService->handleDiseaseForCause(
                 DiseaseCauseEnum::INFECTION,
                 $player,
                 self::INFECTION_DISEASES_INCUBATING_DELAY,
@@ -113,15 +123,23 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onNewPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
-        $characterConfig = $player->getCharacterConfig();
-        $reason = $event->getReason();
+        $characterConfig = $player->getPlayerInfo()->getCharacterConfig();
+        $reasons = $event->getTags();
 
         $initDiseases = $characterConfig->getInitDiseases();
+        // get diseases name from initDiseases configs with a closure
+        $initDiseases = array_map(
+            function ($diseaseConfig) {
+                return $diseaseConfig->getDiseaseName();
+            },
+            $initDiseases->toArray()
+        );
+
         foreach ($initDiseases as $diseaseName) {
             $this->playerDiseaseService->createDiseaseFromName(
                 $diseaseName,
                 $player,
-                $reason,
+                $reasons,
             );
         }
     }

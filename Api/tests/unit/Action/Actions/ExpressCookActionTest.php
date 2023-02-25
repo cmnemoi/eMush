@@ -29,12 +29,12 @@ class ExpressCookActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::EXPRESS_COOK);
 
         $this->action = new ExpressCook(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -46,7 +46,7 @@ class ExpressCookActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecuteFruit()
@@ -56,32 +56,30 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameRation = new GameItem();
+        $gameRation = new GameItem($player);
         $ration = new ItemConfig();
-        $ration->setName('ration');
+        $ration->setEquipmentName('ration');
         $gameRation
             ->setEquipment($ration)
-            ->setHolder($player)
             ->setName('ration')
         ;
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::FROZEN);
+        $statusConfig->setStatusName(EquipmentStatusEnum::FROZEN);
         $frozenStatus = new Status($gameRation, $statusConfig);
 
-        $gameMicrowave = new GameItem();
+        $gameMicrowave = new GameItem($room);
         $microwave = new ItemConfig();
-        $microwave->setName(ToolItemEnum::MICROWAVE);
+        $microwave->setEquipmentName(ToolItemEnum::MICROWAVE);
         $gameMicrowave
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
-            ->setHolder($room)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->never();
 
         $result = $this->action->execute();
@@ -99,32 +97,30 @@ class ExpressCookActionTest extends AbstractActionTest
         $daedalus = new Daedalus();
         $room = new Place();
 
-        $gameRation = new GameItem();
+        $gameRation = new GameItem($room);
         $ration = new ItemConfig();
-        $ration->setName(GameRationEnum::STANDARD_RATION);
+        $ration->setEquipmentName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
-            ->setHolder($room)
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 
-        $gameMicrowave = new GameItem();
+        $gameMicrowave = new GameItem($room);
         $microwave = new ItemConfig();
-        $microwave->setName(ToolItemEnum::MICROWAVE);
+        $microwave->setEquipmentName(ToolItemEnum::MICROWAVE);
         $gameMicrowave
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
-            ->setHolder($room)
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
-        $gameCookedRation = new GameItem();
+        $gameCookedRation = new GameItem(new Place());
         $cookedRation = new ItemConfig();
         $cookedRation
-             ->setName(GameRationEnum::COOKED_RATION)
+             ->setEquipmentName(GameRationEnum::COOKED_RATION)
         ;
         $gameCookedRation
             ->setEquipment($cookedRation)

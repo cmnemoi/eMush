@@ -158,13 +158,20 @@ class RoomLogService implements RoomLogServiceInterface
             }
         }
 
+        if ($player === null) {
+            $author = null;
+        } else {
+            $author = $player->getPlayerInfo();
+        }
+
         $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
             ->setParameters($parameters)
             ->setType($type)
-            ->setPlace($place)
-            ->setPlayer($player)
+            ->setDaedalusInfo($place->getDaedalus()->getDaedalusInfo())
+            ->setPlace($place->getName())
+            ->setPlayerInfo($author)
             ->setVisibility($this->getVisibility($player, $visibility))
             ->setDate($dateTime ?? new \DateTime('now'))
             ->setCycle($place->getDaedalus()->getCycle())
@@ -184,9 +191,9 @@ class RoomLogService implements RoomLogServiceInterface
 
         $placeEquipements = $place->getEquipments();
 
-        $equipmentIsACamera = fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
+        $equipmentIsACamera = fn (GameEquipment $gameEquipment): bool => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
 
-        $equipementIsNotBroken = fn (GameEquipment $gameEquipment) => $gameEquipment->isBroken() === false;
+        $equipementIsNotBroken = fn (GameEquipment $gameEquipment): bool => $gameEquipment->isBroken() === false;
 
         $placeHasAFunctionalCamera = $placeEquipements->filter($equipmentIsACamera)->filter($equipementIsNotBroken)->count() > 0;
         $placeHasAWitness = $place->getNumberPlayers() > 1;
@@ -209,6 +216,6 @@ class RoomLogService implements RoomLogServiceInterface
 
     public function getRoomLog(Player $player): RoomLogCollection
     {
-        return new RoomLogCollection($this->repository->getPlayerRoomLog($player));
+        return new RoomLogCollection($this->repository->getPlayerRoomLog($player->getPlayerInfo()));
     }
 }

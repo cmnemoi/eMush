@@ -22,14 +22,14 @@ interface GameEquipmentServiceInterface
     public function createGameEquipmentFromName(
         string $equipmentName,
         EquipmentHolderInterface $equipmentHolder,
-        string $reason,
+        array $reasons,
         string $visibility = VisibilityEnum::PRIVATE
     ): GameEquipment;
 
     public function createGameEquipment(
         EquipmentConfig $equipmentConfig,
         EquipmentHolderInterface $holder,
-        string $reason,
+        array $reasons,
         string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment;
 
@@ -37,7 +37,7 @@ interface GameEquipmentServiceInterface
         string $resultName,
         GameEquipment $input,
         EquipmentHolderInterface $holder,
-        string $reason,
+        array $reasons,
         string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment;
 
@@ -45,7 +45,7 @@ interface GameEquipmentServiceInterface
         EquipmentConfig $resultConfig,
         GameEquipment $input,
         EquipmentHolderInterface $holder,
-        string $reason,
+        array $reasons,
         string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment;
 

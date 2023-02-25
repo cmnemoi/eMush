@@ -31,10 +31,10 @@ class StrengthenActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPAIR, 1);
 
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->action = new StrengthenHull(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -46,19 +46,18 @@ class StrengthenActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecuteFail()
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
 
         $gameItem
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $player = $this->createPlayer($daedalus, $room);
@@ -85,13 +84,12 @@ class StrengthenActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
 
         $gameItem
             ->setName('item')
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $player = $this->createPlayer($daedalus, $room);
@@ -108,8 +106,8 @@ class StrengthenActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         // Success
         $result = $this->action->execute();

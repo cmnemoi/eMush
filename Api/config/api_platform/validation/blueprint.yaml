@@ -1,0 +1,12 @@
+Mush\Equipment\Entity\Mechanics\Blueprint:
+  properties:
+    name:
+      - NotBlank: ~
+      - Type: string
+    craftedEquipmentName:
+      - NotBlank: ~
+      - Type: string
+    mechanics:
+      - Type: array
+    ingredients:
+      - Type: array

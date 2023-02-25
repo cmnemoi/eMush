@@ -7,9 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -33,35 +36,38 @@ class CreatePlayerServiceCest
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
-            ->setName(PlayerStatusEnum::MUSH)
-            ->setGameConfig($gameConfig)
-        ;
-        $sporeStatusConfig = new ChargeStatusConfig();
-        $sporeStatusConfig
-            ->setName(PlayerStatusEnum::SPORES)
-            ->setGameConfig($gameConfig)
+            ->setStatusName(PlayerStatusEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($mushStatusConfig);
-        $I->haveInRepository($sporeStatusConfig);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
+        ]);
 
         /** @var CharacterConfig $gioeleCharacterConfig */
         $gioeleCharacterConfig = $I->have(CharacterConfig::class);
-        $gioeleCharacterConfig->setInitStatuses(new ArrayCollection([$sporeStatusConfig]));
         /** @var $andieCharacterConfig $characterConfig */
-        $andieCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
-        $andieCharacterConfig->setInitStatuses(new ArrayCollection([$sporeStatusConfig]));
+        $andieCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::ANDIE,
+            'characterName' => CharacterEnum::ANDIE,
+        ]);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['neron' => $neron, 'gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC)
         ;
         $I->haveInRepository($channel);
@@ -70,6 +76,7 @@ class CreatePlayerServiceCest
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
         $daedalus->addPlace($room);
+        $I->refreshEntities($daedalus);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -79,22 +86,20 @@ class CreatePlayerServiceCest
         $charactersConfig->add($andieCharacterConfig);
 
         $gameConfig->setCharactersConfig($charactersConfig);
-        $daedalus->setGameConfig($gameConfig);
-
-        $I->refreshEntities($daedalus);
+        $daedalusInfo->setGameConfig($gameConfig);
 
         $I->expectThrowable(\LogicException::class, fn () => $this->playerService->createPlayer($daedalus, $user, 'non_existent_player')
         );
 
         $playerGioele = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::GIOELE);
 
-        $I->assertEquals($gioeleCharacterConfig, $playerGioele->getCharacterConfig());
-        $I->assertEquals($daedalus->getGameConfig()->getInitActionPoint(), $playerGioele->getActionPoint());
+        $I->assertEquals($gioeleCharacterConfig, $playerGioele->getPlayerInfo()->getCharacterConfig());
+        $I->assertEquals($gioeleCharacterConfig->getInitActionPoint(), $playerGioele->getActionPoint());
 
         $playerAndie = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::ANDIE);
 
-        $I->assertEquals($andieCharacterConfig, $playerAndie->getCharacterConfig());
-        $I->assertEquals($daedalus->getGameConfig()->getInitActionPoint(), $playerAndie->getActionPoint());
+        $I->assertEquals($andieCharacterConfig, $playerAndie->getPlayerInfo()->getCharacterConfig());
+        $I->assertEquals($andieCharacterConfig->getInitActionPoint(), $playerAndie->getActionPoint());
 
         $I->assertTrue($playerAndie->isMush());
         $I->assertTrue($playerGioele->isMush());

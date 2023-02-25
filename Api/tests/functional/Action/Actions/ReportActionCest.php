@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ReportEquipment;
 use Mush\Action\Actions\ReportFire;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Alert\Entity\Alert;
@@ -18,19 +17,27 @@ use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\User\Entity\User;
 
 class ReportActionCest
 {
@@ -45,19 +52,25 @@ class ReportActionCest
 
     public function testReportEquipment(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $neron = new Neron();
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC)
         ;
         $I->haveInRepository($channel);
@@ -71,21 +84,24 @@ class ReportActionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'characterConfig' => $characterConfig,
         ]);
-
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(0)
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
         ;
-        $I->haveInRepository($actionCost);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::REPORT_EQUIPMENT)
+            ->setActionName(ActionEnum::REPORT_EQUIPMENT)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 
@@ -95,16 +111,19 @@ class ReportActionCest
             'actions' => new ArrayCollection([$action]),
         ]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
             ->setEquipment($equipmentConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::BROKEN)->setVisibility(VisibilityEnum::PUBLIC);
+        $statusConfig
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
@@ -129,7 +148,7 @@ class ReportActionCest
         $this->reportEquipment->execute();
 
         $I->SeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS]);
-        $I->SeeInRepository(AlertElement::class, ['place' => $room, 'equipment' => $gameEquipment, 'player' => $player]);
+        $I->SeeInRepository(AlertElement::class, ['place' => $room, 'equipment' => $gameEquipment, 'playerInfo' => $player->getPlayerInfo()]);
         $I->SeeInRepository(Message::class, [
             'author' => null,
             'neron' => $neron,
@@ -139,19 +158,25 @@ class ReportActionCest
 
     public function testReportFire(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $neron = new Neron();
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC)
         ;
         $I->haveInRepository($channel);
@@ -159,17 +184,11 @@ class ReportActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(0)
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
-            ->setName(ActionEnum::REPORT_EQUIPMENT)
+            ->setActionName(ActionEnum::REPORT_EQUIPMENT)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 
@@ -180,12 +199,25 @@ class ReportActionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'characterConfig' => $characterConfig,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(StatusEnum::FIRE)->setVisibility(VisibilityEnum::PUBLIC)->setGameConfig($gameConfig);
+        $statusConfig
+            ->setStatusName(StatusEnum::FIRE)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
         $status = new Status($room, $statusConfig);
         $I->haveInRepository($status);
@@ -210,7 +242,7 @@ class ReportActionCest
         $this->reportFire->execute();
 
         $I->SeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::FIRES]);
-        $I->SeeInRepository(AlertElement::class, ['place' => $room, 'player' => $player]);
+        $I->SeeInRepository(AlertElement::class, ['place' => $room, 'playerInfo' => $player->getPlayerInfo()]);
         $I->SeeInRepository(Message::class, [
             'author' => null,
             'neron' => $neron,

@@ -4,7 +4,6 @@ namespace Mush\Equipment\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Error;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
@@ -15,24 +14,24 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Exception\LogicException;
 
 class GearToolService implements GearToolServiceInterface
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         StatusServiceInterface $statusService
     ) {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->statusService = $statusService;
     }
 
@@ -61,7 +60,7 @@ class GearToolService implements GearToolServiceInterface
             default:
                 $room = $player->getDaedalus()->getPlaceByName($reach);
                 if ($room === null) {
-                    throw new Error('Invalid reach');
+                    throw new \Error('Invalid reach');
                 }
 
                 return $room
@@ -117,7 +116,7 @@ class GearToolService implements GearToolServiceInterface
             $weaponMechanics = $tool->getEquipment()->getMechanics()->filter(fn (EquipmentMechanic $mechanic) => $mechanic instanceof Weapon);
 
             if ($toolMechanic &&
-                !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getName() === $actionName)->isEmpty()
+                !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getActionName() === $actionName)->isEmpty()
             ) {
                 $chargeStatus = $this->getChargeStatus($actionName, $tool);
 
@@ -135,7 +134,9 @@ class GearToolService implements GearToolServiceInterface
         }
 
         if (!$tools->isEmpty()) {
-            return $tools->first();
+            $tool = $tools->first();
+
+            return !$tool ? null : $tool;
         }
 
         return null;
@@ -161,10 +162,10 @@ class GearToolService implements GearToolServiceInterface
                     $equipment,
                     false,
                     VisibilityEnum::HIDDEN,
-                    EventEnum::OUT_OF_CHARGE,
+                    [EventEnum::OUT_OF_CHARGE],
                     new \DateTime()
                 );
-                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+                $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }
     }

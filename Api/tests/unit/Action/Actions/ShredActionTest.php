@@ -3,7 +3,6 @@
 namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Shred;
 use Mush\Action\Enum\ActionEnum;
@@ -25,7 +24,7 @@ class ShredActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SHRED);
 
         $this->action = new Shred(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -36,13 +35,13 @@ class ShredActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $document = new Document();
         $document->setCanShred(true);
@@ -50,10 +49,9 @@ class ShredActionTest extends AbstractActionTest
         $gameItem
             ->setName('item')
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

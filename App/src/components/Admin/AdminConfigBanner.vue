@@ -2,11 +2,27 @@
     <div class="banner">
         <div class="admin-menu">
             <router-link :to="{ name: 'AdminGameConfigList' }">Game Config</router-link>
+            <router-link :to="{ name: 'AdminDaedalusConfigList' }">Daedalus Config</router-link>
+            <router-link :to="{ name: 'AdminDifficultyConfigList' }">Difficulty Config</router-link>
+            <router-link :to="{ name: 'AdminCharacterConfigList' }">Character Config</router-link>
+            <router-link :to="{ name: 'AdminPlaceConfigList' }">Place Config</router-link>
+            <router-link :to="{ name: 'AdminRandomItemPlacesList' }">Random Item Places</router-link>
+            <router-link :to="{ name: 'AdminEquipmentConfigList' }">Equipment Config</router-link>
+            <router-link :to="{ name: 'AdminMechanicsList' }">Mechanics</router-link>
+        </div>
+        <div class="admin-menu">
+            <router-link :to="{ name: 'AdminDiseaseCauseConfigList' }">Disease Cause Config</router-link>
+            <router-link :to="{ name: 'AdminDiseaseConfigList' }">Disease Config</router-link>
+            <router-link :to="{ name: 'AdminConsumableDiseaseConfigList' }">Consumable Disease Config</router-link>
             <router-link :to="{ name: 'AdminModifierConfigList' }">Modifier Config</router-link>
-            <router-link :to="{ name: 'AdminModifierConditionList' }">Modifier Condition</router-link>
+            <router-link :to="{ name: 'AdminSymptomConfigList' }">Symptom Config</router-link>
+            <router-link :to="{ name: 'AdminSymptomActivationRequirementList' }">Symptom Requirements</router-link>
+        </div>
+        <div class="admin-menu">
             <router-link :to="{ name: 'AdminStatusConfigList' }">Status Config</router-link>
             <router-link :to="{ name: 'AdminActionConfigList' }">Action Config</router-link>
-            <router-link :to="{ name: 'AdminActionCostList' }">Action Cost</router-link>
+            <router-link :to="{ name: 'AdminTriumphConfigList' }">Triumph Config</router-link>
+            <router-link :to="{ name: 'AdminEventConfigList' }">Event Config</router-link>
         </div>
     </div>
 </template>

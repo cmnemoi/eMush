@@ -9,7 +9,7 @@ class CycleDecrement extends AbstractChargeStrategy
 {
     protected string $name = ChargeStrategyTypeEnum::CYCLE_DECREMENT;
 
-    public function apply(ChargeStatus $status, string $reason): ?ChargeStatus
+    public function apply(ChargeStatus $status, array $reasons): ?ChargeStatus
     {
         return $this->statusService->updateCharge($status, -1);
     }

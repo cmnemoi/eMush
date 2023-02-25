@@ -5,32 +5,33 @@ namespace Mush\Modifier\Listener;
 use Mush\Action\Event\ActionEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Modifier\Service\ModifierConditionService;
+use Mush\Modifier\Service\ModifierRequirementService;
 use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerVariableEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CycleEventSubscriber implements EventSubscriberInterface
 {
-    private EventDispatcherInterface $eventDispatcher;
-    private ModifierConditionService $modifierConditionService;
+    private EventServiceInterface $eventService;
+    private ModifierRequirementService $modifierActivationRequirementService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ModifierConditionService $modifierConditionService,
+        EventServiceInterface $eventService,
+        ModifierRequirementService $modifierActivationRequirementService,
     ) {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->modifierConditionService = $modifierConditionService;
+        $this->eventService = $eventService;
+        $this->modifierActivationRequirementService = $modifierActivationRequirementService;
     }
 
     public static function getSubscribedEvents(): array
@@ -53,14 +54,11 @@ class CycleEventSubscriber implements EventSubscriberInterface
         $holder = $this->getModifierHolder($event);
 
         $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_CYCLE]);
-        $cycleModifiers = $this->modifierConditionService->getActiveModifiers($cycleModifiers, EventEnum::NEW_CYCLE, $holder);
-        $cycleModifiers = $cycleModifiers->sortModifiersByDelta(false);
+        $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, [EventEnum::NEW_CYCLE], $holder);
 
-        /** @var Modifier $modifier */
+        /** @var GameModifier $modifier */
         foreach ($cycleModifiers as $modifier) {
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
-
-            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getTags());
         }
     }
 
@@ -69,14 +67,11 @@ class CycleEventSubscriber implements EventSubscriberInterface
         $holder = $this->getModifierHolder($event);
 
         $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_DAY]);
-        $cycleModifiers = $this->modifierConditionService->getActiveModifiers($cycleModifiers, EventEnum::NEW_CYCLE, $holder);
-        $cycleModifiers = $cycleModifiers->sortModifiersByDelta(false);
+        $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, [EventEnum::NEW_CYCLE], $holder);
 
-        /** @var Modifier $modifier */
+        /** @var GameModifier $modifier */
         foreach ($cycleModifiers as $modifier) {
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
-
-            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getTags());
         }
     }
 
@@ -85,14 +80,11 @@ class CycleEventSubscriber implements EventSubscriberInterface
         $holder = $event->getPlayer();
 
         $modifiers = $holder->getModifiers()->getScopedModifiers([ActionEvent::POST_ACTION]);
-        $modifiers = $this->modifierConditionService->getActiveModifiers($modifiers, $event->getReason(), $holder);
-        $modifiers = $modifiers->sortModifiersByDelta(false);
+        $modifiers = $this->modifierActivationRequirementService->getActiveModifiers($modifiers, $event->getTags(), $holder);
 
-        /** @var Modifier $modifier */
+        /** @var GameModifier $modifier */
         foreach ($modifiers as $modifier) {
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
-
-            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getTags());
         }
     }
 
@@ -112,34 +104,39 @@ class CycleEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function createQuantityEvent(ModifierHolder $holder, Modifier $modifier, \DateTime $time, string $eventReason): AbstractQuantityEvent
+    private function createQuantityEvent(ModifierHolder $holder, GameModifier $modifier, \DateTime $time, array $reasons): void
     {
         $modifierConfig = $modifier->getModifierConfig();
 
-        $target = $modifierConfig->getTarget();
-        $value = intval($modifierConfig->getDelta());
-        $reason = $modifierConfig->getName() ?: $eventReason;
+        if ($modifierConfig instanceof VariableEventModifierConfig) {
+            $target = $modifierConfig->getTargetVariable();
+            $value = intval($modifierConfig->getDelta());
 
-        switch (true) {
-            case $holder instanceof Player:
-                return new PlayerVariableEvent(
+            if (($modifierName = $modifierConfig->getModifierName()) !== null) {
+                $reasons[] = $modifierName;
+            }
+
+            if ($holder instanceof Player) {
+                $event = new PlayerVariableEvent(
                     $holder,
                     $target,
                     $value,
-                    $reason,
+                    $reasons,
                     $time,
                 );
+                $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
+            }
 
-            case $holder instanceof Daedalus:
-                return new DaedalusModifierEvent(
+            if ($holder instanceof Daedalus) {
+                $event = new DaedalusVariableEvent(
                     $holder,
                     $target,
                     $value,
-                    $reason,
+                    $reasons,
                     $time,
                 );
-            default:
-                throw new \LogicException('Unexpected modifier holder type');
+                $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
+            }
         }
     }
 }

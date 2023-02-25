@@ -3,14 +3,16 @@
 namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Hide;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
@@ -29,7 +31,7 @@ class HideActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::HIDE, 1);
 
         $this->action = new Hide(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -40,7 +42,7 @@ class HideActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -48,11 +50,13 @@ class HideActionTest extends AbstractActionTest
         $room = new Place();
 
         $daedalus = new Daedalus();
-        $daedalus->setGameStatus(GameStatusEnum::CURRENT);
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
+
+        $daedalusInfo->setGameStatus(GameStatusEnum::CURRENT);
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($player);
 
         $item = new ItemConfig();
         $item
@@ -61,15 +65,14 @@ class HideActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setHolder($player)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::HIDDEN &&
                 $event->getStatusHolder() === $gameItem &&
@@ -77,12 +80,12 @@ class HideActionTest extends AbstractActionTest
             )
             ->once()
         ;
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof InteractWithEquipmentEvent &&
                 $event->getEquipment() === $gameItem &&
                 $event->getActor() === $player &&
-                $event->getReason() === ActionEnum::HIDE
+                $event->getTags() === [ActionEnum::HIDE]
             )
             ->once()
         ;

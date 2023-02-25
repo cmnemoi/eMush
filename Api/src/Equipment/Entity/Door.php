@@ -15,11 +15,11 @@ class Door extends GameEquipment
     #[ORM\ManyToMany(targetEntity: Place::class)]
     private Collection $rooms;
 
-    public function __construct()
+    public function __construct(EquipmentHolderInterface $equipmentHolder)
     {
         $this->rooms = new ArrayCollection();
 
-        parent::__construct();
+        parent::__construct($equipmentHolder);
     }
 
     public function getRooms(): Collection
@@ -51,7 +51,7 @@ class Door extends GameEquipment
         return $this;
     }
 
-    public function getOtherRoom($currentRoom): Place
+    public function getOtherRoom(Place $currentRoom): Place
     {
         return $this->getRooms()->filter(fn (Place $room) => $room !== $currentRoom)->first();
     }

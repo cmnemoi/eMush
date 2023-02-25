@@ -24,11 +24,11 @@ class WashInSinkActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
         $this->actionEntity = $this->createActionEntity(ActionEnum::WASH_IN_SINK, 3);
 
         $this->action = new WashInSink(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator
         );
@@ -39,18 +39,18 @@ class WashInSinkActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $room = new Place();
 
-        $sinkEquipment = new GameEquipment();
+        $sinkEquipment = new GameEquipment($room);
         $sinkConfig = new EquipmentConfig();
         $sinkEquipment
             ->setEquipment($sinkConfig)
-            ->setHolder($room);
+        ;
         $sinkConfig->setActions(new ArrayCollection([$this->actionEntity]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -58,7 +58,7 @@ class WashInSinkActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $sinkEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();
 

@@ -31,13 +31,13 @@ class DisassembleActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::DISASSEMBLE, 3);
 
         $this->action = new Disassemble(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -50,19 +50,18 @@ class DisassembleActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecuteFail()
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('some name')
-            ->setHolder($room)
         ;
 
         $item
@@ -90,12 +89,11 @@ class DisassembleActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('some name')
-            ->setHolder($room)
         ;
 
         $item
@@ -111,9 +109,9 @@ class DisassembleActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
-        $scrap = new GameItem();
+        $scrap = new GameItem(new Place());
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         // Success
         $result = $this->action->execute();

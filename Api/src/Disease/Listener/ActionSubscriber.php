@@ -6,9 +6,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Enum\DiseaseCauseEnum;
-use Mush\Disease\Repository\DiseaseCausesConfigRepository;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Mush\Disease\Service\SymptomConditionServiceInterface;
+use Mush\Disease\Service\SymptomActivationRequirementServiceInterface;
 use Mush\Disease\Service\SymptomServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -18,24 +18,24 @@ class ActionSubscriber implements EventSubscriberInterface
 {
     private const CONTACT_DISEASE_RATE = 1;
 
-    private DiseaseCausesConfigRepository $diseaseCausesConfigRepository;
+    private DiseaseCauseServiceInterface $diseaseCauseService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private RandomServiceInterface $randomService;
     private SymptomServiceInterface $symptomService;
-    private SymptomConditionServiceInterface $symptomConditionService;
+    private SymptomActivationRequirementServiceInterface $symptomActivationRequirementService;
 
     public function __construct(
-        DiseaseCausesConfigRepository $diseaseCausesConfigRepository,
+        DiseaseCauseServiceInterface $diseaseCauseService,
         RandomServiceInterface $randomService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
         SymptomServiceInterface $symptomService,
-        SymptomConditionServiceInterface $symptomConditionService)
+        SymptomActivationRequirementServiceInterface $symptomActivationRequirementService)
     {
-        $this->diseaseCausesConfigRepository = $diseaseCausesConfigRepository;
+        $this->diseaseCauseService = $diseaseCauseService;
         $this->randomService = $randomService;
         $this->playerDiseaseService = $playerDiseaseService;
         $this->symptomService = $symptomService;
-        $this->symptomConditionService = $symptomConditionService;
+        $this->symptomActivationRequirementService = $symptomActivationRequirementService;
     }
 
     public static function getSubscribedEvents(): array
@@ -69,7 +69,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
     private function handleContactDiseases(ActionEvent $event): void
     {
-        if ($event->getAction()->getName() !== ActionEnum::MOVE) {
+        if ($event->getAction()->getActionName() !== ActionEnum::MOVE) {
             return;
         }
 
@@ -92,7 +92,7 @@ class ActionSubscriber implements EventSubscriberInterface
         }
 
         $contactDiseases = array_keys(
-            $this->diseaseCausesConfigRepository->findCausesByDaedalus(
+            $this->diseaseCauseService->findCauseConfigByDaedalus(
                 DiseaseCauseEnum::CONTACT,
                 $player->getDaedalus())
                 ->getDiseases());
@@ -109,7 +109,7 @@ class ActionSubscriber implements EventSubscriberInterface
         }
 
         if ($this->randomService->isSuccessful(self::CONTACT_DISEASE_RATE)) {
-            $this->playerDiseaseService->createDiseaseFromName($diseaseToTransmit, $playerToTransmitTo, DiseaseCauseEnum::CONTACT);
+            $this->playerDiseaseService->createDiseaseFromName($diseaseToTransmit, $playerToTransmitTo, [DiseaseCauseEnum::CONTACT]);
         }
     }
 
@@ -119,7 +119,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getAction();
 
         $postActionSymptomConfigs = $this->getPlayerSymptomConfigs($player)->getTriggeredSymptoms([ActionEvent::POST_ACTION]);
-        $postActionSymptomConfigs = $this->symptomConditionService->getActiveSymptoms($postActionSymptomConfigs, $player, $action->getName(), $action);
+        $postActionSymptomConfigs = $this->symptomActivationRequirementService->getActiveSymptoms($postActionSymptomConfigs, $player, $action->getActionTags(), $action);
 
         foreach ($postActionSymptomConfigs as $symptomConfig) {
             $this->symptomService->handleBreakouts($symptomConfig, $player, $event->getTime());

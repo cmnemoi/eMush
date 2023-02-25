@@ -1,12 +1,11 @@
-import { GameConfig } from "@/entities/Config/GameConfig";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 
 export class StatusConfig {
     public iri: string|null;
     public configType: string|null;
     public id: number|null;
-    public gameConfig: GameConfig|null;
     public name: string|null;
+    public statusName: string|null;
     public visibility: string|null;
     public chargeVisibility: string|null;
     public chargeStrategy: string|null;
@@ -20,8 +19,8 @@ export class StatusConfig {
         this.iri = null;
         this.configType = null;
         this.id = null;
-        this.gameConfig = null;
         this.name = null;
+        this.statusName = null;
         this.visibility = null;
         this.chargeVisibility = null;
         this.chargeStrategy = null;
@@ -33,13 +32,11 @@ export class StatusConfig {
     }
     load(object:any) : StatusConfig {
         if (typeof object !== "undefined") {
-            this.iri = object.iri;
+            this.iri = object["@id"];
             this.id = object.id;
             this.name = object.name;
+            this.statusName = object.statusName;
             this.visibility = object.visibility;
-            if (typeof object.gameConfig !== 'undefined') {
-                this.gameConfig = (new GameConfig()).load(object.gameConfig);
-            }
             if (typeof object.modifierConfigs !== 'undefined') {
                 const modifierConfigs : ModifierConfig[] = [];
                 object.modifierConfigs.forEach((modifierConfigData: any) => {
@@ -65,8 +62,8 @@ export class StatusConfig {
         this.modifierConfigs?.forEach(modifierConfig => (typeof modifierConfig.iri === 'string' ? modifierConfigs.push(modifierConfig.iri) : null));
         const data : any = {
             'id': this.id,
-            'gameConfig': this.gameConfig?.iri,
             'name': this.name,
+            'statusName': this.statusName,
             'visibility': this.visibility,
             'modifierConfigs': modifierConfigs
         };

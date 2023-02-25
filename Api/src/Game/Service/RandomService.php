@@ -2,12 +2,12 @@
 
 namespace Mush\Game\Service;
 
-use Error;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -15,6 +15,13 @@ use Mush\Player\Entity\Player;
 
 class RandomService implements RandomServiceInterface
 {
+    private GameEquipmentRepository $gameEquipmentRepository;
+
+    public function __construct(GameEquipmentRepository $gameEquipmentRepository)
+    {
+        $this->gameEquipmentRepository = $gameEquipmentRepository;
+    }
+
     public function random(int $min, int $max): int
     {
         return random_int($min, $max);
@@ -35,7 +42,7 @@ class RandomService implements RandomServiceInterface
         $chance = $this->randomPercent();
 
         if ($criticalFailRate > $successRate || 100 - $criticalSuccessRate < $successRate) {
-            throw new Error('$criticalFailRate must be lower than $successRate and 100 - $criticalSuccessRate higher than $successRate');
+            throw new \Error('$criticalFailRate must be lower than $successRate and 100 - $criticalSuccessRate higher than $successRate');
         }
 
         if ($chance <= $criticalFailRate) {
@@ -48,13 +55,13 @@ class RandomService implements RandomServiceInterface
             return ActionOutputEnum::CRITICAL_SUCCESS;
         }
 
-        throw new Error('input percentages should range between 0 and 100');
+        throw new \Error('input percentages should range between 0 and 100');
     }
 
     public function getRandomPlayer(PlayerCollection $players): Player
     {
         if ($players->isEmpty()) {
-            throw new Error('getRandomPlayer: collection is empty');
+            throw new \Error('getRandomPlayer: collection is empty');
         }
 
         return current($this->getRandomElements($players->toArray()));
@@ -63,7 +70,7 @@ class RandomService implements RandomServiceInterface
     public function getRandomDisease(PlayerDiseaseCollection $collection): PlayerDisease
     {
         if ($collection->isEmpty()) {
-            throw new Error('getRandomDisease: collection is empty');
+            throw new \Error('getRandomDisease: collection is empty');
         }
 
         return current($this->getRandomElements($collection->toArray()));
@@ -82,7 +89,7 @@ class RandomService implements RandomServiceInterface
     public function getItemInRoom(Place $place): GameItem
     {
         if ($place->getEquipments()->isEmpty()) {
-            throw new Error('getItemInRoom: room has no items');
+            throw new \Error('getItemInRoom: room has no items');
         }
 
         $items = $place->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
@@ -109,17 +116,17 @@ class RandomService implements RandomServiceInterface
 
     // This function takes an array [element => proba%] as input and send back an array
     // Instead of proba relative ponderation also work
-    public function getSingleRandomElementFromProbaArray(array $array): string
+    public function getSingleRandomElementFromProbaArray(array $array): ?string
     {
         if (count($array) < 1) {
-            throw new Error('getSingleRandomElement: array is not large enough');
+            return null;
         }
 
         // first create a cumulative form of the array
         $cumuProba = 0;
         foreach ($array as $event => $proba) {
             if (!is_int($proba)) {
-                throw new Error('Proba weight should be provided as integers');
+                throw new \Error('Proba weight should be provided as integers');
             }
 
             $cumuProba = $cumuProba + $proba;
@@ -127,7 +134,7 @@ class RandomService implements RandomServiceInterface
         }
 
         if ($cumuProba === 0) {
-            throw new Error('getSingleRandomElement: only 0 proba element in array');
+            return null;
         }
 
         $probaLim = $this->random(0, $cumuProba);
@@ -142,18 +149,37 @@ class RandomService implements RandomServiceInterface
     // This function takes an array [element => proba%] as input and send back an array
     public function getRandomElementsFromProbaArray(array $array, int $number): array
     {
-        if (count($array) < $number) {
-            throw new Error('getRandomElements: array is not large enough');
-        }
+        $number = min($number, count($array));
 
         $randomElements = [];
         for ($i = 0; $i < $number; ++$i) {
-            $randomElements[$i] = $this->getSingleRandomElementFromProbaArray(
+            $newElement = $this->getSingleRandomElementFromProbaArray(
                 array_diff_key($array, array_flip($randomElements))
             );
+
+            if ($newElement !== null) {
+                $randomElements[$i] = $newElement;
+            }
         }
 
         return $randomElements;
+    }
+
+    public function getRandomDaedalusEquipmentFromProbaArray(array $array, int $number, Daedalus $daedalus): array
+    {
+        $equipmentNames = $this->getRandomElementsFromProbaArray($array, $number);
+
+        $equipments = [];
+        foreach ($equipmentNames as $equipmentName) {
+            try {
+                $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
+            } catch (\Exception $e) {
+                continue;
+            }
+            $equipments[] = $equipment;
+        }
+
+        return $equipments;
     }
 
     /** Generate a random number from a Poisson process (Knuth algorithm).
@@ -163,7 +189,7 @@ class RandomService implements RandomServiceInterface
     public function poissonRandom(float $lambda): int
     {
         if ($lambda < 0) {
-            throw new Error('poissonRandom: lambda must be positive');
+            throw new \Error('poissonRandom: lambda must be positive');
         }
 
         $L = exp(-$lambda);

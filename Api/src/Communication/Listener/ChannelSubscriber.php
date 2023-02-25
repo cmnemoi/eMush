@@ -16,6 +16,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ChannelSubscriber implements EventSubscriberInterface
 {
+    private const PLAYER_LEAVE_CHANNEL = [
+        CommunicationActionEnum::EXIT => NeronMessageEnum::PLAYER_LEAVE_CHAT,
+        PlayerEvent::DEATH_PLAYER => NeronMessageEnum::PLAYER_LEAVE_CHAT_DEATH,
+        ActionEnum::DROP => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
+        ActionEnum::MOVE => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
+        EquipmentStatusEnum::BROKEN => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
+    ];
+
     private ChannelServiceInterface $channelService;
     private ChannelPlayerServiceInterface $channelPlayerService;
     private MessageServiceInterface $messageService;
@@ -53,12 +61,12 @@ class ChannelSubscriber implements EventSubscriberInterface
         $channel = $event->getChannel();
 
         if ($player = $event->getPlayer()) {
-            $this->channelPlayerService->addPlayer($player, $channel);
+            $this->channelPlayerService->addPlayer($player->getPlayerInfo(), $channel);
 
             $this->messageService->createSystemMessage(
                 NeronMessageEnum::PLAYER_ENTER_CHAT,
                 $channel,
-                ['character' => $player->getCharacterConfig()->getName()],
+                ['character' => $player->getName()],
                 new \DateTime()
             );
         }
@@ -69,39 +77,22 @@ class ChannelSubscriber implements EventSubscriberInterface
         $channel = $event->getChannel();
 
         if ($player = $event->getPlayer()) {
-            $this->channelPlayerService->removePlayer($player, $channel);
+            $this->channelPlayerService->removePlayer($player->getPlayerInfo(), $channel);
 
-            $key = $this->createPlayerLeaveMessage($event->getReason());
+            $key = $event->mapLog(self::PLAYER_LEAVE_CHANNEL);
 
-            $this->messageService->createSystemMessage(
-                $key,
-                $channel,
-                ['character' => $player->getCharacterConfig()->getName()],
-                new \DateTime()
-            );
+            if ($key !== null) {
+                $this->messageService->createSystemMessage(
+                    $key,
+                    $channel,
+                    ['character' => $player->getName()],
+                    new \DateTime()
+                );
+            }
         }
 
         if ($channel->getScope() === ChannelScopeEnum::PRIVATE && $channel->getParticipants()->isEmpty()) {
             $this->channelService->deleteChannel($channel);
-        }
-    }
-
-    private function createPlayerLeaveMessage(string $reason): string
-    {
-        switch ($reason) {
-            case CommunicationActionEnum::EXIT:
-                return NeronMessageEnum::PLAYER_LEAVE_CHAT;
-
-            case PlayerEvent::DEATH_PLAYER:
-                return NeronMessageEnum::PLAYER_LEAVE_CHAT_DEATH;
-
-            case ActionEnum::DROP:
-            case ActionEnum::MOVE:
-            case EquipmentStatusEnum::BROKEN:
-                return NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY;
-
-            default:
-                throw new \LogicException('unknown leave chat reason');
         }
     }
 }

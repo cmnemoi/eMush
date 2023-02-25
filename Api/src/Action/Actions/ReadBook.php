@@ -50,9 +50,9 @@ class ReadBook extends AbstractAction
             $parameter,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

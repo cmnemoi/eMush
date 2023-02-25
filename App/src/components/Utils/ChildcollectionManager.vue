@@ -1,13 +1,13 @@
 <template>
     <div class="children-add">
-        <label>Id to add: </label><input v-model="selectId"><button class="action-button" @click="$emit('addId', selectId)">Add</button>
+        <label>{{$t('admin.childCollectionManager.idToAdd')}}</label><input v-model="selectId"><button class="action-button" @click="$emit('addId', selectId)">{{$t('admin.buttons.add')}}</button>
     </div>
     <div class="children-container">
         <Pannel v-for="child in children" :key="child.id">
             <template #header>
                 <div class="header-container">
                     <slot name="header" v-bind="child"/>
-                    <button @click="$emit('remove', child)">Delete</button>
+                    <button @click="$emit('remove', child)">{{$t('admin.buttons.delete')}}</button>
                 </div>
             </template>
             <template #body>

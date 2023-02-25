@@ -9,8 +9,8 @@ use Mush\Communication\Enum\NeronMessageEnum;
 class LogDeclinationEnum
 {
     public const VERSION = 'version';
-    public const VERSION_1 = 'version_1';
-    public const VERSION_2 = 'version_2';
+    public const VERSION_PART_1 = 'versionPart1';
+    public const VERSION_PART_2 = 'versionPart2';
     public const VERSION_CRAZY = 'version_crazy';
     public const VERSION_UNINHIB = 'version_uninhib';
 
@@ -28,7 +28,7 @@ class LogDeclinationEnum
         return [
             ActionLogEnum::CONSUME_SUCCESS => [self::VERSION => 46],
             ActionLogEnum::REPAIR_SUCCESS => [self::VERSION => 7],
-            ActionLogEnum::REPAIR_FAIL => [self::VERSION_1 => 10, self::VERSION_2 => 50],
+            ActionLogEnum::REPAIR_FAIL => [self::VERSION_PART_1 => 10, self::VERSION_PART_2 => 50],
             ActionLogEnum::HIT_SUCCESS => [self::VERSION => 5],
             ActionLogEnum::HIT_FAIL => [self::VERSION => 2],
             ActionLogEnum::MOTIVATIONAL_SPEECH => [self::VERSION => 19],
@@ -42,18 +42,18 @@ class LogDeclinationEnum
             ActionLogEnum::SHOOT_CRITICAL_FAIL => [self::VERSION => 2],
             ActionEnum::SHRED => [self::VERSION => 4],
             ActionEnum::RETRIEVE_OXYGEN => [self::VERSION => 10],
-            NeronMessageEnum::ASPHYXIA_DEATH => [self::VERSION_1 => 3, self::VERSION_2 => 9],
+            NeronMessageEnum::ASPHYXIA_DEATH => [self::VERSION_PART_1 => 3, self::VERSION_PART_2 => 9],
             NeronMessageEnum::BROKEN_EQUIPMENT => [self::VERSION => 5],
-            NeronMessageEnum::HUNTER_ARRIVAL => [self::VERSION_1 => 4, self::VERSION_2 => 5],
-            NeronMessageEnum::NEW_FIRE => [self::VERSION_1 => 3, self::VERSION_2 => 3],
-            NeronMessageEnum::NEW_PROJECT => [self::VERSION_2 => 7, self::VERSION_UNINHIB => 7, self::VERSION_CRAZY => 12],
+            NeronMessageEnum::HUNTER_ARRIVAL => [self::VERSION_PART_1 => 4, self::VERSION_PART_2 => 5],
+            NeronMessageEnum::NEW_FIRE => [self::VERSION_PART_1 => 3, self::VERSION_PART_2 => 3],
+            NeronMessageEnum::NEW_PROJECT => [self::VERSION_PART_2 => 7, self::VERSION_UNINHIB => 7, self::VERSION_CRAZY => 12],
             NeronMessageEnum::PLAYER_DEATH => [self::VERSION => 7],
             NeronMessageEnum::REBEL_SIGNAL => [self::VERSION => 5],
             NeronMessageEnum::REPORT_FIRE => [self::VERSION => 5],
             NeronMessageEnum::TITLE_ATTRIBUTION => [self::VERSION => 8],
             NeronMessageEnum::TRAVEL_ARRIVAL => [self::VERSION => 11],
             NeronMessageEnum::SHIELD_BREACH => [self::VERSION => 4],
-            NeronMessageEnum::PATCHING_UP => [self::VERSION_1 => 10, self::VERSION_2 => 4],
+            NeronMessageEnum::PATCHING_UP => [self::VERSION_PART_1 => 10, self::VERSION_PART_2 => 4],
             LogEnum::SELF_SURGERY_SUCCESS => [self::VERSION => 2],
             LogEnum::SURGERY_SUCCESS => [self::VERSION => 2],
             DiseaseMessagesEnum::REPLACE_COPROLALIA => [

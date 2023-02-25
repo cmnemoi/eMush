@@ -29,10 +29,10 @@ class InstallCameraTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::INSTALL_CAMERA);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new InstallCamera(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -44,20 +44,19 @@ class InstallCameraTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $room = new Place();
 
-        $cameraItem = new GameItem();
+        $cameraItem = new GameItem($room);
         $cameraItemConfig = new ItemConfig();
-        $cameraItemConfig->setName(EquipmentEnum::COFFEE_MACHINE);
+        $cameraItemConfig->setEquipmentName(EquipmentEnum::COFFEE_MACHINE);
         $cameraItem
             ->setEquipment($cameraItemConfig)
             ->setName(ItemEnum::CAMERA_ITEM)
-            ->setHolder($room)
         ;
 
         $cameraItemConfig->setActions(new ArrayCollection([$this->actionEntity]));
@@ -66,10 +65,10 @@ class InstallCameraTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $cameraItem);
 
-        $cameraEquipment = new GameEquipment();
+        $cameraEquipment = new GameEquipment(new Place());
         $cameraEquipmentConfig = new ItemConfig();
         $cameraEquipmentConfig
-            ->setName(GameRationEnum::COFFEE)
+            ->setEquipmentName(GameRationEnum::COFFEE)
         ;
         $cameraEquipment
             ->setEquipment($cameraEquipmentConfig)

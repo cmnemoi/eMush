@@ -7,12 +7,12 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -42,7 +42,10 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
     {
         $currentPlayer = $context['currentPlayer'] ?? null;
 
-        return $data instanceof Player && $data === $currentPlayer;
+        return $data instanceof Player &&
+            $data === $currentPlayer &&
+            $data->isAlive()
+        ;
     }
 
     public function normalize($object, string $format = null, array $context = []): array
@@ -50,7 +53,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         /** @var Player $player */
         $player = $object;
 
-        $language = $player->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $player->getDaedalus()->getLanguage();
 
         $items = [];
         /** @var GameItem $item */
@@ -58,76 +61,87 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             $items[] = $this->normalizer->normalize($item, $format, $context);
         }
 
-        $character = $player->getCharacterConfig()->getName();
+        $character = $player->getName();
 
         $playerData = [
             'id' => $player->getId(),
             'character' => [
                 'key' => $character,
                 'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
+                'description' => $this->translationService->translate($character . '.description', [], 'characters', $language),
+                'skills' => $player->getPlayerInfo()->getCharacterConfig()->getSkills(),
             ],
-            'gameStatus' => $player->getGameStatus(),
+            'gameStatus' => $player->getPlayerInfo()->getGameStatus(),
             'triumph' => $player->getTriumph(),
-            'daedalus' => $this->normalizer->normalize($object->getDaedalus(), $format, $context),
+            'daedalus' => $this->normalizer->normalize($player->getDaedalus(), $format, $context),
         ];
 
-        if ($player->getGameStatus() === GameStatusEnum::CURRENT) {
-            $statuses = [];
-            foreach ($player->getStatuses() as $status) {
-                $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
-                if (is_array($normedStatus) && count($normedStatus) > 0) {
-                    $statuses[] = $normedStatus;
-                }
+        $statuses = [];
+        foreach ($player->getStatuses() as $status) {
+            $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
+            if (is_array($normedStatus) && count($normedStatus) > 0) {
+                $statuses[] = $normedStatus;
             }
-
-            $diseases = [];
-            foreach ($player->getMedicalConditions()->getActiveDiseases() as $disease) {
-                $normedDisease = $this->normalizer->normalize($disease, $format, array_merge($context, ['player' => $player]));
-                if (is_array($normedDisease) && count($normedDisease) > 0) {
-                    $diseases[] = $normedDisease;
-                }
-            }
-
-            $playerData = array_merge($playerData, [
-                'room' => $this->normalizer->normalize($object->getPlace(), $format, $context),
-                'skills' => $player->getSkills(),
-                'actions' => $this->getActions($object, $format, $context),
-                'items' => $items,
-                'statuses' => $statuses,
-                'diseases' => $diseases,
-                'actionPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::ACTION_POINT, $language),
-                'movementPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::MOVEMENT_POINT, $language),
-                'healthPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::HEALTH_POINT, $language),
-                'moralPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::MORAL_POINT, $language),
-            ]);
         }
+        // if current player is mush add spores info
+        if ($player->isMush()) {
+            $normedSpores = [
+                'key' => PlayerStatusEnum::SPORES,
+                'name' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.name', [], 'status', $language),
+                'description' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.description', [], 'status', $language),
+                'charge' => $player->getSpores(),
+            ];
+            $statuses[] = $normedSpores;
+        }
+
+        $diseases = [];
+        foreach ($player->getMedicalConditions()->getActiveDiseases() as $disease) {
+            $normedDisease = $this->normalizer->normalize($disease, $format, array_merge($context, ['player' => $player]));
+            if (is_array($normedDisease) && count($normedDisease) > 0) {
+                $diseases[] = $normedDisease;
+            }
+        }
+
+        $playerData = array_merge($playerData, [
+            'room' => $this->normalizer->normalize($object->getPlace(), $format, $context),
+            'skills' => $player->getSkills(),
+            'actions' => $this->getActions($object, $format, $context),
+            'items' => $items,
+            'statuses' => $statuses,
+            'diseases' => $diseases,
+            'actionPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::ACTION_POINT, $language),
+            'movementPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MOVEMENT_POINT, $language),
+            'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
+            'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
+        ]);
 
         return $playerData;
     }
 
-    private function normalizePlayerParameter(Player $player, string $variable, string $language): array
+    private function normalizePlayerGameVariable(Player $player, string $variable, string $language): array
     {
-        if (in_array($variable, [PlayerVariableEnum::MOVEMENT_POINT, PlayerVariableEnum::ACTION_POINT])) {
-            $description = $this->translationService->translate(
-                'actionPoint.description', [
-                'quantityAction' => $player->getActionPoint(),
-                'quantityMovement' => $player->getMovementPoint(),
-            ], 'player',
-                $language
-            );
-        } else {
-            $description = $this->translationService->translate(
-                $variable . '.description',
-                [],
-                'player',
-                $language
-            );
-        }
+        $gameVariable = $player->getVariableByName($variable);
+
+        $name = $this->translationService->translate(
+            $variable . '.name', [
+            'quantityHealth' => $player->getHealthPoint(),
+            'quantityMoral' => $player->getMoralPoint(),
+        ], 'player',
+            $language
+        );
+
+        $description = $this->translationService->translate(
+            $variable . '.description', [
+            'quantityAction' => $player->getActionPoint(),
+            'quantityMovement' => $player->getMovementPoint(),
+        ], 'player',
+            $language
+        );
 
         return [
-                'quantity' => $player->getVariableFromName($variable),
-                'max' => $this->playerVariableService->getMaxPlayerVariable($player, $variable),
-                'name' => $this->translationService->translate($variable . '.name', [], 'player', $language),
+                'quantity' => $gameVariable->getValue(),
+                'max' => $gameVariable->getMaxValue(),
+                'name' => $name,
                 'description' => $description,
         ];
     }

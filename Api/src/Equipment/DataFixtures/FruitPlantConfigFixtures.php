@@ -12,10 +12,12 @@ use Mush\Action\Enum\ExtraEffectEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 
 class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -26,9 +28,9 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
-        /** @var Action $takeAction */
+        /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
-        /** @var Action $buildAction */
+        /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         /** @var Action $consumeRationAction */
         $consumeRationAction = $this->getReference(ActionsFixtures::RATION_CONSUME);
@@ -54,42 +56,47 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setMoralPoints([1 => 1])
             ->setSatiety(1)
             ->setActions($fruitActions)
+            ->buildName(EquipmentMechanicEnum::FRUIT . '_' . GameFruitEnum::BANANA, GameConfigEnum::DEFAULT)
         ;
 
         $banana = new ItemConfig();
         $banana
-            ->setGameConfig($gameConfig)
-            ->setName(GameFruitEnum::BANANA)
+            ->setEquipmentName(GameFruitEnum::BANANA)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$bananaMechanic]))
             ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($bananaMechanic);
         $manager->persist($banana);
 
+        $gameConfig->addEquipmentConfig($banana);
+
         $bananaTreeMechanic = new Plant();
         //  possibilities are stored as key, array value represent the probability to get the key value
         $bananaTreeMechanic
-            ->setFruit($banana)
+            ->setFruitName($banana->getEquipmentName())
             ->setMaturationTime([36 => 1])
             ->setOxygen([1 => 1])
             ->setActions($plantActions)
+            ->buildName(EquipmentMechanicEnum::PLANT . '_' . GamePlantEnum::BANANA_TREE, GameConfigEnum::DEFAULT)
         ;
 
         $bananaTree = new ItemConfig();
         $bananaTree
-            ->setGameConfig($gameConfig)
-            ->setName(GamePlantEnum::BANANA_TREE)
+            ->setEquipmentName(GamePlantEnum::BANANA_TREE)
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$bananaTreeMechanic]))
             ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($bananaTreeMechanic);
         $manager->persist($bananaTree);
+        $gameConfig->addEquipmentConfig($bananaTree);
 
         $alienFruitPlant = [
             GameFruitEnum::CREEPNUT => GamePlantEnum::CREEPIST,
@@ -115,41 +122,45 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
                 ->setExtraEffects([ExtraEffectEnum::EXTRA_PA_GAIN => 50])
                 ->setSatiety(1)
                 ->setActions($fruitActions)
+                ->buildName(EquipmentMechanicEnum::FRUIT . '_' . $fruitName, GameConfigEnum::DEFAULT)
             ;
             $manager->persist($alienFruitMechanic);
 
             $alienFruit = new ItemConfig();
             $alienFruit
-                ->setGameConfig($gameConfig)
-                ->setName($fruitName)
+                ->setEquipmentName($fruitName)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
                 ->setMechanics(new ArrayCollection([$alienFruitMechanic]))
                 ->setActions($actions)
+                ->buildName(GameConfigEnum::DEFAULT)
             ;
             $manager->persist($alienFruit);
 
             $alienPlantMechanic = new Plant();
             $alienPlantMechanic
-                ->setFruit($alienFruit)
+                ->setFruitName($alienFruit->getEquipmentName())
                 ->setMaturationTime([2 => 7, 4 => 7, 8 => 24, 12 => 14, 16 => 7, 24 => 7, 48 => 7])
                 ->setOxygen([1 => 1])
                 ->setActions($plantActions)
+                ->buildName(EquipmentMechanicEnum::PLANT . '_' . $plantName, GameConfigEnum::DEFAULT)
             ;
 
             $alienPlant = new ItemConfig();
             $alienPlant
-                ->setGameConfig($gameConfig)
-                ->setName($plantName)
+                ->setEquipmentName($plantName)
                 ->setIsStackable(false)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
                 ->setMechanics(new ArrayCollection([$alienPlantMechanic]))
                 ->setActions($actions)
+                ->buildName(GameConfigEnum::DEFAULT)
             ;
             $manager->persist($alienPlantMechanic);
             $manager->persist($alienPlant);
+
+            $gameConfig->addEquipmentConfig($alienFruit)->addEquipmentConfig($alienPlant);
         }
 
         $junkinMechanic = new Fruit();
@@ -160,41 +171,47 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setHealthPoints([1])
             ->setMoralPoints([1])
             ->setActions($fruitActions)
+            ->buildName(EquipmentMechanicEnum::FRUIT . '_' . GameFruitEnum::JUNKIN, GameConfigEnum::DEFAULT)
         ;
 
         $junkin = new ItemConfig();
         $junkin
-            ->setGameConfig($gameConfig)
-            ->setName(GameFruitEnum::JUNKIN)
+            ->setEquipmentName(GameFruitEnum::JUNKIN)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$junkinMechanic]))
             ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($junkinMechanic);
         $manager->persist($junkin);
+        $gameConfig->addEquipmentConfig($junkin);
 
         $bumpjunkinMechanic = new Plant();
         $bumpjunkinMechanic
-            ->setFruit($junkin)
+            ->setFruitName($junkin->getEquipmentName())
             ->setMaturationTime([8 => 1])
             ->setOxygen([1 => 1])
             ->setActions($plantActions)
+            ->buildName(EquipmentMechanicEnum::PLANT . '_' . GamePlantEnum::BUMPJUNKIN, GameConfigEnum::DEFAULT)
         ;
 
         $bumpjunkin = new ItemConfig();
         $bumpjunkin
-            ->setGameConfig($gameConfig)
-            ->setName(GamePlantEnum::BUMPJUNKIN)
+            ->setEquipmentName(GamePlantEnum::BUMPJUNKIN)
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$bumpjunkinMechanic]))
             ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($bumpjunkinMechanic);
         $manager->persist($bumpjunkin);
+        $gameConfig->addEquipmentConfig($bumpjunkin);
+
+        $manager->persist($gameConfig);
 
         $manager->flush();
     }

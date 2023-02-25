@@ -1,0 +1,25 @@
+Mush\Equipment\Entity\Config\ItemConfig:
+  attributes:
+    id:
+      groups: [ 'item_config_read' ]
+    name:
+      groups: [ 'item_config_read', 'item_config_write' ]
+    equipmentName:
+      groups: [ 'item_config_read', 'item_config_write' ]
+    mechanics:
+      groups: [ 'item_config_read', 'item_config_write' ]
+    isFireDestroyable:
+      groups: [ 'item_config_read', 'item_config_write' ]
+    isFireBreakable:
+      groups: [ 'item_config_read', 'item_config_write' ]
+    isBreakable:
+      groups: [ 'item_config_read', 'item_config_write' ]
+    actions:
+      groups: [ 'item_config_read', 'item_config_write' ]
+    initStatuses:
+      groups: [ 'item_config_read', 'item_config_write' ]
+    dismountedProducts:
+      groups: [ 'item_config_read', 'item_config_write' ]
+    isStackable:
+      groups: [ 'item_config_read', 'item_config_write' ]
+ 

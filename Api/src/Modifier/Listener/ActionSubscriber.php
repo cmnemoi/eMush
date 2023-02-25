@@ -5,21 +5,25 @@ namespace Mush\Modifier\Listener;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Modifier\Service\EquipmentModifierServiceInterface;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
+use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
+use Mush\Modifier\Service\ModifierListenerService\PlayerModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionSubscriber implements EventSubscriberInterface
 {
     private EquipmentModifierServiceInterface $equipmentModifierService;
-    private ModifierServiceInterface $modifierService;
+    private EventModifierServiceInterface $modifierService;
+    private PlayerModifierServiceInterface $playerModifierService;
 
     public function __construct(
         EquipmentModifierServiceInterface $equipmentModifierService,
-        ModifierServiceInterface $modifierService
+        EventModifierServiceInterface $modifierService,
+        PlayerModifierServiceInterface $playerModifierService
     ) {
         $this->equipmentModifierService = $equipmentModifierService;
         $this->modifierService = $modifierService;
+        $this->playerModifierService = $playerModifierService;
     }
 
     public static function getSubscribedEvents(): array
@@ -38,7 +42,7 @@ class ActionSubscriber implements EventSubscriberInterface
         if ($actionResult === null) {
             return;
         }
-        $actionName = $event->getAction()->getName();
+        $actionName = $event->getAction()->getActionName();
 
         $target = $event->getActionParameter();
 
@@ -52,7 +56,7 @@ class ActionSubscriber implements EventSubscriberInterface
                     throw new \LogicException('a game equipment should be given');
                 }
 
-                $this->equipmentModifierService->takeEquipment($target, $player);
+                $this->equipmentModifierService->takeEquipment($target, $player, $event->getTags(), $event->getTime());
 
                 return;
             case ActionEnum::DROP:
@@ -60,16 +64,16 @@ class ActionSubscriber implements EventSubscriberInterface
                     throw new \LogicException('a game equipment should be given');
                 }
 
-                $this->equipmentModifierService->dropEquipment($target, $player);
+                $this->equipmentModifierService->dropEquipment($target, $player, $event->getTags(), $event->getTime());
 
                 return;
 
                 // handle movement of a player
             case ActionEnum::MOVE:
-                $this->modifierService->playerEnterRoom($player);
+                $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
 
                 foreach ($player->getEquipments() as $equipment) {
-                    $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace());
+                    $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
                 }
         }
     }
@@ -77,15 +81,15 @@ class ActionSubscriber implements EventSubscriberInterface
     public function onPreAction(ActionEvent $event): void
     {
         $player = $event->getPlayer();
-        $actionName = $event->getAction()->getName();
+        $actionName = $event->getAction()->getActionName();
 
         switch ($actionName) {
             case ActionEnum::MOVE:
                 // handle movement of a player
-                $this->modifierService->playerLeaveRoom($player);
+                $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
 
                 foreach ($player->getEquipments() as $equipment) {
-                    $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace());
+                    $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
                 }
 
                 return;

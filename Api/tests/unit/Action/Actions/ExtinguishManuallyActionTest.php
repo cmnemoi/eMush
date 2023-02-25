@@ -26,10 +26,10 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPAIR, 1);
 
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->action = new ExtinguishManually(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -41,7 +41,7 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecuteFail()
@@ -76,7 +76,7 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         // Success
         $result = $this->action->execute();

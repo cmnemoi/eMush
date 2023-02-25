@@ -3,18 +3,18 @@
 namespace Mush\Player\Listener;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -30,10 +30,10 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         foreach ($event->getDaedalus()->getPlayers()->getPlayerAlive() as $player) {
             $newPlayerCycle = new PlayerCycleEvent(
                 $player,
-                $event->getReason(),
+                $event->getTags(),
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($newPlayerCycle, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+            $this->eventService->callEvent($newPlayerCycle, PlayerCycleEvent::PLAYER_NEW_CYCLE);
         }
     }
 
@@ -42,11 +42,11 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         foreach ($event->getDaedalus()->getPlayers()->getPlayerAlive() as $player) {
             $newPlayerDay = new PlayerCycleEvent(
                 $player,
-                $event->getReason(),
+                $event->getTags(),
                 $event->getTime()
             );
 
-            $this->eventDispatcher->dispatch($newPlayerDay, PlayerCycleEvent::PLAYER_NEW_DAY);
+            $this->eventService->callEvent($newPlayerDay, PlayerCycleEvent::PLAYER_NEW_DAY);
         }
     }
 }

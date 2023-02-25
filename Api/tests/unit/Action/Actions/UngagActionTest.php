@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Ungag;
 use Mush\Action\Enum\ActionEnum;
@@ -21,7 +20,7 @@ class UngagActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::UNGAG, 1);
 
         $this->action = new Ungag(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -32,7 +31,7 @@ class UngagActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -46,7 +45,7 @@ class UngagActionTest extends AbstractActionTest
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();
 

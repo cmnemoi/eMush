@@ -15,9 +15,9 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -27,12 +27,12 @@ class InstallCamera extends AbstractAction
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
-        parent::__construct($eventDispatcher, $actionService, $validator);
+        parent::__construct($eventService, $actionService, $validator);
 
         $this->gameEquipmentService = $gameEquipmentService;
     }
@@ -76,7 +76,7 @@ class InstallCamera extends AbstractAction
             EquipmentEnum::CAMERA_EQUIPMENT,
             $itemCamera,
             $this->player->getPlace(),
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             VisibilityEnum::PUBLIC
         );
     }

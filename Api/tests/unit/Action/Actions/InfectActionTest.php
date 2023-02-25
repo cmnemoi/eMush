@@ -27,10 +27,10 @@ class InfectActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::INFECT, 1);
 
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Infect(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->statusService,
@@ -42,7 +42,7 @@ class InfectActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -52,34 +52,27 @@ class InfectActionTest extends AbstractActionTest
         $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
+        $player->setSpores(1);
 
         $targetPlayer = $this->createPlayer($daedalus, $room);
 
         $mushConfig = new ChargeStatusConfig();
-        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus
-            ->setCharge(1)
-        ;
-
-        $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig->setName(PlayerStatusEnum::SPORES);
-        $sporeStatus = new ChargeStatus($player, $sporeConfig);
-        $sporeStatus
             ->setCharge(1)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->statusService->shouldReceive('persist')->once();
+        $this->eventService->shouldReceive('callEvent')->times(2);
         $this->statusService->shouldReceive('persist')->once();
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $player->getStatuses());
+        $this->assertCount(1, $player->getStatuses());
         $this->assertEquals(0, $player->getStatusByName(PlayerStatusEnum::MUSH)->getCharge());
     }
 }

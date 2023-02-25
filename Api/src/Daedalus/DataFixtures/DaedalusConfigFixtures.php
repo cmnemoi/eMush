@@ -12,6 +12,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Enum\RoomEnum;
 
 /**
@@ -25,13 +26,13 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
 
     public function load(ObjectManager $manager): void
     {
-        $daedalusConfig = new DaedalusConfig();
-
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        $daedalusConfig = new DaedalusConfig();
+
         $daedalusConfig
-            ->setGameConfig($gameConfig)
+            ->setName(GameConfigEnum::DEFAULT)
             ->setInitOxygen(32)
             ->setInitFuel(20)
             ->setInitHull(100)
@@ -41,10 +42,14 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setMaxFuel(32)
             ->setMaxHull(100)
             ->setMaxShield(100)
+            ->setNbMush(3)
+            ->setCyclePerGameDay(8)
+            ->setCycleLength(3 * 60)
         ;
 
         $randomStorageItemPlaces = new RandomItemPlaces();
         $randomStorageItemPlaces
+            ->setName('default')
             ->setItems([
                 GearItemEnum::PLASTENITE_ARMOR,
                 ToolItemEnum::HACKER_KIT,
@@ -75,9 +80,12 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setPlaces(RoomEnum::getStorages())
         ;
 
-        $daedalusConfig->setRandomItemPlace($randomStorageItemPlaces);
+        $daedalusConfig->setRandomItemPlaces($randomStorageItemPlaces);
 
         $manager->persist($daedalusConfig);
+
+        $gameConfig->setDaedalusConfig($daedalusConfig);
+        $manager->persist($gameConfig);
 
         $manager->flush();
 

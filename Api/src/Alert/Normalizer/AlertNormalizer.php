@@ -3,8 +3,10 @@
 namespace Mush\Alert\Normalizer;
 
 use Mush\Alert\Entity\Alert;
+use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Place\Entity\Place;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class AlertNormalizer implements ContextAwareNormalizerInterface
@@ -27,7 +29,7 @@ class AlertNormalizer implements ContextAwareNormalizerInterface
         /** @var Alert $alert */
         $alert = $object;
 
-        $language = $alert->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $alert->getDaedalus()->getLanguage();
 
         $key = $alert->getName();
 
@@ -87,9 +89,32 @@ class AlertNormalizer implements ContextAwareNormalizerInterface
     {
         $reports = [];
 
+        /** @var AlertElement $element */
         foreach ($alert->getAlertElements() as $element) {
-            if ($element->getPlayer() !== null) {
-                $parameters = ['character' => $element->getPlayer()->getCharacterConfig()->getName(), 'place' => $element->getPlace()->getName()];
+            $playerInfo = $element->getPlayerInfo();
+
+            if ($playerInfo !== null) {
+                /** @var Place $place */
+                $place = $element->getPlace();
+
+                $placeName = $this->translationService->translate(
+                    $place->getName() . '.name',
+                    [],
+                    'rooms',
+                    $language
+                );
+                $loc_prep = $this->translationService->translate(
+                    $place->getName() . '.loc_prep',
+                    [],
+                    'rooms',
+                    $language
+                );
+                $parameters = [
+                    'character' => $playerInfo->getName(),
+                    'place' => $placeName,
+                    'loc_prep' => $loc_prep,
+                ];
+
                 $reports[] = $this->translationService->translate(
                     "{$alert->getName()}.report",
                     $parameters,

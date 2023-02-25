@@ -1,0 +1,55 @@
+Mush\Game\Entity\GameConfig:
+  shortName: 'GameConfig'
+  description: 'eMush GameConfig'
+  attributes:
+    pagination_items_per_page: 25
+    security: 'is_granted("ROLE_USER")'
+    normalization_context:
+      groups: [ 'game_config_read' ]
+    denormalization_context:
+      groups: [ 'game_config_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get: 
+      security: 'is_granted("ROLE_USER")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'
+  properties:
+    daedalusConfig:
+      subresource:
+        resourceClass: 'Mush\Daedalus\Entity\DaedalusConfig'
+    charactersConfig:
+      subresource:
+        resourceClass: 'Mush\Player\Entity\Config\CharacterConfig'
+        collection: true
+    equipmentsConfig:
+      subresource:
+        resourceClass: 'Mush\Equipment\Entity\Config\EquipmentConfig'
+        collection: true
+    statusConfigs:
+      subresource:
+        resourceClass: 'Mush\Status\Entity\Config\StatusConfig'
+        collection: true
+    triumphConfig:
+      subresource:
+        resourceClass: 'Mush\Game\Entity\TriumphConfig'
+        collection: true
+    diseaseCauseConfig:
+      subresource:
+        resourceClass: 'Mush\Disease\Entity\DiseaseCauseConfig'
+        collection: true
+    diseaseConfig:
+      subresource:
+        resourceClass: 'Mush\Disease\Entity\DiseaseConfig'
+        collection: true
+    consumableDiseaseConfig:
+      subresource:
+        resourceClass: 'Mush\Disease\Entity\ConsumableConfig'
+        collection: true
+    difficultyConfig:
+      subresource:
+        resourceClass: 'Mush\Game\Entity\DifficultyConfig'

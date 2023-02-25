@@ -17,13 +17,13 @@ use Mush\Disease\Enum\TypeEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -43,17 +43,17 @@ class SelfSurgery extends AbstractAction
     public const CRITICAL_SUCCESS_CHANCES = 5;
 
     private RandomServiceInterface $randomService;
-    private ModifierServiceInterface $modifierService;
+    private EventModifierServiceInterface $modifierService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        ModifierServiceInterface $modifierService
+        EventModifierServiceInterface $modifierService
     ) {
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator
         );
@@ -70,6 +70,12 @@ class SelfSurgery extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new HasStatus([
+            'status' => EquipmentStatusEnum::BROKEN,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+        ]));
+        $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::LYING_DOWN,
             'target' => HasStatus::PLAYER,
             'groups' => ['execute'],
@@ -82,12 +88,6 @@ class SelfSurgery extends AbstractAction
             'type' => TypeEnum::INJURY,
             'message' => ActionImpossibleCauseEnum::HEAL_NO_INJURY,
         ]));
-        $metadata->addConstraint(new HasStatus([
-            'status' => EquipmentStatusEnum::BROKEN,
-            'contain' => false,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-        ]));
     }
 
     protected function checkResult(): ActionResult
@@ -97,7 +97,7 @@ class SelfSurgery extends AbstractAction
             [ActionEnum::SURGERY],
             ModifierTargetEnum::PERCENTAGE,
             self::FAIL_CHANCES,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             new \DateTime(),
         );
         $criticalSuccessChances = $this->modifierService->getEventModifiedValue(
@@ -105,7 +105,7 @@ class SelfSurgery extends AbstractAction
             [ActionEnum::SURGERY],
             ModifierTargetEnum::CRITICAL_PERCENTAGE,
             self::CRITICAL_SUCCESS_CHANCES,
-            $this->getActionName(),
+            $this->getAction()->getActionTags(),
             new \DateTime(),
         );
 
@@ -133,17 +133,17 @@ class SelfSurgery extends AbstractAction
         }
     }
 
-    private function successSurgery(string $reason): void
+    private function successSurgery(string $result): void
     {
         $diseaseEvent = new ApplyEffectEvent(
             $this->player,
             $this->player,
             VisibilityEnum::PUBLIC,
-            $this->getActionName() . '_' . $reason,
+            [$this->getActionName() . '_' . $result],
             new \DateTime()
         );
 
-        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
+        $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
     }
 
     private function failedSurgery(): void
@@ -152,9 +152,9 @@ class SelfSurgery extends AbstractAction
             $this->player,
             $this->player,
             VisibilityEnum::PUBLIC,
-            ActionEnum::SURGERY,
+            [ActionEnum::SURGERY],
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
+        $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
     }
 }

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
@@ -17,11 +18,15 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 class ActionEffectSubscriberCest
 {
@@ -38,32 +43,46 @@ class ActionEffectSubscriberCest
 
     public function testOnConsumeDelayedDisease(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-        $daedalus = $I->have(Daedalus::class, [
-            'gameConfig' => $gameConfig,
-        ]);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
+        /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
 
         $I->refreshEntities($player);
 
         $gameItem = $this->createRation($I);
         $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', true);
 
+        $gameConfig->addDiseaseConfig($diseaseConfig);
+
         $event = new ApplyEffectEvent(
             $player,
             $gameItem,
             VisibilityEnum::HIDDEN,
-            ActionEnum::CONSUME,
+            [ActionEnum::CONSUME],
             new \DateTime()
         );
 
@@ -78,32 +97,47 @@ class ActionEffectSubscriberCest
 
     public function testOnConsumeImmediatDisease(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-        $daedalus = $I->have(Daedalus::class, [
-            'gameConfig' => $gameConfig,
-        ]);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
+        /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
 
         $I->refreshEntities($player);
 
         $gameItem = $this->createRation($I);
         $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', false);
 
+        $gameConfig->addDiseaseConfig($diseaseConfig);
+
         $event = new ApplyEffectEvent(
             $player,
             $gameItem,
             VisibilityEnum::HIDDEN,
-            ActionEnum::CONSUME,
+            [ActionEnum::CONSUME],
             new \DateTime()
         );
 
@@ -118,27 +152,43 @@ class ActionEffectSubscriberCest
 
     public function testOnHealNonResistantDisease(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-        $daedalus = $I->have(Daedalus::class, [
-            'gameConfig' => $gameConfig,
-        ]);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
+        /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
             'name' => RoomEnum::MEDLAB,
         ]);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
 
         $I->refreshEntities($player);
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setName('someName');
+        $diseaseConfig
+            ->setDiseaseName('someName')
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($diseaseConfig);
 
         $diseasePlayer = new PlayerDisease();
@@ -152,7 +202,7 @@ class ActionEffectSubscriberCest
             $player,
             $player,
             VisibilityEnum::HIDDEN,
-            ActionEnum::HEAL,
+            [ActionEnum::HEAL],
             new \DateTime()
         );
 
@@ -167,27 +217,42 @@ class ActionEffectSubscriberCest
 
     public function testOnHealResistantDisease(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-        $daedalus = $I->have(Daedalus::class, [
-            'gameConfig' => $gameConfig,
-        ]);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
+        /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
             'name' => RoomEnum::MEDLAB,
         ]);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
 
         $I->refreshEntities($player);
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setName('someName');
+        $diseaseConfig
+            ->setDiseaseName('someName')
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($diseaseConfig);
 
         $diseasePlayer = new PlayerDisease();
@@ -202,7 +267,7 @@ class ActionEffectSubscriberCest
             $player,
             $player,
             VisibilityEnum::HIDDEN,
-            ActionEnum::HEAL,
+            [ActionEnum::HEAL],
             new \DateTime()
         );
 
@@ -220,14 +285,13 @@ class ActionEffectSubscriberCest
         Daedalus $daedalus,
         string $rationName,
         string $diseaseName,
-        bool $delayed = false
+        bool $delayed = false,
     ): DiseaseConfig {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setGameConfig($daedalus->getGameConfig())
-            ->setName($diseaseName)
+            ->setDiseaseName($diseaseName)
+            ->buildName(GameConfigEnum::TEST)
         ;
-
         $this->tester->haveInRepository($diseaseConfig);
 
         $consumableDisease = new ConsumableDisease();
@@ -260,17 +324,19 @@ class ActionEffectSubscriberCest
     private function createRation(FunctionalTester $I): GameItem
     {
         $ration = new Ration();
+        $ration->setName('ration_test');
         $I->haveInRepository($ration);
 
         $itemConfig = new ItemConfig();
         $itemConfig
-            ->setName('itemName')
+            ->setEquipmentName('itemName')
             ->setMechanics(new ArrayCollection([$ration]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($itemConfig);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
         $gameItem
             ->setName('itemName')
             ->setEquipment($itemConfig)

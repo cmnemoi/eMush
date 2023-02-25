@@ -11,29 +11,25 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ApplyEffectSubscriber implements EventSubscriberInterface
 {
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private EquipmentEffectServiceInterface $equipmentServiceEffect;
 
     public function __construct(
-        GameEquipmentServiceInterface $gameEquipmentService,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         EquipmentEffectServiceInterface $equipmentServiceEffect
     ) {
-        $this->gameEquipmentService = $gameEquipmentService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->equipmentServiceEffect = $equipmentServiceEffect;
     }
 
@@ -73,10 +69,10 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             $ration,
             $player,
             VisibilityEnum::HIDDEN,
-            $consumeEvent->getReason(),
+            $consumeEvent->getTags(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 
     protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect, Player $player, bool $isFrozen): void
@@ -86,30 +82,30 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 $player,
                 PlayerVariableEnum::ACTION_POINT,
                 $delta,
-                ActionEnum::CONSUME,
+                [ActionEnum::CONSUME],
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getMovementPoint()) !== null) {
             $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::MOVEMENT_POINT,
                 $delta,
-                ActionEnum::CONSUME,
+                [ActionEnum::CONSUME],
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getHealthPoint()) !== null) {
             $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::HEALTH_POINT,
                 $delta,
-                ActionEnum::CONSUME,
+                [ActionEnum::CONSUME],
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getMoralPoint()) !== null &&
             !($isFrozen && $delta > 0)) {
@@ -117,20 +113,20 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 $player,
                 PlayerVariableEnum::MORAL_POINT,
                 $delta,
-                ActionEnum::CONSUME,
+                [ActionEnum::CONSUME],
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getSatiety()) !== null) {
             $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::SATIETY,
                 $delta,
-                ActionEnum::CONSUME,
+                [ActionEnum::CONSUME],
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 
@@ -140,9 +136,9 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             $player,
             PlayerVariableEnum::SATIETY,
             4,
-            ActionEnum::CONSUME,
+            [ActionEnum::CONSUME],
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

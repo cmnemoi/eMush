@@ -1,0 +1,5 @@
+Mush\Equipment\Entity\Mechanics\Blueprint:
+  properties:
+    skill:
+      - NotBlank: ~
+      - Type: string

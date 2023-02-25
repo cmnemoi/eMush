@@ -3,7 +3,6 @@
 namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\WaterPlant;
 use Mush\Action\Enum\ActionEnum;
@@ -28,7 +27,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::WATER_PLANT, 1);
 
         $this->action = new WaterPlant(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -39,18 +38,17 @@ class WaterPlantActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecuteThirsty()
     {
         $room = new Place();
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
               ->setEquipment($item)
-              ->setHolder($room)
         ;
 
         $plant = new Plant();
@@ -58,7 +56,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$plant]));
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::PLANT_THIRSTY);
+        $statusConfig->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY);
         $thirsty = new Status($gameItem, $statusConfig);
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -66,7 +64,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();
 
@@ -78,11 +76,10 @@ class WaterPlantActionTest extends AbstractActionTest
     {
         $room = new Place();
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $plant = new Plant();
@@ -94,11 +91,11 @@ class WaterPlantActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::PLANT_DRY);
+        $statusConfig->setStatusName(EquipmentStatusEnum::PLANT_DRY);
         $thirsty = new Status($gameItem, $statusConfig);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();
 

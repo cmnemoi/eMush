@@ -22,7 +22,7 @@ class HasRoleValidator extends ConstraintValidator
         $player = $value->getPlayer();
         $userRoles = $player->getUser()->getRoles();
 
-        if (!in_array($constraint->role, $userRoles, true)) {
+        if (array_intersect($constraint->roles, $userRoles) === []) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

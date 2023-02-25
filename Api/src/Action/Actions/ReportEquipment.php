@@ -46,10 +46,10 @@ class ReportEquipment extends AbstractAction
             $this->player,
             $parameter,
             VisibilityEnum::PRIVATE,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
-        $this->eventDispatcher->dispatch($reportEvent, ApplyEffectEvent::REPORT_EQUIPMENT);
+        $this->eventService->callEvent($reportEvent, ApplyEffectEvent::REPORT_EQUIPMENT);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\AreMedicalSuppliesOnReach;
 use Mush\Action\Validator\AreMedicalSuppliesOnReachValidator;
@@ -35,7 +34,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValidInMedlab()
@@ -45,15 +44,13 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
         $player->setPlace($medlab);
 
         $targetPlayerConfig = new CharacterConfig();
         $target = new Player();
-        $target->setCharacterConfig($targetPlayerConfig);
         $target->setPlace($medlab);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -72,19 +69,17 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
         $player->setPlace($room);
 
-        $equipment = new GameItem();
+        $equipment = new GameItem($player);
         $equipment->setName(ToolItemEnum::MEDIKIT);
         $player->addEquipment($equipment);
 
         $targetPlayerConfig = new CharacterConfig();
         $target = new Player();
-        $target->setCharacterConfig($targetPlayerConfig);
         $target->setPlace($room);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -103,19 +98,17 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
         $player->setPlace($room);
 
-        $equipment = new GameItem();
+        $equipment = new GameItem($room);
         $equipment->setName(ToolItemEnum::MEDIKIT);
         $room->addEquipment($equipment);
 
         $targetPlayerConfig = new CharacterConfig();
         $target = new Player();
-        $target->setCharacterConfig($targetPlayerConfig);
         $target->setPlace($room);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -137,15 +130,13 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
         $player->setPlace($laboratory);
 
         $targetPlayerConfig = new CharacterConfig();
         $target = new Player();
-        $target->setCharacterConfig($targetPlayerConfig);
         $target->setPlace($medlab);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -159,8 +150,8 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

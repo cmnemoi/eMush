@@ -2,16 +2,17 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Mockery;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Heal;
+use Mush\Action\Actions\MakeSick;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Place\Entity\Place;
 
 class MakeSickActionTest extends AbstractActionTest
 {
+    private DiseaseCauseServiceInterface|Mockery\Mock $diseaseCauseService;
+
     /**
      * @before
      */
@@ -20,12 +21,13 @@ class MakeSickActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::MAKE_SICK);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
 
-        $this->action = new Heal(
-            $this->eventDispatcher,
+        $this->action = new MakeSick(
+            $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->diseaseCauseService
         );
     }
 
@@ -34,14 +36,14 @@ class MakeSickActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $room = new Place();
 
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
 
         $player = $this->createPlayer(new Daedalus(), $room);
         $playerTarget = $this->createPlayer(new Daedalus(), $room);
@@ -49,7 +51,7 @@ class MakeSickActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $playerTarget);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->diseaseCauseService->shouldReceive('handleDiseaseForCause');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

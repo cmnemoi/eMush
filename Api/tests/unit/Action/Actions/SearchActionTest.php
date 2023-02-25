@@ -32,11 +32,11 @@ class SearchActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SEARCH, 1);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Search(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->statusService,
@@ -48,7 +48,7 @@ class SearchActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecuteNoItem()
@@ -74,12 +74,11 @@ class SearchActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player);
 
         // No hidden item in the room
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setHolder($room)
         ;
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
@@ -90,16 +89,15 @@ class SearchActionTest extends AbstractActionTest
     {
         // Success find
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $hiddenConfig = new StatusConfig();
-        $hiddenConfig->setName(EquipmentStatusEnum::HIDDEN);
+        $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN);
         $hidden = new Status($gameItem, $hiddenConfig);
         $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
         $hidden
@@ -114,7 +112,7 @@ class SearchActionTest extends AbstractActionTest
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();
 
@@ -128,27 +126,25 @@ class SearchActionTest extends AbstractActionTest
     {
         // 2 hidden items
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
 
         $hiddenConfig = new StatusConfig();
-        $hiddenConfig->setName(EquipmentStatusEnum::HIDDEN);
+        $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN);
         $hidden = new Status($gameItem, $hiddenConfig);
         $hidden
             ->setTarget($hiddenBy)
         ;
 
-        $gameItem2 = new GameItem();
+        $gameItem2 = new GameItem($room);
         $gameItem2
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $hidden2 = new Status($gameItem2, $hiddenConfig);
@@ -162,7 +158,7 @@ class SearchActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('persist');
 
         $result = $this->action->execute();

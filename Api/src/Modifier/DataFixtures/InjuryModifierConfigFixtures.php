@@ -8,14 +8,13 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
-use Mush\Modifier\Entity\ModifierCondition;
-use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierConditionEnum;
-use Mush\Modifier\Enum\ModifierModeEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 
 class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -32,104 +31,153 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
-        $notMoveActionCondition = new ModifierCondition(ModifierConditionEnum::NOT_REASON);
-        $notMoveActionCondition->setCondition(ActionEnum::MOVE);
-        $manager->persist($notMoveActionCondition);
-
-        $notMoveAction1Increase = new ModifierConfig();
-        $notMoveAction1Increase
-            ->setScope(ModifierScopeEnum::ACTIONS)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($notMoveActionCondition)
+        /** @var ModifierActivationRequirement $notConsumeActionActivationRequirement */
+        $notConsumeActionActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::NOT_REASON);
+        $notConsumeActionActivationRequirement
+            ->setActivationRequirement(ActionEnum::CONSUME)
+            ->buildName()
         ;
+        $manager->persist($notConsumeActionActivationRequirement);
+
+        /** @var ModifierActivationRequirement $notConsumeDrugActionActivationRequirement */
+        $notConsumeDrugActionActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::NOT_REASON);
+        $notConsumeDrugActionActivationRequirement
+            ->setActivationRequirement(ActionEnum::CONSUME_DRUG)
+            ->buildName()
+        ;
+        $manager->persist($notConsumeDrugActionActivationRequirement);
+
+        /** @var ModifierActivationRequirement $notSurgeryActionActivationRequirement */
+        $notSurgeryActionActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::NOT_REASON);
+        $notSurgeryActionActivationRequirement
+            ->setActivationRequirement(ActionEnum::SURGERY)
+            ->buildName()
+        ;
+        $manager->persist($notSurgeryActionActivationRequirement);
+
+        /** @var ModifierActivationRequirement $notSelfSurgeryActivationRequirement */
+        $notSelfSurgeryActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::NOT_REASON);
+        $notSelfSurgeryActivationRequirement
+            ->setActivationRequirement(ActionEnum::SELF_SURGERY)
+            ->buildName()
+        ;
+        $manager->persist($notSelfSurgeryActivationRequirement);
+
+        /** @var ModifierActivationRequirement $notMoveActionActivationRequirement */
+        $notMoveActionActivationRequirement = $this->getReference(DisorderModifierConfigFixtures::NOT_REASON_MOVE);
+
+        $notMoveAction1Increase = new VariableEventModifierConfig();
+        $notMoveAction1Increase
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
+            ->addModifierRequirement($notMoveActionActivationRequirement)
+            ->addModifierRequirement($notConsumeActionActivationRequirement)
+            ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
+            ->addModifierRequirement($notSurgeryActionActivationRequirement)
+            ->addModifierRequirement($notSelfSurgeryActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+        ;
+        $notMoveAction1Increase->buildName();
         $manager->persist($notMoveAction1Increase);
 
-        $notMoveAction2Increase = new ModifierConfig();
+        $notMoveAction2Increase = new VariableEventModifierConfig();
         $notMoveAction2Increase
-            ->setScope(ModifierScopeEnum::ACTIONS)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($notMoveActionCondition)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
+            ->addModifierRequirement($notMoveActionActivationRequirement)
+            ->addModifierRequirement($notConsumeActionActivationRequirement)
+            ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
+            ->addModifierRequirement($notSurgeryActionActivationRequirement)
+            ->addModifierRequirement($notSelfSurgeryActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
+        $notMoveAction2Increase->buildName();
         $manager->persist($notMoveAction2Increase);
 
-        $notMoveAction3Increase = new ModifierConfig();
+        $notMoveAction3Increase = new VariableEventModifierConfig();
         $notMoveAction3Increase
-            ->setScope(ModifierScopeEnum::ACTIONS)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(3)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($notMoveActionCondition)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
+            ->addModifierRequirement($notMoveActionActivationRequirement)
+            ->addModifierRequirement($notConsumeActionActivationRequirement)
+            ->addModifierRequirement($notConsumeDrugActionActivationRequirement)
+            ->addModifierRequirement($notSurgeryActionActivationRequirement)
+            ->addModifierRequirement($notSelfSurgeryActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
+        $notMoveAction3Increase->buildName();
         $manager->persist($notMoveAction3Increase);
 
-        $reduceMax3MovementPoint = new ModifierConfig();
+        $reduceMax3MovementPoint = new VariableEventModifierConfig();
         $reduceMax3MovementPoint
-            ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-3)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
+        $reduceMax3MovementPoint->buildName();
         $manager->persist($reduceMax3MovementPoint);
 
-        $reduceMax5MovementPoint = new ModifierConfig();
+        $reduceMax5MovementPoint = new VariableEventModifierConfig();
         $reduceMax5MovementPoint
-            ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-5)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
+        $reduceMax5MovementPoint->buildName();
         $manager->persist($reduceMax5MovementPoint);
 
-        $reduceMax12MovementPoint = new ModifierConfig();
+        $reduceMax12MovementPoint = new VariableEventModifierConfig();
         $reduceMax12MovementPoint
-            ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-12)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
+        $reduceMax12MovementPoint->buildName();
         $manager->persist($reduceMax12MovementPoint);
 
-        $shootAction15PercentAccuracyLost = new ModifierConfig();
+        $shootAction15PercentAccuracyLost = new VariableEventModifierConfig();
         $shootAction15PercentAccuracyLost
-            ->setScope(ActionTypeEnum::ACTION_SHOOT)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0.85)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
+        $shootAction15PercentAccuracyLost->buildName();
         $manager->persist($shootAction15PercentAccuracyLost);
 
-        $shootAction20PercentAccuracyLost = new ModifierConfig();
+        $shootAction20PercentAccuracyLost = new VariableEventModifierConfig();
         $shootAction20PercentAccuracyLost
-            ->setScope(ActionTypeEnum::ACTION_SHOOT)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0.80)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
+        $shootAction20PercentAccuracyLost->buildName();
         $manager->persist($shootAction20PercentAccuracyLost);
 
-        $shootAction40PercentAccuracyLost = new ModifierConfig();
+        $shootAction40PercentAccuracyLost = new VariableEventModifierConfig();
         $shootAction40PercentAccuracyLost
-            ->setScope(ActionTypeEnum::ACTION_SHOOT)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0.60)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
+        $shootAction40PercentAccuracyLost->buildName();
         $manager->persist($shootAction40PercentAccuracyLost);
 
         $manager->flush();
@@ -149,6 +197,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
     {
         return [
             GameConfigFixtures::class,
+            DisorderModifierConfigFixtures::class,
         ];
     }
 }

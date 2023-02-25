@@ -2,13 +2,15 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\Oxygen;
-use Mush\Action\Validator\OxygenValidator;
+use Mush\Action\Validator\GameVariableLevel;
+use Mush\Action\Validator\GameVariableLevelValidator;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -16,16 +18,16 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 class OxygenValidatorTest extends TestCase
 {
-    private OxygenValidator $validator;
-    private Oxygen $constraint;
+    private GameVariableLevelValidator $validator;
+    private GameVariableLevel $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new OxygenValidator();
-        $this->constraint = new Oxygen();
+        $this->validator = new GameVariableLevelValidator();
+        $this->constraint = new GameVariableLevel();
     }
 
     /**
@@ -33,20 +35,30 @@ class OxygenValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValidRetrieve()
     {
-        $this->constraint->retrieve = true;
+        $this->constraint->target = GameVariableLevel::DAEDALUS;
+        $this->constraint->checkMode = GameVariableLevel::IS_MIN;
+        $this->constraint->variableName = DaedalusVariableEnum::OXYGEN;
+
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
+            ->setInitOxygen(10)
+            ->setInitShield(1)
+            ->setInitHull(1)
+            ->setInitFuel(1)
+        ;
 
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(10);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -61,15 +73,25 @@ class OxygenValidatorTest extends TestCase
 
     public function testNotValidRetrieve()
     {
-        $this->constraint->retrieve = true;
+        $this->constraint->target = GameVariableLevel::DAEDALUS;
+        $this->constraint->checkMode = GameVariableLevel::IS_MIN;
+        $this->constraint->variableName = DaedalusVariableEnum::OXYGEN;
+
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
+            ->setInitOxygen(0)
+            ->setInitShield(1)
+            ->setInitHull(1)
+            ->setInitFuel(1)
+        ;
 
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(0);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -84,22 +106,30 @@ class OxygenValidatorTest extends TestCase
 
     public function testValidInsert()
     {
-        $this->constraint->retrieve = false;
+        $this->constraint->target = GameVariableLevel::DAEDALUS;
+        $this->constraint->checkMode = GameVariableLevel::IS_MAX;
+        $this->constraint->variableName = DaedalusVariableEnum::OXYGEN;
 
         $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setMaxOxygen(12);
+        $daedalusConfig
+            ->setInitOxygen(10)
+            ->setInitShield(1)
+            ->setInitHull(1)
+            ->setInitFuel(1)
+            ->setMaxOxygen(12)
+        ;
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
-        $daedalus->setOxygen(10);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -114,22 +144,30 @@ class OxygenValidatorTest extends TestCase
 
     public function testNotValidInsert()
     {
-        $this->constraint->retrieve = false;
+        $this->constraint->target = GameVariableLevel::DAEDALUS;
+        $this->constraint->checkMode = GameVariableLevel::IS_MAX;
+        $this->constraint->variableName = DaedalusVariableEnum::OXYGEN;
 
         $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setMaxOxygen(12);
+        $daedalusConfig
+            ->setMaxOxygen(12)
+            ->setInitOxygen(12)
+            ->setInitShield(1)
+            ->setInitHull(1)
+            ->setInitFuel(1)
+        ;
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
-        $daedalus->setOxygen(12);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -144,8 +182,8 @@ class OxygenValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

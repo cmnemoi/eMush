@@ -5,9 +5,11 @@ namespace Mush\Test\Daedalus\Validator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Validator\StartingDaedalus;
 use Mush\Daedalus\Validator\StartingDaedalusValidator;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\GameConfigService;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -27,7 +29,7 @@ class StartingDaedalusTest extends TestCase
      */
     public function before()
     {
-        $this->gameConfigService = Mockery::mock(GameConfigService::class);
+        $this->gameConfigService = \Mockery::mock(GameConfigService::class);
         $this->validator = new StartingDaedalusValidator($this->gameConfigService);
     }
 
@@ -36,7 +38,7 @@ class StartingDaedalusTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -45,13 +47,12 @@ class StartingDaedalusTest extends TestCase
         $daedalus = new Daedalus();
         $this->initValidator();
 
-        $daedalus
-            ->setPlayers(new ArrayCollection([
-                    new Player(),
-                ]));
+        $daedalus->setPlayers(new ArrayCollection([new Player()]));
 
         $gameConfig = new GameConfig();
         $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig(), new CharacterConfig()]));
+
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $this->validator->validate($daedalus, $constraint);
 
@@ -64,8 +65,9 @@ class StartingDaedalusTest extends TestCase
         $daedalus = new Daedalus();
         $this->initValidator('This daedalus cannot accept new players');
 
-        $daedalus
-            ->setGameStatus(GameStatusEnum::CURRENT);
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
+
+        $daedalusInfo->setGameStatus(GameStatusEnum::CURRENT);
 
         $gameConfig = new GameConfig();
         $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig()]));
@@ -77,8 +79,8 @@ class StartingDaedalusTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

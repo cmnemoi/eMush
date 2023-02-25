@@ -15,11 +15,15 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -39,89 +43,103 @@ class CreateDaedalusCest
     public function createDaedalusTest(FunctionalTester $I)
     {
         // Lets create a Daedalus with 3 rooms, few random equipment.
-        $gameConfig = $this->createGameConfig();
-        $I->haveInRepository($gameConfig);
-
-        $daedalusConfig = $this->createDaedalusConfig($gameConfig);
-        $I->haveInRepository($daedalusConfig);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
 
         // roomConfigs
         $placeConfig1 = new PlaceConfig();
         $placeConfig1
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::FRONT_CORRIDOR)
+            ->setPlaceName(RoomEnum::FRONT_CORRIDOR)
             ->setDoors([DoorEnum::FRONT_CORRIDOR_CENTRAL_CORRIDOR])
+            ->buildName(GameConfigEnum::TEST)
         ;
         $placeConfig2 = new PlaceConfig();
         $placeConfig2
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::CENTRAL_CORRIDOR)
+            ->setPlaceName(RoomEnum::CENTRAL_CORRIDOR)
             ->setDoors([DoorEnum::FRONT_CORRIDOR_CENTRAL_CORRIDOR, DoorEnum::REFECTORY_CENTRAL_CORRIDOR])
             ->setItems([ItemEnum::HYDROPOT])
+            ->buildName(GameConfigEnum::TEST)
         ;
         $placeConfig3 = new PlaceConfig();
         $placeConfig3
-            ->setDaedalusConfig($daedalusConfig)
-            ->setName(RoomEnum::REFECTORY)
+            ->setPlaceName(RoomEnum::REFECTORY)
             ->setDoors([DoorEnum::REFECTORY_CENTRAL_CORRIDOR])
             ->setEquipments([EquipmentEnum::GRAVITY_SIMULATOR])
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($placeConfig1);
         $I->haveInRepository($placeConfig2);
         $I->haveInRepository($placeConfig3);
 
+        $daedalusConfig = $this->createDaedalusConfig(new ArrayCollection([$placeConfig1, $placeConfig2, $placeConfig3]));
+        $I->haveInRepository($daedalusConfig);
+
         // status config
         $alienArtifact = new StatusConfig();
         $alienArtifact
-            ->setName(EquipmentStatusEnum::ALIEN_ARTEFACT)
+            ->setStatusName(EquipmentStatusEnum::ALIEN_ARTEFACT)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig);
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($alienArtifact);
 
-        // Modifier configs
-        $gravityModifier = new ModifierConfig();
+        // GameModifier configs
+        $gravityModifier = new VariableEventModifierConfig();
         $gravityModifier
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope(ActionEnum::MOVE)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent(ActionEnum::MOVE)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
+            ->buildName()
         ;
         $I->haveInRepository($gravityModifier);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$gravityModifier]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$gravityModifier]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         // Equipment Configs
         $waterStick = new ItemConfig();
         $waterStick
-            ->setName(ItemEnum::WATER_STICK)
-            ->setInitStatus(new ArrayCollection([$alienArtifact]))
-            ->setGameConfig($gameConfig)
+            ->setEquipmentName(ItemEnum::WATER_STICK)
+            ->setInitStatuses(new ArrayCollection([$alienArtifact]))
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($waterStick);
         $gravitySimulator = new EquipmentConfig();
         $gravitySimulator
             ->setMechanics(new ArrayCollection([$gear]))
-            ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
-            ->setGameConfig($gameConfig)
+            ->setEquipmentName(EquipmentEnum::GRAVITY_SIMULATOR)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($gravitySimulator);
         $hydropot = new ItemConfig();
         $hydropot
-            ->setName(ItemEnum::HYDROPOT)
-            ->setGameConfig($gameConfig)
+            ->setEquipmentName(ItemEnum::HYDROPOT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($hydropot);
         $door = new EquipmentConfig();
         $door
-            ->setName(EquipmentEnum::DOOR)
-            ->setGameConfig($gameConfig)
+            ->setEquipmentName(EquipmentEnum::DOOR)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($door);
 
-        $daedalus = $this->daedalusService->createDaedalus($gameConfig, 'name');
+        $gameConfig = new GameConfig();
+        $gameConfig
+            ->setName('name')
+            ->setDaedalusConfig($daedalusConfig)
+            ->setEquipmentsConfig(new ArrayCollection([$door, $hydropot, $gravitySimulator, $waterStick]))
+            ->setStatusConfigs(new ArrayCollection([$alienArtifact]))
+        ;
+        $I->haveInRepository($gameConfig);
 
-        $I->assertEquals('name', $daedalus->getName());
+        $daedalus = $this->daedalusService->createDaedalus($gameConfig, 'name', LanguageEnum::FRENCH);
+
+        $I->assertEquals('name', $daedalus->getDaedalusInfo()->getName());
         $I->assertCount(3, $daedalus->getPlaces());
         $I->assertCount(1, $daedalus->getModifiers());
         $I->assertCount(0, $daedalus->getPlayers());
@@ -150,11 +168,11 @@ class CreateDaedalusCest
         $I->assertCount(1, $gameWaterStick->getStatuses());
     }
 
-    private function createDaedalusConfig(GameConfig $gameConfig): DaedalusConfig
+    private function createDaedalusConfig(ArrayCollection $placesConfig): DaedalusConfig
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
-            ->setGameConfig($gameConfig)
+            ->setName('default')
             ->setInitOxygen(15)
             ->setInitFuel(25)
             ->setInitHull(80)
@@ -163,10 +181,15 @@ class CreateDaedalusCest
             ->setMaxOxygen(30)
             ->setMaxFuel(35)
             ->setMaxHull(100)
+            ->setPlaceConfigs($placesConfig)
+            ->setNbMush(3)
+            ->setCyclePerGameDay(8)
+            ->setCycleLength(60 * 3)
         ;
 
         $randomItemPlaces = new RandomItemPlaces();
         $randomItemPlaces
+            ->setName('test')
             ->setItems([
                 ItemEnum::WATER_STICK,
             ])
@@ -175,35 +198,8 @@ class CreateDaedalusCest
                 RoomEnum::FRONT_CORRIDOR,
             ])
         ;
-        $daedalusConfig->setRandomItemPlace($randomItemPlaces);
+        $daedalusConfig->setRandomItemPlaces($randomItemPlaces);
 
         return $daedalusConfig;
-    }
-
-    private function createGameConfig(): GameConfig
-    {
-        $gameConfig = new GameConfig();
-
-        $gameConfig
-            ->setName('default')
-            ->setNbMush(3)
-            ->setCyclePerGameDay(8)
-            ->setCycleLength(60 * 3)
-            ->setTimeZone('Europe/Paris')
-            ->setLanguage(LanguageEnum::FRENCH)
-            ->setMaxNumberPrivateChannel(3)
-            ->setInitHealthPoint(14)
-            ->setMaxHealthPoint(14)
-            ->setInitMoralPoint(14)
-            ->setMaxMoralPoint(14)
-            ->setInitSatiety(0)
-            ->setInitActionPoint(8)
-            ->setMaxActionPoint(12)
-            ->setInitMovementPoint(12)
-            ->setMaxMovementPoint(12)
-            ->setMaxItemInInventory(3)
-        ;
-
-        return $gameConfig;
     }
 }

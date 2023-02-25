@@ -12,9 +12,13 @@ use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Specification\SpecificationInterface;
 use Mush\Communication\Voter\ChannelVoter;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -41,6 +45,7 @@ class ChannelController extends AbstractFOSRestController
     private ValidatorInterface $validator;
     private CycleServiceInterface $cycleService;
     private TranslationServiceInterface $translationService;
+    private PlayerInfoRepository $playerInfoRepository;
 
     public function __construct(
         SpecificationInterface $canCreateChannel,
@@ -50,6 +55,7 @@ class ChannelController extends AbstractFOSRestController
         ValidatorInterface $validator,
         CycleServiceInterface $cycleService,
         TranslationServiceInterface $translationService,
+        PlayerInfoRepository $playerInfoRepository
     ) {
         $this->canCreateChannel = $canCreateChannel;
         $this->channelService = $channelService;
@@ -58,6 +64,7 @@ class ChannelController extends AbstractFOSRestController
         $this->validator = $validator;
         $this->cycleService = $cycleService;
         $this->translationService = $translationService;
+        $this->playerInfoRepository = $playerInfoRepository;
     }
 
     /**
@@ -71,12 +78,14 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
-        if (!$player) {
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        if (
+            $playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             throw new AccessDeniedException('User should be in game');
         }
-
-        if ($player->getGameStatus() !== GameStatusEnum::CURRENT) {
+        if ($playerInfo->getGameStatus() !== GameStatusEnum::CURRENT) {
             throw new AccessDeniedException('Player is dead');
         }
 
@@ -104,7 +113,7 @@ class ChannelController extends AbstractFOSRestController
     }
 
     /**
-     * Create a channel.
+     * Check if a new private channel can be created.
      *
      * @OA\Tag(name="Channel")
      * @Security(name="Bearer")
@@ -114,12 +123,15 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
-        if (!$player) {
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        if (
+            $playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             throw new AccessDeniedException('User should be in game');
         }
 
-        if ($player->getGameStatus() !== GameStatusEnum::CURRENT) {
+        if ($playerInfo->getGameStatus() === GameStatusEnum::CLOSED) {
             throw new AccessDeniedException('Player is dead');
         }
 
@@ -136,8 +148,8 @@ class ChannelController extends AbstractFOSRestController
         } else {
             $canCreate = [
                 'canCreate' => true,
-                'name' => $this->translationService->translate('new.name', [], 'chat', $daedalus->getGameConfig()->getLanguage()),
-                'description' => $this->translationService->translate('new.description', [], 'chat', $daedalus->getGameConfig()->getLanguage()),
+                'name' => $this->translationService->translate('new.name', [], 'chat', $daedalus->getLanguage()),
+                'description' => $this->translationService->translate('new.description', [], 'chat', $daedalus->getLanguage()),
             ];
         }
 
@@ -155,8 +167,11 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
-        if (!$player) {
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        if (
+            $playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             throw new AccessDeniedException('User should be in game');
         }
 
@@ -188,8 +203,11 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
-        if (!$player) {
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        if (
+            $playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             throw new AccessDeniedException('User should be in game');
         }
 
@@ -244,13 +262,14 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $currentPlayer = $user->getCurrentGame();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
         $invited = $request->get('player');
 
-        $daedalus = $channel->getDaedalus();
+        /** @var Daedalus $daedalus */
+        $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
@@ -260,7 +279,7 @@ class ChannelController extends AbstractFOSRestController
             return $this->view(['error' => 'player not found'], 404);
         }
 
-        if ($invitedPlayer->getDaedalus() !== $channel->getDaedalus()) {
+        if ($invitedPlayer->getDaedalus() !== $daedalus) {
             return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
@@ -271,7 +290,7 @@ class ChannelController extends AbstractFOSRestController
         $channel = $this->channelService->invitePlayer($invitedPlayer, $channel);
 
         $context = new Context();
-        $context->setAttribute('currentPlayer', $currentPlayer);
+        $context->setAttribute('currentPlayer', $playerInfo->getPlayer());
 
         $view = $this->view($channel, 200);
         $view->setContext($context);
@@ -290,18 +309,19 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
-        $daedalus = $channel->getDaedalus();
+        /** @var Daedalus $daedalus */
+        $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         return $this->view(
-            $this->channelService->getInvitablePlayersToPrivateChannel($channel, $player),
+            $this->channelService->getInvitablePlayersToPrivateChannel($channel, $playerInfo->getPlayer()),
             200
         );
     }
@@ -319,9 +339,11 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
-
-        if (!$player) {
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        if (
+            $playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             throw new AccessDeniedException('User should be in game');
         }
 
@@ -370,7 +392,8 @@ class ChannelController extends AbstractFOSRestController
      */
     public function createMessageAction(CreateMessage $messageCreate, Channel $channel): View
     {
-        $daedalus = $channel->getDaedalus();
+        /** @var Daedalus $daedalus */
+        $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
@@ -392,7 +415,11 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var User $user */
         $user = $this->getUser();
-        $currentPlayer = $user->getCurrentGame();
+        /** @var PlayerInfo $currentPlayerInfo */
+        $currentPlayerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+
+        /** @var Player $currentPlayer */
+        $currentPlayer = $currentPlayerInfo->getPlayer();
 
         // in case of a pirated talkie, the message can be sent under the name of another player
         $playerMessage = $messageCreate->getPlayer();
@@ -432,7 +459,8 @@ class ChannelController extends AbstractFOSRestController
     {
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
-        $daedalus = $channel->getDaedalus();
+        /** @var Daedalus $daedalus */
+        $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
@@ -440,9 +468,12 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
-        if (!$player) {
+        if (
+            $playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             throw new AccessDeniedException('User should be in game');
         }
 

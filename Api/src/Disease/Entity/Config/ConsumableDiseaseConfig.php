@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
-use Mush\Game\Entity\GameConfig;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_consummable_config')]
@@ -17,11 +16,11 @@ class ConsumableDiseaseConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
-    private GameConfig $gameConfig;
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    private string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $name;
+    private string $causeName;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $diseasesName = [];
@@ -61,14 +60,14 @@ class ConsumableDiseaseConfig
         return $this->id;
     }
 
-    public function getGameConfig(): GameConfig
+    public function getCauseName(): string
     {
-        return $this->gameConfig;
+        return $this->causeName;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): self
+    public function setCauseName(string $causeName): self
     {
-        $this->gameConfig = $gameConfig;
+        $this->causeName = $causeName;
 
         return $this;
     }
@@ -81,6 +80,13 @@ class ConsumableDiseaseConfig
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function appendConfigKeyToName(string $configName): self
+    {
+        $this->name = $this->causeName . '_' . $configName;
 
         return $this;
     }
@@ -174,6 +180,9 @@ class ConsumableDiseaseConfig
         return $this->consumableAttributes;
     }
 
+    /**
+     * @psalm-param ArrayCollection<int, ConsumableDiseaseAttribute> $diseases
+     */
     public function setAttributes(Collection $diseases): self
     {
         $this->consumableAttributes = $diseases;

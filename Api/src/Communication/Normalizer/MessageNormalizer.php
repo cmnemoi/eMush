@@ -33,7 +33,7 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
 
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
-        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $currentPlayer->getDaedalus()->getLanguage();
 
         /** @var Message $children */
         foreach ($object->getChild() as $children) {
@@ -58,7 +58,7 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
                 $language
             );
         } elseif (
-            $object->getAuthor() === $currentPlayer &&
+            $object->getAuthor() === $currentPlayer->getPlayerInfo() &&
             array_key_exists(DiseaseMessagesEnum::ORIGINAL_MESSAGE, $translationParameters) &&
             $this->hasPlayerSymptom($currentPlayer, $translationParameters[DiseaseMessagesEnum::MODIFICATION_CAUSE])
         ) {

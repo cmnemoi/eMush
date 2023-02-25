@@ -6,23 +6,32 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\DoTheThing;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
@@ -32,127 +41,154 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\User\Entity\User;
 
 class DoTheThingCest
 {
     private DoTheThing $doTheThingAction;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testDoTheThing(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'gameStatus' => GameStatusEnum::CURRENT]);
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        $I->loadFixtures([GameConfigFixtures::class, DaedalusConfigFixtures::class, LocalizationConfigFixtures::class]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
+        $didTheThingStatus = new ChargeStatusConfig();
+        $didTheThingStatus
+            ->setStatusName(PlayerStatusEnum::DID_THE_THING)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
-
+        $I->haveInRepository($didTheThingStatus);
+        $pregnantStatus = new StatusConfig();
+        $pregnantStatus
+            ->setStatusName(PlayerStatusEnum::PREGNANT)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($pregnantStatus);
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
+            ->setStatusName(StatusEnum::ATTEMPT)
             ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($attemptConfig);
 
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setDiseaseName('disease')
+            ->buildName(GameConfigEnum::TEST)
+                ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($diseaseConfig);
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setCauseName('sex')
+            ->setDiseases(['disease'])
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($diseaseCauseConfig);
+
+        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $pregnantStatus, $didTheThingStatus]))
+            ->setDiseaseConfig(new ArrayCollection([$diseaseConfig]))
+            ->setDiseaseCauseConfig(new ArrayCollection([$diseaseCauseConfig]))
+            ->setDaedalusConfig($daedalusConfig)
+        ;
+        $I->flushToDatabase();
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setGameStatus(GameStatusEnum::CURRENT);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         $action = new Action();
         $action
-            ->setName(ActionEnum::DO_THE_THING)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::DO_THE_THING)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost(1)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
-        /** @var CharacterConfig $characterConfig */
+        /** @var CharacterConfig $femaleCharacterConfig */
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::CHUN,
+            'name' => CharacterEnum::CHUN . '_' . GameConfigEnum::TEST,
+            'characterName' => CharacterEnum::CHUN,
             'actions' => new ArrayCollection([$action]),
         ]);
 
+        /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::DEREK,
+            'name' => CharacterEnum::DEREK . '_' . GameConfigEnum::TEST,
+            'characterName' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus,
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
-            'characterConfig' => $femaleCharacterConfig,
         ]);
+        $player->setPlayerVariables($maleCharacterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $I->flushToDatabase($player);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
-            'characterConfig' => $maleCharacterConfig,
         ]);
+        $targetPlayer->setPlayerVariables($maleCharacterConfig);
+        $targetPlayer
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $I->flushToDatabase($targetPlayer);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'name' => EquipmentEnum::BED,
         ]);
 
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setName('disease')
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($diseaseConfig);
-
-        $diseaseCauseConfig = new DiseaseCauseConfig();
-        $diseaseCauseConfig
-            ->setGameConfig($gameConfig)
-            ->setName('sex')
-            ->setDiseases(['disease'])
-        ;
-        $I->haveInRepository($diseaseCauseConfig);
-
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
             ->setEquipment($equipmentConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
-
-        $didTheThingStatus = new ChargeStatusConfig();
-        $didTheThingStatus
-            ->setName(PlayerStatusEnum::DID_THE_THING)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
-            ->setStartCharge(1)
-            ->setAutoRemove(true)
-            ->setGameConfig($gameConfig)
-        ;
-
-        $I->haveInRepository($didTheThingStatus);
-
-        $pregnantStatus = new StatusConfig();
-        $pregnantStatus
-            ->setName(PlayerStatusEnum::PREGNANT)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
-        ;
-
-        $I->haveInRepository($pregnantStatus);
 
         $targetPlayer->setFlirts(new ArrayCollection([$player]));
 
@@ -167,8 +203,9 @@ class DoTheThingCest
         $I->assertEquals(8, $player->getMoralPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
-            'player' => $player->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::DO_THE_THING_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -177,15 +214,16 @@ class DoTheThingCest
         $pregnantStatusEvent = new StatusEvent(
             PlayerStatusEnum::PREGNANT,
             $player,
-            $this->doTheThingAction->getActionName(),
+            $this->doTheThingAction->getAction()->getActionTags(),
             new \DateTime()
         );
         $pregnantStatusEvent->setVisibility(VisibilityEnum::PRIVATE);
 
-        $this->eventDispatcher->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => StatusEventLogEnum::BECOME_PREGNANT,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
@@ -193,65 +231,80 @@ class DoTheThingCest
 
     public function testNoFlirt(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'gameStatus' => GameStatusEnum::CURRENT]);
+        $daedalus = $I->have(Daedalus::class);
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
-            ->setName(ActionEnum::DO_THE_THING)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::DO_THE_THING)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost(1)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
-        /** @var CharacterConfig $characterConfig */
+        /** @var CharacterConfig $femaleCharacterConfig */
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::CHUN,
+            'name' => CharacterEnum::CHUN . '_' . GameConfigEnum::TEST,
+            'characterName' => CharacterEnum::CHUN,
             'actions' => new ArrayCollection([$action]),
         ]);
 
+        /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::DEREK,
+            'name' => CharacterEnum::DEREK . '_' . GameConfigEnum::TEST,
+            'characterName' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
-            'characterConfig' => $femaleCharacterConfig,
         ]);
+        $player->setPlayerVariables($femaleCharacterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $I->flushToDatabase($player);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
-            'characterConfig' => $maleCharacterConfig,
         ]);
+        $targetPlayer->setPlayerVariables($maleCharacterConfig);
+        $targetPlayer
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $I->flushToDatabase($targetPlayer);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'name' => EquipmentEnum::BED,
         ]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
             ->setEquipment($equipmentConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -265,65 +318,80 @@ class DoTheThingCest
 
     public function testWitness(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'gameStatus' => GameStatusEnum::CURRENT]);
+        $daedalus = $I->have(Daedalus::class);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
-            ->setName(ActionEnum::DO_THE_THING)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::DO_THE_THING)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost(1)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
-        /** @var CharacterConfig $characterConfig */
+        /** @var CharacterConfig $femaleCharacterConfig */
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::CHUN,
+            'name' => CharacterEnum::CHUN . '_' . GameConfigEnum::TEST,
+            'characterName' => CharacterEnum::CHUN,
             'actions' => new ArrayCollection([$action]),
         ]);
 
+        /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::DEREK,
+            'name' => CharacterEnum::DEREK . '_' . GameConfigEnum::TEST,
+            'characterName' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
-            'characterConfig' => $femaleCharacterConfig,
         ]);
+        $player->setPlayerVariables($femaleCharacterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
-            'characterConfig' => $maleCharacterConfig,
         ]);
+        $targetPlayer->setPlayerVariables($maleCharacterConfig);
+        $targetPlayer
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'name' => EquipmentEnum::BED,
         ]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
             ->setEquipment($equipmentConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -332,9 +400,6 @@ class DoTheThingCest
         /** @var Player $targetPlayer */
         $witness = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
-            'characterConfig' => $femaleCharacterConfig,
         ]);
 
         $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
@@ -347,54 +412,70 @@ class DoTheThingCest
 
     public function testRoomHasBed(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'gameStatus' => GameStatusEnum::CURRENT]);
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
-            ->setName(ActionEnum::DO_THE_THING)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::DO_THE_THING)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost(1)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
-        /** @var CharacterConfig $characterConfig */
+        /** @var CharacterConfig $femaleCharacterConfig */
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::CHUN,
+            'name' => CharacterEnum::CHUN . '_' . GameConfigEnum::TEST,
+            'characterName' => CharacterEnum::CHUN,
             'actions' => new ArrayCollection([$action]),
         ]);
 
+        /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::DEREK,
+            'name' => CharacterEnum::DEREK . '_' . GameConfigEnum::TEST,
+            'characterName' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
-            'characterConfig' => $femaleCharacterConfig,
         ]);
+        $player->setPlayerVariables($femaleCharacterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $I->flushToDatabase($player);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
-            'characterConfig' => $maleCharacterConfig,
         ]);
+        $targetPlayer->setPlayerVariables($maleCharacterConfig);
+        $targetPlayer
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $I->flushToDatabase($targetPlayer);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
         $targetPlayer->setFlirts(new ArrayCollection([$player]));
 

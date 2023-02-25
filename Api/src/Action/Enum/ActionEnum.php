@@ -8,9 +8,11 @@ class ActionEnum
 
     // admin actions
     public const SUICIDE = 'suicide';
+    public const AUTO_DESTROY = 'auto_destroy';
+    public const KILL_PLAYER = 'kill_player';
 
     // alpha actions
-    public const REJUVENATE_ALPHA = 'rejuvenate_alpha';
+    public const REJUVENATE = 'rejuvenate';
     public const FAKE_DISEASE = 'fake_disease';
     public const UPDATE_TALKIE = 'update_talkie';
 
@@ -192,12 +194,10 @@ class ActionEnum
     public static function getActionPointModifierProtectedActions(): array
     {
         return [
-            self::SURGERY,
-            self::SELF_SURGERY,
-            self::CONSUME,
-            self::CONSUME_DRUG,
-            self::REJUVENATE_ALPHA,
+            self::REJUVENATE,
             self::SUICIDE,
+            self::AUTO_DESTROY,
+            self::KILL_PLAYER,
         ];
     }
 }

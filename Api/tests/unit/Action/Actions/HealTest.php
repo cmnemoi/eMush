@@ -24,11 +24,11 @@ class MedikitHealActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::HEAL);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Heal(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -39,7 +39,7 @@ class MedikitHealActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -47,7 +47,7 @@ class MedikitHealActionTest extends AbstractActionTest
         $room = new Place();
 
         $this->playerService->shouldReceive('persist');
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
 
         $player = $this->createPlayer(new Daedalus(), $room);
         $playerTarget = $this->createPlayer(new Daedalus(), $room);
@@ -55,7 +55,7 @@ class MedikitHealActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $playerTarget);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

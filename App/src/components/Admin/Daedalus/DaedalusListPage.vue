@@ -1,7 +1,7 @@
 <template>
     <div class="daedalus_list_container">
         <div class="daedalus_filter_options">
-            <label>Show
+            <label>{{$t("admin.show")}}
                 <select v-model="pagination.pageSize" @change="updateFilter">
                     <option
                         v-for="option in pageSizeOptions"
@@ -12,7 +12,7 @@
                     </option>
                 </select>
             </label>
-            <label>Search:
+            <label>{{$t("admin.search")}}
                 <input
                     v-model="filter"
                     type="search"
@@ -22,7 +22,10 @@
                     @change="updateFilter"
                 >
             </label>
-            <router-link :to="{ name: 'AdminDaedalusCreate' }">Create</router-link>
+            <router-link :to="{ name: 'AdminDaedalusCreate' }">{{$t("admin.daedalus.create")}}</router-link>
+            <button class = "action-button" type="button" @click="destroyAllDaedaluses">
+                {{$t("admin.daedalus.destroyAllDaedaluses")}}
+            </button>
         </div>
         <Datatable
             :headers='fields'
@@ -38,8 +41,20 @@
                 Cycle/Day
             </template>
             <template #row-cycle="slotProps">
-                {{ slotProps.cycle }} / {{ slotProps.day }} (updated at: {{formatDate(slotProps.updatedAt)}})
+                {{ slotProps.cycle }} / {{ slotProps.day }} ( {{ $t('admin.updatedAt') }} {{formatDate(slotProps.updatedAt)}})
             </template>
+            <template #header-actions>
+                Actions
+            </template>
+            <template #row-actions="slotProps">
+                <button v-if="slotProps.gameStatus != 'finished'"
+                        class="action-button"
+                        type="button"
+                        @click="destroyDaedalus(slotProps.id)">
+                    {{ $t("admin.daedalus.destroy") }}
+                </button>
+            </template>
+
         </Datatable>
     </div>
 </template>
@@ -50,8 +65,9 @@ import urlJoin from "url-join";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
 import ApiService from "@/services/api.service";
-import { fr } from "date-fns/locale";
 import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import DaedalusService from "@/services/daedalus.service";
 
 export default defineComponent({
     name: "DeadalusListPage",
@@ -81,6 +97,12 @@ export default defineComponent({
                     name: 'Cycle/Day',
                     sortable: false,
                     slot: true
+                },
+                {
+                    key: 'actions',
+                    name: 'Actions',
+                    sortable: false,
+                    slot: true
                 }
             ],
             pagination: {
@@ -104,7 +126,7 @@ export default defineComponent({
     methods: {
         formatDate: (date: string): string => {
             const dateObject = new Date(date);
-            return format(dateObject, 'PPPPpp', { locale : fr });
+            return format(dateObject, 'PPPPpp', { locale: fr });  
         },
         loadData() {
             this.loading = true;
@@ -161,6 +183,16 @@ export default defineComponent({
         paginationClick(page: number) {
             this.pagination.currentPage = page;
             this.loadData();
+        },
+        destroyDaedalus(id: number) {
+            DaedalusService.destroyDaedalus(id).then(() => {
+                this.loadData();
+            });
+        },
+        destroyAllDaedaluses() {
+            DaedalusService.destroyAllDaedaluses().then(() => {
+                this.loadData();
+            });
         }
     },
     beforeMount() {

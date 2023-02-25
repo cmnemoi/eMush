@@ -30,7 +30,7 @@ class RoomLogNormalizer implements ContextAwareNormalizerInterface
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
-        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $currentPlayer->getDaedalus()->getLanguage();
 
         return $this->normalizeLogs($roomLogCollection, $language);
     }

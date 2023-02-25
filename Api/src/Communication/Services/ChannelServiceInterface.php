@@ -5,15 +5,15 @@ namespace Mush\Communication\Services;
 use Doctrine\Common\Collections\Collection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\CommunicationActionEnum;
-use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 
 interface ChannelServiceInterface
 {
-    public function getPublicChannel(Daedalus $daedalus): ?Channel;
+    public function getPublicChannel(DaedalusInfo $daedalusInfo): ?Channel;
 
-    public function createPublicChannel(Daedalus $daedalus): Channel;
+    public function createPublicChannel(DaedalusInfo $daedalusInfo): Channel;
 
     public function createPrivateChannel(Player $player): Channel;
 

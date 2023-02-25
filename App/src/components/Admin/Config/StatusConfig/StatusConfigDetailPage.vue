@@ -9,6 +9,13 @@
                 :errors="errors.name"
             />
             <Input
+                :label="$t('admin.statusConfig.statusName')"
+                id="statusConfig_statusName"
+                v-model="statusConfig.statusName"
+                type="text"
+                :errors="errors.statusName"
+            />
+            <Input
                 :label="$t('admin.statusConfig.visibility')"
                 id="statusConfig_visibility"
                 v-model="statusConfig.visibility"
@@ -71,9 +78,7 @@
                 <span>condition: {{ child.delta }}</span>
             </template>
         </ChildCollectionManager>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('save') }}
-        </button>
+        <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
 
@@ -88,6 +93,7 @@ import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vu
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface StatusConfigState {
     statusConfig: null|StatusConfig
@@ -98,7 +104,8 @@ export default defineComponent({
     name: "StatusConfigDetailPage",
     components: {
         ChildCollectionManager,
-        Input
+        Input,
+        UpdateConfigButtons
     },
     data: function (): StatusConfigState {
         return {
@@ -107,6 +114,31 @@ export default defineComponent({
         };
     },
     methods: {
+        create(): void {
+            if (this.statusConfig === null) return;
+
+            const newStatusConfig = this.statusConfig;
+            newStatusConfig.id = null;
+
+            GameConfigService.createStatusConfig(newStatusConfig)
+                .then((res: StatusConfig | null) => {
+                    const newStatusConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/status-config', String(res?.id));
+                    window.location.href = newStatusConfigUrl;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+        },
         update(): void {
             if (this.statusConfig === null) {
                 return;

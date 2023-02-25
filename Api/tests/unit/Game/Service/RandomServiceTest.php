@@ -2,10 +2,15 @@
 
 namespace Mush\Test\Game\Service;
 
-use Mockery;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Game\Entity\DifficultyConfig;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomService;
@@ -13,10 +18,15 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class RandomServiceTest extends TestCase
 {
+    /** @var GameEquipmentRepository|Mockery\Mock */
+    private GameEquipmentRepository $gameEquipmentRepository;
+
     private RandomService $service;
 
     /**
@@ -24,7 +34,9 @@ class RandomServiceTest extends TestCase
      */
     public function before()
     {
-        $this->service = new RandomService();
+        $this->gameEquipmentRepository = \Mockery::mock(GameEquipmentRepository::class);
+
+        $this->service = new RandomService($this->gameEquipmentRepository);
     }
 
     /**
@@ -32,7 +44,7 @@ class RandomServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testRandom()
@@ -68,9 +80,6 @@ class RandomServiceTest extends TestCase
         $playerConfig1 = new CharacterConfig();
         $playerConfig1->setName('player1');
         $player1 = new Player();
-        $player1
-            ->setCharacterConfig($playerConfig1)
-        ;
 
         $playerCollection->add($player1);
 
@@ -81,9 +90,13 @@ class RandomServiceTest extends TestCase
     {
         $room = new Place();
         $player1 = new Player();
-        $player1->setGameStatus(GameStatusEnum::CURRENT);
+        $player1Info = new PlayerInfo($player1, new User(), new CharacterConfig());
+        $player1->setPlayerInfo($player1Info);
+
         $player2 = new Player();
-        $player2->setGameStatus(GameStatusEnum::CURRENT);
+        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $player2->setPlayerInfo($player2Info);
+
         $room
             ->addPlayer($player1)
             ->addPlayer($player2)
@@ -95,13 +108,13 @@ class RandomServiceTest extends TestCase
     public function testGetAlivePlayerInDaedalus()
     {
         $player1 = new Player();
+        $player1Info = new PlayerInfo($player1, new User(), new CharacterConfig());
+        $player1->setPlayerInfo($player1Info);
+
         $player2 = new Player();
-        $player1
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
-        $player2
-            ->setGameStatus(GameStatusEnum::FINISHED)
-        ;
+        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $player2Info->setGameStatus(GameStatusEnum::FINISHED);
+        $player2->setPlayerInfo($player2Info);
 
         $daedalus = new Daedalus();
         $daedalus
@@ -117,8 +130,8 @@ class RandomServiceTest extends TestCase
     public function testGetItemInRoom()
     {
         $room = new Place();
-        $equipment = new GameEquipment();
-        $item = new GameItem();
+        $equipment = new GameEquipment($room);
+        $item = new GameItem($room);
         $room
             ->addEquipment($equipment)
             ->addEquipment($item)
@@ -180,5 +193,38 @@ class RandomServiceTest extends TestCase
         // critical success
         $output = $this->service->outputCriticalChances(0, 0, 100);
         $this->assertEquals($output, ActionOutputEnum::CRITICAL_SUCCESS);
+    }
+
+    public function testGetRandomDaedalusEquipmentFromProbaArray()
+    {
+        $difficultyConfig = new DifficultyConfig();
+        $difficultyConfig->setEquipmentBreakRateDistribution(['equipment' => 1]);
+        $gameConfig = new GameConfig();
+        $gameConfig->setDifficultyConfig($difficultyConfig);
+
+        $daedalus = new Daedalus();
+
+        $room = new Place();
+        $daedalus->setPlaces(new ArrayCollection([$room]));
+        $equipment = new GameEquipment($room);
+
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+
+        $this->gameEquipmentRepository
+            ->shouldReceive('findByNameAndDaedalus')
+            ->withArgs(['equipment', $daedalus])
+            ->andReturn([$equipment])
+        ;
+
+        $draw = $this->service->getRandomDaedalusEquipmentFromProbaArray(
+            ['equipment' => 1],
+            1,
+            $daedalus
+        )[0];
+
+        $this->assertEquals(
+            $equipment,
+            $draw
+        );
     }
 }

@@ -12,6 +12,7 @@
         |-- Daedalus/
             |-- config
             |-- Controller
+            |-- ConfigData
             |-- DataFixtures
             |-- Entity
             |-- Enum
@@ -24,6 +25,7 @@
         |-- Disease/
         |-- Equipment/
         |-- Game/
+        |-- MetaGame/
         |-- Modifier/
         |-- Place/
         |-- Player/
@@ -60,9 +62,12 @@ Config for the module/folder
 #### Controller
 Responsible for declaring the routes (with annotations), it receives the request and send the response
 There should be no logic inside the controller except calling some services and verify the request
-#### DataFixtures
+#### ConfigData
 Store all the initialization data.
 This folder can be easily change to tweak game parameters such as action cost, intensity of effects...
+#### DataFixtures
+Same as ConfigData but for local development, it is used to populate the database with some data
+Should not be used in production (work in progress)
 #### Entity
 The class that holds the data, some of them are stored in database
 #### Enum
@@ -112,7 +117,7 @@ Obvious example:
     - The cycle change
     - A player die
     
- For instance a player can make the action 'hit' on an other player, this will trigger the event 'player die'.  
+ For instance a player can make the action 'hit' on another player, this will trigger the event 'player die'.  
  Less obvious example:   
     A player make the action eat, that trigger the event 'become Dirty'
 
@@ -124,6 +129,7 @@ Obvious example:
 - [Disease](./src/Disease/README.md)
 - [Equipment](./src/Equipment/README.md)
 - [Game](./src/Game/README.md)
+- [MetaGame](./src/MetaGame/README.md)
 - [Modifier](./src/Modifier/README.md)
 - [Place](./src/Place/README.md)
 - [Player](./src/Player/README.md)

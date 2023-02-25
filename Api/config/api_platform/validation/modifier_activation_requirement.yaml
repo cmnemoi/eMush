@@ -1,0 +1,13 @@
+Mush\Modifier\Entity\Config\ModifierActivationRequirement:
+  properties:
+    name:
+      - NotBlank: ~
+      - Type: string
+    activationRequirementName:
+      - NotBlank: ~
+      - Type: string
+    activationRequirement:
+      - Type: string
+    value:
+      - NotBlank: ~
+      - Type: integer

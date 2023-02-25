@@ -27,10 +27,10 @@ class ConsumeActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::CONSUME);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Consume(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -41,7 +41,7 @@ class ConsumeActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
@@ -64,14 +64,13 @@ class ConsumeActionTest extends AbstractActionTest
         $equipment = new EquipmentConfig();
         $equipment->setMechanics(new ArrayCollection([$ration]));
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setHolder($room)
         ;
 
         $this->playerService->shouldReceive('persist');
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $player = $this->createPlayer($daedalus, $room);
 

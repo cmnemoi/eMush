@@ -1,0 +1,4 @@
+Mush\Equipment\Entity\Config\ItemConfig:
+  properties:
+    isStackable:
+      - Type: boolean

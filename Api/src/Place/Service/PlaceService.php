@@ -4,25 +4,25 @@ namespace Mush\Place\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Event\PlaceInitEvent;
 use Mush\Place\Repository\PlaceRepository;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlaceService implements PlaceServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private PlaceRepository $repository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         PlaceRepository $repository,
     ) {
         $this->entityManager = $entityManager;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->repository = $repository;
     }
 
@@ -32,6 +32,18 @@ class PlaceService implements PlaceServiceInterface
         $this->entityManager->flush();
 
         return $place;
+    }
+
+    public function delete(Place $place): bool
+    {
+        $daedalus = $place->getDaedalus();
+        $daedalus->removePlace($place);
+        $this->entityManager->persist($daedalus);
+
+        $this->entityManager->remove($place);
+        $this->entityManager->flush();
+
+        return true;
     }
 
     public function findById(int $id): ?Place
@@ -44,19 +56,19 @@ class PlaceService implements PlaceServiceInterface
     public function createPlace(
         PlaceConfig $roomConfig,
         Daedalus $daedalus,
-        string $reason,
+        array $reasons,
         \DateTime $time
     ): Place {
         $room = new Place();
-        $room->setName($roomConfig->getName());
+        $room->setName($roomConfig->getPlaceName());
         $room->setType($roomConfig->getType());
 
         $room->setDaedalus($daedalus);
 
         $this->persist($room);
 
-        $placeEvent = new PlaceInitEvent($room, $roomConfig, $reason, $time);
-        $this->eventDispatcher->dispatch($placeEvent, PlaceInitEvent::NEW_PLACE);
+        $placeEvent = new PlaceInitEvent($room, $roomConfig, $reasons, $time);
+        $this->eventService->callEvent($placeEvent, PlaceInitEvent::NEW_PLACE);
 
         return $room;
     }

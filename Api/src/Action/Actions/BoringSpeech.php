@@ -7,10 +7,10 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -31,11 +31,11 @@ class BoringSpeech extends AbstractSpeech
     protected int $gain = 3;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator
     ) {
-        parent::__construct($eventDispatcher, $actionService, $validator);
+        parent::__construct($eventService, $actionService, $validator);
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -62,11 +62,11 @@ class BoringSpeech extends AbstractSpeech
         $statusEvent = new StatusEvent(
             PlayerStatusEnum::DID_BORING_SPEECH,
             $this->player,
-            $this->getActionName(),
-            new \DateTime()
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
         );
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         parent::applyEffect($result);
     }

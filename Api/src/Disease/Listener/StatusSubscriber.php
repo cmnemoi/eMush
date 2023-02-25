@@ -3,7 +3,7 @@
 namespace Mush\Disease\Listener;
 
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
-use Mush\Disease\Service\SymptomConditionServiceInterface;
+use Mush\Disease\Service\SymptomActivationRequirementServiceInterface;
 use Mush\Disease\Service\SymptomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Event\StatusEvent;
@@ -12,14 +12,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class StatusSubscriber implements EventSubscriberInterface
 {
     private SymptomServiceInterface $symptomService;
-    private SymptomConditionServiceInterface $symptomConditionService;
+    private SymptomActivationRequirementServiceInterface $symptomActivationRequirementService;
 
     public function __construct(
         SymptomServiceInterface $symptomService,
-        SymptomConditionServiceInterface $symptomConditionService,
+        SymptomActivationRequirementServiceInterface $symptomActivationRequirementService,
     ) {
         $this->symptomService = $symptomService;
-        $this->symptomConditionService = $symptomConditionService;
+        $this->symptomActivationRequirementService = $symptomActivationRequirementService;
     }
 
     public static function getSubscribedEvents(): array
@@ -44,7 +44,7 @@ class StatusSubscriber implements EventSubscriberInterface
         $player = $statusHolder;
 
         $statusAppliedSymptomConfigs = $this->getPlayerSymptomConfigs($player)->getTriggeredSymptoms([StatusEvent::STATUS_APPLIED]);
-        $statusAppliedSymptomConfigs = $this->symptomConditionService->getActiveSymptoms($statusAppliedSymptomConfigs, $player, $statusConfig->getName());
+        $statusAppliedSymptomConfigs = $this->symptomActivationRequirementService->getActiveSymptoms($statusAppliedSymptomConfigs, $player, [$statusConfig->getStatusName()]);
 
         foreach ($statusAppliedSymptomConfigs as $symptomConfig) {
             $this->symptomService->handleStatusAppliedSymptom($symptomConfig, $player, $event->getTime());

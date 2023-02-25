@@ -6,29 +6,29 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RejuvenateAlpha extends AbstractAction
 {
-    protected string $name = ActionEnum::REJUVENATE_ALPHA;
+    protected string $name = ActionEnum::REJUVENATE;
 
     private PlayerServiceInterface $playerService;
     private PlayerVariableServiceInterface $playerVariableService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
         PlayerVariableServiceInterface $playerVariableService
     ) {
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator
         );
@@ -49,10 +49,14 @@ class RejuvenateAlpha extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $maxActionPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::ACTION_POINT);
-        $maxMovementPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::MOVEMENT_POINT);
-        $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::MORAL_POINT);
-        $maxHealthPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::HEALTH_POINT);
+        $maxActionPoint = $this->player->getVariableByName(PlayerVariableEnum::ACTION_POINT)->getMaxValue();
+        $maxMovementPoint = $this->player->getVariableByName(PlayerVariableEnum::MOVEMENT_POINT)->getMaxValue();
+        $maxMoralePoint = $this->player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->getMaxValue();
+        $maxHealthPoint = $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->getMaxValue();
+
+        if ($maxMoralePoint === null || $maxActionPoint === null || $maxMovementPoint === null || $maxHealthPoint === null) {
+            throw new \Error('moral, movement, action and health points should have a maximum value');
+        }
 
         $this->player
             ->setActionPoint($maxActionPoint)

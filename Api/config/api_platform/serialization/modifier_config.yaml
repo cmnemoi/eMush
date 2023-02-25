@@ -1,0 +1,12 @@
+Mush\Modifier\Entity\Config\AbstractModifierConfig:
+  attributes:
+    id:
+      groups: [ 'modifier_config_read' ]
+    name:
+      groups: [ 'modifier_config_read' ]
+    modifierName:
+      groups: [ 'modifier_config_read' ]
+    modifierRange:
+      groups: [ 'modifier_config_read' ]
+    modifierActivationRequirements:
+      groups: [ 'modifier_config_read' ]

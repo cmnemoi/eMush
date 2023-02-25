@@ -6,17 +6,24 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
+use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 class MovementPointConversionCest
 {
@@ -29,36 +36,36 @@ class MovementPointConversionCest
 
     public function testBasicConversion(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
-        $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(null)->setMovementPointCost(1);
-        $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->setMovementCost(1)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
         $I->haveInRepository($door);
         $room->addDoor($door);
@@ -71,10 +78,19 @@ class MovementPointConversionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'characterConfig' => $characterConfig,
-            'movementPoint' => 0,
-            'actionPoint' => 2,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setMovementPoint(0)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $this->moveAction->loadParameters($moveActionEntity, $player, $door);
 
@@ -91,36 +107,37 @@ class MovementPointConversionCest
 
     public function testConversionWithIncreasedMovementCost(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
-        $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(null)->setMovementPointCost(2);
-        $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->setMovementCost(2)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
+
         ;
         $I->haveInRepository($door);
         $room->addDoor($door);
@@ -133,10 +150,19 @@ class MovementPointConversionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'characterConfig' => $characterConfig,
-            'movementPoint' => 1,
-            'actionPoint' => 10,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(1)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $this->moveAction->loadParameters($moveActionEntity, $player, $door);
 
@@ -153,36 +179,36 @@ class MovementPointConversionCest
 
     public function testSeveralConversionRequired(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
-        $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(null)->setMovementPointCost(5);
-        $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->setMovementCost(5)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
         $I->haveInRepository($door);
         $room->addDoor($door);
@@ -195,10 +221,19 @@ class MovementPointConversionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'characterConfig' => $characterConfig,
-            'movementPoint' => 1,
-            'actionPoint' => 10,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(1)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $this->moveAction->loadParameters($moveActionEntity, $player, $door);
 

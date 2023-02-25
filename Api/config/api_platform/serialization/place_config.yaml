@@ -2,9 +2,9 @@ Mush\Place\Entity\PlaceConfig:
   attributes:
     id:
       groups: [ 'place_config_read' ]
-    gameConfig:
-      groups: [ 'place_config_read', 'place_config_write' ]
     name:
+      groups: [ 'place_config_read', 'place_config_write' ]
+    placeName:
       groups: [ 'place_config_read', 'place_config_write' ]
     type:
       groups: [ 'place_config_read', 'place_config_write' ]

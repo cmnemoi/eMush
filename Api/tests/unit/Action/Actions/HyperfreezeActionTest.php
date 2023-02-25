@@ -31,10 +31,10 @@ class HyperfreezeActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::HYPERFREEZE, 1);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new Hyperfreeze(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -46,7 +46,7 @@ class HyperfreezeActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecuteFruit()
@@ -59,21 +59,20 @@ class HyperfreezeActionTest extends AbstractActionTest
         $rationType = new Ration();
         $rationType->setIsPerishable(true);
 
-        $gameRation = new GameItem();
+        $gameRation = new GameItem($room);
         $ration = new ItemConfig();
         $ration
              ->setMechanics(new ArrayCollection([$rationType]))
-             ->setName('fruit')
+             ->setEquipmentName('fruit')
         ;
         $gameRation
             ->setEquipment($ration)
-            ->setHolder($room)
             ->setName('fruit')
         ;
 
-        $gameSuperfreezer = new GameItem();
+        $gameSuperfreezer = new GameItem($room);
         $superfreezer = new ItemConfig();
-        $superfreezer->setName(ToolItemEnum::SUPERFREEZER);
+        $superfreezer->setEquipmentName(ToolItemEnum::SUPERFREEZER);
         $gameSuperfreezer
             ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
@@ -83,8 +82,8 @@ class HyperfreezeActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::FROZEN &&
                 $event->getStatusHolder() === $gameRation)
@@ -110,33 +109,31 @@ class HyperfreezeActionTest extends AbstractActionTest
         $rationType = new Ration();
         $rationType->setIsPerishable(true);
 
-        $gameRation = new GameItem();
+        $gameRation = new GameItem($room);
         $ration = new ItemConfig();
         $ration
              ->setMechanics(new ArrayCollection([$rationType]))
-             ->setName(GameRationEnum::ALIEN_STEAK)
+             ->setEquipmentName(GameRationEnum::ALIEN_STEAK)
         ;
         $gameRation
             ->setEquipment($ration)
-            ->setHolder($room)
             ->setName(GameRationEnum::ALIEN_STEAK)
         ;
 
-        $gameSuperfreezer = new GameItem();
+        $gameSuperfreezer = new GameItem($room);
         $superfreezer = new ItemConfig();
-        $superfreezer->setName(ToolItemEnum::SUPERFREEZER);
+        $superfreezer->setEquipmentName(ToolItemEnum::SUPERFREEZER);
         $gameSuperfreezer
             ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
-            ->setHolder($room)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
-        $gameStandardRation = new GameItem();
+        $gameStandardRation = new GameItem(new Place());
         $standardRation = new ItemConfig();
         $standardRation
-             ->setName(GameRationEnum::STANDARD_RATION)
+             ->setEquipmentName(GameRationEnum::STANDARD_RATION)
         ;
         $gameStandardRation
             ->setEquipment($standardRation)

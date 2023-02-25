@@ -8,8 +8,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
+use Mush\Communication\Event\MessageEvent;
 use Mush\Disease\Enum\SymptomEnum;
-use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -17,13 +18,16 @@ class MessageService implements MessageServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private DiseaseMessageServiceInterface $diseaseMessageService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        DiseaseMessageServiceInterface $diseaseMessageService
+        DiseaseMessageServiceInterface $diseaseMessageService,
+        EventServiceInterface $eventService
     ) {
         $this->entityManager = $entityManager;
         $this->diseaseMessageService = $diseaseMessageService;
+        $this->eventService = $eventService;
     }
 
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message
@@ -32,7 +36,7 @@ class MessageService implements MessageServiceInterface
 
         $message = new Message();
         $message
-            ->setAuthor($player)
+            ->setAuthor($player->getPlayerInfo())
             ->setChannel($createMessage->getChannel())
             ->setMessage($messageContent)
             ->setParent($createMessage->getParent())
@@ -53,6 +57,9 @@ class MessageService implements MessageServiceInterface
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();
+
+        $messageEvent = new MessageEvent($message, [], new \DateTime());
+        $this->eventService->callEvent($messageEvent, MessageEvent::NEW_MESSAGE);
 
         return $message;
     }
@@ -90,7 +97,7 @@ class MessageService implements MessageServiceInterface
     {
         if ($player->hasStatus(PlayerStatusEnum::GAGGED) ||
             $player->getMedicalConditions()->getActiveDiseases()->getAllSymptoms()->hasSymptomByName(SymptomEnum::MUTE) ||
-            $player->getGameStatus() !== GameStatusEnum::CURRENT
+            !$player->isAlive()
         ) {
             return false;
         }

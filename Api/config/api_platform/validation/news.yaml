@@ -1,0 +1,37 @@
+Mush\MetaGame\Entity\News:
+  properties:
+    createdAt:
+      - NotBlank: ~
+      - Type: \DateTimeInterface
+    updatedAt:
+      - NotBlank: ~
+      - Type: \DateTimeInterface
+    frenchTitle:
+      - NotBlank: ~
+      - Type: string
+      - Length:
+          min: 3
+          max: 255
+    englishTitle:
+      - Type: string
+      - Length:
+          min: 3
+          max: 255
+    spanishTitle:
+      - Type: string
+      - Length:
+          min: 3
+          max: 255
+    frenchContent:
+      - NotBlank: ~
+      - Type: string
+      - Length:
+          min: 3
+    englishContent:
+      - Type: string
+      - Length:
+          min: 3
+    spanishContent:
+      - Type: string
+      - Length:
+          min: 3

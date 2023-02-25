@@ -5,7 +5,8 @@
             :key="item.id"
             tabindex="0"
             class="slot"
-            @mousedown.stop="$emit('select', item)"
+            :class="isItemSelected(item) ? 'highlight' : ''"
+            @click.stop="$emit('select', item)"
         >
             <Tippy tag="div">
                 <img :src="itemImage(item)" :alt="item.name">
@@ -22,7 +23,12 @@
                 </template>
             </Tippy>
         </li>
-        <li v-for="n in emptySlots" :key="n" class="slot empty" />
+        <li
+            v-for="n in emptySlots"
+            :key="n"
+            class="slot empty"
+            @click.stop="$emit('select', null)"
+        />
     </ul>
 </template>
 
@@ -42,6 +48,11 @@ export default defineComponent ({
         minSlot: {
             type: Number,
             required: true
+        },
+        selectedItem: {
+            type: Item,
+            required: false,
+            default: null
         }
     },
     emits: [
@@ -60,6 +71,9 @@ export default defineComponent ({
         formatDescription(value: string): string {
             if (! value) return '';
             return formatText(value.toString());
+        },
+        isItemSelected: function(item: Item): boolean {
+            return this.selectedItem instanceof Item && this.selectedItem.id === item.id;
         }
     }
 });
@@ -72,6 +86,16 @@ export default defineComponent ({
 
     .slot {
         @include inventory-slot();
+    }
+    .highlight::before {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+        z-index: 5;
+        width: 54px;
+        height: 54px;
+        border: 1px solid rgb(153, 255, 153);
+        box-shadow: 0 0 0 2px inset rgb(153, 255, 153), 0 0 8px 2px inset rgb(17, 56, 128);
     }
 }
 

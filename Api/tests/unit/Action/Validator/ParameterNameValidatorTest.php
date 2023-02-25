@@ -2,13 +2,13 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\ParameterNameValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameFruitEnum;
+use Mush\Place\Entity\Place;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -32,7 +32,7 @@ class ParameterNameValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -40,12 +40,12 @@ class ParameterNameValidatorTest extends TestCase
         $this->constraint->name = GameFruitEnum::ANEMOLE;
 
         $itemConfig = new ItemConfig();
-        $itemConfig->setName(GameFruitEnum::ANEMOLE);
+        $itemConfig->setEquipmentName(GameFruitEnum::ANEMOLE);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
         $gameItem->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $gameItem,
@@ -63,12 +63,12 @@ class ParameterNameValidatorTest extends TestCase
         $this->constraint->name = GameFruitEnum::PLOSHMINA;
 
         $itemConfig = new ItemConfig();
-        $itemConfig->setName(GameFruitEnum::ANEMOLE);
+        $itemConfig->setEquipmentName(GameFruitEnum::ANEMOLE);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
         $gameItem->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $gameItem,
@@ -83,8 +83,8 @@ class ParameterNameValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

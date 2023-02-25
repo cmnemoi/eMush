@@ -12,9 +12,9 @@ class DaedalusCycleEvent extends AbstractGameEvent
 
     protected Daedalus $daedalus;
 
-    public function __construct(Daedalus $daedalus, string $reason, \DateTime $time)
+    public function __construct(Daedalus $daedalus, array $tags, \DateTime $time)
     {
-        parent::__construct($reason, $time);
+        parent::__construct($tags, $time);
 
         $this->daedalus = $daedalus;
     }

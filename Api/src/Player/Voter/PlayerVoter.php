@@ -51,16 +51,16 @@ class PlayerVoter extends Voter
 
     private function canViewPlayer(User $user, ?Player $player): bool
     {
-        return null === $player || $player->getUser() === $user;
+        return null !== $player && $player->getPlayerInfo()->getUser() === $user;
     }
 
     private function canCreatePlayer(User $user): bool
     {
-        return null === $user->getCurrentGame();
+        return !$user->isInGame();
     }
 
     private function canPlayerEnd(User $user, ?Player $player): bool
     {
-        return $user->getCurrentGame() === $player;
+        return $player !== null && $user === $player->getPlayerInfo()->getUser();
     }
 }

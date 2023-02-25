@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -30,7 +31,7 @@ class ParameterHasActionValidatorTest extends TestCase
      */
     public function before()
     {
-        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
+        $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
 
         $this->validator = new HasActionValidator($this->gearToolService);
         $this->constraint = new HasAction();
@@ -41,7 +42,7 @@ class ParameterHasActionValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -51,10 +52,10 @@ class ParameterHasActionValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setActions(new ArrayCollection([$actionEntity]));
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
         $gameItem->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getAction' => $actionEntity,
@@ -74,10 +75,10 @@ class ParameterHasActionValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setActions(new ArrayCollection([]));
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
         $gameItem->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getAction' => new Action(),
@@ -100,10 +101,10 @@ class ParameterHasActionValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setActions(new ArrayCollection([]));
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
         $gameItem->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getAction' => new Action(),
@@ -113,7 +114,7 @@ class ParameterHasActionValidatorTest extends TestCase
             ])
         ;
 
-        $this->gearToolService->shouldReceive('getUsedTool')->andReturn(new GameEquipment());
+        $this->gearToolService->shouldReceive('getUsedTool')->andReturn(new GameEquipment(new Place()));
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -126,10 +127,10 @@ class ParameterHasActionValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setActions(new ArrayCollection([]));
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
         $gameItem->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getAction' => new Action(),
@@ -147,8 +148,8 @@ class ParameterHasActionValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

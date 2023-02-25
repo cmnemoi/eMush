@@ -6,23 +6,19 @@ use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusInitEventSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
-    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
-        EventDispatcherInterface $eventDispatcher
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -36,10 +32,10 @@ class DaedalusInitEventSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
         $daedalusConfig = $event->getDaedalusConfig();
-        $reason = $event->getReason();
+        $reasons = $event->getTags();
         $time = $event->getTime();
 
-        $randomItemPlaces = $daedalusConfig->getRandomItemPlace();
+        $randomItemPlaces = $daedalusConfig->getRandomItemPlaces();
 
         if (null !== $randomItemPlaces) {
             foreach ($randomItemPlaces->getItems() as $itemName) {
@@ -49,7 +45,7 @@ class DaedalusInitEventSubscriber implements EventSubscriberInterface
                 $this->gameEquipmentService->createGameEquipmentFromName(
                     $itemName,
                     $room,
-                    $reason
+                    $reasons
                 );
             }
         }

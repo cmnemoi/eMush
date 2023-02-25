@@ -6,25 +6,32 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\WashInSink;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class WashInSinkActionCest
 {
@@ -38,10 +45,32 @@ class WashInSinkActionCest
 
     public function testHumanWashInSink(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $alreadyWashedInTheSink = new ChargeStatusConfig();
+        $alreadyWashedInTheSink
+            ->setStatusName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($alreadyWashedInTheSink);
+
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$alreadyWashedInTheSink]))
+        ;
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -52,46 +81,38 @@ class WashInSinkActionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 3,
-            'characterConfig' => $characterConfig,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(3)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(3);
-        $I->haveInRepository($actionCost);
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::WASH_IN_SINK)
-            ->setDirtyRate(0)
+            ->setActionName(ActionEnum::WASH_IN_SINK)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
-        $I->haveInRepository($action);
-
-        $alreadyWashedInTheSink = new ChargeStatusConfig();
-        $alreadyWashedInTheSink
-            ->setName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
-            ->setStartCharge(1)
-            ->setAutoRemove(true)
-            ->setGameConfig($gameConfig)
+            ->setActionCost(3)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->buildName(GameConfigEnum::TEST)
         ;
-
-        $I->haveInRepository($alreadyWashedInTheSink);
+        $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['actions' => new ArrayCollection([$action])]);
         $I->haveInRepository($equipmentConfig);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName(EquipmentEnum::KITCHEN)
-            ->setHolder($room);
+        ;
         $I->haveInRepository($gameEquipment);
 
         $this->washInSinkAction->loadParameters($action, $player, $gameEquipment);
@@ -101,8 +122,9 @@ class WashInSinkActionCest
         $I->assertTrue($player->hasStatus(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK));
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
-            'player' => $player->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::WASH_IN_SINK_HUMAN,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);

@@ -1,741 +1,768 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
-    <file id="actions.ext">
-        <unit id="build">
-            <segment id="build">
-                <source>build.name</source>
-                <target>Assembler</target>
-            </segment>
-            <segment id="description">
-                <source>build.description</source>
-                <target>Assemble un objet à partir d'autres objets.</target>
-            </segment>
-        </unit>
-        <unit id="coffee">
-            <segment id="coffee">
-                <source>coffee.name</source>
-                <target>Café !</target>
-            </segment>
-            <segment id="description">
-                <source>coffee.description</source>
-                <target>Un bon café et ça repart !</target>
-            </segment>
-        </unit>
-        <unit id="dispense">
-            <segment id="dispense">
-                <source>dispense.name</source>
-                <target>Distiller</target>
-            </segment>
-            <segment id="description">
-                <source>dispense.description</source>
-                <target>Permet de distiller une nouvelle petite gourmandise.</target>
-            </segment>
-        </unit>
-        <unit id="do_the_thing">
-            <segment id="name">
-                <source>do_the_thing.name</source>
-                <target>Le faire</target>
-            </segment>
-            <segment id="description">
-                <source>do_the_thing.description</source>
-                <target>Permet de le faire.</target>
-            </segment>
-        </unit>
-        <unit id="check_spore_level">
-            <segment id="check_spore_level">
-                <source>check_spore_level.name</source>
-                <target>Vérifier</target>
-            </segment>
-            <segment id="description">
-                <source>check_spore_level.description</source>
-                <target>Permet de vérifier son propre niveau d'infection par des spores de Mush.</target>
-            </segment>
-        </unit>
-        <unit id="consume">
-            <segment id="consume">
-                <source>consume.name</source>
-                <target>Consommer</target>
-            </segment>
-            <segment id="description">
-                <source>consume.description</source>
-                <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entamerons pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
-            </segment>
-        </unit>
-        <unit id="consume_drug">
-            <segment id="consume_drug">
-                <source>consume_drug.name</source>
-                <target>Consommer</target>
-            </segment>
-            <segment id="description">
-                <source>consume_drug.description</source>
-                <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entameront pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
-            </segment>
-        </unit>
-        <unit id="eat_spore">
-            <segment id="eat_spore">
-                <source>eat_spore.name</source>
-                <target>Phagocytose</target>
-            </segment>
-            <segment id="description">
-                <source>eat_spore.description</source>
-                <target>Consommer un spore pour vous apporter 4 :pa: et 4 :hp:.</target>
-            </segment>
-        </unit>
-        <unit id="cook">
-            <segment id="cook">
-                <source>cook.name</source>
-                <target>Cuisiner</target>
-            </segment>
-            <segment id="description">
-                <source>cook.description</source>
-                <target>Assaisonner la chose pour en faire quelque chose qui ne provoque pas un renvoi instantané.</target>
-            </segment>
-        </unit>
-        <unit id="disassemble">
-            <segment id="disassemble">
-                <source>disassemble.name</source>
-                <target>Démonter</target>
-            </segment>
-            <segment id="description">
-                <source>disassemble.description</source>
-                <target>Permet de désassembler un objet pour récupérer tout ou partie des composants.</target>
-            </segment>
-        </unit>
-        <unit id="drop">
-            <segment id="name">
-                <source>drop.name</source>
-                <target>Lâcher</target>
-            </segment>
-            <segment id="description">
-                <source>drop.description</source>
-                <target>Pose un objet dans la pièce ou vous vous trouvez</target>
-            </segment>
-        </unit>
-        <unit id="express_cook">
-            <segment id="express_cook">
-                <source>express_cook.name</source>
-                <target>Cuisine Express</target>
-            </segment>
-            <segment id="description">
-                <source>express_cook.description</source>
-                <target>Dégrader suffisament la nouriture tout en la réchauffant pour rendre cela mangeable.</target>
-            </segment>
-        </unit>
-        <unit id="extract_spore">
-            <segment id="extract_spore">
-                <source>extract_spore.name</source>
-                <target>Extirper un spore</target>
-            </segment>
-            <segment id="description">
-                <source>extract_spore.description</source>
-                <target>Extirpez-vous un spore pour ensuite contaminer un coéquipier (avant de contaminer repérez les caméras).</target>
-            </segment>
-        </unit>
-        <unit id="flirt">
-            <segment id="name">
-                <source>flirt.name</source>
-                <target>Fleureter</target>
-            </segment>
-            <segment id="description">
-                <source>flirt.description</source>
-                <target>Permet de fleureter avec quelqu'un, cela lui permettra de le faire avec vous. Cette action est **irrémédiable**.</target>
-            </segment>
-        </unit>
-        <unit id="get_up">
-            <segment id="get_up">
-                <source>get_up.name</source>
-                <target>Se lever</target>
-            </segment>
-            <segment id="description">
-                <source>get_up.description</source>
-                <target>Quitter ce petit nid douillet pour affronter le monde cruel.</target>
-            </segment>
-        </unit>
-        <unit id="hide">
-            <segment id="hide">
-                <source>hide.name</source>
-                <target>Cacher</target>
-            </segment>
-            <segment id="description">
-                <source>hide.description</source>
-                <target>Cache un objet du regard de vos équipier dans la salle.</target>
-            </segment>
-        </unit>
-        <unit id="hit">
-            <segment id="hit">
-                <source>hit.name</source>
-                <target>Frapper</target>
-            </segment>
-            <segment id="description">
-                <source>hit.description</source>
-                <target>Engager la conversation de façon musclée.</target>
-            </segment>
-        </unit>
-        <unit id="hyperfreeze">
-            <segment id="hyperfreeze">
-                <source>hyperfreeze.name</source>
-                <target>Hypergeler</target>
-            </segment>
-            <segment id="description">
-                <source>hyperfreeze.description</source>
-                <target>Transforme une denrée périssable en une non-périssable.</target>
-            </segment>
-        </unit>
-        <unit id="infect">
-            <segment id="infect">
-                <source>infect.name</source>
-                <target>Poinçonner</target>
-            </segment>
-            <segment id="description">
-                <source>infect.description</source>
-                <target>Poinçonner une personne avec un spore permets de l'Infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</target>
-            </segment>
-        </unit>
-        <unit id="lie_down">
-            <segment id="lie_down">
-                <source>lie_down.name</source>
-                <target>S'allonger</target>
-            </segment>
-            <segment id="description">
-                <source>lie_down.description</source>
-                <target>Pour vous détendre ou parler, rien de tel que de s'allonger un peu. S'allonger permet à chaque cycle passé de gagner 1 :pa: et 1 :pmo: si un psy est présent.</target>
-            </segment>
-        </unit>
-        <unit id="move">
-            <segment id="name">
-                <source>move.name</source>
-                <target>Se déplacer</target>
-            </segment>
-            <segment id="description">
-                <source>move.description</source>
-                <target>Changez de pièce</target>
-            </segment>
-        </unit>
-        <unit id="read_book">
-            <segment id="read_book">
-                <source>read_book.name</source>
-                <target>Consulter</target>
-            </segment>
-            <segment id="description">
-                <source>read_book.description</source>
-                <target>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
-            </segment>
-        </unit>
-        <unit id="read_document">
-            <segment id="read_document">
-                <source>read_document.name</source>
-                <target>Consulter</target>
-            </segment>
-            <segment id="description">
-                <source>read_document.description</source>
-                <target>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
-            </segment>
-        </unit>
-        <unit id="repair">
-            <segment id="repair">
-                <source>repair.name</source>
-                <target>Réparer</target>
-            </segment>
-            <segment id="description">
-                <source>repair.description</source>
-                <target>Un objet non équipement endommagé est remis en état.</target>
-            </segment>
-        </unit>
-        <unit id="search">
-            <segment id="search">
-                <source>search.name</source>
-                <target>Fouiller</target>
-            </segment>
-            <segment id="description">
-                <source>search.description</source>
-                <target>Permet de retrouver un objet caché à l'endroit où vous vous trouvez.</target>
-            </segment>
-        </unit>
-        <unit id="rejuvenate_alpha">
-            <segment id="rejuvenate_alpha">
-                <source>rejuvenate_alpha.name</source>
-                <target>Restaurer</target>
-            </segment>
-            <segment id="description">
-                <source>rejuvenate_alpha.description</source>
-                <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:. Uniquement valable pendant l'alpha. Merci de nous aider !</target>
-            </segment>
-        </unit>
-        <unit id="shred">
-            <segment id="shred">
-                <source>shred.name</source>
-                <target>Déchirer</target>
-            </segment>
-            <segment id="description">
-                <source>shred.description</source>
-                <target>Ces maudits papiers pullulent partout. Sus à l'envahisseur !</target>
-            </segment>
-        </unit>
-        <unit id="take">
-            <segment id="name">
-                <source>take.name</source>
-                <target>Prendre</target>
-            </segment>
-            <segment id="description">
-                <source>take.description</source>
-                <target>Prends un objet dans la pièce courante et le place dans votre inventaire.</target>
-            </segment>
-        </unit>
-        <unit id="transplant">
-            <segment id="name">
-                <source>transplant.name</source>
-                <target>Semer</target>
-            </segment>
-            <segment id="description">
-                <source>transplant.description</source>
-                <target>Sacrifie un fruit pour créer un nouveau plant.</target>
-            </segment>
-        </unit>
-        <unit id="treat_plant">
-            <segment id="name">
-                <source>treat_plant.name</source>
-                <target>Traiter</target>
-            </segment>
-            <segment id="description">
-                <source>treat_plant.description</source>
-                <target>Permet de soigner les maladies des plantes.</target>
-            </segment>
-        </unit>
-        <unit id="water_plant">
-            <segment id="name">
-                <source>water_plant.name</source>
-                <target>Arroser</target>
-            </segment>
-            <segment id="description">
-                <source>water_plant.description</source>
-                <target>Permet d'étancher la soif de vos plantations.</target>
-            </segment>
-        </unit>
-        <unit id="write">
-            <segment id="name">
-                <source>write.name</source>
-                <target>Écrire</target>
-            </segment>
-            <segment id="description">
-                <source>write.description</source>
-                <target>Vous pouvez écrire un message que peut-être quelqu'un lira...</target>
-            </segment>
-        </unit>
-        <unit id="insert_oxygen">
-            <segment id="name">
-                <source>insert_oxygen.name</source>
-                <target>Insérer</target>
-            </segment>
-            <segment id="description">
-                <source>insert_oxygen.description</source>
-                <target>Injecte l'Oxygène dans un Réservoir.</target>
-            </segment>
-        </unit>
-        <unit id="retrieve_oxygen">
-            <segment id="name">
-                <source>retrieve_oxygen.name</source>
-                <target>Récupérer Capsule d'Oxygène</target>
-            </segment>
-            <segment id="description">
-                <source>retrieve_oxygen.description</source>
-                <target>Fantastique, le système d'Oxy Rev vous permet d'enlever de l'Oxygène des Réservoirs. Attention à bien fermer la vanne et à vous laver les mains.</target>
-            </segment>
-        </unit>
-        <unit id="insert_fuel">
-            <segment id="name">
-                <source>insert_fuel.name</source>
-                <target>Insérer</target>
-            </segment>
-            <segment id="description">
-                <source>insert_fuel.description</source>
-                <target>Injecte le Fuel dans un Réservoir.</target>
-            </segment>
-        </unit>
-        <unit id="retrieve_fuel">
-            <segment id="name">
-                <source>retrieve_fuel.name</source>
-                <target>Récupérer capsule de fuel</target>
-            </segment>
-            <segment id="description">
-                <source>retrieve_fuel.description</source>
-                <target>Permet de récupérer une Capsule du moteur.</target>
-            </segment>
-        </unit>
-        <unit id="sabotage">
-            <segment id="name">
-                <source>sabotage.name</source>
-                <target>Saboter</target>
-            </segment>
-            <segment id="description">
-                <source>sabotage.description</source>
-                <target>Casse l'équipement ciblé.</target>
-            </segment>
-        </unit>
-        <unit id="shower">
-            <segment id="name">
-                <source>shower.name</source>
-                <target>Se Laver</target>
-            </segment>
-            <segment id="description">
-                <source>shower.description</source>
-                <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution. La douche.</target>
-            </segment>
-        </unit>
-        <unit id="wash_in_sink">
-            <segment id="name">
-                <source>wash_in_sink.name</source>
-                <target>Se Laver</target>
-            </segment>
-            <segment id="description">
-                <source>wash_in_sink.description</source>
-                <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution. La douche... Ça sera plutôt l'évier finalement</target>
-            </segment>
-        </unit>
-        <unit id="extinguish">
-            <segment id="name">
-                <source>extinguish.name</source>
-                <target>Éteindre</target>
-            </segment>
-            <segment id="description">
-                <source>extinguish.description</source>
-                <target>Avec un peu d'adresse, vous arriverez à vous débarrasser du feu. Faites attention à ne pas vous brûler.</target>
-            </segment>
-        </unit>
-        <unit id="heal">
-            <segment id="name">
-                <source>heal.name</source>
-                <target>Soigner</target>
-            </segment>
-            <segment id="description">
-                <source>heal.description</source>
-                <target>Rend des Points de Vie ( :hp: ) à la cible. Si celle-ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
-            </segment>
-        </unit>
-        <unit id="self_heal">
-            <segment id="name">
-                <source>self_heal.name</source>
-                <target>Se soigner</target>
-            </segment>
-            <segment id="description">
-                <source>self_heal.description</source>
-                <target>Vous rend des Points de Vie ( :hp: ) . Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
-            </segment>
-        </unit>
-        <unit id="ultraheal">
-            <segment id="name">
-                <source>ultraheal.name</source>
-                <target>Appliquer</target>
-            </segment>
-            <segment id="description">
-                <source>ultraheal.description</source>
-                <target>Permet de guérir de toutes ses blessures.</target>
-            </segment>
-        </unit>
-        <unit id="use_bandage">
-            <segment id="name">
-                <source>use_bandage.name</source>
-                <target>Se soigner</target>
-            </segment>
-            <segment id="description">
-                <source>use_bandage.description</source>
-                <target>Permet de soigner vos petits bobos.</target>
-            </segment>
-        </unit>
-        <unit id="comfort">
-            <segment id="name">
-                <source>comfort.name</source>
-                <target>Réconforter</target>
-            </segment>
-            <segment id="description">
-                <source>comfort.description</source>
-                <target>Vous savez écouter votre prochain, ce qui lui remonte le moral.</target>
-            </segment>
-        </unit>
-        <unit id="open">
-            <segment id="name">
-                <source>open.name</source>
-                <target>Ouvrir</target>
-            </segment>
-            <segment id="description">
-                <source>open.description</source>
-                <target>L'ouverture de capsule spatiale est un art délicat et plein de surprise. Pire, dans certains systèmes, l'ouverture délicate de ces précieux œufs est considérée comme une drogue dure et peu vous faire rejeter au ban de la société.</target>
-            </segment>
-        </unit>
-        <unit id="strengthen_hull">
-            <segment id="name">
-                <source>strengthen_hull.name</source>
-                <target>Renforcer</target>
-            </segment>
-            <segment id="description">
-                <source>strengthen_hull.description</source>
-                <target>Permet de faire des réparations sur la coque du Daedalus.</target>
-            </segment>
-        </unit>
-        <unit id="spread_fire">
-            <segment id="name">
-                <source>spread_fire.name</source>
-                <target>Mettre le feu</target>
-            </segment>
-            <segment id="description">
-                <source>spread_fire.description</source>
-                <target>Permet de satisfaire un des besoins de NERON... et vos intérêts.</target>
-            </segment>
-        </unit>
-        <unit id="install_camera">
-            <segment id="name">
-                <source>install_camera.name</source>
-                <target>Installer</target>
-            </segment>
-            <segment id="description">
-                <source>install_camera.description</source>
-                <target>Cette action permet d'installer un matériel pour le rendre fonctionnel.</target>
-            </segment>
-        </unit>
-        <unit id="remove_camera">
-            <segment id="name">
-                <source>remove_camera.name</source>
-                <target>Enlever</target>
-            </segment>
-            <segment id="description">
-                <source>remove_camera.description</source>
-                <target>Cette action permet d'enlever un matériel pour le rendre inopérant ou le déplacer.</target>
-            </segment>
-        </unit>
-        <unit id="examine">
-            <segment id="name">
-                <source>examine.name</source>
-                <target>Examiner</target>
-            </segment>
-            <segment id="description">
-                <source>examine.description</source>
-                <target>Qu'est ce donc que cette petite chose ?</target>
-            </segment>
-        </unit>
-        <unit id="remove_spore">
-            <segment id="name">
-                <source>remove_spore.name</source>
-                <target>Extraire spore</target>
-            </segment>
-            <segment id="description">
-                <source>remove_spore.description</source>
-                <target>Permet d'ôter des vilains pustules suspectés de vous contaminer.</target>
-            </segment>
-        </unit>
-        <unit id="report_equipment">
-            <segment id="name">
-                <source>report_equipment.name</source>
-                <target>Signaler</target>
-            </segment>
-            <segment id="description">
-                <source>report_equipment.description</source>
-                <target>Permet de faire remonter l'information et ainsi vous faire remarquer au passage.</target>
-            </segment>
-        </unit>
-        <unit id="report_fire">
-            <segment id="name">
-                <source>report_fire.name</source>
-                <target>Signaler : Incendie</target>
-            </segment>
-            <segment id="description">
-                <source>report_fire.description</source>
-                <target>Oui, faire part à vos colègues de cet incendie est une bonne idée.</target>
-            </segment>
-        </unit>
-        <unit id="try_kube">
-            <segment id="name">
-                <source>try_kube.name</source>
-                <target>Tenter le kube</target>
-            </segment>
-            <segment id="description">
-                <source>try_kube.description</source>
-                <target>Tenter le Kube qui rend fou. Bien peu arrivent à le résoudre en moins de 26 mouvements.</target>
-            </segment>
-        </unit>
-        <unit id="public_broadcast">
-            <segment id="name">
-                <source>public_broadcast.name</source>
-                <target>Projection publique</target>
-            </segment>
-            <segment id="description">
-                <source>public_broadcast.description</source>
-                <target>Rien de tel qu'un bon film Alien pour se remonter le moral. Par contre, personne ne parle le Twingon et on n'a pas les sous-titres.</target>
-            </segment>
-        </unit>
-        <unit id="extinguish_manually">
-            <segment id="name">
-                <source>extinguish_manually.name</source>
-                <target>Éteindre manuellement</target>
-            </segment>
-            <segment id="description">
-                <source>extinguish_manually.description</source>
-                <target>C'est fou ce qu'on peut faire avec de la poussière, des draps ou un chat crevé... Faites attention à ne pas vous brûler.</target>
-            </segment>
-        </unit>
-        <unit id="motivational_speech">
-            <segment id="name">
-                <source>motivational_speech.name</source>
-                <target>Discours enflammé</target>
-            </segment>
-            <segment id="description">
-                <source>motivational_speech.description</source>
-                <target>Chaque autre équipier présent dans la salle regagne 2 :pmo:</target>
-            </segment>
-        </unit>
-        <unit id="boring_speech">
-            <segment id="name">
-                <source>boring_speech.name</source>
-                <target>Discours barbant</target>
-            </segment>
-            <segment id="description">
-                <source>boring_speech.description</source>
-                <target>Chaque autre équipier présent dans la salle regagne 3 :pm:</target>
-            </segment>
-        </unit>
-        <unit id="make_sick">
-            <segment id="name">
-                <source>make_sick.name</source>
-                <target>Rendre malade</target>
-            </segment>
-            <segment id="description">
-                <source>make_sick.description</source>
-                <target>Permet de rendre malade un de vos camarades.</target>
-            </segment>
-        </unit>
-        <unit id="fake_disease">
-            <segment id="name">
-                <source>fake_disease.name</source>
-                <target>Hypocondrie</target>
-            </segment>
-            <segment id="description">
-                <source>fake_disease.description</source>
-                <target>Permet de simuler une maladie bégnine. Vos coéquipiers n'y verront que du feu... mais votre corps aussi risque de tomber dans le panneau.</target>
-            </segment>
-        </unit>
-        <unit id="surgery">
-            <segment id="name">
-                <source>surgery.name</source>
-                <target>Chirurgie</target>
-            </segment>
-            <segment id="description">
-                <source>surgery.description</source>
-                <target>Effectuer un acte chirurgical n'est jamais anodin, mais parfois nécessaire.</target>
-            </segment>
-        </unit>
-        <unit id="self_surgery">
-            <segment id="name">
-                <source>self_surgery.name</source>
-                <target>Chirurgie-Auto</target>
-            </segment>
-            <segment id="description">
-                <source>self_surgery.description</source>
-                <target>Permet d'effectuer une chirurgie sur vous-même.</target>
-            </segment>
-        </unit>
-        <unit id="gag">
-            <segment id="name">
-                <source>gag.name</source>
-                <target>Bâillonner</target>
-            </segment>
-            <segment id="description">
-                <source>gag.description</source>
-                <target>Bâillonner un membre d'équipage pour le bien de tous.</target>
-            </segment>
-        </unit>
-        <unit id="ungag">
-            <segment id="name">
-                <source>ungag.name</source>
-                <target>Debâillonner</target>
-            </segment>
-            <segment id="description">
-                <source>ungag.description</source>
-                <target>Vous vous débâillonnez vous-même si vous en avez la possibilité. Vengeance !</target>
-            </segment>
-        </unit>
-        <unit id="screw_talkie">
-            <segment id="name">
-                <source>screw_talkie.name</source>
-                <target>Pirater</target>
-            </segment>
-            <segment id="description">
-                <source>screw_talkie.description</source>
-                <target>Permet de casser le Talkie-Walkie d'un membre d'équipage, puis de se faire passer pour lui jusqu'à ce qu'il le répare.</target>
-            </segment>
-        </unit>
-        <unit id="update_talkie">
-            <segment id="name">
-                <source>update_talkie.name</source>
-                <target>Mettre à jour</target>
-            </segment>
-            <segment id="description">
-                <source>update_talkie.description</source>
-                <target>Génial, une nouvelle version du logiciel est disponible. Attention, l'installation peut durer quelques cycles et vous empêcher de communiquer avec le reste de l'équipage.</target>
-            </segment>
-        </unit>
-        <unit id="attack">
-            <segment id="name">
-                <source>attack.name</source>
-                <target>Attaquer : Couteau</target>
-            </segment>
-            <segment id="description">
-                <source>attack.description</source>
-                <target>
-                Vous avez une arme de corps à corps et vous avez envie de vous en servir ?
-                </target>
-            </segment>
-        </unit>
-        <unit id="shoot">
-            <segment id="name">
-                <source>shoot.name</source>
-                <target>Tirer : Blaster</target>
-            </segment>
-            <segment id="description">
-                <source>shoot.description</source>
-                <target>
-                Tirer sur quelqu'un pour le blesser, le tuer ou plus si affinité. Attention, jeux de mains, jeux de vilains !
-                </target>
-            </segment>
-        </unit>
-        <unit id="suicide">
-            <segment id="name">
-                <source>suicide.name</source>
-                <target>Se suicider</target>
-            </segment>
-            <segment id="description">
-                <source>suicide.description</source>
-                <target>
-                Vous avez accompli votre mission ici-bas, il est temps d'aller coder ailleurs.
-                </target>
-            </segment>
-        </unit>
-        <unit id="action_aggressive">
-            <segment id="name">
-                <source>action_aggressive.name</source>
-                <target>Action aggressive</target>
-            </segment>
-            <segment id="description">
-                <source>action_aggressive.description</source>
-                <target>Cette action est **Agressive**. Elle peut subir des restrictions.</target>
-            </segment>
-        </unit>
-        <unit id="covert">
-            <segment id="name">
-                <source>covert.name</source>
-                <target>Action furtive</target>
-            </segment>
-            <segment id="description">
-                <source>covert.description</source>
-                <target>Cette action est **Furtive**. Elle sera révélée par les Caméras.</target>
-            </segment>
-        </unit>
-        <unit id="secret">
-            <segment id="name">
-                <source>secret.name</source>
-                <target>Action discrète</target>
-            </segment>
-            <segment id="description">
-                <source>secret.description</source>
-                <target>Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.</target>
-            </segment>
-        </unit>
-    </file>
+  <file id="actions.ext">
+    <unit id="build">
+      <segment id="build" state="translated">
+        <source>build.name</source>
+        <target>Assembler</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>build.description</source>
+        <target>Assemble un objet à partir d'autres objets.</target>
+      </segment>
+    </unit>
+    <unit id="coffee">
+      <segment id="coffee" state="translated">
+        <source>coffee.name</source>
+        <target>Café</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>coffee.description</source>
+        <target>Café</target>
+      </segment>
+    </unit>
+    <unit id="dispense">
+      <segment id="dispense" state="translated">
+        <source>dispense.name</source>
+        <target>Distiller</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>dispense.description</source>
+        <target>Permet de distiller une nouvelle petite gourmandise.</target>
+      </segment>
+    </unit>
+    <unit id="do_the_thing">
+      <segment id="name" state="translated">
+        <source>do_the_thing.name</source>
+        <target>Le faire</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>do_the_thing.description</source>
+        <target>Permet de le faire.</target>
+      </segment>
+    </unit>
+    <unit id="check_spore_level">
+      <segment id="check_spore_level" state="final">
+        <source>check_spore_level.name</source>
+        <target>Vérifier</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>check_spore_level.description</source>
+        <target>Permet de vérifier son propre niveau d'infection par des spores de Mush.</target>
+      </segment>
+    </unit>
+    <unit id="consume">
+      <segment id="consume" state="translated">
+        <source>consume.name</source>
+        <target>Consommer</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>consume.description</source>
+        <target>Dévorer un délicieux repas. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entameront pas votre moral. Les autres denrées peuvent réserver des surprises.</target>
+      </segment>
+    </unit>
+    <unit id="consume_drug">
+      <segment id="consume_drug" state="translated">
+        <source>consume_drug.name</source>
+        <target>Consommer</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>consume_drug.description</source>
+        <target>Avaler une délicieuse pilule. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entameront pas votre moral. Les autres denrées peuvent réserver des surprises.</target>
+      </segment>
+    </unit>
+    <unit id="eat_spore">
+      <segment id="eat_spore" state="translated">
+        <source>eat_spore.name</source>
+        <target>Phagocyter</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eat_spore.description</source>
+        <target>Consommer un spore pour vous apporter 4 :pa: et 4 :hp:.</target>
+      </segment>
+    </unit>
+    <unit id="cook">
+      <segment id="cook" state="translated">
+        <source>cook.name</source>
+        <target>Cuisiner</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cook.description</source>
+        <target>Assaisonner la chose pour en faire quelque chose qui ne provoque pas un renvoi instantané.</target>
+      </segment>
+    </unit>
+    <unit id="disassemble">
+      <segment id="disassemble" state="translated">
+        <source>disassemble.name</source>
+        <target>Démonter</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>disassemble.description</source>
+        <target>Permet de désassembler un objet pour récupérer tout ou partie des composants.</target>
+      </segment>
+    </unit>
+    <unit id="drop">
+      <segment id="name" state="translated">
+        <source>drop.name</source>
+        <target>Lâcher</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>drop.description</source>
+        <target>Pose un objet dans la pièce ou vous vous trouvez.</target>
+      </segment>
+    </unit>
+    <unit id="express_cook">
+      <segment id="express_cook" state="translated">
+        <source>express_cook.name</source>
+        <target>Cuisine Express</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>express_cook.description</source>
+        <target>Dégrader suffisamment la nourriture tout en la réchauffant pour la rendre comestible.</target>
+      </segment>
+    </unit>
+    <unit id="extract_spore">
+      <segment id="extract_spore" state="translated">
+        <source>extract_spore.name</source>
+        <target>Extirper un spore</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>extract_spore.description</source>
+        <target>Extirpez-vous un spore pour ensuite contaminer un coéquipier (mais avant ça, repérez les caméras).</target>
+      </segment>
+    </unit>
+    <unit id="flirt">
+      <segment id="name" state="final">
+        <source>flirt.name</source>
+        <target>Fleureuter</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>flirt.description</source>
+        <target>Permet de fleureuter avec quelqu'un, cela lui permettra de le faire avec vous. Cette action est **irrémédiable**.</target>
+      </segment>
+    </unit>
+    <unit id="get_up">
+      <segment id="get_up" state="translated">
+        <source>get_up.name</source>
+        <target>Se lever</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>get_up.description</source>
+        <target>Quitter ce petit nid douillet pour affronter le monde cruel.</target>
+      </segment>
+    </unit>
+    <unit id="hide">
+      <segment id="hide" state="final">
+        <source>hide.name</source>
+        <target>Cacher</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>hide.description</source>
+        <target>Cache un objet du regard de vos équipier dans la salle.</target>
+      </segment>
+    </unit>
+    <unit id="hit">
+      <segment id="hit" state="final">
+        <source>hit.name</source>
+        <target>Frapper</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>hit.description</source>
+        <target>Engager la conversation de façon musclée.</target>
+      </segment>
+    </unit>
+    <unit id="hyperfreeze">
+      <segment id="hyperfreeze" state="final">
+        <source>hyperfreeze.name</source>
+        <target>Hypergeler</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>hyperfreeze.description</source>
+        <target>Transforme une denrée périssable en une non-périssable.</target>
+      </segment>
+    </unit>
+    <unit id="infect">
+      <segment id="infect" state="final">
+        <source>infect.name</source>
+        <target>Poinçonner</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>infect.description</source>
+        <target>Poinçonner une personne avec un spore permets de l'infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</target>
+      </segment>
+    </unit>
+    <unit id="lie_down">
+      <segment id="lie_down" state="final">
+        <source>lie_down.name</source>
+        <target>S'allonger</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>lie_down.description</source>
+        <target>Pour vous détendre ou parler, rien de tel que de s'allonger un peu. S'allonger permet à chaque cycle passé de gagner 1 :pa: et 1 :pmo: si un psy est présent.</target>
+      </segment>
+    </unit>
+    <unit id="move">
+      <segment id="name" state="final">
+        <source>move.name</source>
+        <target>Se déplacer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>move.description</source>
+        <target>Changez de pièce.</target>
+      </segment>
+    </unit>
+    <unit id="read_book">
+      <segment id="read_book" state="final">
+        <source>read_book.name</source>
+        <target>Consulter</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>read_book.description</source>
+        <target>La curiosité est certes un vilain défaut, mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
+      </segment>
+    </unit>
+    <unit id="read_document">
+      <segment id="read_document" state="final">
+        <source>read_document.name</source>
+        <target>Consulter</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>read_document.description</source>
+        <target>La curiosité est certes un vilain défaut, mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
+      </segment>
+    </unit>
+    <unit id="repair">
+      <segment id="repair" state="final">
+        <source>repair.name</source>
+        <target>Réparer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>repair.description</source>
+        <target>Un objet non équipement endommagé est remis en état.</target>
+      </segment>
+    </unit>
+    <unit id="search">
+      <segment id="search" state="final">
+        <source>search.name</source>
+        <target>Fouiller</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>search.description</source>
+        <target>Permet de retrouver un objet caché à l'endroit où vous vous trouvez.</target>
+      </segment>
+    </unit>
+    <unit id="rejuvenate">
+      <segment id="rejuvenate" state="translated">
+        <source>rejuvenate.name</source>
+        <target>Restaurer</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>rejuvenate.description</source>
+        <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:.
+//
+Uniquement valable pendant l'alpha.
+//
+Merci de nous aider !</target>
+      </segment>
+    </unit>
+    <unit id="shred">
+      <segment id="shred" state="final">
+        <source>shred.name</source>
+        <target>Déchirer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>shred.description</source>
+        <target>Ces maudits papiers pullulent partout. Sus à l'envahisseur !</target>
+      </segment>
+    </unit>
+    <unit id="take">
+      <segment id="name" state="final">
+        <source>take.name</source>
+        <target>Prendre</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>take.description</source>
+        <target>Prends un objet dans la pièce courante et le place dans votre inventaire.</target>
+      </segment>
+    </unit>
+    <unit id="transplant">
+      <segment id="name" state="final">
+        <source>transplant.name</source>
+        <target>Semer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>transplant.description</source>
+        <target>Sacrifie un fruit pour créer un nouveau plant.</target>
+      </segment>
+    </unit>
+    <unit id="treat_plant">
+      <segment id="name" state="final">
+        <source>treat_plant.name</source>
+        <target>Traiter</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>treat_plant.description</source>
+        <target>Permet de soigner les maladies des plantes.</target>
+      </segment>
+    </unit>
+    <unit id="water_plant">
+      <segment id="name" state="final">
+        <source>water_plant.name</source>
+        <target>Arroser</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>water_plant.description</source>
+        <target>Permet d'étancher la soif de vos plantations.</target>
+      </segment>
+    </unit>
+    <unit id="write">
+      <segment id="name" state="final">
+        <source>write.name</source>
+        <target>Écrire</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>write.description</source>
+        <target>Vous pouvez écrire un message que peut-être quelqu'un lira...</target>
+      </segment>
+    </unit>
+    <unit id="insert_oxygen">
+      <segment id="name" state="final">
+        <source>insert_oxygen.name</source>
+        <target>Insérer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>insert_oxygen.description</source>
+        <target>Injecte l'oxygène dans un réservoir.</target>
+      </segment>
+    </unit>
+    <unit id="retrieve_oxygen">
+      <segment id="name" state="final">
+        <source>retrieve_oxygen.name</source>
+        <target>Récupérer une capsule d'oxygène</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>retrieve_oxygen.description</source>
+        <target>Fantastique, le système d'Oxy Rev vous permet d'enlever de l'oxygène des réservoirs. Attention à bien fermer la vanne et à vous laver les mains.</target>
+      </segment>
+    </unit>
+    <unit id="insert_fuel">
+      <segment id="name" state="final">
+        <source>insert_fuel.name</source>
+        <target>Insérer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>insert_fuel.description</source>
+        <target>Injecte le Fuel dans un Réservoir.</target>
+      </segment>
+    </unit>
+    <unit id="retrieve_fuel">
+      <segment id="name" state="final">
+        <source>retrieve_fuel.name</source>
+        <target>Récupérer une capsule de fuel</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>retrieve_fuel.description</source>
+        <target>Permet de récupérer une capsule de fuel du moteur.</target>
+      </segment>
+    </unit>
+    <unit id="sabotage">
+      <segment id="name" state="final">
+        <source>sabotage.name</source>
+        <target>Saboter</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>sabotage.description</source>
+        <target>Casse l'équipement ciblé.</target>
+      </segment>
+    </unit>
+    <unit id="shower">
+      <segment id="name" state="final">
+        <source>shower.name</source>
+        <target>Se laver</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>shower.description</source>
+        <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution : la douche.</target>
+      </segment>
+    </unit>
+    <unit id="wash_in_sink">
+      <segment id="name" state="final">
+        <source>wash_in_sink.name</source>
+        <target>Se laver</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>wash_in_sink.description</source>
+        <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution : la dou... Ça sera plutôt l'évier finalement.
+//
+Cette action n'est disponible qu'une fois par jour pour l'ensemble de l'équipage.
+Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.</target>
+      </segment>
+    </unit>
+    <unit id="extinguish">
+      <segment id="name" state="final">
+        <source>extinguish.name</source>
+        <target>Éteindre</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>extinguish.description</source>
+        <target>Avec un peu d'adresse, vous arriverez à vous débarrasser du feu. Faites attention à ne pas vous brûler.</target>
+      </segment>
+    </unit>
+    <unit id="heal">
+      <segment id="name" state="final">
+        <source>heal.name</source>
+        <target>Soigner</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>heal.description</source>
+        <target>Rend des Points de Vie ( :hp: ) à la cible. Si celle-ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
+      </segment>
+    </unit>
+    <unit id="self_heal">
+      <segment id="name" state="final">
+        <source>self_heal.name</source>
+        <target>Se soigner</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>self_heal.description</source>
+        <target>Vous rend des Points de Vie ( :hp: ) . Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
+      </segment>
+    </unit>
+    <unit id="ultraheal">
+      <segment id="name" state="final">
+        <source>ultraheal.name</source>
+        <target>Appliquer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>ultraheal.description</source>
+        <target>Permet de guérir de toutes ses blessures.</target>
+      </segment>
+    </unit>
+    <unit id="use_bandage">
+      <segment id="name" state="final">
+        <source>use_bandage.name</source>
+        <target>Se soigner</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>use_bandage.description</source>
+        <target>Permet de soigner vos petits bobos.</target>
+      </segment>
+    </unit>
+    <unit id="comfort">
+      <segment id="name" state="final">
+        <source>comfort.name</source>
+        <target>Réconforter</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>comfort.description</source>
+        <target>Vous savez écouter votre prochain, ce qui lui remonte le moral.</target>
+      </segment>
+    </unit>
+    <unit id="open">
+      <segment id="name" state="final">
+        <source>open.name</source>
+        <target>Ouvrir</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>open.description</source>
+        <target>L'ouverture de capsule spatiale est un art délicat et plein de surprise. Pire, dans certains systèmes, l'ouverture délicate de ces précieux œufs est considérée comme une drogue dure et peut vous faire rejeter au ban de la société.</target>
+      </segment>
+    </unit>
+    <unit id="strengthen_hull">
+      <segment id="name" state="final">
+        <source>strengthen_hull.name</source>
+        <target>Renforcer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>strengthen_hull.description</source>
+        <target>Permet de faire des réparations sur la coque du Daedalus.</target>
+      </segment>
+    </unit>
+    <unit id="spread_fire">
+      <segment id="name" state="final">
+        <source>spread_fire.name</source>
+        <target>Mettre le feu</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>spread_fire.description</source>
+        <target>Permet de satisfaire un des besoins de NERON... et vos intérêts.</target>
+      </segment>
+    </unit>
+    <unit id="install_camera">
+      <segment id="name" state="final">
+        <source>install_camera.name</source>
+        <target>Installer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>install_camera.description</source>
+        <target>Cette action permet d'installer un matériel pour le rendre fonctionnel.</target>
+      </segment>
+    </unit>
+    <unit id="remove_camera">
+      <segment id="name" state="final">
+        <source>remove_camera.name</source>
+        <target>Enlever</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>remove_camera.description</source>
+        <target>Cette action permet d'enlever un matériel pour le rendre inopérant ou le déplacer.</target>
+      </segment>
+    </unit>
+    <unit id="examine">
+      <segment id="name" state="final">
+        <source>examine.name</source>
+        <target>Examiner</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>examine.description</source>
+        <target>Qu'est-ce donc que cette petite chose ?</target>
+      </segment>
+    </unit>
+    <unit id="remove_spore">
+      <segment id="name" state="final">
+        <source>remove_spore.name</source>
+        <target>Extraire spore</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>remove_spore.description</source>
+        <target>Permet d'ôter des vilaines pustules suspectées de vous contaminer.</target>
+      </segment>
+    </unit>
+    <unit id="report_equipment">
+      <segment id="name" state="final">
+        <source>report_equipment.name</source>
+        <target>Signaler</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>report_equipment.description</source>
+        <target>Permet de faire remonter l'information et ainsi vous faire remarquer au passage.</target>
+      </segment>
+    </unit>
+    <unit id="report_fire">
+      <segment id="name" state="final">
+        <source>report_fire.name</source>
+        <target>Signaler : Incendie</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>report_fire.description</source>
+        <target>Oui, faire part à vos collègues de cet incendie est une bonne idée.</target>
+      </segment>
+    </unit>
+    <unit id="try_kube">
+      <segment id="name" state="final">
+        <source>try_kube.name</source>
+        <target>Tenter le kube</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>try_kube.description</source>
+        <target>Tenter le Kube qui rend fou. Bien peu arrivent à le résoudre en moins de 26 mouvements.</target>
+      </segment>
+    </unit>
+    <unit id="public_broadcast">
+      <segment id="name" state="final">
+        <source>public_broadcast.name</source>
+        <target>Projection publique</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>public_broadcast.description</source>
+        <target>Rien de tel qu'un bon film Alien pour se remonter le moral. Par contre, personne ne parle le Twingon et on n'a pas les sous-titres.</target>
+      </segment>
+    </unit>
+    <unit id="extinguish_manually">
+      <segment id="name" state="final">
+        <source>extinguish_manually.name</source>
+        <target>Éteindre manuellement</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>extinguish_manually.description</source>
+        <target>C'est fou ce qu'on peut faire avec de la poussière, des draps ou un chat crevé... Faites attention à ne pas vous brûler.</target>
+      </segment>
+    </unit>
+    <unit id="motivational_speech">
+      <segment id="name" state="final">
+        <source>motivational_speech.name</source>
+        <target>Discours enflammé</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>motivational_speech.description</source>
+        <target>Chaque autre équipier présent dans la salle regagne 2 :pmo:.</target>
+      </segment>
+    </unit>
+    <unit id="boring_speech">
+      <segment id="name" state="final">
+        <source>boring_speech.name</source>
+        <target>Discours barbant</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>boring_speech.description</source>
+        <target>Chaque autre équipier présent dans la salle regagne 3 :pm:.</target>
+      </segment>
+    </unit>
+    <unit id="make_sick">
+      <segment id="name" state="final">
+        <source>make_sick.name</source>
+        <target>Rendre malade</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>make_sick.description</source>
+        <target>Permet de rendre malade un de vos camarades.</target>
+      </segment>
+    </unit>
+    <unit id="fake_disease">
+      <segment id="name" state="final">
+        <source>fake_disease.name</source>
+        <target>Hypocondrie</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>fake_disease.description</source>
+        <target>Permet de simuler une maladie bénigne. Vos coéquipiers n'y verront que du feu... mais votre corps aussi risque de tomber dans le panneau.</target>
+      </segment>
+    </unit>
+    <unit id="surgery">
+      <segment id="name" state="final">
+        <source>surgery.name</source>
+        <target>Chirurgie</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>surgery.description</source>
+        <target>Effectuer un acte chirurgical n'est jamais anodin, mais parfois nécessaire.</target>
+      </segment>
+    </unit>
+    <unit id="self_surgery">
+      <segment id="name" state="final">
+        <source>self_surgery.name</source>
+        <target>Chirurgie-Auto</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>self_surgery.description</source>
+        <target>Permet d'effectuer une chirurgie sur vous-même.</target>
+      </segment>
+    </unit>
+    <unit id="gag">
+      <segment id="name" state="final">
+        <source>gag.name</source>
+        <target>Bâillonner</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>gag.description</source>
+        <target>Bâillonner un membre d'équipage pour le bien de tous.</target>
+      </segment>
+    </unit>
+    <unit id="ungag">
+      <segment id="name" state="final">
+        <source>ungag.name</source>
+        <target>Debâillonner</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>ungag.description</source>
+        <target>Vous vous débâillonnez vous-même si vous en avez la possibilité. Vengeance !</target>
+      </segment>
+    </unit>
+    <unit id="screw_talkie">
+      <segment id="name" state="final">
+        <source>screw_talkie.name</source>
+        <target>Pirater</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>screw_talkie.description</source>
+        <target>Permet de casser le talkie-walkie d'un membre d'équipage, puis de se faire passer pour lui jusqu'à ce qu'il le répare.</target>
+      </segment>
+    </unit>
+    <unit id="update_talkie">
+      <segment id="name" state="final">
+        <source>update_talkie.name</source>
+        <target>Mettre à jour</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>update_talkie.description</source>
+        <target>Génial, une nouvelle version du logiciel est disponible. Attention, l'installation peut durer quelques cycles et vous empêcher de communiquer avec le reste de l'équipage.</target>
+      </segment>
+    </unit>
+    <unit id="attack">
+      <segment id="name" state="final">
+        <source>attack.name</source>
+        <target>Attaquer : Couteau</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>attack.description</source>
+        <target>Vous avez une arme de corps à corps et vous avez envie de vous en servir ?</target>
+      </segment>
+    </unit>
+    <unit id="shoot">
+      <segment id="name" state="final">
+        <source>shoot.name</source>
+        <target>Tirer : Blaster</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>shoot.description</source>
+        <target>Tirer sur quelqu'un pour le blesser, le tuer ou plus si affinité. Attention, jeux de mains, jeux de vilains !</target>
+      </segment>
+    </unit>
+    <unit id="suicide">
+      <segment id="name" state="final">
+        <source>suicide.name</source>
+        <target>Se suicider</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>suicide.description</source>
+        <target>Vous avez accompli votre mission ici-bas, il est temps d'aller coder ailleurs.</target>
+      </segment>
+    </unit>
+    <unit id="auto_destroy">
+      <segment id="name" state="final">
+        <source>auto_destroy.name</source>
+        <target>Détruire le vaisseau</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>auto_destroy.description</source>
+        <target>Ce vaisseau est rempli d'anomalies génétiques : une solution drastique s'impose.
+        //
+        **Attention**, cette action détruira le vaisseau **sur le champ** !</target>
+      </segment>
+    </unit>
+    <unit id="kill_player">
+      <segment id="name" state="final">
+        <source>kill_player.name</source>
+        <target>Mettre en quarantaine</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>kill_player.description</source>
+        <target>Ordonner à NERON de mettre ce joueur en quarantaine.
+        //
+        Mutations génétiques incompréhensibles ou folie meurtrière, une chose est sûre : ce joueur est trop dangereux pour être laissé en liberté.
+        //
+        **Attention**, cette action tuera ce joueur **sur le champ** !</target>
+      </segment>
+    </unit>
+    <unit id="action_aggressive">
+      <segment id="name" state="final">
+        <source>action_aggressive.name</source>
+        <target>Action agressive</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>action_aggressive.description</source>
+        <target>Cette action est **Agressive**. Elle peut subir des restrictions.</target>
+      </segment>
+    </unit>
+    <unit id="covert">
+      <segment id="name" state="final">
+        <source>covert.name</source>
+        <target>Action furtive</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>covert.description</source>
+        <target>Cette action est **Furtive**. Elle sera révélée par les Caméras.</target>
+      </segment>
+    </unit>
+    <unit id="secret">
+      <segment id="name" state="final">
+        <source>secret.name</source>
+        <target>Action discrète</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>secret.description</source>
+        <target>Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.</target>
+      </segment>
+    </unit>
+  </file>
 </xliff>

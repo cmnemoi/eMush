@@ -8,6 +8,7 @@ use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 
@@ -35,9 +36,12 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
     public function applyDiseaseEffects(Message $message): Message
     {
         $messageContent = $message->getMessage();
-        $player = $message->getAuthor();
 
-        if ($player === null) {
+        $playerInfo = $message->getAuthor();
+
+        if ($playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             return $message;
         }
 
@@ -45,11 +49,11 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
             ->getMedicalConditions()
             ->getActiveDiseases()
             ->getAllSymptoms()
-            ->getTriggeredSymptoms([EventEnum::ON_NEW_MESSAGE])
+            ->getTriggeredSymptoms([EventEnum::NEW_MESSAGE])
         ;
 
         if ($playerSymptoms->hasSymptomByName(SymptomEnum::COPROLALIA_MESSAGES)) {
-            $message = $this->applyCoprolaliaEffect($message, $player->getDaedalus()->getGameConfig()->getLanguage());
+            $message = $this->applyCoprolaliaEffect($message, $player->getDaedalus()->getLanguage());
         }
 
         if ($playerSymptoms->hasSymptomByName(SymptomEnum::PARANOIA_MESSAGES)) {
@@ -124,7 +128,7 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
 
         $messageContent = $message->getMessage();
 
-        $language = $player->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $player->getDaedalus()->getLanguage();
 
         $parameters = [];
         if ($this->randomService->isSuccessful(self::PARANOIA_REPLACE_CHANCE)) {
@@ -177,10 +181,11 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
         $characterConfigs = $player->getDaedalus()->getGameConfig()->getCharactersConfig();
 
         $characters = [];
+        /** @var CharacterConfig $characterConfig */
         foreach ($characterConfigs as $characterConfig) {
-            $characterName = $characterConfig->getName();
+            $characterName = $characterConfig->getCharacterName();
             if ($characterName !== $player->getName()) {
-                $characters[] = $characterConfig->getName();
+                $characters[] = $characterConfig->getCharacterName();
             }
         }
 

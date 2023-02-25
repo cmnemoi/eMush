@@ -6,6 +6,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Alert\Entity\Alert;
 
+/**
+ * @template-extends ServiceEntityRepository<Alert>
+ */
 class AlertRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

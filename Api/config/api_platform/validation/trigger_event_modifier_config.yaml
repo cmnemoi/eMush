@@ -1,0 +1,16 @@
+Mush\Modifier\Entity\Config\TriggerEventModifierConfig:
+  properties:
+    name:
+      - NotBlank: ~
+      - Type: string
+    modifierName:
+      - Type: string
+    targetEvent:
+      - NotBlank: ~
+      - Type: string
+    modifierRange:
+      - NotBlank: ~
+      - Type: string
+    applyOnActionParameter:
+      - NotBlank: ~
+      - Type: boolean

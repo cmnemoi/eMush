@@ -23,10 +23,10 @@ class FlirtActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::FLIRT);
 
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Flirt(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->playerService,
@@ -38,7 +38,7 @@ class FlirtActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

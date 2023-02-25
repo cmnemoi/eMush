@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\AreShowersDismantled;
 use Mush\Action\Validator\AreShowersDismantledValidator;
@@ -35,7 +34,7 @@ class AreShowersDismantledValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testNotValid()
@@ -43,7 +42,7 @@ class AreShowersDismantledValidatorTest extends TestCase
         $daedalus = new Daedalus();
         $place = new Place();
 
-        $equipment = new GameEquipment();
+        $equipment = new GameEquipment($place);
         $equipment->setName(EquipmentEnum::SHOWER);
         $place->addEquipment($equipment);
 
@@ -51,10 +50,9 @@ class AreShowersDismantledValidatorTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
         $player->setDaedalus($daedalus);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => null,
@@ -72,10 +70,9 @@ class AreShowersDismantledValidatorTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
         $player->setDaedalus($daedalus);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => null,
@@ -89,8 +86,8 @@ class AreShowersDismantledValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

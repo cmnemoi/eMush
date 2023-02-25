@@ -30,11 +30,11 @@ class PlantActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::TRANSPLANT, 1);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
 
         $this->action = new Transplant(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gearToolService,
@@ -47,17 +47,16 @@ class PlantActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
                     ->setEquipment($item)
-                    ->setHolder($room)
                     ->setName('toto')
         ;
 
@@ -68,19 +67,18 @@ class PlantActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$fruit]));
 
         $plant = new ItemConfig();
-        $plant->setName('banana_tree');
-        $gamePlant = new GameItem();
+        $plant->setEquipmentName('banana_tree');
+        $gamePlant = new GameItem(new Place());
         $gamePlant
             ->setEquipment($plant)
             ->setName('banana_tree')
         ;
 
-        $gameHydropot = new GameItem();
+        $gameHydropot = new GameItem($room);
         $hydropot = new ItemConfig();
-        $hydropot->setName(ItemEnum::HYDROPOT);
+        $hydropot->setEquipmentName(ItemEnum::HYDROPOT);
         $gameHydropot
                     ->setEquipment($hydropot)
-                    ->setHolder($room)
                     ->setName(ItemEnum::HYDROPOT)
         ;
 
@@ -90,7 +88,7 @@ class PlantActionTest extends AbstractActionTest
 
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameHydropot]));
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->twice();
+        $this->eventService->shouldReceive('callEvent')->twice();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $result = $this->action->execute();

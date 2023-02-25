@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="event_log.ext">
+    <unit id="build_success">
+      <segment id="build_success" state="translated">
+        <source>build_success</source>
+        <target>You have built a *{target_equipment}*.</target>
+      </segment>
+    </unit>
+    <unit id="open_success">
+      <segment id="open_success" state="translated">
+        <source>open_success</source>
+        <target>**{character}** found a brand new **{target_equipment}** in a space capsule.</target>
+      </segment>
+    </unit>
+    <unit id="transplant_success">
+      <segment id="transplant_success" state="translated">
+        <source>transplant_success</source>
+        <target>**{character}** sets about reproducing a plant created by the **{target_equipment}**. Congratulations! The young plant is in perfect health.</target>
+      </segment>
+    </unit>
+    <unit id="awaken">
+      <segment state="translated">
+        <source>awaken</source>
+        <target>{character_gender, select,
+                    male {**{character}** has woken up from his peaceful sleep.}
+                    female {**{character}** has woken up from her peaceful sleep.}
+                    other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="gain_action_point">
+      <segment state="translated">
+        <source>gain_action_point</source>
+        <target>You have earned {quantity} :pa:.</target>
+      </segment>
+    </unit>
+    <unit id="gain_movement_point">
+      <segment state="translated">
+        <source>gain_movement_point</source>
+        <target>You have earned {quantity} :pm:.</target>
+      </segment>
+    </unit>
+    <unit id="gain_health_point">
+      <segment state="translated">
+        <source>gain_health_point</source>
+        <target>You have earned {quantity} :hp:.</target>
+      </segment>
+    </unit>
+    <unit id="loss_health_point">
+      <segment state="translated">
+        <source>loss_health_point</source>
+        <target>You have lost {quantity} :hp:.</target>
+      </segment>
+    </unit>
+    <unit id="gain_moral_point">
+      <segment state="translated">
+        <source>gain_moral_point</source>
+        <target>You have earned {quantity} :pmo:.</target>
+      </segment>
+    </unit>
+    <unit id="loss_moral_point">
+      <segment state="translated">
+        <source>loss_moral_point</source>
+        <target>You have lost {quantity} :pmo:.</target>
+      </segment>
+    </unit>
+    <unit id="loss_action_point">
+      <segment state="translated">
+        <source>loss_action_point</source>
+        <target>You have lost {quantity} :pa:.</target>
+      </segment>
+    </unit>
+    <unit id="loss_movement_point">
+      <segment state="translated">
+        <source>loss_movement_point</source>
+        <target>You have lost {quantity} :pm:.</target>
+      </segment>
+    </unit>
+    <unit id="gain_triumph">
+      <segment state="translated">
+        <source>gain_triumph</source>
+        <target>This action completes the personal objectives for your character. You have earned *{quantity} Glory*.</target>
+      </segment>
+    </unit>
+    <unit id="death">
+      <segment state="translated">
+        <source>death</source>
+        <target>:dead: **{character}** is dead. Cause : {end_cause}.</target>
+      </segment>
+    </unit>
+    <unit id="object_fell">
+      <segment state="translated">
+        <source>object_fell</source>
+        <target>**{character}** has knocked over the **{target_equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="oxy_low_use_capsule">
+      <segment state="translated">
+        <source>oxy_low_use_capsule</source>
+        <target>You can't breathe... You are choking... But fortunately this *Oxygen Capsule* saved your life...</target>
+      </segment>
+    </unit>
+    <unit id="soiled">
+      <segment state="translated">
+        <source>soiled</source>
+        <target>Disgusting... You're filthy. (Not like that. Although...)</target>
+      </segment>
+    </unit>
+    <unit id="soil_prevented">
+      <segment state="translated">
+        <source>soil_prevented</source>
+        <target>Disgusting... Fortunately you are wearing your **Stainproof Apron**...</target>
+      </segment>
+    </unit>
+    <unit id="clumsiness">
+      <segment state="translated">
+        <source>clumsiness</source>
+        <target>That wasn't supposed to happen. In the heat of the action you hurt yourself...</target>
+      </segment>
+    </unit>
+    <unit id="clumsiness_prevented">
+      <segment state="translated">
+        <source>clumsiness_prevented</source>
+        <target>That wasn't supposed to happen. Thanks to your **Protective Gloves**, you avoided the catastrophe...</target>
+      </segment>
+    </unit>
+    <unit id="metal_plate">
+      <segment state="translated">
+        <source>metal_plate</source>
+        <target>{character_gender, select,
+                    male {The ship suddenly shaking violently caused a sheet of metal to land on **{character}**. He is seriously wounded!}
+                    female {An unexpected lurch caused a sheet of metal to land on **{character}**. She is seriously injured! 
+}
+                    other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="tremor_gravity">
+      <segment state="translated">
+        <source>tremor_gravity</source>
+        <target>The room suddenly starts to shake violently. The crewmembers present find themselves thrown to the floor and bits of the ceiling have collapsed here and there. What a wreck...</target>
+      </segment>
+    </unit>
+    <unit id="tremor_no_gravity">
+      <segment state="translated">
+        <source>tremor_no_gravity</source>
+        <target>The room suddenly starts to shake violently.  Objects fly across the room and collide with the crew members present.</target>
+      </segment>
+    </unit>
+    <unit id="electric_arc">
+      <segment state="translated">
+        <source>electric_arc</source>
+        <target>A brutal electrical spike just shorted out all the equipment in the room, and a massive shock was sent through all the crew present!</target>
+      </segment>
+    </unit>
+    <unit id="equipment_broken">
+      <segment state="translated">
+        <source>equipment_broken</source>
+        <target>{equipment_first_letter, select,
+    vowel {An **{equipment}** has been broken!}
+    consonant {A **{equipment}** has been broken!}
+    other {invalid equipment_first_letter input}
+}</target>
+      </segment>
+    </unit>
+    <unit id="equipment_destroyed">
+      <segment state="translated">
+        <source>equipment_destroyed</source>
+        <target>{equipment_first_letter, select,
+    vowel {An **{equipment}** has been destroyed!}
+    consonant {A **{equipment}** has been destroyed!}
+    other {invalid equipment_first_letter input}
+}</target>
+      </segment>
+    </unit>
+    <unit id="panic_crisis">
+      <segment state="translated">
+        <source>panic_crisis</source>
+        <target>You are shaking, you have lost hope, you ask yourself what you're doing here and when this hell will be over... You are the victim of a Panic Attack.</target>
+      </segment>
+    </unit>
+    <unit id="plant_new_fruit">
+      <segment state="translated">
+        <source>plant_new_fruit</source>
+        <target>Oh! One of the plants has produced a: **{target_equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="plant_maturity">
+      <segment state="translated">
+        <source>plant_maturity</source>
+        <target>{equipment_first_letter, select,
+    vowel {An **{equipment}** has reached maturity! Finally!}
+    consonant {A **{equipment}** has reached maturity! Finally!}
+    other {invalid equipment_first_letter input}
+}</target>
+      </segment>
+    </unit>
+    <unit id="plant_death">
+      <segment state="translated">
+        <source>plant_death</source>
+        <target>{equipment_first_letter, select,
+    vowel {An **{equipment}** is dead... snif!}
+    consonant {A **{equipment}** is dead... snif!}
+    other {invalid equipment_first_letter input}
+}</target>
+      </segment>
+    </unit>
+    <unit id="garden_destroyed">
+      <segment state="translated">
+        <source>garden_destroyed</source>
+        <target>The garden was ransacked by the attack, of the 12 plants, only 2 remain and an empty pot...</target>
+      </segment>
+    </unit>
+    <unit id="hunger">
+      <segment state="translated">
+        <source>hunger</source>
+        <target>You are hungry. If you don't remedy this situation, your health will deteriorate every cycle.</target>
+      </segment>
+    </unit>
+    <unit id="force_get_up">
+      <segment state="translated">
+        <source>force_get_up</source>
+        <target>{character_gender, select,
+                    male {**{character}** is violently dragged from his bed.}
+                    female {**{character}** is violently dragged from her bed.}
+                    other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="antisocial_morale_loss">
+      <segment state="translated">
+        <source>antisocial_morale_loss</source>
+        <target>These idiots just get in your way the whole time, seeing them waste their time on such pointless trifles causes you to fear the worst for the future of humanity...</target>
+      </segment>
+    </unit>
+    <unit id="become_pregnant">
+      <segment state="translated">
+        <source>become_pregnant</source>
+        <target>You have won *8 Triumph* because you are expecting a happy event!</target>
+      </segment>
+    </unit>
+    <unit id="disease_appear">
+      <segment state="translated">
+        <source>disease_appear</source>
+        <target>:ill: You don't feel very good, not good at all... Hot... Cold... Hot... Cold... You should see a doctor. You have contracted a physiological disease: {disease}.</target>
+      </segment>
+    </unit>
+    <unit id="disease_cured">
+      <segment state="translated">
+        <source>disease_cured</source>
+        <target>You feel better, your {disease} has finally healed...</target>
+      </segment>
+    </unit>
+    <unit id="disorder_appear">
+      <segment state="translated">
+        <source>disorder_appear</source>
+        <target>:psy_disease: You don't feel great... Your head is spinning, you feel confused, stressed, and anxious. You should see a *Shrink*. You have picked up a psychological illness: {disease}.</target>
+      </segment>
+    </unit>
+    <unit id="disease_curred_player">
+      <segment state="translated">
+        <source>disease_cured_player</source>
+        <target>**{character}** has managed to cure **{target_character}**  of their disease ({disease}).</target>
+      </segment>
+    </unit>
+    <unit id="disease_healed_player">
+      <segment state="translated">
+        <source>disease_healed_player</source>
+        <target>**{character}** has made progress in curing **{target_character}** of their disease, but the treatment must continue.</target>
+      </segment>
+    </unit>
+    <unit id="disease_curred_drug">
+      <segment state="translated">
+        <source>disease_curred_drug</source>
+        <target>{character_gender, select,
+                    male {**{character}** is relieved. He has managed to cure himself of his disease ({disease}).}.
+                    female {**{character}** is relieved. She has managed to cure herself of her illness ({disease}).}.
+                    other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="disease_treated_drug">
+      <segment state="translated">
+        <source>disease_treated_drug</source>
+        <target>{character_gender, select,
+                    male {**{character}** feels relieved but the treatment is insufficient. He will have to start again.}
+                    female {**{character}** feels relieved but the treatment is insufficient. She will have to start again.}
+                    other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="disorder_curred_player">
+      <segment state="translated">
+        <source>disorder_cured_player</source>
+        <target>**{character}** is happy. The **{target_character}** session went well. But more will be required.</target>
+      </segment>
+    </unit>
+    <unit id="disorder_treated_player">
+      <segment state="translated">
+        <source>disorder_treated_player</source>
+        <target>{target_character_gender, select,
+                    male {The session is a success, **{target_character}** is cured of his disease ({disease}).}
+                    female {The session is a success, **{target_character}** is cured of her disease ({disease}).}
+                    other {invalid gender input}
+                } **{character}** is very satisfied.</target>
+      </segment>
+    </unit>
+    <unit id="injury_appear">
+      <segment state="translated">
+        <source>injury_appear</source>
+        <target>:hurt: You have been hurt: {disease}. This will incur penalties.</target>
+      </segment>
+    </unit>
+    <unit id="disease_overridden">
+      <segment state="translated">
+        <source>disease_overridden</source>
+        <target>:ill: With what has just happened to you, your disease {disease} is gone. But it is now the least of your worries.</target>
+      </segment>
+    </unit>
+    <unit id="screaming">
+      <segment state="translated">
+        <source>screaming</source>
+        <target>:pill: **{character}** throws themselves on the floor screaming and calling for their mother...</target>
+      </segment>
+    </unit>
+    <unit id="wall_head_bang">
+      <segment state="translated">
+        <source>wall_head_bang</source>
+        <target>:pill: **{character}** suddenly starts bashing their head against the wall... looks like it hurts too...</target>
+      </segment>
+    </unit>
+    <unit id="run_in_circles">
+      <segment state="translated">
+        <source>run_in_circles</source>
+        <target>:pill: **{character}** starts running in circles, and nothing seems to stop them... except fatigue...</target>
+      </segment>
+    </unit>
+    <unit id="vomiting">
+      <segment id="vomiting" state="translated">
+        <source>vomiting</source>
+        <target>:ill: **{character}** is vomiting their meal. Not exactly appetizing...</target>
+      </segment>
+    </unit>
+    <unit id="sneezing">
+      <segment id="sneezing" state="translated">
+        <source>sneezing</source>
+        <target>Atchoo!</target>
+      </segment>
+    </unit>
+    <unit id="biting">
+      <segment id="biting" state="translated">
+        <source>biting</source>
+        <target>:pill: **{character}** suddenly turns to **{target_character}** and starts to devour their arm...</target>
+      </segment>
+    </unit>
+    <unit id="breakouts">
+      <segment id="breakouts" state="translated">
+        <source>breakouts</source>
+        <target>:ill: **{character}** scratch their filthy patches, it's really atrocious...</target>
+      </segment>
+    </unit>
+    <unit id="foaming_mouth">
+      <segment id="foaming_mouth" state="translated">
+        <source>foaming_mouth</source>
+        <target>:pill: **{character}** has a little bit of foam escaping from the corner of their mouth... It's pretty disgusting...</target>
+      </segment>
+    </unit>
+    <unit id="drooling">
+      <segment id="drooling" state="translated">
+        <source>drooling</source>
+        <target>:pill: **{character}** is drooling incessantly, this is beginning to seem suspicious...</target>
+      </segment>
+    </unit>
+    <unit id="cat_allergy">
+      <segment id="cat_allergy" state="translated">
+        <source>cat_allergy</source>
+        <target>{character_gender, select,
+                    male {:ill: **{character}** is experiencing a violent cutaneous eruption, he is choking. However, we may have told them that it was nothing to do with that €µ#+ of a cat!}
+                    female {:ill: **{character}** is experiencing a violent cutaneous eruption, she is choking. However, we may have told them that it was nothing to do with that €µ#+ of a cat!}
+                    other {invalid gender input}}</target>
+      </segment>
+    </unit>
+    <unit id="fear_of_cats">
+      <segment id="fear_of_cats" state="translated">
+        <source>fear_of_cats</source>
+        <target>AAAaaaaaaaRRRrgghhhhhhh....</target>
+      </segment>
+    </unit>
+    <unit id="fear_of_cats_notif">
+      <segment id="fear_of_cats_notif" state="translated">
+        <source>fear_of_cats_notif</source>
+        <target>:cat: The cat was in the room, you couldn't help running away...</target>
+      </segment>
+    </unit>
+    <unit id="fitfull_sleep">
+      <segment id="fitfull_sleep" state="translated">
+        <source>fitfull_sleep</source>
+        <target>Your sleep is restless, impossible to recover properly...</target>
+      </segment>
+    </unit>
+    <unit id="surgery_success">
+      <segment id="surgery_success" state="translated">
+        <source>surgery_success</source>
+        <target>The operation seems to last forever, **{character}** finally gives their verdict with a smile on their face... {version, select,
+                    1 {the operation was successful. **{target_character} is doing well and will be back on their feet soon}.
+                    2 {**{target_character}** is doing admirably}.
+                    other {invalid version input}
+                    } **{target_character}**'s wound ({disease}) is healed.</target>
+      </segment>
+    </unit>
+    <unit id="surgery_critical_success">
+      <segment id="surgery_critical_success" state="translated">
+        <source>surgery_critical_success</source>
+        <target>The operation seems to last forever, **{character}** finally gives their verdict with a smile on their face... such a brilliantly performed operation can advance science! The wound ({disease}) of **{target_character}** is healed.</target>
+      </segment>
+    </unit>
+    <unit id="self_surgery_success">
+      <segment id="self_surgery_success" state="translated">
+        <source>self_surgery_success</source>
+        <target>The operation seems to take forever... {version, select,
+                    1 {**{character}** is doing admirably.}
+                    2 {The operation was successful. **{character}** is doing well and will be back on his feet soon.}
+                    other {invalid gender input}
+                    } **{character}**'s wound ({disease}) is healed.</target>
+      </segment>
+    </unit>
+    <unit id="self_surgery_critical_success">
+      <segment id="self_surgery_critical_success" state="translated">
+        <source>self_surgery_critical_success</source>
+        <target>The operation seems to take forever... such a brilliantly performed operation can advance science! The wound ({disease}) of **{character}** is healed.</target>
+      </segment>
+    </unit>
+    <unit id="disease_by_sex">
+      <segment id="disease_by_sex" state="translated">
+        <source>disease_by_sex</source>
+        <target>You feel strange... emotion... or else... Your partner has given you a disease ({disease}).</target>
+      </segment>
+    </unit>
+    <unit id="trauma_disease">
+      <segment id="trauma_disease" state="translated">
+        <source>trauma_disease</source>
+        <target>What you just witnessed shocked you. You will never be the same again.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

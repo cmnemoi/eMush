@@ -2,11 +2,11 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\DailySporesLimit;
 use Mush\Action\Validator\DailySporesLimitValidator;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -34,20 +34,27 @@ class DailySporesLimitValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
-    public function testValidForDaedalus()
+    // @TODO once spore status is totaly replaced by the spore variable on player, rework this test using GameVariableLevel validator
+    /*public function testValidForDaedalus()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setDailySporeNb(4);
+
         $daedalus = new Daedalus();
-        $daedalus->setSpores(1);
+        $daedalus
+            ->setDaedalusVariables($daedalusConfig)
+            ->setSpores(1)
+        ;
 
         $player = new Player();
         $player->setDaedalus($daedalus);
 
         $this->constraint->target = DailySporesLimit::DAEDALUS;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -70,7 +77,7 @@ class DailySporesLimitValidatorTest extends TestCase
 
         $this->constraint->target = DailySporesLimit::DAEDALUS;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -81,24 +88,30 @@ class DailySporesLimitValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $this->assertTrue(true);
-    }
+    }*/
 
     public function testValidForPlayer()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setDailySporeNb(4);
+
         $daedalus = new Daedalus();
-        $daedalus->setSpores(1);
+        $daedalus
+            ->setDaedalusVariables($daedalusConfig)
+            ->setSpores(1)
+        ;
 
         $player = new Player();
         $player->setDaedalus($daedalus);
 
         $mushConfig = new ChargeStatusConfig();
-        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus->setCharge(1);
 
         $this->constraint->target = DailySporesLimit::PLAYER;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -113,15 +126,23 @@ class DailySporesLimitValidatorTest extends TestCase
 
     public function testNotValidForPlayer()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
+            ->setDailySporeNb(4)
+        ;
+
         $daedalus = new Daedalus();
-        $daedalus->setSpores(0);
+        $daedalus
+            ->setDaedalusVariables($daedalusConfig)
+            ->setSpores(0)
+        ;
 
         $player = new Player();
         $player->setDaedalus($daedalus);
 
         $this->constraint->target = DailySporesLimit::PLAYER;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -132,7 +153,7 @@ class DailySporesLimitValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $mushConfig = new ChargeStatusConfig();
-        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus->setCharge(0);
 
@@ -144,8 +165,8 @@ class DailySporesLimitValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

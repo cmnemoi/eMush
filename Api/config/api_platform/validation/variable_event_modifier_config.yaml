@@ -1,0 +1,13 @@
+Mush\Modifier\Entity\Config\VariableEventModifierConfig:
+  properties:
+    name:
+      - NotBlank: ~
+      - Type: string
+    modifierName:
+      - Type: string
+    modifierRange:
+      - NotBlank: ~
+      - Type: string
+    applyOnActionParameter:
+      - NotBlank: ~
+      - Type: boolean

@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -39,7 +40,12 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
         /** @var Player $player */
         $player = $object;
 
-        $character = $player->getCharacterConfig()->getName();
+        /** @var Player $currentPlayer */
+        $currentPlayer = $context['currentPlayer'];
+
+        $language = $player->getDaedalus()->getLanguage();
+
+        $character = $player->getName();
 
         $playerData = [
             'id' => $player->getId(),
@@ -49,8 +55,15 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
                     $character . '.name',
                     [],
                     'characters',
-                    $player->getDaedalus()->getGameConfig()->getLanguage()
+                    $player->getDaedalus()->getLanguage()
                 ),
+                'description' => $this->translationService->translate(
+                    $character . '.description',
+                    [],
+                    'characters',
+                    $player->getDaedalus()->getLanguage()
+                ),
+                'skills' => $player->getPlayerInfo()->getCharacterConfig()->getSkills(),
             ],
         ];
 
@@ -61,6 +74,17 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
                 if (is_array($normedStatus) && count($normedStatus) > 0) {
                     $statuses[] = $normedStatus;
                 }
+            }
+
+            // if current player is mush add spores info
+            if ($currentPlayer->isMush() && !$player->hasStatus(PlayerStatusEnum::IMMUNIZED)) {
+                $normedSpores = [
+                    'key' => PlayerStatusEnum::SPORES,
+                    'name' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.name', [], 'status', $language),
+                    'description' => $this->translationService->translate(PlayerStatusEnum::SPORES . 'description', [], 'status', $language),
+                    'charge' => $player->getSpores(),
+                ];
+                $statuses[] = $normedSpores;
             }
 
             $playerData['statuses'] = $statuses;

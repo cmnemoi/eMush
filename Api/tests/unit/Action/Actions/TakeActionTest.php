@@ -3,14 +3,12 @@
 namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Take;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 
 class TakeActionTest extends AbstractActionTest
@@ -25,7 +23,7 @@ class TakeActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::TRANSPLANT);
 
         $this->action = new Take(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -36,13 +34,13 @@ class TakeActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
 
         $item = new ItemConfig();
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -50,19 +48,14 @@ class TakeActionTest extends AbstractActionTest
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('itemName')
-            ->setHolder($room)
         ;
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxItemInInventory(3);
-
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
 
         $player = $this->createPlayer($daedalus, $room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
@@ -74,7 +67,7 @@ class TakeActionTest extends AbstractActionTest
     public function testTakeHeavyObject()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
 
         $item = new ItemConfig();
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -82,19 +75,14 @@ class TakeActionTest extends AbstractActionTest
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('itemName')
-            ->setHolder($room)
         ;
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxItemInInventory(3);
-
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
 
         $player = $this->createPlayer($daedalus, $room);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

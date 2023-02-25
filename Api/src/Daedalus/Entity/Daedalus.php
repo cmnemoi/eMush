@@ -2,7 +2,6 @@
 
 namespace Mush\Daedalus\Entity;
 
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,9 +9,11 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Entity\GameVariable;
+use Mush\Game\Entity\GameVariableCollection;
+use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
@@ -21,7 +22,7 @@ use Mush\Player\Entity\Player;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus')]
-class Daedalus implements ModifierHolder
+class Daedalus implements ModifierHolder, GameVariableHolderInterface
 {
     use TimestampableEntity;
 
@@ -30,35 +31,20 @@ class Daedalus implements ModifierHolder
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
+    #[ORM\OneToOne(mappedBy: 'daedalus', targetEntity: DaedalusInfo::class)]
+    private DaedalusInfo $daedalusInfo;
+
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Player::class)]
     private Collection $players;
-
-    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
-    private GameConfig $gameConfig;
-
-    #[ORM\OneToOne(inversedBy: 'daedalus', targetEntity: Neron::class)]
-    private Neron $neron;
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $gameStatus = GameStatusEnum::STANDBY;
 
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Place::class)]
     private Collection $places;
 
-    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Modifier::class)]
+    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
-    #[ORM\Column(type: 'string', nullable: false, unique: true)]
-    private string $name = 'default';
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $oxygen = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $fuel = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $hull = 100;
+    #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
+    private DaedalusVariables $daedalusVariables;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $day = 1;
@@ -66,23 +52,14 @@ class Daedalus implements ModifierHolder
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $cycle = 1;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $shield = -2;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $spores = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $dailySpores = 0;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTime $filledAt = null;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?DateTime $filledAt = null;
+    private ?\DateTime $finishedAt = null;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?DateTime $finishedAt = null;
-
-    #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?DateTime $cycleStartedAt = null;
+    private ?\DateTime $cycleStartedAt = null;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isCycleChange = false;
@@ -97,6 +74,18 @@ class Daedalus implements ModifierHolder
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getDaedalusInfo(): DaedalusInfo
+    {
+        return $this->daedalusInfo;
+    }
+
+    public function setDaedalusInfo(DaedalusInfo $daedalusInfo): static
+    {
+        $this->daedalusInfo = $daedalusInfo;
+
+        return $this;
     }
 
     public function getPlayers(): PlayerCollection
@@ -125,54 +114,6 @@ class Daedalus implements ModifierHolder
     public function removePlayer(Player $player): static
     {
         $this->players->removeElement($player);
-
-        return $this;
-    }
-
-    public function getGameConfig(): GameConfig
-    {
-        return $this->gameConfig;
-    }
-
-    public function setGameConfig(GameConfig $gameConfig): static
-    {
-        $this->gameConfig = $gameConfig;
-
-        return $this;
-    }
-
-    public function getNeron(): Neron
-    {
-        return $this->neron;
-    }
-
-    public function setNeron(Neron $neron): static
-    {
-        $this->neron = $neron;
-
-        return $this;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getGameStatus(): string
-    {
-        return $this->gameStatus;
-    }
-
-    public function setGameStatus(string $gameStatus): static
-    {
-        $this->gameStatus = $gameStatus;
 
         return $this;
     }
@@ -229,66 +170,103 @@ class Daedalus implements ModifierHolder
         return new ModifierCollection($this->modifiers->toArray());
     }
 
-    public function addModifier(Modifier $modifier): static
+    public function addModifier(GameModifier $modifier): static
     {
         $this->modifiers->add($modifier);
 
         return $this;
     }
 
-    public function getOxygen(): int
+    public function getVariableByName(string $variableName): GameVariable
     {
-        return $this->oxygen;
+        return $this->daedalusVariables->getVariableByName($variableName);
     }
 
-    public function setOxygen(int $oxygen): static
+    public function getVariableValueByName(string $variableName): int
     {
-        $this->oxygen = $oxygen;
+        return $this->daedalusVariables->getValueByName($variableName);
+    }
+
+    public function setVariableValueByName(int $value, string $variableName): static
+    {
+        $this->daedalusVariables->setValueByName($value, $variableName);
 
         return $this;
     }
 
-    public function addOxygen(int $change): static
+    public function getGameVariables(): DaedalusVariables
     {
-        $this->oxygen += $change;
+        return $this->daedalusVariables;
+    }
+
+    public function hasVariable(string $variableName): bool
+    {
+        return $this->daedalusVariables->hasVariable($variableName);
+    }
+
+    public function setDaedalusVariables(DaedalusConfig $daedalusConfig): static
+    {
+        $this->daedalusVariables = new DaedalusVariables($daedalusConfig);
+
+        return $this;
+    }
+
+    public function getOxygen(): int
+    {
+        return $this->getVariableValueByName(DaedalusVariableEnum::OXYGEN);
+    }
+
+    public function setOxygen(int $oxygen): static
+    {
+        $this->setVariableValueByName($oxygen, DaedalusVariableEnum::OXYGEN);
 
         return $this;
     }
 
     public function getFuel(): int
     {
-        return $this->fuel;
+        return $this->getVariableValueByName(DaedalusVariableEnum::FUEL);
     }
 
     public function setFuel(int $fuel): static
     {
-        $this->fuel = $fuel;
-
-        return $this;
-    }
-
-    public function addFuel(int $change): static
-    {
-        $this->fuel += $change;
+        $this->setVariableValueByName($fuel, DaedalusVariableEnum::FUEL);
 
         return $this;
     }
 
     public function getHull(): int
     {
-        return $this->hull;
-    }
-
-    public function addHull(int $change): static
-    {
-        $this->hull += $change;
-
-        return $this;
+        return $this->getVariableValueByName(DaedalusVariableEnum::HULL);
     }
 
     public function setHull(int $hull): static
     {
-        $this->hull = $hull;
+        $this->setVariableValueByName($hull, DaedalusVariableEnum::HULL);
+
+        return $this;
+    }
+
+    public function getShield(): int
+    {
+        return $this->getVariableValueByName(DaedalusVariableEnum::SHIELD);
+    }
+
+    public function setShield(int $shield): static
+    {
+        $this->setVariableValueByName($shield, DaedalusVariableEnum::SHIELD);
+
+        return $this;
+    }
+
+    public function getSpores(): int
+    {
+        return $this->getVariableValueByName(DaedalusVariableEnum::SPORE);
+    }
+
+    public function setSpores(int $spores): static
+    {
+        $this->setVariableValueByName($spores, DaedalusVariableEnum::SPORE);
 
         return $this;
     }
@@ -317,72 +295,36 @@ class Daedalus implements ModifierHolder
         return $this;
     }
 
-    public function getShield(): int
-    {
-        return $this->shield;
-    }
-
-    public function setShield(int $shield): static
-    {
-        $this->shield = $shield;
-
-        return $this;
-    }
-
-    public function getSpores(): int
-    {
-        return $this->spores;
-    }
-
-    public function setSpores(int $spores): static
-    {
-        $this->spores = $spores;
-
-        return $this;
-    }
-
-    public function getDailySpores(): int
-    {
-        return $this->dailySpores;
-    }
-
-    public function setDailySpores(int $dailySpores): static
-    {
-        $this->dailySpores = $dailySpores;
-
-        return $this;
-    }
-
-    public function getFilledAt(): ?DateTime
+    public function getFilledAt(): ?\DateTime
     {
         return $this->filledAt;
     }
 
-    public function setFilledAt(DateTime $filledAt): static
+    public function setFilledAt(\DateTime $filledAt): static
     {
         $this->filledAt = $filledAt;
 
         return $this;
     }
 
-    public function getFinishedAt(): ?DateTime
+    public function getFinishedAt(): ?\DateTime
     {
         return $this->finishedAt;
     }
 
-    public function setFinishedAt(DateTime $finishedAt): static
+    public function setFinishedAt(\DateTime $finishedAt): static
     {
         $this->finishedAt = $finishedAt;
 
         return $this;
     }
 
-    public function getCycleStartedAt(): ?DateTime
+    public function getCycleStartedAt(): ?\DateTime
     {
         return $this->cycleStartedAt;
     }
 
-    public function setCycleStartedAt(DateTime $cycleStartedAt): static
+    public function setCycleStartedAt(\DateTime $cycleStartedAt): static
     {
         $this->cycleStartedAt = $cycleStartedAt;
 
@@ -406,19 +348,23 @@ class Daedalus implements ModifierHolder
         return get_class($this);
     }
 
-    public function getVariableFromName(string $variableName): int
+    public function getLanguage(): string
     {
-        switch ($variableName) {
-            case DaedalusVariableEnum::OXYGEN:
-                return $this->oxygen;
-            case DaedalusVariableEnum::FUEL:
-                return $this->fuel;
-            case DaedalusVariableEnum::HULL:
-                return $this->hull;
-            case DaedalusVariableEnum::SHIELD:
-                return $this->shield;
-            default:
-                throw new \LogicException('this is not a valid daedalusVariable');
-        }
+        return $this->daedalusInfo->getLocalizationConfig()->getLanguage();
+    }
+
+    public function getGameConfig(): GameConfig
+    {
+        return $this->daedalusInfo->getGameConfig();
+    }
+
+    public function getGameStatus(): string
+    {
+        return $this->daedalusInfo->getGameStatus();
+    }
+
+    public function getName(): string
+    {
+        return $this->daedalusInfo->getName();
     }
 }

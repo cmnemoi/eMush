@@ -29,25 +29,27 @@
       <segment id="consume_success" state="final">
         <source>consume_success</source>
         <target>{version, select,
-    1 {**{character}** devoured their small meal, burp.}
-    2 {**{character}** devoured their big meal.}
-    3 {**{character}** devoured their nice little meal.} 
-    4 {**{character}** ate their nice little meal, hic.}
-    5 {**{character}** ate their big meal.} 
-    6 {**{character}** ate their little snack.} 
-    7 {**{character}** has filled their belly.} 
-    8 {**{character}** has filled their belly, burp.}
-    9 {**{character}** has filled their paunch.}  
-    10 {**{character}** has filled their paunch, burp.} 
-    11 {**{character}** has filled their stomach.}
-    12 {**{character}** has filled their stomach, burp.}
-    13 {**{character}** has filled their stomach, hic.}
-    14 {**{character}** has devoured their ration.} 
-    15 {**{character}** munched their little snack.} 
-    16 {**{character}** munched their little snack, burp.}
-    17 {**{character}** munched their little snack, hic.}
-    18 {**{character}** munched their small meal, burp.} 
-}</target>
+            1 {**{character}** devoured their small meal, burp.}
+            2 {**{character}** devoured their big meal.}
+            3 {**{character}** devoured their nice little meal.} 
+            4 {**{character}** ate their nice little meal, hic.}
+            5 {**{character}** ate their big meal.} 
+            6 {**{character}** ate their little snack.} 
+            7 {**{character}** has filled their belly.} 
+            8 {**{character}** has filled their belly, burp.}
+            9 {**{character}** has filled their paunch.}  
+            10 {**{character}** has filled their paunch, burp.} 
+            11 {**{character}** has filled their stomach.}
+            12 {**{character}** has filled their stomach, burp.}
+            13 {**{character}** has filled their stomach, hic.}
+            14 {**{character}** has devoured their ration.} 
+            15 {**{character}** munched their little snack.} 
+            16 {**{character}** munched their little snack, burp.}
+            17 {**{character}** munched their little snack, hic.}
+            18 {**{character}** munched their small meal, burp.} 
+            other {**{character}** munched their small meal, hic.}
+        }
+        </target>
       </segment>
     </unit>
     <unit id="consume_drug">
@@ -143,7 +145,7 @@
         <target>{version, select,
     1 {**{character}* tried to hit **{target_character}**, alas their feeble attempt missed and hit the wall... Ouch...}
     2 {**{character}** misses their hit on **{target_character}**.}
-    other {"invalid version number"}
+    other {**{character}** misses their hit on **{target_character}**.}
 }</target>
       </segment>
     </unit>
@@ -298,7 +300,7 @@
     2 {**{character}** is tearing up a piece of paper but looks very satisfied.}
     3 {**{character}** is tearing up a piece of paper but looks very worried.}
     4 {**{character}** is tearing up a piece of paper but looks very relieved.}
-    other {"invalid version number"}
+    other {**{character}** is tearing up a piece of paper but looks very relieved.}
 }</target>
       </segment>
     </unit>
@@ -358,7 +360,7 @@
     8 {**{character}** took some oxygen out of the reservoir very cautiously. their smile reminds you of something. }
     9 {**{character}** took some oxygen out of the reservoir very cautiously. You recognize that laugh... }
     10 {**{character}** took some oxygen out of the reservoir very cautiously. Maybe you should keep a closer eye on them.}
-    other {invalid version number}
+    other {**{character}** took some oxygen out of the reservoir very cautiously. They looks shady.}
 }</target>
       </segment>
     </unit>

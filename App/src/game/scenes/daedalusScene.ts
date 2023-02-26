@@ -795,6 +795,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.playerSprite.updateNavMesh();
         this.playerSprite.checkPositionDepth();
         this.playerSprite.applyEquipmentInteraction();
+        this.playerSprite.resetMove();
 
         this.room.players.forEach((roomPlayer: Player) => {
             if (roomPlayer.id !== this.player.id) {

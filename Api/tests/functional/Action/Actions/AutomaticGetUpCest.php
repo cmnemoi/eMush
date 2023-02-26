@@ -51,8 +51,12 @@ class AutomaticGetUpCest
         ;
         $I->haveInRepository($statusConfig);
 
+        $dirtyConfig = new StatusConfig();
+        $dirtyConfig->setStatusName(PlayerStatusEnum::DIRTY)->buildName(GameConfigEnum::TEST);
+        $I->haveInRepository($dirtyConfig);
+
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig->setStatusConfigs(new ArrayCollection([$statusConfig]));
+        $gameConfig->setStatusConfigs(new ArrayCollection([$statusConfig, $dirtyConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */

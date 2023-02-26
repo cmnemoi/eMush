@@ -11,17 +11,15 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Shower extends AbstractAction
 {
     protected string $name = ActionEnum::SHOWER;
-
-    private PlayerServiceInterface $playerService;
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -50,8 +48,13 @@ class Shower extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        if ($dirty = $this->player->getStatusByName(PlayerStatusEnum::DIRTY)) {
-            $this->player->removeStatus($dirty);
-        }
+        $event = new StatusEvent(
+            PlayerStatusEnum::DIRTY,
+            $this->player,
+            $this->action->getActionTags(),
+            new \DateTime()
+        );
+
+        $this->eventService->callEvent($event, StatusEvent::STATUS_REMOVED);
     }
 }

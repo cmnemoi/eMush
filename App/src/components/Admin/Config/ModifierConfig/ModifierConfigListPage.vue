@@ -81,7 +81,7 @@ export default defineComponent({
                 { key: 'admin.modifierConfig.preventEventModifier', value: {
                     endpoint: 'prevent_event_modifier_configs',
                     detailPage: 'AdminEventModifierConfigDetail'
-                    } },
+                } },
                 { key: 'admin.modifierConfig.directModifier', value: {
                     endpoint: 'direct_modifier_configs',
                     detailPage: 'AdminDirectModifierConfigDetail'

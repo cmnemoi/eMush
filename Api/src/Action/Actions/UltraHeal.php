@@ -54,12 +54,12 @@ class UltraHeal extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new GameVariableLevel([
-            'target' => GameVariableLevel::PLAYER,
-            'checkMode' => GameVariableLevel::IS_MAX,
-            'variableName' => PlayerVariableEnum::HEALTH_POINT,
-            'groups' => ['visibility'],
-        ]));
+        // $metadata->addConstraint(new GameVariableLevel([
+        //     'target' => GameVariableLevel::PLAYER,
+        //     'checkMode' => GameVariableLevel::IS_MAX,
+        //     'variableName' => PlayerVariableEnum::HEALTH_POINT,
+        //     'groups' => ['visibility'],
+        // ]));
     }
 
     protected function checkResult(): ActionResult
@@ -84,7 +84,7 @@ class UltraHeal extends AbstractAction
             $this->getAction()->getActionTags(),
             $time
         );
-        $this->eventService->callEvent($healEvent, ApplyEffectEvent::HEAL);
+        $this->eventService->callEvent($healEvent, ApplyEffectEvent::ULTRA_HEAL);
 
         $equipmentEvent = new InteractWithEquipmentEvent(
             $parameter,

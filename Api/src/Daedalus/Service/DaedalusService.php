@@ -429,6 +429,8 @@ class DaedalusService implements DaedalusServiceInterface
                 break;
         }
 
+        $this->persist($daedalus);
+
         return $daedalus;
     }
 

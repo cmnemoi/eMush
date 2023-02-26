@@ -160,6 +160,7 @@ class SymptomConfigData
             'visibility' => 'public',
             'symptomActivationRequirements' => [
                 'player_status_dirty',
+                'reason_dirty',
             ],
         ],
         [

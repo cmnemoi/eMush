@@ -537,7 +537,7 @@ class StatusConfigData
         [
             'name' => 'WATCHED_PUBLIC_BROADCAST_default',
             'statusName' => 'WATCHED_PUBLIC_BROADCAST',
-            'visibility' => 'private',
+            'visibility' => 'hidden',
             'type' => 'status_config',
             'chargeVisibility' => null,
             'chargeStrategy' => 'none',

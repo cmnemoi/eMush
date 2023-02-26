@@ -413,7 +413,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $watched_public_broadcast = new StatusConfig();
         $watched_public_broadcast
             ->setStatusName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
-            ->setVisibility(VisibilityEnum::PRIVATE)
+            ->setVisibility(VisibilityEnum::HIDDEN)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($watched_public_broadcast);

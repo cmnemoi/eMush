@@ -21,9 +21,7 @@ const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "room-lo
 const CommunicationService = {
 
     loadChannels: async(): Promise<Channel[]> => {
-        const channels = [
-            (new Channel()).load({ scope: ChannelType.TIPS, id: ChannelType.TIPS }),
-        ];
+        const channels = [];
 
         const roomLogChannelData = await ApiService.get(ROOM_LOGS_CHANNEL_ENDPOINT);
         if (roomLogChannelData.data) {

@@ -48,8 +48,9 @@ export default defineComponent ({
                 return require('@/assets/images/comms/wall.png');
             case ChannelType.ROOM_LOG:
                 return require('@/assets/images/comms/local.png');
-            case ChannelType.TIPS:
-                return require('@/assets/images/comms/tip.png');
+            // TODO: not implemented yet
+            // case ChannelType.TIPS:
+            //     return require('@/assets/images/comms/tip.png');
             case "new":
             default:
                 return require('@/assets/images/comms/newtab.png');

@@ -4,6 +4,7 @@ export enum ChannelType {
     PUBLIC = 'public',
     PRIVATE = 'private',
     ROOM_LOG = 'room_log',
-    TIPS = 'tips',
+    // TODO: not implemented yet
+    // TIPS = 'tips',
     NEW_CHANNEL = 'new_channel'
 };

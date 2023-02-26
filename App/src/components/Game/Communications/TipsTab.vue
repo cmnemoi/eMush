@@ -1,5 +1,5 @@
 <template>
-    <TabContainer id="tips-tab" :channel="channel">
+    <TabContainer id="tips-tab" :channel="channel" style="display: none;">
         <section class="unit">
             <div class="banner">
                 <span><img src="@/assets/images/comms/tip.png"> Conseils <img src="@/assets/images/comms/tip.png"></span>

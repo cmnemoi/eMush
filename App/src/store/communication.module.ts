@@ -182,7 +182,8 @@ const mutations: MutationTree<any> = {
 
 export function sortChannels(channels: Channel[], currentPlayerKey: string): Channel[] {
     const channelOrderValue = {
-        [ChannelType.TIPS] : 0,
+        // TODO: not implemented yet
+        // [ChannelType.TIPS] : 0,
         [ChannelType.FAVORITES] : 1,
         [ChannelType.MUSH] : 2,
         [ChannelType.ROOM_LOG] : 3,

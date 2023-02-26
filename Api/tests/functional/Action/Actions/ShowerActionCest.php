@@ -22,6 +22,7 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -38,6 +39,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -55,6 +57,105 @@ class ShowerActionCest
         $this->showerAction = $I->grabService(Shower::class);
     }
 
+    public function testShower(FunctionalTester $I)
+    {
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setStatusName(StatusEnum::ATTEMPT)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($attemptConfig);
+
+        $dirtyConfig = new StatusConfig();
+        $dirtyConfig->setStatusName(PlayerStatusEnum::DIRTY)->buildName(GameConfigEnum::TEST);
+        $I->haveInRepository($dirtyConfig);
+
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $dirtyConfig]))
+        ;
+        $I->flushToDatabase();
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $dirtyStatus = new Status($player, $dirtyConfig);
+        $I->haveInRepository($dirtyStatus);
+
+        $action = new Action();
+        $action
+            ->setActionName(ActionEnum::SHOWER)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost(2)
+            ->buildName(GameConfigEnum::TEST)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+        ;
+        $I->haveInRepository($action);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['actions' => new ArrayCollection([$action])]);
+
+        $gameEquipment = new GameEquipment($room);
+        $gameEquipment
+            ->setEquipment($equipmentConfig)
+            ->setName('shower')
+        ;
+        $I->haveInRepository($gameEquipment);
+
+        $I->refreshEntities($player);
+
+        $this->showerAction->loadParameters($action, $player, $gameEquipment);
+
+        $I->assertTrue($this->showerAction->isVisible());
+        $I->assertNull($this->showerAction->cannotExecuteReason());
+
+        $this->showerAction->execute();
+
+        $I->assertEquals(6, $player->getHealthPoint());
+        $I->assertEquals(0, $player->getActionPoint());
+        $I->assertCount(0, $player->getStatuses());
+
+        $roomLogs = $I->grabEntitiesFromRepository(RoomLog::class);
+
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $player->getPlayerInfo()->getId(),
+            'log' => ActionLogEnum::SHOWER_HUMAN,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
+    }
+
     public function testMushShower(FunctionalTester $I)
     {
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
@@ -66,9 +167,13 @@ class ShowerActionCest
         ;
         $I->haveInRepository($attemptConfig);
 
+        $dirtyConfig = new StatusConfig();
+        $dirtyConfig->setStatusName(PlayerStatusEnum::DIRTY)->buildName(GameConfigEnum::TEST);
+        $I->haveInRepository($dirtyConfig);
+
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$attemptConfig]))
+            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $dirtyConfig]))
         ;
         $I->flushToDatabase();
 

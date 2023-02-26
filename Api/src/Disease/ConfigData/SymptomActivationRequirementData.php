@@ -2,10 +2,18 @@
 
 namespace Mush\Disease\ConfigData;
 
+use Mush\Status\Enum\PlayerStatusEnum;
+
 /** @codeCoverageIgnore */
 class SymptomActivationRequirementData
 {
     public static array $dataArray = [
+        [
+            'name' => 'reason_dirty',
+            'activationRequirementName' => 'reason',
+            'activationRequirement' => PlayerStatusEnum::DIRTY,
+            'value' => 100,
+        ],
       [
         'name' => 'item_in_room_schrodinger',
         'activationRequirementName' => 'item_in_room',

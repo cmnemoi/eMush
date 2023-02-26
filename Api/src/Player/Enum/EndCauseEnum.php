@@ -50,14 +50,6 @@ class EndCauseEnum
     public const NO_INFIRMERY = 'no_infirmerie'; // cause of death lost in a bug
 
     public const DEATH_CAUSE_MAP = [
-        ActionEnum::HIT => self::ASSASSINATED,
-        ActionEnum::SHOOT => self::ASSASSINATED,
-        ActionEnum::ATTACK => self::ASSASSINATED,
-        PlayerEvent::METAL_PLATE => self::METAL_PLATE,
-        StatusEnum::FIRE => self::BURNT,
-        ActionEnum::REMOVE_SPORE => self::SELF_EXTRACTED,
-        ModifierScopeEnum::EVENT_CLUMSINESS => self::CLUMSINESS,
-        ActionEnum::AUTO_DESTROY => self::SUPER_NOVA,
         self::STILL_LIVING => self::STILL_LIVING,
         self::SUICIDE => self::SUICIDE,
         self::SOL_RETURN => self::SOL_RETURN,
@@ -91,5 +83,18 @@ class EndCauseEnum
         self::INFECTION => self::INFECTION,
         self::MANKAROG => self::MANKAROG,
         self::NO_INFIRMERY => self::NO_INFIRMERY,
+        ActionEnum::HIT => self::ASSASSINATED,
+        ActionEnum::SHOOT => self::ASSASSINATED,
+        ActionEnum::ATTACK => self::ASSASSINATED,
+        PlayerEvent::METAL_PLATE => self::METAL_PLATE,
+        StatusEnum::FIRE => self::BURNT,
+        ActionEnum::REMOVE_SPORE => self::SELF_EXTRACTED,
+        ModifierScopeEnum::EVENT_CLUMSINESS => self::CLUMSINESS,
+        ActionEnum::AUTO_DESTROY => self::SUPER_NOVA,
     ];
+
+    public static function getAll(): array
+    {
+        return array_keys(self::DEATH_CAUSE_MAP);
+    }
 }

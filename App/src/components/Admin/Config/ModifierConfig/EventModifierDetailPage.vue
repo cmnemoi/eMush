@@ -51,7 +51,7 @@
                         :label="$t('admin.modifierConfig.delta')"
                         id="modifierConfig_delta"
                         v-model="modifierConfig.delta"
-                        type="text"
+                        type="number"
                         :errors="errors.delta"
                     />
                     <Input

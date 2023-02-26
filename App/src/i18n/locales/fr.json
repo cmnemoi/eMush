@@ -211,6 +211,7 @@
 			"mode": "Mode de calcul",
 			"variableModifier": "Modificateur de variables",
 			"triggerEventModifier": "Déclencheurs d'événements",
+			"preventEventModifier": "Bloqueur d'événements",
 			"directModifier": "Modificateur direct",
 			"modifierRequirement": "Conditions d'activation",
 			"triggeredEvent": "Événement déclenché",

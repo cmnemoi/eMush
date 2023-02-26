@@ -29,7 +29,7 @@ const MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_
 // @ts-ignore
 const VARIABLE_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "variable_event_modifier_configs");
 // @ts-ignore
-const TARGET_EVENT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "target_event_modifier_configs");
+const TRIGGER_EVENT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "trigger_event_modifier_configs");
 // @ts-ignore
 const PREVENT_EVENT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "prevent_event_modifier_configs");
 // @ts-ignore
@@ -105,7 +105,7 @@ const MECHANICS_ENDPOINTS: Map<string, string> = new Map([
 
 const MODIFIER_CONFIG_ENDPOINTS: Map<string, string> = new Map([
     ['variableeventmodifierconfig', VARIABLE_MODIFIER_CONFIG_ENDPOINT],
-    ['targeteventmodifierconfig', TARGET_EVENT_MODIFIER_CONFIG_ENDPOINT],
+    ['triggereventmodifierconfig', TRIGGER_EVENT_MODIFIER_CONFIG_ENDPOINT],
     ['preventeventmodifierconfig', PREVENT_EVENT_MODIFIER_CONFIG_ENDPOINT],
     ['directmodifierconfig', DIRECT_MODIFIER_CONFIG_ENDPOINT],
 ]);
@@ -187,7 +187,6 @@ const GameConfigService = {
         }
 
         console.log(modifierType);
-        console.log(modifierConfig.id);
 
         const modifierConfigData = await ApiService.put(MODIFIER_CONFIG_ENDPOINTS.get(modifierType) + '/' + modifierConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', modifierConfig.jsonEncode())
             .catch((e) => {

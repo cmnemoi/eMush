@@ -31,6 +31,7 @@ use Mush\Game\ConfigData\TriumphConfigDataLoader;
 use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
+use Mush\Modifier\ConfigData\PreventEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Place\ConfigData\PlaceConfigDataLoader;
@@ -47,6 +48,7 @@ class ConfigDataLoaderService
                                 TriggerEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader,
                                 DirectModifierConfigDataLoader $directModifierConfigDataLoader,
                                 VariableEventConfigDataLoader $variableEventConfigDataLoader,
+                                PreventEventModifierConfigDataLoader $preventEventModifierConfigDataLoader,
                                 ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader,
                                 StatusConfigDataLoader $statusConfigDataLoader,
                                 SymptomActivationRequirementDataLoader $symptomActivationRequirementDataLoader,
@@ -84,6 +86,7 @@ class ConfigDataLoaderService
                 $modifierActivationRequirementDataLoader,
                 $variableEventModifierConfigDataLoader,
                 $triggerEventModifierConfigDataLoader,
+                $preventEventModifierConfigDataLoader,
                 $directModifierConfigDataLoader,
                 $chargeStatusConfigDataLoader,
                 $statusConfigDataLoader,

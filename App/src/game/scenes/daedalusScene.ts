@@ -419,7 +419,7 @@ export default class DaedalusScene extends Phaser.Scene
             this.createEquipments(this.map);
             this.createPlayers();
 
-        } else if (this.isEquipmentModified()) {
+        } else if (this.areEquipmentsModified()) {
             this.room = newRoom;
 
             this.deleteEquipmentsAndDecoration();
@@ -534,24 +534,31 @@ export default class DaedalusScene extends Phaser.Scene
         }
     }
 
-    isEquipmentModified(): boolean
+    areEquipmentsModified(): boolean
     {
         const sceneGameObjects = this.children.list;
 
         const room = this.player.room;
 
+        let equipmentCount = 0;
+
         if (room === null) { throw new Error("player room should be defined");}
+        const updatedEquipments = room.equipments;
         for (let i=0; i < sceneGameObjects.length; i++) {
             const gameObject = sceneGameObjects[i];
 
             if (gameObject instanceof EquipmentObject &&
-                room.equipments.filter((equipment: Equipment) => {return equipment.key === gameObject.name;}).length === 0
+                updatedEquipments.filter((equipment: Equipment) => {return equipment.key === gameObject.name;}).length === 0
             ) {
                 return true;
             }
-
+            equipmentCount = equipmentCount + 1;
         }
-        return false;
+
+        if (updatedEquipments.length === equipmentCount) {
+            return false;
+        }
+        return true;
     }
 
     createRoom(): MushTiledMap

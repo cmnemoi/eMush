@@ -86,10 +86,12 @@ class ActionLogEnum
     public const ATTACK_FAIL = 'attack_fail';
     public const ATTACK_CRITICAL_SUCCESS = 'attack_critical_success';
     public const ATTACK_CRITICAL_FAIL = 'attack_critical_fail';
+    public const ATTACK_ONE_SHOT = 'attack_one_shot';
     public const SHOOT_SUCCESS = 'shoot_success';
     public const SHOOT_FAIL = 'shoot_fail';
     public const SHOOT_CRITICAL_SUCCESS = 'shoot_critical_success';
     public const SHOOT_CRITICAL_FAIL = 'shoot_critical_fail';
+    public const SHOOT_ONE_SHOT = 'shoot_one_shot';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -297,12 +299,14 @@ class ActionLogEnum
             ActionOutputEnum::FAIL => self::ATTACK_FAIL,
             ActionOutputEnum::CRITICAL_FAIL => self::ATTACK_CRITICAL_FAIL,
             ActionOutputEnum::CRITICAL_SUCCESS => self::ATTACK_CRITICAL_SUCCESS,
+            ActionOutputEnum::ONE_SHOT => self::ATTACK_ONE_SHOT,
         ],
         ActionEnum::SHOOT => [
             ActionOutputEnum::SUCCESS => self::SHOOT_SUCCESS,
             ActionOutputEnum::FAIL => self::SHOOT_FAIL,
             ActionOutputEnum::CRITICAL_FAIL => self::SHOOT_CRITICAL_FAIL,
             ActionOutputEnum::CRITICAL_SUCCESS => self::SHOOT_CRITICAL_SUCCESS,
+            ActionOutputEnum::ONE_SHOT => self::SHOOT_ONE_SHOT,
         ],
         ActionEnum::SUICIDE => [
             ActionOutputEnum::SUCCESS => self::SUICIDE_SUCCESS,

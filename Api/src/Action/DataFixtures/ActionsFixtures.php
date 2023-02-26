@@ -253,6 +253,7 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::CRITICAL_FAIL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::ONE_SHOT, VisibilityEnum::PUBLIC)
         ;
 
         $manager->persist($attackAction);
@@ -747,6 +748,7 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::CRITICAL_FAIL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::ONE_SHOT, VisibilityEnum::PUBLIC)
         ;
         $manager->persist($shootAction);
 

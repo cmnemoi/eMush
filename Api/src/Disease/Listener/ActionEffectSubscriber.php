@@ -86,7 +86,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $actionName = $event->getEventName();
+        $actionName = current($event->getTags());
 
         $this->diseaseCauseService->handleDiseaseForCause($actionName, $player);
     }

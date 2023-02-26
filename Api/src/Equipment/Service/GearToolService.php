@@ -110,6 +110,7 @@ class GearToolService implements GearToolServiceInterface
         /** @var Collection $tools */
         $tools = new ArrayCollection();
 
+        /** @var GameEquipment $tool */
         foreach ($this->getToolsOnReach($player) as $tool) {
             /** @var Tool $toolMechanic */
             $toolMechanic = $tool->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);

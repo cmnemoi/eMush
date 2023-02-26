@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\ConfigData;
 
+/** @codeCoverageIgnore */
 class EquipmentConfigData
 {
     public static array $dataArray = [
@@ -2937,9 +2938,10 @@ class EquipmentConfigData
             'actions' => [
                 'disassemble_percent_25_cost_3',
                 'examine',
-                'dispense',
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                'tool_narcotic_distiller_default',
+            ],
             'initStatuses' => [
                 'electric_charges_narcotic_distiller_default',
             ],
@@ -3031,9 +3033,10 @@ class EquipmentConfigData
                 'sabotage_percent_12',
                 'report_equipment',
                 'examine',
-                'coffee',
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                'tool_coffee_machine_default',
+            ],
             'initStatuses' => [
                 'electric_charges_coffee_machine_default',
             ],

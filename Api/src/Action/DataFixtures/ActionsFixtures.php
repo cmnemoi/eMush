@@ -284,6 +284,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::OPEN)
             ->setActionName(ActionEnum::OPEN)
             ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost(1)
             ->setInjuryRate(1)
         ;
 

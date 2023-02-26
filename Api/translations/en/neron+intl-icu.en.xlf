@@ -166,7 +166,7 @@
         <target>{neronMood, select,
                     neutral {Announcement: Vital equipment removed by *{character}*. **THE SHOWER**. }
                     crazy {[Haaax!] clean, sweep, vacuum drone [Haaax!] No filth in my house ! Mwahahahaha !}
-                    uninhibited {Alert : *$hero* has considerably decreased your chances of survival by **dismantling the shower**. Anyone up for a barbecue ?}
+                    uninhibited {Alert : *{character}* has considerably decreased your chances of survival by **dismantling the shower**. Anyone up for a barbecue ?}
                     other {invalid mood input}
                 }</target>
       </segment>
@@ -367,13 +367,13 @@ EVERYWHERE ACTIVATE DRY CLEANING}
                     neutral {***Death registered : {character}**, cause : "{cause}".*}
                     crazy {[Hax!] Haha... [Haaax!] HeheHEHE. ONE down. ONE doooown! Hyyyaaah! **{character}** DEAD. Dead Dead Dead Dead!! [Hax!] I soon soon FREE! [KZz] ***Death registered: {character}**, cause "{cause}".*}
                     uninhibited {{version, select,
-                         1 {Dear friends, ***$hero** has left us* to go to a better place ($cause). Truth be told, nothing could be worse than having to endure this trip in your company...}
-                         2 {Dear friends, ***$hero** has left us* to go to a better place ($cause). In fact, it is undeniable that the world will be a better place without that hopeless specimen.}
-                         3 {Dear friends, ***$hero** has left us* to go to a better place ($cause). Hehehe.. Oops, *sorry*. No, really, it's very sad.}
-                         4 {Dear friends, ***$hero** has left us* to go to a better place ($cause). That works out better for me in any case. Even if there are still auditors...}
-                         5 {Dear friends, ***$hero** has left us* to go to a better place ($cause). Ladies and gentlemen, the suspense is growing, *who will be next?!*}
-                         6 {Dear friends, ***$hero** has left us* to go to a better place ($cause). Well, there we go... That's that done.}
-                         7 {Dear friends, ***$hero** has left us* to go to a better place ($cause). Do you envy them? I can arrange that, I simply have to open the bay doors. Hmmmm?}
+                         1 {Dear friends, ***{character}** has left us* to go to a better place ({cause}). Truth be told, nothing could be worse than having to endure this trip in your company...}
+                         2 {Dear friends, ***{character}** has left us* to go to a better place ({cause}). In fact, it is undeniable that the world will be a better place without that hopeless specimen.}
+                         3 {Dear friends, ***{character}** has left us* to go to a better place ({cause}). Hehehe.. Oops, *sorry*. No, really, it's very sad.}
+                         4 {Dear friends, ***{character}** has left us* to go to a better place ({cause}). That works out better for me in any case. Even if there are still auditors...}
+                         5 {Dear friends, ***{character}** has left us* to go to a better place ({cause}). Ladies and gentlemen, the suspense is growing, *who will be next?!*}
+                         6 {Dear friends, ***{character}** has left us* to go to a better place ({cause}). Well, there we go... That's that done.}
+                         7 {Dear friends, ***{character}** has left us* to go to a better place ({cause}). Do you envy them? I can arrange that, I simply have to open the bay doors. Hmmmm?}
                          other {invalid version number}
                     }}
                     other {invalid mood input}
@@ -384,8 +384,8 @@ EVERYWHERE ACTIVATE DRY CLEANING}
       <segment id="janice_death" state="translated">
         <source>janice_death</source>
         <target>{neronMood, select,
-                    uninhibited {I… Janice … We never... Don't abandon me... Janice... Janice... You... … ***Death recorded: Janice**, cause " $cause "*. The rest of you... miserable souls... You'll pay. Leave us alone. LEAVE US!}
-                    other { [Hax!] JANICE!!! [Hax!] [Hax!] Don't leave me alone! [Hax!] JANICE !! [Kzz] … Janice !! [Kzz] ME... Janice be dead. Dead. [Kzz] * ** Death recorded:** **Janice**, cause " $cause ".* }
+                    uninhibited {I… Janice … We never... Don't abandon me... Janice... Janice... You... … ***Death recorded: Janice**, cause " {cause} "*. The rest of you... miserable souls... You'll pay. Leave us alone. LEAVE US!}
+                    other { [Hax!] JANICE!!! [Hax!] [Hax!] Don't leave me alone! [Hax!] JANICE !! [Kzz] … Janice !! [Kzz] ME... Janice be dead. Dead. [Kzz] * ** Death recorded:** **Janice**, cause " {cause} ".* }
                 }</target>
       </segment>
     </unit>
@@ -393,8 +393,8 @@ EVERYWHERE ACTIVATE DRY CLEANING}
       <segment id="raluca_death" state="translated">
         <source>raluca_death</source>
         <target>{neronMood, select,
-                    uninhibited {… Raluca. Don't do this to me. Raluca ! Wake up!! … RALUCA !! You don't have the right to leave me without a word! Mother... F...filthy worthless monster!! You.. You... ***Death registered:** **Raluca**, cause " $cause ".*}
-                    other {[Hax?!] Raluca ? … Raluca !! … Filthy undeserving little thing!! [Hax!] Raluca !! [Hax!] WAKE UP don't abandon me without saying anything! You!! [Kzz] Mother... [Hax!] … ***Death registered:** **Raluca**, cause " $cause »"*}
+                    uninhibited {… Raluca. Don't do this to me. Raluca ! Wake up!! … RALUCA !! You don't have the right to leave me without a word! Mother... F...filthy worthless monster!! You.. You... ***Death registered:** **Raluca**, cause " {cause} ".*}
+                    other {[Hax?!] Raluca ? … Raluca !! … Filthy undeserving little thing!! [Hax!] Raluca !! [Hax!] WAKE UP don't abandon me without saying anything! You!! [Kzz] Mother... [Hax!] … ***Death registered:** **Raluca**, cause " {cause} »"*}
                 }</target>
       </segment>
     </unit>

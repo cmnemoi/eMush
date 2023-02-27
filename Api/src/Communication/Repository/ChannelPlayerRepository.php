@@ -9,6 +9,7 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 
@@ -57,10 +58,12 @@ class ChannelPlayerRepository extends ServiceEntityRepository
                 'playerInfo.id',
                 $subQuery2->getDQL()
             ))
+            ->andWhere($queryBuilder->expr()->eq('playerInfo.gameStatus', ':gameStatus'))
             ->setParameter('private', ChannelScopeEnum::PRIVATE)
             ->setParameter('currentChannel', $channel)
             ->setParameter('maxChannel', $maxChannel)
             ->setParameter('daedalus', $daedalus)
+            ->setParameter('gameStatus', GameStatusEnum::CURRENT) // only alive players should be able to join a channel
         ;
 
         return $queryBuilder->getQuery()->getResult();

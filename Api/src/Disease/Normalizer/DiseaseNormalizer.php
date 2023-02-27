@@ -7,7 +7,10 @@ use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\SymptomActivationRequirementEnum;
+use Mush\Game\Entity\VariableEventConfig;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
@@ -47,8 +50,9 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
             $language
         );
 
+        $description = $this->getVariableEventModifierEffects($diseaseConfig, $description, $language);
+        $description = $this->getDirectModifierEffects($diseaseConfig, $description, $language);
         $description = $this->getSymptomEffects($diseaseConfig, $description, $language);
-        $description = $this->getModifierEffects($diseaseConfig, $description, $language);
 
         return [
             'key' => $diseaseConfig->getDiseaseName(),
@@ -101,7 +105,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         return $description;
     }
 
-    private function getModifierEffects(DiseaseConfig $diseaseConfig, string $description, string $language): string
+    private function getVariableEventModifierEffects(DiseaseConfig $diseaseConfig, string $description, string $language): string
     {
         // Get GameModifier effect description
         /** @var VariableEventModifierConfig $modifierConfig */
@@ -147,6 +151,71 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
                 'action_name' => $action,
                 'emote' => $emote,
                 'quantity' => abs($delta),
+            ];
+
+            $effect = $this->translationService->translate(
+                $key . '.description',
+                $parameters,
+                'modifiers',
+                $language
+            );
+
+            if ($effect) {
+                $description = $description . '//' . $effect;
+            }
+        }
+
+        return $description;
+    }
+
+    private function getDirectModifierEffects(DiseaseConfig $diseaseConfig, string $description, string $language): string
+    {
+        // Get GameModifier effect description
+        /** @var DirectModifierConfig $modifierConfig */
+        foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
+            if (!$modifierConfig instanceof DirectModifierConfig) {
+                continue;
+            }
+
+            /** @var VariableEventConfig $triggeredEvent */
+            $triggeredEvent = $modifierConfig->getTriggeredEvent();
+            if ($triggeredEvent->getVariableHolderClass() !== 'player') {
+                throw new \Exception('Disease DirectModifierConfig should be held only by a player, not a ' . $triggeredEvent->getVariableHolderClass() . '');
+            }
+            $eventName = $triggeredEvent->getEventName();
+            switch ($eventName) {
+                case VariableEventInterface::CHANGE_VALUE_MAX:
+                    $key = 'max_point';
+                    break;
+                case VariableEventInterface::CHANGE_VARIABLE:
+                    $key = 'change_point';
+                    break;
+                case VariableEventInterface::SET_VALUE:
+                    $key = 'set_point';
+                    break;
+                default:
+                    throw new \Exception('unknown event name');
+                    break;
+            }
+            $quantity = $triggeredEvent->getQuantity();
+            if ($quantity < 0) {
+                $key = $key . '_decrease';
+            } else {
+                $key = $key . '_increase';
+            }
+
+            $targetVariable = $triggeredEvent->getTargetVariable();
+
+            $emoteMap = PlayerVariableEnum::getEmoteMap();
+            if (isset($emoteMap[$targetVariable])) {
+                $emote = $emoteMap[$targetVariable];
+            } else {
+                $emote = '';
+            }
+
+            $parameters = [
+                'emote' => $emote,
+                'quantity' => abs($quantity),
             ];
 
             $effect = $this->translationService->translate(

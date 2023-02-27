@@ -149,6 +149,7 @@ const mutations: MutationTree<any> = {
     },
 
     setLoadingForChannel(state: any, { channel, newStatus }): void {
+        if (!channel) return;
         state.loadingByChannelId[channel.id] = newStatus;
     },
 
@@ -176,6 +177,7 @@ const mutations: MutationTree<any> = {
     },
 
     setChannelMessages(state: any, { channel, messages }): void {
+        if (!channel) return;
         state.messagesByChannelId[channel.id] = messages;
     }
 };

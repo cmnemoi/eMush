@@ -40,7 +40,7 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
         /** @var Player $player */
         $player = $object;
 
-        /** @var Player $currentPlayer */
+        /* @var Player $currentPlayer */
         if (isset($context['currentPlayer'])) {
             $currentPlayer = $context['currentPlayer'];
         }

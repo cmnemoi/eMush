@@ -105,7 +105,7 @@ class Search extends AbstractAction
         $hiddenBy = $hiddenStatus->getTarget();
 
         $statusEvent = new StatusEvent(
-            $hiddenItem->getName(),
+            EquipmentStatusEnum::HIDDEN,
             $hiddenItem,
             $this->getAction()->getActionTags(),
             new \DateTime(),

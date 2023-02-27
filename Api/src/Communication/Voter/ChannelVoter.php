@@ -74,7 +74,7 @@ class ChannelVoter extends Voter
 
         $playerCanCommunicate = $this->channelService->canPlayerCommunicate($player);
 
-        return ((!$player->isAlive()) || ($player->isAlive() && $playerCanCommunicate)) && (
+        return $playerCanCommunicate && (
             $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
                 ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
         );

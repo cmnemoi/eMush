@@ -15,8 +15,11 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Modifier\Service\ModifierRequirementService;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class ModifierActivationRequirementServiceTest extends TestCase
@@ -118,6 +121,8 @@ class ModifierActivationRequirementServiceTest extends TestCase
         $player1 = new Player();
         $player1->setPlace($room);
 
+        $playerInfo = new PlayerInfo($player1, new User(), new CharacterConfig());
+
         $modifierActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PLAYER_IN_ROOM);
         $modifierActivationRequirement->setActivationRequirement(ModifierRequirementEnum::NOT_ALONE);
 
@@ -141,6 +146,8 @@ class ModifierActivationRequirementServiceTest extends TestCase
 
         $player2 = new Player();
         $player2->setPlace($room);
+        $playerInfo = new PlayerInfo($player2, new User(), new CharacterConfig());
+
         $result = $this->service->getActiveModifiers($modifierCollection, [ActionEnum::DROP], $player1);
         $this->assertEquals($result, $modifierCollection);
     }

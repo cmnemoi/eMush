@@ -13,7 +13,6 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ChannelVoter extends Voter
 {
-    public const POST = 'post';
     public const VIEW = 'view';
 
     private ChannelServiceInterface $channelService;
@@ -57,21 +56,11 @@ class ChannelVoter extends Voter
         $channel = $subject;
 
         switch ($attribute) {
-            case self::POST:
-                return $this->canPost($playerInfo);
             case self::VIEW:
                 return $this->canView($channel, $playerInfo);
         }
 
         throw new \LogicException('This code should not be reached!');
-    }
-
-    private function canPost(PlayerInfo $playerInfo): bool
-    {
-        /** @var Player $player */
-        $player = $playerInfo->getPlayer();
-
-        return $this->channelService->canPlayerCommunicate($player);
     }
 
     private function canView(Channel $channel, PlayerInfo $playerInfo): bool
@@ -82,11 +71,7 @@ class ChannelVoter extends Voter
         // check for pirated channels
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
-        $playerCanCommunicate = $this->channelService->canPlayerCommunicate($player);
-
-        return $playerCanCommunicate && (
-            $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
-                ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
-        );
+        return $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
+            ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()));
     }
 }

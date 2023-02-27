@@ -2,6 +2,8 @@
 
 namespace Mush\Action\ConfigData;
 
+use Mush\Action\Enum\ActionTypeEnum;
+
 /**
  * @codeCoverageIgnore
  */
@@ -251,7 +253,7 @@ class ActionData
         [
             'name' => 'attack',
             'action_name' => 'attack',
-            'types' => ['action_aggressive'],
+            'types' => ['action_aggressive', ActionTypeEnum::ACTION_ATTACK],
             'target' => null,
             'scope' => 'other_player',
             'visibilities' => ['success' => 'public', 'fail' => 'public', 'critical_success' => 'public', 'critical_fail' => 'public', 'one_shot' => 'public'],

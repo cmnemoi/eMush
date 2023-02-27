@@ -10,6 +10,8 @@ use Mush\Daedalus\Entity\Dto\DaedalusCreateRequest;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -24,6 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -41,6 +44,7 @@ class DaedalusController extends AbstractFOSRestController
     private PlayerInfoRepository $playerInfoRepository;
     private ValidatorInterface $validator;
     private RandomServiceInterface $randomService;
+    private GameConfigServiceInterface $gameConfigService;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
@@ -48,7 +52,8 @@ class DaedalusController extends AbstractFOSRestController
         TranslationServiceInterface $translationService,
         PlayerInfoRepository $playerInfoRepository,
         ValidatorInterface $validator,
-        RandomServiceInterface $randomService
+        RandomServiceInterface $randomService,
+        GameConfigServiceInterface $gameConfigService
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusWidgetService = $daedalusWidgetService;
@@ -56,6 +61,7 @@ class DaedalusController extends AbstractFOSRestController
         $this->playerInfoRepository = $playerInfoRepository;
         $this->validator = $validator;
         $this->randomService = $randomService;
+        $this->gameConfigService = $gameConfigService;
     }
 
     /**
@@ -74,7 +80,9 @@ class DaedalusController extends AbstractFOSRestController
         $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($language, $this->getUser());
 
         if ($daedalus === null) {
-            return $this->view(['error' => 'Daedalus not found'], 404);
+            // TODO: handle different game configs (send game config in the request? how to choose the game config?)
+            $gameConfig = $this->gameConfigService->getConfigByName(GameConfigEnum::DEFAULT);
+            $daedalus = $this->daedalusService->createDaedalus($gameConfig, Uuid::v4()->toRfc4122(), $language);
         }
 
         $availableCharacters = $this->daedalusService->findAvailableCharacterForDaedalus($daedalus);

@@ -11,13 +11,22 @@ const PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
 const CLOSED_PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "closed_players");
 
 const PlayerService = {
-    addLikeToPlayer: (player: Player): Promise<void> => {
-        const params = {
-            'player': player.id
-        };
-        return ApiService.post(PLAYER_ENDPOINT + '/' + player.id + '/like', params).then(() => {
-            store.dispatch('auth/userInfo');
+    addLikeToPlayer: (playerId: integer): Promise<void> => {
+        PlayerService.loadClosedPlayer(playerId).then((player) => {
+            if (player) {
+                console.log(player);
+                if (player.likes !== null) {
+                    const params = {
+                        'likes': player.likes + 1,
+                    }
+                    return ApiService.patch(CLOSED_PLAYER_ENDPOINT + '/' + player.id, params).then(() => {
+                        store.dispatch('auth/userInfo');
+                    });
+                }
+            }
         });
+
+        return Promise.resolve();
     },
     loadPlayer: async(playerId: number): Promise<Player | null> => {
         const playerData = await ApiService.get(PLAYER_ENDPOINT + '/' + playerId);

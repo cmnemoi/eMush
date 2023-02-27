@@ -11,7 +11,7 @@ Mush\Player\Entity\ClosedPlayer:
     cycleDeath: 
       groups: [ 'closed_player_read' ]
     likes:
-      groups: [ 'closed_player_read' ]
+      groups: [ 'closed_player_read', 'closed_player_write' ]
     isMush:
       groups: [ 'closed_player_read' ]
     closedDaedalus:

@@ -51,7 +51,7 @@
                         <td>{{ formatDeathDate(crewPlayer.deathDay, crewPlayer.deathCycle) }}</td>
                         <td>{{ crewPlayer.endCauseValue }}</td>
                         <td>
-                            <button class="like">
+                            <button class="like" @click="addLike(crewPlayer.id)">
                                 {{ crewPlayer.likes }} <img src="@/assets/images/dislike.png">
                             </button>
                         </td>
@@ -100,12 +100,9 @@ export default defineComponent ({
         };
     },
     methods: {
-        addLike: function(player: Player): void {
-            PlayerService.addLikeToPlayer(player).then(() => {
-                PlayerService.loadDeadPlayerInfo(this.player.id).then((res: DeadPlayerInfo|null) => {
-                    this.deadPlayerInfo = res;
-                });
-            });
+        addLike: function(playerId: integer): void {
+            if (!playerId) return;
+            PlayerService.addLikeToPlayer(playerId);
         },
         characterBody: function(characterKey: string): string {
             return characterEnum[characterKey].body;
@@ -118,7 +115,12 @@ export default defineComponent ({
                 return '-';
             }
             return `${deathDay}.${deathCycle}`;
-        }
+        },
+        loadData(): void {
+            PlayerService.loadDeadPlayerInfo(this.player.id).then((res: DeadPlayerInfo|null) => {
+                this.deadPlayerInfo = res;
+            });
+        },
     },
     computed: {
         characterPortrait: function(): string {
@@ -129,9 +131,7 @@ export default defineComponent ({
         ])
     },
     beforeMount(): void {
-        PlayerService.loadDeadPlayerInfo(this.player.id).then((res: DeadPlayerInfo|null) => {
-            this.deadPlayerInfo = res;
-        });
+        this.loadData();
     }
 });
 </script>

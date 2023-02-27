@@ -48,29 +48,7 @@ class PlayerController extends AbstractFOSRestController
         $this->cycleService = $cycleService;
         $this->validator = $validator;
     }
-
-    /**
-     * Add a like to a player.
-     *
-     * @OA\Parameter(
-     *    name="id",
-     *    in="path",
-     *   description="The player id",
-     *  @OA\Schema(type="integer")
-     * )
-     * @OA\Tag(name="Player")
-     * @Security(name="Bearer")
-     * @Rest\Post(path="/{id}/like")
-     */
-    public function likePlayerAction(Player $player): View
-    {
-        $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_LIKE, $player);
-
-        $player->getPlayerInfo()->getClosedPlayer()->addLike();
-
-        return $this->view($player, Response::HTTP_OK);
-    }
-
+    
     /**
      * Display Player in-game information.
      *

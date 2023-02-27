@@ -40,11 +40,6 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
         /** @var Player $player */
         $player = $object;
 
-        /* @var Player $currentPlayer */
-        if (isset($context['currentPlayer'])) {
-            $currentPlayer = $context['currentPlayer'];
-        }
-
         $language = $player->getDaedalus()->getLanguage();
 
         $character = $player->getName();
@@ -70,6 +65,8 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
         ];
 
         if (isset($context['currentPlayer'])) {
+            /** @var Player $currentPlayer */
+            $currentPlayer = $context['currentPlayer'];
             $statuses = [];
             foreach ($player->getStatuses() as $status) {
                 $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));

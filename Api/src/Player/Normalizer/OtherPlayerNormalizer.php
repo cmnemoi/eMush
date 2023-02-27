@@ -41,7 +41,9 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
         $player = $object;
 
         /** @var Player $currentPlayer */
-        $currentPlayer = $context['currentPlayer'];
+        if (isset($context['currentPlayer'])) {
+            $currentPlayer = $context['currentPlayer'];
+        }
 
         $language = $player->getDaedalus()->getLanguage();
 

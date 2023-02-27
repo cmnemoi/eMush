@@ -245,7 +245,7 @@ class ActionsFixtures extends Fixture
         $attackAction
             ->setName(ActionEnum::ATTACK)
             ->setActionName(ActionEnum::ATTACK)
-            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
+            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_ATTACK])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->setSuccessRate(60)

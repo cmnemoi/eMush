@@ -860,12 +860,19 @@
       <segment id="attack_critical_success" state="translated">
         <source>attack_critical_success</source>
         <target>{version, select,
-                    1 {L'oeil mauvais, **{character}** se glisse subrepticement derrière **{target_character}** et lui tranche la carotide.}
-                    2 {{target_character_gender, select,
-                        male {Les derniers mots de **{target_character}** auraient pu être "Toi aussi **{character}**..." qui meurt poignardé en plein coeur.}
-                        female {Les derniers mots de **{target_character}** auraient pu être "Toi aussi **{character}**..." qui meurt poignardée en plein coeur.}
+                    1 {**{character}** enfonce sa lame dans une des articulations de **{target_character}** qui pendouille maintenant tristement...}
+                    2 {**{character}** estoque **{target_character}** avec maestria.}
+                    3 {**{character}** taillade un gros morceau de **{target_character}**, c'est dégoûtant...}
+                    4 {La lame de **{character}**, habilement maniée, fait une énorme estafilade à **{target_character}**.}
+                    5 {{character_gender, select, 
+                        male {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'il vient de lui enfoncer.}
+                        female {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'elle vient de lui enfoncer.}
                         other {invalid gender input}
-                    }}
+                      }}
+                    6 {Les duels à la lame finissent rarement bien, **{character}** opère une coupe drastique dans le capital santé de **{target_character}**.}
+                    7 {Malgré une jolie esquive, **{target_character}** verse un peu de son sang.}
+                    8 {Peut-être l'esquive malencontreuse, peut-être le mauvais mouvement, peut-être une mauvaise imitation de combat vue dans un holodisque... **{target_character}** s'empale sur la lame de **{character}** avec lourdeur.}
+                    9 {Une reminescence de cours d'escrime ou un coup de chance, **{character}** perfore la défense de **{target_character}** sans problème.}
                     other {invalid version input}
                 }</target>
       </segment>

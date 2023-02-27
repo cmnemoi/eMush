@@ -13,4 +13,4 @@ Mush\Player\Entity\ClosedPlayer:
     get:
       security: 'is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)'
     patch:
-      security: 'is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object) and is_granted("PLAYER_HAS_NOT_ALREADY_LIKED", object)'
+      security: 'is_granted("ROLE_USER") and is_granted("PLAYER_HAS_NOT_ALREADY_LIKED", object)'

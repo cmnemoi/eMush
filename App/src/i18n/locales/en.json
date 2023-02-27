@@ -168,9 +168,9 @@
 		"frontAlphaTurret": "Front Alpha Turret",
 		"centreAlphaTurret": "Center Alpha Turret",
 		"rearAlphaTurret": "Rear Alpha Turret",
-		"frontBravoTurret": "Front Beta Turret",
-		"centreBravoTurret": "Center Beta Turret",
-		"rearBravoTurret": "Rear Beta Turret",
+		"frontBravoTurret": "Front Bravo Turret",
+		"centreBravoTurret": "Center Bravo Turret",
+		"rearBravoTurret": "Rear Bravo Turret",
 		"frontCorridor": "Front Corridor",
 		"centralCorridor": "Central Corridor",
 		"rearCorridor": "Rear Corridor",
@@ -179,9 +179,9 @@
 		"bravoDorm": "Beta Dorm",
 		"frontStorage": "Front Storage",
 		"centerAlphaStorage": "Center Alpha Storage",
-		"centerBravoStorage": "Center Beta Storage",
+		"centerBravoStorage": "Center Bravo Storage",
 		"rearAlphaStorage": "Rear Alpha Storage",
-		"rearBravoStorage": "Rear Beta Storage"
+		"rearBravoStorage": "Rear Bravo Storage"
 	},
 	"admin": {
 		"user": {

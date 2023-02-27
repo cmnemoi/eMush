@@ -107,7 +107,7 @@ class SymptomConfigData
             'visibility' => 'public',
             'symptomActivationRequirements' => [
                 'reason_move',
-                'random_16',
+                'random_40',
             ],
         ],
         [

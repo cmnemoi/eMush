@@ -2,6 +2,7 @@
 
 namespace Mush\User\Service;
 
+use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 
 interface UserServiceInterface
@@ -19,4 +20,6 @@ interface UserServiceInterface
     public function findUserByNonceCode(string $nonceCode): ?User;
 
     public function findUserDaedaluses(User $user): array;
+
+    public function findUserCurrentPlayer(User $user): ?PlayerInfo;
 }

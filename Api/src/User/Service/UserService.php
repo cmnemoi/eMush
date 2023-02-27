@@ -3,6 +3,7 @@
 namespace Mush\User\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use Mush\User\Repository\UserRepository;
 
@@ -66,5 +67,10 @@ class UserService implements UserServiceInterface
     public function findUserDaedaluses(User $user): array
     {
         return $this->repository->findUserDaedaluses($user);
+    }
+
+    public function findUserCurrentPlayer(User $user): ?PlayerInfo
+    {
+        return $this->repository->findUserCurrentPlayer($user);
     }
 }

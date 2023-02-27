@@ -5,6 +5,7 @@ namespace Mush\User\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
@@ -49,5 +50,21 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         ;
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function findUserCurrentPlayer(User $user): ?PlayerInfo
+    {
+        $qb = $this->createQueryBuilder('user');
+
+        $qb
+            ->select('player_info')
+            ->innerJoin(PlayerInfo::class, 'player_info', 'WITH', 'player_info.user = user.id')
+            ->where($qb->expr()->eq('user.id', ':user_id'))
+            ->andWhere($qb->expr()->in('player_info.gameStatus', ':game_status'))
+            ->setParameter('user_id', $user->getId())
+            ->setParameter('game_status', [GameStatusEnum::CURRENT, GameStatusEnum::FINISHED])
+        ;
+
+        return $qb->getQuery()->getOneOrNullResult();
     }
 }

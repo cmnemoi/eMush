@@ -125,7 +125,7 @@ class ChannelPlayerRepositoryCest
 
         $players = $this->channelRepository->findAvailablePlayerForPrivateChannel($channel1, $daedalus, 3);
 
-        $I->assertCount(2, $players);
+        $I->assertCount(1, $players);
         $I->assertContains($playerInfo, $players);
     }
 

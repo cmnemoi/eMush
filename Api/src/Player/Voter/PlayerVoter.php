@@ -63,5 +63,4 @@ class PlayerVoter extends Voter
     {
         return $player !== null && $user === $player->getPlayerInfo()->getUser();
     }
-
 }

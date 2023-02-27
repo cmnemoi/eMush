@@ -35,7 +35,7 @@ class ClosedPlayerVoter extends Voter
             // the user must be logged in; if not, deny access
             return false;
         }
-        
+
         /** @var ClosedPlayer $player */
         $player = $subject;
 
@@ -58,6 +58,4 @@ class ClosedPlayerVoter extends Voter
     {
         return true; // TODO
     }
-
-
 }

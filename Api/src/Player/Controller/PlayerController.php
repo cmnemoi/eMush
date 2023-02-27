@@ -48,7 +48,7 @@ class PlayerController extends AbstractFOSRestController
         $this->cycleService = $cycleService;
         $this->validator = $validator;
     }
-    
+
     /**
      * Display Player in-game information.
      *

@@ -48,11 +48,11 @@
                     </tr>
                     <tr v-for="crewPlayer in deadPlayerInfo.players" :key="crewPlayer.id">
                         <td><img :src="characterBody(crewPlayer.character.key)" class="char hua"> <span class="charname">{{ crewPlayer.character.name }}</span></td>
-                        <td>{{ crewPlayer.deathTime ? crewPlayer.deathTime : '-' }}</td>
-                        <td>{{ crewPlayer.endCauseValue ? crewPlayer.endCauseValue : "Pas Encore" }}</td>
+                        <td>{{ formatDeathDate(crewPlayer.deathDay, crewPlayer.deathCycle) }}</td>
+                        <td>{{ crewPlayer.endCauseValue }}</td>
                         <td>
                             <button class="like">
-                                1 <img src="@/assets/images/dislike.png">
+                                {{ crewPlayer.likes }} <img src="@/assets/images/dislike.png">
                             </button>
                         </td>
                     </tr>
@@ -95,16 +95,29 @@ export default defineComponent ({
     data: function (): PurgatoryState {
         return {
             deadPlayerInfo: null,
-            maxChar: 300,
+            maxChar: 250,
             epitaph: ''
         };
     },
     methods: {
+        addLike: function(player: Player): void {
+            PlayerService.addLikeToPlayer(player).then(() => {
+                PlayerService.loadDeadPlayerInfo(this.player.id).then((res: DeadPlayerInfo|null) => {
+                    this.deadPlayerInfo = res;
+                });
+            });
+        },
         characterBody: function(characterKey: string): string {
             return characterEnum[characterKey].body;
         },
         endGame: function(): void {
             PlayerService.sendEndGameRequest(this.player, this.epitaph);
+        },
+        formatDeathDate: function(deathDay: number|null, deathCycle: number|null): string {
+            if (!deathDay || !deathCycle) {
+                return '-';
+            }
+            return `${deathDay}.${deathCycle}`;
         }
     },
     computed: {

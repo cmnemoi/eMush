@@ -97,13 +97,14 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
             throw new \LogicException('daedalus cannot be used as holder for a player_in_room activationRequirement');
         }
 
+        $players = $room->getPlayers()->getPlayerAlive();
         switch ($activationRequirement->getActivationRequirement()) {
             case ModifierRequirementEnum::NOT_ALONE:
-                return $room->getPlayers()->count() >= 2;
+                return $players->count() >= 2;
             case ModifierRequirementEnum::ALONE:
-                return $room->getPlayers()->count() === 1;
+                return $players->count() === 1;
             case ModifierRequirementEnum::FOUR_PEOPLE:
-                return $room->getPlayers()->count() >= 4;
+                return $players->count() >= 4;
 
             default:
                 throw new \LogicException('This activationRequirement is invalid for player_in_room');

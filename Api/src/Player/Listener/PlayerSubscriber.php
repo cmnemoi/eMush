@@ -47,7 +47,6 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
-        // dump($endCause);
 
         if ($endCause === null) {
             throw new \LogicException('Player should die with a reason');

@@ -777,7 +777,7 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
       <segment id="description" state="final">
         <source>play_arcade.description</source>
-        <target>Playing the arcade games gives you a chance to restore 2 Morale with 1 Action Point. But if you fail, you'll take some damage</target>
+        <target>Lets you relax a little by smashing some Space PewPewz. It's so good... however, the game's difficulty level is... monstrous!</target>
       </segment>
     </unit>
   </file>

@@ -14,11 +14,11 @@ class LogDeclinationEnum
     public const VERSION_CRAZY = 'version_crazy';
     public const VERSION_UNINHIB = 'version_uninhib';
 
-    public const WORD_COPROLALIA = 'word_coprolalia';
-    public const ANIMAL_COPROLALIA = 'animal_coprolalia';
-    public const PREFIX_COPROLALIA = 'prefix_coprolalia';
-    public const ADJECTIVE_COPROLALIA = 'adjective_coprolalia';
-    public const BALLS_COPROLALIA = 'balls_coprolalia';
+    public const WORD_COPROLALIA = 'word';
+    public const ANIMAL_COPROLALIA = 'animal';
+    public const PREFIX_COPROLALIA = 'prefix';
+    public const ADJECTIVE_COPROLALIA = 'adjective';
+    public const BALLS_COPROLALIA = 'balls';
 
     public const PARANOIA_VERSION_4 = 'paranoia_version_4';
     public const PARANOIA_VERSION_6 = 'paranoia_version_6';

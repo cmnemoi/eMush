@@ -62,7 +62,7 @@
       </segment>
       <segment id="word" state="translated">
         <source>word_coprolalia</source>
-        <target>{word_coprolalia, select,
+        <target>{word, select,
                     1 {analphabète}
                     2 {barbapapa}
                     3 {blair}
@@ -94,7 +94,7 @@
       </segment>
       <segment id="word_plural" state="translated">
         <source>word_plural_coprolalia</source>
-        <target>{word_plural_coprolalia, select,
+        <target>{word, select,
                     1 {analphabètes}
                     2 {barbapapas}
                     3 {blairs}
@@ -126,7 +126,7 @@
       </segment>
       <segment id="animal" state="translated">
         <source>animal_coprolalia</source>
-        <target>{animal_coprolalia, select,
+        <target>{animal, select,
                     1 {loutre}
                     2 {marsouin}
                     3 {ornithorynque}
@@ -146,7 +146,7 @@
       </segment>
       <segment id="animal_plural" state="translated">
         <source>animal_plural_coprolalia</source>
-        <target>{animal_plural_coprolalia, select,
+        <target>{animal, select,
                     1 {loutres}
                     2 {marsouins}
                     3 {ornithorynques}
@@ -166,7 +166,7 @@
       </segment>
       <segment id="balls" state="translated">
         <source>balls_coprolalia</source>
-        <target>{balls_coprolalia, select,
+        <target>{balls, select,
                     1 {bouloches}
                     2 {roubignettes}
                     3 {sacs à poutre}
@@ -181,7 +181,7 @@
       </segment>
       <segment id="adjective_male_single" state="translated">
         <source>adjective_male_single_coprolalia</source>
-        <target>{adjective_male_single_coprolalia, select,
+        <target>{adjective, select,
                     1 {bourré}
                     2 {coprophage}
                     3 {mou}
@@ -193,7 +193,7 @@
       </segment>
       <segment id="adjective_male_plural" state="translated">
         <source>adjective_male_plural_coprolalia</source>
-        <target>{adjective_male_plural_coprolalia, select,
+        <target>{adjective, select,
                     1 {bourrés}
                     2 {coprophages}
                     3 {mous}
@@ -209,7 +209,7 @@
       </segment>
       <segment id="adjective_female_single" state="translated">
         <source>adjective_female_single_coprolalia</source>
-        <target>{adjective_female_single_coprolalia, select,
+        <target>{adjective, select,
                     1 {bourrée}
                     2 {coprophage}
                     3 {molle}
@@ -221,7 +221,7 @@
       </segment>
       <segment id="adjective_female_plural" state="translated">
         <source>adjective_female_plural_coprolalia</source>
-        <target>{adjective_female_plural_coprolalia, select,
+        <target>{adjective, select,
                     1 {bourrées}
                     2 { coprophages}
                     3 { molles}
@@ -245,7 +245,7 @@
       </segment>
       <segment id="prefix" state="translated">
         <source>prefix_coprolalia</source>
-        <target>{prefix_coprolalia, select,
+        <target>{prefix, select,
                     1 {purée}
                     2 {punaise}
                     3 {bordel}

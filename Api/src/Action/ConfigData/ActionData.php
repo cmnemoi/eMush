@@ -2,7 +2,11 @@
 
 namespace Mush\Action\ConfigData;
 
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\VisibilityEnum;
 
 /**
  * @codeCoverageIgnore
@@ -1313,6 +1317,21 @@ class ActionData
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+        ],
+        [
+            'name' => ActionEnum::PLAY_ARCADE,
+            'action_name' => ActionEnum::PLAY_ARCADE,
+            'types' => [],
+            'target' => null,
+            'scope' => ActionScopeEnum::CURRENT,
+            'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::PUBLIC, ActionOutputEnum::FAIL => VisibilityEnum::PRIVATE],
+            'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 33, 'min_value' => 0, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
     ];

@@ -764,5 +764,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.</target>
       </segment>
     </unit>
+    <unit id="play_arcade">
+      <segment id="name" state="final">
+        <source>play_arcade.name</source>
+        <target>Une partie !</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>play_arcade.description</source>
+        <target>Permet de se défouler un peu en tabassant des Spaces PewPewz. C'est si bon... par contre la dificulté est... mortelle !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

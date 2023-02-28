@@ -979,5 +979,17 @@
         <target>Quelques fois tout devient ralenti, certains vous diront que le temps était juste différent, que la durée ne comptait plus, que chaque acte devenait unité et que chaque perception devenait éternelle. Dans un tel état de grâce, **{character}** tire avec une aisance surréaliste dans la tête de **{target_character}** qui s'effondre.</target>
       </segment>
     </unit>
+    <unit id="play_arcade_fail">
+      <segment id="play_arcade_fail" state="translated">
+        <source>play_arcade_fail</source>
+        <target>Oh purée encore perdu, spa vrai qu'cette machine diabolique a failli vous tuer en plus !</target>
+      </segment>
+    </unit>
+    <unit id="play_arcade_succes">
+      <segment id="play_arcade_succes" state="translated">
+        <source>play_arcade_succes</source>
+        <target>OH OUIIIII. **{character}** a vaincu Xatator le boss du NIVEAUUUUU 10 !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

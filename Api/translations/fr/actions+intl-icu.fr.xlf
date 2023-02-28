@@ -764,15 +764,5 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.</target>
       </segment>
     </unit>
-    <unit id="play_arcade">
-      <segment id="name" state="final">
-        <source>play_arcade.name</source>
-        <target>Play Arcade !</target>
-      </segment>
-      <segment id="description" state="final">
-        <source>play_arcade.description</source>
-        <target>Playing the arcade games gives you a chance to restore 2 Morale with 1 Action Point. But if you fail, you'll take some damage</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

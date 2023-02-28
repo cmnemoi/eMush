@@ -770,5 +770,15 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         <target>This action is **Secret**. It will be revealed by **Cameras** and **Crewmates**, including those on **your side**.</target>
       </segment>
     </unit>
+    <unit id="play_arcade">
+      <segment id="name" state="final">
+        <source>play_arcade.name</source>
+        <target>Play Arcade !</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>play_arcade.description</source>
+        <target>Playing the arcade games gives you a chance to restore 2 Morale with 1 Action Point. But if you fail, you'll take some damage</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

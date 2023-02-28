@@ -56,14 +56,10 @@ class PlayerController extends AbstractFOSRestController
      *     name="id",
      *     in="path",
      *     description="The player id",
-     *
      *     @OA\Schema(type="integer")
      * )
-     *
      * @OA\Tag(name="Player")
-     *
      * @Security(name="Bearer")
-     *
      * @Rest\Get(path="/{id}")
      */
     public function getPlayerAction(Player $player): View
@@ -84,13 +80,10 @@ class PlayerController extends AbstractFOSRestController
      *
      * @OA\RequestBody (
      *      description="Input data format",
-     *
      *         @OA\MediaType(
      *             mediaType="application/json",
-     *
      *      @OA\Schema(
      *              type="object",
-     *
      *                  @OA\Property(
      *                     property="user",
      *                     description="The user making the request",
@@ -110,15 +103,10 @@ class PlayerController extends AbstractFOSRestController
      *             )
      *         )
      *     )
-     *
      * @OA\Tag(name="Player")
-     *
      * @Security(name="Bearer")
-     *
      * @ParamConverter("playerCreateRequest", converter="PlayerCreateRequestConverter")
-     *
      * @Rest\Post(path="")
-     *
      * @Rest\View()
      */
     public function createPlayerAction(PlayerCreateRequest $playerCreateRequest): View
@@ -155,13 +143,10 @@ class PlayerController extends AbstractFOSRestController
      *
      * @OA\RequestBody (
      *      description="Input data format",
-     *
      *         @OA\MediaType(
      *             mediaType="application/json",
-     *
      *      @OA\Schema(
      *              type="object",
-     *
      *                 @OA\Property(
      *                     property="message",
      *                     description="The player last words",
@@ -171,15 +156,10 @@ class PlayerController extends AbstractFOSRestController
      *             )
      *         )
      *     )
-     *
      * @OA\Tag(name="Player")
-     *
      * @Security(name="Bearer")
-     *
      * @ParamConverter("request", converter="fos_rest.request_body")
-     *
      * @Rest\Post(path="/{player}/end")
-     *
      * @Rest\View()
      */
     public function endPlayerAction(PlayerEndRequest $request, Player $player): View

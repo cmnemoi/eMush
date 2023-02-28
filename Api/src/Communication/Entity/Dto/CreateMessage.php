@@ -27,7 +27,6 @@ class CreateMessage
 
     /**
      * @Assert\NotNull
-     *
      * @Assert\Type(type="string")
      */
     private string $message;

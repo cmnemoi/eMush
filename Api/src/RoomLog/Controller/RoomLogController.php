@@ -48,9 +48,7 @@ class RoomLogController extends AbstractFOSRestController
      * Perform an action.
      *
      * @OA\Tag(name="RoomLog")
-     *
      * @Security(name="Bearer")
-     *
      * @Rest\GET(path="")
      */
     public function getRoomLogs(): View
@@ -91,9 +89,7 @@ class RoomLogController extends AbstractFOSRestController
      * Perform an action.
      *
      * @OA\Tag(name="RoomLog")
-     *
      * @Security(name="Bearer")
-     *
      * @Rest\GET(path="/channel")
      */
     public function getRoomLogChannel(): View

@@ -34,13 +34,10 @@ class ActionController extends AbstractFOSRestController
      *
      * @OA\RequestBody (
      *      description="Input data format",
-     *
      *         @OA\MediaType(
      *             mediaType="application/json",
-     *
      *      @OA\Schema(
      *              type="object",
-     *
      *                 @OA\Property(
      *                     property="action",
      *                     description="The action id to perform",
@@ -68,13 +65,9 @@ class ActionController extends AbstractFOSRestController
      *             )
      *         )
      *     )
-     *
      * @OA\Tag(name="Player")
-     *
      * @Security(name="Bearer")
-     *
      * @ParamConverter("actionRequest", converter="fos_rest.request_body")
-     *
      * @Rest\Post(path="/player/{id}/action")
      */
     public function executeActionAction(Player $player, ActionRequest $actionRequest): View

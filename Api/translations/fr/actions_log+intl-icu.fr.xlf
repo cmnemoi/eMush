@@ -973,11 +973,5 @@
                 }</target>
       </segment>
     </unit>
-    <unit id="shoot_one_shot">
-      <segment state="translated">
-        <source>shoot_one_shot</source>
-        <target>Quelques fois tout devient ralenti, certains vous diront que le temps était juste différent, que la durée ne comptait plus, que chaque acte devenait unité et que chaque perception devenait éternelle. Dans un tel état de grâce, **{character}** tire avec une aisance surréaliste dans la tête de **{target_character}** qui s'effondre.</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

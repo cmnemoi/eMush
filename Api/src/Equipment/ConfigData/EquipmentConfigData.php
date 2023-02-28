@@ -2,6 +2,8 @@
 
 namespace Mush\Equipment\ConfigData;
 
+use Mush\Action\Enum\ActionEnum;
+
 /** @codeCoverageIgnore */
 class EquipmentConfigData
 {
@@ -2980,6 +2982,7 @@ class EquipmentConfigData
                 'sabotage_percent_12',
                 'report_equipment',
                 'examine',
+                ActionEnum::PLAY_ARCADE,
             ],
             'mechanics' => [],
             'initStatuses' => [],

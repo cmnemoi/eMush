@@ -231,7 +231,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
+            ->setIsFireBreakable(true)
             ->setActions(new ArrayCollection([$takeAction, $examineAction]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;

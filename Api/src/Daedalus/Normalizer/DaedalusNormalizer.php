@@ -82,7 +82,7 @@ class DaedalusNormalizer implements NormalizerInterface
                     'description' => $this->translationService->translate('crewPlayer.description',
                         ['cryogenizedPlayers' => $cryoPlayers,
                             'playerAlive' => $daedalus->getPlayers()->getPlayerAlive()->count(),
-                            'humanDead' => $humanDead,
+                            'playerDead' => $daedalus->getPlayers()->getPlayerDead()->count(),
                             'mushAlive' => $mushAlive,
                             'mushDead' => $mushDead,
                         ], 'daedalus',

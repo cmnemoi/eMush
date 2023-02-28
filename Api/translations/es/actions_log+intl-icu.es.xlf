@@ -487,5 +487,17 @@
         <target>suicide_success</target>
       </segment>
     </unit>
+    <unit id="attack_one_shot">
+      <segment state="initial">
+        <source>attack_one_shot</source>
+        <target>attack_one_shot</target>
+      </segment>
+    </unit>
+    <unit id="shoot_one_shot">
+      <segment state="initial">
+        <source>shoot_one_shot</source>
+        <target>shoot_one_shot</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

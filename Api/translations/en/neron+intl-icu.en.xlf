@@ -120,9 +120,9 @@
                         3 {Please carry out the required *repairs*. And stop dragging your feet, you're ruining the carpet.}
                         4 {Repair it quickly, thank you!}
                         5 {Please mobilise the less foolish among you to *repair* it as soon as possible!}
-                        other {invalid version number}
+                        other {Thank you for moving to *fix* this for me! And look at me when I talk to you!}
                     }}
-                    other {invalid mood input}
+                    other {**{target_equipment}** is malfunctionning. *Repairs required*.}
                 }</target>
       </segment>
     </unit>

@@ -27,9 +27,9 @@
 		"next": "Page suivante"
 	},
 	"banner": {
-		"news": "News",
 		"ranking": "Classements",
-		"user": "Mon Compte"
+		"user": "Mon Compte",
+		"news": "News"
 	},
 	"ranking": {
 		"ship_end_cause": "Cause de la destruction",
@@ -202,28 +202,21 @@
 		},
 		"modifierConfig": {
 			"name": "Nom",
-			"modifierName": "Nom du modificateur",
 			"delta": "Delta",
 			"targetVariable": "Variable cible",
 			"targetEvent": "Évènement déclencheur",
 			"modifierHolderClass": "Entité porteuse du modificateur",
-			"modifierRange": "Portée du modificateur",
 			"mode": "Mode de calcul",
 			"variableModifier": "Modificateur de variables",
 			"triggerEventModifier": "Déclencheurs d'événements",
-			"directModifier": "Modificateur direct",
 			"modifierRequirement": "Conditions d'activation",
 			"triggeredEvent": "Événement déclenché",
 			"applyOnActionParameter": "Application uniquement sur cible d'action",
+			"modifierRange": "Portée du modificateur",
 			"revertOnRemove": "Inverser lors de la suppression",
-			"tagConstraints": "Condition sur les tags de l'événement"
-		},
-		"eventConfig": {
-			"name": "Nom",
-			"eventName": "Nom de l'événement",
-			"quantity": "Quantité",
-			"targetVariable": "Variable cible",
-			"variableHolderClass": "Entité porteuse de la variable"
+			"tagConstraints": "Condition sur les tags de l'événement",
+			"directModifier": "Modificateur direct",
+			"modifierName": "Nom du modificateur"
 		},
 		"modifierActivationRequirement": {
 			"name": "Nom",
@@ -479,17 +472,24 @@
 			"isNotAllCrew": "Non gagné par tout l'équipage",
 			"team": "Équipe"
 		},
+		"eventConfig": {
+			"name": "Nom",
+			"eventName": "Nom de l'événement",
+			"quantity": "Quantité",
+			"targetVariable": "Variable cible",
+			"variableHolderClass": "Entité porteuse de la variable"
+		},
 		"newsList": {
 			"create": "Écrire une news",
 			"newsTitle": "Titre",
 			"updatedAt": "Dernière date de modification"
 		},
-		"newsWrite" : {
+		"newsWrite": {
 			"frenchTitle": "Titre français",
-			"englishTitle": "Titre anglais",
-			"spanishTitle": "Titre espagnol",
 			"frenchContent": "Contenu français",
 			"englishContent": "Contenu anglais",
+			"englishTitle": "Titre anglais",
+			"spanishTitle": "Titre espagnol",
 			"spanishContent": "Contenu espagnol"
 		}
 	},
@@ -499,18 +499,18 @@
 		"startGame": "Démarrer la partie",
 		"youChoose": "Vous avez choisi "
 	},
-	"newsPage" : {
-		"updatedAt": "Mis à jour le "
-	},
-	"homePage" : {
-		"joinUs": "Inscrivez-vous !",
-		"play": "Jouer !",
-		"synopsis": "Vous allez vous réveiller avec 15 autres joueurs dans le Daedalus. Comme vous, ils fuient le <em>Mush</em>, un champignon qui ravage la planète Terre et menace l'Humanité."
-	},
 	"game": {
 		"communications": {
 			"day": "Jour",
 			"cycle": "Cycle"
 		}
+	},
+	"newsPage": {
+		"updatedAt": "Mis à jour le "
+	},
+	"homePage": {
+		"joinUs": "Inscrivez-vous !",
+		"play": "Jouer !",
+		"synopsis": "Vous allez vous réveiller avec 15 autres joueurs dans le Daedalus. Comme vous, ils fuient le <em>Mush</em>, un champignon qui ravage la planète Terre et menace l'Humanité."
 	}
 }

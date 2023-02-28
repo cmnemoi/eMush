@@ -2,1101 +2,1198 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="equipements.ext">
     <unit id="antenna">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>antenna.name</source>
-        <target>antenna.name</target>
+        <target>Antena</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>antenna.short_name</source>
-        <target>antenna.short_name</target>
+        <target>Antena</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>antenna.plural_name</source>
-        <target>antenna.plural_name</target>
+        <target>Antenas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>antenna.gender</source>
-        <target>antenna.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>antenna.first_letter</source>
-        <target>antenna.first_letter</target>
+        <target>Vowel</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>antenna.examine</source>
-        <target>antenna.examine</target>
+        <target>Mejora enormemente el rendimiento del Centro de Comunicación.
+Reduce en 1 el costo de las acciones de comunicación.
+Lo último en comunicaciones, su potencia permite intercambiar mensajes con el otro lado de la galaxia.</target>
       </segment>
     </unit>
     <unit id="astro_terminal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>astro_terminal.name</source>
-        <target>astro_terminal.name</target>
+        <target>Terminal Astro</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>astro_terminal.short_name</source>
-        <target>astro_terminal.short_name</target>
+        <target>Terminal Astro</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>astro_terminal.plural_name</source>
-        <target>astro_terminal.plural_name</target>
+        <target>Terminales Astros</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>astro_terminal.gender</source>
-        <target>astro_terminal.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>astro_terminal.first_letter</source>
-        <target>astro_terminal.first_letter</target>
+        <target>Vowel</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>astro_terminal.examine</source>
-        <target>astro_terminal.examine</target>
+        <target>Sirve para buscar planetas cercanos y escanearlos en busca de recursos.
+Escanea el espacio en busca de nuevos planetas. Sus datos están reservados a los navegantes para no afectar el ánimo de la tripulación.</target>
       </segment>
     </unit>
     <unit id="auxiliary_terminal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>auxiliary_terminal.name</source>
-        <target>auxiliary_terminal.name</target>
+        <target>Nucleo de NERON</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>auxiliary_terminal.short_name</source>
-        <target>auxiliary_terminal.short_name</target>
+        <target>Núcleo de NERON</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>auxiliary_terminal.plural_name</source>
-        <target>auxiliary_terminal.plural_name</target>
+        <target>Núcleos de NERON</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>auxiliary_terminal.gender</source>
-        <target>auxiliary_terminal.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>auxiliary_terminal.first_letter</source>
-        <target>auxiliary_terminal.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>auxiliary_terminal.examine</source>
-        <target>auxiliary_terminal.examine</target>
+        <target>Da acceso a los proyectos NERON.
+Modificar sus programas permite mejorar a NERON.</target>
       </segment>
     </unit>
     <unit id="bed">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>bed.name</source>
-        <target>bed.name</target>
+        <target>Cama</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>bed.short_name</source>
-        <target>bed.short_name</target>
+        <target>Cama</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>bed.plural_name</source>
-        <target>bed.plural_name</target>
+        <target>Camas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>bed.gender</source>
-        <target>bed.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>bed.first_letter</source>
-        <target>bed.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>bed.examine</source>
-        <target>bed.examine</target>
+        <target>Dormir en la cama te permite generar :pa:.
+¡Que tengas lindos sueños!</target>
       </segment>
     </unit>
     <unit id="medlab_bed">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>medlab_bed.name</source>
-        <target>medlab_bed.name</target>
+        <target>Cama Médica</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>medlab_bed.short_name</source>
-        <target>medlab_bed.short_name</target>
+        <target>Cama Médica</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>medlab_bed.plural_name</source>
-        <target>medlab_bed.plural_name</target>
+        <target>Camas Médicas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>medlab_bed.gender</source>
-        <target>medlab_bed.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>medlab_bed.first_letter</source>
-        <target>medlab_bed.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>medlab_bed.examine</source>
-        <target>medlab_bed.examine</target>
+        <target>Dormir en la cama te permite generar :pa: y también te podrás operar.
+¡Que tengas lindos sueños!</target>
       </segment>
     </unit>
     <unit id="bios_terminal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>bios_terminal.name</source>
-        <target>bios_terminal.name</target>
+        <target>Terminal BIOS</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>bios_terminal.short_name</source>
-        <target>bios_terminal.short_name</target>
+        <target>Terminal BIOS</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>bios_terminal.plural_name</source>
-        <target>bios_terminal.plural_name</target>
+        <target>Terminales BIOS</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>bios_terminal.gender</source>
-        <target>bios_terminal.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>bios_terminal.first_letter</source>
-        <target>bios_terminal.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>bios_terminal.examine</source>
-        <target>bios_terminal.examine</target>
+        <target>Permite al Admin. de NERON cambiar ciertos comportamientos de la Inteligencia Artificial.
+Tras varias sesiones con psicoanalístas, se creó una interfaz a la que solo unos pocos privilegiados pueden acceder.</target>
       </segment>
     </unit>
     <unit id="calculator">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>calculator.name</source>
-        <target>calculator.name</target>
+        <target>Computador</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>calculator.short_name</source>
-        <target>calculator.short_name</target>
+        <target>Computador</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>calculator.plural_name</source>
-        <target>calculator.plural_name</target>
+        <target>Computadoras</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>calculator.gender</source>
-        <target>calculator.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>calculator.first_letter</source>
-        <target>calculator.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>calculator.examine</source>
-        <target>calculator.examine</target>
+        <target>&lt;div&gt;Sirve para calcular cualquier cosa... Solo falta encontrar qué...
+&lt;ul&gt;&lt;li&gt;Permite calcular algo...&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+&lt;div&gt;#NO_BG&lt;/div&gt;</target>
       </segment>
     </unit>
     <unit id="coffee_machine">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>coffee_machine.name</source>
-        <target>coffee_machine.name</target>
+        <target>Cafetera</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>coffee_machine.short_name</source>
-        <target>coffee_machine.short_name</target>
+        <target>Cafetera</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>coffee_machine.plural_name</source>
-        <target>coffee_machine.plural_name</target>
+        <target>Cafeteras</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>coffee_machine.gender</source>
-        <target>coffee_machine.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>coffee_machine.first_letter</source>
-        <target>coffee_machine.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>coffee_machine.examine</source>
-        <target>coffee_machine.examine</target>
+        <target>Esta fantástica máquina produce un delicioso café colombiano a una velocidad inigualable. Por desgracia, consume más energía que una central nuclear. Sin el reactor PILGRED tendrás que conformarte con beber café cada 24 horas.
+Una mágica manera de sentirte mejor.</target>
       </segment>
     </unit>
     <unit id="combustion_chamber">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>combustion_chamber.name</source>
-        <target>combustion_chamber.name</target>
+        <target>Cámara de combustión</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>combustion_chamber.short_name</source>
-        <target>combustion_chamber.short_name</target>
+        <target>Cámara de combustión</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>combustion_chamber.plural_name</source>
-        <target>combustion_chamber.plural_name</target>
+        <target>Cámaras de combustión</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>combustion_chamber.gender</source>
-        <target>combustion_chamber.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>combustion_chamber.first_letter</source>
-        <target>combustion_chamber.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>combustion_chamber.examine</source>
-        <target>combustion_chamber.examine</target>
+        <target>Se encuentra en la sala de motores. Inyecta combustible en los reactores para el desplazamiento de la nave.
+Los conductos están obstruidos. Hay que traer cápsulas de combustible desde los almacenes.</target>
       </segment>
     </unit>
     <unit id="command_terminal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>command_terminal.name</source>
-        <target>command_terminal.name</target>
+        <target>Terminal de Comando</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>command_terminal.short_name</source>
-        <target>command_terminal.short_name</target>
+        <target>Terminal de Comando</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>command_terminal.plural_name</source>
-        <target>command_terminal.plural_name</target>
+        <target>Terminales de Comando</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>command_terminal.gender</source>
-        <target>command_terminal.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>command_terminal.first_letter</source>
-        <target>command_terminal.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>command_terminal.examine</source>
-        <target>command_terminal.examine</target>
+        <target>Módulo exclusivo para el Comandante. Prohibido para personal no autorizado.
+Posee los instrumentos de navegación para que el comandante pilotee el Daedalus.</target>
       </segment>
     </unit>
     <unit id="communication_center">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>communication_center.name</source>
-        <target>communication_center.name</target>
+        <target>Centro de comunicación</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>communication_center.short_name</source>
-        <target>communication_center.short_name</target>
+        <target>Centro de comunicación</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>communication_center.plural_name</source>
-        <target>communication_center.plural_name</target>
+        <target>Centros de comunicación</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>communication_center.gender</source>
-        <target>communication_center.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>communication_center.first_letter</source>
-        <target>communication_center.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>communication_center.examine</source>
-        <target>communication_center.examine</target>
+        <target>Sirve para comunicarse con los sistemas planetarios lejanos.
+Reúne los datos de los diferentes radares y establece comunicaciones con unidades lejanas.
+</target>
       </segment>
     </unit>
     <unit id="cryo_module">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cryo_module.name</source>
-        <target>cryo_module.name</target>
+        <target>Módulo Cryo©</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>cryo_module.short_name</source>
-        <target>cryo_module.short_name</target>
+        <target>Módulo Cryo©</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>cryo_module.plural_name</source>
-        <target>cryo_module.plural_name</target>
+        <target>Módulos Cryo©</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>cryo_module.gender</source>
-        <target>cryo_module.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>cryo_module.first_letter</source>
-        <target>cryo_module.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>cryo_module.examine</source>
-        <target>cryo_module.examine</target>
+        <target>Contiene los cuerpos de tus compañeros aún inanimados.
+Pasaste ahí largos períodos de sueño. Mejor no repetirlo.</target>
       </segment>
     </unit>
     <unit id="door">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>door.name</source>
-        <target>door.name</target>
+        <target>Puerta</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>door.short_name</source>
-        <target>door.short_name</target>
+        <target>Puerta</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>door.plural_name</source>
-        <target>door.plural_name</target>
+        <target>Puertas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>door.gender</source>
-        <target>door.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>door.first_letter</source>
-        <target>door.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>door.examine</source>
-        <target>door.examine</target>
+        <target>Las puertas del Daedalus son frágiles y tienen la mala costumbre de quedarse bloqueadas... En caso de problemas, contactar con un técnico.
+Lo mejor para atravesar las paredes.</target>
       </segment>
     </unit>
     <unit id="dynarcade">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>dynarcade.name</source>
-        <target>dynarcade.name</target>
+        <target>Dynarcade</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>dynarcade.short_name</source>
-        <target>dynarcade.short_name</target>
+        <target>Dynarcade</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>dynarcade.plural_name</source>
-        <target>dynarcade.plural_name</target>
+        <target>Dynarcades</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>dynarcade.gender</source>
-        <target>dynarcade.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>dynarcade.first_letter</source>
-        <target>dynarcade.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>dynarcade.examine</source>
-        <target>dynarcade.examine</target>
+        <target>Una máquina de arcade armada para hacerte explotar el cerebro
+¡Estupendo! Una auténtica réplica de la máquina de juegos DYN-X666 que provocó 63 muertos en Shanghai en 2117. ¡Pon Rage Storm Of Fury y Call Of Dirty a 240 cuadros por segundo! Use con precaución.</target>
       </segment>
     </unit>
     <unit id="emergency_reactor">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>emergency_reactor.name</source>
-        <target>emergency_reactor.name</target>
+        <target>Reactor de emergencia</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>emergency_reactor.short_name</source>
-        <target>emergency_reactor.short_name</target>
+        <target>Reactor de emergencia</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>emergency_reactor.plural_name</source>
-        <target>emergency_reactor.plural_name</target>
+        <target>Reactores de emergencia</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>emergency_reactor.gender</source>
-        <target>emergency_reactor.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>emergency_reactor.first_letter</source>
-        <target>emergency_reactor.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>emergency_reactor.examine</source>
-        <target>emergency_reactor.examine</target>
+        <target>Hace avanzar al Daedalus si falla el PILGRED.
+Hay tecnologías que se resisten a morir. Cada reactor consume 2 unidades de combustible por viaje.</target>
       </segment>
     </unit>
     <unit id="fuel_tank">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>fuel_tank.name</source>
-        <target>fuel_tank.name</target>
+        <target>Tanque de combustible</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>fuel_tank.short_name</source>
-        <target>fuel_tank.short_name</target>
+        <target>Tanque de combustible</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>fuel_tank.plural_name</source>
-        <target>fuel_tank.plural_name</target>
+        <target>Tanques de combustible</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>fuel_tank.gender</source>
-        <target>fuel_tank.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>fuel_tank.first_letter</source>
-        <target>fuel_tank.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>fuel_tank.examine</source>
-        <target>fuel_tank.examine</target>
+        <target>Sirve para almacenar combustible y tiene un distribuidor.
+Reserva de combustible del Daedalus. Precaución: NO FUMAR.</target>
       </segment>
     </unit>
     <unit id="gravity_simulator">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>gravity_simulator.name</source>
-        <target>gravity_simulator.name</target>
+        <target>Simulador de gravedad</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>gravity_simulator.short_name</source>
-        <target>gravity_simulator.short_name</target>
+        <target>Simulador de gravedad</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>gravity_simulator.plural_name</source>
-        <target>gravity_simulator.plural_name</target>
+        <target>Simuladores de gravedad</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>gravity_simulator.gender</source>
-        <target>gravity_simulator.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>gravity_simulator.first_letter</source>
-        <target>gravity_simulator.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>gravity_simulator.examine</source>
-        <target>gravity_simulator.examine</target>
+        <target>Muy importante para el desplazamiento de la tripulación en la nave.
+¿Ya has intentado caminar sin pegar los pies al suelo?</target>
       </segment>
     </unit>
     <unit id="kitchen">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>kitchen.name</source>
-        <target>kitchen.name</target>
+        <target>Cocina</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>kitchen.short_name</source>
-        <target>kitchen.short_name</target>
+        <target>Cocina</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>kitchen.plural_name</source>
-        <target>kitchen.plural_name</target>
+        <target>Cocinas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>kitchen.gender</source>
-        <target>kitchen.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>kitchen.first_letter</source>
-        <target>kitchen.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>kitchen.examine</source>
-        <target>kitchen.examine</target>
+        <target>Lugar reservado a un célebre bigotón con acento mexicano.
+Aquí las artes culinarias y marciales podrían encontrarse.</target>
       </segment>
     </unit>
     <unit id="reactor_lateral">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>reactor_lateral.name</source>
-        <target>reactor_lateral.name</target>
+        <target>Reactor lateral</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>reactor_lateral.short_name</source>
-        <target>reactor_lateral.short_name</target>
+        <target>Reactor lateral</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>reactor_lateral.plural_name</source>
-        <target>reactor_lateral.plural_name</target>
+        <target>Reactores laterales</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>reactor_lateral.gender</source>
-        <target>reactor_lateral.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>reactor_lateral.first_letter</source>
-        <target>reactor_lateral.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>reactor_lateral.examine</source>
-        <target>reactor_lateral.examine</target>
+        <target>Ubicado en la sala de motores, este reactor permite el funcionamiento del Daedalus.
+Además sirve para hacer barbacoas.</target>
       </segment>
     </unit>
     <unit id="mycoscan">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mycoscan.name</source>
-        <target>mycoscan.name</target>
+        <target>Mycoscan</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>mycoscan.short_name</source>
-        <target>mycoscan.short_name</target>
+        <target>Mycoscan</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>mycoscan.plural_name</source>
-        <target>mycoscan.plural_name</target>
+        <target>Mycoscanes</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>mycoscan.gender</source>
-        <target>mycoscan.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>mycoscan.first_letter</source>
-        <target>mycoscan.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>mycoscan.examine</source>
-        <target>mycoscan.examine</target>
+        <target>Sirve para encontrar rastros de la espora Mush en los organismos.
+Prototipo de detector de huellas Mush.</target>
       </segment>
     </unit>
     <unit id="narcotic_distiller">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>narcotic_distiller.name</source>
-        <target>narcotic_distiller.name</target>
+        <target>Dispensador de fármacos</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>narcotic_distiller.short_name</source>
-        <target>narcotic_distiller.short_name</target>
+        <target>Dispensador de fármacos</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>narcotic_distiller.plural_name</source>
-        <target>narcotic_distiller.plural_name</target>
+        <target>Dispensadores de fármacos</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>narcotic_distiller.gender</source>
-        <target>narcotic_distiller.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>narcotic_distiller.first_letter</source>
-        <target>narcotic_distiller.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>narcotic_distiller.examine</source>
-        <target>narcotic_distiller.examine</target>
+        <target>Sirve para fabricar medicamentos. Lo malo es que no es muy fiable.
+Distribuidor de alegría creado por el doctor Albus Haxley.</target>
       </segment>
     </unit>
     <unit id="neron_core">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>neron_core.name</source>
-        <target>neron_core.name</target>
+        <target>Núcleo de NERON</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>neron_core.short_name</source>
-        <target>neron_core.short_name</target>
+        <target>Núcleo de NERON</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>neron_core.plural_name</source>
-        <target>neron_core.plural_name</target>
+        <target>Núcleos de NERON</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>neron_core.gender</source>
-        <target>neron_core.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>neron_core.first_letter</source>
-        <target>neron_core.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>neron_core.examine</source>
-        <target>neron_core.examine</target>
+        <target>Da acceso a los proyectos NERON.
+Modificar sus programas permite mejorar a NERON.</target>
       </segment>
     </unit>
     <unit id="oxygen_tank">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>oxygen_tank.name</source>
-        <target>oxygen_tank.name</target>
+        <target>Tanque de oxígeno</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>oxygen_tank.short_name</source>
-        <target>oxygen_tank.short_name</target>
+        <target>Tanque de oxígeno</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>oxygen_tank.plural_name</source>
-        <target>oxygen_tank.plural_name</target>
+        <target>Tanques de oxígeno</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>oxygen_tank.gender</source>
-        <target>oxygen_tank.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>oxygen_tank.first_letter</source>
-        <target>oxygen_tank.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>oxygen_tank.examine</source>
-        <target>oxygen_tank.examine</target>
+        <target>Almacena el oxígeno necesario para tu respiración.
+Reserva de oxígeno del Daedalus, manipular con precaución. NO VACIARLO.</target>
       </segment>
     </unit>
     <unit id="pasiphae">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pasiphae.name</source>
-        <target>pasiphae.name</target>
+        <target>Pasiphae</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>pasiphae.short_name</source>
-        <target>pasiphae.short_name</target>
+        <target>Pasiphae</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>pasiphae.plural_name</source>
-        <target>pasiphae.plural_name</target>
+        <target>Pasiphaes</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>pasiphae.gender</source>
-        <target>pasiphae.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>pasiphae.first_letter</source>
-        <target>pasiphae.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>pasiphae.examine</source>
-        <target>pasiphae.examine</target>
+        <target>Con cómodos asientos de cuero y 5 velocidades.
+Blindaje del aparato: 12.
+No es tan nuevo pero cumple su función.
+
+in flight : "Sirve para dirigir el Pasiphae, nave de rescate del Daedalus
+Versión mejorada de Patrullero, se usa para recoger objetos en órbita. Aunque su artillería es reducida, es suficiente para defenderse de los Hunters."</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_2_wallis">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_alpha_2_wallis.name</source>
-        <target>patrol_ship_alpha_2_wallis.name</target>
+        <target>Patrullero Wallis</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_2_wallis.short_name</source>
-        <target>patrol_ship_alpha_2_wallis.short_name</target>
+        <target>Patrullero Wallis</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_2_wallis.plural_name</source>
-        <target>patrol_ship_alpha_2_wallis.plural_name</target>
+        <target>Patrulleros Wallis</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_alpha_2_wallis.gender</source>
-        <target>patrol_ship_alpha_2_wallis.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_2_wallis.first_letter</source>
-        <target>patrol_ship_alpha_2_wallis.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_alpha_2_wallis.examine</source>
-        <target>patrol_ship_alpha_2_wallis.examine</target>
+        <target>Con cómodos asientos de cuero y 5 velocidades.
+Cargas del aparato: 10.
+Blindaje del aparato: 10.
+No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_epicure">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_alpha_epicure.name</source>
-        <target>patrol_ship_alpha_epicure.name</target>
+        <target>Patrullero Epícuro</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_epicure.short_name</source>
-        <target>patrol_ship_alpha_epicure.short_name</target>
+        <target>Patrullero Epícuro</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_epicure.plural_name</source>
-        <target>patrol_ship_alpha_epicure.plural_name</target>
+        <target>Patrulleros Epícuro</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_alpha_epicure.gender</source>
-        <target>patrol_ship_alpha_epicure.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_epicure.first_letter</source>
-        <target>patrol_ship_alpha_epicure.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_alpha_epicure.examine</source>
-        <target>patrol_ship_alpha_epicure.examine</target>
+        <target>Con cómodos asientos de cuero y 5 velocidades.
+Cargas del aparato: 10.
+Blindaje del aparato: 10.
+No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_jujube">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_alpha_jujube.name</source>
-        <target>patrol_ship_alpha_jujube.name</target>
+        <target>Patrullero Jujube</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_jujube.short_name</source>
-        <target>patrol_ship_alpha_jujube.short_name</target>
+        <target>Patrullero Jujube</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_jujube.plural_name</source>
-        <target>patrol_ship_alpha_jujube.plural_name</target>
+        <target>Patrulleros Jujube</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_alpha_jujube.gender</source>
-        <target>patrol_ship_alpha_jujube.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_jujube.first_letter</source>
-        <target>patrol_ship_alpha_jujube.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_alpha_jujube.examine</source>
-        <target>patrol_ship_alpha_jujube.examine</target>
+        <target>Con cómodos asientos de cuero y 5 velocidades.
+Cargas del aparato: 10.
+Blindaje del aparato: 10.
+No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_longane">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_alpha_longane.name</source>
-        <target>patrol_ship_alpha_longane.name</target>
+        <target>Patrullero Longane</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_longane.short_name</source>
-        <target>patrol_ship_alpha_longane.short_name</target>
+        <target>Patrullero Longane</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_longane.plural_name</source>
-        <target>patrol_ship_alpha_longane.plural_name</target>
+        <target>Patrulleros Longane</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_alpha_longane.gender</source>
-        <target>patrol_ship_alpha_longane.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_longane.first_letter</source>
-        <target>patrol_ship_alpha_longane.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_alpha_longane.examine</source>
-        <target>patrol_ship_alpha_longane.examine</target>
+        <target>Con cómodos asientos de cuero y 5 velocidades.
+Cargas del aparato: 10.
+Blindaje del aparato: 10.
+No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_planton">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_alpha_planton.name</source>
-        <target>patrol_ship_alpha_planton.name</target>
+        <target>Patrullero Platón</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_planton.short_name</source>
-        <target>patrol_ship_alpha_planton.short_name</target>
+        <target>Patrullero Platón</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_planton.plural_name</source>
-        <target>patrol_ship_alpha_planton.plural_name</target>
+        <target>Patrulleros Platón</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_alpha_planton.gender</source>
-        <target>patrol_ship_alpha_planton.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_planton.first_letter</source>
-        <target>patrol_ship_alpha_planton.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_alpha_planton.examine</source>
-        <target>patrol_ship_alpha_planton.examine</target>
+        <target>Con cómodos asientos de cuero y 5 velocidades.
+Cargas del aparato: 10.
+Blindaje del aparato: 10.
+No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_socrate">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_alpha_socrate.name</source>
-        <target>patrol_ship_alpha_socrate.name</target>
+        <target>Patrullero Sócrates</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_socrate.short_name</source>
-        <target>patrol_ship_alpha_socrate.short_name</target>
+        <target>Patrullero Sócrates</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_socrate.plural_name</source>
-        <target>patrol_ship_alpha_socrate.plural_name</target>
+        <target>Patrulleros Sócrates</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_alpha_socrate.gender</source>
-        <target>patrol_ship_alpha_socrate.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_socrate.first_letter</source>
-        <target>patrol_ship_alpha_socrate.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_alpha_socrate.examine</source>
-        <target>patrol_ship_alpha_socrate.examine</target>
+        <target>Con cómodos asientos de cuero y 5 velocidades.
+Cargas del aparato: 10.
+Blindaje del aparato: 10.
+No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_tamarin">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_alpha_tamarin.name</source>
-        <target>patrol_ship_alpha_tamarin.name</target>
+        <target>Patrullero Tamarindo</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_tamarin.short_name</source>
-        <target>patrol_ship_alpha_tamarin.short_name</target>
+        <target>Patrullero Tamarindo</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_tamarin.plural_name</source>
-        <target>patrol_ship_alpha_tamarin.plural_name</target>
+        <target>Patrulleros Tamarindo</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_alpha_tamarin.gender</source>
-        <target>patrol_ship_alpha_tamarin.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_tamarin.first_letter</source>
-        <target>patrol_ship_alpha_tamarin.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_alpha_tamarin.examine</source>
-        <target>patrol_ship_alpha_tamarin.examine</target>
+        <target>Con cómodos asientos de cuero y 5 velocidades.
+Cargas del aparato: 10.
+Blindaje del aparato: 10.
+No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="pilgred">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pilgred.name</source>
-        <target>pilgred.name</target>
+        <target>Pilgred</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>pilgred.short_name</source>
-        <target>pilgred.short_name</target>
+        <target>Pilgred</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>pilgred.plural_name</source>
-        <target>pilgred.plural_name</target>
+        <target>Pilgreds</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>pilgred.gender</source>
-        <target>pilgred.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>pilgred.first_letter</source>
-        <target>pilgred.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>pilgred.examine</source>
-        <target>pilgred.examine</target>
+        <target>El reactor PILGRED es el único artefacto conocido que permite viajar más rápido que la luz. Su reparación puede ayudar al Daedalus a volver al Sistema Solar.
+Rompe los límites del tiempo y el espacio con toda seguridad.</target>
       </segment>
     </unit>
     <unit id="planet_scanner">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>planet_scanner.name</source>
-        <target>planet_scanner.name</target>
+        <target>Escáner de planetas</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>planet_scanner.short_name</source>
-        <target>planet_scanner.short_name</target>
+        <target>Escáner de planetas</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>planet_scanner.plural_name</source>
-        <target>planet_scanner.plural_name</target>
+        <target>Escáneres de planetas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>planet_scanner.gender</source>
-        <target>planet_scanner.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>planet_scanner.first_letter</source>
-        <target>planet_scanner.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>planet_scanner.examine</source>
-        <target>planet_scanner.examine</target>
+        <target>Mejora mucho el rendimiento del Terminal Astro.
++30% de probabilidades de encontrar un planeta.
+Para los nostálgicos, empieza cada escaneo con el sonido característico de los antiguos módems de Internet.
+</target>
       </segment>
     </unit>
     <unit id="research_laboratory">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>research_laboratory.name</source>
-        <target>research_laboratory.name</target>
+        <target>Laboratorio de investigación</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>research_laboratory.short_name</source>
-        <target>research_laboratory.short_name</target>
+        <target>Laboratorio de investigación</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>research_laboratory.plural_name</source>
-        <target>research_laboratory.plural_name</target>
+        <target>Laboratorios de investigación</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>research_laboratory.gender</source>
-        <target>research_laboratory.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>research_laboratory.first_letter</source>
-        <target>research_laboratory.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>research_laboratory.examine</source>
-        <target>research_laboratory.examine</target>
+        <target>Reúne las investigaciones científicas más destacadas sobre el Mush.
+Laboratorio ultramoderno. La ciencia también es un arma.</target>
       </segment>
     </unit>
     <unit id="shower">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>shower.name</source>
-        <target>shower.name</target>
+        <target>Ducha</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>shower.short_name</source>
-        <target>shower.short_name</target>
+        <target>Ducha</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>shower.plural_name</source>
-        <target>shower.plural_name</target>
+        <target>Duchas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>shower.gender</source>
-        <target>shower.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>shower.first_letter</source>
-        <target>shower.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>shower.examine</source>
-        <target>shower.examine</target>
+        <target>La higiene ayuda a permanecer sano.
+Mente limpia en cuerpo limpio.</target>
       </segment>
     </unit>
     <unit id="swedish_sofa">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>.name</source>
-        <target>.name</target>
+        <target>Sofá</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>swedish_sofa.short_name</source>
-        <target>swedish_sofa.short_name</target>
+        <target>Sofá</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>swedish_sofa.plural_name</source>
-        <target>swedish_sofa.plural_name</target>
+        <target>Sofas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>swedish_sofa.gender</source>
-        <target>swedish_sofa.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>swedish_sofa.first_letter</source>
-        <target>swedish_sofa.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>swedish_sofa.examine</source>
-        <target>swedish_sofa.examine</target>
+        <target>Un magnífico sofá de cuero genuino, cosido a mano. Diseñado en Suecia pero hecho en un planeta de esclavos.
+Lo único que te hacer sentir como en casa...</target>
       </segment>
     </unit>
     <unit id="surgery_plot">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>surgery_plot.name</source>
-        <target>surgery_plot.name</target>
+        <target>Terminal médico</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>surgery_plot.short_name</source>
-        <target>surgery_plot.short_name</target>
+        <target>Terminal médico</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>surgery_plot.plural_name</source>
-        <target>surgery_plot.plural_name</target>
+        <target>Terminales médicos</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>surgery_plot.gender</source>
-        <target>surgery_plot.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>surgery_plot.first_letter</source>
-        <target>surgery_plot.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>surgery_plot.examine</source>
-        <target>surgery_plot.examine</target>
+        <target>Contiene todos los instrumentos necesarios para una curación eficaz.
+Es bueno saber dónde se encuentra en caso de urgencias.</target>
       </segment>
     </unit>
     <unit id="thalasso">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>thalasso.name</source>
-        <target>thalasso.name</target>
+        <target>Baño turco</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>thalasso.short_name</source>
-        <target>thalasso.short_name</target>
+        <target>Baño turco</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>thalasso.plural_name</source>
-        <target>thalasso.plural_name</target>
+        <target>Baños turcos</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>thalasso.gender</source>
-        <target>thalasso.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>thalasso.first_letter</source>
-        <target>thalasso.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>thalasso.examine</source>
-        <target>thalasso.examine</target>
+        <target>La higiene ayuda a permanecer sano.
+Mente limpia en cuerpo limpio.</target>
       </segment>
     </unit>
     <unit id="turret_command">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>turret_command.name</source>
-        <target>turret_command.name</target>
+        <target>Puesto de tiro</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>turret_command.short_name</source>
-        <target>turret_command.short_name</target>
+        <target>Puesto de tiro</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>turret_command.plural_name</source>
-        <target>turret_command.plural_name</target>
+        <target>Puestos de tiro</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>turret_command.gender</source>
-        <target>turret_command.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>turret_command.first_letter</source>
-        <target>turret_command.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>turret_command.examine</source>
-        <target>turret_command.examine</target>
+        <target>O nos defendemos de los Hunters o estallamos en mil pedazos, ¿qué prefieres?
+Cañones Bidulotron 3000. Un arma eficaz contra los Hunters.</target>
       </segment>
     </unit>
     <unit id="icarus">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>icarus.name</source>
-        <target>icarus.name</target>
+        <target>Icarus</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>icarus.short_name</source>
-        <target>icarus.short_name</target>
+        <target>Icarus</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>icarus.plural_name</source>
-        <target>icarus.plural_name</target>
+        <target>Icarus</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>icarus.gender</source>
-        <target>icarus.gender</target>
+        <target>Male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>icarus.first_letter</source>
-        <target>icarus.first_letter</target>
+        <target>Vowel</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>icarus.examine</source>
-        <target>icarus.examine</target>
+        <target>Sirve para llevar a los exploradores hacia nuevas aventuras.
+La nave de exploración por excelencia... hace muuuuchos siglos.</target>
       </segment>
     </unit>
     <unit id="jukebox">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>jukebox.name</source>
-        <target>jukebox.name</target>
+        <target>Rockola</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>jukebox.short_name</source>
-        <target>jukebox.short_name</target>
+        <target>Rockola</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>jukebox.plural_name</source>
-        <target>jukebox.plural_name</target>
+        <target>Rockolas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>jukebox.gender</source>
-        <target>jukebox.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>jukebox.first_letter</source>
-        <target>jukebox.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>jukebox.examine</source>
-        <target>jukebox.examine</target>
+        <target>Permite une pequeña sesión de regresión cuando lo necesites.
+La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la tripulación!</target>
       </segment>
     </unit>
     <unit id="camera_equipment">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>camera_equipment.name</source>
-        <target>camera_equipment.name</target>
+        <target>Cámara</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>camera_equipment.short_name</source>
-        <target>camera_equipment.short_name</target>
+        <target>Cámara</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>camera_equipment.plural_name</source>
-        <target>camera_equipment.plural_name</target>
+        <target>Cámaras</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>camera_equipment.gender</source>
-        <target>camera_equipment.gender</target>
+        <target>Female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>camera_equipment.first_letter</source>
-        <target>camera_equipment.first_letter</target>
+        <target>Consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>camera_equipment.examine</source>
-        <target>camera_equipment.examine</target>
+        <target>Es un dispositivo de vigilancia muy útil para espiar ver lo que hacen tus compañeros.
+En su presencia, las acciones discretas y furtivas efectuadas son reveladas.
+Cuando hay una en una sala, todo se registra en el historial y aparece públicamente. No funciona cuando está en tu inventario personal.</target>
       </segment>
     </unit>
     <unit id="patrol_ship.examine">
-      <segment state="initial">
+      <segment state="translated">
         <source>patrol_ship.examine</source>
-        <target>patrol_ship.examine</target>
+        <target>"Centraliza los comandos del Patrullero.
+Puesto de pilotaje del Patrullero."</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.name">
+      <segment state="initial">
+        <source>patrol_ship.name</source>
+        <target>patrol_ship.name</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.short_name">
+      <segment state="initial">
+        <source>patrol_ship.short_name</source>
+        <target>patrol_ship.short_name</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.plural_name">
+      <segment state="initial">
+        <source>patrol_ship.plural_name</source>
+        <target>patrol_ship.plural_name</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.gender">
+      <segment state="translated">
+        <source>patrol_ship.gender</source>
+        <target>male</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.first_letter">
+      <segment state="translated">
+        <source>patrol_ship.first_letter</source>
+        <target>consonant</target>
       </segment>
     </unit>
   </file>

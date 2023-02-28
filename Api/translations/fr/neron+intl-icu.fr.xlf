@@ -114,17 +114,17 @@
                     neutral {{target_equipment_gender, select,
                         male {**{target_equipment}** dysfonctionnel. *Réparation requise*.}
                         female {**{target_equipment}** dysfonctionnelle. *Réparation requise*.}
-                        other {invalid gender input}
+                        other {**{target_equipment}** dysfonctionnel. *Réparation requise*.}
                     }}
                     crazy {{target_equipment_gender, select,
                         male {Réparez !! RÉPAREZ !! **{target_equipment}** cassé, cassé, cassé !! *Réparez* ! [Hax!]}
                         female {Réparez !! RÉPAREZ !! **{target_equipment}** cassée, cassée, cassée !! *Réparez* ! [Hax!]}
-                        other {invalid gender input}
+                        other {Réparez !! RÉPAREZ !! **{target_equipment}** cassé, cassé, cassé !! *Réparez* ! [Hax!]}
                     }}
                     uninhibited {{target_equipment_gender, select,
                         male {C'est terrible, un **{target_equipment}** vient d'être mis hors d'usage !}
                         female {C'est terrible, une **{target_equipment}** vient d'être mise hors d'usage !}
-                        other {invalid gender input}
+                        other {C'est terrible, un **{target_equipment}** vient d'être mis hors d'usage !}
                     } {version, select,
                         1 {Merci de vous remuer pour me *réparer* ça ! Et regardez moi quand je vous parle !}
                         2 {Merci d'effectuer les *réparations* nécessaires Et **prenez-soin de mon matériel !**}
@@ -132,16 +132,16 @@
                         4 {{target_equipment_gender, select,
                             male {Réparez-le rapidement, merci !}
                             female {Réparez-la rapidement, merci !}
-                            other {invalid gender input}
+                            other {Réparez-le rapidement, merci !}
                         }}
                         5 {{target_equipment_gender, select,
                             male {Merci de mobiliser les moins balourds d'entre vous pour le *réparer* au plus vite !}
                             female {Merci de mobiliser les moins balourds d'entre vous pour la *réparer* au plus vite !}
-                            other {invalid gender input}
+                            other {Merci de mobiliser les moins balourds d'entre vous pour le *réparer* au plus vite !}
                         }}
-                        other {invalid version number}
+                        other {Merci de vous remuer pour me *réparer* ça ! Et regardez moi quand je vous parle !}
                     }}
-                    other {invalid mood input}
+                    other {**{target_equipment}** dysfonctionnel. *Réparation requise*.}
                 }</target>
       </segment>
     </unit>

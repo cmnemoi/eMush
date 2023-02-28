@@ -547,12 +547,12 @@ export default class DaedalusScene extends Phaser.Scene
         for (let i=0; i < sceneGameObjects.length; i++) {
             const gameObject = sceneGameObjects[i];
 
-            if (gameObject instanceof EquipmentObject &&
-                updatedEquipments.filter((equipment: Equipment) => {return equipment.key === gameObject.name;}).length === 0
-            ) {
-                return true;
+            if (gameObject instanceof EquipmentObject) {
+                if (updatedEquipments.filter((equipment: Equipment) => {return equipment.key === gameObject.name;}).length === 0) {
+                    return true;
+                }
+                equipmentCount = equipmentCount + 1;
             }
-            equipmentCount = equipmentCount + 1;
         }
 
         if (updatedEquipments.length === equipmentCount) {

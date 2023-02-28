@@ -2,15 +2,11 @@
 
 namespace Mush\Action\ConfigData;
 
-use Mush\Action\Enum\{
-    ActionEnum,
-    ActionScopeEnum,
-    ActionTypeEnum
-};
-use Mush\Game\Enum\{
-    ActionOutputEnum,
-    VisibilityEnum
-};
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\VisibilityEnum;
 
 /**
  * @codeCoverageIgnore

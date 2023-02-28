@@ -3,9 +3,13 @@
 namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Action\ActionResult\Fail;
+use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\PlayDynarcade;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -13,20 +17,11 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 
-use Mush\Action\ActionResult\{
-    Fail,
-    Success
-};
-use Mush\Equipment\Entity\{
-    Config\ItemConfig,
-    GameItem
-};
-
 class PlayDynarcadeTest extends AbstractActionTest
 {
-      /** @var RandomServiceInterface|Mockery\Mock */
-      private RandomServiceInterface $randomService;
-      
+    /** @var RandomServiceInterface|Mockery\Mock */
+    private RandomServiceInterface $randomService;
+
     /**
      * @before
      */
@@ -83,12 +78,12 @@ class PlayDynarcadeTest extends AbstractActionTest
         $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
 
         $this->eventService->shouldReceive('callEvent')
-        ->withArgs([\Mockery::on(function (PlayerVariableEvent $event) use($expectedPlayerModifierEvent) {
-           return $event->getPlayer() == $expectedPlayerModifierEvent->getPlayer()
-                && $event->getVariableName() == $expectedPlayerModifierEvent->getVariableName()
-                && $event->getQuantity() == $expectedPlayerModifierEvent->getQuantity()
-                && $event->getTags() == $expectedPlayerModifierEvent->getTags()
-                && $event->getVisibility() == $expectedPlayerModifierEvent->getVisibility();
+        ->withArgs([\Mockery::on(function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
+            return $event->getPlayer() == $expectedPlayerModifierEvent->getPlayer()
+                 && $event->getVariableName() == $expectedPlayerModifierEvent->getVariableName()
+                 && $event->getQuantity() == $expectedPlayerModifierEvent->getQuantity()
+                 && $event->getTags() == $expectedPlayerModifierEvent->getTags()
+                 && $event->getVisibility() == $expectedPlayerModifierEvent->getVisibility();
         }), VariableEventInterface::CHANGE_VARIABLE])
         ->once();
 
@@ -125,14 +120,14 @@ class PlayDynarcadeTest extends AbstractActionTest
             new \DateTime()
         );
         $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PUBLIC);
-        
+
         $this->eventService->shouldReceive('callEvent')
-        ->withArgs([\Mockery::on(function (PlayerVariableEvent $event) use($expectedPlayerModifierEvent) {
-           return $event->getPlayer() == $expectedPlayerModifierEvent->getPlayer()
-                && $event->getVariableName() == $expectedPlayerModifierEvent->getVariableName()
-                && $event->getQuantity() == $expectedPlayerModifierEvent->getQuantity()
-                && $event->getTags() == $expectedPlayerModifierEvent->getTags()
-                && $event->getVisibility() == $expectedPlayerModifierEvent->getVisibility();
+        ->withArgs([\Mockery::on(function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
+            return $event->getPlayer() == $expectedPlayerModifierEvent->getPlayer()
+                 && $event->getVariableName() == $expectedPlayerModifierEvent->getVariableName()
+                 && $event->getQuantity() == $expectedPlayerModifierEvent->getQuantity()
+                 && $event->getTags() == $expectedPlayerModifierEvent->getTags()
+                 && $event->getVisibility() == $expectedPlayerModifierEvent->getVisibility();
         }), VariableEventInterface::CHANGE_VARIABLE])
         ->once();
 

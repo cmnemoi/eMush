@@ -8,6 +8,7 @@ class ActionRequest
 {
     /**
      * @Assert\NotNull
+     *
      * @Assert\Type(type="integer")
      */
     private int $action;

@@ -3,21 +3,16 @@
 namespace Mush\Test\Action\Actions;
 
 use Mockery;
+use Mush\Action\ActionResult\Fail;
+use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-
-use Mush\Action\ActionResult\{
-    Fail,
-    Success
-};
-use Mush\Equipment\Entity\{
-    Config\ItemConfig,
-    GameItem
-};
 
 class RepairActionTest extends AbstractActionTest
 {

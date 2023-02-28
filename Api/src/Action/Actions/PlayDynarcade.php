@@ -2,6 +2,9 @@
 
 namespace Mush\Action\Actions;
 
+use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\ActionResult\Fail;
+use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
@@ -10,18 +13,12 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 
-use Mush\Action\ActionResult\{
-    ActionResult,
-    Fail,
-    Success
-};
-
 /**
  * Class implementing the "Play arcade" action.
- * The Dynarcade is an equipment located in Alpha Bay 2. 
- * It becomes available by purchasing the Purchased Gold Project Dynarcade in the Vending Machine. 
- * Playing the arcade games gives you a chance to restore 2 Morale with 1 Action Point. But if you fail, you'll take some damage. 
- * 
+ * The Dynarcade is an equipment located in Alpha Bay 2.
+ * It becomes available by purchasing the Purchased Gold Project Dynarcade in the Vending Machine.
+ * Playing the arcade games gives you a chance to restore 2 Morale with 1 Action Point. But if you fail, you'll take some damage.
+ *
  * More info : http://www.mushpedia.com/wiki/Dynarcade
  */
 class PlayDynarcade extends AttemptAction
@@ -35,8 +32,7 @@ class PlayDynarcade extends AttemptAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        if($result instanceof Success)
-        {
+        if ($result instanceof Success) {
             $playerModifierEvent = new PlayerVariableEvent(
                 $this->player,
                 PlayerVariableEnum::MORAL_POINT,
@@ -44,12 +40,10 @@ class PlayDynarcade extends AttemptAction
                 $this->getAction()->getActionTags(),
                 new \DateTime()
             );
-    
+
             $playerModifierEvent->setVisibility(VisibilityEnum::PUBLIC);
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
-        }
-        else if($result instanceof Fail)
-        {
+        } elseif ($result instanceof Fail) {
             $playerModifierEvent = new PlayerVariableEvent(
                 $this->player,
                 PlayerVariableEnum::HEALTH_POINT,
@@ -57,10 +51,9 @@ class PlayDynarcade extends AttemptAction
                 $this->getAction()->getActionTags(),
                 new \DateTime()
             );
-    
+
             $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
-
 }

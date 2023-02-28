@@ -6,46 +6,31 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\PlayDynarcade;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\User\Entity\User;
-
-use Mush\Action\Enum\{
-    ActionEnum,
-    ActionScopeEnum
-};
-use Mush\Daedalus\Entity\{
-    Daedalus,
-    DaedalusInfo
-};
-use Mush\Equipment\Entity\{
-    Config\EquipmentConfig,
-    GameItem
-};
-use Mush\Game\DataFixtures\{
-    GameConfigFixtures,
-    LocalizationConfigFixtures
-};
-use Mush\Game\Entity\{
-    GameConfig,
-    LocalizationConfig
-};
-use Mush\Game\Enum\{
-    ActionOutputEnum,
-    GameConfigEnum,
-    LanguageEnum,
-    VisibilityEnum
-};
-use Mush\Player\Entity\{
-    Config\CharacterConfig,
-    Player,
-    PlayerInfo
-};
 
 class PlayDynarcadeCest
 {
@@ -259,6 +244,7 @@ class PlayDynarcadeCest
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST);
+
         return $action;
     }
 }

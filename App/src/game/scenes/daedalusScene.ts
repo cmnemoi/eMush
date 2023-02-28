@@ -671,20 +671,24 @@ export default class DaedalusScene extends Phaser.Scene
 
     displayFire(): void
     {
-        for (let i = this.isoTileSize/2; i < this.sceneIsoSize.x; i = i + this.isoTileSize) {
-            for (let j = this.isoTileSize/2; j < this.sceneIsoSize.y; j = j + this.isoTileSize) {
-                const tileCoordinates = new IsometricCoordinates(i, 8 + j);
+        const totalNumberOfTiles = this.sceneIsoSize.x * this.sceneIsoSize.y/(this.isoTileSize * this.isoTileSize);
 
-                if (this.sceneGrid.getPolygonFromPoint(tileCoordinates) !== -1) {
-                    //is the tile on fire
-                    if (Math.random() < 0.2) {
-                        //intensity of fire
-                        if (Math.random() > 0.2) {
-                            this.createFireCell(tileCoordinates, 1);
-                        } else {
-                            this.createFireCell(tileCoordinates, 2);
-                        }
-                    }
+        // get a number of cells on fire between 30% to 60% of tiles on the scene
+        const numberOfFireCells = (0.2 + Math.random()*0.3) * totalNumberOfTiles;
+
+        for (let i = 0; i < numberOfFireCells; i++) {
+            //get random coordinates for the fire cell
+            const i =  this.isoTileSize/2 + Math.floor(Math.random() * this.sceneIsoSize.x);
+            const j =  this.isoTileSize + Math.floor(Math.random() * this.sceneIsoSize.y);
+
+            const tileCoordinates = new IsometricCoordinates(i, j);
+
+            if (this.sceneGrid.getPolygonFromPoint(tileCoordinates) !== -1) {
+                //intensity of fire
+                if (Math.random() > 0.2) {
+                    this.createFireCell(tileCoordinates, 1);
+                } else {
+                    this.createFireCell(tileCoordinates, 2);
                 }
             }
         }

@@ -339,7 +339,7 @@ export default defineComponent ({
         getPlayersInRange(start: number, end: number) {
             if (start < 1 || end > 16) return null;
             if (this.closedDaedalus && this.closedDaedalus.players) {
-                return this.sortPlayersByCycleSurvived(this.closedDaedalus.players).slice(start - 1, end + 1);
+                return this.sortPlayersByCycleSurvived(this.closedDaedalus.players).slice(start - 1, end);
             }
             return null;
         },

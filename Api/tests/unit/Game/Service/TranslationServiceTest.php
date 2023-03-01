@@ -255,6 +255,7 @@ class TranslationServiceTest extends TestCase
             LogDeclinationEnum::BALLS_COPROLALIA => 1,
             LogDeclinationEnum::PREFIX_COPROLALIA => 1,
             LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
+            LogDeclinationEnum::WORD_COPROLALIA => 1,
         ];
 
         $this->translator
@@ -271,7 +272,9 @@ class TranslationServiceTest extends TestCase
                     LogDeclinationEnum::VERSION => 1,
                     LogDeclinationEnum::PREFIX_COPROLALIA => 1,
                     LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
-                    LogDeclinationEnum::BALLS_COPROLALIA => 'baloches',
+                    LogDeclinationEnum::WORD_COPROLALIA => 1,
+                    LogDeclinationEnum::BALLS_COPROLALIA => 1,
+                    'balls_coprolalia' => 'baloches',
                 ],
                 'disease_message',
                 LanguageEnum::FRENCH
@@ -285,9 +288,12 @@ class TranslationServiceTest extends TestCase
                 'adjective_male_single_coprolalia',
                 [
                     LogDeclinationEnum::VERSION => 1,
-                    LogDeclinationEnum::PREFIX_COPROLALIA => 'translated_prefix',
+                    LogDeclinationEnum::PREFIX_COPROLALIA => 1,
+                    'prefix_coprolalia' => 'translated_prefix',
                     LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
-                    LogDeclinationEnum::BALLS_COPROLALIA => 'baloches',
+                    LogDeclinationEnum::BALLS_COPROLALIA => 1,
+                    'balls_coprolalia' => 'baloches',
+                    LogDeclinationEnum::WORD_COPROLALIA => 1,
                 ],
                 'disease_message',
                 LanguageEnum::FRENCH
@@ -301,9 +307,12 @@ class TranslationServiceTest extends TestCase
                 'adjective_male_plural_coprolalia',
                 [
                     LogDeclinationEnum::VERSION => 1,
-                    LogDeclinationEnum::PREFIX_COPROLALIA => 'translated_prefix',
+                    LogDeclinationEnum::PREFIX_COPROLALIA => 1,
+                    'prefix_coprolalia' => 'translated_prefix',
                     LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
-                    LogDeclinationEnum::BALLS_COPROLALIA => 'baloches',
+                    LogDeclinationEnum::BALLS_COPROLALIA => 1,
+                    'balls_coprolalia' => 'baloches',
+                    LogDeclinationEnum::WORD_COPROLALIA => 1,
                     'adjective_male_single_coprolalia' => 'translated_adjective_male_single',
                 ],
                 'disease_message',
@@ -318,9 +327,12 @@ class TranslationServiceTest extends TestCase
                 'adjective_female_single_coprolalia',
                 [
                     LogDeclinationEnum::VERSION => 1,
-                    LogDeclinationEnum::PREFIX_COPROLALIA => 'translated_prefix',
+                    LogDeclinationEnum::PREFIX_COPROLALIA => 1,
+                    'prefix_coprolalia' => 'translated_prefix',
                     LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
-                    LogDeclinationEnum::BALLS_COPROLALIA => 'baloches',
+                    LogDeclinationEnum::BALLS_COPROLALIA => 1,
+                    'balls_coprolalia' => 'baloches',
+                    LogDeclinationEnum::WORD_COPROLALIA => 1,
                     'adjective_male_single_coprolalia' => 'translated_adjective_male_single',
                     'adjective_male_plural_coprolalia' => 'translated_adjective_male_plural',
                 ],
@@ -336,9 +348,12 @@ class TranslationServiceTest extends TestCase
                 'adjective_female_plural_coprolalia',
                 [
                     LogDeclinationEnum::VERSION => 1,
-                    LogDeclinationEnum::PREFIX_COPROLALIA => 'translated_prefix',
+                    LogDeclinationEnum::PREFIX_COPROLALIA => 1,
+                    'prefix_coprolalia' => 'translated_prefix',
                     LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
-                    LogDeclinationEnum::BALLS_COPROLALIA => 'baloches',
+                    LogDeclinationEnum::BALLS_COPROLALIA => 1,
+                    'balls_coprolalia' => 'baloches',
+                    LogDeclinationEnum::WORD_COPROLALIA => 1,
                     'adjective_male_single_coprolalia' => 'translated_adjective_male_single',
                     'adjective_male_plural_coprolalia' => 'translated_adjective_male_plural',
                     'adjective_female_single_coprolalia' => 'translated_adjective_female_single',
@@ -350,15 +365,69 @@ class TranslationServiceTest extends TestCase
             ->once()
         ;
 
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(
+                'word_coprolalia',
+                [
+                    LogDeclinationEnum::VERSION => 1,
+                    LogDeclinationEnum::PREFIX_COPROLALIA => 1,
+                    'prefix_coprolalia' => 'translated_prefix',
+                    LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
+                    LogDeclinationEnum::BALLS_COPROLALIA => 1,
+                    'balls_coprolalia' => 'baloches',
+                    LogDeclinationEnum::WORD_COPROLALIA => 1,
+                    'adjective_male_single_coprolalia' => 'translated_adjective_male_single',
+                    'adjective_male_plural_coprolalia' => 'translated_adjective_male_plural',
+                    'adjective_female_single_coprolalia' => 'translated_adjective_female_single',
+                    'adjective_female_plural_coprolalia' => 'translated_adjective_female_plural',
+                ],
+                'disease_message',
+                LanguageEnum::FRENCH
+            )
+            ->andReturn('mot')
+            ->once()
+        ;
+
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(
+                'word_plural_coprolalia',
+                [
+                    LogDeclinationEnum::VERSION => 1,
+                    'prefix_coprolalia' => 'translated_prefix',
+                    LogDeclinationEnum::PREFIX_COPROLALIA => 1,
+                    LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
+                    'balls_coprolalia' => 'baloches',
+                    LogDeclinationEnum::BALLS_COPROLALIA => 1,
+                    LogDeclinationEnum::WORD_COPROLALIA => 1,
+                    'adjective_male_single_coprolalia' => 'translated_adjective_male_single',
+                    'adjective_male_plural_coprolalia' => 'translated_adjective_male_plural',
+                    'adjective_female_single_coprolalia' => 'translated_adjective_female_single',
+                    'adjective_female_plural_coprolalia' => 'translated_adjective_female_plural',
+                    'word_coprolalia' => 'mot',
+                ],
+                'disease_message',
+                LanguageEnum::FRENCH
+            )
+            ->andReturn('mots')
+            ->once()
+        ;
+
         $translatedParameters = [
             LogDeclinationEnum::VERSION => 1,
-            LogDeclinationEnum::PREFIX_COPROLALIA => 'translated_prefix',
+            'prefix_coprolalia' => 'translated_prefix',
+            LogDeclinationEnum::PREFIX_COPROLALIA => 1,
             LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
-            LogDeclinationEnum::BALLS_COPROLALIA => 'baloches',
+            'balls_coprolalia' => 'baloches',
+            LogDeclinationEnum::BALLS_COPROLALIA => 1,
+            LogDeclinationEnum::WORD_COPROLALIA => 1,
             'adjective_male_single_coprolalia' => 'translated_adjective_male_single',
             'adjective_male_plural_coprolalia' => 'translated_adjective_male_plural',
             'adjective_female_single_coprolalia' => 'translated_adjective_female_single',
             'adjective_female_plural_coprolalia' => 'translated_adjective_female_plural',
+            'word_coprolalia' => 'mot',
+            'word_plural_coprolalia' => 'mots',
         ];
 
         $this->translator->shouldReceive('trans')

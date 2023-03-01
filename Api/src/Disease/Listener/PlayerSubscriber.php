@@ -81,11 +81,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onDeathPlayer(PlayerEvent $event): void
     {
-        $playersInRoom = $event->getPlace()->getPlayers()->getPlayerAlive()->filter(
-            function ($player) use ($event) {
-                return $player !== $event->getPlayer();
-            }
-        );
+        $playersInRoom = $event->getPlace()->getPlayers()->getPlayerAlive();
 
         foreach ($playersInRoom as $player) {
             if ($this->randomService->isSuccessful(self::TRAUMA_PROBABILTY)) {

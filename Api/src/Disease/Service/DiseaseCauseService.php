@@ -16,8 +16,8 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class DiseaseCauseService implements DiseaseCauseServiceInterface
 {
-    private const HAZARDOUS_RATE = 100;
-    private const DECOMPOSING_RATE = 100;
+    private const HAZARDOUS_RATE = 50;
+    private const DECOMPOSING_RATE = 90;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private RandomServiceInterface $randomService;
@@ -35,9 +35,6 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
 
     public function handleSpoiledFood(Player $player, GameEquipment $gameEquipment): void
     {
-        $statuses = $gameEquipment->getStatuses();
-
-        throw new \Exception(json_encode($statuses));
         if (($gameEquipment->hasStatus(EquipmentStatusEnum::HAZARDOUS) &&
                 $this->randomService->isSuccessful(self::HAZARDOUS_RATE))
             || ($gameEquipment->hasStatus(EquipmentStatusEnum::DECOMPOSING) &&

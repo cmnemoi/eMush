@@ -108,7 +108,7 @@ class EquipmentConfigDataLoaderCest
             'equipmentName' => 'communication_center',
             'isBreakable' => true,
             'isFireDestroyable' => false,
-            'isFireBreakable' => false,
+            'isFireBreakable' => true,
             'isPersonal' => false,
         ];
 

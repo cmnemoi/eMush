@@ -370,6 +370,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.map = this.createRoom();
         this.createEquipments(this.map);
+        this.updateStatuses();
 
         // add target tile highlight
         this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
@@ -384,6 +385,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.enableEventListeners();
 
+        // this.enableDebugView();
 
         //const loadPlayer = mapActions('player', ['loadPlayer']);
         store.subscribeAction({
@@ -417,6 +419,7 @@ export default class DaedalusScene extends Phaser.Scene
 
             this.map = this.createRoom();
             this.createEquipments(this.map);
+            this.updateStatuses();
             this.createPlayers();
 
         } else if (this.areEquipmentsModified()) {
@@ -431,6 +434,7 @@ export default class DaedalusScene extends Phaser.Scene
 
             this.map = this.createRoom();
             this.createEquipments(this.map);
+            this.updateStatuses();
         } else{
             this.room = newRoom;
 
@@ -609,10 +613,6 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.sceneGrid.updateDepth();
         this.navMeshGrid = this.sceneGrid.buildNavMeshGrid();
-
-        this.updateStatuses();
-
-        //this.enableDebugView();
     }
 
     deleteEquipmentsAndDecoration(): void
@@ -674,21 +674,20 @@ export default class DaedalusScene extends Phaser.Scene
         const totalNumberOfTiles = this.sceneIsoSize.x * this.sceneIsoSize.y/(this.isoTileSize * this.isoTileSize);
 
         // get a number of cells on fire between 30% to 60% of tiles on the scene
-        const numberOfFireCells = (0.2 + Math.random()*0.3) * totalNumberOfTiles;
+        const numberOfFireCells = (0.15 + Math.random()*0.2) * totalNumberOfTiles;
 
         for (let i = 0; i < numberOfFireCells; i++) {
             //get random coordinates for the fire cell
-            const i =  this.isoTileSize/2 + Math.floor(Math.random() * this.sceneIsoSize.x);
-            const j =  this.isoTileSize + Math.floor(Math.random() * this.sceneIsoSize.y);
+            const rand_iso_coords = new IsometricCoordinates(Math.random() * this.sceneIsoSize.x, Math.random() * this.sceneIsoSize.y)
+            const cell_coords = this.getGridIsoCoordinate(rand_iso_coords);
 
-            const tileCoordinates = new IsometricCoordinates(i, j);
-
-            if (this.sceneGrid.getPolygonFromPoint(tileCoordinates) !== -1) {
+            if (this.sceneGrid.getPolygonFromPoint(cell_coords) !== -1) {
+                console.log('pas le feu');
                 //intensity of fire
                 if (Math.random() > 0.2) {
-                    this.createFireCell(tileCoordinates, 1);
+                    this.createFireCell(cell_coords, 1);
                 } else {
-                    this.createFireCell(tileCoordinates, 2);
+                    this.createFireCell(cell_coords, 2);
                 }
             }
         }

@@ -405,7 +405,7 @@ class TranslationServiceTest extends TestCase
                     'adjective_male_plural_coprolalia' => 'translated_adjective_male_plural',
                     'adjective_female_single_coprolalia' => 'translated_adjective_female_single',
                     'adjective_female_plural_coprolalia' => 'translated_adjective_female_plural',
-                    'word_coprolalia' => 'mot'
+                    'word_coprolalia' => 'mot',
                 ],
                 'disease_message',
                 LanguageEnum::FRENCH
@@ -413,7 +413,6 @@ class TranslationServiceTest extends TestCase
             ->andReturn('mots')
             ->once()
         ;
-
 
         $translatedParameters = [
             LogDeclinationEnum::VERSION => 1,
@@ -428,9 +427,8 @@ class TranslationServiceTest extends TestCase
             'adjective_female_single_coprolalia' => 'translated_adjective_female_single',
             'adjective_female_plural_coprolalia' => 'translated_adjective_female_plural',
             'word_coprolalia' => 'mot',
-            'word_plural_coprolalia' => 'mots'
+            'word_plural_coprolalia' => 'mots',
         ];
-
 
         $this->translator->shouldReceive('trans')
             ->with(DiseaseMessagesEnum::REPLACE_COPROLALIA, $translatedParameters, 'domain', LanguageEnum::FRENCH)

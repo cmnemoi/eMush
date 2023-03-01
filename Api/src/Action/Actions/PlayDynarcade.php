@@ -41,7 +41,7 @@ class PlayDynarcade extends AttemptAction
                 new \DateTime()
             );
 
-            $playerModifierEvent->setVisibility(VisibilityEnum::PUBLIC);
+            $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         } elseif ($result instanceof Fail) {
             $playerModifierEvent = new PlayerVariableEvent(

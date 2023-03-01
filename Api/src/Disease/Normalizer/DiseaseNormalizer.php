@@ -107,7 +107,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
 
     private function getVariableEventModifierEffects(DiseaseConfig $diseaseConfig, string $description, string $language): string
     {
-        // Get GameModifier effect description
+        $effects = [];
         /** @var VariableEventModifierConfig $modifierConfig */
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
             if (!$modifierConfig instanceof VariableEventModifierConfig) {
@@ -161,6 +161,14 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
             );
 
             if ($effect) {
+                if (!in_array($effect, $effects)) {
+                    array_push($effects, $effect);
+                }
+            }
+        }
+
+        if (!empty($effects)) {
+            foreach ($effects as $effect) {
                 $description = $description . '//' . $effect;
             }
         }
@@ -170,7 +178,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
 
     private function getDirectModifierEffects(DiseaseConfig $diseaseConfig, string $description, string $language): string
     {
-        // Get GameModifier effect description
+        $effects = [];
         /** @var DirectModifierConfig $modifierConfig */
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
             if (!$modifierConfig instanceof DirectModifierConfig) {
@@ -226,6 +234,14 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
             );
 
             if ($effect) {
+                if (!in_array($effect, $effects)) {
+                    array_push($effects, $effect);
+                }
+            }
+        }
+
+        if (!empty($effects)) {
+            foreach ($effects as $effect) {
                 $description = $description . '//' . $effect;
             }
         }

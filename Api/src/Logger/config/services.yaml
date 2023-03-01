@@ -1,0 +1,21 @@
+
+services:
+
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  Mush\Logger\:
+    resource: '../'
+    exclude:
+      - '../DependencyInjection/'
+      - '../Entity/'
+      - '../Kernel.php'
+      - '../Tests/'
+
+  monolog.processor.correlationIdProcessor:
+    class: Mush\Logger\Processor\RequestProcessor
+    tags:
+        - { name: monolog.processor, handler: mongo }

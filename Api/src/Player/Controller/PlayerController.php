@@ -10,18 +10,18 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
-use Mush\Player\Entity\Dto\PlayerCreateRequest;
-use Mush\Player\Entity\Dto\PlayerEndRequest;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Voter\PlayerVoter;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+
+use Mush\Player\Entity\{Dto\PlayerCreateRequest, Dto\PlayerEndRequest, Player};
 
 /**
  * Class UsersController.
@@ -37,16 +37,21 @@ class PlayerController extends AbstractFOSRestController
     private CycleServiceInterface $cycleService;
     private ValidatorInterface $validator;
 
+    private LoggerInterface $logger;
+
+
     public function __construct(
         PlayerServiceInterface $playerService,
         DaedalusServiceInterface $daedalusService,
         CycleServiceInterface $cycleService,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        LoggerInterface $loggerInterface
     ) {
         $this->playerService = $playerService;
         $this->daedalusService = $daedalusService;
         $this->cycleService = $cycleService;
         $this->validator = $validator;
+        $this->logger = $loggerInterface;
     }
 
     /**

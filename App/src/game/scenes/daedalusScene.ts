@@ -681,7 +681,6 @@ export default class DaedalusScene extends Phaser.Scene
             const cell_coords = this.getGridIsoCoordinate(rand_iso_coords);
 
             if (this.sceneGrid.getPolygonFromPoint(cell_coords) !== -1) {
-                console.log('pas le feu');
                 //intensity of fire
                 if (Math.random() > 0.2) {
                     this.createFireCell(cell_coords, 1);

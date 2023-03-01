@@ -36,7 +36,8 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_set_-2actionPoint_on_post.action_if_reason_consume',
+                'modifier_for_player_set_-2actionPoint_on_post.action_if_reason_consume', 
+                'modifier_for_player_set_-2actionPoint_on_post.action_if_reason_consume_drug',
             ],
             'symptomConfigs' => [
                 'vomiting_ON_post.action_consume_drug_default',
@@ -162,7 +163,8 @@ class DiseaseConfigData
                 'modifier_for_player_set_-1movementPoint_on_new_cycle',
                 'direct_modifier_player_-1_max_healthPoint',
                 'modifier_for_player_set_-1healthPoint_on_new_cycle_if_random_16',
-                'modifier_for_player_set_-1actionPoint_on_post.action_if_reason_consume',
+                'modifier_for_player_set_-1actionPoint_on_post.action_if_reason_consume', 
+                'modifier_for_player_set_-1actionPoint_on_post.action_if_reason_consume_drug',
             ],
             'symptomConfigs' => [
                 'dirtiness_ON_new_cycle_default',
@@ -702,7 +704,8 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_set_-2actionPoint_on_post.action_if_reason_consume',
+                'modifier_for_player_set_-2actionPoint_on_post.action_if_reason_consume', 
+                'modifier_for_player_set_-2actionPoint_on_post.action_if_reason_consume_drug',
                 'modifier_for_player_+1actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
             ],
             'symptomConfigs' => [

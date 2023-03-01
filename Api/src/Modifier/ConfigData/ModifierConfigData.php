@@ -315,6 +315,24 @@ class ModifierConfigData
             ],
             'tagConstraints' => [
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'modifier_for_player_set_-1actionPoint_on_post.action_if_reason_consume_drug',
+            'modifierName' => null,
+            'targetEvent' => 'post.action',
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => -1.0,
+            'targetVariable' => 'actionPoint',
+            'mode' => 'set_value',
+            'modifierActivationRequirements' => [
+                'reason_consume_drug',
+            ],
+            'tagConstraints' => [
                 ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
@@ -335,6 +353,24 @@ class ModifierConfigData
             ],
             'tagConstraints' => [
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'modifier_for_player_set_-2actionPoint_on_post.action_if_reason_consume_drug',
+            'modifierName' => null,
+            'targetEvent' => 'post.action',
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => -2.0,
+            'targetVariable' => 'actionPoint',
+            'mode' => 'set_value',
+            'modifierActivationRequirements' => [
+                'reason_consume_drug',
+            ],
+            'tagConstraints' => [
                 ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],

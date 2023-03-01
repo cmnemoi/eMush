@@ -385,7 +385,6 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.enableEventListeners();
 
-        // this.enableDebugView();
 
         //const loadPlayer = mapActions('player', ['loadPlayer']);
         store.subscribeAction({

@@ -185,11 +185,9 @@ class CycleService implements CycleServiceInterface
             $cycleStartedAtDate = $daedalus->getCycleStartedAt();
         } catch (\Exception $e) {
             $cycleStartedAtDate = new \DateTime();
-        }
-        finally {
+        } finally {
             return $this->getDateIntervalAsMinutes($lastDaedalusUpdateDate, $cycleStartedAtDate) > $daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength(); // 1 cycle tolerance
         }
-
     }
 
     // TODO : temporary function

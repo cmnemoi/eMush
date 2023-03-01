@@ -48,7 +48,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         return [
             PlayerEvent::CYCLE_DISEASE => 'onCycleDisease',
-            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
+            PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', 20], // higher priority than Death log
             PlayerEvent::INFECTION_PLAYER => 'onInfectionPlayer',
             PlayerEvent::NEW_PLAYER => 'onNewPlayer',
         ];

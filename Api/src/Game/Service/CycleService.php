@@ -161,11 +161,7 @@ class CycleService implements CycleServiceInterface
     }
 
     // TODO : temporary function
-    /**
-     * Temporary debug function to skip cycle change if Daedalus is stucked in it for too long (2 cycles).
-     *
-     * @return bool : true if cycle change was skipped
-     */
+    // Temporary function to skip cycle change if it's too long (more than 1 cycle)
     public function handleStuckedDaedalus(Daedalus $daedalus): bool
     {
         if ($this->cycleChangeLastedForTooLong($daedalus)) {
@@ -188,8 +184,8 @@ class CycleService implements CycleServiceInterface
         try {
             $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
         } catch (\Exception $e) {
-            $dateDaedalusLastCycle = new \DateTime();
         } finally {
+            $dateDaedalusLastCycle = new \DateTime();
             $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateNow, $daedalus);
 
             return $cycleElapsed > 1;

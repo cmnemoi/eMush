@@ -110,7 +110,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $unstable = new StatusConfig();
         $unstable
             ->setStatusName(EquipmentStatusEnum::UNSTABLE)
-            ->setVisibility(VisibilityEnum::COOK_RESTRICTED)
+            ->setVisibility(VisibilityEnum::PUBLIC)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($unstable);
@@ -118,7 +118,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $hazardous = new StatusConfig();
         $hazardous
             ->setStatusName(EquipmentStatusEnum::HAZARDOUS)
-            ->setVisibility(VisibilityEnum::COOK_RESTRICTED)
+            ->setVisibility(VisibilityEnum::PUBLIC)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($hazardous);
@@ -126,7 +126,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $decomposing = new StatusConfig();
         $decomposing
             ->setStatusName(EquipmentStatusEnum::DECOMPOSING)
-            ->setVisibility(VisibilityEnum::COOK_RESTRICTED)
+            ->setVisibility(VisibilityEnum::PUBLIC)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($decomposing);

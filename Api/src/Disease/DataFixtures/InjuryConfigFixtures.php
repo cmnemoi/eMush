@@ -323,7 +323,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $notMoveAction1Increase,
                 $consume2ActionLoss,
-                $consumeDrug2ActionLoss
+                $consumeDrug2ActionLoss,
             ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $consumeVomiting,

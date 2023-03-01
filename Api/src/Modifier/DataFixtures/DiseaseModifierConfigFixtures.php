@@ -48,6 +48,8 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
     public const CYCLE_1_HEALTH_LOST_RAND_50 = 'cycle_1_health_lost_rand_50';
     public const CONSUME_1_ACTION_LOSS = 'consume_1_action_loss';
     public const CONSUME_2_ACTION_LOSS = 'consume_2_action_loss';
+    public const CONSUME_DRUG_1_ACTION_LOSS = 'consume_drug_1_action_loss';
+    public const CONSUME_DRUG_2_ACTION_LOSS = 'consume_drug_2_action_loss';
     public const SHOOT_ACTION_10_PERCENT_ACCURACY_LOST = 'shoot_action_10_percent_accuracy_lost';
     public const MOVE_INCREASE_MOVEMENT = 'move_increase_movement';
     public const TAKE_CAT_6_HEALTH_LOSS = 'take_cat_6_health_loss';
@@ -343,6 +345,12 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($consumeActionActivationRequirement);
 
+        $comsumeDrugActionActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::REASON);
+        $comsumeDrugActionActivationRequirement
+            ->setActivationRequirement(ActionEnum::CONSUME_DRUG)
+            ->buildName()
+        ;
+
         $consume1ActionLoss = new VariableEventModifierConfig();
         $consume1ActionLoss
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -366,6 +374,30 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $consume2ActionLoss->buildName();
         $manager->persist($consume2ActionLoss);
+
+        $consumeDrug1ActionLoss = new VariableEventModifierConfig();
+        $consumeDrug1ActionLoss
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->addModifierRequirement($comsumeDrugActionActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+        ;
+        $consumeDrug1ActionLoss->buildName();
+        $manager->persist($consumeDrug1ActionLoss);
+
+        $consumeDrug2ActionLoss = new VariableEventModifierConfig();
+        $consumeDrug2ActionLoss
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(-2)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->addModifierRequirement($comsumeDrugActionActivationRequirement)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+        ;
+        $consumeDrug2ActionLoss->buildName();
+        $manager->persist($consumeDrug2ActionLoss);
 
         $infected4HealthLost = new VariableEventModifierConfig();
         $infected4HealthLost
@@ -468,6 +500,8 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $this->addReference(self::CYCLE_1_HEALTH_LOST_RAND_50, $cycle1HealthLostRand50);
         $this->addReference(self::CONSUME_1_ACTION_LOSS, $consume1ActionLoss);
         $this->addReference(self::CONSUME_2_ACTION_LOSS, $consume2ActionLoss);
+        $this->addReference(self::CONSUME_DRUG_1_ACTION_LOSS, $consumeDrug1ActionLoss);
+        $this->addReference(self::CONSUME_DRUG_2_ACTION_LOSS, $consumeDrug2ActionLoss);
         $this->addReference(self::MOVE_INCREASE_MOVEMENT, $moveIncreaseMovement);
         $this->addReference(self::INFECTED_4_HEALTH_LOSS, $infected4HealthLost);
         $this->addReference(self::TAKE_CAT_6_HEALTH_LOSS, $takeCat6HealthLost);

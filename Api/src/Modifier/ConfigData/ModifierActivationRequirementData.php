@@ -54,6 +54,12 @@ class ModifierActivationRequirementData
           'value' => 100,
         ],
         [
+          'name' => 'reason_consume_drug',
+          'activationRequirementName' => 'reason',
+          'activationRequirement' => 'consume_drug',
+          'value' => 100,
+        ],
+        [
           'name' => 'player_equipment_schrodinger',
           'activationRequirementName' => 'player_equipment',
           'activationRequirement' => 'schrodinger',

@@ -64,7 +64,6 @@ class EquipmentConfigData
                 'disassemble_percent_50_cost_3',
                 'repair_percent_50',
                 'sabotage_percent_50',
-                'report_equipment',
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -125,7 +124,6 @@ class EquipmentConfigData
                 'disassemble_percent_50_cost_3',
                 'repair_percent_25',
                 'sabotage_percent_25',
-                'report_equipment',
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -1635,7 +1633,7 @@ class EquipmentConfigData
                 'hide',
                 'repair_percent_6',
                 'sabotage_percent_6',
-                'report_equipment',
+
                 'examine',
             ],
             'mechanics' => [
@@ -1677,7 +1675,7 @@ class EquipmentConfigData
                 'take',
                 'disassemble_percent_25_cost_3',
                 'repair_percent_25',
-                'report_equipment',
+
                 'examine',
                 'install_camera',
             ],
@@ -1702,7 +1700,7 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_3',
                 'repair_percent_25',
                 'sabotage_percent_25',
-                'report_equipment',
+
                 'extinguish',
             ],
             'mechanics' => [],
@@ -1767,7 +1765,6 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_4',
                 'repair_percent_50',
                 'sabotage_percent_50',
-                'report_equipment',
             ],
             'mechanics' => [
                 'tools_microwave_default',
@@ -1795,7 +1792,6 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_4',
                 'repair_percent_25',
                 'sabotage_percent_25',
-                'report_equipment',
             ],
             'mechanics' => [
                 'tools_superfreezer_default',
@@ -1820,7 +1816,7 @@ class EquipmentConfigData
                 'hide',
                 'repair_percent_3',
                 'sabotage_percent_3',
-                'report_equipment',
+
                 'examine',
                 'public_broadcast',
             ],
@@ -1970,7 +1966,6 @@ class EquipmentConfigData
                 'examine',
                 'repair_percent_25',
                 'sabotage_percent_25',
-                'report_equipment',
             ],
             'mechanics' => [
                 'gear_stainproof_apron_default',
@@ -1995,7 +1990,6 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_3',
                 'repair_percent_12',
                 'sabotage_percent_12',
-                'report_equipment',
             ],
             'mechanics' => [
                 'gear_plastenite_armor_default',
@@ -2040,7 +2034,6 @@ class EquipmentConfigData
                 'examine',
                 'repair_percent_25',
                 'sabotage_percent_25',
-                'report_equipment',
             ],
             'mechanics' => [
                 'gear_protective_gloves_default',
@@ -2086,7 +2079,6 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_3',
                 'repair_percent_1',
                 'sabotage_percent_1',
-                'report_equipment',
             ],
             'mechanics' => [
                 'gear_sniper_helmet_default',
@@ -2134,7 +2126,6 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_3',
                 'repair_percent_6',
                 'sabotage_percent_6',
-                'report_equipment',
             ],
             'mechanics' => [
                 'gear_antigrav_scooter_default',
@@ -2183,7 +2174,6 @@ class EquipmentConfigData
                 'examine',
                 'repair_percent_12',
                 'sabotage_percent_12',
-                'report_equipment',
             ],
             'mechanics' => [
                 'gear_ncc_lenses_default',
@@ -2234,7 +2224,6 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_3',
                 'repair_percent_6',
                 'sabotage_percent_6',
-                'report_equipment',
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2318,7 +2307,6 @@ class EquipmentConfigData
                 'examine',
                 'repair_percent_1',
                 'sabotage_percent_1',
-                'report_equipment',
             ],
             'mechanics' => [],
             'initStatuses' => [
@@ -2343,7 +2331,6 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_3',
                 'repair_percent_25',
                 'sabotage_percent_25',
-                'report_equipment',
             ],
             'mechanics' => [
                 'weapon_blaster_default',
@@ -2370,7 +2357,6 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_3',
                 'repair_percent_25',
                 'sabotage_percent_25',
-                'report_equipment',
             ],
             'mechanics' => [
                 'weapon_knife_default',
@@ -2416,7 +2402,6 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_3',
                 'repair_percent_12',
                 'sabotage_percent_12',
-                'report_equipment',
             ],
             'mechanics' => [
                 'weapon_natamy_rifle_default',
@@ -2443,7 +2428,6 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_4',
                 'repair_percent_12',
                 'sabotage_percent_12',
-                'report_equipment',
             ],
             'mechanics' => [
                 'weapon_old_faithful_default',
@@ -2471,7 +2455,6 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_3',
                 'repair_percent_12',
                 'sabotage_percent_12',
-                'report_equipment',
             ],
             'mechanics' => [
                 'weapon_lizaro_jungle_default',
@@ -2498,7 +2481,6 @@ class EquipmentConfigData
                 'disassemble_percent_12_cost_3',
                 'repair_percent_12',
                 'sabotage_percent_12',
-                'report_equipment',
             ],
             'mechanics' => [
                 'weapon_rocket_launcher_default',

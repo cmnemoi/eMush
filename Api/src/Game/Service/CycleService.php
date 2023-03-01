@@ -41,6 +41,12 @@ class CycleService implements CycleServiceInterface
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalus);
 
         if ($cycleElapsed > 0) {
+            if ($this->cycleChangeLastedForTooLong($daedalus)) {
+                $this->skipCycleChange($daedalus);
+
+                return $cycleElapsed;
+            }
+
             $daedalus->setIsCycleChange(true);
             $this->entityManager->persist($daedalus);
             $this->entityManager->flush();
@@ -152,5 +158,50 @@ class CycleService implements CycleServiceInterface
         return intval($dateInterval->format('%a')) * 24 * 60 +
                 intval($dateInterval->format('%H')) * 60 +
                 intval($dateInterval->format('%i'));
+    }
+
+    // TODO : temporary function
+    /**
+     * Temporary debug function to skip cycle change if Daedalus is stucked in it for too long (2 cycles).
+     *
+     * @return bool : true if cycle change was skipped
+     */
+    public function handleStuckedDaedalus(Daedalus $daedalus): bool
+    {
+        if ($this->cycleChangeLastedForTooLong($daedalus)) {
+            $this->skipCycleChange($daedalus);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    // TODO : temporary function
+    private function cycleChangeLastedForTooLong(Daedalus $daedalus): bool
+    {
+        if (!$daedalus->isCycleChange()) {
+            return false;
+        }
+
+        $dateNow = new \DateTime();
+        try {
+            $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
+        } catch (\Exception $e) {
+            $dateDaedalusLastCycle = new \DateTime();
+        } finally {
+            $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateNow, $daedalus);
+
+            return $cycleElapsed > 1;
+        }
+    }
+
+    // TODO : temporary function
+    private function skipCycleChange(Daedalus $daedalus): void
+    {
+        $daedalus->setCycleStartedAt(new \DateTime());
+        $daedalus->setIsCycleChange(false);
+        $this->entityManager->persist($daedalus);
+        $this->entityManager->flush();
     }
 }

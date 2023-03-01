@@ -68,7 +68,9 @@ class RoomLogController extends AbstractFOSRestController
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            if (!$this->cycleService->handleStuckedDaedalus($daedalus)) {
+                throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            }
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
@@ -109,7 +111,9 @@ class RoomLogController extends AbstractFOSRestController
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            if (!$this->cycleService->handleStuckedDaedalus($daedalus)) {
+                throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            }
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 

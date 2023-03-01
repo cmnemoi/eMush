@@ -91,7 +91,9 @@ class ChannelController extends AbstractFOSRestController
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            if (!$this->cycleService->handleStuckedDaedalus($daedalus)) {
+                throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            }
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
@@ -137,7 +139,9 @@ class ChannelController extends AbstractFOSRestController
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            if (!$this->cycleService->handleStuckedDaedalus($daedalus)) {
+                throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            }
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
@@ -177,7 +181,9 @@ class ChannelController extends AbstractFOSRestController
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            if (!$this->cycleService->handleStuckedDaedalus($daedalus)) {
+                throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            }
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
@@ -213,7 +219,9 @@ class ChannelController extends AbstractFOSRestController
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            if (!$this->cycleService->handleStuckedDaedalus($daedalus)) {
+                throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            }
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
@@ -271,7 +279,9 @@ class ChannelController extends AbstractFOSRestController
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            if (!$this->cycleService->handleStuckedDaedalus($daedalus)) {
+                throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            }
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
@@ -316,7 +326,9 @@ class ChannelController extends AbstractFOSRestController
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            if (!$this->cycleService->handleStuckedDaedalus($daedalus)) {
+                throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            }
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
@@ -349,7 +361,9 @@ class ChannelController extends AbstractFOSRestController
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            if (!$this->cycleService->handleStuckedDaedalus($daedalus)) {
+                throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            }
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
@@ -395,7 +409,9 @@ class ChannelController extends AbstractFOSRestController
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            if (!$this->cycleService->handleStuckedDaedalus($daedalus)) {
+                throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            }
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 

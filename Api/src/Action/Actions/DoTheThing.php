@@ -250,14 +250,22 @@ class DoTheThing extends AbstractAction
     {
         $sporeNumber = $mush->getVariableValueByName(PlayerVariableEnum::SPORE);
         if ($sporeNumber > 0) {
-            $playerModifierEvent = new PlayerVariableEvent(
+            $removeSporeEvent = new PlayerVariableEvent(
                 $mush,
                 PlayerVariableEnum::SPORE,
                 -1,
                 $this->getAction()->getActionTags(),
                 new \DateTime()
             );
-            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+            $addSporesEvent = new PlayerVariableEvent(
+                $target,
+                PlayerVariableEnum::SPORE,
+                1,
+                $this->getAction()->getActionTags(),
+                new \DateTime()
+            );
+            $this->eventService->callEvent($removeSporeEvent, VariableEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($addSporesEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 

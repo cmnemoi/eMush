@@ -148,7 +148,7 @@
                             {{ $t('theEnd.endCause.' + player.endCause) }}
                         </p>
                         <p class="nova">
-                            <img src="@/assets/images/nova/sixth.png" alt="sixth"> {{ $t('theEnd.normalNova') }}
+                            <img src="@/assets/images/nova/sixth.png" alt="sixth"> {{ $t('theEnd.normalSuperNova') }}
                         </p>
                         <p class="epitaph" v-if="player.message">
                             « {{ player.message }} »

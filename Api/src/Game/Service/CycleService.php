@@ -180,16 +180,16 @@ class CycleService implements CycleServiceInterface
             return false;
         }
 
-        $dateNow = new \DateTime();
+        $lastDaedalusUpdateDate = $daedalus->getUpdatedAt();
         try {
-            $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
+            $cycleStartedAtDate = $daedalus->getCycleStartedAt();
         } catch (\Exception $e) {
-        } finally {
-            $dateDaedalusLastCycle = new \DateTime();
-            $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateNow, $daedalus);
-
-            return $cycleElapsed > 1;
+            $cycleStartedAtDate = new \DateTime();
         }
+        finally {
+            return $this->getDateIntervalAsMinutes($lastDaedalusUpdateDate, $cycleStartedAtDate) > $daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength(); // 1 cycle tolerance
+        }
+
     }
 
     // TODO : temporary function

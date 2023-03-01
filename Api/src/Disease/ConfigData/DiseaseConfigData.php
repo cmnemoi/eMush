@@ -2,6 +2,8 @@
 
 namespace Mush\Disease\ConfigData;
 
+use Mush\Disease\Enum\SymptomEnum;
+
 /** @codeCoverageIgnore */
 class DiseaseConfigData
 {
@@ -365,6 +367,7 @@ class DiseaseConfigData
                 'foaming_mouth_ON_post.action_default',
                 'drooling_ON_post.action_default',
                 'biting_ON_new_cycle_default',
+                SymptomEnum::PSYCHOTIC_ATTACKS
             ],
         ],
         [

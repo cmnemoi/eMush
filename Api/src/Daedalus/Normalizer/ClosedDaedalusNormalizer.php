@@ -49,7 +49,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         $data = $this->normalizer->normalize($object, $format, $context);
 
         if (!is_array($data)) {
-            throw new \Error('normalized closedDaedalus should be an array');
+            throw new \Exception('normalized closedDaedalus should be an array');
         }
 
         if ($daedalus->isDaedalusFinished()) {

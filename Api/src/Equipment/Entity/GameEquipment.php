@@ -104,7 +104,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     {
         $place = $this->place;
         if ($place === null) {
-            throw new \LogicException('Cannot find place of the GameEquipment');
+            throw new \LogicException("Cannot find place of the GameEquipment {$this->name}");
         }
 
         return $place;
@@ -113,7 +113,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     public function getHolder(): EquipmentHolderInterface
     {
         if ($this->place === null) {
-            throw new \Error('equipment should have a holder');
+            throw new \Exception("equipment {$this->name} should have a holder");
         }
 
         return $this->place;

@@ -60,7 +60,7 @@ class GearToolService implements GearToolServiceInterface
             default:
                 $room = $player->getDaedalus()->getPlaceByName($reach);
                 if ($room === null) {
-                    throw new \Error('Invalid reach');
+                    throw new \Exception("This reach {$reach} is not handled");
                 }
 
                 return $room

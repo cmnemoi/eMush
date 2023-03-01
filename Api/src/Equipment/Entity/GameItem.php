@@ -29,7 +29,7 @@ class GameItem extends GameEquipment
         $place = $this->place;
 
         if ($player === null && $place === null) {
-            throw new \Error('equipment should have a holder');
+            throw new \Exception("equipment {$this->getName()} should have a holder");
         } elseif ($player === null) {
             return $place;
         } else {

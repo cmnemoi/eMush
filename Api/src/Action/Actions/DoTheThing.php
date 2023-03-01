@@ -187,7 +187,7 @@ class DoTheThing extends AbstractAction
         $maxMoralePoint = $this->player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->getMaxValue();
 
         if ($maxMoralePoint === null) {
-            throw new \Error('moralPoints should have a maximum value');
+            throw new \Exception('moralPoints should have a maximum value');
         }
 
         $firstTimeStatus = $player->getStatusByName(PlayerStatusEnum::FIRST_TIME);

@@ -195,7 +195,7 @@ class DaedalusService implements DaedalusServiceInterface
 
         $localizationConfig = $this->localizationConfigRepository->findByLanguage($language);
         if ($localizationConfig === null) {
-            throw new \Error('there is no localizationConfig for this language');
+            throw new \Exception('there is no localizationConfig for this language');
         }
 
         $neron = new Neron();

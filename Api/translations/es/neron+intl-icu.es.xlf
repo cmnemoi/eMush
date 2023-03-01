@@ -112,7 +112,7 @@
     <unit id="lost_signal">
       <segment id="lost_signal" state="translated">
         <source>lost_signal</source>
-        <target>**Interrupción de la conexión con el Sistema Solar.** Causa: Interferencias provocadas por el uso de un *microondas*. </target>
+        <target>**Interrupción de la conexión con el Sistema Solar.** Causa: Interferencias provocadas por el uso de un *microondas*.</target>
       </segment>
     </unit>
     <unit id="lost_signal_oven">

@@ -297,8 +297,7 @@ Posee los instrumentos de navegación para que el comandante pilotee el Daedalus
       <segment id="examine" state="translated">
         <source>communication_center.examine</source>
         <target>Sirve para comunicarse con los sistemas planetarios lejanos.
-Reúne los datos de los diferentes radares y establece comunicaciones con unidades lejanas.
-</target>
+Reúne los datos de los diferentes radares y establece comunicaciones con unidades lejanas.</target>
       </segment>
     </unit>
     <unit id="cryo_module">
@@ -911,8 +910,7 @@ Rompe los límites del tiempo y el espacio con toda seguridad.</target>
         <source>planet_scanner.examine</source>
         <target>Mejora mucho el rendimiento del Terminal Astro.
 +30% de probabilidades de encontrar un planeta.
-Para los nostálgicos, empieza cada escaneo con el sonido característico de los antiguos módems de Internet.
-</target>
+Para los nostálgicos, empieza cada escaneo con el sonido característico de los antiguos módems de Internet.</target>
       </segment>
     </unit>
     <unit id="research_laboratory">
@@ -1167,21 +1165,21 @@ Puesto de pilotaje del Patrullero."</target>
       </segment>
     </unit>
     <unit id="patrol_ship.name">
-      <segment state="initial">
+      <segment state="translated">
         <source>patrol_ship.name</source>
-        <target>patrol_ship.name</target>
+        <target>Patrullero</target>
       </segment>
     </unit>
     <unit id="patrol_ship.short_name">
-      <segment state="initial">
+      <segment state="translated">
         <source>patrol_ship.short_name</source>
-        <target>patrol_ship.short_name</target>
+        <target>Patrullero</target>
       </segment>
     </unit>
     <unit id="patrol_ship.plural_name">
-      <segment state="initial">
+      <segment state="translated">
         <source>patrol_ship.plural_name</source>
-        <target>patrol_ship.plural_name</target>
+        <target>Patrulleros</target>
       </segment>
     </unit>
     <unit id="patrol_ship.gender">

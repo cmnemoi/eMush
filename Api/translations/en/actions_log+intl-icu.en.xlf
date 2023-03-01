@@ -685,5 +685,17 @@ blablabla blablabla blablabla}
         <target>OH YEEAAHH. **{character}** has defeated Xatator, the boss on LEVEL 10!</target>
       </segment>
     </unit>
+    <unit id="play_arcade_fail">
+      <segment id="play_arcade_fail" state="translated">
+        <source>play_arcade_fail</source>
+        <target>Dammit - lost again, it's unreal - this bloody machine almost killed you to boot!</target>
+      </segment>
+    </unit>
+    <unit id="play_arcade_succes">
+      <segment id="play_arcade_succes" state="translated">
+        <source>play_arcade_succes</source>
+        <target>OH YEEAAHH. **{character}** has defeated Xatator, the boss on LEVEL 10!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

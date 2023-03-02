@@ -16,7 +16,7 @@ class MonologPostgresHandler extends AbstractProcessingHandler
     {
         $this->entityManager = $entityManager;
     }
- 
+
     /**
      * Writes the (already formatted) record down to the log of the implementing handler.
      */
@@ -25,15 +25,12 @@ class MonologPostgresHandler extends AbstractProcessingHandler
         $log = new Log();
         $log->setLogRecord($record);
 
-        if($this->entityManager->isOpen()){
-            try{
+        if ($this->entityManager->isOpen()) {
+            try {
                 $this->entityManager->persist($log);
                 $this->entityManager->flush();
-            }catch(Exception)
-            {
-
+            } catch (Exception) {
             }
-            
         }
     }
 }

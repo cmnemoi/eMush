@@ -348,7 +348,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>vertigo.description</source>
-        <target>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</target>
+        <target>Vous êtes frappé d'un vertige passager qui vous rend incapable de piloter un vaisseau...</target>
       </segment>
     </unit>
     <unit id="weapon_phobia">

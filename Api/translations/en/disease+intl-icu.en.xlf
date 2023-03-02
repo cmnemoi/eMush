@@ -8,7 +8,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>acid_reflux.description</source>
-        <target>You give your food back, it's irritating and painful...</target>
+        <target>You feel your food coming back up, it's irritating and painful...</target>
       </segment>
     </unit>
     <unit id="food_poisoning">
@@ -138,7 +138,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>quincks_oedema.description</source>
-        <target>You must have come too close to one of your allergens...</target>
+        <target>You must been in close contact with one of your allergens...</target>
       </segment>
     </unit>
     <unit id="rejuvenation">
@@ -198,7 +198,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>slight_nausea.description</source>
-        <target>You feel a little bit shady... It will pass, but you're not hungry anymore and you shouldn't go anywhere near bluuuuuurppp...</target>
+        <target>You feel a little bit queasy... It will pass, but you're not hungry anymore and you shouldn't go anywhere near bluuuuuurppp...</target>
       </segment>
     </unit>
     <unit id="smallpox">
@@ -228,7 +228,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>syphilis.description</source>
-        <target>A venereal disease par excellence, your appalling appearance and the rumours that surround you will soon tire you. What a Dom Juan, though...</target>
+        <target>A venereal disease par excellence, your appalling appearance and the rumours that surround you will soon tire you. What a Casanova, though...</target>
       </segment>
     </unit>
     <unit id="vitamin_deficiency">
@@ -248,7 +248,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>agoraphobia.description</source>
-        <target>You are afraid of crowds and wide open spaces, and you have uncontrollable dizziness... In space, it won't work.</target>
+        <target>You are afraid of crowds and wide open spaces, and you have uncontrollable dizziness... In space, this is not a good combo.</target>
       </segment>
     </unit>
     <unit id="ailurophobia">
@@ -268,7 +268,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>chronic_migraine.description</source>
-        <target>A particularly tenacious heavy migraine hits you from time to time... and when it hits you it turns everything upside down... no luck.</target>
+        <target>A particularly tenacious heavy migraine hits you from time to time... and when it hits you it turns everything upside down... You're all out of luck.</target>
       </segment>
     </unit>
     <unit id="chronic_vertigo">
@@ -278,7 +278,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>chronic_vertigo.description</source>
-        <target>You have chronic vertigo which proves to be quite debiliating.</target>
+        <target>You have chronic vertigo which proves to be quite debilitating.</target>
       </segment>
     </unit>
     <unit id="coprolalia">
@@ -288,7 +288,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>coprolalia.description</source>
-        <target>You launch hugh streams of insults without warning. This tends to shock people the first time they see it.</target>
+        <target>You spew litanies of insults without warning. This tends to shock people at first.</target>
       </segment>
     </unit>
     <unit id="crabism">
@@ -308,7 +308,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>depression.description</source>
-        <target>You suffer constantly. Life has become so long, too long and every and every test makes you increasing lose your taste for it.</target>
+        <target>You suffer constantly. Life has become so long, too long, and with each and every new trial and tribulation, you are slowly losing your will to care.</target>
       </segment>
     </unit>
     <unit id="paranoia">
@@ -318,7 +318,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>paranoia.description</source>
-        <target>You are in fear for your life and eventually make it known.</target>
+        <target>You fear for your life and potentially make it known.</target>
       </segment>
     </unit>
     <unit id="psychotic_episodes">
@@ -348,7 +348,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>vertigo.description</source>
-        <target>You have chronic vertigo which proves to be quite debilitating</target>
+        <target>You are struck by temporary vertigo, which makes you unable to pilot any craft...</target>
       </segment>
     </unit>
     <unit id="weapon_phobia">

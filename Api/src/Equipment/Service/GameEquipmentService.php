@@ -117,7 +117,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
         if ($config->isPersonal()) {
             if (!($holder instanceof Player)) {
-                throw new \Error('holder should be a player');
+                throw new \Exception("holder of this gameEquipment {$gameEquipment->getName()} should be a player");
             }
             $gameEquipment->setOwner($holder);
         }

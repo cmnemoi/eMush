@@ -41,7 +41,7 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
     {
         $player = $this->player;
         if ($player === null) {
-            throw new \Error('applyEffectEvent should have a player');
+            throw new \Exception('applyEffectEvent should have a player');
         }
 
         return $player;

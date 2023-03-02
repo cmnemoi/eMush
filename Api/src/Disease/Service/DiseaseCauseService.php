@@ -78,7 +78,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
         $causesConfigs = $daedalus->getGameConfig()->getDiseaseCauseConfig()->filter(fn (DiseaseCauseConfig $causeConfig) => $causeConfig->getCauseName() === $causeName);
 
         if ($causesConfigs->count() !== 1) {
-            throw new \Error("there should be exactly 1 diseaseCauseConfig for this cause ({$causeName}).");
+            throw new \Exception("there should be exactly 1 diseaseCauseConfig for this cause ({$causeName}).");
         }
 
         return $causesConfigs->first();

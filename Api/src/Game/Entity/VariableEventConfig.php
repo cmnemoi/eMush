@@ -94,7 +94,7 @@ class VariableEventConfig extends AbstractEventConfig
 
                 return $event;
             default:
-                throw new \Exception("unexpected variableClassHolder: {$variableHolder}");
+                throw new \Exception("unexpected variableClassHolder: {$this->variableHolderClass}");
         }
     }
 

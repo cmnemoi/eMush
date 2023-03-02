@@ -29,7 +29,8 @@ class EventCreationService implements EventCreationServiceInterface
         if ($eventConfig instanceof VariableEventConfig) {
             return $this->createVariableEvents($eventConfig, $tags, $time, $modifierRange);
         } else {
-            throw new \Exception("This eventConfig ({$eventConfig::class}) class is not supported");
+            $className = $eventConfig::class;
+            throw new \Exception("This eventConfig ({$className}) class is not supported");
         }
     }
 
@@ -75,7 +76,8 @@ class EventCreationService implements EventCreationServiceInterface
             return $modifierHolder;
         }
 
-        throw new \Exception("unexpected ModifierHolder class ({$modifierHolder})");
+        $className = $modifierHolder::class;
+        throw new \Exception("This eventConfig ({$className}) class is not supported");
     }
 
     private function getPlayersFromModifierHolder(ModifierHolder $modifierHolder): PlayerCollection
@@ -100,6 +102,7 @@ class EventCreationService implements EventCreationServiceInterface
             }
         }
 
-        throw new \Exception("unexpected ModifierHolder class ({$modifierHolder::class})");
+        $className = $modifierHolder::class;
+        throw new \Exception("This eventConfig ({$className}) class is not supported");
     }
 }

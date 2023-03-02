@@ -543,8 +543,6 @@ export default class DaedalusScene extends Phaser.Scene
 
         const room = this.player.room;
 
-        let equipmentCount = 0;
-
         if (room === null) { throw new Error("player room should be defined");}
         const equipmentsToUpdate = room.equipments;
 
@@ -553,10 +551,16 @@ export default class DaedalusScene extends Phaser.Scene
         for (let i=0; i < sceneGameObjects.length; i++) {
             const gameObject = sceneGameObjects[i];
 
-            if (gameObject instanceof EquipmentObject || gameObject instanceof DoorObject || gameObject instanceof DoorGroundObject) {
+            if (gameObject instanceof EquipmentObject) {
                 if (equipmentsToUpdate.filter((equipment: Equipment) => {return equipment.key === gameObject.name;}).length === 0) {
                     return true;
                 }
+                if (!(updatedEquipment.includes(gameObject.name))) {
+                    updatedEquipment.push(gameObject.name)
+                }
+            } else if (gameObject instanceof DoorObject ||
+                gameObject instanceof DoorGroundObject
+            ) {
                 if (!(updatedEquipment.includes(gameObject.name))) {
                     updatedEquipment.push(gameObject.name)
                 }

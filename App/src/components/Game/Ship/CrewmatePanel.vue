@@ -1,5 +1,5 @@
 <template>
-    <div class="crewmate-container" :class="target.character.key">
+    <div class="crewmate-container" :class="getSelectedPlayer.character.key">
         <div class="mate">
             <div class="card">
                 <div class="avatar">
@@ -7,15 +7,15 @@
                 </div>
                 <div>
                     <p class="name">
-                        {{ target.character.name }}
+                        {{ getSelectedPlayer.character.name }}
                     </p>
                     <div class="statuses">
-                        <Statuses :statuses="target.statuses" type="player" />
+                        <Statuses :statuses="getSelectedPlayer.statuses" type="player" />
                     </div>
                 </div>
             </div>
             <p class="presentation">
-                {{ target.character.description  }}
+                {{ getSelectedPlayer.character.description  }}
             </p>
             <!-- <div class="skills">
                 <div class="skill" v-for="skill in target.character.skills">
@@ -42,11 +42,13 @@ import { characterEnum } from '@/enums/character';
 import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
 import { Action } from "@/entities/Action";
+import ActionPanel from "@/components/Game/Ship/ActionPanel.vue";
 
 
 export default defineComponent ({
     name: "CrewmatePanel",
     components: {
+        ActionPanel,
         ActionButton,
         Statuses
     },
@@ -63,9 +65,14 @@ export default defineComponent ({
         ...mapGetters('room', [
             'selectedTarget'
         ]),
+        getSelectedPlayer(): Player | null
+        {
+            if (this.selectedTarget instanceof Player) { return this.selectedTarget;}
+            return null;
+        },
         getActions(): Action[]
         {
-            if (!(this.selectedTarget instanceof Player)) { return [];}
+            if (!(this.getSelectedPlayer instanceof Player)) { return [];}
             return this.selectedTarget.actions;
         },
         ...mapGetters('player', [

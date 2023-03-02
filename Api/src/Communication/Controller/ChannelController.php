@@ -313,6 +313,10 @@ class ChannelController extends AbstractFOSRestController
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $playerInfo->getPlayer()->getDaedalus()) {
+            return $this->view(['error' => 'player is not from this daedalus'], 422);
+        }
+
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
@@ -345,6 +349,10 @@ class ChannelController extends AbstractFOSRestController
             ($player = $playerInfo->getPlayer()) === null
         ) {
             throw new AccessDeniedException('User should be in game');
+        }
+
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
+            return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
         $daedalus = $player->getDaedalus();
@@ -436,6 +444,10 @@ class ChannelController extends AbstractFOSRestController
             throw new AccessDeniedException('Player cannot speak');
         }
 
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $currentPlayer->getDaedalus()) {
+            return $this->view(['error' => 'player is not from this daedalus'], 422);
+        }
+
         $this->messageService->createPlayerMessage($playerMessage, $messageCreate);
         $messages = $this->messageService->getChannelMessages($currentPlayer, $channel);
 
@@ -475,6 +487,10 @@ class ChannelController extends AbstractFOSRestController
             ($player = $playerInfo->getPlayer()) === null
         ) {
             throw new AccessDeniedException('User should be in game');
+        }
+
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
+            return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
         $messages = $this->messageService->getChannelMessages($player, $channel);

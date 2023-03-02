@@ -15,7 +15,7 @@ services:
       - '../Kernel.php'
       - '../Tests/'
 
-  monolog.processor.correlationIdProcessor:
+  monolog.processor.requestProcessor:
     class: Mush\Logger\Processor\RequestProcessor
     tags:
-        - { name: monolog.processor, handler: mongo }
+        - { name: monolog.processor, handler: Mush\Logger\Handler\MonologPostgresHandler }

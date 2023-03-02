@@ -3,6 +3,7 @@
 namespace Mush\Logger\Handler;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\LogRecord;
 use Mush\Logger\Entity\Log;
@@ -15,7 +16,7 @@ class MonologPostgresHandler extends AbstractProcessingHandler
     {
         $this->entityManager = $entityManager;
     }
-
+ 
     /**
      * Writes the (already formatted) record down to the log of the implementing handler.
      */
@@ -24,7 +25,15 @@ class MonologPostgresHandler extends AbstractProcessingHandler
         $log = new Log();
         $log->setLogRecord($record);
 
-        $this->entityManager->persist($log);
-        $this->entityManager->flush();
+        if($this->entityManager->isOpen()){
+            try{
+                $this->entityManager->persist($log);
+                $this->entityManager->flush();
+            }catch(Exception)
+            {
+
+            }
+            
+        }
     }
 }

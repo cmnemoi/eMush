@@ -19,3 +19,6 @@ services:
     class: Mush\Logger\Processor\RequestProcessor
     tags:
         - { name: monolog.processor, handler: Mush\Logger\Handler\MonologPostgresHandler }
+
+  monolog.handler.Mush\Logger\Handler\MonologPostgresHandler:
+    class: Mush\Logger\Handler\MonologPostgresHandler

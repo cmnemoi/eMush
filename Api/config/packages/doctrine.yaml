@@ -94,9 +94,9 @@ doctrine:
                 dir: '%kernel.project_dir%/src/MetaGame/Entity'
                 prefix: 'Mush\MetaGame\Entity'
                 alias: MetaGame
-            Log:
+            Logger:
                 is_bundle: false
                 type: attribute
                 dir: '%kernel.project_dir%/src/Logger/Entity'
                 prefix: 'Mush\Logger\Entity'
-                alias: Log
+                alias: Logger

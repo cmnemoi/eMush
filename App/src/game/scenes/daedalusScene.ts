@@ -556,13 +556,13 @@ export default class DaedalusScene extends Phaser.Scene
                     return true;
                 }
                 if (!(updatedEquipment.includes(gameObject.name))) {
-                    updatedEquipment.push(gameObject.name)
+                    updatedEquipment.push(gameObject.name);
                 }
             } else if (gameObject instanceof DoorObject ||
                 gameObject instanceof DoorGroundObject
             ) {
                 if (!(updatedEquipment.includes(gameObject.name))) {
-                    updatedEquipment.push(gameObject.name)
+                    updatedEquipment.push(gameObject.name);
                 }
             }
         }

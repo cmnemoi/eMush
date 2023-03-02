@@ -115,6 +115,13 @@ class EventModifierService implements EventModifierServiceInterface
             return $actionPoints ? $actionPoints : 0;
         }
 
+        if ($target === PlayerVariableEnum::MOVEMENT_POINT &&
+            in_array($action->getActionName(), ActionEnum::getActionPointModifierProtectedActions())) {
+            $movementPoints = $action->getActionVariables()->getValueByName(PlayerVariableEnum::MOVEMENT_POINT);
+
+            return $movementPoints ? $movementPoints : 0;
+        }
+
         return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionVariables()->getValueByName($target));
     }
 

@@ -8,6 +8,7 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
+use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Game\Enum\VisibilityEnum;
@@ -169,7 +170,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             $this->removePlayerDisease($playerDisease, [DiseaseStatusEnum::MUSH_CURE], $time, $visibility);
         }
 
-        if ($playerDisease->getDiseaseConfig()->getType() === TypeEnum::DISEASE) {
+        if ($this->diseaseHealsAtCycleChange($playerDisease)) {
             $newDiseasePoint = $playerDisease->getDiseasePoint() - 1;
             $playerDisease->setDiseasePoint($newDiseasePoint);
         }
@@ -218,5 +219,13 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             $playerDisease->setResistancePoint($playerDisease->getResistancePoint() - 1);
             $this->persist($playerDisease);
         }
+    }
+
+    private function diseaseHealsAtCycleChange(PlayerDisease $playerDisease): bool
+    {
+        $spontaneousHealingDisorders = [DisorderEnum::VERTIGO, DisorderEnum::SPLEEN];
+
+        return $playerDisease->getDiseaseConfig()->getType() === TypeEnum::DISEASE
+        || in_array($playerDisease->getDiseaseConfig()->getDiseaseName(), $spontaneousHealingDisorders);
     }
 }

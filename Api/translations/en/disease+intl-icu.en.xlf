@@ -38,7 +38,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>tapeworm.description</source>
-        <target>You are hungry, very hungry, always hungry... To eat, damn it!</target>
+        <target>You are hungry, very hungry, always hungry... Get some food, damn it!</target>
       </segment>
     </unit>
     <unit id="black_bite">
@@ -48,7 +48,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>black_bite.description</source>
-        <target>Relatively benign but persistent, the Black Bite is a recent syndrome that nobody knows about.</target>
+        <target>Relatively benign but persistent, the Black Bite is a recent syndrome that nobody knows much about.</target>
       </segment>
     </unit>
     <unit id="cat_allergy">
@@ -58,7 +58,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>cat_allergy.description</source>
-        <target>The mere sight of a cat causes unbearable sneezing and pustules. Its contact could prove fatal...</target>
+        <target>Even the sight of a cat provokes uncontrollable sneezing and hives. Contact with the beast could prove deadly...</target>
       </segment>
     </unit>
     <unit id="cold">
@@ -68,7 +68,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>cold.description</source>
-        <target>Never go out without your handkerchiefs!</target>
+        <target>Don't go out without your Kleenex!</target>
       </segment>
     </unit>
     <unit id="extreme_tinnitus">
@@ -78,7 +78,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>extreme_tinnitus.description</source>
-        <target>Your ears are constantly ringing loudly, which can become very tiring over time.</target>
+        <target>Your ears are constantly ringing loudly, which can become really tiring really quickly.</target>
       </segment>
     </unit>
     <unit id="flu">
@@ -118,7 +118,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>migraine.description</source>
-        <target>A particularly tenacious heavy migraine is harrassing the patient at the moment, but it'll eventually go away...</target>
+        <target>A particularly tenacious heavy migraine is harassing the patient at the moment, but it'll eventually go away...</target>
       </segment>
     </unit>
     <unit id="mush_allergy">
@@ -128,7 +128,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mush_allergy.description</source>
-        <target>Contact with Mush gives you horrible, painful pustules.</target>
+        <target>Contact with Mush gives you horrible, painful blisters.</target>
       </segment>
     </unit>
     <unit id="quincks_oedema">
@@ -138,7 +138,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>quincks_oedema.description</source>
-        <target>You must been in close contact with one of your allergens...</target>
+        <target>You must have been in close contact with one of your allergens...</target>
       </segment>
     </unit>
     <unit id="rejuvenation">
@@ -148,7 +148,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>rejuvenation.description</source>
-        <target>Your body is emitting pulsating green lights, not exactly conducive to restful sleep...</target>
+        <target>Your body is emitting pulsating green lights, not exactly conducive to a good night's sleep...</target>
       </segment>
     </unit>
     <unit id="rubella">
@@ -178,7 +178,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>sinus_storm.description</source>
-        <target>Your sinuses are on fire, of ice, then tear your head off... It's heavy and it doesn't go away...</target>
+        <target>Your sinuses are on fire, frozen, then make you want to tear your head off. It's bad and it won't go away...</target>
       </segment>
     </unit>
     <unit id="skin_inflammation">
@@ -218,7 +218,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>space_rabies.description</source>
-        <target>You have rabies. You can become violent and it will probably end up killing you.</target>
+        <target>You have rabies. You are prone to violent outbursts but it’s the disease that will end up killing you.</target>
       </segment>
     </unit>
     <unit id="syphilis">
@@ -438,7 +438,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>bruised_shoulder.description</source>
-        <target>Your shoulder has suffered major reversible bruising.</target>
+        <target>Your shoulder has sustained major contusions. Fortunately this is reversible.</target>
       </segment>
     </unit>
     <unit id="burnt_arms">
@@ -468,7 +468,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>burst_nose.description</source>
-        <target>Your nose is no longer, no longer at all, you look a bit scary too...</target>
+        <target>Your nose is no longer there, no longer there at all, you look a bit scary too...</target>
       </segment>
     </unit>
     <unit id="busted_arm_joint">
@@ -478,7 +478,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>busted_arm_joint.description</source>
-        <target>The dangling arm may be funny but is still very disabling.</target>
+        <target>Your dangling arm may look funny but is all the same a pretty serious handicap.</target>
       </segment>
     </unit>
     <unit id="busted_shoulder">
@@ -548,7 +548,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>head_trauma.description</source>
-        <target>You have suffered a recent head trauma, unless you can find a doctor who loves puzzles quickly, you are at risk.</target>
+        <target>You have suffered a recent head trauma, unless you can find a doctor who loves puzzles quickly, you are taking a big risk.</target>
       </segment>
     </unit>
     <unit id="implanted_bullet">
@@ -618,7 +618,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>open_air_brain.description</source>
-        <target>A piece of your skull is missing. In many circumstances, it would not be wrong to say that this can be a problem.</target>
+        <target>A piece of your skull is missing. In many circumstances, it would not be wrong to say that this could be a real problem for you.</target>
       </segment>
     </unit>
     <unit id="punctured_lung">
@@ -648,7 +648,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mashed_legs.description</source>
-        <target>You no longer have the use of your legs, too bad, it can be useful.</target>
+        <target>You no longer have the use of your legs, too bad, they were quite useful.</target>
       </segment>
     </unit>
     <unit id="torn_tongue">
@@ -664,7 +664,7 @@
     <unit id="mashed_leg.description">
       <segment state="translated">
         <source>mashed_leg.description</source>
-        <target>You no longer have the use of your legs, too bad, it can be useful.</target>
+        <target>You no longer have the use of your legs, too bad, they were quite useful.</target>
       </segment>
     </unit>
   </file>

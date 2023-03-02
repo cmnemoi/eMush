@@ -1504,9 +1504,9 @@
         <source>stuck_in_the_ship.name</source>
         <target>Stuck in the ship</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>stuck_in_the_ship.description</source>
-        <target>stuck_in_the_ship.description</target>
+        <target>You do not have the necessary equipment to explore this planet. You are forced to stay aboard the ship...</target>
       </segment>
       <segment id="effect" state="initial">
         <source>stuck_in_the_ship.examine</source>

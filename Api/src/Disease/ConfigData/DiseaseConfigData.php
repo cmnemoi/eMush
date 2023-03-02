@@ -365,6 +365,7 @@ class DiseaseConfigData
                 'foaming_mouth_ON_post.action_default',
                 'drooling_ON_post.action_default',
                 'biting_ON_new_cycle_default',
+                'psychotic_attacks_ON_post.action_default',
             ],
         ],
         [

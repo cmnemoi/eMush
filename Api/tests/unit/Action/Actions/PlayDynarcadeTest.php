@@ -119,7 +119,7 @@ class PlayDynarcadeTest extends AbstractActionTest
             $this->action->getAction()->getActionTags(),
             new \DateTime()
         );
-        $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PUBLIC);
+        $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
 
         $this->eventService->shouldReceive('callEvent')
         ->withArgs([\Mockery::on(function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {

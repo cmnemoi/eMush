@@ -4,7 +4,7 @@ namespace Mush\Logger\Processor;
 
 use Monolog\Attribute\AsMonologProcessor;
 use Monolog\LogRecord;
-use Symfony\Component\HttpFoundation\{Exception\SessionNotFoundException, RequestStack};
+use Symfony\Component\HttpFoundation\RequestStack;
 
 #[AsMonologProcessor()]
 class RequestProcessor
@@ -22,6 +22,7 @@ class RequestProcessor
         $record->extra['correlationId'] = $this->requestStack->getCurrentRequest()?->headers?->get('X-Request-Id');
         $record->extra['body'] = $this->requestStack->getCurrentRequest()?->getContent();
         $record->extra['uri'] = $this->requestStack->getCurrentRequest()?->getUri();
+
         return $record;
     }
 }

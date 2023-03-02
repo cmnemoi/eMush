@@ -42,13 +42,11 @@ import { characterEnum } from '@/enums/character';
 import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
 import { Action } from "@/entities/Action";
-import ActionPanel from "@/components/Game/Ship/ActionPanel.vue";
 
 
 export default defineComponent ({
     name: "CrewmatePanel",
     components: {
-        ActionPanel,
         ActionButton,
         Statuses
     },
@@ -73,7 +71,7 @@ export default defineComponent ({
         getActions(): Action[]
         {
             if (!(this.getSelectedPlayer instanceof Player)) { return [];}
-            return this.selectedTarget.actions;
+            return this.getSelectedPlayer.actions;
         },
         ...mapGetters('player', [
             'player'

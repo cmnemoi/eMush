@@ -35,6 +35,7 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -482,5 +483,173 @@ class DoTheThingCest
         $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
 
         $I->assertFalse($this->doTheThingAction->isVisible());
+    }
+
+    public function testSporesTransmission(FunctionalTester $I)
+    {
+        $I->loadFixtures([GameConfigFixtures::class, DaedalusConfigFixtures::class, LocalizationConfigFixtures::class]);
+
+        $didTheThingStatus = new ChargeStatusConfig();
+        $didTheThingStatus
+            ->setStatusName(PlayerStatusEnum::DID_THE_THING)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($didTheThingStatus);
+        $pregnantStatus = new StatusConfig();
+        $pregnantStatus
+            ->setStatusName(PlayerStatusEnum::PREGNANT)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($pregnantStatus);
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setStatusName(StatusEnum::ATTEMPT)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($attemptConfig);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setDiseaseName('disease')
+            ->buildName(GameConfigEnum::TEST)
+                ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($diseaseConfig);
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setCauseName('sex')
+            ->setDiseases(['disease'])
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($diseaseCauseConfig);
+
+        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $pregnantStatus, $didTheThingStatus]))
+            ->setDiseaseConfig(new ArrayCollection([$diseaseConfig]))
+            ->setDiseaseCauseConfig(new ArrayCollection([$diseaseCauseConfig]))
+            ->setDaedalusConfig($daedalusConfig)
+        ;
+        $I->flushToDatabase();
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setGameStatus(GameStatusEnum::CURRENT);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        $action = new Action();
+        $action
+            ->setActionName(ActionEnum::DO_THE_THING)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost(1)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($action);
+
+        /** @var CharacterConfig $femaleCharacterConfig */
+        $femaleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::PAOLA . '_' . GameConfigEnum::TEST,
+            'characterName' => CharacterEnum::PAOLA,
+            'actions' => new ArrayCollection([$action]),
+        ]);
+
+        /** @var CharacterConfig $maleCharacterConfig */
+        $maleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::DEREK . '_' . GameConfigEnum::TEST,
+            'characterName' => CharacterEnum::DEREK,
+            'actions' => new ArrayCollection([$action]),
+        ]);
+
+        $mushConfig = new ChargeStatusConfig();
+        $mushConfig
+            ->setStatusName(PlayerStatusEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($mushConfig);
+
+        $sporesStatusConfig = new ChargeStatusConfig();
+        $sporesStatusConfig
+            ->setStatusName(PlayerStatusEnum::SPORES)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($sporesStatusConfig);
+
+        /** @var Player $mushPlayer */
+        $mushPlayer = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+
+        $mushStatus = new ChargeStatus($mushPlayer, $mushConfig);
+        $I->haveInRepository($mushStatus);
+
+        $mushPlayer->setPlayerVariables($maleCharacterConfig);
+        $mushPlayer
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+            ->setSpores(1)
+        ;
+        $I->flushToDatabase($mushPlayer);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $mushPlayerInfo = new PlayerInfo($mushPlayer, $user, $femaleCharacterConfig);
+
+        $I->haveInRepository($mushPlayerInfo);
+        $mushPlayer->setPlayerInfo($mushPlayerInfo);
+        $I->refreshEntities($mushPlayer);
+
+        /** @var Player $humanPlayer */
+        $humanPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $humanPlayer->setPlayerVariables($maleCharacterConfig);
+        $humanPlayer
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+            ->setSpores(0)
+        ;
+        $I->flushToDatabase($humanPlayer);
+        $humanPlayerInfo = new PlayerInfo($humanPlayer, $user, $maleCharacterConfig);
+
+        $I->haveInRepository($humanPlayerInfo);
+        $humanPlayer->setPlayerInfo($humanPlayerInfo);
+        $I->refreshEntities($humanPlayer);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, [
+            'name' => EquipmentEnum::BED,
+        ]);
+
+        $gameEquipment = new GameEquipment($room);
+        $gameEquipment
+            ->setName(EquipmentEnum::BED)
+            ->setEquipment($equipmentConfig)
+        ;
+        $I->haveInRepository($gameEquipment);
+
+        $humanPlayer->setFlirts(new ArrayCollection([$mushPlayer]));
+
+        $this->doTheThingAction->loadParameters($action, $mushPlayer, $humanPlayer);
+
+        $this->doTheThingAction->execute();
+
+        $I->refreshEntities([$humanPlayer, $mushPlayer]);
+
+        $I->assertEquals(1, $humanPlayer->getSpores());
+        $I->assertEquals(0, $mushPlayer->getSpores());
     }
 }

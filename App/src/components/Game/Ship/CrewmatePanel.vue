@@ -70,8 +70,8 @@ export default defineComponent ({
         },
         getActions(): Action[]
         {
-            if (!(this.getSelectedPlayer instanceof Player)) { return [];}
-            return this.getSelectedPlayer.actions;
+            if (!(this.selectedTarget instanceof Player)) { return [];}
+            return this.selectedTarget.actions;
         },
         ...mapGetters('player', [
             'player'

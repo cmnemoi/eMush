@@ -40,7 +40,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         return [
             EquipmentEvent::EQUIPMENT_CREATED => [
-                ['onEquipmentCreated', -1],
+                ['onEquipmentCreated', 100],
             ],
             EquipmentEvent::EQUIPMENT_DESTROYED => [
                 ['onEquipmentDestroyed'],

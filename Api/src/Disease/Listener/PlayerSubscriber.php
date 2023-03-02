@@ -48,7 +48,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         return [
             PlayerEvent::CYCLE_DISEASE => 'onCycleDisease',
-            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
+            PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', 20], // higher priority than Death log
             PlayerEvent::INFECTION_PLAYER => 'onInfectionPlayer',
             PlayerEvent::NEW_PLAYER => 'onNewPlayer',
         ];
@@ -81,7 +81,11 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onDeathPlayer(PlayerEvent $event): void
     {
-        $playersInRoom = $event->getPlace()->getPlayers()->getPlayerAlive();
+        $playersInRoom = $event->getPlace()->getPlayers()->getPlayerAlive()->filter(
+            function ($player) use ($event) {
+                return $player !== $event->getPlayer();
+            }
+        );
 
         foreach ($playersInRoom as $player) {
             if ($this->randomService->isSuccessful(self::TRAUMA_PROBABILTY)) {

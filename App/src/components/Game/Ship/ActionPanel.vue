@@ -5,7 +5,7 @@
             :key="key"
             class="action-buttons"
             :action="action"
-            @click="executeTargetAction(action)"
+            @mousedown="executeTargetAction(action)"
         />
     </div>
 </template>

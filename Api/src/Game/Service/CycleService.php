@@ -60,7 +60,7 @@ class CycleService implements CycleServiceInterface
                         break;
                     }
                 }
-            } catch (\Exception $exception) {
+            } catch (\Throwable $e) {
             } finally {
                 $daedalus->setCycleStartedAt($dateDaedalusLastCycle);
                 $daedalus->setIsCycleChange(false);

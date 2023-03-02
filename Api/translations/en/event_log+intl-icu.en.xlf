@@ -402,11 +402,12 @@
     <unit id="surgery_success">
       <segment id="surgery_success" state="translated">
         <source>surgery_success</source>
-        <target>The operation seems to last forever, **{character}** finally gives their verdict with a smile on their face... {version, select,
-                    1 {the operation was successful. **{target_character} is doing well and will be back on their feet soon}.
-                    2 {**{target_character}** is doing admirably}.
-                    other {invalid version input}
-                    } **{target_character}**'s wound ({disease}) is healed.</target>
+        <target>The operation seems to last forever, **{character}** finally gives their verdict with a smile on their face... 
+                    {version, select,
+                      1 {the operation was successful. **{target_character}** is doing well and will be back on their feet soon.}
+                      2 {**{target_character}** is doing admirably.}
+                      other {invalid version input}
+                      } **{target_character}**'s wound ({disease}) is healed.</target>
       </segment>
     </unit>
     <unit id="surgery_critical_success">

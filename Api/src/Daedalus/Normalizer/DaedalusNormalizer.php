@@ -6,6 +6,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\ClosedPlayer;
+use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class DaedalusNormalizer implements NormalizerInterface
@@ -36,10 +38,14 @@ class DaedalusNormalizer implements NormalizerInterface
         /** @var Daedalus $daedalus */
         $daedalus = $object;
         $gameConfig = $daedalus->getGameConfig();
-        $cryoPlayer = $gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count();
-        $humanDead = $daedalus->getPlayers()->getHumanPlayer()->getPlayerDead()->count();
+        $players = $daedalus->getPlayers();
+        $closedPlayers = $players->map(fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer());
+
+        $cryoPlayers = $gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count();
+        $humanAlive = $daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->count();
         $mushAlive = $daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count();
-        $mushDead = $daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count();
+        $humanDead = $closedPlayers->filter(fn (ClosedPlayer $player) => !$player->getPlayerInfo()->isAlive() && !$player->isMush())->count();
+        $mushDead = $closedPlayers->filter(fn (ClosedPlayer $player) => !$player->getPlayerInfo()->isAlive() && $player->isMush())->count();
 
         $language = $daedalus->getLanguage();
 
@@ -66,17 +72,17 @@ class DaedalusNormalizer implements NormalizerInterface
                     'cycle' => $object->getCycle(),
                     'day' => $object->getDay(),
                 ],
-                'cryogenizedPlayers' => $cryoPlayer,
-                'humanPlayerAlive' => $daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->count(),
+                'cryogenizedPlayers' => $cryoPlayers,
+                'humanPlayerAlive' => $humanAlive,
                 'humanPlayerDead' => $humanDead,
                 'mushPlayerAlive' => $mushAlive,
                 'mushPlayerDead' => $mushDead,
                 'crewPlayer' => [
                     'name' => $this->translationService->translate('crewPlayer.name', [], 'daedalus', $language),
                     'description' => $this->translationService->translate('crewPlayer.description',
-                        ['cryogenizedPlayers' => $cryoPlayer,
+                        ['cryogenizedPlayers' => $cryoPlayers,
                             'playerAlive' => $daedalus->getPlayers()->getPlayerAlive()->count(),
-                            'humanDead' => $humanDead,
+                            'playerDead' => $daedalus->getPlayers()->getPlayerDead()->count(),
                             'mushAlive' => $mushAlive,
                             'mushDead' => $mushDead,
                         ], 'daedalus',

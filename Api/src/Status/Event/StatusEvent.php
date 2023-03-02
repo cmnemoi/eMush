@@ -34,6 +34,8 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
     ) {
         $this->statusName = $statusName;
         $this->holder = $holder;
+
+        $tags[] = $statusName;
         parent::__construct($tags, $time);
     }
 

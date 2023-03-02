@@ -107,7 +107,7 @@ class SymptomConfigData
             'visibility' => 'public',
             'symptomActivationRequirements' => [
                 'reason_move',
-                'random_16',
+                'random_40',
             ],
         ],
         [
@@ -160,6 +160,7 @@ class SymptomConfigData
             'visibility' => 'public',
             'symptomActivationRequirements' => [
                 'player_status_dirty',
+                'reason_dirty',
             ],
         ],
         [

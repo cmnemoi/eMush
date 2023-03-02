@@ -2,6 +2,12 @@
 
 namespace Mush\Action\ConfigData;
 
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\VisibilityEnum;
+
 /**
  * @codeCoverageIgnore
  */
@@ -251,10 +257,10 @@ class ActionData
         [
             'name' => 'attack',
             'action_name' => 'attack',
-            'types' => ['action_aggressive'],
+            'types' => ['action_aggressive', ActionTypeEnum::ACTION_ATTACK],
             'target' => null,
             'scope' => 'other_player',
-            'visibilities' => ['success' => 'public', 'fail' => 'public', 'critical_success' => 'public', 'critical_fail' => 'public'],
+            'visibilities' => ['success' => 'public', 'fail' => 'public', 'critical_success' => 'public', 'critical_fail' => 'public', 'one_shot' => 'public'],
             'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
@@ -300,7 +306,7 @@ class ActionData
             'target' => null,
             'scope' => 'current',
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
-            'actionPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
@@ -929,7 +935,7 @@ class ActionData
             'types' => ['action_aggressive', 'action_shoot'],
             'target' => null,
             'scope' => 'other_player',
-            'visibilities' => ['success' => 'public', 'fail' => 'public', 'critical_success' => 'public', 'critical_fail' => 'public'],
+            'visibilities' => ['success' => 'public', 'fail' => 'public', 'critical_success' => 'public', 'critical_fail' => 'public', 'one_shot' => 'public'],
             'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
@@ -1311,6 +1317,21 @@ class ActionData
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+        ],
+        [
+            'name' => ActionEnum::PLAY_ARCADE,
+            'action_name' => ActionEnum::PLAY_ARCADE,
+            'types' => [],
+            'target' => null,
+            'scope' => ActionScopeEnum::CURRENT,
+            'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::PUBLIC, ActionOutputEnum::FAIL => VisibilityEnum::PRIVATE],
+            'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 33, 'min_value' => 0, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
     ];

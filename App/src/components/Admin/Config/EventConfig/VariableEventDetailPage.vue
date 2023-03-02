@@ -120,7 +120,6 @@ export default defineComponent({
         },
     },
     beforeMount() {
-        console.log('coucou');
         const eventConfigId = String(this.$route.params.configId);
         GameConfigService.loadEventConfig(Number(eventConfigId)).then((res: EventConfig | null) => {
             if (res instanceof EventConfig) {

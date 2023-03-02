@@ -202,7 +202,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
         $moveVomiting
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomActivationRequirement($moveActionActivationRequirement)
-            ->addSymptomActivationRequirement($randActivationRequirement16)
+            ->addSymptomActivationRequirement($randActivationRequirement40)
             ->buildName(GameConfigEnum::DEFAULT, ActionEnum::MOVE)
         ;
         $manager->persist($moveVomiting);

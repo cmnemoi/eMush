@@ -8,7 +8,9 @@ const ELECTRIC_CHARGE = "electric_charges";
 const BROKEN = "broken";
 const FROZEN = "frozen";
 const UPDATING = "updating";
-
+const UNSTABLE = "unstable";
+const HASARDOUS = "hazardous";
+const DECOMPOSING = "decomposing";
 
 export const statusItemEnum: {[index: string]: any} = {
     [HEAVY]: {
@@ -40,5 +42,14 @@ export const statusItemEnum: {[index: string]: any} = {
     },
     [UPDATING]: {
         'icon': require('@/assets/images/status/update.png')
+    },
+    [UNSTABLE]: {
+        'icon': require('@/assets/images/status/food_unstable.png')
+    },
+    [HASARDOUS]: {
+        'icon': require('@/assets/images/status/food_hazardous.png')
+    },
+    [DECOMPOSING]: {
+        'icon': require('@/assets/images/status/food_decaying.png')
     }
 };

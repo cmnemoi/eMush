@@ -95,7 +95,7 @@ class EventModifierConfig extends AbstractModifierConfig
                     }
                     break;
                 default:
-                    throw new \Error('unexpected constraint type');
+                    throw new \LogicException('unexpected constraint type');
             }
         }
 

@@ -52,8 +52,6 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setName('default')
             ->setItems([
                 GearItemEnum::PLASTENITE_ARMOR,
-                ToolItemEnum::HACKER_KIT,
-                ToolItemEnum::BLOCK_OF_POST_IT,
                 ItemEnum::BLASTER,
                 ItemEnum::BLASTER,
                 ItemEnum::QUADRIMETRIC_COMPASS,
@@ -68,7 +66,6 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
                 ToolItemEnum::EXTINGUISHER,
                 ItemEnum::DRILL,
                 GearItemEnum::PROTECTIVE_GLOVES,
-                ItemEnum::GRENADE,
                 ItemEnum::HYDROPOT,
                 ItemEnum::HYDROPOT,
                 ToolItemEnum::DUCT_TAPE,

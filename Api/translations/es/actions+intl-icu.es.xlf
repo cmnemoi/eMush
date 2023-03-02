@@ -102,9 +102,9 @@
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>drop.name</source>
-        <target>drop.name</target>
+        <target>Dejar</target>
       </segment>
       <segment id="description" state="translated">
         <source>drop.description</source>
@@ -152,9 +152,9 @@
       </segment>
     </unit>
     <unit id="hide">
-      <segment id="hide" state="initial">
+      <segment id="hide" state="translated">
         <source>hide.name</source>
-        <target>hide.name</target>
+        <target>Esconder</target>
       </segment>
       <segment id="description" state="initial">
         <source>hide.description</source>
@@ -749,6 +749,16 @@
       <segment id="description" state="initial">
         <source>secret.description</source>
         <target>secret.description</target>
+      </segment>
+    </unit>
+    <unit id="play_arcade">
+      <segment id="name" state="initial">
+        <source>play_arcade.name</source>
+        <target>play_arcade.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>play_arcade.description</source>
+        <target>play_arcade.description</target>
       </segment>
     </unit>
   </file>

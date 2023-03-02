@@ -74,7 +74,7 @@ class StatusConfigData
         [
             'name' => 'unstable_default',
             'statusName' => 'unstable',
-            'visibility' => 'cook_restricted',
+            'visibility' => 'public',
             'type' => 'status_config',
             'chargeVisibility' => null,
             'chargeStrategy' => 'none',
@@ -87,7 +87,7 @@ class StatusConfigData
         [
             'name' => 'hazardous_default',
             'statusName' => 'hazardous',
-            'visibility' => 'cook_restricted',
+            'visibility' => 'public',
             'type' => 'status_config',
             'chargeVisibility' => null,
             'chargeStrategy' => 'none',
@@ -100,7 +100,7 @@ class StatusConfigData
         [
             'name' => 'decomposing_default',
             'statusName' => 'decomposing',
-            'visibility' => 'cook_restricted',
+            'visibility' => 'public',
             'type' => 'status_config',
             'chargeVisibility' => null,
             'chargeStrategy' => 'none',
@@ -537,7 +537,7 @@ class StatusConfigData
         [
             'name' => 'WATCHED_PUBLIC_BROADCAST_default',
             'statusName' => 'WATCHED_PUBLIC_BROADCAST',
-            'visibility' => 'private',
+            'visibility' => 'hidden',
             'type' => 'status_config',
             'chargeVisibility' => null,
             'chargeStrategy' => 'none',

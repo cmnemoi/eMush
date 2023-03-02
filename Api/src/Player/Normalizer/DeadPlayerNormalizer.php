@@ -104,22 +104,16 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
                 $otherPlayerInfo = $otherPlayer->getPlayerInfo();
                 $otherClosedPlayer = $otherPlayerInfo->getClosedPlayer();
 
+                $normalizedOtherPlayer['deathDay'] = $otherClosedPlayer->getDayDeath();
+                $normalizedOtherPlayer['deathCycle'] = $otherClosedPlayer->getCycleDeath();
                 $normalizedOtherPlayer['likes'] = $otherClosedPlayer->getLikes();
 
                 if ($otherPlayerInfo->getGameStatus() !== GameStatusEnum::CURRENT) {
                     $endCause = $otherClosedPlayer->getEndCause();
-                    $normalizedOtherPlayer['isDead'] = [
-                        'day' => $otherClosedPlayer->getDayDeath(),
-                        'cycle' => $otherClosedPlayer->getCycleDeath(),
-                        'cause' => $this->normalizeEndReason($endCause, $language),
-                    ];
                 } else {
-                    $normalizedOtherPlayer['isDead'] = [
-                        'day' => null,
-                        'cycle' => null,
-                        'cause' => $this->normalizeEndReason(EndCauseEnum::STILL_LIVING, $language),
-                    ];
+                    $endCause = EndCauseEnum::STILL_LIVING;
                 }
+                $normalizedOtherPlayer['endCause'] = $this->normalizeEndReason($endCause, $language);
                 $otherPlayers[] = $normalizedOtherPlayer;
             }
         }

@@ -4,7 +4,7 @@
     <unit id="bridge">
       <segment id="name" state="translated">
         <source>bridge.name</source>
-        <target>Pont</target>
+        <target>Puente</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>bridge.loc_prep</source>
@@ -14,7 +14,7 @@
     <unit id="alpha_bay">
       <segment id="name" state="translated">
         <source>alpha_bay.name</source>
-        <target>Baie Alpha</target>
+        <target>Plataforma Alpha</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>alpha_bay.loc_prep</source>
@@ -24,7 +24,7 @@
     <unit id="bravo_bay">
       <segment id="name" state="translated">
         <source>bravo_bay.name</source>
-        <target>Baie Beta</target>
+        <target>Plataforma Beta</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>bravo_bay.loc_prep</source>
@@ -34,7 +34,7 @@
     <unit id="alpha_bay_2">
       <segment id="name" state="translated">
         <source>alpha_bay_2.name</source>
-        <target>Baie Alpha 2</target>
+        <target>Plataforma Alpha 2</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>alpha_bay_2.loc_prep</source>
@@ -54,7 +54,7 @@
     <unit id="medlab">
       <segment id="name" state="translated">
         <source>medlab.name</source>
-        <target>Infirmerie</target>
+        <target>Enfermería</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>medlab.loc_prep</source>
@@ -64,7 +64,7 @@
     <unit id="laboratory">
       <segment id="name" state="translated">
         <source>laboratory.name</source>
-        <target>Laboratoire</target>
+        <target>Laboratorio</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>laboratory.loc_prep</source>
@@ -74,7 +74,7 @@
     <unit id="refectory">
       <segment id="name" state="translated">
         <source>refectory.name</source>
-        <target>Réfectoire</target>
+        <target>Comedor</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>refectory.loc_prep</source>
@@ -84,7 +84,7 @@
     <unit id="hydroponic_garden">
       <segment id="name" state="translated">
         <source>hydroponic_garden.name</source>
-        <target>Jardin Hydroponique</target>
+        <target>Jardín Hidropónico</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>hydroponic_garden.loc_prep</source>
@@ -94,7 +94,7 @@
     <unit id="engine_room">
       <segment id="name" state="translated">
         <source>engine_room.name</source>
-        <target>Salle des moteurs</target>
+        <target>Sala de Motores</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>engine_room.loc_prep</source>
@@ -104,7 +104,7 @@
     <unit id="front_alpha_turret">
       <segment id="name" state="translated">
         <source>front_alpha_turret.name</source>
-        <target>Tourelle Alpha Avant</target>
+        <target>Cañón Alpha Delantero</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_alpha_turret.loc_prep</source>
@@ -114,7 +114,7 @@
     <unit id="centre_alpha_turret">
       <segment id="name" state="translated">
         <source>centre_alpha_turret.name</source>
-        <target>Tourelle Alpha Centre</target>
+        <target>Cañón Alpha Central</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>centre_alpha_turret.loc_prep</source>
@@ -124,7 +124,7 @@
     <unit id="rear_alpha_turret">
       <segment id="name" state="translated">
         <source>rear_alpha_turret.name</source>
-        <target>Tourelle Alpha Arrière</target>
+        <target>Cañón Alpha Trasero</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_alpha_turret.loc_prep</source>
@@ -134,7 +134,7 @@
     <unit id="front_bravo_turret">
       <segment id="name" state="translated">
         <source>front_bravo_turret.name</source>
-        <target>Tourelle Beta Avant</target>
+        <target>Cañón Beta Delantero</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_bravo_turret.loc_prep</source>
@@ -144,7 +144,7 @@
     <unit id="centre_bravo_turret">
       <segment id="name" state="translated">
         <source>centre_bravo_turret.name</source>
-        <target>Tourelle Beta Centre</target>
+        <target>Cañón Beta Central</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>center_bravo_turret.loc_prep</source>
@@ -154,7 +154,7 @@
     <unit id="rear_bravo_turret">
       <segment id="name" state="translated">
         <source>rear_bravo_turret.name</source>
-        <target>Tourelle Beta Arrière</target>
+        <target>Cañón Beta Trasero</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_bravo_turret.loc_prep</source>
@@ -164,7 +164,7 @@
     <unit id="front_corridor">
       <segment id="name" state="translated">
         <source>front_corridor.name</source>
-        <target>Couloir Avant</target>
+        <target>Pasillo Delantero</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_corridor.loc_prep</source>
@@ -174,7 +174,7 @@
     <unit id="central_corridor">
       <segment id="name" state="translated">
         <source>central_corridor.name</source>
-        <target>Couloir Central</target>
+        <target>Pasillo Central</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>central_corridor.loc_prep</source>
@@ -184,7 +184,7 @@
     <unit id="rear_corridor">
       <segment id="name" state="translated">
         <source>rear_corridor.name</source>
-        <target>Couloir Arrière</target>
+        <target>Pasillo Trasero</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_corridor.loc_prep</source>
@@ -194,7 +194,7 @@
     <unit id="icarus_bay">
       <segment id="name" state="translated">
         <source>icarus_bay.name</source>
-        <target>Baie Icarus</target>
+        <target>Icarus</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>icarus_bay.loc_prep</source>
@@ -204,7 +204,7 @@
     <unit id="alpha_dorm">
       <segment id="name" state="translated">
         <source>alpha_dorm.name</source>
-        <target>Dortoir Alpha</target>
+        <target>Dormitorio Alpha</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>alpha_dorm.loc_prep</source>
@@ -214,7 +214,7 @@
     <unit id="bravo_dorm">
       <segment id="name" state="translated">
         <source>bravo_dorm.name</source>
-        <target>Dortoir Beta</target>
+        <target>Dormitorio Beta</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>bravo_dorm.loc_prep</source>
@@ -224,7 +224,7 @@
     <unit id="front_storage">
       <segment id="name" state="translated">
         <source>front_storage.name</source>
-        <target>Stockage Avant</target>
+        <target>Almacén Delantero</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_storage.loc_prep</source>
@@ -234,7 +234,7 @@
     <unit id="center_alpha_storage">
       <segment id="name" state="translated">
         <source>center_alpha_storage.name</source>
-        <target>Stockage Alpha Centre</target>
+        <target>Almacén Alpha Central</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>center_alpha_storage.loc_prep</source>
@@ -244,7 +244,7 @@
     <unit id="center_bravo_storage">
       <segment id="name" state="translated">
         <source>center_bravo_storage.name</source>
-        <target>Stockage Beta Centre</target>
+        <target>Almacén Beta Central</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>center_bravo_storage.loc_prep</source>
@@ -254,7 +254,7 @@
     <unit id="rear_alpha_storage">
       <segment id="name" state="translated">
         <source>rear_alpha_storage.name</source>
-        <target>Stockage Alpha Arrière</target>
+        <target>Almacén Alpha Trasero</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_alpha_storage.loc_prep</source>
@@ -264,7 +264,7 @@
     <unit id="rear_bravo_storage">
       <segment id="name" state="translated">
         <source>rear_bravo_storage.name</source>
-        <target>Stockage Beta Arrière</target>
+        <target>Almacén Beta Trasero</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_bravo_storage.loc_prep</source>

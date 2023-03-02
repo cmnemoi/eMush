@@ -19,7 +19,8 @@
 		"thanks": "Remerciements",
 		"alpha-testers": "Tous les alpha testeurs :)",
 		"emush": "eMush",
-		"eternaltwin": "eMush est un site web non-commercial géré par des amateurs. Il fait partie du projet Eternaltwin dont le but est d'archiver les jeux de Motion Twin, c'est à dire les garder accessibles même en cas de fermeture du site officiel. <strong>Nous ne sommes pas liés à Motion Twin</strong>."
+		"eternaltwin": "eMush est un site web non-commercial géré par des amateurs. Il fait partie du projet Eternaltwin dont le but est d'archiver les jeux de Motion Twin, c'est à dire les garder accessibles même en cas de fermeture du site officiel. <strong>Nous ne sommes pas liés à Motion Twin</strong>.",
+		"legal": "Mentions légales"
 	},
 	"util": {
 		"prev": "Page précédente",
@@ -27,7 +28,8 @@
 	},
 	"banner": {
 		"ranking": "Classement",
-		"user": "Mon Compte"
+		"user": "Mon Compte",
+		"news": "News"
 	},
 	"ranking": {
 		"ship_end_cause": "Cause de la destruction",
@@ -209,7 +211,12 @@
 			"triggerEventModifier": "Déclencheurs d'événements",
 			"modifierRequirement": "Conditions d'activation",
 			"triggeredEvent": "Nom de l'événement déclenché",
-			"applyOnActionParameter": "Application uniquement sur cible d'action"
+			"applyOnActionParameter": "Application uniquement sur cible d'action",
+			"modifierRange": "Portée du modificateur",
+			"revertOnRemove": "Inverser lors de la suppression",
+			"tagConstraints": "Condition sur les tags de l'événement",
+			"directModifier": "Modificateur direct",
+			"modifierName": "Nom du modificateur"
 		},
 		"modifierActivationRequirement": {
 			"name": "Nom",
@@ -416,7 +423,16 @@
 			"canShred": "Peut être déchiré",
 			"cannotShred": "Ne peut pas être déchiré",
 			"modifierConfigs": "Modificateurs",
-			"equipment": "Équipement assemblé"
+			"equipment": "Équipement assemblé",
+			"blueprint": "Blueprints",
+			"book": "Mage books",
+			"document": "Documents",
+			"drug": "Pills",
+			"fruit": "Fruits",
+			"gear": "Gear",
+			"plant": "Plants",
+			"ration": "Food",
+			"weapon": "Weapons"
 		},
 		"buttons": {
 			"add": "Ajouter",
@@ -455,6 +471,26 @@
 			"isAllCrew": "Gagné par tout l'équipage",
 			"isNotAllCrew": "Non gagné par tout l'équipage",
 			"team": "Équipe"
+		},
+		"eventConfig": {
+			"name": "Nom",
+			"eventName": "Nom de l'évènement",
+			"quantity": "Quantité",
+			"targetVariable": "Target variable",
+			"variableHolderClass": "Variable holder entity"
+		},
+		"newsList": {
+			"create": "admin.newsList.create",
+			"newsTitle": "admin.newsList.newsTitle",
+			"updatedAt": "admin.newsList.updatedAt"
+		},
+		"newsWrite": {
+			"frenchTitle": "admin.newsWrite.frenchTitle",
+			"frenchContent": "admin.newsWrite.frenchContent",
+			"englishContent": "admin.newsWrite.englishContent",
+			"englishTitle": "admin.newsWrite.englishTitle",
+			"spanishTitle": "admin.newsWrite.spanishTitle",
+			"spanishContent": "admin.newsWrite.spanishContent"
 		}
 	},
 	"charSelection": {
@@ -468,5 +504,13 @@
 			"day": "Jour",
 			"cycle": "Cycle"
 		}
+	},
+	"newsPage": {
+		"updatedAt": "newsPage.updatedAt"
+	},
+	"homePage": {
+		"joinUs": "homePage.joinUs",
+		"play": "homePage.play",
+		"synopsis": "homePage.synopsis"
 	}
 }

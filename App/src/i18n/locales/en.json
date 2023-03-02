@@ -27,9 +27,9 @@
 		"next": "Next page"
 	},
 	"banner": {
-		"news": "News",
 		"ranking": "Rankings",
-		"user": "My account"
+		"user": "My account",
+		"news": "News"
 	},
 	"ranking": {
 		"ship_end_cause": "End cause",
@@ -168,9 +168,9 @@
 		"frontAlphaTurret": "Front Alpha Turret",
 		"centreAlphaTurret": "Center Alpha Turret",
 		"rearAlphaTurret": "Rear Alpha Turret",
-		"frontBravoTurret": "Front Beta Turret",
-		"centreBravoTurret": "Center Beta Turret",
-		"rearBravoTurret": "Rear Beta Turret",
+		"frontBravoTurret": "Front Bravo Turret",
+		"centreBravoTurret": "Center Bravo Turret",
+		"rearBravoTurret": "Rear Bravo Turret",
 		"frontCorridor": "Front Corridor",
 		"centralCorridor": "Central Corridor",
 		"rearCorridor": "Rear Corridor",
@@ -179,9 +179,9 @@
 		"bravoDorm": "Beta Dorm",
 		"frontStorage": "Front Storage",
 		"centerAlphaStorage": "Center Alpha Storage",
-		"centerBravoStorage": "Center Beta Storage",
+		"centerBravoStorage": "Center Bravo Storage",
 		"rearAlphaStorage": "Rear Alpha Storage",
-		"rearBravoStorage": "Rear Beta Storage"
+		"rearBravoStorage": "Rear Bravo Storage"
 	},
 	"admin": {
 		"user": {
@@ -211,7 +211,12 @@
 			"triggerEventModifier": "Déclencheurs d'événements",
 			"modifierRequirement": "Conditions d'activation",
 			"triggeredEvent": "Nom de l'événement déclenché",
-			"applyOnActionParameter": "Application uniquement sur cible d'action"
+			"applyOnActionParameter": "Application uniquement sur cible d'action",
+			"modifierRange": "Portée du modificateur",
+			"revertOnRemove": "Inverser lors de la suppression",
+			"tagConstraints": "Condition sur les tags de l'événement",
+			"directModifier": "Modificateur direct",
+			"modifierName": "Nom du modificateur"
 		},
 		"modifierActivationRequirement": {
 			"name": "Name",
@@ -418,7 +423,16 @@
 			"canShred": "Can be shred",
 			"cannotShred": "Cannot be shred",
 			"modifierConfigs": "Modifiers",
-			"equipment": "Built piece of equipment"
+			"equipment": "Built piece of equipment",
+			"blueprint": "Blueprints",
+			"book": "Mage books",
+			"document": "Documents",
+			"drug": "Pills",
+			"fruit": "Fruits",
+			"gear": "Gear",
+			"plant": "Plants",
+			"ration": "Food",
+			"weapon": "Weapons"
 		},
 		"buttons": {
 			"add": "Add",
@@ -458,17 +472,24 @@
 			"isNotAllCrew": "Non earned by all crew",
 			"team": "Team"
 		},
-		"newsList" : {
+		"eventConfig": {
+			"name": "Nom",
+			"eventName": "Nom de l'évènement",
+			"quantity": "Quantité",
+			"targetVariable": "admin.eventConfig.targetVariable",
+			"variableHolderClass": "admin.eventConfig.variableHolderClass"
+		},
+		"newsList": {
 			"create": "Write a news",
 			"newsTitle": "Title",
 			"updatedAt": "Last update"
 		},
-		"newsWrite" : {
+		"newsWrite": {
 			"frenchTitle": "French title",
-			"englishTitle": "English title",
-			"spanishTitle": "Spanish title",
 			"frenchContent": "French content",
 			"englishContent": "English content",
+			"englishTitle": "English title",
+			"spanishTitle": "Spanish title",
 			"spanishContent": "Spanish content"
 		}
 	},
@@ -478,18 +499,18 @@
 		"startGame": "Start the game",
 		"youChoose": "You choose "
 	},
-	"newsPage" : {
-		"updatedAt": "Updated at "
-	},
-	"homePage" : {
-		"joinUs": "Join us !",
-		"play": "Play now !",
-		"synopsis": "You're about to wake up aboard the Daedalus with 15 other rebels. Like you, they are fleeing the <em>Mush</em>, a parasitic fungus which is ravaging Earth and threatens Humanity."
-	},
 	"game": {
 		"communications": {
 			"day": "Day",
 			"cycle": "Cycle"
 		}
+	},
+	"newsPage": {
+		"updatedAt": "Updated at "
+	},
+	"homePage": {
+		"joinUs": "Join us !",
+		"play": "Play now !",
+		"synopsis": "You're about to wake up aboard the Daedalus with 15 other rebels. Like you, they are fleeing the <em>Mush</em>, a parasitic fungus which is ravaging Earth and threatens Humanity."
 	}
 }

@@ -60,7 +60,7 @@ class GearToolService implements GearToolServiceInterface
             default:
                 $room = $player->getDaedalus()->getPlaceByName($reach);
                 if ($room === null) {
-                    throw new \Error('Invalid reach');
+                    throw new \Exception("This reach {$reach} is not handled");
                 }
 
                 return $room
@@ -110,6 +110,7 @@ class GearToolService implements GearToolServiceInterface
         /** @var Collection $tools */
         $tools = new ArrayCollection();
 
+        /** @var GameEquipment $tool */
         foreach ($this->getToolsOnReach($player) as $tool) {
             /** @var Tool $toolMechanic */
             $toolMechanic = $tool->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);

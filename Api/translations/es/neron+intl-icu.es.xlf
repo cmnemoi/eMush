@@ -32,9 +32,9 @@
       </segment>
     </unit>
     <unit id="start_game">
-      <segment id="start_game" state="initial">
+      <segment id="start_game" state="translated">
         <source>start_game</source>
-        <target>start_game</target>
+        <target>Avería menor del **sistema criogénico**. Todo uso futuro suspenderá *definitivamente* las funciones vitales del tripulante.</target>
       </segment>
     </unit>
     <unit id="activate_dmz">
@@ -110,9 +110,9 @@
       </segment>
     </unit>
     <unit id="lost_signal">
-      <segment id="lost_signal" state="initial">
+      <segment id="lost_signal" state="translated">
         <source>lost_signal</source>
-        <target>lost_signal</target>
+        <target>**Interrupción de la conexión con el Sistema Solar.** Causa: Interferencias provocadas por el uso de un *microondas*.</target>
       </segment>
     </unit>
     <unit id="lost_signal_oven">

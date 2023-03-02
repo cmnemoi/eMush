@@ -20,17 +20,17 @@
         <source>andie.fullname</source>
         <target>Andie Graham</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>andie.age</source>
-        <target>andie.age</target>
+        <target>24</target>
       </segment>
       <segment id="description" state="translated">
         <source>andie.description</source>
         <target>Federation boot-licker.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>andie.employment</source>
-        <target>andie.employment</target>
+        <target>SDF Sub-Lieutenant</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>andie.abstract</source>
@@ -58,14 +58,13 @@
         <source>chao.description</source>
         <target>Head of Security aboard the Daedalus, a blaster-toting psychopath</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>chao.employment</source>
-        <target>chao.employment</target>
+        <target>Chief of Security</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>chao.abstract</source>
-        <target>Wang Chao is assigned to crew protection detail. His chaotic personality makes him as much of a threat to his allies as his enemies. Despite errors made in his youth, Chao managed to earn the trust of his team by organising the emergency evacuation convoy from the Daedalus and successfully protecting them against ex-members of the SDF.
-</target>
+        <target>Wang Chao is assigned to crew protection detail. His chaotic personality makes him as much of a threat to his allies as his enemies. Despite errors made in his youth, Chao managed to earn the trust of his team by organising the emergency evacuation convoy from the Daedalus and successfully protecting them against ex-members of the SDF.</target>
       </segment>
       <segment id="biography" state="initial">
         <source>chao.biography</source>
@@ -81,22 +80,21 @@
         <source>chun.fullname</source>
         <target>Zhong Chun</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>chun.age</source>
-        <target>chun.age</target>
+        <target>33</target>
       </segment>
       <segment id="description" state="translated">
         <source>chun.description</source>
         <target>Everyone on board is important, but she is Humanity's last hope!</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>chun.employment</source>
-        <target>chun.employment</target>
+        <target>Maintenance Operative</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>chun.abstract</source>
-        <target>As the only surviving member of the Tamina medical team, Chun was forced to board the Daedelus to be subjected to numerous tests. Cryogenically frozen by the Federation for over 9 years to ensure her silence, then harassed by journalists, Chun has never known an ordinary life. However, as the key to the survival of the human race, Zhong Chun must survive at all costs.
-</target>
+        <target>As the only surviving member of the Tamina medical team, Chun was forced to board the Daedelus to be subjected to numerous tests. Cryogenically frozen by the Federation for over 9 years to ensure her silence, then harassed by journalists, Chun has never known an ordinary life. However, as the key to the survival of the human race, Zhong Chun must survive at all costs.</target>
       </segment>
       <segment id="biography" state="initial">
         <source>chun.biography</source>
@@ -112,17 +110,17 @@
         <source>derek.fullname</source>
         <target>Derek Hogan</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>derek.age</source>
-        <target>derek.age</target>
+        <target>39</target>
       </segment>
       <segment id="description" state="translated">
         <source>derek.description</source>
         <target>A true hero in spite of everything.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>derek.employment</source>
-        <target>derek.employment</target>
+        <target>Ex SDF Sergeant</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>derek.abstract</source>
@@ -138,21 +136,21 @@
         <source>eleesha.name</source>
         <target>Eleesha</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>eleesha.fullname</source>
-        <target>eleesha.fullname</target>
+        <target>Eleesha Williams</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>eleesha.age</source>
-        <target>eleesha.age</target>
+        <target>30</target>
       </segment>
       <segment id="description" state="translated">
         <source>eleesha.description</source>
         <target>Deposed first-rate investigator on the run from the Federation.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>eleesha.employment</source>
-        <target>eleesha.employment</target>
+        <target>Renowned reporter</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>eleesha.abstract</source>
@@ -168,21 +166,21 @@
         <source>finola.name</source>
         <target>Finola</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>finola.fullname</source>
-        <target>finola.fullname</target>
+        <target>Finola Keegan</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>finola.age</source>
-        <target>finola.age</target>
+        <target>30</target>
       </segment>
       <segment id="description" state="translated">
         <source>finola.description</source>
         <target>Internationally renowned biologist and pioneer abducted from Earth.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>finola.employment</source>
-        <target>finola.employment</target>
+        <target>Biologist</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>finola.abstract</source>
@@ -198,21 +196,21 @@
         <source>frieda.name</source>
         <target>Frieda</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>frieda.fullname</source>
-        <target>frieda.fullname</target>
+        <target>Frieda Bergmann</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>frieda.age</source>
-        <target>frieda.age</target>
+        <target>66</target>
       </segment>
       <segment id="description" state="translated">
         <source>frieda.description</source>
         <target>Vintage Astro-Physicist. Allegedly a descendant of Copernicus...</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>frieda.employment</source>
-        <target>frieda.employment</target>
+        <target>Navigator</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>frieda.abstract</source>
@@ -228,21 +226,21 @@
         <source>gioele.name</source>
         <target>Gioele</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>gioele.fullname</source>
-        <target>gioele.fullname</target>
+        <target>Gioele Rinaldo</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>gioele.age</source>
-        <target>gioele.age</target>
+        <target>55</target>
       </segment>
       <segment id="description" state="translated">
         <source>gioele.description</source>
         <target>Ship-owning combat-ready caffeine-junkie.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>gioele.employment</source>
-        <target>gioele.employment</target>
+        <target>Idle Billionaire Shipowner</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>gioele.abstract</source>
@@ -258,21 +256,21 @@
         <source>hua.name</source>
         <target>Hua</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>hua.fullname</source>
-        <target>hua.fullname</target>
+        <target>Jiang Hua</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>hua.age</source>
-        <target>hua.age</target>
+        <target>32</target>
       </segment>
       <segment id="description" state="translated">
         <source>hua.description</source>
         <target>An extreme explorer with an irrational fear of balloon animals.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>hua.employment</source>
-        <target>hua.employment</target>
+        <target>Surface explorer</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>hua.abstract</source>
@@ -288,21 +286,21 @@
         <source>ian.name</source>
         <target>Ian</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>ian.fullname</source>
-        <target>ian.fullname</target>
+        <target>Ian Soulton</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>ian.age</source>
-        <target>ian.age</target>
+        <target>42</target>
       </segment>
       <segment id="description" state="translated">
         <source>ian.description</source>
         <target>Flexible fructivorous researcher. Better living through botany!</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>ian.employment</source>
-        <target>ian.employment</target>
+        <target>Botanist</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>ian.abstract</source>
@@ -318,21 +316,21 @@
         <source>jin_su.name</source>
         <target>Jin Su</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>jin_su.fullname</source>
-        <target>jin_su.fullname</target>
+        <target>Kim Jin-Su</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>jin_su.age</source>
-        <target>jin_su.age</target>
+        <target>40</target>
       </segment>
       <segment id="description" state="translated">
         <source>jin_su.description</source>
         <target>Supreme Commander of the Daedalus.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>jin_su.employment</source>
-        <target>jin_su.employment</target>
+        <target>Explorer of the unknown</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>jin_su.abstract</source>
@@ -348,21 +346,21 @@
         <source>kuan_ti.name</source>
         <target>Kuan Ti</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>kuan_ti.fullname</source>
-        <target>kuan_ti.fullname</target>
+        <target>Lai Kuan-Ti</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>kuan_ti.age</source>
-        <target>kuan_ti.age</target>
+        <target>37</target>
       </segment>
       <segment id="description" state="translated">
         <source>kuan_ti.description</source>
         <target>Grand Architect of the Daedalus. His knowledge of the ship is unmatched.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>kuan_ti.employment</source>
-        <target>kuan_ti.employment</target>
+        <target>Designer of the Daedalus</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>kuan_ti.abstract</source>
@@ -378,21 +376,21 @@
         <source>paola.name</source>
         <target>Paola</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>paola.fullname</source>
-        <target>paola.fullname</target>
+        <target>Paola Rinaldo</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>paola.age</source>
-        <target>paola.age</target>
+        <target>23</target>
       </segment>
       <segment id="description" state="translated">
         <source>paola.description</source>
         <target>Chief Communications Officer and former political activist.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>paola.employment</source>
-        <target>paola.employment</target>
+        <target>First Communications Officer</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>paola.abstract</source>
@@ -408,21 +406,21 @@
         <source>raluca.name</source>
         <target>Raluca</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>raluca.fullname</source>
-        <target>raluca.fullname</target>
+        <target>Raluca Tomescu</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>raluca.age</source>
-        <target>raluca.age</target>
+        <target>25</target>
       </segment>
       <segment id="description" state="translated">
         <source>raluca.description</source>
         <target>Reclusive cat-loving quantum physicist prodigy and electronics genius.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>raluca.employment</source>
-        <target>raluca.employment</target>
+        <target>Quantum Physicist</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>raluca.abstract</source>
@@ -438,21 +436,21 @@
         <source>roland.name</source>
         <target>Roland</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>roland.fullname</source>
-        <target>roland.fullname</target>
+        <target>Roland Zuccali</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>roland.age</source>
-        <target>roland.age</target>
+        <target>27</target>
       </segment>
       <segment id="description" state="translated">
         <source>roland.description</source>
         <target>Amateur comedian and elite fighter pilot. Born to destroy Hunters.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>roland.employment</source>
-        <target>roland.employment</target>
+        <target>Elite Pilot</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>roland.abstract</source>
@@ -468,21 +466,21 @@
         <source>stephen.name</source>
         <target>Stephen</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>stephen.fullname</source>
-        <target>stephen.fullname</target>
+        <target>Stephen Seagull</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>stephen.age</source>
-        <target>stephen.age</target>
+        <target>47</target>
       </segment>
       <segment id="description" state="translated">
         <source>stephen.description</source>
         <target>The most dangerous cook in history. Keep your fingers out of his soup!</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>stephen.employment</source>
-        <target>stephen.employment</target>
+        <target>Chef</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>stephen.abstract</source>
@@ -498,21 +496,21 @@
         <source>terrence.name</source>
         <target>Terrence</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>terrence.fullname</source>
-        <target>terrence.fullname</target>
+        <target>Terrence Archer</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>terrence.age</source>
-        <target>terrence.age</target>
+        <target>44</target>
       </segment>
       <segment id="description" state="translated">
         <source>terrence.description</source>
         <target>Disillusioned motorized technophile with an unhealthy drone fixation.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>terrence.employment</source>
-        <target>terrence.employment</target>
+        <target>Mechanical Engineer specializing in robotics</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>terrence.abstract</source>
@@ -528,21 +526,21 @@
         <source>janice.name</source>
         <target>Janice</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>janice.fullname</source>
-        <target>janice.fullname</target>
+        <target>Janice Kent</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>janice.age</source>
-        <target>janice.age</target>
+        <target>26</target>
       </segment>
       <segment id="description" state="translated">
         <source>janice.description</source>
         <target>A Digital Psychologist and one-woman enigma machine.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>janice.employment</source>
-        <target>janice.employment</target>
+        <target>Digital Psychologist</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>janice.abstract</source>

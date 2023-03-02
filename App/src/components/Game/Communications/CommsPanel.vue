@@ -64,8 +64,9 @@ export default defineComponent ({
         currentTabComponent(): Component {
             if (this.currentChannel instanceof Channel) {
                 switch (this.currentChannel.scope) {
-                case ChannelType.TIPS:
-                    return TipsTab;
+                // TODO: not implemented yet
+                // case ChannelType.TIPS:
+                //     return TipsTab;
                 case ChannelType.ROOM_LOG:
                     return RoomEventsTab;
                 case ChannelType.PRIVATE:

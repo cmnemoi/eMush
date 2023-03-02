@@ -487,5 +487,29 @@
         <target>suicide_success</target>
       </segment>
     </unit>
+    <unit id="attack_one_shot">
+      <segment state="initial">
+        <source>attack_one_shot</source>
+        <target>attack_one_shot</target>
+      </segment>
+    </unit>
+    <unit id="shoot_one_shot">
+      <segment state="initial">
+        <source>shoot_one_shot</source>
+        <target>shoot_one_shot</target>
+      </segment>
+    </unit>
+    <unit id="play_arcade_fail">
+      <segment id="play_arcade_fail" state="translated">
+        <source>play_arcade_fail</source>
+        <target>Oh no, perdiste otra vez, ¡además esa máquina endemoniada casi te mata!</target>
+      </segment>
+    </unit>
+    <unit id="play_arcade_succes">
+      <segment id="play_arcade_succes" state="translated">
+        <source>play_arcade_succes</source>
+        <target>OH SIIIII. **{character}** ha vencido a Xatator, ¡el jefe del NIVEL10!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -86,7 +86,7 @@ class OpenCapsule extends AbstractAction
         $contentName = $this->randomService->getSingleRandomElementFromProbaArray(self::$capsuleContent);
 
         if ($contentName === null) {
-            throw new \Error('capsule content should not be empty');
+            throw new \Exception('capsule content should not be empty');
         }
 
         $this->gameEquipmentService->createGameEquipmentFromName(

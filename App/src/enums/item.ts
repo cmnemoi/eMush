@@ -6,6 +6,7 @@ const MEDIKIT = "medikit";
 const OSCILLOSCOPE = 'oscilloscope';
 const ROLLING_BOULDER = 'rolling_boulder';
 const ALIEN_BOTTLE_OPENER = 'alien_bottle_opener';
+const ECHOLOCATOR = 'echolocator';
 
 const BACTA = 'bacta';
 const BETAPROPYL = 'betapropyl';
@@ -94,6 +95,9 @@ const WALKIE_TALKIE = "walkie_talkie";
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
         'image': require('@/assets/images/items/alien_can_opener.jpg')
+    },
+    [ECHOLOCATOR]: {
+        'image': require('@/assets/images/items/echo_sounder.jpg')
     },
     [ROLLING_BOULDER]: {
         'image': require('@/assets/images/items/rolling_boulder.jpg')

@@ -84,7 +84,7 @@ class UltraHeal extends AbstractAction
             $this->getAction()->getActionTags(),
             $time
         );
-        $this->eventService->callEvent($healEvent, ApplyEffectEvent::HEAL);
+        $this->eventService->callEvent($healEvent, ApplyEffectEvent::ULTRA_HEAL);
 
         $equipmentEvent = new InteractWithEquipmentEvent(
             $parameter,

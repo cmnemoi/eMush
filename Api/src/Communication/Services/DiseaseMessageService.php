@@ -14,10 +14,10 @@ use Mush\RoomLog\Enum\LogDeclinationEnum;
 
 class DiseaseMessageService implements DiseaseMessageServiceInterface
 {
-    private const COPROLALIA_TRIGGER_CHANCE = 80;
+    private const COPROLALIA_TRIGGER_CHANCE = 33;
     private const COPROLALIA_REPLACE_CHANCE = 50;
 
-    private const PARANOIA_TRIGGER_CHANCE = 80;
+    private const PARANOIA_TRIGGER_CHANCE = 33;
     private const PARANOIA_REPLACE_CHANCE = 60;
     private const PARANOIA_ACCUSE_CHANCE = 50;
     public const PARANOIA_AWARENESS = 50;

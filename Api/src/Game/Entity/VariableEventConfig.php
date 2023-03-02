@@ -79,7 +79,7 @@ class VariableEventConfig extends AbstractEventConfig
         switch ($this->variableHolderClass) {
             case ModifierHolderClassEnum::PLAYER:
                 if (!$variableHolder instanceof Player) {
-                    throw new \Error('a player should be provided to create a playerVariableEvent');
+                    throw new \Exception('a player should be provided to create a playerVariableEvent');
                 }
                 $event = new PlayerVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
                 $event->setEventName($this->eventName);
@@ -87,14 +87,14 @@ class VariableEventConfig extends AbstractEventConfig
                 return $event;
             case ModifierHolderClassEnum::DAEDALUS:
                 if (!$variableHolder instanceof Daedalus) {
-                    throw new \Error('a daedalus should be provided to create a daedalusVariableEvent');
+                    throw new \Exception('a daedalus should be provided to create a daedalusVariableEvent');
                 }
                 $event = new DaedalusVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
                 $event->setEventName($this->eventName);
 
                 return $event;
             default:
-                throw new \Error('unexpected variableClassHolder');
+                throw new \Exception("unexpected variableClassHolder: {$this->variableHolderClass}");
         }
     }
 

@@ -622,7 +622,11 @@
       </segment>
       <segment id="examine" state="translated">
         <source>pasiphae.examine</source>
-        <target>Patrouilleur Armure de l'appareil : 12. Il n'est plus tout jeune mais il fera l'affaire.</target>
+        <target>Patrouilleur 
+//
+Armure de l'appareil : 12. 
+//
+Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_2_wallis">
@@ -1105,6 +1109,36 @@ Charges de l'appareil : 0.
 Armure de l'appareil : 10.
 //
 Il n'est plus tout jeune mais il fera l'affaire.</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.name">
+      <segment state="translated">
+        <source>patrol_ship.name</source>
+        <target>Patrouilleur</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.short_name">
+      <segment state="translated">
+        <source>patrol_ship.short_name</source>
+        <target>Patrouilleur</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.plural_name">
+      <segment state="translated">
+        <source>patrol_ship.plural_name</source>
+        <target>Patrouilleurs</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.gender">
+      <segment state="translated">
+        <source>patrol_ship.gender</source>
+        <target>male</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.first_letter">
+      <segment state="translated">
+        <source>patrol_ship.first_letter</source>
+        <target>consonant</target>
       </segment>
     </unit>
   </file>

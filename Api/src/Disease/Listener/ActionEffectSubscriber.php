@@ -37,6 +37,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             ApplyEffectEvent::HEAL => 'onHeal',
             ApplyEffectEvent::PLAYER_GET_SICK => 'onPlayerGetSick',
             ApplyEffectEvent::PLAYER_CURE_INJURY => 'onPlayerCureInjury',
+            ApplyEffectEvent::ULTRA_HEAL => 'onUltraHeal',
         ];
     }
 
@@ -86,7 +87,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $actionName = $event->getEventName();
+        $actionName = current($event->getTags());
 
         $this->diseaseCauseService->handleDiseaseForCause($actionName, $player);
     }
@@ -112,5 +113,31 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             $event->getVisibility(),
             $event->getPlayer(),
         );
+    }
+
+    /**
+     * @return void
+     */
+    public function onUltraHeal(ApplyEffectEvent $event)
+    {
+        $player = $event->getParameter();
+
+        if (!$player instanceof Player) {
+            return;
+        }
+
+        $diseases = $player->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(TypeEnum::DISEASE);
+        $injuries = $player->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(TypeEnum::INJURY);
+        $diseasesAndInjuries = array_merge($diseases->toArray(), $injuries->toArray());
+
+        foreach ($diseasesAndInjuries as $disease) {
+            $this->playerDiseaseService->removePlayerDisease(
+                $disease,
+                $event->getTags(),
+                $event->getTime(),
+                $event->getVisibility(),
+                $event->getPlayer()
+            );
+        }
     }
 }

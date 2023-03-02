@@ -13,7 +13,6 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ChannelVoter extends Voter
 {
-    public const POST = 'post';
     public const VIEW = 'view';
 
     private ChannelServiceInterface $channelService;
@@ -72,11 +71,7 @@ class ChannelVoter extends Voter
         // check for pirated channels
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
-        $playerCanCommunicate = $this->channelService->canPlayerCommunicate($player);
-
-        return ((!$player->isAlive()) || ($player->isAlive() && $playerCanCommunicate)) && (
-            $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
-                ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
-        );
+        return $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
+            ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()));
     }
 }

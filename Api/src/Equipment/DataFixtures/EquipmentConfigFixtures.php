@@ -353,18 +353,22 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ChargeStatusConfig $dispenserCharge */
         $dispenserCharge = $this->getReference(ChargeStatusFixtures::DISPENSER_CHARGE);
 
+        $distillerMechanic = $this->createTool([$dispenseAction], EquipmentEnum::NARCOTIC_DISTILLER);
+
         $narcoticDistiller = new EquipmentConfig();
         $narcoticDistiller
             ->setEquipmentName(EquipmentEnum::NARCOTIC_DISTILLER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setInitStatuses(new ArrayCollection([$dispenserCharge]))
-            ->setActions(new ArrayCollection([$dismantle25, $examineAction, $dispenseAction]))
+            ->setMechanics(new ArrayCollection([$distillerMechanic]))
+            ->setActions(new ArrayCollection([$dismantle25, $examineAction]))
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
 
         $manager->persist($narcoticDistiller);
+        $manager->persist($distillerMechanic);
 
         $shower = new EquipmentConfig();
         $shower
@@ -415,17 +419,22 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $coffeeAction = $this->getReference(ActionsFixtures::COFFEE_DEFAULT);
         /** @var ChargeStatusConfig $coffeeCharge */
         $coffeeCharge = $this->getReference(ChargeStatusFixtures::COFFEE_CHARGE);
+
+        $coffeeMachineMechanic = $this->createTool([$coffeeAction], EquipmentEnum::COFFEE_MACHINE);
+
         $coffeMachine = new EquipmentConfig();
         $coffeMachine
             ->setEquipmentName(EquipmentEnum::COFFEE_MACHINE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
+            ->setMechanics(new ArrayCollection([$coffeeMachineMechanic]))
             ->setInitStatuses(new ArrayCollection([$coffeeCharge]))
-            ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction, $coffeeAction]))
+            ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($coffeMachine);
+        $manager->persist($coffeeMachineMechanic);
 
         $cryoModule = new EquipmentConfig();
         $cryoModule
@@ -453,12 +462,15 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ChargeStatusConfig $turretCharge */
         $turretCharge = $this->getReference(ChargeStatusFixtures::TURRET_CHARGE);
 
+        $turretMechanic = $this->createTool([], EquipmentEnum::TURRET_COMMAND);
+
         $turretCommand = new EquipmentConfig();
         $turretCommand
             ->setEquipmentName(EquipmentEnum::TURRET_COMMAND)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
+            ->setMechanics(new ArrayCollection([$turretMechanic]))
             ->setInitStatuses(new ArrayCollection([$turretCharge]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
             ->buildName(GameConfigEnum::DEFAULT)

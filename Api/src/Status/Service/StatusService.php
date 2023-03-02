@@ -187,7 +187,7 @@ class StatusService implements StatusServiceInterface
             ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName) !== null)
         ;
         if ($pickedEquipments->isEmpty()) {
-            throw new \Error('no such status in item collection');
+            throw new \Exception("no such status ({$statusName}) in item collection");
         } else {
             /** @var GameEquipment $pickedEquipment */
             $pickedEquipment = $pickedEquipments->first();

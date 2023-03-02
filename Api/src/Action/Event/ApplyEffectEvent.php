@@ -18,6 +18,7 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
     public const REPORT_EQUIPMENT = 'report.equipment';
     public const PLAYER_GET_SICK = 'player.get.sick';
     public const PLAYER_CURE_INJURY = 'player.cure.injury';
+    public const ULTRA_HEAL = 'ultra.heal';
 
     private string $visibility;
     private ?LogParameterInterface $parameter;
@@ -40,7 +41,7 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
     {
         $player = $this->player;
         if ($player === null) {
-            throw new \Error('applyEffectEvent should have a player');
+            throw new \Exception('applyEffectEvent should have a player');
         }
 
         return $player;

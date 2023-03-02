@@ -20,6 +20,8 @@ use Mush\Status\Event\StatusEvent;
 
 class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 {
+    private const ALPHA_MULTIPLIER = 5;
+
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
     private GameEquipmentRepository $gameEquipmentRepository;
@@ -259,10 +261,11 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
      * Get the number of incidents that will happen during the cycle.
      * Incident number follows approximatively a Poisson distribution P(lambda)
      * where lambda = 3.3*10^(-3) * day^1.7 is the average number of incidents per cycle.
+     * During this alpha phase, the number of incidents is multiplied by a constant (currently 5).
      */
     private function getNumberOfIncident(Daedalus $daedalus): int
     {
-        $averageIncidentsPerCycle = 3.3 * 10 ** (-3) * $daedalus->getDay() ** 1.7;
+        $averageIncidentsPerCycle = self::ALPHA_MULTIPLIER * 3.3 * 10 ** (-3) * $daedalus->getDay() ** 1.7;
 
         return $this->randomService->poissonRandom($averageIncidentsPerCycle);
     }

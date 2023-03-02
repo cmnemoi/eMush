@@ -245,7 +245,7 @@ class ActionsFixtures extends Fixture
         $attackAction
             ->setName(ActionEnum::ATTACK)
             ->setActionName(ActionEnum::ATTACK)
-            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
+            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_ATTACK])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->setSuccessRate(60)
@@ -253,6 +253,7 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::CRITICAL_FAIL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::ONE_SHOT, VisibilityEnum::PUBLIC)
         ;
 
         $manager->persist($attackAction);
@@ -284,6 +285,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::OPEN)
             ->setActionName(ActionEnum::OPEN)
             ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost(1)
             ->setInjuryRate(1)
         ;
 
@@ -746,6 +748,7 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::CRITICAL_FAIL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::ONE_SHOT, VisibilityEnum::PUBLIC)
         ;
         $manager->persist($shootAction);
 

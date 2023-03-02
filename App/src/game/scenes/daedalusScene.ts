@@ -370,6 +370,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.map = this.createRoom();
         this.createEquipments(this.map);
+        this.updateStatuses();
 
         // add target tile highlight
         this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
@@ -417,9 +418,10 @@ export default class DaedalusScene extends Phaser.Scene
 
             this.map = this.createRoom();
             this.createEquipments(this.map);
+            this.updateStatuses();
             this.createPlayers();
 
-        } else if (this.isEquipmentModified()) {
+        } else if (this.areEquipmentsModified()) {
             this.room = newRoom;
 
             this.deleteEquipmentsAndDecoration();
@@ -431,6 +433,7 @@ export default class DaedalusScene extends Phaser.Scene
 
             this.map = this.createRoom();
             this.createEquipments(this.map);
+            this.updateStatuses();
         } else{
             this.room = newRoom;
 
@@ -534,24 +537,31 @@ export default class DaedalusScene extends Phaser.Scene
         }
     }
 
-    isEquipmentModified(): boolean
+    areEquipmentsModified(): boolean
     {
         const sceneGameObjects = this.children.list;
 
         const room = this.player.room;
 
+        let equipmentCount = 0;
+
         if (room === null) { throw new Error("player room should be defined");}
+        const updatedEquipments = room.equipments;
         for (let i=0; i < sceneGameObjects.length; i++) {
             const gameObject = sceneGameObjects[i];
 
-            if (gameObject instanceof EquipmentObject &&
-                room.equipments.filter((equipment: Equipment) => {return equipment.key === gameObject.name;}).length === 0
-            ) {
-                return true;
+            if (gameObject instanceof EquipmentObject) {
+                if (updatedEquipments.filter((equipment: Equipment) => {return equipment.key === gameObject.name;}).length === 0) {
+                    return true;
+                }
+                equipmentCount = equipmentCount + 1;
             }
-
         }
-        return false;
+
+        if (updatedEquipments.length === equipmentCount) {
+            return false;
+        }
+        return true;
     }
 
     createRoom(): MushTiledMap
@@ -602,10 +612,6 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.sceneGrid.updateDepth();
         this.navMeshGrid = this.sceneGrid.buildNavMeshGrid();
-
-        this.updateStatuses();
-
-        //this.enableDebugView();
     }
 
     deleteEquipmentsAndDecoration(): void
@@ -664,20 +670,22 @@ export default class DaedalusScene extends Phaser.Scene
 
     displayFire(): void
     {
-        for (let i = this.isoTileSize/2; i < this.sceneIsoSize.x; i = i + this.isoTileSize) {
-            for (let j = this.isoTileSize/2; j < this.sceneIsoSize.y; j = j + this.isoTileSize) {
-                const tileCoordinates = new IsometricCoordinates(i, 8 + j);
+        const totalNumberOfTiles = this.sceneIsoSize.x * this.sceneIsoSize.y/(this.isoTileSize * this.isoTileSize);
 
-                if (this.sceneGrid.getPolygonFromPoint(tileCoordinates) !== -1) {
-                    //is the tile on fire
-                    if (Math.random() < 0.2) {
-                        //intensity of fire
-                        if (Math.random() > 0.2) {
-                            this.createFireCell(tileCoordinates, 1);
-                        } else {
-                            this.createFireCell(tileCoordinates, 2);
-                        }
-                    }
+        // get a number of cells on fire between 30% to 60% of tiles on the scene
+        const numberOfFireCells = (0.15 + Math.random()*0.2) * totalNumberOfTiles;
+
+        for (let i = 0; i < numberOfFireCells; i++) {
+            //get random coordinates for the fire cell
+            const rand_iso_coords = new IsometricCoordinates(Math.random() * this.sceneIsoSize.x, Math.random() * this.sceneIsoSize.y);
+            const cell_coords = this.getGridIsoCoordinate(rand_iso_coords);
+
+            if (this.sceneGrid.getPolygonFromPoint(cell_coords) !== -1) {
+                //intensity of fire
+                if (Math.random() > 0.2) {
+                    this.createFireCell(cell_coords, 1);
+                } else {
+                    this.createFireCell(cell_coords, 2);
                 }
             }
         }
@@ -795,6 +803,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.playerSprite.updateNavMesh();
         this.playerSprite.checkPositionDepth();
         this.playerSprite.applyEquipmentInteraction();
+        this.playerSprite.resetMove();
 
         this.room.players.forEach((roomPlayer: Player) => {
             if (roomPlayer.id !== this.player.id) {

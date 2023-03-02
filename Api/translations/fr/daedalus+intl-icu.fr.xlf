@@ -50,7 +50,7 @@ L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 
       </segment>
       <segment id="description" state="translated">
         <source>crewPlayer.description</source>
-        <target>{playerAlive, plural, one {# membre d'équipage actif} other {# membres d'équipage actifs}}, dont {mushAlive, plural, one {# Mush} other {# Mushs}}. {humanDead, plural, one {# membre défunt} other {# membres défunts}}, dont {mushDead, plural, one {# Mush} other {# Mushs}}. {cryogenizedPlayers, plural, one {# cryogénisé} other {# cryogénisés}}.</target>
+        <target>{playerAlive, plural, one {# membre d'équipage actif} other {# membres d'équipage actifs}}, dont {mushAlive, plural, one {# Mush} other {# Mushs}}. {playerDead, plural, one {# membre défunt} other {# membres défunts}}, dont {mushDead, plural, one {# Mush} other {# Mushs}}. {cryogenizedPlayers, plural, one {# cryogénisé} other {# cryogénisés}}.</target>
       </segment>
     </unit>
     <unit id="currentCycle">

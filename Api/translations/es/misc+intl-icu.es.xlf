@@ -2,25 +2,25 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="misc.ext">
     <unit id="delayed_disease_info">
-      <segment id="satiety_point" state="initial">
+      <segment id="satiety_point" state="translated">
         <source>satiety_point</source>
-        <target>satiety_point</target>
+        <target>{quantity} Puntos de saciedad</target>
       </segment>
-      <segment id="action_point" state="initial">
+      <segment id="action_point" state="translated">
         <source>action_point</source>
-        <target>action_point</target>
+        <target>{quantity} Puntos de acción</target>
       </segment>
-      <segment id="movement_point" state="initial">
+      <segment id="movement_point" state="translated">
         <source>movement_point</source>
-        <target>movement_point</target>
+        <target>{quantity} Puntos de movimiento</target>
       </segment>
-      <segment id="health_point" state="initial">
+      <segment id="health_point" state="translated">
         <source>health_point</source>
-        <target>health_point</target>
+        <target>{quantity} Puntos de vida</target>
       </segment>
-      <segment id="moral_point" state="initial">
+      <segment id="moral_point" state="translated">
         <source>moral_point</source>
-        <target>moral_point</target>
+        <target>{quantity} Puntos de moral</target>
       </segment>
       <segment id="ration_data" state="initial">
         <source>ration_data</source>

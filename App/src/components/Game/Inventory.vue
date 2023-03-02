@@ -6,7 +6,7 @@
             tabindex="0"
             class="slot"
             :class="isItemSelected(item) ? 'highlight' : ''"
-            @click.stop="$emit('select', item)"
+            @mousedown.stop="$emit('select', item)"
         >
             <Tippy tag="div">
                 <img :src="itemImage(item)" :alt="item.name">
@@ -27,7 +27,7 @@
             v-for="n in emptySlots"
             :key="n"
             class="slot empty"
-            @click.stop="$emit('select', null)"
+            @mousedown.stop="$emit('select', null)"
         />
     </ul>
 </template>

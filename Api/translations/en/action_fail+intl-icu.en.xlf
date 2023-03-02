@@ -166,7 +166,7 @@
     <unit id="do_the_thing_asleep">
       <segment id="description" state="translated">
         <source>do_the_thing_asleep.description</source>
-        <target>This person sleeping, and they don't seem too keen on doing much else...</target>
+        <target>This person is sleeping, and they don't seem too keen on doing much else...</target>
       </segment>
     </unit>
     <unit id="do_the_thing_not_interested">
@@ -250,7 +250,7 @@
     <unit id="phagocyte_no_spore">
       <segment id="description" state="translated">
         <source>phagocyte_no_spore.description</source>
-        <target>You don't have any spore to absorb.</target>
+        <target>You don't have any spores to absorb.</target>
       </segment>
     </unit>
     <unit id="mutated">

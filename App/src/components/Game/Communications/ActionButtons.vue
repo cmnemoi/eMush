@@ -3,7 +3,7 @@
         <button
             v-for="(actionType, key) in actions"
             :key="key"
-            @click="$emit(actionType, $event)"
+            @mousedown="$emit(actionType, $event)"
         >
             <img :src="action(actionType).icon">
             {{ action(actionType).wording }}

@@ -61,7 +61,7 @@ export default class PlayableCharacterObject extends CharacterObject {
         //find the path in isometric coordinates using navMeshPlugin
         const newPath = this.navMesh.getCharacterPath(startingPoint, finishPoint);
 
-        if (newPath.length !== 0) {
+        if (newPath.length > 1) {
             this.isoPath = newPath;
             this.currentMove = 1;
             this.lastMove = null;

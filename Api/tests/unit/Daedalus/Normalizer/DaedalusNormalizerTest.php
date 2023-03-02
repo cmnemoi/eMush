@@ -166,7 +166,7 @@ class DaedalusNormalizerTest extends TestCase
             ->with('crewPlayer.description', [
                 'cryogenizedPlayers' => 0,
                 'playerAlive' => 0,
-                'humanDead' => 0,
+                'playerDead' => 0,
                 'mushAlive' => 0,
                 'mushDead' => 0, ],
                 'daedalus', LanguageEnum::FRENCH)

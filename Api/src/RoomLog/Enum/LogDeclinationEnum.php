@@ -14,11 +14,11 @@ class LogDeclinationEnum
     public const VERSION_CRAZY = 'version_crazy';
     public const VERSION_UNINHIB = 'version_uninhib';
 
-    public const WORD_COPROLALIA = 'word_coprolalia';
-    public const ANIMAL_COPROLALIA = 'animal_coprolalia';
-    public const PREFIX_COPROLALIA = 'prefix_coprolalia';
-    public const ADJECTIVE_COPROLALIA = 'adjective_coprolalia';
-    public const BALLS_COPROLALIA = 'balls_coprolalia';
+    public const WORD_COPROLALIA = 'word';
+    public const ANIMAL_COPROLALIA = 'animal';
+    public const PREFIX_COPROLALIA = 'prefix';
+    public const ADJECTIVE_COPROLALIA = 'adjective';
+    public const BALLS_COPROLALIA = 'balls';
 
     public const PARANOIA_VERSION_4 = 'paranoia_version_4';
     public const PARANOIA_VERSION_6 = 'paranoia_version_6';
@@ -35,9 +35,11 @@ class LogDeclinationEnum
             ActionLogEnum::BORING_SPEECH => [self::VERSION => 3],
             ActionLogEnum::ATTACK_SUCCESS => [self::VERSION => 9],
             ActionLogEnum::ATTACK_FAIL => [self::VERSION => 5],
-            ActionLogEnum::ATTACK_CRITICAL_SUCCESS => [self::VERSION => 2],
+            ActionLogEnum::ATTACK_CRITICAL_SUCCESS => [self::VERSION => 9],
             ActionLogEnum::ATTACK_CRITICAL_FAIL => [self::VERSION => 2],
+            ActionLogEnum::ATTACK_ONE_SHOT => [self::VERSION => 2],
             ActionLogEnum::SHOOT_SUCCESS => [self::VERSION => 6],
+            ActionLogEnum::SHOOT_CRITICAL_SUCCESS => [self::VERSION => 6],
             ActionLogEnum::SHOOT_FAIL => [self::VERSION => 4],
             ActionLogEnum::SHOOT_CRITICAL_FAIL => [self::VERSION => 2],
             ActionEnum::SHRED => [self::VERSION => 4],

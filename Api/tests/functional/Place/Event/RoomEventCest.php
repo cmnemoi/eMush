@@ -10,7 +10,10 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -238,6 +241,10 @@ class RoomEventCest
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig]);
+        /** @var ItemConfig $itemConfig */
+        $itemConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
+        /** @var ItemConfig $itemConfig2 */
+        $itemConfig2 = $I->have(ItemConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig, 'name' => ItemEnum::TABULATRIX]);
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
@@ -246,11 +253,28 @@ class RoomEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
+        $gameItem = new GameItem($room);
+        $gameItem
+            ->setEquipment($itemConfig)
+            ->setName('some other name')
+        ;
+        $I->haveInRepository($gameItem);
+
+        $tabulatrix = new GameItem($room);
+        $tabulatrix
+            ->setEquipment($itemConfig2)
+            ->setName(ItemEnum::TABULATRIX)
+        ;
+
+        $I->haveInRepository($tabulatrix);
+
         $roomEvent = new RoomEvent($room, [EventEnum::NEW_CYCLE], $time);
         $this->eventService->callEvent($roomEvent, RoomEvent::ELECTRIC_ARC);
 
         $I->assertEquals(7, $player->getHealthPoint());
         $I->assertTrue($gameEquipment->isBroken());
+        $I->assertFalse($gameItem->isBroken());
+        $I->assertTrue($tabulatrix->isBroken());
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getName(),
             'daedalusInfo' => $daedalusInfo,

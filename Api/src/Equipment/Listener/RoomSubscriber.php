@@ -44,10 +44,10 @@ class RoomSubscriber implements EventSubscriberInterface
 
         /** @var ArrayCollection $electricArcBreakableItems */
         $electricArcBreakableItems = new ArrayCollection([ItemEnum::TABULATRIX]);
+        
 
         /** @var GameEquipment $equipment */
         foreach ($room->getEquipments() as $equipment) {
-            dump($equipment->getName());
             if (!$equipment->isBroken() &&
                 !($equipment instanceof Door) &&
                 (!($equipment instanceof GameItem) || $electricArcBreakableItems->contains($equipment->getName())) &&

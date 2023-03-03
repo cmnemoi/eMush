@@ -4,7 +4,6 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
 use Mush\Modifier\Service\ModifierListenerService\PlayerModifierServiceInterface;
@@ -50,25 +49,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $this->modifierService->applyActionModifiers($event->getAction(), $player, $target);
 
         switch ($actionName) {
-            // handle gear modifiers when taken or dropped
-            case ActionEnum::TAKE:
-                if (!$target instanceof GameEquipment) {
-                    throw new \LogicException('a game equipment should be given');
-                }
-
-                $this->equipmentModifierService->takeEquipment($target, $player, $event->getTags(), $event->getTime());
-
-                return;
-            case ActionEnum::DROP:
-                if (!$target instanceof GameEquipment) {
-                    throw new \LogicException('a game equipment should be given');
-                }
-
-                $this->equipmentModifierService->dropEquipment($target, $player, $event->getTags(), $event->getTime());
-
-                return;
-
-                // handle movement of a player
+            // handle movement of a player
             case ActionEnum::MOVE:
                 $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
 

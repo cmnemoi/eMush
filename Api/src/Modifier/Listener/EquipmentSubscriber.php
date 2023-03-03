@@ -11,12 +11,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
-    private EquipmentModifierServiceInterface $gearModifierService;
+    private EquipmentModifierServiceInterface $equipmentModifierService;
 
     public function __construct(
-        EquipmentModifierServiceInterface $gearModifierService
+        EquipmentModifierServiceInterface $equipmentModifierService,
     ) {
-        $this->gearModifierService = $gearModifierService;
+        $this->equipmentModifierService = $equipmentModifierService;
     }
 
     public static function getSubscribedEvents(): array
@@ -31,6 +31,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
             EquipmentEvent::INVENTORY_OVERFLOW => [
                 ['onInventoryOverflow', 100],
             ],
+            EquipmentEvent::CHANGE_HOLDER => [
+                ['onEquipmentRemovedFromInventory', 2000],
+                ['onNewEquipmentInInventory', -2000],
+            ],
         ];
     }
 
@@ -42,7 +46,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $equipment = $event->getGameEquipment();
         }
 
-        $this->gearModifierService->gearDestroyed($equipment, $event->getTags(), $event->getTime());
+        $this->equipmentModifierService->gearDestroyed($equipment, $event->getTags(), $event->getTime());
     }
 
     public function onInventoryOverflow(EquipmentEvent $event): void
@@ -55,7 +59,27 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $holder instanceof Player &&
             $holder->getEquipments()->count() > $holder->getPlayerInfo()->getCharacterConfig()->getMaxItemInInventory()
         ) {
-            $this->gearModifierService->dropEquipment($equipment, $holder, $event->getTags(), $event->getTime());
+            $this->equipmentModifierService->dropEquipment($equipment, $holder, $event->getTags(), $event->getTime());
+        }
+    }
+
+    public function onNewEquipmentInInventory(EquipmentEvent $event): void
+    {
+        $equipment = $event->getGameEquipment();
+
+        $player = $equipment->getHolder();
+        if ($player instanceof Player) {
+            $this->equipmentModifierService->takeEquipment($equipment, $player, $event->getTags(), $event->getTime());
+        }
+    }
+
+    public function onEquipmentRemovedFromInventory(EquipmentEvent $event): void
+    {
+        $equipment = $event->getGameEquipment();
+
+        $player = $equipment->getHolder();
+        if ($player instanceof Player) {
+            $this->equipmentModifierService->dropEquipment($equipment, $player, $event->getTags(), $event->getTime());
         }
     }
 }

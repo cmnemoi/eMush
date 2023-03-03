@@ -546,7 +546,7 @@ export default class DaedalusScene extends Phaser.Scene
         if (room === null) { throw new Error("player room should be defined");}
         const equipmentsToUpdate = room.equipments;
 
-        const updatedEquipment = [];
+        const updatedEquipment = new Array<string>();
 
         for (let i=0; i < sceneGameObjects.length; i++) {
             const gameObject = sceneGameObjects[i];

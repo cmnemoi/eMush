@@ -119,6 +119,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this->players;
     }
 
+    /** /!\ Do not use this method if you want the number of players ALIVE ! Use `$place->getNumberOfPlayersAlive()` instead. /!\ */
     public function getNumberPlayers(): int
     {
         if (!$this->players instanceof PlayerCollection) {
@@ -126,6 +127,15 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         }
 
         return $this->players->count();
+    }
+
+    public function getNumberOfPlayersAlive(): int
+    {
+        if (!$this->players instanceof PlayerCollection) {
+            $this->players = new PlayerCollection($this->players->toArray());
+        }
+
+        return $this->players->getPlayerAlive()->count();
     }
 
     public function setPlayers(ArrayCollection $players): static

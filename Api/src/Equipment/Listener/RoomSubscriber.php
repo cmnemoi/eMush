@@ -44,7 +44,6 @@ class RoomSubscriber implements EventSubscriberInterface
 
         /** @var ArrayCollection $electricArcBreakableItems */
         $electricArcBreakableItems = new ArrayCollection([ItemEnum::TABULATRIX]);
-        
 
         /** @var GameEquipment $equipment */
         foreach ($room->getEquipments() as $equipment) {

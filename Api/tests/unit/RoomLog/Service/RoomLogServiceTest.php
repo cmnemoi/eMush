@@ -16,6 +16,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -230,6 +231,9 @@ class RoomLogServiceTest extends TestCase
         $characterConfig1 = new CharacterConfig();
         $characterConfig1->setCharacterName('andie');
 
+        $characterConfig2 = new CharacterConfig();
+        $characterConfig2->setCharacterName('chao');
+
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
         $place->setDaedalus($daedalus)->setName('test');
@@ -246,7 +250,11 @@ class RoomLogServiceTest extends TestCase
         $dateTime = new \DateTime();
 
         $player2 = new Player();
-        $player2->setPlace($place);
+        $playerInfo2 = new PlayerInfo($player2, new User(), $characterConfig2);
+        $player2
+            ->setPlayerInfo($playerInfo2)
+            ->setPlace($place)
+        ;
 
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -560,5 +568,65 @@ class RoomLogServiceTest extends TestCase
         $expectedLogs = new RoomLogCollection([$roomLog1, $roomLog2]);
 
         $this->assertEquals($expectedLogs, $logs);
+    }
+
+    public function testCreateSecretLogDeadPlayerInRoom()
+    {
+        $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
+        $daedalus->setCycle(4);
+        $daedalus->setDay(2);
+
+        $characterConfig1 = new CharacterConfig();
+        $characterConfig1->setCharacterName('andie');
+
+        $characterConfig2 = new CharacterConfig();
+        $characterConfig2->setCharacterName('chao');
+
+        $logKey = ActionLogEnum::OPEN_SUCCESS;
+        $place = new Place();
+        $place->setDaedalus($daedalus)->setName('test');
+        $visibility = VisibilityEnum::SECRET;
+        $type = 'log';
+        $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
+        $player
+            ->setPlayerInfo($playerInfo)
+            ->setPlace($place)
+        ;
+
+        $parameters = ['character' => 'andie'];
+        $dateTime = new \DateTime();
+
+        $player2 = new Player();
+        $playerInfo2 = new PlayerInfo($player2, new User(), $characterConfig2);
+        $playerInfo2->setGameStatus(GameStatusEnum::CLOSED);
+        $player2
+            ->setPlayerInfo($playerInfo2)
+            ->setPlace($place)
+        ;
+
+        $this->entityManager->shouldReceive('flush')->once();
+
+        $this->entityManager->shouldReceive('persist')->once();
+
+        $test = $this->service->createLog(
+            ActionLogEnum::OPEN_SUCCESS,
+            $place,
+            $visibility,
+            $type,
+            $player,
+            $parameters,
+            $dateTime
+        );
+
+        $this->assertEquals($logKey, $test->getLog());
+        $this->assertEquals($parameters, $test->getParameters());
+        $this->assertEquals('log', $test->getType());
+        $this->assertEquals($place->getName(), $test->getPlace());
+        $this->assertEquals($playerInfo, $test->getPlayerInfo());
+        $this->assertEquals(VisibilityEnum::SECRET, $test->getVisibility());
+        $this->assertEquals(4, $test->getCycle());
+        $this->assertEquals(2, $test->getDay());
     }
 }

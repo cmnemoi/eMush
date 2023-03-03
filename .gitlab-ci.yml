@@ -1,3 +1,8 @@
+stages:
+  - build
+  - test
+  - release
+
 .php_template: &php_template
   image: registry.gitlab.com/eternaltwin/mush/mush/api:latest
   cache:
@@ -39,8 +44,19 @@
     - cd App
     - yarn install
 
+container-build:
+  stage: build
+  <<: *node_template
+  script:
+    - yarn build
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+
 api-test:
   <<: *php_with_db_template
+  stage: test
+  needs: [api-lint]
   script:
     - php vendor/bin/codecept run
   rules:
@@ -48,6 +64,8 @@ api-test:
 
 api-lint:
   <<: *php_template
+  stage: test
+  needs: [container-build]
   script:
     - ./linters.sh
   rules:
@@ -55,6 +73,8 @@ api-lint:
 
 api-test-develop:
   <<: *php_with_db_template
+  stage: test
+  needs: [api-lint]
   script:
     - pecl install xdebug && docker-php-ext-enable xdebug
     - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
@@ -72,6 +92,8 @@ api-test-develop:
 
 front-lint:
   <<: *node_template
+  stage: test
+  needs: [container-build]
   script:
     - yarn lint --no-fix
   rules:
@@ -79,6 +101,8 @@ front-lint:
 
 front-test:
   <<: *node_template
+  stage: test
+  needs: [front-lint]
   script:
     - yarn test
   rules:
@@ -88,6 +112,8 @@ front-test:
 # Generate a CHANGELOG.md file and create a new release on GitLab while merging to master
 release:
   <<: *node_template
+  stage: release
+  needs: [front-test]
   before_script:
     - npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/release-notes-generator @semantic-release/gitlab
   variables:

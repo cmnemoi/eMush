@@ -42,10 +42,12 @@ class RoomSubscriber implements EventSubscriberInterface
             throw new \LogicException('place should be a room');
         }
 
+        /** @var ArrayCollection $electricArcBreakableItems */
         $electricArcBreakableItems = new ArrayCollection([ItemEnum::TABULATRIX]);
 
         /** @var GameEquipment $equipment */
         foreach ($room->getEquipments() as $equipment) {
+            dump($equipment->getName());
             if (!$equipment->isBroken() &&
                 !($equipment instanceof Door) &&
                 (!($equipment instanceof GameItem) || $electricArcBreakableItems->contains($equipment->getName())) &&

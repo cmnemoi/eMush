@@ -287,6 +287,10 @@ class ChannelController extends AbstractFOSRestController
             return $this->view(['error' => 'player cannot open a new channel'], 422);
         }
 
+        if ($channel->isPlayerParticipant($invitedPlayer->getPlayerInfo())) {
+            return $this->view(['error' => 'player is already in the channel'], 422);
+        }
+
         $channel = $this->channelService->invitePlayer($invitedPlayer, $channel);
 
         $context = new Context();

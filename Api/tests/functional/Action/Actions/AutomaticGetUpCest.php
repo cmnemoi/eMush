@@ -4,12 +4,15 @@ namespace functional\Action\Actions;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Actions\Shower;
+use Mush\Action\Actions\Disassemble;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -33,11 +36,11 @@ use Mush\User\Entity\User;
 
 class AutomaticGetUpCest
 {
-    private Shower $showerAction;
+    private Disassemble $disassembleAction;
 
     public function _before(FunctionalTester $I)
     {
-        $this->showerAction = $I->grabService(Shower::class);
+        $this->disassembleAction = $I->grabService(Disassemble::class);
     }
 
     public function testAutomaticGetUp(FunctionalTester $I)
@@ -59,12 +62,26 @@ class AutomaticGetUpCest
         $gameConfig->setStatusConfigs(new ArrayCollection([$statusConfig, $dirtyConfig]));
         $I->flushToDatabase();
 
+        $neron = new Neron();
+        $neron->setIsInhibited(true);
+        $I->haveInRepository($neron);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo
+            ->setNeron($neron)
+        ;
         $I->haveInRepository($daedalusInfo);
+
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
+        $I->haveInRepository($channel);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -98,7 +115,7 @@ class AutomaticGetUpCest
 
         $action = new Action();
         $action
-            ->setActionName(ActionEnum::SHOWER)
+            ->setActionName(ActionEnum::DISASSEMBLE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST)
@@ -116,12 +133,12 @@ class AutomaticGetUpCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $this->showerAction->loadParameters($action, $player, $gameEquipment);
+        $this->disassembleAction->loadParameters($action, $player, $gameEquipment);
 
-        $I->assertTrue($this->showerAction->isVisible());
-        $I->assertNull($this->showerAction->cannotExecuteReason());
+        $I->assertTrue($this->disassembleAction->isVisible());
+        $I->assertNull($this->disassembleAction->cannotExecuteReason());
 
-        $this->showerAction->execute();
+        $this->disassembleAction->execute();
 
         $I->assertCount(0, $player->getStatuses());
 
@@ -131,14 +148,6 @@ class AutomaticGetUpCest
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::GET_UP,
             'visibility' => VisibilityEnum::PUBLIC,
-        ]);
-
-        $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $player->getPlayerInfo()->getId(),
-            'log' => ActionLogEnum::SHOWER_HUMAN,
-            'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }
 }

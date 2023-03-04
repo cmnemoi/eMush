@@ -64,6 +64,7 @@ class DaedalusFactory extends \Codeception\Module
         $factory->_define(LocalizationConfig::class, [
             'timeZone' => 'UTC',
             'language' => LanguageEnum::FRENCH,
+            'name' => 'localization_test',
         ]);
 
         $factory->_define(Daedalus::class, [

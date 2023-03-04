@@ -57,8 +57,23 @@ class StatusSubscriber implements EventSubscriberInterface
             return;
         }
 
-        codecept_debug('oui');
         // If a talkie or itrackie is repaired, check if it was screwed.
+        $this->handleScrewedTalkie($event);
+
+        codecept_debug('lalalala');
+        $this->statusService->delete($status);
+    }
+
+    public function addStatusConfig(StatusEvent $event): void
+    {
+        $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus($event->getStatusName(), $event->getPlace()->getDaedalus());
+        $event->setStatusConfig($statusConfig);
+    }
+
+    private function handleScrewedTalkie(StatusEvent $event): void
+    {
+        $holder = $event->getStatusHolder();
+
         // If so, remove the screwed talkie status from the owner of the talkie and the pirate
         if ($holder instanceof GameItem &&
             in_array($holder->getName(), [ItemEnum::ITRACKIE, ItemEnum::WALKIE_TALKIE]) &&
@@ -70,7 +85,7 @@ class StatusSubscriber implements EventSubscriberInterface
             $screwedTalkieStatus = $this->statusService->getByTargetAndName($piratedPlayer, PlayerStatusEnum::TALKIE_SCREWED);
             if ($screwedTalkieStatus !== null) {
                 $removeEvent = new StatusEvent(
-                    $screwedTalkieStatus->getName(),
+                    PlayerStatusEnum::TALKIE_SCREWED,
                     $screwedTalkieStatus->getOwner(),
                     $event->getTags(),
                     $event->getTime()
@@ -78,14 +93,5 @@ class StatusSubscriber implements EventSubscriberInterface
                 $this->eventService->callEvent($removeEvent, StatusEvent::STATUS_REMOVED);
             }
         }
-
-        codecept_debug('lalalala');
-        $this->statusService->delete($status);
-    }
-
-    public function addStatusConfig(StatusEvent $event): void
-    {
-        $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus($event->getStatusName(), $event->getPlace()->getDaedalus());
-        $event->setStatusConfig($statusConfig);
     }
 }

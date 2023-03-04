@@ -11,8 +11,8 @@ class PlaceConfigData
             'placeName' => 'bridge',
             'type' => 'room',
             'doors' => ['bridge_front_alpha_turret', 'bridge_front_bravo_turret', 'front_corridor_bridge'],
-            'items' => ['tabulatrix'],
-            'equipments' => ['communication_center', 'astro_terminal', 'command_terminal'],
+            'items' => [],
+            'equipments' => ['communication_center', 'astro_terminal', 'command_terminal', 'tabulatrix'],
         ],
         [
             'name' => 'alpha_bay_default',

@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
@@ -64,10 +65,12 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         $key = $object->getName();
         $nameParameters = [];
 
+        // dump($key);
+
         if ($object instanceof Door) {
             $context['door'] = $object;
             $type = 'door';
-        } elseif ($object instanceof GameItem) {
+        } elseif ($object instanceof GameItem || $key === EquipmentEnum::TABULATRIX) {
             $context['item'] = $object;
             $type = 'items';
         } else {

@@ -37,13 +37,6 @@ class SymptomConfigDataLoaderCest
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
-        $I->haveInRepository(SymptomConfig::class, [
-            'name' => 'biting_ON_new_cycle_default',
-            'symptomName' => 'biting',
-            'trigger' => 'new_cycle',
-            'visibility' => 'public',
-        ]);
-
         $this->symptomConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, SymptomConfig::class, [

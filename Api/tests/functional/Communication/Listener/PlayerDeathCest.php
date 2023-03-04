@@ -59,7 +59,7 @@ class PlayerDeathCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'andie']);
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'test']);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [

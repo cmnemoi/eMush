@@ -13,11 +13,8 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
 
 class DaedalusVariableEventCest
@@ -59,24 +56,9 @@ class DaedalusVariableEventCest
 
         $I->assertEquals(30, $daedalus->getOxygen());
 
-        // add an oxygen tank
-        $modifierActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::REASON);
-        $modifierActivationRequirement
-            ->setActivationRequirement(EventEnum::NEW_CYCLE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierActivationRequirement);
-
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetVariable(DaedalusVariableEnum::OXYGEN)
-            ->setDelta(1)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-            ->addModifierRequirement($modifierActivationRequirement)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_daedalus_+1oxygen_on_change.variable_if_reason_new_cycle',
+        ]);
 
         $modifier = new GameModifier($daedalus, $modifierConfig);
         $I->haveInRepository($modifier);

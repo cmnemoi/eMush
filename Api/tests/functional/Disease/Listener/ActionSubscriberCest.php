@@ -6,6 +6,7 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Actions\Move;
+use Mush\Action\Actions\Take;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
@@ -25,7 +26,6 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
-use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Listener\ActionSubscriber;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -38,7 +38,6 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -60,7 +59,7 @@ class ActionSubscriberCest
     public function testOnPostActionBreakoutsSymptom(FunctionalTester $I)
     {
         /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => 'default']);
+        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => 'test']);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
@@ -119,13 +118,11 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
-        $moveActionSymptomActivationRequirement
-            ->setActivationRequirement(ActionEnum::MOVE)
-            ->buildName()
-        ;
-
-        $I->haveInRepository($moveActionSymptomActivationRequirement);
+        $moveActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
+            'name' => 'reason_move',
+        ]);
+        $moveActionSymptomActivationRequirement->setValue(100);
+        $I->refreshEntities($moveActionSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig('breakouts');
         $symptomConfig
@@ -172,8 +169,26 @@ class ActionSubscriberCest
 
     public function testOnPostActionCatAllergySymptom(FunctionalTester $I)
     {
+        $quincksOedema = $I->grabEntityFromRepository(DiseaseConfig::class, [
+            'diseaseName' => 'quincks_oedema',
+        ]);
+        $burntArms = $I->grabEntityFromRepository(DiseaseConfig::class, [
+            'diseaseName' => 'burnt_arms',
+        ]);
+        $burntHand = $I->grabEntityFromRepository(DiseaseConfig::class, [
+            'diseaseName' => 'burnt_hand',
+        ]);
+
+        $catAllergyDiseaseCauseConfig = $I->grabEntityFromRepository(DiseaseCauseConfig::class, [
+            'causeName' => DiseaseEnum::CAT_ALLERGY,
+        ]);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'diseaseConfig' => new ArrayCollection([$quincksOedema, $burntArms, $burntHand]),
+            'diseaseCauseConfig' => new ArrayCollection([$catAllergyDiseaseCauseConfig]),
+        ]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         /** @var LocalizationConfig $localizationConfig */
@@ -199,6 +214,7 @@ class ActionSubscriberCest
             'daedalus' => $daedalus,
             'place' => $room,
         ]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -218,21 +234,15 @@ class ActionSubscriberCest
 
         $I->haveInRepository($cat);
 
-        $takeActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
-        $takeActionSymptomActivationRequirement
-            ->setActivationRequirement(ActionEnum::TAKE)
-            ->buildName()
-        ;
+        $takeActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
+            'name' => 'reason_take',
+        ]);
+        $takeActionSymptomActivationRequirement->setValue(100);
+        $I->refreshEntities($takeActionSymptomActivationRequirement);
 
-        $I->haveInRepository($takeActionSymptomActivationRequirement);
-
-        $holdCatSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::PLAYER_EQUIPMENT);
-        $holdCatSymptomActivationRequirement
-            ->setActivationRequirement(ItemEnum::SCHRODINGER)
-            ->buildName()
-        ;
-
-        $I->haveInRepository($holdCatSymptomActivationRequirement);
+        $holdCatSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
+            'name' => 'player_equipment_schrodinger',
+        ]);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::CAT_ALLERGY);
         $symptomConfig
@@ -265,19 +275,17 @@ class ActionSubscriberCest
 
         $I->refreshEntities($player);
 
-        // @TODO : fix me
+        $takeAction = $I->grabService(Take::class);
 
-        // $takeAction = $I->grabService(Take::class);
+        $takeAction->loadParameters($takeActionEntity, $player, $cat);
+        $takeAction->execute();
 
-        // $takeAction->loadParameters($takeActionEntity, $player, $cat);
-        // $takeAction->execute();
-
-        // $I->seeInRepository(RoomLog::class, [
-        //     'player' => $player,
-        //     'place' => $room->getName(),
-        //     'daedalusInfo' => $daedalusInfo,
-        //     'log' => SymptomEnum::CAT_ALLERGY
-        // ]);
+        $I->seeInRepository(RoomLog::class, [
+            'playerInfo' => $playerInfo->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'log' => SymptomEnum::CAT_ALLERGY,
+        ]);
     }
 
     public function testOnPostActionDroolingSymptom(FunctionalTester $I)
@@ -336,13 +344,11 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
-        $moveActionSymptomActivationRequirement
-            ->setActivationRequirement(ActionEnum::MOVE)
-            ->buildName()
-        ;
-
-        $I->haveInRepository($moveActionSymptomActivationRequirement);
+        $moveActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
+            'name' => 'reason_move',
+        ]);
+        $moveActionSymptomActivationRequirement->setValue(100);
+        $I->refreshEntities($moveActionSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::DROOLING);
         $symptomConfig
@@ -443,13 +449,11 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
-        $moveActionSymptomActivationRequirement
-            ->setActivationRequirement(ActionEnum::MOVE)
-            ->buildName()
-        ;
-
-        $I->haveInRepository($moveActionSymptomActivationRequirement);
+        $moveActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
+            'name' => 'reason_move',
+        ]);
+        $moveActionSymptomActivationRequirement->setValue(100);
+        $I->refreshEntities($moveActionSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::FOAMING_MOUTH);
         $symptomConfig
@@ -550,13 +554,11 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
-        $moveActionSymptomActivationRequirement
-            ->setActivationRequirement(ActionEnum::MOVE)
-            ->buildName()
-        ;
-
-        $I->haveInRepository($moveActionSymptomActivationRequirement);
+        $moveActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
+            'name' => 'reason_move',
+        ]);
+        $moveActionSymptomActivationRequirement->setValue(100);
+        $I->refreshEntities($moveActionSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::SNEEZING);
         $symptomConfig
@@ -722,21 +724,15 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
-        $moveActionSymptomActivationRequirement
-            ->setActivationRequirement(ActionEnum::MOVE)
-            ->buildName()
-        ;
+        $moveActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
+            'name' => 'reason_move',
+        ]);
+        $moveActionSymptomActivationRequirement->setValue(100);
+        $I->refreshEntities($moveActionSymptomActivationRequirement);
 
-        $I->haveInRepository($moveActionSymptomActivationRequirement);
-
-        $consumeActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
-        $consumeActionSymptomActivationRequirement
-            ->setActivationRequirement(ActionEnum::CONSUME)
-            ->buildName()
-        ;
-
-        $I->haveInRepository($consumeActionSymptomActivationRequirement);
+        $consumeActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
+            'name' => 'reason_consume',
+        ]);
 
         $moveVomitingConfig = new SymptomConfig(SymptomEnum::VOMITING);
         $moveVomitingConfig
@@ -876,21 +872,15 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
-        $moveActionSymptomActivationRequirement
-            ->setActivationRequirement(ActionEnum::MOVE)
-            ->buildName()
-        ;
+        $moveActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
+            'name' => 'reason_move',
+        ]);
+        $moveActionSymptomActivationRequirement->setValue(100);
+        $I->refreshEntities($moveActionSymptomActivationRequirement);
 
-        $I->haveInRepository($moveActionSymptomActivationRequirement);
-
-        $catInRoomSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::ITEM_IN_ROOM);
-        $catInRoomSymptomActivationRequirement
-            ->setActivationRequirement(ItemEnum::SCHRODINGER)
-            ->buildName()
-        ;
-
-        $I->haveInRepository($catInRoomSymptomActivationRequirement);
+        $catInRoomSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
+            'name' => 'item_in_room_schrodinger',
+        ]);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::FEAR_OF_CATS);
         $symptomConfig
@@ -1015,7 +1005,7 @@ class ActionSubscriberCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var CharacterConfig $otherCharacterConfig */
-        $otherCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::TERRENCE]);
+        $otherCharacterConfig = $I->have(CharacterConfig::class, ['name' => 'test2']);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [

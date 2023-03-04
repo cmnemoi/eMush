@@ -124,7 +124,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $diseaseConfigs = $daedalus->getGameConfig()->getDiseaseConfig()->filter(fn (DiseaseConfig $diseaseConfig) => $diseaseConfig->getDiseaseName() === $diseaseName);
 
         if ($diseaseConfigs->count() !== 1) {
-            throw new \Exception("there should be exactly 1 diseaseConfig with this name {$diseaseName}");
+            throw new \Exception("there should be exactly 1 diseaseConfig with this name {$diseaseName}, found {$diseaseConfigs->count()}");
         }
 
         return $diseaseConfigs->first();

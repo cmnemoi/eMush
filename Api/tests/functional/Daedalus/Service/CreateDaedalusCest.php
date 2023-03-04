@@ -127,7 +127,7 @@ class CreateDaedalusCest
 
         $gameConfig = new GameConfig();
         $gameConfig
-            ->setName('name')
+            ->setName(GameConfigEnum::TEST)
             ->setDaedalusConfig($daedalusConfig)
             ->setEquipmentsConfig(new ArrayCollection([$door, $hydropot, $gravitySimulator, $waterStick]))
             ->setStatusConfigs(new ArrayCollection([$alienArtifact]))
@@ -169,7 +169,7 @@ class CreateDaedalusCest
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
-            ->setName('default')
+            ->setName('test')
             ->setInitOxygen(15)
             ->setInitFuel(25)
             ->setInitHull(80)

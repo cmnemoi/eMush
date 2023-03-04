@@ -21,14 +21,12 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\User\Entity\User;
 
@@ -134,15 +132,9 @@ class TransplantActionCest
 
     public function testTransplantCreatePlant(FunctionalTester $I)
     {
-        $plantYoung = new ChargeStatusConfig();
-        $plantYoung
-            ->setStatusName(EquipmentStatusEnum::PLANT_YOUNG)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setChargeVisibility(VisibilityEnum::PUBLIC)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
-        $I->haveInRepository($plantYoung);
+        $plantYoung = $plantYoung = $I->grabEntityFromRepository(ChargeStatusConfig::class, [
+            'statusName' => EquipmentStatusEnum::PLANT_YOUNG,
+        ]);
 
         $transplantAction = new Action();
         $transplantAction

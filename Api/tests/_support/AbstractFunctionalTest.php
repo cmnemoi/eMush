@@ -12,6 +12,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
@@ -75,8 +76,8 @@ class AbstractFunctionalTest
 
         $I->refreshEntities($daedalusInfo);
 
-        $places = $this->createPlaces($I, $daedalusConfig->getPlaceConfigs(), $daedalus);
-        $daedalus->setPlaces($places);
+        $laboratory = $this->createLaboratory($I, $daedalus);
+        $daedalus->addPlace($laboratory);
 
         $daedalus->setDaedalusVariables($daedalusConfig);
 
@@ -88,7 +89,10 @@ class AbstractFunctionalTest
     private function createPlayers(FunctionalTester $I, Daedalus $daedalus): Collection
     {
         $players = new ArrayCollection([]);
-        $characterConfigs = $I->grabRepository(CharacterConfig::class)->findAll();
+        $chunCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => CharacterEnum::CHUN]);
+        $kuanTiCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => CharacterEnum::KUAN_TI]);
+
+        $characterConfigs = [$chunCharacterConfig, $kuanTiCharacterConfig];
 
         foreach ($characterConfigs as $characterConfig) {
             $player = new Player();
@@ -115,22 +119,19 @@ class AbstractFunctionalTest
         return $players;
     }
 
-    private function createPlaces(FunctionalTester $I, Collection $placeConfigs, Daedalus $daedalus): Collection
+    private function createLaboratory(FunctionalTester $I, Daedalus $daedalus): Place
     {
-        $places = new ArrayCollection([]);
-        /** @var PlaceConfig $placeConfig */
-        foreach ($placeConfigs as $placeConfig) {
-            $room = new Place();
-            $room->setName($placeConfig->getPlaceName());
-            $room->setType($placeConfig->getType());
+        /** @var PlaceConfig $laboratoryConfig */
+        $laboratoryConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::LABORATORY]);
+        $laboratory = new Place();
+        $laboratory
+            ->setName(RoomEnum::LABORATORY)
+            ->setType($laboratoryConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
 
-            $room->setDaedalus($daedalus);
+        $I->haveInRepository($laboratory);
 
-            $I->haveInRepository($room);
-
-            $places->add($room);
-        }
-
-        return $places;
+        return $laboratory;
     }
 }

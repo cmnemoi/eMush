@@ -2,7 +2,6 @@
 
 namespace App\Tests;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
@@ -35,8 +34,9 @@ class AbstractFunctionalTest
     protected CharacterConfig $characterConfig;
     protected GameConfig $gameConfig;
     protected LocalizationConfig $localizationConfig;
+    protected DaedalusConfig $daedalusConfig;
 
-    protected array $basePlayerVariables =
+    private array $basePlayerVariables =
     [
         PlayerVariableEnum::ACTION_POINT => 12,
         PlayerVariableEnum::HEALTH_POINT => 14,
@@ -59,49 +59,40 @@ class AbstractFunctionalTest
             ConsumableDiseaseConfigFixtures::class,
         ]);
 
-        $testEntities = $this->initTestEntities($I);
-        $this->player = $testEntities->get('player');
-        $this->otherPlayer = $testEntities->get('otherPlayer');
-        $this->daedalus = $testEntities->get('daedalus');
-        $this->room = $testEntities->get('place');
-        $this->user = $testEntities->get('user');
-        $this->playerInfo = $testEntities->get('playerInfo');
-        $this->characterConfig = $testEntities->get('characterConfig');
-        $this->gameConfig = $testEntities->get('gameConfig');
-        $this->localizationConfig = $testEntities->get('localizationConfig');
+        $this->initTestEntities($I);
     }
 
-    protected function initTestEntities(FunctionalTester $I): ArrayCollection
+    protected function initTestEntities(FunctionalTester $I): void
     {
         /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $this->daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig->setDaedalusConfig($daedalusConfig);
+        $this->gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $this->gameConfig->setDaedalusConfig($this->daedalusConfig);
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
-        $daedalus->setDaedalusVariables($daedalusConfig);
-        $daedalus->setFuel(5);
+        $this->daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
+        $this->daedalus->setDaedalusVariables($this->daedalusConfig);
+        $this->daedalus->setFuel(5);
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $this->localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
 
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo = new DaedalusInfo($this->daedalus, $this->gameConfig, $this->localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        $this->room = $I->have(Place::class, ['daedalus' => $this->daedalus]);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
+        $this->characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
+        $this->player = $I->have(Player::class, [
+            'daedalus' => $this->daedalus,
+            'place' => $this->room,
         ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
+        $this->player->setPlayerVariables($this->characterConfig);
+        $this->player
             ->setActionPoint($this->basePlayerVariables[PlayerVariableEnum::ACTION_POINT])
             ->setHealthPoint($this->basePlayerVariables[PlayerVariableEnum::HEALTH_POINT])
             ->setMoralPoint($this->basePlayerVariables[PlayerVariableEnum::MORAL_POINT])
@@ -110,20 +101,20 @@ class AbstractFunctionalTest
             ->setTriumph($this->basePlayerVariables[PlayerVariableEnum::TRIUMPH])
         ;
         /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $this->user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($this->player, $this->user, $this->characterConfig);
 
         $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $this->player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($this->player);
 
         /** @var Player $otherPlayer */
-        $otherPlayer = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
+        $this->otherPlayer = $I->have(Player::class, [
+            'daedalus' => $this->daedalus,
+            'place' => $this->room,
         ]);
-        $otherPlayer->setPlayerVariables($characterConfig);
-        $otherPlayer
+        $this->otherPlayer->setPlayerVariables($this->characterConfig);
+        $this->otherPlayer
             ->setActionPoint($this->basePlayerVariables[PlayerVariableEnum::ACTION_POINT])
             ->setHealthPoint($this->basePlayerVariables[PlayerVariableEnum::HEALTH_POINT])
             ->setMoralPoint($this->basePlayerVariables[PlayerVariableEnum::MORAL_POINT])
@@ -133,23 +124,11 @@ class AbstractFunctionalTest
         ;
         /** @var User $otherUser */
         $otherUser = $I->have(User::class, ['userId' => 'otherUser']);
-        $otherPlayerInfo = new PlayerInfo($otherPlayer, $otherUser, $characterConfig);
+        $otherPlayerInfo = new PlayerInfo($this->otherPlayer, $otherUser, $this->characterConfig);
 
         $I->haveInRepository($otherPlayerInfo);
-        $otherPlayer->setPlayerInfo($otherPlayerInfo);
-        $I->refreshEntities($otherPlayer);
-
-        return new ArrayCollection([
-            'daedalus' => $daedalus,
-            'player' => $player,
-            'otherPlayer' => $otherPlayer,
-            'place' => $room,
-            'user' => $user,
-            'playerInfo' => $playerInfo,
-            'characterConfig' => $characterConfig,
-            'gameConfig' => $gameConfig,
-            'localizationConfig' => $localizationConfig,
-        ]);
+        $this->otherPlayer->setPlayerInfo($otherPlayerInfo);
+        $I->refreshEntities($this->otherPlayer);
     }
 
     /**

@@ -476,6 +476,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($turretCommand);
+        $manager->persist($turretMechanic);
 
         /** @var Action $selfSurgeryAction */
         $selfSurgeryAction = $this->getReference(ActionsFixtures::SELF_SURGERY);

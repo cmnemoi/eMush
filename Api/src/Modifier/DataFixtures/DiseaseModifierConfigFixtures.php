@@ -350,6 +350,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setActivationRequirement(ActionEnum::CONSUME_DRUG)
             ->buildName()
         ;
+        $manager->persist($comsumeDrugActionActivationRequirement);
 
         $consume1ActionLoss = new VariableEventModifierConfig();
         $consume1ActionLoss

@@ -49,16 +49,6 @@ class AbstractFunctionalTest
 
     public function _before(FunctionalTester $I)
     {
-        $I->loadFixtures([
-            GameConfigFixtures::class,
-            LocalizationConfigFixtures::class,
-            DaedalusConfigFixtures::class,
-            ActionsFixtures::class,
-            TechnicianFixtures::class,
-            DiseaseCausesConfigFixtures::class,
-            ConsumableDiseaseConfigFixtures::class,
-        ]);
-
         $this->initTestEntities($I);
     }
 

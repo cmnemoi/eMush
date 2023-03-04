@@ -1,0 +1,44 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "0.0.0.0",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "group": "eMush",
+            "name": "local",
+            "username": "mysql",
+            "database": "mush"
+        },
+        {
+            "previewLimit": 50,
+            "server": "staging.emush.eternaltwin.org",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "staging",
+            "group": "eMush",
+            "database": "emush.staging",
+            "username": "emush.staging.read"
+        },
+        {
+            "previewLimit": 50,
+            "server": "emush.eternaltwin.org",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "production",
+            "group": "eMush",
+            "database": "emush.production",
+            "username": "emush.production.read"
+        },
+        {
+            "previewLimit": 50,
+            "server": "0.0.0.0",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "test",
+            "group": "eMush",
+            "database": "mush_test",
+            "username": "mysql"
+        }
+    ]
+}

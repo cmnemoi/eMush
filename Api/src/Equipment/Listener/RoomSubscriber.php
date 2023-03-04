@@ -2,11 +2,9 @@
 
 namespace Mush\Equipment\Listener;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -42,14 +40,11 @@ class RoomSubscriber implements EventSubscriberInterface
             throw new \LogicException('place should be a room');
         }
 
-        /** @var ArrayCollection $electricArcBreakableItems */
-        $electricArcBreakableItems = new ArrayCollection([ItemEnum::TABULATRIX]);
-
         /** @var GameEquipment $equipment */
         foreach ($room->getEquipments() as $equipment) {
             if (!$equipment->isBroken() &&
                 !($equipment instanceof Door) &&
-                (!($equipment instanceof GameItem) || $electricArcBreakableItems->contains($equipment->getName())) &&
+                !($equipment instanceof GameItem) &&
                 $equipment->isBreakable()) {
                 $statusEvent = new StatusEvent(
                     EquipmentStatusEnum::BROKEN,

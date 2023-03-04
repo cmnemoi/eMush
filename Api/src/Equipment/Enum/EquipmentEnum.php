@@ -50,6 +50,7 @@ class EquipmentEnum
     public const BIOS_TERMINAL = 'bios_terminal';
     public const AUXILIARY_TERMINAL = 'auxiliary_terminal';
     public const CAMERA_EQUIPMENT = 'camera_equipment';
+    public const TABULATRIX = 'tabulatrix';
 
     public static function getBeds(): array
     {

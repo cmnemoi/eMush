@@ -13,7 +13,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -243,8 +243,8 @@ class RoomEventCest
         $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig]);
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
-        /** @var ItemConfig $itemConfig2 */
-        $itemConfig2 = $I->have(ItemConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig, 'name' => ItemEnum::TABULATRIX]);
+        /** @var EquipmentConfig $tabulatrix */
+        $tabulatrixConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig, 'name' => EquipmentEnum::TABULATRIX]);
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
@@ -260,10 +260,10 @@ class RoomEventCest
         ;
         $I->haveInRepository($gameItem);
 
-        $tabulatrix = new GameItem($room);
+        $tabulatrix = new GameEquipment($room);
         $tabulatrix
-            ->setEquipment($itemConfig2)
-            ->setName(ItemEnum::TABULATRIX)
+            ->setEquipment($tabulatrixConfig)
+            ->setName(EquipmentEnum::TABULATRIX)
         ;
 
         $I->haveInRepository($tabulatrix);

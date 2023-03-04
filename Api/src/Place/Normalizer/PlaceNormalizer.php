@@ -71,15 +71,17 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
             $context
         );
 
+        /** @var ArrayCollection $equipmentWhichShouldNormalizedAsItems */
+        $equipmentWhichShouldNormalizedAsItems = new ArrayCollection([EquipmentEnum::TABULATRIX]);
+
         // Split equipments between items and equipments
-        $partition = $room->getEquipments()->partition(fn (int $key, GameEquipment $gameEquipment) => $gameEquipment->getClassName() === GameEquipment::class ||
-            $gameEquipment->getClassName() === Door::class || $gameEquipment->getName() !== EquipmentEnum::TABULATRIX
+        $partition = $room->getEquipments()->partition(fn (int $key, GameEquipment $gameEquipment) => ($gameEquipment->getClassName() === GameEquipment::class
+            && !$equipmentWhichShouldNormalizedAsItems->contains($gameEquipment->getName())) ||
+            $gameEquipment->getClassName() === Door::class
         );
 
         $equipments = $partition[0];
         $items = $partition[1];
-
-        dump($items->toArray());
 
         $normalizedEquipments = $this->normalizeEquipments(
             $currentPlayer,

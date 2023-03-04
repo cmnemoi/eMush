@@ -64,29 +64,29 @@ class AbstractFunctionalTest
 
     protected function initTestEntities(FunctionalTester $I): void
     {
-        /** @var DaedalusConfig $daedalusConfig */
+        /* @var DaedalusConfig $daedalusConfig */
         $this->daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        /** @var GameConfig $gameConfig */
+        /* @var GameConfig $gameConfig */
         $this->gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $this->gameConfig->setDaedalusConfig($this->daedalusConfig);
         $I->flushToDatabase();
 
-        /** @var Daedalus $daedalus */
+        /* @var Daedalus $daedalus */
         $this->daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
         $this->daedalus->setDaedalusVariables($this->daedalusConfig);
         $this->daedalus->setFuel(5);
-        /** @var LocalizationConfig $localizationConfig */
+        /* @var LocalizationConfig $localizationConfig */
         $this->localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
 
         $daedalusInfo = new DaedalusInfo($this->daedalus, $this->gameConfig, $this->localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
-        /** @var Place $room */
+        /* @var Place $room */
         $this->room = $I->have(Place::class, ['daedalus' => $this->daedalus]);
 
-        /** @var CharacterConfig $characterConfig */
+        /* @var CharacterConfig $characterConfig */
         $this->characterConfig = $I->have(CharacterConfig::class);
-        /** @var Player $player */
+        /* @var Player $player */
         $this->player = $I->have(Player::class, [
             'daedalus' => $this->daedalus,
             'place' => $this->room,
@@ -100,7 +100,7 @@ class AbstractFunctionalTest
             ->setSatiety($this->basePlayerVariables[PlayerVariableEnum::SATIETY])
             ->setTriumph($this->basePlayerVariables[PlayerVariableEnum::TRIUMPH])
         ;
-        /** @var User $user */
+        /* @var User $user */
         $this->user = $I->have(User::class);
         $playerInfo = new PlayerInfo($this->player, $this->user, $this->characterConfig);
 
@@ -108,7 +108,7 @@ class AbstractFunctionalTest
         $this->player->setPlayerInfo($playerInfo);
         $I->refreshEntities($this->player);
 
-        /** @var Player $otherPlayer */
+        /* @var Player $otherPlayer */
         $this->otherPlayer = $I->have(Player::class, [
             'daedalus' => $this->daedalus,
             'place' => $this->room,

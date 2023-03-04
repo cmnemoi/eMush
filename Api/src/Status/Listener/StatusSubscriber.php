@@ -52,15 +52,12 @@ class StatusSubscriber implements EventSubscriberInterface
         $status = $holder->getStatusByName($event->getStatusName());
 
         if ($status === null) {
-            codecept_debug('noooonn');
-
-            return;
+            throw new \LogicException('a status should be provided');
         }
 
         // If a talkie or itrackie is repaired, check if it was screwed.
         $this->handleScrewedTalkie($event);
 
-        codecept_debug('lalalala');
         $this->statusService->delete($status);
     }
 

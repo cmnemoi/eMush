@@ -2,178 +2,135 @@
 
 namespace App\Tests;
 
-use Mush\Action\DataFixtures\ActionsFixtures;
-use Mush\Action\DataFixtures\TechnicianFixtures;
-use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Disease\DataFixtures\ConsumableDiseaseConfigFixtures;
-use Mush\Disease\DataFixtures\DiseaseCausesConfigFixtures;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Entity\PlaceConfig;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\User\Entity\User;
+use Symfony\Component\Uid\Uuid;
 
 class AbstractFunctionalTest
 {
-    protected Player $player;
-    protected Player $otherPlayer;
     protected Daedalus $daedalus;
-    protected Place $room;
-    protected User $user;
-    protected PlayerInfo $playerInfo;
-    protected CharacterConfig $characterConfig;
-    protected GameConfig $gameConfig;
-    protected LocalizationConfig $localizationConfig;
-    protected DaedalusConfig $daedalusConfig;
-
-    private array $basePlayerVariables =
-    [
-        PlayerVariableEnum::ACTION_POINT => 12,
-        PlayerVariableEnum::HEALTH_POINT => 14,
-        PlayerVariableEnum::MORAL_POINT => 14,
-        PlayerVariableEnum::MOVEMENT_POINT => 14,
-        PlayerVariableEnum::SATIETY => 0,
-        PlayerVariableEnum::TRIUMPH => 0,
-        PlayerVariableEnum::SPORE => 0,
-    ];
+    protected ArrayCollection $players;
+    protected Player $player1;
+    protected Player $player2;
 
     public function _before(FunctionalTester $I)
     {
-        $this->initTestEntities($I);
+        $this->daedalus = $this->createDaedalus($I);
+        $this->players = $this->createPlayers($I, $this->daedalus);
+        $this->daedalus->setPlayers($this->players);
+        $I->refreshEntities($this->daedalus);
+
+        $this->player1 = $this->players->first();
+        $this->player2 = $this->players->last();
     }
 
-    protected function initTestEntities(FunctionalTester $I): void
+    private function createDaedalus(FunctionalTester $I): Daedalus
     {
-        /* @var DaedalusConfig $daedalusConfig */
-        $this->daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        /* @var GameConfig $gameConfig */
-        $this->gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $this->gameConfig->setDaedalusConfig($this->daedalusConfig);
-        $I->flushToDatabase();
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        /** @var Daedalus $daedalus */
+        $daedalus = new Daedalus();
+        $daedalus
+            ->setCycle(0)
+            ->setDaedalusVariables($daedalusConfig)
+        ;
 
-        /* @var Daedalus $daedalus */
-        $this->daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
-        $this->daedalus->setDaedalusVariables($this->daedalusConfig);
-        $this->daedalus->setFuel(5);
-        /* @var LocalizationConfig $localizationConfig */
-        $this->localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $neron = new Neron();
+        $I->haveInRepository($neron);
 
-        $daedalusInfo = new DaedalusInfo($this->daedalus, $this->gameConfig, $this->localizationConfig);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo
+            ->setName('Daedalus')
+            ->setNeron($neron)
+        ;
         $I->haveInRepository($daedalusInfo);
 
-        /* @var Place $room */
-        $this->room = $I->have(Place::class, ['daedalus' => $this->daedalus]);
-
-        /* @var CharacterConfig $characterConfig */
-        $this->characterConfig = $I->have(CharacterConfig::class);
-        /* @var Player $player */
-        $this->player = $I->have(Player::class, [
-            'daedalus' => $this->daedalus,
-            'place' => $this->room,
-        ]);
-        $this->player->setPlayerVariables($this->characterConfig);
-        $this->player
-            ->setActionPoint($this->basePlayerVariables[PlayerVariableEnum::ACTION_POINT])
-            ->setHealthPoint($this->basePlayerVariables[PlayerVariableEnum::HEALTH_POINT])
-            ->setMoralPoint($this->basePlayerVariables[PlayerVariableEnum::MORAL_POINT])
-            ->setMovementPoint($this->basePlayerVariables[PlayerVariableEnum::MOVEMENT_POINT])
-            ->setSatiety($this->basePlayerVariables[PlayerVariableEnum::SATIETY])
-            ->setTriumph($this->basePlayerVariables[PlayerVariableEnum::TRIUMPH])
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::PUBLIC)
         ;
-        /* @var User $user */
-        $this->user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($this->player, $this->user, $this->characterConfig);
+        $I->haveInRepository($channel);
 
-        $I->haveInRepository($playerInfo);
-        $this->player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($this->player);
+        $I->refreshEntities($daedalusInfo);
 
-        /* @var Player $otherPlayer */
-        $this->otherPlayer = $I->have(Player::class, [
-            'daedalus' => $this->daedalus,
-            'place' => $this->room,
-        ]);
-        $this->otherPlayer->setPlayerVariables($this->characterConfig);
-        $this->otherPlayer
-            ->setActionPoint($this->basePlayerVariables[PlayerVariableEnum::ACTION_POINT])
-            ->setHealthPoint($this->basePlayerVariables[PlayerVariableEnum::HEALTH_POINT])
-            ->setMoralPoint($this->basePlayerVariables[PlayerVariableEnum::MORAL_POINT])
-            ->setMovementPoint($this->basePlayerVariables[PlayerVariableEnum::MOVEMENT_POINT])
-            ->setSatiety($this->basePlayerVariables[PlayerVariableEnum::SATIETY])
-            ->setTriumph($this->basePlayerVariables[PlayerVariableEnum::TRIUMPH])
-        ;
-        /** @var User $otherUser */
-        $otherUser = $I->have(User::class, ['userId' => 'otherUser']);
-        $otherPlayerInfo = new PlayerInfo($this->otherPlayer, $otherUser, $this->characterConfig);
+        $places = $this->createPlaces($I, $daedalusConfig->getPlaceConfigs(), $daedalus);
+        $daedalus->setPlaces($places);
 
-        $I->haveInRepository($otherPlayerInfo);
-        $this->otherPlayer->setPlayerInfo($otherPlayerInfo);
-        $I->refreshEntities($this->otherPlayer);
+        $daedalus->setDaedalusVariables($daedalusConfig);
+
+        $I->haveInRepository($daedalus);
+
+        return $daedalus;
     }
 
-    /**
-     * Returns the amount of action points of the players at the beginning of the test.
-     */
-    protected function getBasePlayerActionPoint(): int
+    private function createPlayers(FunctionalTester $I, Daedalus $daedalus): Collection
     {
-        return $this->basePlayerVariables[PlayerVariableEnum::ACTION_POINT];
+        $players = new ArrayCollection([]);
+        $characterConfigs = $I->grabRepository(CharacterConfig::class)->findAll();
+
+        foreach ($characterConfigs as $characterConfig) {
+            $player = new Player();
+
+            $user = new User();
+            $user
+                ->setUserId('user' . Uuid::v4()->toRfc4122())
+                ->setUserName('user' . Uuid::v4()->toRfc4122())
+            ;
+            $I->haveInRepository($user);
+
+            $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+            $I->haveInRepository($playerInfo);
+
+            $player->setDaedalus($this->daedalus);
+            $player->setPlace($daedalus->getPlaceByName(RoomEnum::LABORATORY));
+            $player->setPlayerVariables($characterConfig);
+
+            $I->haveInRepository($player);
+
+            $players->add($player);
+        }
+
+        return $players;
     }
 
-    /**
-     * Returns the amount of health points of the players at the beginning of the test.
-     */
-    protected function getBasePlayerHealthPoint(): int
+    private function createPlaces(FunctionalTester $I, Collection $placeConfigs, Daedalus $daedalus): Collection
     {
-        return $this->basePlayerVariables[PlayerVariableEnum::HEALTH_POINT];
-    }
+        $places = new ArrayCollection([]);
+        /** @var PlaceConfig $placeConfig */
+        foreach ($placeConfigs as $placeConfig) {
+            $room = new Place();
+            $room->setName($placeConfig->getPlaceName());
+            $room->setType($placeConfig->getType());
 
-    /**
-     * Returns the amount of moral points of the players at the beginning of the test.
-     */
-    protected function getBasePlayerMoralPoint(): int
-    {
-        return $this->basePlayerVariables[PlayerVariableEnum::MORAL_POINT];
-    }
+            $room->setDaedalus($daedalus);
 
-    /**
-     * Returns the amount of movement points of the players at the beginning of the test.
-     */
-    protected function getBasePlayerMovementPoint(): int
-    {
-        return $this->basePlayerVariables[PlayerVariableEnum::MOVEMENT_POINT];
-    }
+            $I->haveInRepository($room);
 
-    /**
-     * Returns the amount of satiety of the players at the beginning of the test.
-     */
-    protected function getBasePlayerSatiety(): int
-    {
-        return $this->basePlayerVariables[PlayerVariableEnum::SATIETY];
-    }
+            $places->add($room);
+        }
 
-    /**
-     * Returns the amount of triumph of the players at the beginning of the test.
-     */
-    protected function getBasePlayerTriumph(): int
-    {
-        return $this->basePlayerVariables[PlayerVariableEnum::TRIUMPH];
-    }
-
-    /**
-     * Returns the amount of spores of the players at the beginning of the test.
-     */
-    protected function getBasePlayerSpores(): int
-    {
-        return $this->basePlayerVariables[PlayerVariableEnum::SPORE];
+        return $places;
     }
 }

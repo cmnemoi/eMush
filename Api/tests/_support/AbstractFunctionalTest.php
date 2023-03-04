@@ -21,9 +21,10 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\User\Entity\User;
 
-class AbstactFunctionalTest
+class AbstractFunctionalTest
 {
     protected Player $player;
     protected Player $otherPlayer;
@@ -34,6 +35,17 @@ class AbstactFunctionalTest
     protected CharacterConfig $characterConfig;
     protected GameConfig $gameConfig;
     protected LocalizationConfig $localizationConfig;
+
+    protected array $basePlayerVariables =
+    [
+        PlayerVariableEnum::ACTION_POINT => 12,
+        PlayerVariableEnum::HEALTH_POINT => 14,
+        PlayerVariableEnum::MORAL_POINT => 14,
+        PlayerVariableEnum::MOVEMENT_POINT => 14,
+        PlayerVariableEnum::SATIETY => 0,
+        PlayerVariableEnum::TRIUMPH => 0,
+        PlayerVariableEnum::SPORE => 0,
+    ];
 
     public function _before(FunctionalTester $I)
     {
@@ -90,10 +102,12 @@ class AbstactFunctionalTest
         ]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(12)
-            ->setHealthPoint(14)
-            ->setMoralPoint(14)
-            ->setMovementPoint(12)
+            ->setActionPoint($this->basePlayerVariables[PlayerVariableEnum::ACTION_POINT])
+            ->setHealthPoint($this->basePlayerVariables[PlayerVariableEnum::HEALTH_POINT])
+            ->setMoralPoint($this->basePlayerVariables[PlayerVariableEnum::MORAL_POINT])
+            ->setMovementPoint($this->basePlayerVariables[PlayerVariableEnum::MOVEMENT_POINT])
+            ->setSatiety($this->basePlayerVariables[PlayerVariableEnum::SATIETY])
+            ->setTriumph($this->basePlayerVariables[PlayerVariableEnum::TRIUMPH])
         ;
         /** @var User $user */
         $user = $I->have(User::class);
@@ -110,10 +124,12 @@ class AbstactFunctionalTest
         ]);
         $otherPlayer->setPlayerVariables($characterConfig);
         $otherPlayer
-            ->setActionPoint(12)
-            ->setHealthPoint(14)
-            ->setMoralPoint(14)
-            ->setMovementPoint(12)
+            ->setActionPoint($this->basePlayerVariables[PlayerVariableEnum::ACTION_POINT])
+            ->setHealthPoint($this->basePlayerVariables[PlayerVariableEnum::HEALTH_POINT])
+            ->setMoralPoint($this->basePlayerVariables[PlayerVariableEnum::MORAL_POINT])
+            ->setMovementPoint($this->basePlayerVariables[PlayerVariableEnum::MOVEMENT_POINT])
+            ->setSatiety($this->basePlayerVariables[PlayerVariableEnum::SATIETY])
+            ->setTriumph($this->basePlayerVariables[PlayerVariableEnum::TRIUMPH])
         ;
         /** @var User $otherUser */
         $otherUser = $I->have(User::class, ['userId' => 'otherUser']);
@@ -134,5 +150,61 @@ class AbstactFunctionalTest
             'gameConfig' => $gameConfig,
             'localizationConfig' => $localizationConfig,
         ]);
+    }
+
+    /**
+     * Returns the amount of action points of the players at the beginning of the test.
+     */
+    protected function getBasePlayerActionPoint(): int
+    {
+        return $this->basePlayerVariables[PlayerVariableEnum::ACTION_POINT];
+    }
+
+    /**
+     * Returns the amount of health points of the players at the beginning of the test.
+     */
+    protected function getBasePlayerHealthPoint(): int
+    {
+        return $this->basePlayerVariables[PlayerVariableEnum::HEALTH_POINT];
+    }
+
+    /**
+     * Returns the amount of moral points of the players at the beginning of the test.
+     */
+    protected function getBasePlayerMoralPoint(): int
+    {
+        return $this->basePlayerVariables[PlayerVariableEnum::MORAL_POINT];
+    }
+
+    /**
+     * Returns the amount of movement points of the players at the beginning of the test.
+     */
+    protected function getBasePlayerMovementPoint(): int
+    {
+        return $this->basePlayerVariables[PlayerVariableEnum::MOVEMENT_POINT];
+    }
+
+    /**
+     * Returns the amount of satiety of the players at the beginning of the test.
+     */
+    protected function getBasePlayerSatiety(): int
+    {
+        return $this->basePlayerVariables[PlayerVariableEnum::SATIETY];
+    }
+
+    /**
+     * Returns the amount of triumph of the players at the beginning of the test.
+     */
+    protected function getBasePlayerTriumph(): int
+    {
+        return $this->basePlayerVariables[PlayerVariableEnum::TRIUMPH];
+    }
+
+    /**
+     * Returns the amount of spores of the players at the beginning of the test.
+     */
+    protected function getBasePlayerSpores(): int
+    {
+        return $this->basePlayerVariables[PlayerVariableEnum::SPORE];
     }
 }

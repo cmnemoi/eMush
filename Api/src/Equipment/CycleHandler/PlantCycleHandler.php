@@ -48,6 +48,10 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     public function handleNewCycle($object, \DateTime $dateTime): void
     {
+        if (!($object instanceof GameEquipment)) {
+            return;
+        }
+
         $daedalus = $object->getDaedalus();
 
         $plantType = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
@@ -86,6 +90,10 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     public function handleNewDay($object, \DateTime $dateTime): void
     {
+        if (!($object instanceof GameEquipment)) {
+            return;
+        }
+
         $daedalus = $object->getDaedalus();
 
         $plantType = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);

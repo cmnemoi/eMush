@@ -34,11 +34,11 @@ class RationCycleHandler extends AbstractCycleHandler
 
     public function handleNewDay($object, \DateTime $dateTime): void
     {
-        $gameRation = $object;
-
-        if (!$gameRation instanceof GameEquipment) {
+        if (!($object instanceof GameEquipment)) {
             return;
         }
+
+        $gameRation = $object;
 
         /** @var Ration $rationType */
         $rationType = $gameRation->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);

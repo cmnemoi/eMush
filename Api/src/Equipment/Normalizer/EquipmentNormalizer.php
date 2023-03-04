@@ -65,7 +65,6 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         $key = $object->getName();
         $nameParameters = [];
 
-
         if ($object instanceof Door) {
             $context['door'] = $object;
             $type = 'door';

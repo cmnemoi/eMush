@@ -48,13 +48,15 @@ class Shower extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $event = new StatusEvent(
-            PlayerStatusEnum::DIRTY,
-            $this->player,
-            $this->action->getActionTags(),
-            new \DateTime()
-        );
+        if ($this->player->hasStatus(PlayerStatusEnum::DIRTY)) {
+            $event = new StatusEvent(
+                PlayerStatusEnum::DIRTY,
+                $this->player,
+                $this->action->getActionTags(),
+                new \DateTime()
+            );
 
-        $this->eventService->callEvent($event, StatusEvent::STATUS_REMOVED);
+            $this->eventService->callEvent($event, StatusEvent::STATUS_REMOVED);
+        }
     }
 }

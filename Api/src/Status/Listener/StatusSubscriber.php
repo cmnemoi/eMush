@@ -52,7 +52,7 @@ class StatusSubscriber implements EventSubscriberInterface
         $status = $holder->getStatusByName($event->getStatusName());
 
         if ($status === null) {
-            throw new \LogicException('a status should be provided');
+            throw new \LogicException("the eventHolder should have this status {$event->getStatusName()}");
         }
 
         // If a talkie or itrackie is repaired, check if it was screwed.

@@ -21,4 +21,4 @@ monolog:
             id: Mush\Logger\Handler\MonologPostgresHandler
             type: service
             level: notice
-            channels: ["!event"]
+            channels: ["!event", "!doctrine"]

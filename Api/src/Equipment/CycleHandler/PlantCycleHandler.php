@@ -5,7 +5,6 @@ namespace Mush\Equipment\CycleHandler;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -49,15 +48,9 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     public function handleNewCycle($object, \DateTime $dateTime): void
     {
-        /** @var GameItem $plant */
-        $plant = $object;
-        if (!$plant instanceof GameEquipment) {
-            return;
-        }
+        $daedalus = $object->getDaedalus();
 
-        $daedalus = $plant->getDaedalus();
-
-        $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
+        $plantType = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
         if (!$plantType instanceof Plant) {
             return;
         }
@@ -65,13 +58,13 @@ class PlantCycleHandler extends AbstractCycleHandler
         $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
 
         /** @var ChargeStatus $youngStatus */
-        $youngStatus = $plant->getStatusByName(EquipmentStatusEnum::PLANT_YOUNG);
+        $youngStatus = $object->getStatusByName(EquipmentStatusEnum::PLANT_YOUNG);
         if ($youngStatus &&
             $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
         ) {
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::PLANT_YOUNG,
-                $plant,
+                $object,
                 [EventEnum::NEW_CYCLE],
                 $dateTime
             );
@@ -83,9 +76,9 @@ class PlantCycleHandler extends AbstractCycleHandler
         $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();
 
         if ($this->randomService->isSuccessful($diseaseRate) &&
-            !$plant->hasStatus(EquipmentStatusEnum::PLANT_DISEASED)
+            !$object->hasStatus(EquipmentStatusEnum::PLANT_DISEASED)
         ) {
-            $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_DISEASED, $plant, [EventEnum::NEW_CYCLE], new \DateTime());
+            $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_DISEASED, $object, [EventEnum::NEW_CYCLE], new \DateTime());
 
             $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
         }
@@ -93,22 +86,16 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     public function handleNewDay($object, \DateTime $dateTime): void
     {
-        /** @var GameItem $plant */
-        $plant = $object;
-        if (!$plant instanceof GameEquipment) {
-            return;
-        }
+        $daedalus = $object->getDaedalus();
 
-        $daedalus = $plant->getDaedalus();
-
-        $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
+        $plantType = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
         if (!$plantType instanceof Plant) {
             return;
         }
 
         $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
 
-        $plantStatus = $plant->getStatuses();
+        $plantStatus = $object->getStatuses();
 
         // If plant is young, dried or diseased, do not produce oxygen
         if ($plantStatus->filter(
@@ -122,20 +109,20 @@ class PlantCycleHandler extends AbstractCycleHandler
             )
         )->isEmpty()
         ) {
-            $this->addOxygen($plant, $plantEffect, $dateTime);
+            $this->addOxygen($object, $plantEffect, $dateTime);
             if ($plantStatus->filter(fn (Status $status) => in_array(
                 $status->getName(),
                 [EquipmentStatusEnum::PLANT_THIRSTY]
             ))->isEmpty()
             ) {
-                $this->addFruit($plant, $plantType, $dateTime);
+                $this->addFruit($object, $plantType, $dateTime);
             }
         }
 
-        $this->handleStatus($plant, $dateTime);
+        $this->handleStatus($object, $dateTime);
     }
 
-    private function handleStatus(GameItem $gamePlant, \DateTime $dateTime): void
+    private function handleStatus(GameEquipment $gamePlant, \DateTime $dateTime): void
     {
         // If plant was thirsty, become dried
         if (($thirsty = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)) !== null) {
@@ -154,7 +141,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         }
     }
 
-    private function handleDriedPlant(GameItem $gamePlant, \DateTime $dateTime): void
+    private function handleDriedPlant(GameEquipment $gamePlant, \DateTime $dateTime): void
     {
         $place = $gamePlant->getPlace();
         $holder = $gamePlant->getHolder();
@@ -177,7 +164,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         );
     }
 
-    private function addFruit(GameItem $gamePlant, Plant $plantType, \DateTime $dateTime): void
+    private function addFruit(GameEquipment $gamePlant, Plant $plantType, \DateTime $dateTime): void
     {
         // If plant is young, thirsty, dried or diseased, do not produce fruit
         if (!$gamePlant->getStatuses()
@@ -208,7 +195,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         );
     }
 
-    private function addOxygen(GameItem $gamePlant, PlantEffect $plantEffect, \DateTime $date): void
+    private function addOxygen(GameEquipment $gamePlant, PlantEffect $plantEffect, \DateTime $date): void
     {
         $daedalus = $gamePlant->getDaedalus();
         // Add Oxygen

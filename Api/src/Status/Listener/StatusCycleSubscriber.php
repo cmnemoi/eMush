@@ -48,12 +48,6 @@ class StatusCycleSubscriber implements EventSubscriberInterface
     {
         $status = $event->getStatus();
 
-        if ($status instanceof ChargeStatus && ($strategyName = $status->getStrategy())) {
-            if ($strategy = $this->chargeStrategyService->getStrategy($strategyName)) {
-                $strategy->execute($status, $event->getTags());
-            }
-        }
-
         if ($cycleHandler = $this->cycleHandlerService->getStatusCycleHandler($status)) {
             $cycleHandler->handleNewCycle($status, $event->getHolder(), $event->getTime());
         }

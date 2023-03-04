@@ -15,8 +15,6 @@ use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -42,7 +40,6 @@ class ConsumeActionCest
 
     public function testConsume(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
 
         /** @var Daedalus $daedalus */
@@ -140,7 +137,6 @@ class ConsumeActionCest
 
     public function testConsumeWithNegativeSatiety(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
 
         /** @var Daedalus $daedalus */
@@ -242,7 +238,6 @@ class ConsumeActionCest
 
     public function testMushConsume(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $mushConfig = new StatusConfig();
         $mushConfig
             ->setStatusName(PlayerStatusEnum::MUSH)

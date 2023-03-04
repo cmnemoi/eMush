@@ -3,16 +3,12 @@
 namespace functional\Action\Actions;
 
 use App\Tests\FunctionalTester;
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\BoringSpeech;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -26,7 +22,6 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
@@ -41,23 +36,10 @@ class BoringSpeechActionCest
 
     public function testBoringSpeech(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $didBoringSpeechStatus = new ChargeStatusConfig();
-        $didBoringSpeechStatus
-            ->setStatusName(PlayerStatusEnum::DID_BORING_SPEECH)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
-            ->setStartCharge(1)
-            ->setAutoRemove(true)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-
-        $I->haveInRepository($didBoringSpeechStatus);
+        $didBoringSpeechStatus = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => PlayerStatusEnum::DID_BORING_SPEECH]);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig->setStatusConfigs(new ArrayCollection([$didBoringSpeechStatus]));
-        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -69,26 +51,13 @@ class BoringSpeechActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
 
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::BORING_SPEECH)
-            ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost(2)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($action);
+        $action = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::BORING_SPEECH]);
 
         /** @var CharacterConfig $speakerConfig */
-        $speakerConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::DEREK,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $speakerConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
 
         /** @var CharacterConfig $listenerConfig */
-        $listenerConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::CHUN,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $listenerConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
 
         /** @var Player $speaker */
         $speaker = $I->have(Player::class, ['daedalus' => $daedalus,

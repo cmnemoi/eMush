@@ -17,8 +17,6 @@ use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -45,8 +43,6 @@ class TransplantActionCest
 
     public function testTransplant(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $transplantAction = new Action();
         $transplantAction
             ->setActionName(ActionEnum::TRANSPLANT)
@@ -138,8 +134,6 @@ class TransplantActionCest
 
     public function testTransplantCreatePlant(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $plantYoung = new ChargeStatusConfig();
         $plantYoung
             ->setStatusName(EquipmentStatusEnum::PLANT_YOUNG)

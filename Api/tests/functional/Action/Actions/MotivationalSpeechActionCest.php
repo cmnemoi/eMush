@@ -3,15 +3,11 @@
 namespace functional\Action\Actions;
 
 use App\Tests\FunctionalTester;
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\MotivationalSpeech;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -29,18 +25,18 @@ use Mush\User\Entity\User;
 
 class MotivationalSpeechActionCest
 {
-    private MotivationalSpeech $MotivationalSpeechAction;
+    private MotivationalSpeech $motivationalSpeechAction;
+    private Action $action;
 
     public function _before(FunctionalTester $I)
     {
-        $this->MotivationalSpeechAction = $I->grabService(MotivationalSpeech::class);
+        $this->motivationalSpeechAction = $I->grabService(MotivationalSpeech::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->action = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::MOTIVATIONAL_SPEECH]);
     }
 
     public function testMotivationalSpeech(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
 
@@ -53,26 +49,11 @@ class MotivationalSpeechActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
 
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::MOTIVATIONAL_SPEECH)
-            ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost(2)
-           ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($action);
-
         /** @var CharacterConfig $speakerConfig */
-        $speakerConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::JIN_SU,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $speakerConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::JIN_SU]);
 
         /** @var CharacterConfig $listenerConfig */
-        $listenerConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::DEREK,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $listenerConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
 
         /** @var Player $speaker */
         $speaker = $I->have(Player::class, ['daedalus' => $daedalus,
@@ -105,12 +86,12 @@ class MotivationalSpeechActionCest
         $listener->setPlayerInfo($listenerInfo);
         $I->refreshEntities($listener);
 
-        $this->MotivationalSpeechAction->loadParameters($action, $speaker);
+        $this->motivationalSpeechAction->loadParameters($this->action, $speaker);
 
-        $I->assertTrue($this->MotivationalSpeechAction->isVisible());
-        $I->assertNull($this->MotivationalSpeechAction->cannotExecuteReason());
+        $I->assertTrue($this->motivationalSpeechAction->isVisible());
+        $I->assertNull($this->motivationalSpeechAction->cannotExecuteReason());
 
-        $this->MotivationalSpeechAction->execute();
+        $this->motivationalSpeechAction->execute();
 
         $I->assertEquals(8, $speaker->getActionPoint());
         $I->assertEquals(6, $speaker->getMoralPoint());

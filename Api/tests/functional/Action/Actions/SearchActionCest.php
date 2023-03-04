@@ -15,13 +15,10 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -45,14 +42,7 @@ class SearchActionCest
 
     public function testSearch(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setStatusName(StatusEnum::ATTEMPT)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($attemptConfig);
+        $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);
 
         $hiddenConfig = new StatusConfig();
         $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN)->buildName(GameConfigEnum::TEST);
@@ -165,14 +155,7 @@ class SearchActionCest
 
     public function testSearchSeveralHidenEquipments(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setStatusName(StatusEnum::ATTEMPT)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($attemptConfig);
+        $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);
 
         $hiddenConfig = new StatusConfig();
         $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN)->buildName(GameConfigEnum::TEST);

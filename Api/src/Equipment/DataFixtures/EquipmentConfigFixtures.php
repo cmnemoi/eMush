@@ -385,7 +385,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $playArcade */
         $playArcadeAction = $this->getReference(ActionsFixtures::PLAY_ARCADE);
 
-        /** @var ArrayCollection $dynarcadeActions */
+        /** @var ArrayCollection<int, Action> $dynacardeActions */
         $dynacardeActions = new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction, $playArcadeAction]);
         $dynarcade = new EquipmentConfig();
         $dynarcade

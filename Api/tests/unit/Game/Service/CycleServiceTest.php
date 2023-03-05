@@ -13,6 +13,7 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleService;
 use Mush\Game\Service\EventServiceInterface;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 class CycleServiceTest extends TestCase
 {
@@ -20,6 +21,8 @@ class CycleServiceTest extends TestCase
     private EventServiceInterface $eventService;
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
+    /** @var LoggerInterface|Mockery\Mock */
+    private LoggerInterface $logger;
 
     private CycleService $service;
 
@@ -30,11 +33,12 @@ class CycleServiceTest extends TestCase
     {
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->logger = \Mockery::mock(LoggerInterface::class);
 
         $this->entityManager->shouldReceive('persist');
         $this->entityManager->shouldReceive('flush');
 
-        $this->service = new CycleService($this->entityManager, $this->eventService);
+        $this->service = new CycleService($this->entityManager, $this->eventService, $this->logger);
     }
 
     /**

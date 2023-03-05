@@ -1,7 +1,7 @@
 base_path: /
 preserve_hierarchy: 1
 base_url: 'https://eternaltwin.crowdin.com'
-pull_request_title: 'patch(translations): new Crowdin translations'
+pull_request_title: 'fix: new Crowdin translations'
 files:
   - source: /Api/translations/fr/*.fr.xlf
     translation: /Api/translations/%two_letters_code%/%file_name%.%two_letters_code%.xlf

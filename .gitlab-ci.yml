@@ -61,7 +61,8 @@ api-test:
     - php vendor/bin/codecept run
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-
+      changes: ["Api/**/*"]
+    
 api-lint:
   <<: *php_template
   stage: test
@@ -70,6 +71,8 @@ api-lint:
     - ./linters.sh
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["Api/**/*"]
+    
 
 api-test-develop:
   <<: *php_with_db_template
@@ -98,7 +101,8 @@ front-lint:
     - yarn lint --no-fix
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-
+      changes: ["App/**/*"]
+    
 front-test:
   <<: *node_template
   stage: test
@@ -107,8 +111,9 @@ front-test:
     - yarn test
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["App/**/*"]
     - if: '$CI_COMMIT_BRANCH == "develop"'
-
+    
 # Generate a CHANGELOG.md file and create a new release on GitLab while merging to master
 release:
   <<: *node_template

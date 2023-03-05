@@ -11,6 +11,7 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
     private HttpClientInterface $httpClient;
     private string $webhookUrl;
     private int $logLevel;
+    private string $environmentName;
 
     public function __construct(HttpClientInterface $httpClient)
     {
@@ -25,6 +26,11 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
     public function setLogLevel(int $logLevel): void
     {
         $this->logLevel = $logLevel;
+    }
+
+    public function setEnvironmentName(string $envName): void
+    {
+        $this->environmentName = $envName;
     }
 
     protected function write(LogRecord $record): void
@@ -70,6 +76,11 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
                                 [
                                     'name' => 'Request Uri',
                                     'value' => $record->extra['uri'],
+                                    'inline' => false,
+                                ],
+                                [
+                                    'name' => 'Environment',
+                                    'value' => $this->environmentName,
                                     'inline' => false,
                                 ],
                             ],

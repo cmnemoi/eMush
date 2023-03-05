@@ -16,14 +16,11 @@ class PlayerStatusService implements PlayerStatusServiceInterface
     public const SUICIDAL_THRESHOLD = 1;
     public const DEMORALIZED_THRESHOLD = 3;
 
-    private StatusServiceInterface $statusService;
     private EventServiceInterface $eventService;
 
     public function __construct(
-        StatusServiceInterface $statusService,
         EventServiceInterface $eventService,
     ) {
-        $this->statusService = $statusService;
         $this->eventService = $eventService;
     }
 

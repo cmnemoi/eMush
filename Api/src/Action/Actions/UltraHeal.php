@@ -14,8 +14,10 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -73,10 +75,6 @@ class UltraHeal extends AbstractAction
         $parameter = $this->parameter;
         $time = new \DateTime();
 
-        $this->playerVariableService->setPlayerVariableToMax($this->player, PlayerVariableEnum::HEALTH_POINT);
-
-        $this->playerService->persist($this->player);
-
         $healEvent = new ApplyEffectEvent(
             $this->player,
             $this->player,
@@ -85,6 +83,20 @@ class UltraHeal extends AbstractAction
             $time
         );
         $this->eventService->callEvent($healEvent, ApplyEffectEvent::ULTRA_HEAL);
+
+        $maxHealth = $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->getMaxValue();
+        if ($maxHealth === null) {
+            throw new \LogicException('health Variable should have a maximum value');
+        }
+        $playerModifierEvent = new PlayerVariableEvent(
+            $this->player,
+            PlayerVariableEnum::HEALTH_POINT,
+            $maxHealth,
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
+        );
+        $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::SET_VALUE);
 
         $equipmentEvent = new InteractWithEquipmentEvent(
             $parameter,

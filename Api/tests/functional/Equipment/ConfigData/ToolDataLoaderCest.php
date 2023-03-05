@@ -34,6 +34,7 @@ class ToolDataLoaderCest
             $I->seeInRepository(Tool::class, $toolData);
         }
 
+        // TODO: fix this test
         // $I->seeNumRecords($this->getNumberOfTools(), Tool::class);
     }
 
@@ -48,7 +49,6 @@ class ToolDataLoaderCest
         $this->toolDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, Tool::class, $config);
-
     }
 
     /** need to drop those fields because they are not in the Tool entity.

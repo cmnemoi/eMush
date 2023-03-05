@@ -45,7 +45,7 @@ class PlayerServiceCest
         $user = $I->have(User::class);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'andie']);
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['day' => 5, 'cycle' => '3']);
@@ -100,7 +100,7 @@ class PlayerServiceCest
         $user = $I->have(User::class);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'andie']);
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['day' => 5, 'cycle' => '3']);
@@ -169,7 +169,7 @@ class PlayerServiceCest
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHAO]);
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
@@ -235,7 +235,7 @@ class PlayerServiceCest
         $user = $I->have(User::class);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'andie']);
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['day' => 5, 'cycle' => '3']);

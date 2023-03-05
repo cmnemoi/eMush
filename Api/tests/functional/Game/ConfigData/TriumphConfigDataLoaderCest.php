@@ -34,7 +34,6 @@ class TriumphConfigDataLoaderCest
 
     public function testloadConfigsDataConfigAlreadyExists(FunctionalTester $I)
     {
-
         $this->triumphConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, TriumphConfig::class, [

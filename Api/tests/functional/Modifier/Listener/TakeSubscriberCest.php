@@ -18,13 +18,10 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
-use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -76,16 +73,9 @@ class TakeSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $gear = new Gear();
         $gear
@@ -154,16 +144,9 @@ class TakeSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $gear = new Gear();
         $gear
@@ -245,16 +228,9 @@ class TakeSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $gear = new Gear();
         $gear
@@ -335,16 +311,9 @@ class TakeSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $gear = new Gear();
         $gear
@@ -422,16 +391,9 @@ class TakeSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $gear = new Gear();
         $gear

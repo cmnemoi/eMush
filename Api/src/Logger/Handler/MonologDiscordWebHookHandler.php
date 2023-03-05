@@ -27,58 +27,57 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
         $this->logLevel = $logLevel;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function write(LogRecord $record): void
     {
-        if ($record->level->value >= $this->logLevel) {
-            $timestamp = date('c', strtotime('now'));
-            $json = [
-                // Message
-                'content' => $record->message,
-                // text-to-speech
-                'tts' => false,
-                // Embeds Array
-                'embeds' => [
-                    [
-                        // Title
-                        'title' => $record->message,
+        if ($this->webhookUrl != null && filter_var($this->webhookUrl, FILTER_VALIDATE_URL)) {
+            if ($record->level->value >= $this->logLevel) {
+                $timestamp = date('c', strtotime('now'));
+                $json = [
+                    // Message
+                    'content' => $record->message,
+                    // text-to-speech
+                    'tts' => false,
+                    // Embeds Array
+                    'embeds' => [
+                        [
+                            // Title
+                            'title' => $record->message,
 
-                        // Embed Type, do not change.
-                        'type' => 'rich',
+                            // Embed Type, do not change.
+                            'type' => 'rich',
 
-                        // Description
-                        'description' => $record->formatted,
+                            // Description
+                            'description' => $record->formatted,
 
-                        // Timestamp, only ISO8601
-                        'timestamp' => $timestamp,
+                            // Timestamp, only ISO8601
+                            'timestamp' => $timestamp,
 
-                        // Left border color, in HEX
-                        'color' => hexdec('3366ff'),
+                            // Left border color, in HEX
+                            'color' => hexdec('3366ff'),
 
-                        // Custom fields
-                        'fields' => [
-                            [
-                                'name' => 'CorrelationId',
-                                'value' => $record->extra['correlationId'],
-                                'inline' => false,
-                            ],
-                            [
-                                'name' => 'Request Body',
-                                'value' => $record->extra['body'],
-                                'inline' => false,
-                            ],
-                            [
-                                'name' => 'Request Uri',
-                                'value' => $record->extra['uri'],
-                                'inline' => false,
+                            // Custom fields
+                            'fields' => [
+                                [
+                                    'name' => 'CorrelationId',
+                                    'value' => $record->extra['correlationId'],
+                                    'inline' => false,
+                                ],
+                                [
+                                    'name' => 'Request Body',
+                                    'value' => $record->extra['body'],
+                                    'inline' => false,
+                                ],
+                                [
+                                    'name' => 'Request Uri',
+                                    'value' => $record->extra['uri'],
+                                    'inline' => false,
+                                ],
                             ],
                         ],
                     ],
-                ],
-            ];
-            $this->sendMessage($json);
+                ];
+                $this->sendMessage($json);
+            }
         }
     }
 

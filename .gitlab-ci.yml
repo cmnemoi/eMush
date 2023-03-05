@@ -50,8 +50,8 @@ container-build:
   script:
     - yarn build
   rules:
-    - changes: ["App/**/*"]
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["App/**/*"]
     - if: '$CI_COMMIT_BRANCH == "develop"'
 
 api-test:
@@ -61,8 +61,8 @@ api-test:
   script:
     - php vendor/bin/codecept run
   rules:
-    - changes: ["Api/**/*"]
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["Api/**/*"]
     
 api-lint:
   <<: *php_template
@@ -71,8 +71,8 @@ api-lint:
   script:
     - ./linters.sh
   rules:
-    - changes: ["Api/**/*"]
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["Api/**/*"]
     
 
 api-test-develop:
@@ -101,8 +101,8 @@ front-lint:
   script:
     - yarn lint --no-fix
   rules:
-    - changes: ["App/**/*"]
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["App/**/*"]
     
 front-test:
   <<: *node_template
@@ -111,8 +111,8 @@ front-test:
   script:
     - yarn test
   rules:
-    - changes: ["App/**/*"]
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["App/**/*"]
     - if: '$CI_COMMIT_BRANCH == "develop"'
     
 

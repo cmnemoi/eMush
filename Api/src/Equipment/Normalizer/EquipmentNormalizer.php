@@ -68,7 +68,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         if ($object instanceof Door) {
             $context['door'] = $object;
             $type = 'door';
-        } elseif ($object instanceof GameItem || $key === EquipmentEnum::TABULATRIX) {
+        } elseif ($object instanceof GameItem || EquipmentEnum::equipmentToNormalizeAsItems()->contains($object->getName())) {
             $context['item'] = $object;
             $type = 'items';
         } else {

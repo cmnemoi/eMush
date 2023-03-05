@@ -2,6 +2,8 @@
 
 namespace Mush\Equipment\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class EquipmentEnum
 {
     public const DOOR = 'door';
@@ -59,5 +61,10 @@ class EquipmentEnum
             self::MEDLAB_BED,
             self::SWEDISH_SOFA,
         ];
+    }
+
+    public static function equipmentToNormalizeAsItems(): ArrayCollection
+    {
+        return new ArrayCollection([self::TABULATRIX]);
     }
 }

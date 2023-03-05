@@ -52,12 +52,6 @@ class DoTheThingCest
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
 
-        $I->loadFixtures([
-            GameConfigFixtures::class,
-            DaedalusConfigFixtures::class,
-            LocalizationConfigFixtures::class,
-            DiseaseCausesConfigFixtures::class,
-        ]);
     }
 
     public function testDoTheThing(FunctionalTester $I)

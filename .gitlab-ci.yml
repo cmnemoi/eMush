@@ -44,40 +44,62 @@ stages:
     - cd App
     - yarn install
 
-container-build:
+ # dummy job to check if the pipeline is valid or if there is no job to run
+check:
   stage: build
+  image: alpine:latest
+  script:
+    - echo "Pipeline is valid"
+
+build-front:
+  stage: build
+  needs: 
+    - job: check
+      optional: true
   <<: *node_template
   script:
     - yarn build
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["App/**/*.vue", "App/**/*.ts", "App/**/*.scss", "App/**/*.css"]
     - if: '$CI_COMMIT_BRANCH == "develop"'
 
 api-test:
   <<: *php_with_db_template
   stage: test
-  needs: [container-build]
+  needs: 
+    - job: check
+      optional: true
+    - job: build-front
+      optional: true
   script:
     - php vendor/bin/codecept run
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes: ["Api/**/*"]
+      changes: ["Api/**/*.php"]
     
 api-lint:
   <<: *php_template
   stage: test
-  needs: [container-build]
+  needs:
+    - job: check
+      optional: true
+    - job: build-front
+      optional: true
   script:
     - ./linters.sh
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes: ["Api/**/*"]
+      changes: ["Api/**/*.php", "Api/**/*.xlf"]
     
 
 api-test-develop:
   <<: *php_with_db_template
   stage: test
-  needs: [container-build]
+  needs: 
+    - job: check
+      optional: true
+    - job: build-front
   script:
     - pecl install xdebug && docker-php-ext-enable xdebug
     - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
@@ -96,22 +118,30 @@ api-test-develop:
 front-lint:
   <<: *node_template
   stage: test
-  needs: [container-build]
+  needs: 
+    - job: check
+      optional: true
+    - job: build-front
+      optional: true
   script:
     - yarn lint --no-fix
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes: ["App/**/*"]
+      changes: ["App/**/*.vue", "App/**/*.ts", "App/**/*.scss", "App/**/*.css"]
     
 front-test:
   <<: *node_template
   stage: test
-  needs: [container-build]
+  needs: 
+    - job: check
+      optional: true
+    - job: build-front
+      optional: true
   script:
     - yarn test
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes: ["App/**/*"]
+      changes: ["App/**/*.vue", "App/**/*.ts", "App/**/*.scss", "App/**/*.css"]
     - if: '$CI_COMMIT_BRANCH == "develop"'
     
 # Generate a CHANGELOG.md file and create a new release on GitLab while merging to master

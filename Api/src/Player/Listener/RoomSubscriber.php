@@ -2,6 +2,8 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -18,15 +20,18 @@ class RoomSubscriber implements EventSubscriberInterface
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
+    private GameEquipmentService $gameEquipmentService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        EventServiceInterface $eventService
+        EventServiceInterface $eventService,
+        GameEquipmentService $gameEquipmentService
     ) {
         $this->playerService = $playerService;
         $this->randomService = $randomService;
         $this->eventService = $eventService;
+        $this->gameEquipmentService = $gameEquipmentService;
     }
 
     public static function getSubscribedEvents(): array
@@ -87,6 +92,12 @@ class RoomSubscriber implements EventSubscriberInterface
     public function onDeletePlace(RoomEvent $event): void
     {
         foreach ($event->getPlace()->getPlayers() as $player) {
+            $gameEquipments = $this->gameEquipmentService->findByOwner($player);
+            /** @var GameEquipment $gameEquipment */
+            foreach ($gameEquipments as $gameEquipment) {
+                $this->gameEquipmentService->delete($gameEquipment);
+            }
+
             $this->playerService->delete($player);
         }
     }

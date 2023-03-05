@@ -57,12 +57,13 @@ Obvious example:
     - The cycle change
     - A player die
     
- For instance a player can make the action 'hit' on an other player, this will trigger the event 'player die'.  
+ For instance a player can make the action 'hit' on another player, this will trigger the event 'player die'.  
  Less obvious example:   
     A player make the action eat, that trigger the event 'become Dirty'
 
 # Create a new Action:
+- The list of actions that need to be added can be found on [git](https://gitlab.com/eternaltwin/mush/mush/-/issues/396). 
 - Create a class that extends [AbstractAction](./Actions/AbstractAction.php) in [Actions directory](./Actions).
-- Register this action in the [ActionEnum](./src/Action/Enum/ActionEnum.php)
-- Add the [action fixture](./src/Action/DataFixtures/ActionsFixtures.php) (cost, name, injury rate...)
-- Add the action to the associated equipment or player respectively in [equipment fixtures](./src/Equipment/DataFixtures) or [character config fixtures](./src/Player/DataFixtures/CharacterConfigFixtures.php).
+- Register the action name in the [ActionEnum](./src/Action/Enum/ActionEnum.php)
+- Add the [action data](./src/Action/ConfigData/ActionData.php) (cost, name, injury rate...)
+- Add the action to the associated equipment or player respectively in [equipment data](./src/Equipment/ConfigData/EquipmentConfigData) or [character config data](./src/Player/ConfigData/CharacterConfigData.php).

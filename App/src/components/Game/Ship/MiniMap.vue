@@ -949,6 +949,12 @@ export default defineComponent ({
     mounted(): void {
         this.displayMe();
         this.displayOther();
+    },
+    watch: {
+        minimap(): void {
+            this.displayMe();
+            this.displayOther();
+        }
     }
 });
 

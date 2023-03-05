@@ -22,3 +22,8 @@ services:
 
   monolog.handler.Mush\Logger\Handler\MonologPostgresHandler:
     class: Mush\Logger\Handler\MonologPostgresHandler
+
+  Mush\Logger\Handler\MonologDiscordWebHookHandler:
+    calls:
+      - setLogLevel: [ '%env(LOG_DISCORD_LOG_LEVEL)%' ]
+      - setWebhook: [ '%env(LOG_DISCORD_WEBHOOK_URL)%' ]

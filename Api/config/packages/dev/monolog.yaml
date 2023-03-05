@@ -22,3 +22,9 @@ monolog:
             type: service
             level: notice
             channels: ["!event", "!doctrine"]
+
+        Mush\Logger\Handler\MonologDiscordWebHookHandler:
+            id: Mush\Logger\Handler\MonologDiscordWebHookHandler
+            type: service
+            level: error
+            channels: [ "!event", "!doctrine" ]

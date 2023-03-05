@@ -80,9 +80,10 @@ api-test:
 api-lint:
   <<: *php_template
   stage: test
-  - job: check
-  - job: container-build
-    optional: true
+  needs:
+    - job: check
+    - job: container-build
+      optional: true
   script:
     - ./linters.sh
   rules:

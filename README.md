@@ -24,15 +24,30 @@ Optional:
 * [Postman](https://docs.docker.com/get-docker/) - Postman requests are exported in this file : mush.postman_collection.json
 
 #### Windows Users:
+* Start powershell and create a new Debian distrib
+	```powershell
+	wsl --install -d Debian
+	```
 * WSL2 linux distro (tested on Debian: https://www.microsoft.com/en-us/p/debian/9msvkqc78pk6)
   * Enable Docker's WSL integration (Settings -> Resources -> WSL Integration)
   * install build tools:
-    ```
+    ```bash
     > wsl -d Debian
     $ sudo -s
     $ apt-get update
-    $ apt-get install build-essential
+    $ apt-get install build-essential curl git
     ```
+  * install docker and docker-compose
+	```bash
+	$ apt-get install lsb-release
+	$ mkdir -m 0755 -p /etc/apt/keyrings
+	$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+	$ echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	$ apt-get update
+	$ apt-get install docker docker-compose docker-compose-plugin
+	```
 
 Although, it is possible to run application checked out in Windows and mounted to WSL2, it will be very slow, so I recommend checking out repo inside WSL and then work with sources either by vscode's WSL remote https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl or accessing files through SMB (e.g. `\\wsl$\Debian\root\mush`).
 
@@ -40,6 +55,12 @@ Although, it is possible to run application checked out in Windows and mounted t
 ### Installing
 
 To have a working dev environment, follow the following steps
+
+Generate SSH Key and add it to your gitlab profile
+```bash
+ssh-keygen -t rsa -b 2048 -C "SSH Key for mush repository (https://gitlab.com/eternaltwin/mush/mush)"
+```
+On your real machine (windows) go to the folder \\wsl$\Debian\root\.ssh and copy the content of id_rsa.pub then past it in the SSH Keys settings of your gitlab profile
 
 Clone the project
 ```bash
@@ -62,6 +83,10 @@ Copy the Eternal-Twin config:
 $ cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
 ```
 
+Start docker service
+```
+service docker start
+```
 
 Build the docker containers:
 ```bash
@@ -91,6 +116,62 @@ Finally, create a local Eternaltwin account by registering on http://localhost:5
 If everything went well you should be able to access:
   - Swagger : http://localhost:8080/swagger/
   - Front end : http://localhost
+
+## Installing without Docker
+Clone repository https://gitlab.com/eternaltwin/mush/mush.git
+
+Install NVM and yarn https://github.com/coreybutler/nvm-windows/releases
+```
+nvm install latest
+nvm use latest
+npm install -g yarn
+```
+	
+Download the last version of PHP https://windows.php.net/download#php-8.2
+Add the folder containing php.exe to PATH
+In php.ini
+    activate extension=pdo_pgsql
+    activate extension=intl
+
+Download Composer https://getcomposer.org/download/
+Add the fold containing composer.bat to PATH
+
+Download and install Postgresql https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+Create new user identified by mysql with password password
+Create database mush with user mysql as owner
+Create database etwin.dev with user mysql as owner
+
+Create the JWT certificates (https://github.com/lexik/LexikJWTAuthenticationBundle):
+```bash
+openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+chmod go+r config/jwt/private.pem
+```
+Use mush as passphrase or update the .env with your passphrase
+
+
+In folder Api/
+```
+cp .env.dist .env
+composer update
+php bin/console mush:migrate --dev
+php -S localhost:8080 -t public
+```
+     
+In folder App/
+```
+cp .env.dist .env
+yarn install
+yarn serve
+```
+
+In folder EternalTwin/
+```
+$ cp .etwin.toml.example .etwin.toml
+yarn install
+yarn etwin db create
+yarn etwin start
+```
 
 ## Endpoints
 A swagger is available that list all the available endpoints and their specifications [Swagger](http://localhost:8080/swagger/)

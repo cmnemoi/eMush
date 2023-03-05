@@ -199,10 +199,10 @@
     <unit id="plant_death">
       <segment state="translated">
         <source>plant_death</source>
-        <target>{equipment_first_letter, select,
-    vowel {An **{equipment}** is dead... snif!}
-    consonant {A **{equipment}** is dead... snif!}
-    other {invalid equipment_first_letter input}
+        <target>{target_equipment_first_letter, select,
+    vowel {An **{target_equipment}** is dead... snif!}
+    consonant {A **{target_equipment}** is dead... snif!}
+    other {invalid target_equipment_first_letter input}
 }</target>
       </segment>
     </unit>

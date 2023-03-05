@@ -225,15 +225,15 @@
     <unit id="plant_death">
       <segment state="translated">
         <source>plant_death</source>
-        <target>{equipment_first_letter, select,
-                    vowel {{equipment_gender, select,
-                        male {L'**{equipment}** est mort... snif !}
-                        female {L'**{equipment}** est morte... snif !}
+        <target>{target_equipment_first_letter, select,
+                    vowel {{target_equipment_gender, select,
+                        male {L'**{target_equipment}** est mort... snif !}
+                        female {L'**{target_equipment}** est morte... snif !}
                         other {invalid gender input}
                     }}
-                    other {{equipment_gender, select,
-                        male {Le **{equipment}** est mort... snif !}
-                        female {La **{equipment}** est morte... snif !}
+                    other {{target_equipment_gender, select,
+                        male {Le **{target_equipment}** est mort... snif !}
+                        female {La **{target_equipment}** est morte... snif !}
                         other {invalid gender input}
                     }}
                 }</target>

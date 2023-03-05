@@ -384,14 +384,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $playArcade */
         $playArcadeAction = $this->getReference(ActionsFixtures::PLAY_ARCADE);
-
+        
+        /** @var ArrayCollection $dynarcadeActions */
+        $dynacardeActions = new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction, $playArcadeAction]);
         $dynarcade = new EquipmentConfig();
         $dynarcade
             ->setEquipmentName(EquipmentEnum::DYNARCADE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction, $playArcadeAction]))
+            ->setActions($dynacardeActions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($dynarcade);

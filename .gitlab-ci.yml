@@ -51,7 +51,6 @@ container-build:
     - yarn build
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes: ["App/**/*"]
     - if: '$CI_COMMIT_BRANCH == "develop"'
 
 api-test:
@@ -115,7 +114,6 @@ front-test:
       changes: ["App/**/*"]
     - if: '$CI_COMMIT_BRANCH == "develop"'
     
-
 # Generate a CHANGELOG.md file and create a new release on GitLab while merging to master
 release:
   <<: *node_template

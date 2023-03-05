@@ -88,7 +88,7 @@ api-lint:
     - ./linters.sh
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes: ["Api/**/*.php"]
+      changes: ["Api/**/*.php", "Api/**/*.xlf"]
     
 
 api-test-develop:

@@ -50,9 +50,9 @@ container-build:
   script:
     - yarn build
   rules:
+    - changes: ["App/**/*"]
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH == "develop"'
-    - changes: ["App/**/*"]
 
 api-test:
   <<: *php_with_db_template
@@ -61,9 +61,9 @@ api-test:
   script:
     - php vendor/bin/codecept run
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - changes: ["Api/**/*"]
-
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    
 api-lint:
   <<: *php_template
   stage: test
@@ -71,8 +71,9 @@ api-lint:
   script:
     - ./linters.sh
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - changes: ["Api/**/*"]
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    
 
 api-test-develop:
   <<: *php_with_db_template
@@ -100,9 +101,9 @@ front-lint:
   script:
     - yarn lint --no-fix
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - changes: ["App/**/*"]
-
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    
 front-test:
   <<: *node_template
   stage: test
@@ -110,9 +111,10 @@ front-test:
   script:
     - yarn test
   rules:
+    - changes: ["App/**/*"]
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH == "develop"'
-    - changes: ["App/**/*"]
+    
 
 # Generate a CHANGELOG.md file and create a new release on GitLab while merging to master
 release:

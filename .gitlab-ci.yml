@@ -1,5 +1,4 @@
 stages:
-  - check
   - build
   - test
   - release
@@ -47,15 +46,16 @@ stages:
 
  # dummy job to check if the pipeline is valid or if there is no job to run
 check:
-  stage: check
+  stage: build
   image: alpine:latest
   script:
     - echo "Pipeline is valid"
 
-container-build:
+build-front:
   stage: build
   needs: 
-    - check
+    - job: check
+      optional: true
   <<: *node_template
   script:
     - yarn build
@@ -69,7 +69,8 @@ api-test:
   stage: test
   needs: 
     - job: check
-    - job: container-build
+      optional: true
+    - job: build-front
       optional: true
   script:
     - php vendor/bin/codecept run
@@ -82,7 +83,8 @@ api-lint:
   stage: test
   needs:
     - job: check
-    - job: container-build
+      optional: true
+    - job: build-front
       optional: true
   script:
     - ./linters.sh
@@ -94,7 +96,10 @@ api-lint:
 api-test-develop:
   <<: *php_with_db_template
   stage: test
-  needs: [check, container-build]
+  needs: 
+    - job: check
+      optional: true
+    - job: build-front
   script:
     - pecl install xdebug && docker-php-ext-enable xdebug
     - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
@@ -115,7 +120,8 @@ front-lint:
   stage: test
   needs: 
     - job: check
-    - job: container-build
+      optional: true
+    - job: build-front
       optional: true
   script:
     - yarn lint --no-fix
@@ -128,7 +134,8 @@ front-test:
   stage: test
   needs: 
     - job: check
-    - job: container-build
+      optional: true
+    - job: build-front
       optional: true
   script:
     - yarn test

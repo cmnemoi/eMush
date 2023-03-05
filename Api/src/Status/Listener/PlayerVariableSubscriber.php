@@ -22,6 +22,8 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
     {
         return [
             VariableEventInterface::CHANGE_VARIABLE => ['onChangeVariable', -10], // Applied after player modification
+            VariableEventInterface::CHANGE_VALUE_MAX => ['onChangeVariable', -10], // Applied after player modification
+            VariableEventInterface::SET_VALUE => ['onChangeVariable', -10], // Applied after player modification
         ];
     }
 

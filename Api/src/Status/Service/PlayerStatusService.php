@@ -16,14 +16,11 @@ class PlayerStatusService implements PlayerStatusServiceInterface
     public const SUICIDAL_THRESHOLD = 1;
     public const DEMORALIZED_THRESHOLD = 3;
 
-    private StatusServiceInterface $statusService;
     private EventServiceInterface $eventService;
 
     public function __construct(
-        StatusServiceInterface $statusService,
         EventServiceInterface $eventService,
     ) {
-        $this->statusService = $statusService;
         $this->eventService = $eventService;
     }
 
@@ -82,7 +79,8 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         }
 
         if ($suicidalStatus && !$this->isPlayerSuicidal($playerMoralPoint)) {
-            $this->statusService->delete($suicidalStatus);
+            $event = new StatusEvent(PlayerStatusEnum::SUICIDAL, $player, [EventEnum::NEW_CYCLE], $dateTime);
+            $this->eventService->callEvent($event, StatusEvent::STATUS_REMOVED);
         }
 
         if (!$demoralizedStatus && $this->isPlayerDemoralized($playerMoralPoint)) {
@@ -91,7 +89,8 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         }
 
         if ($demoralizedStatus && !$this->isPlayerDemoralized($playerMoralPoint)) {
-            $this->statusService->delete($demoralizedStatus);
+            $event = new StatusEvent(PlayerStatusEnum::DEMORALIZED, $player, [EventEnum::NEW_CYCLE], $dateTime);
+            $this->eventService->callEvent($event, StatusEvent::STATUS_REMOVED);
         }
     }
 

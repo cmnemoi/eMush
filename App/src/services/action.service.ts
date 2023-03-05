@@ -15,6 +15,11 @@ const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
 
 const ActionService = {
     executeTargetAction(target: Item | Equipment | Player | null, action: Action): Promise<AxiosResponse> {
+        const isLoading = store.getters["player/isLoading"];
+        if (isLoading) {
+            throw new Error('player is still loading');
+        }
+
         const currentPlayer = store.getters["player/player"];
         return ApiService.post(urlJoin(PLAYER_ENDPOINT, String(currentPlayer.id),'action'), {
             action: action.id,

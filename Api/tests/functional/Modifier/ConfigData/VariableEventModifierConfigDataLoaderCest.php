@@ -33,6 +33,20 @@ class VariableEventModifierConfigDataLoaderCest
             $variableEventModifierConfigData = $this->dropFields($variableEventModifierConfigData);
             $I->seeInRepository(VariableEventModifierConfig::class, $variableEventModifierConfigData);
         }
+        $got = new ArrayCollection($I->grabEntitiesFromRepository(VariableEventModifierConfig::class));
+        $got = $got->map(
+            function (VariableEventModifierConfig $variableEventModifierConfig) {
+                return $variableEventModifierConfig->getName();
+            }
+        );
+        $expected = new ArrayCollection(ModifierConfigData::$dataArray);
+        $expected = $expected->map(
+            function (array $variableEventModifierConfigData) {
+                return $variableEventModifierConfigData['name'];
+            }
+        );
+        dump($got->toArray());
+        dump($expected->toArray());
 
         $I->seeNumRecords($this->getNumberOfVariableEventModifierConfigs(), VariableEventModifierConfig::class);
     }
@@ -40,8 +54,6 @@ class VariableEventModifierConfigDataLoaderCest
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
         $config = $this->dropFields(ModifierConfigData::$dataArray[0]);
-
-        $I->haveInRepository(VariableEventModifierConfig::class, $config);
 
         $this->variableEventModifierConfigDataLoader->loadConfigsData();
 

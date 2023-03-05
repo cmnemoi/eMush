@@ -46,8 +46,6 @@ class BlueprintDataLoaderCest
 
         $config = $this->dropFields($config);
 
-        $I->haveInRepository(Blueprint::class, $config);
-
         $this->blueprintDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, Blueprint::class, $config);

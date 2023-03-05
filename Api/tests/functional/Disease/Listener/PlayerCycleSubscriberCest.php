@@ -254,7 +254,7 @@ class PlayerCycleSubscriberCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var CharacterConfig $otherCharacterConfig */
-        $otherCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+        $otherCharacterConfig = $I->have(CharacterConfig::class, ['name' => 'test2']);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [

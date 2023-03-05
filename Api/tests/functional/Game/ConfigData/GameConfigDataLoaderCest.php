@@ -161,10 +161,6 @@ class GameConfigDataLoaderCest
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
-        $I->have(GameConfig::class, [
-            'name' => 'default',
-        ]);
-
         $this->gameConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, GameConfig::class, [

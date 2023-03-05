@@ -116,7 +116,7 @@ class DaedalusCycleChangeCest
         $user = $I->have(User::class);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'test']);
         $characterConfig
             ->setInitHealthPoint(20000)
             ->setInitMoralPoint(20000)

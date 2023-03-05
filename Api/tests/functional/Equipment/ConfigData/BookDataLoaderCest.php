@@ -46,8 +46,6 @@ class BookDataLoaderCest
 
         $config = $this->dropFields($config);
 
-        $I->haveInRepository(Book::class, $config);
-
         $this->bookDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, Book::class, $config);

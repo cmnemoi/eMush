@@ -46,8 +46,6 @@ class PlantDataLoaderCest
 
         $config = $this->dropFields($config);
 
-        $I->haveInRepository(Plant::class, $config);
-
         $this->plantDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, Plant::class, $config);

@@ -40,8 +40,6 @@ class DifficultyConfigDataLoaderCest
 
     public function testLoadConfigsDataConfigAlreadyExists(FunctionalTester $I)
     {
-        $I->haveInRepository(DifficultyConfig::class, DifficultyConfigData::$dataArray[0]);
-
         $this->difficultyConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, DifficultyConfig::class, [

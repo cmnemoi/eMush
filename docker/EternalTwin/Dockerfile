@@ -9,6 +9,7 @@ RUN apt-get -y update \
 WORKDIR /www
 
 RUN groupmod -g $GID node && usermod -u $UID -g $GID node
+
 USER node
 
 # switch to npm if you chose it as package manager

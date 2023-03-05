@@ -27,6 +27,9 @@ reset-dependencies: install-api install-front install-eternal-twin
 
 build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml build
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_front chown -R node:node /www
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root eternal_twin chown -R node:node /www
+		docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_php chown -R dev:dev /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-start
 
 install: build install-api reset-eternal-twin-database

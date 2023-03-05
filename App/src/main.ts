@@ -9,7 +9,7 @@ import { createI18n } from 'vue-i18n';
 import { messages, defaultLocale } from '@/i18n';
 import { mixin } from './mixin/mixin';
 import { plugin as VueTippy } from 'vue-tippy';
-
+import UUID from "vue3-uuid";
 
 // Set the base URL of the API
 ApiService.init(process.env.VUE_APP_API_URL!);
@@ -49,6 +49,7 @@ createApp(App)
     .use(i18n)
     .mixin(mixin)
     .use(VueTippy, vueTippyProps)
+    .use(UUID)
     .mount('#app');
 
 

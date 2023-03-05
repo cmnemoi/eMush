@@ -1,6 +1,7 @@
 import axios, { AxiosPromise, AxiosResponse } from 'axios';
 import { TokenService } from './storage.service';
 import store from '../store';
+import { uuid } from 'vue3-uuid';
 
 const ApiService = {
 
@@ -19,22 +20,27 @@ const ApiService = {
     },
 
     get(resource: string, params?: Record<string, unknown>): Promise<AxiosResponse> {
+        this.addCorrelationId();
         return axios.get(resource, params);
     },
 
     post(resource: string, data?: Record<string, unknown>, options?: Record<string, unknown>): Promise<AxiosResponse> {
+        this.addCorrelationId();
         return axios.post(resource, data, options);
     },
 
     put(resource: string, data?: any): Promise<AxiosResponse> {
+        this.addCorrelationId();
         return axios.put(resource, data);
     },
 
     patch(resource: string, data?: any, config?: any): Promise<AxiosResponse> {
+        this.addCorrelationId();
         return axios.patch(resource, data, { headers: { 'Content-Type' : 'application/merge-patch+json' } });
     },
 
     delete(resource: string): Promise<AxiosResponse> {
+        this.addCorrelationId();
         return axios.delete(resource);
     },
 
@@ -93,6 +99,10 @@ const ApiService = {
      **/
     customRequest(data: Record<string, unknown>): AxiosPromise<any> {
         return axios(data);
+    },
+
+    addCorrelationId(){
+        axios.defaults.headers.common["X-Request-Id"] = `${uuid.v4()}`;
     }
 };
 

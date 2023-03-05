@@ -84,6 +84,7 @@ class PlayerModifierEventCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
+        // remove moral bellow demoralized threshold
         $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MORAL_POINT,
@@ -104,6 +105,7 @@ class PlayerModifierEventCest
             'statusConfig' => $demoralizedStatusConfig->getId(),
         ]);
 
+        // remove moral bellow suicidal threshold
         $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MORAL_POINT,
@@ -123,6 +125,7 @@ class PlayerModifierEventCest
             'statusConfig' => $suicidalStatusConfig->getId(),
         ]);
 
+        // remove moral within suicidal threshold
         $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MORAL_POINT,
@@ -142,6 +145,7 @@ class PlayerModifierEventCest
             'statusConfig' => $suicidalStatusConfig->getId(),
         ]);
 
+        // add moral to remove any status
         $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MORAL_POINT,

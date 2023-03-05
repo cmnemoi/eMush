@@ -17,7 +17,7 @@ const ActionService = {
     executeTargetAction(target: Item | Equipment | Player | null, action: Action): Promise<AxiosResponse> {
         const isLoading = store.getters["player/isLoading"];
         if (isLoading) {
-            return;
+            throw new Error('player is still loading');
         }
 
         const currentPlayer = store.getters["player/player"];

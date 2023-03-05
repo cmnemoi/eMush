@@ -56,7 +56,7 @@ container-build:
 api-test:
   <<: *php_with_db_template
   stage: test
-  needs: [api-lint]
+  needs: [container-build]
   script:
     - php vendor/bin/codecept run
   rules:
@@ -74,7 +74,7 @@ api-lint:
 api-test-develop:
   <<: *php_with_db_template
   stage: test
-  needs: [api-lint]
+  needs: [container-build]
   script:
     - pecl install xdebug && docker-php-ext-enable xdebug
     - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
@@ -102,7 +102,7 @@ front-lint:
 front-test:
   <<: *node_template
   stage: test
-  needs: [front-lint]
+  needs: [container-build]
   script:
     - yarn test
   rules:
@@ -113,7 +113,6 @@ front-test:
 release:
   <<: *node_template
   stage: release
-  needs: [front-test]
   before_script:
     - npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/release-notes-generator @semantic-release/gitlab
   variables:

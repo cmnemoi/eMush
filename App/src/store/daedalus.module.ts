@@ -3,6 +3,7 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { Daedalus } from "@/entities/Daedalus";
 import { Alert } from "@/entities/Alerts";
 import { Minimap } from "@/entities/Minimap";
+import disable = Phaser.Display.Canvas.Smoothing.disable;
 
 const state =  {
     daedalus: null,
@@ -58,6 +59,9 @@ const actions: ActionTree<any, any> = {
         } catch (e) {
             return false;
         }
+    },
+    async clearDaedalus({ commit }) {
+        commit("clearDaedalus");
     }
 };
 
@@ -86,6 +90,12 @@ const mutations: MutationTree<any> = {
     },
     setLoadingMinimap(state: any, newValue: boolean): void {
         state.loadingMinimap = newValue;
+    },
+    clearDaedalus(state: any): void {
+        state.alerts = [];
+        state.minimap = [];
+        state.isMinimapAvailable = false;
+        state.daedalus = null;
     }
 };
 

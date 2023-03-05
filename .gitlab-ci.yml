@@ -54,7 +54,8 @@ check:
 
 container-build:
   stage: build
-  needs: [check]
+  needs: 
+    - check
   <<: *node_template
   script:
     - yarn build
@@ -66,7 +67,10 @@ container-build:
 api-test:
   <<: *php_with_db_template
   stage: test
-  needs: [container-build]
+  needs: 
+    - job: check
+    - job: container-build
+      optional: true
   script:
     - php vendor/bin/codecept run
   rules:
@@ -76,7 +80,9 @@ api-test:
 api-lint:
   <<: *php_template
   stage: test
-  needs: [container-build]
+  - job: check
+  - job: container-build
+    optional: true
   script:
     - ./linters.sh
   rules:
@@ -87,7 +93,7 @@ api-lint:
 api-test-develop:
   <<: *php_with_db_template
   stage: test
-  needs: [container-build]
+  needs: [check, container-build]
   script:
     - pecl install xdebug && docker-php-ext-enable xdebug
     - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
@@ -106,7 +112,10 @@ api-test-develop:
 front-lint:
   <<: *node_template
   stage: test
-  needs: [container-build]
+  needs: 
+    - job: check
+    - job: container-build
+      optional: true
   script:
     - yarn lint --no-fix
   rules:
@@ -116,7 +125,10 @@ front-lint:
 front-test:
   <<: *node_template
   stage: test
-  needs: [container-build]
+  needs: 
+    - job: check
+    - job: container-build
+      optional: true
   script:
     - yarn test
   rules:

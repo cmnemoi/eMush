@@ -12,7 +12,6 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Disease\DataFixtures\DiseaseCausesConfigFixtures;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -51,7 +50,6 @@ class DoTheThingCest
     {
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
-
     }
 
     public function testDoTheThing(FunctionalTester $I)

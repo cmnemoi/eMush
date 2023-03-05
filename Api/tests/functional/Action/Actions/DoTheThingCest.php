@@ -13,6 +13,7 @@ use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Disease\DataFixtures\DiseaseCausesConfigFixtures;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -53,12 +54,17 @@ class DoTheThingCest
     {
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+
+        $I->loadFixtures([
+            GameConfigFixtures::class,
+            DaedalusConfigFixtures::class,
+            LocalizationConfigFixtures::class,
+            DiseaseCausesConfigFixtures::class,
+        ]);
     }
 
     public function testDoTheThing(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, DaedalusConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $didTheThingStatus = new ChargeStatusConfig();
         $didTheThingStatus
             ->setStatusName(PlayerStatusEnum::DID_THE_THING)
@@ -232,7 +238,6 @@ class DoTheThingCest
 
     public function testNoFlirt(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
 
         /** @var Daedalus $daedalus */
@@ -319,7 +324,6 @@ class DoTheThingCest
 
     public function testWitness(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -413,7 +417,6 @@ class DoTheThingCest
 
     public function testRoomHasBed(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
@@ -487,8 +490,6 @@ class DoTheThingCest
 
     public function testSporesTransmission(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, DaedalusConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $didTheThingStatus = new ChargeStatusConfig();
         $didTheThingStatus
             ->setStatusName(PlayerStatusEnum::DID_THE_THING)

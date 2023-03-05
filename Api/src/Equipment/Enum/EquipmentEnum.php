@@ -2,6 +2,8 @@
 
 namespace Mush\Equipment\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class EquipmentEnum
 {
     public const DOOR = 'door';
@@ -50,6 +52,7 @@ class EquipmentEnum
     public const BIOS_TERMINAL = 'bios_terminal';
     public const AUXILIARY_TERMINAL = 'auxiliary_terminal';
     public const CAMERA_EQUIPMENT = 'camera_equipment';
+    public const TABULATRIX = 'tabulatrix';
 
     public static function getBeds(): array
     {
@@ -58,5 +61,10 @@ class EquipmentEnum
             self::MEDLAB_BED,
             self::SWEDISH_SOFA,
         ];
+    }
+
+    public static function equipmentToNormalizeAsItems(): ArrayCollection
+    {
+        return new ArrayCollection([self::TABULATRIX]);
     }
 }

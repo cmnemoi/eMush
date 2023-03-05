@@ -3236,7 +3236,7 @@ class EquipmentConfigData
             'isFireBreakable' => true,
             'dismountedProducts' => ['metal_scraps' => 1],
             'isPersonal' => false,
-            'type' => 'item_config',
+            'type' => 'equipment_config',
             'isStackable' => false,
             'actions' => [
                 'disassemble_percent_12_cost_3',

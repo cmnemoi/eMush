@@ -70,7 +70,7 @@ class PlaceServiceTest extends TestCase
         $equipmentConfigCollection = new ArrayCollection();
         $equipmentConfigCollection->add($this->createEquipmentConfig(EquipmentEnum::DOOR));
         $equipmentConfigCollection->add($this->createEquipmentConfig(EquipmentEnum::COMMUNICATION_CENTER));
-        $equipmentConfigCollection->add($this->createEquipmentConfig(ItemEnum::TABULATRIX));
+        $equipmentConfigCollection->add($this->createEquipmentConfig(ItemEnum::BLASTER));
 
         $gameConfig->setEquipmentsConfig($equipmentConfigCollection);
 
@@ -115,7 +115,7 @@ class PlaceServiceTest extends TestCase
                 EquipmentEnum::COMMUNICATION_CENTER,
             ])
             ->setItems([
-                ItemEnum::TABULATRIX,
+                ItemEnum::BLASTER,
             ])
         ;
 

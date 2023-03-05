@@ -52,9 +52,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::COMMUNICATION_CENTER,
                 EquipmentEnum::ASTRO_TERMINAL,
                 EquipmentEnum::COMMAND_TERMINAL,
-            ])
-            ->setItems([
-                ItemEnum::TABULATRIX,
+                EquipmentEnum::TABULATRIX,
             ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;

@@ -11,7 +11,6 @@ class ItemEnum
     public const ROPE = 'rope';
     public const THERMOSENSOR = 'thermosensor';
     public const WHITE_FLAG = 'white_flag';
-    public const TABULATRIX = 'tabulatrix';
     public const OLD_T_SHIRT = 'old_t_shirt';
     public const PLASTIC_SCRAPS = 'plastic_scraps';
     public const METAL_SCRAPS = 'metal_scraps';

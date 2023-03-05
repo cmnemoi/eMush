@@ -75,27 +75,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($mycoAlarm);
 
-        $tabulatrixActions = new ArrayCollection([
-            $dismantle12,
-            $repair12,
-            $sabotage12,
-            $reportAction,
-            $examineAction,
-        ]);
-
-        $tabulatrix = new ItemConfig();
-        $tabulatrix
-            ->setEquipmentName(ItemEnum::TABULATRIX)
-            ->setIsStackable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(true)
-            ->setIsBreakable(true)
-            ->setActions($tabulatrixActions)
-            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
-        $manager->persist($tabulatrix);
-
         /** @var Action $strengthenAction */
         $strengthenAction = $this->getReference(ActionsFixtures::STRENGTHEN_HULL);
         $metalScrapsAction = clone $hideableActions;
@@ -240,7 +219,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         // @TODO add drones, cat, coffee thermos, lunchbox, survival kit
 
         $gameConfig
-            ->addEquipmentConfig($tabulatrix)
             ->addEquipmentConfig($mycoAlarm)
             ->addEquipmentConfig($plasticScraps)
             ->addEquipmentConfig($metalScraps)

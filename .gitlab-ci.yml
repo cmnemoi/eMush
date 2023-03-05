@@ -1,4 +1,5 @@
 stages:
+  - check
   - build
   - test
   - release
@@ -44,13 +45,22 @@ stages:
     - cd App
     - yarn install
 
+ # dummy job to check if the pipeline is valid or if there is no job to run
+check:
+  stage: check
+  image: alpine:latest
+  script:
+    - echo "Pipeline is valid"
+
 container-build:
   stage: build
+  needs: [check]
   <<: *node_template
   script:
     - yarn build
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["App/**/*"]
     - if: '$CI_COMMIT_BRANCH == "develop"'
 
 api-test:

@@ -46,15 +46,35 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     public function onNewCycle(DaedalusCycleEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $daedalus->setCycle($daedalus->getCycle() + 1);
+        $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
+        $time = $event->getTime();
 
-        if ($this->handleDaedalusEnd($daedalus, $event->getTime())) {
+        if ($daedalus->getCycle() === $daedalusConfig->getCyclePerGameDay()) {
+            $newDay = true;
+            $daedalus->setCycle(1);
+            $daedalus->setDay($daedalus->getDay() + 1);
+
+            $this->daedalusService->persist($daedalus);
+        } else {
+            $daedalus->setCycle($daedalus->getCycle() + 1);
+            $newDay = false;
+        }
+        $this->daedalusService->persist($daedalus);
+
+        if ($this->handleDaedalusEnd($daedalus, $time)) {
             return;
         }
 
-        $this->dispatchCycleChangeEvent($daedalus, $event->getTime());
+        $this->dispatchCycleChangeEvent($daedalus, $time);
 
-        $this->daedalusService->persist($daedalus);
+        if ($newDay) {
+            $dayEvent = new DaedalusCycleEvent(
+                $daedalus,
+                [EventEnum::NEW_DAY],
+                $time
+            );
+            $this->eventService->callEvent($dayEvent, DaedalusCycleEvent::DAEDALUS_NEW_DAY);
+        }
     }
 
     public function onNewDay(DaedalusCycleEvent $event): void
@@ -113,15 +133,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
     private function dispatchCycleChangeEvent(Daedalus $daedalus, \DateTime $time): void
     {
-        $newDay = false;
-
         $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
-
-        if ($daedalus->getCycle() === $daedalusConfig->getCyclePerGameDay() + 1) {
-            $newDay = true;
-            $daedalus->setCycle(1);
-            $daedalus->setDay($daedalus->getDay() + 1);
-        }
 
         $this->daedalusIncidentService->handleEquipmentBreak($daedalus, $time);
         $this->daedalusIncidentService->handleDoorBreak($daedalus, $time);
@@ -142,15 +154,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 $time
             );
             $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
-        }
-
-        if ($newDay) {
-            $dayEvent = new DaedalusCycleEvent(
-                $daedalus,
-                [EventEnum::NEW_DAY],
-                $time
-            );
-            $this->eventService->callEvent($dayEvent, DaedalusCycleEvent::DAEDALUS_NEW_DAY);
         }
     }
 }

@@ -4,9 +4,9 @@ namespace Mush\Communication\Listener;
 
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\NeronMessageServiceInterface;
-use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
@@ -38,9 +38,8 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         $holder = $event->getStatusHolder();
         $time = $event->getTime();
-        $equipmentBrokenByCycleChange = $event->haveTag(EventEnum::NEW_CYCLE) && $holder instanceof GameEquipment;
-        $equipementIsADoor = $holder instanceof Door;
-        // @TODO : $brokenByGreenJelly = $event->getReason() === EventEnum::GREEN_JELLY;
+        $equipmentBrokenByCycleChange = $event->haveTags([EventEnum::NEW_CYCLE, EquipmentEvent::EQUIPMENT_BROKEN]) && $holder instanceof GameEquipment;
+        // $brokenByGreenJelly = $event->getReason() === EventEnum::GREEN_JELLY;
 
         switch ($event->getStatusName()) {
             case EquipmentStatusEnum::BROKEN:
@@ -48,7 +47,7 @@ class StatusSubscriber implements EventSubscriberInterface
                     throw new UnexpectedTypeException($holder, GameEquipment::class);
                 }
                 // @TODO : if ($brokenByGreenJelly || $equipmentBrokenByCycleChange)
-                if ($equipmentBrokenByCycleChange && !$equipementIsADoor) {
+                if ($equipmentBrokenByCycleChange) {
                     $this->neronMessageService->createBrokenEquipmentMessage($holder, $event->getVisibility(), $event->getTime());
                 }
 

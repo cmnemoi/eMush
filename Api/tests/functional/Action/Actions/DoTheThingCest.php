@@ -402,10 +402,16 @@ class DoTheThingCest
 
         $targetPlayer->setFlirts(new ArrayCollection([$player]));
 
-        /** @var Player $targetPlayer */
-        $witness = $I->have(Player::class, ['daedalus' => $daedalus,
+        /** @var Player $witnessPlayer */
+        $witnessPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
         ]);
+        $witnessPlayerInfo = new PlayerInfo($witnessPlayer, $user, $maleCharacterConfig);
+        $witnessPlayerInfo->setGameStatus(GameStatusEnum::CURRENT);
+
+        $I->haveInRepository($witnessPlayerInfo);
+        $witnessPlayer->setPlayerInfo($witnessPlayerInfo);
+        $I->refreshEntities($witnessPlayer);
 
         $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
 
@@ -652,5 +658,101 @@ class DoTheThingCest
 
         $I->assertEquals(1, $humanPlayer->getSpores());
         $I->assertEquals(0, $mushPlayer->getSpores());
+    }
+
+    public function testDeadWitness(FunctionalTester $I)
+    {
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        $action = new Action();
+        $action
+            ->setActionName(ActionEnum::DO_THE_THING)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost(1)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($action);
+
+        /** @var CharacterConfig $femaleCharacterConfig */
+        $femaleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::CHUN . '_' . GameConfigEnum::TEST,
+            'characterName' => CharacterEnum::CHUN,
+            'actions' => new ArrayCollection([$action]),
+        ]);
+
+        /** @var CharacterConfig $maleCharacterConfig */
+        $maleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::DEREK . '_' . GameConfigEnum::TEST,
+            'characterName' => CharacterEnum::DEREK,
+            'actions' => new ArrayCollection([$action]),
+        ]);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $player->setPlayerVariables($femaleCharacterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var Player $targetPlayer */
+        $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $targetPlayer->setPlayerVariables($maleCharacterConfig);
+        $targetPlayer
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, [
+            'name' => EquipmentEnum::BED,
+        ]);
+
+        $gameEquipment = new GameEquipment($room);
+        $gameEquipment
+            ->setName(EquipmentEnum::BED)
+            ->setEquipment($equipmentConfig)
+        ;
+        $I->haveInRepository($gameEquipment);
+
+        $targetPlayer->setFlirts(new ArrayCollection([$player]));
+
+        /** @var Player $deadWitnessPlayer */
+        $deadWitnessPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $deadWitnessPlayerInfo = new PlayerInfo($deadWitnessPlayer, $user, $maleCharacterConfig);
+        $deadWitnessPlayerInfo->setGameStatus(GameStatusEnum::CLOSED);
+
+        $I->haveInRepository($deadWitnessPlayerInfo);
+        $deadWitnessPlayer->setPlayerInfo($deadWitnessPlayerInfo);
+        $I->refreshEntities($deadWitnessPlayer);
+
+        $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
+
+        $I->assertTrue($this->doTheThingAction->isVisible());
     }
 }

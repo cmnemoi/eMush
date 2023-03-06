@@ -46,19 +46,20 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     public function onNewCycle(DaedalusCycleEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $daedalus->setCycle($daedalus->getCycle() + 1);
         $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
-
         $time = $event->getTime();
 
-        $newDay = false;
-        if ($daedalus->getCycle() === $daedalusConfig->getCyclePerGameDay() + 1) {
+        if ($daedalus->getCycle() === $daedalusConfig->getCyclePerGameDay()) {
             $newDay = true;
             $daedalus->setCycle(1);
             $daedalus->setDay($daedalus->getDay() + 1);
 
             $this->daedalusService->persist($daedalus);
+        } else {
+            $daedalus->setCycle($daedalus->getCycle() + 1);
+            $newDay = false;
         }
+        $this->daedalusService->persist($daedalus);
 
         if ($this->handleDaedalusEnd($daedalus, $time)) {
             return;
@@ -74,8 +75,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             );
             $this->eventService->callEvent($dayEvent, DaedalusCycleEvent::DAEDALUS_NEW_DAY);
         }
-
-        $this->daedalusService->persist($daedalus);
     }
 
     public function onNewDay(DaedalusCycleEvent $event): void

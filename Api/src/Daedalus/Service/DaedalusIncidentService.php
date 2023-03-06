@@ -19,6 +19,7 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Psr\Log\LoggerInterface;
 
 class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 {
@@ -27,15 +28,18 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
     private GameEquipmentRepository $gameEquipmentRepository;
+    private LoggerInterface $logger;
 
     public function __construct(
         RandomServiceInterface $randomService,
         EventServiceInterface $eventService,
         GameEquipmentRepository $gameEquipmentRepository,
+        LoggerInterface $logger
     ) {
         $this->randomService = $randomService;
         $this->eventService = $eventService;
         $this->gameEquipmentRepository = $gameEquipmentRepository;
+        $this->logger = $logger;
     }
 
     public function handleFireEvents(Daedalus $daedalus, \DateTime $date): int
@@ -109,7 +113,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleEquipmentBreak(Daedalus $daedalus, \DateTime $date): int
     {
-        $numberOfEquipmentBroken = $this->getNumberOfIncident($daedalus);
+        $numberOfEquipmentBroken = 27;
 
         if ($numberOfEquipmentBroken > 0) {
             $workingEquipmentBreakRateDistribution = $this->getWorkingEquipmentBreakRateDistribution($daedalus);
@@ -288,16 +292,21 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         /** @var string $equipmentName */
         foreach (array_keys($equipmentBreakRateDistribution) as $equipmentName) {
             // If the equipment is not found, it means it hasn't been build yet (Calculator, Thalasso, etc.)
-            // and therefore can't be broken
+            // and therefore can't be broken : we skip it.
             try {
                 $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
+                if ($equipment->isBroken()) {
+                    continue;
+                }
+                $workingEquipmentBreakRateDistribution[$equipmentName] = $equipmentBreakRateDistribution[$equipmentName];
             } catch (\Exception $e) {
+                $this->logger->info($e->getMessage(), [
+                    'equipmentName' => $equipmentName,
+                    'daedalus' => $daedalus->getId(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
                 continue;
             }
-            if ($equipment->isBroken()) {
-                continue;
-            }
-            $workingEquipmentBreakRateDistribution[$equipmentName] = $equipmentBreakRateDistribution[$equipmentName];
         }
 
         return new ArrayCollection($workingEquipmentBreakRateDistribution);

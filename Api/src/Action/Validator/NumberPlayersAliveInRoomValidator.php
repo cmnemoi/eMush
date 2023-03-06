@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class NumberPlayersInRoomValidator extends ConstraintValidator
+class NumberPlayersAliveInRoomValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
@@ -15,8 +15,8 @@ class NumberPlayersInRoomValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
-        if (!$constraint instanceof NumberPlayersInRoom) {
-            throw new UnexpectedTypeException($constraint, NumberPlayersInRoom::class);
+        if (!$constraint instanceof NumberPlayersAliveInRoom) {
+            throw new UnexpectedTypeException($constraint, NumberPlayersAliveInRoom::class);
         }
 
         if ($value->getPlayer()->getPlace()->getNumberOfPlayersAlive() !== $constraint->number) {

@@ -3,26 +3,26 @@
 namespace Mush\Test\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\NumberPlayersInRoom;
-use Mush\Action\Validator\NumberPlayersInRoomValidator;
+use Mush\Action\Validator\NumberPlayersAliveInRoom;
+use Mush\Action\Validator\NumberPlayersAliveInRoomValidator;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class NumberPlayersInRoomValidatorTest extends TestCase
+class NumberPlayersAliveInRoomValidatorTest extends TestCase
 {
-    private NumberPlayersInRoomValidator $validator;
-    private NumberPlayersInRoom $constraint;
+    private NumberPlayersAliveInRoomValidator $validator;
+    private NumberPlayersAliveInRoom $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new NumberPlayersInRoomValidator();
-        $this->constraint = new NumberPlayersInRoom();
+        $this->validator = new NumberPlayersAliveInRoomValidator();
+        $this->constraint = new NumberPlayersAliveInRoom();
     }
 
     /**

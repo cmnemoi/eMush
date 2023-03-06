@@ -537,6 +537,14 @@ class DoTheThingCest
         ;
         $I->haveInRepository($diseaseCauseConfig);
 
+        $diseaseCauseConfig2 = new DiseaseCauseConfig();
+        $diseaseCauseConfig2
+            ->setCauseName('infection')
+            ->setDiseases(['disease'])
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($diseaseCauseConfig);
+
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
@@ -754,5 +762,6 @@ class DoTheThingCest
         $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
 
         $I->assertTrue($this->doTheThingAction->isVisible());
+        $I->assertNull($this->doTheThingAction->cannotExecuteReason());
     }
 }

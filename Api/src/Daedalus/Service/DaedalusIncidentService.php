@@ -284,7 +284,8 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             ->getDifficultyConfig()
             ->getEquipmentBreakRateDistribution();
 
-        $workingEquipmentBreakRateDistribution = new ArrayCollection([]);
+        $workingEquipmentBreakRateDistribution = [];
+        /** @var string $equipmentName */
         foreach (array_keys($equipmentBreakRateDistribution) as $equipmentName) {
             // If the equipment is not found, it means it hasn't been build yet (Calculator, Thalasso, etc.)
             // and therefore can't be broken
@@ -299,6 +300,6 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             $workingEquipmentBreakRateDistribution[$equipmentName] = $equipmentBreakRateDistribution[$equipmentName];
         }
 
-        return $workingEquipmentBreakRateDistribution;
+        return new ArrayCollection($workingEquipmentBreakRateDistribution);
     }
 }

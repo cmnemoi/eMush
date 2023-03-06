@@ -71,6 +71,10 @@ class AbstractGameEvent extends Event
     }
 
     // TODO: might want to create a `tagConstaints` property instead
+    /**
+     * Returns true if the event has all the tags in the array.
+     * If `$all` is false, returns true if the event has at least one of the tags.
+     */
     public function haveTags(array $tags, bool $all = true): bool
     {
         if ($all) {

@@ -360,10 +360,13 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $playersAlive = $daedalus->getPlayers()->getPlayerAlive();
 
+        if ($playersAlive->isEmpty()) {
+            return null;
+        }
+
         $playersWithLessOxygen = new PlayerCollection();
         $lessOxygenCount = 0;
 
-        // if there is no player alive, this loop will not be executed
         foreach ($playersAlive as $player) {
             $playerOxygenCount = $this->getOxygenCapsuleCount($player);
 
@@ -376,10 +379,6 @@ class DaedalusService implements DaedalusServiceInterface
                 $playersWithLessOxygen = new PlayerCollection([$player]);
                 $lessOxygenCount = $playerOxygenCount;
             }
-        }
-
-        if ($playersWithLessOxygen->isEmpty()) {
-            return null;
         }
 
         return $this->randomService->getRandomPlayer($playersWithLessOxygen);

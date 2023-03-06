@@ -18,7 +18,6 @@ use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
@@ -33,7 +32,6 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
@@ -49,12 +47,8 @@ class DaedalusServiceTest extends TestCase
     private DaedalusRepository $repository;
     /** @var CycleServiceInterface|Mockery\Mock */
     private CycleServiceInterface $cycleService;
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var RoomLogServiceInterface|Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
     /** @var LocalizationConfigRepository|Mockery\Mock */
     private LocalizationConfigRepository $localizationConfigRepository;
     /** @var DaedalusInfoRepository|Mockery\Mock */
@@ -73,9 +67,7 @@ class DaedalusServiceTest extends TestCase
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->repository = \Mockery::mock(DaedalusRepository::class);
         $this->cycleService = \Mockery::mock(CycleServiceInterface::class);
-        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
-        $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
         $this->localizationConfigRepository = \Mockery::mock(LocalizationConfigRepository::class);
         $this->daedalusInfoRepository = \Mockery::mock(DaedalusInfoRepository::class);
         $this->daedalusRepository = \Mockery::mock(DaedalusRepository::class);
@@ -85,9 +77,7 @@ class DaedalusServiceTest extends TestCase
             $this->eventService,
             $this->repository,
             $this->cycleService,
-            $this->gameEquipmentService,
             $this->randomService,
-            $this->roomLogService,
             $this->localizationConfigRepository,
             $this->daedalusInfoRepository,
             $this->daedalusRepository
@@ -287,12 +277,11 @@ class DaedalusServiceTest extends TestCase
         $this->assertCount(3, $threeCapsulePlayer->getEquipments());
 
         // 2 players with capsules
-        $this->roomLogService->shouldReceive('createLog')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->randomService->shouldReceive('getRandomPlayer')
             ->andReturn($twoCapsulePlayer)
             ->once()
         ;
-        $this->gameEquipmentService->shouldReceive('delete')->with($oxCapsule1)->once();
 
         $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
 

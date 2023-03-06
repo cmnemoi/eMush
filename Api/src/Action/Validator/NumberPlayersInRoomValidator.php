@@ -19,7 +19,7 @@ class NumberPlayersInRoomValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, NumberPlayersInRoom::class);
         }
 
-        if ($value->getPlayer()->getPlace()->getNumberPlayers() !== $constraint->number) {
+        if ($value->getPlayer()->getPlace()->getNumberOfPlayersAlive() !== $constraint->number) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

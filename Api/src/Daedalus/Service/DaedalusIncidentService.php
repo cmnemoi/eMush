@@ -113,7 +113,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleEquipmentBreak(Daedalus $daedalus, \DateTime $date): int
     {
-        $numberOfEquipmentBroken = 27;
+        $numberOfEquipmentBroken = $this->getNumberOfIncident($daedalus);
 
         if ($numberOfEquipmentBroken > 0) {
             $workingEquipmentBreakRateDistribution = $this->getWorkingEquipmentBreakRateDistribution($daedalus);

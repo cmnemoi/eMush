@@ -36,7 +36,7 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\User\Entity\User;
 
-class CycleEventCest
+class DeathByLackOfOxygenCest
 {
     private EventServiceInterface $eventService;
 

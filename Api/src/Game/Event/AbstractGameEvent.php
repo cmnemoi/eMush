@@ -70,6 +70,20 @@ class AbstractGameEvent extends Event
         return in_array($tag, $this->tags);
     }
 
+    // TODO: might want to create a `tagConstaints` property instead
+    /**
+     * Returns true if the event has all the tags in the array.
+     * If `$all` is false, returns true if the event has at least one of the tags.
+     */
+    public function haveTags(array $tags, bool $all = true): bool
+    {
+        if ($all) {
+            return count(array_intersect($tags, $this->tags)) === count($tags);
+        }
+
+        return count(array_intersect($tags, $this->tags)) > 0;
+    }
+
     public function mapLog(array $map): ?string
     {
         $logs = array_intersect_key($map, array_flip($this->tags));

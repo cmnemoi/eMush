@@ -2,7 +2,7 @@
 
 namespace Mush\Action\Validator;
 
-class NumberPlayersInRoom extends ClassConstraint
+class NumberPlayersAliveInRoom extends ClassConstraint
 {
     public int $number;
 

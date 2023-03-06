@@ -64,8 +64,12 @@ class DaedalusCycleEventTest extends TestCase
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setInitHull(0);
 
+        $gameConfig = new GameConfig();
+        $gameConfig->setDaedalusConfig($daedalusConfig);
+
         $daedalus = new Daedalus();
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        $daedalusInfo->setGameConfig($gameConfig);
         $daedalus->setDaedalusVariables($daedalusConfig);
 
         $player = new Player();

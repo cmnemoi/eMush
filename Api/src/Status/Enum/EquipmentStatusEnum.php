@@ -30,9 +30,9 @@ class EquipmentStatusEnum
         return [
             self::HIDDEN,
             self::BROKEN,
+            self::DECOMPOSING,
             self::UNSTABLE,
             self::HAZARDOUS,
-            self::DECOMPOSING,
             self::FROZEN,
         ];
     }

@@ -33,5 +33,15 @@
 Actualmente tienes {quantityaction}  :pa: y {quantitymovement} :pm:</target>
       </segment>
     </unit>
+    <unit id="triumph">
+      <segment id="name" state="initial">
+        <source>triumph.name</source>
+        <target>triumph.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>triumph.description</source>
+        <target>triumph.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

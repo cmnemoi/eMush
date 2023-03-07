@@ -34,5 +34,15 @@ It is a precious resource: to regain it quickly, you can eat some fruit or consu
 Currently you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
       </segment>
     </unit>
+    <unit id="triumph">
+      <segment id="name" state="translated">
+        <source>triumph.name</source>
+        <target>Personal Glory</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>triumph.description</source>
+        <target>Glory earned during the voyage. (work in progress)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

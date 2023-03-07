@@ -29,7 +29,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
 
         $this->playerService->handleNewCycle($player, $event->getTime());
 
-        if ($event->haveTag(EventEnum::NEW_CYCLE)) {
+        if ($event->haveTag(EventEnum::NEW_DAY)) {
             $this->playerService->handleNewDay($player, $event->getTime());
         }
     }

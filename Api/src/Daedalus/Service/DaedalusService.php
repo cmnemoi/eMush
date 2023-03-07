@@ -328,6 +328,10 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $player = $this->getRandomPlayersWithLessOxygen($daedalus);
 
+        if ($player === null) {
+            return $daedalus;
+        }
+
         if ($this->getOxygenCapsuleCount($player) === 0) {
             $playerEvent = new PlayerEvent(
                 $player,
@@ -352,9 +356,13 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalus;
     }
 
-    private function getRandomPlayersWithLessOxygen(Daedalus $daedalus): Player
+    private function getRandomPlayersWithLessOxygen(Daedalus $daedalus): ?Player
     {
         $playersAlive = $daedalus->getPlayers()->getPlayerAlive();
+
+        if ($playersAlive->isEmpty()) {
+            return null;
+        }
 
         $playersWithLessOxygen = new PlayerCollection();
         $lessOxygenCount = 0;

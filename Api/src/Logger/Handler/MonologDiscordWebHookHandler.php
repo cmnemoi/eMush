@@ -39,34 +39,22 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
         if ($this->webhookUrl != null && filter_var($this->webhookUrl, FILTER_VALIDATE_URL)) {
             if ($record->level->value >= $this->logLevel) {
                 $timestamp = date('c', strtotime('now'));
-                $description = $record->formatted;
-                if ($description != null) {
-                    $description = substr($description, 0, 2048);
-                }
-                $body = $record->extra['body'];
-                if ($body != null) {
-                    $body = substr($body, 0, 256);
-                } else {
-                    $body = '';
-                }
-                $correlationId = $record->extra['correlationId'];
-                if ($correlationId == null) {
-                    $correlationId = '';
-                }
-                $uri = $record->extra['uri'];
-                if ($uri == null) {
-                    $uri = '';
-                }
+                $content = $this->formatField($record->message, 6000);
+                $title = $this->formatField($record->message, 256);
+                $description = $this->formatField($record->formatted, 2048);
+                $body = $this->formatField($record->extra['body'], 256);
+                $correlationId = $this->formatField($record->extra['correlationId'], 256);
+                $uri = $this->formatField($record->extra['uri'], 256);
                 $json = [
                     // Message
-                    'content' => $record->message,
+                    'content' => $content,
                     // text-to-speech
                     'tts' => false,
                     // Embeds Array
                     'embeds' => [
                         [
                             // Title
-                            'title' => $record->message,
+                            'title' => $title,
 
                             // Embed Type, do not change.
                             'type' => 'rich',
@@ -125,5 +113,15 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
                 'json' => $json,
             ]
         );
+    }
+
+    private function formatField(string $field, int $maxLength): string
+    {
+        $formatted = '';
+        if ($field != null) {
+            $formatted = substr($field, 0, $maxLength);
+        }
+
+        return $formatted;
     }
 }

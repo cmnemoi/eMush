@@ -13,7 +13,7 @@
             />
         </ul>
         <Tippy tag="div" class="cycle-time">
-            <img src="@/assets/images/comms/calendar.png"><span>{{ $t('game.communications.day') }} {{ calendar.day }} - {{ $t('game.communications.cycle') }} {{ calendar.cycle }}</span>
+            <img src="@/assets/images/comms/calendar.png"><span>{{ calendar?.dayName }} {{ calendar.day }} - {{ calendar?.cycleName }} {{ calendar.cycle }}</span>
             <template #content>
                 <h1 v-html="formatContent(calendar.name)" />
                 <p v-html="formatContent(calendar.description)" />

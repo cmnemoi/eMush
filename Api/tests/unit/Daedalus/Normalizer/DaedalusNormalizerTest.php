@@ -163,6 +163,18 @@ class DaedalusNormalizerTest extends TestCase
         ;
         $this->translationService
             ->shouldReceive('translate')
+            ->with('cycle.name', [], 'daedalus', LanguageEnum::FRENCH)
+            ->andReturn('translated cycle name')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('day.name', [], 'daedalus', LanguageEnum::FRENCH)
+            ->andReturn('translated day name')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
             ->with('crewPlayer.description', [
                 'cryogenizedPlayers' => 0,
                 'playerAlive' => 0,
@@ -183,7 +195,9 @@ class DaedalusNormalizerTest extends TestCase
                 'name' => 'translated calendar name',
                 'description' => 'translated calendar description',
                 'cycle' => 4,
+                'cycleName' => 'translated cycle name',
                 'day' => 4,
+                'dayName' => 'translated day name',
             ],
             'oxygen' => [
                 'quantity' => 24,

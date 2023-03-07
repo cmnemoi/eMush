@@ -583,4 +583,162 @@ class PrivateChannelAuthorizationCest
             'message' => NeronMessageEnum::PLAYER_LEAVE_CHAT_DEATH,
         ]);
     }
+
+    public function testDieThenDropTalkie(FunctionalTester $I)
+    {
+        $dropActionEntity = new Action();
+        $dropActionEntity
+            ->setActionName(ActionEnum::DROP)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($dropActionEntity);
+        $moveActionEntity = new Action();
+        $moveActionEntity
+            ->setActionName(ActionEnum::MOVE)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($moveActionEntity);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+        $neron = new Neron();
+        $neron->setIsInhibited(true);
+        $I->haveInRepository($neron);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var Place $room2 */
+        $room2 = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        // Create players
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $player->setPlayerVariables($characterConfig);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var Player $player2 */
+        $player2 = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room2,
+        ]);
+        $player2->setPlayerVariables($characterConfig);
+        $playerInfo2 = new PlayerInfo($player2, $user, $characterConfig);
+        $I->haveInRepository($playerInfo2);
+        $player2->setPlayerInfo($playerInfo2);
+        $I->refreshEntities($player2);
+
+        // add a door
+        /** @var EquipmentConfig $doorConfig */
+        $doorConfig = $I->have(EquipmentConfig::class, [
+            'name' => 'door_test',
+            'actions' => new ArrayCollection([$moveActionEntity]),
+        ]);
+        $door = new Door($room2);
+        $door
+            ->setName('door name')
+            ->setEquipment($doorConfig)
+        ;
+        $I->haveInRepository($door);
+        $room->addDoor($door);
+        $room2->addDoor($door);
+        $I->refreshEntities($room, $room2, $door);
+
+        // create privateChannel
+        $privateChannel = new Channel();
+        $privateChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::class)
+        ;
+        $I->haveInRepository($privateChannel);
+
+        $channelPlayer = new ChannelPlayer();
+        $channelPlayer
+            ->setChannel($privateChannel)
+            ->setParticipant($playerInfo)
+        ;
+        $I->haveInRepository($channelPlayer);
+
+        $channelPlayer2 = new ChannelPlayer();
+        $channelPlayer2
+            ->setChannel($privateChannel)
+            ->setParticipant($playerInfo2)
+        ;
+        $I->haveInRepository($channelPlayer2);
+
+        $publicChannel = new Channel();
+        $publicChannel
+            ->setScope(ChannelScopeEnum::PUBLIC)
+            ->setDaedalus($daedalusInfo)
+        ;
+        $I->haveInRepository($publicChannel);
+
+        // initialize talkies
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, [
+            'equipmentName' => ItemEnum::WALKIE_TALKIE,
+            'name' => 'talkie_test',
+        ]);
+        $equipmentConfig->setActions(new ArrayCollection([$dropActionEntity]));
+
+        $talkie1 = new GameItem($player);
+        $talkie1
+            ->setEquipment($equipmentConfig)
+            ->setName(ItemEnum::WALKIE_TALKIE)
+            ->setOwner($player)
+        ;
+        $I->haveInRepository($talkie1);
+
+        $talkie2 = new GameItem($player2);
+        $talkie2
+            ->setEquipment($equipmentConfig)
+            ->setName(ItemEnum::WALKIE_TALKIE)
+            ->setOwner($player2)
+        ;
+        $I->haveInRepository($talkie2);
+
+        $this->dropAction->loadParameters($dropActionEntity, $player, $talkie2);
+        $this->dropAction->execute();
+
+        $I->assertCount(2, $privateChannel->getParticipants());
+
+        $playerEvent = new PlayerEvent(
+            $player2,
+            [EndCauseEnum::BLED],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
+
+        $I->assertCount(1, $privateChannel->getParticipants());
+        $I->seeInRepository(Message::class, [
+            'channel' => $privateChannel->getId(),
+            'message' => NeronMessageEnum::PLAYER_LEAVE_CHAT_DEATH,
+        ]);
+
+        $this->moveAction->loadParameters($dropActionEntity, $player, $door);
+        $this->moveAction->execute();
+        $I->assertCount(1, $privateChannel->getParticipants());
+        $I->dontSeeInRepository(Message::class, [
+            'channel' => $privateChannel->getId(),
+            'message' => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
+        ]);
+    }
 }

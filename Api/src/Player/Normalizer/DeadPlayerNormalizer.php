@@ -52,14 +52,30 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
                 'key' => $character,
                 'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
             ],
-            'triumph' => $player->getTriumph(),
+            'triumph' => [
+                'name' => $this->translationService->translate('triumph.name', [], 'player', $language),
+                'description' => $this->translationService->translate('triumph.description', [], 'player', $language),
+                'quantity' => $player->getTriumph(),
+            ],
             'daedalus' => [
                 'key' => $daedalus->getId(),
                 'calendar' => [
                     'name' => $this->translationService->translate('calendar.name', [], 'daedalus', $language),
                     'description' => $this->translationService->translate('calendar.description', [], 'daedalus', $language),
                     'cycle' => $daedalus->getCycle(),
+                    'cycleName' => $this->translationService->translate(
+                        key: 'cycle.name',
+                        parameters: [],
+                        domain: 'daedalus',
+                        language: $language
+                    ),
                     'day' => $daedalus->getDay(),
+                    'dayName' => $this->translationService->translate(
+                        key: 'day.name',
+                        parameters: [],
+                        domain: 'daedalus',
+                        language: $language
+                    ),
                 ],
             ],
             'skills' => $player->getSkills(),

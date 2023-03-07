@@ -65,10 +65,22 @@ class RationCycleHandler extends AbstractCycleHandler
         }
 
         if ($currentStatus = $gameRation->getStatusByName(EquipmentStatusEnum::UNSTABLE)) {
-            $gameRation->removeStatus($currentStatus);
+            $removeStatusEvent = new StatusEvent(
+                statusName: $currentStatus->getName(), 
+                holder: $gameRation, 
+                tags: [EventEnum::NEW_DAY], 
+                time: new \DateTime()
+            );
+            $this->eventService->callEvent($removeStatusEvent, StatusEvent::STATUS_REMOVED);
             $nextStatus = EquipmentStatusEnum::HAZARDOUS;
         } elseif ($currentStatus = $gameRation->getStatusByName(EquipmentStatusEnum::HAZARDOUS)) {
-            $gameRation->removeStatus($currentStatus);
+            $removeStatusEvent = new StatusEvent(
+                statusName: $currentStatus->getName(), 
+                holder: $gameRation, 
+                tags: [EventEnum::NEW_DAY], 
+                time: new \DateTime()
+            );
+            $this->eventService->callEvent($removeStatusEvent, StatusEvent::STATUS_REMOVED);
             $nextStatus = EquipmentStatusEnum::DECOMPOSING;
         } else {
             $nextStatus = EquipmentStatusEnum::UNSTABLE;

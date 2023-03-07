@@ -7,6 +7,7 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -50,6 +51,9 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $equipment = $event->getParameter();
         if (!$equipment instanceof GameEquipment) {
             throw new UnexpectedTypeException($equipment, GameEquipment::class);
+        }
+        if ($equipment instanceof GameItem) {
+            throw new \LogicException('GameItem should not be reportable');
         }
 
         if ($equipment instanceof Door) {

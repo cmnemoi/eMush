@@ -115,7 +115,7 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
         );
     }
 
-    private function formatField(string $field, int $maxLength): string
+    private function formatField(?string $field, int $maxLength): string
     {
         $formatted = '';
         if ($field != null) {

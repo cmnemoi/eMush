@@ -295,9 +295,13 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             // and therefore can't be broken : we skip it.
             try {
                 $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
+                if ($equipment === null) {
+                    continue;
+                }
                 if ($equipment->isBroken()) {
                     continue;
                 }
+
                 $workingEquipmentBreakRateDistribution[$equipmentName] = $equipmentBreakRateDistribution[$equipmentName];
             } catch (\Exception $e) {
                 $this->logger->info($e->getMessage(), [

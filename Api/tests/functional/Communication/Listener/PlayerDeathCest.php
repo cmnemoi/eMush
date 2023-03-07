@@ -104,5 +104,7 @@ class PlayerDeathCest
 
         $I->assertCount(1, $publicChannel->getMessages());
         $I->assertCount(1, $privateChannel->getMessages());
+
+        $I->assertCount(0, $privateChannel->getParticipants());
     }
 }

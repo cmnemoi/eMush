@@ -68,13 +68,13 @@ class DropSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $takeActionEntity = new Action();
-        $takeActionEntity
+        $dropActionEntity = new Action();
+        $dropActionEntity
             ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($takeActionEntity);
+        $I->haveInRepository($dropActionEntity);
 
         $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
@@ -101,7 +101,7 @@ class DropSubscriberCest
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
-            'actions' => new ArrayCollection([$takeActionEntity]),
+            'actions' => new ArrayCollection([$dropActionEntity]),
         ]);
 
         // Case of a game Equipment
@@ -114,7 +114,7 @@ class DropSubscriberCest
 
         $player->addEquipment($gameEquipment);
 
-        $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
+        $this->dropAction->loadParameters($dropActionEntity, $player, $gameEquipment);
         $this->dropAction->execute();
 
         $I->assertEquals($room->getEquipments()->count(), 1);

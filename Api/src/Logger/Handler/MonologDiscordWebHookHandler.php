@@ -9,6 +9,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class MonologDiscordWebHookHandler extends AbstractProcessingHandler
 {
     private HttpClientInterface $httpClient;
+
     private string $webhookUrl;
     private int $logLevel;
     private string $environmentName;
@@ -38,6 +39,24 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
         if ($this->webhookUrl != null && filter_var($this->webhookUrl, FILTER_VALIDATE_URL)) {
             if ($record->level->value >= $this->logLevel) {
                 $timestamp = date('c', strtotime('now'));
+                $description = $record->formatted;
+                if ($description != null) {
+                    $description = substr($description, 0, 2048);
+                }
+                $body = $record->extra['body'];
+                if ($body != null) {
+                    $body = substr($body, 0, 256);
+                } else {
+                    $body = '';
+                }
+                $correlationId = $record->extra['correlationId'];
+                if ($correlationId == null) {
+                    $correlationId = '';
+                }
+                $uri = $record->extra['uri'];
+                if ($uri == null) {
+                    $uri = '';
+                }
                 $json = [
                     // Message
                     'content' => $record->message,
@@ -53,7 +72,7 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
                             'type' => 'rich',
 
                             // Description
-                            'description' => $record->formatted,
+                            'description' => $description,
 
                             // Timestamp, only ISO8601
                             'timestamp' => $timestamp,
@@ -64,18 +83,23 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
                             // Custom fields
                             'fields' => [
                                 [
+                                    'name' => 'Channel',
+                                    'value' => $record->channel,
+                                    'inline' => false,
+                                ],
+                                [
                                     'name' => 'CorrelationId',
-                                    'value' => $record->extra['correlationId'],
+                                    'value' => $correlationId,
                                     'inline' => false,
                                 ],
                                 [
                                     'name' => 'Request Body',
-                                    'value' => $record->extra['body'],
+                                    'value' => $body,
                                     'inline' => false,
                                 ],
                                 [
                                     'name' => 'Request Uri',
-                                    'value' => $record->extra['uri'],
+                                    'value' => $uri,
                                     'inline' => false,
                                 ],
                                 [

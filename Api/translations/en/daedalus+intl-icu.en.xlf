@@ -89,5 +89,17 @@ At the changeover you earn some precious :pa::pm:, depending on your health.</ta
 One **Cycle lasts for 3 hours**. Every new cycle, you receive :pa: and :pm:, which are extremely useful for doing things!</target>
       </segment>
     </unit>
+    <unit id="cycle.name">
+      <segment state="translated">
+        <source>cycle.name</source>
+        <target>Cycle</target>
+      </segment>
+    </unit>
+    <unit id="day.name">
+      <segment state="translated">
+        <source>day.name</source>
+        <target>Day</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

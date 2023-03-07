@@ -4,7 +4,6 @@ namespace Mush\Place\Listener;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Place\Entity\Place;
 use Mush\Place\Event\PlaceCycleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -22,7 +21,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     {
         return [
             DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => 'onNewCycle',
-            DaedalusCycleEvent::DAEDALUS_NEW_DAY => 'onNewDay',
         ];
     }
 
@@ -35,21 +33,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 $event->getTime()
             );
             $this->eventService->callEvent($newRoomCycle, PlaceCycleEvent::PLACE_NEW_CYCLE);
-        }
-    }
-
-    public function onNewDay(DaedalusCycleEvent $event): void
-    {
-        $daedalus = $event->getDaedalus();
-
-        /** @var Place $place */
-        foreach ($daedalus->getRooms() as $place) {
-            $newRoomDay = new PlaceCycleEvent(
-                $place,
-                $event->getTags(),
-                $event->getTime()
-            );
-            $this->eventService->callEvent($newRoomDay, PlaceCycleEvent::PLACE_NEW_DAY);
         }
     }
 }

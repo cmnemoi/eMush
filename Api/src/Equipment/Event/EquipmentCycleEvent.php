@@ -10,7 +10,6 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 class EquipmentCycleEvent extends DaedalusCycleEvent
 {
     public const EQUIPMENT_NEW_CYCLE = 'equipment.new.cycle';
-    public const EQUIPMENT_NEW_DAY = 'equipment.new.day';
 
     protected GameEquipment $gameEquipment;
 

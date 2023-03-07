@@ -40,10 +40,11 @@ class CycleIncrementTest extends TestCase
     public function testIncrement()
     {
         $status = $this->createStatus();
+        $time = new \DateTime();
 
-        $this->statusService->shouldReceive('updateCharge')->with($status, 1)->once();
+        $this->statusService->shouldReceive('updateCharge')->with($status, 1, [EventEnum::NEW_CYCLE], $time)->once();
 
-        $this->strategy->execute($status, [EventEnum::NEW_CYCLE]);
+        $this->strategy->execute($status, [EventEnum::NEW_CYCLE], $time);
     }
 
     private function createStatus(): ChargeStatus

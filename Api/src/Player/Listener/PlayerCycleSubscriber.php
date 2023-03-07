@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Game\Enum\EventEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -19,7 +20,6 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
     {
         return [
             PlayerCycleEvent::PLAYER_NEW_CYCLE => 'onNewCycle',
-            PlayerCycleEvent::PLAYER_NEW_DAY => 'onNewDay',
         ];
     }
 
@@ -28,12 +28,9 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
 
         $this->playerService->handleNewCycle($player, $event->getTime());
-    }
 
-    public function onNewDay(PlayerCycleEvent $event): void
-    {
-        $player = $event->getPlayer();
-
-        $this->playerService->handleNewDay($player, $event->getTime());
+        if ($event->haveTag(EventEnum::NEW_CYCLE)) {
+            $this->playerService->handleNewDay($player, $event->getTime());
+        }
     }
 }

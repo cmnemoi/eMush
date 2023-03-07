@@ -162,6 +162,30 @@ class DeadPlayerNormalizerTest extends TestCase
             ->andReturn('translated calendar name')
             ->times(1)
         ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('triumph.name', [], 'player', LanguageEnum::FRENCH)
+            ->andReturn('translated triumph')
+            ->times(1)
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('triumph.description', [], 'player', LanguageEnum::FRENCH)
+            ->andReturn('translated triumph description')
+            ->times(1)
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('day.name', [], 'daedalus', LanguageEnum::FRENCH)
+            ->andReturn('translated day')
+            ->times(1)
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('cycle.name', [], 'daedalus', LanguageEnum::FRENCH)
+            ->andReturn('translated cycle')
+            ->times(1)
+        ;
 
         $daedalus->method('getPlayers')->willReturn(new PlayerCollection([$player, $otherPlayerDead, $otherPlayerAlive]));
         $player->method('getDaedalus')->willReturn($daedalus);
@@ -176,14 +200,20 @@ class DeadPlayerNormalizerTest extends TestCase
             ],
             'gameStatus' => 'finished',
             'skills' => [],
-            'triumph' => 33,
+            'triumph' => [
+                'quantity' => 33,
+                'name' => 'translated triumph',
+                'description' => 'translated triumph description',
+            ],
             'daedalus' => [
                 'key' => 19,
                 'calendar' => [
                     'name' => 'translated calendar name',
                     'description' => 'translated calendar description',
                     'day' => 56,
+                    'dayName' => 'translated day',
                     'cycle' => 3,
+                    'cycleName' => 'translated cycle',
                 ],
             ],
             'endCause' => [

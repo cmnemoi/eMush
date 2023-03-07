@@ -11,6 +11,7 @@ use Mush\Alert\Repository\AlertRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\StatusEnum;
 
@@ -166,7 +167,10 @@ class AlertService implements AlertServiceInterface
 
     public function handleEquipmentRepair(GameEquipment $equipment): void
     {
-        if ($equipment instanceof Door) {
+        // GameItem don't generate alerts
+        if ($equipment instanceof GameItem) {
+            return;
+        } elseif ($equipment instanceof Door) {
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
         } else {
@@ -187,6 +191,10 @@ class AlertService implements AlertServiceInterface
 
     public function getAlertEquipmentElement(Alert $alert, GameEquipment $equipment): AlertElement
     {
+        if ($equipment instanceof GameItem) {
+            throw new \LogicException('GameItem should not be reported');
+        }
+
         $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment);
         $alertEquipment = $filteredList->first();
 
@@ -314,6 +322,9 @@ class AlertService implements AlertServiceInterface
         $daedalus = $equipment->getDaedalus();
         if (!$equipment->isBroken()) {
             return false;
+        }
+        if ($equipment instanceof GameItem) {
+            throw new \LogicException('GameItem should not be reported');
         }
 
         if ($equipment instanceof Door) {

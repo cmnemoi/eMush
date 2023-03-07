@@ -269,6 +269,10 @@ class PlayerService implements PlayerServiceInterface
 
         $player->addTriumph($triumphChange);
 
+        if ($player->getTriumph() < 0) {
+            $player->setTriumph(0);
+        }
+
         $this->roomLogService->createLog(
             PlayerModifierLogEnum::GAIN_TRIUMPH,
             $player->getPlace(),

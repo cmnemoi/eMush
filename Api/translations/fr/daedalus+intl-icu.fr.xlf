@@ -90,5 +90,17 @@ La valeur sera finalisée après la fin du voyage. Elle déterminera votre class
 Un **Cycle dure 3 heures**. À chaque Cycle vous cumulez plus de :pa::pm:, indispensables pour pouvoir réaliser des actions !</target>
       </segment>
     </unit>
+    <unit id="cycle.name">
+      <segment state="translated">
+        <source>cycle.name</source>
+        <target>Cycle</target>
+      </segment>
+    </unit>
+    <unit id="day.name">
+      <segment state="translated">
+        <source>day.name</source>
+        <target>Jour</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

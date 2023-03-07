@@ -14,7 +14,7 @@ export class Player {
     public movementPoint: QuantityPoint|null;
     public healthPoint: QuantityPoint|null;
     public moralPoint: QuantityPoint|null;
-    public triumph: number|null;
+    public triumph: QuantityPoint|null;
     public daedalus: Daedalus|null;
     public items: Array<Item>;
     public diseases: Array<Status>;
@@ -48,7 +48,6 @@ export class Player {
             this.character.description = object.character['description'];
             this.character.skills = object.character['skills'];
 
-            this.triumph = object.triumph;
             this.gameStatus = object.gameStatus;
             if (typeof object.actionPoint !== 'undefined') {
                 this.actionPoint = (new QuantityPoint()).load(object.actionPoint);
@@ -61,6 +60,9 @@ export class Player {
             }
             if (typeof object.moralPoint !== 'undefined') {
                 this.moralPoint = (new QuantityPoint()).load(object.moralPoint);
+            }
+            if (typeof object.triumph !== 'undefined') {
+                this.triumph = (new QuantityPoint()).load(object.triumph);
             }
             if (typeof object.daedalus !== 'undefined') {
                 this.daedalus = (new Daedalus()).load(object.daedalus);

@@ -61,28 +61,28 @@ class PlantNewDayCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantYoung);
         $plantDiseased = new StatusConfig();
         $plantDiseased
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantDiseased);
         $plantDry = new StatusConfig();
         $plantDry
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantDry);
         $plantThirsty = new StatusConfig();
         $plantThirsty
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantThirsty);
 
@@ -162,7 +162,7 @@ class PlantNewDayCest
         /** @var User $user */
         $user = $I->have(User::class);
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'test']);
         $characterConfig
             ->setInitHealthPoint(99)
             ->setMaxHealthPoint(99)
@@ -224,28 +224,28 @@ class PlantNewDayCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantYoung);
         $plantDiseased = new StatusConfig();
         $plantDiseased
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantDiseased);
         $plantDry = new StatusConfig();
         $plantDry
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantDry);
         $plantThirsty = new StatusConfig();
         $plantThirsty
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantThirsty);
 
@@ -325,7 +325,7 @@ class PlantNewDayCest
         /** @var User $user */
         $user = $I->have(User::class);
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'test']);
         $characterConfig
             ->setInitHealthPoint(99)
             ->setMaxHealthPoint(99)
@@ -393,28 +393,28 @@ class PlantNewDayCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantYoung);
         $plantDiseased = new StatusConfig();
         $plantDiseased
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantDiseased);
         $plantDry = new StatusConfig();
         $plantDry
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantDry);
         $plantThirsty = new StatusConfig();
         $plantThirsty
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantThirsty);
 
@@ -494,7 +494,7 @@ class PlantNewDayCest
         /** @var User $user */
         $user = $I->have(User::class);
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'test']);
         $characterConfig
             ->setInitHealthPoint(99)
             ->setMaxHealthPoint(99)
@@ -561,28 +561,28 @@ class PlantNewDayCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantYoung);
         $plantDiseased = new StatusConfig();
         $plantDiseased
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantDiseased);
         $plantDry = new StatusConfig();
         $plantDry
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantDry);
         $plantThirsty = new StatusConfig();
         $plantThirsty
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantThirsty);
 
@@ -662,7 +662,7 @@ class PlantNewDayCest
         /** @var User $user */
         $user = $I->have(User::class);
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'test']);
         $characterConfig
             ->setInitHealthPoint(99)
             ->setMaxHealthPoint(99)
@@ -732,28 +732,28 @@ class PlantNewDayCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantYoung);
         $plantDiseased = new StatusConfig();
         $plantDiseased
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantDiseased);
         $plantDry = new StatusConfig();
         $plantDry
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantDry);
         $plantThirsty = new StatusConfig();
         $plantThirsty
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantThirsty);
 
@@ -833,7 +833,7 @@ class PlantNewDayCest
         /** @var User $user */
         $user = $I->have(User::class);
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN . '_test']);
         $characterConfig
             ->setInitHealthPoint(99)
             ->setMaxHealthPoint(99)

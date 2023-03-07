@@ -8,7 +8,6 @@ use Mush\Action\Actions\MakeSick;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
-use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -17,8 +16,6 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -48,8 +45,6 @@ class MakeSickActionCest
 
     public function testMakeSick(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, DaedalusConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)

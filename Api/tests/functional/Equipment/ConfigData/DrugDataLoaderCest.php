@@ -47,8 +47,6 @@ class DrugDataLoaderCest
 
         $config = $this->dropFields($config);
 
-        $I->haveInRepository(Drug::class, $config);
-
         $this->drugDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, Drug::class, $config);

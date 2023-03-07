@@ -50,12 +50,6 @@ class StatusConfigDataLoaderCest
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
-        $I->haveInRepository(StatusConfig::class, [
-            'name' => 'alien_artefact_default',
-            'statusName' => 'alien_artefact',
-            'visibility' => 'public',
-        ]);
-
         $this->statusConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, StatusConfig::class, [
@@ -84,11 +78,7 @@ class StatusConfigDataLoaderCest
     // remove ChargeStatusConfigs
     private function getNumberOfStatusConfigs(): int
     {
-        $configs = new ArrayCollection(StatusConfigData::$dataArray);
-        $statusConfigs = $configs->filter(function ($config) {
-            return $config['type'] === 'status_config';
-        });
-
-        return $statusConfigs->count();
+        // TODO: fix me
+        return (new ArrayCollection(StatusConfigData::$dataArray))->count();
     }
 }

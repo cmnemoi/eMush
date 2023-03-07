@@ -3,22 +3,18 @@
 namespace functional\Action\Actions;
 
 use App\Tests\FunctionalTester;
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ExtinguishManually;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
-use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
@@ -40,30 +36,20 @@ class ExtinguishManuallyActionCest
 {
     private ExtinguishManually $extinguishManually;
     private EventServiceInterface $eventService;
+    private Action $action;
 
     public function _before(FunctionalTester $I)
     {
         $this->extinguishManually = $I->grabService(ExtinguishManually::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->action = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::EXTINGUISH_MANUALLY]);
+        $this->action->setSuccessRate(101);
     }
 
     public function testExtinguishManually(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, DaedalusConfigFixtures::class, LocalizationConfigFixtures::class]);
-
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setStatusName(StatusEnum::ATTEMPT)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($attemptConfig);
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig
-            ->setStatusName(StatusEnum::FIRE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($statusConfig);
+        $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);
+        $statusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::FIRE]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -71,11 +57,6 @@ class ExtinguishManuallyActionCest
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $statusConfig]))
-            ->setDaedalusConfig($daedalusConfig)
-        ;
-        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
@@ -101,20 +82,8 @@ class ExtinguishManuallyActionCest
 
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::EXTINGUISH_MANUALLY)
-            ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($action);
-
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-        $characterConfig
-            ->setActions(new ArrayCollection([$action]));
-
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
@@ -129,7 +98,7 @@ class ExtinguishManuallyActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $this->extinguishManually->loadParameters($action, $player);
+        $this->extinguishManually->loadParameters($this->action, $player);
 
         $I->assertTrue($this->extinguishManually->isVisible());
         $I->assertNull($this->extinguishManually->cannotExecuteReason());

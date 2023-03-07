@@ -29,8 +29,6 @@ class LocalizationConfigDataLoaderCest
 
     public function testLoadConfigsDataConfigAlreadyExists(FunctionalTester $I)
     {
-        $I->haveInRepository(LocalizationConfig::class, LocalizationConfigData::$dataArray[0]);
-
         $this->localizationConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, LocalizationConfig::class, LocalizationConfigData::$dataArray[0]);

@@ -39,13 +39,6 @@ class ActionDataLoaderCest
 
     public function testLoadConfigsDataConfigAlreadyExists(FunctionalTester $I)
     {
-        $I->haveInRepository(Action::class, [
-            'name' => 'extract_spore',
-            'actionName' => 'extract_spore',
-            'target' => null,
-            'scope' => 'self',
-        ]);
-
         $this->actionDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, Action::class, [

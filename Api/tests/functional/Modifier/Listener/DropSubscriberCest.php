@@ -19,13 +19,10 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -76,16 +73,9 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $modifier = new GameModifier($player, $modifierConfig);
         $I->haveInRepository($modifier);
@@ -159,16 +149,9 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $gear = new Gear();
         $gear
@@ -245,16 +228,9 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLACE)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $modifier = new GameModifier($room, $modifierConfig);
         $I->haveInRepository($modifier);
@@ -335,32 +311,14 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
-
-        $modifierConfig2 = new VariableEventModifierConfig();
-        $modifierConfig2
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig2);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $modifier = new GameModifier($player, $modifierConfig);
         $I->haveInRepository($modifier);
 
-        $modifier2 = new GameModifier($player, $modifierConfig2);
+        $modifier2 = new GameModifier($player, $modifierConfig);
         $I->haveInRepository($modifier2);
 
         $gear = new Gear();
@@ -372,7 +330,7 @@ class DropSubscriberCest
 
         $gear2 = new Gear();
         $gear2
-            ->setModifierConfigs(new ArrayCollection([$modifierConfig2]))
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
             ->setName('gear_test_2')
         ;
         $I->haveInRepository($gear2);
@@ -456,16 +414,9 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $modifier = new GameModifier($player, $modifierConfig);
         $I->haveInRepository($modifier);

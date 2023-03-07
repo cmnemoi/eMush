@@ -2,155 +2,84 @@
 
 namespace functional\Action\Actions;
 
+use App\Tests\AbstractFunctionalTest;
 use App\Tests\FunctionalTester;
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Shower;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
-use Mush\Action\Event\ActionEvent;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\ActionOutputEnum;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
-use Mush\Modifier\Enum\ModifierRequirementEnum;
-use Mush\Modifier\Enum\VariableModifierModeEnum;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\StatusEnum;
-use Mush\User\Entity\User;
 
-class ShowerActionCest
+class ShowerActionCest extends AbstractFunctionalTest
 {
     private Shower $showerAction;
+    private Action $action;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+
         $this->showerAction = $I->grabService(Shower::class);
+        $this->action = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::SHOWER]);
+        $this->action->setInjuryRate(0);
+        $I->refreshEntities($this->action);
     }
 
     public function testShower(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setStatusName(StatusEnum::ATTEMPT)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($attemptConfig);
-
-        $dirtyConfig = new StatusConfig();
-        $dirtyConfig->setStatusName(PlayerStatusEnum::DIRTY)->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($dirtyConfig);
-
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $dirtyConfig]))
-        ;
-        $I->flushToDatabase();
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
-            ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $dirtyStatus = new Status($player, $dirtyConfig);
-        $I->haveInRepository($dirtyStatus);
-
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::SHOWER)
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost(2)
-            ->buildName(GameConfigEnum::TEST)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
-        $I->haveInRepository($action);
+        $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['actions' => new ArrayCollection([$action])]);
+        $equipmentConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::SHOWER]);
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('shower')
+            ->setName(EquipmentEnum::SHOWER)
         ;
         $I->haveInRepository($gameEquipment);
 
-        $I->refreshEntities($player);
+        $dirtyStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::DIRTY]);
+        $dirtyStatus = new Status($this->player1, $dirtyStatusConfig);
+        $I->haveInRepository($dirtyStatus);
 
-        $this->showerAction->loadParameters($action, $player, $gameEquipment);
+        $I->refreshEntities($this->player1);
+
+        $this->showerAction->loadParameters($this->action, $this->player1, $gameEquipment);
 
         $I->assertTrue($this->showerAction->isVisible());
         $I->assertNull($this->showerAction->cannotExecuteReason());
 
         $this->showerAction->execute();
 
-        $I->assertEquals(6, $player->getHealthPoint());
-        $I->assertEquals(0, $player->getActionPoint());
-        $I->assertCount(0, $player->getStatuses());
-
-        $roomLogs = $I->grabEntitiesFromRepository(RoomLog::class);
+        $I->assertEquals(
+            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
+            $this->player1->getHealthPoint()
+        );
+        $I->assertEquals(
+            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost(),
+            $this->player1->getActionPoint()
+        );
+        $I->assertCount(0, $this->player1->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $player->getPlayerInfo()->getId(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::SHOWER_HUMAN,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
@@ -158,139 +87,47 @@ class ShowerActionCest
 
     public function testMushShower(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setStatusName(StatusEnum::ATTEMPT)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($attemptConfig);
+        $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
-        $dirtyConfig = new StatusConfig();
-        $dirtyConfig->setStatusName(PlayerStatusEnum::DIRTY)->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($dirtyConfig);
-
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $dirtyConfig]))
-        ;
-        $I->flushToDatabase();
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
-            ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $showerActionActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::REASON);
-        $showerActionActivationRequirement
-            ->setActivationRequirement(ActionEnum::SHOWER)
-            ->buildName()
-        ;
-        $I->haveInRepository($showerActionActivationRequirement);
-
-        $mushShowerModifier = new VariableEventModifierConfig();
-        $mushShowerModifier
-            ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-3)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->addModifierRequirement($showerActionActivationRequirement)
-            ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
-            ->setName(ModifierNameEnum::MUSH_SHOWER_MALUS)
-        ;
-        $I->haveInRepository($mushShowerModifier);
-
-        $mushConfig = new StatusConfig();
-        $mushConfig
-            ->setStatusName(PlayerStatusEnum::MUSH)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->setModifierConfigs(new ArrayCollection([$mushShowerModifier]))
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($mushConfig);
-        $mushStatus = new Status($player, $mushConfig);
+        /** @var StatusConfig $mushStatusConfig */
+        $mushStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => PlayerStatusEnum::MUSH]);
+        $mushStatus = new ChargeStatus($this->player1, $mushStatusConfig);
         $I->haveInRepository($mushStatus);
 
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::SHOWER)
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost(2)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($action);
+        /** @var VariableEventModifierConfig $mushShowerModifierConfig */
+        $mushShowerModifierConfig = current($I->grabEntitiesFromRepository(VariableEventModifierConfig::class, ['modifierName' => ModifierNameEnum::MUSH_SHOWER_MALUS]));
+        $mushShowerModifier = new GameModifier($this->player1, $mushShowerModifierConfig);
+        $I->haveInRepository($mushShowerModifier);
+
+        $I->refreshEntities($this->player1);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['actions' => new ArrayCollection([$action])]);
+        $equipmentConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::SHOWER]);
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('shower')
+            ->setName(EquipmentEnum::SHOWER)
         ;
         $I->haveInRepository($gameEquipment);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setModifierRange(ReachEnum::INVENTORY)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
-
-        $modifier = new GameModifier($player, $modifierConfig);
-        $I->haveInRepository($modifier);
-
-        $mushModifier = new GameModifier($player, $mushShowerModifier);
-        $I->haveInRepository($mushModifier);
-
-        $I->refreshEntities($player);
-
-        $this->showerAction->loadParameters($action, $player, $gameEquipment);
+        $this->showerAction->loadParameters($this->action, $this->player1, $gameEquipment);
 
         $I->assertTrue($this->showerAction->isVisible());
         $I->assertNull($this->showerAction->cannotExecuteReason());
 
         $this->showerAction->execute();
 
-        $I->assertEquals(3, $player->getHealthPoint());
-
-        $I->assertEquals(1, $player->getActionPoint());
+        $I->assertEquals($this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint() - 3, $this->player1->getHealthPoint());
+        $I->assertEquals(
+            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost(),
+            $this->player1->getActionPoint()
+        );
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $player->getPlayerInfo()->getId(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo()->getId(),
             'log' => PlayerModifierLogEnum::SHOWER_MUSH,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
@@ -298,40 +135,49 @@ class ShowerActionCest
         // @TODO test skill water resistance
     }
 
-    private function createSoapItem(FunctionalTester $I): GameItem
+    public function testShowerWithSoap(FunctionalTester $I)
     {
-        $modifier = new VariableEventModifierConfig();
-        $modifier
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setModifierRange(ReachEnum::INVENTORY)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
+        $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::SHOWER]);
+
+        $gameEquipment = new GameEquipment($room);
+        $gameEquipment
+            ->setEquipment($equipmentConfig)
+            ->setName(EquipmentEnum::SHOWER)
         ;
+        $I->haveInRepository($gameEquipment);
 
-        $soapGear = new Gear();
-        $soapGear->setModifierConfigs(new arrayCollection([$modifier]));
+        /** @var VariableEventModifierConfig $soapModifierConfig */
+        $soapModifierConfig = current(
+            $I->grabEntitiesFromRepository(
+                VariableEventModifierConfig::class,
+                ['name' => 'modifier_for_player_-1actionPoint_on_shower']
+            )
+        );
+        $soapModifier = new GameModifier($this->player2, $soapModifierConfig);
+        $I->haveInRepository($soapModifier);
 
-        $soap = new ItemConfig();
-        $soap
-            ->setEquipmentName(GearItemEnum::SOAP)
-            ->setIsStackable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$soapGear]))
-        ;
+        $this->showerAction->loadParameters($this->action, $this->player2, $gameEquipment);
 
-        $gameSoap = new GameItem(new Place());
-        $gameSoap
-            ->setName(GearItemEnum::SOAP)
-            ->setEquipment($soap)
-        ;
+        $I->assertTrue($this->showerAction->isVisible());
+        $I->assertNull($this->showerAction->cannotExecuteReason());
 
-        $I->haveInRepository($modifier);
-        $I->haveInRepository($soapGear);
-        $I->haveInRepository($soap);
-        $I->haveInRepository($gameSoap);
+        $this->showerAction->execute();
 
-        return $gameSoap;
+        $I->assertEquals(
+            $this->player2->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost() + 1,
+            $this->player2->getActionPoint()
+        );
+        $I->assertCount(0, $this->player2->getStatuses());
+
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $room->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player2->getPlayerInfo()->getId(),
+            'log' => ActionLogEnum::SHOWER_HUMAN,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
     }
 }

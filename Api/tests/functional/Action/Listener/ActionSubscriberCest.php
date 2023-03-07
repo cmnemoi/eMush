@@ -12,8 +12,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -21,10 +19,7 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -49,8 +44,6 @@ class ActionSubscriberCest
 
     public function testOnPostActionSubscriberInjury(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
 
@@ -105,8 +98,6 @@ class ActionSubscriberCest
 
     public function testOnPostActionSubscriberDirty(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $dirtyConfig = new StatusConfig();
         $dirtyConfig
             ->setStatusName(PlayerStatusEnum::DIRTY)
@@ -175,8 +166,6 @@ class ActionSubscriberCest
 
     public function testOnPostActionSubscriberAlreadyDirty(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $dirtyConfig = new StatusConfig();
         $dirtyConfig
             ->setStatusName(PlayerStatusEnum::DIRTY)
@@ -241,8 +230,6 @@ class ActionSubscriberCest
 
     public function testOnPostActionSubscriberDirtyApron(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
 
@@ -287,16 +274,9 @@ class ActionSubscriberCest
         $itemConfig = $I->have(ItemConfig::class, ['name' => GearItemEnum::STAINPROOF_APRON]);
 
         //       $gear = new Gear();
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setDelta(-100)
-            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
-            ->setTargetEvent(ModifierScopeEnum::EVENT_DIRTY)
-            ->setModifierName(ModifierNameEnum::APRON_MODIFIER)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'modifierName' => ModifierNameEnum::APRON_MODIFIER,
+        ]);
 
         $modifier = new GameModifier($player, $modifierConfig);
         $I->refreshEntities($player);

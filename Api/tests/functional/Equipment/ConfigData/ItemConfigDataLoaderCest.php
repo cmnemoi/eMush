@@ -49,8 +49,6 @@ class ItemConfigDataLoaderCest extends EquipmentConfigDataLoaderCest
 
         $config = $this->dropFields($config);
 
-        $I->haveInRepository(ItemConfig::class, $config);
-
         $this->itemConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, ItemConfig::class, $config);

@@ -86,12 +86,7 @@ class RoomEventCest
 
     public function testNewFire(FunctionalTester $I)
     {
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig
-            ->setStatusName(StatusEnum::FIRE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($statusConfig);
+        $statusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::FIRE]);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig])]);

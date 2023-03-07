@@ -13,8 +13,6 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -40,8 +38,6 @@ class CheckSporeLevelActionCest
 
     public function testCheckSporeLevel(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
 

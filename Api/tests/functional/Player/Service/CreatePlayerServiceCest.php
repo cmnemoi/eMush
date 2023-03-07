@@ -53,10 +53,7 @@ class CreatePlayerServiceCest
         /** @var CharacterConfig $gioeleCharacterConfig */
         $gioeleCharacterConfig = $I->have(CharacterConfig::class);
         /** @var $andieCharacterConfig $characterConfig */
-        $andieCharacterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::ANDIE,
-            'characterName' => CharacterEnum::ANDIE,
-        ]);
+        $andieCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);

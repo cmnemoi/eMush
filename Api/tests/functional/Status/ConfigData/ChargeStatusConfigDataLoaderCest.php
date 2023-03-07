@@ -51,29 +51,17 @@ class ChargeStatusConfigDataLoaderCest
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
-        $I->haveInRepository(ChargeStatusConfig::class, [
-            'name' => 'electricCharges_old_faithful_default',
-            'statusName' => 'electricCharges',
-            'visibility' => 'public',
-            'chargeVisibility' => 'public',
-            'chargeStrategy' => 'cycle_increment',
-            'maxCharge' => 12.0,
-            'startCharge' => 12.0,
-            'dischargeStrategy' => 'shoot',
-            'autoRemove' => false,
-        ]);
-
         $this->chargeStatusConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, ChargeStatusConfig::class, [
-            'name' => 'electricCharges_old_faithful_default',
-            'statusName' => 'electricCharges',
+            'name' => 'electric_charges_microwave_default',
+            'statusName' => 'electric_charges',
             'visibility' => 'public',
             'chargeVisibility' => 'public',
             'chargeStrategy' => 'cycle_increment',
-            'maxCharge' => 12.0,
-            'startCharge' => 12.0,
-            'dischargeStrategy' => 'shoot',
+            'maxCharge' => 4,
+            'startCharge' => 1,
+            'dischargeStrategy' => 'express_cook',
             'autoRemove' => false,
         ]);
     }

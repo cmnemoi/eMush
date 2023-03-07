@@ -56,8 +56,6 @@ class GearDataLoaderCest
 
         $config = $this->dropFields($config);
 
-        $I->haveInRepository(Gear::class, $config);
-
         $this->gearDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, Gear::class, $config);

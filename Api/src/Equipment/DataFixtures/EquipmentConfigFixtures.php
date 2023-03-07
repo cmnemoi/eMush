@@ -382,13 +382,18 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($shower);
 
+        /** @var Action $playArcade */
+        $playArcadeAction = $this->getReference(ActionsFixtures::PLAY_ARCADE);
+
+        /** @var ArrayCollection<int, Action> $dynacardeActions */
+        $dynacardeActions = new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction, $playArcadeAction]);
         $dynarcade = new EquipmentConfig();
         $dynarcade
             ->setEquipmentName(EquipmentEnum::DYNARCADE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
+            ->setActions($dynacardeActions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($dynarcade);
@@ -476,6 +481,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($turretCommand);
+        $manager->persist($turretMechanic);
 
         /** @var Action $selfSurgeryAction */
         $selfSurgeryAction = $this->getReference(ActionsFixtures::SELF_SURGERY);

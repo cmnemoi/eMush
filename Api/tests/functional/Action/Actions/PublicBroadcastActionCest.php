@@ -3,18 +3,14 @@
 namespace functional\Action\Actions;
 
 use App\Tests\FunctionalTester;
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\PublicBroadcast;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -27,39 +23,26 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
 class PublicBroadcastActionCest
 {
-    private PublicBroadcast $PublicBroadcastAction;
+    private PublicBroadcast $publicBroadcastAction;
+    private Action $action;
+    private StatusConfig $watchedPublicBroadcastStatus;
 
     public function _before(FunctionalTester $I)
     {
-        $this->PublicBroadcastAction = $I->grabService(PublicBroadcast::class);
+        $this->publicBroadcastAction = $I->grabService(PublicBroadcast::class);
+        $this->action = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::PUBLIC_BROADCAST]);
+        $this->watchedPublicBroadcastStatus = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST]);
     }
 
     public function testPublicBroadcast(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-        $watchedPublicBroadcastStatus = new ChargeStatusConfig();
-        $watchedPublicBroadcastStatus
-            ->setStatusName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
-            ->setStartCharge(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($watchedPublicBroadcastStatus);
-
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$watchedPublicBroadcastStatus]))
-        ;
-        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -71,21 +54,8 @@ class PublicBroadcastActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
 
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::PUBLIC_BROADCAST)
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost(2)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($action);
-
         /** @var ItemConfig $itemConfig */
-        $itemConfig = $I->have(ItemConfig::class);
-        $itemConfig
-            ->setEquipmentName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
-            ->setActions(new ArrayCollection([$action]))
-        ;
+        $itemConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => ToolItemEnum::ALIEN_HOLOGRAPHIC_TV]);
 
         $gameItem = new GameItem($room);
         $gameItem
@@ -95,15 +65,9 @@ class PublicBroadcastActionCest
         $I->haveInRepository($gameItem);
 
         /** @var CharacterConfig $player1Config */
-        $player1Config = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::CHUN,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $player1Config = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
         /** @var CharacterConfig $player2Config */
-        $player2Config = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::DEREK,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $player2Config = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
 
         /** @var Player $player1 */
         $player1 = $I->have(Player::class, ['daedalus' => $daedalus,
@@ -135,12 +99,12 @@ class PublicBroadcastActionCest
         $player2->setPlayerInfo($player2Info);
         $I->refreshEntities($player2);
 
-        $this->PublicBroadcastAction->loadParameters($action, $player1, $gameItem);
+        $this->publicBroadcastAction->loadParameters($this->action, $player1, $gameItem);
 
-        $I->assertTrue($this->PublicBroadcastAction->isVisible());
-        $I->assertNull($this->PublicBroadcastAction->cannotExecuteReason());
+        $I->assertTrue($this->publicBroadcastAction->isVisible());
+        $I->assertNull($this->publicBroadcastAction->cannotExecuteReason());
 
-        $this->PublicBroadcastAction->execute();
+        $this->publicBroadcastAction->execute();
 
         $I->assertEquals(8, $player1->getActionPoint());
         $I->assertEquals(9, $player1->getMoralPoint());
@@ -159,23 +123,7 @@ class PublicBroadcastActionCest
 
     public function testPublicBroadcastAlreadyWatched(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-        $watchedPublicBroadcastStatus = new ChargeStatusConfig();
-        $watchedPublicBroadcastStatus
-            ->setStatusName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
-            ->setStartCharge(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($watchedPublicBroadcastStatus);
-
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$watchedPublicBroadcastStatus]))
-        ;
-        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -187,21 +135,8 @@ class PublicBroadcastActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
 
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::PUBLIC_BROADCAST)
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost(2)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($action);
-
         /** @var ItemConfig $itemConfig */
-        $itemConfig = $I->have(ItemConfig::class);
-        $itemConfig
-            ->setEquipmentName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
-            ->setActions(new ArrayCollection([$action]))
-        ;
+        $itemConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => ToolItemEnum::ALIEN_HOLOGRAPHIC_TV]);
 
         $gameItem = new GameItem($room);
         $gameItem
@@ -211,15 +146,9 @@ class PublicBroadcastActionCest
         $I->haveInRepository($gameItem);
 
         /** @var CharacterConfig $player1Config */
-        $player1Config = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::CHUN,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $player1Config = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
         /** @var CharacterConfig $player2Config */
-        $player2Config = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::DEREK,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $player2Config = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
 
         /** @var Player $player1 */
         $player1 = $I->have(Player::class, ['daedalus' => $daedalus,
@@ -251,13 +180,13 @@ class PublicBroadcastActionCest
         $player2->setPlayerInfo($player2Info);
         $I->refreshEntities($player2);
 
-        $this->PublicBroadcastAction->loadParameters($action, $player1, $gameItem);
+        $this->publicBroadcastAction->loadParameters($this->action, $player1, $gameItem);
 
-        $I->assertTrue($this->PublicBroadcastAction->isVisible());
-        $I->assertNull($this->PublicBroadcastAction->cannotExecuteReason());
+        $I->assertTrue($this->publicBroadcastAction->isVisible());
+        $I->assertNull($this->publicBroadcastAction->cannotExecuteReason());
 
-        $this->PublicBroadcastAction->execute();
-        $this->PublicBroadcastAction->execute();
+        $this->publicBroadcastAction->execute();
+        $this->publicBroadcastAction->execute();
 
         $I->assertEquals(6, $player1->getActionPoint());
         $I->assertEquals(9, $player1->getMoralPoint());

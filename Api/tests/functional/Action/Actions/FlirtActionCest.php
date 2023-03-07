@@ -3,15 +3,11 @@
 namespace functional\Action\Actions;
 
 use App\Tests\FunctionalTester;
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Flirt;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -29,16 +25,16 @@ use Mush\User\Entity\User;
 class FlirtActionCest
 {
     private Flirt $flirtAction;
+    private Action $action;
 
     public function _before(FunctionalTester $I)
     {
         $this->flirtAction = $I->grabService(Flirt::class);
+        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::FLIRT]);
     }
 
     public function testFlirt(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
 
@@ -51,21 +47,8 @@ class FlirtActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::FLIRT)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($action);
-
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::DEREK,
-            'characterName' => CharacterEnum::DEREK,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -84,11 +67,7 @@ class FlirtActionCest
         $I->refreshEntities($player);
 
         /** @var CharacterConfig $characterConfig2 */
-        $characterConfig2 = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::CHUN,
-            'characterName' => CharacterEnum::CHUN,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::PAOLA]);
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -105,7 +84,7 @@ class FlirtActionCest
         $targetPlayer->setPlayerInfo($targetPlayerInfo);
         $I->refreshEntities($targetPlayer);
 
-        $this->flirtAction->loadParameters($action, $player, $targetPlayer);
+        $this->flirtAction->loadParameters($this->action, $player, $targetPlayer);
 
         $I->assertTrue($this->flirtAction->isVisible());
         $I->assertNull($this->flirtAction->cannotExecuteReason());
@@ -128,10 +107,7 @@ class FlirtActionCest
 
     public function testCoupleOfMenFlirt(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
@@ -142,21 +118,8 @@ class FlirtActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::FLIRT)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($action);
-
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::CHAO,
-            'characterName' => CharacterEnum::CHAO,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -175,11 +138,7 @@ class FlirtActionCest
         $I->refreshEntities($player);
 
         /** @var CharacterConfig $characterConfig2 */
-        $characterConfig2 = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::DEREK,
-            'characterName' => CharacterEnum::DEREK,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHAO]);
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -195,17 +154,14 @@ class FlirtActionCest
         $targetPlayer->setPlayerInfo($targetPlayerInfo);
         $I->refreshEntities($targetPlayer);
 
-        $this->flirtAction->loadParameters($action, $player, $targetPlayer);
+        $this->flirtAction->loadParameters($this->action, $player, $targetPlayer);
 
         $I->assertFalse($this->flirtAction->isVisible());
     }
 
     public function testCoupleOfWomenFlirt(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
@@ -216,21 +172,8 @@ class FlirtActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::FLIRT)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($action);
-
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::CHUN,
-            'characterName' => CharacterEnum::CHUN,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::PAOLA]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -249,11 +192,7 @@ class FlirtActionCest
         $I->refreshEntities($player);
 
         /** @var CharacterConfig $characterConfig2 */
-        $characterConfig2 = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::PAOLA,
-            'characterName' => CharacterEnum::PAOLA,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ELEESHA]);
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -269,17 +208,14 @@ class FlirtActionCest
         $targetPlayer->setPlayerInfo($targetPlayerInfo);
         $I->refreshEntities($targetPlayer);
 
-        $this->flirtAction->loadParameters($action, $player, $targetPlayer);
+        $this->flirtAction->loadParameters($this->action, $player, $targetPlayer);
 
         $I->assertFalse($this->flirtAction->isVisible());
     }
 
     public function testAndieAndWomanFlirt(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
@@ -290,21 +226,8 @@ class FlirtActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::FLIRT)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($action);
-
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::ANDIE,
-            'characterName' => CharacterEnum::ANDIE,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -323,11 +246,7 @@ class FlirtActionCest
         $I->refreshEntities($player);
 
         /** @var CharacterConfig $characterConfig2 */
-        $characterConfig2 = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::CHUN,
-            'characterName' => CharacterEnum::CHUN,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ELEESHA]);
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -343,7 +262,7 @@ class FlirtActionCest
         $targetPlayer->setPlayerInfo($targetPlayerInfo);
         $I->refreshEntities($targetPlayer);
 
-        $this->flirtAction->loadParameters($action, $player, $targetPlayer);
+        $this->flirtAction->loadParameters($this->action, $player, $targetPlayer);
 
         $I->assertTrue($this->flirtAction->isVisible());
         $I->assertNull($this->flirtAction->cannotExecuteReason());
@@ -366,10 +285,7 @@ class FlirtActionCest
 
     public function testAndieAndManFlirt(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
@@ -380,20 +296,8 @@ class FlirtActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::FLIRT)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($action);
-
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::ANDIE,
-            'characterName' => CharacterEnum::ANDIE,
-            'actions' => new ArrayCollection([$action]), ]);
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -412,11 +316,7 @@ class FlirtActionCest
         $I->refreshEntities($player);
 
         /** @var CharacterConfig $characterConfig2 */
-        $characterConfig2 = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::DEREK,
-            'characterName' => CharacterEnum::DEREK,
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHAO]);
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -432,7 +332,7 @@ class FlirtActionCest
         $targetPlayer->setPlayerInfo($targetPlayerInfo);
         $I->refreshEntities($targetPlayer);
 
-        $this->flirtAction->loadParameters($action, $player, $targetPlayer);
+        $this->flirtAction->loadParameters($this->action, $player, $targetPlayer);
 
         $I->assertTrue($this->flirtAction->isVisible());
         $I->assertNull($this->flirtAction->cannotExecuteReason());

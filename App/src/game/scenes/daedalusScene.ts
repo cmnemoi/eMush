@@ -414,7 +414,7 @@ export default class DaedalusScene extends Phaser.Scene
             this.deleteWallAndFloor();
             this.deleteCharacters();
             this.deleteEquipmentsAndDecoration();
-
+            this.removeFire();
 
             this.map = this.createRoom();
             this.createEquipments(this.map);
@@ -448,12 +448,7 @@ export default class DaedalusScene extends Phaser.Scene
         if (this.room.isOnFire && this.fireParticles.length === 0) {
             this.displayFire();
         } else if (!this.room.isOnFire && this.fireParticles.length > 0) {
-            for (let i=0; i< this.fireParticles.length; i++) {
-                const particleEmitter = this.fireParticles[i];
-                particleEmitter.destroy();
-                this.fireParticles.splice(i, 1);
-                i= i-1;
-            }
+            this.removeFire();
         }
     }
 
@@ -677,6 +672,15 @@ export default class DaedalusScene extends Phaser.Scene
         }
     }
 
+    removeFire(): void
+    {
+        for (let i=0; i< this.fireParticles.length; i++) {
+            const particleEmitter = this.fireParticles[i];
+            particleEmitter.destroy();
+            this.fireParticles.splice(i, 1);
+            i= i-1;
+        }
+    }
 
     displayFire(): void
     {

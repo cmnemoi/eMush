@@ -4,10 +4,12 @@ namespace Mush\Communication\Services;
 
 use Doctrine\Common\Collections\Collection;
 use Mush\Communication\Entity\Channel;
+use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Enum\CommunicationActionEnum;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 
 interface ChannelServiceInterface
 {
@@ -15,9 +17,15 @@ interface ChannelServiceInterface
 
     public function createPublicChannel(DaedalusInfo $daedalusInfo): Channel;
 
+    public function createMushChannel($daedalusInfo): Channel;
+
+    public function getMushChannel(DaedalusInfo $daedalusInfo): ?Channel;
+
     public function createPrivateChannel(Player $player): Channel;
 
     public function invitePlayer(Player $player, Channel $channel): Channel;
+
+    public function addPlayerToMushChannel(Player $player);
 
     public function getInvitablePlayersToPrivateChannel(Channel $channel, Player $player): PlayerCollection;
 
@@ -45,4 +53,8 @@ interface ChannelServiceInterface
     public function getPiratedChannels(Player $piratedPlayer): Collection;
 
     public function getPiratePlayer(Player $player): ?Player;
+
+    public function addPlayer(PlayerInfo $playerInfo, Channel $channel): ChannelPlayer;
+
+    public function removePlayer(PlayerInfo $playerInfo, Channel $channel): bool;
 }

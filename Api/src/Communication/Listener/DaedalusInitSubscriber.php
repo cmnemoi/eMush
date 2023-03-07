@@ -28,5 +28,6 @@ class DaedalusInitSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
 
         $this->channelService->createPublicChannel($daedalus->getDaedalusInfo());
+        $this->channelService->createMushChannel($daedalus->getDaedalusInfo());
     }
 }

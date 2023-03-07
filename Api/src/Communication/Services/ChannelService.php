@@ -86,6 +86,29 @@ class ChannelService implements ChannelServiceInterface
         return $channel;
     }
 
+    public function createMushChannel($daedalusInfo): Channel
+    {
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH);
+
+        $this->entityManager->persist($channel);
+        $this->entityManager->flush();
+
+        return $channel;
+    }
+
+    public function getMushChannel(DaedalusInfo $daedalusInfo): ?Channel
+    {
+        $channel = $this->channelRepository->findOneBy([
+            'daedalusInfo' => $daedalusInfo,
+            'scope' => ChannelScopeEnum::MUSH,
+        ]);
+
+        return $channel instanceof Channel ? $channel : null;
+    }
+
     public function getInvitablePlayersToPrivateChannel(Channel $channel, Player $player): PlayerCollection
     {
         $playersWithChannelsSlots = $this->channelPlayerRepository->findAvailablePlayerForPrivateChannel(
@@ -119,6 +142,12 @@ class ChannelService implements ChannelServiceInterface
         $this->eventService->callEvent($event, ChannelEvent::JOIN_CHANNEL);
 
         return $channel;
+    }
+
+    public function addPlayerToMushChannel(Player $player)
+    {
+        $mushChannel = $this->channelRepository->findMushChannelByDaedalus($player->getDaedalus());
+        $this->addPlayer($player->getPlayerInfo(), $mushChannel);
     }
 
     public function exitChannel(
@@ -304,6 +333,37 @@ class ChannelService implements ChannelServiceInterface
                 return false;
             }
         }
+
+        return true;
+    }
+
+    public function addPlayer(PlayerInfo $playerInfo, Channel $channel): ChannelPlayer
+    {
+        $channelPlayer = new ChannelPlayer();
+
+        $channelPlayer
+            ->setChannel($channel)
+            ->setParticipant($playerInfo)
+        ;
+
+        $this->entityManager->persist($channelPlayer);
+        $this->entityManager->flush();
+
+        return $channelPlayer;
+    }
+
+    public function removePlayer(PlayerInfo $playerInfo, Channel $channel): bool
+    {
+        $channelParticipant = $channel->getParticipants()
+            ->filter(fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $playerInfo))
+        ;
+
+        if ($channelParticipant->isEmpty()) {
+            return false;
+        }
+
+        $this->entityManager->remove($channelParticipant->first());
+        $this->entityManager->flush();
 
         return true;
     }

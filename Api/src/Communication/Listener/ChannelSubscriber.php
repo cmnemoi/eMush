@@ -7,7 +7,6 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\CommunicationActionEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Event\ChannelEvent;
-use Mush\Communication\Services\ChannelPlayerServiceInterface;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Player\Event\PlayerEvent;
@@ -25,16 +24,13 @@ class ChannelSubscriber implements EventSubscriberInterface
     ];
 
     private ChannelServiceInterface $channelService;
-    private ChannelPlayerServiceInterface $channelPlayerService;
     private MessageServiceInterface $messageService;
 
     public function __construct(
         ChannelServiceInterface $channelService,
-        ChannelPlayerServiceInterface $channelPlayerService,
         MessageServiceInterface $messageService
     ) {
         $this->channelService = $channelService;
-        $this->channelPlayerService = $channelPlayerService;
         $this->messageService = $messageService;
     }
 
@@ -61,7 +57,7 @@ class ChannelSubscriber implements EventSubscriberInterface
         $channel = $event->getChannel();
 
         if ($player = $event->getPlayer()) {
-            $this->channelPlayerService->addPlayer($player->getPlayerInfo(), $channel);
+            $this->channelService->addPlayer($player->getPlayerInfo(), $channel);
 
             $this->messageService->createSystemMessage(
                 NeronMessageEnum::PLAYER_ENTER_CHAT,
@@ -77,7 +73,7 @@ class ChannelSubscriber implements EventSubscriberInterface
         $channel = $event->getChannel();
 
         if ($player = $event->getPlayer()) {
-            $this->channelPlayerService->removePlayer($player->getPlayerInfo(), $channel);
+            $this->channelService->removePlayer($player->getPlayerInfo(), $channel);
 
             $key = $event->mapLog(self::PLAYER_LEAVE_CHANNEL);
 

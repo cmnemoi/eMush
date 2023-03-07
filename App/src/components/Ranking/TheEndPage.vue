@@ -274,7 +274,9 @@
                 </div>
             </div> -->
         </div>
-        <router-link class="back" :to="{ name: 'RankingPage' }"> {{ $t('theEnd.goBack') }}</router-link>
+        <router-link class="back" :to="{}"> 
+            <span @click="$router.go(-1)">{{ $t('theEnd.goBack') }}</span>
+        </router-link>
     </div>
 </template>
 

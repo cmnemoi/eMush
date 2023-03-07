@@ -41,17 +41,18 @@ class DailyDecrementTest extends TestCase
     public function testDecrement()
     {
         $status = $this->createStatus();
+        $time = new \DateTime();
 
         $player = new Player();
         $player
             ->addStatus($status)
         ;
 
-        $this->statusService->shouldReceive('updateCharge')->with($status, -1)->once();
+        $this->statusService->shouldReceive('updateCharge')->with($status, -1, [EventEnum::NEW_DAY], $time)->once();
 
-        $this->strategy->execute($status, [EventEnum::NEW_DAY]);
+        $this->strategy->execute($status, [EventEnum::NEW_DAY], $time);
 
-        $this->strategy->execute($status, [EventEnum::NEW_CYCLE]);
+        $this->strategy->execute($status, [EventEnum::NEW_CYCLE], $time);
     }
 
     private function createStatus(): ChargeStatus

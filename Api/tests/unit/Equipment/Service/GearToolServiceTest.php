@@ -384,14 +384,12 @@ class GearToolServiceTest extends TestCase
         $room->addPlayer($player);
 
         $this->statusService->shouldReceive('updateCharge')
-            ->with($chargeStatus1, -1)
             ->andReturn($chargeStatus1)
             ->once()
         ;
         $this->service->applyChargeCost($player, ActionEnum::REPAIR);
 
         $this->statusService->shouldReceive('updateCharge')
-            ->with($chargeStatus1, -1)
             ->andReturn($chargeStatus1)
             ->once()
         ;

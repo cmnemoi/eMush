@@ -222,9 +222,9 @@ class PlantCycleEventCest
         // Plant is young : no fruit or oxygen
         $time = new \DateTime();
 
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, [EventEnum::PLANT_PRODUCTION], $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, [EventEnum::PLANT_PRODUCTION, EventEnum::NEW_DAY], $time);
 
-        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
+        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
 
         $I->assertCount(2, $gameEquipment->getStatuses());
         $I->assertCount(1, $room->getEquipments());
@@ -237,9 +237,9 @@ class PlantCycleEventCest
 
         $gameEquipment->removeStatus($youngStatus);
 
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, [EventEnum::PLANT_PRODUCTION], $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, [EventEnum::PLANT_PRODUCTION, EventEnum::NEW_DAY], $time);
 
-        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
+        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
 
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(1, $room->getEquipments());
@@ -254,9 +254,9 @@ class PlantCycleEventCest
         $gameEquipment->removeStatus($thirstyStatus);
 
         $time = new \DateTime();
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, [EventEnum::PLANT_PRODUCTION], $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, [EventEnum::PLANT_PRODUCTION, EventEnum::NEW_DAY], $time);
 
-        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
+        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
 
         $I->assertCount(2, $room->getEquipments());
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
@@ -289,11 +289,11 @@ class PlantCycleEventCest
         $cycleEvent = new EquipmentCycleEvent(
             $gameEquipment2,
             $daedalus,
-            [EventEnum::PLANT_PRODUCTION],
+            [EventEnum::PLANT_PRODUCTION, EventEnum::NEW_DAY],
             new \DateTime()
         );
 
-        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
+        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
 
         $I->assertCount(0, $room2->getStatuses());
         $I->assertCount(1, $room2->getEquipments());

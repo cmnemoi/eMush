@@ -25,7 +25,6 @@ class StatusCycleSubscriber implements EventSubscriberInterface
     {
         return [
             StatusCycleEvent::STATUS_NEW_CYCLE => 'onNewCycle',
-            StatusCycleEvent::STATUS_NEW_DAY => 'onNewDay',
         ];
     }
 
@@ -35,18 +34,9 @@ class StatusCycleSubscriber implements EventSubscriberInterface
 
         if ($status instanceof ChargeStatus && ($strategyName = $status->getStrategy())) {
             if ($strategy = $this->chargeStrategyService->getStrategy($strategyName)) {
-                $strategy->execute($status, $event->getTags());
+                $strategy->execute($status, $event->getTags(), $event->getTime());
             }
         }
-
-        if ($cycleHandler = $this->cycleHandlerService->getStatusCycleHandler($status)) {
-            $cycleHandler->handleNewCycle($status, $event->getHolder(), $event->getTime());
-        }
-    }
-
-    public function onNewDay(StatusCycleEvent $event): void
-    {
-        $status = $event->getStatus();
 
         if ($cycleHandler = $this->cycleHandlerService->getStatusCycleHandler($status)) {
             $cycleHandler->handleNewCycle($status, $event->getHolder(), $event->getTime());

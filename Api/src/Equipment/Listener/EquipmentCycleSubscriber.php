@@ -5,6 +5,7 @@ namespace Mush\Equipment\Listener;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\Service\EquipmentCycleHandlerServiceInterface;
+use Mush\Game\Enum\EventEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentCycleSubscriber implements EventSubscriberInterface
@@ -21,7 +22,6 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
     {
         return [
             EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE => 'onNewCycle',
-            EquipmentCycleEvent::EQUIPMENT_NEW_DAY => 'onNewDay',
         ];
     }
 
@@ -34,20 +34,10 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
             foreach ($mechanics->getMechanics() as $mechanicName) {
                 if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanicName)) {
                     $cycleHandler->handleNewCycle($equipment, $event->getTime());
-                }
-            }
-        }
-    }
 
-    public function onNewDay(EquipmentCycleEvent $event): void
-    {
-        $equipment = $event->getGameEquipment();
-
-        /** @var EquipmentMechanic $mechanics */
-        foreach ($equipment->getEquipment()->getMechanics() as $mechanics) {
-            foreach ($mechanics->getMechanics() as $mechanicName) {
-                if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanicName)) {
-                    $cycleHandler->handleNewDay($equipment, $event->getTime());
+                    if ($event->haveTag(EventEnum::NEW_DAY)) {
+                        $cycleHandler->handleNewDay($equipment, $event->getTime());
+                    }
                 }
             }
         }

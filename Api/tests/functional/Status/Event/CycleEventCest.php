@@ -44,11 +44,6 @@ class CycleEventCest
     public function testChargeStatusCycleSubscriber(FunctionalTester $I)
     {
         // Cycle Increment
-        $daedalus = new Daedalus();
-        $time = new \DateTime();
-        /** @var Player $player */
-        $player = $I->have(Player::class);
-
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::FROZEN)
@@ -59,6 +54,40 @@ class CycleEventCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'statusConfigs' => new ArrayCollection([$statusConfig]),
+        ]);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $player->setPlayerVariables($characterConfig);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $time = new \DateTime();
+
         $status = new ChargeStatus($player, $statusConfig);
         $status
             ->setCharge(0)

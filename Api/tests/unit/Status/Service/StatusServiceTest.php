@@ -121,10 +121,12 @@ class StatusServiceTest extends TestCase
 
     public function testChangeCharge()
     {
+        $time = new \DateTime();
         $gameEquipment = new GameItem(new Place());
         $chargeStatusConfig = new ChargeStatusConfig();
         $chargeStatusConfig
             ->setMaxCharge(6)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
         ;
         $chargeStatus = new ChargeStatus($gameEquipment, $chargeStatusConfig);
 
@@ -134,27 +136,28 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->service->updateCharge($chargeStatus, -1);
+        $this->service->updateCharge($chargeStatus, -1, [], $time);
 
         $this->assertEquals(3, $chargeStatus->getCharge());
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->service->updateCharge($chargeStatus, -4);
+        $this->service->updateCharge($chargeStatus, -4, [], $time);
 
         $this->assertEquals(0, $chargeStatus->getCharge());
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->service->updateCharge($chargeStatus, 7);
+        $this->service->updateCharge($chargeStatus, 7, [], $time);
 
         $this->assertEquals(6, $chargeStatus->getCharge());
 
         $chargeStatusConfig->setAutoRemove(true);
 
-        $this->entityManager->shouldReceive('remove')->once();
-        $this->entityManager->shouldReceive('flush')->once();
-        $result = $this->service->updateCharge($chargeStatus, -7);
+        $this->entityManager->shouldReceive('remove')->never();
+        $this->entityManager->shouldReceive('flush')->never();
+        $this->eventService->shouldReceive('callEvent')->once();
+        $result = $this->service->updateCharge($chargeStatus, -7, [], $time);
 
         $this->assertNull($result);
     }

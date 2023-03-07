@@ -21,7 +21,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     {
         return [
             DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => 'onNewCycle',
-            DaedalusCycleEvent::DAEDALUS_NEW_DAY => 'onNewDay',
         ];
     }
 
@@ -34,19 +33,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 $event->getTime()
             );
             $this->eventService->callEvent($newPlayerCycle, PlayerCycleEvent::PLAYER_NEW_CYCLE);
-        }
-    }
-
-    public function onNewDay(DaedalusCycleEvent $event): void
-    {
-        foreach ($event->getDaedalus()->getPlayers()->getPlayerAlive() as $player) {
-            $newPlayerDay = new PlayerCycleEvent(
-                $player,
-                $event->getTags(),
-                $event->getTime()
-            );
-
-            $this->eventService->callEvent($newPlayerDay, PlayerCycleEvent::PLAYER_NEW_DAY);
         }
     }
 }

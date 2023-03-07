@@ -38,28 +38,34 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => 'onNewCycle',
-            DaedalusCycleEvent::DAEDALUS_NEW_DAY => 'onNewDay',
+            DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => [['updateDaedalusCycle', 1000], ['triggerEvents', 0]],
         ];
     }
 
-    public function onNewCycle(DaedalusCycleEvent $event): void
+    public function updateDaedalusCycle(DaedalusCycleEvent $event): void
     {
+        $tags = $event->getTags();
+
         $daedalus = $event->getDaedalus();
         $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
-        $time = $event->getTime();
 
         if ($daedalus->getCycle() === $daedalusConfig->getCyclePerGameDay()) {
-            $newDay = true;
             $daedalus->setCycle(1);
             $daedalus->setDay($daedalus->getDay() + 1);
 
-            $this->daedalusService->persist($daedalus);
+            $tags[] = EventEnum::NEW_DAY;
         } else {
             $daedalus->setCycle($daedalus->getCycle() + 1);
-            $newDay = false;
         }
         $this->daedalusService->persist($daedalus);
+
+        $event->setTags($tags);
+    }
+
+    public function triggerEvents(DaedalusCycleEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $time = $event->getTime();
 
         if ($this->handleDaedalusEnd($daedalus, $time)) {
             return;
@@ -67,17 +73,12 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
         $this->dispatchCycleChangeEvent($daedalus, $time);
 
-        if ($newDay) {
-            $dayEvent = new DaedalusCycleEvent(
-                $daedalus,
-                [EventEnum::NEW_DAY],
-                $time
-            );
-            $this->eventService->callEvent($dayEvent, DaedalusCycleEvent::DAEDALUS_NEW_DAY);
+        if ($event->haveTag(EventEnum::NEW_DAY)) {
+            $this->resetSpores($event);
         }
     }
 
-    public function onNewDay(DaedalusCycleEvent $event): void
+    private function resetSpores(DaedalusCycleEvent $event): void
     {
         $daedalus = $event->getDaedalus();
 

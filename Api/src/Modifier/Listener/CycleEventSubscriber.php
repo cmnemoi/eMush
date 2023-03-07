@@ -41,10 +41,6 @@ class CycleEventSubscriber implements EventSubscriberInterface
             DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => 'onNewCycle',
             PlaceCycleEvent::PLACE_NEW_CYCLE => 'onNewCycle',
             EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE => 'onNewCycle',
-            PlayerCycleEvent::PLAYER_NEW_DAY => 'onNewDay',
-            DaedalusCycleEvent::DAEDALUS_NEW_DAY => 'onNewDay',
-            PlaceCycleEvent::PLACE_NEW_DAY => 'onNewDay',
-            EquipmentCycleEvent::EQUIPMENT_NEW_DAY => 'onNewDay',
             ActionEvent::POST_ACTION => 'onAction',
         ];
     }
@@ -60,9 +56,14 @@ class CycleEventSubscriber implements EventSubscriberInterface
         foreach ($cycleModifiers as $modifier) {
             $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getTags());
         }
+
+        // trigger newDay events
+        if ($event->haveTag(EventEnum::NEW_DAY)) {
+            $this->triggerNewDayEvent($event);
+        }
     }
 
-    public function onNewDay(AbstractGameEvent $event): void
+    private function triggerNewDayEvent(AbstractGameEvent $event): void
     {
         $holder = $this->getModifierHolder($event);
 

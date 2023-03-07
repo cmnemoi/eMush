@@ -20,7 +20,6 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
     {
         return [
             PlaceCycleEvent::PLACE_NEW_CYCLE => 'onNewCycle',
-            PlaceCycleEvent::PLACE_NEW_DAY => 'onNewDay',
         ];
     }
 
@@ -36,22 +35,6 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
                 $event->getTime()
             );
             $this->eventService->callEvent($itemNewCycle, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
-        }
-    }
-
-    public function onNewDay(PlaceCycleEvent $event): void
-    {
-        $room = $event->getPlace();
-
-        foreach ($room->getEquipments() as $equipment) {
-            $equipmentNewDay = new EquipmentCycleEvent(
-                $equipment,
-                $room->getDaedalus(),
-                $event->getTags(),
-                $event->getTime()
-            );
-
-            $this->eventService->callEvent($equipmentNewDay, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
         }
     }
 }

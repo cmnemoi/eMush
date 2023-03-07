@@ -15,10 +15,10 @@ class PlantStrategy extends AbstractChargeStrategy
         parent::__construct($statusService);
     }
 
-    public function apply(ChargeStatus $status, array $reasons): ?ChargeStatus
+    public function apply(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus
     {
         // @TODO: Handle garden
 
-        return $this->statusService->updateCharge($status, 1);
+        return $this->statusService->updateCharge($status, 1, $reasons, $time);
     }
 }

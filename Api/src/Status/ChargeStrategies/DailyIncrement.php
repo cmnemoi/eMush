@@ -10,13 +10,13 @@ class DailyIncrement extends AbstractChargeStrategy
 {
     protected string $name = ChargeStrategyTypeEnum::DAILY_INCREMENT;
 
-    public function apply(ChargeStatus $status, array $reasons): ?ChargeStatus
+    public function apply(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus
     {
         // Only applied on cycle 1
         if (!in_array(EventEnum::NEW_DAY, $reasons)) {
             return $status;
         }
 
-        return $this->statusService->updateCharge($status, 1);
+        return $this->statusService->updateCharge($status, 1, $reasons, $time);
     }
 }

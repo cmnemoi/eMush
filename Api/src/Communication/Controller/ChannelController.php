@@ -183,7 +183,6 @@ class ChannelController extends AbstractFOSRestController
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $channels = $this->channelService->getPlayerChannels($player);
-
         $context = new Context();
         $context->setAttribute('currentPlayer', $player);
 

@@ -2,6 +2,7 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Communication\Services\ChannelService;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -10,11 +11,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private StatusServiceInterface $statusService;
+    private ChannelService $channelService;
 
     public function __construct(
         StatusServiceInterface $statusService,
+        ChannelService $channelService
     ) {
         $this->statusService = $statusService;
+        $this->channelService = $channelService;
     }
 
     public static function getSubscribedEvents()
@@ -35,6 +39,8 @@ class PlayerSubscriber implements EventSubscriberInterface
         $mushStatusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::MUSH, $player->getDaedalus());
         $mushStatus = $this->statusService->createStatusFromConfig($mushStatusConfig, $player, $playerEvent->getTags(), $playerEvent->getTime());
         $this->statusService->persist($mushStatus);
+
+        $this->channelService->addPlayerToMushChannel($player);
     }
 
     public function onNewPlayer(PlayerEvent $playerEvent): void

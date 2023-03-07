@@ -35,5 +35,15 @@ C'est un capital précieux : pour le remonter rapidement, vous pouvez manger des
 Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target>
       </segment>
     </unit>
+    <unit id="triumph">
+      <segment id="name" state="translated">
+        <source>triumph.name</source>
+        <target>Triomphe personnel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>triumph.description</source>
+        <target>Triomphe accumulé pendant ce voyage. (en chantier)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

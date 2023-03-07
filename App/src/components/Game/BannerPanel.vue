@@ -40,10 +40,10 @@
                         </template>
                     </Tippy>
                     <Tippy tag="div">
-                        <li>{{ player.triumph }} <img src="@/assets/images/triumph.png"></li>
+                        <li>{{ player.triumph?.quantity }} <img src="@/assets/images/triumph.png"></li>
                         <template #content>
-                            <h1 v-html="formatContent('placeholder')" />
-                            <p v-html="formatContent('placeholder')" />
+                            <h1 v-html="player?.triumph?.name" />
+                            <p v-html="player?.triumph?.description" />
                         </template>
                     </Tippy>
                 </ul>

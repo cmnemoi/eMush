@@ -119,7 +119,7 @@ class ChannelSubscriberCest
 
         $I->dontSeeInRepository(ChannelPlayer::class, [
             'channel' => $privateChannel->getId(),
-            'participant' => $player->getId(),
+            'participant' => $playerInfo->getId(),
         ]);
 
         $I->seeInRepository(Message::class, [

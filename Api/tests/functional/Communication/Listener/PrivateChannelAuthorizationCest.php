@@ -17,6 +17,10 @@ use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
+use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
@@ -586,6 +590,22 @@ class PrivateChannelAuthorizationCest
 
     public function testDieThenDropTalkie(FunctionalTester $I)
     {
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($diseaseConfig);
+        $diseaseCause = new DiseaseCauseConfig();
+        $diseaseCause
+            ->setCauseName(DiseaseCauseEnum::TRAUMA)
+            ->setDiseases([
+                DiseaseEnum::FOOD_POISONING => 2,
+            ])
+            ->buildName(GameConfigENum::TEST)
+        ;
+        $I->haveInRepository($diseaseCause);
+
         $dropActionEntity = new Action();
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
@@ -602,7 +622,10 @@ class PrivateChannelAuthorizationCest
         $I->haveInRepository($moveActionEntity);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+            'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
+        ]);
         $neron = new Neron();
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);

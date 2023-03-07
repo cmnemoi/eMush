@@ -638,7 +638,7 @@ class PrivateChannelAuthorizationCest
         /** @var Player $player2 */
         $player2 = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'place' => $room2,
+            'place' => $room,
         ]);
         $player2->setPlayerVariables($characterConfig);
         $playerInfo2 = new PlayerInfo($player2, $user, $characterConfig);
@@ -715,6 +715,7 @@ class PrivateChannelAuthorizationCest
         ;
         $I->haveInRepository($talkie2);
 
+        // start test
         $this->dropAction->loadParameters($dropActionEntity, $player, $talkie1);
         $this->dropAction->execute();
 

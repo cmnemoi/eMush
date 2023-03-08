@@ -55,6 +55,7 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
+        $this->actionService->shouldReceive('getCriticalSuccessRate')->never();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         // Fail try
@@ -74,8 +75,10 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->actionService->shouldReceive('getCriticalSuccessRate')->andReturn(0)->once();
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
         // Success

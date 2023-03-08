@@ -155,6 +155,18 @@ class ActionService implements ActionServiceInterface
         return min($this::MAX_PERCENT, $modifiedValue);
     }
 
+    public function getCriticalSuccessRate(Action $action, Player $player, ?LogParameterInterface $parameter): int
+    {
+        $modifiedCriticalSuccessRate = $this->modifierService->getActionModifiedValue(
+            $action,
+            $player,
+            target: ModifierTargetEnum::CRITICAL_PERCENTAGE,
+            parameter: $parameter,
+        );
+
+        return $modifiedCriticalSuccessRate;
+    }
+
     private function getNumberOfAttempt(Player $player, string $actionName): int
     {
         /** @var Attempt $attempt */

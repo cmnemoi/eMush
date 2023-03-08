@@ -3,6 +3,7 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Service\ActionServiceInterface;
@@ -28,19 +29,33 @@ abstract class AttemptAction extends AbstractAction
         );
     }
 
-    protected function checkResult(): ActionResult
+    public function getCriticalSuccessRate(): int
     {
-        $successChance = $this->getSuccessRate();
-
-        if ($this->randomService->isSuccessful($successChance)) {
-            return new Success();
-        } else {
-            return new Fail();
-        }
+        return $this->actionService->getCriticalSuccessRate($this->action, $this->player, $this->parameter);
     }
 
     public function getSuccessRate(): int
     {
         return $this->actionService->getSuccessRate($this->action, $this->player, $this->parameter);
+    }
+
+    protected function checkResult(): ActionResult
+    {
+        $successChance = $this->getSuccessRate();
+
+        if ($this->randomService->isSuccessful($successChance)) {
+            return $this->drawCriticalSuccess();
+        } else {
+            return new Fail();
+        }
+    }
+
+    private function drawCriticalSuccess(): ActionResult
+    {
+        if ($this->randomService->isSuccessful($this->getCriticalSuccessRate())) {
+            return new CriticalSuccess();
+        }
+
+        return new Success();
     }
 }

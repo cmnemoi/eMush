@@ -98,7 +98,7 @@ class EventModifierService implements EventModifierServiceInterface
     public function getActionModifiedValue(Action $action, Player $player, string $target, ?LogParameterInterface $parameter, ?int $attemptNumber = null): int
     {
         if ($this->actionIsProtected($action, $target)) {
-            return $action->getActionVariables()->getValueByName($target) ?? 0;
+            return $action->getActionVariables()->getValueByName($target);
         }
 
         $modifiers = $this->getActionModifiers($action, $player, $parameter);

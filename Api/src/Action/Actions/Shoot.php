@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\CriticalFail;
-use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\OneShot;
 use Mush\Action\ActionResult\Success;
@@ -108,10 +107,6 @@ class Shoot extends AttemptAction
                 return new OneShot();
             }
 
-            if ($this->isCriticalSuccess($player, $blaster)) {
-                return new CriticalSuccess();
-            }
-
             return new Success();
         } else {
             if ($this->isCriticalFail($player, $blaster)) {
@@ -147,7 +142,7 @@ class Shoot extends AttemptAction
 
             $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($blaster->getBaseDamageRange()));
 
-            if ($result instanceof CriticalSuccess) {
+            if ($this->isCriticalSuccess($player, $blaster)) {
                 $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
             } else {
                 // handle modifiers on damage : armor, hard boiled, etc

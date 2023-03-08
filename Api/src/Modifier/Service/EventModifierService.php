@@ -97,29 +97,18 @@ class EventModifierService implements EventModifierServiceInterface
 
     public function getActionModifiedValue(Action $action, Player $player, string $target, ?LogParameterInterface $parameter, ?int $attemptNumber = null): int
     {
+        if ($this->actionIsProtected($action, $target)) {
+            return $action->getActionVariables()->getValueByName($target) ?? 0;
+        }
+
         $modifiers = $this->getActionModifiers($action, $player, $parameter);
-
-        if ($target === ModifierTargetEnum::PERCENTAGE) {
-            if ($attemptNumber === null) {
-                throw new InvalidTypeException('number of attempt should be provided');
-            }
-            $initialValue = $action->getSuccessRate() * self::ATTEMPT_INCREASE ** $attemptNumber;
-
-            return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $initialValue);
-        }
-
-        if ($target === PlayerVariableEnum::ACTION_POINT &&
-            in_array($action->getActionName(), ActionEnum::getActionPointModifierProtectedActions())) {
-            $actionPoints = $action->getActionVariables()->getValueByName(PlayerVariableEnum::ACTION_POINT);
-
-            return $actionPoints ? $actionPoints : 0;
-        }
-
-        if ($target === PlayerVariableEnum::MOVEMENT_POINT &&
-            in_array($action->getActionName(), ActionEnum::getActionPointModifierProtectedActions())) {
-            $movementPoints = $action->getActionVariables()->getValueByName(PlayerVariableEnum::MOVEMENT_POINT);
-
-            return $movementPoints ? $movementPoints : 0;
+        switch ($target) {
+            case ModifierTargetEnum::PERCENTAGE:
+                return $this->getActionModifiedPercentage($action, $modifiers, $attemptNumber);
+            case ModifierTargetEnum::CRITICAL_PERCENTAGE:
+                return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getCriticalRate());
+            default:
+                break;
         }
 
         return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionVariables()->getValueByName($target));
@@ -183,6 +172,18 @@ class EventModifierService implements EventModifierServiceInterface
         return $modifiedValue;
     }
 
+    private function actionIsProtected(Action $action, string $target): bool
+    {
+        return in_array(
+            $action->getActionName(),
+            ActionEnum::getActionPointModifierProtectedActions()
+        ) &&
+        in_array(
+            $target,
+            [PlayerVariableEnum::ACTION_POINT, PlayerVariableEnum::MOVEMENT_POINT]
+        );
+    }
+
     /**
      * @param ArrayCollection<int, GameModifier> $modifiers
      */
@@ -197,5 +198,15 @@ class EventModifierService implements EventModifierServiceInterface
 
             $this->eventService->callEvent($modifierEvent, ModifierEvent::APPLY_MODIFIER);
         }
+    }
+
+    private function getActionModifiedPercentage(Action $action, ModifierCollection $modifiers, ?int $attemptNumber = null): int
+    {
+        if ($attemptNumber === null) {
+            throw new InvalidTypeException('number of attempt should be provided');
+        }
+        $initialValue = $action->getSuccessRate() * self::ATTEMPT_INCREASE ** $attemptNumber;
+
+        return $this->getModifiedValue($modifiers->getTargetedModifiers(ModifierTargetEnum::PERCENTAGE), $initialValue);
     }
 }

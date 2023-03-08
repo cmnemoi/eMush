@@ -43,7 +43,8 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->innerJoin(PlayerInfo::class, 'player_info', 'WITH', 'player_info.user = user.id')
             ->innerJoin('player_info.player', 'player')
             ->innerJoin('player.daedalus', 'daedalus')
-            ->innerJoin(DaedalusInfo::class, 'daedalus_info', 'WITH', 'daedalus_info.id = daedalus.id')
+
+            ->innerJoin(DaedalusInfo::class, 'daedalus_info', 'WITH', 'daedalus_info.daedalus = daedalus.id')
             ->where($qb->expr()->eq('user.id', ':user_id'))
             ->setParameter('user_id', $user->getId())
         ;

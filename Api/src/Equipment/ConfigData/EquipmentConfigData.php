@@ -2825,6 +2825,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'examine',
+                'report_equipment',
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2842,6 +2843,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'examine',
+                'report_equipment',
             ],
             'mechanics' => [],
             'initStatuses' => [],

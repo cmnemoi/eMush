@@ -42,7 +42,7 @@ class EquipmentConfigData
                 'drop',
                 'hide',
                 'examine',
-                'repair_percent_25'
+                'repair_percent_25',
             ],
             'mechanics' => [],
             'initStatuses' => [],

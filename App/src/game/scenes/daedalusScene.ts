@@ -371,6 +371,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.map = this.createRoom();
         this.createEquipments(this.map);
         this.updateStatuses();
+        this.updateEquipments();
 
         // add target tile highlight
         this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
@@ -420,6 +421,7 @@ export default class DaedalusScene extends Phaser.Scene
             this.createEquipments(this.map);
             this.updateStatuses();
             this.createPlayers();
+            this.updateEquipments();
 
         } else if (this.areEquipmentsModified()) {
             this.room = newRoom;

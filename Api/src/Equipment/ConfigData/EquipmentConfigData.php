@@ -2806,6 +2806,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_25',
                 'disassemble_percent_25_cost_3',
+                'sabotage_percent_25',
                 'examine',
                 'shower',
             ],
@@ -2946,6 +2947,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_25',
                 'disassemble_percent_25_cost_3',
+                'sabotage_percent_25',
                 'examine',
                 'shower',
             ],

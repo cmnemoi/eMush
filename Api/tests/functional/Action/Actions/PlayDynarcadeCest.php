@@ -133,7 +133,7 @@ class PlayDynarcadeCest
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($dynarcade);
-        
+
         $brokenStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
         $status = new Status($dynarcade, $brokenStatusConfig);
 

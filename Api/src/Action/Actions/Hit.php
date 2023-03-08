@@ -65,9 +65,9 @@ class Hit extends AttemptAction
         $damage = 0;
 
         if ($result instanceof Success) {
-            $damage = $this->getDamage(withModifiers: true);
+            $damage = $this->getDamage(withModifiersOnTarget: true);
         } elseif ($result instanceof CriticalSuccess) {
-            $damage = $this->getDamage(withModifiers: false);
+            $damage = $this->getDamage();
         }
 
         $this->inflictDamageToTarget($damage, $target);
@@ -87,7 +87,7 @@ class Hit extends AttemptAction
         return $damage;
     }
 
-    private function getDamage(bool $withModifiers = false): int
+    private function getDamage(bool $withModifiersOnTarget = false): int
     {
         /** @var Player $agressor */
         $agressor = $this->player;
@@ -95,8 +95,8 @@ class Hit extends AttemptAction
         $target = $this->parameter;
 
         $damage = $this->randomService->random(self::MIN_DAMAGE, self::MAX_DAMAGE);
-        if ($withModifiers) {
-            $damage = $this->applyPlayerModifiersOnDamage($agressor, $damage);
+        $damage = $this->applyPlayerModifiersOnDamage($agressor, $damage);
+        if ($withModifiersOnTarget) {
             $damage = $this->applyPlayerModifiersOnDamage($target, $damage);
         }
 

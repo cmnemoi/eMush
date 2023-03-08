@@ -82,7 +82,7 @@ class Hit extends AttemptAction
     }
 
     private function getDamage(bool $withModifiers = false): int
-    {   
+    {
         /** @var Player $agressor */
         $agressor = $this->player;
         /** @var Player $target */

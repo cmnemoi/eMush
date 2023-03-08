@@ -67,7 +67,7 @@ class Hit extends AttemptAction
         }
     }
 
-    private function applyPlayerModifiersOnDamage(int $damage, Player $player): int
+    private function applyPlayerModifiersOnDamage(Player $player, int $damage): int
     {
         $damage = $this->modifierService->getEventModifiedValue(
             holder: $player,
@@ -90,8 +90,8 @@ class Hit extends AttemptAction
 
         $damage = $this->randomService->random(self::MIN_DAMAGE, self::MAX_DAMAGE);
         if ($withModifiers) {
-            $damage = $this->applyPlayerModifiersOnDamage($damage, $agressor);
-            $damage = $this->applyPlayerModifiersOnDamage($damage, $target);
+            $damage = $this->applyPlayerModifiersOnDamage($agressor, $damage);
+            $damage = $this->applyPlayerModifiersOnDamage($target, $damage);
         }
 
         return $damage;

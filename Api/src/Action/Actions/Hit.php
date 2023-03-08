@@ -3,6 +3,7 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
@@ -61,10 +62,15 @@ class Hit extends AttemptAction
         /** @var Player $target */
         $target = $this->parameter;
 
+        $damage = 0;
+
         if ($result instanceof Success) {
             $damage = $this->getDamage(withModifiers: true);
-            $this->inflictDamageToTarget($damage, $target);
+        } elseif ($result instanceof CriticalSuccess) {
+            $damage = $this->getDamage(withModifiers: false);
         }
+
+        $this->inflictDamageToTarget($damage, $target);
     }
 
     private function applyPlayerModifiersOnDamage(Player $player, int $damage): int

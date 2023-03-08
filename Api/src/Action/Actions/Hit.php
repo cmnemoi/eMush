@@ -82,8 +82,10 @@ class Hit extends AttemptAction
     }
 
     private function getDamage(bool $withModifiers = false): int
-    {
+    {   
+        /** @var Player $agressor */
         $agressor = $this->player;
+        /** @var Player $target */
         $target = $this->parameter;
 
         $damage = $this->randomService->random(self::MIN_DAMAGE, self::MAX_DAMAGE);

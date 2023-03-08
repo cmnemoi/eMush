@@ -81,7 +81,7 @@ class Hit extends AttemptAction
             target: PlayerVariableEnum::HEALTH_POINT,
             initValue: $damage,
             reasons: $this->getAction()->getActionTags(),
-            time: new \DateTime()
+            time: new \DateTime(),
         );
 
         return $damage;

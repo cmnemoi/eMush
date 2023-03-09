@@ -6,6 +6,7 @@ use App\Tests\FunctionalTester;
 use Mush\Action\Actions\PlayDynarcade;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -24,6 +25,9 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\User\Entity\User;
 
 class PlayDynarcadeCest
@@ -84,6 +88,61 @@ class PlayDynarcadeCest
 
         $I->assertTrue($this->playDynarcadeAction->isVisible());
         $I->assertNull($this->playDynarcadeAction->cannotExecuteReason());
+    }
+
+    public function testCannotExecuteActionIfEquipmentBroken(FunctionalTester $I)
+    {
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var Place $alphaBay2 */
+        $alphaBay2 = $I->have(Place::class, [
+            'name' => RoomEnum::ALPHA_BAY_2,
+            'daedalus' => $daedalus,
+        ]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHAO]);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::DYNARCADE]);
+
+        /** @var Player $gamerPlayer */
+        $gamerPlayer = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $alphaBay2,
+        ]);
+        $gamerPlayer->setPlayerVariables($characterConfig);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($gamerPlayer, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $gamerPlayer->setPlayerInfo($playerInfo);
+        $I->refreshEntities($gamerPlayer);
+
+        $dynarcade = new GameEquipment($alphaBay2);
+        $dynarcade
+            ->setName(EquipmentEnum::DYNARCADE)
+            ->setEquipment($equipmentConfig)
+        ;
+        $I->haveInRepository($dynarcade);
+
+        $brokenStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
+        $status = new Status($dynarcade, $brokenStatusConfig);
+
+        $I->haveInRepository($status);
+        $I->refreshEntities($dynarcade);
+
+        $this->playDynarcadeAction->loadParameters($this->action, $gamerPlayer, $dynarcade);
+
+        $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->playDynarcadeAction->cannotExecuteReason());
     }
 
     public function testSuccessAction(FunctionalTester $I)

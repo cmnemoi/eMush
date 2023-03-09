@@ -73,8 +73,8 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
 
         // Split equipments between items and equipments
         $partition = $room->getEquipments()->partition(fn (int $key, GameEquipment $gameEquipment) => ($gameEquipment->getClassName() === GameEquipment::class
-            && !EquipmentEnum::equipmentToNormalizeAsItems()->contains($gameEquipment->getName())) ||
-            $gameEquipment->getClassName() === Door::class
+            && !EquipmentEnum::equipmentToNormalizeAsItems()->contains($gameEquipment->getName())) &&
+            $gameEquipment->getClassName() !== Door::class
         );
 
         $equipments = $partition[0];

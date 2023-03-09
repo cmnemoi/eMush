@@ -57,7 +57,6 @@ export default class DoorGroundObject extends InteractObject {
             this.particles === null &&
             (this.tiledFrame === 0 || this.tiledFrame === 10)
         ) {
-            console.log('coucou2');
             this.particles = this.scene.add.particles('smoke_particle');
 
             this.particles.createEmitter({

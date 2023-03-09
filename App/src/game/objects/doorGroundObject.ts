@@ -54,7 +54,6 @@ export default class DoorGroundObject extends InteractObject {
     handleBroken(): void
     {
         console.log(this.door.isBroken);
-        console.log(this.door.name);
         if (this.door.isBroken &&
             this.particles === null &&
             (this.tiledFrame === 0 || this.tiledFrame === 10)

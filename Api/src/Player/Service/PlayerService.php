@@ -317,6 +317,10 @@ class PlayerService implements PlayerServiceInterface
 
     public function playerDeath(Player $player, string $endReason, \DateTime $time): Player
     {
+        if (!$player->isAlive()) {
+            return $player;
+        }
+        
         $currentRoom = $player->getPlace();
         foreach ($player->getEquipments() as $item) {
             $item->setHolder($currentRoom);

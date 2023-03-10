@@ -35,7 +35,7 @@ class Message
     #[ORM\ManyToOne(targetEntity: Channel::class, inversedBy: 'messages')]
     private Channel $channel;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'text', nullable: false)]
     private string $message;
 
     #[ORM\Column(type: 'array', nullable: true)]

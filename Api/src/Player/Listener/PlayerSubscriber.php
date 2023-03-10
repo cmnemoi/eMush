@@ -52,7 +52,7 @@ class PlayerSubscriber implements EventSubscriberInterface
                 'trace' => $exception->getTraceAsString(),
             ]);
         }
-        
+
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
         if ($endCause === null) {

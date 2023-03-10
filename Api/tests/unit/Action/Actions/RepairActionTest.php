@@ -93,8 +93,10 @@ class RepairActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
+        $this->actionService->shouldReceive('getSuccessRate')->andReturn(100)->once();
+        $this->actionService->shouldReceive('getCriticalSuccessRate')->andReturn(0)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 

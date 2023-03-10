@@ -3,6 +3,7 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
@@ -61,10 +62,15 @@ class Hit extends AttemptAction
         /** @var Player $target */
         $target = $this->parameter;
 
+        $damage = 0;
+
         if ($result instanceof Success) {
-            $damage = $this->getDamage(withModifiers: true);
-            $this->inflictDamageToTarget($damage, $target);
+            $damage = $this->getDamage(withModifiersOnTarget: true);
+        } elseif ($result instanceof CriticalSuccess) {
+            $damage = $this->getDamage();
         }
+
+        $this->inflictDamageToTarget($damage, $target);
     }
 
     private function applyPlayerModifiersOnDamage(Player $player, int $damage): int
@@ -75,13 +81,13 @@ class Hit extends AttemptAction
             target: PlayerVariableEnum::HEALTH_POINT,
             initValue: $damage,
             reasons: $this->getAction()->getActionTags(),
-            time: new \DateTime()
+            time: new \DateTime(),
         );
 
         return $damage;
     }
 
-    private function getDamage(bool $withModifiers = false): int
+    private function getDamage(bool $withModifiersOnTarget = false): int
     {
         /** @var Player $agressor */
         $agressor = $this->player;
@@ -89,8 +95,8 @@ class Hit extends AttemptAction
         $target = $this->parameter;
 
         $damage = $this->randomService->random(self::MIN_DAMAGE, self::MAX_DAMAGE);
-        if ($withModifiers) {
-            $damage = $this->applyPlayerModifiersOnDamage($agressor, $damage);
+        $damage = $this->applyPlayerModifiersOnDamage($agressor, $damage);
+        if ($withModifiersOnTarget) {
             $damage = $this->applyPlayerModifiersOnDamage($target, $damage);
         }
 

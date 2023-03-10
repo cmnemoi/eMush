@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\CriticalFail;
-use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\OneShot;
 use Mush\Action\ActionResult\Success;
@@ -17,7 +16,6 @@ use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
@@ -86,36 +84,23 @@ class Attack extends AttemptAction
         ]));
     }
 
+    // Special checkResult for Attack action waiting for a refactor
     protected function checkResult(): ActionResult
     {
         $player = $this->player;
 
-        $knifeItem = $this->getPlayerKnife();
-        if ($knifeItem == null) {
-            throw new \Exception("Attack action : {$player->getLogName()} should have a knife");
-        }
+        $knife = $this->getPlayerKnife();
 
-        /** @var Weapon $knifeWeapon */
-        $knifeWeapon = $knifeItem->getMechanics()->first();
+        $success = $this->randomService->isSuccessful($this->getSuccessRate());
 
-        if (!$knifeWeapon instanceof Weapon) {
-            throw new \Exception('Attack action : Knife should have a weapon mechanic');
-        }
-
-        $result = parent::checkResult();
-
-        if ($result instanceof Success) {
-            if ($this->isOneShot($player, $knifeWeapon)) {
+        if ($success) {
+            if ($this->isOneShot($player, $knife)) {
                 return new OneShot();
-            }
-
-            if ($this->isCriticalSuccess($player, $knifeWeapon)) {
-                return new CriticalSuccess();
             }
 
             return new Success();
         } else {
-            if ($this->isCriticalFail($player, $knifeWeapon)) {
+            if ($this->isCriticalFail($player, $knife)) {
                 return new CriticalFail();
             }
 
@@ -129,16 +114,7 @@ class Attack extends AttemptAction
         /** @var Player $target */
         $target = $this->parameter;
 
-        $knifeItem = $this->getPlayerKnife();
-        if ($knifeItem == null) {
-            throw new \Exception("Attack action : {$player->getLogName()} should have a knife");
-        }
-
-        /** @var Weapon $knifeWeapon */
-        $knifeWeapon = $knifeItem->getMechanics()->first();
-        if (!$knifeWeapon instanceof Weapon) {
-            throw new \Exception('Attack action : Knife should have a weapon mechanic');
-        }
+        $knife = $this->getPlayerKnife();
 
         if ($result instanceof Success) {
             if ($result instanceof OneShot) {
@@ -155,9 +131,9 @@ class Attack extends AttemptAction
                 return;
             }
 
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($knifeWeapon->getBaseDamageRange()));
+            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($knife->getBaseDamageRange()));
 
-            if ($result instanceof CriticalSuccess) {
+            if ($this->isCriticalSuccess($player, $knife)) {
                 $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
             } else {
                 // handle modifiers on damage : armor, hard boiled, etc
@@ -179,11 +155,24 @@ class Attack extends AttemptAction
         }
     }
 
-    private function getPlayerKnife(): ?EquipmentConfig
+    private function getPlayerKnife(): Weapon
     {
-        return $this->player->getEquipments()->filter(
+        /** @var GameItem $knifeItem */
+        $knifeItem = $this->player->getEquipments()->filter(
             fn (GameItem $gameItem) => $gameItem->getName() === ItemEnum::KNIFE && $gameItem->isOperational()
-        )->first()->getEquipment();
+        )->first();
+
+        if (!$knifeItem instanceof GameItem) {
+            throw new \Exception("Attack action : {$this->player->getLogName()} should have a knife");
+        }
+
+        /** @var Weapon $knifeWeapon */
+        $knifeWeapon = $knifeItem->getEquipment()->getMechanics()->first();
+        if (!$knifeWeapon instanceof Weapon) {
+            throw new \Exception('Attack action : Knife should have a weapon mechanic');
+        }
+
+        return $knifeWeapon;
     }
 
     private function isCriticalFail(Player $player, Weapon $knife): bool

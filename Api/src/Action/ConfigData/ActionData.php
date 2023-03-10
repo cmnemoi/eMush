@@ -132,7 +132,7 @@ class ActionData
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 60, 'min_value' => 0, 'max_value' => 100],
-            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageCritical' => ['value' => 40, 'min_value' => 0, 'max_value' => 100],
         ],
         [
             'name' => 'hide',

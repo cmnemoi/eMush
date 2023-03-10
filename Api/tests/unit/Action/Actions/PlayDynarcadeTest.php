@@ -110,6 +110,7 @@ class PlayDynarcadeTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
         $this->actionService->shouldIgnoreMissing();
 
         $expectedPlayerModifierEvent = new PlayerVariableEvent(

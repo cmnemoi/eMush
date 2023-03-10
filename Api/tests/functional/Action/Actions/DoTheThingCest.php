@@ -89,15 +89,10 @@ class DoTheThingCest
         ;
         $I->haveInRepository($diseaseCauseConfig);
 
+        $infectionDiseaseCauseConfig = $I->grabEntityFromRepository(DiseaseCauseConfig::class, ['causeName' => 'infection']);
+
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $pregnantStatus, $didTheThingStatus]))
-            ->setDiseaseConfig(new ArrayCollection([$diseaseConfig]))
-            ->setDiseaseCauseConfig(new ArrayCollection([$diseaseCauseConfig]))
-            ->setDaedalusConfig($daedalusConfig)
-        ;
-        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
@@ -524,13 +519,6 @@ class DoTheThingCest
 
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $pregnantStatus, $didTheThingStatus]))
-            ->setDiseaseConfig(new ArrayCollection([$diseaseConfig]))
-            ->setDiseaseCauseConfig(new ArrayCollection([$diseaseCauseConfig]))
-            ->setDaedalusConfig($daedalusConfig)
-        ;
-        $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);

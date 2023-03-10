@@ -36,7 +36,7 @@ class FillDaedalusCommand extends Command
         parent::__construct();
         $this->httpClient = $httpClient;
         $this->characterConfigRepository = $characterConfigRepository;
-        $this->identityServerUrl = $_ENV['IDENTITY_SERVER_URI'];
+        $this->identityServerUri = $_ENV['IDENTITY_SERVER_URI'];
         $this->eMushApiUri = $_ENV['EMUSH_BASE_URI'];
     }
 
@@ -95,47 +95,44 @@ class FillDaedalusCommand extends Command
                 continue;
             }
 
-            $hasJoin = true;
             try {
                 $loginFailed = false;
 
-                try {
-                    $tryToLoginRequest = $this->httpClient->request(
-                        'PUT',
-                        "$this->identityServerUrl/api/v1/auth/self",
-                        ['json' => ['login' => $name, 'password' => '31323334353637383931']]
-                    );
-                    $result = [];
-                    parse_str($tryToLoginRequest->getHeaders()['set-cookie'][0], $result);
-                    $sid = explode(';', $result['sid'])[0];
-                } catch (\Exception $e) {
-                    $loginFailed = true;
-                }
+                $tryToLoginRequest = $this->httpClient->request(
+                    'PUT',
+                    "$this->identityServerUri/api/v1/auth/self",
+                    ['json' => ['login' => $name, 'password' => '31323334353637383931']]
+                );
+                $result = [];
+                parse_str($tryToLoginRequest->getHeaders()['set-cookie'][0], $result);
+                /** @var string $allCharacter */
+                $sid = explode(';', $result['sid'])[0];
 
-                if ($loginFailed) {
-                    $createETUserResponse = $this->httpClient->request(
-                        'POST',
-                        "$this->identityServerUrl/api/v1/users",
-                        ['json' => ['username' => "$name", 'display_name' => "$name", 'password' => '31323334353637383931']]
-                    );
-                    $result = [];
-                    parse_str($createETUserResponse->getHeaders()['set-cookie'][0], $result);
-                    $sid = explode(';', $result['sid'])[0];
-                } else {
-                }
                 $client = HttpClient::create([
                     'headers' => [
-                        'Cookie' => new Cookie('sid', $sid, strtotime('+1 day')),
+                        'Cookie' => new Cookie('sid', $sid),
                     ],
                 ]);
                 $getTokenETResponse = $client->request(
                     'GET',
-                    "$this->identityServerUrl/oauth/authorize?access_type=offline&response_type=code&redirect_uri=http://localhost:8080/oauth/callback&client_id=emush@clients&scope=base&state=http://localhost:8081/token",
+                    "$this->identityServerUri/oauth/authorize?access_type=offline&response_type=code&redirect_uri=http://localhost:8080/oauth/callback&client_id=emush@clients&scope=base&state=http://localhost:8081/token",
                     ['max_redirects' => 0]
                 );
                 $location = $getTokenETResponse->getHeaders(false)['location'];
                 $queryResult = [];
-                parse_str(parse_url($location[0])['query'], $queryResult);
+
+                $url = parse_url($location[0]);
+                if ($url == null) {
+                    $io->warning("$name cannot join Daedalus. Probably already boarded. Skipping ...");
+                    continue;
+                }
+                $query = $url['query'] ?? null;
+                if ($query == null) {
+                    $io->warning("$name cannot join Daedalus. Probably already boarded. Skipping ...");
+                    continue;
+                }
+                parse_str($query, $queryResult);
+
                 $tokenET = $queryResult['code'];
                 $fistTokenApiResponse = $client->request(
                     'GET',
@@ -143,7 +140,22 @@ class FillDaedalusCommand extends Command
                     ['max_redirects' => 0]
                 );
                 $location = $fistTokenApiResponse->getHeaders(false)['location'];
-                parse_str(parse_url($location[0])['query'], $queryResult);
+                if ($location[0] == null) {
+                    $io->warning("$name cannot join Daedalus. Cannot log character. Skipping ...");
+                    continue;
+                }
+                $url = parse_url($location[0]);
+                if ($url == null) {
+                    $io->warning("$name cannot join Daedalus. Probably already boarded. Skipping ...");
+                    continue;
+                }
+                $query = $url['query'] ?? null;
+                if ($query == null) {
+                    $io->warning("$name cannot join Daedalus. Probably already boarded. Skipping ...");
+                    continue;
+                }
+                parse_str($query, $queryResult);
+
                 $fistTokenApi = $queryResult['code'];
                 $realTokenApiResponse = $client->request(
                     'POST',

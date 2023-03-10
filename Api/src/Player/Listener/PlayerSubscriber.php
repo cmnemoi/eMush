@@ -11,6 +11,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
@@ -18,15 +19,18 @@ class PlayerSubscriber implements EventSubscriberInterface
     private PlayerServiceInterface $playerService;
     private EventServiceInterface $eventService;
     private RandomServiceInterface $randomService;
+    private LoggerInterface $logger;
 
     public function __construct(
         PlayerServiceInterface $playerService,
         EventServiceInterface $eventService,
-        RandomServiceInterface $randomService
+        RandomServiceInterface $randomService,
+        LoggerInterface $logger
     ) {
         $this->playerService = $playerService;
         $this->eventService = $eventService;
         $this->randomService = $randomService;
+        $this->logger = $logger;
     }
 
     public static function getSubscribedEvents()
@@ -42,6 +46,14 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onDeathPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
+        if (!$player->isAlive()) {
+            $exception = new \LogicException('Player is already dead');
+            $this->logger->info($exception->getMessage(), [
+                'trace' => $exception->getTraceAsString(),
+            ]);
+            throw $exception;
+        }
+
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
         if ($endCause === null) {

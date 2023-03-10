@@ -26,7 +26,7 @@ class PlayerSubscriberCest extends AbstractFunctionalTest
             new DateTime()
         );
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
-        
+
         $I->refreshEntities($player);
 
         $I->expectThrowable(new \LogicException('Player is already dead'), function () use ($deathEvent) {

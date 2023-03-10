@@ -30,7 +30,7 @@ class PlayerVariableEnum
             self::MOVEMENT_POINT => ':pm:',
             self::HEALTH_POINT => ':hp:',
             self::MORAL_POINT => ':pmo:',
-            self::SATIETY => ':hungry:',
+            self::SATIETY => ':pa_cook:',
         ];
     }
 }

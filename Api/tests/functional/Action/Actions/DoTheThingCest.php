@@ -519,7 +519,7 @@ class DoTheThingCest
 
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);

@@ -35,7 +35,7 @@ class UserService implements UserServiceInterface
 
     public function findUserByUserId(string $userId): ?User
     {
-        return $this->repository->loadUserByUsername($userId);
+        return $this->repository->loadUserByIdentifier($userId);
     }
 
     public function findUserByNonceCode(string $nonceCode): ?User

@@ -8,7 +8,6 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @template-extends ServiceEntityRepository<User>
@@ -22,12 +21,12 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 
     public function loadUserByUsername(string $username): ?User
     {
-        $user = $this->findOneBy(['userId' => $username]);
+        $user = $this->findOneBy(['username' => $username]);
 
         return $user instanceof User ? $user : null;
     }
 
-    public function loadUserByIdentifier(string $identifier): ?UserInterface
+    public function loadUserByIdentifier(string $identifier): ?User
     {
         $user = $this->findOneBy(['userId' => $identifier]);
 

@@ -22,7 +22,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 
     public function loadUserByUsername(string $username): ?User
     {
-        $user = $this->findOneBy(['userId' => $username]);
+        $user = $this->findOneBy(['username' => $username]);
 
         return $user instanceof User ? $user : null;
     }

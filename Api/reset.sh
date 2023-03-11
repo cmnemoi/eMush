@@ -18,5 +18,3 @@ else
 fi
 
 php bin/console mush:migrate --dev
-php bin/console mush:create-crew
-php bin/console mush:fill-daedalus

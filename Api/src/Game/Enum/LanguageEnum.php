@@ -72,8 +72,8 @@ class LanguageEnum
 
     public const TRANSLATE_PARAMETERS = [
         self::FRENCH => [
-            self::EQUIPMENT => ['short_name', 'gender', 'first_letter', 'plural'],
-            self::TARGET_EQUIPMENT => ['short_name', 'gender', 'first_letter', 'plural'],
+            self::EQUIPMENT => ['short_name', 'gender', 'first_letter', 'plural_name'],
+            self::TARGET_EQUIPMENT => ['short_name', 'gender', 'first_letter', 'plural_name'],
             self::ROOMS => ['loc_prep', 'name'],
             self::CHARACTER => ['name'],
             self::TARGET_CHARACTER => ['name'],
@@ -99,8 +99,8 @@ class LanguageEnum
             ],
         ],
         self::ENGLISH => [
-            self::EQUIPMENT => ['short_name', 'first_letter', 'plural'],
-            self::TARGET_EQUIPMENT => ['short_name', 'first_letter', 'plural'],
+            self::EQUIPMENT => ['short_name', 'first_letter', 'plural_name'],
+            self::TARGET_EQUIPMENT => ['short_name', 'first_letter', 'plural_name'],
             self::ROOMS => ['loc_prep', 'name'],
             self::CHARACTER => ['name'],
             self::TARGET_CHARACTER => ['name'],

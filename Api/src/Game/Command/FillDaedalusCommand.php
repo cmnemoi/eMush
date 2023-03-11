@@ -2,8 +2,11 @@
 
 namespace Mush\Game\Command;
 
+use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Repository\CharacterConfigRepository;
+use Mush\Player\Service\PlayerServiceInterface;
+use Mush\User\Service\LoginService;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -23,21 +26,28 @@ class FillDaedalusCommand extends Command
 {
     private HttpClientInterface $httpClient;
     private CharacterConfigRepository $characterConfigRepository;
+    private DaedalusRepository $daedalusRepository;
+    private LoginService $loginService;
+    private PlayerServiceInterface $playerService;
     private string $identityServerUri;
-    private string $eMushApiUri;
-
     private const OPTION_NUMBER = 'number';
     private const OPTION_CHAO_FINOLA = 'chao_finola';
     private const OPTION_ANDIE_DEREK = 'andie_derek';
     private const OPTION_DAEDALUS_ID = 'daedalus_id';
 
-    public function __construct(HttpClientInterface $httpClient, CharacterConfigRepository $characterConfigRepository)
+    public function __construct(HttpClientInterface $httpClient,
+                                CharacterConfigRepository $characterConfigRepository,
+                                DaedalusRepository $daedalusRepository,
+                                LoginService $loginService,
+                                PlayerServiceInterface $playerService)
     {
         parent::__construct();
         $this->httpClient = $httpClient;
         $this->characterConfigRepository = $characterConfigRepository;
+        $this->daedalusRepository = $daedalusRepository;
+        $this->loginService = $loginService;
+        $this->playerService = $playerService;
         $this->identityServerUri = $_ENV['IDENTITY_SERVER_URI'];
-        $this->eMushApiUri = $_ENV['EMUSH_BASE_URI'];
     }
 
     protected function configure(): void
@@ -96,8 +106,6 @@ class FillDaedalusCommand extends Command
             }
 
             try {
-                $loginFailed = false;
-
                 $tryToLoginRequest = $this->httpClient->request(
                     'PUT',
                     "$this->identityServerUri/api/v1/auth/self",
@@ -134,50 +142,17 @@ class FillDaedalusCommand extends Command
                 parse_str($query, $queryResult);
 
                 $tokenET = $queryResult['code'];
-                $fistTokenApiResponse = $client->request(
-                    'GET',
-                    "$this->eMushApiUri/oauth/callback?code=$tokenET&state=http://localhost:8081/token",
-                    ['max_redirects' => 0]
-                );
-                $location = $fistTokenApiResponse->getHeaders(false)['location'];
-                if ($location[0] == null) {
-                    $io->warning("$name cannot join Daedalus : Cannot retrieve url or redirect from eMush first response for authorization token. Skipping ...");
-                    continue;
-                }
-                $url = parse_url($location[0]);
-                if ($url == null) {
-                    $io->warning("$name cannot join Daedalus. : Cannot parse url from eMush first response for authorization token. Skipping ...");
-                    continue;
-                }
-                $query = $url['query'] ?? null;
-                if ($query == null) {
-                    $io->warning("$name cannot join Daedalus. : Cannot retrieve query part from url from eMush first response for authorization token. Skipping ...");
-                    continue;
-                }
-                parse_str($query, $queryResult);
+                $fistTokenApi = $this->loginService->verifyCode($tokenET);
 
-                $fistTokenApi = $queryResult['code'];
-                $realTokenApiResponse = $client->request(
-                    'POST',
-                    "$this->eMushApiUri/oauth/token",
-                    ['json' => ['grant_type' => 'authorization_code', 'code' => $fistTokenApi]]
-                );
-                $token = json_decode($realTokenApiResponse->getContent())->token;
-                $userId = json_decode(base64_decode(explode('.', $token)[1]))->userId;
+                $user = $this->loginService->login($fistTokenApi);
 
-                $joinDaedalusResponse = $this->httpClient->request(
-                    'POST',
-                    "$this->eMushApiUri/api/v1/player",
-                    [
-                        'json' => ['user' => $userId, 'daedalus' => $daedalusId, 'character' => $name],
-                        'headers' => ['Authorization' => "Bearer $token"],
-                    ],
-                );
-                $statusCode = $joinDaedalusResponse->getStatusCode();
-                if ($statusCode != 200) {
-                    $body = $joinDaedalusResponse->getContent(false);
-                    $io->warning("$name cannot join Daedalus. Error while joind daedalus : $body");
+                $daedalus = $this->daedalusRepository->find($daedalusId);
+                if ($daedalus == null) {
+                    $io->error("Can't fin daedalus with id $daedalusId !");
+
+                    return Command::FAILURE;
                 }
+                $player = $this->playerService->createPlayer($daedalus, $user, $name);
                 ++$count;
                 $io->info($name . ' joined Daedalus !');
             } catch (\Exception $e) {

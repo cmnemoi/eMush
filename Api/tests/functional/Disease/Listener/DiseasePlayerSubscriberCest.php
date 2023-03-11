@@ -6,7 +6,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 
-class PlayerSubscriberCest extends AbstractFunctionalTest
+class DiseasePlayerSubscriberCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 

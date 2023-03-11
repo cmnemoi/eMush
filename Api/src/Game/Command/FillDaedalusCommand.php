@@ -64,6 +64,7 @@ class FillDaedalusCommand extends Command
         $isAndieAndDerek = $input->getOption($this::OPTION_ANDIE_DEREK) === null;
         if ($isAndieAndDerek && $isChaoAndFinola) {
             $io->error($this::OPTION_CHAO_FINOLA . ' and ' . $this::OPTION_ANDIE_DEREK . ' are mutually exclusive');
+
             return Command::INVALID;
         }
 
@@ -173,8 +174,7 @@ class FillDaedalusCommand extends Command
                     ],
                 );
                 $statusCode = $joinDaedalusResponse->getStatusCode();
-                if($statusCode != 200)
-                {
+                if ($statusCode != 200) {
                     $body = $joinDaedalusResponse->getContent(false);
                     $io->warning("$name cannot join Daedalus. Error while joind daedalus : $body");
                 }

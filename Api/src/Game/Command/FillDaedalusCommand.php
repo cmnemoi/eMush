@@ -3,6 +3,7 @@
 namespace Mush\Game\Command;
 
 use Mush\Daedalus\Repository\DaedalusRepository;
+use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Repository\CharacterConfigRepository;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -27,6 +28,7 @@ class FillDaedalusCommand extends Command
     private HttpClientInterface $httpClient;
     private CharacterConfigRepository $characterConfigRepository;
     private DaedalusRepository $daedalusRepository;
+    private DaedalusServiceInterface $daedalusService;
     private LoginService $loginService;
     private PlayerServiceInterface $playerService;
     private string $identityServerUri;
@@ -34,10 +36,12 @@ class FillDaedalusCommand extends Command
     private const OPTION_CHAO_FINOLA = 'chao_finola';
     private const OPTION_ANDIE_DEREK = 'andie_derek';
     private const OPTION_DAEDALUS_ID = 'daedalus_id';
+    private const OPTION_DAEDALUS_LOCALE = 'daedalus_locale';
 
     public function __construct(HttpClientInterface $httpClient,
                                 CharacterConfigRepository $characterConfigRepository,
                                 DaedalusRepository $daedalusRepository,
+                                DaedalusServiceInterface $daedalusService,
                                 LoginService $loginService,
                                 PlayerServiceInterface $playerService)
     {
@@ -45,6 +49,7 @@ class FillDaedalusCommand extends Command
         $this->httpClient = $httpClient;
         $this->characterConfigRepository = $characterConfigRepository;
         $this->daedalusRepository = $daedalusRepository;
+        $this->daedalusService = $daedalusService;
         $this->loginService = $loginService;
         $this->playerService = $playerService;
         $this->identityServerUri = $_ENV['IDENTITY_SERVER_URI'];
@@ -55,19 +60,23 @@ class FillDaedalusCommand extends Command
         $this->addOption($this::OPTION_NUMBER, null, InputOption::VALUE_OPTIONAL, 'Number of member to board ?', 16);
         $this->addOption($this::OPTION_CHAO_FINOLA, null, InputOption::VALUE_OPTIONAL, 'Accept Chao and Finola on board', false);
         $this->addOption($this::OPTION_ANDIE_DEREK, null, InputOption::VALUE_OPTIONAL, 'Accept Andie and Derek on board ?', false);
-        $this->addOption($this::OPTION_DAEDALUS_ID, null, InputOption::VALUE_OPTIONAL, 'Daedalus id ?', 1);
+        $this->addOption($this::OPTION_DAEDALUS_ID, null, InputOption::VALUE_OPTIONAL, 'Daedalus id ?', null);
+        $this->addOption($this::OPTION_DAEDALUS_LOCALE, null, InputOption::VALUE_REQUIRED, 'Daedalus locale ?', 'fr');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $daedalusId = $input->getOption($this::OPTION_DAEDALUS_ID);
         $numberOfMemberToBoard = $input->getOption($this::OPTION_NUMBER);
         if ($numberOfMemberToBoard < 1 || $numberOfMemberToBoard > 16) {
             $io->error($this::OPTION_NUMBER . ' should be between 1 and 16');
 
             return Command::INVALID;
         }
+
+        $locale = $input->getOption($this::OPTION_DAEDALUS_LOCALE);
+        $daedalusId = $input->getOption($this::OPTION_DAEDALUS_ID);
+
         $io->info("$numberOfMemberToBoard character will be added to daedalus $daedalusId");
 
         $isChaoAndFinola = $input->getOption($this::OPTION_CHAO_FINOLA) === null;
@@ -146,19 +155,33 @@ class FillDaedalusCommand extends Command
 
                 $user = $this->loginService->login($fistTokenApi);
 
-                $daedalus = $this->daedalusRepository->find($daedalusId);
-                if ($daedalus == null) {
-                    $io->error("Can't fin daedalus with id $daedalusId !");
+                if ($daedalusId == null) {
+                    if ($locale != 'fr' && $locale != 'en') {
+                        $io->error("locale must be fr or en. Found : $locale");
 
-                    return Command::FAILURE;
+                        return Command::FAILURE;
+                    }
+                    $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($locale, $user);
+                    if ($daedalus == null) {
+                        $io->error("Can't find any available daedalus for $locale / $name. Skipping ...");
+                        continue;
+                    }
+                    $daedalusId = $daedalus->getId();
+                } else {
+                    $daedalus = $this->daedalusRepository->find($daedalusId);
+                    if ($daedalus == null) {
+                        $io->error("Can't fin daedalus with id $daedalusId !");
+
+                        return Command::FAILURE;
+                    }
                 }
                 $player = $this->playerService->createPlayer($daedalus, $user, $name);
                 ++$count;
-                $io->info($name . ' joined Daedalus !');
+                $io->info($name . ' joined Daedalus ' . $daedalusId . '!');
             } catch (\Exception $e) {
                 $trace = $e->getTraceAsString();
                 $message = $e->getMessage();
-                $io->warning("$name cannot join Daedalus. Error while joind daedalus : $message -> $trace");
+                $io->warning("$name cannot join Daedalus. Error while joining daedalus : $message -> $trace");
                 continue;
             }
 

@@ -27,7 +27,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         return $user instanceof User ? $user : null;
     }
 
-    public function loadUserByIdentifier(string $identifier): ?UserInterface
+    public function loadUserByIdentifier(string $identifier): ?User
     {
         $user = $this->findOneBy(['userId' => $identifier]);
 

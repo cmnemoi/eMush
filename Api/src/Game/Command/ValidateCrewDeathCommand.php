@@ -50,12 +50,22 @@ class ValidateCrewDeathCommand extends Command
 
             try {
                 $user = $this->userRepository->loadUserByUsername($name);
+                if($user == null)
+                {
+                    $io->warning("$name doesen't have an account. Skipping ...");
+                    continue;
+                }
                 $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
                 if ($playerInfo == null) {
-                    $io->info("$name has already validated his death, nothing to do. Skipping ...");
+                    $io->warning("$name has already validated his death, nothing to do. Skipping ...");
                     continue;
                 }
                 $player = $playerInfo->getPlayer();
+                if($player == null)
+                {
+                    $io->warning("Player can't be found for $name. Skipping ...");
+                    continue;
+                }
                 $this->playerService->endPlayer($player, 'Validated by command');
                 $io->info("$name as validated his death. Ready to board !");
             } catch (\Exception $e) {

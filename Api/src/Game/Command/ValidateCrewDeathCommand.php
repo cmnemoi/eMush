@@ -50,8 +50,7 @@ class ValidateCrewDeathCommand extends Command
 
             try {
                 $user = $this->userRepository->loadUserByUsername($name);
-                if($user == null)
-                {
+                if ($user == null) {
                     $io->warning("$name doesen't have an account. Skipping ...");
                     continue;
                 }
@@ -61,8 +60,7 @@ class ValidateCrewDeathCommand extends Command
                     continue;
                 }
                 $player = $playerInfo->getPlayer();
-                if($player == null)
-                {
+                if ($player == null) {
                     $io->warning("Player can't be found for $name. Skipping ...");
                     continue;
                 }

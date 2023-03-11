@@ -8,7 +8,6 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @template-extends ServiceEntityRepository<User>

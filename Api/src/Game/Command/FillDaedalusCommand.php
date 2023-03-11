@@ -64,7 +64,6 @@ class FillDaedalusCommand extends Command
         $isAndieAndDerek = $input->getOption($this::OPTION_ANDIE_DEREK) === null;
         if ($isAndieAndDerek && $isChaoAndFinola) {
             $io->error($this::OPTION_CHAO_FINOLA . ' and ' . $this::OPTION_ANDIE_DEREK . ' are mutually exclusive');
-
             return Command::INVALID;
         }
 
@@ -123,12 +122,12 @@ class FillDaedalusCommand extends Command
 
                 $url = parse_url($location[0]);
                 if ($url == null) {
-                    $io->warning("$name cannot join Daedalus. Probably already boarded. Skipping ...");
+                    $io->warning("$name cannot join Daedalus : Cannot retrieve url or redirect from ET response for authorization token. Skipping ...");
                     continue;
                 }
                 $query = $url['query'] ?? null;
                 if ($query == null) {
-                    $io->warning("$name cannot join Daedalus. Probably already boarded. Skipping ...");
+                    $io->warning("$name cannot join Daedalus. : Cannot retrieve query part from url from ET response for authorization token. Skipping ...");
                     continue;
                 }
                 parse_str($query, $queryResult);
@@ -141,17 +140,17 @@ class FillDaedalusCommand extends Command
                 );
                 $location = $fistTokenApiResponse->getHeaders(false)['location'];
                 if ($location[0] == null) {
-                    $io->warning("$name cannot join Daedalus. Cannot log character. Skipping ...");
+                    $io->warning("$name cannot join Daedalus : Cannot retrieve url or redirect from eMush first response for authorization token. Skipping ...");
                     continue;
                 }
                 $url = parse_url($location[0]);
                 if ($url == null) {
-                    $io->warning("$name cannot join Daedalus. Probably already boarded. Skipping ...");
+                    $io->warning("$name cannot join Daedalus. : Cannot parse url from eMush first response for authorization token. Skipping ...");
                     continue;
                 }
                 $query = $url['query'] ?? null;
                 if ($query == null) {
-                    $io->warning("$name cannot join Daedalus. Probably already boarded. Skipping ...");
+                    $io->warning("$name cannot join Daedalus. : Cannot retrieve query part from url from eMush first response for authorization token. Skipping ...");
                     continue;
                 }
                 parse_str($query, $queryResult);
@@ -173,10 +172,18 @@ class FillDaedalusCommand extends Command
                         'headers' => ['Authorization' => "Bearer $token"],
                     ],
                 );
+                $statusCode = $joinDaedalusResponse->getStatusCode();
+                if($statusCode != 200)
+                {
+                    $body = $joinDaedalusResponse->getContent(false);
+                    $io->warning("$name cannot join Daedalus. Error while joind daedalus : $body");
+                }
                 ++$count;
                 $io->info($name . ' joined Daedalus !');
             } catch (\Exception $e) {
-                $io->warning("$name cannot join Daedalus. Probably already boarded. Skipping ...");
+                $trace = $e->getTraceAsString();
+                $message = $e->getMessage();
+                $io->warning("$name cannot join Daedalus. Error while joind daedalus : $message -> $trace");
                 continue;
             }
 

@@ -120,7 +120,7 @@ class TranslationServiceTest extends TestCase
         $this->translator
             ->shouldReceive('trans')
             ->with(
-                EquipmentEnum::ANTENNA . '.plural',
+                EquipmentEnum::ANTENNA . '.plural_name',
                 [
                     'target_equipment' => 'Antenne',
                     'target_equipment_gender' => 'female',
@@ -139,7 +139,7 @@ class TranslationServiceTest extends TestCase
                     'target_equipment' => 'Antenne',
                     'target_equipment_gender' => 'female',
                     'target_equipment_first_letter' => 'vowel',
-                    'target_equipment_plural' => 'Antennes',
+                    'target_equipment_plural_name' => 'Antennes',
                 ],
                 'domain',
                 LanguageEnum::FRENCH
@@ -194,7 +194,7 @@ class TranslationServiceTest extends TestCase
         $this->translator
             ->shouldReceive('trans')
             ->with(
-                EquipmentEnum::ANTENNA . '.plural',
+                EquipmentEnum::ANTENNA . '.plural_name',
                 [
                     'target_item' => EquipmentEnum::ANTENNA,
                     'end_cause' => EndCauseEnum::NO_INFIRMERY,
@@ -218,7 +218,7 @@ class TranslationServiceTest extends TestCase
                     'target_equipment' => 'Antenne',
                     'target_equipment_gender' => 'female',
                     'target_equipment_first_letter' => 'vowel',
-                    'target_equipment_plural' => 'Antennes',
+                    'target_equipment_plural_name' => 'Antennes',
                 ],
                 'end_cause',
                 LanguageEnum::FRENCH
@@ -231,7 +231,7 @@ class TranslationServiceTest extends TestCase
             'target_equipment' => 'Antenne',
             'target_equipment_gender' => 'female',
             'target_equipment_first_letter' => 'vowel',
-            'target_equipment_plural' => 'Antennes',
+            'target_equipment_plural_name' => 'Antennes',
             'end_cause' => 'Pas infirmerie',
         ];
 

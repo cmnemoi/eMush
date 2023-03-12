@@ -5,6 +5,7 @@ namespace Mush\Communication\Controller;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
@@ -117,7 +118,7 @@ class ChannelController extends AbstractFOSRestController
      *
      * @OA\Tag(name="Channel")
      * @Security(name="Bearer")
-     * @Rest\GET(path="/canCreatePrivate")
+     * @Rest\Get(path="/canCreatePrivate")
      */
     public function canCreateChannelAction(): View
     {
@@ -161,7 +162,7 @@ class ChannelController extends AbstractFOSRestController
      *
      * @OA\Tag(name="Channel")
      * @Security(name="Bearer")
-     * @Rest\GET (path="")
+     * @Rest\Get(path="")
      */
     public function getChannelsActions(): View
     {
@@ -197,7 +198,7 @@ class ChannelController extends AbstractFOSRestController
      *
      * @OA\Tag(name="channel")
      * @Security(name="Bearer")
-     * @Rest\GET (path="/pirated")")
+     * @Rest\Get (path="/pirated")")
      */
     public function getPiratedChannelsActions(): View
     {
@@ -287,6 +288,10 @@ class ChannelController extends AbstractFOSRestController
             return $this->view(['error' => 'player cannot open a new channel'], 422);
         }
 
+        if ($channel->isPlayerParticipant($invitedPlayer->getPlayerInfo())) {
+            return $this->view(['error' => 'player is already in the channel'], 422);
+        }
+
         $channel = $this->channelService->invitePlayer($invitedPlayer, $channel);
 
         $context = new Context();
@@ -312,6 +317,10 @@ class ChannelController extends AbstractFOSRestController
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
+
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $playerInfo->getPlayer()->getDaedalus()) {
+            return $this->view(['error' => 'player is not from this daedalus'], 422);
+        }
 
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
@@ -345,6 +354,10 @@ class ChannelController extends AbstractFOSRestController
             ($player = $playerInfo->getPlayer()) === null
         ) {
             throw new AccessDeniedException('User should be in game');
+        }
+
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
+            return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
         $daedalus = $player->getDaedalus();
@@ -436,6 +449,10 @@ class ChannelController extends AbstractFOSRestController
             throw new AccessDeniedException('Player cannot speak');
         }
 
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $currentPlayer->getDaedalus()) {
+            return $this->view(['error' => 'player is not from this daedalus'], 422);
+        }
+
         $this->messageService->createPlayerMessage($playerMessage, $messageCreate);
         $messages = $this->messageService->getChannelMessages($currentPlayer, $channel);
 
@@ -453,7 +470,7 @@ class ChannelController extends AbstractFOSRestController
      *
      * @OA\Tag(name="Channel")
      * @Security(name="Bearer")
-     * @Rest\GET (path="/{channel}/message")
+     * @Rest\Get (path="/{channel}/message")
      */
     public function getMessages(Request $request, Channel $channel): View
     {
@@ -475,6 +492,10 @@ class ChannelController extends AbstractFOSRestController
             ($player = $playerInfo->getPlayer()) === null
         ) {
             throw new AccessDeniedException('User should be in game');
+        }
+
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
+            return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
         $messages = $this->messageService->getChannelMessages($player, $channel);

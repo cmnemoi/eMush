@@ -419,6 +419,97 @@ class LastPlayerCloseGameCest
         $I->dontSeeInRepository(GameEquipment::class);
     }
 
+    public function testLastPlayerCloseGameCheckEquipmentRemovalWithOwner(FunctionalTester $I)
+    {
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        /** @var DaedalusConfig $gameConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class);
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+            'localizationConfig' => $localizationConfig,
+        ]);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+
+        $neron = new Neron();
+        $neron->setIsInhibited(true);
+        $I->haveInRepository($neron);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, [
+            'cycle' => 5,
+            'day' => 10,
+            'filledAt' => new \DateTime(),
+            'cycleStartedAt' => new \DateTime(),
+        ]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo
+            ->setNeron($neron)
+            ->setGameStatus(GameStatusEnum::FINISHED)
+        ;
+        $I->haveInRepository($daedalusInfo);
+
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
+        $I->haveInRepository($channel);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var Place $room2 */
+        $room2 = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(
+            Player::class,
+            [
+                'daedalus' => $daedalus,
+                'place' => $room,
+                'user' => $user,
+            ]
+        );
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $gameEquipment = new GameEquipment($room2);
+        $gameEquipment
+            ->setEquipment($equipmentConfig)
+            ->setName('shower')
+            ->setOwner($player)
+        ;
+        $I->haveInRepository($gameEquipment);
+
+        $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
+        $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
+
+        $daedalusInfo = $I->grabEntityFromRepository(DaedalusInfo::class);
+        $I->assertEquals(GameStatusEnum::CLOSED, $daedalusInfo->getGameStatus());
+        $I->dontSeeInRepository(Daedalus::class);
+        $I->seeInRepository(DaedalusInfo::class);
+        $I->seeInRepository(ClosedDaedalus::class);
+
+        $I->dontSeeInRepository(Player::class);
+        $I->seeInRepository(PlayerInfo::class);
+        $I->seeInRepository(ClosedPlayer::class);
+
+        $I->dontSeeInRepository(Place::class);
+        $I->dontSeeInRepository(GameEquipment::class);
+    }
+
     public function testLastPlayerCloseGameCheckAlertRemoval(FunctionalTester $I)
     {
         /** @var LocalizationConfig $localizationConfig */

@@ -26,4 +26,10 @@ interface ActionServiceInterface
         Player $player,
         ?LogParameterInterface $parameter
     ): int;
+
+    public function getCriticalSuccessRate(
+        Action $action,
+        Player $player,
+        ?LogParameterInterface $parameter
+    ): int;
 }

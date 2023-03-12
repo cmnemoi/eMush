@@ -48,7 +48,7 @@ class RationCycleHandlerTest extends TestCase
         \Mockery::close();
     }
 
-    public function testNewDay()
+    public function testNewDayFrozen()
     {
         $fruit = new ItemConfig();
 
@@ -67,23 +67,28 @@ class RationCycleHandlerTest extends TestCase
         $frozenConfig->setStatusName(EquipmentStatusEnum::FROZEN);
         $frozen = new Status($gameFruit, $frozenConfig);
 
-        $unstableConfig = new StatusConfig();
-        $unstableConfig->setStatusName(EquipmentStatusEnum::UNSTABLE);
-        $unstable = new Status(new GameItem($place), $unstableConfig);
-        $hazardousConfig = new StatusConfig();
-        $hazardousConfig->setStatusName(EquipmentStatusEnum::HAZARDOUS);
-        $hazardous = new Status(new GameItem($place), $hazardousConfig);
-        $decomposingConfig = new StatusConfig();
-        $decomposingConfig->setStatusName(EquipmentStatusEnum::DECOMPOSING);
-        $decomposing = new Status(new GameItem($place), $decomposingConfig);
-
         // frozen
+        $this->eventService->shouldReceive('callEvent')->never();
         $this->gameEquipmentService->shouldReceive('persist')->once();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
         $this->assertCount(1, $gameFruit->getStatuses());
+    }
 
-        $gameFruit->removeStatus($frozen);
+    public function testNewDayFresh()
+    {
+        $fruit = new ItemConfig();
+
+        $place = new Place();
+
+        $fruitType = new Fruit();
+        $fruit->setMechanics(new ArrayCollection([$fruitType]));
+
+        $daedalus = new Daedalus();
+        $gameFruit = new GameItem($place);
+        $gameFruit
+            ->setEquipment($fruit)
+        ;
 
         // unfrozen day 1
         $this->gameEquipmentService->shouldReceive('persist')->once();
@@ -95,8 +100,26 @@ class RationCycleHandlerTest extends TestCase
 
         $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
         $this->assertCount(0, $gameFruit->getStatuses());
+    }
 
-        $gameFruit->addStatus($unstable);
+    public function testNewDayUnstable()
+    {
+        $fruit = new ItemConfig();
+
+        $place = new Place();
+
+        $fruitType = new Fruit();
+        $fruit->setMechanics(new ArrayCollection([$fruitType]));
+
+        $daedalus = new Daedalus();
+        $gameFruit = new GameItem($place);
+        $gameFruit
+            ->setEquipment($fruit)
+        ;
+
+        $unstableConfig = new StatusConfig();
+        $unstableConfig->setStatusName(EquipmentStatusEnum::UNSTABLE);
+        $unstable = new Status($gameFruit, $unstableConfig);
 
         // day 2
         $this->gameEquipmentService->shouldReceive('persist')->once();
@@ -105,11 +128,33 @@ class RationCycleHandlerTest extends TestCase
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::HAZARDOUS && $event->getStatusHolder() === $gameFruit)
             ->once()
         ;
+        $this->eventService
+            ->shouldReceive('callEvent')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::UNSTABLE && $event->getStatusHolder() === $gameFruit)
+            ->once()
+        ;
 
         $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
-        $this->assertCount(0, $gameFruit->getStatuses());
+    }
 
-        $gameFruit->addStatus($hazardous);
+    public function testNewDayHazardous()
+    {
+        $fruit = new ItemConfig();
+
+        $place = new Place();
+
+        $fruitType = new Fruit();
+        $fruit->setMechanics(new ArrayCollection([$fruitType]));
+
+        $daedalus = new Daedalus();
+        $gameFruit = new GameItem($place);
+        $gameFruit
+            ->setEquipment($fruit)
+        ;
+
+        $hazardousConfig = new StatusConfig();
+        $hazardousConfig->setStatusName(EquipmentStatusEnum::HAZARDOUS);
+        $hazardous = new Status($gameFruit, $hazardousConfig);
 
         // day 3
         $this->gameEquipmentService->shouldReceive('persist')->once();
@@ -120,7 +165,38 @@ class RationCycleHandlerTest extends TestCase
             ->once()
         ;
 
+        $this->eventService
+            ->shouldReceive('callEvent')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::HAZARDOUS && $event->getStatusHolder() === $gameFruit)
+            ->once()
+        ;
+
         $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
-        $this->assertCount(0, $gameFruit->getStatuses());
+        $this->assertCount(1, $gameFruit->getStatuses());
+    }
+
+    public function testNewDayDecomposing()
+    {
+        $fruit = new ItemConfig();
+
+        $place = new Place();
+
+        $fruitType = new Fruit();
+        $fruit->setMechanics(new ArrayCollection([$fruitType]));
+
+        $daedalus = new Daedalus();
+        $gameFruit = new GameItem($place);
+        $gameFruit
+            ->setEquipment($fruit)
+        ;
+
+        $decomposingConfig = new StatusConfig();
+        $decomposingConfig->setStatusName(EquipmentStatusEnum::DECOMPOSING);
+        $decomposing = new Status($gameFruit, $decomposingConfig);
+
+        $this->gameEquipmentService->shouldReceive('persist')->once();
+        $this->eventService->shouldReceive('callEvent')->never();
+        $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
+        $this->assertCount(1, $gameFruit->getStatuses());
     }
 }

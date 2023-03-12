@@ -147,7 +147,7 @@
         <target>Cañón Beta Central</target>
       </segment>
       <segment id="loc_prep" state="translated">
-        <source>center_bravo_turret.loc_prep</source>
+        <source>centre_bravo_turret.loc_prep</source>
         <target>en el </target>
       </segment>
     </unit>

@@ -22,6 +22,7 @@ class DifficultyConfigDataLoader extends ConfigDataLoader
     public function loadConfigsData(): void
     {
         foreach (DifficultyConfigData::$dataArray as $difficultyConfigData) {
+            /** @var DifficultyConfig $difficultyConfig */
             $difficultyConfig = $this->difficultyConfigRepository->findOneBy(['name' => $difficultyConfigData['name']]);
 
             if ($difficultyConfig === null) {
@@ -46,6 +47,8 @@ class DifficultyConfigDataLoader extends ConfigDataLoader
                 ->setPanicCrisisPlayerDamage($difficultyConfigData['panicCrisisPlayerDamage'])
                 ->setPlantDiseaseRate($difficultyConfigData['plantDiseaseRate'])
                 ->setCycleDiseaseRate($difficultyConfigData['cycleDiseaseRate'])
+                ->setTremorPlayerDamage($difficultyConfigData['tremorPlayerDamage'])
+                ->setMetalPlatePlayerDamage($difficultyConfigData['metalPlatePlayerDamage'])
                 ->setEquipmentBreakRateDistribution($difficultyConfigData['equipmentBreakRateDistribution'])
             ;
 

@@ -9,10 +9,12 @@ use Mush\RoomLog\Event\LoggableEventInterface;
 
 class EquipmentEvent extends EquipmentCycleEvent implements LoggableEventInterface
 {
+    public const EQUIPMENT_BROKEN = 'equipment.broken';
     public const EQUIPMENT_CREATED = 'equipment.created';
     public const EQUIPMENT_DESTROYED = 'equipment.destroyed';
     public const EQUIPMENT_DELETE = 'equipment.delete';
     public const EQUIPMENT_TRANSFORM = 'equipment.transform';
+    public const DOOR_BROKEN = 'door.broken';
     public const INVENTORY_OVERFLOW = 'inventory.overflow';
     public const CHANGE_HOLDER = 'change.holder';
 

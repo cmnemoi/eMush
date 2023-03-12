@@ -8,8 +8,6 @@ use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -40,7 +38,6 @@ class ActionServiceCest
 
     public function testApplyCostToPlayer(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
@@ -93,7 +90,6 @@ class ActionServiceCest
 
     public function testApplyCostToPlayerWithMovementPointConversion(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
@@ -138,7 +134,6 @@ class ActionServiceCest
 
     public function testApplyCostToPlayerWithMovementPointConversionAndModifier(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);

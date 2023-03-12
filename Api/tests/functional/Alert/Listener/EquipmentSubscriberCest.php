@@ -101,7 +101,6 @@ class EquipmentSubscriberCest
             ->setName(AlertEnum::BROKEN_EQUIPMENTS)
             ->addAlertElement($reportedAlert)
         ;
-
         $I->haveInRepository($alertBroken);
 
         $alertGravity = new Alert();

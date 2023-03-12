@@ -15,13 +15,10 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\PlayerStatusService;
 use Mush\Status\Service\PlayerStatusServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 
 class PlayerStatusServiceTest extends TestCase
 {
-    private StatusServiceInterface|Mockery\Mock $statusService;
-
     private Mockery\Mock|EventServiceInterface $eventService;
 
     private PlayerStatusServiceInterface $playerStatusService;
@@ -31,10 +28,9 @@ class PlayerStatusServiceTest extends TestCase
      */
     public function before()
     {
-        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
 
-        $this->playerStatusService = new PlayerStatusService($this->statusService, $this->eventService);
+        $this->playerStatusService = new PlayerStatusService($this->eventService);
     }
 
     /**
@@ -60,7 +56,7 @@ class PlayerStatusServiceTest extends TestCase
         $demoralizedConfig->setStatusName(PlayerStatusEnum::DEMORALIZED);
         $demoralizedStatus = new Status($player, $demoralizedConfig);
 
-        $this->statusService->shouldReceive('delete')->with($demoralizedStatus)->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
 
         // Player suicidal, improvement of mental
@@ -71,7 +67,7 @@ class PlayerStatusServiceTest extends TestCase
         $suicidalConfig->setStatusName(PlayerStatusEnum::SUICIDAL);
         $suicidalStatus = new Status($player, $suicidalConfig);
 
-        $this->statusService->shouldReceive('delete')->with($suicidalStatus)->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
     }
 
@@ -114,7 +110,7 @@ class PlayerStatusServiceTest extends TestCase
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DEMORALIZED && $event->getStatusHolder() === $player)
             ->once()
         ;
-        $this->statusService->shouldReceive('delete')->with($suicidalStatus)->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
     }
@@ -157,7 +153,7 @@ class PlayerStatusServiceTest extends TestCase
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::SUICIDAL && $event->getStatusHolder() === $player)
             ->once()
         ;
-        $this->statusService->shouldReceive('delete')->with($demoralizedStatus)->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
     }
@@ -171,7 +167,6 @@ class PlayerStatusServiceTest extends TestCase
         $starvingStatus = new Status($player, $starvingConfig);
 
         $this->eventService->shouldReceive('callEvent')->once();
-        $this->statusService->shouldReceive('createStatusFromName')->withSomeOfArgs($starvingStatus);
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
 
         $player = $this->createPlayer(0, 0, 0, 0, 0);
@@ -181,7 +176,6 @@ class PlayerStatusServiceTest extends TestCase
         $fullBellyStatus = new Status($player, $fullStomachConfig);
 
         $this->eventService->shouldReceive('callEvent')->once();
-        $this->statusService->shouldReceive('delete')->with($fullBellyStatus);
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
     }
 

@@ -17,7 +17,8 @@ use Mush\Daedalus\Repository\DaedalusInfoRepository;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
@@ -32,8 +33,6 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
@@ -44,9 +43,7 @@ class DaedalusService implements DaedalusServiceInterface
     private EventServiceInterface $eventService;
     private DaedalusRepository $repository;
     private CycleServiceInterface $cycleService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
-    private RoomLogServiceInterface $roomLogService;
     private LocalizationConfigRepository $localizationConfigRepository;
     private DaedalusInfoRepository $daedalusInfoRepository;
     private DaedalusRepository $daedalusRepository;
@@ -56,9 +53,7 @@ class DaedalusService implements DaedalusServiceInterface
         EventServiceInterface $eventService,
         DaedalusRepository $repository,
         CycleServiceInterface $cycleService,
-        GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
-        RoomLogServiceInterface $roomLogService,
         LocalizationConfigRepository $localizationConfigRepository,
         DaedalusInfoRepository $daedalusInfoRepository,
         DaedalusRepository $daedalusRepository
@@ -67,9 +62,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->eventService = $eventService;
         $this->repository = $repository;
         $this->cycleService = $cycleService;
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
-        $this->roomLogService = $roomLogService;
         $this->localizationConfigRepository = $localizationConfigRepository;
         $this->daedalusInfoRepository = $daedalusInfoRepository;
         $this->daedalusRepository = $daedalusRepository;
@@ -335,6 +328,10 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $player = $this->getRandomPlayersWithLessOxygen($daedalus);
 
+        if ($player === null) {
+            return $daedalus;
+        }
+
         if ($this->getOxygenCapsuleCount($player) === 0) {
             $playerEvent = new PlayerEvent(
                 $player,
@@ -346,30 +343,33 @@ class DaedalusService implements DaedalusServiceInterface
         } else {
             $capsule = $player->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
 
-            $this->gameEquipmentService->delete($capsule);
-
-            $this->roomLogService->createLog(
-                LogEnum::OXY_LOW_USE_CAPSULE,
-                $player->getPlace(),
-                VisibilityEnum::PRIVATE,
-                'event_log',
+            $equipmentEvent = new InteractWithEquipmentEvent(
+                $capsule,
                 $player,
-                [],
+                VisibilityEnum::PRIVATE,
+                [EndCauseEnum::ASPHYXIA],
                 $date
             );
+            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 
         return $daedalus;
     }
 
-    private function getRandomPlayersWithLessOxygen(Daedalus $daedalus): Player
+    private function getRandomPlayersWithLessOxygen(Daedalus $daedalus): ?Player
     {
         $playersAlive = $daedalus->getPlayers()->getPlayerAlive();
 
+        if ($playersAlive->isEmpty()) {
+            return null;
+        }
+
         $playersWithLessOxygen = new PlayerCollection();
         $lessOxygenCount = 0;
+
         foreach ($playersAlive as $player) {
             $playerOxygenCount = $this->getOxygenCapsuleCount($player);
+
             if ($playersWithLessOxygen->isEmpty()) {
                 $playersWithLessOxygen->add($player);
                 $lessOxygenCount = $playerOxygenCount;
@@ -377,6 +377,7 @@ class DaedalusService implements DaedalusServiceInterface
                 $playersWithLessOxygen->add($player);
             } elseif ($playerOxygenCount < $lessOxygenCount) {
                 $playersWithLessOxygen = new PlayerCollection([$player]);
+                $lessOxygenCount = $playerOxygenCount;
             }
         }
 

@@ -196,8 +196,8 @@
 			"statusConfigs": "Statuses",
 			"equipmentConfigs": "Equipment",
 			"triumphConfigs": "Triumph configs",
-			"diseaseCauseConfigs": "Disease causes",
-			"diseaseConfigs": "Diseases",
+			"diseaseCauseConfigs": "Configuration des causes de maladie",
+			"diseaseConfigs": "Configurations de maladie",
 			"consumableDiseaseConfigs": "Consumable disease configs"
 		},
 		"modifierConfig": {
@@ -425,9 +425,9 @@
 			"modifierConfigs": "Modifiers",
 			"equipment": "Built piece of equipment",
 			"blueprint": "Blueprints",
-			"book": "Mage books",
+			"book": "Apprentrons",
 			"document": "Documents",
-			"drug": "Pills",
+			"drug": "Médicaments",
 			"fruit": "Fruits",
 			"gear": "Gear",
 			"plant": "Plants",

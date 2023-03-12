@@ -51,8 +51,6 @@ class WeaponDataLoaderCest
 
         $config = $this->dropFields($config);
 
-        $I->haveInRepository(Weapon::class, $config);
-
         $this->weaponDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, Weapon::class, $config);

@@ -148,12 +148,13 @@ class CycleEventCest
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
 
-        $notAloneActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PLAYER_IN_ROOM);
-        $notAloneActivationRequirement
-            ->setActivationRequirement(ModifierRequirementEnum::NOT_ALONE)
-            ->buildName()
-        ;
-        $I->haveInRepository($notAloneActivationRequirement);
+        $notAloneActivationRequirement = $I->grabEntityFromRepository(
+            ModifierActivationRequirement::class,
+            [
+                'activationRequirementName' => ModifierRequirementEnum::PLAYER_IN_ROOM,
+                'activationRequirement' => ModifierRequirementEnum::NOT_ALONE,
+            ]
+        );
 
         $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig

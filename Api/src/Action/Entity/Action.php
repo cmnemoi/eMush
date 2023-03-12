@@ -148,6 +148,11 @@ class Action
         return $this;
     }
 
+    public function getActionCost(): int
+    {
+        return $this->actionVariables->getValueByName(PlayerVariableEnum::ACTION_POINT);
+    }
+
     public function setActionCost(int $actionCost): self
     {
         $this->actionVariables->setValueByName($actionCost, PlayerVariableEnum::ACTION_POINT);
@@ -155,11 +160,21 @@ class Action
         return $this;
     }
 
+    public function getMovementCost(): int
+    {
+        return $this->actionVariables->getValueByName(PlayerVariableEnum::MOVEMENT_POINT);
+    }
+
     public function setMovementCost(int $movementCost): self
     {
         $this->actionVariables->setValueByName($movementCost, PlayerVariableEnum::MOVEMENT_POINT);
 
         return $this;
+    }
+
+    public function getMoralCost(): int
+    {
+        return $this->actionVariables->getValueByName(PlayerVariableEnum::MORAL_POINT);
     }
 
     public function setMoralCost(int $moralCost): self

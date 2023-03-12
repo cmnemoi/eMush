@@ -79,6 +79,7 @@ class ActionsFixtures extends Fixture
     public const SURGERY = 'surgery';
     public const SELF_SURGERY = 'self.surgery';
     public const SHOOT = 'shoot';
+    public const PLAY_ARCADE = 'play.arcade';
 
     public function load(ObjectManager $manager): void
     {
@@ -752,6 +753,15 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($shootAction);
 
+        $playArcade = new Action();
+        $playArcade
+            ->setName(ActionEnum::PLAY_ARCADE)
+            ->setActionName(ActionEnum::PLAY_ARCADE)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost(1)
+            ->setSuccessRate(33)
+        ;
+        $manager->persist($playArcade);
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -818,5 +828,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::SURGERY, $surgeryAction);
         $this->addReference(self::SELF_SURGERY, $selfSurgeryAction);
         $this->addReference(self::SHOOT, $shootAction);
+        $this->addReference(self::PLAY_ARCADE, $playArcade);
     }
 }

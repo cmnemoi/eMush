@@ -107,6 +107,8 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $moveVomiting = $this->getReference(DiseaseSymptomConfigFixtures::MOVE_VOMITING);
         /** @var SymptomConfig $mushSneezing */
         $mushSneezing = $this->getReference(DiseaseSymptomConfigFixtures::MUSH_SNEEZING);
+        /** @var SymptomConfig $psychoticAttacks */
+        $psychoticAttacks = $this->getReference(DisorderSymptomConfigFixtures::PSYCHOTIC_ATTACKS);
 
         $foodPoisoning = new DiseaseConfig();
         $foodPoisoning
@@ -453,6 +455,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             GameConfigFixtures::class,
             DiseaseModifierConfigFixtures::class,
             DiseaseSymptomConfigFixtures::class,
+            DisorderSymptomConfigFixtures::class,
         ];
     }
 }

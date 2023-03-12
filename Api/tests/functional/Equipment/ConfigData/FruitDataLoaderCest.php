@@ -48,8 +48,6 @@ class FruitDataLoaderCest
 
         $config = $this->dropFields($config);
 
-        $I->haveInRepository(Fruit::class, $config);
-
         $this->fruitDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, Fruit::class, $config);

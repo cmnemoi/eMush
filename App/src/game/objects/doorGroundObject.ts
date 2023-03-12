@@ -27,6 +27,7 @@ export default class DoorGroundObject extends InteractObject {
 
         this.door = door;
 
+
         this.handleBroken();
 
         if (firstFrame === 5 || firstFrame === 15){
@@ -52,7 +53,10 @@ export default class DoorGroundObject extends InteractObject {
 
     handleBroken(): void
     {
-        if (this.door.isBroken && this.particles === null) {
+        if (this.door.isBroken &&
+            this.particles === null &&
+            (this.tiledFrame === 0 || this.tiledFrame === 10)
+        ) {
             this.particles = this.scene.add.particles('smoke_particle');
 
             this.particles.createEmitter({
@@ -68,7 +72,7 @@ export default class DoorGroundObject extends InteractObject {
                 quantity: 1,
                 frequency: 100000/(this.width * this.height ),
                 //@ts-ignore
-                emitZone: { type: 'random', source: this }
+                emitZone: { type: 'random', source: this.isoGeom }
             });
         } else if (this.particles !== null  && !this.door.isBroken) {
             this.particles.destroy();

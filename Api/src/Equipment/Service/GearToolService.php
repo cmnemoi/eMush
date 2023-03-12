@@ -147,16 +147,16 @@ class GearToolService implements GearToolServiceInterface
     {
         $tool = $this->getUsedTool($player, $actionName);
         if ($tool) {
-            $this->removeCharge($tool, $actionName);
+            $this->removeCharge($tool, $actionName, $types, new \DateTime());
         }
     }
 
-    private function removeCharge(GameEquipment $equipment, string $actionName): void
+    private function removeCharge(GameEquipment $equipment, string $actionName, array $tags, \DateTime $time): void
     {
         $chargeStatus = $this->getChargeStatus($actionName, $equipment);
 
         if ($chargeStatus !== null) {
-            $chargeStatus = $this->statusService->updateCharge($chargeStatus, -1);
+            $chargeStatus = $this->statusService->updateCharge($chargeStatus, -1, $tags, $time);
 
             if ($chargeStatus === null) {
                 $equipmentEvent = new EquipmentEvent(

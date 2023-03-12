@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\CriticalFail;
-use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\OneShot;
 use Mush\Action\ActionResult\Success;
@@ -17,7 +16,6 @@ use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
@@ -95,35 +93,23 @@ class Shoot extends AttemptAction
         ]));
     }
 
+    // Special checkResult for Shoot action waiting for a refactor
     protected function checkResult(): ActionResult
     {
         $player = $this->player;
 
-        $blasterItem = $this->getPlayerBlaster();
-        if ($blasterItem == null) {
-            throw new \Exception("Attack action : {$player->getLogName()} should have a blaster");
-        }
+        $blaster = $this->getPlayerBlaster();
 
-        /** @var Weapon $blasterWeapon */
-        $blasterWeapon = $blasterItem->getMechanics()->first();
-        if (!$blasterWeapon instanceof Weapon) {
-            throw new \Exception('Attack action : Blaster should have a weapon mechanic');
-        }
+        $success = $this->randomService->isSuccessful($this->getSuccessRate());
 
-        $result = parent::checkResult();
-
-        if ($result instanceof Success) {
-            if ($this->isOneShot($player, $blasterWeapon)) {
+        if ($success) {
+            if ($this->isOneShot($player, $blaster)) {
                 return new OneShot();
-            }
-
-            if ($this->isCriticalSuccess($player, $blasterWeapon)) {
-                return new CriticalSuccess();
             }
 
             return new Success();
         } else {
-            if ($this->isCriticalFail($player, $blasterWeapon)) {
+            if ($this->isCriticalFail($player, $blaster)) {
                 return new CriticalFail();
             }
 
@@ -137,21 +123,12 @@ class Shoot extends AttemptAction
         /** @var Player $target */
         $target = $this->parameter;
 
-        $blasterItem = $this->getPlayerBlaster();
-        if ($blasterItem == null) {
-            throw new \Exception("Attack action : {$player->getLogName()} should have a blaster");
-        }
-
-        /** @var Weapon $blasterWeapon */
-        $blasterWeapon = $blasterItem->getMechanics()->first();
-        if (!$blasterWeapon instanceof Weapon) {
-            throw new \Exception('Attack action : Blaster should have a weapon mechanic');
-        }
+        $blaster = $this->getPlayerBlaster();
 
         if ($result instanceof Success) {
             if ($result instanceof OneShot) {
                 $reasons = $this->getAction()->getActionTags();
-                $reasons[] = EndCauseEnum::BEHEADED;
+                $reasons[] = EndCauseEnum::BLED;
                 $deathEvent = new PlayerEvent(
                     $target,
                     $reasons,
@@ -163,10 +140,10 @@ class Shoot extends AttemptAction
                 return;
             }
 
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($blasterWeapon->getBaseDamageRange()));
+            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($blaster->getBaseDamageRange()));
 
-            if ($result instanceof CriticalSuccess) {
-                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_BLASTER, $target);
+            if ($this->isCriticalSuccess($player, $blaster)) {
+                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
             } else {
                 // handle modifiers on damage : armor, hard boiled, etc
                 $damage = $this->modifierService->getEventModifiedValue(
@@ -182,16 +159,29 @@ class Shoot extends AttemptAction
             $this->inflictDamage($damage, $target);
         } else {
             if ($result instanceof CriticalFail) {
-                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_FAIL_BLASTER, $player);
+                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_FAIL_KNIFE, $player);
             }
         }
     }
 
-    private function getPlayerBlaster(): ?EquipmentConfig
+    private function getPlayerBlaster(): Weapon
     {
-        return $this->player->getEquipments()->filter(
+        /** @var GameItem $blasterItem */
+        $blasterItem = $this->player->getEquipments()->filter(
             fn (GameItem $gameItem) => $gameItem->getName() === ItemEnum::BLASTER && $gameItem->isOperational()
-        )->first()->getEquipment();
+        )->first();
+
+        if (!$blasterItem instanceof GameItem) {
+            throw new \Exception("Shoot action : {$this->player->getLogName()} should have a blaster");
+        }
+
+        /** @var Weapon $blasterWeapon */
+        $blasterWeapon = $blasterItem->getEquipment()->getMechanics()->first();
+        if (!$blasterWeapon instanceof Weapon) {
+            throw new \Exception('Shoot action : Blaster should have a weapon mechanic');
+        }
+
+        return $blasterWeapon;
     }
 
     private function isCriticalFail(Player $player, Weapon $blaster): bool

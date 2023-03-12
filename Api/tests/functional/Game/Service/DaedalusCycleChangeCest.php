@@ -16,7 +16,6 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
@@ -116,7 +115,7 @@ class DaedalusCycleChangeCest
         $user = $I->have(User::class);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'test']);
         $characterConfig
             ->setInitHealthPoint(20000)
             ->setInitMoralPoint(20000)

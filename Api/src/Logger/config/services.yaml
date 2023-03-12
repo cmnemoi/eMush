@@ -1,0 +1,30 @@
+
+services:
+
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  Mush\Logger\:
+    resource: '../'
+    exclude:
+      - '../DependencyInjection/'
+      - '../Entity/'
+      - '../Kernel.php'
+      - '../Tests/'
+
+  monolog.processor.requestProcessor:
+    class: Mush\Logger\Processor\RequestProcessor
+    tags:
+        - { name: monolog.processor, handler: Mush\Logger\Handler\MonologPostgresHandler }
+
+  monolog.handler.Mush\Logger\Handler\MonologPostgresHandler:
+    class: Mush\Logger\Handler\MonologPostgresHandler
+
+  Mush\Logger\Handler\MonologDiscordWebHookHandler:
+    calls:
+      - setLogLevel: [ '%env(LOG_DISCORD_LOG_LEVEL)%' ]
+      - setWebhook: [ '%env(LOG_DISCORD_WEBHOOK_URL)%' ]
+      - setEnvironmentName: [ '%env(LOG_DISCORD_ENVIRONMENT_NAME)%' ]

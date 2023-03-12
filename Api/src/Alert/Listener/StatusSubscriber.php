@@ -4,6 +4,7 @@ namespace Mush\Alert\Listener;
 
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
@@ -37,6 +38,9 @@ class StatusSubscriber implements EventSubscriberInterface
             case EquipmentStatusEnum::BROKEN:
                 if (!$holder instanceof GameEquipment) {
                     throw new UnexpectedTypeException($holder, GameEquipment::class);
+                }
+                if ($holder instanceof GameItem) {
+                    return;
                 }
                 $this->alertService->handleEquipmentBreak($holder);
 

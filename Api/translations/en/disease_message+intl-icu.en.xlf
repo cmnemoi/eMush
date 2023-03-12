@@ -267,13 +267,13 @@
         <source>replace_paranoia</source>
         <target>{version, select,
                     1 {Cette partie est vraiment nulle…}
-                    2 {Je ne sais {paranoia_version4, select,
+                    2 {Je ne sais {paranoia_version_4, select,
                         1 {pas trop}
                         2 {pas bien}
                         3 {pas du tout}
                         other {pas}
                     } comment on va s'en sortir…}
-                    3 {Je {paranoia_version4, select,
+                    3 {Je {paranoia_version_4, select,
                         1 {ne vois pas trop}
                         2 {vois mal}
                         3 {ne vois pas du tout}
@@ -283,31 +283,31 @@
                     5 {Les Mush sont partout…}
                     6 {On est tous foutus…}
                     7 {Quel jeu de merde…}
-                    8 {Je {paranoia_version4, select,
+                    8 {Je {paranoia_version_4, select,
                         1 {pense}
                         2 {crois}
                         3 {vous jure}
                         other {kroa}
                     } qu'il y a un admin qui nous matte…}
-                    9 {Je {paranoia_version4, select,
+                    9 {Je {paranoia_version_4, select,
                         1 {pense}
                         2 {crois}
                         3 {vous jure}
                         other {kroa}
                     } qu'on veut ma peau…}
                     10 {Je suis sûr que c'est cheaté…}
-                    11 {Je {paranoia_version4, select,
+                    11 {Je {paranoia_version_4, select,
                         1 {pense}
                         2 {crois}
                         3 {vous jure}
                         other {kroa}
                     } qu'il y a un admin qui nous plombe…}
-                    12 {{paranoia_version4, select,
+                    12 {{paranoia_version_4, select,
                         1 {NERON}
                         2 {L'équipe de recherche}
                         3 {L'admin NERON}
                         other {Le commandant}
-                    } {paranoia_version6, select,
+                    } {paranoia_version_6, select,
                         1 {nimp.}
                         2 {nawak.}
                         3 {n'importe quoi.}
@@ -322,12 +322,12 @@
         <source>accuse_paranoia</source>
         <target>{version, select,
                     1 {Tu sais, {character} est du Mush…}
-                    2 {Je {paranoia_version4, select,
+                    2 {Je {paranoia_version_4, select,
                         1 {pense}
                         2 {crois}
                         3 {vous jure}
                         other {kroa}
-                    } que je vais {paranoia_version6, select,
+                    } que je vais {paranoia_version_6, select,
                         1 {fumer}
                         2 {tuer}
                         3 {me débarrasser de}
@@ -342,7 +342,7 @@
                     7 {{character} est un danger pour nous tous.}
                     8 {{character} est une menace pour nous tous.}
                     9 {{character} n'a pas arrosé les plantes, à mon avis, c'est un mush…}
-                    10 {{character} fait {paranoia_version6, select,
+                    10 {{character} fait {paranoia_version_6, select,
                         1 {nimp.}
                         2 {nawak.}
                         3 {n'importe quoi.}

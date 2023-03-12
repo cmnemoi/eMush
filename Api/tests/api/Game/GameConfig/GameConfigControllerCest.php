@@ -9,6 +9,12 @@ use Mush\Game\Enum\LanguageEnum;
 class GameConfigControllerCest
 {
     private string $url = 'game_configs';
+    private GameConfig $gameConfig;
+
+    public function _before(ApiTester $I)
+    {
+        $this->gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
+    }
 
     public function testGetNonExistingGameConfig(ApiTester $I)
     {
@@ -22,16 +28,13 @@ class GameConfigControllerCest
     {
         $I->loginUser('default');
 
-        $gameConfig = $this->createGameConfig();
-        $I->haveInRepository($gameConfig);
-
-        $I->sendGetRequest($this->url . '/' . $gameConfig->getId());
+        $I->sendGetRequest($this->url . '/' . $this->gameConfig->getId());
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
         $I->seeResponseContainsJson([
-            'id' => $gameConfig->getId(),
-            'name' => $gameConfig->getName(),
+            'id' => $this->gameConfig->getId(),
+            'name' => $this->gameConfig->getName(),
         ]);
     }
 
@@ -47,19 +50,13 @@ class GameConfigControllerCest
     {
         $I->loginUser(ApiTester::USER);
 
-        $gameConfig = $this->createGameConfig();
-        $I->haveInRepository($gameConfig);
-
-        $I->sendPutRequest($this->url . '/' . $gameConfig->getId());
+        $I->sendPutRequest($this->url . '/' . $this->gameConfig->getId());
         $I->seeResponseCodeIs(403);
     }
 
     public function testUpdateSucces(ApiTester $I)
     {
         $I->loginUser(ApiTester::ADMIN);
-
-        $gameConfig = $this->createGameConfig();
-        $I->haveInRepository($gameConfig);
 
         $data = [
             'name' => 'default',
@@ -81,24 +78,13 @@ class GameConfigControllerCest
             'maxItemInInventory' => 3,
         ];
 
-        $I->sendPutRequest($this->url . '/' . $gameConfig->getId(), $data, true);
+        $I->sendPutRequest($this->url . '/' . $this->gameConfig->getId(), $data, true);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
         $I->seeResponseContainsJson([
-            'id' => $gameConfig->getId(),
-            'name' => $gameConfig->getName(),
+            'id' => $this->gameConfig->getId(),
+            'name' => $this->gameConfig->getName(),
         ]);
-    }
-
-    private function createGameConfig(): GameConfig
-    {
-        $gameConfig = new GameConfig();
-
-        $gameConfig
-            ->setName('default')
-        ;
-
-        return $gameConfig;
     }
 }

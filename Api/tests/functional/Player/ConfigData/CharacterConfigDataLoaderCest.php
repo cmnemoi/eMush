@@ -135,25 +135,9 @@ class CharacterConfigDataLoaderCest
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
-        $config = [
-            'name' => 'andie',
-            'characterName' => 'andie',
-            'maxNumberPrivateChannel' => 3,
-            'maxHealthPoint' => 14,
-            'maxMoralPoint' => 14,
-            'maxActionPoint' => 12,
-            'maxMovementPoint' => 12,
-            'maxItemInInventory' => 3,
-            'initHealthPoint' => 14,
-            'initMoralPoint' => 14,
-            'initSatiety' => 0,
-            'initActionPoint' => 8,
-            'initMovementPoint' => 12,
-        ];
+        $config = CharacterConfigData::$dataArray[0];
 
         $config = $this->dropFields($config);
-
-        $I->haveInRepository(CharacterConfig::class, $config);
 
         $this->characterConfigDataLoader->loadConfigsData();
 

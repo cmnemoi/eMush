@@ -42,6 +42,7 @@ class EquipmentConfigData
                 'drop',
                 'hide',
                 'examine',
+                'repair_percent_25',
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -49,7 +50,7 @@ class EquipmentConfigData
         [
             'name' => 'drill_default',
             'equipmentName' => 'drill',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['metal_scraps' => 1],
@@ -109,7 +110,7 @@ class EquipmentConfigData
         [
             'name' => 'thermosensor_default',
             'equipmentName' => 'thermosensor',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['plastic_scraps' => 1],
@@ -1620,7 +1621,7 @@ class EquipmentConfigData
         [
             'name' => 'hacker_kit_default',
             'equipmentName' => 'hacker_kit',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => [],
@@ -1685,7 +1686,7 @@ class EquipmentConfigData
         [
             'name' => 'extinguisher_default',
             'equipmentName' => 'extinguisher',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => false,
             'dismountedProducts' => ['metal_scraps' => 1],
@@ -1750,7 +1751,7 @@ class EquipmentConfigData
         [
             'name' => 'microwave_default',
             'equipmentName' => 'microwave',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['metal_scraps' => 2],
@@ -1777,7 +1778,7 @@ class EquipmentConfigData
         [
             'name' => 'superfreezer_default',
             'equipmentName' => 'superfreezer',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['metal_scraps' => 2],
@@ -1803,7 +1804,7 @@ class EquipmentConfigData
         [
             'name' => 'alien_holographic_tv_default',
             'equipmentName' => 'alien_holographic_tv',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => [],
@@ -1847,7 +1848,7 @@ class EquipmentConfigData
         [
             'name' => 'spore_sucker_default',
             'equipmentName' => 'spore_sucker',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => false,
             'dismountedProducts' => [],
@@ -1952,7 +1953,7 @@ class EquipmentConfigData
         [
             'name' => 'stainproof_apron_default',
             'equipmentName' => 'stainproof_apron',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => [],
@@ -1975,7 +1976,7 @@ class EquipmentConfigData
         [
             'name' => 'plastenite_armor_default',
             'equipmentName' => 'plastenite_armor',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['plastic_scraps' => 1],
@@ -2020,7 +2021,7 @@ class EquipmentConfigData
         [
             'name' => 'protective_gloves_default',
             'equipmentName' => 'protective_gloves',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => [],
@@ -2064,7 +2065,7 @@ class EquipmentConfigData
         [
             'name' => 'sniper_helmet_default',
             'equipmentName' => 'sniper_helmet',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['plastic_scraps' => 1, 'metal_scraps' => 1],
@@ -2111,7 +2112,7 @@ class EquipmentConfigData
         [
             'name' => 'antigrav_scooter_default',
             'equipmentName' => 'antigrav_scooter',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['plastic_scraps' => 1, 'metal_scraps' => 2],
@@ -2183,7 +2184,7 @@ class EquipmentConfigData
         [
             'name' => 'oscilloscope_default',
             'equipmentName' => 'oscilloscope',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['metal_scraps' => 2],
@@ -2209,7 +2210,7 @@ class EquipmentConfigData
         [
             'name' => 'spacesuit_default',
             'equipmentName' => 'spacesuit',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['plastic_scraps' => 1, 'metal_scraps' => 1],
@@ -2231,7 +2232,7 @@ class EquipmentConfigData
         [
             'name' => 'super_soaper_default',
             'equipmentName' => 'super_soaper',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => true,
             'isFireBreakable' => false,
             'dismountedProducts' => [],
@@ -2293,7 +2294,7 @@ class EquipmentConfigData
         [
             'name' => 'magellan_liquid_map_default',
             'equipmentName' => 'magellan_liquid_map',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => [],
@@ -2316,7 +2317,7 @@ class EquipmentConfigData
         [
             'name' => 'blaster_default',
             'equipmentName' => 'blaster',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['metal_scraps' => 1],
@@ -2342,7 +2343,7 @@ class EquipmentConfigData
         [
             'name' => 'knife_default',
             'equipmentName' => 'knife',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['metal_scraps' => 1],
@@ -2387,7 +2388,7 @@ class EquipmentConfigData
         [
             'name' => 'natamy_rifle_default',
             'equipmentName' => 'natamy_rifle',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['metal_scraps' => 1],
@@ -2413,7 +2414,7 @@ class EquipmentConfigData
         [
             'name' => 'old_faithful_default',
             'equipmentName' => 'old_faithful',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['metal_scraps' => 1],
@@ -2440,7 +2441,7 @@ class EquipmentConfigData
         [
             'name' => 'lizaro_jungle_default',
             'equipmentName' => 'lizaro_jungle',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['metal_scraps' => 1],
@@ -2466,7 +2467,7 @@ class EquipmentConfigData
         [
             'name' => 'rocket_launcher_default',
             'equipmentName' => 'rocket_launcher',
-            'isBreakable' => false,
+            'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['metal_scraps' => 1],
@@ -2805,6 +2806,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_25',
                 'disassemble_percent_25_cost_3',
+                'sabotage_percent_25',
                 'examine',
                 'shower',
             ],
@@ -2824,6 +2826,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'examine',
+                'report_equipment',
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2841,6 +2844,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_12',
                 'examine',
+                'report_equipment',
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2943,6 +2947,7 @@ class EquipmentConfigData
             'actions' => [
                 'repair_percent_25',
                 'disassemble_percent_25_cost_3',
+                'sabotage_percent_25',
                 'examine',
                 'shower',
             ],
@@ -3236,7 +3241,7 @@ class EquipmentConfigData
             'isFireBreakable' => true,
             'dismountedProducts' => ['metal_scraps' => 1],
             'isPersonal' => false,
-            'type' => 'item_config',
+            'type' => 'equipment_config',
             'isStackable' => false,
             'actions' => [
                 'disassemble_percent_12_cost_3',

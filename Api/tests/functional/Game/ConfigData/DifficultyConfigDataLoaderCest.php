@@ -3,7 +3,6 @@
 namespace Mush\Tests\functional\Triumph\ConfigData;
 
 use App\Tests\FunctionalTester;
-use Mush\Game\ConfigData\DifficultyConfigData;
 use Mush\Game\ConfigData\DifficultyConfigDataLoader;
 use Mush\Game\Entity\DifficultyConfig;
 
@@ -40,8 +39,6 @@ class DifficultyConfigDataLoaderCest
 
     public function testLoadConfigsDataConfigAlreadyExists(FunctionalTester $I)
     {
-        $I->haveInRepository(DifficultyConfig::class, DifficultyConfigData::$dataArray[0]);
-
         $this->difficultyConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, DifficultyConfig::class, [

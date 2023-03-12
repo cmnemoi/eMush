@@ -21,7 +21,6 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
     {
         return [
             PlayerCycleEvent::PLAYER_NEW_CYCLE => 'onNewCycle',
-            PlayerCycleEvent::PLAYER_NEW_DAY => 'onNewDay',
         ];
     }
 
@@ -37,21 +36,6 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
                 $event->getTime()
             );
             $this->eventService->callEvent($itemNewCycle, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
-        }
-    }
-
-    public function onNewDay(PlayerCycleEvent $event): void
-    {
-        $player = $event->getPlayer();
-
-        foreach ($player->getEquipments() as $item) {
-            $itemNewDay = new EquipmentCycleEvent(
-                $item,
-                $player->getDaedalus(),
-                $event->getTags(),
-                $event->getTime()
-            );
-            $this->eventService->callEvent($itemNewDay, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
         }
     }
 }

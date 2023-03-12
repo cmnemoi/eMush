@@ -89,9 +89,9 @@ class LanguageEnum
                 'adjective_female_plural_coprolalia',
             ],
             LogDeclinationEnum::ANIMAL_COPROLALIA => [
-                'preposition_coprolalia',
                 'animal_coprolalia',
                 'animal_plural_coprolalia',
+                'preposition_coprolalia',
             ],
             LogDeclinationEnum::WORD_COPROLALIA => [
                 'word_coprolalia',

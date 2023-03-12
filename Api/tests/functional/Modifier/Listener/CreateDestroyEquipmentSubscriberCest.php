@@ -43,16 +43,9 @@ class CreateDestroyEquipmentSubscriberCest
 
     public function testCreateGearPlayerScope(FunctionalTester $I): void
     {
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $gear = new Gear();
         $gear
@@ -113,16 +106,9 @@ class CreateDestroyEquipmentSubscriberCest
 
     public function testCreateGearPlayerScopeInventoryFull(FunctionalTester $I): void
     {
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $gear = new Gear();
         $gear
@@ -255,16 +241,9 @@ class CreateDestroyEquipmentSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $gear = new Gear();
         $gear
@@ -334,16 +313,9 @@ class CreateDestroyEquipmentSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $gear = new Gear();
         $gear
@@ -432,16 +404,9 @@ class CreateDestroyEquipmentSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(ActionEnum::SHOWER)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
-        $I->haveInRepository($modifierConfig);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+        ]);
 
         $modifierConfig2 = new VariableEventModifierConfig();
         $modifierConfig2

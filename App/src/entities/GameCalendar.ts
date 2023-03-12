@@ -2,14 +2,18 @@ export class GameCalendar {
     public name: string|null;
     public description: string|null;
     public day: number|null;
+    public dayName: string|null;
     public cycle: number|null;
+    public cycleName: string|null;
 
 
     constructor() {
         this.day = null;
         this.cycle = null;
         this.name = null;
-        this.description =null;
+        this.description = null;
+        this.dayName = null;
+        this.cycleName = null;
     }
     load(object :any): GameCalendar {
         if (typeof object !== "undefined") {
@@ -17,6 +21,8 @@ export class GameCalendar {
             this.cycle = object.cycle;
             this.name = object.name;
             this.description = object.description;
+            this.dayName = object.dayName;
+            this.cycleName = object.cycleName;
         }
         return this;
     }
@@ -30,6 +36,8 @@ export class GameCalendar {
             this.cycle = object.cycle;
             this.name = object.name;
             this.description = object.description;
+            this.dayName = object.dayName;
+            this.cycleName = object.cycleName;
         }
 
         return this;

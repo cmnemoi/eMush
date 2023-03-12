@@ -21,6 +21,8 @@ imports:
     - { resource: ../src/Alert/config/services.yaml }
     - { resource: ../src/Modifier/config/services.yaml }
     - { resource: ../src/MetaGame/config/services.yaml }
+    - { resource: ../src/Logger/config/services.yaml }
+
 
 services:
     # default configuration for services in *this* file

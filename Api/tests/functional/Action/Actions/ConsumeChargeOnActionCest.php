@@ -21,8 +21,6 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -54,14 +52,8 @@ class ConsumeChargeOnActionCest
 
     public function testToolCharge(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setStatusName(StatusEnum::ATTEMPT)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($attemptConfig);
+        $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);
+
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
@@ -164,7 +156,6 @@ class ConsumeChargeOnActionCest
 
     public function testGearCharge(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $equipmentCoffee = new EquipmentConfig();
         $equipmentCoffee
             ->setEquipmentName(GameRationEnum::COFFEE)
@@ -172,13 +163,7 @@ class ConsumeChargeOnActionCest
         ;
         $I->haveInRepository($equipmentCoffee);
 
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setStatusName(StatusEnum::ATTEMPT)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($attemptConfig);
+        $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);
 
         $actionEntity = new Action();
         $actionEntity
@@ -310,8 +295,6 @@ class ConsumeChargeOnActionCest
 
     public function testGearMovementActionConversionCharge(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-
         $actionEntity = new Action();
         $actionEntity
             ->setActionName(ActionEnum::COFFEE)

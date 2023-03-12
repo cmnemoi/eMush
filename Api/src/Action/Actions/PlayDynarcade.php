@@ -6,12 +6,18 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * Class implementing the "Play arcade" action.
@@ -24,6 +30,17 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 class PlayDynarcade extends AttemptAction
 {
     protected string $name = ActionEnum::PLAY_ARCADE;
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => EquipmentStatusEnum::BROKEN,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+        ]));
+    }
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -41,7 +58,7 @@ class PlayDynarcade extends AttemptAction
                 new \DateTime()
             );
 
-            $playerModifierEvent->setVisibility(VisibilityEnum::PUBLIC);
+            $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         } elseif ($result instanceof Fail) {
             $playerModifierEvent = new PlayerVariableEvent(

@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -71,12 +72,14 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
         );
 
         // Split equipments between items and equipments
-        $partition = $room->getEquipments()->partition(fn (int $key, GameEquipment $gameEquipment) => $gameEquipment->getClassName() === GameEquipment::class ||
-            $gameEquipment->getClassName() === Door::class
-        );
+        $partition = $room->getEquipments()->partition(fn (int $key, GameEquipment $gameEquipment) => ($gameEquipment->getClassName() === GameEquipment::class
+            && !EquipmentEnum::equipmentToNormalizeAsItems()->contains($gameEquipment->getName())));
 
         $equipments = $partition[0];
         $items = $partition[1];
+
+        // do not normalize doors
+        $items = $items->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getClassName() !== Door::class);
 
         $normalizedEquipments = $this->normalizeEquipments(
             $currentPlayer,
@@ -196,6 +199,14 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
                         $piles
                     );
                 }
+            } else {
+                $piles = $this->handleNonStackableItem(
+                    $itemGroup,
+                    $currentPlayer,
+                    $format,
+                    $context,
+                    $piles
+                );
             }
         }
 

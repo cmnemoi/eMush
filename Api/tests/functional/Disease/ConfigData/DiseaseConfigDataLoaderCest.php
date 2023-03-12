@@ -60,17 +60,6 @@ class DiseaseConfigDataLoaderCest
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
-        $I->haveInRepository(DiseaseConfig::class, [
-            'diseaseName' => 'food_poisoning',
-            'name' => 'food_poisoning_default',
-            'type' => 'disease',
-            'resistance' => 0,
-            'delayMin' => 0,
-            'delayLength' => 0,
-            'diseasePointMin' => 4,
-            'diseasePointLength' => 4,
-        ]);
-
         $this->diseaseConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, DiseaseConfig::class, [

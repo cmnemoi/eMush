@@ -34,8 +34,6 @@ class ModifierActivationRequirementDataLoaderCest
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
-        $I->haveInRepository(ModifierActivationRequirement::class, ModifierActivationRequirementData::$dataArray[0]);
-
         $this->modifierActivationRequirementDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, ModifierActivationRequirement::class, ModifierActivationRequirementData::$dataArray[0]);

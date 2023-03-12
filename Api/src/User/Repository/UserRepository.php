@@ -8,7 +8,6 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @template-extends ServiceEntityRepository<User>
@@ -22,12 +21,12 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 
     public function loadUserByUsername(string $username): ?User
     {
-        $user = $this->findOneBy(['userId' => $username]);
+        $user = $this->findOneBy(['username' => $username]);
 
         return $user instanceof User ? $user : null;
     }
 
-    public function loadUserByIdentifier(string $identifier): ?UserInterface
+    public function loadUserByIdentifier(string $identifier): ?User
     {
         $user = $this->findOneBy(['userId' => $identifier]);
 
@@ -43,7 +42,8 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->innerJoin(PlayerInfo::class, 'player_info', 'WITH', 'player_info.user = user.id')
             ->innerJoin('player_info.player', 'player')
             ->innerJoin('player.daedalus', 'daedalus')
-            ->innerJoin(DaedalusInfo::class, 'daedalus_info', 'WITH', 'daedalus_info.id = daedalus.id')
+
+            ->innerJoin(DaedalusInfo::class, 'daedalus_info', 'WITH', 'daedalus_info.daedalus = daedalus.id')
             ->where($qb->expr()->eq('user.id', ':user_id'))
             ->setParameter('user_id', $user->getId())
         ;

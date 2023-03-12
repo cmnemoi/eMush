@@ -34,8 +34,6 @@ class SymptomActivationRequirementDataLoaderCest
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
-        $I->haveInRepository(SymptomActivationRequirement::class, SymptomActivationRequirementData::$dataArray[0]);
-
         $this->symptomActivationRequirementLoader->loadConfigsData();
 
         $I->seeNumRecords(1, SymptomActivationRequirement::class, SymptomActivationRequirementData::$dataArray[0]);

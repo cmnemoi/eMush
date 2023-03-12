@@ -9,6 +9,7 @@ use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlantLogEnum;
@@ -29,6 +30,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     private const DESTRUCTION_LOG_MAP = [
         EventEnum::FIRE => LogEnum::EQUIPMENT_DESTROYED,
         PlantLogEnum::PLANT_DEATH => PlantLogEnum::PLANT_DEATH,
+        EndCauseEnum::ASPHYXIA => LogEnum::OXY_LOW_USE_CAPSULE,
     ];
 
     public function __construct(RoomLogServiceInterface $roomLogService)

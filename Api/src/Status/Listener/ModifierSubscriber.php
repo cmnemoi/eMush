@@ -28,7 +28,7 @@ class ModifierSubscriber implements EventSubscriberInterface
         $modifier = $event->getModifier();
 
         if (($charge = $modifier->getCharge()) !== null) {
-            $this->statusService->updateCharge($charge, -1);
+            $this->statusService->updateCharge($charge, -1, $event->getTags(), $event->getTime());
         }
     }
 }

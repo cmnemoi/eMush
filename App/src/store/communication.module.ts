@@ -135,6 +135,10 @@ const actions: ActionTree<any, any> = {
         commit('invitablePlayerMenu', { isOpen: false, channel: null });
     },
 
+    async clearChannels({ commit }) {
+        commit('clearChannels');
+    },
+
     clearRoomLogs({ getters, commit }) {
         commit('setChannelMessages', { channel: getters.roomChannel, messages: [] });
     },
@@ -153,7 +157,7 @@ const mutations: MutationTree<any> = {
         state.loadingByChannelId[channel.id] = newStatus;
     },
 
-    setCurrentChannel(state: any, channel: Channel): void {
+    setCurrentChannel(state: any, channel: Channel | null): void {
         state.currentChannel = channel;
     },
 
@@ -179,6 +183,16 @@ const mutations: MutationTree<any> = {
     setChannelMessages(state: any, { channel, messages }): void {
         if (!channel) return;
         state.messagesByChannelId[channel.id] = messages;
+    },
+
+    clearChannels(): void {
+        state.currentChannel = new Channel();
+        state.invitationChannel = null;
+        state.invitablePlayerMenuOpen = false;
+        state.invitablePlayers = [];
+        state.loadingByChannelId = {};
+        state.messagesByChannelId = {};
+        state.channels = [];
     }
 };
 

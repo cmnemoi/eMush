@@ -54,22 +54,6 @@ class DaedalusConfigDataLoaderCest
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
-        $I->haveInRepository(DaedalusConfig::class, [
-            'name' => 'default',
-            'initOxygen' => 32,
-            'initFuel' => 20,
-            'initHull' => 100,
-            'initShield' => -2,
-            'maxOxygen' => 32,
-            'maxFuel' => 32,
-            'maxHull' => 100,
-            'maxShield' => 100,
-            'dailySporeNb' => 4,
-            'nbMush' => 3,
-            'cyclePerGameDay' => 8,
-            'cycleLength' => 180,
-        ]);
-
         $this->placeConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, DaedalusConfig::class, [

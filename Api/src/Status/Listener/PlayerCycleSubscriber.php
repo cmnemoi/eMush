@@ -20,7 +20,6 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
     {
         return [
             PlayerCycleEvent::PLAYER_NEW_CYCLE => 'onNewCycle',
-            PlayerCycleEvent::PLAYER_NEW_DAY => 'onNewDay',
         ];
     }
 
@@ -36,21 +35,6 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
                 $event->getTime()
             );
             $this->eventService->callEvent($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
-        }
-    }
-
-    public function onNewDay(PlayerCycleEvent $event): void
-    {
-        $player = $event->getPlayer();
-
-        foreach ($player->getStatuses() as $status) {
-            $statusNewCycle = new StatusCycleEvent(
-                $status,
-                $player,
-                $event->getTags(),
-                $event->getTime()
-            );
-            $this->eventService->callEvent($statusNewCycle, StatusCycleEvent::STATUS_NEW_DAY);
         }
     }
 }

@@ -371,6 +371,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.map = this.createRoom();
         this.createEquipments(this.map);
         this.updateStatuses();
+        this.updateEquipments();
 
         // add target tile highlight
         this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
@@ -414,12 +415,13 @@ export default class DaedalusScene extends Phaser.Scene
             this.deleteWallAndFloor();
             this.deleteCharacters();
             this.deleteEquipmentsAndDecoration();
-
+            this.removeFire();
 
             this.map = this.createRoom();
             this.createEquipments(this.map);
             this.updateStatuses();
             this.createPlayers();
+            this.updateEquipments();
 
         } else if (this.areEquipmentsModified()) {
             this.room = newRoom;
@@ -448,12 +450,7 @@ export default class DaedalusScene extends Phaser.Scene
         if (this.room.isOnFire && this.fireParticles.length === 0) {
             this.displayFire();
         } else if (!this.room.isOnFire && this.fireParticles.length > 0) {
-            for (let i=0; i< this.fireParticles.length; i++) {
-                const particleEmitter = this.fireParticles[i];
-                particleEmitter.destroy();
-                this.fireParticles.splice(i, 1);
-                i= i-1;
-            }
+            this.removeFire();
         }
     }
 
@@ -543,22 +540,27 @@ export default class DaedalusScene extends Phaser.Scene
 
         const room = this.player.room;
 
-        let equipmentCount = 0;
-
         if (room === null) { throw new Error("player room should be defined");}
-        const updatedEquipments = room.equipments;
+        const equipmentsToUpdate = room.equipments;
+
+
+        const updatedEquipment = new Array<string>();
+
         for (let i=0; i < sceneGameObjects.length; i++) {
             const gameObject = sceneGameObjects[i];
 
             if (gameObject instanceof EquipmentObject) {
-                if (updatedEquipments.filter((equipment: Equipment) => {return equipment.key === gameObject.name;}).length === 0) {
+                if (equipmentsToUpdate.filter((equipment: Equipment) => {return equipment.key === gameObject.name;}).length === 0) {
                     return true;
                 }
-                equipmentCount = equipmentCount + 1;
+                if (!(updatedEquipment.includes(gameObject.name))) {
+                    updatedEquipment.push(gameObject.name);
+                }
             }
         }
 
-        if (updatedEquipments.length === equipmentCount) {
+
+        if (equipmentsToUpdate.length === updatedEquipment.length) {
             return false;
         }
         return true;
@@ -667,6 +669,15 @@ export default class DaedalusScene extends Phaser.Scene
         }
     }
 
+    removeFire(): void
+    {
+        for (let i=0; i< this.fireParticles.length; i++) {
+            const particleEmitter = this.fireParticles[i];
+            particleEmitter.destroy();
+            this.fireParticles.splice(i, 1);
+            i= i-1;
+        }
+    }
 
     displayFire(): void
     {

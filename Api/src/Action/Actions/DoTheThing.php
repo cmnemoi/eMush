@@ -12,7 +12,7 @@ use Mush\Action\Validator\FlirtedAlready;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\IsSameGender;
-use Mush\Action\Validator\NumberPlayersInRoom;
+use Mush\Action\Validator\NumberPlayersAliveInRoom;
 use Mush\Action\Validator\Reach;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Enum\DiseaseCauseEnum;
@@ -126,7 +126,7 @@ class DoTheThing extends AbstractAction
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_CAMERA,
         ]));
 
-        $metadata->addConstraint(new NumberPlayersInRoom([
+        $metadata->addConstraint(new NumberPlayersAliveInRoom([
             'number' => 2,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_WITNESS,
@@ -250,14 +250,22 @@ class DoTheThing extends AbstractAction
     {
         $sporeNumber = $mush->getVariableValueByName(PlayerVariableEnum::SPORE);
         if ($sporeNumber > 0) {
-            $playerModifierEvent = new PlayerVariableEvent(
+            $removeSporeEvent = new PlayerVariableEvent(
                 $mush,
                 PlayerVariableEnum::SPORE,
                 -1,
                 $this->getAction()->getActionTags(),
                 new \DateTime()
             );
-            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+            $addSporesEvent = new PlayerVariableEvent(
+                $target,
+                PlayerVariableEnum::SPORE,
+                1,
+                $this->getAction()->getActionTags(),
+                new \DateTime()
+            );
+            $this->eventService->callEvent($removeSporeEvent, VariableEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($addSporesEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 

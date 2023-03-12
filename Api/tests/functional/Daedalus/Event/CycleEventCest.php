@@ -103,14 +103,14 @@ class CycleEventCest
         $user = $I->have(User::class);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
         $characterConfig
             ->setInitHealthPoint(99)
             ->setMaxHealthPoint(99)
         ;
         $I->haveInRepository($characterConfig);
         /** @var CharacterConfig $characterConfig2 */
-        $characterConfig2 = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+        $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
         $characterConfig2
             ->setInitHealthPoint(99)
             ->setMaxHealthPoint(99)

@@ -15,8 +15,6 @@ class RandomItemPlacesData
             'name' => 'default',
             'items' => [
                 GearItemEnum::PLASTENITE_ARMOR,
-                ItemEnum::BLASTER,
-                ItemEnum::BLASTER,
                 ItemEnum::QUADRIMETRIC_COMPASS,
                 ItemEnum::CAMERA_ITEM,
                 ItemEnum::CAMERA_ITEM,

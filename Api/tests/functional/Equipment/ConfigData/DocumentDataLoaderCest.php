@@ -48,8 +48,6 @@ class DocumentDataLoaderCest
 
         $config = $this->dropFields($config);
 
-        $I->haveInRepository(Document::class, $config);
-
         $this->documentDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, Document::class, $config);

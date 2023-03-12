@@ -196,8 +196,8 @@
 			"statusConfigs": "Statuts",
 			"equipmentConfigs": "Équipement",
 			"triumphConfigs": "Sources de triomphe",
-			"diseaseCauseConfigs": "Causes de maladie",
-			"diseaseConfigs": "Maladies",
+			"diseaseCauseConfigs": "Configuration des causes de maladie",
+			"diseaseConfigs": "Configurations de maladie",
 			"consumableDiseaseConfigs": "Configuration des maladies des consommables"
 		},
 		"modifierConfig": {
@@ -433,9 +433,9 @@
 			"modifierConfigs": "Modificateurs",
 			"equipment": "Équipement assemblé",
 			"blueprint": "Plans de construction",
-			"book": "Apprentons",
+			"book": "Apprentrons",
 			"document": "Documents",
-			"drug": "Drogues",
+			"drug": "Médicaments",
 			"fruit": "Fruits",
 			"gear": "Outils",
 			"plant": "Plantes",

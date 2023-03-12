@@ -382,13 +382,18 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($shower);
 
+        /** @var Action $playArcade */
+        $playArcadeAction = $this->getReference(ActionsFixtures::PLAY_ARCADE);
+
+        /** @var ArrayCollection<int, Action> $dynacardeActions */
+        $dynacardeActions = new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction, $playArcadeAction]);
         $dynarcade = new EquipmentConfig();
         $dynarcade
             ->setEquipmentName(EquipmentEnum::DYNARCADE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
+            ->setActions($dynacardeActions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($dynarcade);
@@ -476,6 +481,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($turretCommand);
+        $manager->persist($turretMechanic);
 
         /** @var Action $selfSurgeryAction */
         $selfSurgeryAction = $this->getReference(ActionsFixtures::SELF_SURGERY);
@@ -531,6 +537,29 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($oxygenTankMechanic);
         $manager->persist($oxygenTankGear);
 
+        /** @var Action $dismantle12 */
+        $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
+
+        $tabulatrixActions = new ArrayCollection([
+            $dismantle12,
+            $repair12,
+            $sabotage12,
+            $reportAction,
+            $examineAction,
+        ]);
+
+        $tabulatrix = new EquipmentConfig();
+        $tabulatrix
+            ->setEquipmentName(EquipmentEnum::TABULATRIX)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
+            ->setIsBreakable(true)
+            ->setActions($tabulatrixActions)
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($tabulatrix);
+
         $gameConfig
             ->addEquipmentConfig($icarus)
             ->addEquipmentConfig($door)
@@ -566,6 +595,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addEquipmentConfig($surgicalPlot)
             ->addEquipmentConfig($fuelTank)
             ->addEquipmentConfig($oxygenTank)
+            ->addEquipmentConfig($tabulatrix)
         ;
         $manager->persist($gameConfig);
 

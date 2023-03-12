@@ -110,6 +110,7 @@ class PlayDynarcadeTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
         $this->actionService->shouldIgnoreMissing();
 
         $expectedPlayerModifierEvent = new PlayerVariableEvent(
@@ -119,7 +120,7 @@ class PlayDynarcadeTest extends AbstractActionTest
             $this->action->getAction()->getActionTags(),
             new \DateTime()
         );
-        $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PUBLIC);
+        $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
 
         $this->eventService->shouldReceive('callEvent')
         ->withArgs([\Mockery::on(function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {

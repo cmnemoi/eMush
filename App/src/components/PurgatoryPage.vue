@@ -16,7 +16,7 @@
                             </p>
                         </div>
                         <p class="score">
-                            {{ player.triumph }}<img src="@/assets/images/triumph.png" alt="triumph">
+                            {{ player.triumph?.quantity }}<img src="@/assets/images/triumph.png" alt="triumph">
                         </p>
                     </div>
                     <div class="epitaph-form">

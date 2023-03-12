@@ -147,7 +147,7 @@
         <target>Centre Bravo Turret</target>
       </segment>
       <segment id="loc_prep" state="translated">
-        <source>center_bravo_turret.loc_prep</source>
+        <source>centre_bravo_turret.loc_prep</source>
         <target>in </target>
       </segment>
     </unit>

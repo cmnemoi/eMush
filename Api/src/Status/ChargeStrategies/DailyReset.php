@@ -10,7 +10,7 @@ class DailyReset extends AbstractChargeStrategy
 {
     protected string $name = ChargeStrategyTypeEnum::DAILY_RESET;
 
-    public function apply(ChargeStatus $status, array $reasons): ?ChargeStatus
+    public function apply(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus
     {
         // Only applied on cycle 1
         if (!in_array(EventEnum::NEW_DAY, $reasons) || $status->getCharge() >= $status->getThreshold()) {

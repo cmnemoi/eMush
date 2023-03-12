@@ -4,6 +4,7 @@ namespace Mush\Place\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Place\Event\RoomEvent;
 use Mush\Place\Service\PlaceServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,12 +25,13 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusEvent::DELETE_DAEDALUS => 'onDeleteDaedalus',
+            DaedalusEvent::DELETE_DAEDALUS => ['onDeleteDaedalus', 10], // delete places before deleting players
         ];
     }
 
     public function onDeleteDaedalus(DaedalusEvent $event): void
     {
+        /** @var Place $place */
         foreach ($event->getDaedalus()->getRooms() as $place) {
             $deleteEvent = new RoomEvent(
                 $place,

@@ -36,7 +36,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ApplyEffectEvent::CONSUME => 'onConsume',
+            ApplyEffectEvent::CONSUME => ['onConsume', -10],
         ];
     }
 

@@ -17,7 +17,6 @@ use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -40,12 +39,7 @@ class NeronMessageCycleCest
 
     public function testNewFire(FunctionalTester $I)
     {
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig
-            ->setStatusName(StatusEnum::FIRE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($statusConfig);
+        $statusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::FIRE]);
 
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class, [

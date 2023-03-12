@@ -1,3 +1,8 @@
+stages:
+  - build
+  - test
+  - release
+
 .php_template: &php_template
   image: registry.gitlab.com/eternaltwin/mush/mush/api:latest
   cache:
@@ -26,6 +31,7 @@
     - cp .env.gitlab .env.test
     - cp .env.gitlab .env
     - bin/console doctrine:schema:update -f
+    - bin/console doctrine:fixtures:load -n --env=test
     - openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:mush
     - openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:mush
     - chmod go+r config/jwt/private.pem
@@ -39,22 +45,62 @@
     - cd App
     - yarn install
 
+ # dummy job to check if the pipeline is valid or if there is no job to run
+check:
+  stage: build
+  image: alpine:latest
+  script:
+    - echo "Pipeline is valid"
+
+build-front:
+  stage: build
+  needs: 
+    - job: check
+      optional: true
+  <<: *node_template
+  script:
+    - yarn build
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["App/**/*.vue", "App/**/*.ts", "App/**/*.scss", "App/**/*.css"]
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+
 api-test:
   <<: *php_with_db_template
+  stage: test
+  needs: 
+    - job: check
+      optional: true
+    - job: build-front
+      optional: true
   script:
     - php vendor/bin/codecept run
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-
+      changes: ["Api/**/*.php"]
+    
 api-lint:
   <<: *php_template
+  stage: test
+  needs:
+    - job: check
+      optional: true
+    - job: build-front
+      optional: true
   script:
     - ./linters.sh
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["Api/**/*.php", "Api/**/*.xlf"]
+    
 
 api-test-develop:
   <<: *php_with_db_template
+  stage: test
+  needs: 
+    - job: check
+      optional: true
+    - job: build-front
   script:
     - pecl install xdebug && docker-php-ext-enable xdebug
     - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
@@ -72,22 +118,37 @@ api-test-develop:
 
 front-lint:
   <<: *node_template
+  stage: test
+  needs: 
+    - job: check
+      optional: true
+    - job: build-front
+      optional: true
   script:
     - yarn lint --no-fix
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-
+      changes: ["App/**/*.vue", "App/**/*.ts", "App/**/*.scss", "App/**/*.css"]
+    
 front-test:
   <<: *node_template
+  stage: test
+  needs: 
+    - job: check
+      optional: true
+    - job: build-front
+      optional: true
   script:
     - yarn test
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["App/**/*.vue", "App/**/*.ts", "App/**/*.scss", "App/**/*.css"]
     - if: '$CI_COMMIT_BRANCH == "develop"'
-
+    
 # Generate a CHANGELOG.md file and create a new release on GitLab while merging to master
 release:
   <<: *node_template
+  stage: release
   before_script:
     - npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/release-notes-generator @semantic-release/gitlab
   variables:

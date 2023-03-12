@@ -34,11 +34,11 @@ class RationCycleHandler extends AbstractCycleHandler
 
     public function handleNewDay($object, \DateTime $dateTime): void
     {
-        $gameRation = $object;
-
-        if (!$gameRation instanceof GameEquipment) {
+        if (!($object instanceof GameEquipment)) {
             return;
         }
+
+        $gameRation = $object;
 
         /** @var Ration $rationType */
         $rationType = $gameRation->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
@@ -55,7 +55,7 @@ class RationCycleHandler extends AbstractCycleHandler
 
     private function handleStatus(GameEquipment $gameRation, Ration $ration): void
     {
-        // If ration is not perishable or frozen oe decomposing do nothing
+        // If ration is not perishable or frozen or decomposing do nothing
         if (!$ration->isPerishable() ||
             $gameRation->getStatuses()->exists(
                 fn (int $key, Status $status) => in_array($status->getName(), [EquipmentStatusEnum::DECOMPOSING, EquipmentStatusEnum::FROZEN])
@@ -65,10 +65,22 @@ class RationCycleHandler extends AbstractCycleHandler
         }
 
         if ($currentStatus = $gameRation->getStatusByName(EquipmentStatusEnum::UNSTABLE)) {
-            $gameRation->removeStatus($currentStatus);
+            $removeStatusEvent = new StatusEvent(
+                statusName: $currentStatus->getName(),
+                holder: $gameRation,
+                tags: [EventEnum::NEW_DAY],
+                time: new \DateTime()
+            );
+            $this->eventService->callEvent($removeStatusEvent, StatusEvent::STATUS_REMOVED);
             $nextStatus = EquipmentStatusEnum::HAZARDOUS;
         } elseif ($currentStatus = $gameRation->getStatusByName(EquipmentStatusEnum::HAZARDOUS)) {
-            $gameRation->removeStatus($currentStatus);
+            $removeStatusEvent = new StatusEvent(
+                statusName: $currentStatus->getName(),
+                holder: $gameRation,
+                tags: [EventEnum::NEW_DAY],
+                time: new \DateTime()
+            );
+            $this->eventService->callEvent($removeStatusEvent, StatusEvent::STATUS_REMOVED);
             $nextStatus = EquipmentStatusEnum::DECOMPOSING;
         } else {
             $nextStatus = EquipmentStatusEnum::UNSTABLE;

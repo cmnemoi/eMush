@@ -49,5 +49,5 @@ interface StatusServiceInterface
 
     public function getByTargetAndName(StatusHolderInterface $target, string $name): ?Status;
 
-    public function updateCharge(ChargeStatus $chargeStatus, int $delta): ?ChargeStatus;
+    public function updateCharge(ChargeStatus $chargeStatus, int $delta, array $tags, \DateTime $time): ?ChargeStatus;
 }

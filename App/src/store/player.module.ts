@@ -48,6 +48,13 @@ const actions: ActionTree<any, any> = {
     async reloadPlayer({ state, dispatch }) {
         return dispatch("loadPlayer", { playerId: state.player.id });
     },
+    async clearPlayer({ commit }) {
+        commit("clearPlayer");
+        this.dispatch("room/setRoom", { room: null });
+        this.dispatch("daedalus/clearDaedalus");
+        this.dispatch("communication/clearRoomLogs");
+        this.dispatch("communication/clearChannels");
+    },
     setLoading({ commit }, { loading }) {
         commit('setLoading', loading);
     },
@@ -63,6 +70,10 @@ const mutations : MutationTree<any> = {
     updatePlayer(state: any, player: Player): void {
         state.player = player;
         state.loading = false;
+    },
+    clearPlayer(state: any): void
+    {
+        state.player = null;
     },
     errorUpdatePlayer(state: any): void {
         state.loading = false;

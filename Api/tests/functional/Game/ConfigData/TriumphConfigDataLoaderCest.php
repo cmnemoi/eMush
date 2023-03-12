@@ -34,13 +34,6 @@ class TriumphConfigDataLoaderCest
 
     public function testloadConfigsDataConfigAlreadyExists(FunctionalTester $I)
     {
-        $I->haveInRepository(TriumphConfig::class, [
-            'name' => TriumphEnum::ALIEN_SCIENCE,
-            'triumph' => 16,
-            'isAllCrew' => false,
-            'team' => VisibilityEnum::PUBLIC,
-        ]);
-
         $this->triumphConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, TriumphConfig::class, [

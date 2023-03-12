@@ -86,5 +86,17 @@ Un **ciclo dura 3 horas**. ¡En cada Ciclo acumulas más :pm::pa:, indispensable
         <target>calendar.description</target>
       </segment>
     </unit>
+    <unit id="cycle.name">
+      <segment state="initial">
+        <source>cycle.name</source>
+        <target>cycle.name</target>
+      </segment>
+    </unit>
+    <unit id="day.name">
+      <segment state="initial">
+        <source>day.name</source>
+        <target>day.name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

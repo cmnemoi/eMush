@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -10,27 +11,26 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Player\Service\PlayerVariableService;
-use Mush\Player\Service\PlayerVariableServiceInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private PlayerServiceInterface $playerService;
     private EventServiceInterface $eventService;
-    private PlayerVariableServiceInterface $playerVariableService;
     private RandomServiceInterface $randomService;
+    private LoggerInterface $logger;
 
     public function __construct(
         PlayerServiceInterface $playerService,
         EventServiceInterface $eventService,
-        PlayerVariableService $playerVariableService,
-        RandomServiceInterface $randomService
+        RandomServiceInterface $randomService,
+        LoggerInterface $logger
     ) {
         $this->playerService = $playerService;
         $this->eventService = $eventService;
-        $this->playerVariableService = $playerVariableService;
         $this->randomService = $randomService;
+        $this->logger = $logger;
     }
 
     public static function getSubscribedEvents()
@@ -46,6 +46,14 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onDeathPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
+        if (!$player->isAlive()) {
+            $exception = new \LogicException('Player is already dead');
+            $this->logger->info($exception->getMessage(), [
+                'trace' => $exception->getTraceAsString(),
+            ]);
+            throw $exception;
+        }
+
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
         if ($endCause === null) {
@@ -98,8 +106,22 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onConversionPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
+        $tags = $event->getTags();
+        $tags[] = $event->getEventName();
 
-        $this->playerVariableService->setPlayerVariableToMax($player, PlayerVariableEnum::MORAL_POINT);
+        $maxMoral = $player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->getMaxValue();
+        if ($maxMoral === null) {
+            throw new \LogicException('moral Variable should have a maximum value');
+        }
+        $playerModifierEvent = new PlayerVariableEvent(
+            $player,
+            PlayerVariableEnum::MORAL_POINT,
+            $maxMoral,
+            $tags,
+            new \DateTime(),
+        );
+        $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::SET_VALUE);
 
         $sporeVariable = $player->getVariableByName(PlayerVariableEnum::SPORE);
 

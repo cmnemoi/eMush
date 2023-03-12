@@ -218,13 +218,13 @@ class StatusService implements StatusServiceInterface
         return $this->statusRepository->findByTargetAndName($target, $name);
     }
 
-    public function updateCharge(ChargeStatus $chargeStatus, int $delta): ?ChargeStatus
+    public function updateCharge(ChargeStatus $chargeStatus, int $delta, array $tags, \DateTime $time): ?ChargeStatus
     {
         $newCharge = $chargeStatus->getCharge() + $delta;
         $threshold = $chargeStatus->getThreshold();
 
         if ($chargeStatus->isAutoRemove() && ($newCharge >= $threshold || $newCharge <= 0)) {
-            $this->delete($chargeStatus);
+            $this->removeStatus($chargeStatus->getName(), $chargeStatus->getOwner(), $tags, $time);
 
             return null;
         }

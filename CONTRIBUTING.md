@@ -1,6 +1,6 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via issue,
+When contributing to this repository, please first discuss the change you wish to make via [issue](https://gitlab.com/eternaltwin/mush/mush/-/issues/?sort=updated_desc&state=opened&first_page_size=100),
 or [discord](https://discord.com/channels/693082011484684348) before making a change. 
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
@@ -49,6 +49,8 @@ In short, your MR title must be prefixed by one of the following:
 - test: Adding missing tests or correcting existing tests
 - ci: Changes to our CI configuration files and scripts
 - chore: Other changes that don't modify src or test files
+
+5- We advise new back-end developers to add an [action](./Api/src/Action/README.md).
 
 ## Code of Conduct
 

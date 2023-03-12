@@ -8,7 +8,6 @@ use Mush\Player\Entity\Player;
 class PlayerCycleEvent extends AbstractGameEvent
 {
     public const PLAYER_NEW_CYCLE = 'player.new.cycle';
-    public const PLAYER_NEW_DAY = 'player.new.day';
 
     public function __construct(
         Player $player,

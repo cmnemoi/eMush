@@ -132,7 +132,7 @@ class ActionData
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 60, 'min_value' => 0, 'max_value' => 100],
-            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageCritical' => ['value' => 40, 'min_value' => 0, 'max_value' => 100],
         ],
         [
             'name' => 'hide',
@@ -1205,7 +1205,7 @@ class ActionData
             'types' => [],
             'target' => null,
             'scope' => 'current',
-            'visibilities' => ['success' => 'private', 'fail' => 'private'],
+            'visibilities' => ['success' => 'secret', 'fail' => 'privatie'],
             'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

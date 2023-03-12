@@ -915,6 +915,7 @@ export default defineComponent ({
         displayOther(): void
         {
             if (this.minimap){
+                this.playersPoints = [];
                 const roomsWithPlayers = this.minimap.filter((room: Minimap) => room.players_count > 0);
                 roomsWithPlayers.forEach((room: Minimap) => {
                     const roomCoord = RoomsEnum[room.name];
@@ -949,6 +950,12 @@ export default defineComponent ({
     mounted(): void {
         this.displayMe();
         this.displayOther();
+    },
+    watch: {
+        minimap(): void {
+            this.displayMe();
+            this.displayOther();
+        }
     }
 });
 

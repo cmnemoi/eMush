@@ -799,6 +799,16 @@
                             "name": "depth",
                             "type": "int",
                             "value": 1
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 32
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 32
                         }
                     ],
                     "rotation": 0,
@@ -823,6 +833,16 @@
                             "name": "depth",
                             "type": "int",
                             "value": 2
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 4
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 32
                         }
                     ],
                     "rotation": 0,
@@ -847,6 +867,16 @@
                             "name": "depth",
                             "type": "int",
                             "value": 4
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 32
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 32
                         }
                     ],
                     "rotation": 0,
@@ -871,6 +901,16 @@
                             "name": "depth",
                             "type": "int",
                             "value": 5
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 4
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 32
                         }
                     ],
                     "rotation": 0,
@@ -895,6 +935,16 @@
                             "name": "depth",
                             "type": "int",
                             "value": 1
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 32
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 32
                         }
                     ],
                     "rotation": 0,
@@ -919,6 +969,16 @@
                             "name": "depth",
                             "type": "int",
                             "value": 2
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 32
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 4
                         }
                     ],
                     "rotation": 0,
@@ -943,6 +1003,16 @@
                             "name": "depth",
                             "type": "int",
                             "value": 7
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 32
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 32
                         }
                     ],
                     "rotation": 0,
@@ -967,6 +1037,16 @@
                             "name": "depth",
                             "type": "int",
                             "value": 8
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 4
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 32
                         }
                     ],
                     "rotation": 0,
@@ -991,6 +1071,16 @@
                             "name": "depth",
                             "type": "int",
                             "value": 7
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 32
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 32
                         }
                     ],
                     "rotation": 0,
@@ -1015,6 +1105,16 @@
                             "name": "depth",
                             "type": "int",
                             "value": 8
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 32
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 4
                         }
                     ],
                     "rotation": 0,
@@ -4970,6 +5070,16 @@
                             "name": "depth",
                             "type": "int",
                             "value": 15
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 32
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 32
                         }
                     ],
                     "rotation": 0,
@@ -4994,6 +5104,16 @@
                             "name": "depth",
                             "type": "int",
                             "value": 15
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 32
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 32
                         }
                     ],
                     "rotation": 0,
@@ -5018,6 +5138,16 @@
                             "name": "depth",
                             "type": "int",
                             "value": 15
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 32
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 32
                         }
                     ],
                     "rotation": 0,

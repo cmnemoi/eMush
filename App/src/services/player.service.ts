@@ -51,6 +51,7 @@ const PlayerService = {
 
         return ApiService.post(PLAYER_ENDPOINT + '/' + player.id + '/end', data)
             .then(() => {
+                store.dispatch('player/clearPlayer');
                 store.dispatch('auth/userInfo');
             });
     },

@@ -112,7 +112,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>derek.age</source>
-        <target>39</target>
+        <target>just turned 39</target>
       </segment>
       <segment id="description" state="translated">
         <source>derek.description</source>

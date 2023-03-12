@@ -352,7 +352,7 @@
                     17 {Peut-être pourriez vous tenter avec un outil plus approprié.}
                     18 {Peut-être que ce maudit papillon n'a pas battu des ailes.}
                     19 {Peut-être que le destin ne vous a pas souri aujourd'hui.}
-                    20 {Peut-être que les {target_equipment_plural} sont des mensonges...}
+                    20 {Peut-être que les {target_equipment_plural_name} sont des mensonges...}
                     21 {Peut-être que vous n'êtes pas fait pour cela.}
                     22 {Prenez de la distance...}
                     23 {Prenez du recul...}
@@ -616,7 +616,7 @@
         <target>{target_equipment_gender, select,
                         male {Étrange, **{character}** s'affaire sur un **{target_equipment}** qui émet une petite fumée...}
                         female {Étrange, **{character}** s'affaire sur une **{target_equipment}** qui émet une petite fumée...}
-                        other {invalid gender input}
+                        other {Étrange, **{character}** s'affaire sur un **{target_equipment}** qui émet une petite fumée...}
                 }</target>
       </segment>
     </unit>

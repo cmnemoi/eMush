@@ -46,7 +46,7 @@
       </segment>
       <segment id="first_letter" state="translated">
         <source>astro_terminal.first_letter</source>
-        <target>vowel</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>astro_terminal.examine</source>
@@ -980,7 +980,7 @@ Un laboratoire super ultra moderne avec de vrais ordinateurs à lampe fluo compa
       </segment>
       <segment id="plural_name" state="translated">
         <source>thalasso.plural_name</source>
-        <target>Thalasso</target>
+        <target>Thalassos</target>
       </segment>
       <segment id="genre" state="translated">
         <source>thalasso.gender</source>

@@ -50,7 +50,7 @@ The manual states that the stellar antenna is the "must have" communications dev
       </segment>
       <segment id="first_letter" state="translated">
         <source>astro_terminal.first_letter</source>
-        <target>vowel</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>astro_terminal.examine</source>

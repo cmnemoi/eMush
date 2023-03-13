@@ -1141,5 +1141,37 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
         <target>consonant</target>
       </segment>
     </unit>
+    <unit id="tabulatrix">
+      <segment id="name" state="translated">
+        <source>tabulatrix.name</source>
+        <target>Tabulatrice</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>tabulatrix.short_name</source>
+        <target>Tabulatrice</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>tabulatrix.plural_name</source>
+        <target>Tabulatrices</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>tabulatrix.gender</source>
+        <target>female</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>tabulatrix.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>tabulatrix.description</source>
+        <target>La tabulatrice permet à NERON de vous fournir des documents écrits.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>tabulatrix.examine</source>
+        <target>La tabulatrice permet à NERON de vous fournir des documents écrits.
+        //
+Tout droit sortie des plus grandes imaginations de la science fiction, une machine qui imprime des symboles sur du papier toute seule avec seulement des cartes perforées en entrée. Certains signaux cryptés ne peuvent être décodés qu'au moyen de cet engin préhistorique.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

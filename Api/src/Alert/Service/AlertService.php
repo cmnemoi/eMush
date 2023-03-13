@@ -14,11 +14,13 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\StatusEnum;
+use Psr\Log\LoggerInterface;
 
 class AlertService implements AlertServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private AlertRepository $repository;
+    private LoggerInterface $logger;
 
     public const OXYGEN_ALERT = 8;
     public const HULL_ALERT = 33;
@@ -27,9 +29,11 @@ class AlertService implements AlertServiceInterface
     public function __construct(
         EntityManagerInterface $entityManager,
         AlertRepository $repository,
+        LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
+        $this->logger = $logger;
     }
 
     public function persist(Alert $alert): Alert
@@ -192,7 +196,12 @@ class AlertService implements AlertServiceInterface
     public function getAlertEquipmentElement(Alert $alert, GameEquipment $equipment): AlertElement
     {
         if ($equipment instanceof GameItem) {
-            throw new \LogicException('GameItem should not be reported');
+            $this->logger->info('GameItem should not generate alerts',
+                [
+                    'daedalus' => $equipment->getDaedalus()->getId(),
+                    'equipment' => $equipment->getId(),
+                ]
+            );
         }
 
         $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment);
@@ -324,7 +333,14 @@ class AlertService implements AlertServiceInterface
             return false;
         }
         if ($equipment instanceof GameItem) {
-            throw new \LogicException('GameItem should not be reported');
+            $this->logger->info('GameItem should not generate alerts',
+                [
+                    'daedalus' => $equipment->getDaedalus()->getId(),
+                    'equipment' => $equipment->getId(),
+                ]
+            );
+
+            return false;
         }
 
         if ($equipment instanceof Door) {

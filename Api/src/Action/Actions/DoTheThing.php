@@ -27,6 +27,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerInfectedEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -257,7 +258,7 @@ class DoTheThing extends AbstractAction
                 $this->getAction()->getActionTags(),
                 new \DateTime()
             );
-            $addSporesEvent = new PlayerVariableEvent(
+            $addSporesEvent = new PlayerInfectedEvent(
                 $target,
                 PlayerVariableEnum::SPORE,
                 1,

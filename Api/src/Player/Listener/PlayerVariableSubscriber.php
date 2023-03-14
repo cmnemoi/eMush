@@ -86,16 +86,8 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
     {
         $player = $this->playerVariableService->handleGameVariableChange($variableName, $delta, $player);
 
-        switch ($playerEvent->getVariableName()) {
-            case PlayerVariableEnum::HEALTH_POINT:
-                $this->handleHealthPointModifier($player, $playerEvent, $playerEvent->getTime());
-
-                return;
-
-            case PlayerVariableEnum::SPORE:
-                $this->handleInfection($player, $playerEvent);
-
-                return;
+        if ($playerEvent->getVariableName() == PlayerVariableEnum::HEALTH_POINT) {
+            $this->handleHealthPointModifier($player, $playerEvent, $playerEvent->getTime());
         }
     }
 
@@ -109,17 +101,6 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
             }
 
             $this->eventService->callEvent($event, PlayerEvent::DEATH_PLAYER);
-        }
-    }
-
-    private function handleInfection(Player $player, PlayerVariableEvent $playerEvent): void
-    {
-        if ($playerEvent->getQuantity() > 0 && !$player->isMush()) {
-            $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
-        }
-
-        if ($player->getVariableByName(PlayerVariableEnum::SPORE)->isMax() && !$player->isMush()) {
-            $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
         }
     }
 }

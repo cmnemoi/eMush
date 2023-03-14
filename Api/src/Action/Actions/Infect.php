@@ -17,6 +17,7 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerInfectedEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
@@ -87,7 +88,7 @@ class Infect extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        $playerModifierEvent = new PlayerVariableEvent(
+        $playerModifierEvent = new PlayerInfectedEvent(
             $parameter,
             PlayerVariableEnum::SPORE,
             1,

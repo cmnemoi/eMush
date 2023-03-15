@@ -65,11 +65,18 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
             $message = $translationParameters[DiseaseMessagesEnum::ORIGINAL_MESSAGE];
         } elseif ($object->getAuthor()) {
             $message = $object->getMessage();
-        } else {
+        } elseif ($object->getNeron()) {
             $message = $this->translationService->translate(
                 $object->getMessage(),
                 $translationParameters,
                 'neron',
+                $language
+            );
+        } else {
+            $message = $this->translationService->translate(
+                $object->getMessage(),
+                $translationParameters,
+                'event_log',
                 $language
             );
         }

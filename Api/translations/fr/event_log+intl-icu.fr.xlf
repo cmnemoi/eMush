@@ -498,5 +498,25 @@
                     Vous ne serez plus jamais la même personne.</target>
       </segment>
     </unit>
+    <unit id="mush_infect_event">
+       <segment id="mush_infect_event" state="translated">
+         <source>mush_infect_event</source>
+         <target>{cause, select,
+                             infect {**{target_character}** a été contaminé par un spore par **{character}**. Son niveau de contamination est maintenant de **{infection_level}**.}
+                             mush_trap {**{target_character}** a été contaminé en ouvrant une étagère piégée par **{character}**. Son niveau de contamination est maintenant de **{infection_level}**.}
+                             do_the_thing {**{target_character}** a été contaminé en le faisant avec **{character}**. Son niveau de contamination est maintenant de **{infection_level}**.}
+                             cat {**{target_character}** a été contaminé par **{character}** en prenant **Schrödinger**. Son niveau de contamination est maintenant de **{infection_level}**.}
+                             mush_raid {**{character}** a été contaminé par un raid Mush en exploration. Son niveau de contamination est maintenant de **{infection_level}**.}
+                             contamined_ration {**{target_character}** a été contaminé par une ration contaminée par **{character}**. Son niveau de contamination est maintenant de **{infection_level}**.}
+                             other {invalid cause input}
+         }</target>
+       </segment>
+    </unit>
+    <unit id="mush_convert_event">
+       <segment id="mush_convert_event" state="translated">
+         <source>mush_convert_event</source>
+            <target>Bienvenue parmi le Mush **{target_character}**. Vous avez été récompensé avec *{quantity} points de Triomphe*.</target>
+       </segment>
+    </unit>
   </file>
 </xliff>

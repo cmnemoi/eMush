@@ -29,10 +29,10 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         $this->eventService = $eventService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
-            VariableEventInterface::CHANGE_VARIABLE => 'onChangeVariable',
+            VariableEventInterface::CHANGE_VARIABLE => ['onChangeVariable', 1],
             VariableEventInterface::CHANGE_VALUE_MAX => 'onChangeMaxValue',
             VariableEventInterface::SET_VALUE => 'onSetValue',
         ];

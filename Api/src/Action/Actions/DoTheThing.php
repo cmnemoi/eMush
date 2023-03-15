@@ -258,11 +258,14 @@ class DoTheThing extends AbstractAction
                 $this->getAction()->getActionTags(),
                 new \DateTime()
             );
+
+            $playerInfectedParameter = new PlayerInfectedEventParameter($this->name, $mush, $target);
             $addSporesEvent = new PlayerInfectedEvent(
                 $target,
                 PlayerVariableEnum::SPORE,
                 1,
                 $this->getAction()->getActionTags(),
+                $playerInfectedParameter,
                 new \DateTime()
             );
             $this->eventService->callEvent($removeSporeEvent, VariableEventInterface::CHANGE_VARIABLE);

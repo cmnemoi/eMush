@@ -25,14 +25,15 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 class AlertServiceTest extends TestCase
 {
     private AlertServiceInterface $alertService;
 
     private EntityManagerInterface|Mockery\Mock $entityManager;
-
     private AlertRepository|Mockery\Mock $repository;
+    private LoggerInterface|Mockery\Mock $logger;
 
     /**
      * @before
@@ -41,10 +42,12 @@ class AlertServiceTest extends TestCase
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->repository = \Mockery::mock(AlertRepository::class);
+        $this->logger = \Mockery::mock(LoggerInterface::class);
 
         $this->alertService = new AlertService(
             $this->entityManager,
             $this->repository,
+            $this->logger
         );
     }
 

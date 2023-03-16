@@ -8,17 +8,21 @@ use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ApplyEffectSubscriber implements EventSubscriberInterface
 {
     private AlertServiceInterface $alertService;
+    private LoggerInterface $logger;
 
     public function __construct(
-        AlertServiceInterface $alertService
+        AlertServiceInterface $alertService,
+        LoggerInterface $logger
     ) {
         $this->alertService = $alertService;
+        $this->logger = $logger;
     }
 
     public static function getSubscribedEvents(): array
@@ -53,7 +57,14 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             throw new UnexpectedTypeException($equipment, GameEquipment::class);
         }
         if ($equipment instanceof GameItem) {
-            throw new \LogicException('GameItem should not be reportable');
+            $this->logger->info('GameItem should not be reported',
+                [
+                    'player' => $player->getId(),
+                    'equipment' => $equipment->getName(),
+                ]
+            );
+
+            return;
         }
 
         if ($equipment instanceof Door) {

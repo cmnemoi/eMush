@@ -1194,5 +1194,35 @@ Puesto de pilotaje del Patrullero."</target>
         <target>consonant</target>
       </segment>
     </unit>
+    <unit id="tabulatrix">
+      <segment id="name" state="initial">
+        <source>tabulatrix.name</source>
+        <target>tabulatrix.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>tabulatrix.short_name</source>
+        <target>tabulatrix.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>tabulatrix.plural_name</source>
+        <target>tabulatrix.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>tabulatrix.gender</source>
+        <target>tabulatrix.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>tabulatrix.first_letter</source>
+        <target>tabulatrix.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>tabulatrix.description</source>
+        <target>tabulatrix.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>tabulatrix.examine</source>
+        <target>tabulatrix.examine</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

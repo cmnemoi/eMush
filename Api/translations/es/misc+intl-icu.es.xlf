@@ -4,7 +4,7 @@
     <unit id="delayed_disease_info">
       <segment id="satiety_point" state="translated">
         <source>satiety_point</source>
-        <target>{quantity} Puntos de saciedad</target>
+        <target>:pa_cook:</target>
       </segment>
       <segment id="action_point" state="translated">
         <source>action_point</source>

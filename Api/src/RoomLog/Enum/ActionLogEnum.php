@@ -29,6 +29,7 @@ class ActionLogEnum
     public const GET_UP = 'get_up';
     public const HEAL_SUCCESS = 'heal_success';
     public const HIDE_SUCCESS = 'hide_success';
+    public const HIT_CRITICAL_SUCCESS = 'hit_critical_success';
     public const HIT_SUCCESS = 'hit_success';
     public const HIT_FAIL = 'hit_fail';
     public const HYBRIDIZE_SUCCESS = 'hybridize_success';
@@ -215,6 +216,7 @@ class ActionLogEnum
         ActionEnum::HIT => [
             ActionOutputEnum::SUCCESS => self::HIT_SUCCESS,
             ActionOutputEnum::FAIL => self::HIT_FAIL,
+            ActionOutputEnum::CRITICAL_SUCCESS => self::HIT_CRITICAL_SUCCESS,
         ],
         ActionEnum::COMFORT => [
             ActionOutputEnum::SUCCESS => self::COMFORT_SUCCESS,

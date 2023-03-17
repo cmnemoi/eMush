@@ -180,6 +180,12 @@
                     }</target>
       </segment>
     </unit>
+    <unit id="hit_critical_success">
+      <segment id="hit_critical_success" state="translated">
+        <source>hit_critical_success</source>
+        <target>**{character}** met un formidable crochet du droit à **{target_character}**... Qui repeint le mur avec son nez... (critical!)</target>
+      </segment>
+    </unit>
     <unit id="hit_fail">
       <segment id="hit_fail" state="translated">
         <source>hit_fail</source>

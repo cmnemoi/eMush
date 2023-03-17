@@ -126,10 +126,10 @@ export const RoomsEnum: {[name: string]: Rooms} = {
         id: 16
     },
     front_corridor: {
-        A : { x: 63, y: 73 },
-        B : { x: 75, y: 73 },
-        C : { x: 75, y: 85 },
-        D : { x: 63, y: 85 },
+        A : { x: 33, y: 45 },
+        B : { x: 70, y: 45 },
+        C : { x: 33, y: 45 },
+        D : { x: 70, y: 45 },
         id: 17
     },
     central_corridor: {

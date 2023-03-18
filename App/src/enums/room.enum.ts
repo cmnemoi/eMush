@@ -154,10 +154,10 @@ export const RoomsEnum: {[name: string]: Rooms} = {
         id: 20
     },
     alpha_dorm: {
-        A : { x: 63, y: 73 },
-        B : { x: 75, y: 73 },
-        C : { x: 75, y: 85 },
-        D : { x: 63, y: 85 },
+        A : { x: 98, y: 23 },
+        B : { x: 113, y: 23 },
+        C : { x: 113, y: 40 },
+        D : { x: 98, y: 40 },  
         id: 21
     },
     bravo_dorm: {

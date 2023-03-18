@@ -128,8 +128,8 @@ export const RoomsEnum: {[name: string]: Rooms} = {
     front_corridor: {
         A : { x: 33, y: 45 },
         B : { x: 70, y: 45 },
-        C : { x: 33, y: 45 },
-        D : { x: 70, y: 45 },
+        C : { x: 70, y: 50 },
+        D : { x: 33, y: 50 },
         id: 17
     },
     central_corridor: {

@@ -292,7 +292,7 @@ class DaedalusController extends AbstractFOSRestController
         }
 
         $lockedDaedaluses = $this->daedalusService->findAllDaedalusesOnCycleChange();
-        if ($lockedDaedaluses->count() === 0) {
+        if ($lockedDaedaluses->isEmpty()) {
             return $this->view(['error' => 'No daedaluses found'], 404);
         }
 

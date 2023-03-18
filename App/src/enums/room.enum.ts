@@ -77,10 +77,10 @@ export const RoomsEnum: {[name: string]: Rooms} = {
         id: 9
     },
     engine_room: {
-        A : { x: 63, y: 73 },
-        B : { x: 75, y: 73 },
-        C : { x: 75, y: 85 },
-        D : { x: 63, y: 85 },
+        A : { x: 150, y: 23 },
+        B : { x: 170, y: 23 },
+        C : { x: 170, y: 70 },
+        D : { x: 150, y: 70 },
         id: 10
     },
     front_alpha_turret: {
@@ -157,7 +157,7 @@ export const RoomsEnum: {[name: string]: Rooms} = {
         A : { x: 98, y: 23 },
         B : { x: 113, y: 23 },
         C : { x: 113, y: 40 },
-        D : { x: 98, y: 40 },  
+        D : { x: 98, y: 40 },
         id: 21
     },
     bravo_dorm: {

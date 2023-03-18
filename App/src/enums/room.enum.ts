@@ -161,10 +161,10 @@ export const RoomsEnum: {[name: string]: Rooms} = {
         id: 21
     },
     bravo_dorm: {
-        A : { x: 63, y: 73 },
-        B : { x: 75, y: 73 },
-        C : { x: 75, y: 85 },
-        D : { x: 63, y: 85 },
+        A : { x: 100, y: 55 },
+        B : { x: 115, y: 53 },
+        C : { x: 115, y: 70 },
+        D : { x: 100, y: 70 },
         id: 22
     },
     front_storage: {

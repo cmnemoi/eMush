@@ -120,7 +120,7 @@ export default defineComponent({
                 .then((res: ModifierConfig | null) => {
                     this.modifierConfig = res;
                     if (this.modifierConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
                             .then((result) => {
                                 const modifierActivationRequirements : ModifierActivationRequirement[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {

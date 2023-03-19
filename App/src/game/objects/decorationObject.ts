@@ -105,4 +105,10 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         this.x = cartCoords.x;
         this.y = cartCoords.y;
     }
+
+    delete()
+    {
+        this.destroy();
+        this.scene.input.clear(this);
+    }
 }

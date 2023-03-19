@@ -495,7 +495,7 @@ export default class DaedalusScene extends Phaser.Scene
                 if (room.players.filter((player: Player) => {return player.character.key === gameObject.name;}).length == 0 &&
                     this.player.character.key !== gameObject.name
                 ) {
-                    gameObject.destroy();
+                    gameObject.delete();
                     i = i-1;
                 } else {
                     if (this.player.character.key === gameObject.name) {
@@ -628,8 +628,7 @@ export default class DaedalusScene extends Phaser.Scene
             if (gameObject instanceof DecorationObject &&
                 !(gameObject instanceof CharacterObject))
             {
-                gameObject.destroy();
-                this.input.clear(gameObject);
+                gameObject.delete();
                 i = i-1;
             }
         }
@@ -663,7 +662,7 @@ export default class DaedalusScene extends Phaser.Scene
 
             if ((gameObject instanceof CharacterObject))
             {
-                gameObject.destroy();
+                gameObject.delete();
                 i = i-1;
             }
         }

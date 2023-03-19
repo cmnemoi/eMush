@@ -105,4 +105,11 @@ export default class EquipmentObject extends InteractObject {
             super.setSelectedOutline();
         }
     }
+
+    delete()
+    {
+        this.particles?.destroy();
+        this.destroy();
+        this.scene.input.clear(this);
+    }
 }

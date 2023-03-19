@@ -202,8 +202,10 @@ export default class DoorObject extends InteractObject {
         }
     }
 
-    destroy()
+    delete()
     {
-        super.destroy();
+        this.particles?.destroy();
+        this.destroy();
+        this.scene.input.clear(this);
     }
 }

@@ -77,10 +77,10 @@ export const RoomsEnum: {[name: string]: Rooms} = {
         id: 9
     },
     engine_room: {
-        A : { x: 63, y: 73 },
-        B : { x: 75, y: 73 },
-        C : { x: 75, y: 85 },
-        D : { x: 63, y: 85 },
+        A : { x: 150, y: 23 },
+        B : { x: 170, y: 23 },
+        C : { x: 170, y: 70 },
+        D : { x: 150, y: 70 },
         id: 10
     },
     front_alpha_turret: {
@@ -126,10 +126,10 @@ export const RoomsEnum: {[name: string]: Rooms} = {
         id: 16
     },
     front_corridor: {
-        A : { x: 63, y: 73 },
-        B : { x: 75, y: 73 },
-        C : { x: 75, y: 85 },
-        D : { x: 63, y: 85 },
+        A : { x: 33, y: 45 },
+        B : { x: 70, y: 45 },
+        C : { x: 70, y: 50 },
+        D : { x: 33, y: 50 },
         id: 17
     },
     central_corridor: {
@@ -154,17 +154,17 @@ export const RoomsEnum: {[name: string]: Rooms} = {
         id: 20
     },
     alpha_dorm: {
-        A : { x: 63, y: 73 },
-        B : { x: 75, y: 73 },
-        C : { x: 75, y: 85 },
-        D : { x: 63, y: 85 },
+        A : { x: 98, y: 23 },
+        B : { x: 113, y: 23 },
+        C : { x: 113, y: 40 },
+        D : { x: 98, y: 40 },
         id: 21
     },
     bravo_dorm: {
-        A : { x: 63, y: 73 },
-        B : { x: 75, y: 73 },
-        C : { x: 75, y: 85 },
-        D : { x: 63, y: 85 },
+        A : { x: 100, y: 55 },
+        B : { x: 115, y: 53 },
+        C : { x: 115, y: 70 },
+        D : { x: 100, y: 70 },
         id: 22
     },
     front_storage: {

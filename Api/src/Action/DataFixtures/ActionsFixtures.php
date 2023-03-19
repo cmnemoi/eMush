@@ -157,6 +157,7 @@ class ActionsFixtures extends Fixture
             ->setSuccessRate(60)
             ->setDirtyRate(15)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
         ;
         $manager->persist($hitAction);
 

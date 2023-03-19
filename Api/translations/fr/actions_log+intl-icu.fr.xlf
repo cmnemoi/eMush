@@ -171,13 +171,18 @@
       <segment id="hit_success" state="translated">
         <source>hit_success</source>
         <target>{version, select,
-                        1 {**{character}** met un formidable crochet du droit à **{target_character}**... Qui repeint le mur avec son nez...}
-                        2 {**{character}** met un magistral uppercut du droit à **{target_character}**...}
-                        3 {**{character}** met un magistral uppercut à **{target_character}**...}
-                        4 {**{character}** met une droite à **{target_character}**...}
-                        5 {**{character}** met une terrible baigne à **{target_character}**...}
-                        other {"invalid version number"}
+                        1 {**{character}** met un magistral uppercut du droit à **{target_character}**...}
+                        2 {**{character}** met un magistral uppercut à **{target_character}**...}
+                        3 {**{character}** met une droite à **{target_character}**...}
+                        4 {**{character}** met une terrible baigne à **{target_character}**...}
+                        other {**{character}** met une terrible baigne à **{target_character}**...}
                     }</target>
+      </segment>
+    </unit>
+    <unit id="hit_critical_success">
+      <segment id="hit_critical_success" state="translated">
+        <source>hit_critical_success</source>
+        <target>**{character}** met un formidable crochet du droit à **{target_character}**... Qui repeint le mur avec son nez...</target>
       </segment>
     </unit>
     <unit id="hit_fail">

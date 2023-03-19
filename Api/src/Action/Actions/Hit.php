@@ -64,10 +64,10 @@ class Hit extends AttemptAction
 
         $damage = 0;
 
-        if ($result instanceof Success) {
-            $damage = $this->getDamage(withModifiersOnTarget: true);
-        } elseif ($result instanceof CriticalSuccess) {
+        if ($result instanceof CriticalSuccess) {
             $damage = $this->getDamage();
+        } elseif ($result instanceof Success) {
+            $damage = $this->getDamage(withModifiersOnTarget: true);
         }
 
         $this->inflictDamageToTarget($damage, $target);

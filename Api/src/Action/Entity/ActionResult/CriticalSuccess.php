@@ -4,7 +4,7 @@ namespace Mush\Action\ActionResult;
 
 use Mush\Game\Enum\ActionOutputEnum;
 
-class CriticalSuccess extends ActionResult
+class CriticalSuccess extends Success
 {
     public function getName(): string
     {

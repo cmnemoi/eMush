@@ -125,7 +125,7 @@ class ActionData
             'types' => ['action_aggressive'],
             'target' => null,
             'scope' => 'other_player',
-            'visibilities' => ['success' => 'public', 'fail' => 'public'],
+            'visibilities' => ['success' => 'public', 'fail' => 'public', ActionOutputEnum::CRITICAL_SUCCESS => VisibilityEnum::PUBLIC],
             'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

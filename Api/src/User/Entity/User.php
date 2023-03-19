@@ -78,6 +78,16 @@ class User implements UserInterface
         return $this;
     }
 
+    public function isAdmin(): bool
+    {
+        return in_array(RoleEnum::ADMIN, $this->roles) || in_array(RoleEnum::SUPER_ADMIN, $this->roles);
+    }
+
+    public function isModerator(): bool
+    {
+        return in_array(RoleEnum::MODERATOR, $this->roles) || $this->isAdmin();
+    }
+
     public function getPassword()
     {
         return null;

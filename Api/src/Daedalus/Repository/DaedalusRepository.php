@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Mush\Daedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
@@ -76,5 +77,18 @@ class DaedalusRepository extends ServiceEntityRepository
         ;
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function findAllDaedalusesOnCycleChange(): DaedalusCollection
+    {
+        $qb = $this->createQueryBuilder('daedalus');
+
+        $qb
+            ->select('daedalus')
+            ->where($qb->expr()->in('daedalus.isCycleChange', ':cycleChange'))
+            ->setParameter('cycleChange', [true])
+        ;
+
+        return new DaedalusCollection($qb->getQuery()->getResult());
     }
 }

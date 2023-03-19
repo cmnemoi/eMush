@@ -31,6 +31,8 @@ interface DaedalusServiceInterface
 
     public function findAllNonFinishedDaedaluses(): DaedalusCollection;
 
+    public function findAllDaedalusesOnCycleChange(): DaedalusCollection;
+
     public function existAvailableDaedalus(): bool;
 
     public function existAvailableDaedalusInLanguage(string $language): bool;
@@ -52,4 +54,6 @@ interface DaedalusServiceInterface
     public function killRemainingPlayers(Daedalus $daedalus, array $reasons, \DateTime $date): Daedalus;
 
     public function changeVariable(string $variableName, Daedalus $daedalus, int $change, \DateTime $date): Daedalus;
+
+    public function skipCycleChange(Daedalus $daedalus): Daedalus;
 }

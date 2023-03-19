@@ -42,7 +42,7 @@ class AbstractFunctionalTest
         $this->player2 = $this->players->last();
     }
 
-    private function createDaedalus(FunctionalTester $I): Daedalus
+    protected function createDaedalus(FunctionalTester $I): Daedalus
     {
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -62,7 +62,7 @@ class AbstractFunctionalTest
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
-            ->setName('Daedalus')
+            ->setName(Uuid::v4()->toRfc4122())
             ->setNeron($neron)
         ;
         $I->haveInRepository($daedalusInfo);
@@ -86,7 +86,7 @@ class AbstractFunctionalTest
         return $daedalus;
     }
 
-    private function createPlayers(FunctionalTester $I, Daedalus $daedalus): Collection
+    protected function createPlayers(FunctionalTester $I, Daedalus $daedalus): Collection
     {
         $players = new ArrayCollection([]);
         $chunCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => CharacterEnum::CHUN]);
@@ -119,7 +119,7 @@ class AbstractFunctionalTest
         return $players;
     }
 
-    private function createLaboratory(FunctionalTester $I, Daedalus $daedalus): Place
+    protected function createLaboratory(FunctionalTester $I, Daedalus $daedalus): Place
     {
         /** @var PlaceConfig $laboratoryConfig */
         $laboratoryConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::LABORATORY]);

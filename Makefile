@@ -48,7 +48,7 @@ install-eternal-twin: start-mush-database
 	docker exec -i -unode eternal_twin yarn install
 
 install-api:
-	docker start mush_php mush_database &&\
+	docker start mush_php mush_database eternal_twin &&\
 	docker exec -i -udev mush_php composer install &&\
 	docker exec -i -udev mush_php ./reset.sh --init
 	docker exec -i -udev mush_php php bin/console mush:create-crew

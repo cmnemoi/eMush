@@ -96,7 +96,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $player->getEquipments()->filter(function (GameItem $item) {
                 return $item->hasStatus(EquipmentStatusEnum::HEAVY);
             })->count() >= 1
-
         ) {
             $this->statusService->removeStatus(PlayerStatusEnum::BURDENED, $player, $reasons, $time);
         }

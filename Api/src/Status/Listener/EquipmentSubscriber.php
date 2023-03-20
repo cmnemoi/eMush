@@ -92,9 +92,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $player = $equipment->getHolder();
         if ($player instanceof Player &&
             $player->hasStatus(PlayerStatusEnum::BURDENED) &&
+            $equipment->hasStatus(EquipmentStatusEnum::HEAVY) &&
             $player->getEquipments()->filter(function (GameItem $item) {
                 return $item->hasStatus(EquipmentStatusEnum::HEAVY);
-            })->count() === 1
+            })->count() >= 1
         ) {
             $this->statusService->removeStatus(PlayerStatusEnum::BURDENED, $player, $reasons, $time);
         }

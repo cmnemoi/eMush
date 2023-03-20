@@ -42,9 +42,7 @@ Optional:
 	$ apt-get install lsb-release
 	$ mkdir -m 0755 -p /etc/apt/keyrings
 	$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-	$ echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	$ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.comlinux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 	$ apt-get update
 	$ apt-get install docker docker-compose docker-compose-plugin
 	```
@@ -111,12 +109,17 @@ chmod go+r config/jwt/private.pem
 ```
 Use mush as passphrase or update the .env with your passphrase
 
-Finally, create a local Eternaltwin account by registering on http://localhost:50320/register, note the ID of the account you just created and update the `Api/.env` file with it. You will need it to connect to eMush with admin rights.
-
 If everything went well you should be able to access:
   - Swagger : http://localhost:8080/swagger/
   - Front end : http://localhost
 
+`make install` creates 18 Eternaltwin accounts named by eMush characters with the password `1234567891`.
+
+For example you can use the following credentials to login :
+```
+username : andie
+password : 1234567891
+```
 ## Installing without Docker
 Clone repository https://gitlab.com/eternaltwin/mush/mush.git
 

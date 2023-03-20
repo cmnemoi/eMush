@@ -48,6 +48,7 @@ install-api:
 	docker start mush_php mush_database &&\
 	docker exec -i -udev mush_php composer install &&\
 	docker exec -i -udev mush_php ./reset.sh --init
+	docker exec -i -udev mush_php php bin/console mush:create-crew
 
 install-front:
 	docker start mush_front &&\
@@ -55,4 +56,5 @@ install-front:
 	docker exec -i -unode mush_front ./reset.sh
 
 reset-eternal-twin-database:
+	docker exec -i -unode eternal_twin yarn etwin db create
 	docker start mush_database

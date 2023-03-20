@@ -198,7 +198,7 @@ class DiseaseCauseConfigData
             'name' => 'critical_fail_knife_default',
             'causeName' => 'critical_fail_knife',
             'diseases' => ['torn_tongue' => 1,
-                        'busted_shoulder' => 1, ],
+                        'bruised_shoulder' => 1, ],
         ],
         [
             'name' => 'critical_success_knife_default',

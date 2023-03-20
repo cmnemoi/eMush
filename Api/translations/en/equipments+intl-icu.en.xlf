@@ -55,7 +55,7 @@ The manual states that the stellar antenna is the "must have" communications dev
       <segment id="examine" state="translated">
         <source>astro_terminal.examine</source>
         <target>Enables a player to search for and scan planets.
-The Astro Terminal lets you scan nearby space in search of planets to explore. The information contained within is strictly reserved for navigators as to keep the crew 's morale up.</target>
+The Astro Terminal lets you scan nearby space in search of planets to explore. The information contained within is strictly reserved for navigators as to keep the crew's morale up.</target>
       </segment>
     </unit>
     <unit id="auxiliary_terminal">
@@ -269,14 +269,14 @@ Fuel reserve for a diesel engine. Sublime technology with a very particular purp
       </segment>
       <segment id="examine" state="translated">
         <source>command_terminal.examine</source>
-        <target>The Command Terminal is uniquely available to the Commandant. Access Forbidden.
-Allows the Commandant to do his duty. The Piloting module contains loads of tools to make the daily running of the Daedalus simpler.</target>
+        <target>The Command Terminal is uniquely available to the Commander. Access Forbidden.
+Allows the Commander to do his duty. The Piloting module contains loads of tools to make the daily running of the Daedalus simpler.</target>
       </segment>
     </unit>
     <unit id="communication_center">
       <segment id="name" state="translated">
         <source>communication_center.name</source>
-        <target>Comms Center</target>
+        <target>Comms. Center</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>communication_center.short_name</source>
@@ -284,7 +284,7 @@ Allows the Commandant to do his duty. The Piloting module contains loads of tool
       </segment>
       <segment id="plural_name" state="translated">
         <source>communication_center.plural_name</source>
-        <target>Comms Centers</target>
+        <target>Comms. Centers</target>
       </segment>
       <segment id="genre" state="translated">
         <source>communication_center.gender</source>
@@ -296,8 +296,8 @@ Allows the Commandant to do his duty. The Piloting module contains loads of tool
       </segment>
       <segment id="examine" state="translated">
         <source>communication_center.examine</source>
-        <target>The Comms Center allows contact to be made with distant networks.
-This ultra-modern Comms Center is where research findings are analysed, collated and combined with radar information etc. It also allows you to establish long-distance communication channels.</target>
+        <target>The Comms. Center allows contact to be made with distant networks.
+This ultra-modern Comms. Center is where research findings are analyzed, collated and combined with radar information etc. It also allows you to establish long-distance communication channels.</target>
       </segment>
     </unit>
     <unit id="cryo_module">
@@ -324,7 +324,7 @@ This ultra-modern Comms Center is where research findings are analysed, collated
       <segment id="examine" state="translated">
         <source>cryo_module.examine</source>
         <target>The CryoModule® contains the bodies of your inanimate crewmates.
-The Cryosleep module is where you take long sleeps. It's your responsability never to go back there.</target>
+The Cryosleep module is where you take long sleeps. It's your responsibility never to go back there.</target>
       </segment>
     </unit>
     <unit id="door">
@@ -350,8 +350,8 @@ The Cryosleep module is where you take long sleeps. It's your responsability nev
       </segment>
       <segment id="examine" state="translated">
         <source>door.examine</source>
-        <target>The doors of the Daedalus are fragiles and have the infuriating habit of jamming... If you find a broken one, report it to an engineer.
-Whatever it's made of, regardless of its density or condition , a door always leads somewhere.</target>
+        <target>The doors of the Daedalus are fragile and have the infuriating habit of jamming... If you find a broken one, report it to an engineer.
+Whatever it's made of, regardless of its density or condition, a door always leads somewhere.</target>
       </segment>
     </unit>
     <unit id="dynarcade">
@@ -431,8 +431,8 @@ There is some life left in the old diesel technology dog yet. In any case, it's 
       </segment>
       <segment id="examine" state="translated">
         <source>fuel_tank.examine</source>
-        <target>The Fuel tank is where the valuable carburant is stored and is also equipped with a distributor
-Daedalus fuel tank, operate with caution. DO NOT SMOKE.</target>
+        <target>The Fuel Tank is where the valuable fuel is stored and is also equipped with a distributor
+Daedalus fuel tank, operate with caution. NO SMOKING!</target>
       </segment>
     </unit>
     <unit id="gravity_simulator">
@@ -620,7 +620,7 @@ NERON's Core is where it is possible to modify programs to improve functionality
       </segment>
       <segment id="examine" state="translated">
         <source>oxygen_tank.examine</source>
-        <target>The Oxygen tank stores the oxygen necessary for the crew to contnue with their asphyxiation avoidance strategy.
+        <target>The Oxygen Tank stores the oxygen necessary for the crew to continue with their asphyxiation avoidance strategy.
 Daedalus oxygen reservoir, operate with caution. DO NOT EMPTY for a laugh.</target>
       </segment>
     </unit>
@@ -1052,8 +1052,8 @@ Anything can happen in space, and sometimes a good shower gets you back in the g
       </segment>
       <segment id="examine" state="translated">
         <source>turret_command.examine</source>
-        <target>Defense against the Hunters is a priority comrade !
-Firing post for the Thingumatron 3000. Cutting edge design with toughened glass shields and a teslatron make it a formidable weapon against the Hunters.</target>
+        <target>Defense against the Hunters is a priority, comrade!
+Firing post for the Thingumatron 3000. Cutting-edge design with toughened glass shields and a teslatron make it a formidable weapon against the Hunters.</target>
       </segment>
     </unit>
     <unit id="icarus">
@@ -1080,7 +1080,7 @@ Firing post for the Thingumatron 3000. Cutting edge design with toughened glass 
       <segment id="examine" state="translated">
         <source>icarus.examine</source>
         <target>Allows you to take the Icarus on new adventures.
-The Icarus was an elite exploration vehicle... a few hundred years ago !</target>
+The Icarus was an elite exploration vehicle... a few hundred years ago!</target>
       </segment>
     </unit>
     <unit id="jukebox">
@@ -1107,7 +1107,7 @@ The Icarus was an elite exploration vehicle... a few hundred years ago !</target
       <segment id="examine" state="translated">
         <source>jukebox.examine</source>
         <target>The jukebox is great for a little relaxation session from time to time.
-An awesome jukebox from back in the day. Even better, it comes pre-loaded with the crew's favourite tunes!</target>
+An awesome jukebox from back in the day. Even better, it comes preloaded with the crew's favourite tunes!</target>
       </segment>
     </unit>
     <unit id="camera_equipment">

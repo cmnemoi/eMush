@@ -109,6 +109,12 @@
         <target>hit_success</target>
       </segment>
     </unit>
+    <unit id="hit_critical_success">
+      <segment id="hit_critical_success" state="initial">
+        <source>hit_critical_success</source>
+        <target>hit_critical_success</target>
+      </segment>
+    </unit>
     <unit id="hit_fail">
       <segment id="hit_fail" state="initial">
         <source>hit_fail</source>

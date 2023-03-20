@@ -112,7 +112,7 @@
     <unit id="terminal_role_restricted">
       <segment id="description" state="translated">
         <source>terminal_role_restricted.description</source>
-        <target>You are not permitted to access this terminal. Permission to access certain terminals is granted to only those with certain *Titles* or *Skills*.</target>
+        <target>You don't have access to this terminal. The right to access certain terminals is subject to possessing specific *Titles* or *skills*.</target>
       </segment>
     </unit>
     <unit id="terminal_neron_lock">
@@ -142,7 +142,7 @@
     <unit id="unloaded_weapon">
       <segment id="description" state="translated">
         <source>unloaded_weapon.description</source>
-        <target>This weapon is not loaded. It will be reloaded when the next cycle begins.</target>
+        <target>This weapon is not loaded. It will gain a charge next cycle.</target>
       </segment>
     </unit>
     <unit id="do_the_thing_already_done">
@@ -178,7 +178,7 @@
     <unit id="flirt_already_flirted">
       <segment id="description" state="translated">
         <source>flirt_already_flirted.description</source>
-        <target>You are already very close with this person.</target>
+        <target>You are already very close to this person.</target>
       </segment>
     </unit>
     <unit id="flirt_antisocial">
@@ -226,7 +226,7 @@
     <unit id="infect_no_spore">
       <segment id="description" state="translated">
         <source>infect_no_spore.description</source>
-        <target>You must extract spores before you can spike someone.</target>
+        <target>You have to extract spores before you can spike someone.</target>
       </segment>
     </unit>
     <unit id="infect_mush">
@@ -346,7 +346,7 @@
     <unit id="reinforce_full_hull">
       <segment id="description" state="translated">
         <source>reinforce_full_hull.description</source>
-        <target>The hull is not in need of repair.</target>
+        <target>The hull is not in need of repairs.</target>
       </segment>
     </unit>
     <unit id="already_installed_camera">
@@ -364,7 +364,7 @@
     <unit id="treat_plant_no_disease">
       <segment id="description" state="translated">
         <source>treat_plant_no_disease.description</source>
-        <target>This plant doesn't seem to need to be treated for disease at the moment.</target>
+        <target>This plant doesn't seem to require treatment at the moment.</target>
       </segment>
     </unit>
     <unit id="launch_grenade_alone">
@@ -376,7 +376,7 @@
     <unit id="sabotage_no_door">
       <segment id="description" state="translated">
         <source>sabotage_no_door.description</source>
-        <target>No *Doors* to sabotage...</target>
+        <target>No **Doors** to sabotage...</target>
       </segment>
     </unit>
     <unit id="analyse_nothing_undiscovered">
@@ -400,7 +400,7 @@
     <unit id="no_direction_picked">
       <segment id="description" state="translated">
         <source>no_direction_picked.description</source>
-        <target>You must choose a direction in which to point the vessel.</target>
+        <target>You have to choose a direction to orientate the ship towards.</target>
       </segment>
     </unit>
     <unit id="coms_already_attempted">
@@ -436,13 +436,13 @@
     <unit id="coms_not_officer">
       <segment id="description" state="translated">
         <source>coms_not_officer.description</source>
-        <target>Only the **Communications Officer** can perform this action!</target>
+        <target>You would require the title of **Communications Officer** to perform this action.</target>
       </segment>
     </unit>
     <unit id="deal_lack_ressources">
       <segment id="description" state="translated">
         <source>deal_lack_ressources.description</source>
-        <target>You cannot make this with the items on the Bridge.</target>
+        <target>You lack the required items for this transaction.</target>
       </segment>
     </unit>
     <unit id="deal_not_coms_officer">
@@ -466,7 +466,7 @@
     <unit id="already_washed_in_sink_today">
       <segment id="description" state="translated">
         <source>already_washed_in_sink_today.description</source>
-        <target>This struggle to wash yourself was enough for today.</target>
+        <target>The struggle of washing yourself was enough for today.</target>
       </segment>
     </unit>
     <unit id="already_in_bed">
@@ -532,19 +532,19 @@
     <unit id="screwed_talkie_no_talkie">
       <segment id="description" state="translated">
         <source>screwed_talkie_no_talkie.description</source>
-        <target>That's a shame, your crewmate doesn't have their walkie-talkie on themselves.</target>
+        <target>It's a shame that this crew member has no walkie-talkie on them.</target>
       </segment>
     </unit>
     <unit id="update_talkie_require_neron">
       <segment id="description" state="translated">
         <source>update_talkie_require_neron.description</source>
-        <target>You need to plug into the core of NERON to perform this update.</target>
+        <target>You would have to plug into the core of NERON to perform this update.</target>
       </segment>
     </unit>
     <unit id="update_talkie_require_tracker">
       <segment id="description" state="translated">
         <source>update_talkie_require_tracker.description</source>
-        <target>For an obscure reason, you need your tracker in order to update your walkie-talkie.</target>
+        <target>For some obscure reason, you need your tracker to update your walkie-talkie.</target>
       </segment>
     </unit>
     <unit id="immunized_remove_spore">

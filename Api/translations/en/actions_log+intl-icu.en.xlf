@@ -22,7 +22,11 @@
     <unit id="phagocyte_success">
       <segment id="phagocyte_success" state="translated">
         <source>phagocyte_success</source>
-        <target>:mush: **{character}** has absorbed a spore to reinvigorate themself.</target>
+        <target>{character_gender, select,
+                    male {:mush: **{character}** has absorbed a spore to reinvigorate himself.}
+                    female {:mush: **{character}** has absorbed a spore to reinvigorate herself.}
+                    other {:mush: **{character}** has absorbed a spore to reinvigorate themselves.}
+                }</target>
       </segment>
     </unit>
     <unit id="consume_success">
@@ -118,7 +122,7 @@
     <unit id="get_up">
       <segment id="get_up" state="translated">
         <source>get_up</source>
-        <target>**{character}**  wakes up calmly...</target>
+        <target>**{character}** wakes up calmly...</target>
       </segment>
     </unit>
     <unit id="hide_success">
@@ -133,9 +137,14 @@
         <target>{version, select,
     1 {**{character}** hits **{target_character}** with a right...}
     2 {**{character}** caught **{target_character}** with a majestic uppercut...}
-    3 {**{character}** caught **{target_character}** with a big right hook... who then repainted the wall with their nose...}
     other {**{character}** hits **{target_character}** with a right...}
 }</target>
+      </segment>
+    </unit>
+    <unit id="hit_critical_success">
+      <segment id="hit_critical_success" state="translated">
+        <source>hit_critical_success</source>
+        <target>**{character}** caught **{target_character}** with a big right hook... who then repainted the wall with their nose...</target>
       </segment>
     </unit>
     <unit id="hit_fail">
@@ -157,7 +166,11 @@
     <unit id="infect_success">
       <segment id="infect_success" state="translated">
         <source>infect_success</source>
-        <target>:mush: **{character}** approached **{target_character}** in a predatory manner... and spiked them discretely!</target>
+        <target>{target_character_gender, select,
+                    male {:mush: **{character}** approached **{target_character}** in a predatory manner... and spiked him discretely!}
+                    female {:mush: **{character}** approached **{target_character}** in a predatory manner... and spiked her discretely!}
+                    other {:mush: **{character}** approached **{target_character}** in a predatory manner... and spiked them discretely!}
+                }</target>
       </segment>
     </unit>
     <unit id="lie_down">
@@ -295,11 +308,11 @@
       <segment id="shred_success" state="translated">
         <source>shred_success</source>
         <target>{version, select,
-    1 {**{character}** is tearing up a piece of paper but looks very determined.}
-    2 {**{character}** is tearing up a piece of paper but looks very satisfied.}
-    3 {**{character}** is tearing up a piece of paper but looks very worried.}
-    4 {**{character}** is tearing up a piece of paper but looks very relieved.}
-    other {**{character}** is tearing up a piece of paper but looks very relieved.}
+    1 {**{character}** is tearing up a piece of paper, looking pretty determined.}
+    2 {**{character}** is tearing up a piece of paper, looking very satisfied.}
+    3 {**{character}** is tearing up a piece of paper, looking quite worried.}
+    4 {**{character}** is tearing up a piece of paper, looking somewhat relieved.}
+    other {**{character}** is tearing up a piece of paper, looks relieved.}
 }</target>
       </segment>
     </unit>
@@ -349,17 +362,17 @@
       <segment id="retrieve_oxygen" state="translated">
         <source>retrieve_oxygen</source>
         <target>{version, select,
-    1 {**{character}** took some oxygen out of the reservoir very cautiously. They looks shady.}
-    2 {**{character}** took some oxygen out of the reservoir very cautiously. They looks so peaceful.}
+    1 {**{character}** took some oxygen out of the reservoir very cautiously. They look shady.}
+    2 {**{character}** took some oxygen out of the reservoir very cautiously. They look so peaceful.}
     3 {**{character}** took some oxygen out of the reservoir very cautiously. That grin is unsettling.}
     4 {**{character}** took some oxygen out of the reservoir very cautiously. Is that really necessary?}
     5 {**{character}** took some oxygen out of the reservoir very cautiously. But why?}
     6 {**{character}** took some oxygen out of the reservoir very cautiously. It's all for charity... probably.}
     7 {**{character}** took some oxygen out of the reservoir very cautiously. Their goal is almost certainly commendable.}
-    8 {**{character}** took some oxygen out of the reservoir very cautiously. their smile reminds you of something. }
-    9 {**{character}** took some oxygen out of the reservoir very cautiously. You recognize that laugh... }
+    8 {**{character}** took some oxygen out of the reservoir very cautiously. Their smile reminds you of something.}
+    9 {**{character}** took some oxygen out of the reservoir very cautiously. You recognize that laugh...}
     10 {**{character}** took some oxygen out of the reservoir very cautiously. Maybe you should keep a closer eye on them.}
-    other {**{character}** took some oxygen out of the reservoir very cautiously. They looks shady.}
+    other {**{character}** took some oxygen out of the reservoir very cautiously. They look shady.}
 }</target>
       </segment>
     </unit>
@@ -485,8 +498,25 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       <segment id="motivational_speech" state="translated">
         <source>motivational_speech</source>
         <target>{version, select,
-    1 {OK guys this isn't working at all. You seem convinced that the Mush will commit suicide from despair. I remind you that we must study it first, so a little pessimism is ok, yeah?}
-    2 {Comrades! Our destiny is to save humanity... We are the hope that the last Martyrs of Sol were waiting for and we will show that we are worthy of their memoirs! We are the future and we will fight until the end of time!}
+    1 {OK guys, this isn't working at all. You seem convinced that the Mush will commit suicide from despair. I remind you that we must study it first, so a little pessimism is ok, yeah?}
+    2 {Greetings! Apologies for my looks, I just got out of the shower. I am convinced that the solution to our problems lies in the proper utilization of the Swedish Sofa that can be found on board. We must penetrate the defenses of the Mush and silence them!}
+    3 {Fellow crew members, we have been charged with a mission the greatness of which is yet to be surpassed, and we have the means to succeed! The FDS knows this only too well, why else would they attack us?}
+    4 {Comrades, have confidence! The Mush are trying to divide us and to demoralize us but their attempts shall be in vain if we remain united. I can feel that we will emerge victorious from this conflict. A bright future awaits us.}
+    5 {Comrades! Our destiny is to save humanity... We are the hope that the martyrs of Sol have been waiting for and we will prove ourselves worthy of their legacy! We are the future and we shall advance until the end of time!}
+    6 {Comrades! Raise your head and don't give up hope! Victory is near. We shall triumph. Indeed, we are about to… uh… to… Aw crap, can someone help me decipher the rest of this speech copy?}
+    7 {Grand is our destiny, I tell you! Let us take back this formidable vessel. On board of it is the most valiant crew. We shall succeed in getting rid of all these Hunters. Let us celebrate humanity's future victory over the Mush!}
+    8 {I had a dream. And in this dream, a new humanity greets the battered hulk of the Daedalus before launching a huge fleet to reconquer Sol, armed with its immunity to the Mush. I have witnessed the future - of that, I am certain. We shall succeed. WE SHALL SUCCEED!}
+    9 {I can see it in your eyes: the same dread that could engulf my heart. A day may come when the courage of humanity will fail, when all of us will succumb to infection. But that day has not yet come to pass. Today, we fight! I order you to stand proud, Humans of Sol!}
+    10 {Should the attacks not cease and should the whole world not survive this epos, we may yet be proud to be the crew that vanguards the last hope to the edge of space, to the promised land. Never forget: We are the FUTURE!}
+    11 {My friends, the hour is perilous, I'm not going to hide it from you. But where others give up, WE will know how to make a difference, because WE are the cream of the crop and such is our duty!}
+    12 {Do not forget that we have been chosen amongst all to save humanity. No one is better-suited than us. Remember all of those who remained at the mercy of the Mush to make this voyage possible. Do not let them down!}
+    13 {We have been and may still be overwhelmed by the force of the mushrooms! But has the final word been spoken? Should hope disappear? Is our defeat final? No! The flame of the resistance must not be snuffed out, and will not be snuffed out.}
+    14 {Your situation may seem hopeless. Some of you may have lost familiy and friends, but know that you are the lucky ones! Why, you ask? Because you've got me as your superior!}
+    15 {Pull yourselves together, you bunch of downers! The enemy is at our doorstep, but we shall atomize it! The Mush won't get us. We will crush them like common mushrooms. We are the best, we will emerge victorious!}
+    16 {Tap, tap, tap, 1, 2, 1, 2, can you hear me? I'll make it nice and simple for you, slowpokes! Together with Stephen, we've prepared a maxi-sized chocolate cake for you, and I'm counting on all of you to dig in! Guaranteed laxative-free this time! TO THE TABLE!!!}
+    17 {ALL TOGETHER! Hunter, if I catch ya, YOU DIE! Booooya! Mush, if I find ya, I'll PUT YOU DOWN! Booooya! Spores tremble from the sound of our booming cries! Booooya! Cuz' with the Deadalus, soon we will find cirruses, crocuses and other prunuses! Booooya!}
+    18 {You may start to worry when the Mush infect me, but for at the moment you don't have to, because with me, NOTHING is going to happen to you! But if they should ever get me, then, and only then, you will have no hope.}
+    19 {You, who are much more than my subordinates, I am telling you: Despite the crushing weight of our responsibility, I am proud as ever to lead a crew like no other on such a noble destiny!}
     other {Comrades! Our destiny is to save humanity... We are the hope that the last Martyrs of Sol were waiting for and we will show that we are worthy of their memoirs! We are the future and we will fight until the end of time!}
 }</target>
       </segment>
@@ -494,19 +524,13 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="boring_speech">
       <segment id="boring_speech" state="translated">
         <source>boring_speech</source>
-        <target>{version, select, 
-    1 {Remember that day when... blablabla blablabla blabla blablabla... and 
-then I... blablabla blablabla blablabla... and that's when the... 
-blablabla blablabla blablabla... which meant that... blablabla blablabla
- blablabla... blablabla blablabla blabla... and ever since that day... 
-blablabla blablabla blablabla}                        
-    2 {Following your misbehavior, we were thinking it'd be a good time to remind you of the golden rules of being a good crewmate, which you were informed of before your cryogenization... Let's begin... "I swear to never occupy a bed for more than five consecutive cycles, and I'll do so in order to allow my crewmates to rest adequately, in compliance with the SDF Treatment regulations"... Next...}
-    other {Remember that day when... blablabla blablabla blabla blablabla... and 
-then I... blablabla blablabla blablabla... and that's when the... 
-blablabla blablabla blablabla... which meant that... blablabla blablabla
- blablabla... blablabla blablabla blabla... and ever since that day... 
-blablabla blablabla blablabla}
-}</target>
+        <target>{version, select,
+                    1 {Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. SHUT UP ALREADY!}
+                    2 {I, Commander of the Daedalus, promise an end to the Mush crisis. I, Commander of Daedalus, would advocate for equality between men and women. I, Commander of the Daedalus, am obligated to Do It once a day. I, Commander of the Daedalus, pregnant women will be exempt from working. I, Commander of the Daedalus, vow not sell any of you to the slavers. I, Commander of the Daedalus, we shall eat 5 fruits and vegetables a day. I, Commander of the Daedalus, NERON will be in a good spirits. I, Commander of the Daedalus, showering shall become public. I, Commander of the Daedalus, we will go to Eden. I, Commander of the Daedalus, …}
+                    3 {As the great President Maubrick says: always believe in the SDF, don't hit your neighbors and treat women with respect. As the great President Maubrick says: the Mush can't do anything against us. Back in the day, President Maubrick...}
+                    4 {Following your misbehavior, we were thinking it'd be a good time to remind you of the golden rules of being a good crewmate, which you were informed of before your cryogenization... Let's begin... "I swear to never occupy a bed for more than five consecutive cycles, and I'll do so in order to allow my crewmates to rest adequately, in compliance with the SDF Treatment regulations"... Next...}
+                    other {Remember that day when... blablabla blablabla blabla blablabla... and then I... blablabla blablabla blablabla... and that's when the... blablabla blablabla blablabla... which meant that... blablabla blablabla blablabla... blablabla blablabla blabla... and ever since that day... blablabla blablabla blablabla}
+                }</target>
       </segment>
     </unit>
     <unit id="make_sick">
@@ -528,13 +552,17 @@ blablabla blablabla blablabla}
     <unit id="fail_surgery">
       <segment id="fail_surgery" state="translated">
         <source>fail_surgery</source>
-        <target>The operation seems to last forever, **{character}** finally gives his verdict with a defeated look... **{target_character}** does a septic shock...</target>
+        <target>{character_gender, select,
+                    male {The operation seems to last forever, **{character}** finally gives his verdict with a defeated look... **{target_character}** has suffered a septic shock...}
+                    female {The operation seems to last forever, **{character}** finally gives her verdict with a defeated look... **{target_character}** has suffered a septic shock...}
+                    other {The operation seems to last forever, **{character}** finally gives their verdict with a defeated look... **{target_character}** has suffered a septic shock...}
+                }</target>
       </segment>
     </unit>
     <unit id="fail_self_surgery">
       <segment id="fail_self_surgery" state="translated">
         <source>fail_self_surgery</source>
-        <target>The operation seems to last forever, **{character}** does a septic shock...</target>
+        <target>The operation seems to last forever, **{character}** suffers a septic shock...</target>
       </segment>
     </unit>
     <unit id="gag_success">
@@ -582,10 +610,33 @@ blablabla blablabla blablabla}
       <segment id="attack_fail" state="translated">
         <source>attack_fail</source>
         <target>{version, select,
-    1 {Crash ! **{character}**'s weapon elegantly avoids **{target_character}** and instead crashes against a concrete bystander.} 
-    2 {**{character}** unsheathed their blade and tried to attack **{target_character}** but missed the target.}
-    other {**{character}** unsheathed their blade and tried to attack **{target_character}** but missed the target.}
-}</target>
+	1 {**{character}** unsheathed their blade and tried to attack **{target_character}**, but missed the target.}
+	2 {Crash! **{character}**'s weapon elegantly avoids **{target_character}** and instead crashes against a concrete bystander.}
+	3 {{character_gender, select,
+		male {{target_character_gender, select,
+			male {**{target_character}** turns to **{character}**, who threatens him with his blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
+			female {**{target_character}** turns to **{character}**, who threatens her with his blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
+			other {**{target_character}** turns to **{character}**, who threatens them with his blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
+				}}
+		female {{target_character_gender, select,
+			male {**{target_character}** turns to **{character}**, who threatens him with her blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
+			female {**{target_character}** turns to **{character}**, who threatens her with her blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
+			other {**{target_character}** turns to **{character}**, who threatens them with her blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
+				}}
+		other {{target_character_gender, select,
+			male {**{target_character}** turns to **{character}**, who threatens him with their blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
+			female {**{target_character}** turns to **{character}**, who threatens her with their blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
+			other {**{target_character}** turns to **{character}**, who threatens them with their blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
+				}}
+		}}
+	4 {When attacking **{target_character}**, **{character}** trips on an imaginary carpet and misses the target.}
+	5 {{character_gender, select,
+		male {Who would have thought that **{target_character}** had such good reflexes... **{character}** misses his mark miserably.}
+		female {Who would have thought that **{target_character}** had such good reflexes... **{character}** misses her mark miserably.}
+		other {Who would have thought that **{target_character}** had such good reflexes... **{character}** misses their mark miserably.}
+		}}
+	other {invalid version input}
+	}</target>
       </segment>
     </unit>
     <unit id="attack_critical_success">

@@ -55,4 +55,4 @@ install-front:
 	docker exec -i -unode mush_front ./reset.sh
 
 reset-eternal-twin-database:
-	docker start mush_database
+	docker exec -i -unode eternal_twin yarn etwin db create

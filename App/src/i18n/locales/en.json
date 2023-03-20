@@ -157,7 +157,7 @@
 	"room": {
 		"bridge": "Bridge",
 		"alphaBay": "Alpha Bay",
-		"bravoBay": "Beta Bay",
+		"bravoBay": "Bravo Bay",
 		"alphaBay2": "Alpha Bay 2",
 		"nexus": "Nexus",
 		"medlab": "Medlab",
@@ -176,7 +176,7 @@
 		"rearCorridor": "Rear Corridor",
 		"icarusBay": "Icarus Bay",
 		"alphaDorm": "Alpha Dorm",
-		"bravoDorm": "Beta Dorm",
+		"bravoDorm": "Bravo Dorm",
 		"frontStorage": "Front Storage",
 		"centerAlphaStorage": "Center Alpha Storage",
 		"centerBravoStorage": "Center Bravo Storage",

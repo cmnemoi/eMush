@@ -131,7 +131,7 @@
                         y="59"
                         width="16"
                         height="14"
-                        @mouseenter="displayName($t('room.centreBravoTurret'))"
+                        @mouseenter="displayName($t('room.centreBravoStorage'))"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('center_bravo_storage')}"
                     />

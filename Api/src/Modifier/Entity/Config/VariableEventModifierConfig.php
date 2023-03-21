@@ -89,18 +89,6 @@ class VariableEventModifierConfig extends EventModifierConfig
         return $this;
     }
 
-    public function setFloatDelta(string $delta): self
-    {
-        $this->delta = floatval($delta);
-
-        return $this;
-    }
-
-    public function getFloatDelta(): string
-    {
-        return strval($this->delta);
-    }
-
     public function getTargetVariable(): string
     {
         return $this->targetVariable;

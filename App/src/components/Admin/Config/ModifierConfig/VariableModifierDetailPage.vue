@@ -16,27 +16,51 @@
                 :errors="errors.modifierName"
             />
             <Input
-                :label="$t('admin.modifierConfig.modifierRange')"
+                :label="$t('admin.modifierConfig.delta')"
+                id="modifierConfig_delta"
+                v-model="modifierConfig.delta"
+                type="text"
+                :errors="errors.delta"
+            />
+            <Input
+                :label="$t('admin.modifierConfig.targetVariable')"
+                id="modifierConfig_targetVariable"
+                v-model="modifierConfig.targetVariable"
+                type="text"
+                :errors="errors.targetVariable"
+            />
+        </div>
+        <div class="flex-row">
+            <Input
+                :label="$t('admin.modifierConfig.modifierHolderClass')"
                 id="modifierConfig_modifierRange"
                 v-model="modifierConfig.modifierRange"
                 type="text"
                 :errors="errors.modifierRange"
             />
             <Input
-                :label="$t('admin.modifierConfig.reverseOnRemove')"
+                :label="$t('admin.modifierConfig.mode')"
+                id="modifierConfig_mode"
+                v-model="modifierConfig.mode"
+                type="text"
+                :errors="errors.mode"
+            />
+            <Input
+                :label="$t('admin.modifierConfig.applyOnActionParameter')"
                 type="checkbox"
                 class="configCheckbox"
-                id="modifierConfig_reverseOnRemove"
-                v-model="modifierConfig.reverseOnRemove"
+                id="modifierConfig_applyOnActionParameter"
+                v-model="modifierConfig.applyOnActionParameter"
             />
         </div>
-        <h3>{{ $t("admin.modifierConfig.triggeredEvent") }}</h3>
-        <ChildManager :child="modifierConfig.triggeredEvent" @addId="selectNewEventConfig">
-            <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
-            </template>
-        </ChildManager>
-        <h3>{{ $t("admin.modifierConfig.modifierRequirement") }}</h3>
+        <h3>{{ $t('admin.modifierConfig.tagConstraints') }}</h3>
+        <MapManager
+            :map="modifierConfig.tagConstraints"
+            mapIndexesType="string"
+            mapValuesType="string"
+        >
+        </MapManager>
+        <h3>Modifier Requirement</h3>
         <ChildCollectionManager :children="modifierConfig.modifierActivationRequirements" @addId="selectNewChild" @remove="removeChild">
             <template #header="child">
                 <span>{{ child.id }} - {{ child.modifierName }}</span>
@@ -63,8 +87,7 @@ import Input from "@/components/Utils/Input.vue";
 import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
-import { EventConfig } from "@/entities/Config/EventConfig";
-import ChildManager from "@/components/Utils/ChildManager.vue";
+import MapManager from "@/components/Utils/MapManager.vue";
 
 interface ModifierConfigState {
     modifierConfig: null|ModifierConfig
@@ -72,9 +95,9 @@ interface ModifierConfigState {
 }
 
 export default defineComponent({
-    name: "TriggerEventModifierConfigState",
+    name: "VariableEventModifierConfigState",
     components: {
-        ChildManager,
+        MapManager,
         ChildCollectionManager,
         Input,
         UpdateConfigButtons
@@ -120,7 +143,7 @@ export default defineComponent({
                 .then((res: ModifierConfig | null) => {
                     this.modifierConfig = res;
                     if (this.modifierConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_event_modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
                             .then((result) => {
                                 const modifierActivationRequirements : ModifierActivationRequirement[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -158,21 +181,15 @@ export default defineComponent({
             if (this.modifierConfig && this.modifierConfig.modifierActivationRequirements) {
                 this.modifierConfig.modifierActivationRequirements = removeItem(this.modifierConfig.modifierActivationRequirements, child);
             }
-        },
-        selectNewEventConfig(selectedId: integer){
-            GameConfigService.loadEventConfig(selectedId).then((res) => {
-                if (res && this.modifierConfig){
-                    this.modifierConfig.triggeredEvent = res;
-                }
-            });
-        },
+        }
     },
     beforeMount() {
+        console.log('coucou');
         const modifierConfigId = String(this.$route.params.configId);
         GameConfigService.loadModifierConfig(Number(modifierConfigId)).then((res: ModifierConfig | null) => {
             if (res instanceof ModifierConfig) {
                 this.modifierConfig = res;
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'direct_modifier_configs', modifierConfigId, 'modifier_activation_requirements'))
+                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'variable_event_modifier_configs', modifierConfigId, 'modifier_activation_requirements'))
                     .then((result) => {
                         const modifierActivationRequirements : ModifierActivationRequirement[] = [];
                         result.data['hydra:member'].forEach((datum: any) => {
@@ -181,16 +198,6 @@ export default defineComponent({
                         });
                         if (this.modifierConfig instanceof ModifierConfig) {
                             this.modifierConfig.modifierActivationRequirements = modifierActivationRequirements;
-                        }
-                    });
-
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'direct_modifier_configs', modifierConfigId, 'triggered_event'))
-                    .then((result) => {
-                        const eventConfig: EventConfig = new EventConfig();
-                        eventConfig.load(result.data);
-
-                        if (this.modifierConfig instanceof ModifierConfig) {
-                            this.modifierConfig.triggeredEvent = eventConfig;
                         }
                     });
             }
@@ -202,5 +209,8 @@ export default defineComponent({
 
 
 <style lang="scss" scoped>
-
+   .configCheckbox {
+       margin-left: 10px;
+       margin-right: 10px;
+   }
 </style>

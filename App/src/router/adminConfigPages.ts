@@ -32,10 +32,12 @@ import DiseaseCauseConfigListPage from "@/components/Admin/Config/DiseaseCauseCo
 import DiseaseCauseConfigDetailPage from "@/components/Admin/Config/DiseaseCauseConfig/DiseaseCauseConfigDetailPage.vue";
 import TriumphConfigListPage from "@/components/Admin/Config/TriumphConfig/TriumphConfigListPage.vue";
 import TriumphConfigDetailPage from "@/components/Admin/Config/TriumphConfig/TriumphConfigDetailPage.vue";
+import VariableModifierDetailPage from "@/components/Admin/Config/ModifierConfig/VariableModifierDetailPage.vue";
+import TriggerEventModifierDetailPage
+    from "@/components/Admin/Config/ModifierConfig/TriggerEventModifierDetailPage.vue";
 import DirectModifierDetailPage from "@/components/Admin/Config/ModifierConfig/DirectModifierDetailPage.vue";
 import VariableEventDetailPage from "@/components/Admin/Config/EventConfig/VariableEventDetailPage.vue";
 import EventConfigListPage from "@/components/Admin/Config/EventConfig/EventConfigListPage.vue";
-import EventModifierDetailPage from "@/components/Admin/Config/ModifierConfig/EventModifierDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -54,9 +56,14 @@ export const adminConfigRoutes = [
         component: ModifierConfigListPage
     },
     {
-        name: "AdminEventModifierConfigDetail",
-        path: 'event-modifier-config/:configId',
-        component: EventModifierDetailPage
+        name: "AdminVariableModifierConfigDetail",
+        path: 'variable-modifier-config/:configId',
+        component: VariableModifierDetailPage
+    },
+    {
+        name: "AdminTriggerEventModifierConfigDetail",
+        path: 'event-trigger-modifier-config/:configId',
+        component: TriggerEventModifierDetailPage
     },
     {
         name: "AdminDirectModifierConfigDetail",

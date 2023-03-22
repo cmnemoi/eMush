@@ -24,6 +24,7 @@ class TriggerEventModifierConfigDataLoader extends ModifierConfigDataLoader
             }
 
             $modifierConfig
+                ->setVisibility($modifierConfigData['visibility'])
                 ->setTargetEvent($modifierConfigData['targetEvent'])
                 ->setApplyOnTarget($modifierConfigData['applyOnTarget'])
                 ->setTagConstraints($modifierConfigData['tagConstraints'])

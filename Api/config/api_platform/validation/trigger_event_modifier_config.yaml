@@ -5,10 +5,10 @@ Mush\Modifier\Entity\Config\TriggerEventModifierConfig:
       - Type: string
     modifierName:
       - Type: string
-    modifierRange:
+    targetEvent:
       - NotBlank: ~
       - Type: string
-    targetEvent:
+    modifierRange:
       - NotBlank: ~
       - Type: string
     applyOnTarget:

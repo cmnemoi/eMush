@@ -5,18 +5,18 @@ Mush\Modifier\Entity\Config\TriggerEventModifierConfig:
     name:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     modifierName:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+      groups: [ 'modifier_config_read' , 'modifier_config_write' ]
+    triggeredEvent:
+      groups: [ 'modifier_config_read' , 'modifier_config_write' ]
     targetEvent:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     modifierRange:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    applyOnTarget:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
     modifierActivationRequirements:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    tagConstraints:
+    applyOnTarget:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     visibility:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    triggeredEvent:
+    tagConstraints:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]

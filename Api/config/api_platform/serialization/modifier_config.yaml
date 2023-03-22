@@ -1,28 +1,12 @@
 Mush\Modifier\Entity\Config\AbstractModifierConfig:
   attributes:
     id:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+      groups: [ 'modifier_config_read' ]
     name:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+      groups: [ 'modifier_config_read' ]
     modifierName:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+      groups: [ 'modifier_config_read' ]
     modifierRange:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+      groups: [ 'modifier_config_read' ]
     modifierActivationRequirements:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    delta:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    targetVariable:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    targetEvent:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    mode:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    applyOnTarget:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    tagConstraints:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    triggeredEvent:
-      groups: [ 'modifier_config_read' , 'modifier_config_write' ]
-    reverseOnRemove:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+      groups: [ 'modifier_config_read' ]

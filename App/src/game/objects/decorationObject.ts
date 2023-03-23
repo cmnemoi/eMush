@@ -108,7 +108,6 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
 
     delete()
     {
-        this.scene.input.clear(this);
         this.destroy();
     }
 }

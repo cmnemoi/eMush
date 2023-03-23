@@ -109,7 +109,6 @@ export default class EquipmentObject extends InteractObject {
     delete()
     {
         this.particles?.destroy();
-        this.destroy();
-        this.scene.input.clear(this);
+        super.delete();
     }
 }

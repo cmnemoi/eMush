@@ -148,7 +148,6 @@ export default class DoorGroundObject extends InteractObject {
     delete()
     {
         this.particles?.destroy();
-        this.destroy();
-        this.scene.input.clear(this);
+        super.delete();
     }
 }

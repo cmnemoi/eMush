@@ -37,7 +37,7 @@ stages:
     - openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:mush
     - chmod go+r config/jwt/private.pem
 
-php_with_db_no_fixtures_template: &php_with_db_no_fixtures_template
+.php_with_db_no_fixtures_template: &php_with_db_no_fixtures_template
   extends: .php_template
   services:
     - postgres:15.1-alpine

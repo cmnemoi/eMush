@@ -17,6 +17,9 @@ bash-api-root:
 bash-apache:
 	docker exec -it mush_apache bash
 
+bash-eternal-twin:
+	docker exec -it eternal_twin bash
+
 bash-front:
 	docker exec -it mush_front bash
 
@@ -32,7 +35,7 @@ build:
 		docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_php chown -R dev:dev /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-start
 
-install: build install-api reset-eternal-twin-database
+install: build install-api start-mush-database
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u node mush_front yarn install
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u node eternal_twin yarn install
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u node eternal_twin yarn etwin db create
@@ -40,21 +43,22 @@ install: build install-api reset-eternal-twin-database
 remove-all: #Warning, it will remove EVERY container, images, volumes and network not only emushs ones
 	docker system prune --volumes -a
 
-install-eternal-twin: reset-eternal-twin-database
+install-eternal-twin: start-mush-database
 	docker start eternal_twin
 	docker exec -i -unode eternal_twin yarn install
 
 install-api:
-	docker start mush_php mush_database &&\
+	docker start mush_php mush_database eternal_twin &&\
 	docker exec -i -udev mush_php composer install &&\
 	docker exec -i -udev mush_php ./reset.sh --init
-	docker exec -i -udev mush_php php bin/console mush:create-crew
 
 install-front:
 	docker start mush_front &&\
 	docker exec -i -unode mush_front yarn install &&\
 	docker exec -i -unode mush_front ./reset.sh
 
-reset-eternal-twin-database:
+reset-eternal-twin-database: 
 	docker exec -i -unode eternal_twin yarn etwin db create
+
+start-mush-database:
 	docker start mush_database

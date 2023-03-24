@@ -86,7 +86,7 @@ api-test:
   needs: 
     - job: check
       optional: true
-    - job: build-front
+    - job: build-app
       optional: true
   script:
     - php vendor/bin/codecept run
@@ -100,7 +100,7 @@ api-lint:
   needs:
     - job: check
       optional: true
-    - job: build-front
+    - job: build-api
       optional: true
   script:
     - ./linters.sh
@@ -115,7 +115,7 @@ api-test-develop:
   needs: 
     - job: check
       optional: true
-    - job: build-front
+    - job: build-api
   script:
     - pecl install xdebug && docker-php-ext-enable xdebug
     - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
@@ -137,7 +137,7 @@ front-lint:
   needs: 
     - job: check
       optional: true
-    - job: build-front
+    - job: build-app
       optional: true
   script:
     - yarn lint --no-fix
@@ -151,7 +151,7 @@ front-test:
   needs: 
     - job: check
       optional: true
-    - job: build-front
+    - job: build-app
       optional: true
   script:
     - yarn test

@@ -5,6 +5,7 @@ namespace Mush\Game\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
+// I am a comment!
 #[ORM\Entity]
 #[ORM\Table(name: 'config_difficulty')]
 class DifficultyConfig

@@ -37,6 +37,25 @@ stages:
     - openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:mush
     - chmod go+r config/jwt/private.pem
 
+php_with_db_no_fixtures_template: &php_with_db_no_fixtures_template
+  extends: .php_template
+  services:
+    - postgres:15.1-alpine
+  variables:
+    POSTGRES_DB: emush_test
+    POSTGRES_USER: runner
+    POSTGRES_PASSWORD: "password"
+  before_script:
+    - php -v
+    - cd Api
+    # Install all project dependencies
+    - composer install
+    - cp .env.gitlab .env.test
+    - cp .env.gitlab .env
+    - openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:mush
+    - openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:mush
+    - chmod go+r config/jwt/private.pem
+
 .node_template: &node_template
   image: node:18
   cache:
@@ -70,13 +89,12 @@ build-api:
   stage: build
   needs: 
     - job: check
-  <<: *php_with_db_template
+  <<: *php_with_db_no_fixtures_template
   script:
-    - php bin/console doctrine:schema:drop --full-database -f
     - php bin/console mush:migrate --dev
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes: ["Api/**/*.php"]
+      changes: ["Api/**/Entity/*.php"]
     - if: '$CI_COMMIT_BRANCH == "develop"'
 
 api-test:

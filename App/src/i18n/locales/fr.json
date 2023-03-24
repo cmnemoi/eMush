@@ -209,6 +209,7 @@
 			"mode": "Mode de calcul",
 			"variableModifier": "Modificateur de variables",
 			"triggerEventModifier": "Déclencheurs d'événements",
+			"preventEventModifier": "Bloqueur d'événements",
 			"modifierRequirement": "Conditions d'activation",
 			"triggeredEvent": "Événement déclenché",
 			"applyOnActionParameter": "Application uniquement sur cible d'action",
@@ -217,6 +218,13 @@
 			"tagConstraints": "Condition sur les tags de l'événement",
 			"directModifier": "Modificateur direct",
 			"modifierName": "Nom du modificateur"
+		},
+		"eventConfig": {
+			"name": "Nom",
+			"eventName": "Nom de l'événement",
+			"quantity": "Quantité",
+			"targetVariable": "Variable cible",
+			"variableHolderClass": "Entité porteuse de la variable"
 		},
 		"modifierActivationRequirement": {
 			"name": "Nom",

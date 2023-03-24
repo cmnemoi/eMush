@@ -68,15 +68,19 @@ export default defineComponent({
     },
     data() {
         return {
-            entityType: { endpoint: 'variable_event_modifier_configs', detailPage: 'AdminVariableModifierConfigDetail' },
+            entityType: { endpoint: 'variable_event_modifier_configs', detailPage: 'AdminEventModifierConfigDetail' },
             entityTypeOption: [
                 { key: 'admin.modifierConfig.variableModifier', value: {
                     endpoint: 'variable_event_modifier_configs',
-                    detailPage: 'AdminVariableModifierConfigDetail'
+                    detailPage: 'AdminEventModifierConfigDetail'
                 } },
                 { key: 'admin.modifierConfig.triggerEventModifier', value: {
                     endpoint: 'trigger_event_modifier_configs',
-                    detailPage: 'AdminTriggerEventModifierConfigDetail'
+                    detailPage: 'AdminEventModifierConfigDetail'
+                } },
+                { key: 'admin.modifierConfig.preventEventModifier', value: {
+                    endpoint: 'prevent_event_modifier_configs',
+                    detailPage: 'AdminEventModifierConfigDetail'
                 } },
                 { key: 'admin.modifierConfig.directModifier', value: {
                     endpoint: 'direct_modifier_configs',

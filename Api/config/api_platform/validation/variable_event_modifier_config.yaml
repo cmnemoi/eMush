@@ -3,13 +3,3 @@ Mush\Modifier\Entity\Config\VariableEventModifierConfig:
     name:
       - NotBlank: ~
       - Type: string
-    modifierName:
-      - Type: string
-    modifierRange:
-      - NotBlank: ~
-      - Type: string
-    applyOnTarget:
-      - NotBlank: ~
-      - Type: boolean
-    tagConstraints:
-      - Type: array

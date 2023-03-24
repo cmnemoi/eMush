@@ -1,11 +1,11 @@
-Mush\Modifier\Entity\Config\TriggerEventModifierConfig:
+Mush\Modifier\Entity\Config\PreventEventModifierConfig:
   attributes:
     id:
       groups: [ 'modifier_config_read' ]
     name:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     modifierName:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+      groups: [ 'modifier_config_read' , 'modifier_config_write' ]
     targetEvent:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     modifierRange:
@@ -15,8 +15,4 @@ Mush\Modifier\Entity\Config\TriggerEventModifierConfig:
     modifierActivationRequirements:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     tagConstraints:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    visibility:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    triggeredEvent:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]

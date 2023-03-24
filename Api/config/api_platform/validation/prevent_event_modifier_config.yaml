@@ -1,4 +1,4 @@
-Mush\Modifier\Entity\Config\TriggerEventModifierConfig:
+Mush\Modifier\Entity\Config\PreventEventModifierConfig:
   properties:
     name:
       - NotBlank: ~
@@ -6,9 +6,6 @@ Mush\Modifier\Entity\Config\TriggerEventModifierConfig:
     modifierName:
       - Type: string
     modifierRange:
-      - NotBlank: ~
-      - Type: string
-    targetEvent:
       - NotBlank: ~
       - Type: string
     applyOnTarget:

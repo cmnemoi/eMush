@@ -83,7 +83,7 @@ api-test:
   <<: *php_with_db_template
   stage: test
   needs: 
-    - job: build-app
+    - job: build-api
   script:
     - php vendor/bin/codecept run
   rules:

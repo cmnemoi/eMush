@@ -52,7 +52,7 @@ check:
   script:
     - echo "Pipeline is valid"
 
-build-front:
+build-app:
   stage: build
   needs: 
     - job: check
@@ -63,6 +63,21 @@ build-front:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["App/**/*.vue", "App/**/*.ts", "App/**/*.scss", "App/**/*.css"]
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+
+# test migrations
+build-api:
+  stage: build
+  needs: 
+    - job: check
+      optional: true
+  <<: *php_with_db_template
+  script:
+    - php bin/console doctrine:schema:drop --full-database -f
+    - php bin/console mush:migrate --dev
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["Api/**/*.php"]
     - if: '$CI_COMMIT_BRANCH == "develop"'
 
 api-test:

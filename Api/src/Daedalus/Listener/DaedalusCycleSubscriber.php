@@ -143,6 +143,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $this->daedalusIncidentService->handleTremorEvents($daedalus, $time);
         $this->daedalusIncidentService->handleElectricArcEvents($daedalus, $time);
         $this->daedalusIncidentService->handleFireEvents($daedalus, $time);
+        $this->daedalusIncidentService->handleCrewDisease($daedalus, $time);
 
         $daedalus = $this->handleOxygen($daedalus, $time);
 

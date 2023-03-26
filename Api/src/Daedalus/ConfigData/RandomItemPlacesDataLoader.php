@@ -9,7 +9,6 @@ use Mush\Game\ConfigData\ConfigDataLoader;
 
 class RandomItemPlacesDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private RandomItemPlacesRepository $randomItemPlacesRepository;
 
     public function __construct(

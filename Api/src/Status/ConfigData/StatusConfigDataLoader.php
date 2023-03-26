@@ -11,7 +11,6 @@ use Mush\Status\Repository\StatusConfigRepository;
 
 class StatusConfigDataLoader extends ConfigDataLoader
 {
-    protected EntityManagerInterface $entityManager;
     protected StatusConfigRepository $statusConfigRepository;
     protected ModifierConfigRepository $modifierConfigRepository;
 

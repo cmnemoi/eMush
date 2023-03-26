@@ -8,7 +8,6 @@ use Mush\Game\Repository\EventConfigRepository;
 
 class VariableEventConfigDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private EventConfigRepository $variableEventConfigRepository;
 
     public function __construct(

@@ -10,7 +10,6 @@ use Mush\Game\ConfigData\ConfigDataLoader;
 
 class SymptomConfigDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private SymptomConfigRepository $symptomConfigRepository;
     private SymptomActivationRequirementRepository $symptomActivationRequirementRepository;
 

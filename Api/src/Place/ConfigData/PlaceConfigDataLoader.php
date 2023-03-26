@@ -9,7 +9,6 @@ use Mush\Place\Repository\PlaceConfigRepository;
 
 class PlaceConfigDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private PlaceConfigRepository $placeConfigRepository;
 
     public function __construct(

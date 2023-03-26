@@ -18,7 +18,6 @@ use Mush\Status\Repository\StatusConfigRepository;
 
 class GameConfigDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private GameConfigRepository $gameConfigRepository;
     private DaedalusConfigRepository $daedalusConfigRepository;
     private DifficultyConfigRepository $difficultyConfigRepository;

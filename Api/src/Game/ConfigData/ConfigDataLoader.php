@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 abstract class ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
+    protected EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {

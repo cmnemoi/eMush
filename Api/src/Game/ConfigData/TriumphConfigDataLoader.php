@@ -8,7 +8,6 @@ use Mush\Game\Repository\TriumphConfigRepository;
 
 class TriumphConfigDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private TriumphConfigRepository $triumphConfigRepository;
 
     public function __construct(

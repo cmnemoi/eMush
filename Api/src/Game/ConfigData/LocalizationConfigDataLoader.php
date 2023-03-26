@@ -8,7 +8,6 @@ use Mush\Game\Repository\LocalizationConfigRepository;
 
 class LocalizationConfigDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private LocalizationConfigRepository $localizationConfigRepository;
 
     public function __construct(

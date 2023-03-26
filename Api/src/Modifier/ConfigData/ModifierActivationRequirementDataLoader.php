@@ -9,7 +9,6 @@ use Mush\Modifier\Repository\ModifierActivationRequirementRepository;
 
 class ModifierActivationRequirementDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private ModifierActivationRequirementRepository $modifierActivationRequirementRepository;
 
     public function __construct(

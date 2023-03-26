@@ -12,7 +12,6 @@ use Mush\Modifier\Repository\ModifierConfigRepository;
 
 class DiseaseConfigDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private DiseaseConfigRepository $diseaseConfigRepository;
     private ModifierConfigRepository $modifierConfigRepository;
     private SymptomConfigRepository $symptomConfigRepository;

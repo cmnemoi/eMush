@@ -8,7 +8,6 @@ use Mush\Game\Repository\DifficultyConfigRepository;
 
 class DifficultyConfigDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private DifficultyConfigRepository $difficultyConfigRepository;
 
     public function __construct(

@@ -9,7 +9,6 @@ use Mush\Game\ConfigData\ConfigDataLoader;
 
 class SymptomActivationRequirementDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private SymptomActivationRequirementRepository $modifierActivationRequirementRepository;
 
     public function __construct(

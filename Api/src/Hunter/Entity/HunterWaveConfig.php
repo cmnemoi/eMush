@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\ProbabilitiesCollection;
 
 #[ORM\Entity]
+#[ORM\Table(name: 'hunter_wave_config')]
 class HunterWaveConfig
 {
     #[ORM\Id]

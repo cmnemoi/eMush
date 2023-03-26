@@ -41,6 +41,15 @@ class HunterConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $dodgeChance;
 
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $drawCost;
+
+    #[ORM\Column(type: 'integer')]
+    private int $maxPerWave;
+    
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $drawWeight;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -141,4 +150,41 @@ class HunterConfig
 
         return $this;
     }
+
+    public function getDrawCost(): int
+    {
+        return $this->drawCost;
+    }
+
+    public function setDrawCost(int $drawCost): static
+    {
+        $this->drawCost = $drawCost;
+
+        return $this;
+    }
+
+    public function getMaxPerWave(): int
+    {
+        return $this->maxPerWave;
+    }
+
+    public function setMaxPerWave(int $maxPerWave): static
+    {
+        $this->maxPerWave = $maxPerWave;
+
+        return $this;
+    }
+
+    public function getDrawWeight(): int
+    {
+        return $this->drawWeight;
+    }
+
+    public function setDrawWeight(int $drawWeight): static
+    {
+        $this->drawWeight = $drawWeight;
+
+        return $this;
+    }
+    
 }

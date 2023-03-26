@@ -45,7 +45,7 @@ class HunterConfig
 
     #[ORM\Column(type: 'integer')]
     private int $maxPerWave;
-    
+
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $drawWeight;
 
@@ -197,5 +197,4 @@ class HunterConfig
 
         return $this;
     }
-    
 }

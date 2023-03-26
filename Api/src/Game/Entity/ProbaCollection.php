@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class ProbabilitiesCollection extends ArrayCollection
 {
-    public function getItemProbability(string|int $key): ?int
+    public function getItemProbability(string|int $key): int
     {
         return $this->get($key);
     }

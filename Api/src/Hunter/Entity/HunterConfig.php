@@ -10,7 +10,7 @@ class HunterConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, unique: true)]
@@ -19,25 +19,25 @@ class HunterConfig
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $hunterName;
 
-    #[ORM\Column(type: 'int', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $initialHealth;
 
-    #[ORM\Column(type: 'int', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $initialCharge;
 
-    #[ORM\Column(type: 'int', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $initialArmor;
 
-    #[ORM\Column(type: 'int', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $minDamage;
 
-    #[ORM\Column(type: 'int', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $maxDamage;
 
-    #[ORM\Column(type: 'int', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $hitChance;
 
-    #[ORM\Column(type: 'int', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $dodgeChance;
 
     public function getId(): ?int

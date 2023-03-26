@@ -20,11 +20,5 @@ Mush\Hunter\Entity\HunterConfig:
       groups: [ 'hunter_config_read', 'hunter_config_write' ]
     dodgeChance:
       groups: [ 'hunter_config_read', 'hunter_config_write' ]
-    drawCost:
-      groups: [ 'hunter_config_read', 'hunter_config_write' ]
-    maxPerWave:
-      groups: [ 'hunter_config_read', 'hunter_config_write' ]
-    drawWeight:
-      groups: [ 'hunter_config_read', 'hunter_config_write' ]
     
  

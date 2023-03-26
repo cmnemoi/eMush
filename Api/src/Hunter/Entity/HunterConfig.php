@@ -44,8 +44,8 @@ class HunterConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $drawCost;
 
-    #[ORM\Column(type: 'integer')]
-    private int $maxPerWave;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $maxPerWave;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $drawWeight;
@@ -163,12 +163,12 @@ class HunterConfig
         return $this;
     }
 
-    public function getMaxPerWave(): int
+    public function getMaxPerWave(): ?int
     {
         return $this->maxPerWave;
     }
 
-    public function setMaxPerWave(int $maxPerWave): static
+    public function setMaxPerWave(?int $maxPerWave): static
     {
         $this->maxPerWave = $maxPerWave;
 

@@ -5,6 +5,7 @@ namespace Mush\Hunter\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\ProbaCollection;
 
+#[ORM\Entity]
 class HunterConfig
 {
     #[ORM\Id]

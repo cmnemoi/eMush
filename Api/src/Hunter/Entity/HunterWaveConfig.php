@@ -5,6 +5,7 @@ namespace Mush\Hunter\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\ProbabilitiesCollection;
 
+#[ORM\Entity]
 class HunterWaveConfig
 {
     #[ORM\Id]

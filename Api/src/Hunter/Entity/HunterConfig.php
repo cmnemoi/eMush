@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\ProbaCollection;
 
 #[ORM\Entity]
+#[ORM\Table(name: 'hunter_config')]
 class HunterConfig
 {
     #[ORM\Id]

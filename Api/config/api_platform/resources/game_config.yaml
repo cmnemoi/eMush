@@ -53,3 +53,7 @@ Mush\Game\Entity\GameConfig:
     difficultyConfig:
       subresource:
         resourceClass: 'Mush\Game\Entity\DifficultyConfig'
+    hunterConfigs:
+      subresource:
+        resourceClass: 'Mush\Hunter\Entity\HunterConfig'
+        collection: true

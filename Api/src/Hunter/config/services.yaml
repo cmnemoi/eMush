@@ -18,5 +18,3 @@ services:
   # need this for tests working somehow
   Mush\Hunter\ConfigData\HunterConfigDataLoader:
     public: true
-  Mush\Hunter\ConfigData\HunterWaveConfigDataLoader:
-    public: true

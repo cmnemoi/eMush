@@ -1,0 +1,20 @@
+Mush\Hunter\Entity\HunterConfig:
+  shortName: 'HunterConfig'
+  description: 'eMush HunterConfig'
+  attributes:
+    pagination_items_per_page: 25
+    security: 'is_granted("ROLE_USER")'
+    normalization_context:
+      groups: [ 'hunter_config_read' ]
+    denormalization_context:
+      groups: [ 'hunter_config_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get: 
+      security: 'is_granted("ROLE_USER")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'

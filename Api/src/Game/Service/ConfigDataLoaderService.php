@@ -29,6 +29,7 @@ use Mush\Game\ConfigData\GameConfigDataLoader;
 use Mush\Game\ConfigData\LocalizationConfigDataLoader;
 use Mush\Game\ConfigData\TriumphConfigDataLoader;
 use Mush\Game\ConfigData\VariableEventConfigDataLoader;
+use Mush\Hunter\ConfigData\HunterConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\PreventEventModifierConfigDataLoader;
@@ -75,6 +76,7 @@ class ConfigDataLoaderService
                                 TriumphConfigDataLoader $triumphConfigDataLoader,
                                 DiseaseCauseConfigDataLoader $diseaseCauseConfigDataLoader,
                                 ConsumableDiseaseConfigDataLoader $consumableDiseaseConfigDataLoader,
+                                HunterConfigDataLoader $hunterConfigDataLoader,
                                 GameConfigDataLoader $gameConfigDataLoader,
                                 LocalizationConfigDataLoader $localizationConfigDataLoader
     ) {
@@ -114,6 +116,7 @@ class ConfigDataLoaderService
                 $triumphConfigDataLoader,
                 $diseaseCauseConfigDataLoader,
                 $consumableDiseaseConfigDataLoader,
+                $hunterConfigDataLoader,
                 $gameConfigDataLoader,
                 $localizationConfigDataLoader,
             ]

@@ -38,14 +38,4 @@ Mush\Hunter\Entity\Config\HunterConfig:
       - NotBlank: ~
       - PositiveOrZero: ~
       - Type: integer
-    drawCost:
-      - NotBlank: ~
-      - Positive: ~
-      - Type: integer
-    maxPerWave:
-      - Type: integer
-    drawWeight:
-      - NotBlank: ~
-      - Positive: ~
-      - Type: integer
       

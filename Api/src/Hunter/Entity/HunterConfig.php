@@ -5,6 +5,7 @@ namespace Mush\Hunter\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
+#[ORM\Table(name: 'hunter_config')]
 class HunterConfig
 {
     #[ORM\Id]

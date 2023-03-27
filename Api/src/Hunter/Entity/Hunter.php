@@ -3,7 +3,6 @@
 namespace Mush\Hunter\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Hunter\Enum\HunterTargetEnum;
 
 #[ORM\Entity]
@@ -18,9 +17,6 @@ class Hunter
     #[ORM\ManyToOne(targetEntity: HunterConfig::class)]
     private HunterConfig $hunterConfig;
 
-    #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'hunters')]
-    private Daedalus $daedalus;
-
     #[ORM\Column(type: 'integer')]
     private int $health;
 
@@ -32,18 +28,6 @@ class Hunter
 
     #[ORM\Column(type: 'string')]
     private string $target = HunterTargetEnum::DAEDALUS;
-
-    #[ORM\Column(type: 'boolean')]
-    private bool $inPool = true;
-
-    public function __construct(HunterConfig $hunterConfig, Daedalus $daedalus)
-    {
-        $this->armor = $hunterConfig->getInitialArmor();
-        $this->charge = $hunterConfig->getInitialCharge();
-        $this->daedalus = $daedalus;
-        $this->health = $hunterConfig->getInitialHealth();
-        $this->hunterConfig = $hunterConfig;
-    }
 
     public function getId(): int
     {
@@ -58,18 +42,6 @@ class Hunter
     public function setHunterConfig(HunterConfig $hunterConfig): self
     {
         $this->hunterConfig = $hunterConfig;
-
-        return $this;
-    }
-
-    public function getDaedalus(): Daedalus
-    {
-        return $this->daedalus;
-    }
-
-    public function setDaedalus(Daedalus $daedalus): self
-    {
-        $this->daedalus = $daedalus;
 
         return $this;
     }
@@ -118,25 +90,6 @@ class Hunter
     public function setTarget(string $target): self
     {
         $this->target = $target;
-
-        return $this;
-    }
-
-    public function isInPool(): bool
-    {
-        return $this->inPool;
-    }
-
-    public function putInPool(): self
-    {
-        $this->inPool = true;
-
-        return $this;
-    }
-
-    public function unpool(): self
-    {
-        $this->inPool = false;
 
         return $this;
     }

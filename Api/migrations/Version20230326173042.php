@@ -28,12 +28,19 @@ final class Version20230326173042 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_5239640E5E237E06 ON hunter_config (name)');
         $this->addSql('ALTER TABLE game_config_hunter_config ADD CONSTRAINT FK_801CD269F67DC781 FOREIGN KEY (game_config_id) REFERENCES config_game (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE game_config_hunter_config ADD CONSTRAINT FK_801CD269324BCEC3 FOREIGN KEY (hunter_config_id) REFERENCES hunter_config (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('CREATE SEQUENCE hunter_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE TABLE hunter (id INT NOT NULL, hunter_config_id INT DEFAULT NULL, health INT NOT NULL, charge INT NOT NULL, armor INT NOT NULL, target VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_4AD78C65324BCEC3 ON hunter (hunter_config_id)');
+        $this->addSql('ALTER TABLE hunter ADD CONSTRAINT FK_4AD78C65324BCEC3 FOREIGN KEY (hunter_config_id) REFERENCES hunter_config (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
+        $this->addSql('DROP SEQUENCE hunter_id_seq CASCADE');
+        $this->addSql('ALTER TABLE hunter DROP CONSTRAINT FK_4AD78C65324BCEC3');
+        $this->addSql('DROP TABLE hunter');
         $this->addSql('DROP SEQUENCE hunter_config_id_seq CASCADE');
         $this->addSql('ALTER TABLE game_config_hunter_config DROP CONSTRAINT FK_801CD269F67DC781');
         $this->addSql('ALTER TABLE game_config_hunter_config DROP CONSTRAINT FK_801CD269324BCEC3');

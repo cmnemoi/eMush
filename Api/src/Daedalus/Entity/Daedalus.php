@@ -48,7 +48,7 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
     private Collection $modifiers;
 
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Hunter::class, cascade: ['REMOVE'], orphanRemoval: true)]
-    private Collection $hunters;
+    private HunterCollection $hunters;
 
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private DaedalusVariables $daedalusVariables;
@@ -185,19 +185,9 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
         return $this;
     }
 
-    public function getAllHunters(): HunterCollection
+    public function getHunters(): Collection
     {
-        return new HunterCollection($this->hunters->toArray());
-    }
-
-    public function getAttackingHunters(): HunterCollection
-    {
-        return (new HunterCollection($this->hunters->toArray()))->getAttackingHunters();
-    }
-
-    public function getHunterPool(): HunterCollection
-    {
-        return (new HunterCollection($this->hunters->toArray()))->getHunterPool();
+        return $this->hunters;
     }
 
     public function setHunters(HunterCollection|Collection $hunters): static

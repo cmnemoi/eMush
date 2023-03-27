@@ -36,6 +36,8 @@ import DirectModifierDetailPage from "@/components/Admin/Config/ModifierConfig/D
 import VariableEventDetailPage from "@/components/Admin/Config/EventConfig/VariableEventDetailPage.vue";
 import EventConfigListPage from "@/components/Admin/Config/EventConfig/EventConfigListPage.vue";
 import EventModifierDetailPage from "@/components/Admin/Config/ModifierConfig/EventModifierDetailPage.vue";
+import HunterConfigListPage from "@/components/Admin/Config/HunterConfig/HunterConfigListPage.vue";
+import HunterConfigDetailPage from "@/components/Admin/Config/HunterConfig/HunterConfigDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -227,5 +229,15 @@ export const adminConfigRoutes = [
         name: "AdminVariableEventConfigDetail",
         path: 'event-config/:configId',
         component: VariableEventDetailPage
+    },
+    {
+        name: "AdminHunterConfigList",
+        path: 'hunter-config-list',
+        component: HunterConfigListPage
+    },
+    {
+        name: "AdminHunterConfigDetail",
+        path: 'hunter-config/:hunterConfigId',
+        component: HunterConfigDetailPage
     },
 ];

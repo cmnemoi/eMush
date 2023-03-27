@@ -23,6 +23,7 @@
             <router-link :to="{ name: 'AdminActionConfigList' }">Action Config</router-link>
             <router-link :to="{ name: 'AdminTriumphConfigList' }">Triumph Config</router-link>
             <router-link :to="{ name: 'AdminEventConfigList' }">Event Config</router-link>
+            <router-link :to="{ name: 'AdminHunterConfigList' }">Hunter Config</router-link>
         </div>
     </div>
 </template>

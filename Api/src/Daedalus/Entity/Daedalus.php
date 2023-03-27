@@ -182,9 +182,19 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
         return $this;
     }
 
-    public function getHunters(): HunterCollection
+    public function getAllHunters(): HunterCollection
     {
-        return $this->hunters;
+        return new HunterCollection($this->hunters->toArray());
+    }
+
+    public function getAttackingHunters(): HunterCollection
+    {
+        return (new HunterCollection($this->hunters->toArray()))->getAttackingHunters();
+    }
+
+    public function getHunterPool(): HunterCollection
+    {
+        return (new HunterCollection($this->hunters->toArray()))->getHunterPool();
     }
 
     public function setHunters(HunterCollection|Collection $hunters): static
@@ -306,6 +316,25 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
     public function setSpores(int $spores): static
     {
         $this->setVariableValueByName($spores, DaedalusVariableEnum::SPORE);
+
+        return $this;
+    }
+
+    public function getHunterPoints(): int
+    {
+        return $this->getVariableValueByName(DaedalusVariableEnum::HUNTER_POINTS);
+    }
+
+    public function setHunterPoints(int $hunterPoints): static
+    {
+        $this->setVariableValueByName($hunterPoints, DaedalusVariableEnum::HUNTER_POINTS);
+
+        return $this;
+    }
+
+    public function addHunterPoints(int $hunterPoints): static
+    {
+        $this->setHunterPoints($this->getHunterPoints() + $hunterPoints);
 
         return $this;
     }

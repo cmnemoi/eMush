@@ -12,6 +12,8 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableCollection;
 use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Entity\HunterCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -42,6 +44,9 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
 
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
+
+    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Hunter::class, cascade: ['REMOVE'], orphanRemoval: true)]
+    private HunterCollection $hunters;
 
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private DaedalusVariables $daedalusVariables;
@@ -173,6 +178,40 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
     public function addModifier(GameModifier $modifier): static
     {
         $this->modifiers->add($modifier);
+
+        return $this;
+    }
+
+    public function getHunters(): Collection
+    {
+        return $this->hunters;
+    }
+
+    public function setHunters(HunterCollection|Collection $hunters): static
+    {
+        if ($hunters instanceof Collection) {
+            $hunters = new HunterCollection($hunters->toArray());
+        }
+
+        $this->hunters = $hunters;
+
+        return $this;
+    }
+
+    public function addHunter(Hunter $hunter): static
+    {
+        if (!$this->hunters->contains($hunter)) {
+            $this->hunters->add($hunter);
+
+            $hunter->setDaedalus($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHunter(Hunter $hunter): static
+    {
+        $this->hunters->removeElement($hunter);
 
         return $this;
     }

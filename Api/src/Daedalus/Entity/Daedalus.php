@@ -48,7 +48,7 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
     private Collection $modifiers;
 
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Hunter::class, cascade: ['REMOVE'], orphanRemoval: true)]
-    private HunterCollection $hunters;
+    private Collection $hunters;
 
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private DaedalusVariables $daedalusVariables;
@@ -185,7 +185,7 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
         return $this;
     }
 
-    public function getHunters(): Collection
+    public function getHunters(): HunterCollection
     {
         return $this->hunters;
     }

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\ProbaCollection;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
 
@@ -20,6 +21,7 @@ class HunterConfigFixtures extends Fixture
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        $asteroidDamageRange = $this->buildUniformDamageRange(6, 6);
         $asteroid = new HunterConfig();
         $asteroid
             ->setName(HunterEnum::ASTEROID . '_default')
@@ -27,8 +29,7 @@ class HunterConfigFixtures extends Fixture
             ->setInitialHealth(20)
             ->setInitialCharge(6)
             ->setInitialArmor(0)
-            ->setMinDamage(0)
-            ->setMaxDamage(0)
+            ->setDamageRange($asteroidDamageRange)
             ->setHitChance(100)
             ->setDodgeChance(20)
             ->setDrawCost(25)
@@ -37,6 +38,7 @@ class HunterConfigFixtures extends Fixture
         ;
         $manager->persist($asteroid);
 
+        $diceDamageRange = $this->buildUniformDamageRange(3, 6);
         $dice = new HunterConfig();
         $dice
             ->setName(HunterEnum::DICE . '_default')
@@ -44,8 +46,7 @@ class HunterConfigFixtures extends Fixture
             ->setInitialHealth(30)
             ->setInitialCharge(0)
             ->setInitialArmor(1)
-            ->setMinDamage(3)
-            ->setMaxDamage(6)
+            ->setDamageRange($diceDamageRange)
             ->setHitChance(60)
             ->setDodgeChance(20)
             ->setDrawCost(30)
@@ -54,6 +55,7 @@ class HunterConfigFixtures extends Fixture
         ;
         $manager->persist($dice);
 
+        $hunterDamageRange = $this->buildUniformDamageRange(2, 4);
         $hunter = new HunterConfig();
         $hunter
             ->setName(HunterEnum::HUNTER . '_default')
@@ -61,8 +63,7 @@ class HunterConfigFixtures extends Fixture
             ->setInitialHealth(6)
             ->setInitialCharge(0)
             ->setInitialArmor(0)
-            ->setMinDamage(2)
-            ->setMaxDamage(4)
+            ->setDamageRange($hunterDamageRange)
             ->setHitChance(80)
             ->setDodgeChance(50)
             ->setDrawCost(10)
@@ -71,6 +72,7 @@ class HunterConfigFixtures extends Fixture
         ;
         $manager->persist($hunter);
 
+        $spiderDamageRange = $this->buildUniformDamageRange(1, 3);
         $spider = new HunterConfig();
         $spider
             ->setName(HunterEnum::SPIDER . '_default')
@@ -78,8 +80,7 @@ class HunterConfigFixtures extends Fixture
             ->setInitialHealth(6)
             ->setInitialCharge(0)
             ->setInitialArmor(0)
-            ->setMinDamage(1)
-            ->setMaxDamage(3)
+            ->setDamageRange($spiderDamageRange)
             ->setHitChance(80)
             ->setDodgeChance(50)
             ->setDrawCost(10)
@@ -88,6 +89,7 @@ class HunterConfigFixtures extends Fixture
         ;
         $manager->persist($spider);
 
+        $traxDamageRange = $this->buildUniformDamageRange(2, 3);
         $trax = new HunterConfig();
         $trax
             ->setName(HunterEnum::TRAX . '_default')
@@ -95,8 +97,7 @@ class HunterConfigFixtures extends Fixture
             ->setInitialHealth(10)
             ->setInitialCharge(0)
             ->setInitialArmor(0)
-            ->setMinDamage(2)
-            ->setMaxDamage(3)
+            ->setDamageRange($traxDamageRange)
             ->setHitChance(50)
             ->setDodgeChance(50)
             ->setDrawCost(20)
@@ -121,5 +122,15 @@ class HunterConfigFixtures extends Fixture
         return [
             GameConfigFixtures::class,
         ];
+    }
+
+    private function buildUniformDamageRange(int $min, int $max): ProbaCollection
+    {
+        $damageRange = new ProbaCollection();
+        for ($i = $min; $i <= $max; ++$i) {
+            $damageRange->setElementProbability($i, 1);
+        }
+
+        return $damageRange;
     }
 }

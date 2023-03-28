@@ -4,6 +4,7 @@ namespace Mush\Hunter\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\ConfigData\ConfigDataLoader;
+use Mush\Game\Entity\ProbaCollection;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Repository\HunterConfigRepository;
 
@@ -35,8 +36,7 @@ class HunterConfigDataLoader extends ConfigDataLoader
                 ->setInitialHealth($hunterConfigData['initialHealth'])
                 ->setInitialCharge($hunterConfigData['initialCharge'])
                 ->setInitialArmor($hunterConfigData['initialArmor'])
-                ->setMinDamage($hunterConfigData['minDamage'])
-                ->setMaxDamage($hunterConfigData['maxDamage'])
+                ->setDamageRange(new ProbaCollection($hunterConfigData['damageRange']))
                 ->setHitChance($hunterConfigData['hitChance'])
                 ->setDodgeChance($hunterConfigData['dodgeChance'])
                 ->setDrawCost($hunterConfigData['drawCost'])

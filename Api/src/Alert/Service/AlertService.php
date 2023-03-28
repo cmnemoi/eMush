@@ -290,6 +290,13 @@ class AlertService implements AlertServiceInterface
         }
     }
 
+    public function handleHunterArrival(Daedalus $daedalus): void
+    {
+        $alert = $this->getAlert($daedalus, AlertEnum::HUNTER);
+
+        $this->persist($alert);
+    }
+
     public function handleSatietyAlert(Daedalus $daedalus): void
     {
         $totalSatiety = 0;

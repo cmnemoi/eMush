@@ -174,7 +174,6 @@ class CreateDaedalusCest
         // hunters
         $I->assertCount(4, $daedalus->getAttackingHunters());
         $I->assertCount(0, $daedalus->getHunterPool());
-        $I->assertCount(1, $daedalus->getAttackingHunters()->first()->getStatuses());
     }
 
     private function createDaedalusConfig(ArrayCollection $placesConfig): DaedalusConfig

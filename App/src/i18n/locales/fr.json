@@ -499,6 +499,20 @@
 			"englishTitle": "Titre anglais",
 			"spanishTitle": "Titre espagnol",
 			"spanishContent": "Contenu espagnol"
+		},
+		"hunterConfig": {
+			"name": "Nom complet",
+			"hunterName": "Nom",
+			"initialHealth": "Vie initiale",
+			"initialCharge": "Charges initiales",
+			"initialArmor": "Armure initiale",
+			"minDamage": "Dégâts minimaux",
+			"maxDamage": "Dégâts maximaux",
+			"hitChance": "Probabilité de toucher",
+			"dodgeChance": "Probabilité d'esquiver",
+			"drawCost": "Coût à tirer",
+			"maxPerWave": "Nombre maximum par vague",
+			"drawWeight": "Probabilité (poids) d'être tiré à chaque vague"
 		}
 	},
 	"charSelection": {

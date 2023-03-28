@@ -33,5 +33,9 @@ class HunterSubscriber implements EventSubscriberInterface
 
     public function onPoolHunters(HunterPoolEvent $event): void
     {
+        $daedalus = $event->getDaedalus();
+        $nbHuntersToPool = $event->getNbHunters();
+
+        $this->hunterService->putHuntersInPool($daedalus, $nbHuntersToPool);
     }
 }

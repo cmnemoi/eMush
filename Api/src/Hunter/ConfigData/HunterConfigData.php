@@ -3,6 +3,7 @@
 namespace Mush\Hunter\ConfigData;
 
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Status\Enum\HunterStatusEnum;
 
 /** @codeCoverageIgnore */
 class HunterConfigData
@@ -12,7 +13,7 @@ class HunterConfigData
             'name' => HunterEnum::ASTEROID . '_default',
             'hunterName' => HunterEnum::ASTEROID,
             'initialHealth' => 20,
-            'initialCharge' => 6,
+            'initialStatuses' => [HunterStatusEnum::ASTEROID_CHARGE],
             'initialArmor' => 0,
             'damageRange' => [
                 6 => 1,
@@ -27,7 +28,7 @@ class HunterConfigData
             'name' => HunterEnum::DICE . '_default',
             'hunterName' => HunterEnum::DICE,
             'initialHealth' => 30,
-            'initialCharge' => 0,
+            'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE],
             'initialArmor' => 1,
             'damageRange' => [
                 3 => 1,
@@ -45,7 +46,7 @@ class HunterConfigData
             'name' => HunterEnum::HUNTER . '_default',
             'hunterName' => HunterEnum::HUNTER,
             'initialHealth' => 6,
-            'initialCharge' => 0,
+            'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE],
             'initialArmor' => 0,
             'damageRange' => [
                 2 => 1,
@@ -62,7 +63,7 @@ class HunterConfigData
             'name' => HunterEnum::SPIDER . '_default',
             'hunterName' => HunterEnum::SPIDER,
             'initialHealth' => 6,
-            'initialCharge' => 0,
+            'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE],
             'initialArmor' => 0,
             'damageRange' => [
                 1 => 1,
@@ -79,7 +80,7 @@ class HunterConfigData
             'name' => HunterEnum::TRAX . '_default',
             'hunterName' => HunterEnum::TRAX,
             'initialHealth' => 10,
-            'initialCharge' => 0,
+            'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE],
             'initialArmor' => 0,
             'damageRange' => [
                 2 => 1,

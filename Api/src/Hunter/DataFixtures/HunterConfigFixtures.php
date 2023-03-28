@@ -4,14 +4,17 @@ namespace Mush\Hunter\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\ProbaCollection;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Status\DataFixtures\ChargeStatusFixtures;
+use Mush\Status\Entity\Config\StatusConfig;
 
-class HunterConfigFixtures extends Fixture
+class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     /**
      * @return void
@@ -21,13 +24,15 @@ class HunterConfigFixtures extends Fixture
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        /** @var StatusConfig $asteroidCharge */
+        $asteroidCharge = $this->getReference(ChargeStatusFixtures::ASTEROID_CHARGE);
         $asteroidDamageRange = $this->buildUniformDamageRange(6, 6);
         $asteroid = new HunterConfig();
         $asteroid
             ->setName(HunterEnum::ASTEROID . '_default')
             ->setHunterName(HunterEnum::ASTEROID)
             ->setInitialHealth(20)
-            ->setInitialCharge(6)
+            ->setInitialStatuses(new ArrayCollection([$asteroidCharge]))
             ->setInitialArmor(0)
             ->setDamageRange($asteroidDamageRange)
             ->setHitChance(100)
@@ -38,13 +43,15 @@ class HunterConfigFixtures extends Fixture
         ;
         $manager->persist($asteroid);
 
+        /** @var StatusConfig $hunterCharge */
+        $hunterCharge = $this->getReference(ChargeStatusFixtures::HUNTER_CHARGE);
         $diceDamageRange = $this->buildUniformDamageRange(3, 6);
         $dice = new HunterConfig();
         $dice
             ->setName(HunterEnum::DICE . '_default')
             ->setHunterName(HunterEnum::DICE)
             ->setInitialHealth(30)
-            ->setInitialCharge(0)
+            ->setInitialStatuses(new ArrayCollection([$hunterCharge]))
             ->setInitialArmor(1)
             ->setDamageRange($diceDamageRange)
             ->setHitChance(60)
@@ -61,7 +68,7 @@ class HunterConfigFixtures extends Fixture
             ->setName(HunterEnum::HUNTER . '_default')
             ->setHunterName(HunterEnum::HUNTER)
             ->setInitialHealth(6)
-            ->setInitialCharge(0)
+            ->setInitialStatuses(new ArrayCollection([$hunterCharge]))
             ->setInitialArmor(0)
             ->setDamageRange($hunterDamageRange)
             ->setHitChance(80)
@@ -78,7 +85,7 @@ class HunterConfigFixtures extends Fixture
             ->setName(HunterEnum::SPIDER . '_default')
             ->setHunterName(HunterEnum::SPIDER)
             ->setInitialHealth(6)
-            ->setInitialCharge(0)
+            ->setInitialStatuses(new ArrayCollection([$hunterCharge]))
             ->setInitialArmor(0)
             ->setDamageRange($spiderDamageRange)
             ->setHitChance(80)
@@ -95,7 +102,7 @@ class HunterConfigFixtures extends Fixture
             ->setName(HunterEnum::TRAX . '_default')
             ->setHunterName(HunterEnum::TRAX)
             ->setInitialHealth(10)
-            ->setInitialCharge(0)
+            ->setInitialStatuses(new ArrayCollection([$hunterCharge]))
             ->setInitialArmor(0)
             ->setDamageRange($traxDamageRange)
             ->setHitChance(50)
@@ -121,6 +128,7 @@ class HunterConfigFixtures extends Fixture
     {
         return [
             GameConfigFixtures::class,
+            ChargeStatusFixtures::class,
         ];
     }
 

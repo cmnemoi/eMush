@@ -38,7 +38,7 @@ class StatusSubscriber implements EventSubscriberInterface
         if ($event->getStatusConfig() === null) {
             $this->statusService->createStatusFromName(
                 $event->getStatusName(),
-                $event->getPlace()->getDaedalus(),
+                $event->getDaedalus(),
                 $event->getStatusHolder(),
                 $event->getTime(),
                 $event->getStatusTarget()
@@ -63,7 +63,7 @@ class StatusSubscriber implements EventSubscriberInterface
 
     public function addStatusConfig(StatusEvent $event): void
     {
-        $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus($event->getStatusName(), $event->getPlace()->getDaedalus());
+        $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus($event->getStatusName(), $event->getDaedalus());
         $event->setStatusConfig($statusConfig);
     }
 

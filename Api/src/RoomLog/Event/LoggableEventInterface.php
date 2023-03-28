@@ -6,7 +6,7 @@ use Mush\Place\Entity\Place;
 
 interface LoggableEventInterface
 {
-    public function getPlace(): Place;
+    public function getPlace(): ?Place;
 
     public function getVisibility(): string;
 

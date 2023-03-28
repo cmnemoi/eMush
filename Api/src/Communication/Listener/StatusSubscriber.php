@@ -68,7 +68,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 return;
 
             case StatusEnum::FIRE:
-                $daedalus = $event->getPlace()->getDaedalus();
+                $daedalus = $event->getDaedalus();
                 $this->neronMessageService->createNewFireMessage($daedalus, $event->getTime());
 
                 return;

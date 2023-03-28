@@ -50,6 +50,8 @@ class FlirtActionTest extends AbstractActionTest
 
         $targetPlayer = $this->createPlayer($daedalus, $room);
 
+        $room->setDaedalus($player->getDaedalus());
+
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);

@@ -62,6 +62,8 @@ class RepairActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
+        $room->setDaedalus($player->getDaedalus());
+
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
@@ -89,6 +91,8 @@ class RepairActionTest extends AbstractActionTest
         ;
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
+
+        $room->setDaedalus($player->getDaedalus());
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

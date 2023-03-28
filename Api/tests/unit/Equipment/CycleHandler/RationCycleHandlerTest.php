@@ -58,6 +58,7 @@ class RationCycleHandlerTest extends TestCase
         $fruit->setMechanics(new ArrayCollection([$fruitType]));
 
         $daedalus = new Daedalus();
+        $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
             ->setEquipment($fruit)
@@ -85,6 +86,7 @@ class RationCycleHandlerTest extends TestCase
         $fruit->setMechanics(new ArrayCollection([$fruitType]));
 
         $daedalus = new Daedalus();
+        $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
             ->setEquipment($fruit)
@@ -112,6 +114,7 @@ class RationCycleHandlerTest extends TestCase
         $fruit->setMechanics(new ArrayCollection([$fruitType]));
 
         $daedalus = new Daedalus();
+        $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
             ->setEquipment($fruit)
@@ -147,6 +150,7 @@ class RationCycleHandlerTest extends TestCase
         $fruit->setMechanics(new ArrayCollection([$fruitType]));
 
         $daedalus = new Daedalus();
+        $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
             ->setEquipment($fruit)
@@ -185,6 +189,7 @@ class RationCycleHandlerTest extends TestCase
         $fruit->setMechanics(new ArrayCollection([$fruitType]));
 
         $daedalus = new Daedalus();
+        $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
             ->setEquipment($fruit)

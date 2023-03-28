@@ -61,6 +61,8 @@ class SabotageActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
+        $room->setDaedalus($player->getDaedalus());
+
         $mushStatus = new ChargeStatus($player, new ChargeStatusConfig());
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);

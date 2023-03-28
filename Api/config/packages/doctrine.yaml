@@ -100,3 +100,9 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Logger/Entity'
                 prefix: 'Mush\Logger\Entity'
                 alias: Logger
+            Hunter:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Hunter/Entity'
+                prefix: 'Mush\Hunter\Entity'
+                alias: Hunter

@@ -22,6 +22,7 @@ imports:
     - { resource: ../src/Modifier/config/services.yaml }
     - { resource: ../src/MetaGame/config/services.yaml }
     - { resource: ../src/Logger/config/services.yaml }
+    - { resource: ../src/Hunter/config/services.yaml }
 
 
 services:

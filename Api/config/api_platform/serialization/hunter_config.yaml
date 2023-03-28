@@ -1,0 +1,30 @@
+Mush\Hunter\Entity\HunterConfig:
+  attributes:
+    id:
+      groups: [ 'hunter_config_read' ]
+    name:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    hunterName:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    initialHealth:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    initialCharge:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    initialArmor:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    minDamage:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    maxDamage:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    hitChance:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    dodgeChance:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    drawCost:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    maxPerWave:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    drawWeight:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    
+ 

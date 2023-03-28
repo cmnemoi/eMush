@@ -1,0 +1,51 @@
+Mush\Hunter\Entity\Config\HunterConfig:
+  properties:
+    name:
+      - NotBlank: ~
+      - Length:
+          max: 48
+      - Type: string  
+    hunterName:
+      - NotBlank: ~
+      - Length:
+          max: 48
+      - Type: string    
+    initialHealth:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+    initialCharge:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    initialArmor:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    minDamage:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+    maxDamage:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+    hitChance:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    dodgeChance:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    drawCost:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+    maxPerWave:
+      - Type: integer
+    drawWeight:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+      

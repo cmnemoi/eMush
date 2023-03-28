@@ -13,6 +13,7 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Game\Entity\Collection\TriumphConfigCollection;
 use Mush\Game\Repository\GameConfigRepository;
+use Mush\Hunter\Entity\HunterConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -54,6 +55,9 @@ class GameConfig
 
     #[ORM\ManyToOne(targetEntity: DifficultyConfig::class)]
     private DifficultyConfig $difficultyConfig;
+
+    #[ORM\ManyToMany(targetEntity: HunterConfig::class)]
+    private Collection $hunterConfigs;
 
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
@@ -276,6 +280,32 @@ class GameConfig
         }
 
         $this->statusConfigs = $statusConfigs;
+
+        return $this;
+    }
+
+    public function getHunterConfigs(): Collection
+    {
+        return $this->hunterConfigs;
+    }
+
+    /**
+     * @psalm-param ArrayCollection<int, HunterConfig> $hunterConfigs
+     */
+    public function setHunterConfigs(ArrayCollection|array $hunterConfigs): static
+    {
+        if (is_array($hunterConfigs)) {
+            $hunterConfigs = new ArrayCollection($hunterConfigs);
+        }
+
+        $this->hunterConfigs = $hunterConfigs;
+
+        return $this;
+    }
+
+    public function addHunterConfig(HunterConfig $hunterConfig): static
+    {
+        $this->hunterConfigs->add($hunterConfig);
 
         return $this;
     }

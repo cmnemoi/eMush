@@ -143,7 +143,7 @@ class CreateDaedalusCest
         $I->assertEquals('name', $daedalus->getDaedalusInfo()->getName());
         $I->assertCount(3, $daedalus->getPlaces());
         $I->assertCount(1, $daedalus->getModifiers());
-        $I->assertCount(0, $daedalus->getPlayers());
+        $I->assertCount(0, $daedalus->getPlayers());        
         $I->assertNotNull($room1 = $daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR));
         $I->assertNotNull($room2 = $daedalus->getPlaceByName(RoomEnum::CENTRAL_CORRIDOR));
         $I->assertNotNull($room3 = $daedalus->getPlaceByName(RoomEnum::REFECTORY));

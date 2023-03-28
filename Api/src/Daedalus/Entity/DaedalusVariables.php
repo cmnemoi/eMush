@@ -52,6 +52,14 @@ class DaedalusVariables extends GameVariableCollection
             0
         );
 
-        parent::__construct([$fuelVariable, $oxygenVariable, $hullVariable, $shieldVariable, $sporeVariable]);
+        $hunterPointsVariable = new GameVariable(
+            $this,
+            DaedalusVariableEnum::HUNTER_POINTS,
+            0,
+            null,
+            0
+        );
+
+        parent::__construct([$fuelVariable, $oxygenVariable, $hullVariable, $shieldVariable, $sporeVariable, $hunterPointsVariable]);
     }
 }

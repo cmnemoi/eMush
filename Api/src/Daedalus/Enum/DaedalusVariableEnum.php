@@ -9,4 +9,5 @@ class DaedalusVariableEnum
     public const FUEL = 'fuel';
     public const SHIELD = 'shield';
     public const SPORE = 'spore';
+    public const HUNTER_POINTS = 'hunter_points';
 }

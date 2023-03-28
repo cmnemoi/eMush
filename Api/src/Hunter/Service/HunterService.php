@@ -29,8 +29,8 @@ class HunterService implements HunterServiceInterface
     public function putHuntersInPool(Daedalus $daedalus, int $nbHuntersToPutInPool): HunterCollection
     {
         $hunterPool = $daedalus->getHunterPool();
-        $hunterName = $this->drawHunterNameToCreate($daedalus, $hunterPool);
         for ($i = 0; $i < $nbHuntersToPutInPool; ++$i) {
+            $hunterName = $this->drawHunterNameToCreate($daedalus, $hunterPool);
             $hunterPool->add($this->createHunterFromName($daedalus, $hunterName));
         }
 

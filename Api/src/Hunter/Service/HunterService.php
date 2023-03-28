@@ -77,7 +77,7 @@ class HunterService implements HunterServiceInterface
                 throw new \Exception("Hunter config not found for hunter name $hunterType");
             }
 
-            if ($hunterPool->getAllHuntersByType($hunterType)->count() > $hunterConfig->getMaxPerWave()) {
+            if ($hunterPool->getAllHuntersByType($hunterType)->count() === $hunterConfig->getMaxPerWave()) {
                 $hunterTypes->removeElement($hunterType);
             }
         }

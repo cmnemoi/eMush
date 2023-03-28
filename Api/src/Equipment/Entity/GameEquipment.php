@@ -245,4 +245,19 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     {
         return LogParameterKeyEnum::EQUIPMENT;
     }
+
+    public function getGameEquipment(): ?GameEquipment
+    {
+        return $this;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        $holder = $this->getHolder();
+        if ($holder instanceof Player) {
+            return $holder;
+        }
+
+        return null;
+    }
 }

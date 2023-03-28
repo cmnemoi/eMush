@@ -5,20 +5,29 @@ namespace Mush\Hunter\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Event\StatusEvent;
 
 class HunterService implements HunterServiceInterface
 {
     private EntityManagerInterface $entityManager;
+    private EventServiceInterface $eventService;
     private RandomServiceInterface $randomService;
 
-    public function __construct(EntityManagerInterface $entityManager, RandomServiceInterface $randomService)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        EventServiceInterface $eventService,
+        RandomServiceInterface $randomService,
+    ) {
         $this->entityManager = $entityManager;
+        $this->eventService = $eventService;
         $this->randomService = $randomService;
     }
 
@@ -64,7 +73,29 @@ class HunterService implements HunterServiceInterface
         $this->entityManager->persist($hunter);
         $this->persistAndFlush($daedalus);
 
+        $this->createHunterStatuses($hunter);
+
+        $this->entityManager->persist($hunter);
+        $this->persistAndFlush($daedalus);
+
         return $hunter;
+    }
+
+    private function createHunterStatuses(Hunter $hunter): void
+    {
+        $hunterConfig = $hunter->getHunterConfig();
+        $statuses = $hunterConfig->getInitialStatuses();
+
+        /** @var StatusConfig $statusConfig */
+        foreach ($statuses as $statusConfig) {
+            $statusAppliedEvent = new StatusEvent(
+                $statusConfig->getStatusName(),
+                $hunter,
+                [HunterPoolEvent::UNPOOL_HUNTERS],
+                new \DateTime()
+            );
+            $this->eventService->callEvent($statusAppliedEvent, StatusEvent::STATUS_APPLIED);
+        }
     }
 
     private function drawHunterNameToCreate(Daedalus $daedalus, HunterCollection $hunterPool): string

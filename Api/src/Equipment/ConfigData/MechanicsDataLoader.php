@@ -12,7 +12,6 @@ use Mush\Game\ConfigData\ConfigDataLoader;
 
 abstract class MechanicsDataLoader extends ConfigDataLoader
 {
-    protected EntityManagerInterface $entityManager;
     protected MechanicsRepository $mechanicsRepository;
     protected ActionRepository $actionRepository;
 

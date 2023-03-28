@@ -12,7 +12,6 @@ use Mush\Place\Repository\PlaceConfigRepository;
 
 class DaedalusConfigDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private DaedalusConfigRepository $daedalusConfigRepository;
     private PlaceConfigRepository $placeConfigRepository;
     private RandomItemPlacesRepository $randomItemPlacesRepository;

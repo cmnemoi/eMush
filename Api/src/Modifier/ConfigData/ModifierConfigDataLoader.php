@@ -11,7 +11,6 @@ use Mush\Modifier\Repository\ModifierConfigRepository;
 
 abstract class ModifierConfigDataLoader extends ConfigDataLoader
 {
-    protected EntityManagerInterface $entityManager;
     protected ModifierConfigRepository $modifierConfigRepository;
     protected ModifierActivationRequirementRepository $modifierActivationRequirementRepository;
     protected EventConfigRepository $eventConfigRepository;

@@ -15,7 +15,6 @@ use Mush\Status\Repository\StatusConfigRepository;
 
 class EquipmentConfigDataLoader extends ConfigDataLoader
 {
-    protected EntityManagerInterface $entityManager;
     protected EquipmentConfigRepository $equipmentConfigRepository;
     protected ActionRepository $actionRepository;
     protected MechanicsRepository $mechanicsRepository;

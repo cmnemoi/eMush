@@ -9,7 +9,6 @@ use Mush\Game\ConfigData\ConfigDataLoader;
 
 class DiseaseCauseConfigDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private DiseaseCauseConfigRepository $diseaseCauseConfigRepository;
 
     public function __construct(

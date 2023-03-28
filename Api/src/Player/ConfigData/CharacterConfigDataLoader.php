@@ -16,7 +16,6 @@ use Mush\Status\Repository\StatusConfigRepository;
 
 class CharacterConfigDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private CharacterConfigRepository $characterConfigRepository;
     private ActionRepository $actionRepository;
     private DiseaseConfigRepository $diseaseConfigRepository;

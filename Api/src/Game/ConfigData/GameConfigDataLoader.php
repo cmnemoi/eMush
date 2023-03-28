@@ -13,12 +13,12 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Repository\DifficultyConfigRepository;
 use Mush\Game\Repository\GameConfigRepository;
 use Mush\Game\Repository\TriumphConfigRepository;
+use Mush\Hunter\Repository\HunterConfigRepository;
 use Mush\Player\Repository\CharacterConfigRepository;
 use Mush\Status\Repository\StatusConfigRepository;
 
 class GameConfigDataLoader extends ConfigDataLoader
 {
-    private EntityManagerInterface $entityManager;
     private GameConfigRepository $gameConfigRepository;
     private DaedalusConfigRepository $daedalusConfigRepository;
     private DifficultyConfigRepository $difficultyConfigRepository;
@@ -29,6 +29,7 @@ class GameConfigDataLoader extends ConfigDataLoader
     private DiseaseCauseConfigRepository $diseaseCauseConfigRepository;
     private DiseaseConfigRepository $diseaseConfigRepository;
     private ConsumableDiseaseConfigRepository $consumableDiseaseConfigRepository;
+    private HunterConfigRepository $hunterConfigRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -41,7 +42,8 @@ class GameConfigDataLoader extends ConfigDataLoader
         TriumphConfigRepository $triumphConfigRepository,
         DiseaseCauseConfigRepository $diseaseCauseConfigRepository,
         DiseaseConfigRepository $diseaseConfigRepository,
-        ConsumableDiseaseConfigRepository $consumableDiseaseConfigRepository
+        ConsumableDiseaseConfigRepository $consumableDiseaseConfigRepository,
+        HunterConfigRepository $hunterConfigRepository
     ) {
         $this->entityManager = $entityManager;
         $this->gameConfigRepository = $gameConfigRepository;
@@ -54,6 +56,7 @@ class GameConfigDataLoader extends ConfigDataLoader
         $this->diseaseCauseConfigRepository = $diseaseCauseConfigRepository;
         $this->diseaseConfigRepository = $diseaseConfigRepository;
         $this->consumableDiseaseConfigRepository = $consumableDiseaseConfigRepository;
+        $this->hunterConfigRepository = $hunterConfigRepository;
     }
 
     public function loadConfigsData(): void
@@ -75,6 +78,7 @@ class GameConfigDataLoader extends ConfigDataLoader
             $this->setGameConfigDiseaseCauseConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigDiseaseConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigConsumableDiseaseConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigHunterConfigs($gameConfig, $gameConfigData);
 
             $this->entityManager->persist($gameConfig);
         }
@@ -213,5 +217,21 @@ class GameConfigDataLoader extends ConfigDataLoader
         }
 
         $gameConfig->setConsumableDiseaseConfig(new ArrayCollection($consumableDiseaseConfigs));
+    }
+
+    private function setGameConfigHunterConfigs(GameConfig $gameConfig, array $gameConfigData): void
+    {
+        $hunterConfigs = [];
+        foreach ($gameConfigData['hunterConfigs'] as $hunterConfigName) {
+            $hunterConfig = $this->hunterConfigRepository->findOneBy(['name' => $hunterConfigName]);
+
+            if ($hunterConfig === null) {
+                throw new \Exception("Hunter config {$hunterConfigName} not found");
+            }
+
+            $hunterConfigs[] = $hunterConfig;
+        }
+
+        $gameConfig->setHunterConfigs(new ArrayCollection($hunterConfigs));
     }
 }

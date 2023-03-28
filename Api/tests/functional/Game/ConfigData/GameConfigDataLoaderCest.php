@@ -36,6 +36,8 @@ use Mush\Game\ConfigData\TriumphConfigData;
 use Mush\Game\ConfigData\TriumphConfigDataLoader;
 use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Game\Entity\GameConfig;
+use Mush\Hunter\ConfigData\HunterConfigData;
+use Mush\Hunter\ConfigData\HunterConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
@@ -89,6 +91,7 @@ class GameConfigDataLoaderCest
     private TriumphConfigDataLoader $triumphConfigDataLoader;
     private DiseaseCauseConfigDataLoader $diseaseCauseConfigDataLoader;
     private ConsumableDiseaseConfigDataLoader $consumableDiseaseConfigDataLoader;
+    private HunterConfigDataLoader $hunterConfigDataLoader;
 
     private array $dependenciesDataLoaders = [];
 
@@ -126,6 +129,7 @@ class GameConfigDataLoaderCest
             $I->grabService(TriumphConfigDataLoader::class),
             $I->grabService(DiseaseCauseConfigDataLoader::class),
             $I->grabService(ConsumableDiseaseConfigDataLoader::class),
+            $I->grabService(HunterConfigDataLoader::class),
         ];
 
         foreach ($this->dependenciesDataLoaders as $dataLoader) {
@@ -157,6 +161,7 @@ class GameConfigDataLoaderCest
         $I->assertCount(count(StatusConfigData::$dataArray), $gameConfig->getStatusConfigs());
         $I->assertCount(count(DiseaseConfigData::$dataArray), $gameConfig->getDiseaseConfig());
         $I->assertCount(count(EquipmentConfigData::$dataArray), $gameConfig->getEquipmentsConfig());
+        $I->assertCount(count(HunterConfigData::$dataArray), $gameConfig->getHunterConfigs());
     }
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)

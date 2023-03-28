@@ -29,11 +29,8 @@ class HunterConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $initialArmor;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $minDamage;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $maxDamage;
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $damageRange;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $hitChance;

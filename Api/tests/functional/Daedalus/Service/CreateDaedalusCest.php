@@ -27,6 +27,7 @@ use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;

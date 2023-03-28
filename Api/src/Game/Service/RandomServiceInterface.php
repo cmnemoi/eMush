@@ -6,6 +6,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Hunter\Entity\HunterCollection;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -23,6 +24,8 @@ interface RandomServiceInterface
     public function getRandomPlayer(PlayerCollection $players): Player;
 
     public function getRandomDisease(PlayerDiseaseCollection $collection): PlayerDisease;
+
+    public function getRandomHuntersInPool(HunterCollection $hunterPool, int $number): HunterCollection;
 
     public function getPlayerInRoom(Place $place): Player;
 

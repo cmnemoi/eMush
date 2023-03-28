@@ -29,6 +29,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\HunterStatusEnum;
 
 class CreateDaedalusCest
 {
@@ -127,13 +128,14 @@ class CreateDaedalusCest
         $I->haveInRepository($door);
 
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+        $hunterChargeStatus = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => HunterStatusEnum::HUNTER_CHARGE]);
 
         $gameConfig = new GameConfig();
         $gameConfig
             ->setName(GameConfigEnum::TEST)
             ->setDaedalusConfig($daedalusConfig)
             ->setEquipmentsConfig(new ArrayCollection([$door, $hydropot, $gravitySimulator, $waterStick]))
-            ->setStatusConfigs(new ArrayCollection([$alienArtifact]))
+            ->setStatusConfigs(new ArrayCollection([$alienArtifact, $hunterChargeStatus]))
             ->setHunterConfigs(new ArrayCollection($hunterConfigs))
         ;
         $I->haveInRepository($gameConfig);
@@ -171,6 +173,7 @@ class CreateDaedalusCest
         // hunters
         $I->assertCount(4, $daedalus->getAttackingHunters());
         $I->assertCount(0, $daedalus->getHunterPool());
+        $I->assertCount(1, $daedalus->getAttackingHunters()->first()->getStatuses());
     }
 
     private function createDaedalusConfig(ArrayCollection $placesConfig): DaedalusConfig

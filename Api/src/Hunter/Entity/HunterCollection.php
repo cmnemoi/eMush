@@ -9,7 +9,7 @@ use Mush\Game\Entity\ProbaCollection;
  * @template-extends ArrayCollection<int, Hunter>
  */
 class HunterCollection extends ArrayCollection
-{
+{   
     /**
      * `HunterCollection::getAllHuntersByType(HunterEnum::ASTEROID)` will return a HunterCollection with all the Asteroids in the collection.
      */
@@ -28,7 +28,7 @@ class HunterCollection extends ArrayCollection
         return $this->filter(fn (Hunter $hunter) => $hunter->isInPool());
     }
 
-    /**
+    /** 
      * This method returns a ProbaCollection with the probability of each hunter to be drawn. Hunters are represented in Collection indexes by their id.
      */
     public function getProbaCollection(): ProbaCollection

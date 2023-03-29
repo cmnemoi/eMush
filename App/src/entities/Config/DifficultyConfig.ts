@@ -20,8 +20,7 @@ export class DifficultyConfig {
     public panicCrisisPlayerDamage: Map<integer, integer>|null;
     public plantDiseaseRate: number|null;
     public cycleDiseaseRate: number|null;
-    public hardModeStartDay: number|null;
-    public veryHardModeStartDay: number|null;
+    public difficultyModes: Map<string, integer>|null;
 
     constructor() {
         this.iri = null;
@@ -45,8 +44,7 @@ export class DifficultyConfig {
         this.panicCrisisPlayerDamage = new Map<integer, integer>();
         this.plantDiseaseRate = null;
         this.cycleDiseaseRate = null;
-        this.hardModeStartDay = null;
-        this.veryHardModeStartDay = null;
+        this.difficultyModes = new Map<string, integer>();
     }
     load(object:any) : DifficultyConfig {
         if (typeof object !== "undefined") {
@@ -71,8 +69,7 @@ export class DifficultyConfig {
             this.loadMapAttribute(object, 'panicCrisisPlayerDamage', this.panicCrisisPlayerDamage);
             this.plantDiseaseRate = object.plantDiseaseRate;
             this.cycleDiseaseRate = object.cycleDiseaseRate;
-            this.hardModeStartDay = object.hardModeStartDay;
-            this.veryHardModeStartDay = object.veryHardModeStartDay;
+            this.loadMapAttribute(object, 'difficultyModes', this.difficultyModes);
         }
         return this;
     }
@@ -92,8 +89,6 @@ export class DifficultyConfig {
             'panicCrisisRate': this.panicCrisisRate,
             'plantDiseaseRate': this.plantDiseaseRate,
             'cycleDiseaseRate': this.cycleDiseaseRate,
-            'hardModeStartDay': this.hardModeStartDay,
-            'veryHardModeStartDay': this.veryHardModeStartDay,
         };
 
         this.encodeMapAttribute(data, 'firePlayerDamage', this.firePlayerDamage);
@@ -102,6 +97,7 @@ export class DifficultyConfig {
         this.encodeMapAttribute(data, 'tremorPlayerDamage', this.tremorPlayerDamage);
         this.encodeMapAttribute(data, 'metalPlatePlayerDamage', this.metalPlatePlayerDamage);
         this.encodeMapAttribute(data, 'panicCrisisPlayerDamage', this.panicCrisisPlayerDamage);
+        this.encodeMapAttribute(data, 'difficultyModes', this.difficultyModes);
 
         return data;
     }

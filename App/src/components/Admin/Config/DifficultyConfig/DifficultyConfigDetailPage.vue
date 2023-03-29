@@ -104,20 +104,6 @@
                 type="number"
                 :errors="errors.plantDiseaseRate"
             />
-            <Input
-                :label="$t('admin.difficultyConfig.hardModeStartDay')"
-                id="difficultyConfig_attribute"
-                v-model="difficultyConfig.hardModeStartDay"
-                type="number"
-                :errors="errors.hardModeStartDay"
-            />
-            <Input
-                :label="$t('admin.difficultyConfig.veryHardModeStartDay')"
-                id="difficultyConfig_attribute"
-                v-model="difficultyConfig.veryHardModeStartDay"
-                type="number"
-                :errors="errors.veryHardModeStartDay"
-            />
         </div>
         <MapManager
             :label="$t('admin.difficultyConfig.firePlayerDamage')"
@@ -166,6 +152,14 @@
             mapValuesType="number"
             @addTuple="addNewPanicCrisisPlayerDamage"
             @removeIndex="removePanicCrisisPlayerDamage"
+        />
+        <MapManager
+            :label="$t('admin.difficultyConfig.difficultyModes')"
+            :map="difficultyConfig.difficultyModes"
+            mapIndexesType="string"
+            mapValuesType="number"
+            @addTuple="addNewDifficultyModes"
+            @removeIndex="removeDifficultyModes"
         />
         <button class="action-button" type="submit" @click="update">
             {{ $t('admin.save') }}
@@ -293,6 +287,18 @@ export default defineComponent({
         removePanicCrisisPlayerDamage(index: number): void {
             if (this.difficultyConfig && this.difficultyConfig.panicCrisisPlayerDamage) {
                 this.difficultyConfig.panicCrisisPlayerDamage.delete(index);
+            }
+        },
+        addNewDifficultyModes(tuple: any[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.difficultyConfig && this.difficultyConfig.difficultyModes) {
+                this.difficultyConfig.difficultyModes.set(index, value);
+            }
+        },
+        removeDifficultyModes(index: string): void {
+            if (this.difficultyConfig && this.difficultyConfig.difficultyModes) {
+                this.difficultyConfig.difficultyModes.delete(index);
             }
         }
     },

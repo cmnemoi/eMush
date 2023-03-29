@@ -77,11 +77,6 @@ Mush\Game\Entity\DifficultyConfig:
       - NotBlank: ~
       - PositiveOrZero: ~
       - Type: integer
-    hardModeStartDay:
+    difficultyModes:
       - NotBlank: ~
-      - Positive: ~
-      - Type: integer
-    veryHardModeStartDay:
-      - NotBlank: ~
-      - Positive: ~
-      - Type: integer
+      - Type: array

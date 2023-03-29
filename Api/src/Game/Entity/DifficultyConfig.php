@@ -3,7 +3,6 @@
 namespace Mush\Game\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -80,7 +79,7 @@ class DifficultyConfig
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $difficultyModes = [];
-    
+
     public function getId(): int
     {
         return $this->id;

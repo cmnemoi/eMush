@@ -11,6 +11,9 @@ use Mush\Game\Entity\GameVariableCollection;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Enum\HunterVariableEnum;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
@@ -20,7 +23,7 @@ use Mush\Status\Entity\TargetStatusTrait;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter')]
-class Hunter implements GameVariableHolderInterface, LogParameterInterface, StatusHolderInterface
+class Hunter implements GameVariableHolderInterface, LogParameterInterface, ModifierHolder, StatusHolderInterface
 {
     use TargetStatusTrait;
 
@@ -38,6 +41,9 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private HunterVariables $hunterVariables;
 
+    #[ORM\OneToMany(mappedBy: 'hunter', targetEntity: GameModifier::class, cascade: ['ALL'], orphanRemoval: true)]
+    private Collection $modifiers;
+
     #[ORM\OneToMany(mappedBy: 'hunter', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
 
@@ -51,6 +57,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     {
         $this->daedalus = $daedalus;
         $this->hunterConfig = $hunterConfig;
+        $this->modifiers = new ArrayCollection();
         $this->statuses = new ArrayCollection();
     }
 
@@ -192,6 +199,23 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     public function getLogName(): string
     {
         return $this->getName();
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        return new ModifierCollection($this->modifiers->toArray());
+    }
+
+    public function getAllModifiers(): ModifierCollection
+    {
+        return new ModifierCollection($this->modifiers->toArray());
+    }
+
+    public function addModifier(GameModifier $modifier): static
+    {
+        $this->modifiers->add($modifier);
+
+        return $this;
     }
 
     public function getGameEquipment(): null

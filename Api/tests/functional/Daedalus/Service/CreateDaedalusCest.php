@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -131,10 +132,14 @@ class CreateDaedalusCest
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
         $hunterChargeStatus = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => HunterStatusEnum::HUNTER_CHARGE]);
 
+        /** @var DifficultyConfig $difficultyConfig */
+        $difficultyConfig = $I->grabEntityFromRepository(DifficultyConfig::class, ['name' => 'default']);
+
         $gameConfig = new GameConfig();
         $gameConfig
             ->setName(GameConfigEnum::TEST)
             ->setDaedalusConfig($daedalusConfig)
+            ->setDifficultyConfig($difficultyConfig)
             ->setEquipmentsConfig(new ArrayCollection([$door, $hydropot, $gravitySimulator, $waterStick]))
             ->setStatusConfigs(new ArrayCollection([$alienArtifact, $hunterChargeStatus]))
             ->setHunterConfigs(new ArrayCollection($hunterConfigs))

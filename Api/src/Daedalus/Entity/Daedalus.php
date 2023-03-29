@@ -12,6 +12,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableCollection;
 use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Game\Enum\DifficultyEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -27,8 +28,6 @@ use Mush\Player\Entity\Player;
 class Daedalus implements ModifierHolder, GameVariableHolderInterface
 {
     use TimestampableEntity;
-    public const HARD_MODE_DAY_START = 4;
-    public const VERY_HARD_MODE_DAY_START = 9;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -441,11 +440,11 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
 
     public function isInHardMode(): bool
     {
-        return !$this->isInVeryHardMode() && $this->getDay() >= self::HARD_MODE_DAY_START;
+        return !$this->isInVeryHardMode() && $this->day >= $this->daedalusInfo->getGameConfig()->getDifficultyConfig()->getDifficultyModes()->get(DifficultyEnum::HARD);
     }
 
     public function isInVeryHardMode(): bool
     {
-        return $this->getDay() >= self::VERY_HARD_MODE_DAY_START;
+        return $this->getDay() >= $this->daedalusInfo->getGameConfig()->getDifficultyConfig()->getDifficultyModes()->get(DifficultyEnum::VERY_HARD);
     }
 }

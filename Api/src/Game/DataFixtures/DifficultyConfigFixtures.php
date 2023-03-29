@@ -68,6 +68,8 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
                 EquipmentEnum::FUEL_TANK => 25,
                 EquipmentEnum::OXYGEN_TANK => 25,
             ])
+            ->setHardModeStartDay(4)
+            ->setVeryHardModeStartDay(9)
         ;
 
         $manager->persist($difficultyConfig);

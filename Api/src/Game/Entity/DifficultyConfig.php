@@ -76,6 +76,12 @@ class DifficultyConfig
     #[ORM\Column(type: 'array', nullable: false)]
     private array $equipmentBreakRateDistribution = [];
 
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $hardModeStartDay = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $veryHardModeStartDay = 0;
+
     public function getId(): int
     {
         return $this->id;
@@ -317,6 +323,30 @@ class DifficultyConfig
     public function setEquipmentBreakRateDistribution(array $equipmentBreakRateDistribution): static
     {
         $this->equipmentBreakRateDistribution = $equipmentBreakRateDistribution;
+
+        return $this;
+    }
+
+    public function getHardModeStartDay(): int
+    {
+        return $this->hardModeStartDay;
+    }
+
+    public function setHardModeStartDay(int $hardModeStartDay): static
+    {
+        $this->hardModeStartDay = $hardModeStartDay;
+
+        return $this;
+    }
+
+    public function getVeryHardModeStartDay(): int
+    {
+        return $this->veryHardModeStartDay;
+    }
+
+    public function setVeryHardModeStartDay(int $veryHardModeStartDay): static
+    {
+        $this->veryHardModeStartDay = $veryHardModeStartDay;
 
         return $this;
     }

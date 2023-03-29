@@ -57,6 +57,8 @@ class DifficultyConfigData
                 EquipmentEnum::FUEL_TANK => 25,
                 EquipmentEnum::OXYGEN_TANK => 25,
             ],
+            'hardModeStartDay' => 4,
+            'veryHardModeStartDay' => 9,
         ],
     ];
 }

@@ -15,7 +15,7 @@ class HunterConfig
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, unique: true)]
     private string $name;
@@ -55,7 +55,7 @@ class HunterConfig
         $this->initialStatuses = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }

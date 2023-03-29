@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230327152528 extends AbstractMigration
+final class Version20230328165601 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -28,8 +28,9 @@ final class Version20230327152528 extends AbstractMigration
         $this->addSql('CREATE TABLE hunter (id INT NOT NULL, hunter_config_id INT DEFAULT NULL, daedalus_id INT DEFAULT NULL, health INT NOT NULL, charge INT NOT NULL, armor INT NOT NULL, target VARCHAR(255) NOT NULL, in_pool BOOLEAN NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_4AD78C65324BCEC3 ON hunter (hunter_config_id)');
         $this->addSql('CREATE INDEX IDX_4AD78C6574B5A52D ON hunter (daedalus_id)');
-        $this->addSql('CREATE TABLE hunter_config (id INT NOT NULL, name VARCHAR(255) NOT NULL, hunter_name VARCHAR(255) NOT NULL, initial_health INT NOT NULL, initial_charge INT NOT NULL, initial_armor INT NOT NULL, min_damage INT NOT NULL, max_damage INT NOT NULL, hit_chance INT NOT NULL, dodge_chance INT NOT NULL, draw_cost INT NOT NULL, max_per_wave INT DEFAULT NULL, draw_weight INT NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE hunter_config (id INT NOT NULL, name VARCHAR(255) NOT NULL, hunter_name VARCHAR(255) NOT NULL, initial_health INT NOT NULL, initial_charge INT NOT NULL, initial_armor INT NOT NULL, damage_range TEXT NOT NULL, hit_chance INT NOT NULL, dodge_chance INT NOT NULL, draw_cost INT NOT NULL, max_per_wave INT DEFAULT NULL, draw_weight INT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_5239640E5E237E06 ON hunter_config (name)');
+        $this->addSql('COMMENT ON COLUMN hunter_config.damage_range IS \'(DC2Type:array)\'');
         $this->addSql('ALTER TABLE game_config_hunter_config ADD CONSTRAINT FK_801CD269F67DC781 FOREIGN KEY (game_config_id) REFERENCES config_game (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE game_config_hunter_config ADD CONSTRAINT FK_801CD269324BCEC3 FOREIGN KEY (hunter_config_id) REFERENCES hunter_config (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE hunter ADD CONSTRAINT FK_4AD78C65324BCEC3 FOREIGN KEY (hunter_config_id) REFERENCES hunter_config (id) NOT DEFERRABLE INITIALLY IMMEDIATE');

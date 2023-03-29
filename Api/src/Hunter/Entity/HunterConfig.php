@@ -3,6 +3,7 @@
 namespace Mush\Hunter\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Entity\ProbaCollection;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter_config')]
@@ -28,11 +29,8 @@ class HunterConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $initialArmor;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $minDamage;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $maxDamage;
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $damageRange;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $hitChance;
@@ -114,26 +112,14 @@ class HunterConfig
         return $this;
     }
 
-    public function getMinDamage(): int
+    public function getDamageRange(): ProbaCollection
     {
-        return $this->minDamage;
+        return new ProbaCollection($this->damageRange);
     }
 
-    public function setMinDamage(int $minDamage): static
+    public function setDamageRange(ProbaCollection $damageRange): static
     {
-        $this->minDamage = $minDamage;
-
-        return $this;
-    }
-
-    public function getMaxDamage(): int
-    {
-        return $this->maxDamage;
-    }
-
-    public function setMaxDamage(int $maxDamage): static
-    {
-        $this->maxDamage = $maxDamage;
+        $this->damageRange = $damageRange->toArray();
 
         return $this;
     }

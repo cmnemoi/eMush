@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230329114544 extends AbstractMigration
+final class Version20230329135357 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -40,8 +40,8 @@ final class Version20230329114544 extends AbstractMigration
         $this->addSql('ALTER TABLE hunter ADD CONSTRAINT FK_4AD78C6574B5A52D FOREIGN KEY (daedalus_id) REFERENCES daedalus (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE hunter_config_status_config ADD CONSTRAINT FK_6A134A27324BCEC3 FOREIGN KEY (hunter_config_id) REFERENCES hunter_config (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE hunter_config_status_config ADD CONSTRAINT FK_6A134A27AC4E86C2 FOREIGN KEY (status_config_id) REFERENCES status_config (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE config_difficulty ADD hard_mode_start_day INT NOT NULL');
-        $this->addSql('ALTER TABLE config_difficulty ADD very_hard_mode_start_day INT NOT NULL');
+        $this->addSql('ALTER TABLE config_difficulty ADD difficulty_modes TEXT NOT NULL');
+        $this->addSql('COMMENT ON COLUMN config_difficulty.difficulty_modes IS \'(DC2Type:array)\'');
         $this->addSql('ALTER TABLE status_target ADD hunter_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE status_target ADD CONSTRAINT FK_FB2587B1A7DC5C81 FOREIGN KEY (hunter_id) REFERENCES hunter (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('CREATE INDEX IDX_FB2587B1A7DC5C81 ON status_target (hunter_id)');
@@ -64,8 +64,7 @@ final class Version20230329114544 extends AbstractMigration
         $this->addSql('DROP TABLE hunter');
         $this->addSql('DROP TABLE hunter_config');
         $this->addSql('DROP TABLE hunter_config_status_config');
-        $this->addSql('ALTER TABLE config_difficulty DROP hard_mode_start_day');
-        $this->addSql('ALTER TABLE config_difficulty DROP very_hard_mode_start_day');
+        $this->addSql('ALTER TABLE config_difficulty DROP difficulty_modes');
         $this->addSql('DROP INDEX IDX_FB2587B1A7DC5C81');
         $this->addSql('ALTER TABLE status_target DROP hunter_id');
     }

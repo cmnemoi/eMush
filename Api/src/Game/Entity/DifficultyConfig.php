@@ -2,6 +2,8 @@
 
 namespace Mush\Game\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -76,12 +78,9 @@ class DifficultyConfig
     #[ORM\Column(type: 'array', nullable: false)]
     private array $equipmentBreakRateDistribution = [];
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $hardModeStartDay = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $veryHardModeStartDay = 0;
-
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $difficultyModes = [];
+    
     public function getId(): int
     {
         return $this->id;
@@ -327,26 +326,14 @@ class DifficultyConfig
         return $this;
     }
 
-    public function getHardModeStartDay(): int
+    public function getDifficultyModes(): ArrayCollection
     {
-        return $this->hardModeStartDay;
+        return new ArrayCollection($this->difficultyModes);
     }
 
-    public function setHardModeStartDay(int $hardModeStartDay): static
+    public function setDifficultyModes(array $difficultyModes): static
     {
-        $this->hardModeStartDay = $hardModeStartDay;
-
-        return $this;
-    }
-
-    public function getVeryHardModeStartDay(): int
-    {
-        return $this->veryHardModeStartDay;
-    }
-
-    public function setVeryHardModeStartDay(int $veryHardModeStartDay): static
-    {
-        $this->veryHardModeStartDay = $veryHardModeStartDay;
+        $this->difficultyModes = $difficultyModes;
 
         return $this;
     }

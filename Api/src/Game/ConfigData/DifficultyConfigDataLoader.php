@@ -49,8 +49,7 @@ class DifficultyConfigDataLoader extends ConfigDataLoader
                 ->setTremorPlayerDamage($difficultyConfigData['tremorPlayerDamage'])
                 ->setMetalPlatePlayerDamage($difficultyConfigData['metalPlatePlayerDamage'])
                 ->setEquipmentBreakRateDistribution($difficultyConfigData['equipmentBreakRateDistribution'])
-                ->setHardModeStartDay($difficultyConfigData['hardModeStartDay'])
-                ->setVeryHardModeStartDay($difficultyConfigData['veryHardModeStartDay'])
+                ->setDifficultyModes($difficultyConfigData['difficultyModes'])
             ;
 
             $this->entityManager->persist($difficultyConfig);

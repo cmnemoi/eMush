@@ -12,6 +12,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableCollection;
 use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Game\Enum\DifficultyEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -439,11 +440,11 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
 
     public function isInHardMode(): bool
     {
-        return !$this->isInVeryHardMode() && $this->day >= $this->daedalusInfo->getGameConfig()->getDifficultyConfig()->getHardModeStartDay();
+        return !$this->isInVeryHardMode() && $this->day >= $this->daedalusInfo->getGameConfig()->getDifficultyConfig()->getDifficultyModes()->get(DifficultyEnum::HARD);
     }
 
     public function isInVeryHardMode(): bool
     {
-        return $this->getDay() >= $this->daedalusInfo->getGameConfig()->getDifficultyConfig()->getVeryHardModeStartDay();
+        return $this->getDay() >= $this->daedalusInfo->getGameConfig()->getDifficultyConfig()->getDifficultyModes()->get(DifficultyEnum::VERY_HARD);
     }
 }

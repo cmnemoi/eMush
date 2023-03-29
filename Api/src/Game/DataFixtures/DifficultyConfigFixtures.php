@@ -8,6 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Enum\GameConfigEnum;
 
 class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -68,8 +69,11 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
                 EquipmentEnum::FUEL_TANK => 25,
                 EquipmentEnum::OXYGEN_TANK => 25,
             ])
-            ->setHardModeStartDay(4)
-            ->setVeryHardModeStartDay(9)
+            ->setDifficultyModes([
+                DifficultyEnum::NORMAL => 0,
+                DifficultyEnum::HARD => 4,
+                DifficultyEnum::VERY_HARD => 9,
+            ])
         ;
 
         $manager->persist($difficultyConfig);

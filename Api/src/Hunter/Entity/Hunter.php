@@ -10,6 +10,7 @@ use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableCollection;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Hunter\Enum\HunterTargetEnum;
+use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
@@ -143,6 +144,18 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     public function sethunterVariables(HunterConfig $hunterConfig): static
     {
         $this->hunterVariables = new HunterVariables($hunterConfig);
+
+        return $this;
+    }
+
+    public function getHealth(): int
+    {
+        return $this->getVariableValueByName(HunterVariableEnum::HEALTH);
+    }
+
+    public function setHealth(int $health): static
+    {
+        $this->setVariableValueByName($health, HunterVariableEnum::HEALTH);
 
         return $this;
     }

@@ -26,9 +26,6 @@ class HunterConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $initialHealth;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initialArmor;
-
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
     private Collection $initialStatuses;
 
@@ -114,18 +111,6 @@ class HunterConfig
         }
 
         $this->initialStatuses = $initialStatuses;
-
-        return $this;
-    }
-
-    public function getInitialArmor(): int
-    {
-        return $this->initialArmor;
-    }
-
-    public function setInitialArmor(int $initialArmor): static
-    {
-        $this->initialArmor = $initialArmor;
 
         return $this;
     }

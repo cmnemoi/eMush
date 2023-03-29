@@ -6,6 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Entity\GameVariable;
+use Mush\Game\Entity\GameVariableCollection;
+use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -16,7 +19,7 @@ use Mush\Status\Entity\TargetStatusTrait;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter')]
-class Hunter implements StatusHolderInterface, LogParameterInterface
+class Hunter implements GameVariableHolderInterface, LogParameterInterface, StatusHolderInterface
 {
     use TargetStatusTrait;
 
@@ -31,14 +34,11 @@ class Hunter implements StatusHolderInterface, LogParameterInterface
     #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'hunters')]
     private Daedalus $daedalus;
 
-    #[ORM\Column(type: 'integer')]
-    private int $health;
+    #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
+    private HunterVariables $hunterVariables;
 
     #[ORM\OneToMany(mappedBy: 'hunter', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
-
-    #[ORM\Column(type: 'integer')]
-    private int $armor;
 
     #[ORM\Column(type: 'string')]
     private string $target = HunterTargetEnum::DAEDALUS;
@@ -48,9 +48,7 @@ class Hunter implements StatusHolderInterface, LogParameterInterface
 
     public function __construct(HunterConfig $hunterConfig, Daedalus $daedalus)
     {
-        $this->armor = $hunterConfig->getInitialArmor();
         $this->daedalus = $daedalus;
-        $this->health = $hunterConfig->getInitialHealth();
         $this->hunterConfig = $hunterConfig;
         $this->statuses = new ArrayCollection();
     }
@@ -84,30 +82,6 @@ class Hunter implements StatusHolderInterface, LogParameterInterface
         return $this;
     }
 
-    public function getHealth(): int
-    {
-        return $this->health;
-    }
-
-    public function setHealth(int $health): self
-    {
-        $this->health = $health;
-
-        return $this;
-    }
-
-    public function getArmor(): int
-    {
-        return $this->armor;
-    }
-
-    public function setArmor(int $armor): self
-    {
-        $this->armor = $armor;
-
-        return $this;
-    }
-
     public function getTarget(): string
     {
         return $this->target;
@@ -135,6 +109,40 @@ class Hunter implements StatusHolderInterface, LogParameterInterface
     public function unpool(): self
     {
         $this->inPool = false;
+
+        return $this;
+    }
+
+    public function getVariableByName(string $variableName): GameVariable
+    {
+        return $this->hunterVariables->getVariableByName($variableName);
+    }
+
+    public function getVariableValueByName(string $variableName): int
+    {
+        return $this->hunterVariables->getValueByName($variableName);
+    }
+
+    public function setVariableValueByName(int $value, string $variableName): static
+    {
+        $this->hunterVariables->setValueByName($value, $variableName);
+
+        return $this;
+    }
+
+    public function getGameVariables(): HunterVariables
+    {
+        return $this->hunterVariables;
+    }
+
+    public function hasVariable(string $variableName): bool
+    {
+        return $this->hunterVariables->hasVariable($variableName);
+    }
+
+    public function sethunterVariables(HunterConfig $hunterConfig): static
+    {
+        $this->hunterVariables = new HunterVariables($hunterConfig);
 
         return $this;
     }

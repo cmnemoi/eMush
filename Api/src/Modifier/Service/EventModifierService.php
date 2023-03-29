@@ -5,7 +5,10 @@ namespace Mush\Modifier\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -19,7 +22,10 @@ use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 
 class EventModifierService implements EventModifierServiceInterface
@@ -208,5 +214,33 @@ class EventModifierService implements EventModifierServiceInterface
         $initialValue = $action->getSuccessRate() * self::ATTEMPT_INCREASE ** $attemptNumber;
 
         return $this->getModifiedValue($modifiers->getTargetedModifiers(ModifierTargetEnum::PERCENTAGE), $initialValue);
+    }
+
+    public function applyVariableModifiers(ModifierCollection $modifiers, AbstractGameEvent $event): AbstractGameEvent
+    {
+        if (!($event instanceof VariableEventInterface)) {
+            throw new \Exception('variableEventModifiers only apply on quantityEventInterface');
+        }
+
+        $variable = $event->getVariable();
+        $variableName = $variable->getName();
+        $initialValue = $event->getQuantity();
+
+        if ($event instanceof PlayerCycleEvent &&
+            $variableName === ActionVariableEnum::PERCENTAGE_SUCCESS
+        ) {
+            /** @var ChargeStatus $attemptStatus */
+            $attemptStatus = $event->getPlayer()->getStatusByName(StatusEnum::ATTEMPT);
+            $attemptNumber = $attemptStatus->getCharge();
+            if ($attemptNumber === null) {
+                throw new InvalidTypeException('number of attempt should be provided');
+            }
+            $initialValue = $initialValue * self::ATTEMPT_INCREASE ** $attemptNumber;
+        }
+
+        $newValue = $this->getModifiedValue($modifiers, $initialValue);
+        $event->setQuantity($newValue);
+
+        return $event;
     }
 }

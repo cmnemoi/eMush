@@ -10,26 +10,10 @@ interface ActionServiceInterface
 {
     public function applyCostToPlayer(Player $player, Action $action, ?LogParameterInterface $parameter): Player;
 
-    public function getTotalActionPointCost(
+    public function getActionModifiedActionVariable(
         Player $player,
         Action $action,
         ?LogParameterInterface $parameter,
-        bool $consumeCharge = false
-    ): int;
-
-    public function getTotalMovementPointCost(Player $player, Action $action, ?LogParameterInterface $parameter): int;
-
-    public function getTotalMoralPointCost(Player $player, Action $action, ?LogParameterInterface $parameter): int;
-
-    public function getSuccessRate(
-        Action $action,
-        Player $player,
-        ?LogParameterInterface $parameter
-    ): int;
-
-    public function getCriticalSuccessRate(
-        Action $action,
-        Player $player,
-        ?LogParameterInterface $parameter
+        string $variableName
     ): int;
 }

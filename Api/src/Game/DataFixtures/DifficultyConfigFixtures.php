@@ -12,7 +12,7 @@ use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Enum\GameConfigEnum;
 
 class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterface
-{   
+{
     public const DEFAULT_DIFFICULTY_CONFIG = 'default_difficulty_config';
 
     public function load(ObjectManager $manager): void

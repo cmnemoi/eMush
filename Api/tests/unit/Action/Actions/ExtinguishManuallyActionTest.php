@@ -51,6 +51,8 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
+        $room->setDaedalus($player->getDaedalus());
+
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
@@ -71,6 +73,8 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
         $fire = new Status($room, new StatusConfig());
 
         $player = $this->createPlayer(new Daedalus(), $room);
+
+        $room->setDaedalus($player->getDaedalus());
 
         $this->action->loadParameters($this->actionEntity, $player);
 

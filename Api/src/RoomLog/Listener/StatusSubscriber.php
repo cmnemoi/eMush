@@ -8,15 +8,19 @@ use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class StatusSubscriber implements EventSubscriberInterface
 {
+    private LoggerInterface $logger;
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
+        LoggerInterface $logger,
         RoomLogServiceInterface $roomLogService
     ) {
+        $this->logger = $logger;
         $this->roomLogService = $roomLogService;
     }
 
@@ -43,9 +47,20 @@ class StatusSubscriber implements EventSubscriberInterface
         $this->createEventLog($logKey, $event);
 
         if ($holder instanceof Door && $statusName === EquipmentStatusEnum::BROKEN) {
+            if (!$room = $event->getPlace()) {
+                $exception = new \LogicException('loggable event should have a place');
+                $this->logger->error(
+                    $exception->getMessage(), [
+                        'daedalus' => $event->getDaedalus()->getId(),
+                        'trace' => $exception->getTraceAsString(),
+                    ]);
+
+                return;
+            }
+
             $this->roomLogService->createLog(
                 $logKey,
-                $holder->getOtherRoom($event->getPlace()),
+                $holder->getOtherRoom($room),
                 $event->getVisibility(),
                 'event_log',
                 null,
@@ -75,9 +90,21 @@ class StatusSubscriber implements EventSubscriberInterface
             $player = null;
         }
 
+        if (!$place = $event->getPlace()) {
+            $exception = new \LogicException('loggable event should have a place');
+            $this->logger->error(
+                $exception->getMessage(), [
+                    'daedalus' => $event->getDaedalus()->getId(),
+                    'player' => $player ? $player->getId() : null,
+                    'trace' => $exception->getTraceAsString(),
+                ]);
+
+            return;
+        }
+
         $this->roomLogService->createLog(
             $logKey,
-            $event->getPlace(),
+            $place,
             $event->getVisibility(),
             'event_log',
             $player,

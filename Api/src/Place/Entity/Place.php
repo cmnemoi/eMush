@@ -276,8 +276,18 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return get_class($this);
     }
 
+    public function getGameEquipment(): null
+    {
+        return null;
+    }
+
     public function getPlace(): self
     {
         return $this;
+    }
+
+    public function getPlayer(): null
+    {
+        return null;
     }
 }

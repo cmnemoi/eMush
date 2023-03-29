@@ -4,6 +4,7 @@ namespace unit\Status\Service;
 
 use Codeception\PHPUnit\TestCase;
 use Mockery;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -345,6 +346,7 @@ class PlayerStatusServiceTest extends TestCase
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
+            ->setDaedalus(new Daedalus())
         ;
 
         $playerInfo = new PlayerInfo(

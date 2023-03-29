@@ -69,7 +69,9 @@ class StatusServiceTest extends TestCase
 
     public function testPersist()
     {
-        $gameEquipment = new GameItem(new Place());
+        $place = new Place();
+        $place->setDaedalus(new Daedalus());
+        $gameEquipment = new GameItem($place);
         $status = new Status($gameEquipment, new StatusConfig());
 
         $this->entityManager->shouldReceive('persist')->with($status)->once();
@@ -79,7 +81,9 @@ class StatusServiceTest extends TestCase
 
     public function testRemove()
     {
-        $gameEquipment = new GameItem(new Place());
+        $place = new Place();
+        $place->setDaedalus(new Daedalus());
+        $gameEquipment = new GameItem($place);
         $status = new Status($gameEquipment, new StatusConfig());
 
         $this->entityManager->shouldReceive('remove')->with($status)->once();
@@ -91,6 +95,7 @@ class StatusServiceTest extends TestCase
     {
         $daedalus = new Daedalus();
         $room = new Place();
+        $room->setDaedalus($daedalus);
 
         $item1 = new GameItem($room);
         $item1->setName('item 1');
@@ -122,7 +127,9 @@ class StatusServiceTest extends TestCase
     public function testChangeCharge()
     {
         $time = new \DateTime();
-        $gameEquipment = new GameItem(new Place());
+        $place = new Place();
+        $place->setDaedalus(new Daedalus());
+        $gameEquipment = new GameItem($place);
         $chargeStatusConfig = new ChargeStatusConfig();
         $chargeStatusConfig
             ->setMaxCharge(6)
@@ -164,7 +171,9 @@ class StatusServiceTest extends TestCase
 
     public function testCreateStatusFromConfig()
     {
-        $gameEquipment = new GameItem(new Place());
+        $place = new Place();
+        $place->setDaedalus(new Daedalus());
+        $gameEquipment = new GameItem($place);
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::EUREKA_MOMENT)
@@ -184,7 +193,9 @@ class StatusServiceTest extends TestCase
 
     public function testCreateChargeStatusFromConfig()
     {
-        $gameEquipment = new GameItem(new Place());
+        $place = new Place();
+        $place->setDaedalus(new Daedalus());
+        $gameEquipment = new GameItem($place);
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::GUARDIAN)
@@ -240,6 +251,7 @@ class StatusServiceTest extends TestCase
     public function testHandleAttemptStatusSameAction()
     {
         $player = new Player();
+        $player->setDaedalus(new Daedalus());
         $actionResult = new Fail();
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
@@ -264,6 +276,7 @@ class StatusServiceTest extends TestCase
     public function testHandleAttemptStatusNewAction()
     {
         $player = new Player();
+        $player->setDaedalus(new Daedalus());
         $actionResult = new Fail();
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
@@ -288,6 +301,7 @@ class StatusServiceTest extends TestCase
     public function testHandleAttemptStatusSuccess()
     {
         $player = new Player();
+        $player->setDaedalus(new Daedalus());
 
         $actionResult = new Success();
         $attemptConfig = new ChargeStatusConfig();

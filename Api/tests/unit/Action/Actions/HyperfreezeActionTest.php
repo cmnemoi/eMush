@@ -56,6 +56,8 @@ class HyperfreezeActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
+        $room->setDaedalus($player->getDaedalus());
+
         $rationType = new Ration();
         $rationType->setIsPerishable(true);
 

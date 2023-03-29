@@ -104,6 +104,20 @@
                 type="number"
                 :errors="errors.plantDiseaseRate"
             />
+            <Input
+                :label="$t('admin.difficultyConfig.hardModeStartDay')"
+                id="difficultyConfig_attribute"
+                v-model="difficultyConfig.hardModeStartDay"
+                type="number"
+                :errors="errors.hardModeStartDay"
+            />
+            <Input
+                :label="$t('admin.difficultyConfig.veryHardModeStartDay')"
+                id="difficultyConfig_attribute"
+                v-model="difficultyConfig.veryHardModeStartDay"
+                type="number"
+                :errors="errors.veryHardModeStartDay"
+            />
         </div>
         <MapManager
             :label="$t('admin.difficultyConfig.firePlayerDamage')"

@@ -23,7 +23,7 @@ use Mush\Status\Entity\TargetStatusTrait;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter')]
-class Hunter implements GameVariableHolderInterface, LogParameterInterface, ModifierHolder, StatusHolderInterface
+class Hunter implements GameVariableHolderInterface, LogParameterInterface, StatusHolderInterface
 {
     use TargetStatusTrait;
 
@@ -40,9 +40,6 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
 
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private HunterVariables $hunterVariables;
-
-    #[ORM\OneToMany(mappedBy: 'hunter', targetEntity: GameModifier::class, cascade: ['ALL'], orphanRemoval: true)]
-    private Collection $modifiers;
 
     #[ORM\OneToMany(mappedBy: 'hunter', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
@@ -151,18 +148,6 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
     public function sethunterVariables(HunterConfig $hunterConfig): static
     {
         $this->hunterVariables = new HunterVariables($hunterConfig);
-
-        return $this;
-    }
-
-    public function getHealth(): int
-    {
-        return $this->getVariableValueByName(HunterVariableEnum::HEALTH);
-    }
-
-    public function setHealth(int $health): static
-    {
-        $this->setVariableValueByName($health, HunterVariableEnum::HEALTH);
 
         return $this;
     }

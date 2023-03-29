@@ -44,7 +44,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDrawCost(25)
             ->setMaxPerWave(2)
             ->setDrawWeight(1)
-            ->setSpawnDifficulty($difficultyConfig->getDifficultyModes()->get(DifficultyEnum::HARD))
+            ->setSpawnDifficulty(DifficultyEnum::HARD)
         ;
         $manager->persist($asteroid);
 
@@ -63,7 +63,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDrawCost(30)
             ->setMaxPerWave(1)
             ->setDrawWeight(1)
-            ->setSpawnDifficulty($difficultyConfig->getDifficultyModes()->get(DifficultyEnum::VERY_HARD))
+            ->setSpawnDifficulty(DifficultyEnum::VERY_HARD)
         ;
         $manager->persist($dice);
 
@@ -80,7 +80,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDrawCost(10)
             ->setMaxPerWave(null)
             ->setDrawWeight(10)
-            ->setSpawnDifficulty($difficultyConfig->getDifficultyModes()->get(DifficultyEnum::NORMAL))
+            ->setSpawnDifficulty(DifficultyEnum::NORMAL)
         ;
         $manager->persist($hunter);
 
@@ -97,7 +97,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDrawCost(10)
             ->setMaxPerWave(null)
             ->setDrawWeight(10)
-            ->setSpawnDifficulty($difficultyConfig->getDifficultyModes()->get(DifficultyEnum::HARD))
+            ->setSpawnDifficulty(DifficultyEnum::HARD)
         ;
         $manager->persist($spider);
 
@@ -114,7 +114,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDrawCost(20)
             ->setMaxPerWave(2)
             ->setDrawWeight(2)
-            ->setSpawnDifficulty($difficultyConfig->getDifficultyModes()->get(DifficultyEnum::VERY_HARD))
+            ->setSpawnDifficulty(DifficultyEnum::HARD)
         ;
         $manager->persist($trax);
 

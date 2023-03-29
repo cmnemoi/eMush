@@ -2,7 +2,6 @@
 
 namespace Mush\Hunter\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\EventServiceInterface;
@@ -97,7 +96,8 @@ class HunterService implements HunterServiceInterface
 
     private function drawHunterNameToCreate(Daedalus $daedalus, HunterCollection $hunterPool): string
     {
-        $hunterTypes = $this->getHunterTypesToCreate($daedalus);
+        $difficultyMode = $daedalus->getDifficultyMode();
+        $hunterTypes = HunterEnum::getAll();
 
         foreach ($hunterTypes as $hunterType) {
             $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterType);
@@ -105,23 +105,15 @@ class HunterService implements HunterServiceInterface
                 throw new \Exception("Hunter config not found for hunter name $hunterType");
             }
 
+            if (!$hunterConfig->getSpawnDifficulty() >= $difficultyMode) {
+                $hunterTypes->removeElement($hunterType);
+            }
             if ($hunterPool->getAllHuntersByType($hunterType)->count() === $hunterConfig->getMaxPerWave()) {
                 $hunterTypes->removeElement($hunterType);
             }
         }
 
         return current($this->randomService->getRandomElements($hunterTypes->toArray(), 1));
-    }
-
-    private function getHunterTypesToCreate(Daedalus $daedalus): ArrayCollection
-    {
-        if ($daedalus->isInHardMode()) {
-            return HunterEnum::getHardModeHunters();
-        } elseif ($daedalus->isInVeryHardMode()) {
-            return HunterEnum::getVeryHardModeHunters();
-        }
-
-        return HunterEnum::getNormalModeHunters();
     }
 
     private function persistAndFlush(object $object): void

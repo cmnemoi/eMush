@@ -28,7 +28,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
         /** @var DifficultyConfig $difficultyConfig */
-        $difficultyConfig = $this->getReference(GameConfigEnum::DEFAULT);
+        $difficultyConfig = $this->getReference(DifficultyConfigFixtures::DEFAULT_DIFFICULTY_CONFIG);
 
         /** @var StatusConfig $asteroidCharge */
         $asteroidCharge = $this->getReference(ChargeStatusFixtures::ASTEROID_CHARGE);

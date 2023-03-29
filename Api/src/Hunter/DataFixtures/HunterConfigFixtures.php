@@ -12,7 +12,6 @@ use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\DifficultyEnum;
-use Mush\Game\Enum\GameConfigEnum;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;

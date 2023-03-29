@@ -438,6 +438,11 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
         return $this->daedalusInfo->getName();
     }
 
+    public function getDifficultyMode(): int
+    {
+        return $this->day;
+    }
+
     public function isInHardMode(): bool
     {
         return !$this->isInVeryHardMode() && $this->day >= $this->daedalusInfo->getGameConfig()->getDifficultyConfig()->getDifficultyModes()->get(DifficultyEnum::HARD);

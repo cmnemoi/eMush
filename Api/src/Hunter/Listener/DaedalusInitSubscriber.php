@@ -29,13 +29,14 @@ class DaedalusInitSubscriber implements EventSubscriberInterface
 
     public function onNewDaedalus(DaedalusInitEvent $event): void
     {
-        $unpoolHunterEvent = new HunterPoolEvent(
+        $poolHunterEvent = new HunterPoolEvent(
             $event->getDaedalus(),
             nbHunters: self::NB_STARTING_HUNTERS,
             tags: [EventEnum::CREATE_DAEDALUS],
             time: $event->getTime()
         );
 
-        $this->eventService->callEvent($unpoolHunterEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+        $this->eventService->callEvent($poolHunterEvent, HunterPoolEvent::POOL_HUNTERS);
+        $this->eventService->callEvent($poolHunterEvent, HunterPoolEvent::UNPOOL_HUNTERS);
     }
 }

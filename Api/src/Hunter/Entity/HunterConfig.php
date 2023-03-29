@@ -51,7 +51,7 @@ class HunterConfig
     private int $drawWeight;
 
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    private int $spawnDifficulty;
+    private string $spawnDifficulty;
 
     public function __construct()
     {

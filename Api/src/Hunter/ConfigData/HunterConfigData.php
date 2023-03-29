@@ -2,6 +2,7 @@
 
 namespace Mush\Hunter\ConfigData;
 
+use Mush\Game\Enum\DifficultyEnum;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 
@@ -23,7 +24,7 @@ class HunterConfigData
             'drawCost' => 25,
             'maxPerWave' => 2,
             'drawWeight' => 1,
-            'spawnDifficulty' => 4,
+            'spawnDifficulty' => DifficultyEnum::HARD,
         ],
         [
             'name' => HunterEnum::DICE . '_default',
@@ -42,7 +43,7 @@ class HunterConfigData
             'drawCost' => 30,
             'maxPerWave' => 1,
             'drawWeight' => 1,
-            'spawnDifficulty' => 9,
+            'spawnDifficulty' => DifficultyEnum::VERY_HARD,
         ],
         [
             'name' => HunterEnum::HUNTER . '_default',
@@ -60,7 +61,7 @@ class HunterConfigData
             'drawCost' => 10,
             'maxPerWave' => null,
             'drawWeight' => 10,
-            'spawnDifficulty' => 0,
+            'spawnDifficulty' => DifficultyEnum::NORMAL,
         ],
         [
             'name' => HunterEnum::SPIDER . '_default',
@@ -78,7 +79,7 @@ class HunterConfigData
             'drawCost' => 20,
             'maxPerWave' => 2,
             'drawWeight' => 1,
-            'spawnDifficulty' => 4,
+            'spawnDifficulty' => DifficultyEnum::HARD,
         ],
         [
             'name' => HunterEnum::TRAX . '_default',
@@ -95,7 +96,7 @@ class HunterConfigData
             'drawCost' => 20,
             'maxPerWave' => 2,
             'drawWeight' => 2,
-            'spawnDifficulty' => 4,
+            'spawnDifficulty' => DifficultyEnum::HARD,
         ],
     ];
 }

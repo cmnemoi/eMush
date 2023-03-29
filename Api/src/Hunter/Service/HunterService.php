@@ -49,11 +49,8 @@ class HunterService implements HunterServiceInterface
     public function unpoolHunters(Daedalus $daedalus, int $nbHuntersToUnpool): void
     {
         $hunterPool = $daedalus->getHunterPool();
-        $nbMissingHunters = $nbHuntersToUnpool - $hunterPool->count();
 
-        if ($nbMissingHunters > 0) {
-            $hunterPool = $this->putHuntersInPool($daedalus, $nbMissingHunters);
-        }
+        $nbHuntersToUnpool = min($nbHuntersToUnpool, $hunterPool->count());
 
         $huntersToUnpool = $this->randomService->getRandomHuntersInPool($hunterPool, $nbHuntersToUnpool);
         $huntersToUnpool->map(fn ($hunter) => $this->unpoolHunter($hunter));

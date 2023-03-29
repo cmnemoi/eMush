@@ -7,14 +7,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @template-extends ArrayCollection<string|int, int>
  */
-class ProbabilitiesCollection extends ArrayCollection
+class ProbaCollection extends ArrayCollection
 {
-    public function getItemProbability(string|int $key): ?int
+    public function getElementProbability(string|int $key): ?int
     {
         return $this->get($key);
     }
 
-    public function setItemProbability(string|int $key, int $value): static
+    public function setElementProbability(string|int $key, int $value): static
     {
         $this->set($key, $value);
 

@@ -34,7 +34,16 @@ class Hunter
     private string $target = HunterTargetEnum::DAEDALUS;
 
     #[ORM\Column(type: 'boolean')]
-    private bool $inPool = false;
+    private bool $inPool = true;
+
+    public function __construct(HunterConfig $hunterConfig, Daedalus $daedalus)
+    {
+        $this->armor = $hunterConfig->getInitialArmor();
+        $this->charge = $hunterConfig->getInitialCharge();
+        $this->daedalus = $daedalus;
+        $this->health = $hunterConfig->getInitialHealth();
+        $this->hunterConfig = $hunterConfig;
+    }
 
     public function getId(): int
     {

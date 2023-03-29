@@ -27,6 +27,8 @@ use Mush\Player\Entity\Player;
 class Daedalus implements ModifierHolder, GameVariableHolderInterface
 {
     use TimestampableEntity;
+    public const HARD_MODE_DAY_START = 4;
+    public const VERY_HARD_MODE_DAY_START = 9;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -74,6 +76,7 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
         $this->players = new ArrayCollection();
         $this->places = new ArrayCollection();
         $this->modifiers = new ModifierCollection();
+        $this->hunters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -434,5 +437,15 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
     public function getName(): string
     {
         return $this->daedalusInfo->getName();
+    }
+
+    public function isInHardMode(): bool
+    {
+        return !$this->isInVeryHardMode() && $this->getDay() >= self::HARD_MODE_DAY_START;
+    }
+
+    public function isInVeryHardMode(): bool
+    {
+        return $this->getDay() >= self::VERY_HARD_MODE_DAY_START;
     }
 }

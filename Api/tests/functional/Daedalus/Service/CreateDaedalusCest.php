@@ -20,6 +20,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Hunter\Entity\HunterConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Place\Entity\PlaceConfig;
@@ -125,12 +126,15 @@ class CreateDaedalusCest
         ;
         $I->haveInRepository($door);
 
+        $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+
         $gameConfig = new GameConfig();
         $gameConfig
             ->setName(GameConfigEnum::TEST)
             ->setDaedalusConfig($daedalusConfig)
             ->setEquipmentsConfig(new ArrayCollection([$door, $hydropot, $gravitySimulator, $waterStick]))
             ->setStatusConfigs(new ArrayCollection([$alienArtifact]))
+            ->setHunterConfigs(new ArrayCollection($hunterConfigs))
         ;
         $I->haveInRepository($gameConfig);
 
@@ -163,6 +167,10 @@ class CreateDaedalusCest
 
         $I->assertInstanceOf(GameItem::class, $gameWaterStick);
         $I->assertCount(1, $gameWaterStick->getStatuses());
+
+        // hunters
+        $I->assertCount(4, $daedalus->getAttackingHunters());
+        $I->assertCount(0, $daedalus->getHunterPool());
     }
 
     private function createDaedalusConfig(ArrayCollection $placesConfig): DaedalusConfig

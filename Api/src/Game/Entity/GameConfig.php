@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Game\Entity\Collection\TriumphConfigCollection;
 use Mush\Game\Repository\GameConfigRepository;
 use Mush\Hunter\Entity\HunterConfig;
+use Mush\Hunter\Entity\HunterConfigCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -284,9 +285,9 @@ class GameConfig
         return $this;
     }
 
-    public function getHunterConfigs(): Collection
+    public function getHunterConfigs(): HunterConfigCollection
     {
-        return $this->hunterConfigs;
+        return new HunterConfigCollection($this->hunterConfigs->toArray());
     }
 
     /**

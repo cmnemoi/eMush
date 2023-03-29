@@ -41,6 +41,8 @@ interface AlertServiceInterface
 
     public function getAlerts(Daedalus $daedalus): ArrayCollection;
 
+    public function handleHunterArrival(Daedalus $daedalus): void;
+
     public function handleSatietyAlert(Daedalus $daedalus): void;
 
     public function isFireReported(Place $room): bool;

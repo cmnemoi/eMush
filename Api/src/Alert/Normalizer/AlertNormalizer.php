@@ -82,6 +82,10 @@ class AlertNormalizer implements ContextAwareNormalizerInterface
             return $alert->getDaedalus()->getHull();
         }
 
+        if ($alert->getName() === AlertEnum::HUNTER) {
+            return $alert->getDaedalus()->getAttackingHunters()->count();
+        }
+
         return null;
     }
 

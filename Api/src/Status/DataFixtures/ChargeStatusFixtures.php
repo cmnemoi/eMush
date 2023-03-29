@@ -20,6 +20,7 @@ use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
@@ -46,6 +47,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const DID_THE_THING_STATUS = 'did_the_thing_status';
     public const DID_BORING_SPEECH_STATUS = 'did_boring_speech_status';
     public const ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
+    public const ASTEROID_CHARGE = 'asteroid_charge';
+    public const HUNTER_CHARGE = 'hunter_charge';
 
     public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
 
@@ -322,6 +325,30 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($updatingTrackie);
 
+        $asteroidCharge = new ChargeStatusConfig();
+        $asteroidCharge
+            ->setStatusName(HunterStatusEnum::ASTEROID_CHARGE)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setStartCharge(6)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
+            ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($asteroidCharge);
+
+        $hunterCharge = new ChargeStatusConfig();
+        $hunterCharge
+            ->setStatusName(HunterStatusEnum::HUNTER_CHARGE)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setStartCharge(6)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
+            ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($hunterCharge);
+
         $gameConfig
             ->addStatusConfig($attemptConfig)
             ->addStatusConfig($scooterCharge)
@@ -344,6 +371,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($did_boring_speech)
             ->addStatusConfig($updatingTrackie)
             ->addStatusConfig($already_washed_in_the_sink)
+            ->addStatusConfig($asteroidCharge)
+            ->addStatusConfig($hunterCharge)
         ;
         $manager->persist($gameConfig);
 
@@ -370,6 +399,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::DID_BORING_SPEECH_STATUS, $did_boring_speech);
         $this->addReference(self::UPDATING_TRACKIE_STATUS, $updatingTrackie);
         $this->addReference(self::ALREADY_WASHED_IN_THE_SINK, $already_washed_in_the_sink);
+        $this->addReference(self::ASTEROID_CHARGE, $asteroidCharge);
+        $this->addReference(self::HUNTER_CHARGE, $hunterCharge);
     }
 
     public function getDependencies(): array

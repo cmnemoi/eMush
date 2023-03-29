@@ -2,8 +2,11 @@
 
 namespace Mush\Hunter\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\ProbaCollection;
+use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter_config')]
@@ -24,10 +27,10 @@ class HunterConfig
     private int $initialHealth;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initialCharge;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
     private int $initialArmor;
+
+    #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
+    private Collection $initialStatuses;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $damageRange;
@@ -46,6 +49,11 @@ class HunterConfig
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $drawWeight;
+
+    public function __construct()
+    {
+        $this->initialStatuses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -88,14 +96,21 @@ class HunterConfig
         return $this;
     }
 
-    public function getInitialCharge(): int
+    public function getInitialStatuses(): Collection
     {
-        return $this->initialCharge;
+        return $this->initialStatuses;
     }
 
-    public function setInitialCharge(int $initialCharge): static
+    /**
+     * @param Collection<int, StatusConfig> $initialStatuses
+     */
+    public function setInitialStatuses(Collection|array $initialStatuses): static
     {
-        $this->initialCharge = $initialCharge;
+        if (is_array($initialStatuses)) {
+            $initialStatuses = new ArrayCollection($initialStatuses);
+        }
+
+        $this->initialStatuses = $initialStatuses;
 
         return $this;
     }

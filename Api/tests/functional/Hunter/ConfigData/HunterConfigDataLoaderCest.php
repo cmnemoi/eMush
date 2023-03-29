@@ -23,6 +23,7 @@ class HunterConfigDataLoaderCest
         foreach (HunterConfigData::$dataArray as $hunterConfigData) {
             // can't test array attributes because of a bug in Codeception
             unset($hunterConfigData['damageRange']);
+            unset($hunterConfigData['initialStatuses']);
             $I->seeInRepository(HunterConfig::class, $hunterConfigData);
         }
 
@@ -34,6 +35,7 @@ class HunterConfigDataLoaderCest
         $config = HunterConfigData::$dataArray[0];
         // can't test array attributes because of a bug in Codeception
         unset($config['damageRange']);
+        unset($config['initialStatuses']);
 
         $this->hunterConfigDataLoader->loadConfigsData();
 

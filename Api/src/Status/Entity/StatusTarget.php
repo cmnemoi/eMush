@@ -4,6 +4,7 @@ namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Hunter\Entity\Hunter;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
@@ -29,6 +30,9 @@ class StatusTarget
 
     #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'statuses')]
     private ?Place $place = null;
+
+    #[ORM\ManyToOne(targetEntity: Hunter::class, inversedBy: 'statuses')]
+    private ?Hunter $hunter = null;
 
     public function getId(): ?int
     {
@@ -104,6 +108,22 @@ class StatusTarget
 
         if ($place !== null) {
             $place->addStatusTarget($this);
+        }
+
+        return $this;
+    }
+
+    public function getHunter(): ?Hunter
+    {
+        return $this->hunter;
+    }
+
+    public function setHunter(?Hunter $hunter): self
+    {
+        $this->hunter = $hunter;
+
+        if ($hunter !== null) {
+            $hunter->addStatusTarget($this);
         }
 
         return $this;

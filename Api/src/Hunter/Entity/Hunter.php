@@ -2,14 +2,24 @@
 
 namespace Mush\Hunter\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Hunter\Enum\HunterTargetEnum;
+use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Entity\StatusTarget;
+use Mush\Status\Entity\TargetStatusTrait;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter')]
-class Hunter
+class Hunter implements StatusHolderInterface, LogParameterInterface
 {
+    use TargetStatusTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -24,8 +34,8 @@ class Hunter
     #[ORM\Column(type: 'integer')]
     private int $health;
 
-    #[ORM\Column(type: 'integer')]
-    private int $charge;
+    #[ORM\OneToMany(mappedBy: 'hunter', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
+    private Collection $statuses;
 
     #[ORM\Column(type: 'integer')]
     private int $armor;
@@ -39,10 +49,10 @@ class Hunter
     public function __construct(HunterConfig $hunterConfig, Daedalus $daedalus)
     {
         $this->armor = $hunterConfig->getInitialArmor();
-        $this->charge = $hunterConfig->getInitialCharge();
         $this->daedalus = $daedalus;
         $this->health = $hunterConfig->getInitialHealth();
         $this->hunterConfig = $hunterConfig;
+        $this->statuses = new ArrayCollection();
     }
 
     public function getId(): int
@@ -82,18 +92,6 @@ class Hunter
     public function setHealth(int $health): self
     {
         $this->health = $health;
-
-        return $this;
-    }
-
-    public function getCharge(): int
-    {
-        return $this->charge;
-    }
-
-    public function setCharge(int $charge): self
-    {
-        $this->charge = $charge;
 
         return $this;
     }
@@ -139,5 +137,54 @@ class Hunter
         $this->inPool = false;
 
         return $this;
+    }
+
+    public function addStatus(Status $status): static
+    {
+        if (!$this->getStatuses()->contains($status)) {
+            if (!$statusTarget = $status->getStatusTargetTarget()) {
+                $statusTarget = new StatusTarget();
+            }
+            $statusTarget->setOwner($status);
+            $statusTarget->setHunter($this);
+            $this->statuses->add($statusTarget);
+        }
+
+        return $this;
+    }
+
+    public function getClassName(): string
+    {
+        return get_class($this);
+    }
+
+    public function getName(): string
+    {
+        return $this->getHunterConfig()->getHunterName();
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::HUNTER;
+    }
+
+    public function getLogName(): string
+    {
+        return $this->getName();
+    }
+
+    public function getGameEquipment(): null
+    {
+        return null;
+    }
+
+    public function getPlace(): null
+    {
+        return null;
+    }
+
+    public function getPlayer(): null
+    {
+        return null;
     }
 }

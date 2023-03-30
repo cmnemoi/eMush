@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionVariables;
 use Mush\Daedalus\Entity\DaedalusVariables;
 use Mush\Equipment\Entity\Mechanics\Entity;
+use Mush\Hunter\Entity\HunterVariables;
 use Mush\Player\Entity\PlayerVariables;
 
 #[ORM\Entity]
@@ -17,6 +18,7 @@ use Mush\Player\Entity\PlayerVariables;
     'daedalusVariables' => DaedalusVariables::class,
     'playerVariables' => PlayerVariables::class,
     'actionVariables' => ActionVariables::class,
+    'hunterVariables' => HunterVariables::class,
 ])]
 abstract class GameVariableCollection
 {

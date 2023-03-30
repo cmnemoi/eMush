@@ -23,7 +23,7 @@ class DaedalusInitSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusInitEvent::NEW_DAEDALUS => 'onNewDaedalus',
+            DaedalusInitEvent::NEW_DAEDALUS => ['onNewDaedalus', -10], // do this after space creation
         ];
     }
 

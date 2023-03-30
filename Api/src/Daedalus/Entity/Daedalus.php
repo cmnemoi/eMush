@@ -46,9 +46,6 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
-    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Hunter::class, cascade: ['REMOVE'], orphanRemoval: true)]
-    private Collection $hunters;
-
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private DaedalusVariables $daedalusVariables;
 
@@ -75,7 +72,6 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
         $this->players = new ArrayCollection();
         $this->places = new ArrayCollection();
         $this->modifiers = new ModifierCollection();
-        $this->hunters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,6 +131,16 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
         return $this->getPlaces()->filter(fn (Place $place) => $place->getType() === PlaceTypeEnum::ROOM);
     }
 
+    public function getSpace(): Place
+    {
+        $space = $this->getPlaces()->filter(fn (Place $place) => $place->getType() === PlaceTypeEnum::SPACE)->first();
+        if (!$space) {
+            throw new \Exception('Daedalus should be in Space');
+        }
+
+        return $space;
+    }
+
     public function getPlaceByName(string $name): ?Place
     {
         $place = $this->getPlaces()->filter(fn (Place $place) => $place->getName() === $name)->first();
@@ -186,44 +192,36 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
 
     public function getAllHunters(): HunterCollection
     {
-        return new HunterCollection($this->hunters->toArray());
+        return $this->getSpace()->getAllHunters();
     }
 
     public function getAttackingHunters(): HunterCollection
     {
-        return (new HunterCollection($this->hunters->toArray()))->getAttackingHunters();
+        return $this->getSpace()->getAttackingHunters();
     }
 
     public function getHunterPool(): HunterCollection
     {
-        return (new HunterCollection($this->hunters->toArray()))->getHunterPool();
+        return $this->getSpace()->getHunterPool();
     }
 
-    public function setHunters(HunterCollection|Collection $hunters): static
+    public function setHunters(ArrayCollection $hunters): static
     {
-        if ($hunters instanceof Collection) {
-            $hunters = new HunterCollection($hunters->toArray());
-        }
-
-        $this->hunters = $hunters;
+        $this->getSpace()->setHunters($hunters);
 
         return $this;
     }
 
     public function addHunter(Hunter $hunter): static
     {
-        if (!$this->hunters->contains($hunter)) {
-            $this->hunters->add($hunter);
-
-            $hunter->setDaedalus($this);
-        }
+        $this->getSpace()->addHunter($hunter);
 
         return $this;
     }
 
     public function removeHunter(Hunter $hunter): static
     {
-        $this->hunters->removeElement($hunter);
+        $this->getSpace()->removeHunter($hunter);
 
         return $this;
     }

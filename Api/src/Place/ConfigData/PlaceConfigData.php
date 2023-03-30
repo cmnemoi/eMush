@@ -2,6 +2,9 @@
 
 namespace Mush\Place\ConfigData;
 
+use Mush\Place\Enum\PlaceTypeEnum;
+use Mush\Place\Enum\RoomEnum;
+
 /** @codeCoverageIgnore */
 class PlaceConfigData
 {
@@ -221,6 +224,14 @@ class PlaceConfigData
             'doors' => ['rear_corridor_rear_bravo_storage', 'engine_room_rear_bravo_storage'],
             'items' => [],
             'equipments' => ['fuel_tank'],
+        ],
+        [
+            'name' => RoomEnum::SPACE . '_default',
+            'placeName' => RoomEnum::SPACE,
+            'type' => PlaceTypeEnum::SPACE,
+            'doors' => [],
+            'items' => [],
+            'equipments' => [],
         ],
     ];
 }

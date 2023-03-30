@@ -10,6 +10,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Entity\HunterCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -58,6 +60,9 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     #[ORM\OneToMany(mappedBy: 'place', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
+    #[ORM\OneToMany(mappedBy: 'space', targetEntity: Hunter::class, cascade: ['REMOVE'], orphanRemoval: true)]
+    private Collection $hunters;
+
     public function __construct()
     {
         $this->players = new PlayerCollection();
@@ -65,6 +70,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         $this->doors = new ArrayCollection();
         $this->statuses = new ArrayCollection();
         $this->modifiers = new ModifierCollection();
+        $this->hunters = new ArrayCollection();
     }
 
     public function getId(): int
@@ -267,6 +273,48 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     public function addModifier(GameModifier $modifier): static
     {
         $this->modifiers->add($modifier);
+
+        return $this;
+    }
+
+    public function getAllHunters(): HunterCollection
+    {
+        return new HunterCollection($this->hunters->toArray());
+    }
+
+    public function getAttackingHunters(): HunterCollection
+    {
+        return (new HunterCollection($this->hunters->toArray()))->getAttackingHunters();
+    }
+
+    public function getHunterPool(): HunterCollection
+    {
+        return (new HunterCollection($this->hunters->toArray()))->getHunterPool();
+    }
+
+    public function setHunters(ArrayCollection $hunters): static
+    {
+        $this->hunters = $hunters;
+
+        return $this;
+    }
+
+    public function addHunter(Hunter $hunter): static
+    {
+        if (!$this->hunters->contains($hunter)) {
+            $this->hunters->add($hunter);
+
+            $hunter->setSpace($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHunter(Hunter $hunter): static
+    {
+        if ($this->hunters->contains($hunter)) {
+            $this->hunters->removeElement($hunter);
+        }
 
         return $this;
     }

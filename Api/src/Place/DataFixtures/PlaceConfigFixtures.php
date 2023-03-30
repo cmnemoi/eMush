@@ -31,6 +31,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 
 class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -555,6 +556,14 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($rearBravoStorage);
 
+        $space = new PlaceConfig();
+        $space
+            ->setPlaceName(RoomEnum::SPACE)
+            ->setType(PlaceTypeEnum::SPACE)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($space);
+
         $daedalusConfig->setPlaceConfigs(new ArrayCollection([
             $bridge,
             $alphaBay, $bravoBay, $alphaBay2, $icarusBay,
@@ -563,7 +572,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             $frontAlphaTurret, $centerAlphaTurret, $rearAlphaTurret, $frontBravoTurret, $centreBravoTurret, $rearBravoTurret,
             $frontCorridor, $centralCorridor, $rearCorridor,
             $alphaDorm, $bravoDorm,
-            $frontStorage, $centerAlphaStorage, $centreBravoStorage, $rearAlphaStorage, $rearBravoStorage,
+            $frontStorage, $centerAlphaStorage, $centreBravoStorage, $rearAlphaStorage, $rearBravoStorage, $space,
         ]));
         $manager->persist($daedalusConfig);
         $manager->flush();
@@ -595,6 +604,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(RoomEnum::CENTER_BRAVO_STORAGE, $centreBravoStorage);
         $this->addReference(RoomEnum::REAR_ALPHA_STORAGE, $rearAlphaStorage);
         $this->addReference(RoomEnum::REAR_BRAVO_STORAGE, $rearBravoStorage);
+        $this->addReference(RoomEnum::SPACE, $space);
     }
 
     public function getDependencies(): array

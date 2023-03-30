@@ -25,11 +25,11 @@
             <target>Arack</target>
         </segment>
     </unit>
-    <unix id="trax">
+    <unit id="trax">
         <segment id="trax_name" state="translated">
             <source>trax.name</source>
             <target>Trax</target>
         </segment>
-    </unix>
+    </unit>
   </file>
 </xliff>

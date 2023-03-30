@@ -64,15 +64,14 @@ class HunterService implements HunterServiceInterface
         }
 
         $hunter = new Hunter($hunterConfig, $daedalus);
+        $hunter->setHunterVariables($hunterConfig);
         $daedalus->addHunter($hunter);
 
-        $this->entityManager->persist($hunter);
-        $this->persistAndFlush($daedalus);
+        $this->persistAndFlush([$hunter, $daedalus]);
 
         $this->createHunterStatuses($hunter);
 
-        $this->entityManager->persist($hunter);
-        $this->persistAndFlush($daedalus);
+        $this->persistAndFlush([$hunter, $daedalus]);
 
         return $hunter;
     }
@@ -116,27 +115,31 @@ class HunterService implements HunterServiceInterface
         return current($this->randomService->getRandomElements($hunterTypes->toArray(), 1));
     }
 
-    private function persistAndFlush(object $object): void
+    private function persistAndFlush(array $objects): void
     {
-        $this->entityManager->persist($object);
+        foreach ($objects as $object) {
+            $this->entityManager->persist($object);
+        }
         $this->entityManager->flush();
     }
 
     private function putHunterInPool(Hunter $hunter): void
     {
         $hunter->putInPool();
-        $this->persistAndFlush($hunter);
+        $this->persistAndFlush([$hunter]);
     }
 
-    private function removeAndFlush(object $object): void
+    private function removeAndFlush(array $objects): void
     {
-        $this->entityManager->remove($object);
+        foreach ($objects as $object) {
+            $this->entityManager->remove($object);
+        }
         $this->entityManager->flush();
     }
 
     private function unpoolHunter(Hunter $hunter): void
     {
         $hunter->unpool();
-        $this->persistAndFlush($hunter);
+        $this->persistAndFlush([$hunter]);
     }
 }

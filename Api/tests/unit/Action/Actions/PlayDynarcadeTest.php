@@ -79,7 +79,7 @@ class PlayDynarcadeTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent')
         ->withArgs([\Mockery::on(function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
-            return $event->getPlayer() == $expectedPlayerModifierEvent->getPlayer()
+            return $event->getAuthor() == $expectedPlayerModifierEvent->getAuthor()
                  && $event->getVariableName() == $expectedPlayerModifierEvent->getVariableName()
                  && $event->getQuantity() == $expectedPlayerModifierEvent->getQuantity()
                  && $event->getTags() == $expectedPlayerModifierEvent->getTags()
@@ -124,7 +124,7 @@ class PlayDynarcadeTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent')
         ->withArgs([\Mockery::on(function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
-            return $event->getPlayer() == $expectedPlayerModifierEvent->getPlayer()
+            return $event->getAuthor() == $expectedPlayerModifierEvent->getAuthor()
                  && $event->getVariableName() == $expectedPlayerModifierEvent->getVariableName()
                  && $event->getQuantity() == $expectedPlayerModifierEvent->getQuantity()
                  && $event->getTags() == $expectedPlayerModifierEvent->getTags()

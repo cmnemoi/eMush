@@ -29,7 +29,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
     public function onResultAction(ActionEvent $event): void
     {
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
         $time = $event->getTime();
 
         $actionName = $event->getAction()->getActionName();

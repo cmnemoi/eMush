@@ -33,7 +33,7 @@ class ActionSubscriber implements EventSubscriberInterface
     public function onResultAction(ActionEvent $event): void
     {
         $actionResult = $event->getActionResult();
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
         $actionParameter = $event->getActionParameter();
 
         if ($actionResult === null) {
@@ -49,7 +49,7 @@ class ActionSubscriber implements EventSubscriberInterface
     {
         $action = $event->getAction();
         $actionParameter = $event->getActionParameter();
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
 
         if ($actionParameter instanceof Player &&
             in_array($action->getActionName(), ActionEnum::getForceGetUpActions()) &&

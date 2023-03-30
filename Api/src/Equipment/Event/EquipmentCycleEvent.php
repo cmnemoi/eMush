@@ -35,7 +35,7 @@ class EquipmentCycleEvent extends DaedalusCycleEvent
 
         $modifiers = $equipment->getAllModifiers()->getEventModifiers($this);
 
-        $player = $this->player;
+        $player = $this->author;
         if ($player !== null && $equipment->getHolder() !== $player) {
             $modifiers->addModifiers($player->getModifiers()->getEventModifiers($this));
         }

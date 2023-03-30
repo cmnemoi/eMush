@@ -36,7 +36,7 @@ class ActionSubscriber implements EventSubscriberInterface
     public function onPostAction(ActionEvent $event): void
     {
         $actionResult = $event->getActionResult();
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
 
         if ($actionResult === null) {
             return;
@@ -61,7 +61,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
     public function onPreAction(ActionEvent $event): void
     {
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
         $actionName = $event->getAction()->getActionName();
 
         switch ($actionName) {

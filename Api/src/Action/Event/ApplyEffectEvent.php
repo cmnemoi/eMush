@@ -30,16 +30,16 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
         array $tags,
         \DateTime $time
     ) {
-        $this->player = $player;
+        $this->author = $player;
         $this->visibility = $visibility;
         $this->parameter = $parameter;
 
         parent::__construct($tags, $time);
     }
 
-    public function getPlayer(): Player
+    public function getAuthor(): Player
     {
-        $player = $this->player;
+        $player = $this->author;
         if ($player === null) {
             throw new \Exception('applyEffectEvent should have a player');
         }
@@ -49,7 +49,7 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
 
     public function getPlace(): Place
     {
-        return $this->getPlayer()->getPlace();
+        return $this->getAuthor()->getPlace();
     }
 
     public function getVisibility(): string
@@ -64,7 +64,7 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
 
     public function getModifiers(): ModifierCollection
     {
-        $modifiers = $this->getPlayer()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false);
+        $modifiers = $this->getAuthor()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false);
 
         $parameter = $this->parameter;
         if ($parameter instanceof ModifierHolder) {
@@ -76,7 +76,7 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
 
     public function getLogParameters(): array
     {
-        $player = $this->getPlayer();
+        $player = $this->getAuthor();
         $logParameters = [
             'character' => $player->getLogName(),
             'place' => $player->getPlace()->getName(),

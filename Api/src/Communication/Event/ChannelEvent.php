@@ -19,7 +19,7 @@ class ChannelEvent extends AbstractGameEvent
     {
         parent::__construct($tags, $time);
         $this->channel = $channel;
-        $this->player = $player;
+        $this->author = $player;
     }
 
     public function getChannel(): Channel

@@ -129,7 +129,7 @@ class DirectModifierCreationCest
         $I->assertEquals(0, $variable->getMinValue());
 
         // heal the disease
-        $diseaseEvent->setPlayer($healer);
+        $diseaseEvent->setAuthor($healer);
         $this->eventService->callEvent($diseaseEvent, DiseaseEvent::CURE_DISEASE);
 
         $variable = $player->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
@@ -393,7 +393,7 @@ class DirectModifierCreationCest
         $I->assertCount(0, $healer->getModifiers());
 
         // heal the disease
-        $diseaseEvent->setPlayer($healer);
+        $diseaseEvent->setAuthor($healer);
         $this->eventService->callEvent($diseaseEvent, DiseaseEvent::CURE_DISEASE);
 
         $variable = $player->getVariableByName(PlayerVariableEnum::HEALTH_POINT);

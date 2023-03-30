@@ -29,7 +29,7 @@ class PlaceCycleEvent extends AbstractGameEvent
 
     public function getModifiers(): ModifierCollection
     {
-        $player = $this->player;
+        $player = $this->author;
 
         if ($player === null) {
             return $this->getPlace()->getAllModifiers()->getEventModifiers($this);

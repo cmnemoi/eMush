@@ -78,7 +78,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
     public function onAction(ActionEvent $event): void
     {
-        $holder = $event->getPlayer();
+        $holder = $event->getAuthor();
 
         $modifiers = $holder->getModifiers()->getScopedModifiers([ActionEvent::POST_ACTION]);
         $modifiers = $this->modifierActivationRequirementService->getActiveModifiers($modifiers, $event->getTags(), $holder);

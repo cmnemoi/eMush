@@ -3,7 +3,6 @@
 namespace Mush\Tests\functional\Action\ConfigData;
 
 use App\Tests\FunctionalTester;
-use Mush\Action\ConfigData\ActionData;
 use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Action\Entity\Action;
 use Mush\Game\Entity\GameVariable;
@@ -35,7 +34,7 @@ class ActionDataLoaderCest
         $this->seeInRepositoryExtractSporeActionVariables($I);
 
         // check that we've loaded all the actions
-        $I->seeNumRecords(89, Action::class);
+        $I->seeNumRecords(90, Action::class);
     }
 
     public function testLoadConfigsDataConfigAlreadyExists(FunctionalTester $I)

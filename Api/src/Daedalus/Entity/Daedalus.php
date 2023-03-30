@@ -190,11 +190,6 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
         return $this;
     }
 
-    public function getAllHunters(): HunterCollection
-    {
-        return $this->getSpace()->getAllHunters();
-    }
-
     public function getAttackingHunters(): HunterCollection
     {
         return $this->getSpace()->getAttackingHunters();

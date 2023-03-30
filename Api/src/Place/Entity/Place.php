@@ -277,11 +277,6 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this;
     }
 
-    public function getAllHunters(): HunterCollection
-    {
-        return new HunterCollection($this->hunters->toArray());
-    }
-
     public function getAttackingHunters(): HunterCollection
     {
         return (new HunterCollection($this->hunters->toArray()))->getAttackingHunters();

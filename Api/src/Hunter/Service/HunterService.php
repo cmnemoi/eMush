@@ -5,6 +5,9 @@ namespace Mush\Hunter\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Hunter\Entity\Hunter;
@@ -13,6 +16,8 @@ use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
+use Mush\Hunter\Enum\HunterTargetEnum;
+use Mush\Hunter\Event\AbstractHunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -60,8 +65,9 @@ class HunterService implements HunterServiceInterface
         $this->persistAndFlush([$hunter]);
     }
 
-    public function makeHuntersShoot(HunterCollection $hunters): void
+    public function makeHuntersShoot(HunterCollection $attackingHunters): void
     {
+        $attackingHunters->map(fn (Hunter $hunter) => $this->makeHunterShoot($hunter));
     }
 
     public function killHunter(Hunter $hunter): void
@@ -154,6 +160,29 @@ class HunterService implements HunterServiceInterface
         return current($this->randomService->getRandomElements($hunterTypes->toArray(), 1));
     }
 
+    private function makeHunterShoot(Hunter $hunter): void
+    {
+        $hunterDamage = $hunter->getHunterConfig()->getDamageRange();
+        $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($hunterDamage->toArray());
+        if (!$damage) {
+            return;
+        }
+
+        $successRate = $hunter->getHunterConfig()->getHitChance();
+        if (!$this->randomService->isSuccessful($successRate)) {
+            return;
+        }
+
+        // TODO: handle other targets
+        switch ($hunter->getTarget()) {
+            case HunterTargetEnum::DAEDALUS:
+                $this->shootAtDaedalus($hunter, $damage);
+                break;
+            default:
+                throw new \Exception("Unknown hunter target {$hunter->getTarget()}");
+        }
+    }
+
     private function persistAndFlush(array $objects): void
     {
         foreach ($objects as $object) {
@@ -174,6 +203,19 @@ class HunterService implements HunterServiceInterface
             $this->entityManager->remove($object);
         }
         $this->entityManager->flush();
+    }
+
+    private function shootAtDaedalus(Hunter $hunter, int $damage): void
+    {
+        $daedalusVariableEvent = new DaedalusVariableEvent(
+            $hunter->getDaedalus(),
+            DaedalusVariableEnum::HULL,
+            -$damage,
+            [AbstractHunterEvent::MAKE_HUNTERS_SHOOT],
+            new \DateTime()
+        );
+
+        $this->eventService->callEvent($daedalusVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
     private function unpoolHunter(Hunter $hunter): void

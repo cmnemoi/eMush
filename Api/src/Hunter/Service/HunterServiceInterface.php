@@ -11,7 +11,7 @@ interface HunterServiceInterface
 {
     public function changeVariable(string $variableName, Hunter $hunter, int $change, \DateTime $date, Player $author): void;
 
-    public function makeHuntersShoot(HunterCollection $hunters): void;
+    public function makeHuntersShoot(HunterCollection $attackingHunters): void;
 
     public function killHunter(Hunter $hunter): void;
 

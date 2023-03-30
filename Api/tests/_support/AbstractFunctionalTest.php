@@ -51,6 +51,7 @@ class AbstractFunctionalTest
         $daedalus
             ->setCycle(0)
             ->setDaedalusVariables($daedalusConfig)
+            ->setCycleStartedAt(new \DateTime())
         ;
 
         /** @var GameConfig $gameConfig */

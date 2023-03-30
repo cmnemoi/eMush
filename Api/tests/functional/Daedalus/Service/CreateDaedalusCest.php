@@ -68,11 +68,13 @@ class CreateDaedalusCest
             ->setEquipments([EquipmentEnum::GRAVITY_SIMULATOR])
             ->buildName(GameConfigEnum::TEST)
         ;
+        $spaceConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::SPACE]);
         $I->haveInRepository($placeConfig1);
         $I->haveInRepository($placeConfig2);
         $I->haveInRepository($placeConfig3);
+        $I->haveInRepository($spaceConfig);
 
-        $daedalusConfig = $this->createDaedalusConfig(new ArrayCollection([$placeConfig1, $placeConfig2, $placeConfig3]));
+        $daedalusConfig = $this->createDaedalusConfig(new ArrayCollection([$placeConfig1, $placeConfig2, $placeConfig3, $spaceConfig]));
         $I->haveInRepository($daedalusConfig);
 
         // status config

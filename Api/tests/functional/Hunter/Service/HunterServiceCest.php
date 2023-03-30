@@ -19,6 +19,7 @@ class HunterServiceCest extends AbstractFunctionalTest
     public function testPutHuntersInPool(FunctionalTester $I)
     {
         $this->hunterService->putHuntersInPool($this->daedalus, 2);
+        $I->assertCount(2, $this->daedalus->getSpace()->getAllHunters());
         $I->assertCount(2, $this->daedalus->getHunterPool());
         $I->assertCount(0, $this->daedalus->getAttackingHunters());
     }

@@ -48,6 +48,7 @@ class HunterConfigDataLoader extends ConfigDataLoader
                 ->setDrawCost($hunterConfigData['drawCost'])
                 ->setMaxPerWave($hunterConfigData['maxPerWave'])
                 ->setDrawWeight($hunterConfigData['drawWeight'])
+                ->setSpawnDifficulty($hunterConfigData['spawnDifficulty'])
             ;
             $this->setHunterConfigInitialStatuses($hunterConfig, $hunterConfigData);
 

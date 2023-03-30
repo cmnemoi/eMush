@@ -50,6 +50,9 @@ class HunterConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $drawWeight;
 
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    private int $spawnDifficulty;
+
     public function __construct()
     {
         $this->initialStatuses = new ArrayCollection();
@@ -195,6 +198,18 @@ class HunterConfig
     public function setDrawWeight(int $drawWeight): static
     {
         $this->drawWeight = $drawWeight;
+
+        return $this;
+    }
+
+    public function getSpawnDifficulty(): int
+    {
+        return $this->spawnDifficulty;
+    }
+
+    public function setSpawnDifficulty(int $spawnDifficulty): static
+    {
+        $this->spawnDifficulty = $spawnDifficulty;
 
         return $this;
     }

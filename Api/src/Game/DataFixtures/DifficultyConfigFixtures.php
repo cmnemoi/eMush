@@ -13,6 +13,8 @@ use Mush\Game\Enum\GameConfigEnum;
 
 class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const DEFAULT_DIFFICULTY_CONFIG = 'default_difficulty_config';
+
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
@@ -82,6 +84,8 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
         $manager->persist($gameConfig);
 
         $manager->flush();
+
+        $this->addReference(self::DEFAULT_DIFFICULTY_CONFIG, $difficultyConfig);
     }
 
     public function getDependencies(): array

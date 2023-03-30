@@ -12,24 +12,7 @@ class HunterEnum
     public const SPIDER = 'spider';
     public const TRAX = 'trax';
 
-    public static function getNormalModeHunters(): ArrayCollection
-    {
-        return new ArrayCollection([
-            self::HUNTER,
-        ]);
-    }
-
-    public static function getHardModeHunters(): ArrayCollection
-    {
-        return new ArrayCollection([
-            self::ASTEROID,
-            self::HUNTER,
-            self::SPIDER,
-            self::TRAX,
-        ]);
-    }
-
-    public static function getVeryHardModeHunters(): ArrayCollection
+    public static function getAll(): ArrayCollection
     {
         return new ArrayCollection([
             self::ASTEROID,

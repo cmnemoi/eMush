@@ -8,7 +8,6 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
-use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
@@ -90,11 +89,7 @@ class RandomService implements RandomServiceInterface
             throw new \Exception('getRandomHuntersInPool: collection is empty');
         }
 
-        $hunterProbaCollection = new ProbaCollection();
-        /** @var Hunter $hunter */
-        foreach ($hunterPool as $hunter) {
-            $hunterProbaCollection->setElementProbability($hunter->getId(), $hunter->getHunterConfig()->getDrawWeight());
-        }
+        $hunterProbaCollection = $hunterPool->getProbaCollection();
         $selectedHuntersIds = array_values($this->getRandomElementsFromProbaArray($hunterProbaCollection->toArray(), $number));
 
         return $hunterPool->map(fn (Hunter $hunter) => in_array($hunter->getId(), $selectedHuntersIds) ? $hunter : null)

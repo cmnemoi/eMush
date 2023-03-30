@@ -25,7 +25,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     }
 
     public function onNewCycle(DaedalusCycleEvent $event): void
-    {   
+    {
         $event = new HunterCycleEvent($event->getDaedalus(), $event->getTags(), $event->getTime());
         $this->eventService->callEvent($event, HunterCycleEvent::HUNTER_NEW_CYCLE);
     }

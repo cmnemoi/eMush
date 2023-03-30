@@ -28,7 +28,7 @@ class HunterCycleSubscriber implements EventSubscriberInterface
     {
         $attackingHunters = $event->getDaedalus()->getAttackingHunters();
         $hunterStatuses = $attackingHunters->map(fn ($hunter) => $hunter->getStatuses());
-        
+
         /** @var Status $status */
         foreach ($hunterStatuses as $status) {
             $statusNewCycle = new StatusCycleEvent(
@@ -40,5 +40,4 @@ class HunterCycleSubscriber implements EventSubscriberInterface
             $this->eventService->callEvent($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
         }
     }
-
 }

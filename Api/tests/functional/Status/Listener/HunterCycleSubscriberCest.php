@@ -4,7 +4,6 @@ namespace functional\Status\Listener;
 
 use App\Tests\AbstractFunctionalTest;
 use App\Tests\FunctionalTester;
-use DateTime;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Status\Entity\Status;
@@ -32,14 +31,14 @@ class HunterCycleSubscriberCest extends AbstractFunctionalTest
         $hunterStatuses = $attackingHunters->map(fn ($hunter) => $hunter->getStatuses());
 
         dump($hunterStatuses);
-        
+
         /** @var Status $status */
         foreach ($hunterStatuses as $status) {
             $statusNewCycle = new StatusCycleEvent(
                 $status,
                 $status->getOwner(),
                 ['test'],
-                new DateTime()
+                new \DateTime()
             );
             $this->eventService->callEvent($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
         }

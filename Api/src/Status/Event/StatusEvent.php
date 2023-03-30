@@ -2,6 +2,7 @@
 
 namespace Mush\Status\Event;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractGameEvent;
@@ -12,7 +13,6 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\StatusHolderInterface;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
 {
@@ -23,6 +23,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
     protected ?StatusConfig $statusConfig = null;
     protected StatusHolderInterface $holder;
     protected ?StatusHolderInterface $target = null;
+    protected Daedalus $daedalus;
 
     protected string $visibility = VisibilityEnum::HIDDEN;
 
@@ -34,6 +35,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
     ) {
         $this->statusName = $statusName;
         $this->holder = $holder;
+        $this->daedalus = $holder->getDaedalus();
 
         $tags[] = $statusName;
         parent::__construct($tags, $time);
@@ -85,17 +87,9 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         return $this->visibility;
     }
 
-    public function getPlace(): Place
+    public function getPlace(): ?Place
     {
-        if ($this->holder instanceof Place) {
-            return $this->holder;
-        } elseif ($this->holder instanceof GameEquipment) {
-            return $this->holder->getPlace();
-        } elseif ($this->holder instanceof Player) {
-            return $this->holder->getPlace();
-        } else {
-            throw new UnexpectedTypeException($this->holder, StatusHolderInterface::class);
-        }
+        return $this->holder->getPlace();
     }
 
     public function getLogParameters(): array
@@ -121,5 +115,10 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         }
 
         return new ModifierCollection();
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        return $this->daedalus;
     }
 }

@@ -153,6 +153,14 @@
             @addTuple="addNewPanicCrisisPlayerDamage"
             @removeIndex="removePanicCrisisPlayerDamage"
         />
+        <MapManager
+            :label="$t('admin.difficultyConfig.difficultyModes')"
+            :map="difficultyConfig.difficultyModes"
+            mapIndexesType="string"
+            mapValuesType="number"
+            @addTuple="addNewDifficultyModes"
+            @removeIndex="removeDifficultyModes"
+        />
         <button class="action-button" type="submit" @click="update">
             {{ $t('admin.save') }}
         </button>
@@ -279,6 +287,18 @@ export default defineComponent({
         removePanicCrisisPlayerDamage(index: number): void {
             if (this.difficultyConfig && this.difficultyConfig.panicCrisisPlayerDamage) {
                 this.difficultyConfig.panicCrisisPlayerDamage.delete(index);
+            }
+        },
+        addNewDifficultyModes(tuple: any[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.difficultyConfig && this.difficultyConfig.difficultyModes) {
+                this.difficultyConfig.difficultyModes.set(index, value);
+            }
+        },
+        removeDifficultyModes(index: string): void {
+            if (this.difficultyConfig && this.difficultyConfig.difficultyModes) {
+                this.difficultyConfig.difficultyModes.delete(index);
             }
         }
     },

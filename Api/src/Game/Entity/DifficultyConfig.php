@@ -2,6 +2,7 @@
 
 namespace Mush\Game\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -75,6 +76,9 @@ class DifficultyConfig
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $equipmentBreakRateDistribution = [];
+
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $difficultyModes = [];
 
     public function getId(): int
     {
@@ -317,6 +321,18 @@ class DifficultyConfig
     public function setEquipmentBreakRateDistribution(array $equipmentBreakRateDistribution): static
     {
         $this->equipmentBreakRateDistribution = $equipmentBreakRateDistribution;
+
+        return $this;
+    }
+
+    public function getDifficultyModes(): ArrayCollection
+    {
+        return new ArrayCollection($this->difficultyModes);
+    }
+
+    public function setDifficultyModes(array $difficultyModes): static
+    {
+        $this->difficultyModes = $difficultyModes;
 
         return $this;
     }

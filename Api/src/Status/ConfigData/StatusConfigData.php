@@ -2,6 +2,9 @@
 
 namespace Mush\Status\ConfigData;
 
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Status\Enum\HunterStatusEnum;
+
 /** @codeCoverageIgnore */
 class StatusConfigData
 {
@@ -836,6 +839,32 @@ class StatusConfigData
             'chargeStrategy' => 'cycle_decrement',
             'maxCharge' => 0,
             'startCharge' => 4,
+            'dischargeStrategy' => 'none',
+            'autoRemove' => true,
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => HunterStatusEnum::ASTEROID_CHARGE . '_default',
+            'statusName' => HunterStatusEnum::ASTEROID_CHARGE,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::PUBLIC,
+            'chargeStrategy' => 'cycle_decrement',
+            'maxCharge' => 0,
+            'startCharge' => 6,
+            'dischargeStrategy' => 'none',
+            'autoRemove' => true,
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => HunterStatusEnum::HUNTER_CHARGE . '_default',
+            'statusName' => HunterStatusEnum::HUNTER_CHARGE,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => 'cycle_decrement',
+            'maxCharge' => 0,
+            'startCharge' => 1,
             'dischargeStrategy' => 'none',
             'autoRemove' => true,
             'modifierConfigs' => [],

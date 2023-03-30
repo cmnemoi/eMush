@@ -15,19 +15,23 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Hunter\Entity\HunterConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\HunterStatusEnum;
 
 class CreateDaedalusCest
 {
@@ -125,12 +129,20 @@ class CreateDaedalusCest
         ;
         $I->haveInRepository($door);
 
+        $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+        $hunterChargeStatus = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => HunterStatusEnum::HUNTER_CHARGE]);
+
+        /** @var DifficultyConfig $difficultyConfig */
+        $difficultyConfig = $I->grabEntityFromRepository(DifficultyConfig::class, ['name' => 'default']);
+
         $gameConfig = new GameConfig();
         $gameConfig
             ->setName(GameConfigEnum::TEST)
             ->setDaedalusConfig($daedalusConfig)
+            ->setDifficultyConfig($difficultyConfig)
             ->setEquipmentsConfig(new ArrayCollection([$door, $hydropot, $gravitySimulator, $waterStick]))
-            ->setStatusConfigs(new ArrayCollection([$alienArtifact]))
+            ->setStatusConfigs(new ArrayCollection([$alienArtifact, $hunterChargeStatus]))
+            ->setHunterConfigs(new ArrayCollection($hunterConfigs))
         ;
         $I->haveInRepository($gameConfig);
 
@@ -163,6 +175,10 @@ class CreateDaedalusCest
 
         $I->assertInstanceOf(GameItem::class, $gameWaterStick);
         $I->assertCount(1, $gameWaterStick->getStatuses());
+
+        // hunters
+        $I->assertCount(4, $daedalus->getAttackingHunters());
+        $I->assertCount(0, $daedalus->getHunterPool());
     }
 
     private function createDaedalusConfig(ArrayCollection $placesConfig): DaedalusConfig

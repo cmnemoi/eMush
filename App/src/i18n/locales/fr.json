@@ -310,7 +310,8 @@
 			"electricArcPlayerDamage": "Dégâts des décharges électriques sur les joueurs (dégâts => probabilité)",
 			"tremorPlayerDamage": "Dégâts des secousses sur les joueurs (dégâts => probabilité)",
 			"metalPlatePlayerDamage": "Dégâts des plaques de métal sur les joueurs (dégâts => probabilité)",
-			"panicCrisisPlayerDamage": "Dégâts des crises de panique sur les joueurs (dégâts => probabilité)"
+			"panicCrisisPlayerDamage": "Dégâts des crises de panique sur les joueurs (dégâts => probabilité)",
+			"difficultyModes": "Modes de difficulté (nom => jour de déclenchement)"
 		},
 		"characterConfig": {
 			"name": "Nom",

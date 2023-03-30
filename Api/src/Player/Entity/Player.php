@@ -497,4 +497,17 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     {
         return LogParameterKeyEnum::CHARACTER;
     }
+
+    public function getPlayer(): self
+    {
+        return $this;
+    }
+
+    /** Inherited from `StatusHolderInterface`.
+     * As `Player` does not have a (unique) `GameEquipment` instance, this method returns `null`.
+     */
+    public function getGameEquipment(): ?GameEquipment
+    {
+        return null;
+    }
 }

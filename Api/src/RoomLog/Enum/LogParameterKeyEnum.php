@@ -7,5 +7,6 @@ class LogParameterKeyEnum
     public const CHARACTER = 'character';
     public const DISEASE = 'disease';
     public const EQUIPMENT = 'equipment';
+    public const HUNTER = 'hunter';
     public const ITEM = 'item';
 }

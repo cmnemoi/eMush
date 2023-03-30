@@ -9,6 +9,8 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Entity\HunterCollection;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -76,6 +78,22 @@ class RandomService implements RandomServiceInterface
         }
 
         return current($this->getRandomElements($collection->toArray()));
+    }
+
+    /**
+     * This method returns a random `number` of hunters from a Daedalus `hunterPool`, according to hunters' draw weight.
+     */
+    public function getRandomHuntersInPool(HunterCollection $hunterPool, int $number): HunterCollection
+    {
+        if ($hunterPool->isEmpty()) {
+            throw new \Exception('getRandomHuntersInPool: collection is empty');
+        }
+
+        $hunterProbaCollection = $hunterPool->getProbaCollection();
+        $selectedHuntersIds = array_values($this->getRandomElementsFromProbaArray($hunterProbaCollection->toArray(), $number));
+
+        return $hunterPool->map(fn (Hunter $hunter) => in_array($hunter->getId(), $selectedHuntersIds) ? $hunter : null)
+            ->filter(fn (?Hunter $hunter) => $hunter instanceof Hunter);
     }
 
     public function getPlayerInRoom(Place $place): Player

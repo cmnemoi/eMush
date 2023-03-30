@@ -40,6 +40,8 @@ class SpreadFireActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
+        $room->setDaedalus($player->getDaedalus());
+
         $this->action->loadParameters($this->actionEntity, $player);
 
         // No item in the room

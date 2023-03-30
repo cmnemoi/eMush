@@ -40,3 +40,5 @@ Mush\Game\Entity\DifficultyConfig:
       groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
     cycleDiseaseRate:
       groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    difficultyModes:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]

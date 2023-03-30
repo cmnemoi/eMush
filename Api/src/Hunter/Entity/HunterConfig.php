@@ -2,7 +2,11 @@
 
 namespace Mush\Hunter\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Entity\ProbaCollection;
+use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter_config')]
@@ -11,7 +15,7 @@ class HunterConfig
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, unique: true)]
     private string $name;
@@ -22,17 +26,11 @@ class HunterConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $initialHealth;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initialCharge;
+    #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
+    private Collection $initialStatuses;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initialArmor;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $minDamage;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $maxDamage;
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $damageRange;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $hitChance;
@@ -49,7 +47,15 @@ class HunterConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $drawWeight;
 
-    public function getId(): ?int
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    private int $spawnDifficulty;
+
+    public function __construct()
+    {
+        $this->initialStatuses = new ArrayCollection();
+    }
+
+    public function getId(): int
     {
         return $this->id;
     }
@@ -90,50 +96,33 @@ class HunterConfig
         return $this;
     }
 
-    public function getInitialCharge(): int
+    public function getInitialStatuses(): Collection
     {
-        return $this->initialCharge;
+        return $this->initialStatuses;
     }
 
-    public function setInitialCharge(int $initialCharge): static
+    /**
+     * @param Collection<int, StatusConfig> $initialStatuses
+     */
+    public function setInitialStatuses(Collection|array $initialStatuses): static
     {
-        $this->initialCharge = $initialCharge;
+        if (is_array($initialStatuses)) {
+            $initialStatuses = new ArrayCollection($initialStatuses);
+        }
+
+        $this->initialStatuses = $initialStatuses;
 
         return $this;
     }
 
-    public function getInitialArmor(): int
+    public function getDamageRange(): ProbaCollection
     {
-        return $this->initialArmor;
+        return new ProbaCollection($this->damageRange);
     }
 
-    public function setInitialArmor(int $initialArmor): static
+    public function setDamageRange(ProbaCollection $damageRange): static
     {
-        $this->initialArmor = $initialArmor;
-
-        return $this;
-    }
-
-    public function getMinDamage(): int
-    {
-        return $this->minDamage;
-    }
-
-    public function setMinDamage(int $minDamage): static
-    {
-        $this->minDamage = $minDamage;
-
-        return $this;
-    }
-
-    public function getMaxDamage(): int
-    {
-        return $this->maxDamage;
-    }
-
-    public function setMaxDamage(int $maxDamage): static
-    {
-        $this->maxDamage = $maxDamage;
+        $this->damageRange = $damageRange->toArray();
 
         return $this;
     }
@@ -194,6 +183,18 @@ class HunterConfig
     public function setDrawWeight(int $drawWeight): static
     {
         $this->drawWeight = $drawWeight;
+
+        return $this;
+    }
+
+    public function getSpawnDifficulty(): int
+    {
+        return $this->spawnDifficulty;
+    }
+
+    public function setSpawnDifficulty(int $spawnDifficulty): static
+    {
+        $this->spawnDifficulty = $spawnDifficulty;
 
         return $this;
     }

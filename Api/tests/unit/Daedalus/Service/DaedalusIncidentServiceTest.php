@@ -86,6 +86,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $room1 = new Place();
+        $room1->setDaedalus(new Daedalus());
 
         $this->randomService
             ->shouldReceive('getRandomElements')
@@ -120,6 +121,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $room1 = new Place();
+        $room1->setDaedalus(new Daedalus());
 
         $this->randomService
             ->shouldReceive('getRandomElements')
@@ -150,6 +152,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $room1 = new Place();
+        $room1->setDaedalus(new Daedalus());
 
         $this->randomService
             ->shouldReceive('getRandomElements')
@@ -188,7 +191,9 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $equipment = new GameEquipment(new Place());
+        $place = new Place();
+        $place->setDaedalus($daedalus);
+        $equipment = new GameEquipment($place);
 
         $this->isFalse($equipment->isBroken());
 
@@ -234,7 +239,9 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $equipment = new GameEquipment(new Place());
+        $place = new Place();
+        $place->setDaedalus($daedalus);
+        $equipment = new GameEquipment($place);
         $brokenConfig = new StatusConfig();
         $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $brokenStatus = new Status($equipment, $brokenConfig);
@@ -285,8 +292,10 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $item = new GameItem(new Place());
-        $equipment = new GameEquipment(new Place());
+        $place = new Place();
+        $place->setDaedalus($daedalus);
+        $equipment = new GameEquipment($place);
+        $item = new GameItem($place);
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByNameAndDaedalus')
@@ -325,7 +334,9 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $door = new Door(new Place());
+        $place = new Place();
+        $place->setDaedalus(new Daedalus());
+        $door = new Door($place);
         $door->setRooms(new ArrayCollection([new Place(), new Place()]));
         $door->setName('Door');
 

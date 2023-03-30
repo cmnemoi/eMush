@@ -57,6 +57,8 @@ class SearchActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
+        $room->setDaedalus($player->getDaedalus());
+
         $this->action->loadParameters($this->actionEntity, $player);
 
         // No item in the room
@@ -70,6 +72,8 @@ class SearchActionTest extends AbstractActionTest
         $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
+
+        $room->setDaedalus($player->getDaedalus());
 
         $this->action->loadParameters($this->actionEntity, $player);
 
@@ -106,6 +110,8 @@ class SearchActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
+        $room->setDaedalus($player->getDaedalus());
+
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
@@ -134,6 +140,8 @@ class SearchActionTest extends AbstractActionTest
         ;
 
         $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
+
+        $room->setDaedalus($hiddenBy->getDaedalus());
 
         $hiddenConfig = new StatusConfig();
         $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN);

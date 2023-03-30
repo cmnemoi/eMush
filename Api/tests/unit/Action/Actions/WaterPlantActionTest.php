@@ -61,6 +61,8 @@ class WaterPlantActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
+        $room->setDaedalus($player->getDaedalus());
+
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
@@ -87,6 +89,8 @@ class WaterPlantActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$plant]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
+
+        $room->setDaedalus($player->getDaedalus());
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

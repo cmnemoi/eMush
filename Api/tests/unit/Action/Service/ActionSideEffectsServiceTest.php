@@ -7,6 +7,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionSideEffectsService;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -63,7 +64,9 @@ class ActionSideEffectsServiceTest extends TestCase
         $action = new Action();
         $room = new Place();
         $player = new Player();
+        $player->setDaedalus(new Daedalus());
         $player->setPlace($room);
+        $room->setDaedalus($player->getDaedalus());
 
         $action
             ->setActionName(ActionEnum::DROP)
@@ -111,7 +114,11 @@ class ActionSideEffectsServiceTest extends TestCase
         $action = new Action();
         $room = new Place();
         $player = new Player();
+        $player->setDaedalus(new Daedalus());
         $player->setPlace($room);
+        $room->setDaedalus($player->getDaedalus());
+
+        $room->setDaedalus($player->getDaedalus());
 
         $date = new \DateTime();
 
@@ -144,7 +151,9 @@ class ActionSideEffectsServiceTest extends TestCase
         $action = new Action();
         $room = new Place();
         $player = new Player();
+        $player->setDaedalus(new Daedalus());
         $player->setPlace($room);
+        $room->setDaedalus($player->getDaedalus());
         $date = new \DateTime();
 
         $action

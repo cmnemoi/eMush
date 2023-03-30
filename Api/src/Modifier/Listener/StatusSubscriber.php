@@ -142,62 +142,22 @@ class StatusSubscriber implements EventSubscriberInterface
 
     private function getDaedalus(StatusHolderInterface $statusHolder): Daedalus
     {
-        switch (true) {
-            case $statusHolder instanceof Player:
-                return $statusHolder->getDaedalus();
-            case $statusHolder instanceof Place:
-                return $statusHolder->getDaedalus();
-            case $statusHolder instanceof GameEquipment:
-                return $statusHolder->getDaedalus();
-            default:
-                throw new \LogicException('unknown statusholder type');
-        }
+        return $statusHolder->getDaedalus();
     }
 
-    private function getPlace(StatusHolderInterface $statusHolder): Place
+    private function getPlace(StatusHolderInterface $statusHolder): ?Place
     {
-        switch (true) {
-            case $statusHolder instanceof Player:
-                return $statusHolder->getPlace();
-            case $statusHolder instanceof Place:
-                return $statusHolder;
-            case $statusHolder instanceof GameEquipment:
-                return $statusHolder->getPlace();
-            default:
-                throw new \LogicException('unknown statusholder type');
-        }
+        return $statusHolder->getPlace();
     }
 
     private function getPlayer(StatusHolderInterface $statusHolder): ?Player
     {
-        switch (true) {
-            case $statusHolder instanceof Player:
-                return $statusHolder;
-            case $statusHolder instanceof Place:
-                return null;
-            case $statusHolder instanceof GameEquipment:
-                if (($player = $statusHolder->getHolder()) instanceof Player) {
-                    return $player;
-                } else {
-                    return null;
-                }
-                // no break
-            default:
-                throw new \LogicException('unknown statusholder type');
-        }
+        return $statusHolder->getPlayer();
     }
 
     private function getEquipment(StatusHolderInterface $statusHolder): ?GameEquipment
     {
-        switch (true) {
-            case $statusHolder instanceof Player:
-            case $statusHolder instanceof Place:
-                return null;
-            case $statusHolder instanceof GameEquipment:
-                return $statusHolder;
-            default:
-                throw new \LogicException('unknown statusholder type');
-        }
+        return $statusHolder->getGameEquipment();
     }
 
     private function createQuantityEvent(ModifierHolder $holder, GameModifier $modifier, \DateTime $time, array $eventReasons): void

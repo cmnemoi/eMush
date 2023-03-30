@@ -3,6 +3,7 @@
 namespace Mush\Game\ConfigData;
 
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\Enum\DifficultyEnum;
 
 /** @codeCoverageIgnore */
 class DifficultyConfigData
@@ -56,6 +57,11 @@ class DifficultyConfigData
                 EquipmentEnum::SHOWER => 25,
                 EquipmentEnum::FUEL_TANK => 25,
                 EquipmentEnum::OXYGEN_TANK => 25,
+            ],
+            'difficultyModes' => [
+                DifficultyEnum::NORMAL => 0,
+                DifficultyEnum::HARD => 4,
+                DifficultyEnum::VERY_HARD => 9,
             ],
         ],
     ];

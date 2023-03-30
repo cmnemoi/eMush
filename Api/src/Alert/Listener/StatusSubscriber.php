@@ -52,9 +52,6 @@ class StatusSubscriber implements EventSubscriberInterface
 
             case StatusEnum::FIRE:
                 $place = $event->getPlace();
-                if ($place === null) {
-                    throw new \RuntimeException('Place is required for fire status');
-                }
                 $this->alertService->handleFireStart($place);
 
                 return;
@@ -80,9 +77,6 @@ class StatusSubscriber implements EventSubscriberInterface
 
             case StatusEnum::FIRE:
                 $place = $event->getPlace();
-                if ($place === null) {
-                    throw new \RuntimeException('Place is required for fire status');
-                }
                 $this->alertService->handleFireStop($place);
 
                 return;

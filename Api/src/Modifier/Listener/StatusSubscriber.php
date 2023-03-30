@@ -145,7 +145,7 @@ class StatusSubscriber implements EventSubscriberInterface
         return $statusHolder->getDaedalus();
     }
 
-    private function getPlace(StatusHolderInterface $statusHolder): ?Place
+    private function getPlace(StatusHolderInterface $statusHolder): Place
     {
         return $statusHolder->getPlace();
     }

@@ -5,6 +5,7 @@ namespace Mush\Modifier\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Hunter\Entity\Hunter;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -35,6 +36,9 @@ class GameModifier
     #[ORM\ManyToOne(targetEntity: Daedalus::class)]
     private ?Daedalus $daedalus = null;
 
+    #[ORM\ManyToOne(targetEntity: Hunter::class)]
+    private ?Hunter $hunter = null;
+
     #[ORM\ManyToOne(targetEntity: ChargeStatus::class)]
     private ?ChargeStatus $charge = null;
 
@@ -50,6 +54,10 @@ class GameModifier
             $this->daedalus = $holder;
         } elseif ($holder instanceof GameEquipment) {
             $this->gameEquipment = $holder;
+        } elseif ($holder instanceof Hunter) {
+            $this->hunter = $holder;
+        } else {
+            throw new LogicException("this modifier don't have any valid holder");
         }
 
         $holder->addModifier($this);
@@ -75,6 +83,8 @@ class GameModifier
             return $this->daedalus;
         } elseif ($this->gameEquipment) {
             return $this->gameEquipment;
+        } elseif ($this->hunter) {
+            return $this->hunter;
         } else {
             throw new LogicException("this modifier don't have any valid holder");
         }

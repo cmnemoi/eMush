@@ -30,4 +30,13 @@ class HunterServiceCest extends AbstractFunctionalTest
         $I->assertCount(1, $this->daedalus->getAttackingHunters());
         $I->assertCount(1, $this->daedalus->getHunterPool());
     }
+
+    public function testMakeHuntersShoot(FunctionalTester $I)
+    {
+        $initialHull = $this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull();
+        $this->hunterService->putHuntersInPool($this->daedalus, 10);
+        $this->hunterService->unpoolHunters($this->daedalus, 10);
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+        $I->assertNotEquals($initialHull, $this->daedalus->getHull());
+    }
 }

@@ -14,6 +14,7 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -327,13 +328,13 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
         $asteroidCharge = new ChargeStatusConfig();
         $asteroidCharge
-            ->setStatusName(HunterStatusEnum::ASTEROID_CHARGE)
+            ->setStatusName(HunterStatusEnum::HUNTER_CHARGE)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setStartCharge(6)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
+            ->setDischargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
             ->setAutoRemove(true)
-            ->buildName(GameConfigEnum::DEFAULT)
+            ->buildName(GameConfigEnum::DEFAULT, HunterEnum::ASTEROID)
         ;
         $manager->persist($asteroidCharge);
 
@@ -343,7 +344,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setStartCharge(6)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
+            ->setDischargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
             ->setAutoRemove(true)
             ->buildName(GameConfigEnum::DEFAULT)
         ;

@@ -162,6 +162,10 @@ class HunterService implements HunterServiceInterface
 
     private function makeHunterShoot(Hunter $hunter): void
     {
+        if (!$hunter->canShoot()) {
+            return;
+        }
+
         $hunterDamage = $hunter->getHunterConfig()->getDamageRange();
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($hunterDamage->toArray());
         if (!$damage) {

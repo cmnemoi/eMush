@@ -844,8 +844,8 @@ class StatusConfigData
             'modifierConfigs' => [],
         ],
         [
-            'name' => HunterStatusEnum::ASTEROID_CHARGE . '_default',
-            'statusName' => HunterStatusEnum::ASTEROID_CHARGE,
+            'name' => HunterStatusEnum::HUNTER_CHARGE . '_asteroid_default',
+            'statusName' => HunterStatusEnum::HUNTER_CHARGE,
             'visibility' => VisibilityEnum::PUBLIC,
             'type' => 'charge_status_config',
             'chargeVisibility' => VisibilityEnum::PUBLIC,
@@ -853,7 +853,7 @@ class StatusConfigData
             'maxCharge' => 0,
             'startCharge' => 6,
             'dischargeStrategy' => 'none',
-            'autoRemove' => true,
+            'autoRemove' => false,
             'modifierConfigs' => [],
         ],
         [
@@ -866,7 +866,7 @@ class StatusConfigData
             'maxCharge' => 0,
             'startCharge' => 1,
             'dischargeStrategy' => 'none',
-            'autoRemove' => true,
+            'autoRemove' => false,
             'modifierConfigs' => [],
         ],
     ];

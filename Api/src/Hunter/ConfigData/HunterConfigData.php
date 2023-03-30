@@ -14,7 +14,6 @@ class HunterConfigData
             'hunterName' => HunterEnum::ASTEROID,
             'initialHealth' => 20,
             'initialStatuses' => [HunterStatusEnum::ASTEROID_CHARGE],
-            'initialArmor' => 0,
             'damageRange' => [
                 6 => 1,
             ],
@@ -30,7 +29,6 @@ class HunterConfigData
             'hunterName' => HunterEnum::DICE,
             'initialHealth' => 30,
             'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE],
-            'initialArmor' => 1,
             'damageRange' => [
                 3 => 1,
                 4 => 1,
@@ -49,7 +47,6 @@ class HunterConfigData
             'hunterName' => HunterEnum::HUNTER,
             'initialHealth' => 6,
             'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE],
-            'initialArmor' => 0,
             'damageRange' => [
                 2 => 1,
                 3 => 1,
@@ -67,7 +64,6 @@ class HunterConfigData
             'hunterName' => HunterEnum::SPIDER,
             'initialHealth' => 6,
             'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE],
-            'initialArmor' => 0,
             'damageRange' => [
                 1 => 1,
                 2 => 1,
@@ -85,7 +81,6 @@ class HunterConfigData
             'hunterName' => HunterEnum::TRAX,
             'initialHealth' => 10,
             'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE],
-            'initialArmor' => 0,
             'damageRange' => [
                 2 => 1,
                 3 => 1,

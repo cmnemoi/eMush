@@ -41,7 +41,6 @@ class HunterConfigDataLoader extends ConfigDataLoader
                 ->setName($hunterConfigData['name'])
                 ->setHunterName($hunterConfigData['hunterName'])
                 ->setInitialHealth($hunterConfigData['initialHealth'])
-                ->setInitialArmor($hunterConfigData['initialArmor'])
                 ->setDamageRange(new ProbaCollection($hunterConfigData['damageRange']))
                 ->setHitChance($hunterConfigData['hitChance'])
                 ->setDodgeChance($hunterConfigData['dodgeChance'])

@@ -36,7 +36,7 @@ interface StatusHolderInterface
 
     public function getName(): string;
 
-    public function getPlace(): ?Place;
+    public function getPlace(): Place;
 
     public function getPlayer(): ?Player;
 }

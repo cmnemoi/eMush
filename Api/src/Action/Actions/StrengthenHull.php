@@ -59,7 +59,7 @@ class StrengthenHull extends AttemptAction
                 $time
             );
 
-            $daedalusEvent->setPlayer($this->player);
+            $daedalusEvent->setAuthor($this->player);
             $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);
 
             $equipmentEvent = new InteractWithEquipmentEvent(

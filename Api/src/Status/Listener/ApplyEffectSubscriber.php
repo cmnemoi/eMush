@@ -31,7 +31,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
     public function onConsume(ApplyEffectEvent $event)
     {
         $drug = $event->getParameter();
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
 
         if (!$drug instanceof GameEquipment) {
             throw new UnexpectedTypeException($drug, Drug::class);

@@ -384,7 +384,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $daedalus->addPlayer($player);
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->withArgs(fn (PlayerEvent $event) => $event->getAuthor() === $player)
             ->once()
         ;
 
@@ -421,7 +421,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->withArgs(fn (PlayerEvent $event) => $event->getAuthor() === $player)
             ->once()
         ;
 
@@ -453,7 +453,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $daedalus->addPlayer($player);
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->withArgs(fn (PlayerEvent $event) => $event->getAuthor() === $player)
             ->once()
         ;
 

@@ -38,7 +38,7 @@ class ActionSubscriber implements EventSubscriberInterface
     public function onPreAction(ActionEvent $event): void
     {
         $action = $event->getAction();
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
 
         if ($action->getActionName() !== $this->getUpAction->getActionName() &&
             $lyingDownStatus = $player->getStatusByName(PlayerStatusEnum::LYING_DOWN)
@@ -57,7 +57,7 @@ class ActionSubscriber implements EventSubscriberInterface
     public function onPostAction(ActionEvent $event): void
     {
         $action = $event->getAction();
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
         $actionParameter = $event->getActionParameter();
 
         $this->actionSideEffectsService->handleActionSideEffect($action, $player, new \DateTime());

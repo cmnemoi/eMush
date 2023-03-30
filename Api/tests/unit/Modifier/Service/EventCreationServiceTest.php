@@ -97,7 +97,7 @@ class EventCreationServiceTest extends TestCase
         $this->assertInstanceOf(PlayerVariableEvent::class, $event);
         $this->assertEquals($player1->getVariableByName(PlayerVariableEnum::MOVEMENT_POINT), $event->getVariable());
         $this->assertEquals(1, $event->getQuantity());
-        $this->assertEquals($player1, $event->getPlayer());
+        $this->assertEquals($player1, $event->getAuthor());
 
         // range is a place
         $events = $this->service->createEvents($eventConfig, $place1, $player1, [], new \DateTime());
@@ -107,12 +107,12 @@ class EventCreationServiceTest extends TestCase
         $this->assertInstanceOf(PlayerVariableEvent::class, $event);
         $this->assertEquals($player1->getVariableByName(PlayerVariableEnum::MOVEMENT_POINT), $event->getVariable());
         $this->assertEquals(1, $event->getQuantity());
-        $this->assertEquals($player1, $event->getPlayer());
+        $this->assertEquals($player1, $event->getAuthor());
         $event = $events[1];
         $this->assertInstanceOf(PlayerVariableEvent::class, $event);
         $this->assertEquals($player2->getVariableByName(PlayerVariableEnum::MOVEMENT_POINT), $event->getVariable());
         $this->assertEquals(1, $event->getQuantity());
-        $this->assertEquals($player2, $event->getPlayer());
+        $this->assertEquals($player2, $event->getAuthor());
 
         // range is Daedalus
         $events = $this->service->createEvents($eventConfig, $daedalus, $player1, [], new \DateTime());
@@ -122,17 +122,17 @@ class EventCreationServiceTest extends TestCase
         $this->assertInstanceOf(PlayerVariableEvent::class, $event);
         $this->assertEquals($player1->getVariableByName(PlayerVariableEnum::MOVEMENT_POINT), $event->getVariable());
         $this->assertEquals(1, $event->getQuantity());
-        $this->assertEquals($player1, $event->getPlayer());
+        $this->assertEquals($player1, $event->getAuthor());
         $event = $events[1];
         $this->assertInstanceOf(PlayerVariableEvent::class, $event);
         $this->assertEquals($player2->getVariableByName(PlayerVariableEnum::MOVEMENT_POINT), $event->getVariable());
         $this->assertEquals(1, $event->getQuantity());
-        $this->assertEquals($player2, $event->getPlayer());
+        $this->assertEquals($player2, $event->getAuthor());
         $event = $events[2];
         $this->assertInstanceOf(PlayerVariableEvent::class, $event);
         $this->assertEquals($player3->getVariableByName(PlayerVariableEnum::MOVEMENT_POINT), $event->getVariable());
         $this->assertEquals(1, $event->getQuantity());
-        $this->assertEquals($player3, $event->getPlayer());
+        $this->assertEquals($player3, $event->getAuthor());
     }
 
     public function testCreatePlayerVariableEventsReverted()
@@ -172,7 +172,7 @@ class EventCreationServiceTest extends TestCase
         $this->assertInstanceOf(PlayerVariableEvent::class, $event);
         $this->assertEquals($player1->getVariableByName(PlayerVariableEnum::MOVEMENT_POINT), $event->getVariable());
         $this->assertEquals(-1, $event->getQuantity());
-        $this->assertEquals($player1, $event->getPlayer());
+        $this->assertEquals($player1, $event->getAuthor());
     }
 
     public function testCreateDaedalusVariableEvents()

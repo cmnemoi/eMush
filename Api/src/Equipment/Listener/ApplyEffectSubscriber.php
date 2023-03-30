@@ -42,7 +42,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
     public function onConsume(ApplyEffectEvent $consumeEvent)
     {
-        $player = $consumeEvent->getPlayer();
+        $player = $consumeEvent->getAuthor();
         $ration = $consumeEvent->getParameter();
 
         if (!$ration instanceof GameItem) {

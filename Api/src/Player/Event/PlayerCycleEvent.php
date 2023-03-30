@@ -7,6 +7,8 @@ use Mush\Player\Entity\Player;
 
 class PlayerCycleEvent extends AbstractGameEvent
 {
+    protected Player $player;
+
     public const PLAYER_NEW_CYCLE = 'player.new.cycle';
 
     public function __construct(
@@ -19,14 +21,15 @@ class PlayerCycleEvent extends AbstractGameEvent
         $this->player = $player;
     }
 
+    public function setPlayer(Player $player): self
+    {
+        $this->player = $player;
+
+        return $this;
+    }
+
     public function getPlayer(): Player
     {
-        $player = $this->player;
-
-        if ($player === null) {
-            throw new \Exception('applyEffectEvent should have a player');
-        }
-
-        return $player;
+        return $this->player;
     }
 }

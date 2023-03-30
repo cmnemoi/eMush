@@ -116,11 +116,12 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getGameEquipment();
         $holder = $equipment->getHolder();
+        $author = $event->getAuthor();
 
         if ($holder instanceof Player) {
             $equipment->setHolder($holder->getPlace());
-        } else {
-            $equipment->setHolder($event->getAuthor());
+        } elseif ($author instanceof Player) {
+            $equipment->setHolder($author);
         }
 
         $this->gameEquipmentService->persist($equipment);

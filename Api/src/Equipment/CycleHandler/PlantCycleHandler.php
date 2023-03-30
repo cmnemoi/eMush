@@ -157,7 +157,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         // Create a new hydropot
         $equipmentEvent = new InteractWithEquipmentEvent(
             $gamePlant,
-            $place,
+            null,
             VisibilityEnum::PUBLIC,
             [PlantLogEnum::PLANT_DEATH],
             $dateTime

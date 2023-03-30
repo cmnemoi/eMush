@@ -118,7 +118,7 @@ class ChannelServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (ChannelEvent $event) => ($event->getPlayer() === $player))
+            ->withArgs(fn (ChannelEvent $event) => ($event->getAuthor() === $player))
             ->once()
         ;
 
@@ -137,7 +137,7 @@ class ChannelServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (ChannelEvent $event) => ($event->getPlayer() === $player && $event->getChannel() === $channel))
+            ->withArgs(fn (ChannelEvent $event) => ($event->getAuthor() === $player && $event->getChannel() === $channel))
             ->once()
         ;
 
@@ -153,7 +153,7 @@ class ChannelServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (ChannelEvent $event) => ($event->getPlayer() === $player && $event->getChannel() === $channel))
+            ->withArgs(fn (ChannelEvent $event) => ($event->getAuthor() === $player && $event->getChannel() === $channel))
             ->once()
         ;
 

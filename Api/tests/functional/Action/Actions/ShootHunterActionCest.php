@@ -9,10 +9,13 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 
 class ShootHunterActionCest extends AbstractFunctionalTest
 {
@@ -32,6 +35,24 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $I->refreshEntities($this->action);
 
         $this->shootHunterAction = $I->grabService(ShootHunter::class);
+    }
+
+    public function testShootHunterNoAttackingHunters(FunctionalTester $I)
+    {
+        $this->action->setSuccessRate(101);
+        $I->refreshEntities($this->action);
+
+        $turretConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'turret_command_default']);
+        $turret = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $turret
+            ->setName('turret')
+            ->setEquipment($turretConfig)
+        ;
+        $I->haveInRepository($turret);
+
+        $this->shootHunterAction->loadParameters($this->action, $this->player1, $turret);
+
+        $I->assertFalse($this->shootHunterAction->isVisible());
     }
 
     public function testShootHunterSuccess(FunctionalTester $I)
@@ -66,6 +87,13 @@ class ShootHunterActionCest extends AbstractFunctionalTest
             $this->player1->getActionPoint(),
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
         );
+        $I->seeInRepository(RoomLog::class, [
+            'place' => RoomEnum::LABORATORY,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => ActionLogEnum::SHOOT_HUNTER_SUCCESS,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
     }
 
     public function testShootHunterFail(FunctionalTester $I)
@@ -101,5 +129,12 @@ class ShootHunterActionCest extends AbstractFunctionalTest
             $this->player1->getActionPoint(),
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
         );
+        $I->seeInRepository(RoomLog::class, [
+            'place' => RoomEnum::LABORATORY,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => ActionLogEnum::SHOOT_HUNTER_FAIL,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
     }
 }

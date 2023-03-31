@@ -71,7 +71,9 @@ abstract class GameVariableCollection
     {
         $variable = $this->getVariableByName($name);
 
-        $variable->setValue($value);
+        $delta = $value + $variable->getValue();
+
+        $variable->changeValue($delta);
 
         return $variable;
     }

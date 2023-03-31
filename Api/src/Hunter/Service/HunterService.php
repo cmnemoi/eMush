@@ -39,8 +39,6 @@ class HunterService implements HunterServiceInterface
         $gameVariable = $hunter->getVariableByName($variableName);
 
         $newVariableValuePoint = $gameVariable->getValue() + $change;
-        $maxVariableValuePoint = $gameVariable->getMaxValue();
-        $newVariableValuePoint = $this->getValueInInterval($newVariableValuePoint, 0, $maxVariableValuePoint);
 
         $hunter->setVariableValueByName($newVariableValuePoint, $variableName);
 
@@ -155,17 +153,6 @@ class HunterService implements HunterServiceInterface
         }
 
         return current($this->randomService->getRandomElements($hunterTypes->toArray(), 1));
-    }
-
-    private function getValueInInterval(int $value, ?int $min, ?int $max): int
-    {
-        if ($max !== null && $value > $max) {
-            return $max;
-        } elseif ($min !== null && $value < $min) {
-            return $min;
-        }
-
-        return $value;
     }
 
     private function persistAndFlush(array $objects): void

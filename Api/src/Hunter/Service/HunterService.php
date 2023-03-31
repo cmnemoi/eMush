@@ -21,22 +21,25 @@ use Mush\Hunter\Event\AbstractHunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusService;
 
 class HunterService implements HunterServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
     private RandomServiceInterface $randomService;
+    private StatusService $statusService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
+        StatusService $statusService
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
         $this->randomService = $randomService;
+        $this->statusService = $statusService;
     }
 
     public function changeVariable(string $variableName, Hunter $hunter, int $change, \DateTime $date, Player $author): void
@@ -90,14 +93,14 @@ class HunterService implements HunterServiceInterface
         return $hunterPool;
     }
 
-    public function unpoolHunters(Daedalus $daedalus, int $nbHuntersToUnpool): void
+    public function unpoolHunters(Daedalus $daedalus, int $nbHuntersToUnpool, \DateTime $time): void
     {
         $hunterPool = $daedalus->getHunterPool();
 
         $nbHuntersToUnpool = min($nbHuntersToUnpool, $hunterPool->count());
 
         $huntersToUnpool = $this->randomService->getRandomHuntersInPool($hunterPool, $nbHuntersToUnpool);
-        $huntersToUnpool->map(fn ($hunter) => $this->unpoolHunter($hunter));
+        $huntersToUnpool->map(fn ($hunter) => $this->unpoolHunter($hunter, $time));
     }
 
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter
@@ -114,27 +117,22 @@ class HunterService implements HunterServiceInterface
 
         $this->persistAndFlush([$hunter, $daedalus]);
 
-        $this->createHunterStatuses($hunter);
-
-        $this->persistAndFlush([$hunter, $daedalus]);
-
         return $hunter;
     }
 
-    private function createHunterStatuses(Hunter $hunter): void
+    private function createHunterStatuses(Hunter $hunter, \DateTime $time): void
     {
         $hunterConfig = $hunter->getHunterConfig();
         $statuses = $hunterConfig->getInitialStatuses();
 
         /** @var StatusConfig $statusConfig */
         foreach ($statuses as $statusConfig) {
-            $statusAppliedEvent = new StatusEvent(
-                $statusConfig->getStatusName(),
+            $this->statusService->createStatusFromConfig(
+                $statusConfig,
                 $hunter,
                 [HunterPoolEvent::UNPOOL_HUNTERS],
-                new \DateTime()
+                $time
             );
-            $this->eventService->callEvent($statusAppliedEvent, StatusEvent::STATUS_APPLIED);
         }
     }
 
@@ -222,9 +220,10 @@ class HunterService implements HunterServiceInterface
         $this->eventService->callEvent($daedalusVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function unpoolHunter(Hunter $hunter): void
+    private function unpoolHunter(Hunter $hunter, \DateTime $time): void
     {
         $hunter->unpool();
+        $this->createHunterStatuses($hunter, $time);
         $this->persistAndFlush([$hunter]);
     }
 }

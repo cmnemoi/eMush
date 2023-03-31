@@ -17,7 +17,6 @@ use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -243,12 +242,6 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
 
     public function canShoot(): bool
     {
-        /** @var ChargeStatus $charge */
-        $charge = $this->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
-        if (!$charge) {
-            throw new \Exception('Hunter shoudl have a charge status');
-        }
-
-        return $charge->getCharge() <= 0;
+        return !$this->hasStatus(HunterStatusEnum::HUNTER_CHARGE);
     }
 }

@@ -17,5 +17,5 @@ interface HunterServiceInterface
 
     public function putHuntersInPool(Daedalus $daedalus, int $nbHuntersToPutInPool): HunterCollection;
 
-    public function unpoolHunters(Daedalus $daedalus, int $nbHuntersToUnpool): void;
+    public function unpoolHunters(Daedalus $daedalus, int $nbHuntersToUnpool, \DateTime $time): void;
 }

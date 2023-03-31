@@ -23,7 +23,7 @@ class HunterSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            HunterEvent::HUNTER_DEATH => ['onHunterDeath', -100],
+            HunterEvent::HUNTER_DEATH => 'onHunterDeath',
             HunterPoolEvent::UNPOOL_HUNTERS => 'onUnpoolHunters',
             HunterPoolEvent::POOL_HUNTERS => 'onPoolHunters',
         ];

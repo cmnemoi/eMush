@@ -70,7 +70,9 @@ class HunterService implements HunterServiceInterface
     public function killHunter(Hunter $hunter): void
     {
         $daedalus = $hunter->getDaedalus();
-        $this->removeAndFlush([$hunter]);
+
+        $daedalus->getAttackingHunters()->removeElement($hunter);
+        $this->entityManager->remove($hunter);
         $this->persistAndFlush([$daedalus]);
     }
 

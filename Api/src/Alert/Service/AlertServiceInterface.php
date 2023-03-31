@@ -7,7 +7,6 @@ use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Hunter\Entity\Hunter;
 use Mush\Place\Entity\Place;
 
 interface AlertServiceInterface
@@ -44,7 +43,7 @@ interface AlertServiceInterface
 
     public function handleHunterArrival(Daedalus $daedalus): void;
 
-    public function handleHunterDeath(Hunter $hunter): void;
+    public function handleHunterDeath(Daedalus $daedalus): void;
 
     public function handleSatietyAlert(Daedalus $daedalus): void;
 

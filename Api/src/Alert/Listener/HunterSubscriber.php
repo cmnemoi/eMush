@@ -27,7 +27,8 @@ class HunterSubscriber implements EventSubscriberInterface
 
     public function onHunterDeath(HunterEvent $event): void
     {
-        $this->alertService->handleHunterDeath($event->getHunter());
+        $daedalus = $event->getHunter()->getDaedalus();
+        $this->alertService->handleHunterDeath($daedalus);
     }
 
     public function onUnpoolHunters(HunterPoolEvent $event): void

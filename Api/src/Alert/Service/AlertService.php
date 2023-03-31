@@ -12,7 +12,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Hunter\Entity\Hunter;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\StatusEnum;
 use Psr\Log\LoggerInterface;
@@ -298,10 +297,8 @@ class AlertService implements AlertServiceInterface
         $this->persist($alert);
     }
 
-    public function handleHunterDeath(Hunter $hunter): void
+    public function handleHunterDeath(Daedalus $daedalus): void
     {
-        $daedalus = $hunter->getDaedalus();
-
         $alert = $this->findByNameAndDaedalus(AlertEnum::HUNTER, $daedalus);
 
         if ($alert === null) {

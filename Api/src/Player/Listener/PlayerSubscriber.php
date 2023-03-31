@@ -51,6 +51,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             $this->logger->warning($exception->getMessage(), [
                 'trace' => $exception->getTraceAsString(),
             ]);
+
             return;
         }
 

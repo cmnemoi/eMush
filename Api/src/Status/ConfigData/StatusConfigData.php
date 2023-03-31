@@ -853,7 +853,7 @@ class StatusConfigData
             'maxCharge' => 0,
             'startCharge' => 6,
             'dischargeStrategy' => 'none',
-            'autoRemove' => false,
+            'autoRemove' => true,
             'modifierConfigs' => [],
         ],
         [
@@ -866,7 +866,7 @@ class StatusConfigData
             'maxCharge' => 0,
             'startCharge' => 1,
             'dischargeStrategy' => 'none',
-            'autoRemove' => false,
+            'autoRemove' => true,
             'modifierConfigs' => [],
         ],
     ];

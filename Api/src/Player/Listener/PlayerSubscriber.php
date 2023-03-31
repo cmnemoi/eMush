@@ -48,7 +48,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         if (!$player->isAlive()) {
             $exception = new \LogicException('Player is already dead');
-            $this->logger->info($exception->getMessage(), [
+            $this->logger->warning($exception->getMessage(), [
                 'trace' => $exception->getTraceAsString(),
             ]);
             return;

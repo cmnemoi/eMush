@@ -76,7 +76,14 @@ class GameVariable
     }
 
     public function setValue(int $value): static
-    {
+    {   
+        if ($this->maxValue) {
+            $value = min($value, $this->maxValue);
+        }
+        if ($this->minValue) {
+            $value = max($value, $this->minValue);
+        }
+
         $this->value = $value;
 
         return $this;

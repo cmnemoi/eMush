@@ -37,10 +37,7 @@ class HunterService implements HunterServiceInterface
     public function changeVariable(string $variableName, Hunter $hunter, int $change, \DateTime $date, Player $author): void
     {
         $gameVariable = $hunter->getVariableByName($variableName);
-
         $newVariableValuePoint = $gameVariable->getValue() + $change;
-        $maxVariableValuePoint = $gameVariable->getMaxValue();
-        $newVariableValuePoint = $this->getValueInInterval($newVariableValuePoint, 0, $maxVariableValuePoint);
 
         $hunter->setVariableValueByName($newVariableValuePoint, $variableName);
 

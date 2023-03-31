@@ -51,7 +51,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             $this->logger->info($exception->getMessage(), [
                 'trace' => $exception->getTraceAsString(),
             ]);
-            throw $exception;
+            return;
         }
 
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);

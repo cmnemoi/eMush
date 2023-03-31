@@ -5,6 +5,7 @@ namespace Mush\Hunter\Listener;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Hunter\Service\HunterServiceInterface;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -31,14 +32,14 @@ class HunterSubscriber implements EventSubscriberInterface
     public function onHunterDeath(HunterEvent $event): void
     {
         $hunter = $event->getHunter();
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
 
         if (!$player) {
             throw new \Exception('HunterEvent should have a Player');
         }
 
         $this->roomLogService->createLog(
-            'hunter_death',
+            LogEnum::HUNTER_DEATH,
             $player->getPlace(),
             $event->getVisibility(),
             'event_log',

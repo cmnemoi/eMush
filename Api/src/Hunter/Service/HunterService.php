@@ -53,7 +53,7 @@ class HunterService implements HunterServiceInterface
                         [HunterEvent::HUNTER_DEATH],
                         $date
                     );
-                    $hunterDeathEvent->setPlayer($author);
+                    $hunterDeathEvent->setAuthor($author);
                     $this->eventService->callEvent($hunterDeathEvent, HunterEvent::HUNTER_DEATH);
                 }
 

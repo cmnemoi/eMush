@@ -57,7 +57,7 @@ class ShootHunter extends AttemptAction
 
         $hunter = $daedalus->getAttackingHunters()->first();
         if (!$hunter) {
-            throw new \Exception('This should be attacking hunters if ShootHunter action is available.');
+            throw new \Exception('There should be attacking hunters if ShootHunter action is available.');
         }
 
         $hunterVariableEvent = new HunterVariableEvent(
@@ -67,7 +67,7 @@ class ShootHunter extends AttemptAction
             $this->getAction()->getActionTags(),
             new \DateTime()
         );
-        $hunterVariableEvent->setPlayer($this->player);
+        $hunterVariableEvent->setAuthor($this->player);
 
         $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }

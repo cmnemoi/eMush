@@ -33,7 +33,7 @@ class HunterVariableSubscriber implements EventSubscriberInterface
         $hunter = $event->getHunter();
         $date = $event->getTime();
         $change = $event->getQuantity();
-        $author = $event->getPlayer();
+        $author = $event->getAuthor();
         if (!$author) {
             throw new \Exception('HunterVariableEvent should have an author');
         }

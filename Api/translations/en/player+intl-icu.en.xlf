@@ -31,7 +31,7 @@ It is a precious resource: to regain it quickly, you can eat some fruit or consu
       <segment id="description" state="translated">
         <source>actionPoint.description</source>
         <target>You earn *Action Points* (:pa:) and *Movement Points* (:pm:) every *new cycle* and by eating *cooked rations*.
-Currently you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
+Currently, you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
       </segment>
     </unit>
     <unit id="triumph">

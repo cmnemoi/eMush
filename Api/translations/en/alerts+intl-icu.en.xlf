@@ -60,7 +60,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>low_oxygen.description</source>
-        <target>**Less than 1 day**'s supply of oxygen remaining! If this situation doesn\t change soon, the crew will die.</target>
+        <target>**Less than 1 day**'s supply of oxygen remaining! If this situation doesn't change soon, the crew will die.</target>
       </segment>
     </unit>
     <unit id="outcast">

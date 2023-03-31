@@ -33,9 +33,9 @@
     <unit id="awaken">
       <segment state="translated">
         <source>awaken</source>
-        <target>{character_gender, select,
-                    male {**{character}** s'est éveillé de son si doux sommeil.}
-                    female {**{character}** s'est éveillée de son si doux sommeil.}
+        <target>{target_character_gender, select,
+                    male {**{target_character}** s'est éveillé de son si doux sommeil.}
+                    female {**{target_character}** s'est éveillée de son si doux sommeil.}
                     other {invalid gender input}
                 }</target>
       </segment>
@@ -97,9 +97,9 @@
     <unit id="death">
       <segment state="translated">
         <source>death</source>
-        <target>{character_gender, select,
-                        male {:dead: **{character}** est mort. Cause : {end_cause}.}
-                        female {:dead: **{character}** est morte. Cause : {end_cause}.}
+        <target>{target_character_gender, select,
+                        male {:dead: **{target_character}** est mort. Cause : {end_cause}.}
+                        female {:dead: **{target_character}** est morte. Cause : {end_cause}.}
                         other {invalid gender input}
                 }</target>
       </segment>
@@ -151,9 +151,9 @@
     <unit id="metal_plate">
       <segment state="translated">
         <source>metal_plate</source>
-        <target>{character_gender, select,
-                    male {Un tremblement soudain projette une grosse plaque de métal sur **{character}**. Il est grièvement blessé !}
-                    female {Un tremblement soudain projette une grosse plaque de métal sur **{character}**. Elle est grièvement blessée !}
+        <target>{target_character_gender, select,
+                    male {Un tremblement soudain projette une grosse plaque de métal sur **{target_character}**. Il est grièvement blessé !}
+                    female {Un tremblement soudain projette une grosse plaque de métal sur **{target_character}**. Elle est grièvement blessée !}
                     other {invalid gender input}
                 }</target>
       </segment>

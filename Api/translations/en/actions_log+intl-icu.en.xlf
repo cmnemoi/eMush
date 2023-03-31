@@ -500,7 +500,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>{version, select,
     1 {OK guys, this isn't working at all. You seem convinced that the Mush will commit suicide from despair. I remind you that we must study it first, so a little pessimism is ok, yeah?}
     2 {Greetings! Apologies for my looks, I just got out of the shower. I am convinced that the solution to our problems lies in the proper utilization of the Swedish Sofa that can be found on board. We must penetrate the defenses of the Mush and silence them!}
-    3 {Fellow crew members, we have been charged with a mission the greatness of which is yet to be surpassed, and we have the means to succeed! The FDS knows this only too well, why else would they attack us?}
+    3 {Fellow crew members, we have been charged with a mission the greatness of which is yet to be surpassed, and we have the means to succeed! The SDF knows this only too well, why else would they attack us?}
     4 {Comrades, have confidence! The Mush are trying to divide us and to demoralize us but their attempts shall be in vain if we remain united. I can feel that we will emerge victorious from this conflict. A bright future awaits us.}
     5 {Comrades! Our destiny is to save humanity... We are the hope that the martyrs of Sol have been waiting for and we will prove ourselves worthy of their legacy! We are the future and we shall advance until the end of time!}
     6 {Comrades! Raise your head and don't give up hope! Victory is near. We shall triumph. Indeed, we are about to… uh… to… Aw crap, can someone help me decipher the rest of this speech copy?}
@@ -510,13 +510,13 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     10 {Should the attacks not cease and should the whole world not survive this epos, we may yet be proud to be the crew that vanguards the last hope to the edge of space, to the promised land. Never forget: We are the FUTURE!}
     11 {My friends, the hour is perilous, I'm not going to hide it from you. But where others give up, WE will know how to make a difference, because WE are the cream of the crop and such is our duty!}
     12 {Do not forget that we have been chosen amongst all to save humanity. No one is better-suited than us. Remember all of those who remained at the mercy of the Mush to make this voyage possible. Do not let them down!}
-    13 {We have been and may still be overwhelmed by the force of the mushrooms! But has the final word been spoken? Should hope disappear? Is our defeat final? No! The flame of the resistance must not be snuffed out, and will not be snuffed out.}
+    13 {We have been, and may still be overwhelmed by the force of the mushrooms! But has the final word been spoken? Should hope disappear? Is our defeat final? No! The flame of resistance must not be snuffed out, and will not be snuffed out.}
     14 {Your situation may seem hopeless. Some of you may have lost familiy and friends, but know that you are the lucky ones! Why, you ask? Because you've got me as your superior!}
     15 {Pull yourselves together, you bunch of downers! The enemy is at our doorstep, but we shall atomize it! The Mush won't get us. We will crush them like common mushrooms. We are the best, we will emerge victorious!}
     16 {Tap, tap, tap, 1, 2, 1, 2, can you hear me? I'll make it nice and simple for you, slowpokes! Together with Stephen, we've prepared a maxi-sized chocolate cake for you, and I'm counting on all of you to dig in! Guaranteed laxative-free this time! TO THE TABLE!!!}
     17 {ALL TOGETHER! Hunter, if I catch ya, YOU DIE! Booooya! Mush, if I find ya, I'll PUT YOU DOWN! Booooya! Spores tremble from the sound of our booming cries! Booooya! Cuz' with the Deadalus, soon we will find cirruses, crocuses and other prunuses! Booooya!}
     18 {You may start to worry when the Mush infect me, but for at the moment you don't have to, because with me, NOTHING is going to happen to you! But if they should ever get me, then, and only then, you will have no hope.}
-    19 {You, who are much more than my subordinates, I am telling you: Despite the crushing weight of our responsibility, I am proud as ever to lead a crew like no other on such a noble destiny!}
+    19 {You, who are much more than my subordinates, I am telling you: Despite the crushing weight of our responsibility, I am proud as ever to lead a crew like no other to such a noble destiny!}
     other {Comrades! Our destiny is to save humanity... We are the hope that the last Martyrs of Sol were waiting for and we will show that we are worthy of their memoirs! We are the future and we will fight until the end of time!}
 }</target>
       </segment>
@@ -600,7 +600,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     1 {**{character}** thrusts at **{target_character}** with flair.}
     2 {**{character}** plunges their blade into one of **{target_character}**'s joints.}
     3 {**{character}** carves a chunk out of **{target_character}**, it's gross...}
-    4 {Despite a good dodge, **{character}** has lost a little blood.}
+    4 {Despite a good dodge, **{target_character}** has lost a little blood.}
     5 {**{character}**'s adeptly wielded blade makes a huge gash in **{target_character}**.}
     other {**{character}** thrusts at **{target_character}** with flair.}
 }</target>
@@ -614,19 +614,19 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
 	2 {Crash! **{character}**'s weapon elegantly avoids **{target_character}** and instead crashes against a concrete bystander.}
 	3 {{character_gender, select,
 		male {{target_character_gender, select,
-			male {**{target_character}** turns to **{character}**, who threatens him with his blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
-			female {**{target_character}** turns to **{character}**, who threatens her with his blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
-			other {**{target_character}** turns to **{character}**, who threatens them with his blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
+			male {**{target_character}** turns to **{character}**, who threatens him with his blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds himself feeling dizzy...}
+			female {**{target_character}** turns to **{character}**, who threatens her with his blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds himself feeling dizzy...}
+			other {**{target_character}** turns to **{character}**, who threatens them with his blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds himself feeling dizzy...}
 				}}
 		female {{target_character_gender, select,
-			male {**{target_character}** turns to **{character}**, who threatens him with her blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
-			female {**{target_character}** turns to **{character}**, who threatens her with her blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
-			other {**{target_character}** turns to **{character}**, who threatens them with her blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
+			male {**{target_character}** turns to **{character}**, who threatens him with her blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds herself feeling dizzy...}
+			female {**{target_character}** turns to **{character}**, who threatens her with her blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds herself feeling dizzy...}
+			other {**{target_character}** turns to **{character}**, who threatens them with her blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds herself feeling dizzy...}
 				}}
 		other {{target_character_gender, select,
-			male {**{target_character}** turns to **{character}**, who threatens him with their blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
-			female {**{target_character}** turns to **{character}**, who threatens her with their blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
-			other {**{target_character}** turns to **{character}**, who threatens them with their blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but doesn't feel so good...}
+			male {**{target_character}** turns to **{character}**, who threatens him with their blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds themselves feeling dizzy...}
+			female {**{target_character}** turns to **{character}**, who threatens her with their blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds themselves feeling dizzy...}
+			other {**{target_character}** turns to **{character}**, who threatens them with their blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds themselves feeling dizzy...}
 				}}
 		}}
 	4 {When attacking **{target_character}**, **{character}** trips on an imaginary carpet and misses the target.}
@@ -646,7 +646,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     1 {**{character}** thrusts at **{target_character}** with flair.}
     2 {**{character}** plunges their blade into one of **{target_character}**'s joints.}
     3 {**{character}** carves a chunk out of **{target_character}**, it's gross...}
-    4 {Despite a good dodge, **{character}** has lost a little blood.}
+    4 {Despite a good dodge, **{target_character}** has lost a little blood.}
     5 {**{character}**'s adeptly wielded blade makes a huge gash in **{target_character}**.}
     other {**{character}** thrusts at **{target_character}** with flair.}
 }</target>

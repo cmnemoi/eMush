@@ -209,6 +209,7 @@
 			"mode": "Calculation Mode",
 			"variableModifier": "Modificateur de variables",
 			"triggerEventModifier": "Déclencheurs d'événements",
+			"preventEventModifier": "Bloqueur d'événements",
 			"modifierRequirement": "Conditions d'activation",
 			"triggeredEvent": "Nom de l'événement déclenché",
 			"applyOnActionParameter": "Application uniquement sur cible d'action",
@@ -217,6 +218,13 @@
 			"tagConstraints": "Condition sur les tags de l'événement",
 			"directModifier": "Modificateur direct",
 			"modifierName": "Nom du modificateur"
+		},
+		"eventConfig": {
+			"name": "Nom",
+			"eventName": "Nom de l'évènement",
+			"quantity": "Quantité",
+			"targetVariable": "admin.eventConfig.targetVariable",
+			"variableHolderClass": "admin.eventConfig.variableHolderClass"
 		},
 		"modifierActivationRequirement": {
 			"name": "Name",
@@ -302,7 +310,8 @@
 			"electricArcPlayerDamage": "Electric arc damage on players (damage => probability)",
 			"tremorPlayerDamage": "Tremor damage on players (damage => probability)",
 			"metalPlatePlayerDamage": "Metal plate damage on players (damage => probability)",
-			"panicCrisisPlayerDamage": "Panic attack damage on players (damage => probability)"
+			"panicCrisisPlayerDamage": "Panic attack damage on players (damage => probability)",
+			"difficultyModes": "Modes de difficulté (nom => jour de déclenchement)"
 		},
 		"characterConfig": {
 			"name": "Name",
@@ -472,13 +481,6 @@
 			"isNotAllCrew": "Non earned by all crew",
 			"team": "Team"
 		},
-		"eventConfig": {
-			"name": "Nom",
-			"eventName": "Nom de l'évènement",
-			"quantity": "Quantité",
-			"targetVariable": "admin.eventConfig.targetVariable",
-			"variableHolderClass": "admin.eventConfig.variableHolderClass"
-		},
 		"newsList": {
 			"create": "Write a news",
 			"newsTitle": "Title",
@@ -491,6 +493,20 @@
 			"englishTitle": "English title",
 			"spanishTitle": "Spanish title",
 			"spanishContent": "Spanish content"
+		},
+		"hunterConfig": {
+			"name": "Nom complet",
+			"hunterName": "Nom",
+			"initialHealth": "Vie initiale",
+			"initialCharge": "Charges initiales",
+			"initialArmor": "Armure initiale",
+			"minDamage": "Dégâts minimaux",
+			"maxDamage": "Dégâts maximaux",
+			"hitChance": "Probabilité de toucher",
+			"dodgeChance": "Probabilité d'esquiver",
+			"drawCost": "Coût à tirer",
+			"maxPerWave": "Nombre maximum par vague",
+			"drawWeight": "Probabilité (poids) d'être tiré à chaque vague"
 		}
 	},
 	"charSelection": {

@@ -16,7 +16,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>sol_return.description</source>
-        <target>You decided to try to go back to Sol. The crazy journey of the Daedalus stops here. Does that mean that your destiny is now a legend?</target>
+        <target>You decided to try to go back to Sol. The crazy journey of the Daedalus ends here. Does that mean that your destiny is now a legend?</target>
       </segment>
     </unit>
     <unit id="eden">
@@ -124,7 +124,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>assassinated.description</source>
-        <target>Apparently you had enemies on board and not the kindest...</target>
+        <target>Apparently, you had enemies on board and not the kindest ones...</target>
       </segment>
     </unit>
     <unit id="depression">
@@ -160,7 +160,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>asphyxia.description</source>
-        <target>You suffocate from lack of oxygen. It's long and painful and frustrating too.</target>
+        <target>You suffocate from lack of oxygen. It's long and painful, and frustrating too.</target>
       </segment>
     </unit>
     <unit id="abandoned">
@@ -430,7 +430,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>quarantine.description</source>
-        <target>You committed a major offence in the game and NERON had to quarantine you, don't do it again.</target>
+        <target>You committed a major offense in the game and NERON had to quarantine you. Don't do it again.</target>
       </segment>
     </unit>
     <unit id="black_bite">
@@ -448,7 +448,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>black_bite.description</source>
-        <target>You are struck down by the Black Bite.</target>
+        <target>You succumbed to the Black Bite.</target>
       </segment>
     </unit>
     <unit id="metal_plate">

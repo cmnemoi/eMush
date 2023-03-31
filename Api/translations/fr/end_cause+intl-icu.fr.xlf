@@ -80,7 +80,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>super_nova.short_name</source>
-        <target>Mort à cause d'un Administrateur Taquin</target>
+        <target>Mort à cause d'un Administrateur taquin</target>
       </segment>
       <segment id="category" state="translated">
         <source>super_nova.category</source>

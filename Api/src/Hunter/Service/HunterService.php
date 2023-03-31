@@ -154,17 +154,6 @@ class HunterService implements HunterServiceInterface
         return current($this->randomService->getRandomElements($hunterTypes->toArray(), 1));
     }
 
-    private function getValueInInterval(int $value, ?int $min, ?int $max): int
-    {
-        if ($max !== null && $value > $max) {
-            return $max;
-        } elseif ($min !== null && $value < $min) {
-            return $min;
-        }
-
-        return $value;
-    }
-
     private function persistAndFlush(array $objects): void
     {
         foreach ($objects as $object) {

@@ -5,6 +5,7 @@ namespace Mush\Status\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Hunter\Entity\Hunter;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -77,6 +78,9 @@ class Status
         if ($place = $this->owner->getPlace()) {
             return $place;
         }
+        if ($hunter = $this->owner->getHunter()) {
+            return $hunter;
+        }
 
         throw new \LogicException('There should always be a target on a status target');
     }
@@ -91,6 +95,8 @@ class Status
             $statusOwner->setGameEquipment($owner);
         } elseif ($owner instanceof Place) {
             $statusOwner->setPlace($owner);
+        } elseif ($owner instanceof Hunter) {
+            $statusOwner->setHunter($owner);
         }
 
         $this->owner = $statusOwner;

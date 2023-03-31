@@ -343,8 +343,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(HunterStatusEnum::HUNTER_CHARGE)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setStartCharge(6)
-            ->setDischargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
+            ->setStartCharge(1)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
             ->setAutoRemove(true)
             ->buildName(GameConfigEnum::DEFAULT)
         ;

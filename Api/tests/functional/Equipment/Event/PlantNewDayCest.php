@@ -158,6 +158,7 @@ class PlantNewDayCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        $space = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'space']);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -321,6 +322,7 @@ class PlantNewDayCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        $space = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'space']);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -490,6 +492,7 @@ class PlantNewDayCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        $space = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'space']);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -658,6 +661,7 @@ class PlantNewDayCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        $space = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'space']);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -829,6 +833,7 @@ class PlantNewDayCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        $space = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'space']);
 
         /** @var User $user */
         $user = $I->have(User::class);

@@ -20,6 +20,7 @@ use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 
@@ -133,7 +134,7 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
 
     public function getSpace(): Place
     {
-        $space = $this->getPlaces()->filter(fn (Place $place) => $place->getType() === PlaceTypeEnum::SPACE)->first();
+        $space = $this->getPlaces()->filter(fn (Place $place) => $place->getName() === RoomEnum::SPACE)->first();
         if (!$space) {
             throw new \Exception('Daedalus should be in Space');
         }

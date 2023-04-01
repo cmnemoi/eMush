@@ -132,7 +132,7 @@ class CreateDaedalusCest
         $I->haveInRepository($door);
 
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
-        $hunterChargeStatus = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => HunterStatusEnum::HUNTER_CHARGE]);
+        $hunterChargeStatus = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => HunterStatusEnum::HUNTER_CHARGE . '_default']);
 
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->grabEntityFromRepository(DifficultyConfig::class, ['name' => 'default']);

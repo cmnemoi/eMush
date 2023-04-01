@@ -60,7 +60,7 @@ class HunterConfigDataLoader extends ConfigDataLoader
     {
         $statusConfigs = [];
         foreach ($hunterConfigData['initialStatuses'] as $statusConfigName) {
-            $statusConfig = $this->statusConfigRepository->findOneBy(['statusName' => $statusConfigName]);
+            $statusConfig = $this->statusConfigRepository->findOneBy(['name' => $statusConfigName]);
             if ($statusConfig === null) {
                 throw new \Exception('Status config not found: ' . $statusConfigName);
             }

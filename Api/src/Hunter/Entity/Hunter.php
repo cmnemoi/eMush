@@ -21,6 +21,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
+use Mush\Status\Enum\HunterStatusEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter')]
@@ -237,5 +238,10 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
     public function getPlayer(): null
     {
         return null;
+    }
+
+    public function canShoot(): bool
+    {
+        return !$this->hasStatus(HunterStatusEnum::HUNTER_CHARGE);
     }
 }

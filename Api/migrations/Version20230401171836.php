@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230330160646 extends AbstractMigration
+final class Version20230401171836 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -71,10 +71,10 @@ final class Version20230330160646 extends AbstractMigration
         $this->addSql('DROP TABLE hunter');
         $this->addSql('DROP TABLE hunter_config');
         $this->addSql('DROP TABLE hunter_config_status_config');
-        $this->addSql('DROP INDEX IDX_FB2587B1A7DC5C81');
-        $this->addSql('ALTER TABLE status_target DROP hunter_id');
         $this->addSql('ALTER TABLE config_difficulty DROP difficulty_modes');
         $this->addSql('DROP INDEX IDX_FB26DBA7DC5C81');
         $this->addSql('ALTER TABLE game_modifier DROP hunter_id');
+        $this->addSql('DROP INDEX IDX_FB2587B1A7DC5C81');
+        $this->addSql('ALTER TABLE status_target DROP hunter_id');
     }
 }

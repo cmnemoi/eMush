@@ -11,11 +11,11 @@ interface HunterServiceInterface
 {
     public function changeVariable(string $variableName, Hunter $hunter, int $change, \DateTime $date, Player $author): void;
 
-    public function makeHuntersShoot(HunterCollection $hunters): void;
+    public function makeHuntersShoot(HunterCollection $attackingHunters): void;
 
     public function killHunter(Hunter $hunter): void;
 
     public function putHuntersInPool(Daedalus $daedalus, int $nbHuntersToPutInPool): HunterCollection;
 
-    public function unpoolHunters(Daedalus $daedalus, int $nbHuntersToUnpool): void;
+    public function unpoolHunters(Daedalus $daedalus, int $nbHuntersToUnpool, \DateTime $time): void;
 }

@@ -23,6 +23,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -98,6 +99,7 @@ class CycleEventCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        $space = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::SPACE]);
 
         /** @var User $user */
         $user = $I->have(User::class);

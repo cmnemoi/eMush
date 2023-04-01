@@ -13,7 +13,7 @@ class HunterConfigData
             'name' => HunterEnum::ASTEROID . '_default',
             'hunterName' => HunterEnum::ASTEROID,
             'initialHealth' => 20,
-            'initialStatuses' => [HunterStatusEnum::ASTEROID_CHARGE],
+            'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE . '_asteroid_default'],
             'damageRange' => [
                 6 => 1,
             ],
@@ -28,7 +28,7 @@ class HunterConfigData
             'name' => HunterEnum::DICE . '_default',
             'hunterName' => HunterEnum::DICE,
             'initialHealth' => 30,
-            'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE],
+            'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE . '_default'],
             'damageRange' => [
                 3 => 1,
                 4 => 1,
@@ -46,7 +46,7 @@ class HunterConfigData
             'name' => HunterEnum::HUNTER . '_default',
             'hunterName' => HunterEnum::HUNTER,
             'initialHealth' => 6,
-            'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE],
+            'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE . '_default'],
             'damageRange' => [
                 2 => 1,
                 3 => 1,
@@ -63,7 +63,7 @@ class HunterConfigData
             'name' => HunterEnum::SPIDER . '_default',
             'hunterName' => HunterEnum::SPIDER,
             'initialHealth' => 6,
-            'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE],
+            'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE . '_default'],
             'damageRange' => [
                 1 => 1,
                 2 => 1,
@@ -80,7 +80,7 @@ class HunterConfigData
             'name' => HunterEnum::TRAX . '_default',
             'hunterName' => HunterEnum::TRAX,
             'initialHealth' => 10,
-            'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE],
+            'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE . '_default'],
             'damageRange' => [
                 2 => 1,
                 3 => 1,

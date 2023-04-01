@@ -34,7 +34,7 @@ class ActionDataLoaderCest
         $this->seeInRepositoryExtractSporeActionVariables($I);
 
         // check that we've loaded all the actions
-        $I->seeNumRecords(88, Action::class);
+        $I->seeNumRecords(90, Action::class);
     }
 
     public function testLoadConfigsDataConfigAlreadyExists(FunctionalTester $I)

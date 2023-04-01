@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230330111810 extends AbstractMigration
+final class Version20230330160646 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -44,6 +44,9 @@ final class Version20230330111810 extends AbstractMigration
         $this->addSql('ALTER TABLE hunter_config_status_config ADD CONSTRAINT FK_6A134A27AC4E86C2 FOREIGN KEY (status_config_id) REFERENCES status_config (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE config_difficulty ADD difficulty_modes TEXT NOT NULL');
         $this->addSql('COMMENT ON COLUMN config_difficulty.difficulty_modes IS \'(DC2Type:array)\'');
+        $this->addSql('ALTER TABLE game_modifier ADD hunter_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE game_modifier ADD CONSTRAINT FK_FB26DBA7DC5C81 FOREIGN KEY (hunter_id) REFERENCES hunter (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('CREATE INDEX IDX_FB26DBA7DC5C81 ON game_modifier (hunter_id)');
         $this->addSql('ALTER TABLE status_target ADD hunter_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE status_target ADD CONSTRAINT FK_FB2587B1A7DC5C81 FOREIGN KEY (hunter_id) REFERENCES hunter (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('CREATE INDEX IDX_FB2587B1A7DC5C81 ON status_target (hunter_id)');
@@ -53,6 +56,7 @@ final class Version20230330111810 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
+        $this->addSql('ALTER TABLE game_modifier DROP CONSTRAINT FK_FB26DBA7DC5C81');
         $this->addSql('ALTER TABLE status_target DROP CONSTRAINT FK_FB2587B1A7DC5C81');
         $this->addSql('DROP SEQUENCE hunter_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE hunter_config_id_seq CASCADE');
@@ -67,8 +71,10 @@ final class Version20230330111810 extends AbstractMigration
         $this->addSql('DROP TABLE hunter');
         $this->addSql('DROP TABLE hunter_config');
         $this->addSql('DROP TABLE hunter_config_status_config');
-        $this->addSql('ALTER TABLE config_difficulty DROP difficulty_modes');
         $this->addSql('DROP INDEX IDX_FB2587B1A7DC5C81');
         $this->addSql('ALTER TABLE status_target DROP hunter_id');
+        $this->addSql('ALTER TABLE config_difficulty DROP difficulty_modes');
+        $this->addSql('DROP INDEX IDX_FB26DBA7DC5C81');
+        $this->addSql('ALTER TABLE game_modifier DROP hunter_id');
     }
 }

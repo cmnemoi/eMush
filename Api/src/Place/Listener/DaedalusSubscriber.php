@@ -32,7 +32,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public function onDeleteDaedalus(DaedalusEvent $event): void
     {
         /** @var Place $place */
-        foreach ($event->getDaedalus()->getRooms() as $place) {
+        foreach ($event->getDaedalus()->getPlaces() as $place) {
             $deleteEvent = new RoomEvent(
                 $place,
                 $event->getTags(),

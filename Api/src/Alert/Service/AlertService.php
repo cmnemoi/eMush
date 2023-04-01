@@ -297,6 +297,19 @@ class AlertService implements AlertServiceInterface
         $this->persist($alert);
     }
 
+    public function handleHunterDeath(Daedalus $daedalus): void
+    {
+        $alert = $this->findByNameAndDaedalus(AlertEnum::HUNTER, $daedalus);
+
+        if ($alert === null) {
+            throw new \LogicException('there should be a hunter alert on this Daedalus');
+        }
+
+        if ($daedalus->getAttackingHunters()->isEmpty()) {
+            $this->delete($alert);
+        }
+    }
+
     public function handleSatietyAlert(Daedalus $daedalus): void
     {
         $totalSatiety = 0;

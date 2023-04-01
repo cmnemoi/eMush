@@ -12,6 +12,7 @@ use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
+use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -466,8 +467,17 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var ChargeStatusConfig $turretCharge */
         $turretCharge = $this->getReference(ChargeStatusFixtures::TURRET_CHARGE);
+        /** @var Action $shootHunterTurret */
+        $shootHunterTurret = $this->getReference(ActionsFixtures::SHOOT_HUNTER_TURRET);
 
-        $turretMechanic = $this->createTool([], EquipmentEnum::TURRET_COMMAND);
+        $turretMechanic = $this->createWeapon([$shootHunterTurret], EquipmentEnum::TURRET_COMMAND);
+        $turretMechanic->setBaseDamageRange(
+            [
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ]
+        );
 
         $turretCommand = new EquipmentConfig();
         $turretCommand
@@ -646,5 +656,17 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
 
         return $tool;
+    }
+
+    private function createWeapon(array $actions, string $name): Weapon
+    {
+        $weapon = new Weapon();
+
+        $weapon
+            ->setActions(new ArrayCollection($actions))
+            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . $name, GameConfigEnum::DEFAULT)
+        ;
+
+        return $weapon;
     }
 }

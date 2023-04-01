@@ -774,5 +774,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de se défouler un peu en tabassant des Spaces PewPewz. C'est si bon... par contre la dificulté est... mortelle !</target>
       </segment>
     </unit>
+    <unit id="shoot_hunter">
+      <segment id="name" state="final">
+        <source>shoot_hunter.name</source>
+        <target>Tirer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>shoot_hunter.description</source>
+        <target>Tire une charge de Telsatron sur un vaisseau ennemi.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

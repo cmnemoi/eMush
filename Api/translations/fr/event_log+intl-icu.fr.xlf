@@ -498,5 +498,11 @@
                     Vous ne serez plus jamais la même personne.</target>
       </segment>
     </unit>
+    <unit id="hunter_death">
+      <segment id="hunter_death" state="translated">
+        <source>hunter_death</source>
+        <target>:triumph: **{character}** effectue sa petite danse de la victoire pour un *{hunter} de moins*.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

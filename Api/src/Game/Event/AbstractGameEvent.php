@@ -10,7 +10,7 @@ class AbstractGameEvent extends Event
 {
     private string $eventName;
     private bool $isModified = false;
-    protected ?Player $player = null;
+    protected ?Player $author = null;
     protected \DateTime $time;
     protected array $tags;
 
@@ -42,16 +42,16 @@ class AbstractGameEvent extends Event
         return $this;
     }
 
-    public function setPlayer(?Player $player): self
+    public function setAuthor(?Player $author): self
     {
-        $this->player = $player;
+        $this->author = $author;
 
         return $this;
     }
 
-    public function getPlayer(): ?Player
+    public function getAuthor(): ?Player
     {
-        return $this->player;
+        return $this->author;
     }
 
     public function getTime(): \DateTime
@@ -110,7 +110,7 @@ class AbstractGameEvent extends Event
 
     public function getModifiers(): ModifierCollection
     {
-        $player = $this->player;
+        $player = $this->author;
 
         if ($player === null) {
             return new ModifierCollection();

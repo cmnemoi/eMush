@@ -47,20 +47,9 @@ class StatusSubscriber implements EventSubscriberInterface
         $this->createEventLog($logKey, $event);
 
         if ($holder instanceof Door && $statusName === EquipmentStatusEnum::BROKEN) {
-            if (!$room = $event->getPlace()) {
-                $exception = new \LogicException('loggable event should have a place');
-                $this->logger->error(
-                    $exception->getMessage(), [
-                        'daedalus' => $event->getDaedalus()->getId(),
-                        'trace' => $exception->getTraceAsString(),
-                    ]);
-
-                return;
-            }
-
             $this->roomLogService->createLog(
                 $logKey,
-                $holder->getOtherRoom($room),
+                $holder->getOtherRoom($event->getPlace()),
                 $event->getVisibility(),
                 'event_log',
                 null,
@@ -90,21 +79,9 @@ class StatusSubscriber implements EventSubscriberInterface
             $player = null;
         }
 
-        if (!$place = $event->getPlace()) {
-            $exception = new \LogicException('loggable event should have a place');
-            $this->logger->error(
-                $exception->getMessage(), [
-                    'daedalus' => $event->getDaedalus()->getId(),
-                    'player' => $player ? $player->getId() : null,
-                    'trace' => $exception->getTraceAsString(),
-                ]);
-
-            return;
-        }
-
         $this->roomLogService->createLog(
             $logKey,
-            $place,
+            $event->getPlace(),
             $event->getVisibility(),
             'event_log',
             $player,

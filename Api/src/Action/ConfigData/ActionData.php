@@ -1334,5 +1334,20 @@ class ActionData
             'percentageSuccess' => ['value' => 33, 'min_value' => 0, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
+        [
+            'name' => ActionEnum::SHOOT_HUNTER . '_turret',
+            'action_name' => ActionEnum::SHOOT_HUNTER,
+            'types' => [ActionTypeEnum::ACTION_SHOOT],
+            'target' => null,
+            'scope' => ActionScopeEnum::CURRENT,
+            'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::PUBLIC, ActionOutputEnum::FAIL => VisibilityEnum::PRIVATE],
+            'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 30, 'min_value' => 0, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+        ],
     ];
 }

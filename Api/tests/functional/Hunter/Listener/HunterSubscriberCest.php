@@ -4,17 +4,53 @@ namespace functional\Hunter\Listener;
 
 use App\Tests\AbstractFunctionalTest;
 use App\Tests\FunctionalTester;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Hunter\Listener\HunterSubscriber;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 
 class HunterSubscriberCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
+    private HunterSubscriber $hunterSubscriber;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->hunterSubscriber = $I->grabService(HunterSubscriber::class);
+    }
+
+    public function testOnHunterDeath(FunctionalTester $I)
+    {
+        $poolEvent = new HunterPoolEvent($this->daedalus, 1, ['test'], new \DateTime());
+        $this->eventService->callEvent($poolEvent, HunterPoolEvent::POOL_HUNTERS);
+        $unpoolEvent = new HunterPoolEvent($this->daedalus, 1, ['test'], new \DateTime());
+        $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+
+        $hunterDeathEvent = new HunterEvent(
+            $hunter,
+            VisibilityEnum::PUBLIC,
+            ['test'],
+            new \DateTime()
+        );
+        $hunterDeathEvent->setAuthor($this->player1);
+        $this->hunterSubscriber->onHunterDeath($hunterDeathEvent);
+
+        $I->assertEmpty($this->daedalus->getAttackingHunters());
+        $I->seeInRepository(RoomLog::class,
+            [
+                'place' => $this->player1->getPlace()->getName(),
+                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+                'playerInfo' => $this->player1->getPlayerInfo(),
+                'log' => LogEnum::HUNTER_DEATH,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]);
     }
 
     public function testOnPoolHunters(FunctionalTester $I)

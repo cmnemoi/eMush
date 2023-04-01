@@ -76,8 +76,8 @@ class AbstractFunctionalTest
 
         $I->refreshEntities($daedalusInfo);
 
-        $laboratory = $this->createLaboratory($I, $daedalus);
-        $daedalus->addPlace($laboratory);
+        $places = $this->createPlaces($I, $daedalus);
+        $daedalus->setPlaces($places);
 
         $daedalus->setDaedalusVariables($daedalusConfig);
 
@@ -119,7 +119,7 @@ class AbstractFunctionalTest
         return $players;
     }
 
-    protected function createLaboratory(FunctionalTester $I, Daedalus $daedalus): Place
+    protected function createPlaces(FunctionalTester $I, Daedalus $daedalus): ArrayCollection
     {
         /** @var PlaceConfig $laboratoryConfig */
         $laboratoryConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::LABORATORY]);
@@ -129,9 +129,18 @@ class AbstractFunctionalTest
             ->setType($laboratoryConfig->getType())
             ->setDaedalus($daedalus)
         ;
-
         $I->haveInRepository($laboratory);
 
-        return $laboratory;
+        /** @var PlaceConfig $spaceConfig */
+        $spaceConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::SPACE]);
+        $space = new Place();
+        $space
+            ->setName(RoomEnum::SPACE)
+            ->setType($spaceConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($space);
+
+        return new ArrayCollection([$laboratory, $space]);
     }
 }

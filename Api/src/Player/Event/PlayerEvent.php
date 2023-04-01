@@ -3,6 +3,7 @@
 namespace Mush\Player\Event;
 
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\RoomLog\Event\LoggableEventInterface;
@@ -41,9 +42,16 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
 
     public function getLogParameters(): array
     {
-        return [
-            $this->getPlayer()->getLogKey() => $this->getPlayer()->getLogName(),
+        $params = [
+            'target_' . $this->getPlayer()->getLogKey() => $this->getPlayer()->getLogName(),
         ];
+
+        $author = $this->getAuthor();
+        if ($author !== null) {
+            $params[$author->getLogKey()] = $author->getLogName();
+        }
+
+        return $params;
     }
 
     public function setCharacterConfig(CharacterConfig $characterConfig): self
@@ -56,5 +64,18 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
     public function getCharacterConfig(): ?CharacterConfig
     {
         return $this->characterConfig;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        $author = $this->getAuthor();
+
+        $modifiers = $this->getPlayer()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true);
+
+        if ($author !== null) {
+            $modifiers->addModifiers($author->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false));
+        }
+
+        return $modifiers;
     }
 }

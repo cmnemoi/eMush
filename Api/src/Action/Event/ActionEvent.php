@@ -23,15 +23,15 @@ class ActionEvent extends AbstractGameEvent
     public function __construct(Action $action, Player $player, ?LogParameterInterface $actionParameter)
     {
         $this->action = $action;
-        $this->player = $player;
+        $this->author = $player;
         $this->actionParameter = $actionParameter;
 
         parent::__construct($action->getActionTags(), new \DateTime());
     }
 
-    public function getPlayer(): Player
+    public function getAuthor(): Player
     {
-        $player = $this->player;
+        $player = $this->author;
         if ($player === null) {
             throw new \Exception('applyEffectEvent should have a player');
         }
@@ -63,7 +63,7 @@ class ActionEvent extends AbstractGameEvent
 
     public function getModifiers(): ModifierCollection
     {
-        $modifiers = $this->getPlayer()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false);
+        $modifiers = $this->getAuthor()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false);
 
         $parameter = $this->actionParameter;
         if ($parameter instanceof ModifierHolder) {

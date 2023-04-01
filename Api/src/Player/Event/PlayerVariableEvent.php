@@ -62,10 +62,10 @@ class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface,
 
     public function getLogParameters(): array
     {
-        return [
-            $this->getPlayer()->getLogKey() => $this->getPlayer()->getLogName(),
-            'quantity' => abs($this->quantity),
-        ];
+        $params = parent::getLogParameters();
+        $params['quantity'] = abs($this->quantity);
+
+        return $params;
     }
 
     public function getModifierHolder(): ModifierHolder

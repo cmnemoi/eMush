@@ -93,6 +93,8 @@ class ActionLogEnum
     public const SHOOT_CRITICAL_SUCCESS = 'shoot_critical_success';
     public const SHOOT_CRITICAL_FAIL = 'shoot_critical_fail';
     public const SHOOT_ONE_SHOT = 'shoot_one_shot';
+    public const SHOOT_HUNTER_SUCCESS = 'shoot_hunter_success';
+    public const SHOOT_HUNTER_FAIL = 'shoot_hunter_fail';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -325,6 +327,10 @@ class ActionLogEnum
         ActionEnum::PLAY_ARCADE => [
             ActionOutputEnum::SUCCESS => self::PLAY_ARCADE_SUCCESS,
             ActionOutputEnum::FAIL => self::PLAY_ARCADE_FAIL,
+        ],
+        ActionEnum::SHOOT_HUNTER => [
+            ActionOutputEnum::SUCCESS => self::SHOOT_HUNTER_SUCCESS,
+            ActionOutputEnum::FAIL => self::SHOOT_HUNTER_FAIL,
         ],
     ];
 }

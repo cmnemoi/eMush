@@ -52,8 +52,8 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->diseaseCauseService->handleSpoiledFood($event->getPlayer(), $equipment);
-        $this->diseaseCauseService->handleConsumable($event->getPlayer(), $equipment);
+        $this->diseaseCauseService->handleSpoiledFood($event->getAuthor(), $equipment);
+        $this->diseaseCauseService->handleConsumable($event->getAuthor(), $equipment);
     }
 
     /**
@@ -73,7 +73,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->playerDiseaseService->healDisease($event->getPlayer(), $diseaseToHeal, $event->getTags(), $event->getTime());
+        $this->playerDiseaseService->healDisease($event->getAuthor(), $diseaseToHeal, $event->getTags(), $event->getTime());
     }
 
     /**
@@ -111,7 +111,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             $event->getTags(),
             $event->getTime(),
             $event->getVisibility(),
-            $event->getPlayer(),
+            $event->getAuthor(),
         );
     }
 
@@ -136,7 +136,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
                 $event->getTags(),
                 $event->getTime(),
                 $event->getVisibility(),
-                $event->getPlayer()
+                $event->getAuthor()
             );
         }
     }

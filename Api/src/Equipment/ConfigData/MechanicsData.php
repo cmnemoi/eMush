@@ -2,6 +2,8 @@
 
 namespace Mush\Equipment\ConfigData;
 
+use Mush\Action\Enum\ActionEnum;
+
 /** @codeCoverageIgnore */
 class MechanicsData
 {
@@ -3163,6 +3165,37 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'dispense',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'weapon_turret_default',
+            'type' => 'weapon',
+            'craftedEquipmentName' => null,
+            'ingredients' => null,
+            'skill' => null,
+            'content' => null,
+            'isTranslated' => null,
+            'canShred' => null,
+            'plantName' => null,
+            'fruitName' => null,
+            'maturationTime' => null,
+            'oxygen' => null,
+            'moralPoints' => null,
+            'actionPoints' => null,
+            'movementPoints' => null,
+            'healthPoints' => null,
+            'satiety' => null,
+            'extraEffects' => null,
+            'isPerishable' => null,
+            'baseAccuracy' => 30,
+            'baseDamageRange' => [2 => 1, 3 => 1, 4 => 1],
+            'expeditionBonus' => 0,
+            'criticalSuccessRate' => 0,
+            'criticalFailRate' => 0,
+            'oneShotRate' => 0,
+            'actions' => [
+                ActionEnum::SHOOT_HUNTER . '_turret',
             ],
             'modifierConfigs' => [],
         ],

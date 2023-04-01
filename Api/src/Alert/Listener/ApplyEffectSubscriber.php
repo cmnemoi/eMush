@@ -35,7 +35,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
     public function onReportFire(ApplyEffectEvent $event): void
     {
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
         $place = $event->getPlace();
 
         $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::FIRES, $player->getDaedalus());
@@ -51,7 +51,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
     public function onReportEquipment(ApplyEffectEvent $event): void
     {
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
         $equipment = $event->getParameter();
         if (!$equipment instanceof GameEquipment) {
             throw new UnexpectedTypeException($equipment, GameEquipment::class);

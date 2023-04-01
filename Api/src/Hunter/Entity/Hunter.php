@@ -14,6 +14,7 @@ use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
@@ -35,8 +36,8 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
     #[ORM\ManyToOne(targetEntity: HunterConfig::class)]
     private HunterConfig $hunterConfig;
 
-    #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'hunters')]
-    private Daedalus $daedalus;
+    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'hunters')]
+    private Place $space;
 
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private HunterVariables $hunterVariables;
@@ -55,7 +56,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
 
     public function __construct(HunterConfig $hunterConfig, Daedalus $daedalus)
     {
-        $this->daedalus = $daedalus;
+        $this->space = $daedalus->getSpace();
         $this->hunterConfig = $hunterConfig;
         $this->modifiers = new ArrayCollection();
         $this->statuses = new ArrayCollection();
@@ -78,14 +79,14 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
         return $this;
     }
 
-    public function getDaedalus(): Daedalus
+    public function getSpace(): Place
     {
-        return $this->daedalus;
+        return $this->space;
     }
 
-    public function setDaedalus(Daedalus $daedalus): self
+    public function setSpace(Place $space): self
     {
-        $this->daedalus = $daedalus;
+        $this->space = $space;
 
         return $this;
     }
@@ -148,7 +149,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
         return $this->hunterVariables->hasVariable($variableName);
     }
 
-    public function sethunterVariables(HunterConfig $hunterConfig): static
+    public function setHunterVariables(HunterConfig $hunterConfig): static
     {
         $this->hunterVariables = new HunterVariables($hunterConfig);
 
@@ -184,6 +185,11 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
     public function getClassName(): string
     {
         return get_class($this);
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        return $this->space->getDaedalus();
     }
 
     public function getName(): string
@@ -223,9 +229,9 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
         return null;
     }
 
-    public function getPlace(): null
+    public function getPlace(): Place
     {
-        return null;
+        return $this->space;
     }
 
     public function getPlayer(): null

@@ -3,6 +3,7 @@
 namespace Mush\Tests\functional\Place\ConfigData;
 
 use App\Tests\FunctionalTester;
+use Mush\Place\ConfigData\PlaceConfigData;
 use Mush\Place\ConfigData\PlaceConfigDataLoader;
 use Mush\Place\Entity\PlaceConfig;
 
@@ -25,7 +26,7 @@ class PlaceConfigDataLoaderCest
             'type' => 'room',
         ]);
 
-        $I->seeNumRecords(27, PlaceConfig::class);
+        $I->seeNumRecords(count(PlaceConfigData::$dataArray), PlaceConfig::class);
     }
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)

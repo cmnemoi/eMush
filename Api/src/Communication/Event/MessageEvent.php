@@ -20,7 +20,7 @@ class MessageEvent extends AbstractGameEvent
 
         $author = $this->message->getAuthor();
         if ($author instanceof PlayerInfo) {
-            $this->player = $author->getPlayer();
+            $this->author = $author->getPlayer();
         }
     }
 

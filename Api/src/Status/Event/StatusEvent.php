@@ -87,7 +87,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         return $this->visibility;
     }
 
-    public function getPlace(): ?Place
+    public function getPlace(): Place
     {
         return $this->holder->getPlace();
     }

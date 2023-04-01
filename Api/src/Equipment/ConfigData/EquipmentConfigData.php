@@ -3083,7 +3083,7 @@ class EquipmentConfigData
                 'report_equipment',
                 'examine',
             ],
-            'mechanics' => [],
+            'mechanics' => ['weapon_turret_default'],
             'initStatuses' => [
                 'electric_charges_turret_command_default',
             ],

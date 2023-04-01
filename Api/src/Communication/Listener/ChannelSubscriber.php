@@ -51,7 +51,7 @@ class ChannelSubscriber implements EventSubscriberInterface
     {
         $channel = $event->getChannel();
 
-        if ($player = $event->getPlayer()) {
+        if ($player = $event->getAuthor()) {
             $this->channelService->invitePlayer($player, $channel);
         }
     }
@@ -60,7 +60,7 @@ class ChannelSubscriber implements EventSubscriberInterface
     {
         $channel = $event->getChannel();
 
-        if ($player = $event->getPlayer()) {
+        if ($player = $event->getAuthor()) {
             $this->channelPlayerService->addPlayer($player->getPlayerInfo(), $channel);
 
             $this->messageService->createSystemMessage(
@@ -76,7 +76,7 @@ class ChannelSubscriber implements EventSubscriberInterface
     {
         $channel = $event->getChannel();
 
-        if ($player = $event->getPlayer()) {
+        if ($player = $event->getAuthor()) {
             $this->channelPlayerService->removePlayer($player->getPlayerInfo(), $channel);
 
             $key = $event->mapLog(self::PLAYER_LEAVE_CHANNEL);

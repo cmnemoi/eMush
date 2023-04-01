@@ -55,8 +55,8 @@ class DaedalusVariableEvent extends DaedalusEvent implements VariableEventInterf
 
     public function getModifierHolder(): ModifierHolder
     {
-        if ($this->player !== null) {
-            return $this->player;
+        if ($this->author !== null) {
+            return $this->author;
         }
 
         return $this->daedalus;

@@ -90,12 +90,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         /* @var Player|null $player */
         if ($event instanceof InteractWithEquipmentEvent) {
-            $actor = $event->getAuthor();
-            if ($actor instanceof Player) {
-                $player = $actor;
-            } else {
-                $player = null;
-            }
+            $player = $event->getAuthor();
         } elseif ($event->isCreated()) {
             $holder = $event->getGameEquipment()->getHolder();
             if ($holder instanceof Player) {

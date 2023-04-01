@@ -3,7 +3,6 @@
 namespace Mush\Tests\functional\Equipment\ConfigData;
 
 use App\Tests\FunctionalTester;
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Equipment\ConfigData\MechanicsData;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
@@ -35,7 +34,7 @@ class WeaponDataLoaderCest
         }
 
         // TODO: find a way to grab only weapons
-        $I->seeNumRecords($this->getNumberOfWeapons(), Weapon::class);
+        $I->seeNumRecords(9, Weapon::class);
     }
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
@@ -70,19 +69,5 @@ class WeaponDataLoaderCest
         }, ARRAY_FILTER_USE_KEY);
 
         return $configData;
-    }
-
-    /**
-     * MechanicsData::$dataArray contains all the MechanicsData, including the ones that are not Weapon,
-     * so this method returns the number of Weapon in the array.
-     */
-    private function getNumberOfWeapons(): int
-    {
-        $configs = new ArrayCollection(MechanicsData::$dataArray);
-        $weapons = $configs->filter(function ($config) {
-            return $config['type'] === 'weapon';
-        });
-
-        return $weapons->count();
     }
 }

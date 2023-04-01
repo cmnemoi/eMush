@@ -73,7 +73,7 @@ class ActionSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
         $otherPlayersInRoom = $player->getPlace()->getPlayers()->filter(function ($otherPlayer) use ($player) {
             return $otherPlayer->getId() !== $player->getId();
         });
@@ -115,7 +115,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
     private function handlePostActionSymptoms(ActionEvent $event): void
     {
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
         $action = $event->getAction();
 
         $postActionSymptomConfigs = $this->getPlayerSymptomConfigs($player)->getTriggeredSymptoms([ActionEvent::POST_ACTION]);

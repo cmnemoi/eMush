@@ -26,7 +26,7 @@ class DaedalusCycleEvent extends AbstractGameEvent
 
     public function getModifiers(): ModifierCollection
     {
-        $player = $this->player;
+        $player = $this->author;
 
         if ($player === null) {
             return $this->getDaedalus()->getAllModifiers()->getEventModifiers($this);

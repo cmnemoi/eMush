@@ -51,6 +51,7 @@ class DaedalusConfigData
                 RoomEnum::REAR_ALPHA_STORAGE . '_default',
                 RoomEnum::CENTER_BRAVO_STORAGE . '_default',
                 RoomEnum::REAR_BRAVO_STORAGE . '_default',
+                RoomEnum::SPACE . '_default',
             ],
         ],
     ];

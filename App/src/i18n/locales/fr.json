@@ -481,13 +481,6 @@
 			"isNotAllCrew": "Non gagné par tout l'équipage",
 			"team": "Équipe"
 		},
-		"eventConfig": {
-			"name": "Nom",
-			"eventName": "Nom de l'événement",
-			"quantity": "Quantité",
-			"targetVariable": "Variable cible",
-			"variableHolderClass": "Entité porteuse de la variable"
-		},
 		"newsList": {
 			"create": "Écrire une news",
 			"newsTitle": "Titre",

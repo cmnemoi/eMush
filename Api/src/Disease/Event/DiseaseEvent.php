@@ -72,7 +72,7 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
             'character_gender' => CharacterEnum::isMale($this->playerDisease->getPlayer()->getName()) ? 'male' : 'female',
         ];
 
-        if (($author = $this->player) !== null) {
+        if (($author = $this->author) !== null) {
             $logParameters[$author->getLogKey()] = $author->getLogName();
         }
 
@@ -83,7 +83,7 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
     {
         $modifiers = $this->getTargetPlayer()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true);
 
-        $author = $this->player;
+        $author = $this->author;
         if ($author !== null) {
             $modifiers->addModifiers($author->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false));
         }

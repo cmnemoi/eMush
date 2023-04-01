@@ -29,7 +29,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
     public function onReportFire(ApplyEffectEvent $event): void
     {
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
         $daedalus = $player->getDaedalus();
         $place = $event->getPlace();
 
@@ -46,7 +46,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
     public function onReportEquipment(ApplyEffectEvent $event): void
     {
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
         $daedalus = $player->getDaedalus();
         $equipment = $event->getParameter();
 

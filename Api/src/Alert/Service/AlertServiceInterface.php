@@ -43,6 +43,8 @@ interface AlertServiceInterface
 
     public function handleHunterArrival(Daedalus $daedalus): void;
 
+    public function handleHunterDeath(Daedalus $daedalus): void;
+
     public function handleSatietyAlert(Daedalus $daedalus): void;
 
     public function isFireReported(Place $room): bool;

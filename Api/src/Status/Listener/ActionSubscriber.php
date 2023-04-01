@@ -26,7 +26,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
     public function onResultAction(ActionEvent $event): void
     {
-        $player = $event->getPlayer();
+        $player = $event->getAuthor();
 
         if (($actionResult = $event->getActionResult()) === null) {
             throw new \LogicException('actionResult should be provided');

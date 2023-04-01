@@ -996,5 +996,17 @@
         <target>OH OUIIIII. **{character}** a vaincu Xatator le boss du NIVEAUUUUU 10 !</target>
       </segment>
     </unit>
+    <unit id="shoot_hunter_success">
+      <segment id="shoot_hunter_success" state="translated">
+        <source>shoot_hunter_success</source>
+        <target>:hunter: Pool ! **{character}** a touché un **Hunter**.</target>
+      </segment>
+    </unit>
+    <unit id="shoot_hunter_fail">
+      <segment id="shoot_hunter_fail" state="translated">
+        <source>shoot_hunter_fail</source>
+        <target>Vous avez raté votre cible.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

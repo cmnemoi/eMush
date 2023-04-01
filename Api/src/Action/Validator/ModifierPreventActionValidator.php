@@ -2,13 +2,8 @@
 
 namespace Mush\Action\Validator;
 
-use Doctrine\Common\Collections\Collection;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Event\ActionEvent;
-use Mush\Disease\Entity\Config\SymptomActivationRequirement;
-use Mush\Disease\Enum\SymptomActivationRequirementEnum;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -34,7 +29,6 @@ class ModifierPreventActionValidator extends ConstraintValidator
         }
 
         $parameter = $value->getParameter();
-
 
         $preActionEvent = new ActionEvent($value->getAction(), $value->getPlayer(), $parameter);
         $canTriggerAction = $this->eventService->canEventTrigger($preActionEvent, ActionEvent::PRE_ACTION, false);

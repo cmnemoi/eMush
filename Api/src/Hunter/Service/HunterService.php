@@ -4,9 +4,9 @@ namespace Mush\Hunter\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -14,10 +14,10 @@ use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
-use Mush\Hunter\Enum\HunterVariableEnum;
-use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Enum\HunterTargetEnum;
+use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\AbstractHunterEvent;
+use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -68,11 +68,6 @@ class HunterService implements HunterServiceInterface
         $this->persistAndFlush([$hunter]);
     }
 
-    public function makeHuntersShoot(HunterCollection $attackingHunters): void
-    {
-        $attackingHunters->map(fn (Hunter $hunter) => $this->makeHunterShoot($hunter));
-    }
-
     public function killHunter(Hunter $hunter): void
     {
         $daedalus = $hunter->getDaedalus();
@@ -80,6 +75,11 @@ class HunterService implements HunterServiceInterface
         $daedalus->getAttackingHunters()->removeElement($hunter);
         $this->entityManager->remove($hunter);
         $this->persistAndFlush([$daedalus]);
+    }
+
+    public function makeHuntersShoot(HunterCollection $attackingHunters): void
+    {
+        $attackingHunters->map(fn (Hunter $hunter) => $this->makeHunterShoot($hunter));
     }
 
     public function putHuntersInPool(Daedalus $daedalus, int $nbHuntersToPutInPool): HunterCollection

@@ -4,7 +4,6 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
 use Mush\Modifier\Service\ModifierListenerService\PlayerModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -12,16 +11,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ActionSubscriber implements EventSubscriberInterface
 {
     private EquipmentModifierServiceInterface $equipmentModifierService;
-    private EventModifierServiceInterface $modifierService;
     private PlayerModifierServiceInterface $playerModifierService;
 
     public function __construct(
         EquipmentModifierServiceInterface $equipmentModifierService,
-        EventModifierServiceInterface $modifierService,
         PlayerModifierServiceInterface $playerModifierService
     ) {
         $this->equipmentModifierService = $equipmentModifierService;
-        $this->modifierService = $modifierService;
         $this->playerModifierService = $playerModifierService;
     }
 
@@ -44,9 +40,6 @@ class ActionSubscriber implements EventSubscriberInterface
         $actionName = $event->getAction()->getActionName();
 
         $target = $event->getActionParameter();
-
-        // handle modifiers with charges
-        $this->modifierService->applyActionModifiers($event->getAction(), $player, $target);
 
         switch ($actionName) {
             // handle movement of a player

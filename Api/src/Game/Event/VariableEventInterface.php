@@ -11,6 +11,7 @@ interface VariableEventInterface
     public const CHANGE_VARIABLE = 'change.variable';
     public const CHANGE_VALUE_MAX = 'change.value.max';
     public const SET_VALUE = 'set.value';
+    public const ROLL_PERCENTAGE = 'roll.percentage';
 
     public function getVariableName(): string;
 

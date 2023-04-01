@@ -5,16 +5,12 @@ namespace Mush\Game\Service;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Config\PreventEventModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Event\ModifiableEventInterface;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Modifier\Service\EventCreationService;
 use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Modifier\Service\ModifierRequirementServiceInterface;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EventService implements EventServiceInterface
@@ -45,7 +41,6 @@ class EventService implements EventServiceInterface
             ));
         }
         $event->setEventName($name);
-
 
         $canEventTrigger = $this->canEventTrigger($event, $name, true);
 
@@ -87,7 +82,7 @@ class EventService implements EventServiceInterface
             $triggeredEvents = $this->eventCreationService->createEvents(
                 $modifierConfig->getTriggeredEvent(),
                 $modifier->getModifierHolder(),
-                $event->getPlayer(),
+                $event->getAuthor(),
                 $tags,
                 $event->getTime()
             );
@@ -107,9 +102,9 @@ class EventService implements EventServiceInterface
             throw new \Exception('variableEventModifiers only apply on quantityEventInterface');
         }
 
-        $variableModifiers = $modifiers->getVariableEventModifiers();
+        $variableModifiers = $modifiers->getVariableEventModifiers($event->getVariableName());
 
-        if (!($event->isModified())) {
+        if (!$event->isModified()) {
             $event = $this->modifierService->applyVariableModifiers($variableModifiers, $event);
 
             $event->setIsModified(true);
@@ -131,9 +126,9 @@ class EventService implements EventServiceInterface
     public function previewEvent(AbstractGameEvent $event, string $name): AbstractGameEvent
     {
         $event->setEventName($name);
+
         return $this->applyModifiers($event, false);
     }
-
 
     public function canEventTrigger(AbstractGameEvent $event, string $name, bool $dispatch): string
     {
@@ -151,7 +146,7 @@ class EventService implements EventServiceInterface
                 $this->callEvent($modifierEvent, ModifierEvent::APPLY_MODIFIER);
             }
 
-            return $preventModifier->getModifierConfig()->getModifierName();
+            return $preventModifier->getModifierConfig()->getModifierName() ?: 'false';
         }
 
         return 'true';

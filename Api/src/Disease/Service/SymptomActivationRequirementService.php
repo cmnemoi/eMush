@@ -3,25 +3,27 @@
 namespace Mush\Disease\Service;
 
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Action\Event\ActionVariableEvent;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\SymptomActivationRequirementEnum;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Entity\Player;
 
 class SymptomActivationRequirementService implements SymptomActivationRequirementServiceInterface
 {
-    private EventModifierServiceInterface $modifierService;
+    private EventServiceInterface $eventService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
-        EventModifierServiceInterface $modifierService,
+        EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
     ) {
-        $this->modifierService = $modifierService;
+        $this->eventService = $eventService;
         $this->randomService = $randomService;
     }
 
@@ -84,16 +86,18 @@ class SymptomActivationRequirementService implements SymptomActivationRequiremen
             throw new \LogicException('Provide an action for ACTION_DIRTY_RATE symptom activationRequirement');
         }
 
-        $dirtyRate = $action->getDirtyRate();
-        $isSuperDirty = $dirtyRate > 100;
+        $actionEvent = new ActionVariableEvent(
+            $action,
+            ActionVariableEnum::PERCENTAGE_DIRTINESS,
+            $action->getActionVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS),
+            $player,
+            null
+        );
 
-        return $this->modifierService->isSuccessfulWithModifiers(
-            $dirtyRate,
-            [ModifierScopeEnum::EVENT_DIRTY],
-            $action->getActionTags(),
-            new \DateTime(),
-            $player
-        ) || $isSuperDirty;
+        /** @var ActionVariableEvent $rollEvent */
+        $rollEvent = $this->eventService->previewEvent($actionEvent, VariableEventInterface::ROLL_PERCENTAGE);
+
+        return $this->randomService->isSuccessful($rollEvent->getQuantity());
     }
 
     private function checkPlayerEquipmentActivationRequirement(?string $expectedEquipment, Player $player): bool

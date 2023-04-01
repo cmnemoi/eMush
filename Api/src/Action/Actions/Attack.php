@@ -9,7 +9,8 @@ use Mush\Action\ActionResult\OneShot;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Action\Event\ActionVariableEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\PreMush;
@@ -20,11 +21,10 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -87,20 +87,18 @@ class Attack extends AttemptAction
     // Special checkResult for Attack action waiting for a refactor
     protected function checkResult(): ActionResult
     {
-        $player = $this->player;
-
         $knife = $this->getPlayerKnife();
 
         $success = $this->randomService->isSuccessful($this->getSuccessRate());
 
         if ($success) {
-            if ($this->isOneShot($player, $knife)) {
+            if ($this->rollCriticalChances($knife->getOneShotRate())) {
                 return new OneShot();
             }
 
             return new Success();
         } else {
-            if ($this->isCriticalFail($player, $knife)) {
+            if ($this->rollCriticalChances($knife->getCriticalFailRate())) {
                 return new CriticalFail();
             }
 
@@ -133,21 +131,19 @@ class Attack extends AttemptAction
 
             $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($knife->getBaseDamageRange()));
 
-            if ($this->isCriticalSuccess($player, $knife)) {
+            $damageEvent = $this->createDamageEvent($damage, $target, $player);
+
+            if ($this->rollCriticalChances($knife->getCriticalSuccessRate())) {
                 $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
-            } else {
-                // handle modifiers on damage : armor, hard boiled, etc
-                $damage = $this->modifierService->getEventModifiedValue(
-                    $target,
-                    [ModifierScopeEnum::INJURY],
-                    PlayerVariableEnum::HEALTH_POINT,
-                    $damage,
-                    $this->getAction()->getActionTags(),
-                    new \DateTime()
-                );
+                $damageEvent->addTag(ActionOutputEnum::CRITICAL_SUCCESS);
             }
 
-            $this->inflictDamage($damage, $target);
+            // handle modifiers on damage : armor, hard boiled, etc
+            $damageEvent = $this->eventService->previewEvent(
+                $damageEvent,
+                VariableEventInterface::CHANGE_VARIABLE
+            );
+            $this->eventService->callEvent($damageEvent, VariableEventInterface::CHANGE_VARIABLE);
         } else {
             if ($result instanceof CriticalFail) {
                 $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_FAIL_KNIFE, $player);
@@ -175,49 +171,23 @@ class Attack extends AttemptAction
         return $knifeWeapon;
     }
 
-    private function isCriticalFail(Player $player, Weapon $knife): bool
+    private function rollCriticalChances(int $percentage): bool
     {
-        $criticalFailRate = $this->modifierService->getEventModifiedValue(
-            $player,
-            [ActionTypeEnum::ACTION_ATTACK],
-            ModifierTargetEnum::CRITICAL_PERCENTAGE,
-            $knife->getCriticalFailRate(),
-            $this->getAction()->getActionTags(),
-            new \DateTime(),
+        $criticalRollEvent = new ActionVariableEvent(
+            $this->action,
+            ActionVariableEnum::PERCENTAGE_CRITICAL,
+            $percentage,
+            $this->player,
+            $this->parameter
         );
 
-        return $this->randomService->isSuccessful($criticalFailRate);
+        /** @var ActionVariableEvent $criticalRollEvent */
+        $criticalRollEvent = $this->eventService->previewEvent($criticalRollEvent, VariableEventInterface::ROLL_PERCENTAGE);
+
+        return $this->randomService->isSuccessful($criticalRollEvent->getQuantity());
     }
 
-    private function isCriticalSuccess(Player $player, Weapon $knife): bool
-    {
-        $criticalSuccessRate = $this->modifierService->getEventModifiedValue(
-            $player,
-            [ActionTypeEnum::ACTION_ATTACK],
-            ModifierTargetEnum::CRITICAL_PERCENTAGE,
-            $knife->getCriticalSuccessRate(),
-            $this->getAction()->getActionTags(),
-            new \DateTime(),
-        );
-
-        return $this->randomService->isSuccessful($criticalSuccessRate);
-    }
-
-    private function isOneShot(Player $player, Weapon $knife): bool
-    {
-        $oneShotRate = $this->modifierService->getEventModifiedValue(
-            $player,
-            [ActionTypeEnum::ACTION_ATTACK],
-            ModifierTargetEnum::CRITICAL_PERCENTAGE,
-            $knife->getOneShotRate(),
-            $this->getAction()->getActionTags(),
-            new \DateTime(),
-        );
-
-        return $this->randomService->isSuccessful($oneShotRate);
-    }
-
-    private function inflictDamage(int $damage, Player $target): void
+    private function createDamageEvent(int $damage, Player $target, Player $author): PlayerVariableEvent
     {
         $damageEvent = new PlayerVariableEvent(
             $target,
@@ -226,10 +196,8 @@ class Attack extends AttemptAction
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );
+        $damageEvent->setAuthor($author);
 
-        $this->eventService->callEvent(
-            $damageEvent,
-            VariableEventInterface::CHANGE_VARIABLE
-        );
+        return $damageEvent;
     }
 }

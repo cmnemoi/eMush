@@ -2,14 +2,11 @@
 
 namespace Mush\Action\Event;
 
-use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
-use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -19,20 +16,16 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
 {
     public const APPLY_COST = 'apply.cost';
     public const MOVEMENT_CONVERSION = 'movement.conversion';
-    public const ROLL_PERCENTAGE_SUCCESS = 'roll_percentage_success';
-    public const ROLL_PERCENTAGE_DIRTY = 'roll_percentage_dirty';
-    public const ROLL_PERCENTAGE_INJURY = 'roll_percentage_injury';
 
     public const VARIABLE_TO_EVENT_MAP = [
         PlayerVariableEnum::ACTION_POINT => self::APPLY_COST,
         PlayerVariableEnum::MORAL_POINT => self::APPLY_COST,
         PlayerVariableEnum::MOVEMENT_POINT => self::APPLY_COST,
-        ActionVariableEnum::PERCENTAGE_SUCCESS => self::ROLL_PERCENTAGE_SUCCESS,
-        ActionVariableEnum::PERCENTAGE_CRITICAL => self::ROLL_PERCENTAGE_SUCCESS,
-        ActionVariableEnum::PERCENTAGE_DIRTINESS => self::ROLL_PERCENTAGE_DIRTY,
-        ActionVariableEnum::PERCENTAGE_INJURY => self::ROLL_PERCENTAGE_INJURY,
+        ActionVariableEnum::PERCENTAGE_SUCCESS => VariableEventInterface::ROLL_PERCENTAGE,
+        ActionVariableEnum::PERCENTAGE_CRITICAL => VariableEventInterface::ROLL_PERCENTAGE,
+        ActionVariableEnum::PERCENTAGE_DIRTINESS => VariableEventInterface::ROLL_PERCENTAGE,
+        ActionVariableEnum::PERCENTAGE_INJURY => VariableEventInterface::ROLL_PERCENTAGE,
     ];
-
 
     private int $quantity;
     private string $variableName;
@@ -43,8 +36,7 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
         int $quantity,
         Player $player,
         ?LogParameterInterface $actionParameter
-    )
-    {
+    ) {
         $this->variableName = $variableName;
         $this->quantity = $quantity;
 
@@ -74,16 +66,16 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
 
     public function getVariable(): GameVariable
     {
-        return $this->getPlayer()->getVariableByName($this->variableName);
+        return $this->getAuthor()->getVariableByName($this->variableName);
     }
 
     public function getVariableHolder(): GameVariableHolderInterface
     {
-        return $this->getPlayer();
+        return $this->getAuthor();
     }
 
     public function getModifierHolder(): ModifierHolder
     {
-        return $this->getPlayer();
+        return $this->getAuthor();
     }
 }

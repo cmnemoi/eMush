@@ -3,22 +3,13 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionVariables;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\RandomService;
-use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
 
 class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 {
@@ -52,7 +43,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $parameter
         );
 
-        $this->eventService->callEvent($actionEvent, ActionVariableEvent::ROLL_PERCENTAGE_DIRTY);
+        $this->eventService->callEvent($actionEvent, VariableEventInterface::ROLL_PERCENTAGE);
     }
 
     private function handleInjury(Action $action, Player $player, ?LogParameterInterface $parameter): void
@@ -65,6 +56,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $parameter
         );
 
-        $this->eventService->callEvent($actionEvent, ActionVariableEvent::ROLL_PERCENTAGE_INJURY);
+        $this->eventService->callEvent($actionEvent, VariableEventInterface::ROLL_PERCENTAGE);
     }
 }

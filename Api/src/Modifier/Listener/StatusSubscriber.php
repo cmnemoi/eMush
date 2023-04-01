@@ -87,7 +87,7 @@ class StatusSubscriber implements EventSubscriberInterface
         $player = $this->getPlayer($statusHolder);
         if ($player !== null) {
             $modifiers = $player->getModifiers()->getScopedModifiers([StatusEvent::STATUS_APPLIED]);
-            $modifiers = $this->modifierActivationRequirementService->getActiveModifiers($modifiers, $event->getTags(), $player);
+            $modifiers = $this->modifierActivationRequirementService->getActiveModifiers($modifiers, $event->getTags());
 
             /** @var GameModifier $modifier */
             foreach ($modifiers as $modifier) {

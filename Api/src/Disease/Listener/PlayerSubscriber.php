@@ -2,16 +2,18 @@
 
 namespace Mush\Disease\Listener;
 
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -26,22 +28,22 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private DiseaseCauseServiceInterface $diseaseCauseService;
-    private EventModifierServiceInterface $modifierService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         PlayerDiseaseServiceInterface $playerDiseaseService,
         DiseaseCauseServiceInterface $diseaseCauseService,
-        EventModifierServiceInterface $modifierService,
         RandomServiceInterface $randomService,
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
+        EventServiceInterface $eventService
     ) {
         $this->playerDiseaseService = $playerDiseaseService;
         $this->diseaseCauseService = $diseaseCauseService;
-        $this->modifierService = $modifierService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents()
@@ -60,14 +62,17 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $difficultyConfig = $player->getDaedalus()->getGameConfig()->getDifficultyConfig();
 
-        $diseaseRate = $this->modifierService->getEventModifiedValue(
+        $playerEventModifier = new PlayerVariableEvent(
             $player,
-            [PlayerEvent::CYCLE_DISEASE],
-            ModifierTargetEnum::PERCENTAGE,
+            ActionVariableEnum::PERCENTAGE_SUCCESS,
             $difficultyConfig->getCycleDiseaseRate(),
             [EventEnum::NEW_CYCLE],
             $event->getTime()
         );
+
+        /** @var PlayerVariableEvent $playerEventModifier */
+        $playerEventModifier = $this->eventService->previewEvent($playerEventModifier, VariableEventInterface::ROLL_PERCENTAGE);
+        $diseaseRate = $playerEventModifier->getQuantity();
 
         if ($this->randomService->isSuccessful($diseaseRate)) {
             if ($player->hasStatus(PlayerStatusEnum::DEMORALIZED) || $player->hasStatus(PlayerStatusEnum::SUICIDAL)) {

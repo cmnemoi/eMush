@@ -2,14 +2,13 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
-use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -32,14 +31,14 @@ class ActionVariableSubscriber implements EventSubscriberInterface
     {
         return [
             ActionVariableEvent::APPLY_COST => 'onApplyCost',
-            ActionVariableEvent::ROLL_PERCENTAGE_INJURY => 'onRollPercentageInjury',
+            VariableEventInterface::ROLL_PERCENTAGE => 'onRollPercentage',
         ];
     }
 
     public function onApplyCost(ActionVariableEvent $event): void
     {
         $playerVariableEvent = new PlayerVariableEvent(
-            $event->getPlayer(),
+            $event->getAuthor(),
             $event->getVariableName(),
             $event->getQuantity(),
             $event->getTags(),
@@ -49,23 +48,25 @@ class ActionVariableSubscriber implements EventSubscriberInterface
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    public function onRollPercentageInjury(ActionVariableEvent $event): void
+    public function onRollPercentage(ActionVariableEvent $event): void
     {
-        $isHurt = $this->randomService->isSuccessful($event->getQuantity());
+        if ($event->getVariableName() === ActionVariableEnum::PERCENTAGE_INJURY) {
+            $isHurt = $this->randomService->isSuccessful($event->getQuantity());
 
-        $tags = $event->getTags();
-        $tags[] = EndCauseEnum::INJURY;
+            $tags = $event->getTags();
+            $tags[] = EndCauseEnum::INJURY;
 
-        if ($isHurt) {
-            $playerVariableEvent = new PlayerVariableEvent(
-                $event->getPlayer(),
-                PlayerVariableEnum::HEALTH_POINT,
-                self::ACTION_INJURY_MODIFIER,
-                $tags,
-                $event->getTime()
-            );
+            if ($isHurt) {
+                $playerVariableEvent = new PlayerVariableEvent(
+                    $event->getAuthor(),
+                    PlayerVariableEnum::HEALTH_POINT,
+                    self::ACTION_INJURY_MODIFIER,
+                    $tags,
+                    $event->getTime()
+                );
 
-            $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+                $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+            }
         }
     }
 }

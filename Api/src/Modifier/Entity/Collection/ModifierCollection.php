@@ -67,8 +67,12 @@ class ModifierCollection extends ArrayCollection
         return $this->filter(fn (GameModifier $modifier) => $modifier->getModifierConfig() instanceof PreventEventModifierConfig);
     }
 
-    public function getVariableEventModifiers(): self
+    public function getVariableEventModifiers(string $eventVariable): self
     {
-        return $this->filter(fn (GameModifier $modifier) => $modifier->getModifierConfig() instanceof VariableEventModifierConfig);
+        return $this->filter(fn (GameModifier $modifier) => (
+            ($modifierConfig = $modifier->getModifierConfig()) instanceof VariableEventModifierConfig &&
+            $modifierConfig->getTargetVariable() === $eventVariable
+        )
+        );
     }
 }

@@ -6,6 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -31,12 +32,22 @@ abstract class AttemptAction extends AbstractAction
 
     public function getCriticalSuccessRate(): int
     {
-        return $this->actionService->getCriticalSuccessRate($this->action, $this->player, $this->parameter);
+        return $this->actionService->getActionModifiedActionVariable(
+            $this->player,
+            $this->action,
+            $this->parameter,
+            ActionVariableEnum::PERCENTAGE_SUCCESS
+        );
     }
 
     public function getSuccessRate(): int
     {
-        return $this->actionService->getSuccessRate($this->action, $this->player, $this->parameter);
+        return $this->actionService->getActionModifiedActionVariable(
+            $this->player,
+            $this->action,
+            $this->parameter,
+            ActionVariableEnum::PERCENTAGE_CRITICAL
+        );
     }
 
     protected function checkResult(): ActionResult

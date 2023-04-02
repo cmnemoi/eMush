@@ -99,7 +99,7 @@ class ActionService implements ActionServiceInterface
         return new ActionVariableEvent(
             $action,
             $variable,
-            $action->getActionVariables()->getValueByName($variable),
+            $action->getGameVariables()->getValueByName($variable),
             $player,
             $parameter
         );

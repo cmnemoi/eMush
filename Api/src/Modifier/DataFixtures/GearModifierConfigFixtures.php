@@ -37,7 +37,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
     public const WRENCH_MODIFIER = 'wrench_modifier';
     public const GLOVES_MODIFIER = 'gloves_modifier';
     public const SOAP_MODIFIER = 'soap_modifier';
-    public const SOAP_SINK_MODIFIER = 'soap_sink_modifier';
     public const AIM_MODIFIER = 'aim_modifier';
     public const SCOOTER_MODIFIER = 'scooter_modifier';
     public const ROLLING_BOULDER = 'rolling_boulder';
@@ -88,8 +87,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetEvent(VariableEventInterface::ROLL_PERCENTAGE)
             ->setTagConstraints([ActionTypeEnum::ACTION_TECHNICIAN => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setName('modifier_for_player_x1.5percentageSuccess_on_roll.technician')
         ;
-        $wrenchModifier->buildName();
         $manager->persist($wrenchModifier);
 
         $glovesModifier = new PreventEventModifierConfig();
@@ -99,6 +98,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTagConstraints([EndCauseEnum::CLUMSINESS => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::GLOVES_MODIFIER)
+            ->setName('preventClumsinessModifier')
         ;
         $manager->persist($glovesModifier);
 

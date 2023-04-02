@@ -38,7 +38,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         $actionEvent = new ActionVariableEvent(
             $action,
             ActionVariableEnum::PERCENTAGE_DIRTINESS,
-            $action->getActionVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS),
+            $action->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS),
             $player,
             $parameter
         );
@@ -51,7 +51,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         $actionEvent = new ActionVariableEvent(
             $action,
             ActionVariableEnum::PERCENTAGE_INJURY,
-            $action->getActionVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_INJURY),
+            $action->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_INJURY),
             $player,
             $parameter
         );

@@ -221,6 +221,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         return [
             GameConfigFixtures::class,
             EventConfigFixtures::class,
+            DiseaseModifierConfigFixtures::class,
         ];
     }
 }

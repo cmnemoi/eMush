@@ -24,7 +24,7 @@ class ModifierPreventActionValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
-        if (!$constraint instanceof AreSymptomsPreventingAction) {
+        if (!$constraint instanceof ModifierPreventAction) {
             throw new UnexpectedTypeException($constraint, AreSymptomsPreventingAction::class);
         }
 

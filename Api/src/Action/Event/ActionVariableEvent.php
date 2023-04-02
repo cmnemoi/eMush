@@ -66,12 +66,12 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
 
     public function getVariable(): GameVariable
     {
-        return $this->getAuthor()->getVariableByName($this->variableName);
+        return $this->getAction()->getVariableByName($this->variableName);
     }
 
     public function getVariableHolder(): GameVariableHolderInterface
     {
-        return $this->getAuthor();
+        return $this->getAction();
     }
 
     public function getModifierHolder(): ModifierHolder

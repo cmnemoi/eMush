@@ -4,12 +4,14 @@ namespace Mush\Action\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Game\Entity\GameVariable;
+use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 
 #[ORM\Entity]
-class Action
+class Action implements GameVariableHolderInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -131,9 +133,19 @@ class Action
         return $this;
     }
 
-    public function getActionVariables(): ActionVariables
+    public function getVariableByName(string $variableName): GameVariable
+    {
+        return $this->actionVariables->getVariableByName($variableName);
+    }
+
+    public function getGameVariables(): ActionVariables
     {
         return $this->actionVariables;
+    }
+
+    public function hasVariable(string $variableName): bool
+    {
+        $this->actionVariables->hasVariable($variableName);
     }
 
     public function getActionVariablesArray(): array

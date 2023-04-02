@@ -89,7 +89,7 @@ class SymptomActivationRequirementService implements SymptomActivationRequiremen
         $actionEvent = new ActionVariableEvent(
             $action,
             ActionVariableEnum::PERCENTAGE_DIRTINESS,
-            $action->getActionVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS),
+            $action->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS),
             $player,
             null
         );

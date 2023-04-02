@@ -230,7 +230,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setName('cycle1SatietyLoss')
         ;
-        $manager->persist($cycle1HealthLost);
+        $manager->persist($cycle1SatietyLost);
 
         /** @var AbstractEventConfig $eventConfigLose1Action */
         $eventConfigLose1Action = $this->getReference(EventConfigFixtures::ACTION_REDUCE_1);
@@ -351,7 +351,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $manager->persist($consume1ActionLoss);
 
         $consume2ActionLoss = new TriggerEventModifierConfig();
-        $consume1ActionLoss
+        $consume2ActionLoss
             ->setTriggeredEvent($eventConfigLose2Action)
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setTagConstraints([

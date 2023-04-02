@@ -23,6 +23,7 @@ final class Version20230401223237 extends AbstractMigration
         $this->addSql('ALTER TABLE daedalus_info ADD daily_action_points_spent INT NOT NULL');
         $this->addSql('ALTER TABLE daedalus_info ADD number_of_hunter_killed INT NOT NULL');
         $this->addSql('ALTER TABLE daedalus_info ADD number_of_mushs INT NOT NULL');
+        $this->addSql('ALTER TABLE config_daedalus ADD init_hunter_points INT NOT NULL');
     }
 
     public function down(Schema $schema): void
@@ -32,5 +33,6 @@ final class Version20230401223237 extends AbstractMigration
         $this->addSql('ALTER TABLE daedalus_info DROP daily_action_points_spent');
         $this->addSql('ALTER TABLE daedalus_info DROP number_of_hunter_killed');
         $this->addSql('ALTER TABLE daedalus_info DROP number_of_mushs');
+        $this->addSql('ALTER TABLE config_daedalus DROP init_hunter_points');
     }
 }

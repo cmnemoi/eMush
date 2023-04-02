@@ -37,6 +37,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setInitFuel(20)
             ->setInitHull(100)
             ->setInitShield(-2)
+            ->setInitHunterPoints(40)
             ->setDailySporeNb(4)
             ->setMaxOxygen(32)
             ->setMaxFuel(32)

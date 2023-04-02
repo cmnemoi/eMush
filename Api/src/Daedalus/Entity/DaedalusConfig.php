@@ -33,6 +33,9 @@ class DaedalusConfig
     private int $initShield = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    private int $initHunterPoints = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $maxOxygen = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
@@ -123,6 +126,18 @@ class DaedalusConfig
     public function setInitShield(int $initShield): static
     {
         $this->initShield = $initShield;
+
+        return $this;
+    }
+
+    public function getInitHunterPoints(): int
+    {
+        return $this->initHunterPoints;
+    }
+
+    public function setInitHunterPoints(int $initHunterPoints): static
+    {
+        $this->initHunterPoints = $initHunterPoints;
 
         return $this;
     }
@@ -229,6 +244,8 @@ class DaedalusConfig
                 return $this->maxHull;
             case DaedalusVariableEnum::SHIELD:
                 return $this->maxShield;
+            case DaedalusVariableEnum::HUNTER_POINTS:
+                return $this->initHunterPoints;
             default:
                 throw new \LogicException('this is not a valid daedalusVariable');
         }

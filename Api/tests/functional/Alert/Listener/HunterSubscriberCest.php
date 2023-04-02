@@ -26,13 +26,12 @@ class HunterSubscriberCest extends AbstractFunctionalTest
 
     public function testOnHunterDeath(FunctionalTester $I)
     {
+        $this->daedalus->setHunterPoints(10); // should be enough to spawn one hunter
         $event = new HunterPoolEvent(
             $this->daedalus,
-            1,
             ['test'],
             new \DateTime()
         );
-        $this->eventService->callEvent($event, HunterPoolEvent::POOL_HUNTERS);
         $this->eventService->callEvent($event, HunterPoolEvent::UNPOOL_HUNTERS);
 
         $hunter = $this->daedalus->getAttackingHunters()->first();
@@ -53,7 +52,6 @@ class HunterSubscriberCest extends AbstractFunctionalTest
     {
         $event = new HunterPoolEvent(
             $this->daedalus,
-            1,
             ['test'],
             new \DateTime()
         );

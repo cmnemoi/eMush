@@ -2,10 +2,12 @@
 
 namespace Mush\Hunter\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
+use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -68,6 +70,21 @@ class HunterService implements HunterServiceInterface
         $this->persistAndFlush([$hunter]);
     }
 
+    public function updateDaedalusHunterPoints(Daedalus $daedalus): void
+    {
+        $pointsToAdd = $daedalus->getDay() + 6;
+        if ($daedalus->isInHardMode()) {
+            ++$pointsToAdd;
+        }
+        if ($daedalus->isInVeryHardMode()) {
+            $pointsToAdd += 2;
+        }
+        $pointsToAdd = intval($pointsToAdd * $this->getOverloadFactor($daedalus) + 0.5);
+
+        $daedalus->addHunterPoints($pointsToAdd);
+        $this->persistAndFlush([$daedalus]);
+    }
+
     public function killHunter(Hunter $hunter): void
     {
         $daedalus = $hunter->getDaedalus();
@@ -82,25 +99,33 @@ class HunterService implements HunterServiceInterface
         $attackingHunters->map(fn (Hunter $hunter) => $this->makeHunterShoot($hunter));
     }
 
-    public function putHuntersInPool(Daedalus $daedalus, int $nbHuntersToPutInPool): HunterCollection
+    public function unpoolHunters(Daedalus $daedalus, \DateTime $time): void
     {
-        $hunterPool = $daedalus->getHunterPool();
-        for ($i = 0; $i < $nbHuntersToPutInPool; ++$i) {
-            $hunterName = $this->drawHunterNameToCreate($daedalus, $hunterPool);
-            $hunterPool->add($this->createHunterFromName($daedalus, $hunterName));
+        $hunterPoints = $daedalus->getHunterPoints();
+        $hunterTypes = HunterEnum::getAll();
+        $wave = new HunterCollection();
+        while ($hunterPoints > 0) {
+            $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaArray(
+                $this->getHunterProbaCollection($daedalus, $hunterTypes)->toArray()
+            );
+
+            $hunter = $this->createHunterFromName($daedalus, $hunterNameToCreate);
+
+            $maxPerWave = $hunter->getHunterConfig()->getMaxPerWave();
+            if ($maxPerWave && $wave->getAllHuntersByType($hunter->getName())->count() > $maxPerWave) {
+                $hunterTypes->removeElement($hunterNameToCreate);
+                continue;
+            }
+
+            $wave->add($hunter);
+
+            $hunterPoints -= $hunter->getHunterConfig()->getDrawCost();
+            $daedalus->setHunterPoints($hunterPoints);
         }
 
-        return $hunterPool;
-    }
-
-    public function unpoolHunters(Daedalus $daedalus, int $nbHuntersToUnpool, \DateTime $time): void
-    {
-        $hunterPool = $daedalus->getHunterPool();
-
-        $nbHuntersToUnpool = min($nbHuntersToUnpool, $hunterPool->count());
-
-        $huntersToUnpool = $this->randomService->getRandomHuntersInPool($hunterPool, $nbHuntersToUnpool);
-        $huntersToUnpool->map(fn ($hunter) => $this->unpoolHunter($hunter, $time));
+        $wave->map(fn ($hunter) => $this->unpoolHunter($hunter, $time));
+        $this->persistAndFlush($wave->toArray());
+        $this->persistAndFlush([$daedalus]);
     }
 
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter
@@ -136,10 +161,10 @@ class HunterService implements HunterServiceInterface
         }
     }
 
-    private function drawHunterNameToCreate(Daedalus $daedalus, HunterCollection $hunterPool): string
+    private function getHunterProbaCollection(Daedalus $daedalus, ArrayCollection $hunterTypes): ProbaCollection
     {
         $difficultyMode = $daedalus->getDifficultyMode();
-        $hunterTypes = HunterEnum::getAll();
+        $probaCollection = new ProbaCollection();
 
         foreach ($hunterTypes as $hunterType) {
             $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterType);
@@ -148,14 +173,23 @@ class HunterService implements HunterServiceInterface
             }
 
             if ($hunterConfig->getSpawnDifficulty() >= $difficultyMode) {
-                $hunterTypes->removeElement($hunterType);
+                continue;
             }
-            if ($hunterPool->getAllHuntersByType($hunterType)->count() === $hunterConfig->getMaxPerWave()) {
-                $hunterTypes->removeElement($hunterType);
-            }
+
+            $probaCollection->setElementProbability($hunterType, $hunterConfig->getDrawWeight());
         }
 
-        return current($this->randomService->getRandomElements($hunterTypes->toArray(), 1));
+        return $probaCollection;
+    }
+
+    private function getOverloadFactor(Daedalus $daedalus): float
+    {
+        $threshold = 7 * $daedalus->getPlayers()->getPlayerAlive()->count();
+        if ($daedalus->getDaedalusInfo()->getDailyActionPointsSpent() <= $threshold) {
+            return 1;
+        }
+
+        return $daedalus->getDaedalusInfo()->getDailyActionPointsSpent() / $threshold;
     }
 
     private function makeHunterShoot(Hunter $hunter): void
@@ -224,6 +258,5 @@ class HunterService implements HunterServiceInterface
     {
         $hunter->unpool();
         $this->createHunterStatuses($hunter, $time);
-        $this->persistAndFlush([$hunter]);
     }
 }

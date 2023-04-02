@@ -108,7 +108,10 @@ class HunterService implements HunterServiceInterface
             $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaArray(
                 $this->getHunterProbaCollection($daedalus, $hunterTypes)->toArray()
             );
-
+            if (!$hunterNameToCreate) {
+                break;
+            }
+            
             $hunter = $this->createHunterFromName($daedalus, $hunterNameToCreate);
 
             $maxPerWave = $hunter->getHunterConfig()->getMaxPerWave();

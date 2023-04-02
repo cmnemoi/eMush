@@ -111,7 +111,7 @@ class HunterService implements HunterServiceInterface
             if (!$hunterNameToCreate) {
                 break;
             }
-            
+
             $hunter = $this->createHunterFromName($daedalus, $hunterNameToCreate);
 
             $maxPerWave = $hunter->getHunterConfig()->getMaxPerWave();

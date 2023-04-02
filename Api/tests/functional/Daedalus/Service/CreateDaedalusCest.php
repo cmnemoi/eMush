@@ -192,6 +192,7 @@ class CreateDaedalusCest
             ->setInitFuel(25)
             ->setInitHull(80)
             ->setInitShield(-2)
+            ->setInitHunterPoints(40)
             ->setDailySporeNb(4)
             ->setMaxOxygen(30)
             ->setMaxFuel(35)

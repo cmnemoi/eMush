@@ -27,8 +27,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var VariableEventModifierConfig $consume2ActionLoss */
         $consume2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_2_ACTION_LOSS);
-        /** @var VariableEventModifierConfig $consumeDrug2ActionLoss */
-        $consumeDrug2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_DRUG_2_ACTION_LOSS);
         /** @var VariableEventModifierConfig $cycle1HealthLost */
         $cycle1HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST);
         /** @var VariableEventModifierConfig $cycle2HealthLost */
@@ -323,7 +321,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $notMoveAction1Increase,
                 $consume2ActionLoss,
-                $consumeDrug2ActionLoss,
             ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $consumeVomiting,

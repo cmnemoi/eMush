@@ -99,7 +99,7 @@ class EventService implements EventServiceInterface
     private function applyVariableModifiers(ModifierCollection $modifiers, AbstractGameEvent $event, bool $dispatch = true): AbstractGameEvent
     {
         if (!($event instanceof VariableEventInterface)) {
-            throw new \Exception('variableEventModifiers only apply on quantityEventInterface');
+            return $event;
         }
 
         $variableModifiers = $modifiers->getVariableEventModifiers($event->getVariableName());

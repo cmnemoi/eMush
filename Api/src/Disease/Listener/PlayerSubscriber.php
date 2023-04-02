@@ -66,7 +66,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             $player,
             ActionVariableEnum::PERCENTAGE_SUCCESS,
             $difficultyConfig->getCycleDiseaseRate(),
-            [EventEnum::NEW_CYCLE],
+            [EventEnum::NEW_CYCLE, PlayerEvent::CYCLE_DISEASE],
             $event->getTime()
         );
 

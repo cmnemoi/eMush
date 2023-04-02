@@ -17,7 +17,7 @@ class ActionData
         [
             'name' => 'suicide',
             'action_name' => 'suicide',
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => null,
             'scope' => 'self',
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -32,7 +32,7 @@ class ActionData
         [
             'name' => 'auto_destroy',
             'action_name' => 'auto_destroy',
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => null,
             'scope' => 'self',
             'visibilities' => ['success' => 'private', 'fail' => 'private'],
@@ -47,7 +47,7 @@ class ActionData
         [
             'name' => 'kill_player',
             'action_name' => 'kill_player',
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => null,
             'scope' => 'other_player',
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -62,7 +62,7 @@ class ActionData
         [
             'name' => 'rejuvenate_alpha',
             'action_name' => 'rejuvenate',
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => null,
             'scope' => 'self',
             'visibilities' => ['success' => 'public', 'fail' => 'private'],

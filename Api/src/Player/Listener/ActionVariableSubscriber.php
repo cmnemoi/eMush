@@ -17,7 +17,7 @@ class ActionVariableSubscriber implements EventSubscriberInterface
     private EventServiceInterface $eventService;
     private RandomServiceInterface $randomService;
 
-    public const ACTION_INJURY_MODIFIER = -2;
+    public const ACTION_CLUMSINESS_DAMAGE = -2;
 
     public function __construct(
         EventServiceInterface $eventService,
@@ -54,13 +54,13 @@ class ActionVariableSubscriber implements EventSubscriberInterface
             $isHurt = $this->randomService->isSuccessful($event->getQuantity());
 
             $tags = $event->getTags();
-            $tags[] = EndCauseEnum::INJURY;
+            $tags[] = EndCauseEnum::CLUMSINESS;
 
             if ($isHurt) {
                 $playerVariableEvent = new PlayerVariableEvent(
                     $event->getAuthor(),
                     PlayerVariableEnum::HEALTH_POINT,
-                    self::ACTION_INJURY_MODIFIER,
+                    self::ACTION_CLUMSINESS_DAMAGE,
                     $tags,
                     $event->getTime()
                 );

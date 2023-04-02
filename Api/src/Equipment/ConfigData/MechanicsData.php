@@ -2171,7 +2171,6 @@ class MechanicsData
             'actions' => [],
             'modifierConfigs' => [
                 'modifier_for_player_-1actionPoint_on_shower',
-                'modifier_for_player_-1actionPoint_on_wash_in_sink',
             ],
         ],
         [

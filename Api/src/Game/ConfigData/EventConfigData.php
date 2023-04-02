@@ -116,11 +116,27 @@ class EventConfigData
         ],
         [
             'type' => 'variable_event_config',
+            'quantity' => -3,
+            'targetVariable' => PlayerVariableEnum::HEALTH_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => 'change.variable_player_-3_healthPoint',
+        ],
+        [
+            'type' => 'variable_event_config',
             'quantity' => -4,
             'targetVariable' => PlayerVariableEnum::HEALTH_POINT,
             'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
             'eventName' => VariableEventInterface::CHANGE_VARIABLE,
             'name' => 'change.variable_player_-4_healthPoint',
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => -6,
+            'targetVariable' => PlayerVariableEnum::HEALTH_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => 'change.variable_player_-6_healthPoint',
         ],
         [
             'type' => 'variable_event_config',

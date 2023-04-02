@@ -68,10 +68,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $consume1ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_1_ACTION_LOSS);
         /** @var VariableEventModifierConfig $consume2ActionLoss */
         $consume2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_2_ACTION_LOSS);
-        /** @var VariableEventModifierConfig $consumeDrug1ActionLoss */
-        $consumeDrug1ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_DRUG_1_ACTION_LOSS);
-        /** @var VariableEventModifierConfig $consumeDrug2ActionLoss */
-        $consumeDrug2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_DRUG_2_ACTION_LOSS);
         /** @var VariableEventModifierConfig $moveIncreaseMovement */
         $moveIncreaseMovement = $this->getReference(DiseaseModifierConfigFixtures::MOVE_INCREASE_MOVEMENT);
         /** @var VariableEventModifierConfig $infected4HealthLoss */
@@ -128,7 +124,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDiseaseName(DiseaseEnum::ACID_REFLUX)
             ->setModifierConfigs([
                 $consume2ActionLoss,
-                $consumeDrug2ActionLoss,
                 ])
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $consumeDrugVomiting,
@@ -215,7 +210,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDiseaseName(DiseaseEnum::GASTROENTERIS)
             ->setModifierConfigs([
                 $consume1ActionLoss,
-                $consumeDrug1ActionLoss,
                 $cycle1HealthLostRand16,
                 $cycle1MovementLost,
                 $reduceMax1HealthPoint,

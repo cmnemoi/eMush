@@ -26,9 +26,8 @@ class HunterSubscriberCest extends AbstractFunctionalTest
 
     public function testOnHunterDeath(FunctionalTester $I)
     {
-        $poolEvent = new HunterPoolEvent($this->daedalus, 1, ['test'], new \DateTime());
-        $this->eventService->callEvent($poolEvent, HunterPoolEvent::POOL_HUNTERS);
-        $unpoolEvent = new HunterPoolEvent($this->daedalus, 1, ['test'], new \DateTime());
+        $this->daedalus->setHunterPoints(10); // should be enough to unpool 1 hunter
+        $unpoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
         $hunter = $this->daedalus->getAttackingHunters()->first();
@@ -53,45 +52,24 @@ class HunterSubscriberCest extends AbstractFunctionalTest
             ]);
     }
 
-    public function testOnPoolHunters(FunctionalTester $I)
-    {
-        $poolEvent = new HunterPoolEvent($this->daedalus, 10, ['test'], new \DateTime());
-        $this->eventService->callEvent($poolEvent, HunterPoolEvent::POOL_HUNTERS);
-        $I->assertCount(0, $this->daedalus->getAttackingHunters());
-        $I->assertCount(10, $this->daedalus->getHunterPool());
-    }
-
     public function testOnUnpoolHunters(FunctionalTester $I)
     {
-        $poolEvent = new HunterPoolEvent($this->daedalus, 10, ['test'], new \DateTime());
-        $this->eventService->callEvent($poolEvent, HunterPoolEvent::POOL_HUNTERS);
-
-        $unpoolEvent = new HunterPoolEvent($this->daedalus, 10, ['test'], new \DateTime());
+        $unpoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
-        $I->assertCount(10, $this->daedalus->getAttackingHunters());
+        $this->daedalus->setHunterPoints(40); // should be enough to unpool 4 hunters
+        $I->assertCount(4, $this->daedalus->getAttackingHunters());
         $I->assertCount(0, $this->daedalus->getHunterPool());
     }
 
     public function testOnUnpoolHuntersWithExistingWave(FunctionalTester $I)
     {
-        $poolEvent = new HunterPoolEvent($this->daedalus, 10, ['test'], new \DateTime());
-        $this->eventService->callEvent($poolEvent, HunterPoolEvent::POOL_HUNTERS);
-
-        $unpoolEvent1 = new HunterPoolEvent($this->daedalus, 8, ['test'], new \DateTime());
+        $this->daedalus->setHunterPoints(40); // should be enough to unpool 4 hunters
+        $unpoolEvent1 = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($unpoolEvent1, HunterPoolEvent::UNPOOL_HUNTERS);
-        $unpoolEvent2 = new HunterPoolEvent($this->daedalus, 2, ['test'], new \DateTime());
+        $this->daedalus->setHunterPoints(40); // should be enough to unpool 4 hunters
+        $unpoolEvent2 = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($unpoolEvent2, HunterPoolEvent::UNPOOL_HUNTERS);
-        $I->assertCount(10, $this->daedalus->getAttackingHunters());
+        $I->assertCount(8, $this->daedalus->getAttackingHunters());
         $I->assertCount(0, $this->daedalus->getHunterPool());
-    }
-
-    public function testOnUnpoolHuntersWithNonEmptyPool(FunctionalTester $I)
-    {
-        $poolEvent = new HunterPoolEvent($this->daedalus, 10, ['test'], new \DateTime());
-        $this->eventService->callEvent($poolEvent, HunterPoolEvent::POOL_HUNTERS);
-        $unpoolEvent = new HunterPoolEvent($this->daedalus, 2, ['test'], new \DateTime());
-        $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
-        $I->assertCount(2, $this->daedalus->getAttackingHunters());
-        $I->assertCount(8, $this->daedalus->getHunterPool());
     }
 }

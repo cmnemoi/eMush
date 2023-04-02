@@ -21,8 +21,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
     public function testMakeHunterShoot(FunctionalTester $I)
     {
-        $poolEvent = new HunterPoolEvent($this->daedalus, 10, ['test'], new \DateTime());
-        $this->eventService->callEvent($poolEvent, HunterPoolEvent::POOL_HUNTERS);
+        $poolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
         $dateDaedalusLastCycle = $this->daedalus->getCycleStartedAt();

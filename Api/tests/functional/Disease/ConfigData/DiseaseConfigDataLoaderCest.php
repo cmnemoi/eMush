@@ -32,6 +32,7 @@ class DiseaseConfigDataLoaderCest
         $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
         $this->symptomActivationRequirementDataLoader = $I->grabService(SymptomActivationRequirementDataLoader::class);
         $this->variableEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
+        $this->variableEventModifierConfigDataLoader = $I->grabService(PreventEventModifierConfigDataLoader::class);
         $this->directModifierConfigDataLoader = $I->grabService(DirectModifierConfigDataLoader::class);
         $this->symptomConfigDataLoader = $I->grabService(SymptomConfigDataLoader::class);
 

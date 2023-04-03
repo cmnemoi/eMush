@@ -9,6 +9,8 @@ use Mush\Equipment\ConfigData\GearDataLoader;
 use Mush\Equipment\ConfigData\MechanicsData;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
+use Mush\Modifier\ConfigData\PreventEventModifierConfigDataLoader;
+use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 
 class GearDataLoaderCest
@@ -25,6 +27,8 @@ class GearDataLoaderCest
         $this->actionDataLoader = $I->grabService(ActionDataLoader::class);
         $this->modifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
         $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
+        $this->modifierActivationRequirementDataLoader = $I->grabService(PreventEventModifierConfigDataLoader::class);
+        $this->modifierActivationRequirementDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
 
         $this->actionDataLoader->loadConfigsData();
         $this->modifierActivationRequirementDataLoader->loadConfigsData();

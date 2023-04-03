@@ -62,15 +62,17 @@ class HitActionCest extends AbstractFunctionalTest
 
     public function testHitArmor(FunctionalTester $I)
     {
-        $this->action->setSuccessRate(101);
+        $this->action->setSuccessRate(100);
         $this->action->setCriticalRate(0);
         $I->refreshEntities($this->action);
 
         $this->hitAction->loadParameters($this->action, $this->player1, $this->player2);
 
         /** @var VariableEventModifierConfig $armorModifierConfig */
-        $armorModifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'modifier_for_target_player_-1healthPoint_on_injury']);
-        $armorModifierConfig->setDelta(-3);
+        $armorModifierConfig = $I->grabEntityFromRepository(
+            VariableEventModifierConfig::class, ['name' => 'armorReduceDamage']
+        );
+        $armorModifierConfig->setDelta(5);
         $modifier = new GameModifier($this->player2, $armorModifierConfig);
 
         $I->haveInRepository($modifier);
@@ -98,7 +100,9 @@ class HitActionCest extends AbstractFunctionalTest
         $this->hitAction->loadParameters($this->action, $this->player1, $this->player2);
 
         /** @var VariableEventModifierConfig $armorModifierConfig */
-        $armorModifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'modifier_for_target_player_-1healthPoint_on_injury']);
+        $armorModifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
+            'name' => 'armorReduceDamage',
+        ]);
         $armorModifierConfig->setDelta(-3);
         $modifier = new GameModifier($this->player2, $armorModifierConfig);
 

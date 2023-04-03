@@ -147,6 +147,94 @@ class AttemptActionChangeCest
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
     }
 
+    public function testSuccessRateIsCorrectlyCapped(FunctionalTester $I)
+    {
+        $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);
+
+        $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
+
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig->setStatusConfigs(new ArrayCollection([$attemptConfig, $statusConfig]));
+        $I->flushToDatabase();
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+        ;
+        $I->flushToDatabase($player);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $actionRepair = new Action();
+        $actionRepair
+            ->setName(ActionEnum::REPAIR)
+            ->setActionName(ActionEnum::REPAIR)
+            ->setActionCost(1)
+            ->setSuccessRate(0)
+            ->setScope(ActionScopeEnum::CURRENT)
+        ;
+        $I->haveInRepository($actionRepair);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true]);
+
+        $equipmentConfig->setActions(new ArrayCollection([$actionRepair]));
+
+        $gameEquipment = new GameItem($room);
+
+        $gameEquipment
+            ->setEquipment($equipmentConfig)
+            ->setName('some name')
+        ;
+        $I->haveInRepository($gameEquipment);
+
+        $status = new Status($gameEquipment, $statusConfig);
+        $I->haveInRepository($status);
+
+        $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
+
+        // Execute repair
+        $this->repairAction->execute();
+        $I->assertCount(1, $player->getStatuses());
+        $I->assertEquals(StatusEnum::ATTEMPT, $player->getStatuses()->first()->getName());
+        $I->assertEquals(ActionEnum::REPAIR, $player->getStatuses()->first()->getAction());
+        $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
+
+        $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
+
+        // Execute repair a second and third time
+        $this->repairAction->execute();
+        $this->repairAction->execute();
+
+        // now up the success chances
+        $actionRepair->setSuccessRate(80);
+        $I->refreshEntities($actionRepair);
+        $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
+
+        $I->assertEquals(99, $this->repairAction->getSuccessRate());
+    }
+
     public function testNormalizeAnotherAction(FunctionalTester $I)
     {
         $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);

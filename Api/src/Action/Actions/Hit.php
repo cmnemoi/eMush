@@ -4,6 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\CriticalSuccess;
+use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\PreMush;
@@ -51,8 +52,10 @@ class Hit extends AttemptAction
 
         if ($result instanceof CriticalSuccess) {
             $damageEvent->addTag(ActionOutputEnum::CRITICAL_SUCCESS);
-        }
 
-        $this->eventService->callEvent($damageEvent, VariableEventInterface::CHANGE_VARIABLE);
+            $this->eventService->callEvent($damageEvent, VariableEventInterface::CHANGE_VARIABLE);
+        } elseif ($result instanceof Success) {
+            $this->eventService->callEvent($damageEvent, VariableEventInterface::CHANGE_VARIABLE);
+        }
     }
 }

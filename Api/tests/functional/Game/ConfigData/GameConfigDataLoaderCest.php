@@ -40,6 +40,7 @@ use Mush\Hunter\ConfigData\HunterConfigData;
 use Mush\Hunter\ConfigData\HunterConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
+use Mush\Modifier\ConfigData\PreventEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Place\ConfigData\PlaceConfigDataLoader;
@@ -102,6 +103,7 @@ class GameConfigDataLoaderCest
             $I->grabService(ModifierActivationRequirementDataLoader::class),
             $I->grabService(VariableEventModifierConfigDataLoader::class),
             $I->grabService(TriggerEventModifierConfigDataLoader::class),
+            $I->grabService(PreventEventModifierConfigDataLoader::class),
             $I->grabService(DirectModifierConfigDataLoader::class),
             $I->grabService(ChargeStatusConfigDataLoader::class),
             $I->grabService(StatusConfigDataLoader::class),

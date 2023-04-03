@@ -57,7 +57,7 @@ class DaedalusVariableEventCest
         $I->assertEquals(30, $daedalus->getOxygen());
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'modifier_for_daedalus_+1oxygen_on_change.variable_if_reason_new_cycle',
+            'name' => 'oxygenLossReduction_oxygenTank',
         ]);
 
         $modifier = new GameModifier($daedalus, $modifierConfig);

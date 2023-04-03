@@ -13,7 +13,7 @@ class GameVariable
     private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: GameVariableCollection::class, inversedBy: 'gameVariable')]
-    protected GameVariableCollection $gameVariableCollection;
+    protected ?GameVariableCollection $gameVariableCollection;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     protected string $name;
@@ -28,7 +28,7 @@ class GameVariable
     protected ?int $minValue;
 
     public function __construct(
-        GameVariableCollection $variableCollection,
+        ?GameVariableCollection $variableCollection,
         string $name,
         int $initValue,
         ?int $maxValue = null,
@@ -46,7 +46,7 @@ class GameVariable
         return $this->id;
     }
 
-    public function getGameVariableCollection(): GameVariableCollection
+    public function getGameVariableCollection(): ?GameVariableCollection
     {
         return $this->gameVariableCollection;
     }
@@ -87,6 +87,18 @@ class GameVariable
         $this->value = $value;
 
         return $this;
+    }
+
+    public function getValueInRange(int $value): int
+    {
+        if ($this->maxValue) {
+            $value = min($value, $this->maxValue);
+        }
+        if ($this->minValue) {
+            $value = max($value, $this->minValue);
+        }
+
+        return $value;
     }
 
     public function changeValue(int $delta): static

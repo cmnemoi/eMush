@@ -64,12 +64,13 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $disabledConversionModifier = new VariableEventModifierConfig();
         $disabledConversionModifier
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(-2)
+            ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ActionVariableEvent::MOVEMENT_CONVERSION)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setTagConstraints([ActionVariableEvent::MOVEMENT_CONVERSION => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setName('disabledConversionModifier')
         ;
-        $disabledConversionModifier->buildName();
         $manager->persist($disabledConversionModifier);
 
         $notAloneActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PLAYER_IN_ROOM);
@@ -191,7 +192,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ])
             ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('mushShowerHealthModifier')
+            ->setName(ModifierNameEnum::MUSH_SHOWER_MALUS)
         ;
         $manager->persist($mushShowerModifier);
 

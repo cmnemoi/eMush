@@ -4,6 +4,7 @@ namespace Mush\Player\Listener;
 
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -40,10 +41,11 @@ class ActionVariableSubscriber implements EventSubscriberInterface
         $playerVariableEvent = new PlayerVariableEvent(
             $event->getAuthor(),
             $event->getVariableName(),
-            $event->getQuantity(),
+            -$event->getQuantity(),
             $event->getTags(),
             $event->getTime()
         );
+        $playerVariableEvent->setVisibility(VisibilityEnum::HIDDEN);
 
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }

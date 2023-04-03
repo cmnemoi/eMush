@@ -36,7 +36,7 @@ abstract class AttemptAction extends AbstractAction
             $this->player,
             $this->action,
             $this->parameter,
-            ActionVariableEnum::PERCENTAGE_SUCCESS
+            ActionVariableEnum::PERCENTAGE_CRITICAL
         );
     }
 
@@ -46,7 +46,7 @@ abstract class AttemptAction extends AbstractAction
             $this->player,
             $this->action,
             $this->parameter,
-            ActionVariableEnum::PERCENTAGE_CRITICAL
+            ActionVariableEnum::PERCENTAGE_SUCCESS
         );
     }
 

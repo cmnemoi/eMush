@@ -11,7 +11,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 
 class ActionService implements ActionServiceInterface
 {
-    public const BASE_MOVEMENT_POINT_CONVERSION_GAIN = 2;
+    public const BASE_MOVEMENT_POINT_CONVERSION_GAIN = -2;
     public const BASE_MOVEMENT_POINT_CONVERSION_COST = 1;
 
     private EventServiceInterface $eventService;
@@ -63,12 +63,13 @@ class ActionService implements ActionServiceInterface
             $player,
             $parameter
         );
+        $conversionGainEvent->addTag(ActionVariableEvent::MOVEMENT_CONVERSION);
         /** @var ActionVariableEvent $conversionGainEvent */
-        $conversionGainEvent = $this->eventService->previewEvent($conversionGainEvent, ActionVariableEvent::MOVEMENT_CONVERSION);
+        $conversionGainEvent = $this->eventService->previewEvent($conversionGainEvent, ActionVariableEvent::APPLY_COST);
 
         // Compute how much conversion are needed to have the required number of movement point for the action
         $movementPointGain = $conversionGainEvent->getQuantity();
-        $numberOfConversions = (int) ceil($missingMovementPoints / $movementPointGain);
+        $numberOfConversions = (int) ceil($missingMovementPoints / (-$movementPointGain));
 
         // How much each conversion is going to cost in action points
         $conversionCostEvent = new ActionVariableEvent(
@@ -78,12 +79,14 @@ class ActionService implements ActionServiceInterface
             $player,
             $parameter
         );
+        $conversionCostEvent->addTag(ActionVariableEvent::MOVEMENT_CONVERSION);
         /** @var ActionVariableEvent $conversionCostEvent */
-        $conversionCostEvent = $this->eventService->previewEvent($conversionCostEvent, ActionVariableEvent::MOVEMENT_CONVERSION);
+        $conversionCostEvent = $this->eventService->previewEvent($conversionCostEvent, ActionVariableEvent::APPLY_COST);
 
         if ($dispatch) {
             for ($i = 0; $i < $numberOfConversions; ++$i) {
-                $this->eventService->callEvent($conversionCostEvent, ActionVariableEvent::MOVEMENT_CONVERSION);
+                $this->eventService->callEvent($conversionCostEvent, ActionVariableEvent::APPLY_COST);
+                $this->eventService->callEvent($conversionGainEvent, ActionVariableEvent::APPLY_COST);
             }
         }
 
@@ -116,21 +119,28 @@ class ActionService implements ActionServiceInterface
         } else {
             throw new \Exception('this key do not exist in this map');
         }
+        $variable = $action->getVariableByName($variableName);
 
-        $conversionGainEvent = $this->getActionEvent($player, $action, $parameter, $variableName);
-        /** @var ActionVariableEvent $conversionGainEvent */
-        $conversionGainEvent = $this->eventService->previewEvent($conversionGainEvent, $eventName);
+        $actionVariableEvent = $this->getActionEvent($player, $action, $parameter, $variableName);
+        /** @var ActionVariableEvent $actionVariableEvent */
+        $actionVariableEvent = $this->eventService->previewEvent($actionVariableEvent, $eventName);
 
-        $value = $conversionGainEvent->getQuantity();
+        $value = $actionVariableEvent->getQuantity();
 
-        if ($variableName === PlayerVariableEnum::MOVEMENT_POINT &&
-            ($missingMovementPoints = $value - $player->getMovementPoint()) > 0
-        ) {
-            $costToAdd = $this->handleConversionEvents($player, $action, $parameter, $missingMovementPoints, false);
+        // handle the cost of converting action points to movement points
+        if ($variableName === PlayerVariableEnum::ACTION_POINT) {
+            $movementVariableEvent = $this->getActionEvent($player, $action, $parameter, PlayerVariableEnum::MOVEMENT_POINT);
+            /** @var ActionVariableEvent $movementVariableEvent */
+            $movementVariableEvent = $this->eventService->previewEvent($movementVariableEvent, ActionVariableEvent::APPLY_COST);
 
-            return $value + $costToAdd;
+            $missingMovementPoints = $movementVariableEvent->getQuantity() - $player->getMovementPoint();
+            if ($missingMovementPoints > 0) {
+                $costToAdd = $this->handleConversionEvents($player, $action, $parameter, $missingMovementPoints, false);
+
+                return $value + $costToAdd;
+            }
         }
 
-        return $value;
+        return $variable->getValueInRange($value);
     }
 }

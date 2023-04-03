@@ -145,7 +145,7 @@ class Action implements GameVariableHolderInterface
 
     public function hasVariable(string $variableName): bool
     {
-        $this->actionVariables->hasVariable($variableName);
+        return $this->actionVariables->hasVariable($variableName);
     }
 
     public function getActionVariablesArray(): array
@@ -203,7 +203,16 @@ class Action implements GameVariableHolderInterface
 
     public function setSuccessRate(int $successRate): self
     {
-        $this->actionVariables->setValueByName($successRate, ActionVariableEnum::PERCENTAGE_SUCCESS);
+        $successVariable = $this->getVariableByName(ActionVariableEnum::PERCENTAGE_SUCCESS);
+
+        if ($successRate === 0) {
+            $successVariable->setMinValue(0);
+        }
+        if ($successRate < 100) {
+            $successVariable->setMaxValue(99);
+        }
+
+        $successVariable->setValue($successRate);
 
         return $this;
     }

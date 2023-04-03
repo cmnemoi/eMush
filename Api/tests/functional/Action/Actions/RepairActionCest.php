@@ -9,6 +9,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -21,9 +22,10 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -114,9 +116,10 @@ class RepairActionCest
 
         $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
-            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->setDelta(1.5)
-            ->setTargetEvent(ActionTypeEnum::ACTION_TECHNICIAN)
+            ->setTargetEvent(VariableEventInterface::ROLL_PERCENTAGE)
+            ->setTagConstraints([ActionTypeEnum::ACTION_TECHNICIAN => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->buildName()

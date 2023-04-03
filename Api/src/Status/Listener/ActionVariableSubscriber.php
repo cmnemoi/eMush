@@ -4,6 +4,7 @@ namespace Mush\Status\Listener;
 
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -44,6 +45,7 @@ class ActionVariableSubscriber implements EventSubscriberInterface
                     $tags,
                     $event->getTime()
                 );
+                $statusEvent->setVisibility(VisibilityEnum::PRIVATE);
 
                 $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
             }

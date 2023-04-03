@@ -8,6 +8,7 @@ use Mush\Action\Actions\Coffee;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -28,7 +29,7 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -185,7 +186,7 @@ class ConsumeChargeOnActionCest
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setTargetEvent(ActionEnum::COFFEE)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
@@ -320,8 +321,9 @@ class ConsumeChargeOnActionCest
         $modifierConfig = new VariableEventModifierConfig();
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(1)
-            ->setTargetEvent(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
+            ->setDelta(-1)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setTagConstraints([ActionVariableEvent::MOVEMENT_CONVERSION => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->buildName()
@@ -330,7 +332,7 @@ class ConsumeChargeOnActionCest
         $gearMechanic = new Gear();
         $gearMechanic
             ->setModifierConfigs(new arrayCollection([$modifierConfig]))
-            ->setName(EquipmentMechanicEnum::GEAR, GameConfigEnum::TEST)
+            ->setName(EquipmentMechanicEnum::GEAR)
         ;
         $gearConfig = new ItemConfig();
         $gearConfig

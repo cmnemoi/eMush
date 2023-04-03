@@ -18,7 +18,10 @@ use Mush\Equipment\ConfigData\RationDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
+use Mush\Modifier\ConfigData\PreventEventModifierConfigDataLoader;
+use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigDataLoader;
@@ -48,7 +51,10 @@ class EquipmentConfigDataLoaderCest
 
         // mechanics
         $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
+        $this->modifierActivationRequirementDataLoader = $I->grabService(VariableEventConfigDataLoader::class);
         $this->modifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
+        $this->modifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
+        $this->modifierConfigDataLoader = $I->grabService(PreventEventModifierConfigDataLoader::class);
         $this->blueprintDataLoader = $I->grabService(BlueprintDataLoader::class);
         $this->bookDataLoader = $I->grabService(BookDataLoader::class);
         $this->documentDataLoader = $I->grabService(DocumentDataLoader::class);

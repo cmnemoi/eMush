@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -89,13 +90,15 @@ class ShowerActionCest extends AbstractFunctionalTest
     {
         $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
-        /** @var StatusConfig $mushStatusConfig */
+        /** @var ChargeStatusConfig $mushStatusConfig */
         $mushStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => PlayerStatusEnum::MUSH]);
         $mushStatus = new ChargeStatus($this->player1, $mushStatusConfig);
         $I->haveInRepository($mushStatus);
 
         /** @var VariableEventModifierConfig $mushShowerModifierConfig */
-        $mushShowerModifierConfig = current($I->grabEntitiesFromRepository(VariableEventModifierConfig::class, ['modifierName' => ModifierNameEnum::MUSH_SHOWER_MALUS]));
+        $mushShowerModifierConfig = current($I->grabEntitiesFromRepository(TriggerEventModifierConfig::class, [
+            'name' => ModifierNameEnum::MUSH_SHOWER_MALUS, ]
+        ));
         $mushShowerModifier = new GameModifier($this->player1, $mushShowerModifierConfig);
         $I->haveInRepository($mushShowerModifier);
 
@@ -153,7 +156,7 @@ class ShowerActionCest extends AbstractFunctionalTest
         $soapModifierConfig = current(
             $I->grabEntitiesFromRepository(
                 VariableEventModifierConfig::class,
-                ['name' => 'modifier_for_player_-1actionPoint_on_shower']
+                ['name' => 'soapShowerActionModifier']
             )
         );
         $soapModifier = new GameModifier($this->player2, $soapModifierConfig);

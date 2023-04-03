@@ -10,7 +10,7 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 
 class EventModifierService implements EventModifierServiceInterface
@@ -71,14 +71,20 @@ class EventModifierService implements EventModifierServiceInterface
         if ($event instanceof ActionVariableEvent &&
             $variableName === ActionVariableEnum::PERCENTAGE_SUCCESS
         ) {
-            /** @var ChargeStatus $attemptStatus */
+            /** @var ?Attempt $attemptStatus */
             $attemptStatus = $event->getAuthor()->getStatusByName(StatusEnum::ATTEMPT);
-            $attemptNumber = $attemptStatus->getCharge();
+
+            if ($attemptStatus === null || $attemptStatus->getAction() !== $event->getAction()->getName()) {
+                $attemptNumber = 0;
+            } else {
+                $attemptNumber = $attemptStatus->getCharge();
+            }
 
             $initialValue = $initialValue * self::ATTEMPT_INCREASE ** $attemptNumber;
         }
 
         $newValue = $this->getModifiedValue($modifiers, $initialValue);
+
         $event->setQuantity($newValue);
 
         return $event;

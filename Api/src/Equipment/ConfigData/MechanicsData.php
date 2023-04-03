@@ -2046,7 +2046,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [],
             'modifierConfigs' => [
-                'apron_modifier_for_player_-100percentage_on_event_dirty',
+                'apron_modifier_for_player_prevent_dirty',
             ],
         ],
         [

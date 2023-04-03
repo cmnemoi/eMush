@@ -80,6 +80,7 @@ class ActionEnum
     public const DISPENSE = 'dispense';
     public const SHOOT_HUNTER = 'shoot_hunter';
     public const ACCES_TERMINAL = 'acces_terminal';
+    public const CONTACT_SOL = 'contact_sol';
     public const INSTALL_CAMERA = 'install_camera';
     public const REMOVE_CAMERA = 'remove_camera';
     public const CHECK_SPORE_LEVEL = 'check_spore_level';

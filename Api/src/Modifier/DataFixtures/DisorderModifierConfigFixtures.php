@@ -101,8 +101,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::SCREAMING)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setName('screaming_for_player_set_-1actionPoint_on_new_cycle_if_random_16_test')
         ;
-        $cycle1ActionLostRand16WithScreaming->buildName();
         $manager->persist($cycle1ActionLostRand16WithScreaming);
 
         $cycle1HealthLostRand16WithWallHeadBang = new VariableEventModifierConfig();
@@ -114,8 +114,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::WALL_HEAD_BANG)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setName('wall_head_bang_for_player_set_-1healthPoint_on_new_cycle_if_random_16_test')
         ;
-        $cycle1HealthLostRand16WithWallHeadBang->buildName();
         $manager->persist($cycle1HealthLostRand16WithWallHeadBang);
 
         $cycle1MoralLostRand70 = new VariableEventModifierConfig();
@@ -126,8 +126,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setTargetEvent(EventEnum::NEW_CYCLE)
             ->addModifierRequirement($randActivationRequirement70)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setName('modifier_for_player_set_-1moralPoint_on_new_cycle_if_random_70_test')
         ;
-        $cycle1MoralLostRand70->buildName();
         $manager->persist($cycle1MoralLostRand70);
 
         $cycle2MovementLostRand16WithRunInCircles = new VariableEventModifierConfig();
@@ -139,8 +139,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::RUN_IN_CIRCLES)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setName('run_in_circles_for_player_set_-2movementPoint_on_new_cycle_if_random_16_test')
         ;
-        $cycle2MovementLostRand16WithRunInCircles->buildName();
         $manager->persist($cycle2MovementLostRand16WithRunInCircles);
 
         $fourPeopleOneActionIncrease = new VariableEventModifierConfig();

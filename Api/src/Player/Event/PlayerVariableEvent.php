@@ -3,9 +3,7 @@
 namespace Mush\Player\Event;
 
 use Mush\Game\Entity\GameVariable;
-use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
@@ -50,11 +48,6 @@ class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface,
         return $this->getPlayer()->getVariableByName($this->variableName);
     }
 
-    public function getVariableHolder(): GameVariableHolderInterface
-    {
-        return $this->getPlayer();
-    }
-
     public function getPlace(): Place
     {
         return $this->getPlayer()->getPlace();
@@ -66,10 +59,5 @@ class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface,
         $params['quantity'] = abs($this->quantity);
 
         return $params;
-    }
-
-    public function getModifierHolder(): ModifierHolder
-    {
-        return $this->getPlayer();
     }
 }

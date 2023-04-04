@@ -3,6 +3,7 @@
 namespace Mush\Status\ConfigData;
 
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 
 /** @codeCoverageIgnore */
@@ -598,7 +599,7 @@ class StatusConfigData
             'chargeStrategy' => 'cycle_increment',
             'maxCharge' => 8,
             'startCharge' => 2,
-            'dischargeStrategy' => 'event_action_movement_conversion',
+            'dischargeStrategy' => ModifierNameEnum::ANTIGRAV_SCOOTER_CONVERSION_MODIFIER,
             'autoRemove' => false,
             'modifierConfigs' => [],
         ],

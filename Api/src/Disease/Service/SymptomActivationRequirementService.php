@@ -9,7 +9,6 @@ use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\SymptomActivationRequirementEnum;
-use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -95,7 +94,7 @@ class SymptomActivationRequirementService implements SymptomActivationRequiremen
         );
 
         /** @var ActionVariableEvent $rollEvent */
-        $rollEvent = $this->eventService->previewEvent($actionEvent, VariableEventInterface::ROLL_PERCENTAGE);
+        $rollEvent = $this->eventService->previewEvent($actionEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);
 
         return $this->randomService->isSuccessful($rollEvent->getQuantity());
     }

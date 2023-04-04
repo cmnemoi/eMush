@@ -3,8 +3,6 @@
 namespace Mush\Game\Event;
 
 use Mush\Game\Entity\GameVariable;
-use Mush\Game\Entity\GameVariableHolderInterface;
-use Mush\Modifier\Entity\ModifierHolder;
 
 interface VariableEventInterface
 {
@@ -21,11 +19,7 @@ interface VariableEventInterface
 
     public function setQuantity(int $quantity): self;
 
-    public function getVariableHolder(): GameVariableHolderInterface;
-
     public function getTags(): array;
 
     public function getTime(): \DateTime;
-
-    public function getModifierHolder(): ModifierHolder;
 }

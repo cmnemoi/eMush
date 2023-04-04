@@ -17,7 +17,7 @@ class GearDataLoaderCest
 {
     private GearDataLoader $gearDataLoader;
     private ActionDataLoader $actionDataLoader;
-    private VariableEventModifierConfigDataLoader $modifierConfigDataLoader;
+    private VariableEventModifierConfigDataLoader $variableEvnetModifierConfigDataLoader;
     private ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
 
     // TODO: add other TriggerEventModifierConfigs if necessary
@@ -25,14 +25,16 @@ class GearDataLoaderCest
     public function _before(FunctionalTester $I)
     {
         $this->actionDataLoader = $I->grabService(ActionDataLoader::class);
-        $this->modifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
+        $this->variableEvnetModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
         $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
-        $this->modifierActivationRequirementDataLoader = $I->grabService(PreventEventModifierConfigDataLoader::class);
-        $this->modifierActivationRequirementDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
+        $preventEventModifierConfigDataLoader = $I->grabService(PreventEventModifierConfigDataLoader::class);
+        $triggerEventModifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
 
-        $this->actionDataLoader->loadConfigsData();
         $this->modifierActivationRequirementDataLoader->loadConfigsData();
-        $this->modifierConfigDataLoader->loadConfigsData();
+        $this->actionDataLoader->loadConfigsData();
+        $preventEventModifierConfigDataLoader->loadConfigsData();
+        $triggerEventModifierConfigDataLoader->loadConfigsData();
+        $this->variableEvnetModifierConfigDataLoader->loadConfigsData();
 
         $this->gearDataLoader = $I->grabService(GearDataLoader::class);
     }
@@ -45,7 +47,9 @@ class GearDataLoaderCest
             if ($gearData['type'] !== 'gear') {
                 continue;
             }
+
             $gearData = $this->dropFields($gearData);
+
             $I->seeInRepository(Gear::class, $gearData);
         }
 

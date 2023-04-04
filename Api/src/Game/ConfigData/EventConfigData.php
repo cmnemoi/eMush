@@ -9,7 +9,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 /** @codeCoverageIgnore */
 class EventConfigData
 {
-    public static $dataArray = [
+    public static array $dataArray = [
         [
             'type' => 'variable_event_config',
             'quantity' => -1,

@@ -18,9 +18,12 @@ use Mush\Equipment\ConfigData\PlantDataLoader;
 use Mush\Equipment\ConfigData\RationDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
+use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
+use Mush\Modifier\ConfigData\PreventEventModifierConfigDataLoader;
+use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Player\ConfigData\CharacterConfigData;
 use Mush\Player\ConfigData\CharacterConfigDataLoader;
@@ -32,91 +35,43 @@ class CharacterConfigDataLoaderCest
 {
     private CharacterConfigDataLoader $characterConfigDataLoader;
 
-    // actions
-    private ActionDataLoader $actionDataLoader;
-
-    // init statuses
-    private VariableEventConfigDataLoader $eventConfigDataLoader;
-    private ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
-    private VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader;
-    private DirectModifierConfigDataLoader $directModifierConfigDataLoader;
-    private ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader;
-    private StatusConfigDataLoader $statusConfigDataLoader;
-
-    // starting items
-    private BlueprintDataLoader $blueprintDataLoader;
-    private BookDataLoader $bookDataLoader;
-    private DocumentDataLoader $documentDataLoader;
-    private DrugDataLoader $drugDataLoader;
-    private FruitDataLoader $fruitDataLoader;
-    private GearDataLoader $gearDataLoader;
-    private PlantDataLoader $plantDataLoader;
-    private RationDataLoader $rationDataLoader;
-    private ToolDataLoader $toolDataLoader;
-    private WeaponDataLoader $weaponDataLoader;
-    private ItemConfigDataLoader $itemConfigDataLoader;
-
-    // init diseases
-    private SymptomActivationRequirementDataLoader $symptomActivationRequirementDataLoader;
-    private SymptomConfigDataLoader $symptomConfigDataLoader;
-    private DiseaseConfigDataLoader $diseaseConfigDataLoader;
-
     public function _before(FunctionalTester $I)
     {
+        $dependanciesLoader = [
         // actions
-        $this->actionDataLoader = $I->grabService(ActionDataLoader::class);
-
-        // init statuses
-        $this->eventConfigDataLoader = $I->grabService(VariableEventConfigDataLoader::class);
-        $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
-        $this->variableEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
-        $this->directModifierConfigDataLoader = $I->grabService(DirectModifierConfigDataLoader::class);
-        $this->chargeStatusConfigDataLoader = $I->grabService(ChargeStatusConfigDataLoader::class);
-        $this->statusConfigDataLoader = $I->grabService(StatusConfigDataLoader::class);
-
-        // starting items
-        $this->blueprintDataLoader = $I->grabService(BlueprintDataLoader::class);
-        $this->bookDataLoader = $I->grabService(BookDataLoader::class);
-        $this->documentDataLoader = $I->grabService(DocumentDataLoader::class);
-        $this->drugDataLoader = $I->grabService(DrugDataLoader::class);
-        $this->fruitDataLoader = $I->grabService(FruitDataLoader::class);
-        $this->gearDataLoader = $I->grabService(GearDataLoader::class);
-        $this->plantDataLoader = $I->grabService(PlantDataLoader::class);
-        $this->rationDataLoader = $I->grabService(RationDataLoader::class);
-        $this->toolDataLoader = $I->grabService(ToolDataLoader::class);
-        $this->weaponDataLoader = $I->grabService(WeaponDataLoader::class);
-        $this->itemConfigDataLoader = $I->grabService(ItemConfigDataLoader::class);
-
-        // init diseases
-        $this->symptomActivationRequirementDataLoader = $I->grabService(SymptomActivationRequirementDataLoader::class);
-        $this->diseaseConfigDataLoader = $I->grabService(DiseaseConfigDataLoader::class);
-        $this->symptomConfigDataLoader = $I->grabService(SymptomConfigDataLoader::class);
+            $I->grabService(ActionDataLoader::class),
+            // init statuses
+            $I->grabService(VariableEventConfigDataLoader::class),
+            $I->grabService(ModifierActivationRequirementDataLoader::class),
+            $I->grabService(VariableEventModifierConfigDataLoader::class),
+            $I->grabService(TriggerEventModifierConfigDataLoader::class),
+            $I->grabService(PreventEventModifierConfigDataLoader::class),
+            $I->grabService(DirectModifierConfigDataLoader::class),
+            $I->grabService(ChargeStatusConfigDataLoader::class),
+            $I->grabService(StatusConfigDataLoader::class),
+            // starting items
+            $I->grabService(BlueprintDataLoader::class),
+            $I->grabService(BookDataLoader::class),
+            $I->grabService(DocumentDataLoader::class),
+            $I->grabService(DrugDataLoader::class),
+            $I->grabService(FruitDataLoader::class),
+            $I->grabService(GearDataLoader::class),
+            $I->grabService(PlantDataLoader::class),
+            $I->grabService(RationDataLoader::class),
+            $I->grabService(ToolDataLoader::class),
+            $I->grabService(WeaponDataLoader::class),
+            $I->grabService(ItemConfigDataLoader::class),
+            // init diseases
+            $I->grabService(SymptomActivationRequirementDataLoader::class),
+            $I->grabService(DiseaseConfigDataLoader::class),
+            $I->grabService(SymptomConfigDataLoader::class),
+        ];
 
         // load dependencies
-        $this->actionDataLoader->loadConfigsData();
-
-        $this->eventConfigDataLoader->loadConfigsData();
-        $this->modifierActivationRequirementDataLoader->loadConfigsData();
-        $this->directModifierConfigDataLoader->loadConfigsData();
-        $this->variableEventModifierConfigDataLoader->loadConfigsData();
-        $this->chargeStatusConfigDataLoader->loadConfigsData();
-        $this->statusConfigDataLoader->loadConfigsData();
-
-        $this->blueprintDataLoader->loadConfigsData();
-        $this->bookDataLoader->loadConfigsData();
-        $this->documentDataLoader->loadConfigsData();
-        $this->drugDataLoader->loadConfigsData();
-        $this->fruitDataLoader->loadConfigsData();
-        $this->gearDataLoader->loadConfigsData();
-        $this->plantDataLoader->loadConfigsData();
-        $this->rationDataLoader->loadConfigsData();
-        $this->toolDataLoader->loadConfigsData();
-        $this->weaponDataLoader->loadConfigsData();
-        $this->itemConfigDataLoader->loadConfigsData();
-
-        $this->symptomActivationRequirementDataLoader->loadConfigsData();
-        $this->symptomConfigDataLoader->loadConfigsData();
-        $this->diseaseConfigDataLoader->loadConfigsData();
+        /** @var ConfigDataLoader $dataLoader */
+        foreach ($dependanciesLoader as $dataLoader) {
+            $dataLoader->loadConfigsData();
+        }
 
         $this->characterConfigDataLoader = $I->grabService(CharacterConfigDataLoader::class);
     }

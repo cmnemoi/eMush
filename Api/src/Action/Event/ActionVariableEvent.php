@@ -5,9 +5,7 @@ namespace Mush\Action\Event;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Game\Entity\GameVariable;
-use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -16,15 +14,16 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
 {
     public const APPLY_COST = 'apply.cost';
     public const MOVEMENT_CONVERSION = 'movement.conversion';
+    public const ROLL_ACTION_PERCENTAGE = 'roll.action.percentage';
 
     public const VARIABLE_TO_EVENT_MAP = [
         PlayerVariableEnum::ACTION_POINT => self::APPLY_COST,
         PlayerVariableEnum::MORAL_POINT => self::APPLY_COST,
         PlayerVariableEnum::MOVEMENT_POINT => self::APPLY_COST,
-        ActionVariableEnum::PERCENTAGE_SUCCESS => VariableEventInterface::ROLL_PERCENTAGE,
-        ActionVariableEnum::PERCENTAGE_CRITICAL => VariableEventInterface::ROLL_PERCENTAGE,
-        ActionVariableEnum::PERCENTAGE_DIRTINESS => VariableEventInterface::ROLL_PERCENTAGE,
-        ActionVariableEnum::PERCENTAGE_INJURY => VariableEventInterface::ROLL_PERCENTAGE,
+        ActionVariableEnum::PERCENTAGE_SUCCESS => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+        ActionVariableEnum::PERCENTAGE_CRITICAL => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+        ActionVariableEnum::PERCENTAGE_DIRTINESS => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+        ActionVariableEnum::PERCENTAGE_INJURY => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
     ];
 
     private int $quantity;
@@ -67,15 +66,5 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
     public function getVariable(): GameVariable
     {
         return $this->getAction()->getVariableByName($this->variableName);
-    }
-
-    public function getVariableHolder(): GameVariableHolderInterface
-    {
-        return $this->getAction();
-    }
-
-    public function getModifierHolder(): ModifierHolder
-    {
-        return $this->getAuthor();
     }
 }

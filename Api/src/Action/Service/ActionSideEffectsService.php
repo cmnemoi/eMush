@@ -5,7 +5,6 @@ namespace Mush\Action\Service;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
-use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -43,7 +42,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $parameter
         );
 
-        $this->eventService->callEvent($actionEvent, VariableEventInterface::ROLL_PERCENTAGE);
+        $this->eventService->callEvent($actionEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);
     }
 
     private function handleInjury(Action $action, Player $player, ?LogParameterInterface $parameter): void
@@ -56,6 +55,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $parameter
         );
 
-        $this->eventService->callEvent($actionEvent, VariableEventInterface::ROLL_PERCENTAGE);
+        $this->eventService->callEvent($actionEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);
     }
 }

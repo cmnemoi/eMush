@@ -5,7 +5,6 @@ namespace Mush\Status\Listener;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -28,7 +27,7 @@ class ActionVariableSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            VariableEventInterface::ROLL_PERCENTAGE => 'onRollPercentage',
+            ActionVariableEvent::ROLL_ACTION_PERCENTAGE => 'onRollPercentage',
         ];
     }
 

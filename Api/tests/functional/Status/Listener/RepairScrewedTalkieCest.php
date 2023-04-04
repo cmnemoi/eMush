@@ -69,11 +69,11 @@ class RepairScrewedTalkieCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        $player->setPlayerVariables(new CharacterConfig());
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -83,7 +83,7 @@ class RepairScrewedTalkieCest
 
         /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        $player2->setPlayerVariables(new CharacterConfig());
+        $player2->setPlayerVariables($characterConfig);
         $playerInfo2 = new PlayerInfo($player2, $user, $characterConfig);
         $I->haveInRepository($playerInfo2);
         $player2->setPlayerInfo($playerInfo2);

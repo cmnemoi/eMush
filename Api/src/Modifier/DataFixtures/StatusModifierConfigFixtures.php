@@ -7,13 +7,13 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
-use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
@@ -169,11 +169,11 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $increaseCycleDiseaseChances30 = new VariableEventModifierConfig();
         $increaseCycleDiseaseChances30
-            ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->setTargetVariable(RollPercentageEvent::ROLL_PERCENTAGE)
             ->setDelta(30)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(VariableEventInterface::ROLL_PERCENTAGE)
-            ->setApplyOnTarget(true)
+            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
+            ->setApplyOnTarget(false)
             ->setTagConstraints([PlayerEvent::CYCLE_DISEASE => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;

@@ -30,7 +30,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
 
         $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::SHOOT_HUNTER]);
-        $this->action->setDirtyRate(0);
+        $this->action->setDirtyRate(0)->setSuccessRate(100);
 
         $I->refreshEntities($this->action);
 

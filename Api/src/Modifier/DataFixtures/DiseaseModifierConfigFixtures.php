@@ -13,7 +13,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
-use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Event\RollPercentageEvent;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
@@ -410,7 +410,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->setDelta(0.9)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
-            ->setTargetEvent(VariableEventInterface::ROLL_PERCENTAGE)
+            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setTagConstraints([
                 ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -421,11 +421,11 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
 
         $increaseCycleDiseaseChances10 = new VariableEventModifierConfig();
         $increaseCycleDiseaseChances10
-            ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->setTargetVariable(RollPercentageEvent::ROLL_PERCENTAGE)
             ->setDelta(10)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(VariableEventInterface::ROLL_PERCENTAGE)
-            ->setApplyOnTarget(true)
+            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
+            ->setApplyOnTarget(false)
             ->setTagConstraints([
                 PlayerEvent::CYCLE_DISEASE => ModifierRequirementEnum::ALL_TAGS,
             ])

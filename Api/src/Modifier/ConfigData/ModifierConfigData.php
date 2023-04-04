@@ -8,7 +8,9 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -319,7 +321,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_x0.9percentage_on_action_shoot',
             'modifierName' => null,
-            'targetEvent' => VariableEventInterface::ROLL_PERCENTAGE,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
@@ -336,8 +338,8 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_+10percentage_on_cycle_disease',
             'modifierName' => null,
-            'targetEvent' => VariableEventInterface::ROLL_PERCENTAGE,
-            'applyOnTarget' => true,
+            'targetEvent' => RollPercentageEvent::ROLL_PERCENTAGE,
+            'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
             'triggeredEvent' => null,
@@ -396,7 +398,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_x1.5percentage_on_action_technician',
             'modifierName' => null,
-            'targetEvent' => VariableEventInterface::ROLL_PERCENTAGE,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
@@ -441,7 +443,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_x1.1percentage_on_action_shoot',
             'modifierName' => null,
-            'targetEvent' => VariableEventInterface::ROLL_PERCENTAGE,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
@@ -455,7 +457,7 @@ class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_player_+2movementPoint_on_event_action_movement_conversion',
-            'modifierName' => null,
+            'modifierName' => ModifierNameEnum::ANTIGRAV_SCOOTER_CONVERSION_MODIFIER,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'applyOnTarget' => false,
             'modifierRange' => 'player',
@@ -488,7 +490,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_x1.5percentage_on_strengthen_hull',
             'modifierName' => null,
-            'targetEvent' => VariableEventInterface::ROLL_PERCENTAGE,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
@@ -823,7 +825,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_x0.85percentage_on_action_shoot',
             'modifierName' => null,
-            'targetEvent' => VariableEventInterface::ROLL_PERCENTAGE,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
@@ -840,7 +842,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_x0.8percentage_on_action_shoot',
             'modifierName' => null,
-            'targetEvent' => VariableEventInterface::ROLL_PERCENTAGE,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
@@ -857,7 +859,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_x0.6percentage_on_action_shoot',
             'modifierName' => null,
-            'targetEvent' => VariableEventInterface::ROLL_PERCENTAGE,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
@@ -1006,8 +1008,8 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_+30percentage_on_cycle_disease',
             'modifierName' => null,
-            'targetEvent' => VariableEventInterface::ROLL_PERCENTAGE,
-            'applyOnTarget' => true,
+            'targetEvent' => RollPercentageEvent::ROLL_PERCENTAGE,
+            'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
             'triggeredEvent' => null,

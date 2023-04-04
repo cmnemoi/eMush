@@ -182,7 +182,7 @@ class Attack extends AttemptAction
         );
 
         /** @var ActionVariableEvent $criticalRollEvent */
-        $criticalRollEvent = $this->eventService->previewEvent($criticalRollEvent, VariableEventInterface::ROLL_PERCENTAGE);
+        $criticalRollEvent = $this->eventService->previewEvent($criticalRollEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);
 
         return $this->randomService->isSuccessful($criticalRollEvent->getQuantity());
     }

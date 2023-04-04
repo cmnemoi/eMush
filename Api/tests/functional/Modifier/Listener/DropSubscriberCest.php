@@ -74,7 +74,7 @@ class DropSubscriberCest
         $I->haveInRepository($dropActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+            'name' => 'soapShowerActionModifier',
         ]);
 
         $modifier = new GameModifier($player, $modifierConfig);
@@ -150,7 +150,7 @@ class DropSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+            'name' => 'soapShowerActionModifier',
         ]);
 
         $gear = new Gear();
@@ -229,7 +229,7 @@ class DropSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+            'name' => 'soapShowerActionModifier',
         ]);
 
         $modifier = new GameModifier($room, $modifierConfig);
@@ -312,7 +312,7 @@ class DropSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+            'name' => 'soapShowerActionModifier',
         ]);
 
         $modifier = new GameModifier($player, $modifierConfig);
@@ -415,7 +415,7 @@ class DropSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+            'name' => 'soapShowerActionModifier',
         ]);
 
         $modifier = new GameModifier($player, $modifierConfig);

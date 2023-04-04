@@ -32,7 +32,7 @@ class ActionVariableSubscriber implements EventSubscriberInterface
     {
         return [
             ActionVariableEvent::APPLY_COST => 'onApplyCost',
-            VariableEventInterface::ROLL_PERCENTAGE => 'onRollPercentage',
+            ActionVariableEvent::ROLL_ACTION_PERCENTAGE => 'onRollPercentage',
         ];
     }
 

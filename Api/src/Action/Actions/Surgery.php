@@ -19,7 +19,6 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Service\EventModifierServiceInterface;
@@ -161,7 +160,7 @@ class Surgery extends AbstractAction
         );
 
         /** @var ActionVariableEvent $criticalRollEvent */
-        $criticalRollEvent = $this->eventService->previewEvent($criticalRollEvent, VariableEventInterface::ROLL_PERCENTAGE);
+        $criticalRollEvent = $this->eventService->previewEvent($criticalRollEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);
 
         return $criticalRollEvent->getQuantity();
     }

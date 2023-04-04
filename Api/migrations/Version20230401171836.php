@@ -42,7 +42,7 @@ final class Version20230401171836 extends AbstractMigration
         $this->addSql('ALTER TABLE hunter ADD CONSTRAINT FK_4AD78C656E3453A8 FOREIGN KEY (hunter_variables_id) REFERENCES game_variable_collection (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE hunter_config_status_config ADD CONSTRAINT FK_6A134A27324BCEC3 FOREIGN KEY (hunter_config_id) REFERENCES hunter_config (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE hunter_config_status_config ADD CONSTRAINT FK_6A134A27AC4E86C2 FOREIGN KEY (status_config_id) REFERENCES status_config (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE config_difficulty ADD difficulty_modes TEXT NOT NULL');
+        $this->addSql('ALTER TABLE config_difficulty ADD difficulty_modes TEXT NOT NULL DEFAULT \'[]\'::text');
         $this->addSql('COMMENT ON COLUMN config_difficulty.difficulty_modes IS \'(DC2Type:array)\'');
         $this->addSql('ALTER TABLE game_modifier ADD hunter_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE game_modifier ADD CONSTRAINT FK_FB26DBA7DC5C81 FOREIGN KEY (hunter_id) REFERENCES hunter (id) NOT DEFERRABLE INITIALLY IMMEDIATE');

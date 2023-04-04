@@ -40,7 +40,8 @@ class HunterCycleSubscriber implements EventSubscriberInterface
 
         $this->hunterService->updateDaedalusHunterPoints($daedalus);
 
-        if ($this->randomService->isSuccessful(20)) {
+        $hunterSpawnRate = $daedalus->getGameConfig()->getDifficultyConfig()->getHunterSpawnRate();
+        if ($this->randomService->isSuccessful($hunterSpawnRate)) {
             $unpoolHunterEvent = new HunterPoolEvent(
                 $daedalus,
                 tags: $event->getTags(),

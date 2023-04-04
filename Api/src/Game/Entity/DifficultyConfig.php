@@ -80,6 +80,9 @@ class DifficultyConfig
     #[ORM\Column(type: 'array', nullable: false)]
     private array $difficultyModes = [];
 
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $hunterSpawnRate = 0;
+
     public function getId(): int
     {
         return $this->id;
@@ -333,6 +336,18 @@ class DifficultyConfig
     public function setDifficultyModes(array $difficultyModes): static
     {
         $this->difficultyModes = $difficultyModes;
+
+        return $this;
+    }
+
+    public function getHunterSpawnRate(): int
+    {
+        return $this->hunterSpawnRate;
+    }
+
+    public function setHunterSpawnRate(int $hunterSpawnRate): static
+    {
+        $this->hunterSpawnRate = $hunterSpawnRate;
 
         return $this;
     }

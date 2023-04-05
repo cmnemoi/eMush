@@ -17,7 +17,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Config\PreventEventModifierConfig;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Entity\Place;
@@ -274,7 +274,7 @@ class ActionSubscriberCest
         $itemConfig = $I->have(ItemConfig::class, ['name' => GearItemEnum::STAINPROOF_APRON]);
 
         //       $gear = new Gear();
-        $modifierConfig = $I->grabEntityFromRepository(PreventEventModifierConfig::class, [
+        $modifierConfig = $I->grabEntityFromRepository(TriggerEventModifierConfig::class, [
             'modifierName' => ModifierNameEnum::APRON_MODIFIER,
         ]);
 

@@ -117,6 +117,10 @@ class EventService implements EventServiceInterface
             $triggeredEventConfig = $modifierConfig->getTriggeredEvent();
 
             if ($triggeredEventConfig === null) {
+                if ($dispatch === true) {
+                    $this->dispatchAppliedModifiers($modifier, $event->getTags(), $event->getTime());
+                }
+
                 return null;
             }
 

@@ -51,7 +51,7 @@ class EventModifierService implements EventModifierServiceInterface
         }
 
         $modifiedValue = intval($initValue * $multiplicativeDelta + $additiveDelta);
-        if (($initValue > 0 && $modifiedValue < 0) || ($initValue < 0 && $modifiedValue > 0)) {
+        if ($initValue * $modifiedValue < 0) {
             return 0;
         }
 
@@ -74,7 +74,7 @@ class EventModifierService implements EventModifierServiceInterface
             /** @var ?Attempt $attemptStatus */
             $attemptStatus = $event->getAuthor()->getStatusByName(StatusEnum::ATTEMPT);
 
-            if ($attemptStatus === null || $attemptStatus->getAction() !== $event->getAction()->getName()) {
+            if ($attemptStatus === null || $attemptStatus->getAction() !== $event->getAction()->getActionName()) {
                 $attemptNumber = 0;
             } else {
                 $attemptNumber = $attemptStatus->getCharge();

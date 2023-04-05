@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierService;
@@ -63,6 +64,7 @@ class EquipmentModifierServiceTest extends TestCase
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setModifierName('modifierName')
         ;
 
         $gear = new Gear();
@@ -101,7 +103,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         // with a charge
         $chargeConfig = new ChargeStatusConfig();
-        $chargeConfig->setDischargeStrategy('action');
+        $chargeConfig->setDischargeStrategy('modifierName');
         $charge = new ChargeStatus($gameEquipment, $chargeConfig);
 
         $this->modifierService
@@ -238,6 +240,7 @@ class EquipmentModifierServiceTest extends TestCase
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setModifierName(ModifierNameEnum::APRON_MODIFIER)
         ;
 
         $gear = new Gear();
@@ -265,7 +268,7 @@ class EquipmentModifierServiceTest extends TestCase
         $chargeConfig = new ChargeStatusConfig();
         $chargeConfig
             ->setStatusName(EquipmentStatusEnum::FUEL_CHARGE)
-            ->setDischargeStrategy('action')
+            ->setDischargeStrategy(ModifierNameEnum::APRON_MODIFIER)
         ;
         $charge = new ChargeStatus($gameEquipment, $chargeConfig);
 

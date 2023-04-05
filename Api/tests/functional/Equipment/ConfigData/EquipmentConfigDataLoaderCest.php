@@ -21,7 +21,6 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
-use Mush\Modifier\ConfigData\PreventEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
@@ -46,7 +45,6 @@ class EquipmentConfigDataLoaderCest
     protected VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader;
     protected DirectModifierConfigDataLoader $directModifierConfigDataLoader;
     protected TriggerEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader;
-    protected PreventEventModifierConfigDataLoader $preventEventModifierConfigDataLoader;
     protected VariableEventConfigDataLoader $variableEventConfigDataLoader;
     protected ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
 
@@ -59,7 +57,6 @@ class EquipmentConfigDataLoaderCest
         $this->variableEventConfigDataLoader = $I->grabService(VariableEventConfigDataLoader::class);
         $this->variableEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
         $this->triggerEventModifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
-        $this->preventEventModifierConfigDataLoader = $I->grabService(PreventEventModifierConfigDataLoader::class);
         $this->directModifierConfigDataLoader = $I->grabService(DirectModifierConfigDataLoader::class);
         $this->blueprintDataLoader = $I->grabService(BlueprintDataLoader::class);
         $this->bookDataLoader = $I->grabService(BookDataLoader::class);
@@ -83,7 +80,6 @@ class EquipmentConfigDataLoaderCest
         $this->variableEventConfigDataLoader->loadConfigsData();
         $this->variableEventModifierConfigDataLoader->loadConfigsData();
         $this->triggerEventModifierConfigDataLoader->loadConfigsData();
-        $this->preventEventModifierConfigDataLoader->loadConfigsData();
         $this->directModifierConfigDataLoader->loadConfigsData();
         $this->blueprintDataLoader->loadConfigsData();
         $this->bookDataLoader->loadConfigsData();

@@ -11,7 +11,6 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
-use Mush\Modifier\ConfigData\PreventEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 
@@ -34,8 +33,6 @@ class DiseaseConfigDataLoaderCest
         $triggerEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
         /** @var TriggerEventModifierConfigDataLoader $variableEventModifierConfigDataLoader */
         $variableEventModifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
-        /** @var PreventEventModifierConfigDataLoader $preventEventModifierConfigDataLoader */
-        $preventEventModifierConfigDataLoader = $I->grabService(PreventEventModifierConfigDataLoader::class);
         /** @var DirectModifierConfigDataLoader $directModifierConfigDataLoader */
         $directModifierConfigDataLoader = $I->grabService(DirectModifierConfigDataLoader::class);
         /** @var SymptomConfigDataLoader $symptomConfigDataLoader */
@@ -46,7 +43,6 @@ class DiseaseConfigDataLoaderCest
         $symptomActivationRequirementDataLoader->loadConfigsData();
         $variableEventModifierConfigDataLoader->loadConfigsData();
         $triggerEventModifierConfigDataLoader->loadConfigsData();
-        $preventEventModifierConfigDataLoader->loadConfigsData();
         $directModifierConfigDataLoader->loadConfigsData();
         $symptomConfigDataLoader->loadConfigsData();
 

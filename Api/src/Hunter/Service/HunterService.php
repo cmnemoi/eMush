@@ -70,21 +70,6 @@ class HunterService implements HunterServiceInterface
         $this->persistAndFlush([$hunter]);
     }
 
-    public function updateDaedalusHunterPoints(Daedalus $daedalus): void
-    {
-        $pointsToAdd = $daedalus->getDay() + 6;
-        if ($daedalus->isInHardMode()) {
-            ++$pointsToAdd;
-        }
-        if ($daedalus->isInVeryHardMode()) {
-            $pointsToAdd += 2;
-        }
-        $pointsToAdd = intval($pointsToAdd * $this->getOverloadFactor($daedalus) + 0.5);
-
-        $daedalus->addHunterPoints($pointsToAdd);
-        $this->persistAndFlush([$daedalus]);
-    }
-
     public function killHunter(Hunter $hunter): void
     {
         $daedalus = $hunter->getDaedalus();
@@ -104,9 +89,16 @@ class HunterService implements HunterServiceInterface
         $hunterPoints = $daedalus->getHunterPoints();
         $hunterTypes = HunterEnum::getAll();
         $wave = new HunterCollection();
+
         while ($hunterPoints > 0) {
+            $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, $hunterTypes);
+            
+            // do not create a hunter if not enough points
+            if ($hunterPoints < $hunterProbaCollection->min()) {
+                break;
+            }
             $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaArray(
-                $this->getHunterProbaCollection($daedalus, $hunterTypes)->toArray()
+                $hunterProbaCollection->toArray()
             );
             if (!$hunterNameToCreate) {
                 break;
@@ -114,6 +106,7 @@ class HunterService implements HunterServiceInterface
 
             $hunter = $this->createHunterFromName($daedalus, $hunterNameToCreate);
 
+            // do not create a hunter if max per wave is reached
             $maxPerWave = $hunter->getHunterConfig()->getMaxPerWave();
             if ($maxPerWave && $wave->getAllHuntersByType($hunter->getName())->count() > $maxPerWave) {
                 $hunterTypes->removeElement($hunterNameToCreate);
@@ -128,6 +121,21 @@ class HunterService implements HunterServiceInterface
 
         $wave->map(fn ($hunter) => $this->unpoolHunter($hunter, $time));
         $this->persistAndFlush($wave->toArray());
+        $this->persistAndFlush([$daedalus]);
+    }
+
+    public function updateDaedalusHunterPoints(Daedalus $daedalus): void
+    {
+        $pointsToAdd = $daedalus->getDay() + 6;
+        if ($daedalus->isInHardMode()) {
+            ++$pointsToAdd;
+        }
+        if ($daedalus->isInVeryHardMode()) {
+            $pointsToAdd += 2;
+        }
+        $pointsToAdd = intval($pointsToAdd * $this->getOverloadFactor($daedalus) + 0.5);
+
+        $daedalus->addHunterPoints($pointsToAdd);
         $this->persistAndFlush([$daedalus]);
     }
 

@@ -14,4 +14,6 @@ interface CycleServiceInterface
     public function getDaedalusStartingCycleDate(Daedalus $daedalus): \DateTime;
 
     public function getDateStartNextCycle(Daedalus $daedalus): \DateTime;
+
+    public function getNumberOfCycleElapsed(\DateTime $start, \DateTime $end, Daedalus $daedalus): int;
 }

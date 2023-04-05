@@ -446,4 +446,11 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
     {
         return $this->getDay() >= $this->daedalusInfo->getGameConfig()->getDifficultyConfig()->getDifficultyModes()->get(DifficultyEnum::VERY_HARD);
     }
+
+    public function isInHunterSafeCycle(): bool
+    {
+        $safeCycles = new ArrayCollection($this->daedalusInfo->getGameConfig()->getDifficultyConfig()->getHunterSafeCycles());
+
+        return $safeCycles->contains($this->cycle);
+    }
 }

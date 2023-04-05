@@ -83,6 +83,12 @@ class DifficultyConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $hunterSpawnRate = 0;
 
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $hunterSafeCycles = [];
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $startingHuntersNumberOfTruceCycles = 0;
+
     public function getId(): int
     {
         return $this->id;
@@ -348,6 +354,30 @@ class DifficultyConfig
     public function setHunterSpawnRate(int $hunterSpawnRate): static
     {
         $this->hunterSpawnRate = $hunterSpawnRate;
+
+        return $this;
+    }
+
+    public function getHunterSafeCycles(): array
+    {
+        return $this->hunterSafeCycles;
+    }
+
+    public function setHunterSafeCycles(array $hunterSafeCycles): static
+    {
+        $this->hunterSafeCycles = $hunterSafeCycles;
+
+        return $this;
+    }
+
+    public function getStartingHuntersNumberOfTruceCycles(): int
+    {
+        return $this->startingHuntersNumberOfTruceCycles;
+    }
+
+    public function setStartingHuntersNumberOfTruceCycles(int $startingHuntersNumberOfTruceCycles): static
+    {
+        $this->startingHuntersNumberOfTruceCycles = $startingHuntersNumberOfTruceCycles;
 
         return $this;
     }

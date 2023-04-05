@@ -92,7 +92,7 @@ class HunterService implements HunterServiceInterface
 
         while ($hunterPoints > 0) {
             $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, $hunterTypes);
-            
+
             // do not create a hunter if not enough points
             if ($hunterPoints < $hunterProbaCollection->min()) {
                 break;

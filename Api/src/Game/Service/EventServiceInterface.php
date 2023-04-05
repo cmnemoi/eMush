@@ -8,7 +8,7 @@ interface EventServiceInterface
 {
     public function callEvent(AbstractGameEvent $event, string $name, AbstractGameEvent $caller = null): void;
 
-    public function previewEvent(AbstractGameEvent $event, string $name): AbstractGameEvent;
+    public function previewEvent(AbstractGameEvent $event, string $name): ?AbstractGameEvent;
 
-    public function canEventTrigger(AbstractGameEvent $event, string $name, bool $dispatch): string;
+    public function eventCancelReason(AbstractGameEvent $event, string $name, bool $dispatch): ?string;
 }

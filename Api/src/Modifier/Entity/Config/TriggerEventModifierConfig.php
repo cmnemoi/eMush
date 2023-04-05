@@ -12,12 +12,16 @@ use Mush\Game\Enum\VisibilityEnum;
  *
  * visibility: the visibility of the triggered event
  * triggeredEventConfig: a config to create the triggered event
+ * replaceEvent: does the new event replace the initial one?
  */
 #[ORM\Entity]
 class TriggerEventModifierConfig extends EventModifierConfig
 {
     #[ORM\ManyToOne(targetEntity: AbstractEventConfig::class)]
-    protected AbstractEventConfig $triggeredEvent;
+    protected ?AbstractEventConfig $triggeredEvent;
+
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    protected bool $replaceEvent = false;
 
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $visibility = VisibilityEnum::PUBLIC;
@@ -25,9 +29,11 @@ class TriggerEventModifierConfig extends EventModifierConfig
     public function buildName(string $configName): self
     {
         $baseName = $this->modifierName;
-
-        if ($baseName === null) {
-            $baseName = $this->triggeredEvent->getName();
+        $triggeredEvent = $this->triggeredEvent;
+        if ($baseName === null && $triggeredEvent !== null) {
+            $baseName = $triggeredEvent->getName();
+        } elseif ($baseName === null) {
+            $baseName = 'prevent';
         }
 
         $this->name = $baseName . '_ON_' . $this->getTargetEvent() . '_' . $configName;
@@ -40,14 +46,26 @@ class TriggerEventModifierConfig extends EventModifierConfig
         return $this;
     }
 
-    public function getTriggeredEvent(): AbstractEventConfig
+    public function getTriggeredEvent(): ?AbstractEventConfig
     {
         return $this->triggeredEvent;
     }
 
-    public function setTriggeredEvent(AbstractEventConfig $triggeredEvent): self
+    public function setTriggeredEvent(?AbstractEventConfig $triggeredEvent): self
     {
         $this->triggeredEvent = $triggeredEvent;
+
+        return $this;
+    }
+
+    public function getReplaceEvent(): bool
+    {
+        return $this->replaceEvent;
+    }
+
+    public function setReplaceEvent(bool $replaceEvent): self
+    {
+        $this->replaceEvent = $replaceEvent;
 
         return $this;
     }

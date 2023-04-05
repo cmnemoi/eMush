@@ -2,6 +2,7 @@
 
 namespace Mush\Game\Service;
 
+use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -42,25 +43,29 @@ class EventService implements EventServiceInterface
         }
         $event->setEventName($name);
 
-        $canEventTrigger = $this->canEventTrigger($event, $name, true);
+        $event = $this->applyModifiers($event);
 
-        if ($canEventTrigger === 'true') {
-            $event = $this->applyModifiers($event);
-
-            $this->eventDispatcher->dispatch($event, $name);
+        if ($event !== null) {
+            $this->eventDispatcher->dispatch($event, $event->getEventName());
         }
     }
 
     /**
      * @throws \Exception
      */
-    private function applyModifiers(AbstractGameEvent $event, bool $dispatch = true): AbstractGameEvent
+    private function applyModifiers(AbstractGameEvent $event, bool $dispatch = true): ?AbstractGameEvent
     {
         $modifiers = $event->getModifiers();
         $modifiers = $this->modifierRequirementService->getActiveModifiers($modifiers, $event->getTags());
 
-        $triggerModifiers = $modifiers->getTriggerEventModifiers();
+        $replaceEventModifiers = $modifiers->getTriggerEventModifiersReplace();
+        $event = $this->applyReplaceModifiers($replaceEventModifiers, $event, true);
 
+        if ($event === null) {
+            return null;
+        }
+
+        $triggerModifiers = $modifiers->getTriggerEventModifiersNoReplace();
         if ($dispatch === true) {
             $this->applyTriggerModifiers($triggerModifiers, $event);
         }
@@ -79,8 +84,10 @@ class EventService implements EventServiceInterface
 
             /** @var TriggerEventModifierConfig $modifierConfig */
             $modifierConfig = $modifier->getModifierConfig();
+            /** @var AbstractEventConfig $eventConfig */
+            $eventConfig = $modifierConfig->getTriggeredEvent();
             $triggeredEvents = $this->eventCreationService->createEvents(
-                $modifierConfig->getTriggeredEvent(),
+                $eventConfig,
                 $modifier->getModifierHolder(),
                 $event->getAuthor(),
                 $tags,
@@ -91,9 +98,43 @@ class EventService implements EventServiceInterface
                 $this->callEvent($triggeredEvent, $triggeredEvent->getEventName());
             }
 
-            $modifierEvent = new ModifierEvent($modifier, $event->getTags(), $event->getTime(), true);
-            $this->callEvent($modifierEvent, ModifierEvent::APPLY_MODIFIER);
+            $this->dispatchAppliedModifiers($modifier, $event->getTags(), $event->getTime());
         }
+    }
+
+    private function applyReplaceModifiers(
+        ModifierCollection $triggerModifiers,
+        AbstractGameEvent $event,
+        bool $dispatch
+    ): ?AbstractGameEvent {
+        foreach ($triggerModifiers as $modifier) {
+            $tags = $event->getTags();
+            $tags[] = $modifier->getModifierConfig()->getModifierName();
+
+            /** @var TriggerEventModifierConfig $modifierConfig */
+            $modifierConfig = $modifier->getModifierConfig();
+
+            $triggeredEventConfig = $modifierConfig->getTriggeredEvent();
+
+            if ($triggeredEventConfig === null) {
+                return null;
+            }
+
+            // @TODO better handle event creation
+            $event = $this->eventCreationService->createEvents(
+                $triggeredEventConfig,
+                $modifier->getModifierHolder(),
+                $event->getAuthor(),
+                $tags,
+                $event->getTime()
+            )[0];
+
+            if ($dispatch === true) {
+                $this->dispatchAppliedModifiers($modifier, $event->getTags(), $event->getTime());
+            }
+        }
+
+        return $event;
     }
 
     private function applyVariableModifiers(ModifierCollection $modifiers, AbstractGameEvent $event, bool $dispatch = true): AbstractGameEvent
@@ -112,31 +153,41 @@ class EventService implements EventServiceInterface
 
         if ($dispatch) {
             foreach ($variableModifiers as $modifier) {
-                $modifierEvent = new ModifierEvent($modifier, $event->getTags(), $event->getTime(), true);
-                $this->callEvent($modifierEvent, ModifierEvent::APPLY_MODIFIER);
+                $this->dispatchAppliedModifiers($modifier, $event->getTags(), $event->getTime());
             }
         }
 
         return $event;
     }
 
+    private function dispatchAppliedModifiers(GameModifier $modifier, array $tags, \DateTime $time)
+    {
+        $modifierEvent = new ModifierEvent($modifier, $tags, $time, true);
+        $this->callEvent($modifierEvent, ModifierEvent::APPLY_MODIFIER);
+    }
+
     /**
      * @throws \Exception
      */
-    public function previewEvent(AbstractGameEvent $event, string $name): AbstractGameEvent
+    public function previewEvent(AbstractGameEvent $event, string $name): ?AbstractGameEvent
     {
         $event->setEventName($name);
 
         return $this->applyModifiers($event, false);
     }
 
-    public function canEventTrigger(AbstractGameEvent $event, string $name, bool $dispatch): string
+    public function eventCancelReason(AbstractGameEvent $event, string $name, bool $dispatch): ?string
     {
         $event->setEventName($name);
 
         $modifiers = $event->getModifiers();
         $modifiers = $this->modifierRequirementService->getActiveModifiers($modifiers, $event->getTags());
-        $preventModifiers = $modifiers->getPreventEventModifiers();
+        $preventModifiers = $modifiers->getTriggerEventModifiersReplace()->filter(
+            fn (GameModifier $modifier) => (
+                ($modifierConfig = $modifier->getModifierConfig()) instanceof TriggerEventModifierConfig &&
+                $modifierConfig->getTriggeredEvent() === null
+            )
+        );
 
         if ($preventModifiers->count() > 0) {
             /** @var GameModifier $preventModifier */
@@ -146,9 +197,9 @@ class EventService implements EventServiceInterface
                 $this->callEvent($modifierEvent, ModifierEvent::APPLY_MODIFIER);
             }
 
-            return $preventModifier->getModifierConfig()->getModifierName() ?: 'false';
+            return $preventModifier->getModifierConfig()->getModifierName() ?: $preventModifier->getModifierConfig()->getName();
         }
 
-        return 'true';
+        return null;
     }
 }

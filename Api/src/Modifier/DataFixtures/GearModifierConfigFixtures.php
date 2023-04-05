@@ -17,7 +17,6 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
-use Mush\Modifier\Entity\Config\PreventEventModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -49,9 +48,11 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
     public function load(ObjectManager $manager): void
     {
-        $apronModifier = new PreventEventModifierConfig();
+        $apronModifier = new TriggerEventModifierConfig();
 
         $apronModifier
+            ->setTriggeredEvent(null)
+            ->setReplaceEvent(true)
             ->setTargetEvent(StatusEvent::STATUS_APPLIED)
             ->setTagConstraints([
                 PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ALL_TAGS,
@@ -91,8 +92,10 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($wrenchModifier);
 
-        $glovesModifier = new PreventEventModifierConfig();
+        $glovesModifier = new TriggerEventModifierConfig();
         $glovesModifier
+            ->setTriggeredEvent(null)
+            ->setReplaceEvent(true)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setApplyOnTarget(true)
             ->setTagConstraints([EndCauseEnum::CLUMSINESS => ModifierRequirementEnum::ALL_TAGS])

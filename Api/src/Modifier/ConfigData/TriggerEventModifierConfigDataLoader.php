@@ -24,6 +24,7 @@ class TriggerEventModifierConfigDataLoader extends ModifierConfigDataLoader
             }
 
             $modifierConfig
+                ->setReplaceEvent($modifierConfigData['replaceEvent'])
                 ->setTargetEvent($modifierConfigData['targetEvent'])
                 ->setApplyOnTarget($modifierConfigData['applyOnTarget'])
                 ->setTagConstraints($modifierConfigData['tagConstraints'])
@@ -40,15 +41,19 @@ class TriggerEventModifierConfigDataLoader extends ModifierConfigDataLoader
         $this->entityManager->flush();
     }
 
-    protected function setEventConfig(TriggerEventModifierConfig $modifierConfig, string $eventConfigName): TriggerEventModifierConfig
+    protected function setEventConfig(TriggerEventModifierConfig $modifierConfig, ?string $eventConfigName): TriggerEventModifierConfig
     {
-        /** @var AbstractEventConfig $eventConfig */
-        $eventConfig = $this->eventConfigRepository->findOneBy(['name' => $eventConfigName]);
-        if ($eventConfig === null) {
-            throw new \Exception("Event config {$eventConfigName} not found");
-        }
+        if ($eventConfigName === null) {
+            $modifierConfig->setTriggeredEvent(null);
+        } else {
+            /** @var AbstractEventConfig $eventConfig */
+            $eventConfig = $this->eventConfigRepository->findOneBy(['name' => $eventConfigName]);
+            if ($eventConfig === null) {
+                throw new \Exception("Event config {$eventConfigName} not found");
+            }
 
-        $modifierConfig->setTriggeredEvent($eventConfig);
+            $modifierConfig->setTriggeredEvent($eventConfig);
+        }
 
         return $modifierConfig;
     }

@@ -90,6 +90,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
@@ -101,6 +102,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-2_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
@@ -112,6 +114,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-4_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
@@ -123,6 +126,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_movementPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
@@ -134,6 +138,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_satiety',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
@@ -145,6 +150,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_actionPoint',
             'modifierActivationRequirements' => [
                 'random_10',
@@ -158,6 +164,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_healthPoint',
             'modifierActivationRequirements' => [
                 'random_10',
@@ -171,6 +178,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_actionPoint',
             'modifierActivationRequirements' => [
                 'random_16',
@@ -184,6 +192,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_healthPoint',
             'modifierActivationRequirements' => [
                 'random_16',
@@ -197,6 +206,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_actionPoint',
             'modifierActivationRequirements' => [
                 'random_20',
@@ -210,6 +220,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_actionPoint',
             'modifierActivationRequirements' => [
                 'random_30',
@@ -223,6 +234,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-2_actionPoint',
             'modifierActivationRequirements' => [
                 'random_40',
@@ -236,6 +248,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_movementPoint',
             'modifierActivationRequirements' => [
                 'random_50',
@@ -249,6 +262,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_healthPoint',
             'modifierActivationRequirements' => [
                 'random_50',
@@ -262,6 +276,7 @@ class ModifierConfigData
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_actionPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
@@ -276,6 +291,7 @@ class ModifierConfigData
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-2_actionPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
@@ -290,6 +306,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-4_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
@@ -301,6 +318,7 @@ class ModifierConfigData
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-6_healthPoint',
             'modifierActivationRequirements' => [
                 'player_equipment_schrodinger',
@@ -314,6 +332,7 @@ class ModifierConfigData
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_1_satiety',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
@@ -357,6 +376,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_actionPoint',
             'modifierActivationRequirements' => [
                 'random_16',
@@ -370,7 +390,9 @@ class ModifierConfigData
             'targetEvent' => StatusEvent::STATUS_APPLIED,
             'applyOnTarget' => true,
             'modifierRange' => 'player',
-            'type' => 'prevent_event_modifier',
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => true,
+            'triggeredEvent' => null,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ALL_TAGS,
@@ -418,7 +440,9 @@ class ModifierConfigData
             'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
             'applyOnTarget' => true,
             'modifierRange' => 'player',
-            'type' => 'prevent_event_modifier',
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => true,
+            'triggeredEvent' => null,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [EndCauseEnum::CLUMSINESS => ModifierRequirementEnum::ALL_TAGS],
         ],
@@ -554,6 +578,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'daedalus',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_1_movementPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
@@ -619,6 +644,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_actionPoint',
             'modifierActivationRequirements' => [
                 'random_16',
@@ -632,6 +658,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_healthPoint',
             'modifierActivationRequirements' => [
                 'random_16',
@@ -645,6 +672,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_moralPoint',
             'modifierActivationRequirements' => [
                 'random_70',
@@ -658,6 +686,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-2_movementPoint',
             'modifierActivationRequirements' => [
                 'random_16',
@@ -962,6 +991,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_moralPoint',
             'modifierActivationRequirements' => [
                 'player_in_room_not_alone',
@@ -975,6 +1005,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_moralPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
@@ -1001,6 +1032,7 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-1_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
@@ -1027,6 +1059,7 @@ class ModifierConfigData
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-3_healthPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [

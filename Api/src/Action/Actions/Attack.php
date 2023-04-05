@@ -4,6 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\CriticalFail;
+use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\OneShot;
 use Mush\Action\ActionResult\Success;
@@ -25,7 +26,6 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -42,7 +42,6 @@ class Attack extends AttemptAction
 {
     protected string $name = ActionEnum::ATTACK;
 
-    private EventModifierServiceInterface $modifierService;
     private DiseaseCauseServiceInterface $diseaseCauseService;
     protected RandomServiceInterface $randomService;
 
@@ -51,7 +50,6 @@ class Attack extends AttemptAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        EventModifierServiceInterface $modifierService,
         DiseaseCauseServiceInterface $diseaseCauseService,
     ) {
         parent::__construct(
@@ -61,7 +59,6 @@ class Attack extends AttemptAction
             $randomService
         );
 
-        $this->modifierService = $modifierService;
         $this->diseaseCauseService = $diseaseCauseService;
     }
 
@@ -95,6 +92,9 @@ class Attack extends AttemptAction
             if ($this->rollCriticalChances($knife->getOneShotRate())) {
                 return new OneShot();
             }
+            if ($this->rollCriticalChances($knife->getCriticalSuccessRate())) {
+                return new CriticalSuccess();
+            }
 
             return new Success();
         } else {
@@ -115,34 +115,28 @@ class Attack extends AttemptAction
         $knife = $this->getPlayerKnife();
 
         if ($result instanceof Success) {
+            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($knife->getBaseDamageRange()));
+            $damageEvent = $this->createDamageEvent($damage, $target, $player);
+
             if ($result instanceof OneShot) {
-                $reasons = $this->getAction()->getActionTags();
-                $reasons[] = EndCauseEnum::BLED;
+                $tags = $this->getAction()->getActionTags();
+                $tags[] = EndCauseEnum::BLED;
+                $tags[] = ActionOutputEnum::ONE_SHOT;
                 $deathEvent = new PlayerEvent(
                     $target,
-                    $reasons,
+                    $tags,
                     new \DateTime()
                 );
 
                 $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
                 return;
-            }
-
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($knife->getBaseDamageRange()));
-
-            $damageEvent = $this->createDamageEvent($damage, $target, $player);
-
-            if ($this->rollCriticalChances($knife->getCriticalSuccessRate())) {
+            } elseif ($result instanceof CriticalSuccess) {
                 $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
                 $damageEvent->addTag(ActionOutputEnum::CRITICAL_SUCCESS);
             }
 
             // handle modifiers on damage : armor, hard boiled, etc
-            $damageEvent = $this->eventService->previewEvent(
-                $damageEvent,
-                VariableEventInterface::CHANGE_VARIABLE
-            );
             $this->eventService->callEvent($damageEvent, VariableEventInterface::CHANGE_VARIABLE);
         } else {
             if ($result instanceof CriticalFail) {

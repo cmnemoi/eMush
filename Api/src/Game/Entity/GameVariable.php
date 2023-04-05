@@ -91,10 +91,10 @@ class GameVariable
 
     public function getValueInRange(int $value): int
     {
-        if ($this->maxValue) {
+        if ($this->maxValue !== null) {
             $value = min($value, $this->maxValue);
         }
-        if ($this->minValue) {
+        if ($this->minValue !== null) {
             $value = max($value, $this->minValue);
         }
 

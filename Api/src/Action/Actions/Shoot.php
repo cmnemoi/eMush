@@ -4,6 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\CriticalFail;
+use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\OneShot;
 use Mush\Action\ActionResult\Success;
@@ -92,8 +93,6 @@ class Shoot extends AttemptAction
     // Special checkResult for Shoot action waiting for a refactor
     protected function checkResult(): ActionResult
     {
-        $player = $this->player;
-
         $blaster = $this->getPlayerBlaster();
 
         $success = $this->randomService->isSuccessful($this->getSuccessRate());
@@ -101,6 +100,9 @@ class Shoot extends AttemptAction
         if ($success) {
             if ($this->rollCriticalChances($blaster->getOneShotRate())) {
                 return new OneShot();
+            }
+            if ($this->rollCriticalChances($blaster->getCriticalSuccessRate())) {
+                return new CriticalSuccess();
             }
 
             return new Success();
@@ -122,9 +124,13 @@ class Shoot extends AttemptAction
         $blaster = $this->getPlayerBlaster();
 
         if ($result instanceof Success) {
+            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($blaster->getBaseDamageRange()));
+            $damageEvent = $this->createDamageEvent($damage, $target);
+
             if ($result instanceof OneShot) {
                 $reasons = $this->getAction()->getActionTags();
                 $reasons[] = EndCauseEnum::BLED;
+                $reasons[] = ActionOutputEnum::ONE_SHOT;
                 $deathEvent = new PlayerEvent(
                     $target,
                     $reasons,
@@ -134,16 +140,11 @@ class Shoot extends AttemptAction
                 $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
                 return;
-            }
-
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($blaster->getBaseDamageRange()));
-
-            $damageEvent = $this->createDamageEvent($damage, $target);
-
-            if ($this->rollCriticalChances($blaster->getCriticalSuccessRate())) {
+            } elseif ($result instanceof CriticalSuccess) {
                 $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
                 $damageEvent->addTag(ActionOutputEnum::CRITICAL_SUCCESS);
             }
+
             $this->eventService->callEvent($damageEvent, VariableEventInterface::CHANGE_VARIABLE);
         } else {
             if ($result instanceof CriticalFail) {

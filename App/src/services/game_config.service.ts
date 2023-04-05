@@ -31,8 +31,6 @@ const VARIABLE_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "
 // @ts-ignore
 const TRIGGER_EVENT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "trigger_event_modifier_configs");
 // @ts-ignore
-const PREVENT_EVENT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "prevent_event_modifier_configs");
-// @ts-ignore
 const DIRECT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "direct_modifier_configs");
 // @ts-ignore
 const EVENT_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "event_configs");
@@ -106,7 +104,6 @@ const MECHANICS_ENDPOINTS: Map<string, string> = new Map([
 const MODIFIER_CONFIG_ENDPOINTS: Map<string, string> = new Map([
     ['variableeventmodifierconfig', VARIABLE_MODIFIER_CONFIG_ENDPOINT],
     ['triggereventmodifierconfig', TRIGGER_EVENT_MODIFIER_CONFIG_ENDPOINT],
-    ['preventeventmodifierconfig', PREVENT_EVENT_MODIFIER_CONFIG_ENDPOINT],
     ['directmodifierconfig', DIRECT_MODIFIER_CONFIG_ENDPOINT],
 ]);
 

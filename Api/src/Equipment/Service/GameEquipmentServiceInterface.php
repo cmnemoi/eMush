@@ -23,6 +23,7 @@ interface GameEquipmentServiceInterface
         string $equipmentName,
         EquipmentHolderInterface $equipmentHolder,
         array $reasons,
+        \DateTime $time,
         string $visibility = VisibilityEnum::PRIVATE
     ): GameEquipment;
 
@@ -30,6 +31,7 @@ interface GameEquipmentServiceInterface
         EquipmentConfig $equipmentConfig,
         EquipmentHolderInterface $holder,
         array $reasons,
+        \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment;
 
@@ -38,6 +40,7 @@ interface GameEquipmentServiceInterface
         GameEquipment $input,
         EquipmentHolderInterface $holder,
         array $reasons,
+        \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment;
 
@@ -46,6 +49,7 @@ interface GameEquipmentServiceInterface
         GameEquipment $input,
         EquipmentHolderInterface $holder,
         array $reasons,
+        \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment;
 

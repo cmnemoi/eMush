@@ -99,6 +99,7 @@ class Transplant extends AbstractAction
             $fruitType->getPlantName(),
             $this->player,
             $this->getAction()->getActionTags(),
+            new \DateTime(),
             VisibilityEnum::PUBLIC
         );
     }

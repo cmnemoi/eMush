@@ -50,6 +50,7 @@ abstract class RetrieveAction extends AbstractAction
             $this->getItemName(),
             $this->player,
             $this->getAction()->getActionTags(),
+            new \DateTime(),
             VisibilityEnum::HIDDEN
         );
 

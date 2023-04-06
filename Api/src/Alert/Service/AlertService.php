@@ -252,7 +252,7 @@ class AlertService implements AlertServiceInterface
         $fireAlert = $filteredList->first();
 
         if ($filteredList->count() !== 1 || !$fireAlert) {
-            throw new \LogicException('this fire should be reported exactly one time');
+            throw new \LogicException("this fire should be reported exactly one time. Currently reported {$filteredList->count()} times");
         }
 
         return $fireAlert;

@@ -131,6 +131,7 @@ class Build extends AbstractAction
             $blueprintMechanic->getCraftedEquipmentName(),
             $this->player,
             $this->getAction()->getActionTags(),
+            new \DateTime(),
             VisibilityEnum::PRIVATE
         );
     }

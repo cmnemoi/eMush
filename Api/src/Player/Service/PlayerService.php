@@ -177,6 +177,7 @@ class PlayerService implements PlayerServiceInterface
                 $itemConfig,
                 $player,
                 [PlayerEvent::NEW_PLAYER],
+                $time,
                 VisibilityEnum::PRIVATE
             );
         }
@@ -378,6 +379,7 @@ class PlayerService implements PlayerServiceInterface
                 GameRationEnum::ORGANIC_WASTE,
                 $playerDeathPlace,
                 [EndCauseEnum::QUARANTINE],
+                new \DateTime()
             );
         }
     }

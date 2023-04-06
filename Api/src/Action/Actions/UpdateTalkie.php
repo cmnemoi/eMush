@@ -101,6 +101,7 @@ class UpdateTalkie extends AbstractAction
             $parameter,
             $this->player,
             $this->getAction()->getActionTags(),
+            new \DateTime(),
             VisibilityEnum::PUBLIC
         );
     }

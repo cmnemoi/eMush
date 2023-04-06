@@ -93,6 +93,7 @@ class OpenCapsule extends AbstractAction
             $contentName,
             $this->player,
             $this->getAction()->getActionTags(),
+            new \DateTime(),
             VisibilityEnum::PUBLIC
         );
     }

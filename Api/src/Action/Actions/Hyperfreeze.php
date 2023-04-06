@@ -66,6 +66,7 @@ class Hyperfreeze extends AbstractAction
                 $parameter,
                 $this->player,
                 $this->getAction()->getActionTags(),
+                new \DateTime(),
                 VisibilityEnum::PUBLIC
             );
         } else {

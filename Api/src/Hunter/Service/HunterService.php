@@ -183,7 +183,7 @@ class HunterService implements HunterServiceInterface
                 throw new \Exception("Hunter config not found for hunter name $hunterType");
             }
 
-            if ($hunterConfig->getSpawnDifficulty() >= $difficultyMode) {
+            if ($hunterConfig->getSpawnDifficulty() > $difficultyMode) {
                 continue;
             }
 

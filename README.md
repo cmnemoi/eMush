@@ -250,6 +250,6 @@ Please read [APP.md](./APP/README.md) for details on the APP architecture
 
 ## License
 
-The code source of this project is licensed under AGPL-3.0-or-later License.
+The code source of this project is licensed under [AGPL-3.0-or-later](LICENSE) License.
 
-All the assets in `App/src/assets` are licensed under CC-BY-NC-SA-4.0-International License.
+All the assets in `App/src/assets` are licensed under [CC-BY-NC-SA-4.0](App/src/assets/LICENSE) License.

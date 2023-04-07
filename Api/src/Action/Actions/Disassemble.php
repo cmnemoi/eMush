@@ -77,6 +77,7 @@ class Disassemble extends AttemptAction
                     $productString,
                     $this->player,
                     $this->getAction()->getActionTags(),
+                    new \DateTime(),
                     VisibilityEnum::HIDDEN
                 );
             }

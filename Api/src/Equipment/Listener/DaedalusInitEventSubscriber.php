@@ -45,7 +45,8 @@ class DaedalusInitEventSubscriber implements EventSubscriberInterface
                 $this->gameEquipmentService->createGameEquipmentFromName(
                     $itemName,
                     $room,
-                    $reasons
+                    $reasons,
+                    $time
                 );
             }
         }

@@ -60,7 +60,8 @@ class Coffee extends AbstractAction
         $this->gameEquipmentService->createGameEquipmentFromName(
             GameRationEnum::COFFEE,
             $this->player,
-            $this->getAction()->getActionTags()
+            $this->getAction()->getActionTags(),
+            new \DateTime()
         );
     }
 }

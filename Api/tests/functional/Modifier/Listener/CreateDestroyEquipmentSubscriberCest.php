@@ -94,6 +94,7 @@ class CreateDestroyEquipmentSubscriberCest
             $name,
             $player,
             ['a test reason'],
+            new \DateTime(),
             VisibilityEnum::PUBLIC
         );
 
@@ -155,6 +156,7 @@ class CreateDestroyEquipmentSubscriberCest
             $name,
             $player,
             ['a test reason'],
+            new \DateTime(),
             VisibilityEnum::PUBLIC
         );
 
@@ -221,6 +223,7 @@ class CreateDestroyEquipmentSubscriberCest
             $name,
             $player,
             ['a test reason'],
+            new \DateTime(),
             VisibilityEnum::PUBLIC
         );
 
@@ -285,6 +288,7 @@ class CreateDestroyEquipmentSubscriberCest
             $name,
             $player,
             ['a test reason'],
+            new \DateTime(),
             VisibilityEnum::PUBLIC
         );
 
@@ -367,6 +371,7 @@ class CreateDestroyEquipmentSubscriberCest
             $name,
             $player,
             ['a test reason'],
+            new \DateTime(),
             VisibilityEnum::PUBLIC
         );
 
@@ -374,6 +379,7 @@ class CreateDestroyEquipmentSubscriberCest
             $name,
             $player,
             ['a test reason'],
+            new \DateTime(),
             VisibilityEnum::PUBLIC
         );
 
@@ -479,6 +485,7 @@ class CreateDestroyEquipmentSubscriberCest
             ItemEnum::OXYGEN_CAPSULE,
             $player,
             ['a test reason'],
+            new \DateTime(),
             VisibilityEnum::PUBLIC
         );
 
@@ -487,6 +494,7 @@ class CreateDestroyEquipmentSubscriberCest
             $gameEquipment,
             $player,
             ['a test reason'],
+            new \DateTime(),
             VisibilityEnum::PUBLIC
         );
 

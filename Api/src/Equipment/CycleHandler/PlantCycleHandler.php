@@ -168,6 +168,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             ItemEnum::HYDROPOT,
             $holder,
             [PlantLogEnum::PLANT_DEATH],
+            $dateTime,
             VisibilityEnum::HIDDEN
         );
     }
@@ -199,6 +200,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             $plantType->getFruitName(),
             $place,
             [EventEnum::PLANT_PRODUCTION],
+            $dateTime,
             VisibilityEnum::PUBLIC
         );
     }

@@ -41,13 +41,13 @@ class PlaceInitSubscriber implements EventSubscriberInterface
         foreach ($placeConfig->getItems() as $itemName) {
             $item = $this->equipmentService->findByNameAndDaedalus($itemName, $daedalus);
 
-            $gameItem = $this->gameEquipmentService->createGameEquipment($item, $place, $reasons);
+            $gameItem = $this->gameEquipmentService->createGameEquipment($item, $place, $reasons, $time);
         }
 
         foreach ($placeConfig->getEquipments() as $equipmentName) {
             $equipment = $this->equipmentService->findByNameAndDaedalus($equipmentName, $daedalus);
 
-            $gameEquipment = $this->gameEquipmentService->createGameEquipment($equipment, $place, $reasons);
+            $gameEquipment = $this->gameEquipmentService->createGameEquipment($equipment, $place, $reasons, $time);
         }
 
         // initialize doors

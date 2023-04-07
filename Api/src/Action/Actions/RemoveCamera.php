@@ -69,7 +69,8 @@ class RemoveCamera extends AbstractAction
             ItemEnum::CAMERA_ITEM,
             $equipmentCamera,
             $this->player,
-            $this->getAction()->getActionTags()
+            $this->getAction()->getActionTags(),
+            new \DateTime()
         );
     }
 }

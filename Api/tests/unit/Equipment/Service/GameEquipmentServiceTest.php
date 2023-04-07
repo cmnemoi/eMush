@@ -89,7 +89,8 @@ class GameEquipmentServiceTest extends TestCase
         $gameItem = $this->service->createGameEquipment(
             $itemConfig,
             $place,
-            ['reason']
+            ['reason'],
+            new \DateTime()
         );
 
         $this->assertInstanceOf(GameItem::class, $gameItem);
@@ -122,7 +123,8 @@ class GameEquipmentServiceTest extends TestCase
         $gameEquipment = $this->service->createGameEquipment(
             $equipmentConfig,
             $place,
-            ['reason']
+            ['reason'],
+            new \DateTime()
         );
 
         $this->assertInstanceOf(GameEquipment::class, $gameEquipment);
@@ -166,7 +168,8 @@ class GameEquipmentServiceTest extends TestCase
         $gameItem = $this->service->createGameEquipment(
             $itemConfig,
             $place,
-            ['reason']
+            ['reason'],
+            new \DateTime()
         );
 
         $this->assertInstanceOf(GameItem::class, $gameItem);
@@ -210,6 +213,7 @@ class GameEquipmentServiceTest extends TestCase
             $itemConfig,
             $place,
             ['reason'],
+            new \DateTime()
         );
 
         $this->assertInstanceOf(GameItem::class, $gameItem);

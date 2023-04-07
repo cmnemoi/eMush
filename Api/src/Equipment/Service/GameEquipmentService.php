@@ -82,17 +82,19 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         string $equipmentName,
         EquipmentHolderInterface $equipmentHolder,
         array $reasons,
+        \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment {
         $config = $this->equipmentService->findByNameAndDaedalus($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
 
-        return $this->createGameEquipment($config, $equipmentHolder, $reasons, $visibility);
+        return $this->createGameEquipment($config, $equipmentHolder, $reasons, $time, $visibility);
     }
 
     public function createGameEquipment(
         EquipmentConfig $equipmentConfig,
         EquipmentHolderInterface $holder,
         array $reasons,
+        \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment {
         $equipment = $this->getEquipmentFromConfig($equipmentConfig, $holder, $reasons);
@@ -102,7 +104,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             true,
             $visibility,
             $reasons,
-            new \DateTime()
+            $time
         );
         $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_CREATED);
 
@@ -139,11 +141,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         GameEquipment $input,
         EquipmentHolderInterface $holder,
         array $reasons,
+        \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment {
         $config = $this->equipmentService->findByNameAndDaedalus($resultName, $holder->getPlace()->getDaedalus());
 
-        return $this->transformGameEquipmentToEquipment($config, $input, $holder, $reasons, $visibility);
+        return $this->transformGameEquipmentToEquipment($config, $input, $holder, $reasons, $time, $visibility);
     }
 
     public function transformGameEquipmentToEquipment(
@@ -151,6 +154,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         GameEquipment $input,
         EquipmentHolderInterface $holder,
         array $reasons,
+        \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment {
         $result = $this->getEquipmentFromConfig($resultConfig, $holder, $reasons);
@@ -160,7 +164,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $input,
             $visibility,
             $reasons,
-            new \DateTime()
+            $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 

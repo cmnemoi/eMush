@@ -76,6 +76,7 @@ class Dispense extends AbstractAction
             $drugName,
             $this->player,
             $this->getAction()->getActionTags(),
+            new \DateTime(),
             VisibilityEnum::PUBLIC
         );
     }

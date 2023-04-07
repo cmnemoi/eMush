@@ -77,6 +77,7 @@ class InstallCamera extends AbstractAction
             $itemCamera,
             $this->player->getPlace(),
             $this->getAction()->getActionTags(),
+            new \DateTime(),
             VisibilityEnum::PUBLIC
         );
     }

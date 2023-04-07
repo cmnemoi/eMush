@@ -63,6 +63,7 @@ abstract class AbstractCook extends AbstractAction
                 $parameter,
                 $this->player,
                 $this->getAction()->getActionTags(),
+                new \DateTime(),
                 VisibilityEnum::PUBLIC
             );
         } elseif ($parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) {

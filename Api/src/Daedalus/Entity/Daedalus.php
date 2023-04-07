@@ -68,6 +68,9 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isCycleChange = false;
 
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $dailyActionPointsSpent = 0;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -403,6 +406,25 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
     public function setIsCycleChange(bool $isCycleChange): static
     {
         $this->isCycleChange = $isCycleChange;
+
+        return $this;
+    }
+
+    public function getDailyActionPointsSpent(): int
+    {
+        return $this->dailyActionPointsSpent;
+    }
+
+    public function setDailyActionSpent(int $dailyActionPointsSpent): static
+    {
+        $this->dailyActionPointsSpent = $dailyActionPointsSpent;
+
+        return $this;
+    }
+
+    public function addDailyActionPointsSpent(int $dailyActionPointsSpent): static
+    {
+        $this->dailyActionPointsSpent += $dailyActionPointsSpent;
 
         return $this;
     }

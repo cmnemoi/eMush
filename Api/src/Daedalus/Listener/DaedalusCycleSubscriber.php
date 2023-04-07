@@ -76,8 +76,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         if ($event->haveTag(EventEnum::NEW_DAY)) {
             $this->resetSpores($event);
 
-            $daedalusInfo = $daedalus->getDaedalusInfo();
-            $daedalusInfo->setDailyActionPointsSpent(0);
+            $daedalus->setDailyActionSpent(0);
             $this->daedalusService->persist($daedalus);
         }
     }

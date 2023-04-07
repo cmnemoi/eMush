@@ -40,15 +40,6 @@ class DaedalusInfo
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name = 'default';
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $dailyActionPointsSpent = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $numberOfHunterKilled = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $numberOfMushs = 0;
-
     public function __construct(Daedalus $daedalus, GameConfig $gameConfig, LocalizationConfig $localizationConfig)
     {
         $this->daedalus = $daedalus;
@@ -154,69 +145,5 @@ class DaedalusInfo
     public function getLocalizationConfig(): LocalizationConfig
     {
         return $this->localizationConfig;
-    }
-
-    public function getDailyActionPointsSpent(): int
-    {
-        return $this->dailyActionPointsSpent;
-    }
-
-    public function setDailyActionPointsSpent(int $dailyActionPointsSpent): static
-    {
-        $this->dailyActionPointsSpent = $dailyActionPointsSpent;
-
-        return $this;
-    }
-
-    public function addDailyActionPointsSpent(int $dailyActionPointsSpent): static
-    {
-        $this->dailyActionPointsSpent += $dailyActionPointsSpent;
-
-        return $this;
-    }
-
-    public function getNumberOfHunterKilled(): int
-    {
-        return $this->numberOfHunterKilled;
-    }
-
-    public function setNumberOfHunterKilled(int $numberOfHunterKilled): static
-    {
-        $this->numberOfHunterKilled = $numberOfHunterKilled;
-
-        return $this;
-    }
-
-    public function addNumberOfHunterKilled(int $numberOfHunterKilled): static
-    {
-        $this->numberOfHunterKilled += $numberOfHunterKilled;
-
-        return $this;
-    }
-
-    public function getNumberOfMushs(): int
-    {
-        return $this->numberOfMushs;
-    }
-
-    public function setNumberOfMushs(int $numberOfMushs): static
-    {
-        $this->numberOfMushs = $numberOfMushs;
-
-        return $this;
-    }
-
-    public function addNumberOfMushs(int $numberOfMushs): static
-    {
-        $this->numberOfMushs += $numberOfMushs;
-
-        return $this;
-    }
-
-    public function removeNumberOfMushs(int $numberOfMushs): static
-    {
-        $this->numberOfMushs -= $numberOfMushs;
-
-        return $this;
     }
 }

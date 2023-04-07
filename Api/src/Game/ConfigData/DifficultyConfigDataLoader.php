@@ -51,6 +51,7 @@ class DifficultyConfigDataLoader extends ConfigDataLoader
                 ->setEquipmentBreakRateDistribution($difficultyConfigData['equipmentBreakRateDistribution'])
                 ->setDifficultyModes($difficultyConfigData['difficultyModes'])
                 ->setHunterSpawnRate($difficultyConfigData['hunterSpawnRate'])
+                ->setHunterSafeCycles($difficultyConfigData['hunterSafeCycles'])
             ;
 
             $this->entityManager->persist($difficultyConfig);

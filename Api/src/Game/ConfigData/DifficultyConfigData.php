@@ -64,6 +64,7 @@ class DifficultyConfigData
                 DifficultyEnum::VERY_HARD => 9,
             ],
             'hunterSpawnRate' => 20,
+            'hunterSafeCycles' => [2, 3],
         ],
     ];
 }

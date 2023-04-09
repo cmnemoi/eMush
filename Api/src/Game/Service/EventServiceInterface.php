@@ -10,5 +10,5 @@ interface EventServiceInterface
 
     public function previewEvent(AbstractGameEvent $event, string $name): ?AbstractGameEvent;
 
-    public function eventCancelReason(AbstractGameEvent $event, string $name, bool $dispatch): ?string;
+    public function eventCancelReason(AbstractGameEvent $event, string $name): ?string;
 }

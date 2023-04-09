@@ -54,7 +54,7 @@ class DaedalusConfigDataLoaderCest
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
-        $this->placeConfigDataLoader->loadConfigsData();
+        $this->daedalusConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, DaedalusConfig::class, [
             'name' => 'default',

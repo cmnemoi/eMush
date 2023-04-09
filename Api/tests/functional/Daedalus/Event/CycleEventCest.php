@@ -22,12 +22,14 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Entity\HunterConfig;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\User\Entity\User;
 
@@ -61,18 +63,21 @@ class CycleEventCest
         $fireStatusConfig = new ChargeStatusConfig();
         $fireStatusConfig->setStatusName(StatusEnum::FIRE)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($fireStatusConfig);
+        $hunterCharge = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => HunterStatusEnum::HUNTER_CHARGE . '_default']);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+        $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
             'localizationConfig' => $localizationConfig,
             'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
-            'statusConfigs' => new ArrayCollection([$fireStatusConfig]),
+            'statusConfigs' => new ArrayCollection([$fireStatusConfig, $hunterCharge]),
+            'hunterConfigs' => new ArrayCollection($hunterConfigs),
         ]);
 
         $neron = new Neron();

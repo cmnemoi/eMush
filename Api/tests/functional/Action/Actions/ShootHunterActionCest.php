@@ -59,11 +59,9 @@ class ShootHunterActionCest extends AbstractFunctionalTest
     {
         $event = new HunterPoolEvent(
             $this->daedalus,
-            1,
             ['test'],
             new \DateTime()
         );
-        $this->eventService->callEvent($event, HunterPoolEvent::POOL_HUNTERS);
         $this->eventService->callEvent($event, HunterPoolEvent::UNPOOL_HUNTERS);
 
         $this->action->setSuccessRate(101);
@@ -100,11 +98,9 @@ class ShootHunterActionCest extends AbstractFunctionalTest
     {
         $event = new HunterPoolEvent(
             $this->daedalus,
-            1,
             ['test'],
             new \DateTime()
         );
-        $this->eventService->callEvent($event, HunterPoolEvent::POOL_HUNTERS);
         $this->eventService->callEvent($event, HunterPoolEvent::UNPOOL_HUNTERS);
 
         $this->action->setSuccessRate(0);

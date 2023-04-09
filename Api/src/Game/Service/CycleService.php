@@ -139,7 +139,7 @@ class CycleService implements CycleServiceInterface
         return $firstDayDate->add(new \DateInterval('PT' . strval($minutesBetweenDayStartAndDaedalusFirstCycle) . 'M'));
     }
 
-    private function getNumberOfCycleElapsed(\DateTime $start, \DateTime $end, Daedalus $daedalus): int
+    public function getNumberOfCycleElapsed(\DateTime $start, \DateTime $end, Daedalus $daedalus): int
     {
         $daedalusInfo = $daedalus->getDaedalusInfo();
         $localizationConfig = $daedalusInfo->getLocalizationConfig();

@@ -68,6 +68,9 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isCycleChange = false;
 
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $dailyActionPointsSpent = 0;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -407,6 +410,25 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
         return $this;
     }
 
+    public function getDailyActionPointsSpent(): int
+    {
+        return $this->dailyActionPointsSpent;
+    }
+
+    public function setDailyActionSpent(int $dailyActionPointsSpent): static
+    {
+        $this->dailyActionPointsSpent = $dailyActionPointsSpent;
+
+        return $this;
+    }
+
+    public function addDailyActionPointsSpent(int $dailyActionPointsSpent): static
+    {
+        $this->dailyActionPointsSpent += $dailyActionPointsSpent;
+
+        return $this;
+    }
+
     public function getClassName(): string
     {
         return get_class($this);
@@ -445,5 +467,12 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
     public function isInVeryHardMode(): bool
     {
         return $this->getDay() >= $this->daedalusInfo->getGameConfig()->getDifficultyConfig()->getDifficultyModes()->get(DifficultyEnum::VERY_HARD);
+    }
+
+    public function isInHunterSafeCycle(): bool
+    {
+        $safeCycles = new ArrayCollection($this->daedalusInfo->getGameConfig()->getDifficultyConfig()->getHunterSafeCycles());
+
+        return $safeCycles->contains($this->cycle);
     }
 }

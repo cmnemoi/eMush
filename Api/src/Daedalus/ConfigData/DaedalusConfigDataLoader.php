@@ -43,6 +43,7 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
                 ->setInitFuel($daedalusConfigData['initFuel'])
                 ->setInitHull($daedalusConfigData['initHull'])
                 ->setInitShield($daedalusConfigData['initShield'])
+                ->setInitHunterPoints($daedalusConfigData['initHunterPoints'])
                 ->setMaxOxygen($daedalusConfigData['maxOxygen'])
                 ->setMaxFuel($daedalusConfigData['maxFuel'])
                 ->setMaxHull($daedalusConfigData['maxHull'])

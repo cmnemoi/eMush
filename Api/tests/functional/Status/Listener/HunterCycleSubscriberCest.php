@@ -7,8 +7,9 @@ use App\Tests\FunctionalTester;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\HunterStatusEnum;
 
 class HunterCycleSubscriberCest extends AbstractFunctionalTest
 {
@@ -22,27 +23,23 @@ class HunterCycleSubscriberCest extends AbstractFunctionalTest
 
     public function testOnHunterCreation(FunctionalTester $I)
     {
-        $poolEvent = new HunterPoolEvent($this->daedalus, 1, ['test'], new \DateTime());
-        $this->eventService->callEvent($poolEvent, HunterPoolEvent::POOL_HUNTERS);
-        $I->dontSeeInRepository(Status::class);
-
+        $poolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
-        $I->assertCount(1, $this->daedalus->getAttackingHunters());
+        $I->assertCount(4, $this->daedalus->getAttackingHunters());
 
         $I->seeInRepository(Status::class);
     }
 
     public function testOnNewCycle(FunctionalTester $I)
     {
-        $poolEvent = new HunterPoolEvent($this->daedalus, 1, ['test'], new \DateTime());
-        $this->eventService->callEvent($poolEvent, HunterPoolEvent::POOL_HUNTERS);
+        $poolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
-        $I->assertCount(1, $this->daedalus->getAttackingHunters());
+        $I->assertCount(4, $this->daedalus->getAttackingHunters());
 
         /** @var ChargeStatus $hunterStatus */
-        $hunterStatus = $I->grabEntityFromRepository(Status::class);
+        $hunterStatus = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => HunterStatusEnum::HUNTER_CHARGE . '_default']);
 
-        for ($i = 0; $i < $hunterStatus->getCharge(); ++$i) {
+        for ($i = 0; $i < $this->daedalus->getAttackingHunters()->count(); ++$i) {
             $daedalusEvent = new DaedalusCycleEvent($this->daedalus, [], new \DateTime());
             $this->eventService->callEvent($daedalusEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
         }

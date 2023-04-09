@@ -70,5 +70,8 @@ class ActionSubscriber implements EventSubscriberInterface
         ) {
             $actionParameter->removeStatus($lyingDownStatus);
         }
+
+        $daedalus = $player->getDaedalus();
+        $daedalus->addDailyActionPointsSpent($action->getActionCost());
     }
 }

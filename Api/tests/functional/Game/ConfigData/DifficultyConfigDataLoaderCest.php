@@ -31,6 +31,7 @@ class DifficultyConfigDataLoaderCest
             'electricArcRate' => 5,
             'metalPlateRate' => 5,
             'panicCrisisRate' => 5,
+            'startingHuntersNumberOfTruceCycles' => 2,
         ]);
 
         // check that we've loaded all the difficulty configs
@@ -53,6 +54,7 @@ class DifficultyConfigDataLoaderCest
             'electricArcRate' => 5,
             'metalPlateRate' => 5,
             'panicCrisisRate' => 5,
+            'startingHuntersNumberOfTruceCycles' => 2,
         ]);
     }
 }

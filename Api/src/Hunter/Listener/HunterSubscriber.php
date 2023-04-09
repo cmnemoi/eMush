@@ -2,6 +2,8 @@
 
 namespace Mush\Hunter\Listener;
 
+use Mush\Communication\Enum\NeronMessageEnum;
+use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Hunter\Service\HunterServiceInterface;
@@ -12,11 +14,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class HunterSubscriber implements EventSubscriberInterface
 {
     private HunterServiceInterface $hunterService;
+    private NeronMessageServiceInterface $neronMessageService;
     private RoomLogServiceInterface $roomLogService;
 
-    public function __construct(HunterServiceInterface $hunterService, RoomLogServiceInterface $roomLogService)
-    {
+    public function __construct(
+        HunterServiceInterface $hunterService,
+        NeronMessageServiceInterface $neronMessageService,
+        RoomLogServiceInterface $roomLogService
+        ) {
         $this->hunterService = $hunterService;
+        $this->neronMessageService = $neronMessageService;
         $this->roomLogService = $roomLogService;
     }
 
@@ -25,7 +32,6 @@ class HunterSubscriber implements EventSubscriberInterface
         return [
             HunterEvent::HUNTER_DEATH => 'onHunterDeath',
             HunterPoolEvent::UNPOOL_HUNTERS => 'onUnpoolHunters',
-            HunterPoolEvent::POOL_HUNTERS => 'onPoolHunters',
         ];
     }
 
@@ -56,16 +62,13 @@ class HunterSubscriber implements EventSubscriberInterface
     public function onUnpoolHunters(HunterPoolEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $nbHuntersToUnpool = $event->getNbHunters();
+        $this->hunterService->unpoolHunters($daedalus, $event->getTime());
 
-        $this->hunterService->unpoolHunters($daedalus, $nbHuntersToUnpool, $event->getTime());
-    }
-
-    public function onPoolHunters(HunterPoolEvent $event): void
-    {
-        $daedalus = $event->getDaedalus();
-        $nbHuntersToPool = $event->getNbHunters();
-
-        $this->hunterService->putHuntersInPool($daedalus, $nbHuntersToPool);
+        $this->neronMessageService->createNeronMessage(
+            NeronMessageEnum::HUNTER_ARRIVAL,
+            $daedalus,
+            [],
+            $event->getTime(),
+        );
     }
 }

@@ -46,7 +46,7 @@ class LogDeclinationEnum
             ActionEnum::RETRIEVE_OXYGEN => [self::VERSION => 10],
             NeronMessageEnum::ASPHYXIA_DEATH => [self::VERSION_PART_1 => 3, self::VERSION_PART_2 => 9],
             NeronMessageEnum::BROKEN_EQUIPMENT => [self::VERSION => 5],
-            NeronMessageEnum::HUNTER_ARRIVAL => [self::VERSION_PART_1 => 4, self::VERSION_PART_2 => 5],
+            NeronMessageEnum::HUNTER_ARRIVAL => [self::VERSION_PART_1 => 4, self::VERSION_PART_2 => 4],
             NeronMessageEnum::NEW_FIRE => [self::VERSION_PART_1 => 3, self::VERSION_PART_2 => 3],
             NeronMessageEnum::NEW_PROJECT => [self::VERSION_PART_2 => 7, self::VERSION_UNINHIB => 7, self::VERSION_CRAZY => 12],
             NeronMessageEnum::PLAYER_DEATH => [self::VERSION => 7],

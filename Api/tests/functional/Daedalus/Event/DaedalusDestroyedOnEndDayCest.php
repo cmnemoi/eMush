@@ -17,13 +17,16 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Entity\HunterConfig;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
@@ -41,16 +44,19 @@ class DaedalusDestroyedOnEndDayCest
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(PlayerStatusEnum::MUSH)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
+        $hunterCharge = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => HunterStatusEnum::HUNTER_CHARGE . '_default']);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         /** @var DaedalusConfig $gameConfig */
-        $daedalusConfig = $I->have(DaedalusConfig::class);
+        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => 'default']);
+        $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
             'localizationConfig' => $localizationConfig,
-            'statusConfigs' => new ArrayCollection([$statusConfig]),
+            'statusConfigs' => new ArrayCollection([$statusConfig, $hunterCharge]),
+            'hunterConfigs' => new ArrayCollection($hunterConfigs),
         ]);
 
         /** @var User $user */
@@ -67,6 +73,7 @@ class DaedalusDestroyedOnEndDayCest
             'filledAt' => new \DateTime(),
             'cycleStartedAt' => new \DateTime(),
         ]);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo

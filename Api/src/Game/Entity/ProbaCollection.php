@@ -25,4 +25,17 @@ class ProbaCollection extends ArrayCollection
     {
         return $this->toArray();
     }
+
+    /**
+     * Returns the lowest probability in the collection.
+     */
+    public function min(): ?int
+    {
+        $data = $this->getProbabilities();
+        if (empty($data)) {
+            return null;
+        }
+
+        return min($data);
+    }
 }

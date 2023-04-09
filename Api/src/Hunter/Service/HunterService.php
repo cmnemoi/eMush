@@ -124,21 +124,6 @@ class HunterService implements HunterServiceInterface
         $this->persistAndFlush([$daedalus]);
     }
 
-    public function updateDaedalusHunterPoints(Daedalus $daedalus): void
-    {
-        $pointsToAdd = $daedalus->getDay() + 6;
-        if ($daedalus->isInHardMode()) {
-            ++$pointsToAdd;
-        }
-        if ($daedalus->isInVeryHardMode()) {
-            $pointsToAdd += 2;
-        }
-        $pointsToAdd = intval($pointsToAdd * $this->getExtraHunterPoints($daedalus) + 0.5);
-
-        $daedalus->addHunterPoints($pointsToAdd);
-        $this->persistAndFlush([$daedalus]);
-    }
-
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter
     {
         /** @var HunterConfig $hunterConfig */
@@ -191,20 +176,6 @@ class HunterService implements HunterServiceInterface
         }
 
         return $probaCollection;
-    }
-
-    /**
-     * This function adds extra hunter points if players spend too much action points
-     * (dynamic difficulty).
-     */
-    private function getExtraHunterPoints(Daedalus $daedalus): float
-    {
-        $threshold = 7 * $daedalus->getPlayers()->getPlayerAlive()->count();
-        if ($daedalus->getDailyActionPointsSpent() <= $threshold) {
-            return 1;
-        }
-
-        return $daedalus->getDailyActionPointsSpent() / $threshold;
     }
 
     private function makeHunterShoot(Hunter $hunter): void

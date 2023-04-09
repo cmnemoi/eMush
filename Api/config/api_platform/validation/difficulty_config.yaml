@@ -79,4 +79,19 @@ Mush\Game\Entity\DifficultyConfig:
       - Type: integer
     difficultyModes:
       - NotBlank: ~
+      - Positive: ~
       - Type: array
+    hunterSpawnRate:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+    hunterSafeCycles:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: array
+    startingHuntersNumberOfTruceCycles:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+
+

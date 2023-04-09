@@ -42,3 +42,9 @@ Mush\Game\Entity\DifficultyConfig:
       groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
     difficultyModes:
       groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    hunterSpawnRate:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    hunterSafeCycles:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    startingHuntersNumberOfTruceCycles:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]

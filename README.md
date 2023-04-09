@@ -248,3 +248,8 @@ Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of cond
 Please read [API.md](./Api/README.md) for details on the API architecture
 Please read [APP.md](./APP/README.md) for details on the APP architecture
 
+## License
+
+The source code of this project is licensed under [AGPL-3.0-or-later](LICENSE) License.
+
+All Motion Twin assets in `App/src/assets` are licensed under [CC-BY-NC-SA-4.0](App/src/assets/LICENSE) License.

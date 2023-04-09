@@ -31,7 +31,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var StatusConfig $asteroidCharge */
         $asteroidCharge = $this->getReference(ChargeStatusFixtures::ASTEROID_CHARGE);
-        $asteroidDamageRange = $this->buildUniformDamageRange(6, 6);
+        $asteroidDamageRange = $this->buildUniformDamageRange(0, 0);
         $asteroid = new HunterConfig();
         $asteroid
             ->setName(HunterEnum::ASTEROID . '_default')

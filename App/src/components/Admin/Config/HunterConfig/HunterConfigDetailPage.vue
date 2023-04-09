@@ -80,7 +80,7 @@
         <h3>{{ $t("admin.hunterConfig.initialStatuses") }}</h3>
         <ChildCollectionManager :children="hunterConfig.initialStatuses" @addId="addNewStatusConfig" @remove="removeStatusConfig">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.statusName }}</span>
+                <span>{{ child.id }} - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
     </div>

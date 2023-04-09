@@ -52,6 +52,7 @@ class DifficultyConfigDataLoader extends ConfigDataLoader
                 ->setDifficultyModes($difficultyConfigData['difficultyModes'])
                 ->setHunterSpawnRate($difficultyConfigData['hunterSpawnRate'])
                 ->setHunterSafeCycles($difficultyConfigData['hunterSafeCycles'])
+                ->setStartingHuntersNumberOfTruceCycles($difficultyConfigData['startingHuntersNumberOfTruceCycles'])
             ;
 
             $this->entityManager->persist($difficultyConfig);

@@ -78,6 +78,7 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
             ])
             ->setHunterSpawnRate(20)
             ->setHunterSafeCycles([2, 3])
+            ->setStartingHuntersNumberOfTruceCycles(2)
         ;
 
         $manager->persist($difficultyConfig);

@@ -1692,7 +1692,7 @@ class EquipmentConfigData
             'dismountedProducts' => ['metal_scraps' => 1],
             'isPersonal' => false,
             'type' => 'item_config',
-            'isStackable' => false,
+            'isStackable' => true,
             'actions' => [
                 'take',
                 'drop',
@@ -3452,7 +3452,7 @@ class EquipmentConfigData
             'name' => 'fuel_capsule_default',
             'equipmentName' => 'fuel_capsule',
             'isBreakable' => false,
-            'isFireDestroyable' => false,
+            'isFireDestroyable' => true,
             'isFireBreakable' => false,
             'dismountedProducts' => [],
             'isPersonal' => false,

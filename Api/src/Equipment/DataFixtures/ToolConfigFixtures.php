@@ -138,7 +138,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $extinguisher = new ItemConfig();
         $extinguisher
             ->setEquipmentName(ToolItemEnum::EXTINGUISHER)
-            ->setIsStackable(false)
+            ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)

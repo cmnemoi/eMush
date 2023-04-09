@@ -44,7 +44,7 @@ class DaedalusConfigDataLoaderCest
             'maxHull' => 100,
             'maxShield' => 100,
             'dailySporeNb' => 4,
-            'nbMush' => 3,
+            'nbMush' => 2,
             'cyclePerGameDay' => 8,
             'cycleLength' => 180,
         ]);
@@ -54,7 +54,7 @@ class DaedalusConfigDataLoaderCest
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
-        $this->placeConfigDataLoader->loadConfigsData();
+        $this->daedalusConfigDataLoader->loadConfigsData();
 
         $I->seeNumRecords(1, DaedalusConfig::class, [
             'name' => 'default',
@@ -67,7 +67,7 @@ class DaedalusConfigDataLoaderCest
             'maxHull' => 100,
             'maxShield' => 100,
             'dailySporeNb' => 4,
-            'nbMush' => 3,
+            'nbMush' => 2,
             'cyclePerGameDay' => 8,
             'cycleLength' => 180,
         ]);

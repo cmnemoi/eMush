@@ -3,6 +3,7 @@
 namespace Mush\Player\Event;
 
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Player\Entity\Player;
 
 class PlayerCycleEvent extends AbstractGameEvent
@@ -31,5 +32,18 @@ class PlayerCycleEvent extends AbstractGameEvent
     public function getPlayer(): Player
     {
         return $this->player;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        $author = $this->getAuthor();
+
+        $modifiers = $this->getPlayer()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true);
+
+        if ($author !== null) {
+            $modifiers = $modifiers->addModifiers($author->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false));
+        }
+
+        return $modifiers;
     }
 }

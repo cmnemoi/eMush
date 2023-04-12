@@ -710,14 +710,13 @@ class LastPlayerCloseGameCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class);
 
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('testModifierDecreaseShowerCost1Action');
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 

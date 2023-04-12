@@ -59,7 +59,7 @@ class ModifierActivationRequirementServiceTest extends TestCase
         $modifierActivationRequirement->setValue(50);
 
         // create a gear with daedalus modifier
-        $modifierConfig1 = new VariableEventModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig1
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
@@ -92,7 +92,7 @@ class ModifierActivationRequirementServiceTest extends TestCase
         $modifierActivationRequirement->setActivationRequirement(ActionEnum::HIDE);
 
         // create a gear with daedalus modifier
-        $modifierConfig1 = new VariableEventModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig1
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
@@ -127,7 +127,7 @@ class ModifierActivationRequirementServiceTest extends TestCase
         $modifierActivationRequirement->setActivationRequirement(ModifierRequirementEnum::NOT_ALONE);
 
         // create a gear with daedalus modifier
-        $modifierConfig1 = new VariableEventModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig1
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')

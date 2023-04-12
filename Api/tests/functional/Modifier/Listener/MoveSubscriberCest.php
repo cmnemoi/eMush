@@ -98,14 +98,13 @@ class MoveSubscriberCest
         $I->refreshEntities($player);
 
         // first let create a gear with an irrelevant reach
-        $modifierConfig1 = new VariableEventModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig('testModifierShower');
         $modifierConfig1
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
         ;
         $I->haveInRepository($modifierConfig1);
         $I->refreshEntities($player);
@@ -135,7 +134,7 @@ class MoveSubscriberCest
         $I->refreshEntities($player);
 
         // let's create a gear with room reach in player inventory
-        $modifierConfig2 = new VariableEventModifierConfig();
+        $modifierConfig2 = new VariableEventModifierConfig('testModifierShower2');
         $modifierConfig2
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)

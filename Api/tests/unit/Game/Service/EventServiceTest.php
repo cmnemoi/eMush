@@ -23,6 +23,7 @@ use Mush\Modifier\Service\ModifierRequirementServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -121,7 +122,7 @@ class EventServiceTest extends TestCase
         $eventConfig = new VariableEventConfig();
         $eventConfig->setEventName(VariableEventInterface::CHANGE_VARIABLE);
 
-        $modifierConfig = new TriggerEventModifierConfig();
+        $modifierConfig = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig
             ->setModifierName('modifier')
             ->setTargetEvent('otherEvent')
@@ -161,7 +162,7 @@ class EventServiceTest extends TestCase
         $eventConfig = new VariableEventConfig();
         $eventConfig->setEventName(VariableEventInterface::CHANGE_VARIABLE);
 
-        $modifierConfig = new TriggerEventModifierConfig();
+        $modifierConfig = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig
             ->setModifierName('modifierName')
             ->setTargetEvent('eventName')
@@ -170,10 +171,8 @@ class EventServiceTest extends TestCase
 
         $modifier = new GameModifier($player, $modifierConfig);
 
-        $triggeredEvent = new PlayerVariableEvent(
+        $triggeredEvent = new PlayerCycleEvent(
             $player,
-            PlayerVariableEnum::MOVEMENT_POINT,
-            1,
             ['triggeredTag'],
             $time
         );
@@ -189,10 +188,15 @@ class EventServiceTest extends TestCase
             ->andReturn([$triggeredEvent])
             ->once()
         ;
+        $this->modifierRequirementService->shouldReceive('getActiveModifiers')
+            ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 0)
+            ->andReturn(new ModifierCollection([]))
+            ->twice()
+        ;
         // dispatch the triggered event
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent instanceof PlayerVariableEvent &&
+                $dispatchedEvent instanceof PlayerCycleEvent &&
                 $dispatchedEvent->getTags() === $triggeredEvent->getTags() &&
                 $dispatchedEvent->getEventName() === VariableEventInterface::CHANGE_VARIABLE &&
                 $eventName === VariableEventInterface::CHANGE_VARIABLE &&
@@ -238,7 +242,7 @@ class EventServiceTest extends TestCase
         $eventConfig = new VariableEventConfig();
         $eventConfig->setEventName(VariableEventInterface::CHANGE_VARIABLE);
 
-        $modifierConfig = new TriggerEventModifierConfig();
+        $modifierConfig = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig
             ->setModifierName('modifierName')
             ->setTargetEvent('eventName')
@@ -285,7 +289,7 @@ class EventServiceTest extends TestCase
         $modifiedEvent = new DaedalusVariableEvent($daedalus, DaedalusVariableEnum::FUEL, 4, ['test'], $time);
         $modifiedEvent->setAuthor($player)->setEventName('eventName');
 
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig
             ->setModifierName('modifierName')
             ->setTargetEvent('eventName')
@@ -324,6 +328,11 @@ class EventServiceTest extends TestCase
             ))
             ->once()
         ;
+        $this->modifierRequirementService->shouldReceive('getActiveModifiers')
+            ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 0)
+            ->andReturn(new ModifierCollection([]))
+            ->once()
+        ;
         // dispatch the event
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
@@ -353,7 +362,7 @@ class EventServiceTest extends TestCase
         $modifiedEvent = new DaedalusVariableEvent($daedalus, DaedalusVariableEnum::FUEL, 4, ['test'], $time);
         $modifiedEvent->setAuthor($player)->setEventName('eventName');
 
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig
             ->setModifierName('modifierName')
             ->setTargetEvent('eventName')
@@ -409,7 +418,7 @@ class EventServiceTest extends TestCase
         $modifiedEvent = new DaedalusVariableEvent($daedalus, DaedalusVariableEnum::FUEL, 4, ['test'], $time);
         $modifiedEvent->setAuthor($player)->setEventName('eventName');
 
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig
             ->setModifierName('modifierName')
             ->setTargetEvent('eventName')
@@ -455,7 +464,7 @@ class EventServiceTest extends TestCase
         $modifiedEvent = new DaedalusVariableEvent($daedalus, DaedalusVariableEnum::FUEL, 4, ['test'], $time);
         $modifiedEvent->setAuthor($player)->setEventName('eventName');
 
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig
             ->setModifierName('modifierName')
             ->setTargetEvent('eventName')
@@ -484,6 +493,11 @@ class EventServiceTest extends TestCase
             ))
             ->once()
         ;
+        $this->modifierRequirementService->shouldReceive('getActiveModifiers')
+            ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 0)
+            ->andReturn(new ModifierCollection([$modifier]))
+            ->once()
+        ;
         // dispatch the event
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
@@ -510,7 +524,7 @@ class EventServiceTest extends TestCase
         $event = new AbstractGameEvent(['test'], $time);
         $event->setAuthor($player);
 
-        $modifierConfig = new TriggerEventModifierConfig();
+        $modifierConfig = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig
             ->setModifierName('modifierName')
             ->setTargetEvent('eventName')
@@ -536,6 +550,11 @@ class EventServiceTest extends TestCase
             ))
             ->once()
         ;
+        $this->modifierRequirementService->shouldReceive('getActiveModifiers')
+            ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 0)
+            ->andReturn(new ModifierCollection([]))
+            ->once()
+        ;
 
         $this->service->callEvent($event, 'eventName');
     }
@@ -554,7 +573,7 @@ class EventServiceTest extends TestCase
         $eventConfig = new VariableEventConfig();
         $eventConfig->setEventName(VariableEventInterface::CHANGE_VARIABLE);
 
-        $modifierConfig = new TriggerEventModifierConfig();
+        $modifierConfig = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig
             ->setModifierName('modifierName')
             ->setTargetEvent('eventName')
@@ -564,10 +583,8 @@ class EventServiceTest extends TestCase
 
         $modifier = new GameModifier($player, $modifierConfig);
 
-        $triggeredEvent = new PlayerVariableEvent(
+        $triggeredEvent = new PlayerCycleEvent(
             $player,
-            PlayerVariableEnum::MOVEMENT_POINT,
-            1,
             ['test', 'modifierName', 'triggeredTag'],
             $time
         );
@@ -594,10 +611,15 @@ class EventServiceTest extends TestCase
             ))
             ->once()
         ;
+        $this->modifierRequirementService->shouldReceive('getActiveModifiers')
+            ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 0)
+            ->andReturn(new ModifierCollection([]))
+            ->once()
+        ;
         // dispatch the triggered event
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent instanceof PlayerVariableEvent &&
+                $dispatchedEvent instanceof PlayerCycleEvent &&
                 $dispatchedEvent->getTags() === $triggeredEvent->getTags() &&
                 $dispatchedEvent->getEventName() === VariableEventInterface::CHANGE_VARIABLE &&
                 $eventName === VariableEventInterface::CHANGE_VARIABLE &&
@@ -628,7 +650,7 @@ class EventServiceTest extends TestCase
         $reason = $this->service->eventCancelReason($event, 'eventName');
         $this->assertNull($reason);
 
-        $modifierConfig = new TriggerEventModifierConfig();
+        $modifierConfig = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig
             ->setModifierName('modifierName')
             ->setTargetEvent('eventName')

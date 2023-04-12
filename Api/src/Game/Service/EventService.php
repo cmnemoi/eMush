@@ -81,7 +81,7 @@ class EventService implements EventServiceInterface
     {
         foreach ($triggerModifiers as $modifier) {
             $tags = $event->getTags();
-            $tags[] = $modifier->getModifierConfig()->getModifierName();
+            $tags[] = $modifier->getModifierConfig()->getModifierName() ?: $modifier->getModifierConfig()->getName();
 
             /** @var TriggerEventModifierConfig $modifierConfig */
             $modifierConfig = $modifier->getModifierConfig();
@@ -97,8 +97,9 @@ class EventService implements EventServiceInterface
                     $event->getTime()
                 );
 
+                /** @var AbstractGameEvent $triggeredEvent */
                 foreach ($triggeredEvents as $triggeredEvent) {
-                    $this->eventDispatcher->dispatch($triggeredEvent, $triggeredEvent->getEventName());
+                    $this->callEvent($triggeredEvent, $triggeredEvent->getEventName());
                 }
             }
 
@@ -115,7 +116,7 @@ class EventService implements EventServiceInterface
         $tags = $event->getTags();
 
         foreach ($triggerModifiers as $modifier) {
-            $tags[] = $modifier->getModifierConfig()->getModifierName();
+            $tags[] = $modifier->getModifierConfig()->getModifierName() ?: $modifier->getModifierConfig()->getName();
 
             /** @var TriggerEventModifierConfig $modifierConfig */
             $modifierConfig = $modifier->getModifierConfig();
@@ -151,7 +152,7 @@ class EventService implements EventServiceInterface
 
     private function applyVariableModifiers(ModifierCollection $variableModifiers, AbstractGameEvent $event, bool $dispatch = true): AbstractGameEvent
     {
-        if (!($event instanceof VariableEventInterface) || $variableModifiers->count() === 0) {
+        if (!($event instanceof VariableEventInterface)) {
             return $event;
         }
 
@@ -172,7 +173,7 @@ class EventService implements EventServiceInterface
     {
         $modifierEvent = new ModifierEvent($modifier, $tags, $time, true);
         $modifierEvent->setEventName(ModifierEvent::APPLY_MODIFIER);
-        $this->eventDispatcher->dispatch($modifierEvent, ModifierEvent::APPLY_MODIFIER);
+        $this->callEvent($modifierEvent, ModifierEvent::APPLY_MODIFIER);
     }
 
     /**
@@ -183,7 +184,10 @@ class EventService implements EventServiceInterface
         $event->setEventName($name);
 
         $event = $this->applyModifiers($event, false);
-        $event->setIsModified(true);
+
+        if ($event !== null) {
+            $event->setIsModified(true);
+        }
 
         return $event;
     }

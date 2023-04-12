@@ -54,6 +54,7 @@ class VariableEventModifierConfigDataLoaderCest
     {
         unset($configData['type']);
         unset($configData['triggeredEvent']);
+        unset($configData['replaceEvent']);
         unset($configData['visibility']);
         unset($configData['modifierActivationRequirements']);
         unset($configData['tagConstraints']);

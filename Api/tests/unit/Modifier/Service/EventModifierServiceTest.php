@@ -62,7 +62,7 @@ class ModifierServiceTest extends TestCase
 
         // multiplicative
         $event = new ActionVariableEvent($action, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
-        $modifierConfig1 = new VariableEventModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig1
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
@@ -81,7 +81,7 @@ class ModifierServiceTest extends TestCase
 
         // multiplicative and additive
         $event = new ActionVariableEvent($action, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
-        $modifierConfig2 = new VariableEventModifierConfig();
+        $modifierConfig2 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig2
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
@@ -124,7 +124,7 @@ class ModifierServiceTest extends TestCase
 
         // Set Value
         $event = new ActionVariableEvent($action, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
-        $modifierConfig3 = new VariableEventModifierConfig();
+        $modifierConfig3 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig3
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent('action')
@@ -160,7 +160,7 @@ class ModifierServiceTest extends TestCase
         $event = new ActionVariableEvent($action, PlayerVariableEnum::MOVEMENT_POINT, 50, $player, null);
 
         // multiplicative
-        $modifierConfig1 = new VariableEventModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig1
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
@@ -201,7 +201,7 @@ class ModifierServiceTest extends TestCase
             [VariableEventInterface::CHANGE_VARIABLE],
             new \DateTime()
         );
-        $modifierConfig1 = new VariableEventModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig1
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)

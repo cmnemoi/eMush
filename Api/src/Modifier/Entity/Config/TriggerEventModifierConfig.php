@@ -5,6 +5,7 @@ namespace Mush\Modifier\Entity\Config;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 
 /**
  * One of the modifier type
@@ -26,10 +27,18 @@ class TriggerEventModifierConfig extends EventModifierConfig
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $visibility = VisibilityEnum::PUBLIC;
 
+    public function __construct(string $name)
+    {
+        parent::__construct($name);
+
+        $this->addNoneTagName();
+    }
+
     public function buildName(string $configName): self
     {
         $baseName = $this->modifierName;
         $triggeredEvent = $this->triggeredEvent;
+
         if ($baseName === null && $triggeredEvent !== null) {
             $baseName = $triggeredEvent->getName();
         } elseif ($baseName === null) {
@@ -42,6 +51,46 @@ class TriggerEventModifierConfig extends EventModifierConfig
         foreach ($this->modifierActivationRequirements as $requirement) {
             $this->name = $this->name . '_if_' . $requirement->getName();
         }
+
+        $this->addNoneTagName();
+
+        return $this;
+    }
+
+    public function setName(string $name): self
+    {
+        parent::setName($name);
+        $this->addNoneTagName();
+
+        return $this;
+    }
+
+    public function setModifierName(string|null $modifierName): self
+    {
+        parent::setModifierName($modifierName);
+        $this->addNoneTagName();
+
+        return $this;
+    }
+
+    // this prevents infinite loop where triggeredEvent can trigger itself
+    private function addNoneTagName(): void
+    {
+        $modifierName = $this->modifierName;
+
+        if ($modifierName === null) {
+            $modifierName = $this->name;
+            $this->modifierName = $modifierName;
+        }
+
+        $this->tagConstraints[$modifierName] = ModifierRequirementEnum::NONE_TAGS;
+    }
+
+    public function setTagConstraints(array $tagConstraints): self
+    {
+        parent::setTagConstraints($tagConstraints);
+
+        $this->addNoneTagName();
 
         return $this;
     }

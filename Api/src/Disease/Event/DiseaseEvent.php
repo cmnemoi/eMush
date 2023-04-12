@@ -85,7 +85,7 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
 
         $author = $this->author;
         if ($author !== null) {
-            $modifiers->addModifiers($author->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false));
+            $modifiers = $modifiers->addModifiers($author->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false));
         }
 
         return $modifiers;

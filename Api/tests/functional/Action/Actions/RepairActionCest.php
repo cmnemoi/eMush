@@ -114,7 +114,7 @@ class RepairActionCest
 
         $I->assertTrue($this->repairAction->isVisible());
 
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('increaseTechnicianActionSuccessModifierTest');
         $modifierConfig
             ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->setDelta(1.5)
@@ -122,7 +122,6 @@ class RepairActionCest
             ->setTagConstraints([ActionTypeEnum::ACTION_TECHNICIAN => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
-            ->buildName()
         ;
 
         $I->haveInRepository($modifierConfig);

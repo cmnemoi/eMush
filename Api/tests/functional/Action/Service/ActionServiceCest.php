@@ -213,7 +213,7 @@ class ActionServiceCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('movementConversionModifier_test');
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -221,7 +221,6 @@ class ActionServiceCest
             ->setTagConstraints([ActionVariableEvent::MOVEMENT_CONVERSION => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setName('movementConversionModifier_test')
         ;
 
         $I->haveInRepository($modifierConfig);

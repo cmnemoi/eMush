@@ -23,7 +23,7 @@ class ModifierCollectionTest extends TestCase
     public function testAddModifiers()
     {
         $player = new Player();
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
 
         $modifier1 = new GameModifier($player, $modifierConfig);
         $modifier2 = new GameModifier($player, $modifierConfig);
@@ -41,8 +41,8 @@ class ModifierCollectionTest extends TestCase
     public function testGetModifierFromConfig()
     {
         $player = new Player();
-        $modifierConfig1 = new VariableEventModifierConfig();
-        $modifierConfig2 = new VariableEventModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
+        $modifierConfig2 = new VariableEventModifierConfig('unitTestVariableEventModifier');
 
         $modifier1 = new GameModifier($player, $modifierConfig1);
         $modifier2 = new GameModifier($player, $modifierConfig1);
@@ -60,21 +60,21 @@ class ModifierCollectionTest extends TestCase
     {
         $time = new \DateTime();
         $player = new Player();
-        $modifierConfig1 = new VariableEventModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig1
             ->setTargetVariable(DaedalusVariableEnum::FUEL)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
         ;
-        $modifierConfig2 = new VariableEventModifierConfig();
+        $modifierConfig2 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig2
             ->setTargetVariable(DaedalusVariableEnum::HULL)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
         ;
-        $modifierConfig3 = new TriggerEventModifierConfig();
+        $modifierConfig3 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig3
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
         ;
-        $modifierConfig4 = new TriggerEventModifierConfig();
+        $modifierConfig4 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig4
             ->setTargetEvent(VariableEventInterface::ROLL_PERCENTAGE)
         ;
@@ -115,7 +115,7 @@ class ModifierCollectionTest extends TestCase
     {
         $time = new \DateTime();
         $player = new Player();
-        $modifierConfig1 = new TriggerEventModifierConfig();
+        $modifierConfig1 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig1
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
@@ -123,7 +123,7 @@ class ModifierCollectionTest extends TestCase
                 ActionEnum::AUTO_DESTROY => ModifierRequirementEnum::ALL_TAGS,
             ])
         ;
-        $modifierConfig2 = new TriggerEventModifierConfig();
+        $modifierConfig2 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig2
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
@@ -131,14 +131,14 @@ class ModifierCollectionTest extends TestCase
                 ActionEnum::AUTO_DESTROY => ModifierRequirementEnum::ANY_TAGS,
             ])
         ;
-        $modifierConfig3 = new TriggerEventModifierConfig();
+        $modifierConfig3 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig3
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
                 ActionEnum::ANATHEM => ModifierRequirementEnum::NONE_TAGS,
             ])
         ;
-        $modifierConfig4 = new TriggerEventModifierConfig();
+        $modifierConfig4 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig4
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
@@ -233,11 +233,11 @@ class ModifierCollectionTest extends TestCase
     {
         $time = new \DateTime();
         $player = new Player();
-        $modifierConfig1 = new VariableEventModifierConfig();
-        $modifierConfig2 = new VariableEventModifierConfig();
-        $modifierConfig3 = new TriggerEventModifierConfig();
+        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
+        $modifierConfig2 = new VariableEventModifierConfig('unitTestVariableEventModifier');
+        $modifierConfig3 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig3->setReplaceEvent(true);
-        $modifierConfig4 = new TriggerEventModifierConfig();
+        $modifierConfig4 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
 
         $modifier1 = new GameModifier($player, $modifierConfig1);
         $modifier2 = new GameModifier($player, $modifierConfig2);

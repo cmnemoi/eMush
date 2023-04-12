@@ -58,7 +58,7 @@ class ModifierCreationServiceTest extends TestCase
 
     public function testPersist()
     {
-        $playerModifier = new GameModifier(new Player(), new VariableEventModifierConfig());
+        $playerModifier = new GameModifier(new Player(), new VariableEventModifierConfig('unitTestVariableEventModifier'));
 
         $this->entityManager->shouldReceive('persist')->with($playerModifier)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -68,7 +68,7 @@ class ModifierCreationServiceTest extends TestCase
 
     public function testDelete()
     {
-        $playerModifier = new GameModifier(new Player(), new VariableEventModifierConfig());
+        $playerModifier = new GameModifier(new Player(), new VariableEventModifierConfig('unitTestVariableEventModifier'));
 
         $this->entityManager->shouldReceive('remove')->with($playerModifier)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -81,7 +81,7 @@ class ModifierCreationServiceTest extends TestCase
         $daedalus = new Daedalus();
 
         // create a daedalus GameModifier
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
 
         $this->entityManager
@@ -94,7 +94,7 @@ class ModifierCreationServiceTest extends TestCase
 
         // create a place GameModifier
         $room = new Place();
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig->setModifierRange(ModifierHolderClassEnum::PLACE);
 
         $this->entityManager
@@ -108,7 +108,7 @@ class ModifierCreationServiceTest extends TestCase
 
         // create a player GameModifier
         $player = new Player();
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER);
 
         $this->entityManager
@@ -124,7 +124,7 @@ class ModifierCreationServiceTest extends TestCase
         $player = new Player();
         $charge = new ChargeStatus($player, new ChargeStatusConfig());
 
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER);
 
         $this->entityManager
@@ -142,7 +142,7 @@ class ModifierCreationServiceTest extends TestCase
 
         // create an equipment GameModifier
         $equipment = new GameEquipment(new Place());
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
 
         $this->entityManager
@@ -159,7 +159,7 @@ class ModifierCreationServiceTest extends TestCase
         $daedalus = new Daedalus();
 
         // create a daedalus GameModifier
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
 
         $gameModifier = new GameModifier($daedalus, $modifierConfig);
@@ -176,7 +176,7 @@ class ModifierCreationServiceTest extends TestCase
 
         $eventConfig = new VariableEventConfig();
 
-        $modifierConfig = new DirectModifierConfig();
+        $modifierConfig = new DirectModifierConfig('unitTestDirectModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTriggeredEvent($eventConfig)
@@ -213,7 +213,7 @@ class ModifierCreationServiceTest extends TestCase
             ->setQuantity(1)
         ;
 
-        $modifierConfig = new DirectModifierConfig();
+        $modifierConfig = new DirectModifierConfig('unitTestDirectModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTriggeredEvent($eventConfig)
@@ -250,7 +250,7 @@ class ModifierCreationServiceTest extends TestCase
             ->setQuantity(1)
         ;
 
-        $modifierConfig = new DirectModifierConfig();
+        $modifierConfig = new DirectModifierConfig('unitTestDirectModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTriggeredEvent($eventConfig)

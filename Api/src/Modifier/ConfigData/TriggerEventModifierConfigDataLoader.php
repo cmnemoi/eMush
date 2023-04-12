@@ -13,14 +13,15 @@ class TriggerEventModifierConfigDataLoader extends ModifierConfigDataLoader
             if ($modifierConfigData['type'] !== 'trigger_event_modifier') {
                 continue;
             }
+            $configName = $modifierConfigData['name'];
 
-            $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigData['name']]);
+            $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $configName]);
 
             if ($modifierConfig === null) {
-                $modifierConfig = new TriggerEventModifierConfig();
+                $modifierConfig = new TriggerEventModifierConfig($configName);
             } elseif (!($modifierConfig instanceof TriggerEventModifierConfig)) {
                 $this->entityManager->remove($modifierConfig);
-                $modifierConfig = new TriggerEventModifierConfig();
+                $modifierConfig = new TriggerEventModifierConfig($configName);
             }
 
             $modifierConfig
@@ -29,7 +30,6 @@ class TriggerEventModifierConfigDataLoader extends ModifierConfigDataLoader
                 ->setApplyOnTarget($modifierConfigData['applyOnTarget'])
                 ->setTagConstraints($modifierConfigData['tagConstraints'])
                 ->setModifierRange($modifierConfigData['modifierRange'])
-                ->setName($modifierConfigData['name'])
                 ->setModifierName($modifierConfigData['modifierName'])
             ;
             $modifierConfig = $this->setEventConfig($modifierConfig, $modifierConfigData['triggeredEvent']);

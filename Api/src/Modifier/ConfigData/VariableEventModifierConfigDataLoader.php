@@ -13,13 +13,14 @@ class VariableEventModifierConfigDataLoader extends ModifierConfigDataLoader
                 continue;
             }
 
-            $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigData['name']]);
+            $configName = $modifierConfigData['name'];
+            $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $configName]);
 
             if ($modifierConfig === null) {
-                $modifierConfig = new VariableEventModifierConfig();
+                $modifierConfig = new VariableEventModifierConfig($configName);
             } elseif (!($modifierConfig instanceof VariableEventModifierConfig)) {
                 $this->entityManager->remove($modifierConfig);
-                $modifierConfig = new VariableEventModifierConfig();
+                $modifierConfig = new VariableEventModifierConfig($configName);
             }
 
             $modifierConfig
@@ -30,7 +31,6 @@ class VariableEventModifierConfigDataLoader extends ModifierConfigDataLoader
                 ->setApplyOnTarget($modifierConfigData['applyOnTarget'])
                 ->setTagConstraints($modifierConfigData['tagConstraints'])
                 ->setModifierRange($modifierConfigData['modifierRange'])
-                ->setName($modifierConfigData['name'])
                 ->setModifierName($modifierConfigData['modifierName'])
             ;
             $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);

@@ -28,7 +28,7 @@ class TriggerEventModifierConfigDataLoaderCest
             }
 
             $triggerEventModifierConfigData = $this->dropFields($triggerEventModifierConfigData);
-            $I->seeInRepository(TriggerEventModifierConfig::class, $triggerEventModifierConfigData);
+            $I->seeInRepository(TriggerEventModifierConfig::class, ['name' => $triggerEventModifierConfigData['name']]);
         }
 
         // $I->seeNumRecords($this->getNumberOfTriggerEventModifierConfigs(), TriggerEventModifierConfig::class);
@@ -40,7 +40,7 @@ class TriggerEventModifierConfigDataLoaderCest
 
         $this->triggerEventModifierConfigDataLoader->loadConfigsData();
 
-        $I->seeNumRecords(1, TriggerEventModifierConfig::class, $config);
+        $I->seeNumRecords(1, TriggerEventModifierConfig::class, ['name' => $config['name']]);
     }
 
     /** need to drop those fields

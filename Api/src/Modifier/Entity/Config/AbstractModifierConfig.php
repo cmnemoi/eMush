@@ -42,9 +42,10 @@ abstract class AbstractModifierConfig
     #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
     protected Collection $modifierActivationRequirements;
 
-    public function __construct()
+    public function __construct(string $name)
     {
         $this->modifierActivationRequirements = new ArrayCollection([]);
+        $this->name = $name;
     }
 
     public function getId(): int

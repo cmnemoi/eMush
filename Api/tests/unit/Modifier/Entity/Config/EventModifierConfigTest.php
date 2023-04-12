@@ -20,7 +20,7 @@ class EventModifierConfigTest extends TestCase
 {
     public function testDoModifierApplyTriggerModifier()
     {
-        $modifier = new TriggerEventModifierConfig();
+        $modifier = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifier
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([
@@ -55,7 +55,7 @@ class EventModifierConfigTest extends TestCase
 
     public function testDoModifierApplyVariableModifier()
     {
-        $modifier = new VariableEventModifierConfig();
+        $modifier = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifier
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTargetVariable(DaedalusVariableEnum::FUEL)

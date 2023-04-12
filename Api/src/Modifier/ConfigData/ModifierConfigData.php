@@ -7,14 +7,12 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\Enum\ActionOutputEnum;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -574,14 +572,17 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_daedalus_+1movementPoint_on_change.variable_if_reason_new_cycle',
             'modifierName' => null,
-            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
             'applyOnTarget' => true,
-            'modifierRange' => 'daedalus',
-            'type' => 'trigger_event_modifier',
-            'replaceEvent' => false,
-            'triggeredEvent' => 'change.variable_player_1_movementPoint',
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 1.0,
+            'targetVariable' => 'movementPoint',
+            'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [],
+            'tagConstraints' => ['base_player_cycle_change' => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
             'name' => 'modifier_for_daedalus_+1oxygen_on_change.variable_if_reason_new_cycle',
@@ -596,7 +597,7 @@ class ModifierConfigData
             'targetVariable' => 'oxygen',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [EventEnum::NEW_CYCLE => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => ['base_daedalus_cycle_change' => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'modifier_for_player_+2movementPoint_on_move_if_item_in_room_schrodinger',
@@ -1023,7 +1024,7 @@ class ModifierConfigData
             'targetVariable' => 'actionPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [EventEnum::NEW_CYCLE => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => ['base_player_cycle_change' => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'starving_for_player_-1healthPoint_on_new_cycle',

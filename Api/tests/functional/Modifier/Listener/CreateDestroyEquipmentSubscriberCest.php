@@ -166,14 +166,13 @@ class CreateDestroyEquipmentSubscriberCest
 
     public function testCreateGearPlaceReach(FunctionalTester $I)
     {
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('modifierShowerActionTest');
         $modifierConfig
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::PLACE)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -408,14 +407,13 @@ class CreateDestroyEquipmentSubscriberCest
             'name' => 'soapShowerActionModifier',
         ]);
 
-        $modifierConfig2 = new VariableEventModifierConfig();
+        $modifierConfig2 = new VariableEventModifierConfig('modifierShowerActionTest');
         $modifierConfig2
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
         ;
         $I->haveInRepository($modifierConfig2);
 

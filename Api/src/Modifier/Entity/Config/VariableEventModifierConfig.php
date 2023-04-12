@@ -28,11 +28,11 @@ class VariableEventModifierConfig extends EventModifierConfig
     #[ORM\Column(type: 'string', nullable: false)]
     private string $mode = VariableModifierModeEnum::ADDITIVE;
 
-    public function __construct()
+    public function __construct($name)
     {
         $this->targetEvent = VariableEventInterface::CHANGE_VARIABLE;
 
-        parent::__construct();
+        parent::__construct($name);
     }
 
     public function buildName(): static

@@ -3,6 +3,7 @@
 namespace Mush\Modifier\Event;
 
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 
 class ModifierEvent extends AbstractGameEvent
@@ -36,5 +37,12 @@ class ModifierEvent extends AbstractGameEvent
     public function wasModifierUsed(): bool
     {
         return $this->wasModifierUsed;
+    }
+
+    // to avoid infinite loops in eventService
+    // EventModifier are not modifiable
+    public function getModifiers(): ModifierCollection
+    {
+        return new ModifierCollection([]);
     }
 }

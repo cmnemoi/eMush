@@ -213,6 +213,7 @@ class AttemptActionChangeCest
         $I->haveInRepository($status);
 
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
+        $I->assertEquals(0, $this->repairAction->getSuccessRate());
 
         // Execute repair
         $this->repairAction->execute();
@@ -229,7 +230,7 @@ class AttemptActionChangeCest
 
         // now up the success chances
         $actionRepair->setSuccessRate(80);
-        $I->refreshEntities($actionRepair);
+        $I->flushToDatabase($actionRepair);
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
 
         $I->assertEquals(99, $this->repairAction->getSuccessRate());

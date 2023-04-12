@@ -182,14 +182,13 @@ class ConsumeChargeOnActionCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($equipment);
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('modifierForTestConsumeChargeOnAction');
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
         ;
         $gearMechanic = new Gear();
         $gearMechanic
@@ -318,7 +317,7 @@ class ConsumeChargeOnActionCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($equipment);
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('modifierForTestConsumeChargeOnAction');
         $modifierConfig
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-1)
@@ -326,7 +325,6 @@ class ConsumeChargeOnActionCest
             ->setTagConstraints([ActionVariableEvent::MOVEMENT_CONVERSION => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
         ;
 
         $gearMechanic = new Gear();

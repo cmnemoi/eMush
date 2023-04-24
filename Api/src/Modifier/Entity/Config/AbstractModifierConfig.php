@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * name: a unique name needed for the DB
  * modifierName: the name of the modifier is used to create log associated with a modifier (apply modifier)
- * modifierRange: the class that will hold the GameModifier entity (create modifier)
+ * modifierRange: the class that will hold the GameModifier entity (create modifier) (player, daedalus, place or gameEquipment)
  * modifierActivationRequirements: requirements that need to be fulfilled for the modifier to activate
  */
 #[ORM\Entity]

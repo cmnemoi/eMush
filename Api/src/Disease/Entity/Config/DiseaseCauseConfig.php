@@ -3,6 +3,7 @@
 namespace Mush\Disease\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Entity\ProbaCollection;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_cause_config')]
@@ -20,7 +21,12 @@ class DiseaseCauseConfig
     private string $causeName;
 
     #[ORM\Column(type: 'array')]
-    private array $diseases = [];
+    private ProbaCollection $diseases;
+
+    public function __construct()
+    {
+        $this->diseases = new ProbaCollection();
+    }
 
     public function getId(): ?int
     {
@@ -58,14 +64,14 @@ class DiseaseCauseConfig
         return $this;
     }
 
-    public function getDiseases(): array
+    public function getDiseases(): ProbaCollection
     {
         return $this->diseases;
     }
 
     public function setDiseases(array $diseases): self
     {
-        $this->diseases = $diseases;
+        $this->diseases = new ProbaCollection($diseases);
 
         return $this;
     }

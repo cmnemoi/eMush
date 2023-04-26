@@ -34,8 +34,8 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
             $alienFruitDiseasesConfig = new ConsumableDiseaseConfig();
             $alienFruitDiseasesConfig
                 ->setCauseName($fruitName)
-                ->setDiseasesName($diseases)
-                ->setCuresName($diseases)
+                ->setDiseasesName($diseases->toArray())
+                ->setCuresName($diseases->toArray())
                 ->setDiseasesChances([100 => 64, 25 => 1, 30 => 2, 35 => 3, 40 => 4, 45 => 5,
                     50 => 6, 55 => 5, 60 => 4, 65 => 3, 70 => 2, 75 => 1, ])
                 ->setCuresChances([100 => 64, 25 => 1, 30 => 2, 35 => 3, 40 => 4, 45 => 5,

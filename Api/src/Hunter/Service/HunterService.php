@@ -97,10 +97,10 @@ class HunterService implements HunterServiceInterface
             if ($hunterPoints < $hunterProbaCollection->min()) {
                 break;
             }
-            $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaArray(
-                $hunterProbaCollection->toArray()
+            $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaCollection(
+                $hunterProbaCollection
             );
-            if (!$hunterNameToCreate) {
+            if (!is_string($hunterNameToCreate)) {
                 break;
             }
 
@@ -185,7 +185,7 @@ class HunterService implements HunterServiceInterface
         }
 
         $hunterDamage = $hunter->getHunterConfig()->getDamageRange();
-        $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($hunterDamage->toArray());
+        $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($hunterDamage);
         if (!$damage) {
             return;
         }

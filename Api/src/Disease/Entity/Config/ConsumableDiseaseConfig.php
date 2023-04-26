@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
+use Mush\Game\Entity\ProbaCollection;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_consummable_config')]
@@ -30,22 +31,22 @@ class ConsumableDiseaseConfig
 
     // Store the chance (value) for the disease to appear (key)
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $diseasesChances = [];
+    private ProbaCollection $diseasesChances;
 
     // Store the chance (value) for the disease to appear (key)
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $curesChances = [];
+    private ProbaCollection $curesChances;
 
     // Store the min delay (value) for the disease to appear (key)
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $diseasesDelayMin = [];
+    private ProbaCollection $diseasesDelayMin;
 
     // Store the max delay (value) for the disease to appear (key)
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $diseasesDelayLength = [];
+    private ProbaCollection $diseasesDelayLength;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $effectNumber = [];
+    private ProbaCollection $effectNumber;
 
     #[ORM\OneToMany(targetEntity: ConsumableDiseaseAttribute::class, mappedBy: 'consumableDiseaseConfig', cascade: ['persist'])]
     private Collection $consumableAttributes;
@@ -53,6 +54,11 @@ class ConsumableDiseaseConfig
     public function __construct()
     {
         $this->consumableAttributes = new ArrayCollection();
+        $this->diseasesChances = new ProbaCollection();
+        $this->curesChances = new ProbaCollection();
+        $this->diseasesDelayMin = new ProbaCollection();
+        $this->diseasesDelayLength = new ProbaCollection();
+        $this->effectNumber = new ProbaCollection();
     }
 
     public function getId(): ?int
@@ -115,62 +121,62 @@ class ConsumableDiseaseConfig
         return $this;
     }
 
-    public function getDiseasesChances(): array
+    public function getDiseasesChances(): ProbaCollection
     {
         return $this->diseasesChances;
     }
 
     public function setDiseasesChances(array $diseasesChances): self
     {
-        $this->diseasesChances = $diseasesChances;
+        $this->diseasesChances = new ProbaCollection($diseasesChances);
 
         return $this;
     }
 
-    public function getCuresChances(): array
+    public function getCuresChances(): ProbaCollection
     {
         return $this->curesChances;
     }
 
     public function setCuresChances(array $curesChances): self
     {
-        $this->curesChances = $curesChances;
+        $this->curesChances = new ProbaCollection($curesChances);
 
         return $this;
     }
 
-    public function getDiseasesDelayMin(): array
+    public function getDiseasesDelayMin(): ProbaCollection
     {
         return $this->diseasesDelayMin;
     }
 
     public function setDiseasesDelayMin(array $diseasesDelayMin): self
     {
-        $this->diseasesDelayMin = $diseasesDelayMin;
+        $this->diseasesDelayMin = new ProbaCollection($diseasesDelayMin);
 
         return $this;
     }
 
-    public function getDiseasesDelayLength(): array
+    public function getDiseasesDelayLength(): ProbaCollection
     {
         return $this->diseasesDelayLength;
     }
 
     public function setDiseasesDelayLength(array $diseasesDelayLength): self
     {
-        $this->diseasesDelayLength = $diseasesDelayLength;
+        $this->diseasesDelayLength = new ProbaCollection($diseasesDelayLength);
 
         return $this;
     }
 
-    public function getEffectNumber(): array
+    public function getEffectNumber(): ProbaCollection
     {
         return $this->effectNumber;
     }
 
     public function setEffectNumber(array $effectNumber): self
     {
-        $this->effectNumber = $effectNumber;
+        $this->effectNumber = new ProbaCollection($effectNumber);
 
         return $this;
     }

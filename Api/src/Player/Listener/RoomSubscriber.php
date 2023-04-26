@@ -53,7 +53,7 @@ class RoomSubscriber implements EventSubscriberInterface
 
         $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
-            $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getTremorPlayerDamage());
+            $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($difficultyConfig->getTremorPlayerDamage());
 
             $playerModifierEvent = new PlayerVariableEvent(
                 $player,
@@ -76,7 +76,7 @@ class RoomSubscriber implements EventSubscriberInterface
 
         $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
-            $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getElectricArcPlayerDamage());
+            $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($difficultyConfig->getElectricArcPlayerDamage());
 
             $playerModifierEvent = new PlayerVariableEvent(
                 $player,

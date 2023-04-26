@@ -19,6 +19,7 @@ use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -111,8 +112,12 @@ class DiseaseCauseServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([$diseaseName => 1])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists('name', $probaCollection->toArray())) &&
+                $probaCollection->toArray()['name'] === 1
+            )
             ->andReturn($diseaseName)
             ->once()
         ;
@@ -173,8 +178,12 @@ class DiseaseCauseServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([$diseaseName => 1])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists('name', $probaCollection->toArray())) &&
+                $probaCollection->toArray()['name'] === 1
+            )
             ->andReturn($diseaseName)
             ->once()
         ;
@@ -331,8 +340,12 @@ class DiseaseCauseServiceTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([$diseaseName => 1])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists('name', $probaCollection->toArray())) &&
+                $probaCollection->toArray()['name'] === 1
+            )
             ->andReturn($diseaseName)
             ->once()
         ;

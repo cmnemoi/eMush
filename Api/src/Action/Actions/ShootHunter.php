@@ -53,7 +53,7 @@ class ShootHunter extends AttemptAction
 
         /** @var Weapon $weapon */
         $weapon = $this->getWeaponMechanic($equipment);
-        $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($weapon->getBaseDamageRange());
+        $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($weapon->getBaseDamageRange());
 
         $hunter = $daedalus->getAttackingHunters()->first();
         if (!$hunter) {

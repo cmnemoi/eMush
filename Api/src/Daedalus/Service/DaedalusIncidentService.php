@@ -2,12 +2,12 @@
 
 namespace Mush\Daedalus\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -128,8 +128,8 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
             $brokenEquipments = $this
                 ->randomService
-                ->getRandomDaedalusEquipmentFromProbaArray(
-                    $workingEquipmentBreakRateDistribution->toArray(),
+                ->getRandomDaedalusEquipmentFromProbaCollection(
+                    $workingEquipmentBreakRateDistribution,
                     $numberOfEquipmentBroken,
                     $daedalus);
 
@@ -278,31 +278,26 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
      * This function returns the distribution of the working equipment break rate
      * to avoid trying to break a piece of equipment that is already broken
      * (and get less broken equipment than expected).
-     *
-     * @return ArrayCollection<string, int>
      */
-    private function getWorkingEquipmentBreakRateDistribution(Daedalus $daedalus): ArrayCollection
+    private function getWorkingEquipmentBreakRateDistribution(Daedalus $daedalus): ProbaCollection
     {
         $equipmentBreakRateDistribution = $daedalus
             ->getGameConfig()
             ->getDifficultyConfig()
-            ->getEquipmentBreakRateDistribution();
+            ->getEquipmentBreakRateDistribution()
+        ;
 
-        $workingEquipmentBreakRateDistribution = [];
+        $absentEquipments = [];
         /** @var string $equipmentName */
-        foreach (array_keys($equipmentBreakRateDistribution) as $equipmentName) {
+        foreach ($equipmentBreakRateDistribution as $equipmentName => $probability) {
             // If the equipment is not found, it means it hasn't been build yet (Calculator, Thalasso, etc.)
             // and therefore can't be broken : we skip it.
             try {
                 $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
-                if ($equipment === null) {
+                if ($equipment === null || $equipment->isBroken()) {
+                    $absentEquipments[] = $equipmentName;
                     continue;
                 }
-                if ($equipment->isBroken()) {
-                    continue;
-                }
-
-                $workingEquipmentBreakRateDistribution[$equipmentName] = $equipmentBreakRateDistribution[$equipmentName];
             } catch (\Exception $e) {
                 $this->logger->info($e->getMessage(), [
                     'equipmentName' => $equipmentName,
@@ -313,6 +308,6 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             }
         }
 
-        return new ArrayCollection($workingEquipmentBreakRateDistribution);
+        return $equipmentBreakRateDistribution->withdrawElements($absentEquipments);
     }
 }

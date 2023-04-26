@@ -71,7 +71,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $difficultyConfig = $player->getDaedalus()->getGameConfig()->getDifficultyConfig();
 
         $damage = (int) $this->randomService
-            ->getSingleRandomElementFromProbaArray($difficultyConfig->getMetalPlatePlayerDamage());
+            ->getSingleRandomElementFromProbaCollection($difficultyConfig->getMetalPlatePlayerDamage());
 
         $playerModifierEvent = new PlayerVariableEvent(
             $player,
@@ -90,7 +90,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $difficultyConfig = $player->getDaedalus()->getGameConfig()->getDifficultyConfig();
 
         $damage = (int) $this->randomService
-            ->getSingleRandomElementFromProbaArray($difficultyConfig->getPanicCrisisPlayerDamage());
+            ->getSingleRandomElementFromProbaCollection($difficultyConfig->getPanicCrisisPlayerDamage());
 
         $playerModifierEvent = new PlayerVariableEvent(
             $player,

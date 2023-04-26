@@ -11,6 +11,7 @@ use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomService;
@@ -156,22 +157,22 @@ class RandomServiceTest extends TestCase
 
     public function testGetSingleRandomElementFromProbaArray()
     {
-        $players = ['player1' => 1];
-        $this->assertEquals('player1', $this->service->getSingleRandomElementFromProbaArray($players));
+        $players = new ProbaCollection(['player1' => 1]);
+        $this->assertEquals('player1', $this->service->getSingleRandomElementFromProbaCollection($players));
 
-        $players = ['player1' => 1, 'player2' => 0];
-        $this->assertEquals('player1', $this->service->getSingleRandomElementFromProbaArray($players));
+        $players = new ProbaCollection(['player1' => 1, 'player2' => 0]);
+        $this->assertEquals('player1', $this->service->getSingleRandomElementFromProbaCollection($players));
     }
 
     public function testGetRandomElementsFromProbaArray()
     {
-        $players = ['player1' => 1];
-        $this->assertEquals(['player1'], $this->service->getRandomElementsFromProbaArray($players, 1));
+        $players = new ProbaCollection(['player1' => 1]);
+        $this->assertEquals(['player1'], $this->service->getRandomElementsFromProbaCollection($players, 1));
 
-        $players = ['player1' => 25, 'player2' => 5, 'player3' => 10, 'player4' => 10, 'player5' => 0];
+        $players = new ProbaCollection(['player1' => 25, 'player2' => 5, 'player3' => 10, 'player4' => 10, 'player5' => 0]);
 
         for ($i = 1; $i <= 10; ++$i) {
-            $randomPlayer = $this->service->getRandomElementsFromProbaArray($players, 2);
+            $randomPlayer = $this->service->getRandomElementsFromProbaCollection($players, 2);
             $this->assertNotContains('player5', $randomPlayer);
         }
     }
@@ -216,8 +217,8 @@ class RandomServiceTest extends TestCase
             ->andReturn([$equipment])
         ;
 
-        $draw = $this->service->getRandomDaedalusEquipmentFromProbaArray(
-            ['equipment' => 1],
+        $draw = $this->service->getRandomDaedalusEquipmentFromProbaCollection(
+            new ProbaCollection(['equipment' => 1]),
             1,
             $daedalus
         )[0];

@@ -95,7 +95,9 @@ class ActionSubscriber implements EventSubscriberInterface
             $this->diseaseCauseService->findCauseConfigByDaedalus(
                 DiseaseCauseEnum::CONTACT,
                 $player->getDaedalus())
-                ->getDiseases());
+                ->getDiseases()
+                ->toArray()
+        );
 
         if (count(array_intersect($playerDiseases, $contactDiseases)) === 0) {
             return;

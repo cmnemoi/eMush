@@ -28,7 +28,6 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
-use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -47,7 +46,6 @@ class DoTheThing extends AbstractAction
 
     private DiseaseCauseServiceInterface $diseaseCauseService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private PlayerVariableServiceInterface $playerVariableService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
 
@@ -57,7 +55,6 @@ class DoTheThing extends AbstractAction
         ValidatorInterface $validator,
         DiseaseCauseServiceInterface $diseaseCauseService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
-        PlayerVariableServiceInterface $playerVariableService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
     ) {
@@ -68,7 +65,6 @@ class DoTheThing extends AbstractAction
         );
         $this->diseaseCauseService = $diseaseCauseService;
         $this->playerDiseaseService = $playerDiseaseService;
-        $this->playerVariableService = $playerVariableService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
     }
@@ -239,7 +235,7 @@ class DoTheThing extends AbstractAction
     {
         $sexDiseaseCauseConfig = $this->diseaseCauseService->findCauseConfigByDaedalus(DiseaseCauseEnum::SEX, $player->getDaedalus());
 
-        $stds = array_keys($sexDiseaseCauseConfig->getDiseases());
+        $stds = array_keys($sexDiseaseCauseConfig->getDiseases()->toArray());
 
         return $player->getMedicalConditions()->getActiveDiseases()->filter(
             function ($disease) use ($stds) { return in_array($disease->getDiseaseConfig()->getName(), $stds); }

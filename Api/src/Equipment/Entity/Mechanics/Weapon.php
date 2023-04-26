@@ -4,6 +4,7 @@ namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Game\Entity\ProbaCollection;
 
 #[ORM\Entity]
 class Weapon extends Tool
@@ -12,7 +13,7 @@ class Weapon extends Tool
     private int $baseAccuracy = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $baseDamageRange = [0 => 0];
+    private ProbaCollection $baseDamageRange;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $expeditionBonus = 0;
@@ -25,6 +26,12 @@ class Weapon extends Tool
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $oneShotRate = 0;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->baseDamageRange = new ProbaCollection();
+    }
 
     public function getMechanics(): array
     {
@@ -46,14 +53,14 @@ class Weapon extends Tool
         return $this;
     }
 
-    public function getBaseDamageRange(): array
+    public function getBaseDamageRange(): ProbaCollection
     {
         return $this->baseDamageRange;
     }
 
     public function setBaseDamageRange(array $baseDamageRange): static
     {
-        $this->baseDamageRange = $baseDamageRange;
+        $this->baseDamageRange = new ProbaCollection($baseDamageRange);
 
         return $this;
     }

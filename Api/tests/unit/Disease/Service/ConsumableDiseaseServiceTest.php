@@ -16,6 +16,7 @@ use Mush\Disease\Repository\ConsumableDiseaseRepository;
 use Mush\Disease\Service\ConsumableDiseaseService;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Service\RandomServiceInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -41,13 +42,11 @@ class ConsumableDiseaseServiceTest extends TestCase
     public function before()
     {
         $this->consumableDiseaseRepository = \Mockery::mock(ConsumableDiseaseRepository::class);
-        $this->consumableDiseaseConfigRepository = \Mockery::mock(ConsumableDiseaseConfigRepository::class);
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->consumableDiseaseService = new ConsumableDiseaseService(
             $this->consumableDiseaseRepository,
-            $this->consumableDiseaseConfigRepository,
             $this->entityManager,
             $this->randomService,
         );
@@ -116,8 +115,14 @@ class ConsumableDiseaseServiceTest extends TestCase
         $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([1 => 1, 2 => 10])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists(1, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[1] === 1 &&
+                key_exists(2, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[2] === 10
+            ))
             ->andReturn(2)
             ->times(1)
         ;
@@ -132,34 +137,62 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         // first the service chose and design the cure
         $this->randomService
-            ->shouldReceive('getRandomElementsFromProbaArray')
-            ->with(['Disease 1' => 10], 1)
+            ->shouldReceive('getRandomElementsFromProbaCollection')
+            ->withArgs(fn ($probaCollection, $number) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists('Disease 1', $probaCollection->toArray()) &&
+                $probaCollection->toArray()['Disease 1'] === 10 &&
+                $number === 1
+            ))
             ->andReturn(['Disease 1'])
             ->once()
         ;
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([30 => 1, 45 => 2])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists(30, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[30] === 1 &&
+                key_exists(45, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[45] === 2
+            ))
             ->andReturn(45)
             ->once()
         ;
 
         // then the disease
         $this->randomService
-            ->shouldReceive('getRandomElementsFromProbaArray')
-            ->with(['Disease 1' => 5, 'Disease 2' => 10], 1)
+            ->shouldReceive('getRandomElementsFromProbaCollection')
+            ->withArgs(fn ($probaCollection, $number) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists('Disease 1', $probaCollection->toArray()) &&
+                $probaCollection->toArray()['Disease 1'] === 5 &&
+                key_exists('Disease 2', $probaCollection->toArray()) &&
+                $probaCollection->toArray()['Disease 2'] === 10 &&
+                $number === 1
+            ))
             ->andReturn(['Disease 1'])
             ->once()
         ;
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([20 => 1, 25 => 2])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists(20, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[20] === 1 &&
+                key_exists(25, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[25] === 2
+            ))
             ->andReturn(45)
             ->once()
         ;
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([0 => 1])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists(0, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[0] === 1
+            ))
             ->andReturn(0)
             ->once()
         ;
@@ -202,8 +235,12 @@ class ConsumableDiseaseServiceTest extends TestCase
         $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([1 => 1])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists(1, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[1] === 1
+            ))
             ->andReturn(1)
             ->times(1)
         ;
@@ -217,26 +254,46 @@ class ConsumableDiseaseServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('getRandomElementsFromProbaArray')
-            ->with(['Disease 1' => 5], 1)
+            ->shouldReceive('getRandomElementsFromProbaCollection')
+            ->withArgs(fn ($probaCollection, $number) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists('Disease 1', $probaCollection->toArray()) &&
+                $probaCollection->toArray()['Disease 1'] === 5 &&
+                $number === 1
+            ))
             ->andReturn(['Disease 1'])
             ->once()
         ;
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([20 => 1])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists(20, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[20] === 1
+            ))
             ->andReturn(20)
             ->once()
         ;
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([1 => 1])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists(1, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[1] === 1
+            ))
             ->andReturn(1)
             ->once()
         ;
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([5 => 1, 8 => 5])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                $probaCollection->count() === 2 &&
+                key_exists(5, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[5] === 1 &&
+                key_exists(8, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[8] === 5
+            ))
             ->andReturn(8)
             ->once()
         ;
@@ -283,8 +340,12 @@ class ConsumableDiseaseServiceTest extends TestCase
         $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([1 => 1])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists(1, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[1] === 1
+            ))
             ->andReturn(1)
             ->times(1)
         ;
@@ -298,20 +359,33 @@ class ConsumableDiseaseServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('getRandomElementsFromProbaArray')
-            ->with(['Disease 1' => 5], 1)
+            ->shouldReceive('getRandomElementsFromProbaCollection')
+            ->withArgs(fn ($probaCollection, $number) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists('Disease 1', $probaCollection->toArray()) &&
+                $probaCollection->toArray()['Disease 1'] === 5 &&
+                $number === 1
+            ))
             ->andReturn(['Disease 1'])
             ->once()
         ;
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([100 => 1])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists(100, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[100] === 1
+            ))
             ->andReturn(100)
             ->once()
         ;
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([1 => 1])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists(1, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[1] === 1
+            ))
             ->andReturn(0)
             ->once()
         ;
@@ -359,8 +433,12 @@ class ConsumableDiseaseServiceTest extends TestCase
         $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([1 => 1])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists(1, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[1] === 1
+            ))
             ->andReturn(1)
             ->times(1)
         ;
@@ -374,14 +452,23 @@ class ConsumableDiseaseServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('getRandomElementsFromProbaArray')
-            ->with(['Disease 1' => 5], 1)
+            ->shouldReceive('getRandomElementsFromProbaCollection')
+            ->withArgs(fn ($probaCollection, $number) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists('Disease 1', $probaCollection->toArray()) &&
+                $probaCollection->toArray()['Disease 1'] === 5 &&
+                $number === 1
+            ))
             ->andReturn(['Disease 1'])
             ->once()
         ;
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([30 => 1])
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->withArgs(fn ($probaCollection) => (
+                $probaCollection instanceof ProbaCollection &&
+                key_exists(30, $probaCollection->toArray()) &&
+                $probaCollection->toArray()[30] === 1
+            ))
             ->andReturn(30)
             ->once()
         ;

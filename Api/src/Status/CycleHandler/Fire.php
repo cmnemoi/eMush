@@ -87,7 +87,7 @@ class Fire extends AbstractStatusCycleHandler
         $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
 
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
-            $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFirePlayerDamage());
+            $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($difficultyConfig->getFirePlayerDamage());
 
             $playerModifierEvent = new PlayerVariableEvent(
                 $player,
@@ -104,7 +104,7 @@ class Fire extends AbstractStatusCycleHandler
         }
 
         if ($this->randomService->isSuccessful($difficultyConfig->getHullFireDamageRate())) {
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFireHullDamage()));
+            $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($difficultyConfig->getFireHullDamage()));
 
             $daedalusEvent = new DaedalusVariableEvent(
                 $room->getDaedalus(),

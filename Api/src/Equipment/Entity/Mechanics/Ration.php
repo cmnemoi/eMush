@@ -5,32 +5,43 @@ namespace Mush\Equipment\Entity\Mechanics;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Game\Entity\ProbaCollection;
 
 #[ORM\Entity]
 class Ration extends EquipmentMechanic
 {
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $moralPoints = [0 => 1];
+    private ProbaCollection $moralPoints;
     //  possibilities are stored as key, array value represent the probability to get the key value
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $actionPoints = [0 => 1];
+    private ProbaCollection $actionPoints;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $movementPoints = [0 => 1];
+    private ProbaCollection $movementPoints;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $healthPoints = [0 => 1];
+    private ProbaCollection $healthPoints;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     protected ?int $satiety = null;
 
     // Store any extra effect the food has as key with the chance to get it as value
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $extraEffects = [];
+    private ProbaCollection $extraEffects;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $isPerishable = true;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->actionPoints = new ProbaCollection([0 => 1]);
+        $this->movementPoints = new ProbaCollection([0 => 1]);
+        $this->moralPoints = new ProbaCollection([0 => 1]);
+        $this->healthPoints = new ProbaCollection([0 => 1]);
+        $this->extraEffects = new ProbaCollection();
+    }
 
     public function getMechanics(): array
     {
@@ -40,50 +51,50 @@ class Ration extends EquipmentMechanic
         return $mechanics;
     }
 
-    public function getActionPoints(): array
+    public function getActionPoints(): ProbaCollection
     {
         return $this->actionPoints;
     }
 
     public function setActionPoints(array $actionPoints): static
     {
-        $this->actionPoints = $actionPoints;
+        $this->actionPoints = new ProbaCollection($actionPoints);
 
         return $this;
     }
 
-    public function getMovementPoints(): array
+    public function getMovementPoints(): ProbaCollection
     {
         return $this->movementPoints;
     }
 
     public function setMovementPoints(array $movementPoints): static
     {
-        $this->movementPoints = $movementPoints;
+        $this->movementPoints = new ProbaCollection($movementPoints);
 
         return $this;
     }
 
-    public function getHealthPoints(): array
+    public function getHealthPoints(): ProbaCollection
     {
         return $this->healthPoints;
     }
 
     public function setHealthPoints(array $healthPoints): static
     {
-        $this->healthPoints = $healthPoints;
+        $this->healthPoints = new ProbaCollection($healthPoints);
 
         return $this;
     }
 
-    public function getMoralPoints(): array
+    public function getMoralPoints(): ProbaCollection
     {
         return $this->moralPoints;
     }
 
     public function setMoralPoints(array $moralPoints): static
     {
-        $this->moralPoints = $moralPoints;
+        $this->moralPoints = new ProbaCollection($moralPoints);
 
         return $this;
     }
@@ -100,25 +111,19 @@ class Ration extends EquipmentMechanic
         return $this;
     }
 
-    public function getExtraEffects(): array
+    public function getExtraEffects(): ProbaCollection
     {
         return $this->extraEffects;
     }
 
     public function setExtraEffects(array $extraEffects): static
     {
-        $this->extraEffects = $extraEffects;
+        $this->extraEffects = new ProbaCollection($extraEffects);
 
         return $this;
     }
 
-    // a getter is needed for the serializer
     public function getIsPerishable(): bool
-    {
-        return $this->isPerishable;
-    }
-
-    public function isPerishable(): bool
     {
         return $this->isPerishable;
     }

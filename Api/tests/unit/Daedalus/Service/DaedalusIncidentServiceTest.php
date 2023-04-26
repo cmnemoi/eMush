@@ -16,6 +16,7 @@ use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -205,8 +206,13 @@ class DaedalusIncidentServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('getRandomDaedalusEquipmentFromProbaArray')
-            ->withArgs([['communication_center' => 1], 1, $daedalus])
+            ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
+            ->withArgs(fn ($probaArray, $number, $funcDaedalus) => (
+                $probaArray instanceof ProbaCollection &&
+                $probaArray->toArray() === ['communication_center' => 1] &&
+                $number === 1 &&
+                $funcDaedalus === $daedalus
+            ))
             ->andReturn([$equipment])
             ->once()
         ;
@@ -254,7 +260,7 @@ class DaedalusIncidentServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('getRandomDaedalusEquipmentFromProbaArray')
+            ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
             ->andReturn([$equipment])
             ->never()
         ;
@@ -305,8 +311,13 @@ class DaedalusIncidentServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('getRandomDaedalusEquipmentFromProbaArray')
-            ->withArgs([['communication_center' => 1], 1, $daedalus])
+            ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
+            ->withArgs(fn ($probaArray, $number, $funcDaedalus) => (
+                $probaArray instanceof ProbaCollection &&
+                $probaArray->toArray() === ['communication_center' => 1] &&
+                $number === 1 &&
+                $funcDaedalus === $daedalus
+            ))
             ->andReturn([$equipment])
             ->once()
         ;

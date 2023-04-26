@@ -105,6 +105,29 @@
                 :errors="errors.plantDiseaseRate"
             />
         </div>
+        <div class="flex-row">
+            <Input
+                :label="$t('admin.difficultyConfig.hunterSpawnRate')"
+                id="difficultyConfig_attribute"
+                v-model="difficultyConfig.hunterSpawnRate"
+                type="number"
+                :errors="errors.hunterSpawnRate"
+            />
+            <Input
+                :label="$t('admin.difficultyConfig.hunterSafeCycles')"
+                id="difficultyConfig_attribute"
+                v-model="difficultyConfig.hunterSafeCycles"
+                type="text"
+                :errors="errors.hunterSafeCycles"
+            />
+            <Input
+                :label="$t('admin.difficultyConfig.startingHuntersTruceCycles')"
+                id="difficultyConfig_attribute"
+                v-model="difficultyConfig.startingHuntersTruceCycles"
+                type="number"
+                :errors="errors.startingHuntersTruceCycles"
+            />
+        </div>
         <MapManager
             :label="$t('admin.difficultyConfig.firePlayerDamage')"
             :map="difficultyConfig.firePlayerDamage"

@@ -120,9 +120,13 @@ class HunterConfig
         return new ProbaCollection($this->damageRange);
     }
 
-    public function setDamageRange(ProbaCollection $damageRange): static
+    public function setDamageRange(array|ProbaCollection $damageRange): static
     {
-        $this->damageRange = $damageRange->toArray();
+        if ($damageRange instanceof ProbaCollection) {
+            $damageRange = $damageRange->toArray();
+        }
+
+        $this->damageRange = $damageRange;
 
         return $this;
     }

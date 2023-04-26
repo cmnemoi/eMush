@@ -15,7 +15,7 @@ class HunterConfigData
             'initialHealth' => 20,
             'initialStatuses' => [HunterStatusEnum::HUNTER_CHARGE . '_asteroid_default'],
             'damageRange' => [
-                6 => 1,
+                0 => 1,
             ],
             'hitChance' => 100,
             'dodgeChance' => 20,

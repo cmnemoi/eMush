@@ -25,36 +25,6 @@
                 :errors="errors.initialHealth"
             />
             <Input
-                :label="$t('admin.hunterConfig.initialCharge')"
-                id="hunterConfig_initialCharge"
-                v-model="hunterConfig.initialCharge"
-                type="number"
-                :errors="errors.initialCharge"
-            />
-            <Input
-                :label="$t('admin.hunterConfig.initialArmor')"
-                id="hunterConfig_initialArmor"
-                v-model="hunterConfig.initialArmor"
-                type="number"
-                :errors="errors.initialArmor"
-            />
-            <Input
-                :label="$t('admin.hunterConfig.minDamage')"
-                id="hunterConfig_minDamage"
-                v-model="hunterConfig.minDamage"
-                type="number"
-                :errors="errors.minDamage"
-            />
-            <Input
-                :label="$t('admin.hunterConfig.maxDamage')"
-                id="hunterConfig_maxDamage"
-                v-model="hunterConfig.maxDamage"
-                type="number"
-                :errors="errors.maxDamage"
-            />
-        </div>
-        <div class="flex-row">
-            <Input
                 :label="$t('admin.hunterConfig.hitChance')"
                 id="hunterConfig_hitChance"
                 v-model="hunterConfig.hitChance"
@@ -75,6 +45,8 @@
                 type="number"
                 :errors="errors.drawCost"
             />
+        </div>
+        <div class="flex-row">
             <Input
                 :label="$t('admin.hunterConfig.maxPerWave')"
                 id="hunterConfig_maxPerWave"
@@ -89,7 +61,28 @@
                 type="number"
                 :errors="errors.drawWeight"
             />
+            <Input
+                :label="$t('admin.hunterConfig.spawnDifficulty')"
+                id="hunterConfig_spawnDifficulty"
+                v-model="hunterConfig.spawnDifficulty"
+                type="number"
+                :errors="errors.spawnDifficulty"
+            />
         </div>
+        <MapManager
+            :label="$t('admin.hunterConfig.damageRange')"
+            :map="hunterConfig.damageRange"
+            mapIndexesType="number"
+            mapValuesType="number"
+            @addTuple="addDamage"
+            @removeIndex="removeDamage"
+        />
+        <h3>{{ $t("admin.hunterConfig.initialStatuses") }}</h3>
+        <ChildCollectionManager :children="hunterConfig.initialStatuses" @addId="addNewStatusConfig" @remove="removeStatusConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
     </div>
     <UpdateConfigButtons
         @create="create"
@@ -99,13 +92,18 @@
 
 <script lang="ts">
 import ApiService from "@/services/api.service";
+import urlJoin from "url-join";
 import { defineComponent } from "vue";
 import { handleErrors } from "@/utils/apiValidationErrors";
-import urlJoin from "url-join";
+import { removeItem } from "@/utils/misc";
+import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import Input from "@/components/Utils/Input.vue";
+import MapManager from "@/components/Utils/MapManager.vue";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import GameConfigService from "@/services/game_config.service";
 import HunterConfigService from "@/services/hunter.config.service";
 import { HunterConfig } from "@/entities/Config/HunterConfig";
+import { StatusConfig } from "@/entities/Config/StatusConfig";
 
 
 interface HunterConfigState {
@@ -116,7 +114,9 @@ interface HunterConfigState {
 export default defineComponent({
     name: "HunterConfigDetailPage",
     components: {
+        ChildCollectionManager,
         Input,
+        MapManager,
         UpdateConfigButtons
     },
     data: function (): HunterConfigState {
@@ -132,6 +132,18 @@ export default defineComponent({
             newHunterConfig.id = null;
             HunterConfigService.createHunterConfig(newHunterConfig).then((res: HunterConfig | null) => {
                 this.hunterConfig = res;
+                if (null === this.hunterConfig) return null;
+                ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'hunter_configs', String(this.hunterConfig.id), 'initial_statuses'))
+                    .then((result) => {
+                        const initialStatuses: StatusConfig[] = [];
+                        result.data['hydra:member'].forEach((datum: any) => {
+                            initialStatuses.push((new StatusConfig()).load(datum));
+                        });
+
+                        if (this.hunterConfig instanceof HunterConfig) {
+                            this.hunterConfig.initialStatuses = initialStatuses;
+                        }
+                    });
             })
                 .catch((error) => {
                     if (error.response) {
@@ -155,6 +167,18 @@ export default defineComponent({
             HunterConfigService.updateHunterConfig(this.hunterConfig)
                 .then((res: HunterConfig | null) => {
                     this.hunterConfig = res;
+                    if (null === this.hunterConfig) return null;
+                    ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'hunter_configs', String(this.hunterConfig.id), 'initial_statuses'))
+                        .then((result) => {
+                            const initialStatuses: StatusConfig[] = [];
+                            result.data['hydra:member'].forEach((datum: any) => {
+                                initialStatuses.push((new StatusConfig()).load(datum));
+                            });
+
+                            if (this.hunterConfig instanceof HunterConfig) {
+                                this.hunterConfig.initialStatuses = initialStatuses;
+                            }
+                        });
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -169,13 +193,49 @@ export default defineComponent({
                         console.error('Error', error.message);
                     }
                 });
-        }
+        },
+        addDamage(tuple: number[]): void {
+            if (this.hunterConfig === null || this.hunterConfig.damageRange === null) {
+                return;
+            }
+            const key = tuple[0];
+            const value = tuple[1];
+            this.hunterConfig.damageRange.set(key, value);
+        },
+        removeDamage(key: number): void {
+            if (this.hunterConfig === null || this.hunterConfig.damageRange === null) {
+                return;
+            }
+            this.hunterConfig.damageRange.delete(key);
+        },
+        addNewStatusConfig(selectedId: integer){
+            GameConfigService.loadStatusConfig(selectedId).then((res) => {
+                if (res && this.hunterConfig && this.hunterConfig.initialStatuses){
+                    this.hunterConfig.initialStatuses.push(res);
+                }
+            });
+        },
+        removeStatusConfig(statusConfig: any){
+            if (this.hunterConfig && this.hunterConfig.initialStatuses){
+                this.hunterConfig.initialStatuses = removeItem(this.hunterConfig.initialStatuses, statusConfig);
+            }
+        },
     },
     beforeMount() {   
         const hunterConfigId = Number(this.$route.params.hunterConfigId);
-        console.log(hunterConfigId);
         HunterConfigService.loadHunterConfig(hunterConfigId).then((res: HunterConfig | null) => {
             this.hunterConfig = res;
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'hunter_configs', String(hunterConfigId), 'initial_statuses'))
+                .then((result) => {
+                    const initialStatuses: StatusConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        initialStatuses.push((new StatusConfig()).load(datum));
+                    });
+
+                    if (this.hunterConfig instanceof HunterConfig) {
+                        this.hunterConfig.initialStatuses = initialStatuses;
+                    }
+                });
         });     
     }
 });

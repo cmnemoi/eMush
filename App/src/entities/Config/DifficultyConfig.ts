@@ -21,6 +21,9 @@ export class DifficultyConfig {
     public plantDiseaseRate: number|null;
     public cycleDiseaseRate: number|null;
     public difficultyModes: Map<string, integer>|null;
+    public hunterSpawnRate: integer|null;
+    public hunterSafeCycles: integer[]|null;
+    public startingHuntersTruceCycles: integer|null;
 
     constructor() {
         this.iri = null;
@@ -45,6 +48,9 @@ export class DifficultyConfig {
         this.plantDiseaseRate = null;
         this.cycleDiseaseRate = null;
         this.difficultyModes = new Map<string, integer>();
+        this.hunterSpawnRate = null;
+        this.hunterSafeCycles = [];
+        this.startingHuntersTruceCycles = null;
     }
     load(object:any) : DifficultyConfig {
         if (typeof object !== "undefined") {
@@ -70,6 +76,9 @@ export class DifficultyConfig {
             this.plantDiseaseRate = object.plantDiseaseRate;
             this.cycleDiseaseRate = object.cycleDiseaseRate;
             this.loadMapAttribute(object, 'difficultyModes', this.difficultyModes);
+            this.hunterSpawnRate = object.hunterSpawnRate;
+            this.hunterSafeCycles = object.hunterSafeCycles;
+            this.startingHuntersTruceCycles = object.startingHuntersNumberOfTruceCycles;
         }
         return this;
     }
@@ -89,6 +98,9 @@ export class DifficultyConfig {
             'panicCrisisRate': this.panicCrisisRate,
             'plantDiseaseRate': this.plantDiseaseRate,
             'cycleDiseaseRate': this.cycleDiseaseRate,
+            'hunterSafeCycles': this.hunterSafeCycles,
+            'hunterSpawnRate' : this.hunterSpawnRate,
+            'startingHuntersTruceCycles': this.startingHuntersTruceCycles
         };
 
         this.encodeMapAttribute(data, 'firePlayerDamage', this.firePlayerDamage);

@@ -14,22 +14,6 @@ Mush\Hunter\Entity\Config\HunterConfig:
       - NotBlank: ~
       - Positive: ~
       - Type: integer
-    initialCharge:
-      - NotBlank: ~
-      - PositiveOrZero: ~
-      - Type: integer
-    initialArmor:
-      - NotBlank: ~
-      - PositiveOrZero: ~
-      - Type: integer
-    minDamage:
-      - NotBlank: ~
-      - Positive: ~
-      - Type: integer
-    maxDamage:
-      - NotBlank: ~
-      - Positive: ~
-      - Type: integer
     hitChance:
       - NotBlank: ~
       - PositiveOrZero: ~
@@ -45,6 +29,10 @@ Mush\Hunter\Entity\Config\HunterConfig:
     maxPerWave:
       - Type: integer
     drawWeight:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+    spawnDifficulty:
       - NotBlank: ~
       - Positive: ~
       - Type: integer

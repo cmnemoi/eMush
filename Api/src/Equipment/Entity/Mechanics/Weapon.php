@@ -13,7 +13,7 @@ class Weapon extends Tool
     private int $baseAccuracy = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private ProbaCollection $baseDamageRange;
+    private array $baseDamageRange;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $expeditionBonus = 0;
@@ -30,7 +30,7 @@ class Weapon extends Tool
     public function __construct()
     {
         parent::__construct();
-        $this->baseDamageRange = new ProbaCollection();
+        $this->baseDamageRange = [];
     }
 
     public function getMechanics(): array
@@ -55,12 +55,12 @@ class Weapon extends Tool
 
     public function getBaseDamageRange(): ProbaCollection
     {
-        return $this->baseDamageRange;
+        return new ProbaCollection($this->baseDamageRange);
     }
 
     public function setBaseDamageRange(array $baseDamageRange): static
     {
-        $this->baseDamageRange = new ProbaCollection($baseDamageRange);
+        $this->baseDamageRange = $baseDamageRange;
 
         return $this;
     }

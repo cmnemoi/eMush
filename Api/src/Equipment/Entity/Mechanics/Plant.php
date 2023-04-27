@@ -14,16 +14,16 @@ class Plant extends EquipmentMechanic
     private string $fruitName;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private ProbaCollection $maturationTime;
+    private array $maturationTime;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private ProbaCollection $oxygen;
+    private array $oxygen;
 
     public function __construct()
     {
         parent::__construct();
-        $this->maturationTime = new ProbaCollection();
-        $this->oxygen = new ProbaCollection();
+        $this->maturationTime = [];
+        $this->oxygen = [];
     }
 
     public function getMechanics(): array
@@ -48,24 +48,24 @@ class Plant extends EquipmentMechanic
 
     public function getMaturationTime(): ProbaCollection
     {
-        return $this->maturationTime;
+        return new ProbaCollection($this->maturationTime);
     }
 
     public function setMaturationTime(array $maturationTime): static
     {
-        $this->maturationTime = new ProbaCollection($maturationTime);
+        $this->maturationTime = $maturationTime;
 
         return $this;
     }
 
     public function getOxygen(): ProbaCollection
     {
-        return $this->oxygen;
+        return new ProbaCollection($this->oxygen);
     }
 
     public function setOxygen(array $oxygen): static
     {
-        $this->oxygen = new ProbaCollection($oxygen);
+        $this->oxygen = $oxygen;
 
         return $this;
     }

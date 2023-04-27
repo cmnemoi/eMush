@@ -21,11 +21,11 @@ class DiseaseCauseConfig
     private string $causeName;
 
     #[ORM\Column(type: 'array')]
-    private ProbaCollection $diseases;
+    private array $diseases;
 
     public function __construct()
     {
-        $this->diseases = new ProbaCollection();
+        $this->diseases = [];
     }
 
     public function getId(): ?int
@@ -66,12 +66,12 @@ class DiseaseCauseConfig
 
     public function getDiseases(): ProbaCollection
     {
-        return $this->diseases;
+        return new ProbaCollection($this->diseases);
     }
 
     public function setDiseases(array $diseases): self
     {
-        $this->diseases = new ProbaCollection($diseases);
+        $this->diseases = $diseases;
 
         return $this;
     }

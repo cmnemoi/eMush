@@ -11,24 +11,25 @@ use Mush\Game\Entity\ProbaCollection;
 class Ration extends EquipmentMechanic
 {
     #[ORM\Column(type: 'array', nullable: false)]
-    private ProbaCollection $moralPoints;
-    //  possibilities are stored as key, array value represent the probability to get the key value
+    private array $moralPoints;
+    // possibilities are stored as key, array value represent the probability to get the key value
+    // see ProbaCollection Entity
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private ProbaCollection $actionPoints;
+    private array $actionPoints;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private ProbaCollection $movementPoints;
+    private array $movementPoints;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private ProbaCollection $healthPoints;
+    private array $healthPoints;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     protected ?int $satiety = null;
 
     // Store any extra effect the food has as key with the chance to get it as value
     #[ORM\Column(type: 'array', nullable: false)]
-    private ProbaCollection $extraEffects;
+    private array $extraEffects;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $isPerishable = true;
@@ -36,11 +37,11 @@ class Ration extends EquipmentMechanic
     public function __construct()
     {
         parent::__construct();
-        $this->actionPoints = new ProbaCollection([0 => 1]);
-        $this->movementPoints = new ProbaCollection([0 => 1]);
-        $this->moralPoints = new ProbaCollection([0 => 1]);
-        $this->healthPoints = new ProbaCollection([0 => 1]);
-        $this->extraEffects = new ProbaCollection();
+        $this->actionPoints = [0 => 1];
+        $this->movementPoints = [0 => 1];
+        $this->moralPoints = [0 => 1];
+        $this->healthPoints = [0 => 1];
+        $this->extraEffects = [];
     }
 
     public function getMechanics(): array
@@ -53,48 +54,48 @@ class Ration extends EquipmentMechanic
 
     public function getActionPoints(): ProbaCollection
     {
-        return $this->actionPoints;
+        return new ProbaCollection($this->actionPoints);
     }
 
     public function setActionPoints(array $actionPoints): static
     {
-        $this->actionPoints = new ProbaCollection($actionPoints);
+        $this->actionPoints = $actionPoints;
 
         return $this;
     }
 
     public function getMovementPoints(): ProbaCollection
     {
-        return $this->movementPoints;
+        return new ProbaCollection($this->movementPoints);
     }
 
     public function setMovementPoints(array $movementPoints): static
     {
-        $this->movementPoints = new ProbaCollection($movementPoints);
+        $this->movementPoints = $movementPoints;
 
         return $this;
     }
 
     public function getHealthPoints(): ProbaCollection
     {
-        return $this->healthPoints;
+        return new ProbaCollection($this->healthPoints);
     }
 
     public function setHealthPoints(array $healthPoints): static
     {
-        $this->healthPoints = new ProbaCollection($healthPoints);
+        $this->healthPoints = $healthPoints;
 
         return $this;
     }
 
     public function getMoralPoints(): ProbaCollection
     {
-        return $this->moralPoints;
+        return new ProbaCollection($this->moralPoints);
     }
 
     public function setMoralPoints(array $moralPoints): static
     {
-        $this->moralPoints = new ProbaCollection($moralPoints);
+        $this->moralPoints = $moralPoints;
 
         return $this;
     }
@@ -113,12 +114,12 @@ class Ration extends EquipmentMechanic
 
     public function getExtraEffects(): ProbaCollection
     {
-        return $this->extraEffects;
+        return new ProbaCollection($this->extraEffects);
     }
 
     public function setExtraEffects(array $extraEffects): static
     {
-        $this->extraEffects = new ProbaCollection($extraEffects);
+        $this->extraEffects = $extraEffects;
 
         return $this;
     }

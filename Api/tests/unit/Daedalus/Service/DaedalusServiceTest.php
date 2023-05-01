@@ -20,6 +20,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Repository\LocalizationConfigRepository;
@@ -325,8 +326,12 @@ class DaedalusServiceTest extends TestCase
         $characterConfigImunized->setInitStatuses(new ArrayCollection([$statusConfig]));
         $characterConfigCollection->add($characterConfigImunized);
 
-        $this->randomService->shouldReceive('getRandomElementsFromProbaArray')
-            ->with(['player1' => 1, 'player2' => 1, 'player3' => 1, 'imunizedPlayer' => 0], 2)
+        $this->randomService->shouldReceive('getRandomElementsFromProbaCollection')
+            ->withArgs(fn ($probaCollection, $number) => (
+                $probaCollection instanceof ProbaCollection &&
+                $probaCollection->toArray() === ['player1' => 1, 'player2' => 1, 'player3' => 1, 'imunizedPlayer' => 0] &&
+                $number === 2
+            ))
             ->andReturn(['player1', 'player3'])
             ->once()
         ;

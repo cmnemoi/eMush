@@ -103,7 +103,7 @@ class FireTest extends TestCase
         $room->addPlayer($player);
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
-        $this->randomService->shouldReceive('getSingleRandomElementFromProbaArray')->andReturn(2)->twice();
+        $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn(2)->twice();
         $this->daedalusService->shouldReceive('persist')->once();
 
         $this->eventService

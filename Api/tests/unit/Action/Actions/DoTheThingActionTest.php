@@ -38,7 +38,6 @@ class DoTheThingActionTest extends AbstractActionTest
 
         $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
         $this->playerDiseaseService = \Mockery::mock(PlayerDiseaseServiceInterface::class);
-        $this->playerVariableService = \Mockery::mock(PlayerVariableServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
 
@@ -48,7 +47,6 @@ class DoTheThingActionTest extends AbstractActionTest
             $this->validator,
             $this->diseaseCauseService,
             $this->playerDiseaseService,
-            $this->playerVariableService,
             $this->randomService,
             $this->roomLogService,
         );

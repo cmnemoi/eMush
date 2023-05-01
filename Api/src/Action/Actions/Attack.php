@@ -131,7 +131,7 @@ class Attack extends AttemptAction
                 return;
             }
 
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($knife->getBaseDamageRange()));
+            $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($knife->getBaseDamageRange()));
 
             if ($this->isCriticalSuccess($player, $knife)) {
                 $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);

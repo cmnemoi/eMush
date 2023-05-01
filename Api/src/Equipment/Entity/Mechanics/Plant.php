@@ -5,6 +5,7 @@ namespace Mush\Equipment\Entity\Mechanics;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Game\Entity\ProbaCollection;
 
 #[ORM\Entity]
 class Plant extends EquipmentMechanic
@@ -13,10 +14,17 @@ class Plant extends EquipmentMechanic
     private string $fruitName;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $maturationTime = [];
+    private array $maturationTime;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $oxygen;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->maturationTime = [];
+        $this->oxygen = [];
+    }
 
     public function getMechanics(): array
     {
@@ -38,9 +46,9 @@ class Plant extends EquipmentMechanic
         return $this;
     }
 
-    public function getMaturationTime(): array
+    public function getMaturationTime(): ProbaCollection
     {
-        return $this->maturationTime;
+        return new ProbaCollection($this->maturationTime);
     }
 
     public function setMaturationTime(array $maturationTime): static
@@ -50,9 +58,9 @@ class Plant extends EquipmentMechanic
         return $this;
     }
 
-    public function getOxygen(): array
+    public function getOxygen(): ProbaCollection
     {
-        return $this->oxygen;
+        return new ProbaCollection($this->oxygen);
     }
 
     public function setOxygen(array $oxygen): static

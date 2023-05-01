@@ -20,6 +20,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -302,7 +303,7 @@ class DaedalusService implements DaedalusServiceInterface
 
         $mushNumber = $gameConfig->getDaedalusConfig()->getNbMush();
 
-        $mushPlayerName = $this->randomService->getRandomElementsFromProbaArray($chancesArray, $mushNumber);
+        $mushPlayerName = $this->randomService->getRandomElementsFromProbaCollection(new ProbaCollection($chancesArray), $mushNumber);
         foreach ($mushPlayerName as $playerName) {
             $mushPlayers = $daedalus
                 ->getPlayers()

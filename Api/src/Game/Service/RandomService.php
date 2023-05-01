@@ -8,6 +8,7 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
@@ -90,7 +91,7 @@ class RandomService implements RandomServiceInterface
         }
 
         $hunterProbaCollection = $hunterPool->getProbaCollection();
-        $selectedHuntersIds = array_values($this->getRandomElementsFromProbaArray($hunterProbaCollection->toArray(), $number));
+        $selectedHuntersIds = array_values($this->getRandomElementsFromProbaCollection($hunterProbaCollection, $number));
 
         return $hunterPool->map(fn (Hunter $hunter) => in_array($hunter->getId(), $selectedHuntersIds) ? $hunter : null)
             ->filter(fn (?Hunter $hunter) => $hunter instanceof Hunter);
@@ -136,46 +137,30 @@ class RandomService implements RandomServiceInterface
 
     // This function takes an array [element => proba%] as input and send back an array
     // Instead of proba relative ponderation also work
-    public function getSingleRandomElementFromProbaArray(array $array): ?string
+    public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): int|string|null
     {
         if (count($array) < 1) {
             return null;
         }
 
-        // first create a cumulative form of the array
-        $cumuProba = 0;
-        foreach ($array as $event => $proba) {
-            if (!is_int($proba)) {
-                throw new \Exception('Proba weight should be provided as integers');
-            }
-
-            $cumuProba = $cumuProba + $proba;
-            $array[$event] = $cumuProba;
-        }
-
+        $cumuProba = $array->getTotalWeight();
         if ($cumuProba === 0) {
             return null;
         }
 
         $probaLim = $this->random(0, $cumuProba);
 
-        $pickedElement = array_filter($array, function ($n) use ($probaLim) {
-            return $n >= $probaLim;
-        });
-
-        return key($pickedElement);
+        return $array->getElementFromDrawnProba($probaLim);
     }
 
-    // This function takes an array [element => proba%] as input and send back an array
-    public function getRandomElementsFromProbaArray(array $array, int $number): array
+    // This function takes a ProbaCollection as input and send back an array
+    public function getRandomElementsFromProbaCollection(ProbaCollection $array, int $number): array
     {
         $number = min($number, count($array));
 
         $randomElements = [];
         for ($i = 0; $i < $number; ++$i) {
-            $newElement = $this->getSingleRandomElementFromProbaArray(
-                array_diff_key($array, array_flip($randomElements))
-            );
+            $newElement = $this->getSingleRandomElementFromProbaCollection($array->withdrawElements($randomElements));
 
             if ($newElement !== null) {
                 $randomElements[$i] = $newElement;
@@ -185,9 +170,9 @@ class RandomService implements RandomServiceInterface
         return $randomElements;
     }
 
-    public function getRandomDaedalusEquipmentFromProbaArray(array $array, int $number, Daedalus $daedalus): array
+    public function getRandomDaedalusEquipmentFromProbaCollection(ProbaCollection $array, int $number, Daedalus $daedalus): array
     {
-        $equipmentNames = $this->getRandomElementsFromProbaArray($array, $number);
+        $equipmentNames = $this->getRandomElementsFromProbaCollection($array, $number);
 
         $equipments = [];
         foreach ($equipmentNames as $equipmentName) {

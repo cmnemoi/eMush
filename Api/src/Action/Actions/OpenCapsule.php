@@ -13,6 +13,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -83,9 +84,9 @@ class OpenCapsule extends AbstractAction
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // Get the content
-        $contentName = $this->randomService->getSingleRandomElementFromProbaArray(self::$capsuleContent);
+        $contentName = $this->randomService->getSingleRandomElementFromProbaCollection(new ProbaCollection(self::$capsuleContent));
 
-        if ($contentName === null) {
+        if (!is_string($contentName)) {
             throw new \Exception('capsule content should not be empty');
         }
 

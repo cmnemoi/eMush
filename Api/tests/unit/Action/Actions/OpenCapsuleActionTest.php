@@ -84,7 +84,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
         ;
 
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->andReturn(ItemEnum::METAL_SCRAPS)
             ->once()
         ;

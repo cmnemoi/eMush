@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
+use Mush\Game\Entity\ProbaCollection;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_consummable_config')]
@@ -30,22 +31,22 @@ class ConsumableDiseaseConfig
 
     // Store the chance (value) for the disease to appear (key)
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $diseasesChances = [];
+    private array $diseasesChances;
 
     // Store the chance (value) for the disease to appear (key)
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $curesChances = [];
+    private array $curesChances;
 
     // Store the min delay (value) for the disease to appear (key)
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $diseasesDelayMin = [];
+    private array $diseasesDelayMin;
 
     // Store the max delay (value) for the disease to appear (key)
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $diseasesDelayLength = [];
+    private array $diseasesDelayLength;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $effectNumber = [];
+    private array $effectNumber;
 
     #[ORM\OneToMany(targetEntity: ConsumableDiseaseAttribute::class, mappedBy: 'consumableDiseaseConfig', cascade: ['persist'])]
     private Collection $consumableAttributes;
@@ -53,6 +54,11 @@ class ConsumableDiseaseConfig
     public function __construct()
     {
         $this->consumableAttributes = new ArrayCollection();
+        $this->diseasesChances = [];
+        $this->curesChances = [];
+        $this->diseasesDelayMin = [];
+        $this->diseasesDelayLength = [];
+        $this->effectNumber = [];
     }
 
     public function getId(): ?int
@@ -115,9 +121,9 @@ class ConsumableDiseaseConfig
         return $this;
     }
 
-    public function getDiseasesChances(): array
+    public function getDiseasesChances(): ProbaCollection
     {
-        return $this->diseasesChances;
+        return new ProbaCollection($this->diseasesChances);
     }
 
     public function setDiseasesChances(array $diseasesChances): self
@@ -127,9 +133,9 @@ class ConsumableDiseaseConfig
         return $this;
     }
 
-    public function getCuresChances(): array
+    public function getCuresChances(): ProbaCollection
     {
-        return $this->curesChances;
+        return new ProbaCollection($this->curesChances);
     }
 
     public function setCuresChances(array $curesChances): self
@@ -139,9 +145,9 @@ class ConsumableDiseaseConfig
         return $this;
     }
 
-    public function getDiseasesDelayMin(): array
+    public function getDiseasesDelayMin(): ProbaCollection
     {
-        return $this->diseasesDelayMin;
+        return new ProbaCollection($this->diseasesDelayMin);
     }
 
     public function setDiseasesDelayMin(array $diseasesDelayMin): self
@@ -151,9 +157,9 @@ class ConsumableDiseaseConfig
         return $this;
     }
 
-    public function getDiseasesDelayLength(): array
+    public function getDiseasesDelayLength(): ProbaCollection
     {
-        return $this->diseasesDelayLength;
+        return new ProbaCollection($this->diseasesDelayLength);
     }
 
     public function setDiseasesDelayLength(array $diseasesDelayLength): self
@@ -163,9 +169,9 @@ class ConsumableDiseaseConfig
         return $this;
     }
 
-    public function getEffectNumber(): array
+    public function getEffectNumber(): ProbaCollection
     {
-        return $this->effectNumber;
+        return new ProbaCollection($this->effectNumber);
     }
 
     public function setEffectNumber(array $effectNumber): self

@@ -6,6 +6,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\Entity\ProbaCollection;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -35,11 +36,11 @@ interface RandomServiceInterface
 
     public function getRandomElements(array $array, int $number = 1): array;
 
-    public function getSingleRandomElementFromProbaArray(array $array): ?string;
+    public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): int|string|null;
 
-    public function getRandomElementsFromProbaArray(array $array, int $number): array;
+    public function getRandomElementsFromProbaCollection(ProbaCollection $array, int $number): array;
 
-    public function getRandomDaedalusEquipmentFromProbaArray(array $array, int $number, Daedalus $daedalus): array;
+    public function getRandomDaedalusEquipmentFromProbaCollection(ProbaCollection $array, int $number, Daedalus $daedalus): array;
 
     /** Generate a random number from a Poisson process (Knuth algorithm).
      *

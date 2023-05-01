@@ -85,7 +85,7 @@ class EquipmentEffectServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->andReturn(2)
             ->times(4)
         ;
@@ -132,12 +132,12 @@ class EquipmentEffectServiceTest extends TestCase
         ;
 
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->andReturn(8)
             ->once()
         ;
         $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
+            ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->andReturn(1)
             ->once()
         ;

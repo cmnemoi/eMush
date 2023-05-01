@@ -5,32 +5,44 @@ namespace Mush\Equipment\Entity\Mechanics;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Game\Entity\ProbaCollection;
 
 #[ORM\Entity]
 class Ration extends EquipmentMechanic
 {
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $moralPoints = [0 => 1];
-    //  possibilities are stored as key, array value represent the probability to get the key value
+    private array $moralPoints;
+    // possibilities are stored as key, array value represent the probability to get the key value
+    // see ProbaCollection Entity
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $actionPoints = [0 => 1];
+    private array $actionPoints;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $movementPoints = [0 => 1];
+    private array $movementPoints;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $healthPoints = [0 => 1];
+    private array $healthPoints;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     protected ?int $satiety = null;
 
     // Store any extra effect the food has as key with the chance to get it as value
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $extraEffects = [];
+    private array $extraEffects;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $isPerishable = true;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->actionPoints = [0 => 1];
+        $this->movementPoints = [0 => 1];
+        $this->moralPoints = [0 => 1];
+        $this->healthPoints = [0 => 1];
+        $this->extraEffects = [];
+    }
 
     public function getMechanics(): array
     {
@@ -40,9 +52,9 @@ class Ration extends EquipmentMechanic
         return $mechanics;
     }
 
-    public function getActionPoints(): array
+    public function getActionPoints(): ProbaCollection
     {
-        return $this->actionPoints;
+        return new ProbaCollection($this->actionPoints);
     }
 
     public function setActionPoints(array $actionPoints): static
@@ -52,9 +64,9 @@ class Ration extends EquipmentMechanic
         return $this;
     }
 
-    public function getMovementPoints(): array
+    public function getMovementPoints(): ProbaCollection
     {
-        return $this->movementPoints;
+        return new ProbaCollection($this->movementPoints);
     }
 
     public function setMovementPoints(array $movementPoints): static
@@ -64,9 +76,9 @@ class Ration extends EquipmentMechanic
         return $this;
     }
 
-    public function getHealthPoints(): array
+    public function getHealthPoints(): ProbaCollection
     {
-        return $this->healthPoints;
+        return new ProbaCollection($this->healthPoints);
     }
 
     public function setHealthPoints(array $healthPoints): static
@@ -76,9 +88,9 @@ class Ration extends EquipmentMechanic
         return $this;
     }
 
-    public function getMoralPoints(): array
+    public function getMoralPoints(): ProbaCollection
     {
-        return $this->moralPoints;
+        return new ProbaCollection($this->moralPoints);
     }
 
     public function setMoralPoints(array $moralPoints): static
@@ -100,9 +112,9 @@ class Ration extends EquipmentMechanic
         return $this;
     }
 
-    public function getExtraEffects(): array
+    public function getExtraEffects(): ProbaCollection
     {
-        return $this->extraEffects;
+        return new ProbaCollection($this->extraEffects);
     }
 
     public function setExtraEffects(array $extraEffects): static
@@ -112,13 +124,7 @@ class Ration extends EquipmentMechanic
         return $this;
     }
 
-    // a getter is needed for the serializer
     public function getIsPerishable(): bool
-    {
-        return $this->isPerishable;
-    }
-
-    public function isPerishable(): bool
     {
         return $this->isPerishable;
     }

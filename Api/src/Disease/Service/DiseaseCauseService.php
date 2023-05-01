@@ -93,20 +93,15 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
             return $playerDisease->getDiseaseConfig()->getDiseaseName();
         }, $playerDiseases);
 
-        $diseasesNames = array_diff(array_keys($diseasesProbaArray), $playerDiseasesNames);
+        $diseasesProbaArray = $diseasesProbaArray->withdrawElements($playerDiseasesNames);
 
-        $newDiseaseProbaArray = [];
-        foreach ($diseasesNames as $diseaseName) {
-            $newDiseaseProbaArray[$diseaseName] = $diseasesProbaArray[$diseaseName];
-        }
-
-        if (count($newDiseaseProbaArray) === 0) {
+        if (count($diseasesProbaArray) === 0) {
             return;
         }
 
-        $diseaseName = $this->randomService->getSingleRandomElementFromProbaArray($newDiseaseProbaArray);
+        $diseaseName = $this->randomService->getSingleRandomElementFromProbaCollection($diseasesProbaArray);
 
-        if ($diseaseName === null) {
+        if (!is_string($diseaseName)) {
             return;
         }
 

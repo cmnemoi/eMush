@@ -51,22 +51,22 @@ class DifficultyConfig
     private int $panicCrisisRate = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $firePlayerDamage = [];
+    private array $firePlayerDamage;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $fireHullDamage = [];
+    private array $fireHullDamage;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $electricArcPlayerDamage = [];
+    private array $electricArcPlayerDamage;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $tremorPlayerDamage = [];
+    private array $tremorPlayerDamage;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $metalPlatePlayerDamage = [];
+    private array $metalPlatePlayerDamage;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $panicCrisisPlayerDamage = [];
+    private array $panicCrisisPlayerDamage;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $plantDiseaseRate = 0;
@@ -75,7 +75,7 @@ class DifficultyConfig
     private int $cycleDiseaseRate = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $equipmentBreakRateDistribution = [];
+    private array $equipmentBreakRateDistribution;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $difficultyModes = [];
@@ -88,6 +88,17 @@ class DifficultyConfig
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $startingHuntersNumberOfTruceCycles = 0;
+
+    public function __construct()
+    {
+        $this->firePlayerDamage = [];
+        $this->fireHullDamage = [];
+        $this->electricArcPlayerDamage = [];
+        $this->tremorPlayerDamage = [];
+        $this->metalPlatePlayerDamage = [];
+        $this->panicCrisisPlayerDamage = [];
+        $this->equipmentBreakRateDistribution = [];
+    }
 
     public function getId(): int
     {
@@ -226,9 +237,9 @@ class DifficultyConfig
         return $this;
     }
 
-    public function getFirePlayerDamage(): array
+    public function getFirePlayerDamage(): ProbaCollection
     {
-        return $this->firePlayerDamage;
+        return new ProbaCollection($this->firePlayerDamage);
     }
 
     public function setFirePlayerDamage(array $firePlayerDamage): static
@@ -238,9 +249,9 @@ class DifficultyConfig
         return $this;
     }
 
-    public function getFireHullDamage(): array
+    public function getFireHullDamage(): ProbaCollection
     {
-        return $this->fireHullDamage;
+        return new ProbaCollection($this->fireHullDamage);
     }
 
     public function setFireHullDamage(array $fireHullDamage): static
@@ -250,9 +261,9 @@ class DifficultyConfig
         return $this;
     }
 
-    public function getElectricArcPlayerDamage(): array
+    public function getElectricArcPlayerDamage(): ProbaCollection
     {
-        return $this->electricArcPlayerDamage;
+        return new ProbaCollection($this->electricArcPlayerDamage);
     }
 
     public function setElectricArcPlayerDamage(array $electricArcPlayerDamage): static
@@ -262,9 +273,9 @@ class DifficultyConfig
         return $this;
     }
 
-    public function getTremorPlayerDamage(): array
+    public function getTremorPlayerDamage(): ProbaCollection
     {
-        return $this->tremorPlayerDamage;
+        return new ProbaCollection($this->tremorPlayerDamage);
     }
 
     public function setTremorPlayerDamage(array $tremorPlayerDamage): static
@@ -274,9 +285,9 @@ class DifficultyConfig
         return $this;
     }
 
-    public function getMetalPlatePlayerDamage(): array
+    public function getMetalPlatePlayerDamage(): ProbaCollection
     {
-        return $this->metalPlatePlayerDamage;
+        return new ProbaCollection($this->metalPlatePlayerDamage);
     }
 
     public function setMetalPlatePlayerDamage(array $metalPlatePlayerDamage): static
@@ -286,9 +297,9 @@ class DifficultyConfig
         return $this;
     }
 
-    public function getPanicCrisisPlayerDamage(): array
+    public function getPanicCrisisPlayerDamage(): ProbaCollection
     {
-        return $this->panicCrisisPlayerDamage;
+        return new ProbaCollection($this->panicCrisisPlayerDamage);
     }
 
     public function setPanicCrisisPlayerDamage(array $panicCrisisPlayerDamage): static
@@ -322,9 +333,9 @@ class DifficultyConfig
         return $this;
     }
 
-    public function getEquipmentBreakRateDistribution(): array
+    public function getEquipmentBreakRateDistribution(): ProbaCollection
     {
-        return $this->equipmentBreakRateDistribution;
+        return new ProbaCollection($this->equipmentBreakRateDistribution);
     }
 
     public function setEquipmentBreakRateDistribution(array $equipmentBreakRateDistribution): static

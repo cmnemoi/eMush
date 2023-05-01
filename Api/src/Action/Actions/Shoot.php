@@ -140,7 +140,7 @@ class Shoot extends AttemptAction
                 return;
             }
 
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($blaster->getBaseDamageRange()));
+            $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($blaster->getBaseDamageRange()));
 
             if ($this->isCriticalSuccess($player, $blaster)) {
                 $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);

@@ -92,7 +92,7 @@ class AttackActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->times(2);     // critical events
         $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(0);
-        $this->randomService->shouldReceive('getSingleRandomElementFromProbaArray')->andReturn(1)->once();
+        $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn(1)->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->action->execute();

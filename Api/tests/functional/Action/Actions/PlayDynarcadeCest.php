@@ -7,6 +7,7 @@ use Mush\Action\Actions\PlayDynarcade;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -161,6 +162,7 @@ class PlayDynarcadeCest
             'daedalus' => $daedalus,
         ]);
 
+        $successVariable = $this->action->getActionVariables()->getVariableByName(ActionVariableEnum::PERCENTAGE_SUCCESS);
         $this->action->setSuccessRate(101);
         $I->refreshEntities($this->action);
 

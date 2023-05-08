@@ -90,7 +90,7 @@ class ActionDataLoaderCest
         $I->seeInRepository(GameVariable::class, [
             'name' => 'percentageSuccess',
             'value' => 100,
-            'minValue' => 0,
+            'minValue' => 1,
             'maxValue' => 100,
         ]);
     }

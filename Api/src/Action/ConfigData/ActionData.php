@@ -26,7 +26,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -41,7 +41,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -56,7 +56,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -71,7 +71,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -86,7 +86,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 10, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -101,7 +101,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -116,7 +116,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -131,7 +131,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 60, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 60, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 40, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -146,7 +146,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -161,7 +161,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -176,7 +176,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -191,7 +191,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -206,7 +206,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -221,7 +221,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 5, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -236,7 +236,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -251,7 +251,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -266,7 +266,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 60, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 60, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -281,7 +281,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 50, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 50, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -296,7 +296,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -311,7 +311,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -326,7 +326,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -341,7 +341,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 5, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -356,7 +356,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 20, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -371,7 +371,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 20, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -386,7 +386,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -401,7 +401,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -416,7 +416,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -431,7 +431,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -446,7 +446,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -461,7 +461,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -476,7 +476,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -491,7 +491,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -506,7 +506,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 2, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -521,7 +521,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -536,7 +536,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 10, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -551,7 +551,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -566,7 +566,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -581,7 +581,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -596,7 +596,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 5, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 50, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 25, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -611,7 +611,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -626,7 +626,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -641,7 +641,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 3, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -656,7 +656,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -671,7 +671,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -686,7 +686,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -701,7 +701,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -716,7 +716,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -731,7 +731,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -746,7 +746,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -761,7 +761,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 5, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -776,7 +776,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -791,7 +791,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -806,7 +806,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -821,7 +821,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -836,7 +836,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -851,7 +851,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -866,7 +866,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 5, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 50, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 10, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 10, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -881,7 +881,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -896,7 +896,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -911,7 +911,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 80, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -926,7 +926,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -941,7 +941,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 50, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 50, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -956,7 +956,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 4, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 20, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 1, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -971,7 +971,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 4, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 20, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 3, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 3, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -986,7 +986,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 4, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 20, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 6, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 6, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1001,7 +1001,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 4, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 20, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 12, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 12, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1016,7 +1016,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 4, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 20, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 25, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1031,7 +1031,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 4, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 20, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 50, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 50, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1046,7 +1046,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 5, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 12, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 12, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1061,7 +1061,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 5, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 25, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1076,7 +1076,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 5, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 50, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 50, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1091,7 +1091,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 5, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 6, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 6, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1106,7 +1106,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 5, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 12, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 12, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1121,7 +1121,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 5, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 25, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1136,7 +1136,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 1, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1151,7 +1151,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 3, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 3, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1166,7 +1166,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 6, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 6, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1181,7 +1181,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 12, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 12, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1196,7 +1196,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 25, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1211,7 +1211,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 25, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 50, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 50, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1226,7 +1226,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 100, 'min_value' => 100, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1241,7 +1241,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1256,7 +1256,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1271,7 +1271,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1286,7 +1286,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1301,7 +1301,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1316,7 +1316,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 100, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1331,7 +1331,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 33, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 33, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
@@ -1346,7 +1346,7 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 60, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 60, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
     ];

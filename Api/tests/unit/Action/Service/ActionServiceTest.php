@@ -317,7 +317,7 @@ class ActionServiceTest extends TestCase
 
         $this->modifierService->shouldReceive('getActionModifiedValue')
             ->with($action, $player, ModifierTargetEnum::PERCENTAGE, null, 3)
-            ->andReturn(117)
+            ->andReturn(99)
             ->once()
         ;
         $this->assertEquals(99, $this->service->getSuccessRate($action, $player, null));

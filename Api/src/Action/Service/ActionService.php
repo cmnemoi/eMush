@@ -144,15 +144,13 @@ class ActionService implements ActionServiceInterface
         $numberOfAttempt = $this->getNumberOfAttempt($player, $action->getActionName());
 
         // Get modifiers
-        $modifiedValue = $this->modifierService->getActionModifiedValue(
+        return $this->modifierService->getActionModifiedValue(
             $action,
             $player,
             ModifierTargetEnum::PERCENTAGE,
             $parameter,
             $numberOfAttempt
         );
-
-        return min($this::MAX_PERCENT, $modifiedValue);
     }
 
     public function getCriticalSuccessRate(Action $action, Player $player, ?LogParameterInterface $parameter): int

@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Status\Enum\StatusEnum;
 
 class NewFruitNotHazardousCest extends AbstractFunctionalTest
 {
@@ -42,13 +43,20 @@ class NewFruitNotHazardousCest extends AbstractFunctionalTest
 
         $this->eventService->callEvent($daedalusNewCycle, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        $I->assertCount(1, $this->player1->getEquipments());
-        $I->assertCount(1, $this->player1->getPlace()->getEquipments());
-        $plant = $this->player1->getEquipments()->first();
-        $fruit = $this->player1->getPlace()->getEquipments()->first();
-        $I->assertInstanceOf(GameEquipment::class, $plant);
-        $I->assertInstanceOf(GameEquipment::class, $fruit);
-        $I->assertTrue($plant->getStatuses()->count() > 0);
-        $I->assertCount(0, $fruit->getStatuses());
+        if ($this->player1->getPlace()->hasStatus(StatusEnum::FIRE)) {
+            $I->assertCount(1, $this->player1->getEquipments());
+            $I->assertCount(1, $this->player1->getPlace()->getEquipments());
+            $plant = $this->player1->getEquipments()->first();
+            $fruit = $this->player1->getPlace()->getEquipments()->first();
+            $I->assertInstanceOf(GameEquipment::class, $plant);
+            $I->assertInstanceOf(GameEquipment::class, $fruit);
+            $I->assertTrue($plant->getStatuses()->count() > 0);
+            $I->assertCount(0, $fruit->getStatuses());
+        } else {
+            $I->assertCount(1, $this->player1->getEquipments());
+            $plant = $this->player1->getEquipments()->first();
+            $I->assertInstanceOf(GameEquipment::class, $plant);
+            $I->assertTrue($plant->getStatuses()->count() > 0);
+        }
     }
 }

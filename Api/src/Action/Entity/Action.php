@@ -191,7 +191,22 @@ class Action
 
     public function setSuccessRate(int $successRate): self
     {
-        $this->actionVariables->setValueByName($successRate, ActionVariableEnum::PERCENTAGE_SUCCESS);
+        $gameVariable = $this->actionVariables->getVariableByName(ActionVariableEnum::PERCENTAGE_SUCCESS);
+
+        // Set max success value
+        if ($successRate >= 100) {
+            $gameVariable->setMaxValue(100);
+        } else {
+            $gameVariable->setMaxValue(99);
+        }
+
+        // Set min success value
+        if ($successRate <= 0) {
+            $gameVariable->setMinValue(0);
+        } else {
+            $gameVariable->setMinValue(1);
+        }
+        $gameVariable->setValue($successRate);
 
         return $this;
     }
@@ -216,13 +231,14 @@ class Action
     public function setDirtyRate(int $dirtyRate, bool $isSuperDirty = false): self
     {
         $gameVariable = $this->actionVariables->getVariableByName(ActionVariableEnum::PERCENTAGE_DIRTINESS);
-        $gameVariable->setValue($dirtyRate);
 
         if ($isSuperDirty) {
             $gameVariable->setMinValue($dirtyRate);
         } else {
             $gameVariable->setMinValue(0);
         }
+
+        $gameVariable->setValue($dirtyRate);
 
         return $this;
     }

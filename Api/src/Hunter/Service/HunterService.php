@@ -53,7 +53,7 @@ class HunterService implements HunterServiceInterface
 
         switch ($variableName) {
             case HunterVariableEnum::HEALTH:
-                if ($newVariableValuePoint === 0) {
+                if ($newVariableValuePoint <= 0) {
                     $hunterDeathEvent = new HunterEvent(
                         $hunter,
                         VisibilityEnum::PUBLIC,

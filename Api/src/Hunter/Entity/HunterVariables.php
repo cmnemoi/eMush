@@ -16,7 +16,7 @@ class HunterVariables extends GameVariableCollection
             variableCollection: $this,
             name: HunterVariableEnum::HEALTH,
             initValue: $hunterConfig->getInitialHealth(),
-            minValue: 1
+            minValue: 0
         );
 
         parent::__construct([$healthVariable]);

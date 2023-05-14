@@ -24,22 +24,26 @@ use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Service\StatusService;
+use Psr\Log\LoggerInterface;
 
 class HunterService implements HunterServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
+    private LoggerInterface $logger;
     private RandomServiceInterface $randomService;
     private StatusService $statusService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
+        LoggerInterface $logger,
         RandomServiceInterface $randomService,
         StatusService $statusService
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
+        $this->logger = $logger;
         $this->randomService = $randomService;
         $this->statusService = $statusService;
     }
@@ -165,7 +169,10 @@ class HunterService implements HunterServiceInterface
         foreach ($hunterTypes as $hunterType) {
             $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterType);
             if (!$hunterConfig) {
-                throw new \Exception("Hunter config not found for hunter name $hunterType");
+                $this->logger->error("Hunter config not found for hunter name $hunterType", [
+                    'daedalus' => $daedalus->getId(),
+                ]);
+                continue;
             }
 
             if ($hunterConfig->getSpawnDifficulty() > $difficultyMode) {
@@ -178,14 +185,24 @@ class HunterService implements HunterServiceInterface
         return $probaCollection;
     }
 
+    private function getHunterDamage(Hunter $hunter): ?int
+    {
+        if ($hunter->getName() === HunterEnum::ASTEROID) {
+            return $hunter->getHealth();
+        }
+
+        $hunterDamageRange = $hunter->getHunterConfig()->getDamageRange();
+
+        return (int) $this->randomService->getSingleRandomElementFromProbaCollection($hunterDamageRange);
+    }
+
     private function makeHunterShoot(Hunter $hunter): void
     {
         if (!$hunter->canShoot()) {
             return;
         }
 
-        $hunterDamage = $hunter->getHunterConfig()->getDamageRange();
-        $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($hunterDamage);
+        $damage = $this->getHunterDamage($hunter);
         if (!$damage) {
             return;
         }
@@ -202,6 +219,11 @@ class HunterService implements HunterServiceInterface
                 break;
             default:
                 throw new \Exception("Unknown hunter target {$hunter->getTarget()}");
+        }
+
+        // destroy asteroid if it has shot
+        if ($hunter->getName() === HunterEnum::ASTEROID) {
+            $this->killHunter($hunter);
         }
     }
 

@@ -9,6 +9,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 class AbstractGameEvent extends Event
 {
     private string $eventName;
+    private bool $isModified = false;
     protected ?Player $author = null;
     protected \DateTime $time;
     protected array $tags;
@@ -27,6 +28,18 @@ class AbstractGameEvent extends Event
     public function getEventName(): string
     {
         return $this->eventName;
+    }
+
+    public function isModified(): bool
+    {
+        return $this->isModified;
+    }
+
+    public function setIsModified(bool $isModified): self
+    {
+        $this->isModified = $isModified;
+
+        return $this;
     }
 
     public function setAuthor(?Player $author): self

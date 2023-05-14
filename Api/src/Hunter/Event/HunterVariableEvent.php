@@ -6,7 +6,6 @@ use Mush\Game\Entity\GameVariable;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Entity\Hunter;
-use Mush\Modifier\Entity\ModifierHolder;
 
 class HunterVariableEvent extends HunterEvent implements VariableEventInterface
 {
@@ -50,15 +49,5 @@ class HunterVariableEvent extends HunterEvent implements VariableEventInterface
         $this->quantity = $quantity;
 
         return $this;
-    }
-
-    public function getVariableHolder(): Hunter
-    {
-        return $this->hunter;
-    }
-
-    public function getModifierHolder(): ModifierHolder
-    {
-        return $this->hunter;
     }
 }

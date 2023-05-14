@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * name: a unique name needed for the DB
  * modifierName: the name of the modifier is used to create log associated with a modifier (apply modifier)
- * modifierRange: the class that will hold the GameModifier entity (create modifier)
+ * modifierRange: the class that will hold the GameModifier entity (create modifier) (player, daedalus, place or gameEquipment)
  * modifierActivationRequirements: requirements that need to be fulfilled for the modifier to activate
  */
 #[ORM\Entity]
@@ -21,7 +21,6 @@ use Doctrine\ORM\Mapping as ORM;
     'event_modifier_config' => EventModifierConfig::class,
     'trigger_event_modifier_config' => TriggerEventModifierConfig::class,
     'variable_event_modifier_config' => VariableEventModifierConfig::class,
-    'prevent_event_modifier_config' => PreventEventModifierConfig::class,
     'direct_modifier_config' => DirectModifierConfig::class,
 ])]
 abstract class AbstractModifierConfig
@@ -43,9 +42,10 @@ abstract class AbstractModifierConfig
     #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
     protected Collection $modifierActivationRequirements;
 
-    public function __construct()
+    public function __construct(string $name)
     {
         $this->modifierActivationRequirements = new ArrayCollection([]);
+        $this->name = $name;
     }
 
     public function getId(): int

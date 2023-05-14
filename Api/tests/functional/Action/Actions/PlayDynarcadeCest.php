@@ -162,7 +162,7 @@ class PlayDynarcadeCest
             'daedalus' => $daedalus,
         ]);
 
-        $successVariable = $this->action->getActionVariables()->getVariableByName(ActionVariableEnum::PERCENTAGE_SUCCESS);
+        $successVariable = $this->action->getVariableByName(ActionVariableEnum::PERCENTAGE_SUCCESS);
         $this->action->setSuccessRate(101);
         $I->refreshEntities($this->action);
 
@@ -197,6 +197,7 @@ class PlayDynarcadeCest
 
         $this->playDynarcadeAction->loadParameters($this->action, $gamerPlayer, $dynarcade);
 
+        $I->assertEquals(100, $this->playDynarcadeAction->getSuccessRate());
         $result = $this->playDynarcadeAction->execute();
 
         $I->assertEquals(2, $gamerPlayer->getActionPoint());

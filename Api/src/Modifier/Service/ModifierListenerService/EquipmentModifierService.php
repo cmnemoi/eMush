@@ -125,11 +125,15 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         $this->createEquipmentStatusModifiers($gameEquipment, [ModifierHolderClassEnum::PLACE], $tags, $time, null);
     }
 
-    private function getChargeStatus(string $eventName, StatusHolderInterface $statusHolder): ?ChargeStatus
+    private function getChargeStatus(?string $modifierName, StatusHolderInterface $statusHolder): ?ChargeStatus
     {
-        $charges = $statusHolder->getStatuses()->filter(function (Status $status) use ($eventName) {
+        if ($modifierName === null) {
+            return null;
+        }
+
+        $charges = $statusHolder->getStatuses()->filter(function (Status $status) use ($modifierName) {
             return $status instanceof ChargeStatus &&
-                $status->getDischargeStrategy() === $eventName;
+                $status->getDischargeStrategy() === $modifierName;
         });
 
         if ($charges->count() > 0) {
@@ -238,7 +242,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
     ): void {
         foreach ($modifiers as $modifierConfig) {
             if (in_array($modifierConfig->getModifierRange(), $reaches)) {
-                $charge = $this->getChargeStatus($modifierConfig->getTargetEvent(), $gameEquipment);
+                $charge = $this->getChargeStatus($modifierConfig->getModifierName(), $gameEquipment);
 
                 $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
                 if ($holder === null) {

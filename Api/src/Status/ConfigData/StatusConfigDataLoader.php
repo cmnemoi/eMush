@@ -4,7 +4,7 @@ namespace Mush\Status\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\ConfigData\ConfigDataLoader;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Repository\ModifierConfigRepository;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Repository\StatusConfigRepository;
@@ -52,7 +52,7 @@ class StatusConfigDataLoader extends ConfigDataLoader
     {
         $modifierConfigs = [];
         foreach ($modifierConfigsArray as $modifierConfigName) {
-            /** @var VariableEventModifierConfig $modifierConfig */
+            /** @var AbstractModifierConfig $modifierConfig */
             $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigName]);
             if ($modifierConfig === null) {
                 throw new \Exception("Modifier config {$modifierConfigName} not found");

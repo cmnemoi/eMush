@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Sabotage;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
@@ -76,7 +77,11 @@ class SabotageActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->andReturn(10)
+            ->once()
+        ;
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         // Fail try
@@ -88,8 +93,16 @@ class SabotageActionTest extends AbstractActionTest
         $this->assertEquals(0, $attempt->getCharge());
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(100)->once();
-        $this->actionService->shouldReceive('getCriticalSuccessRate')->andReturn(0)->once();
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->andReturn(100)
+            ->once()
+        ;
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
+            ->andReturn(100)
+            ->once()
+        ;
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
         $this->eventService->shouldReceive('callEvent');

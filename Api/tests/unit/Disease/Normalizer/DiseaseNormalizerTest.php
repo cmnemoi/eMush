@@ -101,7 +101,7 @@ class DiseaseNormalizerTest extends TestCase
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $player->setDaedalus($daedalus);
 
-        $modifierConfig = new VariableEventModifierConfig();
+        $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig
             ->setDelta(-6)
             ->setTargetEvent(ModifierScopeEnum::INJURY)

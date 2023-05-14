@@ -7,7 +7,7 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Disease\Repository\SymptomConfigRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Repository\ModifierConfigRepository;
 
 class DiseaseConfigDataLoader extends ConfigDataLoader
@@ -62,7 +62,7 @@ class DiseaseConfigDataLoader extends ConfigDataLoader
     {
         $modifierConfigs = [];
         foreach ($diseaseConfigData['modifierConfigs'] as $modifierConfigName) {
-            /** @var VariableEventModifierConfig $modifierConfig */
+            /** @var AbstractModifierConfig $modifierConfig */
             $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigName]);
             if ($modifierConfig === null) {
                 throw new \Exception('Modifier config not found: ' . $modifierConfigName);

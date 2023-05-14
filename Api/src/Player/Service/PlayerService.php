@@ -30,6 +30,8 @@ use Mush\User\Entity\User;
 
 class PlayerService implements PlayerServiceInterface
 {
+    public const BASE_PLAYER_CYCLE_CHANGE = 'base_player_cycle_change';
+    public const BASE_PLAYER_DAY_CHANGE = 'base_player_day_change';
     public const CYCLE_ACTION_CHANGE = 1;
     public const CYCLE_MOVEMENT_CHANGE = 0;
     public const CYCLE_SATIETY_CHANGE = -1;
@@ -230,7 +232,7 @@ class PlayerService implements PlayerServiceInterface
             $player,
             PlayerVariableEnum::ACTION_POINT,
             self::CYCLE_ACTION_CHANGE,
-            [EventEnum::NEW_CYCLE],
+            [EventEnum::NEW_CYCLE, self::BASE_PLAYER_CYCLE_CHANGE],
             $date);
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
@@ -238,7 +240,7 @@ class PlayerService implements PlayerServiceInterface
             $player,
             PlayerVariableEnum::MOVEMENT_POINT,
             self::CYCLE_MOVEMENT_CHANGE,
-            [EventEnum::NEW_CYCLE],
+            [EventEnum::NEW_CYCLE, self::BASE_PLAYER_CYCLE_CHANGE],
             $date
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -247,7 +249,7 @@ class PlayerService implements PlayerServiceInterface
             $player,
             PlayerVariableEnum::SATIETY,
             self::CYCLE_SATIETY_CHANGE,
-            [EventEnum::NEW_CYCLE],
+            [EventEnum::NEW_CYCLE, self::BASE_PLAYER_CYCLE_CHANGE],
             $date
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -297,7 +299,7 @@ class PlayerService implements PlayerServiceInterface
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             self::DAY_HEALTH_CHANGE,
-            [EventEnum::NEW_DAY],
+            [EventEnum::NEW_DAY, self::BASE_PLAYER_DAY_CHANGE],
             $date
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -307,7 +309,7 @@ class PlayerService implements PlayerServiceInterface
                 $player,
                 PlayerVariableEnum::MORAL_POINT,
                 self::DAY_MORAL_CHANGE,
-                [EventEnum::NEW_DAY],
+                [EventEnum::NEW_DAY, self::BASE_PLAYER_DAY_CHANGE],
                 $date
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);

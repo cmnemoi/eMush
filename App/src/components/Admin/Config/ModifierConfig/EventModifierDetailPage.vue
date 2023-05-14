@@ -71,6 +71,14 @@
                     type="text"
                     :errors="errors.triggeredEvent"
                 />
+                <Input
+                    :label="$t('admin.modifierConfig.replaceEvent')"
+                    type="checkbox"
+                    class="configCheckbox"
+                    id="replaceEvent"
+                    v-model="modifierConfig.replaceEvent"
+                    :errors="errors.replaceEvent"
+                />
             </div>
         </div>
         <h3>{{ $t('admin.modifierConfig.tagConstraints') }}</h3>

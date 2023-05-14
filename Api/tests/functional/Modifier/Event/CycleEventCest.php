@@ -2,188 +2,67 @@
 
 namespace Mush\Tests\Modifier\Event;
 
+use App\Tests\AbstractFunctionalTest;
 use App\Tests\FunctionalTester;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
+use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierNameEnum;
-use Mush\Modifier\Enum\ModifierRequirementEnum;
-use Mush\Modifier\Listener\CycleEventSubscriber;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\User\Entity\User;
+use Mush\Status\Event\StatusEvent;
 
-class CycleEventCest
+class CycleEventCest extends AbstractFunctionalTest
 {
-    private CycleEventSubscriber $cycleSubscriber;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->cycleSubscriber = $I->grabService(CycleEventSubscriber::class);
+        parent::_before($I);
+
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testLieDownStatusCycleSubscriber(FunctionalTester $I)
+    public function testLieDownStatus(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
+        $event = new StatusEvent(PlayerStatusEnum::LYING_DOWN, $this->player1, [], new \DateTime());
+        $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
 
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        $player->setPlayerVariables($characterConfig);
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $actionPointBefore = $this->player1->getActionPoint();
 
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->assertCount(1, $this->player1->getStatuses());
+        $I->assertCount(1, $this->player1->getModifiers());
 
-        $actionPointBefore = $player->getActionPoint();
+        $daedalusCycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        $time = new \DateTime();
-
-        $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setStatusName(PlayerStatusEnum::LYING_DOWN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($statusConfig);
-        $status = new Status($player, $statusConfig);
-        $I->haveInRepository($status);
-
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('test')
-        ;
-        $I->haveInRepository($modifierConfig);
-
-        $modifier = new GameModifier($player, $modifierConfig);
-        $I->haveInRepository($modifier);
-
-        $cycleEvent = new PlayerCycleEvent($player, [EventEnum::NEW_CYCLE], $time);
-
-        $I->refreshEntities($player, $daedalus);
-
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
-
-        $I->assertEquals($actionPointBefore + 1, $player->getActionPoint());
+        $I->assertEquals($actionPointBefore + 2, $this->player1->getActionPoint());
     }
 
     public function testAntisocialStatusCycleSubscriber(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
+        $event = new StatusEvent(PlayerStatusEnum::ANTISOCIAL, $this->player1, [], new \DateTime());
+        $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
 
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        $player->setPlayerVariables($characterConfig);
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $moralePointBefore1 = $this->player1->getMoralPoint();
+        $moralePointBefore2 = $this->player2->getMoralPoint();
 
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->assertCount(1, $this->player1->getStatuses());
+        $I->assertCount(1, $this->player1->getModifiers());
 
-        /** @var Player $player2 */
-        $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        $player2->setPlayerVariables($characterConfig);
-        $player2Info = new PlayerInfo($player2, $user, $characterConfig);
+        $daedalusCycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        $I->haveInRepository($player2Info);
-        $player2->setPlayerInfo($player2Info);
-        $I->refreshEntities($player2);
-
-        $moralePointBefore = $player->getMoralPoint();
-
-        $time = new \DateTime();
-
-        $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setStatusName(PlayerStatusEnum::LYING_DOWN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($statusConfig);
-        $status = new Status($player, $statusConfig);
-        $I->haveInRepository($status);
-
-        $notAloneActivationRequirement = $I->grabEntityFromRepository(
-            ModifierActivationRequirement::class,
-            [
-                'activationRequirementName' => ModifierRequirementEnum::PLAYER_IN_ROOM,
-                'activationRequirement' => ModifierRequirementEnum::NOT_ALONE,
-            ]
-        );
-
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
-            ->addModifierRequirement($notAloneActivationRequirement)
-            ->setName('test')
-        ;
-        $I->haveInRepository($modifierConfig);
-
-        $modifier = new GameModifier($player, $modifierConfig);
-        $I->haveInRepository($modifier);
-
-        $cycleEvent = new PlayerCycleEvent($player, [EventEnum::NEW_CYCLE], $time);
-
-        $I->refreshEntities($player, $daedalus);
-
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
-
-        $I->assertEquals($moralePointBefore - 1, $player->getMoralPoint());
-        $I->assertEquals($moralePointBefore, $player2->getMoralPoint());
+        $I->assertEquals($moralePointBefore1 - 1, $this->player1->getMoralPoint());
+        $I->assertEquals($moralePointBefore2, $this->player2->getMoralPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'daedalusInfo' => $daedalusInfo,
-            'place' => $room->getName(),
-            'playerInfo' => $playerInfo,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'place' => $this->player1->getPlace()->getName(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
             'log' => PlayerModifierLogEnum::ANTISOCIAL_MORALE_LOSS,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
@@ -191,81 +70,33 @@ class CycleEventCest
 
     public function testFitfullSleepCycleSubscriber(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
+        $event = new StatusEvent(PlayerStatusEnum::LYING_DOWN, $this->player1, [], new \DateTime());
+        $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
 
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        $player->setPlayerVariables($characterConfig);
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $actionPointBefore = $this->player1->getActionPoint();
 
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->assertCount(1, $this->player1->getStatuses());
+        $I->assertCount(1, $this->player1->getModifiers());
 
-        $actionPointBefore = $player->getActionPoint();
+        /** @var TriggerEventModifierConfig $fitfullModifierConfig */
+        $fitfullModifierConfig = $I->grabEntityFromRepository(
+            TriggerEventModifierConfig::class, ['name' => 'cycle1ActionLostRand16FitfullSleep']
+        );
 
-        $time = new \DateTime();
+        $fitfullModifierConfig->setModifierActivationRequirements([]);
+        $I->flushToDatabase($fitfullModifierConfig);
 
-        $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setStatusName(PlayerStatusEnum::LYING_DOWN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($statusConfig);
-        $status = new Status($player, $statusConfig);
-        $I->haveInRepository($status);
-
-        $modifierConfig = new VariableEventModifierConfig();
-        $modifierConfig
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('test1')
-        ;
-        $I->haveInRepository($modifierConfig);
-
-        $modifier = new GameModifier($player, $modifierConfig);
-        $I->haveInRepository($modifier);
-
-        $fitfullModifierConfig = new VariableEventModifierConfig();
-        $fitfullModifierConfig
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::FITFULL_SLEEP)
-            ->setName('test')
-        ;
-        $I->haveInRepository($fitfullModifierConfig);
-
-        $fitfullModifier = new GameModifier($player, $fitfullModifierConfig);
+        $fitfullModifier = new GameModifier($this->player1, $fitfullModifierConfig);
         $I->haveInRepository($fitfullModifier);
 
-        $cycleEvent = new PlayerCycleEvent($player, [EventEnum::NEW_CYCLE], $time);
+        $daedalusCycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        $I->refreshEntities($player, $daedalus);
-
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
-
-        $I->assertEquals($actionPointBefore, $player->getActionPoint());
+        $I->assertEquals($actionPointBefore + 1, $this->player1->getActionPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $playerInfo,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
             'log' => PlayerModifierLogEnum::FITFULL_SLEEP,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);

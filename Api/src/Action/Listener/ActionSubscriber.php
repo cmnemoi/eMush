@@ -60,7 +60,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $player = $event->getAuthor();
         $actionParameter = $event->getActionParameter();
 
-        $this->actionSideEffectsService->handleActionSideEffect($action, $player, new \DateTime());
+        $this->actionSideEffectsService->handleActionSideEffect($action, $player, $event->getActionParameter());
 
         $this->gearToolService->applyChargeCost($player, $action->getActionName(), $action->getTypes());
 

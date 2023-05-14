@@ -4,9 +4,7 @@ namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameVariable;
-use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Modifier\Entity\ModifierHolder;
 
 class DaedalusVariableEvent extends DaedalusEvent implements VariableEventInterface
 {
@@ -46,19 +44,5 @@ class DaedalusVariableEvent extends DaedalusEvent implements VariableEventInterf
     public function getVariableName(): string
     {
         return $this->variableName;
-    }
-
-    public function getVariableHolder(): GameVariableHolderInterface
-    {
-        return $this->daedalus;
-    }
-
-    public function getModifierHolder(): ModifierHolder
-    {
-        if ($this->author !== null) {
-            return $this->author;
-        }
-
-        return $this->daedalus;
     }
 }

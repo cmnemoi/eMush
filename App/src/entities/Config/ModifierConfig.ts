@@ -17,6 +17,7 @@ export class ModifierConfig {
     public reverseOnRemove: boolean|null;
     public modifierActivationRequirements:ModifierActivationRequirement[]|null;
     public tagConstraints: Map<string, string>|null;
+    public replaceEvent: boolean|null;
 
     constructor() {
         this.iri = null;
@@ -34,6 +35,7 @@ export class ModifierConfig {
         this.applyOnTarget = null;
         this.modifierActivationRequirements = null;
         this.tagConstraints = null;
+        this.replaceEvent = null;
     }
     load(object:any) : ModifierConfig {
         if (typeof object !== "undefined") {
@@ -50,6 +52,7 @@ export class ModifierConfig {
             this.applyOnTarget = object.applyOnTarget;
             this.triggeredEvent = object.triggeredEvent;
             this.mode = object.mode;
+            this.replaceEvent = object.replaceEvent;
             if (typeof object.triggeredEvent !== "undefined") {
                 this.triggeredEvent = (new EventConfig()).load(object.triggeredEvent);
             }
@@ -87,6 +90,7 @@ export class ModifierConfig {
             'modifierActivationRequirements': modifierActivationRequirements,
             'triggeredEvent': this.triggeredEvent?.iri,
             'tagConstraints': tagsConstraints,
+            'replaceEvent': this.replaceEvent,
         };
     }
     decode(jsonString : string): ModifierConfig {

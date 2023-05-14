@@ -11,9 +11,11 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ActionPoint;
 use Mush\Action\Validator\AreSymptomsPreventingAction;
 use Mush\Action\Validator\HasAction;
+use Mush\Action\Validator\ModifierPreventAction;
 use Mush\Action\Validator\PlayerAlive;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -61,6 +63,7 @@ abstract class AbstractAction
         $metadata->addConstraint(new PlayerAlive(['groups' => ['visibility']]));
         $metadata->addConstraint(new HasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new ActionPoint(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT]));
+        $metadata->addConstraint(new ModifierPreventAction(['groups' => ['execute']]));
         $metadata->addConstraint(new AreSymptomsPreventingAction(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::SYMPTOMS_ARE_PREVENTING_ACTION]));
     }
 
@@ -127,17 +130,32 @@ abstract class AbstractAction
 
     public function getActionPointCost(): int
     {
-        return $this->actionService->getTotalActionPointCost($this->player, $this->action, $this->parameter);
+        return $this->actionService->getActionModifiedActionVariable(
+            $this->player,
+            $this->action,
+            $this->parameter,
+            PlayerVariableEnum::ACTION_POINT
+        );
     }
 
     public function getMovementPointCost(): int
     {
-        return $this->actionService->getTotalMovementPointCost($this->player, $this->action, $this->parameter);
+        return $this->actionService->getActionModifiedActionVariable(
+            $this->player,
+            $this->action,
+            $this->parameter,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
     }
 
     public function getMoralPointCost(): int
     {
-        return $this->actionService->getTotalMoralPointCost($this->player, $this->action, $this->parameter);
+        return $this->actionService->getActionModifiedActionVariable(
+            $this->player,
+            $this->action,
+            $this->parameter,
+            PlayerVariableEnum::MORAL_POINT
+        );
     }
 
     public function getPlayer(): Player

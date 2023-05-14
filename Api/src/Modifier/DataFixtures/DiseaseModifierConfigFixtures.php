@@ -6,20 +6,24 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Action\Event\ActionVariableEvent;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Enum\EventEnum;
+use Mush\Game\Entity\AbstractEventConfig;
+use Mush\Game\Event\RollPercentageEvent;
+use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -48,15 +52,12 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
     public const CYCLE_1_HEALTH_LOST_RAND_50 = 'cycle_1_health_lost_rand_50';
     public const CONSUME_1_ACTION_LOSS = 'consume_1_action_loss';
     public const CONSUME_2_ACTION_LOSS = 'consume_2_action_loss';
-    public const CONSUME_DRUG_1_ACTION_LOSS = 'consume_drug_1_action_loss';
-    public const CONSUME_DRUG_2_ACTION_LOSS = 'consume_drug_2_action_loss';
     public const SHOOT_ACTION_10_PERCENT_ACCURACY_LOST = 'shoot_action_10_percent_accuracy_lost';
     public const MOVE_INCREASE_MOVEMENT = 'move_increase_movement';
     public const TAKE_CAT_6_HEALTH_LOSS = 'take_cat_6_health_loss';
     public const INFECTED_4_HEALTH_LOSS = 'infected_4_health_loss';
     public const INCREASE_CYCLE_DISEASE_CHANCES_10 = 'increase_cycle_disease_chances_10';
     public const RANDOM_16 = 'random_16_modifier';
-    public const REASON_CONSUME = 'reason_consume';
 
     public function load(ObjectManager $manager): void
     {
@@ -109,306 +110,246 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($lyingDownActivationRequirement);
 
-        $moveIncreaseMovement = new VariableEventModifierConfig();
+        $moveIncreaseMovement = new VariableEventModifierConfig('increased1MovementCostOnActions');
         $moveIncreaseMovement
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setDelta(1)
-            ->setTargetEvent(ActionEnum::MOVE)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $moveIncreaseMovement->buildName();
         $manager->persist($moveIncreaseMovement);
 
-        $reduceMax1HealthPoint = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfigLose1Health */
+        $eventConfigLose1Health = $this->getReference(EventConfigFixtures::MAX_HEALTH_REDUCE_1);
+        $reduceMax1HealthPoint = new DirectModifierConfig('maxHealthReduce1');
         $reduceMax1HealthPoint
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTriggeredEvent($eventConfigLose1Health)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $reduceMax1HealthPoint->buildName();
         $manager->persist($reduceMax1HealthPoint);
 
-        $reduceMax2HealthPoint = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::MAX_HEALTH_REDUCE_2);
+        $reduceMax2HealthPoint = new DirectModifierConfig('maxHealthReduce2');
         $reduceMax2HealthPoint
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-2)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTriggeredEvent($eventConfig)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $reduceMax2HealthPoint->buildName();
         $manager->persist($reduceMax2HealthPoint);
 
-        $reduceMax4HealthPoint = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::MAX_HEALTH_REDUCE_4);
+        $reduceMax4HealthPoint = new DirectModifierConfig('maxHealthReduce4');
         $reduceMax4HealthPoint
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-4)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTriggeredEvent($eventConfig)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $reduceMax4HealthPoint->buildName();
         $manager->persist($reduceMax4HealthPoint);
 
-        $reduceMax1MoralPoint = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::MAX_MORAL_REDUCE_1);
+        $reduceMax1MoralPoint = new DirectModifierConfig('maxMoralReduce1');
         $reduceMax1MoralPoint
-            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTriggeredEvent($eventConfig)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $reduceMax1MoralPoint->buildName();
         $manager->persist($reduceMax1MoralPoint);
 
-        $reduceMax2MoralPoint = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::MAX_MORAL_REDUCE_2);
+        $reduceMax2MoralPoint = new DirectModifierConfig('maxMoralReduce2');
         $reduceMax2MoralPoint
-            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
-            ->setDelta(-2)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTriggeredEvent($eventConfig)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $reduceMax2MoralPoint->buildName();
         $manager->persist($reduceMax2MoralPoint);
 
-        $cycle1HealthLost = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_1);
+        $cycle1HealthLost = new TriggerEventModifierConfig('cycle1HealthLoss');
         $cycle1HealthLost
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfig)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1HealthLost->buildName();
         $manager->persist($cycle1HealthLost);
 
-        $cycle2HealthLost = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_2);
+        $cycle2HealthLost = new TriggerEventModifierConfig('cycle2HealthLoss');
         $cycle2HealthLost
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-2)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfig)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle2HealthLost->buildName();
         $manager->persist($cycle2HealthLost);
 
-        $cycle4HealthLost = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_4);
+        $cycle4HealthLost = new TriggerEventModifierConfig('cycle4HealthLoss');
         $cycle4HealthLost
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-4)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfig)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle4HealthLost->buildName();
         $manager->persist($cycle4HealthLost);
 
-        $cycle1MovementLost = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfigMovementLose1 */
+        $eventConfigMovementLose1 = $this->getReference(EventConfigFixtures::MOVEMENT_REDUCE_1);
+        $cycle1MovementLost = new TriggerEventModifierConfig('cycle1MovementLoss');
         $cycle1MovementLost
-            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfigMovementLose1)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1MovementLost->buildName();
         $manager->persist($cycle1MovementLost);
 
-        $cycle1SatietyLost = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::SATIETY_REDUCE_1);
+        $cycle1SatietyLost = new TriggerEventModifierConfig('cycle1SatietyLoss');
         $cycle1SatietyLost
-            ->setTargetVariable(PlayerVariableEnum::SATIETY)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfig)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1SatietyLost->buildName();
         $manager->persist($cycle1SatietyLost);
 
-        $cycle1ActionLostRand10 = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfigLose1Action */
+        $eventConfigLose1Action = $this->getReference(EventConfigFixtures::ACTION_REDUCE_1);
+
+        $cycle1ActionLostRand10 = new TriggerEventModifierConfig('cycle1ActionLostRand10');
         $cycle1ActionLostRand10
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfigLose1Action)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement10)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1ActionLostRand10->buildName();
         $manager->persist($cycle1ActionLostRand10);
 
-        $cycle1HealthLostRand10 = new VariableEventModifierConfig();
+        $cycle1HealthLostRand10 = new TriggerEventModifierConfig('cycle1HealthLostRand10');
         $cycle1HealthLostRand10
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfigLose1Health)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement10)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1HealthLostRand10->buildName();
         $manager->persist($cycle1HealthLostRand10);
 
-        $cycle1ActionLostRand16 = new VariableEventModifierConfig();
+        $cycle1ActionLostRand16 = new TriggerEventModifierConfig('cycle1ActionLostRand16');
         $cycle1ActionLostRand16
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfigLose1Action)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1ActionLostRand16->buildName();
         $manager->persist($cycle1ActionLostRand16);
 
-        $cycle1HealthLostRand16 = new VariableEventModifierConfig();
+        $cycle1HealthLostRand16 = new TriggerEventModifierConfig('cycle1HealthLostRand16');
         $cycle1HealthLostRand16
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfigLose1Health)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1HealthLostRand16->buildName();
         $manager->persist($cycle1HealthLostRand16);
 
-        $cycle1ActionLostRand20 = new VariableEventModifierConfig();
+        $cycle1ActionLostRand20 = new TriggerEventModifierConfig('cycle1ActionLostRand20');
         $cycle1ActionLostRand20
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfigLose1Action)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement20)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1ActionLostRand20->buildName();
         $manager->persist($cycle1ActionLostRand20);
 
-        $cycle1ActionLostRand30 = new VariableEventModifierConfig();
+        $cycle1ActionLostRand30 = new TriggerEventModifierConfig('cycle1ActionLostRand30');
         $cycle1ActionLostRand30
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfigLose1Action)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement30)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1ActionLostRand30->buildName();
         $manager->persist($cycle1ActionLostRand30);
 
-        $cycle2ActionLostRand40 = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfigLose2Action */
+        $eventConfigLose2Action = $this->getReference(EventConfigFixtures::ACTION_REDUCE_2);
+
+        $cycle2ActionLostRand40 = new TriggerEventModifierConfig('cycle2ActionLostRand40');
         $cycle2ActionLostRand40
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-2)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfigLose2Action)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement40)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle2ActionLostRand40->buildName();
         $manager->persist($cycle2ActionLostRand40);
 
-        $cycle1MovementLostRand50 = new VariableEventModifierConfig();
+        $cycle1MovementLostRand50 = new TriggerEventModifierConfig('cycle1MovementLostRand50');
         $cycle1MovementLostRand50
-            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfigMovementLose1)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement50)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1MovementLostRand50->buildName();
         $manager->persist($cycle1MovementLostRand50);
 
-        $cycle1HealthLostRand50 = new VariableEventModifierConfig();
+        $cycle1HealthLostRand50 = new TriggerEventModifierConfig('cycle1HealthLostRand50');
         $cycle1HealthLostRand50
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfigLose1Health)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement50)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1HealthLostRand50->buildName();
         $manager->persist($cycle1HealthLostRand50);
 
-        $consumeActionActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::REASON);
-        $consumeActionActivationRequirement
-            ->setActivationRequirement(ActionEnum::CONSUME)
-            ->buildName()
-        ;
-        $manager->persist($consumeActionActivationRequirement);
-
-        $comsumeDrugActionActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::REASON);
-        $comsumeDrugActionActivationRequirement
-            ->setActivationRequirement(ActionEnum::CONSUME_DRUG)
-            ->buildName()
-        ;
-        $manager->persist($comsumeDrugActionActivationRequirement);
-
-        $consume1ActionLoss = new VariableEventModifierConfig();
+        $consume1ActionLoss = new TriggerEventModifierConfig('consume1ActionLoss');
         $consume1ActionLoss
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setTriggeredEvent($eventConfigLose1Action)
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->addModifierRequirement($consumeActionActivationRequirement)
+            ->setTagConstraints([
+                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+            ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $consume1ActionLoss->buildName();
         $manager->persist($consume1ActionLoss);
 
-        $consume2ActionLoss = new VariableEventModifierConfig();
+        $consume2ActionLoss = new TriggerEventModifierConfig('consume2ActionLoss');
         $consume2ActionLoss
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-2)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setTriggeredEvent($eventConfigLose2Action)
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->addModifierRequirement($consumeActionActivationRequirement)
+            ->setTagConstraints([
+                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+            ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $consume2ActionLoss->buildName();
         $manager->persist($consume2ActionLoss);
 
-        $consumeDrug1ActionLoss = new VariableEventModifierConfig();
-        $consumeDrug1ActionLoss
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->addModifierRequirement($comsumeDrugActionActivationRequirement)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
-        $consumeDrug1ActionLoss->buildName();
-        $manager->persist($consumeDrug1ActionLoss);
-
-        $consumeDrug2ActionLoss = new VariableEventModifierConfig();
-        $consumeDrug2ActionLoss
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-2)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->addModifierRequirement($comsumeDrugActionActivationRequirement)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
-        $consumeDrug2ActionLoss->buildName();
-        $manager->persist($consumeDrug2ActionLoss);
-
-        $infected4HealthLost = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_4);
+        $infected4HealthLost = new TriggerEventModifierConfig('infected4HealthLost');
         $infected4HealthLost
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-4)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerEvent::INFECTION_PLAYER)
+            ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $infected4HealthLost->buildName();
         $manager->persist($infected4HealthLost);
 
         $takeCatActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PLAYER_EQUIPMENT);
@@ -417,64 +358,65 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->buildName()
         ;
         $manager->persist($takeCatActivationRequirement);
-
-        $takeCat6HealthLost = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_6);
+        $takeCat6HealthLost = new TriggerEventModifierConfig('takeCat6HealthLost');
         $takeCat6HealthLost
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-6)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->addModifierRequirement($takeCatActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $takeCat6HealthLost->buildName();
         $manager->persist($takeCat6HealthLost);
 
-        $cycle1SatietyIncrease = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::SATIETY_INCREASE_1);
+        $cycle1SatietyIncrease = new TriggerEventModifierConfig('cycle1SatietyIncrease');
         $cycle1SatietyIncrease
-            ->setTargetVariable(PlayerVariableEnum::SATIETY)
-            ->setDelta(1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfig)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1SatietyIncrease->buildName();
         $manager->persist($cycle1SatietyIncrease);
 
-        $shootAction10PercentAccuracyLost = new VariableEventModifierConfig();
+        $shootAction10PercentAccuracyLost = new VariableEventModifierConfig('decrease10PercentShootPercentage');
         $shootAction10PercentAccuracyLost
-            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->setDelta(0.9)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
-            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
+            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
+            ->setTagConstraints([
+                ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
+            ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $shootAction10PercentAccuracyLost->buildName();
         $manager->persist($shootAction10PercentAccuracyLost);
 
-        $increaseCycleDiseaseChances10 = new VariableEventModifierConfig();
+        $increaseCycleDiseaseChances10 = new VariableEventModifierConfig('increase10PercentShootPercentage');
         $increaseCycleDiseaseChances10
-            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetVariable(RollPercentageEvent::ROLL_PERCENTAGE)
             ->setDelta(10)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(PlayerEvent::CYCLE_DISEASE)
+            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
+            ->setApplyOnTarget(false)
+            ->setTagConstraints([
+                PlayerEvent::CYCLE_DISEASE => ModifierRequirementEnum::ALL_TAGS,
+            ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $increaseCycleDiseaseChances10->buildName();
         $manager->persist($increaseCycleDiseaseChances10);
 
-        $cycle1ActionLostRand16FitfullSleep = new VariableEventModifierConfig();
+        $cycle1ActionLostRand16FitfullSleep = new TriggerEventModifierConfig('cycle1ActionLostRand16FitfullSleep');
         $cycle1ActionLostRand16FitfullSleep
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfigLose1Action)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement16)
             ->addModifierRequirement($lyingDownActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::FITFULL_SLEEP)
         ;
-        $cycle1ActionLostRand16FitfullSleep->buildName();
         $manager->persist($cycle1ActionLostRand16FitfullSleep);
 
         $manager->flush();
@@ -501,8 +443,6 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $this->addReference(self::CYCLE_1_HEALTH_LOST_RAND_50, $cycle1HealthLostRand50);
         $this->addReference(self::CONSUME_1_ACTION_LOSS, $consume1ActionLoss);
         $this->addReference(self::CONSUME_2_ACTION_LOSS, $consume2ActionLoss);
-        $this->addReference(self::CONSUME_DRUG_1_ACTION_LOSS, $consumeDrug1ActionLoss);
-        $this->addReference(self::CONSUME_DRUG_2_ACTION_LOSS, $consumeDrug2ActionLoss);
         $this->addReference(self::MOVE_INCREASE_MOVEMENT, $moveIncreaseMovement);
         $this->addReference(self::INFECTED_4_HEALTH_LOSS, $infected4HealthLost);
         $this->addReference(self::TAKE_CAT_6_HEALTH_LOSS, $takeCat6HealthLost);
@@ -510,13 +450,13 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $this->addReference(self::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST, $shootAction10PercentAccuracyLost);
         $this->addReference(self::INCREASE_CYCLE_DISEASE_CHANCES_10, $increaseCycleDiseaseChances10);
         $this->addReference(self::RANDOM_16, $randActivationRequirement16);
-        $this->addReference(self::REASON_CONSUME, $consumeActionActivationRequirement);
     }
 
     public function getDependencies(): array
     {
         return [
             GameConfigFixtures::class,
+            EventConfigFixtures::class,
         ];
     }
 }

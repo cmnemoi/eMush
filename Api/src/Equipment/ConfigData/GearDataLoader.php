@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Repository\ActionRepository;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Repository\MechanicsRepository;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Repository\ModifierConfigRepository;
 
 class GearDataLoader extends MechanicsDataLoader
@@ -54,7 +54,7 @@ class GearDataLoader extends MechanicsDataLoader
     {
         $modifierConfigs = [];
         foreach ($gearData['modifierConfigs'] as $modifierConfigName) {
-            /** @var VariableEventModifierConfig $modifierConfig */
+            /** @var AbstractModifierConfig $modifierConfig */
             $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigName]);
             if ($modifierConfig === null) {
                 throw new \Exception('Modifier config not found: ' . $modifierConfigName);

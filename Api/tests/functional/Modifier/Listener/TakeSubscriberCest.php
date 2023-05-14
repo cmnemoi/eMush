@@ -74,7 +74,7 @@ class TakeSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+            'name' => 'soapShowerActionModifier',
         ]);
 
         $gear = new Gear();
@@ -145,8 +145,9 @@ class TakeSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+            'name' => 'soapShowerActionModifier',
         ]);
+        $modifierConfig->setModifierName('soapShowerActionModifier');
 
         $gear = new Gear();
         $gear
@@ -174,7 +175,7 @@ class TakeSubscriberCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::HAZARDOUS)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategy(ActionEnum::SHOWER)
+            ->setDischargeStrategy('soapShowerActionModifier')
             ->buildName(GameConfigEnum::TEST)
         ;
 
@@ -229,7 +230,7 @@ class TakeSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+            'name' => 'soapShowerActionModifier',
         ]);
 
         $gear = new Gear();
@@ -312,7 +313,7 @@ class TakeSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+            'name' => 'soapShowerActionModifier',
         ]);
 
         $gear = new Gear();
@@ -392,7 +393,7 @@ class TakeSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'modifier_for_player_-1actionPoint_on_shower',
+            'name' => 'soapShowerActionModifier',
         ]);
 
         $gear = new Gear();

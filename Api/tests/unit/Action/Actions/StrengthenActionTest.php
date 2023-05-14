@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\StrengthenHull;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
@@ -63,17 +64,14 @@ class StrengthenActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $attempt = new Attempt($player, new ChargeStatusConfig());
-        $attempt
-            ->setAction($this->action->getActionName())
-        ;
-        $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
-
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->actionService->shouldReceive('getCriticalSuccessRate')->never();
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->andReturn(10)
+            ->once()
+        ;
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         // Fail try
@@ -106,8 +104,16 @@ class StrengthenActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->actionService->shouldReceive('getCriticalSuccessRate')->andReturn(0)->once();
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->andReturn(10)
+            ->once()
+        ;
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
+            ->andReturn(10)
+            ->once()
+        ;
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 

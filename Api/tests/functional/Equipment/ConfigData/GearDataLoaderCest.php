@@ -9,26 +9,29 @@ use Mush\Equipment\ConfigData\GearDataLoader;
 use Mush\Equipment\ConfigData\MechanicsData;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
+use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 
 class GearDataLoaderCest
 {
     private GearDataLoader $gearDataLoader;
     private ActionDataLoader $actionDataLoader;
-    private VariableEventModifierConfigDataLoader $modifierConfigDataLoader;
+    private VariableEventModifierConfigDataLoader $variableEvnetModifierConfigDataLoader;
     private ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
 
     // TODO: add other TriggerEventModifierConfigs if necessary
 
     public function _before(FunctionalTester $I)
     {
-        $this->actionDataLoader = $I->grabService(ActionDataLoader::class);
-        $this->modifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
-        $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
+        $actionDataLoader = $I->grabService(ActionDataLoader::class);
+        $variableEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
+        $modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
+        $triggerEventModifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
 
-        $this->actionDataLoader->loadConfigsData();
-        $this->modifierActivationRequirementDataLoader->loadConfigsData();
-        $this->modifierConfigDataLoader->loadConfigsData();
+        $modifierActivationRequirementDataLoader->loadConfigsData();
+        $actionDataLoader->loadConfigsData();
+        $triggerEventModifierConfigDataLoader->loadConfigsData();
+        $variableEventModifierConfigDataLoader->loadConfigsData();
 
         $this->gearDataLoader = $I->grabService(GearDataLoader::class);
     }
@@ -41,7 +44,9 @@ class GearDataLoaderCest
             if ($gearData['type'] !== 'gear') {
                 continue;
             }
+
             $gearData = $this->dropFields($gearData);
+
             $I->seeInRepository(Gear::class, $gearData);
         }
 

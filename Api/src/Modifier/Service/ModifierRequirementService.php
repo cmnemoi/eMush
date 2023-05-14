@@ -23,11 +23,12 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         $this->randomService = $randomService;
     }
 
-    public function getActiveModifiers(ModifierCollection $modifiers, array $reasons, ModifierHolder $holder): ModifierCollection
+    public function getActiveModifiers(ModifierCollection $modifiers, array $reasons): ModifierCollection
     {
         $validatedModifiers = new ModifierCollection();
 
         foreach ($modifiers as $modifier) {
+            $holder = $modifier->getModifierHolder();
             $chargeStatus = $modifier->getCharge();
             if (
                 $chargeStatus === null ||

@@ -3,6 +3,7 @@
 namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 
@@ -27,11 +28,11 @@ class VariableEventModifierConfig extends EventModifierConfig
     #[ORM\Column(type: 'string', nullable: false)]
     private string $mode = VariableModifierModeEnum::ADDITIVE;
 
-    public function __construct()
+    public function __construct($name)
     {
         $this->targetEvent = VariableEventInterface::CHANGE_VARIABLE;
 
-        parent::__construct();
+        parent::__construct($name);
     }
 
     public function buildName(): static
@@ -123,5 +124,14 @@ class VariableEventModifierConfig extends EventModifierConfig
         $this->mode = $mode;
 
         return $this;
+    }
+
+    public function doModifierApplies(AbstractGameEvent $event): bool
+    {
+        if (!$event instanceof VariableEventInterface || $event->getVariableName() !== $this->targetVariable) {
+            return false;
+        }
+
+        return parent::doModifierApplies($event);
     }
 }

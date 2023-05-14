@@ -7,9 +7,12 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Enum\EventEnum;
+use Mush\Game\Entity\AbstractEventConfig;
+use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -17,6 +20,7 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerCycleEvent;
 
 class DisorderModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -66,7 +70,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         ;
         $manager->persist($randActivationRequirement70);
 
-        $catInRoomMove2MovementIncrease = new VariableEventModifierConfig();
+        $catInRoomMove2MovementIncrease = new VariableEventModifierConfig('increaseMoveCost2MovementIfCatInRoom');
         $catInRoomMove2MovementIncrease
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(2)
@@ -75,10 +79,9 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->addModifierRequirement($catInRoomActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $catInRoomMove2MovementIncrease->buildName();
         $manager->persist($catInRoomMove2MovementIncrease);
 
-        $catInRoomNotMove2ActionIncrease = new VariableEventModifierConfig();
+        $catInRoomNotMove2ActionIncrease = new VariableEventModifierConfig('increaseActionCost2ActionIfCatInRoom');
         $catInRoomNotMove2ActionIncrease
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
@@ -88,61 +91,56 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->addModifierRequirement($notMoveActionActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $catInRoomNotMove2ActionIncrease->buildName();
         $manager->persist($catInRoomNotMove2ActionIncrease);
 
-        $cycle1ActionLostRand16WithScreaming = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::ACTION_REDUCE_1);
+        $cycle1ActionLostRand16WithScreaming = new TriggerEventModifierConfig('screaming_for_player_set_-1actionPoint_on_new_cycle_if_random_16_test');
         $cycle1ActionLostRand16WithScreaming
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfig)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::SCREAMING)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1ActionLostRand16WithScreaming->buildName();
         $manager->persist($cycle1ActionLostRand16WithScreaming);
 
-        $cycle1HealthLostRand16WithWallHeadBang = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_1);
+        $cycle1HealthLostRand16WithWallHeadBang = new TriggerEventModifierConfig('wall_head_bang_for_player_set_-1healthPoint_on_new_cycle_if_random_16_test');
         $cycle1HealthLostRand16WithWallHeadBang
-            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfig)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::WALL_HEAD_BANG)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1HealthLostRand16WithWallHeadBang->buildName();
         $manager->persist($cycle1HealthLostRand16WithWallHeadBang);
 
-        $cycle1MoralLostRand70 = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::MORAL_REDUCE_1);
+        $cycle1MoralLostRand70 = new TriggerEventModifierConfig('modifier_for_player_set_-1moralPoint_on_new_cycle_if_random_70_test');
         $cycle1MoralLostRand70
-            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfig)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->addModifierRequirement($randActivationRequirement70)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle1MoralLostRand70->buildName();
         $manager->persist($cycle1MoralLostRand70);
 
-        $cycle2MovementLostRand16WithRunInCircles = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::MOVEMENT_REDUCE_2);
+        $cycle2MovementLostRand16WithRunInCircles = new TriggerEventModifierConfig('run_in_circles_for_player_set_-2movementPoint_on_new_cycle_if_random_16_test');
         $cycle2MovementLostRand16WithRunInCircles
-            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(-2)
-            ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTriggeredEvent($eventConfig)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::RUN_IN_CIRCLES)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $cycle2MovementLostRand16WithRunInCircles->buildName();
         $manager->persist($cycle2MovementLostRand16WithRunInCircles);
 
-        $fourPeopleOneActionIncrease = new VariableEventModifierConfig();
+        $fourPeopleOneActionIncrease = new VariableEventModifierConfig('increaseActionCost1ActionIfMore4PeopleInRoom');
         $fourPeopleOneActionIncrease
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
@@ -151,10 +149,9 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->addModifierRequirement($fourPeopleInRoomActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $fourPeopleOneActionIncrease->buildName();
         $manager->persist($fourPeopleOneActionIncrease);
 
-        $fourPeopleOneMovementIncrease = new VariableEventModifierConfig();
+        $fourPeopleOneMovementIncrease = new VariableEventModifierConfig('increaseMoveCost1MovementIfMore4PeopleInRoom');
         $fourPeopleOneMovementIncrease
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -166,37 +163,31 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $fourPeopleOneMovementIncrease->buildName();
         $manager->persist($fourPeopleOneMovementIncrease);
 
-        $reduceMax2ActionPoint = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::MAX_ACTION_REDUCE_2);
+        $reduceMax2ActionPoint = new DirectModifierConfig('reduceMaxAction2');
         $reduceMax2ActionPoint
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-2)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTriggeredEvent($eventConfig)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $reduceMax2ActionPoint->buildName();
         $manager->persist($reduceMax2ActionPoint);
 
-        $reduceMax3MoralPoint = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::MAX_MORAL_REDUCE_3);
+        $reduceMax3MoralPoint = new DirectModifierConfig('reduceMaxMorale3');
         $reduceMax3MoralPoint
-            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
-            ->setDelta(-3)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTriggeredEvent($eventConfig)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $reduceMax3MoralPoint->buildName();
         $manager->persist($reduceMax3MoralPoint);
 
-        $reduceMax4MoralPoint = new VariableEventModifierConfig();
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::MAX_MORAL_REDUCE_4);
+        $reduceMax4MoralPoint = new DirectModifierConfig('reduceMaxMorale4');
         $reduceMax4MoralPoint
-            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
-            ->setDelta(-4)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTriggeredEvent($eventConfig)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
-        $reduceMax4MoralPoint->buildName();
         $manager->persist($reduceMax4MoralPoint);
 
         $manager->flush();
@@ -219,6 +210,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
     {
         return [
             GameConfigFixtures::class,
+            EventConfigFixtures::class,
             DiseaseModifierConfigFixtures::class,
         ];
     }

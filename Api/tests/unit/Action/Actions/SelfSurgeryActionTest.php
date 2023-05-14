@@ -9,6 +9,8 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\SelfSurgery;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
@@ -19,7 +21,6 @@ use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Place\Entity\Place;
 
@@ -90,18 +91,29 @@ class SelfSurgeryActionTest extends AbstractActionTest
 
         $player->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::PERCENTAGE, 10, [ActionEnum::SELF_SURGERY], \Mockery::any())
+        $actionVariableEvent = new ActionVariableEvent(
+            $this->actionEntity,
+            ActionVariableEnum::PERCENTAGE_CRITICAL,
+            10,
+            $player,
+            null
+        );
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn($actionVariableEvent)
             ->once()
-            ->andReturn(10)
         ;
-
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::CRITICAL_PERCENTAGE, 5, [ActionEnum::SELF_SURGERY], \Mockery::any())
+        $actionVariableEventCritical = new ActionVariableEvent(
+            $this->actionEntity,
+            ActionVariableEnum::PERCENTAGE_CRITICAL,
+            15,
+            $player,
+            null
+        );
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn($actionVariableEventCritical)
             ->once()
-            ->andReturn(15)
         ;
 
         $this->randomService->shouldReceive('outputCriticalChances')
@@ -152,18 +164,29 @@ class SelfSurgeryActionTest extends AbstractActionTest
 
         $player->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::PERCENTAGE, 10, [ActionEnum::SELF_SURGERY], \Mockery::any())
+        $actionVariableEvent = new ActionVariableEvent(
+            $this->actionEntity,
+            ActionVariableEnum::PERCENTAGE_CRITICAL,
+            10,
+            $player,
+            null
+        );
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn($actionVariableEvent)
             ->once()
-            ->andReturn(10)
         ;
-
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::CRITICAL_PERCENTAGE, 5, [ActionEnum::SELF_SURGERY], \Mockery::any())
+        $actionVariableEventCritical = new ActionVariableEvent(
+            $this->actionEntity,
+            ActionVariableEnum::PERCENTAGE_CRITICAL,
+            15,
+            $player,
+            null
+        );
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn($actionVariableEventCritical)
             ->once()
-            ->andReturn(15)
         ;
 
         $this->randomService->shouldReceive('outputCriticalChances')
@@ -215,18 +238,29 @@ class SelfSurgeryActionTest extends AbstractActionTest
 
         $player->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::PERCENTAGE, 10, [ActionEnum::SELF_SURGERY], \Mockery::any())
+        $actionVariableEvent = new ActionVariableEvent(
+            $this->actionEntity,
+            ActionVariableEnum::PERCENTAGE_CRITICAL,
+            10,
+            $player,
+            null
+        );
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn($actionVariableEvent)
             ->once()
-            ->andReturn(10)
         ;
-
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::CRITICAL_PERCENTAGE, 5, [ActionEnum::SELF_SURGERY], \Mockery::any())
+        $actionVariableEventCritical = new ActionVariableEvent(
+            $this->actionEntity,
+            ActionVariableEnum::PERCENTAGE_CRITICAL,
+            15,
+            $player,
+            null
+        );
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn($actionVariableEventCritical)
             ->once()
-            ->andReturn(15)
         ;
 
         $this->randomService->shouldReceive('outputCriticalChances')

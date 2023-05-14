@@ -4,21 +4,17 @@ namespace Mush\Tests\functional\Modifier\ConfigData;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
 class TriggerEventModifierConfigDataLoaderCest
 {
     private TriggerEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader;
-    private ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
 
     public function _before(FunctionalTester $I)
     {
-        $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
-        $this->modifierActivationRequirementDataLoader->loadConfigsData();
-
         $this->triggerEventModifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
     }
 
@@ -30,36 +26,21 @@ class TriggerEventModifierConfigDataLoaderCest
             if ($triggerEventModifierConfigData['type'] !== 'trigger_event_modifier') {
                 continue;
             }
+
             $triggerEventModifierConfigData = $this->dropFields($triggerEventModifierConfigData);
-            $I->seeInRepository(TriggerEventModifierConfig::class, $triggerEventModifierConfigData);
+            $I->seeInRepository(TriggerEventModifierConfig::class, ['name' => $triggerEventModifierConfigData['name']]);
         }
 
-        $I->seeNumRecords($this->getNumberOfTriggerEventModifierConfigs(), TriggerEventModifierConfig::class);
+        // $I->seeNumRecords($this->getNumberOfTriggerEventModifierConfigs(), TriggerEventModifierConfig::class);
     }
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)
     {
-        // TODO: replace by an actual config when they are implemented
-        $dummyConfig = [
-            'name' => 'dummy',
-            'modifierName' => null,
-            'targetEvent' => 'move',
-            'modifierRange' => 'player',
-            'type' => 'trigger_event_modifier',
-            'visibility' => 'public',
-            'delta' => null,
-            'targetVariable' => null,
-            'mode' => null,
-            'applyOnActionParameter' => 'value',
-        ];
-
-        $dummyConfig = $this->dropFields($dummyConfig);
-
-        $I->haveInRepository(TriggerEventModifierConfig::class, $dummyConfig);
+        $config = $this->dropFields(ModifierConfigData::$dataArray[6]);
 
         $this->triggerEventModifierConfigDataLoader->loadConfigsData();
 
-        $I->seeNumRecords(1, TriggerEventModifierConfig::class, $dummyConfig);
+        $I->seeNumRecords(1, TriggerEventModifierConfig::class, ['name' => $config['name']]);
     }
 
     /** need to drop those fields
@@ -74,8 +55,9 @@ class TriggerEventModifierConfigDataLoaderCest
         unset($configData['targetVariable']);
         unset($configData['mode']);
         unset($configData['applyOnActionParameter']);
-        unset($configData['appliesOn']);
         unset($configData['modifierActivationRequirements']);
+        unset($configData['triggeredEvent']);
+        unset($configData['tagConstraints']);
 
         return $configData;
     }

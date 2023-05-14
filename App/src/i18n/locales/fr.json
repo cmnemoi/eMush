@@ -212,6 +212,7 @@
 			"preventEventModifier": "Bloqueur d'événements",
 			"modifierRequirement": "Conditions d'activation",
 			"triggeredEvent": "Événement déclenché",
+			"replaceEvent": "Remplace l'événement initial",
 			"applyOnActionParameter": "Application uniquement sur cible d'action",
 			"modifierRange": "Portée du modificateur",
 			"revertOnRemove": "Inverser lors de la suppression",

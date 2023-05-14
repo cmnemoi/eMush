@@ -8,28 +8,19 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionSideEffectsService;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerVariableEvent;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
 use PHPUnit\Framework\TestCase;
 
 class ActionSideEffectsServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
-    /** @var RoomLogServiceInterface|Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
-    /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
     /** @var EventModifierServiceInterface|Mockery\Mock */
     private EventModifierServiceInterface $modifierService;
 
@@ -41,13 +32,10 @@ class ActionSideEffectsServiceTest extends TestCase
     public function before()
     {
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
-        $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
-        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
 
         $this->actionService = new ActionSideEffectsService(
             $this->eventService,
-            $this->modifierService
         );
     }
 
@@ -59,7 +47,7 @@ class ActionSideEffectsServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testHandleActionSideEffectDirty()
+    public function testHandleActionSideEffect()
     {
         $action = new Action();
         $room = new Place();
@@ -72,81 +60,14 @@ class ActionSideEffectsServiceTest extends TestCase
             ->setActionName(ActionEnum::DROP)
         ;
 
-        $date = new \DateTime();
+        $this->eventService->shouldReceive('callEvent')->twice();
 
-        $this->modifierService
-            ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(0, [ModifierScopeEnum::EVENT_DIRTY], [ActionEnum::DROP], $date, $player)
-            ->andReturn(false)
-            ->once()
-        ;
-        $this->modifierService
-            ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(0, [ModifierScopeEnum::EVENT_CLUMSINESS], [ActionEnum::DROP], $date, $player)
-            ->andReturn(false)
-            ->twice()
-        ;
-        $this->eventService->shouldReceive('callEvent')->never();
-
-        $player = $this->actionService->handleActionSideEffect($action, $player, $date);
-
-        $this->assertCount(0, $player->getStatuses());
-
-        $action->setDirtyRate(10);
-
-        $this->modifierService
-            ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(10, [ModifierScopeEnum::EVENT_DIRTY], [ActionEnum::DROP], $date, $player)
-            ->andReturn(true)
-            ->once()
-        ;
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DIRTY && $event->getStatusHolder() === $player)
-            ->once()
-        ;
-
-        $this->actionService->handleActionSideEffect($action, $player, $date);
-    }
-
-    public function testHandleActionSideEffectDirtyWithApron()
-    {
-        $action = new Action();
-        $room = new Place();
-        $player = new Player();
-        $player->setDaedalus(new Daedalus());
-        $player->setPlace($room);
-        $room->setDaedalus($player->getDaedalus());
-
-        $room->setDaedalus($player->getDaedalus());
-
-        $date = new \DateTime();
-
-        $action
-            ->setDirtyRate(100)
-            ->setActionName(ActionEnum::DROP)
-        ;
-
-        $this->modifierService
-            ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(100, [ModifierScopeEnum::EVENT_DIRTY], [ActionEnum::DROP], $date, $player)
-            ->andReturn(false)
-            ->once()
-        ;
-        $this->modifierService
-            ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(0, [ModifierScopeEnum::EVENT_CLUMSINESS], [ActionEnum::DROP], $date, $player)
-            ->andReturn(false)
-            ->once()
-        ;
-        $this->eventService->shouldReceive('callEvent')->never();
-
-        $player = $this->actionService->handleActionSideEffect($action, $player, $date);
+        $player = $this->actionService->handleActionSideEffect($action, $player, null);
 
         $this->assertCount(0, $player->getStatuses());
     }
 
-    public function testHandleActionSideEffectInjury()
+    public function testHandleActionSideEffectAlreadyDirty()
     {
         $action = new Action();
         $room = new Place();
@@ -154,52 +75,18 @@ class ActionSideEffectsServiceTest extends TestCase
         $player->setDaedalus(new Daedalus());
         $player->setPlace($room);
         $room->setDaedalus($player->getDaedalus());
-        $date = new \DateTime();
 
         $action
             ->setActionName(ActionEnum::DROP)
         ;
+        $dirtyConfig = new StatusConfig();
+        $dirtyConfig->setStatusName(PlayerStatusEnum::DIRTY);
+        new Status($player, $dirtyConfig);
 
-        $this->modifierService
-            ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(0, [ModifierScopeEnum::EVENT_CLUMSINESS], [ActionEnum::DROP], $date, $player)
-            ->andReturn(false)
-            ->once()
-        ;
-        $this->modifierService
-            ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(0, [ModifierScopeEnum::EVENT_DIRTY], [ActionEnum::DROP], $date, $player)
-            ->andReturn(false)
-            ->twice()
-        ;
-        $this->eventService->shouldReceive('callEvent')->never();
+        $this->eventService->shouldReceive('callEvent')->once();
 
-        $player = $this->actionService->handleActionSideEffect($action, $player, $date);
+        $player = $this->actionService->handleActionSideEffect($action, $player, null);
 
-        $action
-            ->setInjuryRate(100)
-            ->setActionName(ActionEnum::DROP)
-        ;
-
-        $this->modifierService
-            ->shouldReceive('isSuccessfulWithModifiers')
-            ->with(100, [ModifierScopeEnum::EVENT_CLUMSINESS], [ActionEnum::DROP], $date, $player)
-            ->andReturn(true)
-            ->once()
-        ;
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(
-                fn (PlayerVariableEvent $playerEvent, string $eventName) => (
-                    $playerEvent->getQuantity() === -2 &&
-                    $eventName === VariableEventInterface::CHANGE_VARIABLE &&
-                    $playerEvent->getVariableName() === PlayerVariableEnum::HEALTH_POINT
-                )
-            )
-            ->once()
-        ;
-        $player = $this->actionService->handleActionSideEffect($action, $player, $date);
-
-        $this->assertCount(0, $player->getStatuses());
+        $this->assertCount(1, $player->getStatuses());
     }
 }

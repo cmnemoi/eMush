@@ -10,6 +10,8 @@ use Mush\Action\ActionResult\OneShot;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Shoot;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -38,7 +40,6 @@ class ShootActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SHOOT);
 
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
-        $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
         $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
 
         $this->action = new Shoot(
@@ -46,7 +47,6 @@ class ShootActionTest extends AbstractActionTest
             $this->actionService,
             $this->validator,
             $this->randomService,
-            $this->modifierService,
             $this->diseaseCauseService,
         );
     }
@@ -88,10 +88,26 @@ class ShootActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $otherPlayer);
 
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(100)->once();
+        $actionVariableEventCritical = new ActionVariableEvent(
+            $this->actionEntity,
+            ActionVariableEnum::PERCENTAGE_CRITICAL,
+            $mechanic->getCriticalSuccessRate(),
+            $player,
+            $otherPlayer
+        );
+
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $otherPlayer, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->andReturn(100)
+            ->once()
+        ;
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn($actionVariableEventCritical)
+            ->twice()
+        ;
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->twice(); // critical events
-        $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(0);
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn(1)->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->once();
@@ -129,9 +145,24 @@ class ShootActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $otherPlayer);
 
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(0)->once();
+        $actionVariableEventCritical = new ActionVariableEvent(
+            $this->actionEntity,
+            ActionVariableEnum::PERCENTAGE_CRITICAL,
+            $mechanic->getCriticalSuccessRate(),
+            $player,
+            $otherPlayer
+        );
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn($actionVariableEventCritical)
+            ->once()
+        ;
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $otherPlayer, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->andReturn(100)
+            ->once()
+        ;
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->twice();
-        $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(0);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
@@ -167,10 +198,27 @@ class ShootActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $otherPlayer);
 
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(100)->once();
+        $actionVariableEventCritical = new ActionVariableEvent(
+            $this->actionEntity,
+            ActionVariableEnum::PERCENTAGE_CRITICAL,
+            $mechanic->getOneShotRate(),
+            $player,
+            $otherPlayer
+        );
+
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $otherPlayer, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->andReturn(100)
+            ->once()
+        ;
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn($actionVariableEventCritical)
+            ->once()
+        ;
         $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(true)->twice();
-        $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(100)->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn(1)->once();
         $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->action->execute();
 
@@ -206,10 +254,25 @@ class ShootActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $otherPlayer);
 
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(0)->once();
+        $actionVariableEventCritical = new ActionVariableEvent(
+            $this->actionEntity,
+            ActionVariableEnum::PERCENTAGE_CRITICAL,
+            100,
+            $player,
+            $otherPlayer
+        );
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $otherPlayer, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->andReturn(0)
+            ->once()
+        ;
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn($actionVariableEventCritical)
+            ->once()
+        ;
         $this->randomService->shouldReceive('isSuccessful')->with(0)->andReturn(false)->once();
         $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(true)->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(100)->once();
         $this->diseaseCauseService->shouldReceive('handleDiseaseForCause')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();

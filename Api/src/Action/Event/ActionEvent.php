@@ -67,7 +67,7 @@ class ActionEvent extends AbstractGameEvent
 
         $parameter = $this->actionParameter;
         if ($parameter instanceof ModifierHolder) {
-            $modifiers->addModifiers($parameter->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true));
+            $modifiers = $modifiers->addModifiers($parameter->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true));
         }
 
         return $modifiers;

@@ -68,7 +68,7 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
 
         $parameter = $this->parameter;
         if ($parameter instanceof ModifierHolder) {
-            $modifiers->addModifiers($parameter->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true));
+            $modifiers = $modifiers->addModifiers($parameter->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true));
         }
 
         return $modifiers;

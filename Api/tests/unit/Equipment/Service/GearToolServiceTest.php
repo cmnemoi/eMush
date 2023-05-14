@@ -313,7 +313,7 @@ class GearToolServiceTest extends TestCase
             ->setCharge(1)
         ;
 
-        $modifier1 = new VariableEventModifierConfig();
+        $modifier1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifier1
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
@@ -333,7 +333,7 @@ class GearToolServiceTest extends TestCase
             ->setEquipment($gearConfig1)
         ;
 
-        $modifier2 = new VariableEventModifierConfig();
+        $modifier2 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifier2
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
@@ -357,7 +357,7 @@ class GearToolServiceTest extends TestCase
             ->setCharge(1)
         ;
 
-        $modifier3 = new VariableEventModifierConfig();
+        $modifier3 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifier3
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)

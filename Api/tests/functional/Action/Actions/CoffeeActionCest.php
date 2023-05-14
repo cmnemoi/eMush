@@ -79,9 +79,11 @@ class CoffeeActionCest
 
     public function testBroken(FunctionalTester $I)
     {
+        $daedalus = new Daedalus();
         $room = new Place();
+        $room->setDaedalus($daedalus);
 
-        $player = $this->createPlayer(new Daedalus(), $room);
+        $player = $this->createPlayer($daedalus, $room);
 
         $gameEquipment = $this->createEquipment('coffee_machine', $room);
 
@@ -104,9 +106,11 @@ class CoffeeActionCest
 
     public function testNotCharged(FunctionalTester $I)
     {
+        $daedalus = new Daedalus();
         $room = new Place();
+        $room->setDaedalus($daedalus);
 
-        $player = $this->createPlayer(new Daedalus(), $room);
+        $player = $this->createPlayer($daedalus, $room);
 
         $gameEquipment = $this->createEquipment('coffee_machine', $room);
 

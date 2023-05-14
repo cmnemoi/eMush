@@ -48,10 +48,9 @@ class DirectModifierCreationCest
             ->setQuantity(-4)
         ;
 
-        $modifierConfig = new DirectModifierConfig();
+        $modifierConfig = new DirectModifierConfig('directModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('directModifier')
             ->setTriggeredEvent($eventConfig)
             ->setRevertOnRemove(true)
         ;
@@ -153,10 +152,9 @@ class DirectModifierCreationCest
             ->setQuantity(-4)
         ;
 
-        $modifierConfig = new DirectModifierConfig();
+        $modifierConfig = new DirectModifierConfig('directModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setName('directModifier')
             ->setTriggeredEvent($eventConfig)
         ;
         $I->haveInRepository($eventConfig);
@@ -236,10 +234,9 @@ class DirectModifierCreationCest
             ->setQuantity(-4)
         ;
 
-        $modifierConfig = new DirectModifierConfig();
+        $modifierConfig = new DirectModifierConfig('directModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setName('directModifier')
             ->setTriggeredEvent($eventConfig)
         ;
         $I->haveInRepository($eventConfig);
@@ -309,21 +306,19 @@ class DirectModifierCreationCest
             ->setQuantity(-4)
         ;
 
-        $directModifierConfig = new DirectModifierConfig();
+        $directModifierConfig = new DirectModifierConfig('directModifier');
         $directModifierConfig
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('directModifier')
             ->setTriggeredEvent($eventConfig)
             ->setRevertOnRemove(true)
         ;
         $I->haveInRepository($eventConfig);
         $I->haveInRepository($directModifierConfig);
 
-        $eventModifierConfig = new TriggerEventModifierConfig();
+        $eventModifierConfig = new TriggerEventModifierConfig('eventModifier');
         $eventModifierConfig
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setTargetEvent('targetEvent')
-            ->setName('eventModifier')
             ->setTriggeredEvent($eventConfig)
         ;
         $I->haveInRepository($eventModifierConfig);

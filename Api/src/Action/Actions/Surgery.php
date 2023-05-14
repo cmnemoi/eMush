@@ -9,6 +9,8 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Action\Event\ActionVariableEvent;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AreMedicalSuppliesOnReach;
@@ -19,8 +21,6 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -44,14 +44,12 @@ class Surgery extends AbstractAction
     private const CRITICAL_SUCCESS_CHANCES = 15;
 
     private RandomServiceInterface $randomService;
-    private EventModifierServiceInterface $modifierService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        EventModifierServiceInterface $modifierService
     ) {
         parent::__construct(
             $eventService,
@@ -60,7 +58,6 @@ class Surgery extends AbstractAction
         );
 
         $this->randomService = $randomService;
-        $this->modifierService = $modifierService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -89,26 +86,11 @@ class Surgery extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        $date = new \DateTime();
-
-        $failChances = $this->modifierService->getEventModifiedValue(
-            $this->player,
-            [ActionEnum::SURGERY],
-            ModifierTargetEnum::PERCENTAGE,
-            self::FAIL_CHANCES,
-            $this->getAction()->getActionTags(),
-            $date,
+        $result = $this->randomService->outputCriticalChances(
+            $this->getModifiedPercentage(self::FAIL_CHANCES),
+            0,
+            $this->getModifiedPercentage(self::CRITICAL_SUCCESS_CHANCES, ActionVariableEnum::PERCENTAGE_CRITICAL)
         );
-        $criticalSuccessChances = $this->modifierService->getEventModifiedValue(
-            $this->player,
-            [ActionEnum::SURGERY],
-            ModifierTargetEnum::CRITICAL_PERCENTAGE,
-            self::CRITICAL_SUCCESS_CHANCES,
-            $this->getAction()->getActionTags(),
-            $date,
-        );
-
-        $result = $this->randomService->outputCriticalChances($failChances, 0, $criticalSuccessChances);
 
         if ($result === ActionOutputEnum::FAIL) {
             return new Fail();
@@ -161,5 +143,21 @@ class Surgery extends AbstractAction
         $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
 
         return new Fail();
+    }
+
+    private function getModifiedPercentage(int $percentage, string $mode = ActionVariableEnum::PERCENTAGE_SUCCESS): int
+    {
+        $criticalRollEvent = new ActionVariableEvent(
+            $this->action,
+            $mode,
+            $percentage,
+            $this->player,
+            $this->parameter
+        );
+
+        /** @var ActionVariableEvent $criticalRollEvent */
+        $criticalRollEvent = $this->eventService->computeEventModifications($criticalRollEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);
+
+        return $criticalRollEvent->getQuantity();
     }
 }

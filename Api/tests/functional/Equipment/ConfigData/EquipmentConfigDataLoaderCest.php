@@ -18,7 +18,10 @@ use Mush\Equipment\ConfigData\RationDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Game\ConfigData\VariableEventConfigDataLoader;
+use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
+use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigDataLoader;
@@ -39,7 +42,10 @@ class EquipmentConfigDataLoaderCest
     protected WeaponDataLoader $weaponDataLoader;
     protected ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader;
     protected StatusConfigDataLoader $statusConfigDataLoader;
-    protected VariableEventModifierConfigDataLoader $modifierConfigDataLoader;
+    protected VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader;
+    protected DirectModifierConfigDataLoader $directModifierConfigDataLoader;
+    protected TriggerEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader;
+    protected VariableEventConfigDataLoader $variableEventConfigDataLoader;
     protected ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
 
     public function _before(FunctionalTester $I)
@@ -48,7 +54,10 @@ class EquipmentConfigDataLoaderCest
 
         // mechanics
         $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
-        $this->modifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
+        $this->variableEventConfigDataLoader = $I->grabService(VariableEventConfigDataLoader::class);
+        $this->variableEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
+        $this->triggerEventModifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
+        $this->directModifierConfigDataLoader = $I->grabService(DirectModifierConfigDataLoader::class);
         $this->blueprintDataLoader = $I->grabService(BlueprintDataLoader::class);
         $this->bookDataLoader = $I->grabService(BookDataLoader::class);
         $this->documentDataLoader = $I->grabService(DocumentDataLoader::class);
@@ -68,7 +77,10 @@ class EquipmentConfigDataLoaderCest
         $this->actionDataLoader->loadConfigsData();
 
         $this->modifierActivationRequirementDataLoader->loadConfigsData();
-        $this->modifierConfigDataLoader->loadConfigsData();
+        $this->variableEventConfigDataLoader->loadConfigsData();
+        $this->variableEventModifierConfigDataLoader->loadConfigsData();
+        $this->triggerEventModifierConfigDataLoader->loadConfigsData();
+        $this->directModifierConfigDataLoader->loadConfigsData();
         $this->blueprintDataLoader->loadConfigsData();
         $this->bookDataLoader->loadConfigsData();
         $this->documentDataLoader->loadConfigsData();

@@ -356,7 +356,6 @@ class SymptomService implements SymptomServiceInterface
             $this->actionService,
             $this->validator,
             $this->randomService,
-            $this->modifierService,
             $this->diseaseCauseService
         );
 
@@ -394,7 +393,6 @@ class SymptomService implements SymptomServiceInterface
             $this->actionService,
             $this->validator,
             $this->randomService,
-            $this->modifierService,
             $this->diseaseCauseService
         );
 

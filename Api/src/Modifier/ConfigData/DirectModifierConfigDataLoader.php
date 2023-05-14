@@ -14,18 +14,18 @@ class DirectModifierConfigDataLoader extends ModifierConfigDataLoader
                 continue;
             }
 
-            $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigData['name']]);
+            $configName = $modifierConfigData['name'];
+            $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $configName]);
 
             if ($modifierConfig === null) {
-                $modifierConfig = new DirectModifierConfig();
+                $modifierConfig = new DirectModifierConfig($configName);
             } elseif (!($modifierConfig instanceof DirectModifierConfig)) {
                 $this->entityManager->remove($modifierConfig);
-                $modifierConfig = new DirectModifierConfig();
+                $modifierConfig = new DirectModifierConfig($configName);
             }
 
             $modifierConfig
                 ->setRevertOnRemove($modifierConfigData['revertOnRemove'])
-                ->setName($modifierConfigData['name'])
                 ->setModifierName($modifierConfigData['modifierName'])
                 ->setModifierRange($modifierConfigData['modifierRange'])
             ;

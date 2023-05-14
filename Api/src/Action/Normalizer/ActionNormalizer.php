@@ -12,6 +12,7 @@ use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
@@ -82,9 +83,24 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
                     'actions',
                     $language
                 ),
-                'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object, $parameter),
-                'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object, $parameter),
-                'moralPointCost' => $this->actionService->getTotalMoralPointCost($currentPlayer, $object, $parameter),
+                'actionPointCost' => $this->actionService->getActionModifiedActionVariable(
+                    $currentPlayer,
+                    $object,
+                    $parameter,
+                    PlayerVariableEnum::ACTION_POINT,
+                ),
+                'movementPointCost' => $this->actionService->getActionModifiedActionVariable(
+                    $currentPlayer,
+                    $object,
+                    $parameter,
+                    PlayerVariableEnum::MOVEMENT_POINT,
+                ),
+                'moralPointCost' => $this->actionService->getActionModifiedActionVariable(
+                    $currentPlayer,
+                    $object,
+                    $parameter,
+                    PlayerVariableEnum::MORAL_POINT,
+                ),
                 ];
 
             if ($actionClass instanceof AttemptAction) {

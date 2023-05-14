@@ -4,7 +4,7 @@ namespace Mush\RoomLog\Enum;
 
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
-use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 
@@ -66,7 +66,7 @@ class PlayerModifierLogEnum
             ModifierNameEnum::LYING_DOWN_MODIFIER => self::LYING_DOWN,
             ModifierNameEnum::FITFULL_SLEEP => self::FITFULL_SLEEP,
             PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
-            ModifierScopeEnum::EVENT_CLUMSINESS => self::CLUMSINESS,
+            EndCauseEnum::CLUMSINESS => self::CLUMSINESS,
         ],
         self::VISIBILITY => [
             ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
@@ -77,7 +77,7 @@ class PlayerModifierLogEnum
             ModifierNameEnum::LYING_DOWN_MODIFIER => VisibilityEnum::HIDDEN,
             ModifierNameEnum::FITFULL_SLEEP => VisibilityEnum::PRIVATE,
             PlayerEvent::PANIC_CRISIS => VisibilityEnum::PRIVATE,
-            ModifierScopeEnum::EVENT_CLUMSINESS => VisibilityEnum::PRIVATE,
+            EndCauseEnum::CLUMSINESS => VisibilityEnum::PRIVATE,
         ],
     ];
 }

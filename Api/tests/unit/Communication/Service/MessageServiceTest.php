@@ -7,6 +7,8 @@ use Mockery;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Communication\Repository\MessageRepository;
 use Mush\Communication\Services\DiseaseMessageServiceInterface;
 use Mush\Communication\Services\MessageService;
 use Mush\Communication\Services\MessageServiceInterface;
@@ -30,6 +32,8 @@ class MessageServiceTest extends TestCase
     private DiseaseMessageServiceInterface $diseaseMessageService;
     /** @var EventServiceInterface|Mockery\mock */
     private EventServiceInterface $eventService;
+    /** @var MessageRepository|Mockery\mock */
+    private MessageRepository $messageRepository;
 
     private MessageServiceInterface $service;
 
@@ -41,6 +45,7 @@ class MessageServiceTest extends TestCase
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->diseaseMessageService = \Mockery::mock(DiseaseMessageServiceInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
+        $this->messageRepository = \Mockery::mock(MessageRepository::class);
 
         $this->entityManager->shouldReceive([
             'persist' => null,
@@ -50,7 +55,8 @@ class MessageServiceTest extends TestCase
         $this->service = new MessageService(
             $this->entityManager,
             $this->diseaseMessageService,
-            $this->eventService
+            $this->eventService,
+            $this->messageRepository
         );
     }
 
@@ -180,5 +186,49 @@ class MessageServiceTest extends TestCase
         $this->assertEquals($time, $message->getCreatedAt());
         $this->assertEquals($time, $message->getUpdatedAt());
         $this->assertEquals($channel, $message->getChannel());
+    }
+
+    public function testGetMessage()
+    {
+        $channel = new Channel();
+
+        $player = new Player();
+
+        $message1 = new Message();
+        $message2 = new Message();
+
+        $this->messageRepository
+            ->shouldReceive('findByChannel')
+            ->with($channel, null)
+            ->andReturn([$message1, $message2])
+        ;
+
+        $messages = $this->service->getChannelMessages($player, $channel);
+
+        $this->assertCount(2, $messages);
+    }
+
+    public function testGetMessageMush()
+    {
+        $channel = new Channel();
+        $channel->setScope(ChannelScopeEnum::MUSH);
+
+        $player = new Player();
+
+        $message1 = new Message();
+        $message2 = new Message();
+
+        $this->messageRepository
+            ->shouldReceive('findByChannel')
+            ->withArgs(fn ($channelTest, $age) => $channelTest === $channel &&
+                $age instanceof \DateInterval &&
+                intval($age->format('%H')) === 24
+            )
+            ->andReturn([$message1, $message2])
+        ;
+
+        $messages = $this->service->getChannelMessages($player, $channel);
+
+        $this->assertCount(2, $messages);
     }
 }

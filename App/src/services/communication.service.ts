@@ -68,6 +68,7 @@ const CommunicationService = {
         switch (channel.scope) {
         case ChannelType.PRIVATE:
         case ChannelType.PUBLIC:
+        case ChannelType.MUSH:
             return loadChannelMessages();
         case ChannelType.ROOM_LOG:
             return loadRoomLogs();

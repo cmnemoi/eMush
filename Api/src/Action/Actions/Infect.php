@@ -94,6 +94,7 @@ class Infect extends AbstractAction
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );
+        $playerModifierEvent->setAuthor($this->player);
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $playerModifierEvent = new PlayerVariableEvent(

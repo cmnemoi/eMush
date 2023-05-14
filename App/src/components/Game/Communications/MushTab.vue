@@ -1,47 +1,12 @@
 <template>
-    <TabContainer id="mush-tab" :channel="channel" new-message-allowed>
-        <div class="actions">
-            <a href="#"><img src="@/assets/images/comms/refresh.gif">Rafr.</a>
-            <a href="#"><img src="@/assets/images/comms/alert.png">Plainte</a>
-        </div>
+    <TabContainer id="mush-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
         <section class="unit">
-            <div class="banner cycle-banner">
-                <img class="expand" src="@/assets/images/comms/less.png">
-                <span>Jour 5 Cycle 6</span>
-            </div>
-            <div class="message new">
-                <div class="char-portrait">
-                    <img src="@/assets/images/char/body/ian.png">
-                </div>
-                <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Ian :</span><strong><em>Piloting</em></strong></p>
-                <span class="timestamp">~1d</span>
-            </div>
-        </section>
-        <section class="unit">
-            <div class="banner cycle-banner">
-                <img class="expand" src="@/assets/images/comms/less.png">
-                <span>Jour 5 Cycle 5</span>
-            </div>
-            <div class="message new">
-                <div class="char-portrait">
-                    <img src="@/assets/images/char/body/jin_su.png">
-                </div>
-                <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Jin Su :</span>So far eight hunters shot total (3 + 5), no scrap collected yet.</p>
-                <span class="timestamp">~3d</span>
-            </div>
-            <div class="message">
-                <div class="char-portrait">
-                    <img src="@/assets/images/char/body/ian.png">
-                </div>
-                <p><img src="@/assets/images/comms/talkie.png"> <span class="author">Ian :</span>Excellent sir, I can see why they have you training the new pilots :P</p>
-                <span class="timestamp">~3d</span>
-            </div>
-            <section class="log">
-                <p class="text-log">
-                    <img src="@/assets/images/triumph.png"> Bienvenue parmi le Mush <strong>Ian</strong>. Vous avez été récompensé avec <strong>120 points de Triomphe</strong>.
-                </p>
-                <span class="timestamp">~5d</span>
-            </section>
+            <Message
+                v-for="(message, id) in messages"
+                :key="id"
+                :message="message"
+                :is-root="true"
+            />
         </section>
     </TabContainer>
 </template>
@@ -50,14 +15,31 @@
 import { Channel } from "@/entities/Channel";
 import TabContainer from "@/components/Game/Communications/TabContainer.vue";
 import { defineComponent } from "vue";
+import Message from "@/components/Game/Communications/Messages/Message.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default defineComponent ({
     name: "MushTab",
     components: {
+        Message,
         TabContainer
     },
     props: {
         channel: Channel
+    },
+    computed: {
+        ...mapGetters('communication', [
+            'messages'
+        ]),
+        newMessagesAllowed(): boolean | undefined
+        {
+            return this.channel?.newMessageAllowed;
+        }
+    },
+    methods: {
+        ...mapActions('communication', [
+            'loadMessages',
+        ])
     }
 });
 </script>

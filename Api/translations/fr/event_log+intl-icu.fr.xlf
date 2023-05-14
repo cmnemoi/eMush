@@ -504,5 +504,83 @@
         <target>:triumph: **{character}** effectue sa petite danse de la victoire pour un *{hunter} de moins*.</target>
       </segment>
     </unit>
+    <unit id="infect_action">
+       <segment id="infect_action" state="translated">
+         <source>infect_action</source>
+         <target>**{target_character}** a été contaminé par un spore par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+       </segment>
+    </unit>
+      <unit id="infect_trap">
+          <segment id="infect_trap" state="translated">
+              <source>infect_trap</source>
+              <target>**{target_character}** a été contaminé en ouvrant une étagère piégée par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+          </segment>
+      </unit>
+      <unit id="infect_std">
+          <segment id="infect_std" state="translated">
+              <source>infect_std</source>
+              <target>**{target_character}** a été contaminé en le faisant avec **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+          </segment>
+      </unit>
+      <unit id="infect_cat">
+          <segment id="infect_cat" state="translated">
+              <source>infect_cat</source>
+              <target>**{target_character}** a été contaminé par **{character}** en prenant **Schrödinger**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+          </segment>
+      </unit>
+      <unit id="infect_mush_raid">
+          <segment id="infect_mush_raid" state="translated">
+              <source>infect_mush_raid</source>
+              <target>**{character}** a été contaminé par un raid Mush en exploration. Son niveau de contamination est maintenant de **{quantity}**.</target>
+          </segment>
+      </unit>
+      <unit id="infect_trapped_ration">
+          <segment id="infect_trapped_ration" state="translated">
+              <source>infect_trapped_ration</source>
+              <target>**{target_character}** a été contaminé par une ration contaminée par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+          </segment>
+      </unit>
+    <unit id="mush_convert_event">
+       <segment id="mush_convert_event" state="translated">
+         <source>mush_convert_event</source>
+            <target>Bienvenue parmi le Mush **{target_character}**. Vous avez été récompensé avec *{quantity} points de Triomphe*.</target>
+       </segment>
+    </unit>
+      <unit id="player_enter_chat">
+          <segment id="player_enter_chat" state="translated">
+              <source>player_enter_chat</source>
+              <target>**{character}** a rejoint la discussion.</target>
+          </segment>
+      </unit>
+      <unit id="player_leave_chat">
+          <segment id="player_leave_chat" state="translated">
+              <source>player_leave_chat</source>
+              <target>{character_gender, select,
+                  male {**{character}** a quitté la discussion, il a fermé l'onglet.}
+                  female {**{character}** a quitté la discussion, elle a fermé l'onglet.}
+                  other {invalid gender input}
+                  }</target>
+          </segment>
+      </unit>
+      <unit id="player_leave_chat_death">
+          <segment id="player_leave_chat_death" state="translated">
+              <source>player_leave_chat_death</source>
+              <target>{character_gender, select,
+                  male {**{character}** a quitté la discussion, il a quitté notre monde.}
+                  female {**{character}** a quitté la discussion, elle a quitté notre monde.}
+                  other {invalid gender input}
+                  }</target>
+          </segment>
+      </unit>
+      <unit id="player_leave_chat_talky">
+          <segment id="player_leave_chat_talky" state="translated">
+              <source>player_leave_chat_talky</source>
+              <target>{character_gender, select,
+                  male {**{character}** a quitté la discussion, il a quitté la pièce et n'a pas de talky...}
+                  female {**{character}** a quitté la discussion, elle a quitté la pièce et n'a pas de talky...}
+                  other {invalid gender input}
+                  }</target>
+          </segment>
+      </unit>
   </file>
 </xliff>

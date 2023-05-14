@@ -749,4 +749,51 @@ class ChannelServiceTest extends TestCase
 
         $this->assertCount(0, $result);
     }
+
+    public function testAddPlayer()
+    {
+        $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $channel = new Channel();
+
+        $this->entityManager
+            ->shouldReceive('persist')
+            ->withArgs(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getChannel() === $channel &&
+                $channelPlayer->getParticipant() === $playerInfo
+            )
+            ->once()
+        ;
+
+        $this->entityManager->shouldReceive('flush')->once();
+
+        $this->service->addPlayer($playerInfo, $channel);
+    }
+
+    public function testRemovePlayer()
+    {
+        $channel = new Channel();
+
+        $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
+        $channelPlayer = new ChannelPlayer();
+        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
+
+        $player2 = new Player();
+        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $channelPlayer2 = new ChannelPlayer();
+        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
+
+        $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
+
+        $this->entityManager
+            ->shouldReceive('remove')
+            ->with($channelPlayer)
+            ->once()
+        ;
+
+        $this->entityManager->shouldReceive('flush')->once();
+
+        $this->service->removePlayer($playerInfo, $channel);
+    }
 }

@@ -260,6 +260,7 @@ class DoTheThing extends AbstractAction
                 $this->getAction()->getActionTags(),
                 new \DateTime()
             );
+            $addSporesEvent->setAuthor($mush);
             $this->eventService->callEvent($removeSporeEvent, VariableEventInterface::CHANGE_VARIABLE);
             $this->eventService->callEvent($addSporesEvent, VariableEventInterface::CHANGE_VARIABLE);
         }

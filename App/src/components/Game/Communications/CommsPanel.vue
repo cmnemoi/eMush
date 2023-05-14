@@ -69,8 +69,11 @@ export default defineComponent ({
                 //     return TipsTab;
                 case ChannelType.ROOM_LOG:
                     return RoomEventsTab;
+                case ChannelType.MUSH:
+                    return MushTab;
                 case ChannelType.PRIVATE:
                     return PrivateTab;
+
                 case ChannelType.PUBLIC:
                 default:
                     return DiscussionTab;

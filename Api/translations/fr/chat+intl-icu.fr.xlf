@@ -44,6 +44,16 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
                     **Attention les canaux privés sont des éléments de jeu et sont donc soumis à la même politique de confidentialité que eMush.**</target>
       </segment>
     </unit>
+    <unit id="mush">
+      <segment id="name" state="translated">
+        <source>mush.name</source>
+        <target>Canal mush</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mush.description</source>
+        <target>__TODO__ Les phéromones mush permettent de communiquer au seins de l'équipe mush.</target>
+      </segment>
+    </unit>
     <unit id="new">
       <segment id="name" state="translated">
         <source>new.name</source>

@@ -75,6 +75,13 @@ class AbstractFunctionalTest
         ;
         $I->haveInRepository($channel);
 
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH)
+        ;
+        $I->haveInRepository($mushChannel);
+
         $I->refreshEntities($daedalusInfo);
 
         $places = $this->createPlaces($I, $daedalus);

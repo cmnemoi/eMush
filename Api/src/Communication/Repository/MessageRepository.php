@@ -4,6 +4,7 @@ namespace Mush\Communication\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -38,5 +39,29 @@ class MessageRepository extends ServiceEntityRepository
         }
 
         return current($results);
+    }
+
+    public function findByChannel(Channel $channel, ?\DateInterval $ageLimit = null): array
+    {
+        $queryBuilder = $this->createQueryBuilder('message');
+
+        $queryBuilder
+            ->where($queryBuilder->expr()->eq('message.channel', ':channel'))
+            ->setParameter('channel', $channel)
+        ;
+
+        if ($ageLimit !== null) {
+            $timeLimit = new \DateTime();
+            $timeLimit->sub($ageLimit);
+
+            $queryBuilder
+                ->andWhere($queryBuilder->expr()->gte('message.createdAt', ':date'))
+                ->setParameter('date', $timeLimit)
+            ;
+        }
+
+        $queryBuilder->orderBy('message.createdAt', 'desc');
+
+        return $queryBuilder->getQuery()->getResult();
     }
 }

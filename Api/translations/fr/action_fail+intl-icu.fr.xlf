@@ -505,7 +505,7 @@
         <source>already_in_bed.description</source>
         <target>{character_gender, select,
             male {Vous êtes déjà couché.}
-            female {Vous êtes déjà couché.}
+            female {Vous êtes déjà couchée.}
             other {invalid gender input}
             }</target>
       </segment>

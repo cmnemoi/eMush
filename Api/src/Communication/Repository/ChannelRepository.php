@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 
@@ -46,5 +47,18 @@ class ChannelRepository extends ServiceEntityRepository
         }
 
         return new ArrayCollection($queryBuilder->getQuery()->getResult());
+    }
+
+    public function findMushChannelByDaedalus(Daedalus $daedalus): Channel
+    {
+        $queryBuilder = $this->createQueryBuilder('channel');
+        $queryBuilder->where($queryBuilder->expr()->eq('channel.daedalusInfo', ':daedalus'))
+            ->andWhere($queryBuilder->expr()->eq('channel.scope', ':scope'))
+            ->setParameter('scope', ChannelScopeEnum::MUSH)
+            ->setParameter('daedalus', $daedalus->getDaedalusInfo());
+
+        $result = $queryBuilder->getQuery()->getResult();
+
+        return $result[0];
     }
 }

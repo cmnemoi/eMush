@@ -1,42 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="neron.ext">
-    <unit id="player_enter_chat">
-      <segment id="player_enter_chat" state="translated">
-        <source>player_enter_chat</source>
-        <target>**{character}** a rejoint la discussion.</target>
-      </segment>
-    </unit>
-    <unit id="player_leave_chat">
-      <segment id="player_leave_chat" state="translated">
-        <source>player_leave_chat</source>
-        <target>{character_gender, select,
-                    male {**{character}** a quitté la discussion, il a fermé l'onglet.}
-                    female {**{character}** a quitté la discussion, elle a fermé l'onglet.}
-                    other {invalid gender input}
-                    }</target>
-      </segment>
-    </unit>
-    <unit id="player_leave_chat_death">
-      <segment id="player_leave_chat_death" state="translated">
-        <source>player_leave_chat_death</source>
-        <target>{character_gender, select,
-                    male {**{character}** a quitté la discussion, il a quitté notre monde.}
-                    female {**{character}** a quitté la discussion, elle a quitté notre monde.}
-                    other {invalid gender input}
-                    }</target>
-      </segment>
-    </unit>
-    <unit id="player_leave_chat_talky">
-      <segment id="player_leave_chat_talky" state="translated">
-        <source>player_leave_chat_talky</source>
-        <target>{character_gender, select,
-                    male {**{character}** a quitté la discussion, il a quitté la pièce et n'a pas de talky...}
-                    female {**{character}** a quitté la discussion, elle a quitté la pièce et n'a pas de talky...}
-                    other {invalid gender input}
-                    }</target>
-      </segment>
-    </unit>
     <unit id="cycle_failures">
       <segment id="cycle_failures" state="translated">
         <source>cycle_failures</source>

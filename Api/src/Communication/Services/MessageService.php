@@ -8,7 +8,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Event\MessageEvent;
+use Mush\Communication\Repository\MessageRepository;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -19,15 +21,18 @@ class MessageService implements MessageServiceInterface
     private EntityManagerInterface $entityManager;
     private DiseaseMessageServiceInterface $diseaseMessageService;
     private EventServiceInterface $eventService;
+    private MessageRepository $messageRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         DiseaseMessageServiceInterface $diseaseMessageService,
-        EventServiceInterface $eventService
+        EventServiceInterface $eventService,
+        MessageRepository $messageRepository
     ) {
         $this->entityManager = $entityManager;
         $this->diseaseMessageService = $diseaseMessageService;
         $this->eventService = $eventService;
+        $this->messageRepository = $messageRepository;
     }
 
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message
@@ -87,10 +92,12 @@ class MessageService implements MessageServiceInterface
 
     public function getChannelMessages(Player $player, Channel $channel): Collection
     {
-        return new ArrayCollection($this->entityManager
-            ->getRepository(Message::class)
-            ->findBy(['channel' => $channel, 'parent' => null], ['updatedAt' => 'desc']))
-        ;
+        $ageLimit = null;
+        if ($channel->getScope() === ChannelScopeEnum::MUSH) {
+            $ageLimit = new \DateInterval('PT24H');
+        }
+
+        return new ArrayCollection($this->messageRepository->findByChannel($channel, $ageLimit));
     }
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool

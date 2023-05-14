@@ -73,6 +73,11 @@ class Channel
         return ChannelScopeEnum::PUBLIC === $this->getScope();
     }
 
+    public function isScope(string $scope): bool
+    {
+        return $scope === $this->getScope();
+    }
+
     public function getParticipants(): Collection
     {
         return $this->participants;

@@ -69,6 +69,13 @@ class CreatePlayerServiceCest
         ;
         $I->haveInRepository($channel);
 
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::MUSH)
+        ;
+        $I->haveInRepository($mushChannel);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 

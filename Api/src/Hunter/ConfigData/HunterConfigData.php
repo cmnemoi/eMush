@@ -2,6 +2,8 @@
 
 namespace Mush\Hunter\ConfigData;
 
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 
@@ -23,6 +25,15 @@ class HunterConfigData
             'maxPerWave' => 2,
             'drawWeight' => 1,
             'spawnDifficulty' => 4,
+            'scrapDropTable' => [
+                ItemEnum::METAL_SCRAPS => 2,
+                ToolItemEnum::SPACE_CAPSULE => 1,
+            ],
+            'numberOfDroppedScrap' => [
+                1 => 1,
+                2 => 1,
+                3 => 1,
+            ],
         ],
         [
             'name' => HunterEnum::DICE . '_default',
@@ -41,6 +52,17 @@ class HunterConfigData
             'maxPerWave' => 1,
             'drawWeight' => 1,
             'spawnDifficulty' => 9,
+            'scrapDropTable' => [
+                ItemEnum::METAL_SCRAPS => 2,
+                ToolItemEnum::SPACE_CAPSULE => 2,
+                ItemEnum::PLASTIC_SCRAPS => 1,
+            ],
+            'numberOfDroppedScrap' => [
+                1 => 1,
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ],
         ],
         [
             'name' => HunterEnum::HUNTER . '_default',
@@ -58,6 +80,15 @@ class HunterConfigData
             'maxPerWave' => null,
             'drawWeight' => 10,
             'spawnDifficulty' => 0,
+            'scrapDropTable' => [
+                ItemEnum::METAL_SCRAPS => 2,
+                ToolItemEnum::SPACE_CAPSULE => 1,
+                ItemEnum::PLASTIC_SCRAPS => 1,
+            ],
+            'numberOfDroppedScrap' => [
+                1 => 1,
+                2 => 1,
+            ],
         ],
         [
             'name' => HunterEnum::SPIDER . '_default',
@@ -75,6 +106,15 @@ class HunterConfigData
             'maxPerWave' => 2,
             'drawWeight' => 1,
             'spawnDifficulty' => 4,
+            'scrapDropTable' => [
+                ItemEnum::METAL_SCRAPS => 2,
+                ToolItemEnum::SPACE_CAPSULE => 2,
+                ItemEnum::PLASTIC_SCRAPS => 1,
+            ],
+            'numberOfDroppedScrap' => [
+                1 => 1,
+                2 => 1,
+            ],
         ],
         [
             'name' => HunterEnum::TRAX . '_default',
@@ -91,6 +131,16 @@ class HunterConfigData
             'maxPerWave' => 2,
             'drawWeight' => 2,
             'spawnDifficulty' => 4,
+            'scrapDropTable' => [
+                ItemEnum::METAL_SCRAPS => 2,
+                ToolItemEnum::SPACE_CAPSULE => 1,
+                ItemEnum::PLASTIC_SCRAPS => 1,
+            ],
+            'numberOfDroppedScrap' => [
+                1 => 1,
+                2 => 1,
+                3 => 1,
+            ],
         ],
     ];
 }

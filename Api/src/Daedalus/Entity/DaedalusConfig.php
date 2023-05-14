@@ -32,7 +32,7 @@ class DaedalusConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $initShield = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $initHunterPoints = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]

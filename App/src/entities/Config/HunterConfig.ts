@@ -14,6 +14,8 @@ export class HunterConfig {
     public drawWeight: number|null;
     public spawnDifficulty: number|null;
     public initialStatuses: StatusConfig[]|null;
+    public scrapDropTable: Map<string, integer>|null;
+    public numberOfDroppedScrap: Map<integer, integer>|null;
 
     constructor() {
         this.iri = null;
@@ -29,6 +31,8 @@ export class HunterConfig {
         this.drawWeight = null;
         this.spawnDifficulty = null;
         this.initialStatuses = [];
+        this.scrapDropTable = new Map<string, integer>();
+        this.numberOfDroppedScrap = new Map<integer, integer>();
     }
     load(object:any) : HunterConfig {
         if (typeof object !== "undefined") {
@@ -58,6 +62,20 @@ export class HunterConfig {
                 });
                 this.initialStatuses = initialStatuses;
             }
+            if (typeof object.scrapDropTable !== 'undefined') {
+                for (const [key, value] of Object.entries(object.scrapDropTable)) {
+                    if (typeof key === 'string' && typeof value === 'number') {
+                        this.scrapDropTable?.set(key, value);
+                    }
+                }
+            }
+            if (typeof object.numberOfDroppedScrap !== 'undefined') {
+                for (const [key, value] of Object.entries(object.numberOfDroppedScrap)) {
+                    if (typeof key === 'string' && typeof value === 'number') {
+                        this.numberOfDroppedScrap?.set(Number(key), value);
+                    }
+                }
+            }
         }
         return this;
     }
@@ -69,6 +87,16 @@ export class HunterConfig {
         });
         const initialStatuses : string[] = [];
         this.initialStatuses?.forEach(statusConfig => (typeof statusConfig.iri === 'string' ? initialStatuses.push(statusConfig.iri) : null));
+        const scrapDropTable : object = {};
+        this.scrapDropTable?.forEach((value, key) => {
+            // @ts-ignore
+            scrapDropTable[key] = value;
+        });
+        const numberOfDroppedScrap : object = {};
+        this.numberOfDroppedScrap?.forEach((value, key) => {
+            // @ts-ignore
+            numberOfDroppedScrap[key] = value;
+        });
         return {
             "id": this.id,
             "name": this.name,
@@ -82,6 +110,8 @@ export class HunterConfig {
             "drawWeight": this.drawWeight,
             "spawnDifficulty": this.spawnDifficulty,
             "initialStatuses": initialStatuses,
+            "scrapDropTable": scrapDropTable,
+            "numberOfDroppedScrap": numberOfDroppedScrap,
         };
     }
     decode(jsonString : string): HunterConfig {

@@ -77,16 +77,16 @@ class DifficultyConfig
     #[ORM\Column(type: 'array', nullable: false)]
     private array $equipmentBreakRateDistribution;
 
-    #[ORM\Column(type: 'array', nullable: false)]
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
     private array $difficultyModes = [];
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $hunterSpawnRate = 0;
 
-    #[ORM\Column(type: 'array', nullable: false)]
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
     private array $hunterSafeCycles = [];
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $startingHuntersNumberOfTruceCycles = 0;
 
     public function __construct()

@@ -29,8 +29,8 @@ class HunterConfig
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
     private Collection $initialStatuses;
 
-    #[ORM\Column(type: 'array', nullable: false)]
-    private array $damageRange;
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    private array $damageRange = [];
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $hitChance;
@@ -49,6 +49,12 @@ class HunterConfig
 
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $spawnDifficulty;
+
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    private array $scrapDropTable = [];
+
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    private array $numberOfDroppedScrap = [];
 
     public function __construct()
     {
@@ -199,6 +205,38 @@ class HunterConfig
     public function setSpawnDifficulty(int $spawnDifficulty): static
     {
         $this->spawnDifficulty = $spawnDifficulty;
+
+        return $this;
+    }
+
+    public function getScrapDropTable(): ProbaCollection
+    {
+        return new ProbaCollection($this->scrapDropTable);
+    }
+
+    public function setScrapDropTable(array|ProbaCollection $scrapDropTable): static
+    {
+        if ($scrapDropTable instanceof ProbaCollection) {
+            $scrapDropTable = $scrapDropTable->toArray();
+        }
+
+        $this->scrapDropTable = $scrapDropTable;
+
+        return $this;
+    }
+
+    public function getNumberOfDroppedScrap(): ProbaCollection
+    {
+        return new ProbaCollection($this->numberOfDroppedScrap);
+    }
+
+    public function setNumberOfDroppedScrap(array|ProbaCollection $numberOfDroppedScrap): static
+    {
+        if ($numberOfDroppedScrap instanceof ProbaCollection) {
+            $numberOfDroppedScrap = $numberOfDroppedScrap->toArray();
+        }
+
+        $this->numberOfDroppedScrap = $numberOfDroppedScrap;
 
         return $this;
     }

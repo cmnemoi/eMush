@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
@@ -30,6 +31,7 @@ class HunterService implements HunterServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private LoggerInterface $logger;
     private RandomServiceInterface $randomService;
     private StatusService $statusService;
@@ -37,12 +39,14 @@ class HunterService implements HunterServiceInterface
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         LoggerInterface $logger,
         RandomServiceInterface $randomService,
         StatusService $statusService
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->logger = $logger;
         $this->randomService = $randomService;
         $this->statusService = $statusService;
@@ -77,6 +81,8 @@ class HunterService implements HunterServiceInterface
     public function killHunter(Hunter $hunter): void
     {
         $daedalus = $hunter->getDaedalus();
+
+        $this->dropScrap($hunter);
 
         $daedalus->getAttackingHunters()->removeElement($hunter);
         $this->entityManager->remove($hunter);
@@ -161,6 +167,25 @@ class HunterService implements HunterServiceInterface
         }
     }
 
+    private function dropScrap(Hunter $hunter): void
+    {
+        $scrapDropTable = $hunter->getHunterConfig()->getScrapDropTable();
+        $numberOfDroppedScrap = $hunter->getHunterConfig()->getNumberOfDroppedScrap();
+
+        $numberOfScrapToDrop = (int) $this->randomService->getSingleRandomElementFromProbaCollection($numberOfDroppedScrap);
+        $scrapToDrop = $this->randomService->getRandomElementsFromProbaCollection($scrapDropTable, $numberOfScrapToDrop);
+
+        foreach ($scrapToDrop as $scrap) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: $scrap,
+                equipmentHolder: $hunter->getSpace(),
+                reasons: [HunterEvent::HUNTER_DEATH],
+                time: new \DateTime(),
+                visibility: VisibilityEnum::HIDDEN
+            );
+        }
+    }
+
     private function getHunterProbaCollection(Daedalus $daedalus, ArrayCollection $hunterTypes): ProbaCollection
     {
         $difficultyMode = $daedalus->getDifficultyMode();
@@ -235,28 +260,14 @@ class HunterService implements HunterServiceInterface
         $this->entityManager->flush();
     }
 
-    private function putHunterInPool(Hunter $hunter): void
-    {
-        $hunter->putInPool();
-        $this->persistAndFlush([$hunter]);
-    }
-
-    private function removeAndFlush(array $objects): void
-    {
-        foreach ($objects as $object) {
-            $this->entityManager->remove($object);
-        }
-        $this->entityManager->flush();
-    }
-
     private function shootAtDaedalus(Hunter $hunter, int $damage): void
     {
         $daedalusVariableEvent = new DaedalusVariableEvent(
-            $hunter->getDaedalus(),
-            DaedalusVariableEnum::HULL,
-            -$damage,
-            [AbstractHunterEvent::MAKE_HUNTERS_SHOOT],
-            new \DateTime()
+            daedalus: $hunter->getDaedalus(),
+            variableName: DaedalusVariableEnum::HULL,
+            quantity: -$damage,
+            tags: [AbstractHunterEvent::MAKE_HUNTERS_SHOOT],
+            time: new \DateTime()
         );
 
         $this->eventService->callEvent($daedalusVariableEvent, VariableEventInterface::CHANGE_VARIABLE);

@@ -68,7 +68,7 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isCycleChange = false;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $dailyActionPointsSpent = 0;
 
     public function __construct()

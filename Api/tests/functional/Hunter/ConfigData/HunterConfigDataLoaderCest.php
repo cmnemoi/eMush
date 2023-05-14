@@ -24,6 +24,9 @@ class HunterConfigDataLoaderCest
             // can't test array attributes because of a bug in Codeception
             unset($hunterConfigData['damageRange']);
             unset($hunterConfigData['initialStatuses']);
+            unset($hunterConfigData['scrapDropTable']);
+            unset($hunterConfigData['numberOfDroppedScrap']);
+
             $I->seeInRepository(HunterConfig::class, $hunterConfigData);
         }
 
@@ -36,6 +39,8 @@ class HunterConfigDataLoaderCest
         // can't test array attributes because of a bug in Codeception
         unset($config['damageRange']);
         unset($config['initialStatuses']);
+        unset($config['scrapDropTable']);
+        unset($config['numberOfDroppedScrap']);
 
         $this->hunterConfigDataLoader->loadConfigsData();
 

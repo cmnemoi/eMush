@@ -77,6 +77,22 @@
             @addTuple="addDamage"
             @removeIndex="removeDamage"
         />
+        <MapManager
+            :label="$t('admin.hunterConfig.scrapDropTable')"
+            :map="hunterConfig.scrapDropTable"
+            mapIndexesType="string"
+            mapValuesType="number"
+            @addTuple="addScrapDrop"
+            @removeIndex="removeScrapDrop"
+        />
+        <MapManager
+            :label="$t('admin.hunterConfig.numberOfDroppedScrap')"
+            :map="hunterConfig.numberOfDroppedScrap"
+            mapIndexesType="string"
+            mapValuesType="number"
+            @addTuple="addNumberDrop"
+            @removeIndex="removeNumberDrop"
+        />
         <h3>{{ $t("admin.hunterConfig.initialStatuses") }}</h3>
         <ChildCollectionManager :children="hunterConfig.initialStatuses" @addId="addNewStatusConfig" @remove="removeStatusConfig">
             <template #header="child">
@@ -207,6 +223,34 @@ export default defineComponent({
                 return;
             }
             this.hunterConfig.damageRange.delete(key);
+        },
+        addScrapDrop(tuple: any[]): void {
+            if (this.hunterConfig === null || this.hunterConfig.scrapDropTable === null) {
+                return;
+            }
+            const key = tuple[0];
+            const value = tuple[1];
+            this.hunterConfig.scrapDropTable.set(key, value);
+        },
+        removeScrapDrop(key: string): void {
+            if (this.hunterConfig === null || this.hunterConfig.scrapDropTable === null) {
+                return;
+            }
+            this.hunterConfig.scrapDropTable.delete(key);
+        },
+        addNumberDrop(tuple: number[]): void {
+            if (this.hunterConfig === null || this.hunterConfig.numberOfDroppedScrap === null) {
+                return;
+            }
+            const key = tuple[0];
+            const value = tuple[1];
+            this.hunterConfig.numberOfDroppedScrap.set(key, value);
+        },
+        removeNumberDrop(key: number): void {
+            if (this.hunterConfig === null || this.hunterConfig.numberOfDroppedScrap === null) {
+                return;
+            }
+            this.hunterConfig.numberOfDroppedScrap.delete(key);
         },
         addNewStatusConfig(selectedId: integer){
             GameConfigService.loadStatusConfig(selectedId).then((res) => {

@@ -48,6 +48,8 @@ class HunterConfigDataLoader extends ConfigDataLoader
                 ->setMaxPerWave($hunterConfigData['maxPerWave'])
                 ->setDrawWeight($hunterConfigData['drawWeight'])
                 ->setSpawnDifficulty($hunterConfigData['spawnDifficulty'])
+                ->setScrapDropTable(new ProbaCollection($hunterConfigData['scrapDropTable']))
+                ->setNumberOfDroppedScrap($hunterConfigData['numberOfDroppedScrap'])
             ;
             $this->setHunterConfigInitialStatuses($hunterConfig, $hunterConfigData);
 

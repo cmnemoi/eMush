@@ -22,6 +22,10 @@ Mush\Hunter\Entity\HunterConfig:
       groups: [ 'hunter_config_read', 'hunter_config_write' ]
     spawnDifficulty:
       groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    scrapDropTable:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    numberOfDroppedScrap:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
     initialStatuses:
       groups: [ 'hunter_config_write' ]
  

@@ -6,6 +6,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\DifficultyConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\DifficultyConfig;
@@ -45,6 +47,15 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxPerWave(2)
             ->setDrawWeight(1)
             ->setSpawnDifficulty($difficultyConfig->getDifficultyModes()->get(DifficultyEnum::HARD))
+            ->setScrapDropTable(new ProbaCollection([
+                ItemEnum::METAL_SCRAPS => 2,
+                ItemEnum::PLASTIC_SCRAPS => 1,
+            ]))
+            ->setNumberOfDroppedScrap([
+                1 => 1,
+                2 => 1,
+                3 => 1,
+            ])
         ;
         $manager->persist($asteroid);
 
@@ -64,6 +75,17 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxPerWave(1)
             ->setDrawWeight(1)
             ->setSpawnDifficulty($difficultyConfig->getDifficultyModes()->get(DifficultyEnum::VERY_HARD))
+            ->setScrapDropTable(new ProbaCollection([
+                ItemEnum::METAL_SCRAPS => 2,
+                ToolItemEnum::SPACE_CAPSULE => 2,
+                ItemEnum::PLASTIC_SCRAPS => 1,
+            ]))
+            ->setNumberOfDroppedScrap([
+                1 => 1,
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
         ;
         $manager->persist($dice);
 
@@ -81,6 +103,15 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxPerWave(null)
             ->setDrawWeight(10)
             ->setSpawnDifficulty($difficultyConfig->getDifficultyModes()->get(DifficultyEnum::NORMAL))
+            ->setScrapDropTable(new ProbaCollection([
+                ItemEnum::METAL_SCRAPS => 2,
+                ToolItemEnum::SPACE_CAPSULE => 1,
+                ItemEnum::PLASTIC_SCRAPS => 1,
+            ]))
+            ->setNumberOfDroppedScrap([
+                1 => 1,
+                2 => 1,
+            ])
         ;
         $manager->persist($hunter);
 
@@ -98,6 +129,15 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxPerWave(null)
             ->setDrawWeight(10)
             ->setSpawnDifficulty($difficultyConfig->getDifficultyModes()->get(DifficultyEnum::HARD))
+            ->setScrapDropTable(new ProbaCollection([
+                ItemEnum::METAL_SCRAPS => 2,
+                ToolItemEnum::SPACE_CAPSULE => 2,
+                ItemEnum::PLASTIC_SCRAPS => 1,
+            ]))
+            ->setNumberOfDroppedScrap([
+                1 => 1,
+                2 => 1,
+            ])
         ;
         $manager->persist($spider);
 
@@ -115,6 +155,16 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxPerWave(2)
             ->setDrawWeight(2)
             ->setSpawnDifficulty($difficultyConfig->getDifficultyModes()->get(DifficultyEnum::VERY_HARD))
+            ->setScrapDropTable(new ProbaCollection([
+                ItemEnum::METAL_SCRAPS => 2,
+                ToolItemEnum::SPACE_CAPSULE => 1,
+                ItemEnum::PLASTIC_SCRAPS => 1,
+            ]))
+            ->setNumberOfDroppedScrap([
+                1 => 1,
+                2 => 1,
+                3 => 1,
+            ])
         ;
         $manager->persist($trax);
 

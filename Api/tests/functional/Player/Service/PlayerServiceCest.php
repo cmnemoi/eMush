@@ -2,6 +2,7 @@
 
 namespace functional\Player\Service;
 
+use App\Tests\AbstractFunctionalTest;
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -27,12 +28,14 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
-class PlayerServiceCest
+class PlayerServiceCest extends AbstractFunctionalTest
 {
     private PlayerService $playerService;
 
     public function _before(FunctionalTester $I)
-    {
+    {   
+        parent::_before($I);
+
         $this->playerService = $I->grabService(PlayerService::class);
     }
 
@@ -272,5 +275,18 @@ class PlayerServiceCest
         $I->assertCount(0, $room->getPlayers()->getPlayerAlive());
         $I->assertCount(0, $player->getEquipments());
         $I->assertCount(1, $room->getEquipments());
+    }
+
+    public function testHandleNewCyclePointsEarned(FunctionalTester $I)
+    {   
+        $this->player1->setActionPoint(10);
+        $this->player1->setMovementPoint(10);
+
+        $I->refreshEntities($this->player1);
+
+        $this->playerService->handleNewCycle($this->player1, new \DateTime());
+
+        $I->assertEquals(11, $this->player1->getActionPoint());
+        $I->assertEquals(11, $this->player1->getMovementPoint());
     }
 }

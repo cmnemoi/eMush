@@ -311,7 +311,10 @@
 			"tremorPlayerDamage": "Tremor damage on players (damage => probability)",
 			"metalPlatePlayerDamage": "Metal plate damage on players (damage => probability)",
 			"panicCrisisPlayerDamage": "Panic attack damage on players (damage => probability)",
-			"difficultyModes": "Modes de difficulté (nom => jour de déclenchement)"
+			"difficultyModes": "Modes de difficulté (nom => jour de déclenchement)",
+			"hunterSpawnRate": "Taux d'apparition des hunters au changement de cycle",
+			"hunterSafeCycles": "Cycles où les hunters ne peuvent apparaître",
+			"startingHuntersTruceCycles": "Nombre de cycles avant l'apparition de nouveaux hunters au début de la partie"
 		},
 		"characterConfig": {
 			"name": "Name",
@@ -498,15 +501,16 @@
 			"name": "Nom complet",
 			"hunterName": "Nom",
 			"initialHealth": "Vie initiale",
-			"initialCharge": "Charges initiales",
-			"initialArmor": "Armure initiale",
-			"minDamage": "Dégâts minimaux",
-			"maxDamage": "Dégâts maximaux",
+			"damageRange": "Dégâts (PV retirés => probabilité)",
 			"hitChance": "Probabilité de toucher",
 			"dodgeChance": "Probabilité d'esquiver",
 			"drawCost": "Coût à tirer",
-			"maxPerWave": "Nombre maximum par vague",
-			"drawWeight": "Probabilité (poids) d'être tiré à chaque vague"
+			"maxPerWave": "Nombre maximum par vague (vide = infini)",
+			"drawWeight": "Probabilité (poids) d'être tiré à chaque vague",
+			"initialStatuses": "Status de départ",
+			"scrapDropTable": "Table des débris laissés à la mort (débris => probabilité)",
+			"spawnDifficulty": "Jour d'apparition",
+			"numberOfDroppedScrap": "Nombre de débris laissés à la mort (nombre => probabilité)"
 		}
 	},
 	"charSelection": {

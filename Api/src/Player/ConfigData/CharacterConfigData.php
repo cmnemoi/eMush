@@ -51,6 +51,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -105,6 +106,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -158,6 +160,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -213,6 +216,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -269,6 +273,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [
                 'chronic_vertigo_default',
@@ -324,6 +329,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [],
@@ -378,6 +384,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -432,6 +439,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -486,6 +494,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -540,6 +549,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -596,6 +606,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -650,6 +661,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -704,6 +716,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -758,6 +771,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -811,6 +825,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -867,6 +882,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -921,6 +937,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -975,6 +992,7 @@ class CharacterConfigData
                 'suicide',
                 'surgery',
                 'kill_player',
+                'rejuvenate_alpha',
             ],
             'initDiseases' => [],
             'startingItems' => [

@@ -50,6 +50,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
     public const ASTEROID_CHARGE = 'asteroid_charge';
     public const HUNTER_CHARGE = 'hunter_charge';
+    public const HAS_REJUVENATED = 'has_rejuvenated';
 
     public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
 
@@ -350,6 +351,18 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($hunterCharge);
 
+        $rejuvenationCharge = new ChargeStatusConfig();
+        $rejuvenationCharge
+            ->setStatusName(PlayerStatusEnum::HAS_REJUVENATED)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setStartCharge(1)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($rejuvenationCharge);
+
         $gameConfig
             ->addStatusConfig($attemptConfig)
             ->addStatusConfig($scooterCharge)
@@ -374,6 +387,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($already_washed_in_the_sink)
             ->addStatusConfig($asteroidCharge)
             ->addStatusConfig($hunterCharge)
+            ->addStatusConfig($rejuvenationCharge)
         ;
         $manager->persist($gameConfig);
 

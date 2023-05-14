@@ -19,4 +19,6 @@ class HasStatus extends ClassConstraint
 
     // check on the owner side, if false check target side of the status
     public bool $ownerSide = true;
+
+    public bool $bypassIfUserIsAdmin = false;
 }

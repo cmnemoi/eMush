@@ -4,7 +4,9 @@ namespace Mush\Status\ConfigData;
 
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\HunterStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 /** @codeCoverageIgnore */
 class StatusConfigData
@@ -865,6 +867,19 @@ class StatusConfigData
             'chargeVisibility' => VisibilityEnum::HIDDEN,
             'chargeStrategy' => 'cycle_decrement',
             'maxCharge' => 0,
+            'startCharge' => 1,
+            'dischargeStrategy' => 'none',
+            'autoRemove' => true,
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => PlayerStatusEnum::HAS_REJUVENATED . '_default',
+            'statusName' => PlayerStatusEnum::HAS_REJUVENATED,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::DAILY_DECREMENT,
+            'maxCharge' => 1,
             'startCharge' => 1,
             'dischargeStrategy' => 'none',
             'autoRemove' => true,

@@ -5,11 +5,16 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Validator\HasStatus;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class RejuvenateAlpha extends AbstractAction
 {
@@ -18,6 +23,18 @@ class RejuvenateAlpha extends AbstractAction
     protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter === null;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(new HasStatus([
+            'status' => PlayerStatusEnum::HAS_REJUVENATED,
+            'contain' => false,
+            'target' => HasStatus::PLAYER,
+            'groups' => ['execute'],
+            'bypassIfUserIsAdmin' => true,
+            'message' => ActionImpossibleCauseEnum::DAILY_LIMIT,
+        ]));
     }
 
     protected function checkResult(): ActionResult
@@ -31,6 +48,15 @@ class RejuvenateAlpha extends AbstractAction
         $this->dispatchSetToMaxEvent(PlayerVariableEnum::MORAL_POINT);
         $this->dispatchSetToMaxEvent(PlayerVariableEnum::ACTION_POINT);
         $this->dispatchSetToMaxEvent(PlayerVariableEnum::MOVEMENT_POINT);
+
+        $statusEvent = new StatusEvent(
+            PlayerStatusEnum::HAS_REJUVENATED,
+            $this->player,
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
+        );
+
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     private function dispatchSetToMaxEvent(string $variable): void

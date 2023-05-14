@@ -13,6 +13,7 @@ use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -572,17 +573,14 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_daedalus_+1movementPoint_on_change.variable_if_reason_new_cycle',
             'modifierName' => null,
-            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
             'applyOnTarget' => true,
             'modifierRange' => 'player',
-            'type' => 'variable_event_modifier',
-            'triggeredEvent' => null,
-            'visibility' => null,
-            'delta' => 1.0,
-            'targetVariable' => 'movementPoint',
-            'mode' => 'additive',
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
+            'triggeredEvent' => 'change.variable_player_1_movementPoint',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => ['base_player_cycle_change' => ModifierRequirementEnum::ANY_TAGS],
+            'tagConstraints' => [],
         ],
         [
             'name' => 'modifier_for_daedalus_+1oxygen_on_change.variable_if_reason_new_cycle',

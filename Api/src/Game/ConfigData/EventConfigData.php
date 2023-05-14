@@ -76,6 +76,14 @@ class EventConfigData
         ],
         [
             'type' => 'variable_event_config',
+            'quantity' => 1,
+            'targetVariable' => PlayerVariableEnum::MOVEMENT_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
+            'name' => 'change.value.max_player_1_movementPoint',
+        ],
+        [
+            'type' => 'variable_event_config',
             'quantity' => -3,
             'targetVariable' => PlayerVariableEnum::MOVEMENT_POINT,
             'variableHolderClass' => ModifierHolderClassEnum::PLAYER,

@@ -5,6 +5,9 @@ namespace functional\Daedalus\Service;
 use App\Tests\AbstractFunctionalTest;
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Service\DaedalusService;
+use Mush\Game\Enum\CharacterEnum;
+use Mush\Player\Entity\Player;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class DaedalusServiceCest extends AbstractFunctionalTest
 {
@@ -29,6 +32,18 @@ class DaedalusServiceCest extends AbstractFunctionalTest
 
         $I->assertCount(2, $nonFinishedDaedaluses);
         $I->assertCount(1, $lockedUpDaedaluses);
+    }
+
+    public function testSelectAlphaMushChunNotPicked(FunctionalTester $I)
+    {
+        // test with 60 iterations Chun is not alpha mush because mush selection is random
+        for ($i = 0; $i < 60; ++$i) {
+            $this->daedalus = $this->daedalusService->selectAlphaMush($this->daedalus, new \DateTime());
+
+            /** @var Player $chun */
+            $chun = $this->daedalus->getPlayers()->filter(fn (Player $player) => $player->getName() === CharacterEnum::CHUN)->first();
+            $I->assertNull($chun->getStatusByName(PlayerStatusEnum::MUSH));
+        }
     }
 
     public function testSkipCycleChange(FunctionalTester $I)

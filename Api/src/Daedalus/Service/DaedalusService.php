@@ -288,16 +288,19 @@ class DaedalusService implements DaedalusServiceInterface
         // Chose alpha Mushs
         $chancesArray = [];
 
+        /** @var CharacterConfig $characterConfig */
         foreach ($gameConfig->getCharactersConfig() as $characterConfig) {
+            if ($characterConfig
+                    ->getInitStatuses()
+                    ->map(fn (StatusConfig $statusConfig) => $statusConfig->getStatusName())
+                    ->contains(PlayerStatusEnum::IMMUNIZED)
+            ) {
+                continue;
+            }
+
             // @TODO lower $mushChance if user is a beginner
             // @TODO (maybe add a "I want to be mush" setting to increase this proba)
-
             $mushChance = 1;
-            if (!$characterConfig->getInitStatuses()
-                ->filter(fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === PlayerStatusEnum::IMMUNIZED)->isEmpty()
-            ) {
-                $mushChance = 0;
-            }
             $chancesArray[$characterConfig->getCharacterName()] = $mushChance;
         }
 

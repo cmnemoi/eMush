@@ -109,17 +109,21 @@ chmod go+r config/jwt/private.pem
 ```
 Use mush as passphrase or update the .env with your passphrase
 
+Create 18 Eternaltwin accounts named by eMush characters with the password `1234567891` : 
+```bash
+php bin/console mush:create-crew
+```
+
 If everything went well you should be able to access:
   - Swagger : http://localhost:8080/swagger/
   - Front end : http://localhost
 
-`make install` creates 18 Eternaltwin accounts named by eMush characters with the password `1234567891`.
-
-For example you can use the following credentials to login :
+Use the following credentials to login :
 ```
 username : andie
 password : 1234567891
 ```
+
 ## Installing without Docker
 Clone repository https://gitlab.com/eternaltwin/mush/mush.git
 

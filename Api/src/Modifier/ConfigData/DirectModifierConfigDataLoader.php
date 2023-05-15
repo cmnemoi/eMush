@@ -21,6 +21,7 @@ class DirectModifierConfigDataLoader extends ModifierConfigDataLoader
                 $modifierConfig = new DirectModifierConfig($configName);
             } elseif (!($modifierConfig instanceof DirectModifierConfig)) {
                 $this->entityManager->remove($modifierConfig);
+                $this->entityManager->flush();
                 $modifierConfig = new DirectModifierConfig($configName);
             }
 

@@ -20,6 +20,7 @@ class VariableEventModifierConfigDataLoader extends ModifierConfigDataLoader
                 $modifierConfig = new VariableEventModifierConfig($configName);
             } elseif (!($modifierConfig instanceof VariableEventModifierConfig)) {
                 $this->entityManager->remove($modifierConfig);
+                $this->entityManager->flush();
                 $modifierConfig = new VariableEventModifierConfig($configName);
             }
 

@@ -21,6 +21,7 @@ class TriggerEventModifierConfigDataLoader extends ModifierConfigDataLoader
                 $modifierConfig = new TriggerEventModifierConfig($configName);
             } elseif (!($modifierConfig instanceof TriggerEventModifierConfig)) {
                 $this->entityManager->remove($modifierConfig);
+                $this->entityManager->flush();
                 $modifierConfig = new TriggerEventModifierConfig($configName);
             }
 

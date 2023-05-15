@@ -5,7 +5,7 @@ drop:
 	php bin/console doctrine:schema:drop --force --full-database
 
 load-data:
-	php bin/console mush:migrate --dev
+	php bin/console mush:load-configs-data
 
 lint:
 	vendor/bin/php-cs-fixer fix

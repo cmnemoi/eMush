@@ -575,7 +575,7 @@ class ModifierConfigData
             'modifierName' => null,
             'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
             'applyOnTarget' => true,
-            'modifierRange' => 'player',
+            'modifierRange' => 'daedalus',
             'type' => 'trigger_event_modifier',
             'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_1_movementPoint',

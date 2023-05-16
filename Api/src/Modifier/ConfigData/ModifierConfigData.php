@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
@@ -13,7 +14,6 @@ use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -573,7 +573,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_daedalus_+1movementPoint_on_change.variable_if_reason_new_cycle',
             'modifierName' => null,
-            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
+            'targetEvent' => DaedalusCycleEvent::DAEDALUS_NEW_CYCLE,
             'applyOnTarget' => true,
             'modifierRange' => 'daedalus',
             'type' => 'trigger_event_modifier',

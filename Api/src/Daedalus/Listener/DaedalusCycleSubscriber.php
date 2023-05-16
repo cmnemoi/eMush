@@ -39,7 +39,10 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => [['updateDaedalusCycle', 1000], ['triggerEvents', 0]],
+            DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => [
+                ['updateDaedalusCycle', 1000],
+                ['triggerEvents', 0],
+            ],
         ];
     }
 

@@ -47,6 +47,7 @@ class MessageRepository extends ServiceEntityRepository
 
         $queryBuilder
             ->where($queryBuilder->expr()->eq('message.channel', ':channel'))
+            ->andWhere($queryBuilder->expr()->isNull('message.parent'))
             ->setParameter('channel', $channel)
         ;
 

@@ -54,7 +54,7 @@
                                 ></path>
                             </svg>
                             <a
-                                :href="`https://gitlab.com/eternaltwin/mush/mush/-/tags/${version}`"
+                                :href="`https://gitlab.com/eternaltwin/mush/mush/-/releases/${version}`"
                                 target="_blank"
                             >
                                 {{ version }}

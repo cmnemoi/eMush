@@ -10,3 +10,5 @@ Mush\Daedalus\Entity\ClosedDaedalus:
       groups: [ 'closed_daedalus_read' ]
     players:
       groups: [ 'closed_daedalus_read' ]
+    numberOfHuntersKilled:
+      groups: [ 'closed_daedalus_read' ]

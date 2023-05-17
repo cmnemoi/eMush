@@ -176,13 +176,13 @@
                     <p>18</p>
                 </div>
                 <div>
-                    <p>Hunters abattus</p>
-                    <p>126</p>
-                </div>
-                <div>
                     <p>Spores générés</p>
                     <p>0</p>
                 </div> -->
+                <div>
+                    <p>{{ $t("theEnd.numberOfHuntersKilled")  }}</p>
+                    <p>{{ closedDaedalus.numberOfHuntersKilled }}</p>
+                </div>
                 <div> 
                     <p>{{ $t("theEnd.amountOfMushPlayers") }}</p>
                     <p>{{ getAmountOfMushPlayers() }}</p>

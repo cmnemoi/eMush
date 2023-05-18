@@ -61,7 +61,7 @@ class MessageRepository extends ServiceEntityRepository
             ;
         }
 
-        $queryBuilder->orderBy('message.createdAt', 'desc');
+        $queryBuilder->orderBy('message.updatedAt', 'desc');
 
         return $queryBuilder->getQuery()->getResult();
     }

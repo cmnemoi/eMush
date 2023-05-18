@@ -780,5 +780,15 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         <target>Lets you relax a little by smashing some Space PewPewz. It's so good... however, the game's difficulty level is... monstrous!</target>
       </segment>
     </unit>
+    <unit id="shoot_hunter">
+      <segment id="name" state="final">
+        <source>shoot_hunter.name</source>
+        <target>Fire</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>shoot_hunter.description</source>
+        <target>Fire a Teslatron charge at an enemy ship.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

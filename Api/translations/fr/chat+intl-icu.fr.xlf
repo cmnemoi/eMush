@@ -51,7 +51,7 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
       </segment>
       <segment id="description" state="translated">
         <source>mush.description</source>
-        <target>__TODO__ Les phéromones mush permettent de communiquer au seins de l'équipe mush.</target>
+        <target>Les phéromones Mush vous permettent de communiquer au sein de l'équipe Mush.</target>
       </segment>
     </unit>
     <unit id="new">

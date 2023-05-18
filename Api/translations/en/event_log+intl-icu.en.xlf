@@ -459,5 +459,53 @@
         <target>What you just witnessed shocked you. You will never be the same again.</target>
       </segment>
     </unit>
+    <unit id="hunter_death">
+      <segment id="hunter_death" state="translated">
+        <source>hunter_death</source>
+        <target>:triumph: **{character}** did a little victory dance to celebrate *one less {hunter}*.</target>
+      </segment>
+    </unit>
+    <unit id="infect_action">
+       <segment id="infect_action" state="translated">
+         <source>infect_action</source>
+         <target>**{target_character}** has been contaminated by a spore from **{character}**. Their contamination level is currently **{quantity}**.</target>
+       </segment>
+    </unit>
+      <unit id="infect_trap">
+          <segment id="infect_trap" state="translated">
+              <source>infect_trap</source>
+              <target>**{target_character}** was contaminated by opening a shelf trapped by **{character}**. Their contamination level is now **{quantity}**.</target>
+          </segment>
+      </unit>
+      <unit id="infect_std">
+          <segment id="infect_std" state="translated">
+              <source>infect_std</source>
+              <target>**{target_character}** has been contaminated by doing it with **{character}**. Their contamination level is now **{quantity}**.</target>
+          </segment>
+      </unit>
+      <unit id="infect_cat">
+          <segment id="infect_cat" state="translated">
+              <source>infect_cat</source>
+              <target>**{target_character}** has been infected by **{character}** by picking up *Schrödinger*. Their contamination level is now **{quantity}**.</target>
+          </segment>
+      </unit>
+      <unit id="infect_mush_raid">
+          <segment id="infect_mush_raid" state="translated">
+              <source>infect_mush_raid</source>
+              <target>**{character}** has been contaminated by a Mush raid during exploration. Their contamination level is now **{quantity}**.</target>
+          </segment>
+      </unit>
+      <unit id="infect_trapped_ration">
+          <segment id="infect_trapped_ration" state="translated">
+              <source>infect_trapped_ration</source>
+              <target>**{target_character}** has been infected by a meal contaminated by **{character}**. Their contamination level is currently **{quantity}**.</target>
+          </segment>
+      </unit>
+    <unit id="mush_convert_event">
+       <segment id="mush_convert_event" state="translated">
+         <source>mush_convert_event</source>
+            <target>Welcome to Mush, **{character}**. You have been awarded *{quantity} Glory points*.</target>
+       </segment>
+    </unit>
   </file>
 </xliff>

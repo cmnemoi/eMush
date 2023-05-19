@@ -6,5 +6,5 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 
 interface ModifierRequirementServiceInterface
 {
-    public function getActiveModifiers(ModifierCollection $modifiers, array $reasons): ModifierCollection;
+    public function getActiveModifiers(ModifierCollection $modifiers): ModifierCollection;
 }

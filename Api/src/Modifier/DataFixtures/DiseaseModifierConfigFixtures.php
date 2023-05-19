@@ -103,7 +103,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($randActivationRequirement50);
 
-        $lyingDownActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PLAYER_STATUS);
+        $lyingDownActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::STATUS);
         $lyingDownActivationRequirement
             ->setActivationRequirement(PlayerStatusEnum::LYING_DOWN)
             ->buildName()

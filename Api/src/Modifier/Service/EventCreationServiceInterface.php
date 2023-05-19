@@ -10,7 +10,7 @@ interface EventCreationServiceInterface
 {
     public function createEvents(
         AbstractEventConfig $eventConfig,
-        ModifierHolder $modifierRange,
+        ModifierHolder $modifierHolder,
         ?Player $player,
         array $tags,
         \DateTime $time,

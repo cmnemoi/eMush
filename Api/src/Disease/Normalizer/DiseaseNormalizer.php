@@ -10,9 +10,12 @@ use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -72,11 +75,21 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         // first get symptom effects
         $symptomEffects = [];
         /** @var SymptomConfig $symptomConfig */
-        foreach ($diseaseConfig->getSymptomConfigs() as $symptomConfig) {
-            $name = $symptomConfig->getSymptomName();
 
-            $randomActivationRequirement = $symptomConfig->getSymptomActivationRequirements()
-                ->filter(fn (SymptomActivationRequirement $activationRequirement) => $activationRequirement->getActivationRequirementName() === SymptomActivationRequirementEnum::RANDOM);
+        $symptomModifiers = $diseaseConfig->getModifierConfigs()->filter( fn (AbstractModifierConfig $modifierConfig) => (
+            $modifierConfig instanceof TriggerEventModifierConfig &&
+            $modifierConfig->getTriggeredEvent() instanceof SymptomConfig
+        ));
+
+        /** @var TriggerEventModifierConfig $symptomModifier */
+        foreach ($symptomModifiers as $symptomModifier) {
+            /** @var SymptomConfig $symptomConfig */
+            $symptomConfig = $symptomModifier->getTriggeredEvent();
+
+            $name = $symptomConfig->getEventName();
+
+            $randomActivationRequirement = $symptomModifier->getModifierActivationRequirements()
+                ->filter(fn (ModifierActivationRequirement $activationRequirement) => $activationRequirement->getActivationRequirementName() === ModifierRequirementEnum::RANDOM);
             if (!$randomActivationRequirement->isEmpty()) {
                 $chance = $randomActivationRequirement->first()->getValue();
             } else {
@@ -188,7 +201,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
             /** @var VariableEventConfig $triggeredEvent */
             $triggeredEvent = $modifierConfig->getTriggeredEvent();
             if ($triggeredEvent->getVariableHolderClass() !== 'player') {
-                throw new \Exception('Disease DirectModifierConfig should be held only by a player, not a ' . $triggeredEvent->getVariableHolderClass() . '');
+                throw new \Exception('Disease DirectModifierConfig should be held only by a player, not a ' . $triggeredEvent->getVariableHolderClass() . '.');
             }
             $eventName = $triggeredEvent->getEventName();
             switch ($eventName) {

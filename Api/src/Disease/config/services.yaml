@@ -14,7 +14,10 @@ services:
       - '../Entity/'
       - '../Kernel.php'
       - '../Tests/'
-  
+  Mush\Disease\SymptomHandler\:
+    resource: '../SymptomHandler/'
+    tags: [ 'mush.disease.symptom_handler' ]
+
   Mush\Disease\ConfigData\ConsumableDiseaseConfigDataLoader:
     public: true
   Mush\Disease\ConfigData\DiseaseCauseConfigDataLoader:

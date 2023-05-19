@@ -55,7 +55,7 @@ class EventService implements EventServiceInterface
     private function applyModifiers(AbstractGameEvent $event, bool $dispatch = true): ?AbstractGameEvent
     {
         $modifiers = $event->getModifiers();
-        $modifiers = $this->modifierRequirementService->getActiveModifiers($modifiers, $event->getTags());
+        $modifiers = $this->modifierRequirementService->getActiveModifiers($modifiers);
 
         $replaceEventModifiers = $modifiers->getTriggerEventModifiersReplace();
         $event = $this->applyReplaceModifiers($replaceEventModifiers, $event, true);
@@ -197,7 +197,7 @@ class EventService implements EventServiceInterface
         $event->setEventName($name);
 
         $modifiers = $event->getModifiers();
-        $modifiers = $this->modifierRequirementService->getActiveModifiers($modifiers, $event->getTags());
+        $modifiers = $this->modifierRequirementService->getActiveModifiers($modifiers);
         $preventModifiers = $modifiers->getTriggerEventModifiersReplace()->filter(
             fn (GameModifier $modifier) => (
                 ($modifierConfig = $modifier->getModifierConfig()) instanceof TriggerEventModifierConfig &&

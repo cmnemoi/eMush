@@ -5,6 +5,7 @@ namespace Mush\Modifier\ConfigData;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -1154,6 +1155,76 @@ class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'cant_move_ON_move_default',
+            'modifierName' => 'cant_move',
+            'targetEvent' => ActionEvent::PRE_ACTION,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'trigger_event_modifier',
+            'triggeredEvent' => null,
+            'replaceEvent' => true,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'cant_pick_up_heavy_items_ON_take_default',
+            'modifierName' => 'cant_pick_up_heavy_items',
+            'targetEvent' => ActionEvent::PRE_ACTION,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'trigger_event_modifier',
+            'triggeredEvent' => null,
+            'replaceEvent' => true,
+            'modifierActivationRequirements' => ['item_status_heavy'],
+            'tagConstraints' => [
+                ActionEnum::TAKE => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'no_attack_actions_ON_action_attack_default',
+            'symptomName' => 'no_attack_actions',
+            'targetEvent' => ActionEvent::PRE_ACTION,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'trigger_event_modifier',
+            'triggeredEvent' => null,
+            'replaceEvent' => true,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_ATTACK => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'no_piloting_actions_ON_action_pilot_default',
+            'symptomName' => 'no_piloting_actions',
+            'targetEvent' => ActionEvent::PRE_ACTION,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'trigger_event_modifier',
+            'triggeredEvent' => null,
+            'replaceEvent' => true,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_PILOT => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'no_shoot_actions_ON_action_shoot_default',
+            'symptomName' => 'no_shoot_actions',
+            'targetEvent' => ActionEvent::PRE_ACTION,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'trigger_event_modifier',
+            'triggeredEvent' => null,
+            'replaceEvent' => true,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
     ];

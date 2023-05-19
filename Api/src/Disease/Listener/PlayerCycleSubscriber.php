@@ -2,10 +2,7 @@
 
 namespace Mush\Disease\Listener;
 
-use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Mush\Game\Enum\EventEnum;
-use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerCycleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

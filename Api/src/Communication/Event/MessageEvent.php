@@ -10,7 +10,6 @@ use Mush\Player\Entity\PlayerInfo;
 class MessageEvent extends AbstractGameEvent
 {
     public const NEW_MESSAGE = 'new_message';
-
     private Message $message;
 
     public function __construct(Message $message, array $tags, \DateTime $time)

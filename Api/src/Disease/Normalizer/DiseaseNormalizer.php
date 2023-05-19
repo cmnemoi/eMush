@@ -3,7 +3,6 @@
 namespace Mush\Disease\Normalizer;
 
 use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\SymptomActivationRequirementEnum;
@@ -75,8 +74,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         // first get symptom effects
         $symptomEffects = [];
         /** @var SymptomConfig $symptomConfig */
-
-        $symptomModifiers = $diseaseConfig->getModifierConfigs()->filter( fn (AbstractModifierConfig $modifierConfig) => (
+        $symptomModifiers = $diseaseConfig->getModifierConfigs()->filter(fn (AbstractModifierConfig $modifierConfig) => (
             $modifierConfig instanceof TriggerEventModifierConfig &&
             $modifierConfig->getTriggeredEvent() instanceof SymptomConfig
         ));

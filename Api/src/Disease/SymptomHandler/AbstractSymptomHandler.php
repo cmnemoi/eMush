@@ -2,9 +2,6 @@
 
 namespace Mush\Disease\SymptomHandler;
 
-use Mush\Game\Event\AbstractGameEvent;
-use Mush\Player\Entity\Player;
-
 abstract class AbstractSymptomHandler
 {
     protected string $name = '';

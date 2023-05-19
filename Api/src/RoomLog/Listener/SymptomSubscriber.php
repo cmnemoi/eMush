@@ -2,14 +2,10 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Event\SymptomEvent;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -26,7 +22,6 @@ class SymptomSubscriber implements EventSubscriberInterface
         SymptomEnum::SNEEZING => SymptomEnum::SNEEZING,
         SymptomEnum::VOMITING => SymptomEnum::VOMITING,
     ];
-
 
     private RoomLogServiceInterface $roomLogService;
 

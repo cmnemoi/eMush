@@ -51,8 +51,6 @@ class PlaceInitSubscriber implements EventSubscriberInterface
         }
 
         // initialize doors
-        $doorConfig = $this->equipmentService->findByNameAndDaedalus(EquipmentEnum::DOOR, $daedalus);
-
         // @FIXME how to simplify that?
         foreach ($placeConfig->getDoors() as $doorName) {
             if (
@@ -68,6 +66,11 @@ class PlaceInitSubscriber implements EventSubscriberInterface
                     return $door->getName() === $doorName;
                 })->first();
             } else { // else create new door
+                if ($doorName === EquipmentEnum::PATROLSHIP_DOOR) {
+                    $doorConfig = $this->equipmentService->findByNameAndDaedalus(EquipmentEnum::PATROLSHIP_DOOR, $daedalus);
+                } else {
+                    $doorConfig = $this->equipmentService->findByNameAndDaedalus(EquipmentEnum::DOOR, $daedalus);
+                }
                 $door = new Door($place);
                 $door
                     ->setName($doorName)

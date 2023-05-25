@@ -3,6 +3,7 @@
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
 
 /** @codeCoverageIgnore */
 class EquipmentConfigData
@@ -2522,6 +2523,22 @@ class EquipmentConfigData
                 'sabotage_percent_25',
                 'report_equipment',
                 'examine',
+            ],
+            'mechanics' => [],
+            'initStatuses' => [],
+        ],
+        [
+            'name' => EquipmentEnum::PATROLSHIP_DOOR . '_default',
+            'equipmentName' => EquipmentEnum::PATROLSHIP_DOOR,
+            'isBreakable' => false,
+            'isFireDestroyable' => false,
+            'isFireBreakable' => false,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'equipment_config',
+            'isStackable' => null,
+            'actions' => [
+                ActionEnum::TAKEOFF,
             ],
             'mechanics' => [],
             'initStatuses' => [],

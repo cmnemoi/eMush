@@ -33,6 +33,14 @@ class RoomEnum
     public const CENTER_BRAVO_STORAGE = 'center_bravo_storage';
     public const REAR_BRAVO_STORAGE = 'rear_bravo_storage';
     public const SPACE = 'space';
+    public const PATROL_SHIP_ALPHA_LONGANE = 'patrol_ship_alpha_longane';
+    public const PATROL_SHIP_ALPHA_JUJUBE = 'patrol_ship_alpha_jujube';
+    public const PATROL_SHIP_ALPHA_TAMARIN = 'patrol_ship_alpha_tamarin';
+    public const PATROL_SHIP_BRAVO_SOCRATE = 'patrol_ship_bravo_socrate';
+    public const PATROL_SHIP_BRAVO_EPICURE = 'patrol_ship_bravo_epicure';
+    public const PATROL_SHIP_BRAVO_PLANTON = 'patrol_ship_bravo_planton';
+    public const PATROL_SHIP_ALPHA_2_WALLIS = 'patrol_ship_alpha_2_wallis';
+    public const PASIPHAE = 'pasiphae';
 
     public static function getAllDaedalusRooms(): array
     {
@@ -75,6 +83,20 @@ class RoomEnum
             self::REAR_ALPHA_STORAGE,
             self::CENTER_BRAVO_STORAGE,
             self::REAR_BRAVO_STORAGE,
+        ];
+    }
+
+    public static function getPatrolships(): array
+    {
+        return [
+            self::PATROL_SHIP_ALPHA_LONGANE,
+            self::PATROL_SHIP_ALPHA_JUJUBE,
+            self::PATROL_SHIP_ALPHA_TAMARIN,
+            self::PATROL_SHIP_BRAVO_SOCRATE,
+            self::PATROL_SHIP_BRAVO_EPICURE,
+            self::PATROL_SHIP_BRAVO_PLANTON,
+            self::PATROL_SHIP_ALPHA_2_WALLIS,
+            self::PASIPHAE,
         ];
     }
 }

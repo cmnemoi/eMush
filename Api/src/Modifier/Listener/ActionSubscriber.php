@@ -57,6 +57,10 @@ class ActionSubscriber implements EventSubscriberInterface
                 $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
                 $this->equipmentModifierService->equipmentEnterRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
                 break;
+            case ActionEnum::LAND:
+                $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
+                $this->equipmentModifierService->equipmentEnterRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
+                break;
         }
     }
 
@@ -80,6 +84,10 @@ class ActionSubscriber implements EventSubscriberInterface
 
                 break;
             case ActionEnum::TAKEOFF:
+                $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
+                $this->equipmentModifierService->equipmentLeaveRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
+                break;
+            case ActionEnum::LAND:
                 $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
                 $this->equipmentModifierService->equipmentLeaveRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
                 break;

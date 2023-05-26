@@ -570,6 +570,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setType(PlaceTypeEnum::PATROL_SHIP)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
+        $manager->persist($patrolship_alpha_2_wallis);
 
         $patrolship_alpha_longane = new PlaceConfig();
         $patrolship_alpha_longane
@@ -577,6 +578,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setType(PlaceTypeEnum::PATROL_SHIP)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
+        $manager->persist($patrolship_alpha_longane);
 
         $patrolship_alpha_jujube = new PlaceConfig();
         $patrolship_alpha_jujube
@@ -584,6 +586,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setType(PlaceTypeEnum::PATROL_SHIP)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
+        $manager->persist($patrolship_alpha_jujube);
 
         $patrolship_alpha_tamarin = new PlaceConfig();
         $patrolship_alpha_tamarin
@@ -591,6 +594,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setType(PlaceTypeEnum::PATROL_SHIP)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
+        $manager->persist($patrolship_alpha_tamarin);
 
         $patrolship_bravo_socrate = new PlaceConfig();
         $patrolship_bravo_socrate
@@ -598,6 +602,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setType(PlaceTypeEnum::PATROL_SHIP)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
+        $manager->persist($patrolship_bravo_socrate);
 
         $patrolship_bravo_planton = new PlaceConfig();
         $patrolship_bravo_planton
@@ -605,6 +610,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setType(PlaceTypeEnum::PATROL_SHIP)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
+        $manager->persist($patrolship_bravo_planton);
 
         $patrolship_bravo_epicure = new PlaceConfig();
         $patrolship_bravo_epicure
@@ -612,6 +618,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setType(PlaceTypeEnum::PATROL_SHIP)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
+        $manager->persist($patrolship_bravo_epicure);
 
         $daedalusConfig->setPlaceConfigs(new ArrayCollection([
             $bridge,

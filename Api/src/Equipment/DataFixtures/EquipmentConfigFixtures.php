@@ -264,6 +264,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($thalasso);
 
         // @TODO ships
+        /** @var Action $takeoffAction */
         $takeoffAction = $this->getReference(ActionsFixtures::TAKEOFF);
         $patrolShip = new EquipmentConfig();
         $patrolShip

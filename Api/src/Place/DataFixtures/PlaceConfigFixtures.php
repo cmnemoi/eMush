@@ -564,6 +564,55 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($space);
 
+        $patrolship_alpha_2_wallis = new PlaceConfig();
+        $patrolship_alpha_2_wallis
+            ->setPlaceName(RoomEnum::PATROL_SHIP_ALPHA_2_WALLIS)
+            ->setType(PlaceTypeEnum::PATROL_SHIP)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+
+        $patrolship_alpha_longane = new PlaceConfig();
+        $patrolship_alpha_longane
+            ->setPlaceName(RoomEnum::PATROL_SHIP_ALPHA_LONGANE)
+            ->setType(PlaceTypeEnum::PATROL_SHIP)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+
+        $patrolship_alpha_jujube = new PlaceConfig();
+        $patrolship_alpha_jujube
+            ->setPlaceName(RoomEnum::PATROL_SHIP_ALPHA_JUJUBE)
+            ->setType(PlaceTypeEnum::PATROL_SHIP)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+
+        $patrolship_alpha_tamarin = new PlaceConfig();
+        $patrolship_alpha_tamarin
+            ->setPlaceName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN)
+            ->setType(PlaceTypeEnum::PATROL_SHIP)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+
+        $patrolship_bravo_socrate = new PlaceConfig();
+        $patrolship_bravo_socrate
+            ->setPlaceName(RoomEnum::PATROL_SHIP_BRAVO_SOCRATE)
+            ->setType(PlaceTypeEnum::PATROL_SHIP)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+
+        $patrolship_bravo_planton = new PlaceConfig();
+        $patrolship_bravo_planton
+            ->setPlaceName(RoomEnum::PATROL_SHIP_BRAVO_PLANTON)
+            ->setType(PlaceTypeEnum::PATROL_SHIP)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+
+        $patrolship_bravo_epicure = new PlaceConfig();
+        $patrolship_bravo_epicure
+            ->setPlaceName(RoomEnum::PATROL_SHIP_BRAVO_EPICURE)
+            ->setType(PlaceTypeEnum::PATROL_SHIP)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+
         $daedalusConfig->setPlaceConfigs(new ArrayCollection([
             $bridge,
             $alphaBay, $bravoBay, $alphaBay2, $icarusBay,
@@ -573,6 +622,8 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             $frontCorridor, $centralCorridor, $rearCorridor,
             $alphaDorm, $bravoDorm,
             $frontStorage, $centerAlphaStorage, $centreBravoStorage, $rearAlphaStorage, $rearBravoStorage, $space,
+            $patrolship_alpha_2_wallis, $patrolship_alpha_longane, $patrolship_alpha_jujube, $patrolship_alpha_tamarin,
+            $patrolship_bravo_socrate, $patrolship_bravo_planton, $patrolship_bravo_epicure,
         ]));
         $manager->persist($daedalusConfig);
         $manager->flush();
@@ -605,6 +656,13 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(RoomEnum::REAR_ALPHA_STORAGE, $rearAlphaStorage);
         $this->addReference(RoomEnum::REAR_BRAVO_STORAGE, $rearBravoStorage);
         $this->addReference(RoomEnum::SPACE, $space);
+        $this->addReference(RoomEnum::PATROL_SHIP_ALPHA_2_WALLIS, $patrolship_alpha_2_wallis);
+        $this->addReference(RoomEnum::PATROL_SHIP_ALPHA_LONGANE, $patrolship_alpha_longane);
+        $this->addReference(RoomEnum::PATROL_SHIP_ALPHA_JUJUBE, $patrolship_alpha_jujube);
+        $this->addReference(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $patrolship_alpha_tamarin);
+        $this->addReference(RoomEnum::PATROL_SHIP_BRAVO_SOCRATE, $patrolship_bravo_socrate);
+        $this->addReference(RoomEnum::PATROL_SHIP_BRAVO_PLANTON, $patrolship_bravo_planton);
+        $this->addReference(RoomEnum::PATROL_SHIP_BRAVO_EPICURE, $patrolship_bravo_epicure);
     }
 
     public function getDependencies(): array

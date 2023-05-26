@@ -139,6 +139,13 @@ import rear_alpha_turret from "@/game/assets/rear_alpha_turret.json";
 import bridge from "@/game/assets/bridge.json";
 import engine_room from "@/game/assets/engine_room.json";
 import patrol_ship_bravo_epicure from "@/game/assets/patrol_ship_bravo_epicure.json";
+import patrol_ship_bravo_planton from "@/game/assets/patrol_ship_bravo_planton.json";
+import patrol_ship_bravo_socrate from "@/game/assets/patrol_ship_bravo_socrate.json";
+import patrol_ship_alpha_tamarin from "@/game/assets/patrol_ship_alpha_tamarin.json";
+import patrol_ship_alpha_jujube from "@/game/assets/patrol_ship_alpha_jujube.json";
+import patrol_ship_alpha_longane from "@/game/assets/patrol_ship_alpha_longane.json";
+import patrol_ship_alpha_2_wallis from "@/game/assets/patrol_ship_alpha_2_wallis.json";
+import pasiphae_asset from "@/game/assets/pasiphae.json";
 
 import fire_particles_frame from "@/game/assets/images/fire_particles.json";
 import fire_particles from "@/game/assets/images/fire_particles.png";
@@ -244,6 +251,13 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.tilemapTiledJSON('bridge', bridge);
         this.load.tilemapTiledJSON('engine_room', engine_room);
         this.load.tilemapTiledJSON('patrol_ship_bravo_epicure', patrol_ship_bravo_epicure);
+        this.load.tilemapTiledJSON('patrol_ship_bravo_planton', patrol_ship_bravo_planton);
+        this.load.tilemapTiledJSON('patrol_ship_bravo_socrate', patrol_ship_bravo_socrate);
+        this.load.tilemapTiledJSON('patrol_ship_alpha_jujube', patrol_ship_alpha_jujube);
+        this.load.tilemapTiledJSON('patrol_ship_alpha_tamarin', patrol_ship_alpha_tamarin);
+        this.load.tilemapTiledJSON('patrol_ship_alpha_longane', patrol_ship_alpha_longane);
+        this.load.tilemapTiledJSON('patrol_ship_alpha_2_wallis', patrol_ship_alpha_2_wallis);
+        this.load.tilemapTiledJSON('pasiphae', pasiphae_asset);
 
         this.load.image('ground_tileset', ground_tileset);
         this.load.image('wall_tileset', wall_tileset);

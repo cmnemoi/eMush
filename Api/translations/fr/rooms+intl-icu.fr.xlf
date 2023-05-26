@@ -271,5 +271,85 @@
         <target>dans le </target>
       </segment>
     </unit>
+    <unit id="patrol_ship_bravo_epicure">
+      <segment id="name" state="translated">
+        <source>patrol_ship_bravo_epicure.name</source>
+        <target>Patrouilleur Epicure</target>
+      </segment>
+      <segment id="loc_prep" state="translated">
+        <source>patrol_ship_bravo_epicure.loc_prep</source>
+        <target>dans le </target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_bravo_socrate">
+      <segment id="name" state="translated">
+        <source>patrol_ship_bravo_socrate.name</source>
+        <target>Patrouilleur Socrate</target>
+      </segment>
+      <segment id="loc_prep" state="translated">
+        <source>patrol_ship_bravo_socrate.loc_prep</source>
+        <target>dans le </target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_bravo_planton">
+      <segment id="name" state="translated">
+        <source>patrol_ship_bravo_planton.name</source>
+        <target>Patrouilleur Planton</target>
+      </segment>
+      <segment id="loc_prep" state="translated">
+        <source>patrol_ship_bravo_planton.loc_prep</source>
+        <target>dans le </target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_alpha_tamarin">
+      <segment id="name" state="translated">
+        <source>patrol_ship_alpha_tamarin.name</source>
+        <target>Patrouilleur Tamarin</target>
+      </segment>
+      <segment id="loc_prep" state="translated">
+        <source>patrol_ship_alpha_tamarin.loc_prep</source>
+        <target>dans le </target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_alpha_jujube">
+      <segment id="name" state="translated">
+        <source>patrol_ship_alpha_jujube.name</source>
+        <target>Patrouilleur Jujube</target>
+      </segment>
+      <segment id="loc_prep" state="translated">
+        <source>patrol_ship_alpha_jujube.loc_prep</source>
+        <target>dans le </target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_alpha_longane">
+      <segment id="name" state="translated">
+        <source>patrol_ship_alpha_longane.name</source>
+        <target>Patrouilleur Longane</target>
+      </segment>
+      <segment id="loc_prep" state="translated">
+        <source>patrol_ship_alpha_longane.loc_prep</source>
+        <target>dans le </target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_alpha_2_wallis">
+      <segment id="name" state="translated">
+        <source>patrol_ship_alpha_2_wallis.name</source>
+        <target>Patrouilleur Wallis</target>
+      </segment>
+      <segment id="loc_prep" state="translated">
+        <source>patrol_ship_alpha_2_wallis.loc_prep</source>
+        <target>dans le </target>
+      </segment>
+    </unit>
+    <unit id="pasiphae">
+      <segment id="name" state="translated">
+        <source>pasiphae.name</source>
+        <target>Pasiphae</target>
+      </segment>
+      <segment id="loc_prep" state="translated">
+        <source>pasiphae.loc_prep</source>
+        <target>dans le </target>
+      </segment>
+    </unit>
   </file>
 </xliff>

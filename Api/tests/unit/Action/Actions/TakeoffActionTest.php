@@ -9,12 +9,15 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 
 class TakeoffActionTest extends AbstractActionTest
-{
+{   
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
     /** @var PlaceServiceInterface|Mockery\Mock */
@@ -29,6 +32,7 @@ class TakeoffActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::TAKEOFF, 2, 0);
 
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
         $this->placeService = \Mockery::mock(PlaceServiceInterface::class);
 
@@ -36,6 +40,7 @@ class TakeoffActionTest extends AbstractActionTest
             $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->gameEquipmentService,
             $this->playerService,
             $this->placeService,
         );
@@ -56,6 +61,7 @@ class TakeoffActionTest extends AbstractActionTest
         $patroller = new GameEquipment($roomStart);
         $patroller->setName(EquipmentEnum::PATROL_SHIP);
 
+        $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
 
         $player = $this->createPlayer(new Daedalus(), $roomStart);

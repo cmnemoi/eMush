@@ -49,9 +49,11 @@ class ActionSubscriber implements EventSubscriberInterface
                 foreach ($player->getEquipments() as $equipment) {
                     $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
                 }
+                break;
             case ActionEnum::TAKEOFF:
                 $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
                 $this->equipmentModifierService->equipmentEnterRoom($target, $player->getPlace(), $event->getTags(), $event->getTime());
+                break;
         }
     }
 
@@ -69,10 +71,11 @@ class ActionSubscriber implements EventSubscriberInterface
                     $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
                 }
 
-                return;
+                break;
             case ActionEnum::TAKEOFF:
                 $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
                 $this->equipmentModifierService->equipmentLeaveRoom($event->getActionParameter(), $player->getPlace(), $event->getTags(), $event->getTime());
+                break;
         }
     }
 }

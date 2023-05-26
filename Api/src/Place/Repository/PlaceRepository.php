@@ -17,7 +17,7 @@ class PlaceRepository extends ServiceEntityRepository
         parent::__construct($registry, Place::class);
     }
 
-    public function getPlaceByNameAndDaedalus(string $name, Daedalus $daedalus): ?Place
+    public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Place
     {
         $query = $this->createQueryBuilder('p')
             ->where('p.name = :name')

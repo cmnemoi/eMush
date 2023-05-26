@@ -32,7 +32,8 @@ export const PhaserRooms = [
     'centre_alpha_turret',
     'rear_alpha_turret',
     'bridge',
-    'engine_room'
+    'engine_room',
+    'patrol_ship_bravo_epicure',
 ];
 
 export class Room {
@@ -45,6 +46,7 @@ export class Room {
     public equipments: Array<Equipment>;
     public players: Array<Player>;
     public isOnFire: boolean;
+    public type: string|null;
 
     constructor() {
         this.id = null;
@@ -55,12 +57,14 @@ export class Room {
         this.players = [];
         this.statuses = [];
         this.isOnFire = false;
+        this.type = null;
     }
     load(object: any): Room {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
             this.name = object.name;
+            this.type = object.type;
             object.items.forEach((itemObject: any) => {
                 const item = (new Item).load(itemObject);
                 this.items.push(item);

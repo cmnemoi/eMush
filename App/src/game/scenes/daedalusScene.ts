@@ -138,6 +138,7 @@ import centre_alpha_turret from "@/game/assets/center_alpha_turret.json";
 import rear_alpha_turret from "@/game/assets/rear_alpha_turret.json";
 import bridge from "@/game/assets/bridge.json";
 import engine_room from "@/game/assets/engine_room.json";
+import patrol_ship_bravo_epicure from "@/game/assets/patrol_ship_bravo_epicure.json";
 
 import fire_particles_frame from "@/game/assets/images/fire_particles.json";
 import fire_particles from "@/game/assets/images/fire_particles.png";
@@ -242,6 +243,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.tilemapTiledJSON('rear_alpha_turret', rear_alpha_turret);
         this.load.tilemapTiledJSON('bridge', bridge);
         this.load.tilemapTiledJSON('engine_room', engine_room);
+        this.load.tilemapTiledJSON('patrol_ship_bravo_epicure', patrol_ship_bravo_epicure);
 
         this.load.image('ground_tileset', ground_tileset);
         this.load.image('wall_tileset', wall_tileset);
@@ -369,23 +371,10 @@ export default class DaedalusScene extends Phaser.Scene
         (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).pipelines.addPostPipeline('outline', OutlinePostFx);
 
         this.map = this.createRoom();
+
         this.createEquipments(this.map);
         this.updateStatuses();
         this.updateEquipments();
-
-        // add target tile highlight
-        this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
-        this.add.existing(this.targetHighlightObject);
-        this.targetHighlightObject.setDepth(500);
-
-
-        this.input.setTopOnly(true);
-        this.input.setGlobalTopOnly(true);
-
-        this.createPlayers();
-
-        this.enableEventListeners();
-
 
         //const loadPlayer = mapActions('player', ['loadPlayer']);
         store.subscribeAction({
@@ -395,6 +384,23 @@ export default class DaedalusScene extends Phaser.Scene
                 }
             }
         });
+
+        if (this.player?.room?.type !== 'room') {
+            return;
+        }
+
+        this.enableEventListeners();
+       
+        // add target tile highlight
+        this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
+        this.add.existing(this.targetHighlightObject);
+        this.targetHighlightObject.setDepth(500);
+
+        this.input.setTopOnly(true);
+        this.input.setGlobalTopOnly(true);
+
+        this.createPlayers();
+ 
     }
 
     reloadScene(): void
@@ -567,7 +573,7 @@ export default class DaedalusScene extends Phaser.Scene
     }
 
     createRoom(): MushTiledMap
-    {
+    {        
         this.sceneGrid = new SceneGrid(this, this.characterSize);
         this.navMeshGrid = new NavMeshGrid(this);
 

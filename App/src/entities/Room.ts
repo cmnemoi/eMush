@@ -34,6 +34,13 @@ export const PhaserRooms = [
     'bridge',
     'engine_room',
     'patrol_ship_bravo_epicure',
+    'patrol_ship_bravo_socrate',
+    'patrol_ship_bravo_planton',
+    'patrol_ship_alpha_jujube',
+    'patrol_ship_alpha_tamarin',
+    'patrol_ship_alpha_longane',
+    'patrol_ship_alpha_2_wallis',
+    'pasiphae',
 ];
 
 export class Room {

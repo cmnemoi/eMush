@@ -66,6 +66,7 @@ class DaedalusWidgetServiceTest extends TestCase
         $tracker->setName(ItemEnum::TRACKER);
 
         $room2->addPlayer($player);
+        $player->getPlace($room2);
 
         $this->alertService
             ->shouldReceive('findByNameAndDaedalus')
@@ -106,6 +107,7 @@ class DaedalusWidgetServiceTest extends TestCase
         $player->setPlayerInfo($playerInfo);
 
         $room2->addPlayer($player);
+        $player->getPlace($room2);
 
         $this->alertService
             ->shouldReceive('findByNameAndDaedalus')
@@ -135,6 +137,9 @@ class DaedalusWidgetServiceTest extends TestCase
         $room3->setName(RoomEnum::CENTRAL_CORRIDOR);
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
+        $player->setPlace($room3);
 
         $tracker = new GameItem($player);
         $tracker->setName(ItemEnum::TRACKER);

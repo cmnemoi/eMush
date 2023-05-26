@@ -4,6 +4,7 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
 use Mush\Modifier\Service\ModifierListenerService\PlayerModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -39,20 +40,22 @@ class ActionSubscriber implements EventSubscriberInterface
         }
         $actionName = $event->getAction()->getActionName();
 
-        $target = $event->getActionParameter();
+        /** @var GameEquipment $actionEquipment */
+        $actionEquipment = $event->getActionParameter();
 
         switch ($actionName) {
             // handle movement of a player
             case ActionEnum::MOVE:
                 $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
 
+                /** @var GameEquipment $equipment */
                 foreach ($player->getEquipments() as $equipment) {
                     $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
                 }
                 break;
             case ActionEnum::TAKEOFF:
                 $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
-                $this->equipmentModifierService->equipmentEnterRoom($target, $player->getPlace(), $event->getTags(), $event->getTime());
+                $this->equipmentModifierService->equipmentEnterRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
                 break;
         }
     }
@@ -62,11 +65,15 @@ class ActionSubscriber implements EventSubscriberInterface
         $player = $event->getAuthor();
         $actionName = $event->getAction()->getActionName();
 
+        /** @var GameEquipment $actionEquipment */
+        $actionEquipment = $event->getActionParameter();
+
         switch ($actionName) {
             case ActionEnum::MOVE:
                 // handle movement of a player
                 $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
 
+                /** @var GameEquipment $equipment */
                 foreach ($player->getEquipments() as $equipment) {
                     $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
                 }
@@ -74,7 +81,7 @@ class ActionSubscriber implements EventSubscriberInterface
                 break;
             case ActionEnum::TAKEOFF:
                 $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
-                $this->equipmentModifierService->equipmentLeaveRoom($event->getActionParameter(), $player->getPlace(), $event->getTags(), $event->getTime());
+                $this->equipmentModifierService->equipmentLeaveRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
                 break;
         }
     }

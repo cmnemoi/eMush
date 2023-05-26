@@ -15,7 +15,7 @@ use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 
 class TakeoffActionTest extends AbstractActionTest
-{   
+{
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var PlayerServiceInterface|Mockery\Mock */

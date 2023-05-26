@@ -14,5 +14,7 @@ interface PlaceServiceInterface
 
     public function findById(int $id): ?Place;
 
+    public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Place;
+
     public function createPlace(PlaceConfig $roomConfig, Daedalus $daedalus, array $reasons, \DateTime $time): Place;
 }

@@ -16,7 +16,6 @@ class EquipmentEnum
     public const PATROL_SHIP_ALPHA_2_WALLIS = 'patrol_ship_alpha_2_wallis';
     public const PATROL_SHIP = 'patrol_ship';
     public const PASIPHAE = 'pasiphae';
-    public const PATROLSHIP_DOOR = 'patrol_ship_door';
     public const ICARUS = 'icarus';
     public const ANTENNA = 'antenna';
     public const CALCULATOR = 'calculator';

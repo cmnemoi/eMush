@@ -3,7 +3,6 @@
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Enum\EquipmentEnum;
 
 /** @codeCoverageIgnore */
 class EquipmentConfigData
@@ -2528,22 +2527,6 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
-            'name' => EquipmentEnum::PATROLSHIP_DOOR . '_default',
-            'equipmentName' => EquipmentEnum::PATROLSHIP_DOOR,
-            'isBreakable' => false,
-            'isFireDestroyable' => false,
-            'isFireBreakable' => false,
-            'dismountedProducts' => [],
-            'isPersonal' => false,
-            'type' => 'equipment_config',
-            'isStackable' => null,
-            'actions' => [
-                ActionEnum::TAKEOFF,
-            ],
-            'mechanics' => [],
-            'initStatuses' => [],
-        ],
-        [
             'name' => 'communication_center_default',
             'equipmentName' => 'communication_center',
             'isBreakable' => true,
@@ -2844,6 +2827,7 @@ class EquipmentConfigData
                 'repair_percent_12',
                 'examine',
                 'report_equipment',
+                ActionEnum::TAKEOFF,
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2862,6 +2846,7 @@ class EquipmentConfigData
                 'repair_percent_12',
                 'examine',
                 'report_equipment',
+                ActionEnum::TAKEOFF,
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2880,6 +2865,7 @@ class EquipmentConfigData
                 'repair_percent_12',
                 'examine',
                 'report_equipment',
+                ActionEnum::TAKEOFF,
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2898,6 +2884,7 @@ class EquipmentConfigData
                 'repair_percent_12',
                 'examine',
                 'report_equipment',
+                ActionEnum::TAKEOFF,
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2916,6 +2903,7 @@ class EquipmentConfigData
                 'repair_percent_12',
                 'examine',
                 'report_equipment',
+                ActionEnum::TAKEOFF,
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2934,6 +2922,7 @@ class EquipmentConfigData
                 'repair_percent_12',
                 'examine',
                 'report_equipment',
+                ActionEnum::TAKEOFF,
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2952,6 +2941,7 @@ class EquipmentConfigData
                 'repair_percent_12',
                 'examine',
                 'report_equipment',
+                ActionEnum::TAKEOFF,
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -2970,6 +2960,7 @@ class EquipmentConfigData
                 'repair_percent_12',
                 'examine',
                 'report_equipment',
+                ActionEnum::TAKEOFF,
             ],
             'mechanics' => [],
             'initStatuses' => [],

@@ -23,18 +23,11 @@ class DoorEnum
     public const ALPHA_BAY_CENTER_ALPHA_STORAGE = 'alpha_bay_center_alpha_storage';
     public const ALPHA_BAY_ALPHA_DORM = 'alpha_bay_alpha_dorm';
     public const ALPHA_BAY_ALPHA_BAY_2 = 'alpha_bay_alpha_bay_2';
-    public const ALPHA_BAY_2_PATROLSHIP_ALPHA_2_WALLIS = 'alpha_bay_2_patrolship_alpha_2_wallis';
-    public const ALPHA_BAY_PATROLSHIP_ALPHA_TAMARIN = 'alpha_bay_patrolship_alpha_tamarin';
-    public const ALPHA_BAY_PATROLSHIP_ALPHA_LONGANE = 'alpha_bay_patrolship_alpha_longane';
-    public const ALPHA_BAY_PATROLSHIP_ALPHA_JUJUBE = 'alpha_bay_patrolship_alpha_jujube';
     public const BRAVO_BAY_CENTRAL_BRAVO_TURRET = 'bravo_bay_central_bravo_turret';
     public const BRAVO_BAY_CENTRAL_CORRIDOR = 'bravo_bay_central_corridor';
     public const BRAVO_BAY_CENTER_BRAVO_STORAGE = 'bravo_bay_center_bravo_storage';
     public const BRAVO_BAY_BRAVO_DORM = 'bravo_bay_bravo_dorm';
     public const BRAVO_BAY_REAR_CORRIDOR = 'bravo_bay_rear_corridor';
-    public const BRAVO_BAY_PATROLSHIP_BRAVO_SOCRATE = 'bravo_bay_patrolship_bravo_socrate';
-    public const BRAVO_BAY_PATROLSHIP_BRAVO_EPICURE = 'bravo_bay_patrolship_bravo_epicure';
-    public const BRAVO_BAY_PATROLSHIP_BRAVO_PLANTON = 'bravo_bay_patrolship_bravo_planton';
     public const REFECTORY_CENTRAL_CORRIDOR = 'refectory_central_corridor';
     public const REAR_CORRIDOR_ALPHA_DORM = 'rear_corridor_alpha_dorm';
     public const REAR_CORRIDOR_BRAVO_DORM = 'rear_corridor_bravo_dorm';
@@ -75,18 +68,11 @@ class DoorEnum
             self::BRAVO_BAY_CENTER_BRAVO_STORAGE,
             self::BRAVO_BAY_REAR_CORRIDOR,
             self::BRAVO_BAY_BRAVO_DORM,
-            self::BRAVO_BAY_PATROLSHIP_BRAVO_SOCRATE,
-            self::BRAVO_BAY_PATROLSHIP_BRAVO_EPICURE,
-            self::BRAVO_BAY_PATROLSHIP_BRAVO_PLANTON,
             self::ALPHA_BAY_CENTER_ALPHA_STORAGE,
             self::ALPHA_BAY_ALPHA_DORM,
             self::ALPHA_BAY_CENTRAL_ALPHA_TURRET,
             self::ALPHA_BAY_CENTRAL_CORRIDOR,
-            self::ALPHA_BAY_PATROLSHIP_ALPHA_JUJUBE,
-            self::ALPHA_BAY_PATROLSHIP_ALPHA_TAMARIN,
-            self::ALPHA_BAY_PATROLSHIP_ALPHA_LONGANE,
             self::ALPHA_BAY_ALPHA_BAY_2,
-            self::ALPHA_BAY_2_PATROLSHIP_ALPHA_2_WALLIS,
             self::REAR_CORRIDOR_ALPHA_DORM,
             self::REAR_CORRIDOR_BRAVO_DORM,
             self::REAR_CORRIDOR_NEXUS,

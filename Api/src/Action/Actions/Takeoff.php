@@ -13,6 +13,7 @@ use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Service\PlaceServiceInterface;
@@ -26,6 +27,7 @@ final class Takeoff extends AbstractAction
 {
     protected string $name = ActionEnum::TAKEOFF;
 
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private PlaceServiceInterface $placeService;
 
@@ -33,6 +35,7 @@ final class Takeoff extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        GameEquipmentServiceInterface $gameEquipmentService,
         PlayerServiceInterface $playerService,
         PlaceServiceInterface $placeService,
     ) {
@@ -42,6 +45,7 @@ final class Takeoff extends AbstractAction
             $validator
         );
 
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->playerService = $playerService;
         $this->placeService = $placeService;
     }
@@ -73,7 +77,9 @@ final class Takeoff extends AbstractAction
             throw new \RuntimeException('Patrolship room not found');
         }
         $this->player->changePlace($patrolshipRoom);
+        $patrolship->setHolder($patrolshipRoom);
 
         $this->playerService->persist($this->player);
+        $this->gameEquipmentService->persist($patrolship);
     }
 }

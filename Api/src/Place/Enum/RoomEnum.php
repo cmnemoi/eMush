@@ -42,6 +42,17 @@ class RoomEnum
     public const PATROL_SHIP_ALPHA_2_WALLIS = 'patrol_ship_alpha_2_wallis';
     public const PASIPHAE = 'pasiphae';
 
+    public static array $patrolshipBay = [
+        self::PATROL_SHIP_ALPHA_LONGANE => self::ALPHA_BAY,
+        self::PATROL_SHIP_ALPHA_JUJUBE => self::ALPHA_BAY,
+        self::PATROL_SHIP_ALPHA_TAMARIN => self::ALPHA_BAY,
+        self::PATROL_SHIP_BRAVO_SOCRATE => self::BRAVO_BAY,
+        self::PATROL_SHIP_BRAVO_EPICURE => self::BRAVO_BAY,
+        self::PATROL_SHIP_BRAVO_PLANTON => self::BRAVO_BAY,
+        self::PATROL_SHIP_ALPHA_2_WALLIS => self::ALPHA_BAY_2,
+        self::PASIPHAE => self::ALPHA_BAY_2,
+    ];
+
     public static function getAllDaedalusRooms(): array
     {
         return [

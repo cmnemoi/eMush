@@ -86,6 +86,7 @@ class ActionEnum
     public const CHECK_SPORE_LEVEL = 'check_spore_level';
     public const REMOVE_SPORE = 'remove_spore';
     public const TAKEOFF = 'takeoff';
+    public const LAND = 'land';
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';

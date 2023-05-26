@@ -96,6 +96,7 @@ class ActionLogEnum
     public const SHOOT_HUNTER_SUCCESS = 'shoot_hunter_success';
     public const SHOOT_HUNTER_FAIL = 'shoot_hunter_fail';
     public const TAKEOFF_NO_PILOT = 'takeoff_no_pilot';
+    public const LAND_NO_PILOT = 'land_no_pilot';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -335,6 +336,9 @@ class ActionLogEnum
         ],
         ActionEnum::TAKEOFF => [
             ActionOutputEnum::SUCCESS => self::TAKEOFF_NO_PILOT,
+        ],
+        ActionEnum::LAND => [
+            ActionOutputEnum::SUCCESS => self::LAND_NO_PILOT,
         ],
     ];
 }

@@ -770,7 +770,7 @@ class ActionsFixtures extends Fixture
         $shootHunterTurret
             ->setName(ActionEnum::SHOOT_HUNTER)
             ->setActionName(ActionEnum::SHOOT_HUNTER)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT])
             ->setActionCost(1)
             ->setSuccessRate(30)

@@ -264,13 +264,14 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($thalasso);
 
         // @TODO ships
+        $takeoffAction = $this->getReference(ActionsFixtures::TAKEOFF);
         $patrolShip = new EquipmentConfig();
         $patrolShip
             ->setEquipmentName(EquipmentEnum::PATROL_SHIP)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions(new ArrayCollection([$repair12, $examineAction]))
+            ->setActions(new ArrayCollection([$repair12, $examineAction, $takeoffAction]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($patrolShip);
@@ -281,7 +282,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions(new ArrayCollection([$repair12, $examineAction]))
+            ->setActions(new ArrayCollection([$repair12, $examineAction, $takeoffAction]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($pasiphae);

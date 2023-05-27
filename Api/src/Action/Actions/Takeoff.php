@@ -74,7 +74,7 @@ final class Takeoff extends AbstractAction
 
         $patrolshipRoom = $this->placeService->findByNameAndDaedalus($patrolship->getName(), $this->player->getDaedalus());
         if ($patrolshipRoom === null) {
-            throw new \RuntimeException('Patrolship room not found');
+            throw new \RuntimeException('Patrol ship room not found');
         }
         $this->player->changePlace($patrolshipRoom);
         $patrolship->setHolder($patrolshipRoom);

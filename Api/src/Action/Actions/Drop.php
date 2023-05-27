@@ -11,7 +11,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -41,8 +41,9 @@ class Drop extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        $equipmentEvent = new InteractWithEquipmentEvent(
+        $equipmentEvent = new MoveEquipmentEvent(
             $parameter,
+            $this->player->getPlace(),
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getAction()->getActionTags(),

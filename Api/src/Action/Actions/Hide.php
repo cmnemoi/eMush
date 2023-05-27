@@ -13,7 +13,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -59,8 +59,9 @@ class Hide extends AbstractAction
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         if ($parameter->getHolder() instanceof Player) {
-            $equipmentEvent = new InteractWithEquipmentEvent(
+            $equipmentEvent = new MoveEquipmentEvent(
                 $parameter,
+                $this->player->getPlace(),
                 $this->player,
                 VisibilityEnum::HIDDEN,
                 $this->getAction()->getActionTags(),

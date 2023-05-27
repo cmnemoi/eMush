@@ -13,7 +13,10 @@ use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Service\PlaceServiceInterface;
@@ -76,10 +79,19 @@ final class Takeoff extends AbstractAction
         if ($patrolshipRoom === null) {
             throw new \RuntimeException('Patrol ship room not found');
         }
+
         $this->player->changePlace($patrolshipRoom);
-        $patrolship->setHolder($patrolshipRoom);
+
+        $equipmentEvent = new MoveEquipmentEvent(
+            equipment: $patrolship,
+            newHolder: $patrolshipRoom,
+            author: $this->player,
+            visibility: VisibilityEnum::HIDDEN,
+            tags: $this->getAction()->getActionTags(),
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
 
         $this->playerService->persist($this->player);
-        $this->gameEquipmentService->persist($patrolship);
     }
 }

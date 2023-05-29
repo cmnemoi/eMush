@@ -61,7 +61,7 @@ class ActionEnum
     public const HEAL = 'heal';
     public const SELF_HEAL = 'self_heal';
 
-    // Item-enabled actions
+    // Equipment-enabled actions
     public const INSERT_FUEL = 'insert_fuel';
     public const INSERT_FUEL_CHAMBER = 'insert_fuel_chamber';
     public const INSERT_OXYGEN = 'insert_oxygen';
@@ -85,6 +85,7 @@ class ActionEnum
     public const REMOVE_CAMERA = 'remove_camera';
     public const CHECK_SPORE_LEVEL = 'check_spore_level';
     public const REMOVE_SPORE = 'remove_spore';
+    public const TAKEOFF = 'takeoff';
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';

@@ -5,6 +5,7 @@ namespace Mush\Equipment\Listener;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\EquipmentInitEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -112,17 +113,12 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onChangeHolder(InteractWithEquipmentEvent $event): void
+    public function onChangeHolder(MoveEquipmentEvent $event): void
     {
         $equipment = $event->getGameEquipment();
-        $holder = $equipment->getHolder();
-        $author = $event->getAuthor();
+        $newHolder = $event->getNewHolder();
 
-        if ($holder instanceof Player) {
-            $equipment->setHolder($holder->getPlace());
-        } elseif ($author instanceof Player) {
-            $equipment->setHolder($author);
-        }
+        $equipment->setHolder($newHolder);
 
         $this->gameEquipmentService->persist($equipment);
     }

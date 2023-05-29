@@ -53,6 +53,13 @@ class DaedalusConfigData
                 RoomEnum::CENTER_BRAVO_STORAGE . '_default',
                 RoomEnum::REAR_BRAVO_STORAGE . '_default',
                 RoomEnum::SPACE . '_default',
+                RoomEnum::PATROL_SHIP_ALPHA_2_WALLIS . '_default',
+                RoomEnum::PATROL_SHIP_ALPHA_LONGANE . '_default',
+                RoomEnum::PATROL_SHIP_ALPHA_JUJUBE . '_default',
+                RoomEnum::PATROL_SHIP_ALPHA_TAMARIN . '_default',
+                RoomEnum::PATROL_SHIP_BRAVO_EPICURE . '_default',
+                RoomEnum::PATROL_SHIP_BRAVO_PLANTON . '_default',
+                RoomEnum::PATROL_SHIP_BRAVO_SOCRATE . '_default',
             ],
         ],
     ];

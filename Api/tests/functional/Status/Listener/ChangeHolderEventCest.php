@@ -10,7 +10,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -70,8 +70,9 @@ class ChangeHolderEventCest extends AbstractFunctionalTest
 
         $I->refreshEntities([$player, $superFreezer, $talkie]);
 
-        $equipmentEvent = new InteractWithEquipmentEvent(
+        $equipmentEvent = new MoveEquipmentEvent(
             $talkie,
+            $player,
             $player,
             VisibilityEnum::HIDDEN,
             ['drop'],

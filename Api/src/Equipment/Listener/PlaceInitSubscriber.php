@@ -52,7 +52,6 @@ class PlaceInitSubscriber implements EventSubscriberInterface
 
         // initialize doors
         $doorConfig = $this->equipmentService->findByNameAndDaedalus(EquipmentEnum::DOOR, $daedalus);
-
         // @FIXME how to simplify that?
         foreach ($placeConfig->getDoors() as $doorName) {
             if (

@@ -3,8 +3,8 @@
 namespace Mush\Test\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\IsRoom;
-use Mush\Action\Validator\IsRoomValidator;
+use Mush\Action\Validator\PlaceType;
+use Mush\Action\Validator\PlaceTypeValidator;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
@@ -12,18 +12,18 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class RoomValidatorTest extends TestCase
+class PlaceTypeValidatorTest extends TestCase
 {
-    private IsRoomValidator $validator;
-    private IsRoom $constraint;
+    private PlaceTypeValidator $validator;
+    private PlaceType $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new IsRoomValidator();
-        $this->constraint = new IsRoom();
+        $this->validator = new PlaceTypeValidator();
+        $this->constraint = new PlaceType();
     }
 
     /**
@@ -49,6 +49,7 @@ class RoomValidatorTest extends TestCase
             ])
         ;
 
+        $this->constraint->type = PlaceTypeEnum::ROOM;
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
@@ -70,6 +71,7 @@ class RoomValidatorTest extends TestCase
             ])
         ;
 
+        $this->constraint->type = PlaceTypeEnum::ROOM;
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 

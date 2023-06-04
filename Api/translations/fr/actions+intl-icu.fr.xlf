@@ -784,5 +784,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Tire une charge de Telsatron sur un vaisseau ennemi.</target>
       </segment>
     </unit>
+    <unit id="takeoff">
+      <segment id="name" state="final">
+        <source>takeoff.name</source>
+        <target>Décoller</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>takeoff.description</source>
+        <target>Monter dans un patrouilleur et apparaître dans le cadran correspondant.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -81,6 +81,7 @@ class ActionsFixtures extends Fixture
     public const SHOOT = 'shoot';
     public const PLAY_ARCADE = 'play.arcade';
     public const SHOOT_HUNTER_TURRET = 'shoot.hunter.turret';
+    public const TAKEOFF = 'takeoff';
 
     public function load(ObjectManager $manager): void
     {
@@ -769,12 +770,22 @@ class ActionsFixtures extends Fixture
         $shootHunterTurret
             ->setName(ActionEnum::SHOOT_HUNTER)
             ->setActionName(ActionEnum::SHOOT_HUNTER)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT])
             ->setActionCost(1)
             ->setSuccessRate(30)
         ;
         $manager->persist($shootHunterTurret);
+
+        $takeoff = new Action();
+        $takeoff
+            ->setName(ActionEnum::TAKEOFF)
+            ->setActionName(ActionEnum::TAKEOFF)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost(2)
+            ->setSuccessRate(100)
+        ;
+        $manager->persist($takeoff);
 
         $manager->flush();
 
@@ -844,5 +855,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::SHOOT, $shootAction);
         $this->addReference(self::PLAY_ARCADE, $playArcade);
         $this->addReference(self::SHOOT_HUNTER_TURRET, $shootHunterTurret);
+        $this->addReference(self::TAKEOFF, $takeoff);
     }
 }

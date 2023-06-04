@@ -5,10 +5,13 @@ namespace Mush\Modifier\Event;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Entity\ModifierHolder;
 
 class ModifierEvent extends AbstractGameEvent
 {
     public const APPLY_MODIFIER = 'apply_modifier';
+    public const CREATE_MODIFIER = 'create_modifier';
+    public const DELETE_MODIFIER = 'delete_modifier';
 
     protected GameModifier $modifier;
     protected bool $wasModifierUsed;
@@ -32,6 +35,11 @@ class ModifierEvent extends AbstractGameEvent
     public function getModifier(): GameModifier
     {
         return $this->modifier;
+    }
+
+    public function getModifierHolder(): ModifierHolder
+    {
+        return $this->modifier->getModifierHolder();
     }
 
     public function wasModifierUsed(): bool

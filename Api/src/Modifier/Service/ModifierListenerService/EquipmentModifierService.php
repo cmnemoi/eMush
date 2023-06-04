@@ -171,7 +171,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
                     return;
                 }
 
-                $this->modifierCreationService->deleteModifier($modifierConfig, $holder, $tags, $time, $player);
+                $this->modifierCreationService->deleteModifier($modifierConfig, $holder, $tags, $time);
             }
         }
     }
@@ -226,7 +226,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
                         return;
                     }
 
-                    $this->modifierCreationService->deleteModifier($modifierConfig, $holder, $tags, $time, $player);
+                    $this->modifierCreationService->deleteModifier($modifierConfig, $holder, $tags, $time);
                 }
             }
         }
@@ -254,7 +254,6 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
                     $holder,
                     $tags,
                     $time,
-                    $player,
                     $charge
                 );
             }

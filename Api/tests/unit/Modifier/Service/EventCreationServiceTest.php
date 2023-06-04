@@ -90,7 +90,7 @@ class EventCreationServiceTest extends TestCase
         ;
 
         // range is a player
-        $events = $this->service->createEvents($eventConfig, $player1, $player1, [], new \DateTime());
+        $events = $this->service->createEvents($eventConfig, $player1, [], new \DateTime());
 
         $this->assertCount(1, $events);
         $event = $events[0];
@@ -100,7 +100,7 @@ class EventCreationServiceTest extends TestCase
         $this->assertEquals($player1, $event->getPlayer());
 
         // range is a place
-        $events = $this->service->createEvents($eventConfig, $place1, $player1, [], new \DateTime());
+        $events = $this->service->createEvents($eventConfig, $place1, [], new \DateTime());
 
         $this->assertCount(2, $events);
         $event = $events[0];
@@ -115,7 +115,7 @@ class EventCreationServiceTest extends TestCase
         $this->assertEquals($player2, $event->getPlayer());
 
         // range is Daedalus
-        $events = $this->service->createEvents($eventConfig, $daedalus, $player1, [], new \DateTime());
+        $events = $this->service->createEvents($eventConfig, $daedalus, [], new \DateTime());
 
         $this->assertCount(3, $events);
         $event = $events[0];
@@ -165,7 +165,7 @@ class EventCreationServiceTest extends TestCase
         ;
 
         // range is a player
-        $events = $this->service->createEvents($eventConfig, $player1, $player1, [], new \DateTime(), true);
+        $events = $this->service->createEvents($eventConfig, $player1, [], new \DateTime(), true);
 
         $this->assertCount(1, $events);
         $event = $events[0];
@@ -204,7 +204,7 @@ class EventCreationServiceTest extends TestCase
         ;
 
         // range is a player
-        $events = $this->service->createEvents($eventConfig, $player1, $player1, [], new \DateTime());
+        $events = $this->service->createEvents($eventConfig, $player1, [], new \DateTime());
 
         $this->assertCount(1, $events);
         $event = $events[0];
@@ -214,7 +214,7 @@ class EventCreationServiceTest extends TestCase
         $this->assertEquals($daedalus, $event->getDaedalus());
 
         // range is a place
-        $events = $this->service->createEvents($eventConfig, $place1, $player1, [], new \DateTime());
+        $events = $this->service->createEvents($eventConfig, $place1, [], new \DateTime());
         $this->assertCount(1, $events);
         $event = $events[0];
         $this->assertInstanceOf(DaedalusVariableEvent::class, $event);
@@ -223,7 +223,7 @@ class EventCreationServiceTest extends TestCase
         $this->assertEquals($daedalus, $event->getDaedalus());
 
         // range is Daedalus
-        $events = $this->service->createEvents($eventConfig, $daedalus, $player1, [], new \DateTime());
+        $events = $this->service->createEvents($eventConfig, $daedalus, [], new \DateTime());
         $this->assertCount(1, $events);
         $event = $events[0];
         $this->assertInstanceOf(DaedalusVariableEvent::class, $event);

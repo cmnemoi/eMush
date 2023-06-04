@@ -58,7 +58,7 @@ class EventService implements EventServiceInterface
         $modifiers = $this->modifierRequirementService->getActiveModifiers($modifiers, $event->getTags());
 
         $replaceEventModifiers = $modifiers->getTriggerEventModifiersReplace();
-        $event = $this->applyReplaceModifiers($replaceEventModifiers, $event, true);
+        $event = $this->applyReplaceModifiers($replaceEventModifiers, $event, $dispatch);
 
         if ($event === null) {
             return null;
@@ -92,7 +92,6 @@ class EventService implements EventServiceInterface
                 $triggeredEvents = $this->eventCreationService->createEvents(
                     $eventConfig,
                     $modifier->getModifierHolder(),
-                    $event->getAuthor(),
                     $tags,
                     $event->getTime()
                 );
@@ -136,7 +135,6 @@ class EventService implements EventServiceInterface
                 $event = $this->eventCreationService->createEvents(
                     $triggeredEventConfig,
                     $modifier->getModifierHolder(),
-                    $event->getAuthor(),
                     $tags,
                     $event->getTime()
                 )[0];

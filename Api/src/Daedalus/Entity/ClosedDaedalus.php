@@ -36,6 +36,9 @@ class ClosedDaedalus
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $endCycle = 0;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $numberOfHuntersKilled = 0;
+
     public function getId(): int
     {
         return $this->id;
@@ -101,6 +104,18 @@ class ClosedDaedalus
     public function setEndCause(string $endCause): static
     {
         $this->endCause = $endCause;
+
+        return $this;
+    }
+
+    public function getNumberOfHuntersKilled(): int
+    {
+        return $this->numberOfHuntersKilled;
+    }
+
+    public function incrementNumberOfHuntersKilled(): static
+    {
+        ++$this->numberOfHuntersKilled;
 
         return $this;
     }

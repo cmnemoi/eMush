@@ -26,6 +26,13 @@ class HunterSubscriberCest extends AbstractFunctionalTest
 
     public function testOnHunterDeath(FunctionalTester $I)
     {
+        $space = $this->daedalus->getSpace();
+
+        // no hunters, scrap or hunter killed at the beginning of the test
+        $I->assertEmpty($this->daedalus->getAttackingHunters());
+        $I->assertEmpty($space->getEquipments());
+        $I->assertEquals(0, $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getNumberOfHuntersKilled());
+
         $this->daedalus->setHunterPoints(10); // should be enough to unpool 1 hunter
         $unpoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
@@ -50,6 +57,8 @@ class HunterSubscriberCest extends AbstractFunctionalTest
                 'log' => LogEnum::HUNTER_DEATH,
                 'visibility' => VisibilityEnum::PUBLIC,
             ]);
+        $I->assertNotEmpty($space->getEquipments()); // the hunter killed should drop some scrap
+        $I->assertEquals(1, $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getNumberOfHuntersKilled());
     }
 
     public function testOnUnpoolHunters(FunctionalTester $I)

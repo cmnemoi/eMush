@@ -84,6 +84,8 @@ class HunterService implements HunterServiceInterface
 
         $this->dropScrap($hunter);
 
+        $daedalus->getDaedalusInfo()->getClosedDaedalus()->incrementNumberOfHuntersKilled();
+
         $daedalus->getAttackingHunters()->removeElement($hunter);
         $this->entityManager->remove($hunter);
         $this->persistAndFlush([$daedalus]);

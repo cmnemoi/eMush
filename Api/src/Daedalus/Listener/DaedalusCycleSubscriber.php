@@ -19,7 +19,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
     public const CYCLE_OXYGEN_LOSS = -3;
-    public const BASE_DAEDALUS_DAY_CHANGE = 'base_daedalus_day_change';
+    public const BASE_DAEDALUS_CYCLE_CHANGE = 'base_daedalus_cycle_change';
     public const LOBBY_TIME_LIMIT = 3 * 24 * 60;
 
     private DaedalusServiceInterface $daedalusService;
@@ -39,7 +39,10 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => [['updateDaedalusCycle', 1000], ['triggerEvents', 0]],
+            DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => [
+                ['updateDaedalusCycle', 1000],
+                ['triggerEvents', 0],
+            ],
         ];
     }
 
@@ -124,7 +127,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             $daedalus,
             DaedalusVariableEnum::OXYGEN,
             $oxygenLoss,
-            [EventEnum::NEW_CYCLE, self::BASE_DAEDALUS_DAY_CHANGE],
+            [EventEnum::NEW_CYCLE, self::BASE_DAEDALUS_CYCLE_CHANGE],
             $date
         );
         $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);

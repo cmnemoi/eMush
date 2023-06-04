@@ -26,7 +26,7 @@ class PlayerModifierService implements PlayerModifierServiceInterface
             /** @var AbstractModifierConfig $modifierConfig */
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
                 if ($modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLACE) {
-                    $this->modifierCreationService->createModifier($modifierConfig, $place, $tags, $time, $player);
+                    $this->modifierCreationService->createModifier($modifierConfig, $place, $tags, $time);
                 }
             }
         }
@@ -41,7 +41,7 @@ class PlayerModifierService implements PlayerModifierServiceInterface
             /** @var AbstractModifierConfig $modifierConfig */
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
                 if ($modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLACE) {
-                    $this->modifierCreationService->deleteModifier($modifierConfig, $place, $tags, $time, $player);
+                    $this->modifierCreationService->deleteModifier($modifierConfig, $place, $tags, $time);
                 }
             }
         }

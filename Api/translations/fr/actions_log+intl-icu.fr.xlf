@@ -1008,5 +1008,11 @@
         <target>Vous avez raté votre cible.</target>
       </segment>
     </unit>
+    <unit id="takeoff_no_pilot">
+      <segment id="takeoff_no_pilot" state="translated">
+        <source>takeoff_no_pilot</source>
+        <target>Le décollage de **{character}** est si mauvais qu'il a endommagé son appareil.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

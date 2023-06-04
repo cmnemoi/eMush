@@ -6,12 +6,12 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Validator\IsRoom;
+use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -28,7 +28,7 @@ class Drop extends AbstractAction
     public static function LoadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::INVENTORY, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new IsRoom(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_SHELVING_UNIT]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'room', 'message' => ActionImpossibleCauseEnum::NO_SHELVING_UNIT]));
     }
 
     protected function checkResult(): ActionResult
@@ -41,8 +41,9 @@ class Drop extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        $equipmentEvent = new InteractWithEquipmentEvent(
+        $equipmentEvent = new MoveEquipmentEvent(
             $parameter,
+            $this->player->getPlace(),
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getAction()->getActionTags(),

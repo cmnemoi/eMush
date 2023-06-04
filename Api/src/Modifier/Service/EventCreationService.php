@@ -19,7 +19,6 @@ class EventCreationService implements EventCreationServiceInterface
     public function createEvents(
         AbstractEventConfig $eventConfig,
         ModifierHolder $modifierHolder,
-        ?Player $player,
         array $tags,
         \DateTime $time,
         bool $reverse = false

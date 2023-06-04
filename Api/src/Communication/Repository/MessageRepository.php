@@ -47,6 +47,7 @@ class MessageRepository extends ServiceEntityRepository
 
         $queryBuilder
             ->where($queryBuilder->expr()->eq('message.channel', ':channel'))
+            ->andWhere($queryBuilder->expr()->isNull('message.parent'))
             ->setParameter('channel', $channel)
         ;
 
@@ -60,7 +61,7 @@ class MessageRepository extends ServiceEntityRepository
             ;
         }
 
-        $queryBuilder->orderBy('message.createdAt', 'desc');
+        $queryBuilder->orderBy('message.updatedAt', 'desc');
 
         return $queryBuilder->getQuery()->getResult();
     }

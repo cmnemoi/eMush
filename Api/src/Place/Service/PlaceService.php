@@ -53,6 +53,13 @@ class PlaceService implements PlaceServiceInterface
         return $place instanceof Place ? $place : null;
     }
 
+    public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Place
+    {
+        $place = $this->repository->findByNameAndDaedalus($name, $daedalus);
+
+        return $place instanceof Place ? $place : null;
+    }
+
     public function createPlace(
         PlaceConfig $roomConfig,
         Daedalus $daedalus,

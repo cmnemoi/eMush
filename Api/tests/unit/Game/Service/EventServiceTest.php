@@ -184,7 +184,7 @@ class EventServiceTest extends TestCase
             ->once()
         ;
         $this->eventCreationService->shouldReceive('createEvents')
-            ->with($eventConfig, $player, $player, ['test', 'modifierName'], $time)
+            ->with($eventConfig, $player, ['test', 'modifierName'], $time)
             ->andReturn([$triggeredEvent])
             ->once()
         ;
@@ -596,7 +596,7 @@ class EventServiceTest extends TestCase
             ->once()
         ;
         $this->eventCreationService->shouldReceive('createEvents')
-            ->with($eventConfig, $player, $player, ['test', 'modifierName'], $time)
+            ->with($eventConfig, $player, ['test', 'modifierName'], $time)
             ->andReturn([$triggeredEvent])
             ->once()
         ;

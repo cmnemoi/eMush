@@ -64,6 +64,7 @@ Obvious example:
 # Create a new Action:
 - The list of actions that need to be added can be found on [git](https://gitlab.com/eternaltwin/mush/mush/-/issues/396). 
 - Create a class that extends [AbstractAction](./Actions/AbstractAction.php) in [Actions directory](./Actions).
-- Register the action name in the [ActionEnum](./src/Action/Enum/ActionEnum.php)
-- Add the [action data](./src/Action/ConfigData/ActionData.php) (cost, name, injury rate...)
-- Add the action to the associated equipment or player respectively in [equipment data](./src/Equipment/ConfigData/EquipmentConfigData) or [character config data](./src/Player/ConfigData/CharacterConfigData.php).
+- Register the action name in the [ActionEnum](./Enum/ActionEnum.php)
+- Add the [action data](./ConfigData/ActionData.php) (cost, name, injury rate...)
+- Add the action to the associated equipment or player respectively in [equipment data](../Equipment/ConfigData/EquipmentConfigData.php) or [character config data](../Player/ConfigData/CharacterConfigData.php).
+- Add french translations in [actions+intl-icu.fr.xlf](../../translations/fr/actions+intl-icu.fr.xlf), [actions_log+intl-icu.fr.xlf](../../translations/fr/actions_log+intl-icu.fr.xlf) (and [action_fail+intl-icu.fr.xlf](../../translations/fr/action_fail+intl-icu.fr.xlf) if needed).

@@ -134,6 +134,68 @@ class MessageRepositoryCest
         $I->assertEmpty($result);
     }
 
+    public function testFindByChannelCheckDuplicateThreadAnswers(FunctionalTester $I)
+    {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setName('daedalus');
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+        ]);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $channel1 = $this->createPrivateChannel([$playerInfo], $daedalus);
+
+        $currentTime = new \DateTime();
+
+        $message1 = new Message();
+        $message1
+            ->setCreatedAt($currentTime)
+            ->setChannel($channel1)
+            ->setMessage('message1')
+        ;
+        $I->haveInRepository($message1);
+
+        $message2 = new Message();
+        $message2
+            ->setCreatedAt($currentTime)
+            ->setChannel($channel1)
+            ->setMessage('message2')
+            ->setParent($message1)
+
+        ;
+        $I->haveInRepository($message2);
+
+        $result = $this->messageRepository->findByChannel($channel1);
+
+        $I->assertCount(1, $result);
+        $I->assertContains($message1, $result);
+        $result1 = $result[0];
+        $I->assertInstanceOf(Message::class, $result1);
+        $I->assertCount(1, $result1->getChild());
+        $I->assertContains($message2, $result1->getChild());
+        $I->assertNotContains($message2, $result);
+    }
+
     private function createPrivateChannel(array $users, Daedalus $daedalus): Channel
     {
         $privateChannel = new Channel();

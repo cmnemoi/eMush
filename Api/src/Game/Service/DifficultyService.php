@@ -32,6 +32,9 @@ class DifficultyService implements DifficultyServiceInterface
     private function getExtraPoints(Daedalus $daedalus): float
     {
         $threshold = 7 * $daedalus->getPlayers()->getPlayerAlive()->count();
+        if ($threshold < 1) {
+            return 1;
+        }
         if ($daedalus->getDailyActionPointsSpent() <= $threshold) {
             return 1;
         }

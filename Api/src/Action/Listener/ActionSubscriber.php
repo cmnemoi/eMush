@@ -33,6 +33,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ActionSubscriber implements EventSubscriberInterface
 {
+    // TODO: put those constants in the future PatrolShip Mechanic
+    private const FAILED_MANOEUVRE_DAEDALUS_DAMAGE_MIN = 2;
+    private const FAILED_MANOEUVRE_DAEDALUS_DAMAGE_MAX = 4;
+    private const FAILED_MANOEUVRE_PATROLSHIP_DAMAGE = 1;
+    private const FAILED_MANOEUVRE_PLAYER_DAMAGE_MIN = 0;
+    private const FAILED_MANOEUVRE_PLAYER_DAMAGE_MAX = 2;
+
     private ActionSideEffectsServiceInterface $actionSideEffectsService;
     private EventServiceInterface $eventService;
     private GetUp $getUpAction;

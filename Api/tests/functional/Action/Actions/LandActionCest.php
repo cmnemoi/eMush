@@ -8,7 +8,7 @@ use App\Tests\AbstractFunctionalTest;
 use App\Tests\FunctionalTester;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Takeoff;
+use Mush\Action\Actions\Land;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -22,9 +22,9 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 
-final class TakeoffActionCest extends AbstractFunctionalTest
+final class LandActionCest extends AbstractFunctionalTest
 {
-    private Takeoff $takeoffAction;
+    private Land $landAction;
     private Action $action;
 
     public function _before(FunctionalTester $I)
@@ -32,31 +32,33 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->createExtraRooms($I, $this->daedalus);
 
-        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::TAKEOFF]);
+        $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
+
+        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::LAND]);
 
         $I->refreshEntities($this->action);
 
-        $this->takeoffAction = $I->grabService(Takeoff::class);
+        $this->landAction = $I->grabService(Land::class);
     }
 
-    public function testTakeoffSuccess(FunctionalTester $I)
+    public function testLandSuccess(FunctionalTester $I)
     {
         $this->action->setCriticalRate(100);
         $I->refreshEntities($this->action);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig)
         ;
         $I->haveInRepository($pasiphae);
 
-        $this->takeoffAction->loadParameters($this->action, $this->player1, $pasiphae);
-        $I->assertTrue($this->takeoffAction->isVisible());
-        $I->assertNull($this->takeoffAction->cannotExecuteReason());
+        $this->landAction->loadParameters($this->action, $this->player1, $pasiphae);
+        $I->assertTrue($this->landAction->isVisible());
+        $I->assertNull($this->landAction->cannotExecuteReason());
 
-        $result = $this->takeoffAction->execute();
+        $result = $this->landAction->execute();
 
         $I->assertEquals(
             $this->player1->getActionPoint(),
@@ -65,10 +67,10 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
         $I->assertInstanceOf(Success::class, $result);
         $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::LABORATORY,
+            'place' => RoomEnum::ALPHA_BAY_2,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::TAKEOFF_SUCCESS,
+            'log' => ActionLogEnum::LAND_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
         $I->assertEquals(
@@ -81,48 +83,48 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         );
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::LABORATORY,
+            'place' => RoomEnum::ALPHA_BAY_2,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::EXIT_ROOM,
+            'log' => ActionLogEnum::ENTER_ROOM,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::PASIPHAE,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::ENTER_ROOM,
+            'log' => ActionLogEnum::EXIT_ROOM,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
         $I->dontSeeInRepository(RoomLog::class, [
             'place' => RoomEnum::PASIPHAE,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::TAKEOFF_NO_PILOT,
+            'log' => ActionLogEnum::LAND_NO_PILOT,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        $I->assertFalse($this->takeoffAction->isVisible());
+        $I->assertFalse($this->landAction->isVisible());
     }
 
-    public function testTakeoffFail(FunctionalTester $I): void
+    public function testLandFail(FunctionalTester $I)
     {
         $this->action->setCriticalRate(0);
         $I->refreshEntities($this->action);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig)
         ;
         $I->haveInRepository($pasiphae);
 
-        $this->takeoffAction->loadParameters($this->action, $this->player1, $pasiphae);
-        $I->assertTrue($this->takeoffAction->isVisible());
-        $I->assertNull($this->takeoffAction->cannotExecuteReason());
+        $this->landAction->loadParameters($this->action, $this->player1, $pasiphae);
+        $I->assertTrue($this->landAction->isVisible());
+        $I->assertNull($this->landAction->cannotExecuteReason());
 
-        $result = $this->takeoffAction->execute();
+        $result = $this->landAction->execute();
 
         $I->assertEquals(
             $this->player1->getActionPoint(),
@@ -131,16 +133,40 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
         $I->assertInstanceOf(Fail::class, $result);
         $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::LABORATORY,
+            'place' => RoomEnum::ALPHA_BAY_2,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::TAKEOFF_NO_PILOT,
+            'log' => ActionLogEnum::LAND_NO_PILOT,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
         $I->assertNotEquals(
             $this->player1->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getInitHull(),
             $this->player1->getDaedalus()->getHull()
         );
+
+        $I->seeInRepository(RoomLog::class, [
+            'place' => RoomEnum::ALPHA_BAY_2,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => ActionLogEnum::ENTER_ROOM,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+        $I->seeInRepository(RoomLog::class, [
+            'place' => RoomEnum::PASIPHAE,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => ActionLogEnum::EXIT_ROOM,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+        $I->dontSeeInRepository(RoomLog::class, [
+            'place' => RoomEnum::PASIPHAE,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => ActionLogEnum::LAND_NO_PILOT,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+
+        $I->assertFalse($this->landAction->isVisible());
     }
 
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void
@@ -154,6 +180,15 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             ->setDaedalus($daedalus)
         ;
         $I->haveInRepository($pasiphaeRoom);
+
+        $alphaBay2Config = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::ALPHA_BAY_2]);
+        $alphaBay2 = new Place();
+        $alphaBay2
+            ->setName(RoomEnum::ALPHA_BAY_2)
+            ->setType($alphaBay2Config->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($alphaBay2);
 
         $I->refreshEntities($daedalus);
     }

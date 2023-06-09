@@ -2,6 +2,8 @@
 
 namespace Mush\Action\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class ActionEnum
 {
     // Not yet an exhaustive list
@@ -86,6 +88,7 @@ class ActionEnum
     public const CHECK_SPORE_LEVEL = 'check_spore_level';
     public const REMOVE_SPORE = 'remove_spore';
     public const TAKEOFF = 'takeoff';
+    public const LAND = 'land';
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';
@@ -201,5 +204,22 @@ class ActionEnum
             self::AUTO_DESTROY,
             self::KILL_PLAYER,
         ];
+    }
+
+    public static function getChangingRoomActions(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::MOVE,
+            self::LAND,
+            self::TAKEOFF,
+        ]);
+    }
+
+    public static function getChangingRoomPatrolshipActions(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::LAND,
+            self::TAKEOFF,
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Listener;
 
+use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Game\Enum\VisibilityEnum;
@@ -25,9 +26,20 @@ class ActionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            ActionEvent::PRE_ACTION => 'onPreAction',
             ActionEvent::RESULT_ACTION => 'onResultAction',
             ActionEvent::POST_ACTION => 'onPostAction',
         ];
+    }
+
+    public function onPreAction(ActionEvent $event): void
+    {
+        $action = $event->getAction();
+        $player = $event->getAuthor();
+
+        if (ActionEnum::getChangingRoomPatrolshipActions()->contains($action->getActionName())) {
+            $this->createMoveRoomLog($player, ActionLogEnum::EXIT_ROOM);
+        }
     }
 
     public function onResultAction(ActionEvent $event): void
@@ -56,31 +68,56 @@ class ActionSubscriber implements EventSubscriberInterface
             $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
             $actionParameter->removeStatus($lyingDownStatus);
-
-            $logParameters = [];
-            $logParameters[$actionParameter->getLogKey()] = $actionParameter->getLogName();
-
-            $this->roomLogService->createLog(
-                LogEnum::FORCE_GET_UP,
-                $actionParameter->getPlace(),
-                VisibilityEnum::PUBLIC,
-                'event_log',
-                $actionParameter,
-                $logParameters,
-                new \DateTime()
-            );
+            $this->createForceGetUpLog($actionParameter);
         }
 
-        if ($action->getActionName() === ActionEnum::MOVE) {
-            $this->roomLogService->createLog(
-                ActionLogEnum::ENTER_ROOM,
-                $player->getPlace(),
-                VisibilityEnum::PUBLIC,
-                'actions_log',
-                $player,
-                [$player->getLogKey() => $player->getLogName()],
-                new \DateTime('now')
-            );
+        if (ActionEnum::getChangingRoomActions()->contains($action->getActionName())) {
+            $this->createMoveRoomLog($player, ActionLogEnum::ENTER_ROOM);
         }
+
+        if ($action->getActionName() === ActionEnum::LAND) {
+            $this->createLandActionLog($event);
+        }
+    }
+
+    private function createForceGetUpLog(Player $player): void
+    {
+        $this->roomLogService->createLog(
+            LogEnum::FORCE_GET_UP,
+            $player->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'event_log',
+            $player,
+            [$player->getLogKey() => $player->getLogName()],
+            new \DateTime()
+        );
+    }
+
+    private function createLandActionLog(ActionEvent $event): void
+    {
+        $player = $event->getAuthor();
+
+        $this->roomLogService->createLog(
+            $event->getActionResult() instanceof Success ? ActionLogEnum::LAND_SUCCESS : ActionLogEnum::LAND_NO_PILOT,
+            $player->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'actions_log',
+            $player,
+            [$player->getLogKey() => $player->getLogName()],
+            new \DateTime('now')
+        );
+    }
+
+    private function createMoveRoomLog(Player $player, string $type): void
+    {
+        $this->roomLogService->createLog(
+            $type,
+            $player->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'actions_log',
+            $player,
+            [$player->getLogKey() => $player->getLogName()],
+            new \DateTime('now')
+        );
     }
 }

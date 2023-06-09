@@ -5,7 +5,7 @@ namespace Mush\Test\Action\Actions;
 use Mockery;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\Takeoff;
+use Mush\Action\Actions\Land;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
@@ -15,7 +15,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 
-class TakeoffActionTest extends AbstractActionTest
+class LandActionTest extends AbstractActionTest
 {
     /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
@@ -31,14 +31,14 @@ class TakeoffActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::TAKEOFF, 2, 0);
+        $this->actionEntity = $this->createActionEntity(ActionEnum::LAND, 2, 0);
         $this->actionEntity->setCriticalRate(20);
 
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
         $this->placeService = \Mockery::mock(PlaceServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
-        $this->action = new Takeoff(
+        $this->action = new Land(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -65,7 +65,7 @@ class TakeoffActionTest extends AbstractActionTest
         $roomEnd = new Place();
         $roomEnd->setDaedalus($daedalus);
         $patroller = new GameEquipment($roomStart);
-        $patroller->setName(EquipmentEnum::PATROL_SHIP);
+        $patroller->setName(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
 
         $this->playerService->shouldReceive('persist');
 
@@ -74,6 +74,7 @@ class TakeoffActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $patroller);
 
         $this->placeService->shouldReceive('findByNameAndDaedalus')->andReturn($roomEnd);
+
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('randomPercent')->andReturn(100);
         $this->eventService->shouldReceive('callEvent')->times(1);
@@ -93,7 +94,7 @@ class TakeoffActionTest extends AbstractActionTest
         $roomEnd = new Place();
         $roomEnd->setDaedalus($daedalus);
         $patroller = new GameEquipment($roomStart);
-        $patroller->setName(EquipmentEnum::PATROL_SHIP);
+        $patroller->setName(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
 
         $this->playerService->shouldReceive('persist');
 

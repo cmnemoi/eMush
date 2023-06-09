@@ -1,30 +1,54 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Listener;
 
+use Mush\Action\ActionResult\Fail;
 use Mush\Action\Actions\GetUp;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ActionSubscriber implements EventSubscriberInterface
+final class ActionSubscriber implements EventSubscriberInterface
 {
+    // TODO: put those constants in the future PatrolShip Mechanic
+    private const FAILED_MANOEUVRE_DAEDALUS_DAMAGE_MIN = 2;
+    private const FAILED_MANOEUVRE_DAEDALUS_DAMAGE_MAX = 4;
+    private const FAILED_MANOEUVRE_PATROLSHIP_DAMAGE = 1;
+    private const FAILED_MANOEUVRE_PLAYER_DAMAGE_MIN = 0;
+    private const FAILED_MANOEUVRE_PLAYER_DAMAGE_MAX = 2;
+
     private ActionSideEffectsServiceInterface $actionSideEffectsService;
+    private EventServiceInterface $eventService;
     private GetUp $getUpAction;
     private GearToolServiceInterface $gearToolService;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         ActionSideEffectsServiceInterface $actionSideEffectsService,
+        EventServiceInterface $eventService,
         GetUp $getUp,
         GearToolServiceInterface $gearToolService,
+        RandomServiceInterface $randomService
     ) {
         $this->actionSideEffectsService = $actionSideEffectsService;
+        $this->eventService = $eventService;
         $this->getUpAction = $getUp;
         $this->gearToolService = $gearToolService;
+        $this->randomService = $randomService;
     }
 
     public static function getSubscribedEvents(): array
@@ -60,9 +84,9 @@ class ActionSubscriber implements EventSubscriberInterface
         $player = $event->getAuthor();
         $actionParameter = $event->getActionParameter();
 
-        $this->actionSideEffectsService->handleActionSideEffect($action, $player, $event->getActionParameter());
-
+        $this->actionSideEffectsService->handleActionSideEffect($action, $player, $actionParameter);
         $this->gearToolService->applyChargeCost($player, $action->getActionName(), $action->getTypes());
+        $player->getDaedalus()->addDailyActionPointsSpent($action->getActionCost());
 
         if ($actionParameter instanceof Player &&
             in_array($action->getActionName(), ActionEnum::getForceGetUpActions()) &&
@@ -71,7 +95,66 @@ class ActionSubscriber implements EventSubscriberInterface
             $actionParameter->removeStatus($lyingDownStatus);
         }
 
-        $daedalus = $player->getDaedalus();
-        $daedalus->addDailyActionPointsSpent($action->getActionCost());
+        if ($this->eventTagsContainsPatrolshipAction($event->getTags())
+            && $event->getActionResult() instanceof Fail
+        ) {
+            $this->handlePatrolshipManoeuvreDamage($event);
+        }
+    }
+
+    private function eventTagsContainsPatrolshipAction(array $tags): bool
+    {
+        $patrolshipActions = ActionEnum::getChangingRoomPatrolshipActions();
+
+        foreach ($patrolshipActions as $patrolshipAction) {
+            if (in_array($patrolshipAction, $tags)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function handlePatrolshipManoeuvreDamage(ActionEvent $event): void
+    {
+        $this->inflictDamageToDaedalus($event);
+        $this->inflictDamageToPlayer($event);
+    }
+
+    private function inflictDamageToDaedalus(ActionEvent $event): void
+    {
+        $damage = -$this->randomService->random(
+            self::FAILED_MANOEUVRE_DAEDALUS_DAMAGE_MIN,
+            self::FAILED_MANOEUVRE_DAEDALUS_DAMAGE_MAX
+        );
+
+        $daedalusVariableModifierEvent = new DaedalusVariableEvent(
+            $event->getAuthor()->getDaedalus(),
+            DaedalusVariableEnum::HULL,
+            $damage,
+            $event->getTags(),
+            new \DateTime(),
+        );
+
+        $this->eventService->callEvent($daedalusVariableModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function inflictDamageToPlayer(ActionEvent $event): void
+    {
+        $damage = -$this->randomService->random(
+            self::FAILED_MANOEUVRE_PLAYER_DAMAGE_MIN,
+            self::FAILED_MANOEUVRE_PLAYER_DAMAGE_MAX
+        );
+
+        $playerModifierEvent = new PlayerVariableEvent(
+            $event->getAuthor(),
+            PlayerVariableEnum::HEALTH_POINT,
+            $damage,
+            $event->getTags(),
+            new \DateTime(),
+        );
+
+        $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

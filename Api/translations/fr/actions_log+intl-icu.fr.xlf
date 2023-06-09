@@ -1014,5 +1014,11 @@
         <target>Le décollage de **{character}** est si mauvais qu'il a endommagé son appareil.</target>
       </segment>
     </unit>
+    <unit id="land_no_pilot">
+      <segment id="land_no_pilot" state="translated">
+        <source>land_no_pilot</source>
+        <target>L'atterrissage de **{character}** est si mauvais qu'il a endommagé son appareil.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

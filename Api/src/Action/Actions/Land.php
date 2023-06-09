@@ -20,6 +20,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -27,9 +28,9 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class Takeoff extends AbstractAction
+final class Land extends AbstractAction
 {
-    protected string $name = ActionEnum::TAKEOFF;
+    protected string $name = ActionEnum::LAND;
 
     private PlayerServiceInterface $playerService;
     private PlaceServiceInterface $placeService;
@@ -73,7 +74,7 @@ final class Takeoff extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new PlaceType(['groups' => ['visibility'], 'type' => PlaceTypeEnum::ROOM]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['visibility'], 'type' => PlaceTypeEnum::PATROL_SHIP]));
     }
 
     protected function applyEffect(ActionResult $result): void
@@ -81,16 +82,15 @@ final class Takeoff extends AbstractAction
         /** @var GameEquipment $patrolship */
         $patrolship = $this->parameter;
 
-        $patrolshipRoom = $this->placeService->findByNameAndDaedalus($patrolship->getName(), $this->player->getDaedalus());
-        if ($patrolshipRoom === null) {
-            throw new \RuntimeException('Patrol ship room not found');
+        $patrolshipBay = $this->placeService->findByNameAndDaedalus(RoomEnum::$patrolshipBay[$patrolship->getName()], $this->player->getDaedalus());
+        if ($patrolshipBay === null) {
+            throw new \RuntimeException('Patrol ship bay not found');
         }
-
-        $this->player->changePlace($patrolshipRoom);
+        $this->player->changePlace($patrolshipBay);
 
         $equipmentEvent = new MoveEquipmentEvent(
             equipment: $patrolship,
-            newHolder: $patrolshipRoom,
+            newHolder: $patrolshipBay,
             author: $this->player,
             visibility: VisibilityEnum::HIDDEN,
             tags: $this->getAction()->getActionTags(),

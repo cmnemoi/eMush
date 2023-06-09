@@ -43,21 +43,20 @@ class ActionSubscriber implements EventSubscriberInterface
         /** @var GameEquipment $actionEquipment */
         $actionEquipment = $event->getActionParameter();
 
-        switch ($actionName) {
-            // handle movement of a player
-            case ActionEnum::MOVE:
-                $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
-
-                /** @var GameEquipment $equipment */
-                foreach ($player->getEquipments() as $equipment) {
-                    $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
-                }
-                break;
-            case ActionEnum::TAKEOFF:
-                $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
-                $this->equipmentModifierService->equipmentEnterRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
-                break;
+        if (!ActionEnum::getChangingRoomActions()->contains($actionName)) {
+            return;
         }
+
+        $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
+        /** @var GameEquipment $equipment */
+        foreach ($player->getEquipments() as $equipment) {
+            $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
+        }
+
+        if (!ActionEnum::getChangingRoomPatrolshipActions()->contains($actionName)) {
+            return;
+        }
+        $this->equipmentModifierService->equipmentEnterRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
     }
 
     public function onPreAction(ActionEvent $event): void
@@ -68,21 +67,19 @@ class ActionSubscriber implements EventSubscriberInterface
         /** @var GameEquipment $actionEquipment */
         $actionEquipment = $event->getActionParameter();
 
-        switch ($actionName) {
-            case ActionEnum::MOVE:
-                // handle movement of a player
-                $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
-
-                /** @var GameEquipment $equipment */
-                foreach ($player->getEquipments() as $equipment) {
-                    $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
-                }
-
-                break;
-            case ActionEnum::TAKEOFF:
-                $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
-                $this->equipmentModifierService->equipmentLeaveRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
-                break;
+        if (!ActionEnum::getChangingRoomActions()->contains($actionName)) {
+            return;
         }
+
+        $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
+        /** @var GameEquipment $equipment */
+        foreach ($player->getEquipments() as $equipment) {
+            $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
+        }
+
+        if (!ActionEnum::getChangingRoomPatrolshipActions()->contains($actionName)) {
+            return;
+        }
+        $this->equipmentModifierService->equipmentLeaveRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
     }
 }

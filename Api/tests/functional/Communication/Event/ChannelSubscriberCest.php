@@ -92,18 +92,25 @@ class ChannelSubscriberCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
         ]);
+        $player2 = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+        ]);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
         $I->haveInRepository($playerInfo);
+
+        $playerInfo2 = new PlayerInfo($player2, $user, $characterConfig);
+        $I->haveInRepository($playerInfo2);
+
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $player2->setPlayerInfo($playerInfo2);
+        $I->refreshEntities($player, $player2);
 
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::class)
+            ->setScope(ChannelScopeEnum::PRIVATE)
         ;
         $I->haveInRepository($privateChannel);
 
@@ -113,6 +120,13 @@ class ChannelSubscriberCest
             ->setParticipant($playerInfo)
         ;
         $I->haveInRepository($channelPlayer);
+
+        $channelPlayer2 = new ChannelPlayer();
+        $channelPlayer2
+            ->setChannel($privateChannel)
+            ->setParticipant($playerInfo2)
+        ;
+        $I->haveInRepository($channelPlayer2);
 
         $event = new ChannelEvent($privateChannel, [CommunicationActionEnum::EXIT], new \DateTime(), $player);
         $this->channelSubscriber->onExitChannel($event);

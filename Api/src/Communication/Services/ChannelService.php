@@ -273,7 +273,9 @@ class ChannelService implements ChannelServiceInterface
         $channels = $this->channelRepository->findByPlayer($player->getPlayerInfo(), $privateOnly);
 
         if ($player->isAlive() && !$this->canPlayerCommunicate($player) && !$privateOnly) {
-            return $channels->filter(fn (Channel $channel) => $channel->isScope(ChannelScopeEnum::PRIVATE));
+            return $channels->filter(fn (Channel $channel) => $channel->isScope(ChannelScopeEnum::PRIVATE) ||
+                $channel->isScope(ChannelScopeEnum::MUSH)
+            );
         }
 
         return $channels;

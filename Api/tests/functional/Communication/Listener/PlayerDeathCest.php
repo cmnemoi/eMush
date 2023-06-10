@@ -93,6 +93,13 @@ class PlayerDeathCest
         ;
         $I->haveInRepository($publicChannel);
 
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setScope(ChannelScopeEnum::MUSH)
+            ->setDaedalus($daedalusInfo)
+        ;
+        $I->haveInRepository($mushChannel);
+
         $I->refreshEntities($publicChannel);
 
         $playerEvent = new PlayerEvent(

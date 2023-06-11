@@ -23,8 +23,8 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 
     public function getMinimap(Daedalus $daedalus, Player $player): array
     {
-        $equipmentsProject = true;
-        $doorsProject = true;
+        $equipmentsProject = false;
+        $doorsProject = false;
 
         $brokenEquipments = $this->getDisplayedBrokenEquipments($daedalus, AlertEnum::BROKEN_EQUIPMENTS, $equipmentsProject);
         $brokenDoors = $this->getDisplayedBrokenEquipments($daedalus, AlertEnum::BROKEN_DOORS, $doorsProject);

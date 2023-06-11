@@ -761,5 +761,35 @@
         <target>play_arcade.description</target>
       </segment>
     </unit>
+    <unit id="shoot_hunter">
+      <segment id="name" state="initial">
+        <source>shoot_hunter.name</source>
+        <target>shoot_hunter.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shoot_hunter.description</source>
+        <target>shoot_hunter.description</target>
+      </segment>
+    </unit>
+    <unit id="takeoff">
+      <segment id="name" state="initial">
+        <source>takeoff.name</source>
+        <target>takeoff.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>takeoff.description</source>
+        <target>takeoff.description</target>
+      </segment>
+    </unit>
+    <unit id="land">
+      <segment id="name" state="initial">
+        <source>land.name</source>
+        <target>land.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>land.description</source>
+        <target>land.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

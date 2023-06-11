@@ -748,5 +748,29 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>You missed your target.</target>
       </segment>
     </unit>
+    <unit id="takeoff_no_pilot">
+      <segment id="takeoff_no_pilot" state="translated">
+        <source>takeoff_no_pilot</source>
+        <target>**{character}**'s takeoff was so bad that they've damaged their equipment.</target>
+      </segment>
+    </unit>
+    <unit id="land_no_pilot">
+      <segment id="land_no_pilot" state="translated">
+        <source>land_no_pilot</source>
+        <target>**{character}**'s landing was so bad that they've damaged their equipment.</target>
+      </segment>
+    </unit>
+    <unit id="takeoff_success">
+      <segment state="translated">
+        <source>takeoff_success</source>
+        <target>**{character}** has just taken off.</target>
+      </segment>
+    </unit>
+    <unit id="land_success">
+      <segment state="translated">
+        <source>land_success</source>
+        <target>**{character}**'s patrol ship has just landed. </target>
+      </segment>
+    </unit>
   </file>
 </xliff>

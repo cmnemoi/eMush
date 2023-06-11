@@ -1008,5 +1008,29 @@
         <target>Vous avez raté votre cible.</target>
       </segment>
     </unit>
+    <unit id="takeoff_no_pilot">
+      <segment id="takeoff_no_pilot" state="translated">
+        <source>takeoff_no_pilot</source>
+        <target>Le décollage de **{character}** est si mauvais qu'il a endommagé son appareil.</target>
+      </segment>
+    </unit>
+    <unit id="land_no_pilot">
+      <segment id="land_no_pilot" state="translated">
+        <source>land_no_pilot</source>
+        <target>L'atterrissage de **{character}** est si mauvais qu'il a endommagé son appareil.</target>
+      </segment>
+    </unit>
+    <unit id="takeoff_success">
+      <segment state="translated">
+        <source>takeoff_success</source>
+        <target>**{character}** vient de décoller.</target>
+      </segment>
+    </unit>
+    <unit id="land_success">
+      <segment state="translated">
+        <source>land_success</source>
+        <target>Le patrouilleur de **{character}** vient d'atterrir.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

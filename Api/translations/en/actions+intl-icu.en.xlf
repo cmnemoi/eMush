@@ -790,5 +790,25 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         <target>Fire a Teslatron charge at an enemy ship.</target>
       </segment>
     </unit>
+    <unit id="takeoff">
+      <segment id="name" state="translated">
+        <source>takeoff.name</source>
+        <target>Take off</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>takeoff.description</source>
+        <target>Climb abour a patrol ship and appear in the appropriate quadrant.</target>
+      </segment>
+    </unit>
+    <unit id="land">
+      <segment id="name" state="translated">
+        <source>land.name</source>
+        <target>Land</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>land.description</source>
+        <target>Return to Patrol Ship launch bay.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

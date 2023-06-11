@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="neron.ext">
-    <unit id="player_enter_chat">
-      <segment id="player_enter_chat" state="initial">
-        <source>player_enter_chat</source>
-        <target>player_enter_chat</target>
-      </segment>
-    </unit>
-    <unit id="player_leave_chat">
-      <segment id="player_leave_chat" state="initial">
-        <source>player_leave_chat</source>
-        <target>player_leave_chat</target>
-      </segment>
-    </unit>
-    <unit id="player_leave_chat_death">
-      <segment id="player_leave_chat_death" state="initial">
-        <source>player_leave_chat_death</source>
-        <target>player_leave_chat_death</target>
-      </segment>
-    </unit>
-    <unit id="player_leave_chat_talky">
-      <segment id="player_leave_chat_talky" state="initial">
-        <source>player_leave_chat_talky</source>
-        <target>player_leave_chat_talky</target>
-      </segment>
-    </unit>
     <unit id="cycle_failures">
       <segment id="cycle_failures" state="initial">
         <source>cycle_failures</source>

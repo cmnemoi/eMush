@@ -44,6 +44,16 @@ To participate you must have a :talkie: walkie-talkie.</target>
 **Please note that private channels are a part of the game and are therefore subject to the same confidentiality constraints as eMush.**</target>
       </segment>
     </unit>
+    <unit id="mush">
+      <segment id="name" state="translated">
+        <source>mush.name</source>
+        <target>Mush channel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mush.description</source>
+        <target>Mush pheromones allow you to communicate within the Mush team.</target>
+      </segment>
+    </unit>
     <unit id="new">
       <segment id="name" state="translated">
         <source>new.name</source>

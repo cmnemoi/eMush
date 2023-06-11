@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="misc.ext">
     <unit id="asteroid">
-      <segment id="asteroid_name" state="translated">
+      <segment id="asteroid_name" state="initial">
         <source>asteroid.name</source>
-        <target>Astéroïde</target>
+        <target>asteroid.name</target>
       </segment>
     </unit>
     <unit id="dice">
-      <segment id="dice_name" state="translated">
+      <segment id="dice_name" state="initial">
         <source>dice.name</source>
-        <target>D1000</target>
+        <target>dice.name</target>
       </segment>
     </unit>
     <unit id="hunter">
-      <segment id="hunter_name" state="translated">
+      <segment id="hunter_name" state="initial">
         <source>hunter.name</source>
-        <target>Hunter</target>
+        <target>hunter.name</target>
       </segment>
     </unit>
     <unit id="spider">
-      <segment id="spider_name" state="translated">
+      <segment id="spider_name" state="initial">
         <source>spider.name</source>
-        <target>Arack</target>
+        <target>spider.name</target>
       </segment>
     </unit>
     <unit id="trax">
-      <segment id="trax_name" state="translated">
+      <segment id="trax_name" state="initial">
         <source>trax.name</source>
-        <target>Trax</target>
+        <target>trax.name</target>
       </segment>
     </unit>
   </file>

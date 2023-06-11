@@ -58,7 +58,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>medlab.loc_prep</source>
-        <target>en la </target>
+        <target>en la</target>
       </segment>
     </unit>
     <unit id="laboratory">

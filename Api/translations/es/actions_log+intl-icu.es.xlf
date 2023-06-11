@@ -517,5 +517,41 @@
         <target>OH SIIIII. **{character}** ha vencido a Xatator, ¡el jefe del NIVEL10!</target>
       </segment>
     </unit>
+    <unit id="shoot_hunter_success">
+      <segment id="shoot_hunter_success" state="initial">
+        <source>shoot_hunter_success</source>
+        <target>shoot_hunter_success</target>
+      </segment>
+    </unit>
+    <unit id="shoot_hunter_fail">
+      <segment id="shoot_hunter_fail" state="initial">
+        <source>shoot_hunter_fail</source>
+        <target>shoot_hunter_fail</target>
+      </segment>
+    </unit>
+    <unit id="takeoff_no_pilot">
+      <segment id="takeoff_no_pilot" state="initial">
+        <source>takeoff_no_pilot</source>
+        <target>takeoff_no_pilot</target>
+      </segment>
+    </unit>
+    <unit id="land_no_pilot">
+      <segment id="land_no_pilot" state="initial">
+        <source>land_no_pilot</source>
+        <target>land_no_pilot</target>
+      </segment>
+    </unit>
+    <unit id="takeoff_success">
+      <segment state="initial">
+        <source>takeoff_success</source>
+        <target>takeoff_success</target>
+      </segment>
+    </unit>
+    <unit id="land_success">
+      <segment state="initial">
+        <source>land_success</source>
+        <target>land_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

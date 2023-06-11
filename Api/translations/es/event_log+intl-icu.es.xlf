@@ -391,5 +391,77 @@
         <target>trauma_disease</target>
       </segment>
     </unit>
+    <unit id="hunter_death">
+      <segment id="hunter_death" state="initial">
+        <source>hunter_death</source>
+        <target>hunter_death</target>
+      </segment>
+    </unit>
+    <unit id="infect_action">
+      <segment id="infect_action" state="initial">
+        <source>infect_action</source>
+        <target>infect_action</target>
+      </segment>
+    </unit>
+    <unit id="infect_trap">
+      <segment id="infect_trap" state="initial">
+        <source>infect_trap</source>
+        <target>infect_trap</target>
+      </segment>
+    </unit>
+    <unit id="infect_std">
+      <segment id="infect_std" state="initial">
+        <source>infect_std</source>
+        <target>infect_std</target>
+      </segment>
+    </unit>
+    <unit id="infect_cat">
+      <segment id="infect_cat" state="initial">
+        <source>infect_cat</source>
+        <target>infect_cat</target>
+      </segment>
+    </unit>
+    <unit id="infect_mush_raid">
+      <segment id="infect_mush_raid" state="initial">
+        <source>infect_mush_raid</source>
+        <target>infect_mush_raid</target>
+      </segment>
+    </unit>
+    <unit id="infect_trapped_ration">
+      <segment id="infect_trapped_ration" state="initial">
+        <source>infect_trapped_ration</source>
+        <target>infect_trapped_ration</target>
+      </segment>
+    </unit>
+    <unit id="mush_convert_event">
+      <segment id="mush_convert_event" state="initial">
+        <source>mush_convert_event</source>
+        <target>mush_convert_event</target>
+      </segment>
+    </unit>
+    <unit id="player_enter_chat">
+      <segment id="player_enter_chat" state="initial">
+        <source>player_enter_chat</source>
+        <target>player_enter_chat</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat">
+      <segment id="player_leave_chat" state="initial">
+        <source>player_leave_chat</source>
+        <target>player_leave_chat</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat_death">
+      <segment id="player_leave_chat_death" state="initial">
+        <source>player_leave_chat_death</source>
+        <target>player_leave_chat_death</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat_talky">
+      <segment id="player_leave_chat_talky" state="initial">
+        <source>player_leave_chat_talky</source>
+        <target>player_leave_chat_talky</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

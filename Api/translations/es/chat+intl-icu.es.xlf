@@ -41,6 +41,16 @@
         <target>private.description</target>
       </segment>
     </unit>
+    <unit id="mush">
+      <segment id="name" state="initial">
+        <source>mush.name</source>
+        <target>mush.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mush.description</source>
+        <target>mush.description</target>
+      </segment>
+    </unit>
     <unit id="new">
       <segment id="name" state="initial">
         <source>new.name</source>

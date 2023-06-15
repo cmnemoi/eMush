@@ -11,6 +11,7 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -24,13 +25,14 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Class UsersController.
+ * Class DaedalusController.
  *
  * @Route(path="/daedaluses")
  */
@@ -45,6 +47,7 @@ class DaedalusController extends AbstractFOSRestController
     private ValidatorInterface $validator;
     private RandomServiceInterface $randomService;
     private GameConfigServiceInterface $gameConfigService;
+    private CycleServiceInterface $cycleService;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
@@ -53,7 +56,8 @@ class DaedalusController extends AbstractFOSRestController
         PlayerInfoRepository $playerInfoRepository,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        GameConfigServiceInterface $gameConfigService
+        GameConfigServiceInterface $gameConfigService,
+        CycleServiceInterface $cycleService
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusWidgetService = $daedalusWidgetService;
@@ -62,6 +66,7 @@ class DaedalusController extends AbstractFOSRestController
         $this->validator = $validator;
         $this->randomService = $randomService;
         $this->gameConfigService = $gameConfigService;
+        $this->cycleService = $cycleService;
     }
 
     /**
@@ -227,6 +232,10 @@ class DaedalusController extends AbstractFOSRestController
         if ($daedalus->getDaedalusInfo()->isDaedalusFinished()) {
             return $this->view(['error' => 'Daedalus is already finished'], 400);
         }
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
+        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $this->daedalusService->endDaedalus(
             $daedalus,

@@ -27,26 +27,27 @@ class ChannelRepository extends ServiceEntityRepository
         /** @var Player $player */
         $player = $playerInfo->getPlayer();
 
-        $queryBuilder = $this->createQueryBuilder('channel');
-        $queryBuilder
-            ->leftJoin('channel.participants', 'channelPlayer')
-            ->where($queryBuilder->expr()->eq('channelPlayer.participant', ':playerInfo'))
-            ->setParameter('playerInfo', $playerInfo->getId())
-        ;
-
-        if (!$privateOnly) {
-            $queryBuilder
-                ->orWhere(
-                    $queryBuilder->expr()->andX(
-                        $queryBuilder->expr()->eq('channel.scope', ':public')
-                    ))
-                ->andWhere($queryBuilder->expr()->eq('channel.daedalusInfo', ':daedalus'))
-                ->setParameter('public', ChannelScopeEnum::PUBLIC)
-                ->setParameter('daedalus', $player->getDaedalus()->getDaedalusInfo())
-            ;
+        $privateChannels = $this->findPrivateChannelsByPlayer($playerInfo);
+        if ($privateOnly) {
+            return $privateChannels;
         }
 
-        return new ArrayCollection($queryBuilder->getQuery()->getResult());
+        /** @var ArrayCollection<int, Channel> $playerChannels */
+        $playerChannels = new ArrayCollection();
+
+        foreach ($privateChannels as $privateChannel) {
+            $playerChannels->add($privateChannel);
+        }
+
+        $publicChannel = $this->findPublicChannelByDaedalus($player->getDaedalus());
+        $playerChannels->add($publicChannel);
+
+        if ($player->isMush()) {
+            $mushChannel = $this->findMushChannelByDaedalus($player->getDaedalus());
+            $playerChannels->add($mushChannel);
+        }
+
+        return $playerChannels;
     }
 
     public function findMushChannelByDaedalus(Daedalus $daedalus): Channel
@@ -55,6 +56,33 @@ class ChannelRepository extends ServiceEntityRepository
         $queryBuilder->where($queryBuilder->expr()->eq('channel.daedalusInfo', ':daedalus'))
             ->andWhere($queryBuilder->expr()->eq('channel.scope', ':scope'))
             ->setParameter('scope', ChannelScopeEnum::MUSH)
+            ->setParameter('daedalus', $daedalus->getDaedalusInfo());
+
+        $result = $queryBuilder->getQuery()->getResult();
+
+        return $result[0];
+    }
+
+    private function findPrivateChannelsByPlayer(PlayerInfo $playerInfo): Collection
+    {
+        $queryBuilder = $this->createQueryBuilder('channel');
+        $queryBuilder
+            ->leftJoin('channel.participants', 'channelPlayer')
+            ->where($queryBuilder->expr()->eq('channelPlayer.participant', ':playerInfo'))
+            ->andWhere($queryBuilder->expr()->eq('channel.scope', ':private'))
+            ->setParameter('playerInfo', $playerInfo->getId())
+            ->setParameter('private', ChannelScopeEnum::PRIVATE)
+        ;
+
+        return new ArrayCollection($queryBuilder->getQuery()->getResult());
+    }
+
+    private function findPublicChannelByDaedalus(Daedalus $daedalus): Channel
+    {
+        $queryBuilder = $this->createQueryBuilder('channel');
+        $queryBuilder->where($queryBuilder->expr()->eq('channel.daedalusInfo', ':daedalus'))
+            ->andWhere($queryBuilder->expr()->eq('channel.scope', ':scope'))
+            ->setParameter('scope', ChannelScopeEnum::PUBLIC)
             ->setParameter('daedalus', $daedalus->getDaedalusInfo());
 
         $result = $queryBuilder->getQuery()->getResult();

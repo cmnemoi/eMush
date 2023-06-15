@@ -439,6 +439,11 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalus;
     }
 
+    public function findAllFinishedDaedaluses(): DaedalusCollection
+    {
+        return new DaedalusCollection($this->daedalusRepository->findFinishedDaedaluses());
+    }
+
     public function findAllNonFinishedDaedaluses(): DaedalusCollection
     {
         return new DaedalusCollection($this->daedalusRepository->findNonFinishedDaedaluses());

@@ -20,6 +20,18 @@ class DaedalusServiceCest extends AbstractFunctionalTest
         $this->daedalusService = $I->grabService(DaedalusService::class);
     }
 
+    public function testFindAllFinishedDaedaluses(FunctionalTester $I)
+    {
+        $finishedDaedalus = $this->createDaedalus($I);
+        $this->daedalusService->endDaedalus($finishedDaedalus, 'test', new \DateTime());
+
+        $finishedDaedaluses = $this->daedalusService->findAllFinishedDaedaluses();
+        $nonFinishedDaedaluses = $this->daedalusService->findAllNonFinishedDaedaluses();
+
+        $I->assertCount(1, $finishedDaedaluses);
+        $I->assertCount(1, $nonFinishedDaedaluses);
+    }
+
     public function testFindAllDaedalusesOnCycleChange(FunctionalTester $I)
     {
         $lockedUpDaedalus = $this->createDaedalus($I);

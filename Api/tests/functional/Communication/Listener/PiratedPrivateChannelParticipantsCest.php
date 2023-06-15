@@ -189,7 +189,7 @@ class PiratedPrivateChannelParticipantsCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::class)
+            ->setScope(ChannelScopeEnum::PRIVATE)
         ;
         $I->haveInRepository($privateChannel);
 
@@ -213,6 +213,13 @@ class PiratedPrivateChannelParticipantsCest
             ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($publicChannel);
+
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setScope(ChannelScopeEnum::MUSH)
+            ->setDaedalus($daedalusInfo)
+        ;
+        $I->haveInRepository($mushChannel);
 
         // initialize talkies
         /** @var EquipmentConfig $equipmentConfig */
@@ -416,7 +423,7 @@ class PiratedPrivateChannelParticipantsCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::class)
+            ->setScope(ChannelScopeEnum::PRIVATE)
         ;
         $I->haveInRepository($privateChannel);
 
@@ -440,6 +447,13 @@ class PiratedPrivateChannelParticipantsCest
             ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($publicChannel);
+
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setScope(ChannelScopeEnum::MUSH)
+            ->setDaedalus($daedalusInfo)
+        ;
+        $I->haveInRepository($mushChannel);
 
         // initialize talkies
         /** @var EquipmentConfig $equipmentConfig */
@@ -606,7 +620,7 @@ class PiratedPrivateChannelParticipantsCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::class)
+            ->setScope(ChannelScopeEnum::PRIVATE)
         ;
         $I->haveInRepository($privateChannel);
 
@@ -630,6 +644,13 @@ class PiratedPrivateChannelParticipantsCest
             ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($publicChannel);
+
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setScope(ChannelScopeEnum::MUSH)
+            ->setDaedalus($daedalusInfo)
+        ;
+        $I->haveInRepository($mushChannel);
 
         // initialize talkies
         /** @var EquipmentConfig $equipmentConfig */

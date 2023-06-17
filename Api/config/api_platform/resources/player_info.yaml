@@ -1,0 +1,25 @@
+Mush\Player\Entity\PlayerInfo:
+  shortName: 'PlayerInfo'
+  description: 'eMush PlayerInfo'
+  attributes:
+    pagination_items_per_page: 25
+    security: 'is_granted("ROLE_MODERATOR")'
+    normalization_context:
+      groups: [ 'player_info_read' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+      security: 'is_granted("ROLE_MODERATOR")'
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_MODERATOR")'
+  properties:
+    characterConfig:
+        subresource:
+          resourceClass: 'Mush\Player\Entity\Config\CharacterConfig'
+          collection: false
+    user:
+      subresource:
+        resourceClass: 'Mush\User\Entity\User'
+        collection: false
+    

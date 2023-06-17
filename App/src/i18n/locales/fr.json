@@ -513,6 +513,9 @@
 			"scrapDropTable": "Table des débris laissés à la mort (débris => probabilité)",
 			"spawnDifficulty": "Jour d'apparition",
 			"numberOfDroppedScrap": "Nombre de débris laissés à la mort (nombre => probabilité)"
+		},
+		"playerList": {
+			"quarantine": "Mettre en quarantaine"
 		}
 	},
 	"charSelection": {

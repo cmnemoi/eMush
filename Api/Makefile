@@ -4,6 +4,12 @@ diff:
 drop:
 	php bin/console doctrine:schema:drop --force --full-database
 
+fill-daedalus-all:
+	php bin/console mush:fill-daedalus
+
+fill-daedalus-two:
+	php bin/console mush:fill-daedalus --number 2
+
 load-data:
 	php bin/console mush:load-configs-data
 
@@ -12,6 +18,14 @@ lint:
 
 psalm:
 	vendor/bin/psalm
+
+reset:
+	php bin/console doctrine:database:create --env=test --if-not-exists
+	php bin/console doctrine:schema:drop --full-database --env=test -f
+	php bin/console doctrine:schema:update --env=test -f
+	php bin/console doctrine:fixtures:load --env=test -n --verbose
+	php bin/console doctrine:schema:drop --force --full-database
+	php bin/console mush:migrate --dev
 
 test:
 	vendor/bin/codecept run

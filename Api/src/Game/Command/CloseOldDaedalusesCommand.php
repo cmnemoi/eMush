@@ -44,21 +44,34 @@ class CloseOldDaedalusesCommand extends Command
 
         $io->title('Closing old Daedaluses...');
 
-        $daedaluses = $this->daedalusService->findAllNonFinishedDaedaluses();
-        foreach ($daedaluses as $daedalus) {
-            $this->closeOldDaedalus($daedalus);
+        $daedaluses = $this->daedalusService->findAllFinishedDaedaluses();
+        if ($daedaluses->count() === 0) {
+            $io->info('No Daedalus to close.');
+
+            return Command::SUCCESS;
         }
+
+        foreach ($daedaluses as $daedalus) {
+            $io->info('Closing Daedalus #' . $daedalus->getId() . '...');
+            if ($this->closeOldDaedalus($daedalus)) {
+                $io->info('Daedalus #' . $daedalus->getId() . ' closed.');
+            } else {
+                $io->info('Daedalus #' . $daedalus->getId() . ' not closed : too recent.');
+            }
+        }
+
+        $io->success('Old Daedaluses closed.');
 
         return Command::SUCCESS;
     }
 
-    private function closeOldDaedalus(Daedalus $daedalus): void
+    private function closeOldDaedalus(Daedalus $daedalus): bool
     {
         $finishDate = $daedalus->getFinishedAt();
         $now = new \DateTime();
 
         if ($finishDate && $finishDate->diff($now)->days < 7) {
-            return;
+            return false;
         }
 
         /** @var Player $player */
@@ -66,10 +79,6 @@ class CloseOldDaedalusesCommand extends Command
             $this->playerService->endPlayer($player, '');
         }
 
-        $this->daedalusService->closeDaedalus(
-            $daedalus,
-            reasons: ['daedalus_closed_after_1_week'],
-            date: $now
-        );
+        return true;
     }
 }

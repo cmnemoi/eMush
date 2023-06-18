@@ -80,7 +80,7 @@ class DaedalusRepository extends ServiceEntityRepository
         $qb
             ->select('daedalus')
             ->leftJoin('daedalus.daedalusInfo', 'daedalus_info')
-            ->where($qb->expr()->notIn('daedalus_info.gameStatus', ':gameStatus'))
+            ->where($qb->expr()->in('daedalus_info.gameStatus', ':gameStatus'))
             ->setParameter('gameStatus', $gameStatusParameter)
         ;
 

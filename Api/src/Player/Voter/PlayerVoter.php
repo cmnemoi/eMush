@@ -64,7 +64,11 @@ class PlayerVoter extends Voter
 
     private function canPlayerEnd(User $user, ?Player $player): bool
     {
-        return $player !== null && $user === $player->getPlayerInfo()->getUser();
+        $playerExists = $player !== null;
+        $playerIsUserPlayer = $playerExists && $player->getPlayerInfo()->getUser() === $user;
+        $userIsAdmin = $user->isAdmin();
+
+        return $playerIsUserPlayer || $userIsAdmin;
     }
 
     private function canQuarantinePlayer(User $user, ?Player $player): bool

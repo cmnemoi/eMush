@@ -33,6 +33,12 @@
                         @click="quarantinePlayer(slotProps.id)">
                     {{ $t("admin.playerList.quarantine") }}
                 </button>
+                <button v-if="slotProps.gameStatus === 'finished'"
+                        class="action-button"
+                        type="button"
+                        @click="putUserOutOfGame(getUserIdFromUri(slotProps.user))">
+                    {{ $t("admin.playerList.putUserOutOfGame") }}
+                </button>
             </template>
 
         </Datatable>
@@ -95,6 +101,10 @@ export default defineComponent({
             const dateObject = new Date(date);
             return format(dateObject, 'PPPPpp', { locale: fr });  
         },
+        getUserIdFromUri(uri: string): string {
+            const uriArray = uri.split('/');
+            return uriArray[uriArray.length - 1];
+        },
         loadData() {
             this.loading = true;
             const params: any = {
@@ -113,7 +123,7 @@ export default defineComponent({
             if (this.filter) {
                 params.params['name'] = this.filter;
             }
-            AdminService.getPlayerInfoList()
+            AdminService.getPlayerInfoList(params)
                 .then((result) => {
                     return result.data;
                 })
@@ -127,6 +137,19 @@ export default defineComponent({
         paginationClick(page: number) {
             this.pagination.currentPage = page;
             this.loadData();
+        },
+        putUserOutOfGame(userId: string) {
+            AdminService.putUserOutOfGame(userId)
+                .then((result) => {
+                    this.loadData();
+                    return result.data;
+                })
+                .then((remoteRowData: any) => {
+                    this.rowData = remoteRowData['hydra:member'];
+                    this.pagination.totalItem = remoteRowData['hydra:totalItems'];
+                    this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
+                    this.loading = false;
+                });
         },
         quarantinePlayer(playerId: number) {
             AdminService.quarantinePlayer(playerId)

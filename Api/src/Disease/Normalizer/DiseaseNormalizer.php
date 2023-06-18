@@ -2,6 +2,7 @@
 
 namespace Mush\Disease\Normalizer;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Entity\Config\SymptomConfig;
@@ -10,7 +11,9 @@ use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -153,8 +156,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
             }
 
             $chance = $this->getModifierChance($modifierConfig);
-            $action = $this->getModifierAction($modifierConfig);
-            $action = $this->translateAction($action, $language);
+            $action = $this->getModifierActions($modifierConfig, $language);
 
             $parameters = [
                 'chance' => $chance,
@@ -290,8 +292,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
             }
 
             $chance = $this->getModifierChance($modifierConfig);
-            $action = $this->getModifierAction($modifierConfig);
-            $action = $this->translateAction($action, $language);
+            $action = $this->getModifierActions($modifierConfig, $language);
 
             $parameters = [
                 'action_name' => $action,
@@ -323,7 +324,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         return $description;
     }
 
-    private function getModifierChance(VariableEventModifierConfig|TriggerEventModifierConfig $modifierConfig): int
+    private function getModifierChance(AbstractModifierConfig $modifierConfig): int
     {
         $randomActivationRequirement = $modifierConfig->getModifierActivationRequirements()
                 ->filter(fn (ModifierActivationRequirement $activationRequirement) => $activationRequirement->getActivationRequirementName() === SymptomActivationRequirementEnum::RANDOM);
@@ -334,15 +335,23 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         }
     }
 
-    private function getModifierAction(VariableEventModifierConfig|TriggerEventModifierConfig $modifierConfig): ?string
+    private function getModifierActions(EventModifierConfig $modifierConfig, string $language): ?string
     {
-        $reasonActivationRequirement = $modifierConfig->getModifierActivationRequirements()
-            ->filter(fn (ModifierActivationRequirement $activationRequirement) => $activationRequirement->getActivationRequirementName() === SymptomActivationRequirementEnum::REASON);
-        if (!$reasonActivationRequirement->isEmpty()) {
-            return $reasonActivationRequirement->first()->getActivationRequirement();
-        } else {
-            return null;
+        $actions = [];
+
+        $tagConstraints = $modifierConfig->getTagConstraints();
+        foreach (array_keys($tagConstraints) as $action) {
+            if ($tagConstraints[$action] !== ModifierRequirementEnum::NONE_TAGS &&
+                ActionEnum::getAll()->contains($action)
+            ) {
+                $action = $this->translateAction($action, $language);
+                if (!in_array($action, $actions)) {
+                    array_push($actions, $action);
+                }
+            }
         }
+
+        return implode(', ', $actions);
     }
 
     private function translateAction(?string $action, string $language): string

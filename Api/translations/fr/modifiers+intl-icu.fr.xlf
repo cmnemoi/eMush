@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="modifiers.ext">
-    <unit id="cycle_disease_increase">
+    <unit id="roll.percentage_increase_cycle_disease">
       <segment id="description" state="translated">
         <source>roll.percentage_increase_cycle_disease.description</source>
         <target>Augmente vos chances de tomber malade.</target>
@@ -34,9 +34,15 @@
         <target>À chaque action **{action_name}**, fait perdre **{quantity}** {emote}.</target>
       </segment>
     </unit>
-    <unit id="move_increase">
+    <unit id="post.action_decrease">
       <segment id="description" state="translated">
-        <source>move_increase.description</source>
+        <source>post.action_decrease.description</source>
+        <target>À chaque action **{action_name}**, fait perdre **{quantity}** {emote}.</target>
+      </segment>
+    </unit>
+    <unit id="apply.cost_increase_move">
+      <segment id="description" state="translated">
+        <source>apply.cost_increase_move.description</source>
         <target>Chaque déplacement, coûte **{quantity}** :pm: de plus.</target>
       </segment>
     </unit>
@@ -46,9 +52,9 @@
         <target>Chaque action, coûte **{quantity}** {emote} de plus.</target>
       </segment>
     </unit>
-    <unit id="action_shoot_decrease">
+    <unit id="roll.action.percentage_decrease_shoot">
       <segment id="description" state="translated">
-        <source>action_shoot_decrease.description</source>
+        <source>roll.action.percentage_decrease_shoot.description</source>
         <target>Précision **-{quantity}%**.</target>
       </segment>
     </unit>

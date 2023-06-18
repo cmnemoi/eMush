@@ -222,4 +222,16 @@ class ActionEnum
             self::TAKEOFF,
         ]);
     }
+
+    public static function getAll(): ArrayCollection
+    {
+        $actions = new ArrayCollection();
+        $reflectionClass = new \ReflectionClass(__CLASS__);
+        $constants = $reflectionClass->getConstants();
+        foreach ($constants as $constant) {
+            $actions->add($constant);
+        }
+
+        return $actions;
+    }
 }

@@ -24,8 +24,8 @@
         <span class="timestamp" style="position: absolute">{{ message.date }}</span>
     </div>
     <div v-else-if="!isRoot" 
-        :class="isHidden ? 'message child-message hidden' : 'message child-message'"
-        @click="$emit('click')"
+         :class="isHidden ? 'message child-message hidden' : 'message child-message'"
+         @click="$emit('click')"
     >
         <p class="text">
             <img class="character-head" :src="characterPortrait">

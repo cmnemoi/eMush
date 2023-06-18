@@ -33,7 +33,6 @@ interface DiscussionTabState {
 export default defineComponent ({
     name: "DiscussionTab",
     components: {
-        ActionButtons,
         Message,
         MessageInput,
         TabContainer

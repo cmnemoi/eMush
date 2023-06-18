@@ -6,7 +6,7 @@ export class Message {
     public character : Character;
     public child : Array<Message>;
     public date : string|null;
-    public hidden : boolean = true;
+    public hidden  = true;
 
     constructor() {
         this.id = null;

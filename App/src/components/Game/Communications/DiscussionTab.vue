@@ -17,7 +17,6 @@
 </template>
 
 <script lang="ts">
-import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
 import { mapActions, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
 import MessageInput from "@/components/Game/Communications/Messages/MessageInput.vue";

@@ -2,6 +2,9 @@
     <TabContainer id="discussion-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
         <section v-for="(message, id) in messages" :key="id" class="unit">
             <Message :message="message" :is-root="true" @click="replyTo(message)" />
+            <a class="toggle-children" @click="toggleChildren(message)">
+                {{ message.hasChildren() ? ($t(message.child[0].hidden ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.child.length })) : '' }}
+            </a>
             <Message
                 v-for="(children, id) in message.child"
                 :key="id"
@@ -14,6 +17,7 @@
 </template>
 
 <script lang="ts">
+import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
 import { mapActions, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
 import MessageInput from "@/components/Game/Communications/Messages/MessageInput.vue";
@@ -29,6 +33,7 @@ interface DiscussionTabState {
 export default defineComponent ({
     name: "DiscussionTab",
     components: {
+        ActionButtons,
         Message,
         MessageInput,
         TabContainer
@@ -51,12 +56,20 @@ export default defineComponent ({
         }
     },
     methods: {
+        getMessageChildren: function (message: MessageEntity): MessageEntity[] {
+            return message.child;
+        },
         replyTo: function (message: MessageEntity): void {
             if (this.messageToReply === message) {
                 this.messageToReply = null;
             } else {
                 this.messageToReply = message;
             }
+        },
+        toggleChildren: function (message: MessageEntity): void {
+            message.child.forEach(element => {
+                element.hidden = !element.hidden;
+            });
         },
         ...mapActions('communication', [
             'loadMessages'
@@ -72,6 +85,12 @@ export default defineComponent ({
         border-bottom: 1px solid rgb(170, 212, 229);
 
         .chat-input { margin: 5px 0 2px 50px !important; padding: 0 !important; }
+    }
+
+    .toggle-children {
+        color: #84E100;
+        cursor: pointer;
+        text-decoration: underline;
     }
 }
 

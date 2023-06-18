@@ -528,7 +528,9 @@
 	"game": {
 		"communications": {
 			"day": "Jour",
-			"cycle": "Cycle"
+			"cycle": "Cycle",
+			"showMessageChildren": "Afficher les {count} messages",
+			"hideMessageChildren": "Cacher les {count} messages"
 		}
 	},
 	"newsPage": {

@@ -529,8 +529,8 @@
 		"communications": {
 			"day": "Jour",
 			"cycle": "Cycle",
-			"showMessageChildren": "Afficher les {count} messages",
-			"hideMessageChildren": "Cacher les {count} messages"
+			"showMessageChildren": "Afficher les {count} réponses",
+			"hideMessageChildren": "Cacher les {count} réponses"
 		}
 	},
 	"newsPage": {

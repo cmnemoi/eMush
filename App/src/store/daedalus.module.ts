@@ -49,6 +49,10 @@ const actions: ActionTree<any, any> = {
         }
     },
     async loadMinimap({ commit, state }, { player }) {
+        if (!player.isInARoom()) {
+            return false;
+        }
+        
         commit('updateDaedalus', player.daedalus);
         commit('setLoadingMinimap', true);
         try {

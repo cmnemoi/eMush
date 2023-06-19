@@ -121,4 +121,9 @@ export class Player {
 
         return null;
     }
+
+    isInARoom(): boolean
+    {
+        return this.room?.type === 'room';
+    }
 }

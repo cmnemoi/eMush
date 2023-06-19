@@ -101,6 +101,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
             'players' => $players,
             'items' => $normalizedItems,
             'equipments' => $normalizedEquipments,
+            'type' => $room->getType(),
         ];
     }
 

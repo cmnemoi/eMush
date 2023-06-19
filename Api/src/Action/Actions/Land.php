@@ -63,7 +63,7 @@ final class Land extends AbstractAction
     protected function checkResult(): ActionResult
     {
         // TODO: always returns Success if player has the Pilot skill
-        $isSuccess = $this->randomService->randomPercent() < $this->getAction()->getSuccessRate();
+        $isSuccess = $this->randomService->randomPercent() < $this->getAction()->getCriticalRate();
 
         return $isSuccess ? new Success() : new Fail();
     }

@@ -123,7 +123,7 @@ class PlayerController extends AbstractFOSRestController
      * @Rest\View()
      */
     public function createPlayerAction(PlayerCreateRequest $playerCreateRequest): View
-    {   
+    {
         if (count($violations = $this->validator->validate($playerCreateRequest))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }

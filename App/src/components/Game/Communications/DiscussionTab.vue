@@ -3,10 +3,10 @@
         <section v-for="(message, id) in messages" :key="id" class="unit">
             <Message :message="message" :is-root="true" @click="replyTo(message)" />
             <a class="toggle-children" @click="toggleChildren(message)">
-                {{ message.hasChildren() ? ($t(message.child[0].hidden ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.child.length })) : '' }}
+                {{ message.hasChildrenToDisplay() ? ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) : '' }}
             </a>
             <Message
-                v-for="(children, id) in message.child"
+                v-for="(children, id) in message.children"
                 :key="id"
                 :message="children"
                 @click="replyTo(message)"
@@ -54,9 +54,6 @@ export default defineComponent ({
         }
     },
     methods: {
-        getMessageChildren: function (message: MessageEntity): MessageEntity[] {
-            return message.child;
-        },
         replyTo: function (message: MessageEntity): void {
             if (this.messageToReply === message) {
                 this.messageToReply = null;
@@ -65,8 +62,8 @@ export default defineComponent ({
             }
         },
         toggleChildren: function (message: MessageEntity): void {
-            message.child.forEach(element => {
-                element.hidden = !element.hidden;
+            message.getChildrenToToggle().forEach(child => {
+                child.hidden = !child.hidden;
             });
         },
         ...mapActions('communication', [

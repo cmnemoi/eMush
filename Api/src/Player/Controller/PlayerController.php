@@ -123,7 +123,7 @@ class PlayerController extends AbstractFOSRestController
      * @Rest\View()
      */
     public function createPlayerAction(PlayerCreateRequest $playerCreateRequest): View
-    {
+    {   
         if (count($violations = $this->validator->validate($playerCreateRequest))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -135,6 +135,10 @@ class PlayerController extends AbstractFOSRestController
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+
+        if ($daedalus->getDaedalusInfo()->isDaedalusFinished()) {
+            return $this->view(["Can't create player : Daedalus is already finished"], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         $character = $playerCreateRequest->getCharacter();
 

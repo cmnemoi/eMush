@@ -62,11 +62,9 @@ final class Takeoff extends AbstractAction
     protected function checkResult(): ActionResult
     {
         // TODO: always returns Success if player has the Pilot skill
-        if ($this->randomService->randomPercent() < $this->getAction()->getCriticalRate()) {
-            return new Success();
-        }
+        $isSuccess = $this->randomService->randomPercent() < $this->getAction()->getCriticalRate();
 
-        return new Fail();
+        return $isSuccess ? new Success() : new Fail();
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

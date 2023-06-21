@@ -6,7 +6,7 @@ export class Message {
     public character : Character;
     public children : Array<Message>;
     public date : string|null;
-    public hidden = false;
+    public isHidden = false;
     public nbChildrenToDisplay = 2;
 
     constructor() {
@@ -53,11 +53,19 @@ export class Message {
         return this.children.length > this.nbChildrenToDisplay;
     }
     isFirstChildHidden(): boolean {
-        return this.children[0].hidden;
+        return this.children[0].isHidden;
+    }
+    toggle(): void {
+        this.isHidden = !this.isHidden;
+    }
+    toggleChildren(): void {
+        this.getChildrenToToggle().forEach(child => {
+            child.toggle();
+        });
     }
     private hideFirstChildren(): void {
         this.children.slice(0, -this.nbChildrenToDisplay).forEach(child => {
-            child.hidden = true;
+            child.isHidden = true;
         });
     }
 }

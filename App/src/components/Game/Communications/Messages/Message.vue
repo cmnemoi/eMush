@@ -79,7 +79,7 @@ export default defineComponent ({
             return this.message.character.key === null;
         },
         isHidden: function(): boolean {
-            return this.message.hidden;
+            return this.message.isHidden;
         }
     },
     methods: {

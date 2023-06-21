@@ -2,13 +2,13 @@
     <TabContainer id="discussion-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
         <section v-for="(message, id) in messages" :key="id" class="unit">
             <Message :message="message" :is-root="true" @click="replyTo(message)" />
-            <a class="toggle-children" @click="toggleChildren(message)">
+            <a class="toggle-children" @click="message.toggleChildren()">
                 {{ message.hasChildrenToDisplay() ? ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) : '' }}
             </a>
             <Message
-                v-for="(children, id) in message.children"
+                v-for="(child, id) in message.children"
                 :key="id"
-                :message="children"
+                :message="child"
                 @click="replyTo(message)"
             />
             <MessageInput v-show="messageToReply === message" :channel="channel" :parent="message" />
@@ -60,11 +60,6 @@ export default defineComponent ({
             } else {
                 this.messageToReply = message;
             }
-        },
-        toggleChildren: function (message: MessageEntity): void {
-            message.getChildrenToToggle().forEach(child => {
-                child.hidden = !child.hidden;
-            });
         },
         ...mapActions('communication', [
             'loadMessages'

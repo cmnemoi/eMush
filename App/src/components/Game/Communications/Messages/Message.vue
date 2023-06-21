@@ -10,7 +10,7 @@
         <p class="text">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
-        <ActionButtons class="actions" :actions="['reply', 'favorite', 'report']" />
+        <ActionButtons class="actions" :actions="['reply']" />
         <span class="timestamp" style="position: absolute">{{ message.date }}</span>
     </div>
     <div
@@ -23,12 +23,15 @@
         </p>
         <span class="timestamp" style="position: absolute">{{ message.date }}</span>
     </div>
-    <div v-else-if="!isRoot" class="message child-message" @click="$emit('click')">
+    <div v-else-if="!isRoot" 
+         :class="isHidden ? 'message child-message hidden' : 'message child-message'"
+         @click="$emit('click')"
+    >
         <p class="text">
             <img class="character-head" :src="characterPortrait">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
-        <ActionButtons class="actions" :actions="['reply', 'report']" />
+        <ActionButtons class="actions" :actions="['reply']" />
         <span class="timestamp" style="position: absolute">{{ message.date }}</span>
     </div>
 </template>
@@ -74,6 +77,9 @@ export default defineComponent ({
         },
         isSystemMessage: function(): boolean {
             return this.message.character.key === null;
+        },
+        isHidden: function(): boolean {
+            return this.message.isHidden;
         }
     },
     methods: {
@@ -83,7 +89,7 @@ export default defineComponent ({
         formatMessage(value: string): string {
             if (! value) return '';
             return formatText(value.toString());
-        }
+        },
     }
 });
 </script>
@@ -246,6 +252,10 @@ export default defineComponent ({
                     0 calc(100% - var(--border-radius))
             );
     }
+}
+
+.hidden {    
+    display: none;
 }
 
 .neron { // Neron messages styling

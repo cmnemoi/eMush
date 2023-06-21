@@ -10,16 +10,16 @@ const PLAYER_INFO_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player_infos"
 const QUARANTINE_PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player/quarantine");
 
 const AdminService = {
-    getPlayerInfoList: async(params: Record<string, unknown> | undefined): Promise<any> => {
+    closePlayer: async(playerId: string): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.get(PLAYER_INFO_ENDPOINT, params);
+        const response = await ApiService.post(ADMIN_ENDPOINT + '/close-player/' + playerId);
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    putUserOutOfGame: async(userId: string): Promise<any> => {
+    getPlayerInfoList: async(params: Record<string, unknown> | undefined): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.patch(urlJoin(ADMIN_ENDPOINT, userId, 'put-out-of-game'));
+        const response = await ApiService.get(PLAYER_INFO_ENDPOINT, params);
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;

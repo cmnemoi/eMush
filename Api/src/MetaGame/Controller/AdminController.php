@@ -6,6 +6,7 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Game\Validator\ErrorHandlerTrait;
+use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 use Mush\User\Service\UserServiceInterface;
@@ -35,41 +36,40 @@ class AdminController extends AbstractFOSRestController
     }
 
     /**
-     * Put a user out of game so they can join another. Debug only.
+     * Close (archive) a player so their user can join another game.
      *
      * @OA\Parameter(
-     *     name="user_id",
+     *     name="id",
      *     in="path",
-     *     description="The user id",
+     *     description="The player to close id",
      *     @OA\Schema(type="string")
      * )
      * @OA\Tag(name="Admin")
      * @Security(name="Bearer")
-     * @Rest\Patch(path="/{user_id}/put-out-of-game")
+     * @Rest\Post(path="/close-player/{id}")
      * @Rest\View()
      */
-    public function putUserOutOfGame(Request $request): View
+    public function closePlayer(Request $request): View
     {
         $admin = $this->getUser();
         if (!$admin instanceof User) {
             throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
         }
         if (!$admin->isAdmin()) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author is not admin');
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can close players this way');
         }
 
-        $userToUnlock = $this->userService->findUserByUserId($request->get('user_id'));
-        if (!$userToUnlock instanceof User) {
-            throw new HttpException(Response::HTTP_NOT_FOUND, 'User to unlock not found');
+        $playerId = intval($request->get('id'));
+        $playerToClose = $this->playerService->findById($playerId);
+        if (!$playerToClose instanceof Player) {
+            throw new HttpException(Response::HTTP_NOT_FOUND, 'Player to close not found');
+        }
+        if ($playerToClose->isAlive()) {
+            throw new HttpException(Response::HTTP_BAD_REQUEST, 'Player to close is still alive');
         }
 
-        if ($this->playerService->findUserCurrentGame($userToUnlock)) {
-            throw new HttpException(Response::HTTP_BAD_REQUEST, 'User to unlock is in game');
+        if ($this->playerService->endPlayer($playerToClose, '')) {
+            return $this->view('Player closed successfully', Response::HTTP_OK);
         }
-
-        $userToUnlock->stopGame();
-        $this->userService->persist($userToUnlock);
-
-        return $this->view('User ingame status is now false', Response::HTTP_OK);
     }
 }

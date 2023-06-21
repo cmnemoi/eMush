@@ -136,6 +136,10 @@ class PlayerController extends AbstractFOSRestController
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
+        if ($daedalus->getDaedalusInfo()->isDaedalusFinished()) {
+            return $this->view(["Can't create player : Daedalus is already finished"], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $character = $playerCreateRequest->getCharacter();
 
         if (!$daedalus || !$character) {

@@ -36,8 +36,8 @@
                 <button v-if="slotProps.gameStatus === 'finished'"
                         class="action-button"
                         type="button"
-                        @click="putUserOutOfGame(getUserIdFromUri(slotProps.user))">
-                    {{ $t("admin.playerList.putUserOutOfGame") }}
+                        @click="closePlayer(slotProps.id)">
+                    {{ $t("admin.playerList.closePlayer") }}
                 </button>
             </template>
 
@@ -101,10 +101,6 @@ export default defineComponent({
             const dateObject = new Date(date);
             return format(dateObject, 'PPPPpp', { locale: fr });  
         },
-        getUserIdFromUri(uri: string): string {
-            const uriArray = uri.split('/');
-            return uriArray[uriArray.length - 1];
-        },
         loadData() {
             this.loading = true;
             const params: any = {
@@ -138,8 +134,8 @@ export default defineComponent({
             this.pagination.currentPage = page;
             this.loadData();
         },
-        putUserOutOfGame(userId: string) {
-            AdminService.putUserOutOfGame(userId)
+        closePlayer(playerId: string) {
+            AdminService.closePlayer(playerId)
                 .then((result) => {
                     this.loadData();
                     return result.data;

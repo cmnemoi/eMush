@@ -515,8 +515,8 @@
 			"numberOfDroppedScrap": "Nombre de débris laissés à la mort (nombre => probabilité)"
 		},
 		"playerList": {
-			"quarantine": "Mettre en quarantaine",
-			"putUserOutOfGame": "Débloquer l'utilisateur de ce joueur (inGame = false)"
+			"closePlayer": "Fermer (archiver) ce joueur",
+			"quarantine": "Mettre en quarantaine"
 		}
 	},
 	"charSelection": {

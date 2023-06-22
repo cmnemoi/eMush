@@ -2830,7 +2830,7 @@ class EquipmentConfigData
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
             ],
-            'mechanics' => [],
+            'mechanics' => ['weapon_patrol_ship_default'],
             'initStatuses' => [],
         ],
         [
@@ -2850,7 +2850,7 @@ class EquipmentConfigData
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
             ],
-            'mechanics' => [],
+            'mechanics' => ['weapon_patrol_ship_default'],
             'initStatuses' => [],
         ],
         [
@@ -2870,7 +2870,7 @@ class EquipmentConfigData
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
             ],
-            'mechanics' => [],
+            'mechanics' => ['weapon_patrol_ship_default'],
             'initStatuses' => [],
         ],
         [
@@ -2890,7 +2890,7 @@ class EquipmentConfigData
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
             ],
-            'mechanics' => [],
+            'mechanics' => ['weapon_patrol_ship_default'],
             'initStatuses' => [],
         ],
         [
@@ -2910,7 +2910,7 @@ class EquipmentConfigData
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
             ],
-            'mechanics' => [],
+            'mechanics' => ['weapon_patrol_ship_default'],
             'initStatuses' => [],
         ],
         [
@@ -2930,7 +2930,7 @@ class EquipmentConfigData
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
             ],
-            'mechanics' => [],
+            'mechanics' => ['weapon_patrol_ship_default'],
             'initStatuses' => [],
         ],
         [
@@ -2950,7 +2950,7 @@ class EquipmentConfigData
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
             ],
-            'mechanics' => [],
+            'mechanics' => ['weapon_patrol_ship_default'],
             'initStatuses' => [],
         ],
         [

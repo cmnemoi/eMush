@@ -804,5 +804,18 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Rentrer dans la baie de lancement de ce patrouilleur.</target>
       </segment>
     </unit>
+    <unit id="shoot_hunter_patrol_ship">
+      <segment id="name" state="final">
+        <source>shoot_hunter_patrol_ship.name</source>
+        <target>Tirer sur un ennemi</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>shoot_hunter_patrol_ship.description</source>
+        <target>Tire une charge de Telsatron sur un ennemi.
+        //
+        Améliorable avec des missiles.
+        </target>
+      </segment>
+    </unit>
   </file>
 </xliff>

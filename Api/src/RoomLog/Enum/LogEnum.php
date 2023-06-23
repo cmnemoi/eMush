@@ -46,6 +46,8 @@ class LogEnum
     public const HUNTER_DEATH_TURRET = 'hunter_death_turret';
     public const HUNTER_DEATH_PATROL_SHIP = 'hunter_death_patrol_ship';
     public const SCRAP_COLLECTED = 'scrap_collected';
+    public const ATTACKED_BY_HUNTER = 'attacked_by_hunter';
+    public const PATROL_DISCHARGE = 'patrol_discharge';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';

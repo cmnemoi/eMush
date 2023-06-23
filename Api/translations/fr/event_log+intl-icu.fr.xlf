@@ -588,5 +588,24 @@
         <target>:hunter: **{character}** pousse un bon hurlement ! Un **{hunter} de moins**, yes !</target>
       </segment>
     </unit>
+    <unit id="attacked_by_hunter">
+      <segment id="attacked_by_hunter" state="translated">
+        <source>attacked_by_hunter</source>
+        <target>:hunter: {version, select,
+                  1 {Pendant l'opération, un Hunter vous a laissé de gros dégâts.}
+                  2 {Quelques explosions surviennent, vous venez d'être attaqué par un Hunter.}
+                  3 {Tout tremble autour de vous, une attaque est en cours.}
+                  4 {Vous avez été attaqué par un Hunter.}
+                  other {Vous avez été attaqué par un Hunter.}
+                }
+        </target>
+      </segment>
+    </unit>
+    <unit id="patrol_discharge">
+      <segment id="patrol_discharge" state="translated">
+        <source>patrol_discharge</source>
+        <target>**{character}** décharge du matériel de son monoplace.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

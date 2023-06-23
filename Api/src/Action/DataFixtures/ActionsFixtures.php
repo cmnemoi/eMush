@@ -83,6 +83,7 @@ class ActionsFixtures extends Fixture
     public const SHOOT_HUNTER_TURRET = 'shoot.hunter.turret';
     public const TAKEOFF = 'takeoff';
     public const LAND = 'land';
+    public const SHOOT_HUNTER_PATROL_SHIP = 'shoot.hunter.patrol_ship';
 
     public function load(ObjectManager $manager): void
     {
@@ -769,10 +770,10 @@ class ActionsFixtures extends Fixture
 
         $shootHunterTurret = new Action();
         $shootHunterTurret
-            ->setName(ActionEnum::SHOOT_HUNTER)
+            ->setName(ActionEnum::SHOOT_HUNTER . '_turret')
             ->setActionName(ActionEnum::SHOOT_HUNTER)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT])
+            ->setTypes([ActionTypeEnum::ACTION_SHOOT])
             ->setActionCost(1)
             ->setSuccessRate(30)
         ;
@@ -802,6 +803,17 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
         ;
         $manager->persist($land);
+
+        $shootHunterPatrolShip = new Action();
+        $shootHunterPatrolShip
+            ->setName(ActionEnum::SHOOT_HUNTER . '_patrolship')
+            ->setActionName(ActionEnum::SHOOT_HUNTER . '_patrolship')
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setTypes([ActionTypeEnum::ACTION_SHOOT])
+            ->setActionCost(1)
+            ->setSuccessRate(40)
+        ;
+        $manager->persist($shootHunterPatrolShip);
 
         $manager->flush();
 
@@ -873,5 +885,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::SHOOT_HUNTER_TURRET, $shootHunterTurret);
         $this->addReference(self::TAKEOFF, $takeoff);
         $this->addReference(self::LAND, $land);
+        $this->addReference(self::SHOOT_HUNTER_PATROL_SHIP, $shootHunterPatrolShip);
     }
 }

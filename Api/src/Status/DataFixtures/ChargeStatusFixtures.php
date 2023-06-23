@@ -51,6 +51,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const ASTEROID_CHARGE = 'asteroid_charge';
     public const HUNTER_CHARGE = 'hunter_charge';
     public const HAS_REJUVENATED = 'has_rejuvenated';
+    public const PATROL_SHIP_ARMOR = 'patrol_ship_armor';
+    public const PASIPHAE_ARMOR = 'pasiphae_armor';
 
     public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
 
@@ -173,6 +175,17 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT, EquipmentEnum::TURRET_COMMAND)
         ;
         $manager->persist($turretCharge);
+
+        $patrolShipCharge = new ChargeStatusConfig();
+        $patrolShipCharge
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setMaxCharge(10)
+            ->setStartCharge(10)
+            ->buildName(GameConfigEnum::DEFAULT, EquipmentEnum::PATROL_SHIP)
+        ;
+        $manager->persist($patrolShipCharge);
 
         $fireStatus = new ChargeStatusConfig();
         $fireStatus
@@ -365,6 +378,28 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($rejuvenationCharge);
 
+        $patrolShipArmor = new ChargeStatusConfig();
+        $patrolShipArmor
+            ->setStatusName(EquipmentStatusEnum::PATROL_SHIP_ARMOR)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setStartCharge(10)
+            ->setMaxCharge(10)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($patrolShipArmor);
+
+        $pasiphaeArmor = new ChargeStatusConfig();
+        $pasiphaeArmor
+            ->setStatusName(EquipmentStatusEnum::PATROL_SHIP_ARMOR)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setStartCharge(12)
+            ->setMaxCharge(12)
+            ->buildName(GameConfigEnum::DEFAULT, EquipmentEnum::PASIPHAE)
+        ;
+        $manager->persist($pasiphaeArmor);
+
         $gameConfig
             ->addStatusConfig($attemptConfig)
             ->addStatusConfig($scooterCharge)
@@ -375,6 +410,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($coffeeCharge)
             ->addStatusConfig($dispenserCharge)
             ->addStatusConfig($blasterCharge)
+            ->addStatusConfig($patrolShipCharge)
             ->addStatusConfig($fireStatus)
             ->addStatusConfig($plantYoung)
             ->addStatusConfig($eurekaMoment)
@@ -403,6 +439,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::COFFEE_CHARGE, $coffeeCharge);
         $this->addReference(self::DISPENSER_CHARGE, $dispenserCharge);
         $this->addReference(self::BLASTER_CHARGE, $blasterCharge);
+        $this->addReference(self::PATROLLER_CHARGE, $patrolShipCharge);
 
         $this->addReference(self::FIRE_STATUS, $fireStatus);
         $this->addReference(self::PLANT_YOUNG, $plantYoung);
@@ -418,6 +455,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::ALREADY_WASHED_IN_THE_SINK, $already_washed_in_the_sink);
         $this->addReference(self::ASTEROID_CHARGE, $asteroidCharge);
         $this->addReference(self::HUNTER_CHARGE, $hunterCharge);
+        $this->addReference(self::PATROL_SHIP_ARMOR, $patrolShipArmor);
+        $this->addReference(self::PASIPHAE_ARMOR, $pasiphaeArmor);
     }
 
     public function getDependencies(): array

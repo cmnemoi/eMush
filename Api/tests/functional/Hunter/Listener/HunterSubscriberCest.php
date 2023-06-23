@@ -4,6 +4,7 @@ namespace functional\Hunter\Listener;
 
 use App\Tests\AbstractFunctionalTest;
 use App\Tests\FunctionalTester;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterEvent;
@@ -42,7 +43,7 @@ class HunterSubscriberCest extends AbstractFunctionalTest
         $hunterDeathEvent = new HunterEvent(
             $hunter,
             VisibilityEnum::PUBLIC,
-            ['test'],
+            ['test', ActionEnum::SHOOT_HUNTER],
             new \DateTime()
         );
         $hunterDeathEvent->setAuthor($this->player1);
@@ -54,7 +55,7 @@ class HunterSubscriberCest extends AbstractFunctionalTest
                 'place' => $this->player1->getPlace()->getName(),
                 'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
                 'playerInfo' => $this->player1->getPlayerInfo(),
-                'log' => LogEnum::HUNTER_DEATH,
+                'log' => $hunterDeathEvent->mapLog(LogEnum::HUNTER_DEATH_LOG_ENUM),
                 'visibility' => VisibilityEnum::PUBLIC,
             ]);
         $I->assertNotEmpty($space->getEquipments()); // the hunter killed should drop some scrap

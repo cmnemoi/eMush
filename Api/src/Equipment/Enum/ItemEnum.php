@@ -2,6 +2,8 @@
 
 namespace Mush\Equipment\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class ItemEnum
 {
     public const BABEL_MODULE = 'babel_module';
@@ -41,4 +43,13 @@ class ItemEnum
     public const POST_IT = 'post_it';
     public const HYDROPOT = 'hydropot';
     public const SCHRODINGER = 'schrodinger';
+
+    public static function getPasiphaeCollectibleScrap(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::PLASTIC_SCRAPS,
+            self::METAL_SCRAPS,
+            ToolItemEnum::SPACE_CAPSULE,
+        ]);
+    }
 }

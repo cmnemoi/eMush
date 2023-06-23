@@ -817,5 +817,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         </target>
       </segment>
     </unit>
+    <unit id="collect_scrap">
+      <segment id="name" state="final">
+        <source>collect_scrap.name</source>
+        <target>Rapatrier des débris</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>collect_scrap.description</source>
+        <target>Tiens, il y a quelque chose qui traine dans le vide inter-sidéral. Heureusement, avec le Pasiphae, on peut le ramasser. Le Pasiphae, un vaisseau qu'il est bien à piloter.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

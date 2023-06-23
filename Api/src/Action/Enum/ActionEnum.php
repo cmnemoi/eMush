@@ -90,6 +90,7 @@ class ActionEnum
     public const REMOVE_SPORE = 'remove_spore';
     public const TAKEOFF = 'takeoff';
     public const LAND = 'land';
+    public const COLLECT_SCRAP = 'collect_scrap';
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';

@@ -2970,6 +2970,7 @@ class EquipmentConfigData
                 'report_equipment',
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
+                ActionEnum::COLLECT_SCRAP,
             ],
             'mechanics' => [],
             'initStatuses' => [EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default'],

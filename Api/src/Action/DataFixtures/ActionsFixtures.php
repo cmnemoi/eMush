@@ -823,7 +823,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(2)
             ->setSuccessRate(100)
-            ->setCriticalRate(0)
+            ->setCriticalRate(50)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
         ;

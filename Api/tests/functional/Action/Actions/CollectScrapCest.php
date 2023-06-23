@@ -18,6 +18,8 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
@@ -29,6 +31,7 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
     private Action $collectScrapActionConfig;
     private Action $landActionConfig;
     private CollectScrap $collectScrapAction;
+    private EventServiceInterface $eventService;
     private GameEquipment $pasiphae;
     private Land $landAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -54,17 +57,18 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($this->pasiphae);
 
+        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    public function testCollectScrapActionNoScrapToCollect(FunctionalTester $I)
+    public function testCollectScrapActionNoScrapToCollect(FunctionalTester $I): void
     {
         $this->collectScrapAction->loadParameters($this->collectScrapActionConfig, $this->player1, $this->pasiphae);
 
         $I->assertFalse($this->collectScrapAction->isVisible());
     }
 
-    public function testCollectScrapActionSuccess(FunctionalTester $I)
+    public function testCollectScrapActionSuccess(FunctionalTester $I): void
     {
         // spawn some scrap in space
         $this->gameEquipmentService->createGameEquipmentFromName(
@@ -104,7 +108,62 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
         );
     }
 
-    public function testLandingWithScrapCollected(FunctionalTester $I)
+    public function testCollectScrapWithAttackingHunters(FunctionalTester $I): void
+    {
+        $this->collectScrapActionConfig->setCriticalRate(101);
+
+        // spawn some scrap in space
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::METAL_SCRAPS,
+            equipmentHolder: $this->daedalus->getSpace(),
+            reasons: ['test'],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::HIDDEN
+        );
+
+        // spawn some hunters
+        $hunterEvent = new HunterPoolEvent(
+            $this->daedalus,
+            ['test'],
+            new \DateTime(),
+        );
+        $this->eventService->callEvent($hunterEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+
+        $I->assertNotEmpty($this->daedalus->getAttackingHunters());
+
+        $this->collectScrapAction->loadParameters($this->collectScrapActionConfig, $this->player1, $this->pasiphae);
+        $I->assertTrue($this->collectScrapAction->isVisible());
+        $I->assertNull($this->collectScrapAction->cannotExecuteReason());
+
+        $result = $this->collectScrapAction->execute();
+
+        $I->assertEquals(
+            $this->player1->getActionPoint(),
+            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->collectScrapActionConfig->getActionCost()
+        );
+
+        $I->assertInstanceOf(Success::class, $result);
+        $I->seeInRepository(RoomLog::class, [
+            'place' => RoomEnum::PASIPHAE,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => LogEnum::SCRAP_COLLECTED,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+        $I->assertNotEquals(
+            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
+            $this->player1->getHealthPoint()
+        );
+        $I->seeInRepository(RoomLog::class, [
+            'place' => RoomEnum::PASIPHAE,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => LogEnum::ATTACKED_BY_HUNTER,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+    }
+
+    public function testLandingWithScrapCollected(FunctionalTester $I): void
     {
         $this->testCollectScrapActionSuccess($I);
 
@@ -112,7 +171,7 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
 
         $this->landAction->loadParameters($this->landActionConfig, $this->player1, $this->pasiphae);
-        $result = $this->landAction->execute();
+        $this->landAction->execute();
 
         $I->assertTrue($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
         $I->seeInRepository(RoomLog::class, [

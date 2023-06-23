@@ -231,7 +231,7 @@ class PlaceConfigData
             'type' => PlaceTypeEnum::SPACE,
             'doors' => [],
             'items' => [],
-            'equipments' => [],
+            'equipments' => ['metal_scraps', 'metal_scraps', 'metal_scraps', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule'],
         ],
         [
             'name' => RoomEnum::PASIPHAE . '_default',

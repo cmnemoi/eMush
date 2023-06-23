@@ -64,7 +64,6 @@ final class CollectScrap extends AbstractAction
             3 => 1,
         ]);
         $this->pilotDamage = new ProbaCollection([
-            0 => 3,
             2 => 1,
             3 => 1,
             4 => 1,
@@ -138,10 +137,10 @@ final class CollectScrap extends AbstractAction
         $pasiphaePlace = $this->getPasiphaePlace();
         $pilot = $this->player;
 
-        $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($this->pilotDamage));
-        if ($damage === 0) {
+        if ($this->randomService->randomPercent() >= $this->action->getCriticalRate()) {
             return;
         }
+        $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($this->pilotDamage));
 
         $this->roomLogService->createLog(
             logKey: LogEnum::ATTACKED_BY_HUNTER,

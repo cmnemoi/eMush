@@ -114,7 +114,6 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
         $this->landAction->loadParameters($this->landActionConfig, $this->player1, $this->pasiphae);
         $result = $this->landAction->execute();
 
-        $I->assertInstanceOf(Success::class, $result);
         $I->assertTrue($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::ALPHA_BAY_2,

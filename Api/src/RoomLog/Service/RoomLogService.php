@@ -133,7 +133,7 @@ class RoomLogService implements RoomLogServiceInterface
 
         if ($actionParameter instanceof GameEquipment) {
             $logParameters = $this->getPatrolShipLogParameters($actionParameter);
-            
+
             return $this->createLog(
                 $actionParameter->getLogName() . '.examine',
                 $player->getPlace(),

@@ -68,10 +68,10 @@ class HunterService implements HunterServiceInterface
         $attackingHunters->map(fn (Hunter $hunter) => $this->makeHunterShoot($hunter));
     }
 
-    public function persistAndFlush(array $objects): void
+    public function persistAndFlush(array $entities): void
     {
-        foreach ($objects as $object) {
-            $this->entityManager->persist($object);
+        foreach ($entities as $entity) {
+            $this->entityManager->persist($entity);
         }
         $this->entityManager->flush();
     }

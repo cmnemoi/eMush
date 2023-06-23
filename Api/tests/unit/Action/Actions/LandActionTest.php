@@ -14,6 +14,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class LandActionTest extends AbstractActionTest
 {
@@ -23,6 +24,8 @@ class LandActionTest extends AbstractActionTest
     private PlaceServiceInterface $placeService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
+    /** @var RoomLogServiceInterface|Mockery\Mock */
+    private RoomLogServiceInterface $roomLogService;
 
     /**
      * @before
@@ -37,6 +40,7 @@ class LandActionTest extends AbstractActionTest
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
         $this->placeService = \Mockery::mock(PlaceServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
 
         $this->action = new Land(
             $this->eventService,
@@ -44,7 +48,8 @@ class LandActionTest extends AbstractActionTest
             $this->validator,
             $this->playerService,
             $this->placeService,
-            $this->randomService
+            $this->randomService,
+            $this->roomLogService
         );
     }
 

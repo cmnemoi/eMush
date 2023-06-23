@@ -3,6 +3,7 @@
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 
 /** @codeCoverageIgnore */
 class EquipmentConfigData
@@ -2831,7 +2832,7 @@ class EquipmentConfigData
                 ActionEnum::LAND,
             ],
             'mechanics' => ['weapon_patrol_ship_default'],
-            'initStatuses' => [],
+            'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
             'name' => 'patrol_ship_alpha_jujube_default',
@@ -2851,7 +2852,7 @@ class EquipmentConfigData
                 ActionEnum::LAND,
             ],
             'mechanics' => ['weapon_patrol_ship_default'],
-            'initStatuses' => [],
+            'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
             'name' => 'patrol_ship_alpha_tamarin_default',
@@ -2871,7 +2872,7 @@ class EquipmentConfigData
                 ActionEnum::LAND,
             ],
             'mechanics' => ['weapon_patrol_ship_default'],
-            'initStatuses' => [],
+            'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
             'name' => 'patrol_ship_bravo_socrate_default',
@@ -2891,7 +2892,7 @@ class EquipmentConfigData
                 ActionEnum::LAND,
             ],
             'mechanics' => ['weapon_patrol_ship_default'],
-            'initStatuses' => [],
+            'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
             'name' => 'patrol_ship_bravo_epicure_default',
@@ -2911,7 +2912,7 @@ class EquipmentConfigData
                 ActionEnum::LAND,
             ],
             'mechanics' => ['weapon_patrol_ship_default'],
-            'initStatuses' => [],
+            'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
             'name' => 'patrol_ship_bravo_planton_default',
@@ -2931,7 +2932,7 @@ class EquipmentConfigData
                 ActionEnum::LAND,
             ],
             'mechanics' => ['weapon_patrol_ship_default'],
-            'initStatuses' => [],
+            'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
             'name' => 'patrol_ship_alpha_2_wallis_default',
@@ -2951,7 +2952,7 @@ class EquipmentConfigData
                 ActionEnum::LAND,
             ],
             'mechanics' => ['weapon_patrol_ship_default'],
-            'initStatuses' => [],
+            'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
             'name' => 'pasiphae_default',
@@ -2971,7 +2972,7 @@ class EquipmentConfigData
                 ActionEnum::LAND,
             ],
             'mechanics' => [],
-            'initStatuses' => [],
+            'initStatuses' => [EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default'],
         ],
         [
             'name' => 'camera_equipment_default',

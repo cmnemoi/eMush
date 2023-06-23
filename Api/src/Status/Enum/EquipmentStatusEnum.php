@@ -22,6 +22,7 @@ class EquipmentStatusEnum
     public const DOCUMENT_CONTENT = 'document_content';
     public const REINFORCED = 'reinforced';
     public const FUEL_CHARGE = 'fuel_charge';
+    public const PATROL_SHIP_ARMOR = 'patrol_ship_armor';
 
     public const UPDATING = 'updating';
 

@@ -80,10 +80,13 @@
                         <li>
                             <countdown-timer :end-date="daedalus.timer.timerCycle">
                                 <template #default="slotProps">
-                                    <div class="flex-row">
+                                    <div v-if="daedalus?.timer?.timerCycle > new Date()" class="flex-row">
                                         <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour }}h</span>
                                         <span class="cycle-time-left">{{ slotProps.min }}m</span>
                                         <span class="cycle-time-left">{{ slotProps.sec }}s</span>
+                                    </div>
+                                    <div v-else>
+                                        <button class="new-cycle-button" @click="refreshPage()">Nouveau cycle</button>
                                     </div>
                                 </template>
                             </countdown-timer>
@@ -112,6 +115,11 @@ export default defineComponent ({
     props: {
         player: Player,
         daedalus: Daedalus
+    },
+    methods: {
+        refreshPage() {
+            window.location.reload();
+        },
     }
 });
 </script>
@@ -254,6 +262,12 @@ span.tippy-tooltip {
         margin-right: 0.4em;
     }
     .cycle-time ul {align-items: center;}
+}
+
+.new-cycle-button {
+@include button-style();
+    display: block;
+    margin: 0.2rem;
 }
 
 </style>

@@ -43,13 +43,4 @@ class ItemEnum
     public const POST_IT = 'post_it';
     public const HYDROPOT = 'hydropot';
     public const SCHRODINGER = 'schrodinger';
-
-    public static function getPasiphaeCollectibleScrap(): ArrayCollection
-    {
-        return new ArrayCollection([
-            self::PLASTIC_SCRAPS,
-            self::METAL_SCRAPS,
-            ToolItemEnum::SPACE_CAPSULE,
-        ]);
-    }
 }

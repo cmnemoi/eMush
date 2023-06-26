@@ -36,7 +36,7 @@ final class CollectScrap extends AbstractAction
 {
     protected string $name = ActionEnum::COLLECT_SCRAP;
 
-    // TODO: put those collections somewhere else
+    // TODO: put those collections in the future PatrolShip Mechanic
     private ProbaCollection $numberOfScrapToCollect;
     private ProbaCollection $pilotDamage;
 

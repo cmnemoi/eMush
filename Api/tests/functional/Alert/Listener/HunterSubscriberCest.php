@@ -4,6 +4,7 @@ namespace Mush\Tests\Alert\Listener;
 
 use App\Tests\AbstractFunctionalTest;
 use App\Tests\FunctionalTester;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Listener\HunterSubscriber;
@@ -44,7 +45,7 @@ class HunterSubscriberCest extends AbstractFunctionalTest
         $event = new HunterEvent(
             $hunter,
             VisibilityEnum::HIDDEN,
-            ['test'],
+            ['test', ActionEnum::SHOOT_HUNTER],
             new \DateTime()
         );
         $event->setAuthor($this->player1);

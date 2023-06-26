@@ -18,6 +18,8 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\EquipmentStatusEnum;
 
 class RoomLogService implements RoomLogServiceInterface
 {
@@ -130,12 +132,15 @@ class RoomLogService implements RoomLogServiceInterface
         }
 
         if ($actionParameter instanceof GameEquipment) {
+            $logParameters = $this->getPatrolShipLogParameters($actionParameter);
+
             return $this->createLog(
                 $actionParameter->getLogName() . '.examine',
                 $player->getPlace(),
                 VisibilityEnum::PRIVATE,
                 'equipments',
                 $player,
+                $logParameters,
             );
         }
 
@@ -217,5 +222,18 @@ class RoomLogService implements RoomLogServiceInterface
     public function getRoomLog(Player $player): RoomLogCollection
     {
         return new RoomLogCollection($this->repository->getPlayerRoomLog($player->getPlayerInfo()));
+    }
+
+    private function getPatrolShipLogParameters(GameEquipment $patrolship): array
+    {
+        /** @var ChargeStatus|null $electricCharges * */
+        $electricCharges = $patrolship->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        /** @var ChargeStatus|null $patrolShipArmor * */
+        $patrolShipArmor = $patrolship->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+
+        return [
+            'charges' => $electricCharges ? $electricCharges->getCharge() : 0,
+            'armor' => $patrolShipArmor ? $patrolShipArmor->getCharge() : 0,
+        ];
     }
 }

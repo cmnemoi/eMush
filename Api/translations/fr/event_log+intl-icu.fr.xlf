@@ -498,10 +498,10 @@
                     Vous ne serez plus jamais la même personne.</target>
       </segment>
     </unit>
-    <unit id="hunter_death">
-      <segment id="hunter_death" state="translated">
-        <source>hunter_death</source>
-        <target>:triumph: **{character}** effectue sa petite danse de la victoire pour un *{hunter} de moins*.</target>
+    <unit id="hunter_death_turret">
+      <segment id="hunter_death_turret" state="translated">
+        <source>hunter_death_turret</source>
+        <target>:hunter: **{character}** effectue sa petite danse de la victoire pour un *{hunter} de moins*.</target>
       </segment>
     </unit>
     <unit id="infect_action">
@@ -580,6 +580,12 @@
                   female {**{character}** a quitté la discussion, elle a quitté la pièce et n'a pas de talky...}
                   other {invalid gender input}
                   }</target>
+      </segment>
+    </unit>
+    <unit id="hunter_death_patrol_ship">
+      <segment id="hunter_death_patrol_ship" state="translated">
+        <source>hunter_death_patrol_ship</source>
+        <target>:hunter: **{character}** pousse un bon hurlement ! Un **{hunter} de moins**, yes !</target>
       </segment>
     </unit>
   </file>

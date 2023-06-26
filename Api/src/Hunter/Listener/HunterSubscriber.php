@@ -44,8 +44,13 @@ class HunterSubscriber implements EventSubscriberInterface
             throw new \Exception('HunterEvent should have a Player');
         }
 
+        $logKey = $event->mapLog(LogEnum::HUNTER_DEATH_LOG_ENUM);
+        if (!$logKey) {
+            throw new \Exception('HunterEvent should have a logKey');
+        }
+
         $this->roomLogService->createLog(
-            LogEnum::HUNTER_DEATH,
+            $logKey,
             $player->getPlace(),
             $event->getVisibility(),
             'event_log',

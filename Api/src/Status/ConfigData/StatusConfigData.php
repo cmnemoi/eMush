@@ -5,6 +5,7 @@ namespace Mush\Status\ConfigData;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -684,6 +685,19 @@ class StatusConfigData
             'modifierConfigs' => [],
         ],
         [
+            'name' => 'electric_charges_patrol_ship_default',
+            'statusName' => 'electric_charges',
+            'visibility' => 'public',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => 'public',
+            'chargeStrategy' => 'cycle_increment',
+            'maxCharge' => 10,
+            'startCharge' => 10,
+            'dischargeStrategy' => 'shoot_hunter_patrol_ship',
+            'autoRemove' => false,
+            'modifierConfigs' => [],
+        ],
+        [
             'name' => 'fire_default',
             'statusName' => 'fire',
             'visibility' => 'public',
@@ -883,6 +897,32 @@ class StatusConfigData
             'startCharge' => 1,
             'dischargeStrategy' => 'none',
             'autoRemove' => true,
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default',
+            'statusName' => EquipmentStatusEnum::PATROL_SHIP_ARMOR,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
+            'maxCharge' => 10,
+            'startCharge' => 10,
+            'dischargeStrategy' => ChargeStrategyTypeEnum::NONE,
+            'autoRemove' => false,
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default',
+            'statusName' => EquipmentStatusEnum::PATROL_SHIP_ARMOR,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
+            'maxCharge' => 12,
+            'startCharge' => 12,
+            'dischargeStrategy' => ChargeStrategyTypeEnum::NONE,
+            'autoRemove' => false,
             'modifierConfigs' => [],
         ],
     ];

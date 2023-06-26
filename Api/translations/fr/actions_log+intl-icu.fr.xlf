@@ -1032,5 +1032,17 @@
         <target>Le patrouilleur de **{character}** vient d'atterrir.</target>
       </segment>
     </unit>
+    <unit id="shoot_hunter_patrol_ship_success">
+      <segment id="shoot_hunter_patrol_ship_success" state="translated">
+        <source>shoot_hunter_patrol_ship_success</source>
+        <target>:hunter: C'était presque ça ! **{character}** a touché un Hunter.</target>
+      </segment>
+    </unit>
+    <unit id="shoot_hunter_patrol_ship_fail">
+      <segment id="shoot_hunter_patrol_ship_fail" state="translated">
+        <source>shoot_hunter_patrol_ship_fail</source>
+        <target>Vous avez raté votre cible.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

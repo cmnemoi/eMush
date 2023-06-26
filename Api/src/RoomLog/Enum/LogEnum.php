@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Enum;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 
@@ -42,7 +43,8 @@ class LogEnum
     public const SELF_SURGERY_CRITICAL_SUCCESS = 'self_surgery_critical_success';
     public const TRAUMA_DISEASE = 'trauma_disease';
     public const DISEASE_OVERRIDDEN = 'disease_overridden';
-    public const HUNTER_DEATH = 'hunter_death';
+    public const HUNTER_DEATH_TURRET = 'hunter_death_turret';
+    public const HUNTER_DEATH_PATROL_SHIP = 'hunter_death_patrol_ship';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';
@@ -60,6 +62,11 @@ class LogEnum
             ModifierNameEnum::APRON_MODIFIER => self::SOIL_PREVENTED,
             ModifierNameEnum::GLOVES_MODIFIER => self::CLUMSINESS_PREVENTED,
         ],
+    ];
+
+    public const HUNTER_DEATH_LOG_ENUM = [
+        ActionEnum::SHOOT_HUNTER => self::HUNTER_DEATH_TURRET,
+        ActionEnum::SHOOT_HUNTER_PATROL_SHIP => self::HUNTER_DEATH_PATROL_SHIP,
     ];
 
     public static function getSurgeryLogs(): array

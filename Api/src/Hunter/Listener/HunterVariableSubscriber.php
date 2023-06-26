@@ -75,6 +75,6 @@ class HunterVariableSubscriber implements EventSubscriberInterface
                 return;
         }
 
-        $this->hunterService->persistAndFlush([$hunter]);
+        $this->hunterService->persist([$hunter]);
     }
 }

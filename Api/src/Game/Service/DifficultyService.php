@@ -54,10 +54,10 @@ class DifficultyService implements DifficultyServiceInterface
         $pointsToAdd = intval($pointsToAdd * $this->getExtraPoints($daedalus) + 0.5);
 
         $daedalus->addHunterPoints($pointsToAdd);
-        $this->persistAndFlush([$daedalus]);
+        $this->persist([$daedalus]);
     }
 
-    private function persistAndFlush(array $entities): void
+    private function persist(array $entities): void
     {
         foreach ($entities as $entity) {
             $this->entityManager->persist($entity);

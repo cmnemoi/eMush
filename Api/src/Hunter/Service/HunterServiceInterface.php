@@ -12,7 +12,7 @@ interface HunterServiceInterface
 
     public function killHunter(Hunter $hunter): void;
 
-    public function persistAndFlush(array $entities): void;
+    public function persist(array $entities): void;
 
     public function unpoolHunters(Daedalus $daedalus, \DateTime $time): void;
 }

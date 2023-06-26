@@ -60,7 +60,7 @@ class HunterService implements HunterServiceInterface
 
         $daedalus->getAttackingHunters()->removeElement($hunter);
         $this->entityManager->remove($hunter);
-        $this->persistAndFlush([$daedalus]);
+        $this->persist([$daedalus]);
     }
 
     public function makeHuntersShoot(HunterCollection $attackingHunters): void
@@ -68,7 +68,7 @@ class HunterService implements HunterServiceInterface
         $attackingHunters->map(fn (Hunter $hunter) => $this->makeHunterShoot($hunter));
     }
 
-    public function persistAndFlush(array $entities): void
+    public function persist(array $entities): void
     {
         foreach ($entities as $entity) {
             $this->entityManager->persist($entity);
@@ -112,8 +112,8 @@ class HunterService implements HunterServiceInterface
         }
 
         $wave->map(fn ($hunter) => $this->unpoolHunter($hunter, $time));
-        $this->persistAndFlush($wave->toArray());
-        $this->persistAndFlush([$daedalus]);
+        $this->persist($wave->toArray());
+        $this->persist([$daedalus]);
     }
 
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter
@@ -128,7 +128,7 @@ class HunterService implements HunterServiceInterface
         $hunter->setHunterVariables($hunterConfig);
         $daedalus->addHunter($hunter);
 
-        $this->persistAndFlush([$hunter, $daedalus]);
+        $this->persist([$hunter, $daedalus]);
 
         return $hunter;
     }

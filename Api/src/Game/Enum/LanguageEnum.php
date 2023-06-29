@@ -27,6 +27,7 @@ class LanguageEnum
     public const ROOMS = 'rooms';
     public const DISEASE_MESSAGE = 'disease_message';
     public const HUNTER = 'hunter';
+    public const PLACE = 'place';
 
     // translation domains
     public const CHARACTERS = 'characters';
@@ -53,6 +54,7 @@ class LanguageEnum
         self::ROOMS => self::ROOMS,
         self::DISEASE => self::DISEASE,
         self::HUNTER => self::HUNTER,
+        self::PLACE => self::ROOMS,
         LogDeclinationEnum::BALLS_COPROLALIA => self::DISEASE_MESSAGE,
         LogDeclinationEnum::PREFIX_COPROLALIA => self::DISEASE_MESSAGE,
         LogDeclinationEnum::ADJECTIVE_COPROLALIA => self::DISEASE_MESSAGE,

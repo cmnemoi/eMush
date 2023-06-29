@@ -58,6 +58,7 @@ class LogDeclinationEnum
             NeronMessageEnum::PATCHING_UP => [self::VERSION_PART_1 => 10, self::VERSION_PART_2 => 4],
             LogEnum::SELF_SURGERY_SUCCESS => [self::VERSION => 2],
             LogEnum::SURGERY_SUCCESS => [self::VERSION => 2],
+            LogEnum::ATTACKED_BY_HUNTER => [self::VERSION => 4],
             DiseaseMessagesEnum::REPLACE_COPROLALIA => [
                 self::VERSION => 13,
                 self::WORD_COPROLALIA => 20,

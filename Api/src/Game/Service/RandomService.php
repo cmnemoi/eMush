@@ -120,8 +120,11 @@ class RandomService implements RandomServiceInterface
 
     public function getRandomElements(array $array, int $number = 1): array
     {
-        if (empty($array) || count($array) < $number) {
+        if (empty($array)) {
             return [];
+        }
+        if ($number > count($array)) {
+            $number = count($array);
         }
 
         $result = [];

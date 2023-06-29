@@ -19,11 +19,14 @@ use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -35,6 +38,7 @@ final class Land extends AbstractAction
     private PlayerServiceInterface $playerService;
     private PlaceServiceInterface $placeService;
     private RandomServiceInterface $randomService;
+    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         EventServiceInterface $eventService,
@@ -43,6 +47,7 @@ final class Land extends AbstractAction
         PlayerServiceInterface $playerService,
         PlaceServiceInterface $placeService,
         RandomServiceInterface $randomService,
+        RoomLogServiceInterface $roomLogService
     ) {
         parent::__construct(
             $eventService,
@@ -53,6 +58,7 @@ final class Land extends AbstractAction
         $this->playerService = $playerService;
         $this->placeService = $placeService;
         $this->randomService = $randomService;
+        $this->roomLogService = $roomLogService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -85,6 +91,7 @@ final class Land extends AbstractAction
             throw new \RuntimeException('Patrol ship bay not found');
         }
         $this->player->changePlace($patrolshipBay);
+        $this->playerService->persist($this->player);
 
         $equipmentEvent = new MoveEquipmentEvent(
             equipment: $patrolship,
@@ -96,6 +103,46 @@ final class Land extends AbstractAction
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
 
-        $this->playerService->persist($this->player);
+        $this->moveScrapToPatrolShipBay($patrolshipBay);
+    }
+
+    private function moveScrapToPatrolShipBay(Place $patrolshipBay): void
+    {
+        /** @var GameEquipment $patrolShip */
+        $patrolShip = $this->parameter;
+        $patrolShipPlace = $this->placeService->findByNameAndDaedalus($patrolShip->getName(), $this->player->getDaedalus());
+        if ($patrolShipPlace === null) {
+            throw new \RuntimeException('Patrol ship not found');
+        }
+        $patrolShipPlaceContent = $patrolShipPlace->getEquipments();
+        if ($patrolShipPlaceContent->isEmpty()) {
+            return;
+        }
+
+        /** @var GameEquipment $scrap */
+        foreach ($patrolShipPlaceContent as $scrap) {
+            $moveEquipmentEvent = new MoveEquipmentEvent(
+                equipment: $scrap,
+                newHolder: $patrolshipBay,
+                author: $this->player,
+                visibility: VisibilityEnum::HIDDEN,
+                tags: $this->getAction()->getActionTags(),
+                time: new \DateTime(),
+            );
+            $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+        }
+
+        $logParameters = [
+            $this->player->getLogKey() => $this->player->getLogName(),
+        ];
+        $this->roomLogService->createLog(
+            logKey: LogEnum::PATROL_DISCHARGE,
+            place: $patrolshipBay,
+            visibility: VisibilityEnum::PUBLIC,
+            type: 'event_log',
+            player: $this->player,
+            parameters: $logParameters,
+            dateTime: new \DateTime(),
+        );
     }
 }

@@ -6,8 +6,10 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -33,6 +35,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
         EndCauseEnum::ASPHYXIA => LogEnum::OXY_LOW_USE_CAPSULE,
     ];
 
+    private const MOVE_EQUIPMENT_LOG_MAP = [
+        ActionEnum::COLLECT_SCRAP => LogEnum::SCRAP_COLLECTED,
+    ];
+
     public function __construct(RoomLogServiceInterface $roomLogService)
     {
         $this->roomLogService = $roomLogService;
@@ -41,6 +47,9 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            EquipmentEvent::CHANGE_HOLDER => [
+                ['onEquipmentChangeHolder'],
+            ],
             EquipmentEvent::EQUIPMENT_CREATED => [
                 ['onEquipmentCreated', 100],
             ],
@@ -51,6 +60,15 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 ['onInventoryOverflow'],
             ],
         ];
+    }
+
+    public function onEquipmentChangeHolder(EquipmentEvent $event): void
+    {
+        $logKey = $event->mapLog(self::MOVE_EQUIPMENT_LOG_MAP);
+
+        if ($logKey !== null) {
+            $this->createEventLog($logKey, $event, $event->getVisibility());
+        }
     }
 
     public function onEquipmentCreated(EquipmentEvent $event): void
@@ -102,9 +120,11 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $player = null;
         }
 
+        /** @var Place $logPlace */
+        $logPlace = $event instanceof MoveEquipmentEvent ? $event->getNewHolder() : $event->getPlace();
         $this->roomLogService->createLog(
             $logKey,
-            $event->getPlace(),
+            $logPlace,
             $visibility,
             'event_log',
             $player,

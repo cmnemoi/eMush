@@ -289,13 +289,15 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($patrolShipWeapon);
         $manager->persist($patrolShip);
 
+        /** @var Action $collectScrap * */
+        $collectScrap = $this->getReference(ActionsFixtures::COLLECT_SCRAP);
         $pasiphae = new EquipmentConfig();
         $pasiphae
             ->setEquipmentName(EquipmentEnum::PASIPHAE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions(new ArrayCollection([$repair12, $examineAction, $takeoffAction, $landAction]))
+            ->setActions(new ArrayCollection([$repair12, $examineAction, $takeoffAction, $landAction, $collectScrap]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($pasiphae);

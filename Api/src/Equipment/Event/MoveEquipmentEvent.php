@@ -25,6 +25,16 @@ final class MoveEquipmentEvent extends InteractWithEquipmentEvent
         $this->newHolder = $newHolder;
     }
 
+    public function getLogParameters(): array
+    {
+        $logParameters = parent::getLogParameters();
+
+        $newHolderPlace = $this->newHolder->getPlace();
+        $logParameters[$newHolderPlace->getLogKey()] = $newHolderPlace->getLogName();
+
+        return $logParameters;
+    }
+
     public function getNewHolder(): EquipmentHolderInterface
     {
         return $this->newHolder;

@@ -2,8 +2,6 @@
 
 namespace Mush\Equipment\Enum;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 class ItemEnum
 {
     public const BABEL_MODULE = 'babel_module';

@@ -150,6 +150,13 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
             'log' => LogEnum::SCRAP_COLLECTED,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+        $I->dontSeeInRepository(RoomLog::class, [
+            'place' => RoomEnum::SPACE,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => LogEnum::SCRAP_COLLECTED,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
         $I->assertNotEquals(
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             $this->player1->getHealthPoint()
@@ -175,6 +182,24 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
 
         $I->assertTrue($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
         $I->seeInRepository(RoomLog::class, [
+            'place' => RoomEnum::ALPHA_BAY_2,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => LogEnum::PATROL_DISCHARGE,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+    }
+
+    public function testLandingWithoutScrapCollected($I): void
+    {
+        $alphaBay2 = $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2);
+        $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
+
+        $this->landAction->loadParameters($this->landActionConfig, $this->player1, $this->pasiphae);
+        $this->landAction->execute();
+
+        $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
+        $I->dontSeeInRepository(RoomLog::class, [
             'place' => RoomEnum::ALPHA_BAY_2,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo(),

@@ -607,5 +607,16 @@
         <target>**{character}** décharge du matériel de son monoplace.</target>
       </segment>
     </unit>
+    <unit id="scrap_collected">
+      <segment id="scrap_collected" state="translated">
+        <source>scrap_collected</source>
+        <target>{target_equipment_gender, select,
+                  male {Le {place} piloté par **{character}** a rapatrié un **{target_equipment}**.}
+                  female {Le {place} piloté par **{character}** a rapatrié une **{target_equipment}**.}
+                  other {Le {place} piloté par **{character}** a rapatrié un **{target_equipment}**.}
+                  }
+        </target>   
+      </segment>
+    </unit>
   </file>
 </xliff>

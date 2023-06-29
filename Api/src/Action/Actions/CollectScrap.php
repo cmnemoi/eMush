@@ -101,35 +101,10 @@ final class CollectScrap extends AbstractAction
         /** @var GameEquipment $scrap */
         foreach ($scrapToCollect as $scrap) {
             $this->moveScrapToPasiphae($scrap);
-            $this->createCollectScrapLog($scrap);
             if ($daedalus->getAttackingHunters()->count() > 0) {
                 $this->damagePilot();
             }
         }
-    }
-
-    private function createCollectScrapLog(GameEquipment $scrap): void
-    {
-        /** @var GameEquipment $pasiphae */
-        $pasiphae = $this->parameter;
-        $pasiphaePlace = $this->getPasiphaePlace();
-        $pilot = $this->player;
-
-        $logParameters = [
-            $pilot->getLogKey() => $pilot->getLogName(),
-            $pasiphae->getLogKey() => $pasiphae->getLogName(),
-            'target_' . $scrap->getLogKey() => $scrap->getLogName(),
-        ];
-
-        $this->roomLogService->createLog(
-            logKey: LogEnum::SCRAP_COLLECTED,
-            place: $pasiphaePlace,
-            visibility: VisibilityEnum::PUBLIC,
-            type: 'event_log',
-            player: $pilot,
-            parameters: $logParameters,
-            dateTime: new \DateTime()
-        );
     }
 
     private function damagePilot(): void
@@ -168,7 +143,7 @@ final class CollectScrap extends AbstractAction
             equipment: $scrap,
             newHolder: $pasiphaePlace,
             author: $this->player,
-            visibility: VisibilityEnum::HIDDEN,
+            visibility: VisibilityEnum::PUBLIC,
             tags: $this->getAction()->getActionTags(),
             time: new \DateTime()
         );

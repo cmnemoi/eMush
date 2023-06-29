@@ -19,6 +19,8 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Repository\PlaceRepository;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -26,7 +28,7 @@ use Mush\Status\Entity\TargetStatusTrait;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
 #[ORM\Table(name: 'room')]
-class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInterface
+class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInterface, LogParameterInterface
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -332,5 +334,15 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     public function getPlayer(): null
     {
         return null;
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::PLACE;
+    }
+
+    public function getLogName(): string
+    {
+        return $this->getName();
     }
 }

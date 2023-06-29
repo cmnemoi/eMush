@@ -9,4 +9,5 @@ class LogParameterKeyEnum
     public const EQUIPMENT = 'equipment';
     public const HUNTER = 'hunter';
     public const ITEM = 'item';
+    public const PLACE = 'place';
 }

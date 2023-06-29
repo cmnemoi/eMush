@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="modifiers.ext">
-    <unit id="cycle_disease_increase">
+    <unit id="roll.percentage_increase_cycle_disease">
       <segment id="description" state="initial">
-        <source>cycle_disease_increase.description</source>
-        <target>cycle_disease_increase.description</target>
+        <source>roll.percentage_increase_cycle_disease.description</source>
+        <target>roll.percentage_increase_cycle_disease.description</target>
       </segment>
     </unit>
     <unit id="max_point_decrease">
@@ -13,10 +13,10 @@
         <target>max_point_decrease.description</target>
       </segment>
     </unit>
-    <unit id="new_cycle_decrease">
+    <unit id="player.new.cycle_decrease">
       <segment id="description" state="initial">
-        <source>new_cycle_decrease.description</source>
-        <target>new_cycle_decrease.description</target>
+        <source>player.new.cycle_decrease.description</source>
+        <target>player.new.cycle_decrease.description</target>
       </segment>
     </unit>
     <unit id="infection.player_decrease">
@@ -25,28 +25,34 @@
         <target>infection.player_decrease.description</target>
       </segment>
     </unit>
-    <unit id="post_action_decrease">
+    <unit id="apply.cost_decrease">
+      <segment id="description" state="initial">
+        <source>apply.cost_decrease.description</source>
+        <target>apply.cost_decrease.description</target>
+      </segment>
+    </unit>
+    <unit id="post.action_decrease">
       <segment id="description" state="initial">
         <source>post.action_decrease.description</source>
         <target>post.action_decrease.description</target>
       </segment>
     </unit>
-    <unit id="move_increase">
+    <unit id="apply.cost_increase_move">
       <segment id="description" state="initial">
-        <source>move_increase.description</source>
-        <target>move_increase.description</target>
+        <source>apply.cost_increase_move.description</source>
+        <target>apply.cost_increase_move.description</target>
       </segment>
     </unit>
-    <unit id="actions_increase">
+    <unit id="apply.cost_increase">
       <segment id="description" state="initial">
-        <source>actions_increase.description</source>
-        <target>actions_increase.description</target>
+        <source>apply.cost_increase.description</source>
+        <target>apply.cost_increase.description</target>
       </segment>
     </unit>
-    <unit id="action_shoot_decrease">
+    <unit id="roll.action.percentage_decrease_shoot">
       <segment id="description" state="initial">
-        <source>action_shoot_decrease.description</source>
-        <target>action_shoot_decrease.description</target>
+        <source>roll.action.percentage_decrease_shoot.description</source>
+        <target>roll.action.percentage_decrease_shoot.description</target>
       </segment>
     </unit>
     <unit id="biting">

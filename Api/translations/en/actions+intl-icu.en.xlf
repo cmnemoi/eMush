@@ -810,5 +810,27 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         <target>Return to Patrol Ship launch bay.</target>
       </segment>
     </unit>
+    <unit id="shoot_hunter_patrol_ship">
+      <segment id="name" state="translated">
+        <source>shoot_hunter_patrol_ship.name</source>
+        <target>Fire on a hunter</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shoot_hunter_patrol_ship.description</source>
+        <target>Fire a Telsatron charge at an enemy ship.
+// 
+Upgradeable with Missiles.</target>
+      </segment>
+    </unit>
+    <unit id="collect_scrap">
+      <segment id="name" state="translated">
+        <source>collect_scrap.name</source>
+        <target>Collect scrap</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>collect_scrap.description</source>
+        <target>Look, is that some scrap floating in the void over by that wing there? Fortunately, with the Pasiphae it can be picked up.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -288,7 +288,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>patrol_ship_bravo_socrate.loc_prep</source>
-        <target>dans le </target>
+        <target>dans le</target>
       </segment>
     </unit>
     <unit id="patrol_ship_bravo_planton">
@@ -298,7 +298,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>patrol_ship_bravo_planton.loc_prep</source>
-        <target>dans le </target>
+        <target>dans le</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_tamarin">
@@ -308,7 +308,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>patrol_ship_alpha_tamarin.loc_prep</source>
-        <target>dans le </target>
+        <target>dans le</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_jujube">
@@ -318,7 +318,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>patrol_ship_alpha_jujube.loc_prep</source>
-        <target>dans le </target>
+        <target>dans le</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_longane">
@@ -328,7 +328,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>patrol_ship_alpha_longane.loc_prep</source>
-        <target>dans le </target>
+        <target>dans le</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_2_wallis">

@@ -391,10 +391,10 @@
         <target>trauma_disease</target>
       </segment>
     </unit>
-    <unit id="hunter_death">
-      <segment id="hunter_death" state="initial">
-        <source>hunter_death</source>
-        <target>hunter_death</target>
+    <unit id="hunter_death_turret">
+      <segment id="hunter_death_turret" state="initial">
+        <source>hunter_death_turret</source>
+        <target>hunter_death_turret</target>
       </segment>
     </unit>
     <unit id="infect_action">
@@ -461,6 +461,30 @@
       <segment id="player_leave_chat_talky" state="initial">
         <source>player_leave_chat_talky</source>
         <target>player_leave_chat_talky</target>
+      </segment>
+    </unit>
+    <unit id="hunter_death_patrol_ship">
+      <segment id="hunter_death_patrol_ship" state="initial">
+        <source>hunter_death_patrol_ship</source>
+        <target>hunter_death_patrol_ship</target>
+      </segment>
+    </unit>
+    <unit id="attacked_by_hunter">
+      <segment id="attacked_by_hunter" state="initial">
+        <source>attacked_by_hunter</source>
+        <target>attacked_by_hunter</target>
+      </segment>
+    </unit>
+    <unit id="patrol_discharge">
+      <segment id="patrol_discharge" state="initial">
+        <source>patrol_discharge</source>
+        <target>patrol_discharge</target>
+      </segment>
+    </unit>
+    <unit id="scrap_collected">
+      <segment id="scrap_collected" state="initial">
+        <source>scrap_collected</source>
+        <target>scrap_collected</target>
       </segment>
     </unit>
   </file>

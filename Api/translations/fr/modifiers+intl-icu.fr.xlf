@@ -43,13 +43,13 @@
     <unit id="apply.cost_increase_move">
       <segment id="description" state="translated">
         <source>apply.cost_increase_move.description</source>
-        <target>Chaque déplacement, coûte **{quantity}** :pm: de plus.</target>
+        <target>Chaque déplacement coûte **{quantity}** :pm: de plus.</target>
       </segment>
     </unit>
     <unit id="apply.cost_increase">
       <segment id="description" state="translated">
         <source>apply.cost_increase.description</source>
-        <target>Chaque action, coûte **{quantity}** {emote} de plus.</target>
+        <target>Chaque action coûte **{quantity}** {emote} de plus.</target>
       </segment>
     </unit>
     <unit id="roll.action.percentage_decrease_shoot">

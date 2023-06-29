@@ -553,5 +553,17 @@
         <target>land_success</target>
       </segment>
     </unit>
+    <unit id="shoot_hunter_patrol_ship_success">
+      <segment id="shoot_hunter_patrol_ship_success" state="initial">
+        <source>shoot_hunter_patrol_ship_success</source>
+        <target>shoot_hunter_patrol_ship_success</target>
+      </segment>
+    </unit>
+    <unit id="shoot_hunter_patrol_ship_fail">
+      <segment id="shoot_hunter_patrol_ship_fail" state="initial">
+        <source>shoot_hunter_patrol_ship_fail</source>
+        <target>shoot_hunter_patrol_ship_fail</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

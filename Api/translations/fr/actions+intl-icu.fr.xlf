@@ -813,8 +813,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>shoot_hunter_patrol_ship.description</source>
         <target>Tire une charge de Teslatron sur un ennemi.
         //
-        Améliorable avec des missiles.
-        </target>
+        Améliorable avec des missiles.</target>
       </segment>
     </unit>
     <unit id="collect_scrap">

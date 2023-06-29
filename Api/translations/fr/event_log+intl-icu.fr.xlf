@@ -597,8 +597,7 @@
                   3 {Tout tremble autour de vous, une attaque est en cours.}
                   4 {Vous avez été attaqué par un Hunter.}
                   other {Vous avez été attaqué par un Hunter.}
-                }
-        </target>
+                }</target>
       </segment>
     </unit>
     <unit id="patrol_discharge">
@@ -614,8 +613,7 @@
                   male {Le {place} piloté par **{character}** a rapatrié un **{target_equipment}**.}
                   female {Le {place} piloté par **{character}** a rapatrié une **{target_equipment}**.}
                   other {Le {place} piloté par **{character}** a rapatrié un **{target_equipment}**.}
-                  }
-        </target>   
+                  }</target>
       </segment>
     </unit>
   </file>

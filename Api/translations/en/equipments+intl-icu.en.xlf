@@ -647,9 +647,9 @@ Daedalus oxygen reservoir, operate with caution. DO NOT EMPTY for a laugh.</targ
       </segment>
       <segment id="examine" state="translated">
         <source>pasiphae.examine</source>
-        <target>Patrol Ship
+        <target>Pasiphae
         //
-Patrol ship armor: 12
+Pasiphae armor: 12
 //
 It's no longer all shiny and new, but it does the job.</target>
       </segment>
@@ -679,9 +679,9 @@ It's no longer all shiny and new, but it does the job.</target>
         <source>patrol_ship_alpha_2_wallis.examine</source>
         <target>Patrol Ship Wallis
         //
-        Patrol Ship charges remaining : 0. 
+        Patrol Ship charges remaining : {charges}. 
         //
-        Patrol Ship armor : 10. 
+        Patrol Ship armor : {armor}. 
         //
         It's no longer all shiny and new, but it does the job.</target>
       </segment>
@@ -711,9 +711,9 @@ It's no longer all shiny and new, but it does the job.</target>
         <source>patrol_ship_bravo_epicure.examine</source>
         <target>Patrol Ship Epicure
         //
-        Patrol Ship charges remaining : 0. 
+        Patrol Ship charges remaining : {charges}. 
         //
-        Patrol Ship armor : 10. 
+        Patrol Ship armor : {armor}. 
         //
         It's no longer all shiny and new, but it does the job.</target>
       </segment>
@@ -743,9 +743,9 @@ It's no longer all shiny and new, but it does the job.</target>
         <source>patrol_ship_alpha_jujube.examine</source>
         <target>Patrol Ship Jujube
         //
-        Patrol Ship charges remaining : 0. 
+        Patrol Ship charges remaining : {charges}. 
         //
-        Patrol Ship armor : 10. 
+        Patrol Ship armor : {armor}. 
         //
         It's no longer all shiny and new, but it does the job.</target>
       </segment>
@@ -775,9 +775,9 @@ It's no longer all shiny and new, but it does the job.</target>
         <source>patrol_ship_alpha_longane.examine</source>
         <target>Patrol Ship Longane
         //
-        Patrol Ship charges remaining : 0. 
+        Patrol Ship charges remaining : {charges}. 
         //
-        Patrol Ship armor : 10. 
+        Patrol Ship armor : {armor}. 
         //
         It's no longer all shiny and new, but it does the job.</target>
       </segment>
@@ -807,9 +807,9 @@ It's no longer all shiny and new, but it does the job.</target>
         <source>patrol_ship_bravo_planton.examine</source>
         <target>Patrol Ship Planton
         //
-        Patrol Ship charges remaining : 0. 
+        Patrol Ship charges remaining : {charges}. 
         //
-        Patrol Ship armor : 10. 
+        Patrol Ship armor : {armor}. 
         //
         It's no longer all shiny and new, but it does the job.</target>
       </segment>
@@ -839,9 +839,9 @@ It's no longer all shiny and new, but it does the job.</target>
         <source>patrol_ship_bravo_socrate.examine</source>
         <target>Patrol Ship Socrate
         //
-        Patrol Ship charges remaining : 0. 
+        Patrol Ship charges remaining : {charges}. 
         //
-        Patrol Ship armor : 10. 
+        Patrol Ship armor : {armor}. 
         //
         It's no longer all shiny and new, but it does the job.</target>
       </segment>
@@ -871,9 +871,9 @@ It's no longer all shiny and new, but it does the job.</target>
         <source>patrol_ship_alpha_tamarin.examine</source>
         <target>Patrol Ship Tamarin
         //
-        Patrol Ship charges remaining : 0. 
+        Patrol Ship charges remaining : {charges}. 
         //
-        Patrol Ship armor : 10. 
+        Patrol Ship armor : {armor}. 
         //
         It's no longer all shiny and new, but it does the job.</target>
       </segment>
@@ -1185,8 +1185,9 @@ When a camera is installed in a room, all logs are saved in the history and disp
         <source>patrol_ship.examine</source>
         <target>Patrol Ship
 //
-    Patrol ship charges remaining: 0
-    Patrol ship armor: 10
+    Patrol ship charges remaining: {charges}
+//
+    Patrol ship armor: {armor}
 //
 It's no longer all shiny and new, but it does the job.</target>
       </segment>

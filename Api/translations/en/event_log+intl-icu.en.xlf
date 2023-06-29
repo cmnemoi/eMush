@@ -459,10 +459,10 @@
         <target>What you just witnessed shocked you. You will never be the same again.</target>
       </segment>
     </unit>
-    <unit id="hunter_death">
-      <segment id="hunter_death" state="translated">
-        <source>hunter_death</source>
-        <target>:triumph: **{character}** did a little victory dance to celebrate *one less {hunter}*.</target>
+    <unit id="hunter_death_turret">
+      <segment id="hunter_death_turret" state="translated">
+        <source>hunter_death_turret</source>
+        <target>**{character}** does a little victory dance to celebrate *one less {hunter}*.</target>
       </segment>
     </unit>
     <unit id="infect_action">
@@ -543,15 +543,32 @@
                   }</target>
       </segment>
     </unit>
+    <unit id="hunter_death_patrol_ship">
+      <segment id="hunter_death_patrol_ship" state="translated">
+        <source>hunter_death_patrol_ship</source>
+        <target>:hunter: **{character}** cheers loudly! *One less {hunter}*, yes!</target>
+      </segment>
+    </unit>
+    <unit id="attacked_by_hunter">
+      <segment id="attacked_by_hunter" state="translated">
+        <source>attacked_by_hunter</source>
+        <target>:hunter: {version, select,
+                  1 {You have been attacked by a Hunter.}
+                  2 {Explosions erupt, you have been attacked by a Hunter.}
+                  other {You have been attacked by a Hunter.}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="patrol_discharge">
+      <segment id="patrol_discharge" state="translated">
+        <source>patrol_discharge</source>
+        <target>**{character}** discharged some equipment from their one-seater.</target>
+      </segment>
+    </unit>
     <unit id="scrap_collected">
       <segment id="scrap_collected" state="translated">
         <source>scrap_collected</source>
-        <target>{target_equipment_gender, select,
-                  male {Le {equipment} piloté par **{character}** a rapatrié un **{target_equipment}**.}
-                  female {Le {equipment} piloté par **{character}** a rapatrié une **{target_equipment}**.}
-                  other {Le {equipment} piloté par **{character}** a rapatrié un **{target_equipment}**.}
-                  }
-        </target>   
+        <target>The {place} piloted by **{character}** has brought back a **{target_equipment}**.</target>
       </segment>
     </unit>
   </file>

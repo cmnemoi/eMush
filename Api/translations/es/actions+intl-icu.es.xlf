@@ -791,5 +791,25 @@
         <target>land.description</target>
       </segment>
     </unit>
+    <unit id="shoot_hunter_patrol_ship">
+      <segment id="name" state="initial">
+        <source>shoot_hunter_patrol_ship.name</source>
+        <target>shoot_hunter_patrol_ship.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shoot_hunter_patrol_ship.description</source>
+        <target>shoot_hunter_patrol_ship.description</target>
+      </segment>
+    </unit>
+    <unit id="collect_scrap">
+      <segment id="name" state="initial">
+        <source>collect_scrap.name</source>
+        <target>collect_scrap.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>collect_scrap.description</source>
+        <target>collect_scrap.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -648,11 +648,8 @@ Reserva de oxígeno del Daedalus, manipular con precaución. NO VACIARLO.</targe
       <segment id="examine" state="translated">
         <source>pasiphae.examine</source>
         <target>Con cómodos asientos de cuero y 5 velocidades.
-Blindaje del aparato: 12.
-No es tan nuevo pero cumple su función.
-
-in flight : "Sirve para dirigir el Pasiphae, nave de rescate del Daedalus
-Versión mejorada de Patrullero, se usa para recoger objetos en órbita. Aunque su artillería es reducida, es suficiente para defenderse de los Hunters."</target>
+Blindaje del aparato: {armor}
+No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_2_wallis">

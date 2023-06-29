@@ -624,7 +624,7 @@
         <source>pasiphae.examine</source>
         <target>Pasiphae
 //
-Armure de l'appareil : 12. 
+Armure de l'appareil : {armor}.
 //
 Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
@@ -1146,7 +1146,7 @@ Un laboratoire super ultra moderne avec de vrais ordinateurs à lampe fluo compa
         <source>patrol_ship.examine</source>
         <target>Patrouilleur
 //
-Charges de l'appareil : 0.
+Charges de l'appareil : {charges}.
 //
 Armure de l'appareil : {armor}.
 //

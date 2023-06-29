@@ -120,7 +120,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $player = null;
         }
 
-        /** @var Place $logPlace **/
+        /** @var Place $logPlace */
         $logPlace = $event instanceof MoveEquipmentEvent ? $event->getNewHolder() : $event->getPlace();
         $this->roomLogService->createLog(
             $logKey,

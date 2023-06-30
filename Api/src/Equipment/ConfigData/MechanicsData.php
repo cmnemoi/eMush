@@ -3405,7 +3405,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'patrol_ship_pasiphae',
+            'name' => 'patrol_ship_pasiphae_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [
                 1 => 1,
@@ -3432,6 +3432,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
+                ActionEnum::COLLECT_SCRAP,
             ],
             'modifierConfigs' => [],
         ],

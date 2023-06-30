@@ -10,6 +10,7 @@ use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NumberOfAttackingHunters;
 use Mush\Action\Validator\Reach;
+use Mush\Equipment\Entity\EquipmentMechanic as Mechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ReachEnum;
@@ -75,7 +76,7 @@ class ShootHunter extends AttemptAction
     private function getWeaponMechanic(GameEquipment $parameter): Weapon
     {
         /** @var Weapon $weapon */
-        $weapon = $parameter->getEquipment()->getMechanics()->first();
+        $weapon = $parameter->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->first();
         if (!$weapon instanceof Weapon) {
             throw new \Exception("Shoot hunter action : {$weapon->getName()} should have a weapon mechanic");
         }

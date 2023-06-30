@@ -209,6 +209,27 @@
                         @addTuple="addBaseDamageRange"
                         @removeIndex="removeBaseDamageRange"></MapManager>
         </div>
+        <div v-if="mechanics.mechanicsType == 'PatrolShip'">
+            <div class="flex-row">
+                <Input  
+                    :label="$t('admin.mechanics.dockingPlace')"
+                    id="mechanics_dockingPlace"
+                    v-model="mechanics.dockingPlace"
+                    type="text"
+                    :errors="errors.dockingPlace"
+                />
+            </div>
+            <MapManager :map="mechanics.collectScrapNumber"
+                        mapIndexesType="number"
+                        mapValuesType="number"
+                        @addTuple="addOxygen"
+                        @removeIndex="removeOxygen"/>
+            <MapManager :map="mechanics.collectScrapPlayerDamage"
+                        mapIndexesType="number"
+                        mapValuesType="number"
+                        @addTuple="addOxygen"
+                        @removeIndex="removeOxygen"/>
+        </div>
         <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
@@ -219,7 +240,6 @@ import ActionService from "@/services/action.service";
 import GameConfigService from "@/services/game_config.service";
 import ApiService from "@/services/api.service";
 import { Action } from "@/entities/Action";
-import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { Mechanics } from "@/entities/Config/Mechanics";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";

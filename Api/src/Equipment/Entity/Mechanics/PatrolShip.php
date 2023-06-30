@@ -11,10 +11,10 @@ use Mush\Game\Entity\ProbaCollection;
 class PatrolShip extends EquipmentMechanic
 {
     #[ORM\Column(type: 'array', nullable: true)]
-    private array $collectScrapNumber;
+    private array $collectScrapNumber = [];
 
     #[ORM\Column(type: 'array', nullable: true)]
-    private array $collectScrapPlayerDamage;
+    private array $collectScrapPlayerDamage = [];
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
     private string $dockingPlace = '';

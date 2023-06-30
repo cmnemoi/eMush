@@ -47,18 +47,20 @@
                 Actions
             </template>
             <template #row-actions="slotProps">
-                <button v-if="slotProps.gameStatus != 'finished'"
-                        class="action-button"
-                        type="button"
-                        @click="destroyDaedalus(slotProps.id)">
-                    {{ $t("admin.daedalus.destroy") }}
-                </button>
-                <button v-if="slotProps.gameStatus != 'finished'"
-                        class="action-button"
-                        type="button"
-                        @click="addNewRoomsToDaedalus(slotProps.id)">
-                    {{ $t("admin.daedalus.addNewRooms") }}
-                </button>
+                <div class="flex-row">
+                    <button v-if="slotProps.gameStatus != 'finished'"
+                            class="action-button"
+                            type="button"
+                            @click="destroyDaedalus(slotProps.id)">
+                        {{ $t("admin.daedalus.destroy") }}
+                    </button>
+                    <button v-if="slotProps.gameStatus != 'finished'"
+                            class="action-button"
+                            type="button"
+                            @click="addNewRoomsToDaedalus(slotProps.id)">
+                        {{ $t("admin.daedalus.addNewRooms") }}
+                    </button>
+                </div>
             </template>
 
         </Datatable>

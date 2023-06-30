@@ -110,8 +110,6 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
 
     public function testCollectScrapWithAttackingHunters(FunctionalTester $I): void
     {
-        $this->collectScrapActionConfig->setCriticalRate(101);
-
         // spawn some scrap in space
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::METAL_SCRAPS,

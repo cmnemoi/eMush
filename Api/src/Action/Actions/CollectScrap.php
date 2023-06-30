@@ -13,10 +13,11 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\PatrolShip;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
-use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -36,10 +37,6 @@ final class CollectScrap extends AbstractAction
 {
     protected string $name = ActionEnum::COLLECT_SCRAP;
 
-    // TODO: put those collections in the future PatrolShip Mechanic
-    private ProbaCollection $numberOfScrapToCollect;
-    private ProbaCollection $pilotDamage;
-
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
     private PlaceServiceInterface $placeService;
@@ -57,17 +54,6 @@ final class CollectScrap extends AbstractAction
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
         $this->placeService = $placeService;
-
-        $this->numberOfScrapToCollect = new ProbaCollection([
-            1 => 1,
-            2 => 1,
-            3 => 1,
-        ]);
-        $this->pilotDamage = new ProbaCollection([
-            2 => 1,
-            3 => 1,
-            4 => 1,
-        ]);
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -91,8 +77,11 @@ final class CollectScrap extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $daedalus = $this->player->getDaedalus();
+        $pasiphaePlace = $this->getPasiphaePlace();
+        $pasiphaeMechanic = $this->getPasiphaeMechanic();
         $spaceContent = $daedalus->getSpace()->getEquipments();
-        $numberOfScrapToCollect = (int) $this->randomService->getSingleRandomElementFromProbaCollection($this->numberOfScrapToCollect);
+
+        $numberOfScrapToCollect = (int) $this->randomService->getSingleRandomElementFromProbaCollection($pasiphaeMechanic->getCollectScrapNumber());
         if (!$numberOfScrapToCollect) {
             throw new \RuntimeException('There should be at least one scrap to collect if CollectScrap action is called');
         }
@@ -100,32 +89,26 @@ final class CollectScrap extends AbstractAction
 
         /** @var GameEquipment $scrap */
         foreach ($scrapToCollect as $scrap) {
-            $this->moveScrapToPasiphae($scrap);
+            $this->moveScrapToPasiphae($scrap, $pasiphaePlace);
             if ($daedalus->getAttackingHunters()->count() > 0) {
-                $this->damagePilot();
+                $this->damagePlayer($pasiphaeMechanic, $pasiphaePlace);
             }
         }
     }
 
-    private function damagePilot(): void
+    private function damagePlayer(PatrolShip $pasiphaeMechanic, Place $pasiphaePlace): void
     {
-        $pasiphaePlace = $this->getPasiphaePlace();
-        $pilot = $this->player;
-
-        if ($this->randomService->randomPercent() >= $this->action->getCriticalRate()) {
-            return;
-        }
-        $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($this->pilotDamage));
-
+        // log damage cause before health point loss
         $this->roomLogService->createLog(
             logKey: LogEnum::ATTACKED_BY_HUNTER,
             place: $pasiphaePlace,
             visibility: VisibilityEnum::PUBLIC,
             type: 'event_log',
-            player: $pilot,
+            player: $this->player,
             dateTime: new \DateTime()
         );
 
+        $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($pasiphaeMechanic->getCollectScrapPlayerDamage()));
         $playerVariableEvent = new PlayerVariableEvent(
             player: $this->player,
             variableName: PlayerVariableEnum::HEALTH_POINT,
@@ -136,9 +119,8 @@ final class CollectScrap extends AbstractAction
         $this->eventService->callEvent($playerVariableEvent, PlayerVariableEvent::CHANGE_VARIABLE);
     }
 
-    private function moveScrapToPasiphae(GameEquipment $scrap): void
+    private function moveScrapToPasiphae(GameEquipment $scrap, Place $pasiphaePlace): void
     {
-        $pasiphaePlace = $this->getPasiphaePlace();
         $moveEquipmentEvent = new MoveEquipmentEvent(
             equipment: $scrap,
             newHolder: $pasiphaePlace,
@@ -160,5 +142,17 @@ final class CollectScrap extends AbstractAction
         }
 
         return $pasiphaePlace;
+    }
+
+    private function getPasiphaeMechanic(): PatrolShip
+    {
+        /** @var GameEquipment $pasiphae */
+        $pasiphae = $this->parameter;
+        $pasiphaeMechanic = $pasiphae->getEquipment()->getMechanics()->filter(fn (PatrolShip $mechanic) => in_array(EquipmentMechanicEnum::PATROL_SHIP, $mechanic->getMechanics()))->first();
+        if (!$pasiphaeMechanic instanceof PatrolShip) {
+            throw new \RuntimeException('Pasiphae should have a PatrolShip mechanic');
+        }
+
+        return $pasiphaeMechanic;
     }
 }

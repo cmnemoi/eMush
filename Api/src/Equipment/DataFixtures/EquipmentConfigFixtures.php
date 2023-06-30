@@ -278,7 +278,20 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             [$takeoffAction, $landAction],
             EquipmentEnum::PATROL_SHIP
         );
-        $patrolShipMechanic->setDockingPlace(RoomEnum::ALPHA_BAY);
+        $patrolShipMechanic
+            ->setFailedManoeuvreDaedalusDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
+            ->setFailedManoeuvrePatrolShipDamage([1 => 1])
+            ->setFailedManoeuvrePlayerDamage([
+                0 => 1,
+                1 => 1,
+                2 => 1,
+            ])
+            ->setDockingPlace(RoomEnum::ALPHA_BAY)
+        ;
         $patrolShipWeapon = $this->createWeapon(
             [$shootHunterPatrolShipAction],
             EquipmentEnum::PATROL_SHIP
@@ -312,6 +325,30 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             [$takeoffAction, $landAction, $collectScrap],
             EquipmentEnum::PASIPHAE
         );
+        $pasiphaeMechanic
+            ->setCollectScrapNumber([
+                1 => 1,
+                2 => 1,
+                3 => 1,
+            ])
+            ->setCollectScrapPlayerDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
+            ->setFailedManoeuvreDaedalusDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
+            ->setFailedManoeuvrePatrolShipDamage([1 => 1])
+            ->setFailedManoeuvrePlayerDamage([
+                0 => 1,
+                1 => 1,
+                2 => 1,
+            ])
+            ->setDockingPlace(RoomEnum::ALPHA_BAY)
+        ;
 
         $pasiphae = new EquipmentConfig();
         $pasiphae

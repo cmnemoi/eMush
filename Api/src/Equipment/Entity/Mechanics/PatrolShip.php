@@ -36,7 +36,7 @@ class PatrolShip extends EquipmentMechanic
         return $mechanics;
     }
 
-    public function getCollectScrapNumber(): ?ProbaCollection
+    public function getCollectScrapNumber(): ProbaCollection
     {
         return new ProbaCollection($this->collectScrapNumber);
     }
@@ -52,7 +52,7 @@ class PatrolShip extends EquipmentMechanic
         return $this;
     }
 
-    public function getCollectScrapPlayerDamage(): ?ProbaCollection
+    public function getCollectScrapPlayerDamage(): ProbaCollection
     {
         return new ProbaCollection($this->collectScrapPlayerDamage);
     }

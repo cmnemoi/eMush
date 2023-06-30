@@ -5,9 +5,9 @@ Mush\Equipment\Entity\Mechanics\PatrolShip:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_ADMIN")'
     normalization_context:
-      groups: [ 'ration_read' ]
+      groups: [ 'patrol_ship_read' ]
     denormalization_context:
-      groups: [ 'ration_write' ]
+      groups: [ 'patrol_ship_write' ]
   collectionOperations:
     get:
       filters: [ 'default.search_filter', 'default.order_filter' ]

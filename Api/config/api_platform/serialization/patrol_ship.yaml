@@ -1,20 +1,20 @@
-Mush\Equipment\Entity\PatrolShip:
+Mush\Equipment\Entity\Mechanics\PatrolShip:
   attributes:
     id:
-      groups: [ 'equipment_mechanic_read' ]
+      groups: [ 'patrol_ship_read' ]
     name:
-      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
     mechanics:
-      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
     collectScrapNumber:
-      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
     collectScrapPlayerDamage:
-      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
     dockingPlace:
-      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
     failedManoeuvreDaedalusDamage:
-      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
     failedManoeuvrePatrolShipDamage:
-      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
     failedManoeuvrePlayerDamage:
-      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]

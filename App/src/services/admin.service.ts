@@ -10,6 +10,13 @@ const PLAYER_INFO_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player_infos"
 const QUARANTINE_PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player/quarantine");
 
 const AdminService = {
+    addNewRoomsToDaedalus: async(daedalusId: integer): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(ADMIN_ENDPOINT + '/add-new-rooms-to-daedalus/' + String(daedalusId));
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     closePlayer: async(playerId: string): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(ADMIN_ENDPOINT + '/close-player/' + playerId);

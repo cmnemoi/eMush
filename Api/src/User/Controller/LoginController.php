@@ -84,7 +84,7 @@ class LoginController extends AbstractFOSRestController
     }
 
     /**
-     * @GET(name="redirect_login", path="/authorize")
+     * @Get(name="redirect_login", path="/authorize")
      */
     public function redirectAction(Request $request): Response
     {

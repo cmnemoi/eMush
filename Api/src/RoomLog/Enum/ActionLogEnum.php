@@ -101,6 +101,8 @@ class ActionLogEnum
     public const LAND_SUCCESS = 'land_success';
     public const SHOOT_HUNTER_PATROL_SHIP_SUCCESS = 'shoot_hunter_patrol_ship_success';
     public const SHOOT_HUNTER_PATROL_SHIP_FAIL = 'shoot_hunter_patrol_ship_fail';
+    public const RENOVATE_SUCCESS = 'renovate_success';
+    public const RENOVATE_FAIL = 'renovate_fail';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -349,6 +351,10 @@ class ActionLogEnum
         ActionEnum::SHOOT_HUNTER_PATROL_SHIP => [
             ActionOutputEnum::SUCCESS => self::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
             ActionOutputEnum::FAIL => self::SHOOT_HUNTER_PATROL_SHIP_FAIL,
+        ],
+        ActionEnum::RENOVATE => [
+            ActionOutputEnum::SUCCESS => self::RENOVATE_SUCCESS,
+            ActionOutputEnum::FAIL => self::RENOVATE_FAIL,
         ],
     ];
 }

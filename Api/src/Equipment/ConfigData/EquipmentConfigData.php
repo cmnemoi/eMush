@@ -2834,7 +2834,8 @@ class EquipmentConfigData
         ],
         [
             'name' => 'patrol_ship_alpha_jujube_default',
-            'equipmentName' => 'patrol_ship_alpha_jujube',     'collectScrapNumber' => null,
+            'equipmentName' => 'patrol_ship_alpha_jujube',     
+            'collectScrapNumber' => null,
             'collectScrapPlayerDamage' => null,
             'dockingPlace' => null,
             'failedManoeuvreDaedalusDamage' => null,

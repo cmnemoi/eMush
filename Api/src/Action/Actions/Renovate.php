@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
@@ -58,17 +59,14 @@ final class Renovate extends AttemptAction
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
     }
 
-    protected function checkResult(): ActionResult
+    protected function applyEffect(ActionResult $result): void
     {
         // we want to do this whatever the action result is
         $this->destroyPieceOfScrapMetal();
 
-        return parent::checkResult();
-    }
-
-    protected function applyEffect(ActionResult $result): void
-    {
-        $this->setPatrolShipArmorToMaximum();
+        if ($result instanceof Success) {
+            $this->setPatrolShipArmorToMaximum();
+        }
     }
 
     private function destroyPieceOfScrapMetal(): void
@@ -83,7 +81,7 @@ final class Renovate extends AttemptAction
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 
-    private function getPieceOfScrapMetal(): GameItem
+    private function getPieceOfScrapMetal(): GameEquipment
     {
         $playerScrapMetal = $this->player->getEquipments()->filter(function (GameItem $item) {
             return $item->getName() === ItemEnum::METAL_SCRAPS;
@@ -92,8 +90,8 @@ final class Renovate extends AttemptAction
             return $playerScrapMetal->first();
         }
 
-        $roomScrapMetal = $this->player->getPlace()->getEquipments()->filter(function (GameItem $item) {
-            return $item->getName() === ItemEnum::METAL_SCRAPS;
+        $roomScrapMetal = $this->player->getPlace()->getEquipments()->filter(function (GameEquipment $equipment) {
+            return $equipment->getName() === ItemEnum::METAL_SCRAPS;
         });
         if ($roomScrapMetal->isEmpty()) {
             throw new \Exception('There should be a piece of scrap metal in the room or in the player inventory if Renovate action is available');

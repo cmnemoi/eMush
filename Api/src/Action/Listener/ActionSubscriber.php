@@ -11,6 +11,10 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
+use Mush\Equipment\Entity\EquipmentMechanic as Mechanic;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\PatrolShip;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
@@ -24,13 +28,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ActionSubscriber implements EventSubscriberInterface
 {
-    // TODO: put those constants in the future PatrolShip Mechanic
-    private const FAILED_MANOEUVRE_DAEDALUS_DAMAGE_MIN = 2;
-    private const FAILED_MANOEUVRE_DAEDALUS_DAMAGE_MAX = 4;
-    private const FAILED_MANOEUVRE_PATROLSHIP_DAMAGE = 1;
-    private const FAILED_MANOEUVRE_PLAYER_DAMAGE_MIN = 0;
-    private const FAILED_MANOEUVRE_PLAYER_DAMAGE_MAX = 2;
-
     private ActionSideEffectsServiceInterface $actionSideEffectsService;
     private EventServiceInterface $eventService;
     private GetUp $getUpAction;
@@ -123,15 +120,18 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function inflictDamageToDaedalus(ActionEvent $event): void
     {
-        $damage = -$this->randomService->random(
-            self::FAILED_MANOEUVRE_DAEDALUS_DAMAGE_MIN,
-            self::FAILED_MANOEUVRE_DAEDALUS_DAMAGE_MAX
+        $patrolShipMechanic = $this->getPatrolShipMechanic($event);
+        $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
+            $patrolShipMechanic->getFailedManoeuvreDaedalusDamage()
         );
+        if (!$damage) {
+            throw new \LogicException('Patrolship failed manoeuvre damage should not be 0');
+        }
 
         $daedalusVariableModifierEvent = new DaedalusVariableEvent(
             $event->getAuthor()->getDaedalus(),
             DaedalusVariableEnum::HULL,
-            $damage,
+            -$damage,
             $event->getTags(),
             new \DateTime(),
         );
@@ -141,20 +141,33 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function inflictDamageToPlayer(ActionEvent $event): void
     {
-        $damage = -$this->randomService->random(
-            self::FAILED_MANOEUVRE_PLAYER_DAMAGE_MIN,
-            self::FAILED_MANOEUVRE_PLAYER_DAMAGE_MAX
+        $patrolShipMechanic = $this->getPatrolShipMechanic($event);
+        $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
+            $patrolShipMechanic->getFailedManoeuvrePlayerDamage()
         );
+        if (!$damage) {
+            throw new \LogicException('Player failed manoeuvre damage should not be 0');
+        }
 
         $playerModifierEvent = new PlayerVariableEvent(
             $event->getAuthor(),
             PlayerVariableEnum::HEALTH_POINT,
-            $damage,
+            -$damage,
             $event->getTags(),
             new \DateTime(),
         );
 
         $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function getPatrolShipMechanic(ActionEvent $event): PatrolShip
+    {
+        /** @var GameEquipment $patrolShip */
+        $patrolShip = $event->getActionParameter();
+        /** @var PatrolShip $patrolShipMechanic */
+        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => in_array(EquipmentMechanicEnum::PATROL_SHIP, $mechanic->getMechanics()))->first();
+
+        return $patrolShipMechanic;
     }
 }

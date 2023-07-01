@@ -347,7 +347,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                 1 => 1,
                 2 => 1,
             ])
-            ->setDockingPlace(RoomEnum::ALPHA_BAY)
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
         ;
 
         $pasiphae = new EquipmentConfig();

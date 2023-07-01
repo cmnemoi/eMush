@@ -39,6 +39,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
     public const SCOOTER_MODIFIER = 'scooter_modifier';
     public const ROLLING_BOULDER = 'rolling_boulder';
     public const OSCILLOSCOPE_SUCCESS_MODIFIER = 'oscilloscope_success_modifier';
+    public const OSCILLOSCOPE_SUCCESS_MODIFIER_RENOVATE_ACTION = 'oscilloscope_success_modifier_renovate_action';
     public const OSCILLOSCOPE_REPAIR_MODIFIER = 'oscilloscope_repair_modifier';
     public const ANTENNA_MODIFIER = 'antenna_modifier';
     public const GRAVITY_CONVERSION_MODIFIER = 'gravity_conversion_modifier';
@@ -170,6 +171,17 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($oscilloscopeSuccessModifier);
 
+        $oscilloscopeSuccessModifierRenovateAction = new VariableEventModifierConfig('wavoscopeRenovateActionPercentageIncrease100Percents');
+        $oscilloscopeSuccessModifierRenovateAction
+            ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->setDelta(2.0)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
+            ->setTagConstraints([ActionEnum::RENOVATE => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+        ;
+        $manager->persist($oscilloscopeSuccessModifierRenovateAction);
+
         $oscilloscopeRepairModifier = new VariableEventModifierConfig('wavoscopeRepairIncreaseBy2');
         $oscilloscopeRepairModifier
             ->setTargetVariable(DaedalusVariableEnum::HULL)
@@ -237,6 +249,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(self::SCOOTER_MODIFIER, $antiGravScooterModifier);
         $this->addReference(self::ROLLING_BOULDER, $rollingBoulderModifier);
         $this->addReference(self::OSCILLOSCOPE_SUCCESS_MODIFIER, $oscilloscopeSuccessModifier);
+        $this->addReference(self::OSCILLOSCOPE_SUCCESS_MODIFIER_RENOVATE_ACTION, $oscilloscopeSuccessModifierRenovateAction);
         $this->addReference(self::OSCILLOSCOPE_REPAIR_MODIFIER, $oscilloscopeRepairModifier);
         $this->addReference(self::ANTENNA_MODIFIER, $antennaModifier);
         $this->addReference(self::GRAVITY_CONVERSION_MODIFIER, $gravityConversionModifier);

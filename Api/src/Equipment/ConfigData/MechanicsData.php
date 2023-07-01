@@ -2329,6 +2329,7 @@ class MechanicsData
             'modifierConfigs' => [
                 'modifier_for_player_x2hull_on_change.variable_if_reason_strengthen_hull',
                 'modifier_for_player_x1.5percentage_on_strengthen_hull',
+                'modifier_for_player_x2percentage_on_renovate',
             ],
         ],
         [

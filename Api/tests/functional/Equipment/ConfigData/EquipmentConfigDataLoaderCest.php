@@ -13,6 +13,7 @@ use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\ConfigData\EquipmentConfigDataLoader;
 use Mush\Equipment\ConfigData\FruitDataLoader;
 use Mush\Equipment\ConfigData\GearDataLoader;
+use Mush\Equipment\ConfigData\PatrolShipDataLoader;
 use Mush\Equipment\ConfigData\PlantDataLoader;
 use Mush\Equipment\ConfigData\RationDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
@@ -40,6 +41,7 @@ class EquipmentConfigDataLoaderCest
     protected RationDataLoader $rationDataLoader;
     protected ToolDataLoader $toolDataLoader;
     protected WeaponDataLoader $weaponDataLoader;
+    protected PatrolShipDataLoader $patrolShipDataLoader;
     protected ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader;
     protected StatusConfigDataLoader $statusConfigDataLoader;
     protected VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader;
@@ -68,6 +70,7 @@ class EquipmentConfigDataLoaderCest
         $this->rationDataLoader = $I->grabService(RationDataLoader::class);
         $this->toolDataLoader = $I->grabService(ToolDataLoader::class);
         $this->weaponDataLoader = $I->grabService(WeaponDataLoader::class);
+        $this->patrolShipDataLoader = $I->grabService(PatrolShipDataLoader::class);
 
         // init statuses
         $this->chargeStatusConfigDataLoader = $I->grabService(ChargeStatusConfigDataLoader::class);
@@ -91,6 +94,7 @@ class EquipmentConfigDataLoaderCest
         $this->rationDataLoader->loadConfigsData();
         $this->toolDataLoader->loadConfigsData();
         $this->weaponDataLoader->loadConfigsData();
+        $this->patrolShipDataLoader->loadConfigsData();
 
         $this->chargeStatusConfigDataLoader->loadConfigsData();
         $this->statusConfigDataLoader->loadConfigsData();

@@ -8,7 +8,9 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Land;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -69,8 +71,14 @@ class LandActionTest extends AbstractActionTest
         $roomStart->setDaedalus($daedalus);
         $roomEnd = new Place();
         $roomEnd->setDaedalus($daedalus);
+        $patrollerConfig = new EquipmentConfig();
+        $patrollerConfig->setName(EquipmentEnum::PATROL_SHIP);
+        $patrollerConfig->setEquipmentName(EquipmentEnum::PATROL_SHIP);
+        $patrollerConfig->setMechanics([new PatrolShip()]);
+
         $patroller = new GameEquipment($roomStart);
-        $patroller->setName(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
+        $patroller->setName(EquipmentEnum::PATROL_SHIP);
+        $patroller->setEquipment($patrollerConfig);
 
         $this->playerService->shouldReceive('persist');
 
@@ -98,8 +106,15 @@ class LandActionTest extends AbstractActionTest
         $roomStart->setDaedalus($daedalus);
         $roomEnd = new Place();
         $roomEnd->setDaedalus($daedalus);
+
+        $patrollerConfig = new EquipmentConfig();
+        $patrollerConfig->setName(EquipmentEnum::PATROL_SHIP);
+        $patrollerConfig->setEquipmentName(EquipmentEnum::PATROL_SHIP);
+        $patrollerConfig->setMechanics([new PatrolShip()]);
+
         $patroller = new GameEquipment($roomStart);
-        $patroller->setName(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
+        $patroller->setName(EquipmentEnum::PATROL_SHIP);
+        $patroller->setEquipment($patrollerConfig);
 
         $this->playerService->shouldReceive('persist');
 

@@ -273,9 +273,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $landAction = $this->getReference(ActionsFixtures::LAND);
         /** @var Action $shootHunterPatrolShipAction */
         $shootHunterPatrolShipAction = $this->getReference(ActionsFixtures::SHOOT_HUNTER_PATROL_SHIP);
+        /** @var Action $renovateAction */
+        $renovateAction = $this->getReference(ActionsFixtures::RENOVATE);
 
         $patrolShipMechanic = $this->createPatrolShip(
-            [$takeoffAction, $landAction],
+            [$takeoffAction, $landAction, $renovateAction],
             EquipmentEnum::PATROL_SHIP
         );
         $patrolShipMechanic
@@ -322,7 +324,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $collectScrap */
         $collectScrap = $this->getReference(ActionsFixtures::COLLECT_SCRAP);
         $pasiphaeMechanic = $this->createPatrolShip(
-            [$takeoffAction, $landAction, $collectScrap],
+            [$takeoffAction, $landAction, $collectScrap, $renovateAction],
             EquipmentEnum::PASIPHAE
         );
         $pasiphaeMechanic

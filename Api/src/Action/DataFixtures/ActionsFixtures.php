@@ -85,6 +85,7 @@ class ActionsFixtures extends Fixture
     public const LAND = 'land';
     public const SHOOT_HUNTER_PATROL_SHIP = 'shoot.hunter.patrol_ship';
     public const COLLECT_SCRAP = 'collect.scrap';
+    public const RENOVATE = 'renovate';
 
     public function load(ObjectManager $manager): void
     {
@@ -829,6 +830,19 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($collectScrap);
 
+        $renovate = new Action();
+        $renovate
+            ->setName(ActionEnum::RENOVATE)
+            ->setActionName(ActionEnum::RENOVATE)
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost(2)
+            ->setSuccessRate(12)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PRIVATE)
+        ;
+        $manager->persist($renovate);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -901,5 +915,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::LAND, $land);
         $this->addReference(self::SHOOT_HUNTER_PATROL_SHIP, $shootHunterPatrolShip);
         $this->addReference(self::COLLECT_SCRAP, $collectScrap);
+        $this->addReference(self::RENOVATE, $renovate);
     }
 }

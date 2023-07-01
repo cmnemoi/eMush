@@ -3263,6 +3263,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
+                ActionEnum::RENOVATE,
             ],
             'modifierConfigs' => [],
         ],
@@ -3286,6 +3287,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
+                ActionEnum::RENOVATE,
             ],
             'modifierConfigs' => [],
         ],
@@ -3309,6 +3311,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
+                ActionEnum::RENOVATE,
             ],
             'modifierConfigs' => [],
         ],
@@ -3332,6 +3335,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
+                ActionEnum::RENOVATE,
             ],
             'modifierConfigs' => [],
         ],
@@ -3355,6 +3359,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
+                ActionEnum::RENOVATE,
             ],
             'modifierConfigs' => [],
         ],
@@ -3378,6 +3383,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
+                ActionEnum::RENOVATE,
             ],
             'modifierConfigs' => [],
         ],
@@ -3401,6 +3407,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
+                ActionEnum::RENOVATE,
             ],
             'modifierConfigs' => [],
         ],
@@ -3433,6 +3440,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
+                ActionEnum::RENOVATE,
                 ActionEnum::COLLECT_SCRAP,
             ],
             'modifierConfigs' => [],

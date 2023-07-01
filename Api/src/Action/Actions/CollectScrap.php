@@ -100,7 +100,7 @@ final class CollectScrap extends AbstractAction
     private function damagePlayer(PatrolShip $pasiphaeMechanic, Place $pasiphaePlace): void
     {
         $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($pasiphaeMechanic->getCollectScrapPlayerDamage()));
-        
+
         if ($damage != 0) {
             $this->roomLogService->createLog(
                 logKey: LogEnum::ATTACKED_BY_HUNTER,

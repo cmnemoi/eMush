@@ -124,7 +124,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
             $patrolShipMechanic->getFailedManoeuvreDaedalusDamage()
         );
-    
+
         $daedalusVariableModifierEvent = new DaedalusVariableEvent(
             $event->getAuthor()->getDaedalus(),
             DaedalusVariableEnum::HULL,

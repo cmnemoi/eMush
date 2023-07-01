@@ -90,25 +90,28 @@ final class CollectScrap extends AbstractAction
         /** @var GameEquipment $scrap */
         foreach ($scrapToCollect as $scrap) {
             $this->moveScrapToPasiphae($scrap, $pasiphaePlace);
-            if ($daedalus->getAttackingHunters()->count() > 0) {
-                $this->damagePlayer($pasiphaeMechanic, $pasiphaePlace);
-            }
+        }
+
+        if ($daedalus->getAttackingHunters()->count() > 0) {
+            $this->damagePlayer($pasiphaeMechanic, $pasiphaePlace);
         }
     }
 
     private function damagePlayer(PatrolShip $pasiphaeMechanic, Place $pasiphaePlace): void
     {
-        // log damage cause before health point loss
-        $this->roomLogService->createLog(
-            logKey: LogEnum::ATTACKED_BY_HUNTER,
-            place: $pasiphaePlace,
-            visibility: VisibilityEnum::PUBLIC,
-            type: 'event_log',
-            player: $this->player,
-            dateTime: new \DateTime()
-        );
-
         $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($pasiphaeMechanic->getCollectScrapPlayerDamage()));
+        
+        if ($damage != 0) {
+            $this->roomLogService->createLog(
+                logKey: LogEnum::ATTACKED_BY_HUNTER,
+                place: $pasiphaePlace,
+                visibility: VisibilityEnum::PUBLIC,
+                type: 'event_log',
+                player: $this->player,
+                dateTime: new \DateTime()
+            );
+        }
+
         $playerVariableEvent = new PlayerVariableEvent(
             player: $this->player,
             variableName: PlayerVariableEnum::HEALTH_POINT,

@@ -90,13 +90,13 @@ final class Land extends AbstractAction
         $patrolShip = $this->parameter;
         $patrolShipMechanic = $this->getPatrolShipMechanic($patrolShip);
 
-        $patrolShipBay = $this->findPlaceByName($patrolShipMechanic->getDockingPlace());
-        $this->player->changePlace($patrolShipBay);
+        $patrolShipDockingPlace = $this->findPlaceByName($patrolShipMechanic->getDockingPlace());
+        $this->player->changePlace($patrolShipDockingPlace);
         $this->playerService->persist($this->player);
 
         $equipmentEvent = new MoveEquipmentEvent(
             equipment: $patrolShip,
-            newHolder: $patrolShipBay,
+            newHolder: $patrolShipDockingPlace,
             author: $this->player,
             visibility: VisibilityEnum::HIDDEN,
             tags: $this->getAction()->getActionTags(),
@@ -104,10 +104,10 @@ final class Land extends AbstractAction
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
 
-        $this->moveScrapToPatrolShipBay($patrolShipBay, $patrolShip);
+        $this->moveScrapToPatrolShipDockingPlace($patrolShipDockingPlace, $patrolShip);
     }
 
-    private function moveScrapToPatrolShipBay(Place $patrolShipBay, GameEquipment $patrolShip): void
+    private function moveScrapToPatrolShipDockingPlace(Place $patrolShipDockingPlace, GameEquipment $patrolShip): void
     {
         /** @var Place $patrolShipPlace */
         $patrolShipPlace = $this->findPlaceByName($patrolShip->getName());
@@ -122,7 +122,7 @@ final class Land extends AbstractAction
         foreach ($patrolShipPlaceContent as $scrap) {
             $moveEquipmentEvent = new MoveEquipmentEvent(
                 equipment: $scrap,
-                newHolder: $patrolShipBay,
+                newHolder: $patrolShipDockingPlace,
                 author: $this->player,
                 visibility: VisibilityEnum::HIDDEN,
                 tags: $this->getAction()->getActionTags(),
@@ -136,7 +136,7 @@ final class Land extends AbstractAction
         ];
         $this->roomLogService->createLog(
             logKey: LogEnum::PATROL_DISCHARGE,
-            place: $patrolShipBay,
+            place: $patrolShipDockingPlace,
             visibility: VisibilityEnum::PUBLIC,
             type: 'event_log',
             player: $this->player,

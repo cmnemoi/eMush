@@ -12,7 +12,10 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
+use Mush\Equipment\Entity\EquipmentMechanic as Mechanic;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\PatrolShip;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
@@ -21,7 +24,6 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -68,6 +70,7 @@ final class Land extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
+        // Testing failed landing
         // TODO: always returns Success if player has the Pilot skill
         $isSuccess = $this->randomService->randomPercent() < $this->getAction()->getCriticalRate();
 
@@ -83,19 +86,17 @@ final class Land extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $patrolship */
-        $patrolship = $this->parameter;
+        /** @var GameEquipment $patrolShip */
+        $patrolShip = $this->parameter;
+        $patrolShipMechanic = $this->getPatrolShipMechanic($patrolShip);
 
-        $patrolshipBay = $this->placeService->findByNameAndDaedalus(RoomEnum::$patrolshipBay[$patrolship->getName()], $this->player->getDaedalus());
-        if ($patrolshipBay === null) {
-            throw new \RuntimeException('Patrol ship bay not found');
-        }
-        $this->player->changePlace($patrolshipBay);
+        $patrolShipDockingPlace = $this->findPlaceByName($patrolShipMechanic->getDockingPlace());
+        $this->player->changePlace($patrolShipDockingPlace);
         $this->playerService->persist($this->player);
 
         $equipmentEvent = new MoveEquipmentEvent(
-            equipment: $patrolship,
-            newHolder: $patrolshipBay,
+            equipment: $patrolShip,
+            newHolder: $patrolShipDockingPlace,
             author: $this->player,
             visibility: VisibilityEnum::HIDDEN,
             tags: $this->getAction()->getActionTags(),
@@ -103,18 +104,16 @@ final class Land extends AbstractAction
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
 
-        $this->moveScrapToPatrolShipBay($patrolshipBay);
+        $this->moveScrapToPatrolShipDockingPlace($patrolShipDockingPlace, $patrolShip);
     }
 
-    private function moveScrapToPatrolShipBay(Place $patrolshipBay): void
+    private function moveScrapToPatrolShipDockingPlace(Place $patrolShipDockingPlace, GameEquipment $patrolShip): void
     {
-        /** @var GameEquipment $patrolShip */
-        $patrolShip = $this->parameter;
-        $patrolShipPlace = $this->placeService->findByNameAndDaedalus($patrolShip->getName(), $this->player->getDaedalus());
-        if ($patrolShipPlace === null) {
-            throw new \RuntimeException('Patrol ship not found');
-        }
+        /** @var Place $patrolShipPlace */
+        $patrolShipPlace = $this->findPlaceByName($patrolShip->getName());
         $patrolShipPlaceContent = $patrolShipPlace->getEquipments();
+
+        // if no scrap in patrol ship, then there is nothing to move : abort
         if ($patrolShipPlaceContent->isEmpty()) {
             return;
         }
@@ -123,7 +122,7 @@ final class Land extends AbstractAction
         foreach ($patrolShipPlaceContent as $scrap) {
             $moveEquipmentEvent = new MoveEquipmentEvent(
                 equipment: $scrap,
-                newHolder: $patrolshipBay,
+                newHolder: $patrolShipDockingPlace,
                 author: $this->player,
                 visibility: VisibilityEnum::HIDDEN,
                 tags: $this->getAction()->getActionTags(),
@@ -137,12 +136,30 @@ final class Land extends AbstractAction
         ];
         $this->roomLogService->createLog(
             logKey: LogEnum::PATROL_DISCHARGE,
-            place: $patrolshipBay,
+            place: $patrolShipDockingPlace,
             visibility: VisibilityEnum::PUBLIC,
             type: 'event_log',
             player: $this->player,
             parameters: $logParameters,
             dateTime: new \DateTime(),
         );
+    }
+
+    private function findPlaceByName(string $name): Place
+    {
+        $place = $this->placeService->findByNameAndDaedalus($name, $this->player->getDaedalus());
+        if ($place === null) {
+            throw new \RuntimeException("Place $name not found");
+        }
+
+        return $place;
+    }
+
+    private function getPatrolShipMechanic(GameEquipment $patrolShip): PatrolShip
+    {
+        /** @var PatrolShip $patrolShipMechanic */
+        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => in_array(EquipmentMechanicEnum::PATROL_SHIP, $mechanic->getMechanics()))->first();
+
+        return $patrolShipMechanic;
     }
 }

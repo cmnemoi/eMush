@@ -1,0 +1,20 @@
+Mush\Equipment\Entity\Mechanics\PatrolShip:
+  shortName: 'PatrolShip'
+  description: 'eMush Patrol Ship'
+  attributes:
+    pagination_items_per_page: 25
+    security: 'is_granted("ROLE_ADMIN")'
+    normalization_context:
+      groups: [ 'patrol_ship_read' ]
+    denormalization_context:
+      groups: [ 'patrol_ship_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_ADMIN")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'

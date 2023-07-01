@@ -3,6 +3,8 @@
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Place\Enum\RoomEnum;
 
 /** @codeCoverageIgnore */
 class MechanicsData
@@ -3193,6 +3195,12 @@ class MechanicsData
             'criticalSuccessRate' => 0,
             'criticalFailRate' => 0,
             'oneShotRate' => 0,
+            'collectScrapNumber' => null,
+            'collectScrapPlayerDamage' => null,
+            'dockingPlace' => null,
+            'failedManoeuvreDaedalusDamage' => null,
+            'failedManoeuvrePatrolShipDamage' => null,
+            'failedManoeuvrePlayerDamage' => null,
             'actions' => [
                 ActionEnum::SHOOT_HUNTER . '_turret',
             ],
@@ -3224,8 +3232,208 @@ class MechanicsData
             'criticalSuccessRate' => 0,
             'criticalFailRate' => 0,
             'oneShotRate' => 0,
+            'collectScrapNumber' => null,
+            'collectScrapPlayerDamage' => null,
+            'dockingPlace' => null,
+            'failedManoeuvreDaedalusDamage' => null,
+            'failedManoeuvrePatrolShipDamage' => null,
+            'failedManoeuvrePlayerDamage' => null,
             'actions' => [
                 ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'patrol_ship_patrol_ship_alpha_longane_default',
+            'type' => EquipmentMechanicEnum::PATROL_SHIP,
+            'collectScrapNumber' => [],
+            'collectScrapPlayerDamage' => [],
+            'dockingPlace' => RoomEnum::ALPHA_BAY,
+            'failedManoeuvreDaedalusDamage' => [
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ],
+            'failedManoeuvrePatrolShipDamage' => [1 => 1],
+            'failedManoeuvrePlayerDamage' => [
+                0 => 1,
+                1 => 1,
+                2 => 1,
+            ],
+            'actions' => [
+                ActionEnum::TAKEOFF,
+                ActionEnum::LAND,
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'patrol_ship_patrol_ship_alpha_jujube_default',
+            'type' => EquipmentMechanicEnum::PATROL_SHIP,
+            'collectScrapNumber' => [],
+            'collectScrapPlayerDamage' => [],
+            'dockingPlace' => RoomEnum::ALPHA_BAY,
+            'failedManoeuvreDaedalusDamage' => [
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ],
+            'failedManoeuvrePatrolShipDamage' => [1 => 1],
+            'failedManoeuvrePlayerDamage' => [
+                0 => 1,
+                1 => 1,
+                2 => 1,
+            ],
+            'actions' => [
+                ActionEnum::TAKEOFF,
+                ActionEnum::LAND,
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'patrol_ship_patrol_ship_alpha_tamarin_default',
+            'type' => EquipmentMechanicEnum::PATROL_SHIP,
+            'collectScrapNumber' => [],
+            'collectScrapPlayerDamage' => [],
+            'dockingPlace' => RoomEnum::ALPHA_BAY,
+            'failedManoeuvreDaedalusDamage' => [
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ],
+            'failedManoeuvrePatrolShipDamage' => [1 => 1],
+            'failedManoeuvrePlayerDamage' => [
+                0 => 1,
+                1 => 1,
+                2 => 1,
+            ],
+            'actions' => [
+                ActionEnum::TAKEOFF,
+                ActionEnum::LAND,
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'patrol_ship_patrol_ship_bravo_socrate_default',
+            'type' => EquipmentMechanicEnum::PATROL_SHIP,
+            'collectScrapNumber' => [],
+            'collectScrapPlayerDamage' => [],
+            'dockingPlace' => RoomEnum::BRAVO_BAY,
+            'failedManoeuvreDaedalusDamage' => [
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ],
+            'failedManoeuvrePatrolShipDamage' => [1 => 1],
+            'failedManoeuvrePlayerDamage' => [
+                0 => 1,
+                1 => 1,
+                2 => 1,
+            ],
+            'actions' => [
+                ActionEnum::TAKEOFF,
+                ActionEnum::LAND,
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'patrol_ship_patrol_ship_bravo_epicure_default',
+            'type' => EquipmentMechanicEnum::PATROL_SHIP,
+            'collectScrapNumber' => [],
+            'collectScrapPlayerDamage' => [],
+            'dockingPlace' => RoomEnum::BRAVO_BAY,
+            'failedManoeuvreDaedalusDamage' => [
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ],
+            'failedManoeuvrePatrolShipDamage' => [1 => 1],
+            'failedManoeuvrePlayerDamage' => [
+                0 => 1,
+                1 => 1,
+                2 => 1,
+            ],
+            'actions' => [
+                ActionEnum::TAKEOFF,
+                ActionEnum::LAND,
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'patrol_ship_patrol_ship_bravo_planton_default',
+            'type' => EquipmentMechanicEnum::PATROL_SHIP,
+            'collectScrapNumber' => [],
+            'collectScrapPlayerDamage' => [],
+            'dockingPlace' => RoomEnum::BRAVO_BAY,
+            'failedManoeuvreDaedalusDamage' => [
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ],
+            'failedManoeuvrePatrolShipDamage' => [1 => 1],
+            'failedManoeuvrePlayerDamage' => [
+                0 => 1,
+                1 => 1,
+                2 => 1,
+            ],
+            'actions' => [
+                ActionEnum::TAKEOFF,
+                ActionEnum::LAND,
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'patrol_ship_patrol_ship_alpha_2_wallis_default',
+            'type' => EquipmentMechanicEnum::PATROL_SHIP,
+            'collectScrapNumber' => [],
+            'collectScrapPlayerDamage' => [],
+            'dockingPlace' => RoomEnum::ALPHA_BAY_2,
+            'failedManoeuvreDaedalusDamage' => [
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ],
+            'failedManoeuvrePatrolShipDamage' => [1 => 1],
+            'failedManoeuvrePlayerDamage' => [
+                0 => 1,
+                1 => 1,
+                2 => 1,
+            ],
+            'actions' => [
+                ActionEnum::TAKEOFF,
+                ActionEnum::LAND,
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'patrol_ship_pasiphae_default',
+            'type' => EquipmentMechanicEnum::PATROL_SHIP,
+            'collectScrapNumber' => [
+                1 => 1,
+                2 => 1,
+                3 => 1,
+            ],
+            'collectScrapPlayerDamage' => [
+                0 => 3,
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ],
+            'dockingPlace' => RoomEnum::ALPHA_BAY_2,
+            'failedManoeuvreDaedalusDamage' => [
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ],
+            'failedManoeuvrePatrolShipDamage' => [1 => 1],
+            'failedManoeuvrePlayerDamage' => [
+                0 => 1,
+                1 => 1,
+                2 => 1,
+            ],
+            'actions' => [
+                ActionEnum::TAKEOFF,
+                ActionEnum::LAND,
+                ActionEnum::COLLECT_SCRAP,
             ],
             'modifierConfigs' => [],
         ],

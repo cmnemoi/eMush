@@ -11,6 +11,7 @@ use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -21,10 +22,12 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 
+/** @codeCoverageIgnore */
 class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
@@ -271,9 +274,35 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $shootHunterPatrolShipAction */
         $shootHunterPatrolShipAction = $this->getReference(ActionsFixtures::SHOOT_HUNTER_PATROL_SHIP);
 
+        $patrolShipMechanic = $this->createPatrolShip(
+            [$takeoffAction, $landAction],
+            EquipmentEnum::PATROL_SHIP
+        );
+        $patrolShipMechanic
+            ->setFailedManoeuvreDaedalusDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
+            ->setFailedManoeuvrePatrolShipDamage([1 => 1])
+            ->setFailedManoeuvrePlayerDamage([
+                0 => 1,
+                1 => 1,
+                2 => 1,
+            ])
+            ->setDockingPlace(RoomEnum::ALPHA_BAY)
+        ;
         $patrolShipWeapon = $this->createWeapon(
             [$shootHunterPatrolShipAction],
             EquipmentEnum::PATROL_SHIP
+        );
+        $patrolShipWeapon->setBaseDamageRange(
+            [
+                3 => 1,
+                4 => 1,
+                5 => 1,
+                6 => 1,
+            ]
         );
 
         $patrolShip = new EquipmentConfig();
@@ -282,24 +311,56 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions(new ArrayCollection([$repair12, $examineAction, $takeoffAction, $landAction]))
-            ->setMechanics(new ArrayCollection([$patrolShipWeapon]))
+            ->setActions(new ArrayCollection([$repair12, $examineAction]))
+            ->setMechanics([$patrolShipMechanic, $patrolShipWeapon])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
+        $manager->persist($patrolShipMechanic);
         $manager->persist($patrolShipWeapon);
         $manager->persist($patrolShip);
 
-        /** @var Action $collectScrap * */
+        /** @var Action $collectScrap */
         $collectScrap = $this->getReference(ActionsFixtures::COLLECT_SCRAP);
+        $pasiphaeMechanic = $this->createPatrolShip(
+            [$takeoffAction, $landAction, $collectScrap],
+            EquipmentEnum::PASIPHAE
+        );
+        $pasiphaeMechanic
+            ->setCollectScrapNumber([
+                1 => 1,
+                2 => 1,
+                3 => 1,
+            ])
+            ->setCollectScrapPlayerDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
+            ->setFailedManoeuvreDaedalusDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
+            ->setFailedManoeuvrePatrolShipDamage([1 => 1])
+            ->setFailedManoeuvrePlayerDamage([
+                0 => 1,
+                1 => 1,
+                2 => 1,
+            ])
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
+        ;
+
         $pasiphae = new EquipmentConfig();
         $pasiphae
             ->setEquipmentName(EquipmentEnum::PASIPHAE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions(new ArrayCollection([$repair12, $examineAction, $takeoffAction, $landAction, $collectScrap]))
+            ->setActions(new ArrayCollection([$repair12, $examineAction]))
+            ->setMechanics([$pasiphaeMechanic])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
+        $manager->persist($pasiphaeMechanic);
         $manager->persist($pasiphae);
 
         /** @var Action $removeCamera */
@@ -660,6 +721,18 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
 
         return $gear;
+    }
+
+    private function createPatrolShip(array $actions, string $name): PatrolShip
+    {
+        $patrolShip = new PatrolShip();
+
+        $patrolShip
+            ->setActions(new ArrayCollection($actions))
+            ->buildName(EquipmentMechanicEnum::PATROL_SHIP . '_' . $name, GameConfigEnum::DEFAULT)
+        ;
+
+        return $patrolShip;
     }
 
     private function createTool(array $actions, string $name): Tool

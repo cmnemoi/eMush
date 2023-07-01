@@ -110,8 +110,6 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
 
     public function testCollectScrapWithAttackingHunters(FunctionalTester $I): void
     {
-        $this->collectScrapActionConfig->setCriticalRate(101);
-
         // spawn some scrap in space
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::METAL_SCRAPS,
@@ -138,8 +136,12 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
         $result = $this->collectScrapAction->execute();
 
         $I->assertEquals(
-            $this->player1->getActionPoint(),
-            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->collectScrapActionConfig->getActionCost()
+            expected: $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->collectScrapActionConfig->getActionCost(),
+            actual: $this->player1->getActionPoint(),
+        );
+        $I->assertNotEquals(
+            expected: $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
+            actual: $this->player1->getHealthPoint(),
         );
 
         $I->assertInstanceOf(Success::class, $result);

@@ -209,6 +209,47 @@
                         @addTuple="addBaseDamageRange"
                         @removeIndex="removeBaseDamageRange"></MapManager>
         </div>
+        <div v-if="mechanics.mechanicsType == 'PatrolShip'">
+            <div class="flex-row">
+                <Input  
+                    :label="$t('admin.mechanics.dockingPlace')"
+                    id="mechanics_dockingPlace"
+                    v-model="mechanics.dockingPlace"
+                    type="text"
+                    :errors="errors.dockingPlace"
+                />
+            </div>
+            <h3>{{ $t('admin.mechanics.collectScrapNumber') }}</h3>
+            <MapManager :map="mechanics.collectScrapNumber"
+                        mapIndexesType="number"
+                        mapValuesType="number"
+                        @addTuple="addCollectScrapNumber"
+                        @removeIndex="removeCollectScrapNumber"/>
+            <h3>{{ $t('admin.mechanics.collectScrapPlayerDamage') }}</h3>
+            <MapManager :map="mechanics.collectScrapPlayerDamage"
+                        mapIndexesType="number"
+                        mapValuesType="number"
+                        @addTuple="addCollectScrapPlayerDamage"
+                        @removeIndex="removeCollectScrapPlayerDamage"/>
+            <h3>{{ $t('admin.mechanics.failedManoeuvreDaedalusDamage') }}</h3>
+            <MapManager :map="mechanics.failedManoeuvreDaedalusDamage"
+                        mapIndexesType="number"
+                        mapValuesType="number"
+                        @addTuple="addFailedManoeuvreDaedalusDamage"
+                        @removeIndex="removeFailedManoeuvreDaedalusDamage"/>
+            <h3>{{ $t('admin.mechanics.failedManoeuvrePatrolShipDamage') }}</h3>
+            <MapManager :map="mechanics.failedManoeuvrePatrolShipDamage"
+                        mapIndexesType="number"
+                        mapValuesType="number"
+                        @addTuple="addFailedManoeuvrePatrolShipDamage"
+                        @removeIndex="removeFailedManoeuvrePatrolShipDamage"/>
+            <h3>{{ $t('admin.mechanics.failedManoeuvrePlayerDamage') }}</h3>
+            <MapManager :map="mechanics.failedManoeuvrePlayerDamage"
+                        mapIndexesType="number"
+                        mapValuesType="number"
+                        @addTuple="addFailedManoeuvrePlayerDamage"
+                        @removeIndex="removeFailedManoeuvrePlayerDamage"/>
+        </div>
         <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
@@ -219,7 +260,6 @@ import ActionService from "@/services/action.service";
 import GameConfigService from "@/services/game_config.service";
 import ApiService from "@/services/api.service";
 import { Action } from "@/entities/Action";
-import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { Mechanics } from "@/entities/Config/Mechanics";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
@@ -473,6 +513,67 @@ export default defineComponent({
                 this.mechanics.baseDamageRange.delete(index);
             }
         },
+        addCollectScrapNumber(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.collectScrapNumber) {
+                this.mechanics.collectScrapNumber.set(index, value);
+            }
+        },
+        removeCollectScrapNumber(index: number): void {
+            if (this.mechanics && this.mechanics.collectScrapNumber) {
+                this.mechanics.collectScrapNumber.delete(index);
+            }
+        },
+        addCollectScrapPlayerDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.collectScrapPlayerDamage) {
+                this.mechanics.collectScrapPlayerDamage.set(index, value);
+            }
+        },
+        removeCollectScrapPlayerDamage(index: number): void {
+            if (this.mechanics && this.mechanics.collectScrapPlayerDamage) {
+                this.mechanics.collectScrapPlayerDamage.delete(index);
+            }
+        },
+        addFailedManoeuvreDaedalusDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.failedManoeuvreDaedalusDamage) {
+                this.mechanics.failedManoeuvreDaedalusDamage.set(index, value);
+            }
+        },
+        removeFailedManoeuvreDaedalusDamage(index: number): void {
+            if (this.mechanics && this.mechanics.failedManoeuvreDaedalusDamage) {
+                this.mechanics.failedManoeuvreDaedalusDamage.delete(index);
+            }
+        },
+        addFailedManoeuvrePatrolShipDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.failedManoeuvrePatrolShipDamage) {
+                this.mechanics.failedManoeuvrePatrolShipDamage.set(index, value);
+            }
+        },
+        removeFailedManoeuvrePatrolShipDamage(index: number): void {
+            if (this.mechanics && this.mechanics.failedManoeuvrePatrolShipDamage) {
+                this.mechanics.failedManoeuvrePatrolShipDamage.delete(index);
+            }
+        },
+        addFailedManoeuvrePlayerDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.failedManoeuvrePlayerDamage) {
+                this.mechanics.failedManoeuvrePlayerDamage.set(index, value);
+            }
+        },
+        removeFailedManoeuvrePlayerDamage(index: number): void {
+            if (this.mechanics && this.mechanics.failedManoeuvrePlayerDamage) {
+                this.mechanics.failedManoeuvrePlayerDamage.delete(index);
+            }
+        },
+
     },
     beforeMount() {
         const mechanicsId = Number(this.$route.params.mechanicsId);

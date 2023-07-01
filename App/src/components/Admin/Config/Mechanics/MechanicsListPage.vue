@@ -81,6 +81,7 @@ export default defineComponent({
                 { key: 'admin.mechanics.plant', value: 'plants' },
                 { key: 'admin.mechanics.ration', value: 'rations' },
                 { key: 'admin.mechanics.weapon', value: 'weapons' },
+                { key: 'admin.mechanics.patrolShip', value: 'patrol_ships' }
             ],
             fields: [
                 {

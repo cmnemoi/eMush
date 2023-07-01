@@ -56,3 +56,15 @@ Mush\Equipment\Entity\EquipmentMechanic:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
     oneShotRate:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    collectScrapNumber:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    collectScrapPlayerDamage:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    dockingPlace:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    failedManoeuvreDaedalusDamage:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    failedManoeuvrePatrolShipDamage:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    failedManoeuvrePlayerDamage:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]

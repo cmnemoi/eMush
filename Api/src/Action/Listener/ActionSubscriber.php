@@ -124,10 +124,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
             $patrolShipMechanic->getFailedManoeuvreDaedalusDamage()
         );
-        if (!$damage) {
-            throw new \LogicException('Patrolship failed manoeuvre damage should not be 0');
-        }
-
+    
         $daedalusVariableModifierEvent = new DaedalusVariableEvent(
             $event->getAuthor()->getDaedalus(),
             DaedalusVariableEnum::HULL,
@@ -145,9 +142,6 @@ final class ActionSubscriber implements EventSubscriberInterface
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
             $patrolShipMechanic->getFailedManoeuvrePlayerDamage()
         );
-        if (!$damage) {
-            throw new \LogicException('Player failed manoeuvre damage should not be 0');
-        }
 
         $playerModifierEvent = new PlayerVariableEvent(
             $event->getAuthor(),

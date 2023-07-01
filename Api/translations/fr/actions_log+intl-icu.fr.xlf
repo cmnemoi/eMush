@@ -1044,5 +1044,17 @@
         <target>Vous avez raté votre cible.</target>
       </segment>
     </unit>
+    <unit id="renovate_success">
+      <segment id="renovate_success" state="translated">
+        <source>renovate_success</source>
+        <target>La tentative de **{character}** de réparation du *{target_equipment}* a réussi. Youhou ! Il est comme neuf !</target>
+      </segment>
+    </unit>
+    <unit id="renovate_fail">
+      <segment id="renovate_fail" state="translated">
+        <source>renovate_fail</source>
+        <target>Votre tentative a échoué.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

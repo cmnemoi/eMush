@@ -62,6 +62,7 @@ class ActionEnum
     public const SHOOT = 'shoot';
     public const HEAL = 'heal';
     public const SELF_HEAL = 'self_heal';
+    public const RENOVATE = 'renovate';
 
     // Equipment-enabled actions
     public const INSERT_FUEL = 'insert_fuel';

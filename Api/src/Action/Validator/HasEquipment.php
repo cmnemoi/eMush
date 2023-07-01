@@ -2,6 +2,15 @@
 
 namespace Mush\Action\Validator;
 
+/**
+ * Validates that a player has (not) a specific equipment on reach
+ * @param string $reach reach required (inventory, shelve, room, shelve_not_hidden)
+ * @param array $equipments list of equipment required
+ * @param bool $all if true, all the equipment are required, if false, any of them (default: true)
+ * @param bool $contains if true, the equipment must be present, if false, they must not be present (default: true)
+ * @param bool $checkIfOperational if true, checks that the equipment is currently working (default: false)
+ * @param string $target either player or parameter (default: player)
+ */
 class HasEquipment extends ClassConstraint
 {
     public const PLAYER = 'player';
@@ -11,15 +20,8 @@ class HasEquipment extends ClassConstraint
 
     public string $reach;
     public array $equipments;
-
-    // either all the equipments or any
     public bool $all = true;
-
     public bool $contains = true;
-
-    // if true, checks that the equipment is currently working
     public bool $checkIfOperational = false;
-
-    // This validator can also apply to a targeted player
     public string $target = self::PLAYER;
 }

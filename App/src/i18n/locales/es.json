@@ -263,6 +263,7 @@
 			"isNotSuperDirty": "N'est pas super salissant"
 		},
 		"daedalus": {
+			"addNewRooms": "Ajouter des pièces",
 			"destroy": "Détruire",
 			"destroyAllDaedaluses": "Détruire tous les Daedalus",
 			"createDaedalus": "Créer un Daedalus :",

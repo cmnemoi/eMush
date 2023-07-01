@@ -51,7 +51,7 @@ To participate you must have a :talkie: walkie-talkie.</target>
       </segment>
       <segment id="description" state="translated">
         <source>mush.description</source>
-        <target>Mush pheromones allow you to communicate within the Mush team.</target>
+        <target>Ssshh, nobody can hear us here... The Mush Channel is the *private channel* for **Mush** members :mush:.</target>
       </segment>
     </unit>
     <unit id="new">

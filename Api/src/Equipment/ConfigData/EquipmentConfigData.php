@@ -2834,7 +2834,12 @@ class EquipmentConfigData
         ],
         [
             'name' => 'patrol_ship_alpha_jujube_default',
-            'equipmentName' => 'patrol_ship_alpha_jujube',
+            'equipmentName' => 'patrol_ship_alpha_jujube',     'collectScrapNumber' => null,
+            'collectScrapPlayerDamage' => null,
+            'dockingPlace' => null,
+            'failedManoeuvreDaedalusDamage' => null,
+            'failedManoeuvrePatrolShipDamage' => null,
+            'failedManoeuvrePlayerDamage' => null,
             'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
@@ -2883,7 +2888,7 @@ class EquipmentConfigData
                 'examine',
                 'report_equipment',
             ],
-            'mechanics' => ['weapon_patrol_ship_default' => 'patrol_ship_patrol_ship_bravo_socrate_default'],
+            'mechanics' => ['weapon_patrol_ship_default', 'patrol_ship_patrol_ship_bravo_socrate_default'],
             'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [

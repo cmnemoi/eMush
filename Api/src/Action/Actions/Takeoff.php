@@ -60,7 +60,8 @@ final class Takeoff extends AbstractAction
     }
 
     protected function checkResult(): ActionResult
-    {
+    {   
+        // Testing failed takeoff
         // TODO: always returns Success if player has the Pilot skill
         $isSuccess = $this->randomService->randomPercent() < $this->getAction()->getCriticalRate();
 
@@ -85,6 +86,7 @@ final class Takeoff extends AbstractAction
         }
 
         $this->player->changePlace($patrolshipRoom);
+        $this->playerService->persist($this->player);
 
         $equipmentEvent = new MoveEquipmentEvent(
             equipment: $patrolship,
@@ -96,6 +98,5 @@ final class Takeoff extends AbstractAction
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
 
-        $this->playerService->persist($this->player);
     }
 }

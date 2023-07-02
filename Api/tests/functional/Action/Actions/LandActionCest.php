@@ -90,7 +90,7 @@ final class LandActionCest extends AbstractFunctionalTest
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             $this->player1->getHealthPoint()
         );
-        
+
         $I->assertEquals(
             $pasiphaeArmor->getThreshold(),
             $pasiphaeArmor->getCharge()
@@ -139,7 +139,7 @@ final class LandActionCest extends AbstractFunctionalTest
         $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
         $I->haveInRepository($pasiphaeArmor);
         $I->refreshEntities($pasiphae);
-  
+
         $this->landAction->loadParameters($this->action, $this->player1, $pasiphae);
         $I->assertTrue($this->landAction->isVisible());
         $I->assertNull($this->landAction->cannotExecuteReason());

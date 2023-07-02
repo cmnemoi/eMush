@@ -2,6 +2,8 @@
 
 namespace Mush\Place\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class RoomEnum
 {
     public const BRIDGE = 'bridge';
@@ -86,9 +88,9 @@ class RoomEnum
         ];
     }
 
-    public static function getPatrolships(): array
+    public static function getPatrolships(): ArrayCollection
     {
-        return [
+        return new ArrayCollection([
             self::PATROL_SHIP_ALPHA_LONGANE,
             self::PATROL_SHIP_ALPHA_JUJUBE,
             self::PATROL_SHIP_ALPHA_TAMARIN,
@@ -97,6 +99,18 @@ class RoomEnum
             self::PATROL_SHIP_BRAVO_PLANTON,
             self::PATROL_SHIP_ALPHA_2_WALLIS,
             self::PASIPHAE,
-        ];
+        ]);
+    }
+
+    public static function getTurrets(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::FRONT_ALPHA_TURRET,
+            self::CENTRE_ALPHA_TURRET,
+            self::REAR_ALPHA_TURRET,
+            self::FRONT_BRAVO_TURRET,
+            self::CENTRE_BRAVO_TURRET,
+            self::REAR_BRAVO_TURRET,
+        ]);
     }
 }

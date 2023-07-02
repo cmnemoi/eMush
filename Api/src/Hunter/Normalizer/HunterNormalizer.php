@@ -16,9 +16,9 @@ final class HunterNormalizer implements NormalizerInterface
     {
         return $data instanceof Hunter && !$data->isInPool();
     }
-    
+
     public function normalize(mixed $object, string $format = null, array $context = []): array
-    {   
+    {
         /** @var Hunter $hunter */
         $hunter = $object;
         /** @var ChargeStatus $hunterCharges */

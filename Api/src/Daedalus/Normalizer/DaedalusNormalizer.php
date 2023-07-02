@@ -6,8 +6,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Hunter\Entity\Hunter;
-use Mush\Hunter\Normalizer\HunterNormalizer;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -15,16 +13,13 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class DaedalusNormalizer implements NormalizerInterface
 {
     private CycleServiceInterface $cycleService;
-    private HunterNormalizer $hunterNormalizer;
     private TranslationServiceInterface $translationService;
 
     public function __construct(
         CycleServiceInterface $cycleService,
-        HunterNormalizer $hunterNormalizer,
         TranslationServiceInterface $translationService,
     ) {
         $this->cycleService = $cycleService;
-        $this->hunterNormalizer = $hunterNormalizer;
         $this->translationService = $translationService;
     }
 
@@ -96,7 +91,6 @@ class DaedalusNormalizer implements NormalizerInterface
                         ], 'daedalus',
                         $language
                     ), ],
-                'hunters' => $hunters->map(fn (Hunter $hunter) => $this->hunterNormalizer->normalize($hunter, $format, $context))->toArray(),
             ];
     }
 

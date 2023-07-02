@@ -286,7 +286,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ])
             ->setFailedManoeuvrePatrolShipDamage([1 => 1])
             ->setFailedManoeuvrePlayerDamage([
-                0 => 1,
                 1 => 1,
                 2 => 1,
             ])
@@ -343,7 +342,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ])
             ->setFailedManoeuvrePatrolShipDamage([1 => 1])
             ->setFailedManoeuvrePlayerDamage([
-                0 => 1,
                 1 => 1,
                 2 => 1,
             ])

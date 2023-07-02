@@ -21,6 +21,9 @@ use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Enum\EquipmentStatusEnum;
 
 final class TakeoffActionCest extends AbstractFunctionalTest
 {
@@ -52,6 +55,12 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($pasiphae);
 
+        /** @var ChargeStatusConfig $pasiphaeArmorConfig */
+        $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+        $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
+        $I->haveInRepository($pasiphaeArmor);
+        $I->refreshEntities($pasiphae);
+
         $this->takeoffAction->loadParameters($this->action, $this->player1, $pasiphae);
         $I->assertTrue($this->takeoffAction->isVisible());
         $I->assertNull($this->takeoffAction->cannotExecuteReason());
@@ -78,6 +87,10 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->assertEquals(
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             $this->player1->getHealthPoint()
+        );
+        $I->assertEquals(
+            $pasiphaeArmor->getThreshold(),
+            $pasiphaeArmor->getCharge()
         );
 
         $I->seeInRepository(RoomLog::class, [
@@ -118,6 +131,12 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($pasiphae);
 
+        /** @var ChargeStatusConfig $pasiphaeArmorConfig */
+        $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+        $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
+        $I->haveInRepository($pasiphaeArmor);
+        $I->refreshEntities($pasiphae);
+
         $this->takeoffAction->loadParameters($this->action, $this->player1, $pasiphae);
         $I->assertTrue($this->takeoffAction->isVisible());
         $I->assertNull($this->takeoffAction->cannotExecuteReason());
@@ -127,6 +146,14 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->assertEquals(
             $this->player1->getActionPoint(),
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
+        );
+        $I->assertNotEquals(
+            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
+            $this->player1->getHealthPoint()
+        );
+        $I->assertNotEquals(
+            $pasiphaeArmor->getThreshold(),
+            $pasiphaeArmor->getCharge()
         );
 
         $I->assertInstanceOf(Fail::class, $result);

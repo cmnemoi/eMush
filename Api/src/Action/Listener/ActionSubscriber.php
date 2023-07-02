@@ -23,6 +23,8 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -36,6 +38,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     private GetUp $getUpAction;
     private GearToolServiceInterface $gearToolService;
     private RandomServiceInterface $randomService;
+    private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
@@ -44,6 +47,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         GetUp $getUp,
         GearToolServiceInterface $gearToolService,
         RandomServiceInterface $randomService,
+        RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService
     ) {
         $this->actionSideEffectsService = $actionSideEffectsService;
@@ -51,6 +55,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $this->getUpAction = $getUp;
         $this->gearToolService = $gearToolService;
         $this->randomService = $randomService;
+        $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
     }
 
@@ -157,11 +162,20 @@ final class ActionSubscriber implements EventSubscriberInterface
         }
 
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
-            $patrolShipMechanic->getFailedManoeuvreDaedalusDamage()
+            $patrolShipMechanic->getFailedManoeuvrePatrolShipDamage()
         );
         $patrolShipArmor->addCharge(-$damage);
-
         $this->statusService->persist($patrolShipArmor);
+
+        $this->roomLogService->createLog(
+            logKey: LogEnum::PATROL_DAMAGE,
+            place: $event->getAuthor()->getPlace(),
+            visibility: VisibilityEnum::PRIVATE,
+            type: 'event_log',
+            player: $event->getAuthor(),
+            parameters: ['quantity' => $damage],
+            dateTime: new \DateTime()
+        );
     }
 
     private function inflictDamageToPlayer(ActionEvent $event): void

@@ -98,8 +98,8 @@ final class CollectScrap extends AbstractAction
         }
 
         if ($daedalus->getAttackingHunters()->count() > 0) {
+            $this->damagePasiphae($pasiphaeMechanic, $pasiphaePlace);
             $this->damagePlayer($pasiphaeMechanic, $pasiphaePlace);
-            $this->damagePasiphae($pasiphaeMechanic);
         }
     }
 
@@ -128,7 +128,7 @@ final class CollectScrap extends AbstractAction
         $this->eventService->callEvent($playerVariableEvent, PlayerVariableEvent::CHANGE_VARIABLE);
     }
 
-    private function damagePasiphae(PatrolShip $pasiphaeMechanic): void
+    private function damagePasiphae(PatrolShip $pasiphaeMechanic, Place $pasiphaePlace): void
     {
         /** @var GameEquipment $pasiphae */
         $pasiphae = $this->parameter;
@@ -141,12 +141,22 @@ final class CollectScrap extends AbstractAction
 
         $damage = intval(
             $this->randomService->getSingleRandomElementFromProbaCollection(
-                $pasiphaeMechanic->getFailedManoeuvrePatrolShipDamage()
+                $pasiphaeMechanic->getFailedManoeuvreDaedalusDamage()
             )
         );
 
         $patrolShipArmor->addCharge(-$damage);
         $this->statusService->persist($patrolShipArmor);
+
+        $this->roomLogService->createLog(
+            logKey: LogEnum::PATROL_DAMAGE,
+            place: $pasiphaePlace,
+            visibility: VisibilityEnum::PRIVATE,
+            type: 'event_log',
+            player: $this->player,
+            parameters: ['damage' => $damage],
+            dateTime: new \DateTime()
+        );
     }
 
     private function moveScrapToPasiphae(GameEquipment $scrap, Place $pasiphaePlace): void

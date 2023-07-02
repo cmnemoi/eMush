@@ -35,7 +35,7 @@ final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
             'name' => $patrolShip->getName(),
             'armor' => $patrolShipArmor->getCharge(),
             'charges' => $patrolShipCharges ? $patrolShipCharges->getCharge() : null,
-            'pilot' => $patrolShipPilot,
+            'pilot' => $patrolShipPilot->getName(),
         ];
     }
 }

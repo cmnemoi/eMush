@@ -228,6 +228,6 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         $patrolShips = RoomEnum::getPatrolShips()->map(fn (string $patrolShip) => $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $daedalus)->first());
         $patrolShipsInBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP);
 
-        return $patrolShipsInBattle;
+        return new ArrayCollection(array_values($patrolShipsInBattle->toArray()));
     }
 }

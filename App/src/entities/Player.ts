@@ -5,6 +5,7 @@ import { Status } from "@/entities/Status";
 import { Action } from "@/entities/Action";
 import { Character } from "@/entities/Character";
 import { QuantityPoint } from "@/entities/QuantityPoint";
+import { SpaceBattle } from "./SpaceBattle";
 
 export class Player {
     public id!: number;
@@ -21,6 +22,7 @@ export class Player {
     public statuses: Array<Status>;
     public actions: Array<Action>;
     public room: Room|null;
+    public spaceBattle!: SpaceBattle;
 
     constructor() {
         this.gameStatus = null;
@@ -69,6 +71,9 @@ export class Player {
             }
             if (typeof object.room !== 'undefined') {
                 this.room = (new Room()).load(object.room);
+            }
+            if (typeof object.spaceBattle !== 'undefined') {
+                this.spaceBattle = (new SpaceBattle()).load(object.spaceBattle);
             }
             if (typeof object.items !== 'undefined') {
                 object.items.forEach((itemObject: any) => {

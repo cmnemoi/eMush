@@ -141,7 +141,7 @@ final class CollectScrap extends AbstractAction
 
         $damage = intval(
             $this->randomService->getSingleRandomElementFromProbaCollection(
-                $pasiphaeMechanic->getFailedManoeuvreDaedalusDamage()
+                $pasiphaeMechanic->getCollectScrapPatrolShipDamage()
             )
         );
 

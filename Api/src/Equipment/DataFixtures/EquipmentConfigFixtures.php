@@ -330,6 +330,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                 2 => 1,
                 3 => 1,
             ])
+            ->setCollectScrapPatrolShipDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
             ->setCollectScrapPlayerDamage([
                 2 => 1,
                 3 => 1,

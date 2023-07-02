@@ -103,24 +103,12 @@ final class ActionSubscriber implements EventSubscriberInterface
             $actionParameter->removeStatus($lyingDownStatus);
         }
 
-        if ($this->eventTagsContainsPatrolshipAction($event->getTags())
+        $changingRoomPatrolshipActions = ActionEnum::getChangingRoomPatrolshipActions()->toArray();
+        if ($event->hasTags($changingRoomPatrolshipActions, all: false)
             && $event->getActionResult() instanceof Fail
         ) {
             $this->handlePatrolshipManoeuvreDamage($event);
         }
-    }
-
-    private function eventTagsContainsPatrolshipAction(array $tags): bool
-    {
-        $patrolshipActions = ActionEnum::getChangingRoomPatrolshipActions();
-
-        foreach ($patrolshipActions as $patrolshipAction) {
-            if (in_array($patrolshipAction, $tags)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private function handlePatrolshipManoeuvreDamage(ActionEvent $event): void

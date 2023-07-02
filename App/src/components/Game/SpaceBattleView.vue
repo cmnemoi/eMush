@@ -24,7 +24,6 @@
 
 <script lang="ts">
 import { Player } from '@/entities/Player';
-import { SpaceBattle } from '@/entities/SpaceBattle';
 import { defineComponent } from 'vue';
 
 
@@ -33,15 +32,6 @@ export default defineComponent({
     props: {
         player: Player,
     },
-    methods: {
-        getSpaceBattleContainerClass() {
-            return {
-                'space-battle': true,
-                'left': this.player?.spaceBattle?.isPlayerAttacker,
-                'right': !this.player?.spaceBattle?.isPlayerAttacker
-            };
-        }
-    }
 });
 
 </script>

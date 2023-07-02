@@ -1,6 +1,7 @@
 import { QuantityPoint } from "@/entities/QuantityPoint";
 import { TimerCycle } from "@/entities/TimerCycle";
 import { GameCalendar } from "@/entities/GameCalendar";
+import { Hunter } from "./Hunter";
 
 export class Daedalus {
     public id: number|null;
@@ -16,6 +17,7 @@ export class Daedalus {
     public mushPlayerAlive: number;
     public mushPlayerDead: number;
     public crewPlayer: QuantityPoint | null;
+    public hunters: Hunter[];
     public minimap: any;
 
     constructor() {
@@ -32,6 +34,7 @@ export class Daedalus {
         this.mushPlayerAlive = 0;
         this.mushPlayerDead = 0;
         this.crewPlayer = null;
+        this.hunters = [];
         this.minimap = null;
     }
     load(object :any): Daedalus {
@@ -63,6 +66,11 @@ export class Daedalus {
             if (typeof object.crewPlayer !== 'undefined') {
                 this.crewPlayer = (new QuantityPoint()).load(object.crewPlayer);
             };
+            if (typeof object.hunters !== 'undefined') {
+                this.hunters = object.hunters.map((hunter : any) => {
+                    return (new Hunter()).load(hunter);
+                });
+            }
         }
         return this;
     }
@@ -72,13 +80,7 @@ export class Daedalus {
     decode(jsonString : string): Daedalus {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.id = object.id;
-            this.calendar = object.calendar;
-            this.timer = object.timer;
-            this.oxygen = object.oxygen;
-            this.fuel = object.fuel;
-            this.hull = object.hull;
-            this.shield = object.shield;
+            this.load(object);
         }
 
         return this;

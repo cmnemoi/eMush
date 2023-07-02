@@ -21,6 +21,7 @@ use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -198,6 +199,13 @@ final class LandActionCest extends AbstractFunctionalTest
             'playerInfo' => $this->player1->getPlayerInfo(),
             'log' => ActionLogEnum::LAND_NO_PILOT,
             'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+        $I->seeInRepository(RoomLog::class, [
+            'place' => RoomEnum::ALPHA_BAY_2,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => LogEnum::PATROL_DAMAGE,
+            'visibility' => VisibilityEnum::PRIVATE,
         ]);
 
         $I->assertFalse($this->landAction->isVisible());

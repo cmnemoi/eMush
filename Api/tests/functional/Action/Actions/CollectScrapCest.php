@@ -188,6 +188,13 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
             'log' => LogEnum::ATTACKED_BY_HUNTER,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+        $I->seeInRepository(RoomLog::class, [
+            'place' => RoomEnum::PASIPHAE,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => LogEnum::PATROL_DAMAGE,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
     }
 
     public function testLandingWithScrapCollected(FunctionalTester $I): void

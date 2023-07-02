@@ -3,6 +3,10 @@ export class SpaceBattleTurret {
     public charges!: integer;
     public occupiers!: Array<string>;
 
+    public constructor() {
+        this.occupiers = [];
+    }
+
     public load(object: any): SpaceBattleTurret {
         if (typeof object !== "undefined") {
             this.id = object.id;

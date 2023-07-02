@@ -18,7 +18,6 @@ export class SpaceBattle {
         if (typeof object === "undefined") {
             return this;
         }
-        
         this.hunters = [];
         this.patrolShips = [];
         this.turrets = [];

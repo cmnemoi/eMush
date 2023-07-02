@@ -154,7 +154,7 @@ final class CollectScrap extends AbstractAction
             visibility: VisibilityEnum::PRIVATE,
             type: 'event_log',
             player: $this->player,
-            parameters: ['damage' => $damage],
+            parameters: ['quantity' => $damage],
             dateTime: new \DateTime()
         );
     }

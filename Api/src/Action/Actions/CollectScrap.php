@@ -29,7 +29,9 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -40,6 +42,7 @@ final class CollectScrap extends AbstractAction
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
     private PlaceServiceInterface $placeService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventServiceInterface $eventService,
@@ -47,13 +50,15 @@ final class CollectScrap extends AbstractAction
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
-        PlaceServiceInterface $placeService
+        PlaceServiceInterface $placeService,
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($eventService, $actionService, $validator);
 
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
         $this->placeService = $placeService;
+        $this->statusService = $statusService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -94,6 +99,7 @@ final class CollectScrap extends AbstractAction
 
         if ($daedalus->getAttackingHunters()->count() > 0) {
             $this->damagePlayer($pasiphaeMechanic, $pasiphaePlace);
+            $this->damagePasiphae($pasiphaeMechanic);
         }
     }
 
@@ -120,6 +126,27 @@ final class CollectScrap extends AbstractAction
             time: new \DateTime()
         );
         $this->eventService->callEvent($playerVariableEvent, PlayerVariableEvent::CHANGE_VARIABLE);
+    }
+
+    private function damagePasiphae(PatrolShip $pasiphaeMechanic): void
+    {
+        /** @var GameEquipment $pasiphae */
+        $pasiphae = $this->parameter;
+
+        /** @var ChargeStatus $patrolShipArmor */
+        $patrolShipArmor = $pasiphae->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        if ($patrolShipArmor === null) {
+            throw new \RuntimeException('Pasiphae should have a patrol ship armor status');
+        }
+
+        $damage = intval(
+            $this->randomService->getSingleRandomElementFromProbaCollection(
+                $pasiphaeMechanic->getFailedManoeuvrePatrolShipDamage()
+            )
+        );
+
+        $patrolShipArmor->addCharge(-$damage);
+        $this->statusService->persist($patrolShipArmor);
     }
 
     private function moveScrapToPasiphae(GameEquipment $scrap, Place $pasiphaePlace): void

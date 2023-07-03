@@ -2,19 +2,26 @@
     <div class="space-battle-container">
         <div class="space-battle left">
             <div class="fighters left">
-                <div :class="player?.room?.key === turret.name ? 'fighter green' : 'fighter'" id="turret" v-for="(turret, key) in player?.spaceBattle?.turrets" :key="turret.id">
-                    <p>{{ turret.charges }} charges</p>
+                <div :class="player?.room?.key === turret.name ? 'fighter green' : 'fighter'" id="turret-container" v-for="(turret, key) in player?.spaceBattle?.turrets" :key="turret.id">
+                    <img v-if="player?.room?.key === turret.name" class="turret-player" :src="getPlayerCharacterBody(player)" alt="turret-player">
+                    <span class="turret-charges">
+                        <img class="turret-img" :src="require('@/assets/images/turret.png')" alt="turret">
+                        <span>
+                            {{ turret.charges }}
+                            <img class="charges-img" :src="require('@/assets/images/status/charge.png')" alt="charge">
+                        </span>
+                    </span>
                 </div>
             </div>
             <div class="fighters right">
-                <div class="fighter" id="patrolship" v-for="(patrolShip, key) in player?.spaceBattle?.patrolShips" :key="patrolShip.id">
+                <div class="fighter" id="patrolship-container" v-for="(patrolShip, key) in player?.spaceBattle?.patrolShips" :key="patrolShip.id">
                     <p>{{ patrolShip.pilot }}</p>
                 </div>
             </div>
         </div>
         <div :class="player?.isInAPatrolShip() ? 'space-battle left' : 'space-battle right'">
             <div :class="player?.isInAPatrolShip() ? 'fighters left' : 'fighters right'">
-                <div class="fighter" id="hunter" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="hunter.id">
+                <div class="fighter" id="hunter-container" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="hunter.id">
                     <p>{{ hunter.name }}</p>
                 </div>
             </div>
@@ -23,6 +30,7 @@
 </template>
 
 <script lang="ts">
+import { characterEnum } from '@/enums/character';
 import { Player } from '@/entities/Player';
 import { defineComponent } from 'vue';
 
@@ -32,12 +40,17 @@ export default defineComponent({
     props: {
         player: Player,
     },
+    methods: {
+        getPlayerCharacterBody(player: Player | undefined) {
+            if (player === undefined) return;
+            return characterEnum[player.character.key].body;
+        },
+    }
 });
 
 </script>
 
 <style lang="scss" scoped>
-
 .space-battle-container {
     position: absolute;
     width: 100%;
@@ -56,15 +69,42 @@ export default defineComponent({
                 width: 65px;
                 height: 45px;
                 margin: 1px;
-                background-color: #122270;
+                background-color: $slightlyDeepBlue;
                 border: solid;
-                border-color: #396AAF;
+                border-color: $greyBlue;
                 border-width: 1px;
+                
+                @include corner-bezel(0, 5px, 0, 0);
             }
 
-            #hunter {
+            #turret-container {
+
+                .turret-player {
+                    position: absolute;
+                    width: 15px;
+                    height: 40px;
+                    align-self: flex-start;
+                }
+                .turret-charges {
+                    position: absolute;
+                    align-self: flex-end;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 45px;
+
+                    .turret-img {
+                        width: 35px;
+                        height: 25px;
+                    }
+                }
+            }
+
+            #hunter-container {
                 width: 40px;
                 height: 40px;
+
+                @include corner-bezel(3px, 0);
             }
         }
     }
@@ -79,8 +119,8 @@ export default defineComponent({
     }
     
     .green {
-        background-color: #48A209 !important;
-        border-color: #C1EA57 !important;
+        background-color: $deepGreen !important;
+        border-color: $green !important;
     }
 }
 

@@ -2,8 +2,14 @@
     <div class="space-battle-container">
         <div class="space-battle left">
             <div class="fighters left">
-                <div :class="player?.room?.key === turret.name ? 'fighter green' : 'fighter'" id="turret-container" v-for="(turret, key) in player?.spaceBattle?.turrets" :key="turret.id">
-                    <img v-if="player?.room?.key === turret.name" class="turret-player" :src="getPlayerCharacterBody(player)" alt="turret-player">
+                <div :class="player?.room?.key === turret.name ? 'fighter green' : 'fighter'"
+                     id="turret-container"
+                     v-for="(turret, key) in player?.spaceBattle?.turrets"
+                     :key="key">
+                    <img v-if="player?.room?.key === turret.name"
+                         class="turret-player"
+                         :src="getPlayerCharacterBody(player)"
+                         alt="turret-player">
                     <span class="turret-charges">
                         <img class="turret-img" :src="require('@/assets/images/turret.png')" alt="turret">
                         <span>
@@ -14,14 +20,20 @@
                 </div>
             </div>
             <div class="fighters right">
-                <div class="fighter" id="patrolship-container" v-for="(patrolShip, key) in player?.spaceBattle?.patrolShips" :key="patrolShip.id">
+                <div class="fighter"
+                     id="patrolship-container"
+                     v-for="(patrolShip, key) in player?.spaceBattle?.patrolShips"
+                     :key="key">
                     <p>{{ patrolShip.pilot }}</p>
                 </div>
             </div>
         </div>
         <div class="space-battle right">
             <div class="fighters right">
-                <div class="fighter" id="hunter-container" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="hunter.id">
+                <div class="fighter"
+                     id="hunter-container"
+                     v-for="(hunter, key) in player?.spaceBattle?.hunters"
+                     :key="key">
                     <img :src="getHunterImage(hunter)" alt="hunter">
                     <span class="hunter-health">
                         {{ hunter.health }}

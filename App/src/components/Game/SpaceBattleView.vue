@@ -19,8 +19,8 @@
                 </div>
             </div>
         </div>
-        <div :class="player?.isInAPatrolShip() ? 'space-battle left' : 'space-battle right'">
-            <div :class="player?.isInAPatrolShip() ? 'fighters left' : 'fighters right'">
+        <div class="space-battle right">
+            <div class="fighters right">
                 <div class="fighter" id="hunter-container" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="hunter.id">
                     <img :src="getHunterImage(hunter)" alt="hunter">
                     <span class="hunter-health">

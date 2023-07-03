@@ -9,6 +9,7 @@
                 :player="player"
             />
             <SpaceBattleView
+                v-if="player?.spaceBattle?.hunters?.length > 0"
                 :player="player"
             />
             <MiniMap

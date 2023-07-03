@@ -131,9 +131,4 @@ export class Player {
     {
         return this.room?.type === 'room';
     }
-
-    public isInAPatrolShip(): boolean
-    {
-        return this.room?.type === 'patrol_ship';
-    }
 }

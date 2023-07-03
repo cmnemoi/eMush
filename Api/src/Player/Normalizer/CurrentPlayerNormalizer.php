@@ -214,12 +214,10 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         $patrolShips = $this->getPatrolShipsInBattle($daedalus);
         $turrets = $this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::TURRET_COMMAND, $daedalus);
 
-        $isPlayerInATurret = RoomEnum::getTurrets()->contains($player->getPlace()->getName());
-
         return [
             'hunters' => $this->normalizer->normalize($hunters, $format, $context),
-            'patrolShips' => $isPlayerInATurret ? $patrolShips->map(fn (GameEquipment $patrolShip) => $this->spaceBattlePatrolShipNormalizer->normalize($patrolShip, $format, $context))->toArray() : [],
-            'turrets' => $isPlayerInATurret ? $turrets->map(fn (GameEquipment $turret) => $this->spaceBattleTurretNormalizer->normalize($turret, $format, $context))->toArray() : [],
+            'patrolShips' => $patrolShips->map(fn (GameEquipment $patrolShip) => $this->spaceBattlePatrolShipNormalizer->normalize($patrolShip, $format, $context))->toArray(),
+            'turrets' => $turrets->map(fn (GameEquipment $turret) => $this->spaceBattleTurretNormalizer->normalize($turret, $format, $context))->toArray(),
         ];
     }
 

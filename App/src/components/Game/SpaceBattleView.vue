@@ -22,7 +22,11 @@
         <div :class="player?.isInAPatrolShip() ? 'space-battle left' : 'space-battle right'">
             <div :class="player?.isInAPatrolShip() ? 'fighters left' : 'fighters right'">
                 <div class="fighter" id="hunter-container" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="hunter.id">
-                    <p>{{ hunter.name }}</p>
+                    <img :src="getHunterImage(hunter)" alt="hunter">
+                    <span class="hunter-health">
+                        {{ hunter.health }}
+                        <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
+                    </span>
                 </div>
             </div>
         </div>
@@ -31,8 +35,10 @@
 
 <script lang="ts">
 import { characterEnum } from '@/enums/character';
+import { hunterEnum } from '@/enums/hunter.enum';
 import { Player } from '@/entities/Player';
 import { defineComponent } from 'vue';
+import { Hunter } from '@/entities/Hunter';
 
 
 export default defineComponent({
@@ -44,6 +50,9 @@ export default defineComponent({
         getPlayerCharacterBody(player: Player | undefined) {
             if (player === undefined) return;
             return characterEnum[player.character.key].body;
+        },
+        getHunterImage(hunter: Hunter) {
+            return hunterEnum[hunter.name].image;
         },
     }
 });
@@ -103,6 +112,9 @@ export default defineComponent({
             #hunter-container {
                 width: 40px;
                 height: 40px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
 
                 @include corner-bezel(3px, 0);
             }

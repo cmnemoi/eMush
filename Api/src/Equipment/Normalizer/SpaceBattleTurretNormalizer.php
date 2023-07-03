@@ -31,6 +31,7 @@ final class SpaceBattleTurretNormalizer implements NormalizerInterface
 
         return [
             'id' => $turret->getId(),
+            'name' => $turret->getPlace()->getName(),
             'charges' => $turretCharges->getCharge(),
             'occupiers' => !$turretOccupiers->isEmpty() ? $turretOccupiers->map(fn (Player $player) => $player->getName())->toArray() : null,
         ];

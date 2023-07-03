@@ -40,7 +40,6 @@ class DaedalusNormalizer implements NormalizerInterface
         $gameConfig = $daedalus->getGameConfig();
         $players = $daedalus->getPlayers();
         $closedPlayers = $players->map(fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer());
-        $hunters = $daedalus->getAttackingHunters();
 
         $cryoPlayers = $gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count();
         $humanAlive = $daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->count();

@@ -6,25 +6,39 @@
                      id="turret-container"
                      v-for="(turret, key) in player?.spaceBattle?.turrets"
                      :key="key">
-                    <img v-if="player?.room?.key === turret.name"
-                         class="turret-player"
-                         :src="getPlayerCharacterBody(player)"
-                         alt="turret-player">
+                    <img v-if="turret.occupiers?.length > 0"
+                         class="player-body"
+                         :src="getPlayerCharacterBodyByName(getRandomTurretOccupier(turret))"
+                         :alt="getRandomTurretOccupier(turret)">
                     <span class="turret-charges">
                         <img class="turret-img" :src="require('@/assets/images/turret.png')" alt="turret">
                         <span>
                             {{ turret.charges }}
-                            <img class="charges-img" :src="require('@/assets/images/status/charge.png')" alt="charge">
+                            <img class="charges-img" :src="require('@/assets/images/status/charge.png')" alt="charges">
                         </span>
                     </span>
                 </div>
             </div>
             <div class="fighters right">
-                <div class="fighter"
+                <div :class="player?.room?.key === patrolShip.name ? 'fighter green' : 'fighter'"
                      id="patrolship-container"
                      v-for="(patrolShip, key) in player?.spaceBattle?.patrolShips"
                      :key="key">
-                    <p>{{ patrolShip.pilot }}</p>
+                    <img
+                        class="player-body"
+                        :src="getPlayerCharacterBodyByName(patrolShip.pilot)"
+                        :alt="patrolShip.pilot">
+                    <div class="patrol-ship-data">
+                        <img class="patrol-ship-img" :src="require('@/assets/images/patrol_ship.png')" alt="patrol ship">
+                        <span class="patrol-ship-armor">
+                            {{ patrolShip.armor }}
+                            <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
+                        </span>
+                        <span class="patrol-ship-charges">
+                            {{ patrolShip.charges }}
+                            <img class="charges-img" :src="require('@/assets/images/status/charge.png')" alt="charge">
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,8 +63,10 @@
 import { characterEnum } from '@/enums/character';
 import { hunterEnum } from '@/enums/hunter.enum';
 import { Player } from '@/entities/Player';
-import { defineComponent } from 'vue';
 import { Hunter } from '@/entities/Hunter';
+import { SpaceBattleTurret } from '@/entities/SpaceBattleTurret';
+import { defineComponent } from 'vue';
+
 
 
 export default defineComponent({
@@ -59,11 +75,27 @@ export default defineComponent({
         player: Player,
     },
     methods: {
-        getPlayerCharacterBody(player: Player | undefined) {
+        getPlayerCharacterBodyByName(playerName: string | undefined) : string | undefined {
+            if (playerName === undefined) return;
+            return characterEnum[playerName].body;
+        },
+        getPlayerCharacterBody(player: Player | undefined) : string | undefined {
             if (player === undefined) return;
             return characterEnum[player.character.key].body;
         },
-        getHunterImage(hunter: Hunter) {
+        getRandomTurretOccupier(turret: SpaceBattleTurret) : string | undefined {
+            if (turret.occupiers.length === 0) return;
+
+            // if turret occupiers contains the player watching the battle, always display them
+            const playerName = this.player?.character?.key?.toString();
+            if (playerName && turret.occupiers.includes(playerName)) {
+                return playerName;
+            }
+
+            const randomIndex = Math.floor(Math.random() * turret.occupiers.length);
+            return turret.occupiers[randomIndex];
+        },
+        getHunterImage(hunter: Hunter) : string {
             return hunterEnum[hunter.name].image;
         },
     }
@@ -81,7 +113,7 @@ export default defineComponent({
 
     .space-battle {
         position: absolute;
-        width: 20%;
+        width: 35%;
 
         .fighters {
             position: absolute;
@@ -96,16 +128,17 @@ export default defineComponent({
                 border-width: 1px;
                 
                 @include corner-bezel(0, 5px, 0, 0);
-            }
 
-            #turret-container {
-
-                .turret-player {
+                .player-body {
                     position: absolute;
                     width: 15px;
                     height: 40px;
                     align-self: flex-start;
                 }
+            }
+
+            #turret-container {
+
                 .turret-charges {
                     position: absolute;
                     align-self: flex-end;

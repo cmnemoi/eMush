@@ -2,7 +2,7 @@
     <div class="space-battle-container">
         <div class="space-battle left">
             <div class="fighters left">
-                <div :class="player?.room?.key === turret.name ? 'fighter green' : 'fighter'"
+                <div :class="isPlayerInRoom(turret.name) ? 'fighter green' : 'fighter'"
                      id="turret-container"
                      v-for="(turret, key) in player?.spaceBattle?.turrets"
                      :key="key">
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="fighters right">
-                <div :class="player?.room?.key === patrolShip.name ? 'fighter green' : 'fighter'"
+                <div :class="isPlayerInRoom(patrolShip.name) ? 'fighter green' : 'fighter'"
                      id="patrolship-container"
                      v-for="(patrolShip, key) in player?.spaceBattle?.patrolShips"
                      :key="key">
@@ -97,6 +97,10 @@ export default defineComponent({
         },
         getHunterImage(hunter: Hunter) : string {
             return hunterEnum[hunter.name].image;
+        },
+        isPlayerInRoom(roomKey: string | undefined) : boolean {
+            if (roomKey === undefined) return false;
+            return this.player?.room?.key === roomKey;
         },
     }
 });

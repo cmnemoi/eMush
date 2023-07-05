@@ -114,6 +114,8 @@ export default defineComponent({
     height: 100%;
     align-self: flex-start;
     margin-top: 30px;
+    font-size: 10px;
+    font-weight: 700;
 
     .space-battle {
         position: absolute;
@@ -182,6 +184,13 @@ export default defineComponent({
     .green {
         background-color: $deepGreen !important;
         border-color: $green !important;
+    }
+
+    .player-body {
+        position: absolute;
+        width: 15px;
+        height: 40px;
+        align-self: flex-start;
     }
 }
 

@@ -102,7 +102,7 @@ class AlertNormalizer implements ContextAwareNormalizerInterface
                 $place = $element->getPlace();
 
                 $placeName = $this->translationService->translate(
-                    $place->getName() . '.name',
+                    $place->getName(),
                     [],
                     'rooms',
                     $language

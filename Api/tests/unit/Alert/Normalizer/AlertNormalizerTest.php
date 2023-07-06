@@ -181,7 +181,7 @@ class AlertNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('room1.name', [], 'rooms', LanguageEnum::FRENCH)
+            ->with('room1', [], 'rooms', LanguageEnum::FRENCH)
             ->andReturn('translated three')
             ->once()
         ;

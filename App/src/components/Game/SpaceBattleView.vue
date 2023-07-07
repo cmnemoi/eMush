@@ -39,9 +39,13 @@
   </div>
   <div class="hunters-container">
     <div class="hunter-container" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="key">
-        <img :src="getHunterImage(hunter)" alt="hunter">
-        <p class="quantity">{{ hunter.health }}</p>
-        <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
+        <div class="sub-child-inner antiquewhite">
+            <img class="hunter-img" :src="getHunterImage(hunter)" alt="hunter">
+        </div>
+        <div class="sub-child-inner antiquewhite">
+            <p class="quantity">{{ hunter.health }}</p>
+            <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
+        </div>
     </div>
   </div>
 </template>
@@ -155,9 +159,9 @@ export default defineComponent({
         align-items: center;
     }
 
-    // .sub-child-inner.antiquewhite {
-    //     background-color: antiquewhite;
-    // }
+    .sub-child-inner.antiquewhite {
+        // background-color: antiquewhite;
+    }
 
     .player-body {
         width: fit-content;
@@ -220,10 +224,16 @@ export default defineComponent({
         border-width: 1px;
         border-top-left-radius: 5px;
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+
+    .hunter-img {
+        width: 30px;
+        height: 30px;
+        object-fit: none;
+        object-position: center;
     }
 
     

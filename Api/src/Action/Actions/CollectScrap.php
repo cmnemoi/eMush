@@ -145,8 +145,12 @@ final class CollectScrap extends AbstractAction
             )
         );
 
-        $patrolShipArmor->addCharge(-$damage);
-        $this->statusService->persist($patrolShipArmor);
+        $this->statusService->updateCharge(
+            chargeStatus: $patrolShipArmor,
+            delta: -$damage,
+            tags: $this->getAction()->getActionTags(),
+            time: new \DateTime()
+        );
 
         $this->roomLogService->createLog(
             logKey: LogEnum::PATROL_DAMAGE,

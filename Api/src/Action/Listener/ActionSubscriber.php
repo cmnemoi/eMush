@@ -152,8 +152,13 @@ final class ActionSubscriber implements EventSubscriberInterface
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
             $patrolShipMechanic->getFailedManoeuvrePatrolShipDamage()
         );
-        $patrolShipArmor->addCharge(-$damage);
-        $this->statusService->persist($patrolShipArmor);
+
+        $this->statusService->updateCharge(
+            chargeStatus: $patrolShipArmor,
+            delta: -$damage,
+            tags: $event->getTags(),
+            time: new \DateTime()
+        );
 
         $this->roomLogService->createLog(
             logKey: LogEnum::PATROL_DAMAGE,

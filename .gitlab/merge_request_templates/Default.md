@@ -12,11 +12,9 @@
  
 # How did it change ?
 
-- commit 1
-- commit 2
-- commit 3
+%{all_commits}
 
-Closes / related to #issue
+Closes #issue
 
 /milestone %Backlog
-/label ~Back ~Bug
+/label ~Bug

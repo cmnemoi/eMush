@@ -8,8 +8,8 @@
                      :key="key">
                     <img v-if="turret.occupiers?.length > 0"
                          class="player-body"
-                         :src="getPlayerCharacterBodyByName(getRandomTurretOccupier(turret))"
-                         :alt="getRandomTurretOccupier(turret)">
+                         :src="getPlayerCharacterBodyByName(getTurretOccupier(turret))"
+                         :alt="getTurretOccupier(turret)">
                     <span class="turret-charges">
                         <img class="turret-img" :src="require('@/assets/images/turret.png')" alt="turret">
                         <span>
@@ -83,7 +83,7 @@ export default defineComponent({
             if (player === undefined) return;
             return characterEnum[player.character.key].body;
         },
-        getRandomTurretOccupier(turret: SpaceBattleTurret) : string | undefined {
+        getTurretOccupier(turret: SpaceBattleTurret) : string | undefined {
             if (turret.occupiers.length === 0) return;
 
             // if turret occupiers contains the player watching the battle, always display them
@@ -92,6 +92,7 @@ export default defineComponent({
                 return playerName;
             }
 
+            // else, pick a random occupier to display
             const randomIndex = Math.floor(Math.random() * turret.occupiers.length);
             return turret.occupiers[randomIndex];
         },

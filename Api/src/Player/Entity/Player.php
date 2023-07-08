@@ -504,7 +504,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function getGameEquipment(): null
+    public function getGameEquipment(): ?GameEquipment
     {
         return null;
     }

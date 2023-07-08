@@ -63,6 +63,11 @@ remove-all: #Warning, it will remove EVERY container, images, volumes and networ
 
 reset-dependencies: install-api install-front install-eternal-twin
 
+remove-all: #Warning, it will remove EVERY container, images, volumes and network not only emushs ones
+	docker system prune --volumes -a
+
+reset-dependencies: install-api install-front install-eternal-twin
+
 reset-eternal-twin-database: 
 	docker compose -f docker/docker-compose.yml run -u node eternal_twin yarn etwin db create
 
@@ -75,6 +80,16 @@ setup-JWT-certificates:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php openssl genpkey -pass pass:mush -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
 	docker compose -f docker/docker-compose.yml run -u dev mush_php openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout
 	docker compose -f docker/docker-compose.yml run -u dev mush_php chmod go+r config/jwt/private.pem
+
+setup-env-variables:
+	cp ./Api/.env.dist ./Api/.env
+	cp ./App/.env.dist ./App/.env
+	cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
+
+setup-JWT-certificates:
+	docker exec -it -udev mush_php openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+	docker exec -it -udev mush_php openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+	docker exec -i -udev mush_php chmod go+r config/jwt/private.pem
 
 start-mush-database:
 	docker start mush_database

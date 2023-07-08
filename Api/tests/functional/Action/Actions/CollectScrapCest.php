@@ -25,6 +25,9 @@ use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Enum\EquipmentStatusEnum;
 
 final class CollectScrapActionCest extends AbstractFunctionalTest
 {
@@ -33,6 +36,7 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
     private CollectScrap $collectScrapAction;
     private EventServiceInterface $eventService;
     private GameEquipment $pasiphae;
+    private ChargeStatus $pasiphaeArmor;
     private Land $landAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
@@ -49,6 +53,7 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
         $this->collectScrapAction = $I->grabService(CollectScrap::class);
         $this->landAction = $I->grabService(Land::class);
 
+        /** @var EquipmentConfig $pasiphaeConfig */
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
         $this->pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $this->pasiphae
@@ -56,6 +61,10 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
             ->setEquipment($pasiphaeConfig)
         ;
         $I->haveInRepository($this->pasiphae);
+
+        /** @var ChargeStatusConfig $pasiphaeArmorConfig */
+        $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+        $this->pasiphaeArmor = new ChargeStatus($this->pasiphae, $pasiphaeArmorConfig);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -106,6 +115,10 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             $this->player1->getHealthPoint()
         );
+        $I->assertEquals(
+            $this->pasiphaeArmor->getThreshold(),
+            $this->pasiphaeArmor->getCharge()
+        );
     }
 
     public function testCollectScrapWithAttackingHunters(FunctionalTester $I): void
@@ -143,6 +156,11 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
             expected: $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             actual: $this->player1->getHealthPoint(),
         );
+        $this->pasiphaeArmor = $this->pasiphae->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        $I->assertNotEquals(
+            $this->pasiphaeArmor->getThreshold(),
+            $this->pasiphaeArmor->getCharge()
+        );
 
         $I->assertInstanceOf(Success::class, $result);
         $I->seeInRepository(RoomLog::class, [
@@ -169,6 +187,13 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
             'playerInfo' => $this->player1->getPlayerInfo(),
             'log' => LogEnum::ATTACKED_BY_HUNTER,
             'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+        $I->seeInRepository(RoomLog::class, [
+            'place' => RoomEnum::PASIPHAE,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => LogEnum::PATROL_DAMAGE,
+            'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }
 

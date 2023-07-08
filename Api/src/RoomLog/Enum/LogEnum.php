@@ -48,6 +48,7 @@ class LogEnum
     public const SCRAP_COLLECTED = 'scrap_collected';
     public const ATTACKED_BY_HUNTER = 'attacked_by_hunter';
     public const PATROL_DISCHARGE = 'patrol_discharge';
+    public const PATROL_DAMAGE = 'patrol_damage';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';

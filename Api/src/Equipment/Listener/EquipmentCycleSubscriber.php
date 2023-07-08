@@ -35,7 +35,7 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
                 if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanicName)) {
                     $cycleHandler->handleNewCycle($equipment, $event->getTime());
 
-                    if ($event->haveTag(EventEnum::NEW_DAY)) {
+                    if ($event->hasTag(EventEnum::NEW_DAY)) {
                         $cycleHandler->handleNewDay($equipment, $event->getTime());
                     }
                 }

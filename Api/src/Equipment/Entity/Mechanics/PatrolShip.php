@@ -14,6 +14,9 @@ class PatrolShip extends EquipmentMechanic
     private array $collectScrapNumber = [];
 
     #[ORM\Column(type: 'array', nullable: true)]
+    private array $collectScrapPatrolShipDamage = [];
+
+    #[ORM\Column(type: 'array', nullable: true)]
     private array $collectScrapPlayerDamage = [];
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
@@ -48,6 +51,22 @@ class PatrolShip extends EquipmentMechanic
         }
 
         $this->collectScrapNumber = $collectScrapNumber;
+
+        return $this;
+    }
+
+    public function getCollectScrapPatrolShipDamage(): ProbaCollection
+    {
+        return new ProbaCollection($this->collectScrapPatrolShipDamage);
+    }
+
+    public function setCollectScrapPatrolShipDamage(array|ProbaCollection $collectScrapPatrolShipDamage): static
+    {
+        if ($collectScrapPatrolShipDamage instanceof ProbaCollection) {
+            $collectScrapPatrolShipDamage = $collectScrapPatrolShipDamage->toArray();
+        }
+
+        $this->collectScrapPatrolShipDamage = $collectScrapPatrolShipDamage;
 
         return $this;
     }

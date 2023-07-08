@@ -26,6 +26,7 @@ class PatrolShipDataLoader extends MechanicsDataLoader
             $patrolShip
                 ->setName($patrolShipData['name'])
                 ->setCollectScrapNumber($patrolShipData['collectScrapNumber'])
+                ->setCollectScrapPatrolShipDamage($patrolShipData['collectScrapPatrolShipDamage'])
                 ->setCollectScrapPlayerDamage($patrolShipData['collectScrapPlayerDamage'])
                 ->setDockingPlace($patrolShipData['dockingPlace'])
                 ->setFailedManoeuvreDaedalusDamage($patrolShipData['failedManoeuvreDaedalusDamage'])

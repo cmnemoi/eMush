@@ -3247,6 +3247,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_alpha_longane_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [],
+            'collectScrapPatrolShipDamage' => [],
             'collectScrapPlayerDamage' => [],
             'dockingPlace' => RoomEnum::ALPHA_BAY,
             'failedManoeuvreDaedalusDamage' => [
@@ -3270,6 +3271,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_alpha_jujube_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [],
+            'collectScrapPatrolShipDamage' => [],
             'collectScrapPlayerDamage' => [],
             'dockingPlace' => RoomEnum::ALPHA_BAY,
             'failedManoeuvreDaedalusDamage' => [
@@ -3293,6 +3295,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_alpha_tamarin_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [],
+            'collectScrapPatrolShipDamage' => [],
             'collectScrapPlayerDamage' => [],
             'dockingPlace' => RoomEnum::ALPHA_BAY,
             'failedManoeuvreDaedalusDamage' => [
@@ -3316,6 +3319,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_bravo_socrate_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [],
+            'collectScrapPatrolShipDamage' => [],
             'collectScrapPlayerDamage' => [],
             'dockingPlace' => RoomEnum::BRAVO_BAY,
             'failedManoeuvreDaedalusDamage' => [
@@ -3339,6 +3343,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_bravo_epicure_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [],
+            'collectScrapPatrolShipDamage' => [],
             'collectScrapPlayerDamage' => [],
             'dockingPlace' => RoomEnum::BRAVO_BAY,
             'failedManoeuvreDaedalusDamage' => [
@@ -3362,6 +3367,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_bravo_planton_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [],
+            'collectScrapPatrolShipDamage' => [],
             'collectScrapPlayerDamage' => [],
             'dockingPlace' => RoomEnum::BRAVO_BAY,
             'failedManoeuvreDaedalusDamage' => [
@@ -3385,6 +3391,7 @@ class MechanicsData
             'name' => 'patrol_ship_patrol_ship_alpha_2_wallis_default',
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [],
+            'collectScrapPatrolShipDamage' => [],
             'collectScrapPlayerDamage' => [],
             'dockingPlace' => RoomEnum::ALPHA_BAY_2,
             'failedManoeuvreDaedalusDamage' => [
@@ -3411,6 +3418,11 @@ class MechanicsData
                 1 => 1,
                 2 => 1,
                 3 => 1,
+            ],
+            'collectScrapPatrolShipDamage' => [
+                2 => 1,
+                3 => 1,
+                4 => 1,
             ],
             'collectScrapPlayerDamage' => [
                 0 => 3,

@@ -5,12 +5,31 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
-  - init: make install
-  - command: make docker-start
+  - before: make gitpod-install
+    init: make docker-start
+    command: make create-crew && make fill-daedalus
 
 ports:
-    - port: 80
-      onOpen: open-preview
-      name: eMush
+    - name: eMush
+      description: Front end for eMush
+      port: 80
+      visibility: public
+      onOpen: open-browser
+    - name: API
+      description: API from the back-end
+      port: 8080
       visibility: private
-      protocol: https
+      onOpen: ignore
+    - name: Database
+      description: eMush database
+      port: 5432
+      visibility: private
+      onOpen: ignore
+    - name: EternalTwin
+      description: eMush Eternaltwin
+      port: 50320
+      visibility: public
+      onOpen: ignore
+
+
+

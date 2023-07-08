@@ -41,8 +41,14 @@ docker-watch:
 fill-daedalus:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:fill-daedalus
 
-install: setup-env-variables build install-api start-mush-database install-front install-eternal-twin setup-JWT-certificates create-crew fill-daedalus
-	@echo "Installation completed successfully ! You can access eMush at http://localhost/"
+gitpod-install: gitpod-setup-env-variables build install-api start-mush-database install-front install-eternal-twin setup-JWT-certificates
+
+gitpod-setup-env-variables:
+	sudo cp ./Api/.env.dist ./Api/.env
+	sudo cp ./App/.env.dist ./App/.env
+	sudo cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
+
+install: setup-env-variables build install-api start-mush-database install-front install-eternal-twin setup-JWT-certificates
 
 install-eternal-twin: start-mush-database
 	docker compose -f docker/docker-compose.yml run -u node eternal_twin yarn install

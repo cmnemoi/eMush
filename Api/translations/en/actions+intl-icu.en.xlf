@@ -797,7 +797,7 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
       <segment id="description" state="translated">
         <source>takeoff.description</source>
-        <target>Climb abour a patrol ship and appear in the appropriate quadrant.</target>
+        <target>Climb aboard a patrol ship and appear in the appropriate quadrant.</target>
       </segment>
     </unit>
     <unit id="land">
@@ -807,7 +807,7 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
       <segment id="description" state="translated">
         <source>land.description</source>
-        <target>Return to Patrol Ship launch bay.</target>
+        <target>Return to this patrol ship's launch bay.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_patrol_ship">
@@ -817,7 +817,7 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
       <segment id="description" state="translated">
         <source>shoot_hunter_patrol_ship.description</source>
-        <target>Fire a Telsatron charge at an enemy ship.
+        <target>Fire a Teslatron charge at an enemy ship.
 // 
 Upgradeable with Missiles.</target>
       </segment>
@@ -829,7 +829,7 @@ Upgradeable with Missiles.</target>
       </segment>
       <segment id="description" state="translated">
         <source>collect_scrap.description</source>
-        <target>Look, is that some scrap floating in the void over by that wing there? Fortunately, with the Pasiphae it can be picked up.</target>
+        <target>Look, is that some scrap floating in the void over by that wing there? Fortunately, it can be picked up with the Pasiphae - a vessel that is great to pilot.</target>
       </segment>
     </unit>
   </file>

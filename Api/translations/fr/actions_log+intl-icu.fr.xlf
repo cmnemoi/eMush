@@ -618,7 +618,7 @@
     <unit id="sabotage_success">
       <segment id="sabotage_success" state="translated">
         <source>sabotage_success</source>
-        <target>{target_equipment_gender, select,
+        <target>:mush: {target_equipment_gender, select,
                         male {Étrange, **{character}** s'affaire sur un **{target_equipment}** qui émet une petite fumée...}
                         female {Étrange, **{character}** s'affaire sur une **{target_equipment}** qui émet une petite fumée...}
                         other {Étrange, **{character}** s'affaire sur un **{target_equipment}** qui émet une petite fumée...}

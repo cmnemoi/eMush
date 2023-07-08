@@ -10,13 +10,13 @@ use Mush\Game\Entity\ProbaCollection;
 #[ORM\Entity]
 class PatrolShip extends EquipmentMechanic
 {
-    #[ORM\Column(type: 'array', nullable: true)]
+    #[ORM\Column(type: 'array', nullable: true, options: ['default' => '[]'])]
     private array $collectScrapNumber = [];
 
-    #[ORM\Column(type: 'array', nullable: true)]
+    #[ORM\Column(type: 'array', nullable: true, options: ['default' => '[]'])]
     private array $collectScrapPatrolShipDamage = [];
 
-    #[ORM\Column(type: 'array', nullable: true)]
+    #[ORM\Column(type: 'array', nullable: true, options: ['default' => '[]'])]
     private array $collectScrapPlayerDamage = [];
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]

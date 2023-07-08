@@ -7,7 +7,6 @@
 tasks:
   - before: make gitpod-install
     init: make docker-start
-    command: make create-crew && make fill-daedalus
 
 ports:
     - name: eMush
@@ -25,7 +24,7 @@ ports:
       port: 5432
       visibility: private
       onOpen: ignore
-    - name: EternalTwin
+    - name: Eternaltwin
       description: eMush Eternaltwin
       port: 50320
       visibility: public

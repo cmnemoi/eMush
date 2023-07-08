@@ -3,9 +3,9 @@
         <div :class="['fighter-container', { 'green': isPlayerInRoom(turret.name) }]" v-for="(turret, key) in player?.spaceBattle?.turrets" :key="key">
             <div class="sub-child gray">
                 <img v-if="!turretIsEmpty(turret)"
-                    class="player-body"
-                    :src="getPlayerCharacterBodyByName(getTurretOccupier(turret))"
-                    :alt="getTurretOccupier(turret)">
+                     class="player-body"
+                     :src="getPlayerCharacterBodyByName(getTurretOccupier(turret))"
+                     :alt="getTurretOccupier(turret)">
             </div>
             <div class="sub-child lightcoral">
                 <div class="sub-child-inner antiquewhite">
@@ -20,9 +20,9 @@
         <div :class="['fighter-container', { 'green': isPlayerInRoom(patrolShip.name) }]" v-for="(patrolShip, key) in player?.spaceBattle?.patrolShips" :key="key">
             <div class="sub-child gray">
                 <img
-                class="player-body"
-                :src="getPlayerCharacterBodyByName(patrolShip.pilot)"
-                :alt="patrolShip.pilot">
+                    class="player-body"
+                    :src="getPlayerCharacterBodyByName(patrolShip.pilot)"
+                    :alt="patrolShip.pilot">
             </div>
             <div class="sub-child lightcoral">
                 <div class="sub-child-inner antiquewhite">
@@ -36,18 +36,18 @@
                 </div>
             </div>
         </div>
-  </div>
-  <div class="hunters-container">
-    <div class="hunter-container" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="key">
-        <div class="sub-child-inner antiquewhite">
-            <img class="hunter-img" :src="getHunterImage(hunter)" alt="hunter">
-        </div>
-        <div class="sub-child-inner antiquewhite">
-            <p class="quantity">{{ hunter.health }}</p>
-            <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
+    </div>
+    <div class="hunters-container">
+        <div class="hunter-container" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="key">
+            <div class="sub-child-inner antiquewhite">
+                <img class="hunter-img" :src="getHunterImage(hunter)" alt="hunter">
+            </div>
+            <div class="sub-child-inner antiquewhite">
+                <p class="quantity">{{ hunter.health }}</p>
+                <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
+            </div>
         </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">

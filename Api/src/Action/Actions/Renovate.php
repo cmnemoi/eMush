@@ -116,7 +116,11 @@ final class Renovate extends AttemptAction
             throw new \Exception('Patrol ship armor charge status should have a max charge');
         }
 
-        $patrolShipArmor->setCharge($maxArmor);
-        $this->statusService->persist($patrolShipArmor);
+        $this->statusService->updateCharge(
+            chargeStatus: $patrolShipArmor,
+            delta: $maxArmor,
+            tags: $this->getAction()->getActionTags(),
+            time: new \DateTime()
+        );
     }
 }

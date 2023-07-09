@@ -9,7 +9,7 @@
                 :player="player"
             />
             <SpaceBattleView
-                v-if="player?.spaceBattle?.hunters?.length > 0"
+                v-if="player.canSeeSpaceBattle()"
                 :player="player"
             />
             <MiniMap
@@ -45,6 +45,7 @@ import { defineComponent } from "vue";
 import { Action } from "@/entities/Action";
 import { Equipment } from "@/entities/Equipment";
 import SpaceBattleView from "@/components/Game/SpaceBattleView.vue";
+import { player } from "@/store/player.module";
 
 export default defineComponent ({
     name: "ShipPanel",

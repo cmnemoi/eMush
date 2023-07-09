@@ -203,10 +203,10 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         return $this->gearToolService->getActionsTools($player, $scope);
     }
 
-    private function normalizeSpaceBattle(Player $player, string $format = null, array $context = []): array
+    private function normalizeSpaceBattle(Player $player, string $format = null, array $context = []): ?array
     {
         if (!$player->canSeeSpaceBattle()) {
-            return [];
+            return null;
         }
 
         $daedalus = $player->getDaedalus();

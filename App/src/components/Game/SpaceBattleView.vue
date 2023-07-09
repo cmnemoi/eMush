@@ -1,34 +1,34 @@
 <template>
     <div class="daedalus-fighters-container">
         <div :class="['fighter-container', { 'green': isPlayerInRoom(turret.name) }]" v-for="(turret, key) in player?.spaceBattle?.turrets" :key="key">
-            <div class="sub-child gray">
+            <div class="sub-fighter-container image">
                 <img v-if="!turretIsEmpty(turret)"
                      class="player-body"
                      :src="getPlayerCharacterBodyByName(getTurretOccupier(turret))"
                      :alt="getTurretOccupier(turret)">
             </div>
-            <div class="sub-child lightcoral">
-                <div class="sub-child-inner">
+            <div class="sub-fighter-container stats">
+                <div class="sub-fighter-container-inner">
                     <img class="turret-img" :src="require('@/assets/images/spaceBattleTurret.png')" alt="turret">
                 </div>
-                <div class="sub-child-inner">
+                <div class="sub-fighter-container-inner">
                     <p class="quantity">{{ turret.charges }}</p>
                     <img class="charges-img" :src="require('@/assets/images/status/charge.png')" alt="charges">
                 </div>
             </div>
         </div>
         <div :class="['fighter-container', { 'green': isPlayerInRoom(patrolShip.name) }]" v-for="(patrolShip, key) in player?.spaceBattle?.patrolShips" :key="key">
-            <div class="sub-child gray">
+            <div class="sub-fighter-container image">
                 <img
                     class="player-body"
                     :src="getPlayerCharacterBodyByName(patrolShip.pilot)"
                     :alt="patrolShip.pilot">
             </div>
-            <div class="sub-child lightcoral ship">
-                <div class="sub-child-inner ship">
+            <div class="sub-fighter-container stats ship">
+                <div class="sub-fighter-container-inner ship">
                     <img class="patrol-ship-img" :src="require('@/assets/images/patrol_ship.png')" alt="patrol ship">
                 </div>
-                <div class="sub-child-inner stats">
+                <div class="sub-fighter-container-inner stats">
                     <p class="quantity">{{ patrolShip.armor }}</p>
                     <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
                     <p class="quantity">{{ patrolShip.charges }}</p>
@@ -39,10 +39,10 @@
     </div>
     <div class="hunters-container">
         <div class="hunter-container" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="key">
-            <div :class="'sub-child-inner ship' + ' ' + hunter.name">
+            <div :class="'sub-fighter-container-inner ship' + ' ' + hunter.name">
                 <img class="hunter-img" :src="getHunterImage(hunter)" alt="hunter">
             </div>
-            <div class="sub-child-inner stats">
+            <div class="sub-fighter-container-inner stats">
                 <p class="quantity">{{ hunter.health }}</p>
                 <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
             </div>
@@ -135,21 +135,21 @@ export default defineComponent({
         border-color: $green !important;
     }
 
-    .sub-child {
+    .sub-fighter-container {
         flex: 1;
     }
 
-    .sub-child.gray {
+    .sub-fighter-container.image {
         width: 20px;
     }
 
-    .sub-child.lightcoral {
+    .sub-fighter-container.stats {
         width: calc(100% - 20px);
         height: calc(100% - 0px);
         flex: 2;
     }
 
-    .sub-child-inner {
+    .sub-fighter-container-inner {
         width: calc(100% - 2px);
         height: 40%;
         margin: auto;
@@ -231,12 +231,12 @@ export default defineComponent({
         object-position: center;
     }
     
-    .sub-child-inner.ship {
+    .sub-fighter-container-inner.ship {
         margin: 0px;
         height: 60%;
         overflow: hidden;
     }
-    .sub-child-inner.stats {
+    .sub-fighter-container-inner.stats {
         margin-left: 1px;
     }
     

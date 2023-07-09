@@ -8,10 +8,10 @@
                      :alt="getTurretOccupier(turret)">
             </div>
             <div class="sub-child lightcoral">
-                <div class="sub-child-inner antiquewhite">
+                <div class="sub-child-inner">
                     <img class="turret-img" :src="require('@/assets/images/spaceBattleTurret.png')" alt="turret">
                 </div>
-                <div class="sub-child-inner antiquewhite">
+                <div class="sub-child-inner">
                     <p class="quantity">{{ turret.charges }}</p>
                     <img class="charges-img" :src="require('@/assets/images/status/charge.png')" alt="charges">
                 </div>
@@ -24,25 +24,25 @@
                     :src="getPlayerCharacterBodyByName(patrolShip.pilot)"
                     :alt="patrolShip.pilot">
             </div>
-            <div class="sub-child lightcoral">
-                <div class="sub-child-inner antiquewhite">
+            <div class="sub-child lightcoral ship">
+                <div class="sub-child-inner ship">
                     <img class="patrol-ship-img" :src="require('@/assets/images/patrol_ship.png')" alt="patrol ship">
                 </div>
-                <div class="sub-child-inner antiquewhite">
+                <div class="sub-child-inner stats">
                     <p class="quantity">{{ patrolShip.armor }}</p>
                     <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
                     <p class="quantity">{{ patrolShip.charges }}</p>
-                    <img class="charges-img" :src="require('@/assets/images/status/charge.png')" alt="charge">
+                    <img class="charges-img" :src="require('@/assets/images/status/charge.png')" alt="charges">
                 </div>
             </div>
         </div>
     </div>
     <div class="hunters-container">
         <div class="hunter-container" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="key">
-            <div class="sub-child-inner antiquewhite">
+            <div :class="'sub-child-inner ship' + ' ' + hunter.name">
                 <img class="hunter-img" :src="getHunterImage(hunter)" alt="hunter">
             </div>
-            <div class="sub-child-inner antiquewhite">
+            <div class="sub-child-inner stats">
                 <p class="quantity">{{ hunter.health }}</p>
                 <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
             </div>
@@ -106,7 +106,7 @@ export default defineComponent({
     .daedalus-fighters-container {
         position: absolute;
         top: 25px;
-        left: 15px;
+        left: 1px;
         width: 129px;
         height: 303px;
         display: flex;
@@ -124,6 +124,7 @@ export default defineComponent({
         padding: 2px;
         border-width: 1px;
         border-top-right-radius: 10px;
+        padding: 2px 2px 1px 1px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -140,27 +141,21 @@ export default defineComponent({
 
     .sub-child.gray {
         width: 20px;
-        // background-color: gray;
     }
 
     .sub-child.lightcoral {
         width: calc(100% - 20px);
         height: calc(100% - 0px);
-        // background-color: lightcoral;
         flex: 2;
     }
 
     .sub-child-inner {
-        width: calc(100% - 4px);
-        height: calc(50% - 2px);
-        margin: 2px;
+        width: calc(100% - 2px);
+        height: 40%;
+        margin: auto;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-    }
-
-    .sub-child-inner.antiquewhite {
-        // background-color: antiquewhite;
     }
 
     .player-body {
@@ -203,7 +198,7 @@ export default defineComponent({
     .hunters-container {
         position: absolute;
         top: 25px;
-        left: 341px;
+        right: 1px;
         width: 85px;
         height: 303px;
         display: flex;
@@ -235,6 +230,14 @@ export default defineComponent({
         object-fit: none;
         object-position: center;
     }
-
+    
+    .sub-child-inner.ship {
+        margin: 0px;
+        height: 60%;
+        overflow: hidden;
+    }
+    .sub-child-inner.stats {
+        margin-left: 1px;
+    }
     
 </style>

@@ -3,7 +3,7 @@
 namespace Mush\Hunter\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Game\Entity\ProbaCollection;
+use Mush\Game\Entity\Collection\ProbaCollection;
 
 /**
  * @template-extends ArrayCollection<int, Hunter>

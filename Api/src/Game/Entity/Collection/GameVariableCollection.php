@@ -1,13 +1,13 @@
 <?php
 
-namespace Mush\Game\Entity;
+namespace Mush\Game\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionVariables;
 use Mush\Daedalus\Entity\DaedalusVariables;
-use Mush\Equipment\Entity\Mechanics\Entity;
+use Mush\Game\Entity\GameVariable;
 use Mush\Hunter\Entity\HunterVariables;
 use Mush\Player\Entity\PlayerVariables;
 

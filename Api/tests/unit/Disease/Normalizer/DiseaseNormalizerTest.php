@@ -3,6 +3,7 @@
 namespace Mush\Tests\unit\Disease\Normalizer;
 
 use Mockery;
+use Mush\Action\Event\ActionEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
@@ -104,7 +105,7 @@ class DiseaseNormalizerTest extends TestCase
         $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig
             ->setDelta(-6)
-            ->setTargetEvent(ModifierScopeEnum::INJURY)
+            ->setTargetEvent(ActionEvent::PRE_ACTION)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
         ;
         $diseaseConfig = new DiseaseConfig();

@@ -23,6 +23,12 @@ class EventModifierConfig extends AbstractModifierConfig
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $targetEvent;
 
+    #[ORM\Column(type: 'string', nullable: false)]
+    protected string $modifierStrategy;
+
+    #[ORM\Column(type: 'int', nullable: false)]
+    protected int $priority = 1;
+
     #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $applyOnTarget = false;
 
@@ -37,6 +43,30 @@ class EventModifierConfig extends AbstractModifierConfig
     public function setTargetEvent(string $targetEvent): self
     {
         $this->targetEvent = $targetEvent;
+
+        return $this;
+    }
+
+    public function getModifierStrategy(): string
+    {
+        return $this->modifierStrategy;
+    }
+
+    public function setModifierStrategy(string $modifierStrategy): self
+    {
+        $this->modifierStrategy = $modifierStrategy;
+
+        return $this;
+    }
+
+    public function getPriority(): bool
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(bool $priority): self
+    {
+        $this->priority = $priority;
 
         return $this;
     }

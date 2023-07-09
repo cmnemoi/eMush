@@ -3,8 +3,8 @@
 namespace Mush\Hunter\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
-use Mush\Game\Entity\GameVariableCollection;
 use Mush\Hunter\Enum\HunterVariableEnum;
 
 #[ORM\Entity]

@@ -9,7 +9,7 @@ use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Repository\ConsumableDiseaseRepository;
-use Mush\Game\Entity\ProbaCollection;
+use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Service\RandomServiceInterface;
 
 class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface

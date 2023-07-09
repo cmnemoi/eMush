@@ -4,8 +4,8 @@ namespace Mush\Daedalus\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
-use Mush\Game\Entity\GameVariableCollection;
 
 #[ORM\Entity]
 class DaedalusVariables extends GameVariableCollection

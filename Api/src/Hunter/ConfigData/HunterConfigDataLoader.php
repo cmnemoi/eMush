@@ -5,7 +5,7 @@ namespace Mush\Hunter\ConfigData;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\ConfigData\ConfigDataLoader;
-use Mush\Game\Entity\ProbaCollection;
+use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Repository\HunterConfigRepository;
 use Mush\Status\Repository\StatusConfigRepository;

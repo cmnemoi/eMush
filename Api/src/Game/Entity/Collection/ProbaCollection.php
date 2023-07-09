@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Game\Entity;
+namespace Mush\Game\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

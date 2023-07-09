@@ -14,9 +14,9 @@ use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Repository\ConsumableDiseaseConfigRepository;
 use Mush\Disease\Repository\ConsumableDiseaseRepository;
 use Mush\Disease\Service\ConsumableDiseaseService;
+use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Service\RandomServiceInterface;
 use PHPUnit\Framework\TestCase;
 

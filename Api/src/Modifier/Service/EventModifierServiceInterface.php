@@ -7,5 +7,5 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 
 interface EventModifierServiceInterface
 {
-    public function applyVariableModifiers(ModifierCollection $modifiers, AbstractGameEvent $event): AbstractGameEvent;
+    public function applyModifiers(ModifierCollection $modifiers, AbstractGameEvent $event): array;
 }

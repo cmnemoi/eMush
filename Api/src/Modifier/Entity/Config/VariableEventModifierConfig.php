@@ -5,6 +5,7 @@ namespace Mush\Modifier\Entity\Config;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 
 /**
@@ -31,6 +32,7 @@ class VariableEventModifierConfig extends EventModifierConfig
     public function __construct($name)
     {
         $this->targetEvent = VariableEventInterface::CHANGE_VARIABLE;
+        $this->modifierStrategy = ModifierStrategyEnum::VARIABLE_MODIFIER;
 
         parent::__construct($name);
     }

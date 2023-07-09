@@ -106,7 +106,7 @@ export default defineComponent({
     .daedalus-fighters-container {
         position: absolute;
         top: 25px;
-        left: 1px;
+        left: 13px;
         width: 129px;
         height: 303px;
         display: flex;

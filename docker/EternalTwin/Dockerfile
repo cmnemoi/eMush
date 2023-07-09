@@ -1,4 +1,4 @@
-FROM node:18
+FROM --platform=linux/amd64 node:18
 
 ARG UID=1000
 ARG GID=1000

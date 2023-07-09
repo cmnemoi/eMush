@@ -257,6 +257,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             [
                 GearModifierConfigFixtures::OSCILLOSCOPE_REPAIR_MODIFIER,
                 GearModifierConfigFixtures::OSCILLOSCOPE_SUCCESS_MODIFIER,
+                GearModifierConfigFixtures::OSCILLOSCOPE_SUCCESS_MODIFIER_RENOVATE_ACTION,
             ],
             GearItemEnum::OSCILLOSCOPE
         );

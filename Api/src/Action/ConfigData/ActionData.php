@@ -1409,5 +1409,20 @@ class ActionData
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
+        [
+            'name' => ActionEnum::RENOVATE,
+            'action_name' => ActionEnum::RENOVATE,
+            'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
+            'target' => null,
+            'scope' => ActionScopeEnum::CURRENT,
+            'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::PUBLIC, ActionOutputEnum::FAIL => VisibilityEnum::PRIVATE],
+            'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 12, 'min_value' => 1, 'max_value' => 99],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+        ],
     ];
 }

@@ -1,3 +1,6 @@
+create-daedalus:
+	php bin/console mush:create-daedalus --dev
+
 diff:
 	php bin/console doctrine:migrations:diff -n
 
@@ -13,17 +16,19 @@ fill-daedalus-two:
 load-data:
 	php bin/console mush:load-configs-data
 
+load-fixtures:
+	php bin/console doctrine:database:create --env=test --if-not-exists
+	php bin/console doctrine:schema:drop --full-database --env=test -f
+	php bin/console doctrine:schema:update --env=test -f
+	php bin/console doctrine:fixtures:load --env=test -n --verbose
+
 lint:
 	vendor/bin/php-cs-fixer fix
 
 psalm:
 	vendor/bin/psalm
 
-reset:
-	php bin/console doctrine:database:create --env=test --if-not-exists
-	php bin/console doctrine:schema:drop --full-database --env=test -f
-	php bin/console doctrine:schema:update --env=test -f
-	php bin/console doctrine:fixtures:load --env=test -n --verbose
+reset: load-fixtures
 	php bin/console doctrine:schema:drop --force --full-database
 	php bin/console mush:migrate --dev
 
@@ -38,3 +43,6 @@ test-unit:
 
 update-schema: 
 	php bin/console doctrine:migrations:migrate -n
+
+validate-crew-death:
+	php bin/console mush:validate-crew-death

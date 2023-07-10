@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="hunters-container">
-        <div class="hunter-container" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="key">
+        <Tippy tag="div" class="hunter-container" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="key">
             <div :class="'sub-fighter-container-inner ship' + ' ' + hunter.key">
                 <img class="hunter-img" :src="getHunterImage(hunter)" alt="hunter">
             </div>
@@ -46,8 +46,13 @@
                 <p class="quantity">{{ hunter.health }}</p>
                 <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
             </div>
-        </div>
+            <template #content>
+                <h1 v-html="formatContent(hunter.name)" /><br />
+                <p v-html="formatContent(hunter.description)" />
+            </template>
+        </Tippy>
     </div>
+    
 </template>
 
 <script lang="ts">
@@ -238,6 +243,11 @@ export default defineComponent({
     }
     .sub-fighter-container-inner.stats {
         margin-left: 1px;
+    }
+
+    div.tippy-tooltip {
+        margin-right: 5px;
+        margin-left: 5px;
     }
     
 </style>

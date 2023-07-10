@@ -74,7 +74,7 @@ export class Player {
             if (typeof object.room !== 'undefined') {
                 this.room = (new Room()).load(object.room);
             }
-            if (typeof object.spaceBattle !== 'undefined') {
+            if (object.spaceBattle !== null && typeof object.spaceBattle !== 'undefined') {
                 this.spaceBattle = (new SpaceBattle()).load(object.spaceBattle);
             }
             if (typeof object.items !== 'undefined') {

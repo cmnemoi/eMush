@@ -6,13 +6,22 @@ namespace Mush\Equipment\Normalizer;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
-{
+{   
+    private TranslationServiceInterface $translationService;
+
+    public function __construct(TranslationServiceInterface $translationService)
+    {
+        $this->translationService = $translationService;
+    }
+
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof GameEquipment && EquipmentEnum::getPatrolShips()->contains($data->getName());
@@ -22,6 +31,7 @@ final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
     {
         /** @var GameEquipment $patrolShip */
         $patrolShip = $object;
+        $patrolShipName = $patrolShip->getName();
 
         /** @var ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
@@ -32,7 +42,13 @@ final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
 
         return [
             'id' => $patrolShip->getId(),
-            'name' => $patrolShip->getName(),
+            'key' => $patrolShipName,
+            'name' => $this->translationService->translate(
+                key: $patrolShipName,
+                parameters: [],
+                domain: 'equipment',
+                language: $patrolShip->getDaedalus()->getLanguage()
+            ),
             'armor' => $patrolShipArmor->getCharge(),
             'charges' => $patrolShipCharges->getCharge(),
             'pilot' => $patrolShipPilot->getName(),

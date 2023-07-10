@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Mush\Equipment\Normalizer;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Normalizer\SpaceBattlePatrolShipNormalizer;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -18,10 +21,13 @@ use PHPUnit\Framework\TestCase;
 class SpaceBattlePatrolShipNormalizerTest extends TestCase
 {
     private SpaceBattlePatrolShipNormalizer $normalizer;
+    /** @var TranslationServiceInterface|Mockery\Mock */
+    private TranslationServiceInterface $translationService;
 
     protected function setUp(): void
-    {
-        $this->normalizer = new SpaceBattlePatrolShipNormalizer();
+    {   
+        $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
+        $this->normalizer = new SpaceBattlePatrolShipNormalizer($this->translationService);
     }
 
     public function testSupportsNormalizationReturnsTrueForPatrolShip(): void
@@ -34,36 +40,59 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
 
     public function testSupportsNormalizationReturnsFalseForNonPatrolShip(): void
     {
-        $shield = $this->createMock(GameEquipment::class);
-        $shield->method('getName')->willReturn(EquipmentEnum::DOOR);
+        $door = $this->createMock(GameEquipment::class);
+        $door->method('getName')->willReturn(EquipmentEnum::DOOR);
 
-        $this->assertFalse($this->normalizer->supportsNormalization($shield));
+        $this->assertFalse($this->normalizer->supportsNormalization($door));
     }
 
     public function testNormalizeReturnsExpectedArray(): void
-    {
+    {   
+        $daedalus = $this->createMock(Daedalus::class);
         $patrolShip = $this->createMock(GameEquipment::class);
         $patrolShipArmor = $this->createMock(ChargeStatus::class);
-        $patrolShipArmor->method('getCharge')->willReturn(10);
         $patrolShipCharges = $this->createMock(ChargeStatus::class);
-        $patrolShipCharges->method('getCharge')->willReturn(10);
         $patrolShipPilot = $this->createMock(Player::class);
-        $patrolShipPilot->method('getName')->willReturn(CharacterEnum::CHUN);
         $place = $this->createMock(Place::class);
         $placePlayers = $this->createMock(PlayerCollection::class);
-        $place->method('getPlayers')->willReturn($placePlayers);
-        $placePlayers->method('getPlayerAlive')->willReturn(new PlayerCollection([$patrolShipPilot]));
+
+        $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
+
         $patrolShip->method('getId')->willReturn(1);
-        $patrolShip->method('getName')->willReturn(EquipmentEnum::PATROL_SHIP);
+        $patrolShip->method('getName')->willReturn(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
         $patrolShip->method('getStatusByName')->will($this->returnValueMap([
             [EquipmentStatusEnum::PATROL_SHIP_ARMOR, $patrolShipArmor],
             [EquipmentStatusEnum::ELECTRIC_CHARGES, $patrolShipCharges],
         ]));
         $patrolShip->method('getPlace')->willReturn($place);
+        $patrolShip->method('getDaedalus')->willReturn($daedalus);
+
+        $patrolShipArmor->method('getCharge')->willReturn(10);
+
+        $patrolShipCharges->method('getCharge')->willReturn(10);
+
+        $patrolShipPilot->method('getName')->willReturn(CharacterEnum::CHUN);
+
+        $place->method('getPlayers')->willReturn($placePlayers);
+
+        $placePlayers->method('getPlayerAlive')->willReturn(new PlayerCollection([$patrolShipPilot]));
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with(
+                EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
+                [],
+                'equipment',
+                LanguageEnum::FRENCH
+            )
+            ->andReturn('Patrouilleur Wallis')
+            ->once()
+        ;
 
         $expected = [
             'id' => 1,
-            'name' => EquipmentEnum::PATROL_SHIP,
+            'key' => EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
+            'name' => "Patrouilleur Wallis",
             'armor' => 10,
             'charges' => 10,
             'pilot' => CharacterEnum::CHUN,

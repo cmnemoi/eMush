@@ -38,7 +38,10 @@
         </div>
     </div>
     <div class="hunters-container">
-        <Tippy tag="div" class="hunter-container" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="key">
+        <Tippy tag="div"
+               class="hunter-container"
+               v-for="(hunter, key) in player?.spaceBattle?.hunters"
+               :key="key">
             <div :class="'sub-fighter-container-inner ship' + ' ' + hunter.key">
                 <img class="hunter-img" :src="getHunterImage(hunter)" :alt="hunter.key">
             </div>

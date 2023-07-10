@@ -31,7 +31,10 @@ final class HunterNormalizer implements NormalizerInterface
         $hunter = $object;
         /** @var ChargeStatus $hunterCharges */
         $hunterCharges = $hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
-        $hunterChargesAmount = $hunterCharges->getCharge();
+        // if hunter (not asteroid) is not in truce cycle anymore, it may not have charges
+        if ($hunterCharges !== null) {
+            $hunterChargesAmount = $hunterCharges->getCharge();
+        }
         $hunterHealth = $hunter->getHealth();
         $hunterKey = $hunter->getName();
         $isHunterAnAsteroid = $hunterKey === HunterEnum::ASTEROID;
@@ -46,9 +49,9 @@ final class HunterNormalizer implements NormalizerInterface
                 language: $hunter->getDaedalus()->getLanguage()
             ),
             'description' => $this->translationService->translate(
-                key: $hunterKey . '_description',
+                key: $hunterKey . '.description',
                 parameters: [
-                    'charges' => $hunterChargesAmount,
+                    'charges' => $hunterChargesAmount ?? 0,
                     'health' => $hunterHealth,
                 ],
                 domain: 'hunter',

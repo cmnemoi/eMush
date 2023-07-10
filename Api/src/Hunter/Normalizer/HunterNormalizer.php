@@ -31,6 +31,8 @@ final class HunterNormalizer implements NormalizerInterface
         $hunter = $object;
         /** @var ChargeStatus $hunterCharges */
         $hunterCharges = $hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
+        $hunterChargesAmount = $hunterCharges->getCharge();
+        $hunterHealth = $hunter->getHealth();
         $hunterKey = $hunter->getName();
         $isHunterAnAsteroid = $hunterKey === HunterEnum::ASTEROID;
 
@@ -46,14 +48,14 @@ final class HunterNormalizer implements NormalizerInterface
             'description' => $this->translationService->translate(
                 key: $hunterKey . '_description',
                 parameters: [
-                    'charges' => $isHunterAnAsteroid ? $hunterCharges->getCharge() : null,
-                    'health' => $hunter->getHealth(),
+                    'charges' => $hunterChargesAmount,
+                    'health' => $hunterHealth,
                 ],
                 domain: 'hunter',
                 language: $hunter->getDaedalus()->getLanguage()
             ),
-            'health' => $hunter->getHealth(),
-            'charges' => $isHunterAnAsteroid ? $hunterCharges->getCharge() : null,
+            'health' => $hunterHealth,
+            'charges' => $isHunterAnAsteroid ? $hunterChargesAmount : null,
         ];
     }
 }

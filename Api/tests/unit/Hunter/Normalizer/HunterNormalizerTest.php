@@ -145,7 +145,7 @@ final class HunterNormalizerTest extends TestCase
             ->with(
                 HunterEnum::HUNTER . '_description',
                 [
-                    'charges' => null,
+                    'charges' => 1,
                     'health' => 6,
                 ],
                 'hunter',

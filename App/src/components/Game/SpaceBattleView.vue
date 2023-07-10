@@ -1,6 +1,6 @@
 <template>
     <div class="daedalus-fighters-container">
-        <div :class="['fighter-container', { 'green': isPlayerInRoom(turret.name) }]" v-for="(turret, key) in player?.spaceBattle?.turrets" :key="key">
+        <div :class="['fighter-container', { 'green': isPlayerInRoom(turret.key) }]" v-for="(turret, key) in player?.spaceBattle?.turrets" :key="key">
             <div class="sub-fighter-container image">
                 <img v-if="!turretIsEmpty(turret)"
                      class="player-body"
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <div :class="['fighter-container', { 'green': isPlayerInRoom(patrolShip.name) }]" v-for="(patrolShip, key) in player?.spaceBattle?.patrolShips" :key="key">
+        <div :class="['fighter-container', { 'green': isPlayerInRoom(patrolShip.key) }]" v-for="(patrolShip, key) in player?.spaceBattle?.patrolShips" :key="key">
             <div class="sub-fighter-container image">
                 <img
                     class="player-body"
@@ -39,7 +39,7 @@
     </div>
     <div class="hunters-container">
         <div class="hunter-container" v-for="(hunter, key) in player?.spaceBattle?.hunters" :key="key">
-            <div :class="'sub-fighter-container-inner ship' + ' ' + hunter.name">
+            <div :class="'sub-fighter-container-inner ship' + ' ' + hunter.key">
                 <img class="hunter-img" :src="getHunterImage(hunter)" alt="hunter">
             </div>
             <div class="sub-fighter-container-inner stats">
@@ -64,9 +64,9 @@ export default defineComponent({
         player: Player,
     },
     methods: {
-        getPlayerCharacterBodyByName(playerName: string | undefined) : string | undefined {
-            if (playerName === undefined) return;
-            return characterEnum[playerName].body;
+        getPlayerCharacterBodyByName(playerKey: string | undefined) : string | undefined {
+            if (playerKey === undefined) return;
+            return characterEnum[playerKey].body;
         },
         getPlayerCharacterBody(player: Player | undefined) : string | undefined {
             if (player === undefined) return;
@@ -76,9 +76,9 @@ export default defineComponent({
             if (turret.occupiers.length === 0) return;
 
             // if turret occupiers contains the player watching the battle, always display them
-            const playerName = this.player?.character?.key?.toString();
-            if (playerName && turret.occupiers.includes(playerName)) {
-                return playerName;
+            const playerKey = this.player?.character?.key?.toString();
+            if (playerKey && turret.occupiers.includes(playerKey)) {
+                return playerKey;
             }
 
             // else, pick a random occupier to display
@@ -86,7 +86,7 @@ export default defineComponent({
             return turret.occupiers[randomIndex];
         },
         getHunterImage(hunter: Hunter) : string {
-            return hunterEnum[hunter.name].image;
+            return hunterEnum[hunter.key].image;
         },
         isPlayerInRoom(roomKey: string | undefined) : boolean {
             if (roomKey === undefined) return false;

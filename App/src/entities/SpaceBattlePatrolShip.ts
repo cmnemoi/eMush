@@ -1,5 +1,6 @@
 export class SpaceBattlePatrolShip {
     public id!: number;
+    public key!: string;
     public name!: string;
     public armor!: integer;
     public charges: integer|null;
@@ -12,6 +13,7 @@ export class SpaceBattlePatrolShip {
     public load(object: any): SpaceBattlePatrolShip {
         if (typeof object !== "undefined") {
             this.id = object.id;
+            this.key = object.key;
             this.name = object.name;
             this.armor = object.armor;
             this.charges = object.charges;
@@ -24,6 +26,7 @@ export class SpaceBattlePatrolShip {
     public jsonEncode(): object {
         const data : any = {
             'id': this.id,
+            'key': this.key,
             'name': this.name,
             'armor': this.armor,
             'charges': this.charges,

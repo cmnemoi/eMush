@@ -24,6 +24,7 @@
       <segment id="dice_description" state="translated">
         <source>dice.description</source>
         <target>Un gros cube qui tire très très fort
+                //
                 Pas de poursuite.
         </target>
       </segment>

@@ -43,7 +43,7 @@ final class HunterNormalizer implements NormalizerInterface
             'id' => $hunter->getId(),
             'key' => $hunterKey,
             'name' => $this->translationService->translate(
-                key: $hunterKey,
+                key: $hunterKey . '.name',
                 parameters: [],
                 domain: 'hunter',
                 language: $hunter->getDaedalus()->getLanguage()

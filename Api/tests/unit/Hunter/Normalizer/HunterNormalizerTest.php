@@ -89,7 +89,10 @@ final class HunterNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with(
                 HunterEnum::ASTEROID . '_description',
-                [],
+                [
+                    'charges' => 6,
+                    'health' => 20,
+                ],
                 'hunter',
                 LanguageEnum::FRENCH
             )
@@ -141,7 +144,10 @@ final class HunterNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with(
                 HunterEnum::HUNTER . '_description',
-                [],
+                [
+                    'charges' => null,
+                    'health' => 6,
+                ],
                 'hunter',
                 LanguageEnum::FRENCH
             )

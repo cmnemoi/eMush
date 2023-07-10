@@ -45,7 +45,10 @@ final class HunterNormalizer implements NormalizerInterface
             ),
             'description' => $this->translationService->translate(
                 key: $hunterKey . '_description',
-                parameters: [],
+                parameters: [
+                    'charges' => $isHunterAnAsteroid ? $hunterCharges->getCharge() : null,
+                    'health' => $hunter->getHealth(),
+                ],
                 domain: 'hunter',
                 language: $hunter->getDaedalus()->getLanguage()
             ),

@@ -58,7 +58,7 @@ final class HunterNormalizer implements NormalizerInterface
                 language: $hunter->getDaedalus()->getLanguage()
             ),
             'health' => $hunterHealth,
-            'charges' => $isHunterAnAsteroid ? $hunterChargesAmount : null,
+            'charges' => $isHunterAnAsteroid ? ($hunterChargesAmount ?? null) : null,
         ];
     }
 }

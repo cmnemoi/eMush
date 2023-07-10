@@ -76,7 +76,7 @@ final class HunterNormalizerTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                HunterEnum::ASTEROID,
+                HunterEnum::ASTEROID . '.name',
                 [],
                 'hunter',
                 LanguageEnum::FRENCH
@@ -88,7 +88,7 @@ final class HunterNormalizerTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                HunterEnum::ASTEROID . '_description',
+                HunterEnum::ASTEROID . '.description',
                 [
                     'charges' => 6,
                     'health' => 20,
@@ -131,7 +131,7 @@ final class HunterNormalizerTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                HunterEnum::HUNTER,
+                HunterEnum::HUNTER . '.name',
                 [],
                 'hunter',
                 LanguageEnum::FRENCH
@@ -143,7 +143,7 @@ final class HunterNormalizerTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                HunterEnum::HUNTER . '_description',
+                HunterEnum::HUNTER . '.description',
                 [
                     'charges' => 1,
                     'health' => 6,

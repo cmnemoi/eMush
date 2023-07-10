@@ -20,14 +20,14 @@ use PHPUnit\Framework\TestCase;
 
 final class SpaceBattleTurretNormalizerTest extends TestCase
 {
-    private SpaceBattleTurretNormalizer $normalizer;    
+    private SpaceBattleTurretNormalizer $normalizer;
     /** @var TranslationServiceInterface|Mockery\Mock */
     private TranslationServiceInterface $translationService;
 
     protected function setUp(): void
-    {   
+    {
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
-        
+
         $this->normalizer = new SpaceBattleTurretNormalizer($this->translationService);
     }
 
@@ -48,7 +48,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
     }
 
     public function testNormalizeReturnsExpectedArray(): void
-    {   
+    {
         $chargeStatus = $this->createMock(ChargeStatus::class);
         $daedalus = $this->createMock(Daedalus::class);
         $place = $this->createMock(Place::class);
@@ -75,7 +75,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
         $turret->method('getPlace')->willReturn($place);
         $turret->method('getStatusByName')->willReturn($chargeStatus);
         $turret->method('getDaedalus')->willReturn($daedalus);
-     
+
         $turretOccupiers->method('isEmpty')->willReturn(false);
         $turretOccupiers->method('getPlayerAlive')->willReturn($turretOccupiers);
 
@@ -98,7 +98,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
     }
 
     public function testNormalizeReturnsNullOccupiersForEmptyCollection(): void
-    {   
+    {
         $chargeStatus = $this->createMock(ChargeStatus::class);
         $daedalus = $this->createMock(Daedalus::class);
         $place = $this->createMock(Place::class);
@@ -128,7 +128,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
         $expected = [
             'id' => 1,
             'key' => RoomEnum::REAR_ALPHA_TURRET,
-            'name' => "Tourelle Alpha Arrière",
+            'name' => 'Tourelle Alpha Arrière',
             'charges' => 4,
             'occupiers' => null,
         ];

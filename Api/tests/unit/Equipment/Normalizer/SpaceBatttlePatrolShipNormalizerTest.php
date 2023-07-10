@@ -25,7 +25,7 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
     private TranslationServiceInterface $translationService;
 
     protected function setUp(): void
-    {   
+    {
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
         $this->normalizer = new SpaceBattlePatrolShipNormalizer($this->translationService);
     }
@@ -47,7 +47,7 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
     }
 
     public function testNormalizeReturnsExpectedArray(): void
-    {   
+    {
         $daedalus = $this->createMock(Daedalus::class);
         $patrolShip = $this->createMock(GameEquipment::class);
         $patrolShipArmor = $this->createMock(ChargeStatus::class);
@@ -92,7 +92,7 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $expected = [
             'id' => 1,
             'key' => EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
-            'name' => "Patrouilleur Wallis",
+            'name' => 'Patrouilleur Wallis',
             'armor' => 10,
             'charges' => 10,
             'pilot' => CharacterEnum::CHUN,

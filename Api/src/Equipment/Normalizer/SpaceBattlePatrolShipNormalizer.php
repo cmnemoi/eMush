@@ -7,14 +7,13 @@ namespace Mush\Equipment\Normalizer;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
-{   
+{
     private TranslationServiceInterface $translationService;
 
     public function __construct(TranslationServiceInterface $translationService)

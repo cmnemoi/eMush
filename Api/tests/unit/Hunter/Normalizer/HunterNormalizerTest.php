@@ -14,8 +14,7 @@ use Mush\Status\Entity\ChargeStatus;
 use PHPUnit\Framework\TestCase;
 
 final class HunterNormalizerTest extends TestCase
-{   
-
+{
     private const ASTEROID_DESCRIPTION = 'Un gros caillou qui se rapproche dangereusement du Daedalus
     Pas de poursuite. 
     Dans 6 cycles, va collisionner le Daedalus infligeant 20 points de dégâts.';
@@ -29,7 +28,7 @@ final class HunterNormalizerTest extends TestCase
      * @before
      */
     public function before()
-    {   
+    {
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
         $this->normalizer = new HunterNormalizer($this->translationService);
     }
@@ -59,11 +58,11 @@ final class HunterNormalizerTest extends TestCase
     }
 
     public function testNormalizeReturnsExpectedArray(): void
-    {   
+    {
         $chargeStatus = $this->createMock(ChargeStatus::class);
         $daedalus = $this->createMock(Daedalus::class);
         $hunter = $this->createMock(Hunter::class);
-        
+
         $chargeStatus->method('getCharge')->willReturn(6);
 
         $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
@@ -111,7 +110,7 @@ final class HunterNormalizerTest extends TestCase
     }
 
     public function testNormalizeReturnsNullChargesForNonAsteroidHunter(): void
-    {   
+    {
         $chargeStatus = $this->createMock(ChargeStatus::class);
         $daedalus = $this->createMock(Daedalus::class);
         $hunter = $this->createMock(Hunter::class);

@@ -15,7 +15,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class SpaceBattleTurretNormalizer implements NormalizerInterface
-{   
+{
     private TranslationServiceInterface $translationService;
 
     public function __construct(TranslationServiceInterface $translationService)

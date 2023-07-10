@@ -12,7 +12,7 @@ use Mush\Status\Enum\HunterStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class HunterNormalizer implements NormalizerInterface
-{   
+{
     private TranslationServiceInterface $translationService;
 
     public function __construct(TranslationServiceInterface $translationService)

@@ -30,18 +30,21 @@ create-crew: docker-start
 	docker exec -i -u dev mush_php php bin/console mush:create-crew
 
 docker-start: docker-stop
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --no-recreate
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --no-recreate --remove-orphans
+	docker exec -d -i -u node eternal_twin yarn etwin
 
 docker-stop:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml stop
 
 docker-watch:
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-recreate
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-recreate --remove-orphans
+	docker exec -d -i -u node eternal_twin yarn etwin
 
 fill-daedalus:
 	docker exec -i -u dev mush_php php bin/console mush:fill-daedalus
 
 install: setup-env-variables build install-api start-mush-database install-front install-eternal-twin setup-JWT-certificates create-crew fill-daedalus
+	@echo "Installation completed successfully ! You can access eMush at http://localhost/"
 
 install-eternal-twin: start-mush-database
 	docker start eternal_twin

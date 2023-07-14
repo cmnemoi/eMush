@@ -86,8 +86,8 @@ class ShootHunter extends AttemptAction
             throw new \Exception('There should be attacking hunters if ShootHunter action is available.');
         }
 
-        // log that we hit a hunter only if the shot wont't kill it
-        if ($damage < $hunter->getHealth()) {
+        $shotDoesntKillHunter = $damage < $hunter->getHealth();
+        if ($shotDoesntKillHunter) {
             $this->logShootHunterSuccess($hunter);
         }
 

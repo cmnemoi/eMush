@@ -58,6 +58,8 @@ Mush\Equipment\Entity\EquipmentMechanic:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
     collectScrapNumber:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    collectScrapPatrolShipDamage:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
     collectScrapPlayerDamage:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
     dockingPlace:

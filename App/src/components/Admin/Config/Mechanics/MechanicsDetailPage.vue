@@ -225,6 +225,12 @@
                         mapValuesType="number"
                         @addTuple="addCollectScrapNumber"
                         @removeIndex="removeCollectScrapNumber"/>
+            <h3>{{ $t('admin.mechanics.collectScrapPatrolShipDamage') }}</h3>
+            <MapManager :map="mechanics.collectScrapPatrolShipDamage"
+                        mapIndexesType="number"
+                        mapValuesType="number"
+                        @addTuple="addCollectScrapPatrolShipDamage"
+                        @removeIndex="removeCollectScrapPatrolShipDamage"/>
             <h3>{{ $t('admin.mechanics.collectScrapPlayerDamage') }}</h3>
             <MapManager :map="mechanics.collectScrapPlayerDamage"
                         mapIndexesType="number"
@@ -523,6 +529,18 @@ export default defineComponent({
         removeCollectScrapNumber(index: number): void {
             if (this.mechanics && this.mechanics.collectScrapNumber) {
                 this.mechanics.collectScrapNumber.delete(index);
+            }
+        },
+        addCollectScrapPatrolShipDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.collectScrapPatrolShipDamage) {
+                this.mechanics.collectScrapPatrolShipDamage.set(index, value);
+            }
+        },
+        removeCollectScrapPatrolShipDamage(index: number): void {
+            if (this.mechanics && this.mechanics.collectScrapPatrolShipDamage) {
+                this.mechanics.collectScrapPatrolShipDamage.delete(index);
             }
         },
         addCollectScrapPlayerDamage(tuple: number[]): void {

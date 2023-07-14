@@ -45,7 +45,7 @@ class ShootHunter extends AttemptAction
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
-    ) { 
+    ) {
         parent::__construct($eventService, $actionService, $validator, $randomService);
         $this->roomLogService = $roomLogService;
     }
@@ -90,7 +90,7 @@ class ShootHunter extends AttemptAction
         if ($damage < $hunter->getHealth()) {
             $this->logShootHunterSuccess($hunter);
         }
-        
+
         $hunterVariableEvent = new HunterVariableEvent(
             $hunter,
             HunterVariableEnum::HEALTH,
@@ -114,7 +114,7 @@ class ShootHunter extends AttemptAction
     }
 
     private function logShootHunterSuccess(Hunter $hunter): void
-    {   
+    {
         $logParameters = [
             $this->player->getLogKey() => $this->player->getLogName(),
             $hunter->getLogKey() => $hunter->getLogName(),
@@ -126,8 +126,7 @@ class ShootHunter extends AttemptAction
             type: 'actions_log',
             player: $this->player,
             parameters: $logParameters,
-            dateTime: new \DateTime(),    
+            dateTime: new \DateTime(),
         );
     }
-
 }

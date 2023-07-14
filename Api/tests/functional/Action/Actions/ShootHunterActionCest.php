@@ -154,7 +154,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $this->shootHunterAction->loadParameters($this->action, $this->player1, $turret);
 
         $this->shootHunterAction->execute();
-        
+
         $I->assertNotEquals($hunter->getHunterConfig()->getInitialHealth(), $hunter->getHealth());
         $I->assertEquals(
             $this->player1->getActionPoint(),

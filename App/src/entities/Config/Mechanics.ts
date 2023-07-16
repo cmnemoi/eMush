@@ -33,6 +33,7 @@ export class Mechanics {
     public criticalFailRate: number|null;
     public oneShotRate: number|null;
     public collectScrapNumber: Map<integer, integer>|null;
+    public collectScrapPatrolShipDamage: Map<integer, integer>|null;
     public collectScrapPlayerDamage: Map<integer, integer>|null;
     public dockingPlace: string|null;
     public failedManoeuvreDaedalusDamage: Map<integer, integer>|null;
@@ -72,6 +73,7 @@ export class Mechanics {
         this.criticalFailRate = null;
         this.oneShotRate = null;
         this.collectScrapNumber = new Map();
+        this.collectScrapPatrolShipDamage = new Map();
         this.collectScrapPlayerDamage = new Map();
         this.dockingPlace = null;
         this.failedManoeuvreDaedalusDamage = new Map();
@@ -398,6 +400,13 @@ export class Mechanics {
                 }
             }
         }
+        if (typeof object.collectScrapPatrolShipDamage !== 'undefined') {
+            for (const [key, value] of Object.entries(object.collectScrapPatrolShipDamage)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.collectScrapPatrolShipDamage?.set(Number(key), value);
+                }
+            }
+        }
         if (typeof object.collectScrapPlayerDamage !== 'undefined') {
             for (const [key, value] of Object.entries(object.collectScrapPlayerDamage)) {
                 if (typeof key === 'string' && typeof value === 'number') {
@@ -438,6 +447,11 @@ export class Mechanics {
             // @ts-ignore
             collectScrapNumber[key] = value;
         });
+        const collectScrapPatrolShipDamage : object = {};
+        this.collectScrapPatrolShipDamage?.forEach((value, key) => {
+            // @ts-ignore
+            collectScrapPatrolShipDamage[key] = value;
+        });
         const collectScrapPlayerDamage : object = {};
         this.collectScrapPlayerDamage?.forEach((value, key) => {
             // @ts-ignore
@@ -460,6 +474,7 @@ export class Mechanics {
         });
 
         data.collectScrapNumber = collectScrapNumber;
+        data.collectScrapPatrolShipDamage = collectScrapPatrolShipDamage;
         data.collectScrapPlayerDamage = collectScrapPlayerDamage;
         data.failedManoeuvreDaedalusDamage = failedManoeuvreDaedalusDamage;
         data.failedManoeuvrePlayerDamage = failedManoeuvrePlayerDamage;

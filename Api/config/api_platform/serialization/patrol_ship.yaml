@@ -8,6 +8,8 @@ Mush\Equipment\Entity\Mechanics\PatrolShip:
       groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
     collectScrapNumber:
       groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
+    collectScrapPatrolShipDamage:
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
     collectScrapPlayerDamage:
       groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
     dockingPlace:

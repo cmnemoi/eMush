@@ -2,12 +2,21 @@
 
 namespace Mush\Player\Normalizer;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Normalizer\SpaceBattlePatrolShipNormalizer;
+use Mush\Equipment\Normalizer\SpaceBattleTurretNormalizer;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Place\Enum\PlaceTypeEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -21,19 +30,28 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
 {
     use NormalizerAwareTrait;
 
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private PlayerVariableServiceInterface $playerVariableService;
+    private SpaceBattlePatrolShipNormalizer $spaceBattlePatrolShipNormalizer;
+    private SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer;
     private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
 
     public function __construct(
+        GameEquipmentServiceInterface $equipmentService,
         PlayerServiceInterface $playerService,
         PlayerVariableServiceInterface $playerVariableService,
+        SpaceBattlePatrolShipNormalizer $spaceBattlePatrolShipNormalizer,
+        SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer,
         TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService
     ) {
+        $this->gameEquipmentService = $equipmentService;
         $this->playerService = $playerService;
         $this->playerVariableService = $playerVariableService;
+        $this->spaceBattlePatrolShipNormalizer = $spaceBattlePatrolShipNormalizer;
+        $this->spaceBattleTurretNormalizer = $spaceBattleTurretNormalizer;
         $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
     }
@@ -52,8 +70,10 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
     {
         /** @var Player $player */
         $player = $object;
+        /** @var Daedalus $daedalus */
+        $daedalus = $player->getDaedalus();
 
-        $language = $player->getDaedalus()->getLanguage();
+        $language = $daedalus->getLanguage();
 
         $items = [];
         /** @var GameItem $item */
@@ -77,7 +97,8 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
                 'description' => $this->translationService->translate('triumph.description', [], 'player', $language),
                 'quantity' => $player->getTriumph(),
             ],
-            'daedalus' => $this->normalizer->normalize($player->getDaedalus(), $format, $context),
+            'daedalus' => $this->normalizer->normalize($daedalus, $format, $context),
+            'spaceBattle' => $this->normalizeSpaceBattle($player, $format, $context),
         ];
 
         $statuses = [];
@@ -180,5 +201,31 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         $scope = [ActionScopeEnum::SELF];
 
         return $this->gearToolService->getActionsTools($player, $scope);
+    }
+
+    private function normalizeSpaceBattle(Player $player, string $format = null, array $context = []): ?array
+    {
+        if (!$player->canSeeSpaceBattle()) {
+            return null;
+        }
+
+        $daedalus = $player->getDaedalus();
+        $hunters = $daedalus->getAttackingHunters();
+        $patrolShips = $this->getPatrolShipsInBattle($daedalus);
+        $turrets = $this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::TURRET_COMMAND, $daedalus);
+
+        return [
+            'hunters' => $this->normalizer->normalize($hunters, $format, $context),
+            'patrolShips' => $patrolShips->map(fn (GameEquipment $patrolShip) => $this->spaceBattlePatrolShipNormalizer->normalize($patrolShip, $format, $context))->toArray(),
+            'turrets' => $turrets->map(fn (GameEquipment $turret) => $this->spaceBattleTurretNormalizer->normalize($turret, $format, $context))->toArray(),
+        ];
+    }
+
+    private function getPatrolShipsInBattle(Daedalus $daedalus): ArrayCollection
+    {
+        $patrolShips = RoomEnum::getPatrolShips()->map(fn (string $patrolShip) => $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $daedalus)->first());
+        $patrolShipsInBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP);
+
+        return new ArrayCollection(array_values($patrolShipsInBattle->toArray()));
     }
 }

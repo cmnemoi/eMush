@@ -22,6 +22,7 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -503,11 +504,18 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    /** Inherited from `StatusHolderInterface`.
-     * As `Player` does not have a (unique) `GameEquipment` instance, this method returns `null`.
-     */
     public function getGameEquipment(): ?GameEquipment
     {
         return null;
+    }
+
+    public function canSeeSpaceBattle(): bool
+    {
+        $spaceBattleRooms = array_merge(
+            RoomEnum::getPatrolships()->toArray(),
+            RoomEnum::getTurrets()->toArray(),
+        );
+
+        return in_array($this->getPlace()->getName(), $spaceBattleRooms, true);
     }
 }

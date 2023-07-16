@@ -5,6 +5,7 @@ import { Status } from "@/entities/Status";
 import { Action } from "@/entities/Action";
 import { Character } from "@/entities/Character";
 import { QuantityPoint } from "@/entities/QuantityPoint";
+import { SpaceBattle } from "./SpaceBattle";
 
 export class Player {
     public id!: number;
@@ -21,8 +22,9 @@ export class Player {
     public statuses: Array<Status>;
     public actions: Array<Action>;
     public room: Room|null;
+    public spaceBattle: SpaceBattle|null;
 
-    constructor() {
+    public constructor() {
         this.gameStatus = null;
         this.actionPoint = null;
         this.movementPoint = null;
@@ -36,8 +38,10 @@ export class Player {
         this.diseases = [];
         this.actions = [];
         this.room = null;
+        this.spaceBattle = null;
     }
-    load(object: any): Player {
+
+    public load(object: any): Player {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.gameStatus = object.gameStatus;
@@ -70,6 +74,9 @@ export class Player {
             if (typeof object.room !== 'undefined') {
                 this.room = (new Room()).load(object.room);
             }
+            if (object.spaceBattle !== null && typeof object.spaceBattle !== 'undefined') {
+                this.spaceBattle = (new SpaceBattle()).load(object.spaceBattle);
+            }
             if (typeof object.items !== 'undefined') {
                 object.items.forEach((itemObject: any) => {
                     const item = (new Item).load(itemObject);
@@ -98,10 +105,12 @@ export class Player {
 
         return this;
     }
-    jsonEncode(): string {
+    
+    public jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString: string): Player {
+
+    public decode(jsonString: string): Player {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);
@@ -110,7 +119,12 @@ export class Player {
         return this;
     }
 
-    isLyingDown(): { "key" : string, "id" : number } | null
+    public canSeeSpaceBattle(): boolean
+    {
+        return this.spaceBattle !== null;
+    }
+
+    public isLyingDown(): { "key" : string, "id" : number } | null
     {
         for (let i=0; i<this.statuses.length; i++) {
             const status = this.statuses[i];
@@ -122,7 +136,7 @@ export class Player {
         return null;
     }
 
-    isInARoom(): boolean
+    public isInARoom(): boolean
     {
         return this.room?.type === 'room';
     }

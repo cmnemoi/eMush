@@ -72,13 +72,7 @@ export class Daedalus {
     decode(jsonString : string): Daedalus {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.id = object.id;
-            this.calendar = object.calendar;
-            this.timer = object.timer;
-            this.oxygen = object.oxygen;
-            this.fuel = object.fuel;
-            this.hull = object.hull;
-            this.shield = object.shield;
+            this.load(object);
         }
 
         return this;

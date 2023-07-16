@@ -999,7 +999,7 @@
     <unit id="shoot_hunter_success">
       <segment id="shoot_hunter_success" state="translated">
         <source>shoot_hunter_success</source>
-        <target>:hunter: Pool ! **{character}** a touché un **Hunter**.</target>
+        <target>:hunter: Pool ! **{character}** a touché un **{hunter}**.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_fail">
@@ -1035,7 +1035,7 @@
     <unit id="shoot_hunter_patrol_ship_success">
       <segment id="shoot_hunter_patrol_ship_success" state="translated">
         <source>shoot_hunter_patrol_ship_success</source>
-        <target>:hunter: C'était presque ça ! **{character}** a touché un Hunter.</target>
+        <target>:hunter: C'était presque ça ! **{character}** a touché un **{hunter}**.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_patrol_ship_fail">

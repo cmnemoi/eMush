@@ -778,6 +778,7 @@ class ActionsFixtures extends Fixture
             ->setTypes([ActionTypeEnum::ACTION_SHOOT])
             ->setActionCost(1)
             ->setSuccessRate(30)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
         ;
         $manager->persist($shootHunterTurret);
 
@@ -814,6 +815,7 @@ class ActionsFixtures extends Fixture
             ->setTypes([ActionTypeEnum::ACTION_SHOOT])
             ->setActionCost(1)
             ->setSuccessRate(40)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
         ;
         $manager->persist($shootHunterPatrolShip);
 

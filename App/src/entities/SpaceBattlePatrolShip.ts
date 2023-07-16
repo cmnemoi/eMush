@@ -44,4 +44,8 @@ export class SpaceBattlePatrolShip {
 
         return this;
     }
+
+    public isPasiphae(): boolean {
+        return this.key === 'pasiphae';
+    }
 }

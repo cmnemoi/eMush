@@ -565,5 +565,17 @@
         <target>shoot_hunter_patrol_ship_fail</target>
       </segment>
     </unit>
+    <unit id="renovate_success">
+      <segment id="renovate_success" state="initial">
+        <source>renovate_success</source>
+        <target>renovate_success</target>
+      </segment>
+    </unit>
+    <unit id="renovate_fail">
+      <segment id="renovate_fail" state="initial">
+        <source>renovate_fail</source>
+        <target>renovate_fail</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

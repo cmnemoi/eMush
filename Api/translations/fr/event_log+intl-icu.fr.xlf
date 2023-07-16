@@ -619,9 +619,7 @@
     <unit id="patrol_damage">
       <segment id="patrol_damage" state="translated">
         <source>patrol_damage</source>
-        <target>
-          L'appareil encaisse *{quantity} {quantity, select, 1 {point} other {points}} de dégâts*.
-        </target>
+        <target>L'appareil encaisse *{quantity} {quantity, select, 1 {point} other {points}} de dégâts*.</target>
       </segment>
     </unit>
   </file>

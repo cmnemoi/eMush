@@ -784,5 +784,17 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>You missed your target.</target>
       </segment>
     </unit>
+    <unit id="renovate_success">
+      <segment id="renovate_success" state="translated">
+        <source>renovate_success</source>
+        <target>The **{character}**'s attempt to repair the *{target_equipment}* was successful. Youhou! It's as good as new!</target>
+      </segment>
+    </unit>
+    <unit id="renovate_fail">
+      <segment id="renovate_fail" state="translated">
+        <source>renovate_fail</source>
+        <target>Your attempt failed.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

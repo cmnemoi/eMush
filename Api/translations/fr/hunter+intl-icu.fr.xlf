@@ -12,8 +12,7 @@
         //
         Pas de poursuite.
         //
-        Dans {charges} {charges, select, 1 {cycle} other {cycles}}, va collisionner le Daedalus infligeant {health} points de dégâts.
-        </target>
+        Dans {charges} {charges, select, 1 {cycle} other {cycles}}, va collisionner le Daedalus infligeant {health} points de dégâts.</target>
       </segment>
     </unit>
     <unit id="dice">
@@ -25,8 +24,7 @@
         <source>dice.description</source>
         <target>Un gros cube qui tire très très fort
                 //
-                Pas de poursuite.
-        </target>
+                Pas de poursuite.</target>
       </segment>
     </unit>
     <unit id="hunter">
@@ -58,8 +56,7 @@
         <source>trax.description</source>
         <target>Intercepteur d'élite.
         //
-        Impossible à distancer.
-        </target>
+        Impossible à distancer.</target>
       </segment>
     </unit>
   </file>

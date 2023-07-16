@@ -487,5 +487,11 @@
         <target>scrap_collected</target>
       </segment>
     </unit>
+    <unit id="patrol_damage">
+      <segment id="patrol_damage" state="initial">
+        <source>patrol_damage</source>
+        <target>patrol_damage</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

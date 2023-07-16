@@ -832,5 +832,17 @@ Upgradeable with Missiles.</target>
         <target>Look, is that some scrap floating in the void over by that wing there? Fortunately, it can be picked up with the Pasiphae - a vessel that is great to pilot.</target>
       </segment>
     </unit>
+    <unit id="renovate">
+      <segment id="name" state="translated">
+        <source>renovate.name</source>
+        <target>Renovate</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>renovate.description</source>
+        <target>Renovating a patrol ship could change the course of future battles. 
+//
+Requires *Scrap Metal*.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

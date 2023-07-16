@@ -811,5 +811,15 @@
         <target>collect_scrap.description</target>
       </segment>
     </unit>
+    <unit id="renovate">
+      <segment id="name" state="initial">
+        <source>renovate.name</source>
+        <target>renovate.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>renovate.description</source>
+        <target>renovate.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

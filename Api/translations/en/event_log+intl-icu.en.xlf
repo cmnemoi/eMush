@@ -571,5 +571,11 @@
         <target>The {place} piloted by **{character}** has brought back a **{target_equipment}**.</target>
       </segment>
     </unit>
+    <unit id="patrol_damage">
+      <segment id="patrol_damage" state="translated">
+        <source>patrol_damage</source>
+        <target>The craft has sustained *{quantity} {quantity, select, 1 {point} other {points}} of damage*.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

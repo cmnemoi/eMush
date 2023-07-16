@@ -26,13 +26,14 @@
             </div>
             <div class="sub-fighter-container stats ship">
                 <div class="sub-fighter-container-inner ship">
-                    <img class="patrol-ship-img" :src="require('@/assets/images/patrol_ship.png')" alt="patrol ship">
+                    <img v-if="patrolShip.key != 'pasiphae'" class="patrol-ship-img" :src="require('@/assets/images/patrol_ship.png')" alt="patrol ship">
+                    <img v-else class="pasiphae-img" :src="require('@/assets/images/pasiphae.png')" alt="pasiphae">
                 </div>
                 <div class="sub-fighter-container-inner stats">
                     <p class="quantity">{{ patrolShip.armor }}</p>
                     <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
-                    <p class="quantity">{{ patrolShip.charges }}</p>
-                    <img class="charges-img" :src="require('@/assets/images/status/charge.png')" alt="charges">
+                    <p class="quantity" v-if="patrolShip.key != 'pasiphae'">{{ patrolShip.charges }}</p>
+                    <img class="charges-img" v-if="patrolShip.key != 'pasiphae'" :src="require('@/assets/images/status/charge.png')" alt="charges">
                 </div>
             </div>
         </div>
@@ -185,6 +186,13 @@ export default defineComponent({
         width: 50px;
         height: 50px;
         clip-path: circle(50%);
+        transform: scaleX(-1);
+    }
+
+    .pasiphae-img {
+        width: 50px;
+        height: 50px;
+        clip-path: circle(75%);
         transform: scaleX(-1);
     }
     .quantity {

@@ -49,7 +49,7 @@ final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
                 language: $patrolShip->getDaedalus()->getLanguage()
             ),
             'armor' => $patrolShipArmor->getCharge(),
-            'charges' => $patrolShipCharges->getCharge(),
+            'charges' => $patrolShipCharges ? $patrolShipCharges->getCharge() : null,
             'pilot' => $patrolShipPilot->getName(),
         ];
     }

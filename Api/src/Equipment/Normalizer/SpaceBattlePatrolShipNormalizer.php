@@ -36,8 +36,14 @@ final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
         /** @var ChargeStatus $patrolShipCharges */
         $patrolShipCharges = $patrolShip->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
-        /** @var Player $patrolShipPilot */
+
         $patrolShipPilot = $patrolShip->getPlace()->getPlayers()->getPlayerAlive()->first();
+
+        if ($patrolShipPilot instanceof Player) {
+            $pilotKey = $patrolShipPilot->getName();
+        } else {
+            $pilotKey = null;
+        }
 
         return [
             'id' => $patrolShip->getId(),
@@ -50,7 +56,7 @@ final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
             ),
             'armor' => $patrolShipArmor->getCharge(),
             'charges' => $patrolShipCharges?->getCharge(), // Pasiphae doesn't have charges so do not try to normalize them
-            'pilot' => $patrolShipPilot?->getName(),
+            'pilot' => $pilotKey,
         ];
     }
 }

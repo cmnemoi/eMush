@@ -49,8 +49,8 @@ final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
                 language: $patrolShip->getDaedalus()->getLanguage()
             ),
             'armor' => $patrolShipArmor->getCharge(),
-            'charges' => $patrolShipCharges ? $patrolShipCharges->getCharge() : null, // Pasiphae doesn't have charges so do not try to normalize them
-            'pilot' => $patrolShipPilot->getName(),
+            'charges' => $patrolShipCharges?->getCharge(), // Pasiphae doesn't have charges so do not try to normalize them
+            'pilot' => $patrolShipPilot?->getName(),
         ];
     }
 }

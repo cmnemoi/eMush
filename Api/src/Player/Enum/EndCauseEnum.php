@@ -91,6 +91,7 @@ class EndCauseEnum
         ActionEnum::REMOVE_SPORE => self::SELF_EXTRACTED,
         ModifierScopeEnum::EVENT_CLUMSINESS => self::CLUMSINESS,
         ActionEnum::AUTO_DESTROY => self::SUPER_NOVA,
+        ActionEnum::COLLECT_SCRAP => self::SPACE_BATTLE,
     ];
 
     public static function getAll(): array

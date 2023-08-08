@@ -91,7 +91,7 @@ class AbstractGameEvent extends Event
         return $this;
     }
 
-    public function haveTag(string $tag): bool
+    public function hasTag(string $tag): bool
     {
         return in_array($tag, $this->tags);
     }
@@ -101,7 +101,7 @@ class AbstractGameEvent extends Event
      * Returns true if the event has all the tags in the array.
      * If `$all` is false, returns true if the event has at least one of the tags.
      */
-    public function haveTags(array $tags, bool $all = true): bool
+    public function hasTags(array $tags, bool $all = true): bool
     {
         if ($all) {
             return count(array_intersect($tags, $this->tags)) === count($tags);

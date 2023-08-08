@@ -618,7 +618,7 @@
     <unit id="sabotage_success">
       <segment id="sabotage_success" state="translated">
         <source>sabotage_success</source>
-        <target>{target_equipment_gender, select,
+        <target>:mush: {target_equipment_gender, select,
                         male {Étrange, **{character}** s'affaire sur un **{target_equipment}** qui émet une petite fumée...}
                         female {Étrange, **{character}** s'affaire sur une **{target_equipment}** qui émet une petite fumée...}
                         other {Étrange, **{character}** s'affaire sur un **{target_equipment}** qui émet une petite fumée...}
@@ -999,7 +999,7 @@
     <unit id="shoot_hunter_success">
       <segment id="shoot_hunter_success" state="translated">
         <source>shoot_hunter_success</source>
-        <target>:hunter: Pool ! **{character}** a touché un **Hunter**.</target>
+        <target>:hunter: Pool ! **{character}** a touché un **{hunter}**.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_fail">
@@ -1012,6 +1012,48 @@
       <segment id="takeoff_no_pilot" state="translated">
         <source>takeoff_no_pilot</source>
         <target>Le décollage de **{character}** est si mauvais qu'il a endommagé son appareil.</target>
+      </segment>
+    </unit>
+    <unit id="land_no_pilot">
+      <segment id="land_no_pilot" state="translated">
+        <source>land_no_pilot</source>
+        <target>L'atterrissage de **{character}** est si mauvais qu'il a endommagé son appareil.</target>
+      </segment>
+    </unit>
+    <unit id="takeoff_success">
+      <segment state="translated">
+        <source>takeoff_success</source>
+        <target>**{character}** vient de décoller.</target>
+      </segment>
+    </unit>
+    <unit id="land_success">
+      <segment state="translated">
+        <source>land_success</source>
+        <target>Le patrouilleur de **{character}** vient d'atterrir.</target>
+      </segment>
+    </unit>
+    <unit id="shoot_hunter_patrol_ship_success">
+      <segment id="shoot_hunter_patrol_ship_success" state="translated">
+        <source>shoot_hunter_patrol_ship_success</source>
+        <target>:hunter: C'était presque ça ! **{character}** a touché un **{hunter}**.</target>
+      </segment>
+    </unit>
+    <unit id="shoot_hunter_patrol_ship_fail">
+      <segment id="shoot_hunter_patrol_ship_fail" state="translated">
+        <source>shoot_hunter_patrol_ship_fail</source>
+        <target>Vous avez raté votre cible.</target>
+      </segment>
+    </unit>
+    <unit id="renovate_success">
+      <segment id="renovate_success" state="translated">
+        <source>renovate_success</source>
+        <target>La tentative de **{character}** de réparation du *{target_equipment}* a réussi. Youhou ! Il est comme neuf !</target>
+      </segment>
+    </unit>
+    <unit id="renovate_fail">
+      <segment id="renovate_fail" state="translated">
+        <source>renovate_fail</source>
+        <target>Votre tentative a échoué.</target>
       </segment>
     </unit>
   </file>

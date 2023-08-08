@@ -1,0 +1,16 @@
+Mush\Equipment\Entity\Mechanics\PatrolShip:
+  properties:
+    collectScrapNumber:
+      - Type: array
+    collectScrapPatrolShipDamage:
+      - Type: array
+    collectScrapPlayerDamage:
+      - Type: array
+    dockingPlace:
+      - Type: string
+    failedManoeuvreDaedalusDamage:
+      - Type: array
+    failedManoeuvrePatrolShipDamage:
+      - Type: array
+    failedManoeuvrePlayerDamage:
+      - Type: array

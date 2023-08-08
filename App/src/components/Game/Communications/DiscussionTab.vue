@@ -2,10 +2,13 @@
     <TabContainer id="discussion-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
         <section v-for="(message, id) in messages" :key="id" class="unit">
             <Message :message="message" :is-root="true" @click="replyTo(message)" />
+            <a class="toggle-children" @click="message.toggleChildren()">
+                {{ message.hasChildrenToDisplay() ? ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) : '' }}
+            </a>
             <Message
-                v-for="(children, id) in message.child"
+                v-for="(child, id) in message.children"
                 :key="id"
-                :message="children"
+                :message="child"
                 @click="replyTo(message)"
             />
             <MessageInput v-show="messageToReply === message" :channel="channel" :parent="message" />
@@ -72,6 +75,12 @@ export default defineComponent ({
         border-bottom: 1px solid rgb(170, 212, 229);
 
         .chat-input { margin: 5px 0 2px 50px !important; padding: 0 !important; }
+    }
+
+    .toggle-children {
+        color: #84E100;
+        cursor: pointer;
+        text-decoration: underline;
     }
 }
 

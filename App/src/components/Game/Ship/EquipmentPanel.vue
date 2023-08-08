@@ -25,7 +25,7 @@ export default defineComponent ({
     z-index: 5;
     position: absolute;
     bottom: 0;
-    width: calc(100% - 16px);
+    width: 100%;
 }
 
 </style>

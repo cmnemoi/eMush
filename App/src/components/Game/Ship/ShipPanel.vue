@@ -8,6 +8,10 @@
             <PhaserShip
                 :player="player"
             />
+            <SpaceBattleView
+                v-if="player.canSeeSpaceBattle()"
+                :player="player"
+            />
             <MiniMap
                 v-if="isMinimapAvailable"
                 :my-position="room"
@@ -40,6 +44,8 @@ import PhaserShip from "@/components/Game/Ship/PhaserShip.vue";
 import { defineComponent } from "vue";
 import { Action } from "@/entities/Action";
 import { Equipment } from "@/entities/Equipment";
+import SpaceBattleView from "@/components/Game/SpaceBattleView.vue";
+import { player } from "@/store/player.module";
 
 export default defineComponent ({
     name: "ShipPanel",
@@ -50,11 +56,12 @@ export default defineComponent ({
         MiniMap,
         RoomInventoryPanel,
         Statuses,
-        TextualInterface
+        TextualInterface,
+        SpaceBattleView
     },
     props: {
         room: Room,
-        player: Player
+        player: Player,
     },
     computed: {
         ...mapGetters('room', [

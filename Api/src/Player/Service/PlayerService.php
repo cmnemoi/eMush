@@ -22,6 +22,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -52,13 +53,16 @@ class PlayerService implements PlayerServiceInterface
 
     private RandomServiceInterface $randomService;
 
+    private PlayerInfoRepository $playerInfoRepository;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         PlayerRepository $repository,
         RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
-        RandomServiceInterface $randomService
+        RandomServiceInterface $randomService,
+        PlayerInfoRepository $playerInfoRepository
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
@@ -66,6 +70,7 @@ class PlayerService implements PlayerServiceInterface
         $this->roomLogService = $roomLogService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
+        $this->playerInfoRepository = $playerInfoRepository;
     }
 
     public function persist(Player $player): Player
@@ -122,7 +127,7 @@ class PlayerService implements PlayerServiceInterface
 
     public function findUserCurrentGame(User $user): ?Player
     {
-        $playerInfo = $this->repository->findOneBy(['user' => $user, 'gameStatus' => GameStatusEnum::CURRENT]);
+        $playerInfo = $this->playerInfoRepository->findOneBy(['user' => $user, 'gameStatus' => GameStatusEnum::CURRENT]);
 
         return $playerInfo instanceof PlayerInfo ? $playerInfo->getPlayer() : null;
     }

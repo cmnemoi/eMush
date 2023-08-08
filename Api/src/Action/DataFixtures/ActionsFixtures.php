@@ -82,6 +82,10 @@ class ActionsFixtures extends Fixture
     public const PLAY_ARCADE = 'play.arcade';
     public const SHOOT_HUNTER_TURRET = 'shoot.hunter.turret';
     public const TAKEOFF = 'takeoff';
+    public const LAND = 'land';
+    public const SHOOT_HUNTER_PATROL_SHIP = 'shoot.hunter.patrol_ship';
+    public const COLLECT_SCRAP = 'collect.scrap';
+    public const RENOVATE = 'renovate';
 
     public function load(ObjectManager $manager): void
     {
@@ -768,12 +772,13 @@ class ActionsFixtures extends Fixture
 
         $shootHunterTurret = new Action();
         $shootHunterTurret
-            ->setName(ActionEnum::SHOOT_HUNTER)
+            ->setName(ActionEnum::SHOOT_HUNTER . '_turret')
             ->setActionName(ActionEnum::SHOOT_HUNTER)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT])
+            ->setTypes([ActionTypeEnum::ACTION_SHOOT])
             ->setActionCost(1)
             ->setSuccessRate(30)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
         ;
         $manager->persist($shootHunterTurret);
 
@@ -784,8 +789,61 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(2)
             ->setSuccessRate(100)
+            ->setCriticalRate(20)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
         ;
         $manager->persist($takeoff);
+
+        $land = new Action();
+        $land
+            ->setName(ActionEnum::LAND)
+            ->setActionName(ActionEnum::LAND)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost(2)
+            ->setSuccessRate(100)
+            ->setCriticalRate(20)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
+        ;
+        $manager->persist($land);
+
+        $shootHunterPatrolShip = new Action();
+        $shootHunterPatrolShip
+            ->setName(ActionEnum::SHOOT_HUNTER . '_patrolship')
+            ->setActionName(ActionEnum::SHOOT_HUNTER . '_patrolship')
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setTypes([ActionTypeEnum::ACTION_SHOOT])
+            ->setActionCost(1)
+            ->setSuccessRate(40)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
+        ;
+        $manager->persist($shootHunterPatrolShip);
+
+        $collectScrap = new Action();
+        $collectScrap
+            ->setName(ActionEnum::COLLECT_SCRAP)
+            ->setActionName(ActionEnum::COLLECT_SCRAP)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost(2)
+            ->setSuccessRate(100)
+            ->setCriticalRate(50)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
+        ;
+        $manager->persist($collectScrap);
+
+        $renovate = new Action();
+        $renovate
+            ->setName(ActionEnum::RENOVATE)
+            ->setActionName(ActionEnum::RENOVATE)
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost(2)
+            ->setSuccessRate(12)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PRIVATE)
+        ;
+        $manager->persist($renovate);
 
         $manager->flush();
 
@@ -856,5 +914,9 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::PLAY_ARCADE, $playArcade);
         $this->addReference(self::SHOOT_HUNTER_TURRET, $shootHunterTurret);
         $this->addReference(self::TAKEOFF, $takeoff);
+        $this->addReference(self::LAND, $land);
+        $this->addReference(self::SHOOT_HUNTER_PATROL_SHIP, $shootHunterPatrolShip);
+        $this->addReference(self::COLLECT_SCRAP, $collectScrap);
+        $this->addReference(self::RENOVATE, $renovate);
     }
 }

@@ -58,7 +58,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>medlab.loc_prep</source>
-        <target>en la </target>
+        <target>en la</target>
       </segment>
     </unit>
     <unit id="laboratory">
@@ -269,6 +269,86 @@
       <segment id="loc_prep" state="translated">
         <source>rear_bravo_storage.loc_prep</source>
         <target>en el </target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_bravo_epicure">
+      <segment id="name" state="initial">
+        <source>patrol_ship_bravo_epicure.name</source>
+        <target>patrol_ship_bravo_epicure.name</target>
+      </segment>
+      <segment id="loc_prep" state="initial">
+        <source>patrol_ship_bravo_epicure.loc_prep</source>
+        <target>patrol_ship_bravo_epicure.loc_prep</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_bravo_socrate">
+      <segment id="name" state="initial">
+        <source>patrol_ship_bravo_socrate.name</source>
+        <target>patrol_ship_bravo_socrate.name</target>
+      </segment>
+      <segment id="loc_prep" state="initial">
+        <source>patrol_ship_bravo_socrate.loc_prep</source>
+        <target>patrol_ship_bravo_socrate.loc_prep</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_bravo_planton">
+      <segment id="name" state="initial">
+        <source>patrol_ship_bravo_planton.name</source>
+        <target>patrol_ship_bravo_planton.name</target>
+      </segment>
+      <segment id="loc_prep" state="initial">
+        <source>patrol_ship_bravo_planton.loc_prep</source>
+        <target>patrol_ship_bravo_planton.loc_prep</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_alpha_tamarin">
+      <segment id="name" state="initial">
+        <source>patrol_ship_alpha_tamarin.name</source>
+        <target>patrol_ship_alpha_tamarin.name</target>
+      </segment>
+      <segment id="loc_prep" state="initial">
+        <source>patrol_ship_alpha_tamarin.loc_prep</source>
+        <target>patrol_ship_alpha_tamarin.loc_prep</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_alpha_jujube">
+      <segment id="name" state="initial">
+        <source>patrol_ship_alpha_jujube.name</source>
+        <target>patrol_ship_alpha_jujube.name</target>
+      </segment>
+      <segment id="loc_prep" state="initial">
+        <source>patrol_ship_alpha_jujube.loc_prep</source>
+        <target>patrol_ship_alpha_jujube.loc_prep</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_alpha_longane">
+      <segment id="name" state="initial">
+        <source>patrol_ship_alpha_longane.name</source>
+        <target>patrol_ship_alpha_longane.name</target>
+      </segment>
+      <segment id="loc_prep" state="initial">
+        <source>patrol_ship_alpha_longane.loc_prep</source>
+        <target>patrol_ship_alpha_longane.loc_prep</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_alpha_2_wallis">
+      <segment id="name" state="initial">
+        <source>patrol_ship_alpha_2_wallis.name</source>
+        <target>patrol_ship_alpha_2_wallis.name</target>
+      </segment>
+      <segment id="loc_prep" state="initial">
+        <source>patrol_ship_alpha_2_wallis.loc_prep</source>
+        <target>patrol_ship_alpha_2_wallis.loc_prep</target>
+      </segment>
+    </unit>
+    <unit id="pasiphae">
+      <segment id="name" state="initial">
+        <source>pasiphae.name</source>
+        <target>pasiphae.name</target>
+      </segment>
+      <segment id="loc_prep" state="initial">
+        <source>pasiphae.loc_prep</source>
+        <target>pasiphae.loc_prep</target>
       </segment>
     </unit>
   </file>

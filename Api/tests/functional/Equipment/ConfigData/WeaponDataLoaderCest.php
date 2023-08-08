@@ -34,7 +34,7 @@ class WeaponDataLoaderCest
         }
 
         // TODO: find a way to grab only weapons
-        $I->seeNumRecords(9, Weapon::class);
+        $I->seeNumRecords(10, Weapon::class);
     }
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)

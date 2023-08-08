@@ -648,11 +648,8 @@ Reserva de oxígeno del Daedalus, manipular con precaución. NO VACIARLO.</targe
       <segment id="examine" state="translated">
         <source>pasiphae.examine</source>
         <target>Con cómodos asientos de cuero y 5 velocidades.
-Blindaje del aparato: 12.
-No es tan nuevo pero cumple su función.
-
-in flight : "Sirve para dirigir el Pasiphae, nave de rescate del Daedalus
-Versión mejorada de Patrullero, se usa para recoger objetos en órbita. Aunque su artillería es reducida, es suficiente para defenderse de los Hunters."</target>
+Blindaje del aparato: {armor}
+No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_2_wallis">
@@ -684,33 +681,30 @@ Blindaje del aparato: 10.
 No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
-    <unit id="patrol_ship_alpha_epicure">
-      <segment id="name" state="translated">
-        <source>patrol_ship_alpha_epicure.name</source>
-        <target>Patrullero Epícuro</target>
+    <unit id="patrol_ship_bravo_epicure">
+      <segment id="name" state="initial">
+        <source>patrol_ship_bravo_epicure.name</source>
+        <target>patrol_ship_bravo_epicure.name</target>
       </segment>
-      <segment id="short_name" state="translated">
-        <source>patrol_ship_alpha_epicure.short_name</source>
-        <target>Patrullero Epícuro</target>
+      <segment id="short_name" state="initial">
+        <source>patrol_ship_bravo_epicure.short_name</source>
+        <target>patrol_ship_bravo_epicure.short_name</target>
       </segment>
-      <segment id="plural_name" state="translated">
-        <source>patrol_ship_alpha_epicure.plural_name</source>
-        <target>Patrulleros Epícuro</target>
+      <segment id="plural_name" state="initial">
+        <source>patrol_ship_bravo_epicure.plural_name</source>
+        <target>patrol_ship_bravo_epicure.plural_name</target>
       </segment>
-      <segment id="genre" state="translated">
-        <source>patrol_ship_alpha_epicure.gender</source>
-        <target>Male</target>
+      <segment id="genre" state="initial">
+        <source>patrol_ship_bravo_epicure.gender</source>
+        <target>patrol_ship_bravo_epicure.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
-        <source>patrol_ship_alpha_epicure.first_letter</source>
-        <target>Consonant</target>
+      <segment id="first_letter" state="initial">
+        <source>patrol_ship_bravo_epicure.first_letter</source>
+        <target>patrol_ship_bravo_epicure.first_letter</target>
       </segment>
-      <segment id="examine" state="translated">
-        <source>patrol_ship_alpha_epicure.examine</source>
-        <target>Con cómodos asientos de cuero y 5 velocidades.
-Cargas del aparato: 10.
-Blindaje del aparato: 10.
-No es tan nuevo pero cumple su función.</target>
+      <segment id="examine" state="initial">
+        <source>patrol_ship_bravo_epicure.examine</source>
+        <target>patrol_ship_bravo_epicure.examine</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_jujube">
@@ -771,62 +765,56 @@ Blindaje del aparato: 10.
 No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
-    <unit id="patrol_ship_alpha_planton">
-      <segment id="name" state="translated">
-        <source>patrol_ship_alpha_planton.name</source>
-        <target>Patrullero Platón</target>
+    <unit id="patrol_ship_beta_planton">
+      <segment id="name" state="initial">
+        <source>patrol_ship_bravo_planton.name</source>
+        <target>patrol_ship_bravo_planton.name</target>
       </segment>
-      <segment id="short_name" state="translated">
-        <source>patrol_ship_alpha_planton.short_name</source>
-        <target>Patrullero Platón</target>
+      <segment id="short_name" state="initial">
+        <source>patrol_ship_bravo_planton.short_name</source>
+        <target>patrol_ship_bravo_planton.short_name</target>
       </segment>
-      <segment id="plural_name" state="translated">
-        <source>patrol_ship_alpha_planton.plural_name</source>
-        <target>Patrulleros Platón</target>
+      <segment id="plural_name" state="initial">
+        <source>patrol_ship_bravo_planton.plural_name</source>
+        <target>patrol_ship_bravo_planton.plural_name</target>
       </segment>
-      <segment id="genre" state="translated">
-        <source>patrol_ship_alpha_planton.gender</source>
-        <target>Male</target>
+      <segment id="genre" state="initial">
+        <source>patrol_ship_bravo_planton.gender</source>
+        <target>patrol_ship_bravo_planton.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
-        <source>patrol_ship_alpha_planton.first_letter</source>
-        <target>Consonant</target>
+      <segment id="first_letter" state="initial">
+        <source>patrol_ship_bravo_planton.first_letter</source>
+        <target>patrol_ship_bravo_planton.first_letter</target>
       </segment>
-      <segment id="examine" state="translated">
-        <source>patrol_ship_alpha_planton.examine</source>
-        <target>Con cómodos asientos de cuero y 5 velocidades.
-Cargas del aparato: 10.
-Blindaje del aparato: 10.
-No es tan nuevo pero cumple su función.</target>
+      <segment id="examine" state="initial">
+        <source>patrol_ship_bravo_planton.examine</source>
+        <target>patrol_ship_bravo_planton.examine</target>
       </segment>
     </unit>
-    <unit id="patrol_ship_alpha_socrate">
-      <segment id="name" state="translated">
-        <source>patrol_ship_alpha_socrate.name</source>
-        <target>Patrullero Sócrates</target>
+    <unit id="patrol_ship_beta_socrate">
+      <segment id="name" state="initial">
+        <source>patrol_ship_bravo_socrate.name</source>
+        <target>patrol_ship_bravo_socrate.name</target>
       </segment>
-      <segment id="short_name" state="translated">
-        <source>patrol_ship_alpha_socrate.short_name</source>
-        <target>Patrullero Sócrates</target>
+      <segment id="short_name" state="initial">
+        <source>patrol_ship_bravo_socrate.short_name</source>
+        <target>patrol_ship_bravo_socrate.short_name</target>
       </segment>
-      <segment id="plural_name" state="translated">
-        <source>patrol_ship_alpha_socrate.plural_name</source>
-        <target>Patrulleros Sócrates</target>
+      <segment id="plural_name" state="initial">
+        <source>patrol_ship_bravo_socrate.plural_name</source>
+        <target>patrol_ship_bravo_socrate.plural_name</target>
       </segment>
-      <segment id="genre" state="translated">
-        <source>patrol_ship_alpha_socrate.gender</source>
-        <target>Male</target>
+      <segment id="genre" state="initial">
+        <source>patrol_ship_bravo_socrate.gender</source>
+        <target>patrol_ship_bravo_socrate.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
-        <source>patrol_ship_alpha_socrate.first_letter</source>
-        <target>Consonant</target>
+      <segment id="first_letter" state="initial">
+        <source>patrol_ship_bravo_socrate.first_letter</source>
+        <target>patrol_ship_bravo_socrate.first_letter</target>
       </segment>
-      <segment id="examine" state="translated">
-        <source>patrol_ship_alpha_socrate.examine</source>
-        <target>Con cómodos asientos de cuero y 5 velocidades.
-Cargas del aparato: 10.
-Blindaje del aparato: 10.
-No es tan nuevo pero cumple su función.</target>
+      <segment id="examine" state="initial">
+        <source>patrol_ship_bravo_socrate.examine</source>
+        <target>patrol_ship_bravo_socrate.examine</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_tamarin">

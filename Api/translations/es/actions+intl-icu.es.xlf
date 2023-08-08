@@ -761,5 +761,65 @@
         <target>play_arcade.description</target>
       </segment>
     </unit>
+    <unit id="shoot_hunter">
+      <segment id="name" state="initial">
+        <source>shoot_hunter.name</source>
+        <target>shoot_hunter.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shoot_hunter.description</source>
+        <target>shoot_hunter.description</target>
+      </segment>
+    </unit>
+    <unit id="takeoff">
+      <segment id="name" state="initial">
+        <source>takeoff.name</source>
+        <target>takeoff.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>takeoff.description</source>
+        <target>takeoff.description</target>
+      </segment>
+    </unit>
+    <unit id="land">
+      <segment id="name" state="initial">
+        <source>land.name</source>
+        <target>land.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>land.description</source>
+        <target>land.description</target>
+      </segment>
+    </unit>
+    <unit id="shoot_hunter_patrol_ship">
+      <segment id="name" state="initial">
+        <source>shoot_hunter_patrol_ship.name</source>
+        <target>shoot_hunter_patrol_ship.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shoot_hunter_patrol_ship.description</source>
+        <target>shoot_hunter_patrol_ship.description</target>
+      </segment>
+    </unit>
+    <unit id="collect_scrap">
+      <segment id="name" state="initial">
+        <source>collect_scrap.name</source>
+        <target>collect_scrap.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>collect_scrap.description</source>
+        <target>collect_scrap.description</target>
+      </segment>
+    </unit>
+    <unit id="renovate">
+      <segment id="name" state="initial">
+        <source>renovate.name</source>
+        <target>renovate.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>renovate.description</source>
+        <target>renovate.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

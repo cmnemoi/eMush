@@ -1,42 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
   <file id="neron.ext">
-    <unit id="player_enter_chat">
-      <segment id="player_enter_chat" state="translated">
-        <source>player_enter_chat</source>
-        <target>**{character}** has joined the discussion.</target>
-      </segment>
-    </unit>
-    <unit id="player_leave_chat">
-      <segment id="player_leave_chat" state="translated">
-        <source>player_leave_chat</source>
-        <target>{character_gender, select,
-                    male {**{character}** cannot be reached here, he closed the tab.}
-                    female {**{character}** cannot be reached here, she closed the tab.}
-                    other {invalid gender input}
-                    }</target>
-      </segment>
-    </unit>
-    <unit id="player_leave_chat_death">
-      <segment id="player_leave_chat_death" state="translated">
-        <source>player_leave_chat_death</source>
-        <target>{character_gender, select,
-                    male {**{character}** cannot be reached here, he left our world.}
-                    female {**{character}** cannot be reached here, she left our world.}
-                    other {invalid gender input}
-                    }</target>
-      </segment>
-    </unit>
-    <unit id="player_leave_chat_talky">
-      <segment id="player_leave_chat_talky" state="translated">
-        <source>player_leave_chat_talky</source>
-        <target>{character_gender, select,
-                    male {**{character}** cannot be reached here, he left the room without a talkie-walkie...}
-                    female {**{character}** cannot be reached here, she left the room without a talkie-walkie...}
-                    other {invalid gender input}
-                    }</target>
-      </segment>
-    </unit>
     <unit id="cycle_failures">
       <segment id="cycle_failures" state="translated">
         <source>cycle_failures</source>

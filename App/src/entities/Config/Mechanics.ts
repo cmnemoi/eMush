@@ -1,5 +1,4 @@
 import { Action } from '@/entities/Action';
-import { EquipmentConfig } from '@/entities/Config/EquipmentConfig';
 import { ModifierConfig } from '@/entities/Config/ModifierConfig';
 
 export class Mechanics {
@@ -33,6 +32,13 @@ export class Mechanics {
     public criticalSuccessRate: number|null;
     public criticalFailRate: number|null;
     public oneShotRate: number|null;
+    public collectScrapNumber: Map<integer, integer>|null;
+    public collectScrapPatrolShipDamage: Map<integer, integer>|null;
+    public collectScrapPlayerDamage: Map<integer, integer>|null;
+    public dockingPlace: string|null;
+    public failedManoeuvreDaedalusDamage: Map<integer, integer>|null;
+    public failedManoeuvrePatrolShipDamage: Map<integer, integer>|null;
+    public failedManoeuvrePlayerDamage: Map<integer, integer>|null;
 
     constructor() {
         this.iri = null;
@@ -66,6 +72,13 @@ export class Mechanics {
         this.criticalSuccessRate = null;
         this.criticalFailRate = null;
         this.oneShotRate = null;
+        this.collectScrapNumber = new Map();
+        this.collectScrapPatrolShipDamage = new Map();
+        this.collectScrapPlayerDamage = new Map();
+        this.dockingPlace = null;
+        this.failedManoeuvreDaedalusDamage = new Map();
+        this.failedManoeuvrePatrolShipDamage = new Map();
+        this.failedManoeuvrePlayerDamage = new Map();
     }
 
     load(object:any) : Mechanics {
@@ -94,6 +107,7 @@ export class Mechanics {
         this.addPlantAttributes(object);
         this.addRationAttributes(object);
         this.addWeaponAttributes(object);
+        this.addPatrolShipAttributes(object);
         
         return this;
     }
@@ -117,6 +131,7 @@ export class Mechanics {
         this.encodePlantAttributes(data);
         this.encodeRationAttributes(data);
         this.encodeWeaponAttributes(data);
+        this.encodePatrolShipAttributes(data);
 
         return data;
     }
@@ -373,8 +388,98 @@ export class Mechanics {
         data.oneShotRate = this.oneShotRate;
         data.expeditionBonus = this.expeditionBonus;
         data.baseDamageRange = baseDamageRange;
+    }
 
+    private addPatrolShipAttributes(object: any){
+        if(!this.mechanics?.includes("patrol_ship")) return;
 
+        if (typeof object.collectScrapNumber !== 'undefined') {
+            for (const [key, value] of Object.entries(object.collectScrapNumber)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.collectScrapNumber?.set(Number(key), value);
+                }
+            }
+        }
+        if (typeof object.collectScrapPatrolShipDamage !== 'undefined') {
+            for (const [key, value] of Object.entries(object.collectScrapPatrolShipDamage)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.collectScrapPatrolShipDamage?.set(Number(key), value);
+                }
+            }
+        }
+        if (typeof object.collectScrapPlayerDamage !== 'undefined') {
+            for (const [key, value] of Object.entries(object.collectScrapPlayerDamage)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.collectScrapPlayerDamage?.set(Number(key), value);
+                }
+            }
+        }
+        if (typeof object.failedManoeuvreDaedalusDamage !== 'undefined') {
+            for (const [key, value] of Object.entries(object.failedManoeuvreDaedalusDamage)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.failedManoeuvreDaedalusDamage?.set(Number(key), value);
+                }
+            }
+        }
+        if (typeof object.failedManoeuvrePatrolShipDamage !== 'undefined') {
+            for (const [key, value] of Object.entries(object.failedManoeuvrePatrolShipDamage)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.failedManoeuvrePatrolShipDamage?.set(Number(key), value);
+                }
+            }
+        }
+        if (typeof object.failedManoeuvrePlayerDamage !== 'undefined') {
+            for (const [key, value] of Object.entries(object.failedManoeuvrePlayerDamage)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.failedManoeuvrePlayerDamage?.set(Number(key), value);
+                }
+            }
+        }
+        
+        this.dockingPlace = object.dockingPlace;
+    }
+
+    private encodePatrolShipAttributes(data: any) {
+        if(!this.mechanics?.includes("patrolShip")) return;
+
+        const collectScrapNumber : object = {};
+        this.collectScrapNumber?.forEach((value, key) => {
+            // @ts-ignore
+            collectScrapNumber[key] = value;
+        });
+        const collectScrapPatrolShipDamage : object = {};
+        this.collectScrapPatrolShipDamage?.forEach((value, key) => {
+            // @ts-ignore
+            collectScrapPatrolShipDamage[key] = value;
+        });
+        const collectScrapPlayerDamage : object = {};
+        this.collectScrapPlayerDamage?.forEach((value, key) => {
+            // @ts-ignore
+            collectScrapPlayerDamage[key] = value;
+        });
+        const failedManoeuvreDaedalusDamage : object = {};
+        this.failedManoeuvreDaedalusDamage?.forEach((value, key) => {
+            // @ts-ignore
+            failedManoeuvreDaedalusDamage[key] = value;
+        });
+        const failedManoeuvrePlayerDamage : object = {};
+        this.failedManoeuvrePlayerDamage?.forEach((value, key) => {
+            // @ts-ignore
+            failedManoeuvrePlayerDamage[key] = value;
+        });
+        const failedManoeuvrePatrolShipDamage : object = {};
+        this.failedManoeuvrePatrolShipDamage?.forEach((value, key) => {
+            // @ts-ignore
+            failedManoeuvrePatrolShipDamage[key] = value;
+        });
+
+        data.collectScrapNumber = collectScrapNumber;
+        data.collectScrapPatrolShipDamage = collectScrapPatrolShipDamage;
+        data.collectScrapPlayerDamage = collectScrapPlayerDamage;
+        data.failedManoeuvreDaedalusDamage = failedManoeuvreDaedalusDamage;
+        data.failedManoeuvrePlayerDamage = failedManoeuvrePlayerDamage;
+        data.failedManoeuvrePatrolShipDamage = failedManoeuvrePatrolShipDamage;
+        data.dockingPlace = this.dockingPlace;
     }
 
 }

@@ -47,12 +47,20 @@
                 Actions
             </template>
             <template #row-actions="slotProps">
-                <button v-if="slotProps.gameStatus != 'finished'"
-                        class="action-button"
-                        type="button"
-                        @click="destroyDaedalus(slotProps.id)">
-                    {{ $t("admin.daedalus.destroy") }}
-                </button>
+                <div class="flex-row">
+                    <button v-if="slotProps.gameStatus != 'finished'"
+                            class="action-button"
+                            type="button"
+                            @click="destroyDaedalus(slotProps.id)">
+                        {{ $t("admin.daedalus.destroy") }}
+                    </button>
+                    <button v-if="slotProps.gameStatus != 'finished'"
+                            class="action-button"
+                            type="button"
+                            @click="addNewRoomsToDaedalus(slotProps.id)">
+                        {{ $t("admin.daedalus.addNewRooms") }}
+                    </button>
+                </div>
             </template>
 
         </Datatable>
@@ -67,6 +75,7 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import AdminService from "@/services/admin.service";
 import DaedalusService from "@/services/daedalus.service";
 
 export default defineComponent({
@@ -183,6 +192,11 @@ export default defineComponent({
         paginationClick(page: number) {
             this.pagination.currentPage = page;
             this.loadData();
+        },
+        addNewRoomsToDaedalus(id: number) {
+            AdminService.addNewRoomsToDaedalus(id).then(() => {
+                this.loadData();
+            });
         },
         destroyDaedalus(id: number) {
             DaedalusService.destroyDaedalus(id).then(() => {

@@ -95,7 +95,14 @@ class ActionLogEnum
     public const SHOOT_ONE_SHOT = 'shoot_one_shot';
     public const SHOOT_HUNTER_SUCCESS = 'shoot_hunter_success';
     public const SHOOT_HUNTER_FAIL = 'shoot_hunter_fail';
+    public const TAKEOFF_SUCCESS = 'takeoff_success';
     public const TAKEOFF_NO_PILOT = 'takeoff_no_pilot';
+    public const LAND_NO_PILOT = 'land_no_pilot';
+    public const LAND_SUCCESS = 'land_success';
+    public const SHOOT_HUNTER_PATROL_SHIP_SUCCESS = 'shoot_hunter_patrol_ship_success';
+    public const SHOOT_HUNTER_PATROL_SHIP_FAIL = 'shoot_hunter_patrol_ship_fail';
+    public const RENOVATE_SUCCESS = 'renovate_success';
+    public const RENOVATE_FAIL = 'renovate_fail';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -334,7 +341,20 @@ class ActionLogEnum
             ActionOutputEnum::FAIL => self::SHOOT_HUNTER_FAIL,
         ],
         ActionEnum::TAKEOFF => [
-            ActionOutputEnum::SUCCESS => self::TAKEOFF_NO_PILOT,
+            ActionOutputEnum::SUCCESS => self::TAKEOFF_SUCCESS,
+            ActionOutputEnum::FAIL => self::TAKEOFF_NO_PILOT,
+        ],
+        ActionEnum::LAND => [
+            ActionOutputEnum::SUCCESS => self::LAND_SUCCESS,
+            ActionOutputEnum::FAIL => self::LAND_NO_PILOT,
+        ],
+        ActionEnum::SHOOT_HUNTER_PATROL_SHIP => [
+            ActionOutputEnum::SUCCESS => self::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
+            ActionOutputEnum::FAIL => self::SHOOT_HUNTER_PATROL_SHIP_FAIL,
+        ],
+        ActionEnum::RENOVATE => [
+            ActionOutputEnum::SUCCESS => self::RENOVATE_SUCCESS,
+            ActionOutputEnum::FAIL => self::RENOVATE_FAIL,
         ],
     ];
 }

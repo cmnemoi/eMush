@@ -2,6 +2,7 @@
     <div class="sub-menu">
         <router-link :to="{ name: 'AdminDaedalusList' }">Daedalus</router-link>
         <router-link :to="{ name: 'AdminConfigHomepage' }">Configs</router-link>
+        <router-link :to="{ name: 'AdminPlayerList' }">Players</router-link>
         <router-link :to="{ name: 'AdminUser' }">Users</router-link>
         <router-link :to="{ name: 'AdminNewsList' }">News</router-link>
     </div>

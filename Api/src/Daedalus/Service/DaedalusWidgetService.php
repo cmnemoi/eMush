@@ -8,6 +8,7 @@ use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\StatusEnum;
 
@@ -23,8 +24,8 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 
     public function getMinimap(Daedalus $daedalus, Player $player): array
     {
-        $equipmentsProject = true;
-        $doorsProject = true;
+        $equipmentsProject = false;
+        $doorsProject = false;
 
         $brokenEquipments = $this->getDisplayedBrokenEquipments($daedalus, AlertEnum::BROKEN_EQUIPMENTS, $equipmentsProject);
         $brokenDoors = $this->getDisplayedBrokenEquipments($daedalus, AlertEnum::BROKEN_DOORS, $doorsProject);
@@ -103,11 +104,9 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 
     private function hasPlayerAccessToMinimap(Player $player): bool
     {
-        if ($player->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) ||
-        $player->hasOperationalEquipmentByName(ItemEnum::TRACKER)) {
-            return true;
-        }
+        $playerHasATracker = $player->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) || $player->hasOperationalEquipmentByName(ItemEnum::TRACKER);
+        $playerIsInARoom = $player->getPlace()->getType() === PlaceTypeEnum::ROOM;
 
-        return false;
+        return $playerHasATracker && $playerIsInARoom;
     }
 }

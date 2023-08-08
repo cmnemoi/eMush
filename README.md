@@ -42,7 +42,7 @@ Optional:
 	$ apt-get install lsb-release
 	$ mkdir -m 0755 -p /etc/apt/keyrings
 	$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-	$ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.comlinux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	$ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 	$ apt-get update
 	$ apt-get install docker docker-compose docker-compose-plugin
 	```
@@ -58,27 +58,15 @@ Generate SSH Key and add it to your gitlab profile
 ```bash
 ssh-keygen -t rsa -b 2048 -C "SSH Key for mush repository (https://gitlab.com/eternaltwin/mush/mush)"
 ```
-On your real machine (windows) go to the folder \\wsl$\Debian\root\.ssh and copy the content of id_rsa.pub then past it in the SSH Keys settings of your gitlab profile
+On your real machine (windows) go to the folder `\\wsl$\Debian\root\.ssh` and copy the content of id_rsa.pub then past it in the SSH Keys settings of your gitlab profile (https://docs.gitlab.com/ee/user/ssh.html#generate-an-ssh-key-pair)
 
 Clone the project
 ```bash
 $ git clone git@gitlab.com:eternaltwin/mush/mush.git
 ```
-Checkout to develop:
+Checkout to `develop`:
 ```bash
 $ git checkout develop
-```
-
-Copy the .env.dist file (and change environment variables if required):
-
-```bash
-$ cp ./Api/.env.dist ./Api/.env
-$ cp ./App/.env.dist ./App/.env
-```
-
-Copy the Eternal-Twin config:
-```bash
-$ cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
 ```
 
 Start docker service
@@ -91,38 +79,19 @@ Build the docker containers:
 $ make install
 ```
 
-Start the docker container
-```bash
-$ make docker-watch (make docker-start if you don't mind the compilation outputs)
-```
-
-Go in the Api container:
-```bash
-$ make bash-api
-```
-
-Create the JWT certificates (https://github.com/lexik/LexikJWTAuthenticationBundle):
-```bash
-openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
-openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
-chmod go+r config/jwt/private.pem
-```
-Use mush as passphrase or update the .env with your passphrase
-
-Create 18 Eternaltwin accounts named by eMush characters with the password `1234567891` : 
-```bash
-php bin/console mush:create-crew
-```
-
 If everything went well you should be able to access:
-  - Swagger : http://localhost:8080/swagger/
-  - Front end : http://localhost
+  - Swagger API documentation : http://localhost:8080/swagger/
+  - eMush front end : http://localhost
 
-Use the following credentials to login :
+(If not, run `make docker-start` to be sure that all containers are running)
+
+Use the following credentials to login (all users - named by eMush characters - have the same password):
 ```
 username : andie
 password : 1234567891
 ```
+
+You should land in a fully working Daedalus!
 
 ## Installing without Docker
 Clone repository https://gitlab.com/eternaltwin/mush/mush.git
@@ -154,10 +123,10 @@ openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_
 openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
 chmod go+r config/jwt/private.pem
 ```
-Use mush as passphrase or update the .env with your passphrase
+Use `mush` as passphrase or update the `.env` with your passphrase
 
 
-In folder Api/
+In folder `Api/`
 ```
 cp .env.dist .env
 composer update
@@ -165,14 +134,14 @@ php bin/console mush:migrate --dev
 php -S localhost:8080 -t public
 ```
      
-In folder App/
+In folder `App/`
 ```
 cp .env.dist .env
 yarn install
 yarn serve
 ```
 
-In folder EternalTwin/
+In folder `EternalTwin/`
 ```
 $ cp .etwin.toml.example .etwin.toml
 yarn install

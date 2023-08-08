@@ -794,5 +794,49 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Monter dans un patrouilleur et apparaître dans le cadran correspondant.</target>
       </segment>
     </unit>
+    <unit id="land">
+      <segment id="name" state="final">
+        <source>land.name</source>
+        <target>Atterrir</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>land.description</source>
+        <target>Rentrer dans la baie de lancement de ce patrouilleur.</target>
+      </segment>
+    </unit>
+    <unit id="shoot_hunter_patrol_ship">
+      <segment id="name" state="final">
+        <source>shoot_hunter_patrol_ship.name</source>
+        <target>Tirer sur un ennemi</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>shoot_hunter_patrol_ship.description</source>
+        <target>Tire une charge de Teslatron sur un ennemi.
+        //
+        Améliorable avec des missiles.</target>
+      </segment>
+    </unit>
+    <unit id="collect_scrap">
+      <segment id="name" state="final">
+        <source>collect_scrap.name</source>
+        <target>Rapatrier des débris</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>collect_scrap.description</source>
+        <target>Tiens, il y a quelque chose qui traine dans le vide inter-sidéral. Heureusement, avec le Pasiphae, on peut le ramasser. Le Pasiphae, un vaisseau qu'il est bien à piloter.</target>
+      </segment>
+    </unit>
+    <unit id="renovate">
+      <segment id="name" state="final">
+        <source>renovate.name</source>
+        <target>Rénover</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>renovate.description</source>
+        <target>Remettre à neuf un patrouilleur peut changer le cours des batailles futures. 
+        //
+        Nécessite un Débris Métallique.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

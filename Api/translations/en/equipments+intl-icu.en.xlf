@@ -647,193 +647,235 @@ Daedalus oxygen reservoir, operate with caution. DO NOT EMPTY for a laugh.</targ
       </segment>
       <segment id="examine" state="translated">
         <source>pasiphae.examine</source>
-        <target>Patrol Ship
+        <target>Pasiphae
         //
-Patrol ship armor: 12
+Pasiphae armor: 12
 //
 It's no longer all shiny and new, but it does the job.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_2_wallis">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_alpha_2_wallis.name</source>
-        <target>patrol_ship_alpha_2_wallis.name</target>
+        <target>Patrol Ship Wallis</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_2_wallis.short_name</source>
-        <target>patrol_ship_alpha_2_wallis.short_name</target>
+        <target>Patrol Ship</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_2_wallis.plural_name</source>
-        <target>patrol_ship_alpha_2_wallis.plural_name</target>
+        <target>Patrol Ships</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_alpha_2_wallis.gender</source>
-        <target>patrol_ship_alpha_2_wallis.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_2_wallis.first_letter</source>
-        <target>patrol_ship_alpha_2_wallis.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_alpha_2_wallis.examine</source>
-        <target>patrol_ship_alpha_2_wallis.examine</target>
+        <target>Patrol Ship Wallis
+        //
+        Patrol Ship charges remaining : {charges}. 
+        //
+        Patrol Ship armor : {armor}. 
+        //
+        It's no longer all shiny and new, but it does the job.</target>
       </segment>
     </unit>
-    <unit id="patrol_ship_alpha_epicure">
-      <segment id="name" state="initial">
-        <source>patrol_ship_alpha_epicure.name</source>
-        <target>patrol_ship_alpha_epicure.name</target>
+    <unit id="patrol_ship_bravo_epicure">
+      <segment id="name" state="translated">
+        <source>patrol_ship_bravo_epicure.name</source>
+        <target>Patrol Ship Epicure</target>
       </segment>
-      <segment id="short_name" state="initial">
-        <source>patrol_ship_alpha_epicure.short_name</source>
-        <target>patrol_ship_alpha_epicure.short_name</target>
+      <segment id="short_name" state="translated">
+        <source>patrol_ship_bravo_epicure.short_name</source>
+        <target>Patrol Ship</target>
       </segment>
-      <segment id="plural_name" state="initial">
-        <source>patrol_ship_alpha_epicure.plural_name</source>
-        <target>patrol_ship_alpha_epicure.plural_name</target>
+      <segment id="plural_name" state="translated">
+        <source>patrol_ship_bravo_epicure.plural_name</source>
+        <target>Patrol Ships</target>
       </segment>
-      <segment id="genre" state="initial">
-        <source>patrol_ship_alpha_epicure.gender</source>
-        <target>patrol_ship_alpha_epicure.gender</target>
+      <segment id="genre" state="translated">
+        <source>patrol_ship_bravo_epicure.gender</source>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
-        <source>patrol_ship_alpha_epicure.first_letter</source>
-        <target>patrol_ship_alpha_epicure.first_letter</target>
+      <segment id="first_letter" state="translated">
+        <source>patrol_ship_bravo_epicure.first_letter</source>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
-        <source>patrol_ship_alpha_epicure.examine</source>
-        <target>patrol_ship_alpha_epicure.examine</target>
+      <segment id="examine" state="translated">
+        <source>patrol_ship_bravo_epicure.examine</source>
+        <target>Patrol Ship Epicure
+        //
+        Patrol Ship charges remaining : {charges}. 
+        //
+        Patrol Ship armor : {armor}. 
+        //
+        It's no longer all shiny and new, but it does the job.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_jujube">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_alpha_jujube.name</source>
-        <target>patrol_ship_alpha_jujube.name</target>
+        <target>Patrol Ship Jujube</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_jujube.short_name</source>
-        <target>patrol_ship_alpha_jujube.short_name</target>
+        <target>Patrol Ship</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_jujube.plural_name</source>
-        <target>patrol_ship_alpha_jujube.plural_name</target>
+        <target>Patrol Ships</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_alpha_jujube.gender</source>
-        <target>patrol_ship_alpha_jujube.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_jujube.first_letter</source>
-        <target>patrol_ship_alpha_jujube.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_alpha_jujube.examine</source>
-        <target>patrol_ship_alpha_jujube.examine</target>
+        <target>Patrol Ship Jujube
+        //
+        Patrol Ship charges remaining : {charges}. 
+        //
+        Patrol Ship armor : {armor}. 
+        //
+        It's no longer all shiny and new, but it does the job.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_longane">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_alpha_longane.name</source>
-        <target>patrol_ship_alpha_longane.name</target>
+        <target>Patrol Ship Longane</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_longane.short_name</source>
-        <target>patrol_ship_alpha_longane.short_name</target>
+        <target>Patrol Ship</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_longane.plural_name</source>
-        <target>patrol_ship_alpha_longane.plural_name</target>
+        <target>Patrol Ships</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_alpha_longane.gender</source>
-        <target>patrol_ship_alpha_longane.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_longane.first_letter</source>
-        <target>patrol_ship_alpha_longane.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_alpha_longane.examine</source>
-        <target>patrol_ship_alpha_longane.examine</target>
+        <target>Patrol Ship Longane
+        //
+        Patrol Ship charges remaining : {charges}. 
+        //
+        Patrol Ship armor : {armor}. 
+        //
+        It's no longer all shiny and new, but it does the job.</target>
       </segment>
     </unit>
-    <unit id="patrol_ship_alpha_planton">
-      <segment id="name" state="initial">
-        <source>patrol_ship_alpha_planton.name</source>
-        <target>patrol_ship_alpha_planton.name</target>
+    <unit id="patrol_ship_beta_planton">
+      <segment id="name" state="translated">
+        <source>patrol_ship_bravo_planton.name</source>
+        <target>Patrol Ship Platon</target>
       </segment>
-      <segment id="short_name" state="initial">
-        <source>patrol_ship_alpha_planton.short_name</source>
-        <target>patrol_ship_alpha_planton.short_name</target>
+      <segment id="short_name" state="translated">
+        <source>patrol_ship_bravo_planton.short_name</source>
+        <target>Patrol Ship</target>
       </segment>
-      <segment id="plural_name" state="initial">
-        <source>patrol_ship_alpha_planton.plural_name</source>
-        <target>patrol_ship_alpha_planton.plural_name</target>
+      <segment id="plural_name" state="translated">
+        <source>patrol_ship_bravo_planton.plural_name</source>
+        <target>Patrol Ships</target>
       </segment>
-      <segment id="genre" state="initial">
-        <source>patrol_ship_alpha_planton.gender</source>
-        <target>patrol_ship_alpha_planton.gender</target>
+      <segment id="genre" state="translated">
+        <source>patrol_ship_bravo_planton.gender</source>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
-        <source>patrol_ship_alpha_planton.first_letter</source>
-        <target>patrol_ship_alpha_planton.first_letter</target>
+      <segment id="first_letter" state="translated">
+        <source>patrol_ship_bravo_planton.first_letter</source>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
-        <source>patrol_ship_alpha_planton.examine</source>
-        <target>patrol_ship_alpha_planton.examine</target>
+      <segment id="examine" state="translated">
+        <source>patrol_ship_bravo_planton.examine</source>
+        <target>Patrol Ship Planton
+        //
+        Patrol Ship charges remaining : {charges}. 
+        //
+        Patrol Ship armor : {armor}. 
+        //
+        It's no longer all shiny and new, but it does the job.</target>
       </segment>
     </unit>
-    <unit id="patrol_ship_alpha_socrate">
-      <segment id="name" state="initial">
-        <source>patrol_ship_alpha_socrate.name</source>
-        <target>patrol_ship_alpha_socrate.name</target>
+    <unit id="patrol_ship_beta_socrate">
+      <segment id="name" state="translated">
+        <source>patrol_ship_bravo_socrate.name</source>
+        <target>Patrol Ship Socrate</target>
       </segment>
-      <segment id="short_name" state="initial">
-        <source>patrol_ship_alpha_socrate.short_name</source>
-        <target>patrol_ship_alpha_socrate.short_name</target>
+      <segment id="short_name" state="translated">
+        <source>patrol_ship_bravo_socrate.short_name</source>
+        <target>Patrol Ship</target>
       </segment>
-      <segment id="plural_name" state="initial">
-        <source>patrol_ship_alpha_socrate.plural_name</source>
-        <target>patrol_ship_alpha_socrate.plural_name</target>
+      <segment id="plural_name" state="translated">
+        <source>patrol_ship_bravo_socrate.plural_name</source>
+        <target>Patrol Ships</target>
       </segment>
-      <segment id="genre" state="initial">
-        <source>patrol_ship_alpha_socrate.gender</source>
-        <target>patrol_ship_alpha_socrate.gender</target>
+      <segment id="genre" state="translated">
+        <source>patrol_ship_bravo_socrate.gender</source>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
-        <source>patrol_ship_alpha_socrate.first_letter</source>
-        <target>patrol_ship_alpha_socrate.first_letter</target>
+      <segment id="first_letter" state="translated">
+        <source>patrol_ship_bravo_socrate.first_letter</source>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
-        <source>patrol_ship_alpha_socrate.examine</source>
-        <target>patrol_ship_alpha_socrate.examine</target>
+      <segment id="examine" state="translated">
+        <source>patrol_ship_bravo_socrate.examine</source>
+        <target>Patrol Ship Socrate
+        //
+        Patrol Ship charges remaining : {charges}. 
+        //
+        Patrol Ship armor : {armor}. 
+        //
+        It's no longer all shiny and new, but it does the job.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_tamarin">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>patrol_ship_alpha_tamarin.name</source>
-        <target>patrol_ship_alpha_tamarin.name</target>
+        <target>Patrol Ship Tamarin</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>patrol_ship_alpha_tamarin.short_name</source>
-        <target>patrol_ship_alpha_tamarin.short_name</target>
+        <target>Patrol Ship</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>patrol_ship_alpha_tamarin.plural_name</source>
-        <target>patrol_ship_alpha_tamarin.plural_name</target>
+        <target>Patrol Ships</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>patrol_ship_alpha_tamarin.gender</source>
-        <target>patrol_ship_alpha_tamarin.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_tamarin.first_letter</source>
-        <target>patrol_ship_alpha_tamarin.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>patrol_ship_alpha_tamarin.examine</source>
-        <target>patrol_ship_alpha_tamarin.examine</target>
+        <target>Patrol Ship Tamarin
+        //
+        Patrol Ship charges remaining : {charges}. 
+        //
+        Patrol Ship armor : {armor}. 
+        //
+        It's no longer all shiny and new, but it does the job.</target>
       </segment>
     </unit>
     <unit id="pilgred">
@@ -1143,8 +1185,9 @@ When a camera is installed in a room, all logs are saved in the history and disp
         <source>patrol_ship.examine</source>
         <target>Patrol Ship
 //
-    Patrol ship charges remaining: 0
-    Patrol ship armor: 10
+    Patrol ship charges remaining: {charges}
+//
+    Patrol ship armor: {armor}
 //
 It's no longer all shiny and new, but it does the job.</target>
       </segment>

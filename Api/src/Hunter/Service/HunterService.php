@@ -18,11 +18,9 @@ use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
-use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\AbstractHunterEvent;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
-use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Service\StatusService;
 use Psr\Log\LoggerInterface;
@@ -52,32 +50,6 @@ class HunterService implements HunterServiceInterface
         $this->statusService = $statusService;
     }
 
-    public function changeVariable(string $variableName, Hunter $hunter, int $change, \DateTime $date, Player $author): void
-    {
-        $gameVariable = $hunter->getVariableByName($variableName);
-        $newVariableValuePoint = $gameVariable->getValue() + $change;
-
-        $hunter->setVariableValueByName($newVariableValuePoint, $variableName);
-
-        switch ($variableName) {
-            case HunterVariableEnum::HEALTH:
-                if ($newVariableValuePoint <= 0) {
-                    $hunterDeathEvent = new HunterEvent(
-                        $hunter,
-                        VisibilityEnum::PUBLIC,
-                        [HunterEvent::HUNTER_DEATH],
-                        $date
-                    );
-                    $hunterDeathEvent->setAuthor($author);
-                    $this->eventService->callEvent($hunterDeathEvent, HunterEvent::HUNTER_DEATH);
-                }
-
-                return;
-        }
-
-        $this->persistAndFlush([$hunter]);
-    }
-
     public function killHunter(Hunter $hunter): void
     {
         $daedalus = $hunter->getDaedalus();
@@ -88,12 +60,20 @@ class HunterService implements HunterServiceInterface
 
         $daedalus->getAttackingHunters()->removeElement($hunter);
         $this->entityManager->remove($hunter);
-        $this->persistAndFlush([$daedalus]);
+        $this->persist([$daedalus]);
     }
 
     public function makeHuntersShoot(HunterCollection $attackingHunters): void
     {
         $attackingHunters->map(fn (Hunter $hunter) => $this->makeHunterShoot($hunter));
+    }
+
+    public function persist(array $entities): void
+    {
+        foreach ($entities as $entity) {
+            $this->entityManager->persist($entity);
+        }
+        $this->entityManager->flush();
     }
 
     public function unpoolHunters(Daedalus $daedalus, \DateTime $time): void
@@ -132,8 +112,8 @@ class HunterService implements HunterServiceInterface
         }
 
         $wave->map(fn ($hunter) => $this->unpoolHunter($hunter, $time));
-        $this->persistAndFlush($wave->toArray());
-        $this->persistAndFlush([$daedalus]);
+        $this->persist($wave->toArray());
+        $this->persist([$daedalus]);
     }
 
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter
@@ -148,7 +128,7 @@ class HunterService implements HunterServiceInterface
         $hunter->setHunterVariables($hunterConfig);
         $daedalus->addHunter($hunter);
 
-        $this->persistAndFlush([$hunter, $daedalus]);
+        $this->persist([$hunter, $daedalus]);
 
         return $hunter;
     }
@@ -252,14 +232,6 @@ class HunterService implements HunterServiceInterface
         if ($hunter->getName() === HunterEnum::ASTEROID) {
             $this->killHunter($hunter);
         }
-    }
-
-    private function persistAndFlush(array $objects): void
-    {
-        foreach ($objects as $object) {
-            $this->entityManager->persist($object);
-        }
-        $this->entityManager->flush();
     }
 
     private function shootAtDaedalus(Hunter $hunter, int $damage): void

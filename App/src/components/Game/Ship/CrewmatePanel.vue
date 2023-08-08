@@ -105,7 +105,7 @@ export default defineComponent ({
     position: absolute;
     z-index: 5;
     bottom: 0;
-    width: calc(100% - 16px);
+    width: 100%;
     flex-direction: row;
     padding: 3px;
     background-color: #222a6b;

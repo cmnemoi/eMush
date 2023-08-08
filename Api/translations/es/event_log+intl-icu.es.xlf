@@ -391,5 +391,107 @@
         <target>trauma_disease</target>
       </segment>
     </unit>
+    <unit id="hunter_death_turret">
+      <segment id="hunter_death_turret" state="initial">
+        <source>hunter_death_turret</source>
+        <target>hunter_death_turret</target>
+      </segment>
+    </unit>
+    <unit id="infect_action">
+      <segment id="infect_action" state="initial">
+        <source>infect_action</source>
+        <target>infect_action</target>
+      </segment>
+    </unit>
+    <unit id="infect_trap">
+      <segment id="infect_trap" state="initial">
+        <source>infect_trap</source>
+        <target>infect_trap</target>
+      </segment>
+    </unit>
+    <unit id="infect_std">
+      <segment id="infect_std" state="initial">
+        <source>infect_std</source>
+        <target>infect_std</target>
+      </segment>
+    </unit>
+    <unit id="infect_cat">
+      <segment id="infect_cat" state="initial">
+        <source>infect_cat</source>
+        <target>infect_cat</target>
+      </segment>
+    </unit>
+    <unit id="infect_mush_raid">
+      <segment id="infect_mush_raid" state="initial">
+        <source>infect_mush_raid</source>
+        <target>infect_mush_raid</target>
+      </segment>
+    </unit>
+    <unit id="infect_trapped_ration">
+      <segment id="infect_trapped_ration" state="initial">
+        <source>infect_trapped_ration</source>
+        <target>infect_trapped_ration</target>
+      </segment>
+    </unit>
+    <unit id="mush_convert_event">
+      <segment id="mush_convert_event" state="initial">
+        <source>mush_convert_event</source>
+        <target>mush_convert_event</target>
+      </segment>
+    </unit>
+    <unit id="player_enter_chat">
+      <segment id="player_enter_chat" state="initial">
+        <source>player_enter_chat</source>
+        <target>player_enter_chat</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat">
+      <segment id="player_leave_chat" state="initial">
+        <source>player_leave_chat</source>
+        <target>player_leave_chat</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat_death">
+      <segment id="player_leave_chat_death" state="initial">
+        <source>player_leave_chat_death</source>
+        <target>player_leave_chat_death</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat_talky">
+      <segment id="player_leave_chat_talky" state="initial">
+        <source>player_leave_chat_talky</source>
+        <target>player_leave_chat_talky</target>
+      </segment>
+    </unit>
+    <unit id="hunter_death_patrol_ship">
+      <segment id="hunter_death_patrol_ship" state="initial">
+        <source>hunter_death_patrol_ship</source>
+        <target>hunter_death_patrol_ship</target>
+      </segment>
+    </unit>
+    <unit id="attacked_by_hunter">
+      <segment id="attacked_by_hunter" state="initial">
+        <source>attacked_by_hunter</source>
+        <target>attacked_by_hunter</target>
+      </segment>
+    </unit>
+    <unit id="patrol_discharge">
+      <segment id="patrol_discharge" state="initial">
+        <source>patrol_discharge</source>
+        <target>patrol_discharge</target>
+      </segment>
+    </unit>
+    <unit id="scrap_collected">
+      <segment id="scrap_collected" state="initial">
+        <source>scrap_collected</source>
+        <target>scrap_collected</target>
+      </segment>
+    </unit>
+    <unit id="patrol_damage">
+      <segment id="patrol_damage" state="initial">
+        <source>patrol_damage</source>
+        <target>patrol_damage</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

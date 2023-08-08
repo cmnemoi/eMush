@@ -2,34 +2,62 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="misc.ext">
     <unit id="asteroid">
-        <segment id="asteroid_name" state="translated">
-            <source>asteroid.name</source>
-            <target>Astéroïde</target>
-        </segment>
+      <segment id="asteroid_name" state="translated">
+        <source>asteroid.name</source>
+        <target>Astéroïde</target>
+      </segment>
+      <segment id="asteroid_description" state="translated">
+        <source>asteroid.description</source>
+        <target>Un gros caillou qui se rapproche dangereusement du Daedalus
+        //
+        Pas de poursuite.
+        //
+        Dans {charges} {charges, select, 1 {cycle} other {cycles}}, va collisionner le Daedalus infligeant {health} points de dégâts.</target>
+      </segment>
     </unit>
     <unit id="dice">
-        <segment id="dice_name" state="translated">
-            <source>dice.name</source>
-            <target>D1000</target>
-        </segment>
+      <segment id="dice_name" state="translated">
+        <source>dice.name</source>
+        <target>D1000</target>
+      </segment>
+      <segment id="dice_description" state="translated">
+        <source>dice.description</source>
+        <target>Un gros cube qui tire très très fort
+                //
+                Pas de poursuite.</target>
+      </segment>
     </unit>
     <unit id="hunter">
-        <segment id="hunter_name" state="translated">
-            <source>hunter.name</source>
-            <target>Hunter</target>
-        </segment>
+      <segment id="hunter_name" state="translated">
+        <source>hunter.name</source>
+        <target>Hunter</target>
+      </segment>
+      <segment id="hunter_description" state="translated">
+        <source>hunter.description</source>
+        <target>Chasseur standard de la FDS</target>
+      </segment>
     </unit>
     <unit id="spider">
-        <segment id="spider_name" state="translated">
-            <source>spider.name</source>
-            <target>Arack</target>
-        </segment>
+      <segment id="spider_name" state="translated">
+        <source>spider.name</source>
+        <target>Arack</target>
+      </segment>
+      <segment id="spider_description" state="translated">
+        <source>spider.description</source>
+        <target>Empêche les voyages du Daedalus.</target>
+      </segment>
     </unit>
     <unit id="trax">
-        <segment id="trax_name" state="translated">
-            <source>trax.name</source>
-            <target>Trax</target>
-        </segment>
+      <segment id="trax_name" state="translated">
+        <source>trax.name</source>
+        <target>Trax</target>
+      </segment>
+      <segment id="trax_description" state="translated">
+        <source>trax.description</source>
+        <target>Intercepteur d'élite.
+        //
+        Impossible à distancer.</target>
+      </segment>
     </unit>
   </file>
 </xliff>

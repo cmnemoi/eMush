@@ -22,6 +22,7 @@ use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\DeadPlayerInfoRepository;
+use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -43,6 +44,8 @@ class PlayerServiceTest extends TestCase
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
+    /** @var PlayerInfoRepository|Mockery\Mock */
+    private PlayerInfoRepository $playerInfoRepository;
 
     private CharacterConfigCollection $charactersConfigs;
     private PlayerService $service;
@@ -59,6 +62,7 @@ class PlayerServiceTest extends TestCase
         $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->playerInfoRepository = \Mockery::mock(PlayerInfoRepository::class);
 
         $this->charactersConfigs = new CharacterConfigCollection();
 
@@ -68,7 +72,8 @@ class PlayerServiceTest extends TestCase
             $this->repository,
             $this->roomLogService,
             $this->gameEquipmentService,
-            $this->randomService
+            $this->randomService,
+            $this->playerInfoRepository,
         );
     }
 

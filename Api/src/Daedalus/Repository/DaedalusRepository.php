@@ -65,7 +65,29 @@ class DaedalusRepository extends ServiceEntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-    public function findNonFinishedDaedaluses()
+    /**
+     * Returns all finished Daedaluses.
+     *
+     * @param bool $strict If true, only return Daedaluses with a GameStatus of FINISHED. If false, return Daedaluses with a GameStatus of FINISHED or CLOSED.
+     *
+     * @return Daedalus[]
+     */
+    public function findFinishedDaedaluses(bool $strict = true): array
+    {
+        $gameStatusParameter = $strict ? [GameStatusEnum::FINISHED] : [GameStatusEnum::FINISHED, GameStatusEnum::CLOSED];
+        $qb = $this->createQueryBuilder('daedalus');
+
+        $qb
+            ->select('daedalus')
+            ->leftJoin('daedalus.daedalusInfo', 'daedalus_info')
+            ->where($qb->expr()->in('daedalus_info.gameStatus', ':gameStatus'))
+            ->setParameter('gameStatus', $gameStatusParameter)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findNonFinishedDaedaluses(): array
     {
         $qb = $this->createQueryBuilder('daedalus');
 

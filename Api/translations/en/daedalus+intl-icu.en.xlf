@@ -50,7 +50,7 @@ The armor indicator shows you the overall state of the hull of the vessel. When 
       </segment>
       <segment id="description" state="translated">
         <source>crewPlayer.description</source>
-        <target>{playerAlive, plural, one {# active crewmember} other {# active crewmembers}}, dont {mushAlive, plural, one {# Mush} other {# Mushes}}. {playerDead, plural, one {# dead member} other {# dead members}}, dont {mushDead, plural, one {# Mush} other {# Mushes}}. {cryogenizedPlayers, plural, one {# cryogenized} other {# cryogenized}}.</target>
+        <target>{playerAlive, plural, one {# active crewmember} other {# active crewmembers}}, of which {mushAlive, plural, one {# is Mush} other {# are Mush}}. {playerDead, plural, one {# dead member} other {# dead members}}, of which {mushDead, plural, one {# is Mush} other {# are Mush}}. {cryogenizedPlayers, plural, one {# is cryogenized} other {# are cryogenized}}.</target>
       </segment>
     </unit>
     <unit id="currentCycle">

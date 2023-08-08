@@ -263,6 +263,7 @@
 			"isNotSuperDirty": "N'est pas super salissant"
 		},
 		"daedalus": {
+			"addNewRooms": "Ajouter des pièces",
 			"destroy": "Détruire",
 			"destroyAllDaedaluses": "Détruire tous les Daedalus",
 			"createDaedalus": "Créer un Daedalus",
@@ -439,6 +440,13 @@
 			"modifierConfigs": "Modificateurs",
 			"equipment": "Équipement assemblé",
 			"blueprint": "Plans de construction",
+			"dockingPlace": "Pièce d'amarrage",
+			"collectScrapNumber": "Nombre de débris ramassés à chaque action Récolter (nombre => probabilité)",
+			"collectScrapPatrolShipDamage": "Dégâts infligés au patrouilleur$* à chaque action Récolter (nombre => probabilité)",
+			"collectScrapPlayerDamage": "Dégâts infligés au joueur à chaque action Récolter (nombre => probabilité)",
+			"failedManoeuvreDaedalusDamage": "Dégâts infligés au Daedalus en cas d'échec de la manoeuvre (nombre => probabilité)",
+			"failedManoeuvrePatrolShipDamage": "Dégâts infligés au patrouilleur en cas d'échec de la manoeuvre (nombre => probabilité)",
+			"failedManoeuvrePlayerDamage": "Dégâts infligés au joueur en cas d'échec de la manoeuvre (nombre => probabilité)",
 			"book": "Apprentrons",
 			"document": "Documents",
 			"drug": "Médicaments",
@@ -446,7 +454,8 @@
 			"gear": "Outils",
 			"plant": "Plantes",
 			"ration": "Nourriture",
-			"weapon": "Armes"
+			"weapon": "Armes",
+			"patrolShip": "Patrouilleurs"
 		},
 		"buttons": {
 			"add": "Ajouter",
@@ -513,6 +522,10 @@
 			"scrapDropTable": "Table des débris laissés à la mort (débris => probabilité)",
 			"spawnDifficulty": "Jour d'apparition",
 			"numberOfDroppedScrap": "Nombre de débris laissés à la mort (nombre => probabilité)"
+		},
+		"playerList": {
+			"closePlayer": "Fermer (archiver) ce joueur",
+			"quarantine": "Mettre en quarantaine"
 		}
 	},
 	"charSelection": {
@@ -524,7 +537,9 @@
 	"game": {
 		"communications": {
 			"day": "Jour",
-			"cycle": "Cycle"
+			"cycle": "Cycle",
+			"showMessageChildren": "Afficher {count} réponse | Afficher {count} réponses",
+			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses"
 		}
 	},
 	"newsPage": {

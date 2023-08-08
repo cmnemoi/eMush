@@ -3,7 +3,7 @@
         <textarea
             v-model="text"
             class="text-input"
-            placeholder="Type your message here!"
+            placeholder="Mon message ici!"
             @keydown.enter.exact.prevent="sendNewMessage"
             @keydown.enter.ctrl.exact.prevent="breakLine"
             @keydown.enter.shift.exact.prevent="breakLine"

@@ -9,10 +9,13 @@ use FOS\RestBundle\View\View;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
 use Mush\Player\Entity\Dto\PlayerCreateRequest;
 use Mush\Player\Entity\Dto\PlayerEndRequest;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Voter\PlayerVoter;
 use Mush\User\Entity\User;
@@ -20,7 +23,9 @@ use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -33,6 +38,7 @@ class PlayerController extends AbstractFOSRestController
 {
     use ErrorHandlerTrait;
 
+    private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
     private DaedalusServiceInterface $daedalusService;
     private CycleServiceInterface $cycleService;
@@ -41,12 +47,14 @@ class PlayerController extends AbstractFOSRestController
     private LoggerInterface $logger;
 
     public function __construct(
+        EventServiceInterface $eventService,
         PlayerServiceInterface $playerService,
         DaedalusServiceInterface $daedalusService,
         CycleServiceInterface $cycleService,
         ValidatorInterface $validator,
         LoggerInterface $loggerInterface
     ) {
+        $this->eventService = $eventService;
         $this->playerService = $playerService;
         $this->daedalusService = $daedalusService;
         $this->cycleService = $cycleService;
@@ -123,6 +131,15 @@ class PlayerController extends AbstractFOSRestController
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_CREATE);
 
         $daedalus = $playerCreateRequest->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
+        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+
+        if ($daedalus->getDaedalusInfo()->isDaedalusFinished()) {
+            return $this->view(["Can't create player : Daedalus is already finished"], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $character = $playerCreateRequest->getCharacter();
 
         if (!$daedalus || !$character) {
@@ -184,5 +201,29 @@ class PlayerController extends AbstractFOSRestController
         $this->playerService->endPlayer($player, $message);
 
         return $this->view(null, 200);
+    }
+
+    /**
+     * Quarantine a player.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The player id",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Tag(name="Player")
+     * @Security(name="Bearer")
+     * @Rest\Post(path="/quarantine/{id}")
+     * @Rest\View()
+     */
+    public function quarantinePlayer(Player $player): View
+    {
+        $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_QUARANTINE, $player);
+
+        $deathEvent = new PlayerEvent($player, [EndCauseEnum::QUARANTINE], new \DateTime());
+        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
+
+        return $this->view(['message' => 'Player quarantined successfully'], Response::HTTP_OK);
     }
 }

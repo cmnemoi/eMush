@@ -38,7 +38,7 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         $holder = $event->getStatusHolder();
         $time = $event->getTime();
-        $equipmentBrokenByCycleChange = $event->haveTags(
+        $equipmentBrokenByCycleChange = $event->hasTags(
             tags: [
                 EventEnum::NEW_CYCLE,
                 EquipmentEvent::EQUIPMENT_BROKEN,

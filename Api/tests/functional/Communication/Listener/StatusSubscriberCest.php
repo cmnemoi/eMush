@@ -134,6 +134,13 @@ class StatusSubscriberCest
         ;
         $I->haveInRepository($publicChannel);
 
+        $mushChannel = new Channel();
+        $mushChannel
+            ->setScope(ChannelScopeEnum::MUSH)
+            ->setDaedalus($daedalusInfo)
+        ;
+        $I->haveInRepository($mushChannel);
+
         $I->refreshEntities($publicChannel);
 
         $dropAction = new Action();

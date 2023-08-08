@@ -624,7 +624,7 @@
         <source>pasiphae.examine</source>
         <target>Pasiphae
 //
-Armure de l'appareil : 12. 
+Armure de l'appareil : {armor}.
 //
 Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
@@ -654,9 +654,9 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
         <source>patrol_ship_alpha_2_wallis.examine</source>
         <target>Patrouilleur Wallis
         //
-        Charges de l'appareil : 0. 
+        Charges de l'appareil : {charges}.
         //
-        Armure de l'appareil : 10. 
+        Armure de l'appareil : {armor}. 
         //
         Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
@@ -686,9 +686,9 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
         <source>patrol_ship_bravo_epicure.examine</source>
         <target>Patrouilleur Epicure
         //
-        Charges de l'appareil : 0. 
+        Charges de l'appareil : {charges}.
         //
-        Armure de l'appareil : 10. 
+        Armure de l'appareil : {armor}. 
         //
         Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
@@ -718,9 +718,9 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
         <source>patrol_ship_alpha_jujube.examine</source>
         <target>Patrouilleur Jujube
         //
-        Charges de l'appareil : 0. 
+        Charges de l'appareil : {charges}.
         //
-        Armure de l'appareil : 10. 
+        Armure de l'appareil : {armor}. 
         //
         Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
@@ -750,9 +750,9 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
         <source>patrol_ship_alpha_longane.examine</source>
         <target>Patrouilleur Longane
         //
-        Charges de l'appareil : 0. 
+        Charges de l'appareil : {charges}.
         //
-        Armure de l'appareil : 10. 
+        Armure de l'appareil : {armor}. 
         //
         Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
@@ -782,9 +782,9 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
         <source>patrol_ship_bravo_planton.examine</source>
         <target>Patrouilleur Planton
         //
-        Charges de l'appareil : 0. 
+        Charges de l'appareil : {charges}.
         //
-        Armure de l'appareil : 10. 
+        Armure de l'appareil : {armor}. 
         //
         Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
@@ -814,9 +814,9 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
         <source>patrol_ship_bravo_socrate.examine</source>
         <target>Patrouilleur Socrate
         //
-        Charges de l'appareil : 0. 
+        Charges de l'appareil : {charges}.
         //
-        Armure de l'appareil : 10. 
+        Armure de l'appareil : {armor}. 
         //
         Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
@@ -846,9 +846,9 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
         <source>patrol_ship_alpha_tamarin.examine</source>
         <target>Patrouilleur Tamarin
         //
-        Charges de l'appareil : 0. 
+        Charges de l'appareil : {charges}.
         //
-        Armure de l'appareil : 10. 
+        Armure de l'appareil : {armor}. 
         //
         Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
@@ -1146,9 +1146,9 @@ Un laboratoire super ultra moderne avec de vrais ordinateurs à lampe fluo compa
         <source>patrol_ship.examine</source>
         <target>Patrouilleur
 //
-Charges de l'appareil : 0.
+Charges de l'appareil : {charges}.
 //
-Armure de l'appareil : 10.
+Armure de l'appareil : {armor}.
 //
 Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>

@@ -26,8 +26,7 @@ All action classes extend [AbstractAction](./Actions/AbstractAction.php).
 Actions with a success rate extend [AttemptAction](./Actions/AttemptAction.php).
 
 ### ConfigData / DataFixtures
-- Action cost are initialized in [ActionCostFixtures](./DataFixtures/ActionCostFixture.php).
-- Actions are initialized in [ActionsFixtures](./DataFixtures/ActionsFixtures.php).
+- Actions are initialized in [ActionData](./ConfigData/ActionData.php) (and in [ActionsFixtures](./DataFixtures/ActionsFixtures.php) for tests).
   - name: the key of the action
   - actionCost: the action cost
   - injuryRate: chances to get hurt doing the action
@@ -65,6 +64,7 @@ Obvious example:
 - The list of actions that need to be added can be found on [git](https://gitlab.com/eternaltwin/mush/mush/-/issues/396). 
 - Create a class that extends [AbstractAction](./Actions/AbstractAction.php) in [Actions directory](./Actions).
 - Register the action name in the [ActionEnum](./Enum/ActionEnum.php)
-- Add the [action data](./ConfigData/ActionData.php) (cost, name, injury rate...)
+- Add the [action data](./ConfigData/ActionData.php) (cost, name, injury rate...) and fixtures in  [ActionsFixtures](./DataFixtures/ActionsFixtures.php).
 - Add the action to the associated equipment or player respectively in [equipment data](../Equipment/ConfigData/EquipmentConfigData.php) or [character config data](../Player/ConfigData/CharacterConfigData.php).
+- Setup action log visibility in [ActionLogEnum](../RoomLog/Enum/ActionLogEnum.php)
 - Add french translations in [actions+intl-icu.fr.xlf](../../translations/fr/actions+intl-icu.fr.xlf), [actions_log+intl-icu.fr.xlf](../../translations/fr/actions_log+intl-icu.fr.xlf) (and [action_fail+intl-icu.fr.xlf](../../translations/fr/action_fail+intl-icu.fr.xlf) if needed).

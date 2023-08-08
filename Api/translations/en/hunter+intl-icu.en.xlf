@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="misc.ext">
+    <unit id="asteroid">
+      <segment id="asteroid_name" state="translated">
+        <source>asteroid.name</source>
+        <target>Asteroid</target>
+      </segment>
+      <segment id="asteroid_description" state="translated">
+        <source>asteroid.description</source>
+        <target>A large pebble coming dangerously close to the Daedalus
+        //
+        No chase.
+        //
+        In {charges} {charges, select, 1 {cycle} other {cycles}}, collides with the Daedalus inflicting {health} points of damage.</target>
+      </segment>
+    </unit>
+    <unit id="dice">
+      <segment id="dice_name" state="translated">
+        <source>dice.name</source>
+        <target>D1000</target>
+      </segment>
+      <segment id="dice_description" state="translated">
+        <source>dice.description</source>
+        <target>A big cube that shoots very, very hard
+                //
+                No chase.</target>
+      </segment>
+    </unit>
+    <unit id="hunter">
+      <segment id="hunter_name" state="translated">
+        <source>hunter.name</source>
+        <target>Hunter</target>
+      </segment>
+      <segment id="hunter_description" state="translated">
+        <source>hunter.description</source>
+        <target>Standard FDS hunter</target>
+      </segment>
+    </unit>
+    <unit id="spider">
+      <segment id="spider_name" state="translated">
+        <source>spider.name</source>
+        <target>Arack</target>
+      </segment>
+      <segment id="spider_description" state="translated">
+        <source>spider.description</source>
+        <target>Prevents Daedalus travel.</target>
+      </segment>
+    </unit>
+    <unit id="trax">
+      <segment id="trax_name" state="translated">
+        <source>trax.name</source>
+        <target>Trax</target>
+      </segment>
+      <segment id="trax_description" state="translated">
+        <source>trax.description</source>
+        <target>Elite interceptor.
+        //
+        Impossible to outrun.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

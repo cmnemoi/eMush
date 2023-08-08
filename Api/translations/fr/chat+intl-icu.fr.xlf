@@ -47,11 +47,11 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
     <unit id="mush">
       <segment id="name" state="translated">
         <source>mush.name</source>
-        <target>Canal mush</target>
+        <target>Canal Mush</target>
       </segment>
       <segment id="description" state="translated">
         <source>mush.description</source>
-        <target>Les phéromones Mush vous permettent de communiquer au sein de l'équipe Mush.</target>
+        <target>Ssshh, personne nous entend ici... Le Canal Mush est le *canal privé* pour les adhérents au **Mush** :mush:.</target>
       </segment>
     </unit>
     <unit id="new">

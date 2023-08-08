@@ -1,0 +1,10 @@
+Mush\Player\Entity\PlayerInfo:
+  attributes:
+    id:
+      groups: [ 'player_info_read' ]
+    user:
+      groups: [ 'player_info_read' ]
+    gameStatus:
+      groups: [ 'player_info_read' ]
+    characterConfig:
+      groups: [ 'player_info_read' ]

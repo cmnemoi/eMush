@@ -2,6 +2,8 @@
 
 namespace Mush\Action\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class ActionEnum
 {
     // Not yet an exhaustive list
@@ -60,6 +62,7 @@ class ActionEnum
     public const SHOOT = 'shoot';
     public const HEAL = 'heal';
     public const SELF_HEAL = 'self_heal';
+    public const RENOVATE = 'renovate';
 
     // Equipment-enabled actions
     public const INSERT_FUEL = 'insert_fuel';
@@ -79,6 +82,7 @@ class ActionEnum
     public const LIE_DOWN = 'lie_down';
     public const DISPENSE = 'dispense';
     public const SHOOT_HUNTER = 'shoot_hunter';
+    public const SHOOT_HUNTER_PATROL_SHIP = 'shoot_hunter_patrol_ship';
     public const ACCES_TERMINAL = 'acces_terminal';
     public const CONTACT_SOL = 'contact_sol';
     public const INSTALL_CAMERA = 'install_camera';
@@ -86,6 +90,8 @@ class ActionEnum
     public const CHECK_SPORE_LEVEL = 'check_spore_level';
     public const REMOVE_SPORE = 'remove_spore';
     public const TAKEOFF = 'takeoff';
+    public const LAND = 'land';
+    public const COLLECT_SCRAP = 'collect_scrap';
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';
@@ -201,5 +207,34 @@ class ActionEnum
             self::AUTO_DESTROY,
             self::KILL_PLAYER,
         ];
+    }
+
+    public static function getChangingRoomActions(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::MOVE,
+            self::LAND,
+            self::TAKEOFF,
+        ]);
+    }
+
+    public static function getChangingRoomPatrolshipActions(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::LAND,
+            self::TAKEOFF,
+        ]);
+    }
+
+    public static function getAll(): ArrayCollection
+    {
+        $actions = new ArrayCollection();
+        $reflectionClass = new \ReflectionClass(__CLASS__);
+        $constants = $reflectionClass->getConstants();
+        foreach ($constants as $constant) {
+            $actions->add($constant);
+        }
+
+        return $actions;
     }
 }

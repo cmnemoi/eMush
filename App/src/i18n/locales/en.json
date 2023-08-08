@@ -213,6 +213,7 @@
 			"preventEventModifier": "Bloqueur d'événements",
 			"modifierRequirement": "Conditions d'activation",
 			"triggeredEvent": "Nom de l'événement déclenché",
+			"replaceEvent": "Remplace l'événement initial",
 			"applyOnActionParameter": "Application uniquement sur cible d'action",
 			"modifierRange": "Portée du modificateur",
 			"revertOnRemove": "Inverser lors de la suppression",
@@ -262,6 +263,7 @@
 			"isNotSuperDirty": "Is not super dirty"
 		},
 		"daedalus": {
+			"addNewRooms": "Ajouter des pièces",
 			"destroy": "Destroy",
 			"destroyAllDaedaluses": "Destroy all Daedaluses",
 			"createDaedalus": "Create a Daedalus",
@@ -438,6 +440,13 @@
 			"modifierConfigs": "Modifiers",
 			"equipment": "Built piece of equipment",
 			"blueprint": "Blueprints",
+			"dockingPlace": "Pièce d'amarrage",
+			"collectScrapNumber": "Nombre de débris ramassés à chaque action Récolter (nombre => probabilité)",
+			"collectScrapPatrolShipDamage": "Dégâts infligés au patrouilleur$* à chaque action Récolter (nombre => probabilité)",
+			"collectScrapPlayerDamage": "Dégâts infligés au joueur à chaque action Récolter (nombre => probabilité)",
+			"failedManoeuvreDaedalusDamage": "Dégâts infligés au Daedalus en cas d'échec de la manoeuvre (nombre => probabilité)",
+			"failedManoeuvrePatrolShipDamage": "Dégâts infligés au patrouilleur en cas d'échec de la manoeuvre (nombre => probabilité)",
+			"failedManoeuvrePlayerDamage": "Dégâts infligés au joueur en cas d'échec de la manoeuvre (nombre => probabilité)",
 			"book": "Apprentrons",
 			"document": "Documents",
 			"drug": "Médicaments",
@@ -445,7 +454,8 @@
 			"gear": "Gear",
 			"plant": "Plants",
 			"ration": "Food",
-			"weapon": "Weapons"
+			"weapon": "Weapons",
+			"patrolShip": "Patrouilleurs"
 		},
 		"buttons": {
 			"add": "Add",
@@ -512,6 +522,10 @@
 			"scrapDropTable": "Table des débris laissés à la mort (débris => probabilité)",
 			"spawnDifficulty": "Jour d'apparition",
 			"numberOfDroppedScrap": "Nombre de débris laissés à la mort (nombre => probabilité)"
+		},
+		"playerList": {
+			"closePlayer": "Fermer (archiver) ce joueur",
+			"quarantine": "Mettre en quarantaine"
 		}
 	},
 	"charSelection": {
@@ -523,7 +537,9 @@
 	"game": {
 		"communications": {
 			"day": "Day",
-			"cycle": "Cycle"
+			"cycle": "Cycle",
+			"showMessageChildren": "Afficher {count} réponse | Afficher {count} réponses",
+			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses"
 		}
 	},
 	"newsPage": {

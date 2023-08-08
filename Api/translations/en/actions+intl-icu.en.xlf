@@ -790,5 +790,59 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         <target>Fire a Teslatron charge at an enemy ship.</target>
       </segment>
     </unit>
+    <unit id="takeoff">
+      <segment id="name" state="translated">
+        <source>takeoff.name</source>
+        <target>Take off</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>takeoff.description</source>
+        <target>Climb aboard a patrol ship and appear in the appropriate quadrant.</target>
+      </segment>
+    </unit>
+    <unit id="land">
+      <segment id="name" state="translated">
+        <source>land.name</source>
+        <target>Land</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>land.description</source>
+        <target>Return to this patrol ship's launch bay.</target>
+      </segment>
+    </unit>
+    <unit id="shoot_hunter_patrol_ship">
+      <segment id="name" state="translated">
+        <source>shoot_hunter_patrol_ship.name</source>
+        <target>Fire on a hunter</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shoot_hunter_patrol_ship.description</source>
+        <target>Fire a Teslatron charge at an enemy ship.
+// 
+Upgradeable with Missiles.</target>
+      </segment>
+    </unit>
+    <unit id="collect_scrap">
+      <segment id="name" state="translated">
+        <source>collect_scrap.name</source>
+        <target>Collect scrap</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>collect_scrap.description</source>
+        <target>Look, is that some scrap floating in the void over by that wing there? Fortunately, it can be picked up with the Pasiphae - a vessel that is great to pilot.</target>
+      </segment>
+    </unit>
+    <unit id="renovate">
+      <segment id="name" state="translated">
+        <source>renovate.name</source>
+        <target>Renovate</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>renovate.description</source>
+        <target>Renovating a patrol ship could change the course of future battles. 
+//
+Requires *Scrap Metal*.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

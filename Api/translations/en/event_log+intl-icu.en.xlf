@@ -325,9 +325,9 @@
       <segment state="translated">
         <source>screaming</source>
         <target>{character_gender, select,
-    male {:pill: **{character}** throws himself on the floor, wailing and calling for his mother...}
-    female {:pill: **{character}** throws herself on the floor, wailing and calling for her mother...}
-    other {:pill: **{character}** throws themselves on the floor, wailing and calling for their mother...}
+    male {:pill: **{target_character}** throws himself on the floor, wailing and calling for his mother...}
+    female {:pill: **{target_character}** throws herself on the floor, wailing and calling for her mother...}
+    other {:pill: **{target_character}** throws themselves on the floor, wailing and calling for their mother...}
 }</target>
       </segment>
     </unit>
@@ -335,9 +335,9 @@
       <segment state="translated">
         <source>wall_head_bang</source>
         <target>{character_gender, select,
-    male {:pill: **{character}** suddenly starts bashing his head against the wall... looks like it hurts too...}
-    female {:pill: **{character}** suddenly starts bashing her head against the wall... looks like it hurts too...}
-    other {:pill: **{character}** suddenly starts bashing their head against the wall... looks like it hurts too...}
+    male {:pill: **{target_character}** suddenly starts bashing his head against the wall... looks like it hurts too...}
+    female {:pill: **{target_character}** suddenly starts bashing her head against the wall... looks like it hurts too...}
+    other {:pill: **{target_character}** suddenly starts bashing their head against the wall... looks like it hurts too...}
 }</target>
       </segment>
     </unit>
@@ -345,9 +345,9 @@
       <segment state="translated">
         <source>run_in_circles</source>
         <target>{character_gender, select,
-    male {:pill: **{character}** starts running in circles, and nothing seems to stop him... except fatigue...}
-    female {:pill: **{character}** starts running in circles, and nothing seems to stop her... except fatigue...}
-    other {:pill: **{character}** starts running in circles, and nothing seems to stop them... except fatigue...}
+    male {:pill: **{target_character}** starts running in circles, and nothing seems to stop him... except fatigue...}
+    female {:pill: **{target_character}** starts running in circles, and nothing seems to stop her... except fatigue...}
+    other {:pill: **{target_character}** starts running in circles, and nothing seems to stop them... except fatigue...}
 }</target>
       </segment>
     </unit>
@@ -459,53 +459,123 @@
         <target>What you just witnessed shocked you. You will never be the same again.</target>
       </segment>
     </unit>
-    <unit id="hunter_death">
-      <segment id="hunter_death" state="translated">
-        <source>hunter_death</source>
-        <target>:triumph: **{character}** did a little victory dance to celebrate *one less {hunter}*.</target>
+    <unit id="hunter_death_turret">
+      <segment id="hunter_death_turret" state="translated">
+        <source>hunter_death_turret</source>
+        <target>**{character}** does a little victory dance to celebrate *one less {hunter}*.</target>
       </segment>
     </unit>
     <unit id="infect_action">
-       <segment id="infect_action" state="translated">
-         <source>infect_action</source>
-         <target>**{target_character}** has been contaminated by a spore from **{character}**. Their contamination level is currently **{quantity}**.</target>
-       </segment>
+      <segment id="infect_action" state="translated">
+        <source>infect_action</source>
+        <target>**{target_character}** has been contaminated by a spore from **{character}**. Their contamination level is currently **{quantity}**.</target>
+      </segment>
     </unit>
-      <unit id="infect_trap">
-          <segment id="infect_trap" state="translated">
-              <source>infect_trap</source>
-              <target>**{target_character}** was contaminated by opening a shelf trapped by **{character}**. Their contamination level is now **{quantity}**.</target>
-          </segment>
-      </unit>
-      <unit id="infect_std">
-          <segment id="infect_std" state="translated">
-              <source>infect_std</source>
-              <target>**{target_character}** has been contaminated by doing it with **{character}**. Their contamination level is now **{quantity}**.</target>
-          </segment>
-      </unit>
-      <unit id="infect_cat">
-          <segment id="infect_cat" state="translated">
-              <source>infect_cat</source>
-              <target>**{target_character}** has been infected by **{character}** by picking up *Schrödinger*. Their contamination level is now **{quantity}**.</target>
-          </segment>
-      </unit>
-      <unit id="infect_mush_raid">
-          <segment id="infect_mush_raid" state="translated">
-              <source>infect_mush_raid</source>
-              <target>**{character}** has been contaminated by a Mush raid during exploration. Their contamination level is now **{quantity}**.</target>
-          </segment>
-      </unit>
-      <unit id="infect_trapped_ration">
-          <segment id="infect_trapped_ration" state="translated">
-              <source>infect_trapped_ration</source>
-              <target>**{target_character}** has been infected by a meal contaminated by **{character}**. Their contamination level is currently **{quantity}**.</target>
-          </segment>
-      </unit>
+    <unit id="infect_trap">
+      <segment id="infect_trap" state="translated">
+        <source>infect_trap</source>
+        <target>**{target_character}** was contaminated by opening a shelf trapped by **{character}**. Their contamination level is now **{quantity}**.</target>
+      </segment>
+    </unit>
+    <unit id="infect_std">
+      <segment id="infect_std" state="translated">
+        <source>infect_std</source>
+        <target>**{target_character}** has been contaminated by doing it with **{character}**. Their contamination level is now **{quantity}**.</target>
+      </segment>
+    </unit>
+    <unit id="infect_cat">
+      <segment id="infect_cat" state="translated">
+        <source>infect_cat</source>
+        <target>**{target_character}** has been infected by **{character}** by picking up *Schrödinger*. Their contamination level is now **{quantity}**.</target>
+      </segment>
+    </unit>
+    <unit id="infect_mush_raid">
+      <segment id="infect_mush_raid" state="translated">
+        <source>infect_mush_raid</source>
+        <target>**{character}** has been contaminated by a Mush raid during exploration. Their contamination level is now **{quantity}**.</target>
+      </segment>
+    </unit>
+    <unit id="infect_trapped_ration">
+      <segment id="infect_trapped_ration" state="translated">
+        <source>infect_trapped_ration</source>
+        <target>**{target_character}** has been infected by a meal contaminated by **{character}**. Their contamination level is currently **{quantity}**.</target>
+      </segment>
+    </unit>
     <unit id="mush_convert_event">
-       <segment id="mush_convert_event" state="translated">
-         <source>mush_convert_event</source>
-            <target>Welcome to Mush, **{character}**. You have been awarded *{quantity} Glory points*.</target>
-       </segment>
+      <segment id="mush_convert_event" state="translated">
+        <source>mush_convert_event</source>
+        <target>Welcome to Mush, **{character}**. You have been awarded *{quantity} Glory points*.</target>
+      </segment>
+    </unit>
+    <unit id="player_enter_chat">
+      <segment id="player_enter_chat" state="translated">
+        <source>player_enter_chat</source>
+        <target>**{character}** has joined discussion.</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat">
+      <segment id="player_leave_chat" state="translated">
+        <source>player_leave_chat</source>
+        <target>{character_gender, select,
+                  male {**{character}** cannot be reached here, he closed the tab.}
+                  female {**{character}** cannot be reached here, she closed the tab.}
+                  other {**{character}** cannot be reached here, they closed the tab.}
+                  }</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat_death">
+      <segment id="player_leave_chat_death" state="translated">
+        <source>player_leave_chat_death</source>
+        <target>{character_gender, select,
+                  male {**{character}** cannot be reached here, he left this world.}
+                  female {**{character}** cannot be reached here, she left this world.}
+                  other {**{character}** cannot be reached here, they left this world.}
+                  }</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat_talky">
+      <segment id="player_leave_chat_talky" state="translated">
+        <source>player_leave_chat_talky</source>
+        <target>{character_gender, select,
+                  male {**{character}** cannot be reached here, he left the room without a walkie talkie.}
+                  female {**{character}** cannot be reached here, she left the room without a walkie talkie.}
+                  other {**{character}** cannot be reached here, they left the room without a walkie talkie.}
+                  }</target>
+      </segment>
+    </unit>
+    <unit id="hunter_death_patrol_ship">
+      <segment id="hunter_death_patrol_ship" state="translated">
+        <source>hunter_death_patrol_ship</source>
+        <target>:hunter: **{character}** cheers loudly! *One less {hunter}*, yes!</target>
+      </segment>
+    </unit>
+    <unit id="attacked_by_hunter">
+      <segment id="attacked_by_hunter" state="translated">
+        <source>attacked_by_hunter</source>
+        <target>:hunter: {version, select,
+                  1 {You have been attacked by a Hunter.}
+                  2 {Explosions erupt, you have been attacked by a Hunter.}
+                  other {You have been attacked by a Hunter.}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="patrol_discharge">
+      <segment id="patrol_discharge" state="translated">
+        <source>patrol_discharge</source>
+        <target>**{character}** discharged some equipment from their one-seater.</target>
+      </segment>
+    </unit>
+    <unit id="scrap_collected">
+      <segment id="scrap_collected" state="translated">
+        <source>scrap_collected</source>
+        <target>The {place} piloted by **{character}** has brought back a **{target_equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="patrol_damage">
+      <segment id="patrol_damage" state="translated">
+        <source>patrol_damage</source>
+        <target>The craft has sustained *{quantity} {quantity, select, 1 {point} other {points}} of damage*.</target>
+      </segment>
     </unit>
   </file>
 </xliff>

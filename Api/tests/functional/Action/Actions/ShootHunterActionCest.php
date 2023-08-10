@@ -214,6 +214,6 @@ class ShootHunterActionCest extends AbstractFunctionalTest
 
         $this->shootHunterAction->loadParameters($this->action, $this->player1, $turret);
 
-        $I->assertEquals(40*1.33, $this->shootHunterAction->getSuccessRate());
+        $I->assertEquals(intval(40 * 1.33), $this->shootHunterAction->getSuccessRate());
     }
 }

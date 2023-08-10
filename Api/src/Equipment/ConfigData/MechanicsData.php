@@ -2204,6 +2204,7 @@ class MechanicsData
             'actions' => [],
             'modifierConfigs' => [
                 'modifier_for_player_x1.1percentage_on_action_shoot',
+                'modifier_for_player_x1.33percentage_on_action_shoot_hunter',
             ],
         ],
         [
@@ -2297,6 +2298,7 @@ class MechanicsData
             'actions' => [],
             'modifierConfigs' => [
                 'modifier_for_player_x1.1percentage_on_action_shoot',
+                'modifier_for_player_x1.33percentage_on_action_shoot_hunter',
             ],
         ],
         [

@@ -245,7 +245,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         if (!$player->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)) {
             $deathPlayerEvent = new PlayerEvent(
                 $player,
-                [EndCauseEnum::SPACE_ASPHYXIATED],
+                [EndCauseEnum::PATROL_SHIP_MANOEUVRE_EXPLOSION],
                 new \DateTime()
             );
             $this->eventService->callEvent($deathPlayerEvent, PlayerEvent::DEATH_PLAYER);

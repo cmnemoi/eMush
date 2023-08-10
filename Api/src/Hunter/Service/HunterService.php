@@ -111,7 +111,7 @@ class HunterService implements HunterServiceInterface
             $daedalus->setHunterPoints($hunterPoints);
         }
 
-        $wave->map(fn ($hunter) => $this->unpoolHunter($hunter, $time));
+        $wave->map(fn ($hunter) => $this->createHunterStatuses($hunter, $time));
         $this->persist($wave->toArray());
         $this->persist([$daedalus]);
     }
@@ -245,11 +245,5 @@ class HunterService implements HunterServiceInterface
         );
 
         $this->eventService->callEvent($daedalusVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
-    }
-
-    private function unpoolHunter(Hunter $hunter, \DateTime $time): void
-    {
-        $hunter->unpool();
-        $this->createHunterStatuses($hunter, $time);
     }
 }

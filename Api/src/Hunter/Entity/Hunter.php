@@ -53,7 +53,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
     private string $target = HunterTargetEnum::DAEDALUS;
 
     #[ORM\Column(type: 'boolean')]
-    private bool $inPool = true;
+    private bool $inPool = false;
 
     public function __construct(HunterConfig $hunterConfig, Daedalus $daedalus)
     {

@@ -164,7 +164,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $sniperHelmetActions->add($sabotage1);
         $sniperHelmetActions->add($reportAction);
 
-        $sniperHelmetGear = $this->createGear([GearModifierConfigFixtures::AIM_MODIFIER], GearItemEnum::SNIPER_HELMET);
+        $sniperHelmetGear = $this->createGear([GearModifierConfigFixtures::AIM_MODIFIER, GearModifierConfigFixtures::AIM_HUNTER_MODIFIER], GearItemEnum::SNIPER_HELMET);
         $sniperHelmet = new ItemConfig();
         $sniperHelmet
             ->setEquipmentName(GearItemEnum::SNIPER_HELMET)
@@ -238,7 +238,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $actions12->add($sabotage12);
         $actions12->add($reportAction);
 
-        $lensesGear = $this->createGear([GearModifierConfigFixtures::AIM_MODIFIER], GearItemEnum::NCC_LENS);
+        $lensesGear = $this->createGear([GearModifierConfigFixtures::AIM_MODIFIER, GearModifierConfigFixtures::AIM_HUNTER_MODIFIER], GearItemEnum::NCC_LENS);
 
         $lenses = new ItemConfig();
         $lenses

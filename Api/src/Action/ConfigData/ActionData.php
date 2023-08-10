@@ -1337,7 +1337,7 @@ class ActionData
         [
             'name' => ActionEnum::SHOOT_HUNTER . '_turret',
             'action_name' => ActionEnum::SHOOT_HUNTER,
-            'types' => [ActionTypeEnum::ACTION_SHOOT],
+            'types' => [ActionTypeEnum::ACTION_SHOOT_HUNTER],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
             'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::PRIVATE],
@@ -1352,7 +1352,7 @@ class ActionData
         [
             'name' => ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
             'action_name' => ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
-            'types' => [ActionTypeEnum::ACTION_SHOOT],
+            'types' => [ActionTypeEnum::ACTION_SHOOT_HUNTER],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
             'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::PRIVATE],

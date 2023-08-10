@@ -43,20 +43,19 @@ class ActionSubscriber implements EventSubscriberInterface
         /** @var GameEquipment $actionEquipment */
         $actionEquipment = $event->getActionParameter();
 
-        if (!ActionEnum::getChangingRoomActions()->contains($actionName)) {
-            return;
+        // move player and player equipment modifiers to their new place
+        if (ActionEnum::getChangingRoomActions()->contains($actionName)) {
+            $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
+            /** @var GameEquipment $equipment */
+            foreach ($player->getEquipments() as $equipment) {
+                $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
+            }
         }
 
-        $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
-        /** @var GameEquipment $equipment */
-        foreach ($player->getEquipments() as $equipment) {
-            $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
+        // move patrol ship modifiers to their new place
+        if (ActionEnum::getChangingRoomPatrolshipActions()->contains($actionName)) {
+            $this->equipmentModifierService->equipmentEnterRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
         }
-
-        if (!ActionEnum::getChangingRoomPatrolshipActions()->contains($actionName)) {
-            return;
-        }
-        $this->equipmentModifierService->equipmentEnterRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
     }
 
     public function onPreAction(ActionEvent $event): void
@@ -67,19 +66,18 @@ class ActionSubscriber implements EventSubscriberInterface
         /** @var GameEquipment $actionEquipment */
         $actionEquipment = $event->getActionParameter();
 
-        if (!ActionEnum::getChangingRoomActions()->contains($actionName)) {
-            return;
+        // delete player and player equipment modifiers from their old place
+        if (ActionEnum::getChangingRoomActions()->contains($actionName)) {
+            $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
+            /** @var GameEquipment $equipment */
+            foreach ($player->getEquipments() as $equipment) {
+                $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
+            }
         }
 
-        $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
-        /** @var GameEquipment $equipment */
-        foreach ($player->getEquipments() as $equipment) {
-            $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
+        // delete patrol ship modifiers from their old place
+        if (ActionEnum::getChangingRoomPatrolshipActions()->contains($actionName)) {
+            $this->equipmentModifierService->equipmentLeaveRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
         }
-
-        if (!ActionEnum::getChangingRoomPatrolshipActions()->contains($actionName)) {
-            return;
-        }
-        $this->equipmentModifierService->equipmentLeaveRoom($actionEquipment, $player->getPlace(), $event->getTags(), $event->getTime());
     }
 }

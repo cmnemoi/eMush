@@ -15,6 +15,8 @@ use Mush\Equipment\Entity\EquipmentMechanic as Mechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
@@ -169,6 +171,18 @@ final class ActionSubscriber implements EventSubscriberInterface
             parameters: ['quantity' => $damage],
             dateTime: new \DateTime()
         );
+
+        if ($patrolShipArmor->getCharge() <= 0) {
+            $destroyPatrolShipEvent = new InteractWithEquipmentEvent(
+                $patrolShip,
+                $event->getAuthor(),
+                VisibilityEnum::HIDDEN,
+                $event->getTags(),
+                new \DateTime(),
+            );
+
+            $this->eventService->callEvent($destroyPatrolShipEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        }
     }
 
     private function inflictDamageToPlayer(ActionEvent $event): void

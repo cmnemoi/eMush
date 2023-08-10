@@ -15,8 +15,10 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -343,15 +345,15 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $I->assertFalse($this->player1->isAlive());
     }
 
-    public function testHandlePatrolShipDamageDestroyPatrolShipIfNoMoreArmorButNotPlayerIfSpaceSuit(FunctionalTester $I): void
+    public function testHandlePatrolShipDamageDestroyPatrolShipIfNoMoreArmorButNotPlayerIfHasSpaceSuit(FunctionalTester $I): void
     {
         $pasiphaeRoom = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
         $this->player1->setPlace($pasiphaeRoom);
 
         $spacesuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
-        $spacesuit = new GameEquipment($this->player1, $spacesuitConfig);
+        $spacesuit = new GameItem($this->player1);
         $spacesuit
-            ->setName(EquipmentEnum::PASIPHAE)
+            ->setName(GearItemEnum::SPACESUIT)
             ->setEquipment($spacesuitConfig)
         ;
         $I->haveInRepository($spacesuit);
@@ -385,5 +387,54 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         ]);
         $I->assertEquals($this->daedalus->getSpace()->getName(), $this->player1->getPlace()->getName());
         $I->assertTrue($this->player1->isAlive());
+    }
+
+    public function testHandlePatrolShipDamagePatrolShipItemsInSpaceAtDestruction(FunctionalTester $I): void
+    {
+        $pasiphaeRoom = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
+        $this->player1->setPlace($pasiphaeRoom);
+
+        // give some items to player and pasiphae : they should land in space at pasiphae destruction
+        $oldShirtConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => ItemEnum::OLD_T_SHIRT]);
+        $playerShirt = new GameItem($this->player1);
+        $playerShirt
+            ->setName(ItemEnum::OLD_T_SHIRT)
+            ->setEquipment($oldShirtConfig)
+        ;
+        $I->haveInRepository($playerShirt);
+
+        $pasiphaeShirt = new GameItem($pasiphaeRoom);
+        $pasiphaeShirt
+            ->setName(ItemEnum::OLD_T_SHIRT)
+            ->setEquipment($oldShirtConfig)
+        ;
+        $I->haveInRepository($pasiphaeShirt);
+
+        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
+        $pasiphae
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig)
+        ;
+        $I->haveInRepository($pasiphae);
+
+        /** @var ChargeStatusConfig $pasiphaeArmorConfig */
+        $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+        $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
+        $pasiphaeArmor->setCharge(1);
+        $I->haveInRepository($pasiphaeArmor);
+
+        $action = new Action();
+        $action
+            ->setActionName(ActionEnum::LAND)
+            ->setCriticalRate(100)
+        ;
+        $actionEvent = new ActionEvent($action, $this->player1, $pasiphae);
+        $actionEvent->setActionResult(new Fail());
+
+        $this->actionSubscriber->onPostAction($actionEvent);
+
+        $I->assertTrue($this->daedalus->getSpace()->hasEquipmentByName(ItemEnum::OLD_T_SHIRT));
+        $I->assertCount(2, $this->daedalus->getSpace()->getEquipments());
     }
 }

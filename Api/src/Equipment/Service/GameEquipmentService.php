@@ -236,7 +236,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
                 new \DateTime()
             );
             $this->eventService->callEvent($deathPlayerEvent, PlayerEvent::DEATH_PLAYER);
-
         }
 
         // put player in space instead of landing bay

@@ -143,6 +143,11 @@ class EquipmentConfig
         return $this;
     }
 
+    public function hasMechanicByName(string $mechanic): bool
+    {
+        return $this->getMechanicByName($mechanic) !== null;
+    }
+
     public function getMechanicByName(string $mechanic): ?EquipmentMechanic
     {
         $equipmentMechanics = $this->mechanics->filter(fn (EquipmentMechanic $equipmentMechanic) => in_array($mechanic, $equipmentMechanic->getMechanics()));

@@ -6,7 +6,6 @@ namespace functional\Equipment\Listener;
 
 use App\Tests\AbstractFunctionalTest;
 use App\Tests\FunctionalTester;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -25,7 +24,7 @@ final class PlayerEventSubscriberCest extends AbstractFunctionalTest
         $this->playerEventSubscriber = $I->grabService(PlayerEventSubscriber::class);
     }
 
-    public function testOnDeathPlayerPatrolShipIsDestroyedIfCauseIsCollectScrap(FunctionalTester $I): void
+    public function testOnDeathPlayerPatrolShipIsDestroyedIfCauseIsSpaceBattle(FunctionalTester $I): void
     {
         // given
         $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
@@ -42,7 +41,7 @@ final class PlayerEventSubscriberCest extends AbstractFunctionalTest
         // when
         $deathPlayerEvent = new PlayerEvent(
             $this->player1,
-            [ActionEnum::COLLECT_SCRAP],
+            [EndCauseEnum::SPACE_BATTLE],
             new \DateTime()
         );
         $this->playerEventSubscriber->onDeathPlayer($deathPlayerEvent);
@@ -51,7 +50,7 @@ final class PlayerEventSubscriberCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(GameEquipment::class, ['name' => EquipmentEnum::PASIPHAE]);
     }
 
-    public function testOnDeathPlayerPatrolShipIsNotDestroyedIfCauseIsNotCollectScrap(FunctionalTester $I): void
+    public function testOnDeathPlayerPatrolShipIsNotDestroyedIfCauseIsNotSpaceBattle(FunctionalTester $I): void
     {
         // given
         $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);

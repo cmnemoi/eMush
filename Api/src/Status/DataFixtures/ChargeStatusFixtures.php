@@ -426,6 +426,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($asteroidCharge)
             ->addStatusConfig($hunterCharge)
             ->addStatusConfig($rejuvenationCharge)
+            ->addStatusConfig($patrolShipArmor)
+            ->addStatusConfig($pasiphaeArmor)
         ;
         $manager->persist($gameConfig);
 

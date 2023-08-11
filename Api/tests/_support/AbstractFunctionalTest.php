@@ -151,4 +151,21 @@ class AbstractFunctionalTest
 
         return new ArrayCollection([$laboratory, $space]);
     }
+
+    protected function createExtraPlace(string $placeName, FunctionalTester $I, Daedalus $daedalus): Place
+    {
+        /** @var PlaceConfig $extraRoomConfig */
+        $extraRoomConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => $placeName]);
+        $extraRoom = new Place();
+        $extraRoom
+            ->setName($placeName)
+            ->setType($extraRoomConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($extraRoom);
+
+        $I->refreshEntities($daedalus);
+
+        return $extraRoom;
+    }
 }

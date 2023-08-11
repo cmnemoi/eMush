@@ -32,7 +32,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        if (!$event->hasTag(EndCauseEnum::PATROL_SHIP_MANOEUVRE_EXPLOSION)) {
+        if (!$event->hasTag(EndCauseEnum::PATROL_SHIP_EXPLOSION)) {
             return;
         }
 
@@ -49,7 +49,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         if (!$player->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)) {
             $deathPlayerEvent = new PlayerEvent(
                 $player,
-                [EndCauseEnum::PATROL_SHIP_MANOEUVRE_EXPLOSION],
+                [EndCauseEnum::PATROL_SHIP_EXPLOSION],
                 new \DateTime()
             );
             $this->eventService->callEvent($deathPlayerEvent, PlayerEvent::DEATH_PLAYER);

@@ -46,7 +46,7 @@ class EndCauseEnum
     public const BLED = 'bled';
     public const INFECTION = 'infection';
     public const MANKAROG = 'mankarog';
-    public const PATROL_SHIP_MANOEUVRE_EXPLOSION = 'patrol_ship_manoeuvre_explosion';
+    public const PATROL_SHIP_EXPLOSION = 'patrol_ship_explosion';
 
     public const NO_INFIRMERY = 'no_infirmerie'; // cause of death lost in a bug
 
@@ -83,7 +83,7 @@ class EndCauseEnum
         self::BLED => self::BLED,
         self::INFECTION => self::INFECTION,
         self::MANKAROG => self::MANKAROG,
-        self::PATROL_SHIP_MANOEUVRE_EXPLOSION => self::PATROL_SHIP_MANOEUVRE_EXPLOSION,
+        self::PATROL_SHIP_EXPLOSION => self::PATROL_SHIP_EXPLOSION,
         self::NO_INFIRMERY => self::NO_INFIRMERY,
         ActionEnum::HIT => self::ASSASSINATED,
         ActionEnum::SHOOT => self::ASSASSINATED,

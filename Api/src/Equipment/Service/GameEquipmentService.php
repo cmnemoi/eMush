@@ -217,7 +217,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $patrolShip,
             $player,
             VisibilityEnum::HIDDEN,
-            array_merge($tags, [EndCauseEnum::PATROL_SHIP_MANOEUVRE_EXPLOSION]),
+            array_merge($tags, [EndCauseEnum::PATROL_SHIP_EXPLOSION]),
             new \DateTime(),
         );
         $this->eventService->callEvent($destroyPatrolShipEvent, EquipmentEvent::EQUIPMENT_DESTROYED);

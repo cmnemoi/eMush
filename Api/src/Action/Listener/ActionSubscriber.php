@@ -21,6 +21,7 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\LogEnum;
@@ -198,7 +199,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             $event->getAuthor(),
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
-            $event->getTags(),
+            array_merge($event->getTags(), [EndCauseEnum::SPACE_BATTLE]),
             new \DateTime(),
         );
 

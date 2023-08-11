@@ -8,11 +8,15 @@ use Mush\Action\Actions\ShootHunter;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -174,5 +178,42 @@ class ShootHunterActionCest extends AbstractFunctionalTest
             'log' => LogEnum::HUNTER_DEATH_TURRET,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+    }
+
+    public function testShootHunterSuccessRateWithLenses(FunctionalTester $I): void
+    {
+        $this->action->setSuccessRate(40);
+
+        $event = new HunterPoolEvent(
+            $this->daedalus,
+            ['test'],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, HunterPoolEvent::UNPOOL_HUNTERS);
+
+        $turretConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'turret_command_default']);
+        $turret = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $turret
+            ->setName('turret')
+            ->setEquipment($turretConfig)
+        ;
+        $I->haveInRepository($turret);
+
+        $lensesConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::NCC_LENS]);
+        $lenses = new GameEquipment($this->player1);
+        $lenses
+            ->setName(GearItemEnum::NCC_LENS)
+            ->setEquipment($lensesConfig)
+        ;
+        $I->haveInRepository($lenses);
+
+        /** @var VariableEventModifierConfig $lensesModifierConfig */
+        $lensesModifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'modifier_for_player_x1.33percentage_on_action_shoot_hunter']);
+        $lensesModifier = new GameModifier($this->player1, $lensesModifierConfig);
+        $I->haveInRepository($lensesModifier);
+
+        $this->shootHunterAction->loadParameters($this->action, $this->player1, $turret);
+
+        $I->assertEquals(intval(40 * 1.33), $this->shootHunterAction->getSuccessRate());
     }
 }

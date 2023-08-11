@@ -36,6 +36,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
     public const GLOVES_MODIFIER = 'gloves_modifier';
     public const SOAP_MODIFIER = 'soap_modifier';
     public const AIM_MODIFIER = 'aim_modifier';
+    public const AIM_HUNTER_MODIFIER = 'aim_hunter_modifier';
     public const SCOOTER_MODIFIER = 'scooter_modifier';
     public const ROLLING_BOULDER = 'rolling_boulder';
     public const OSCILLOSCOPE_SUCCESS_MODIFIER = 'oscilloscope_success_modifier';
@@ -123,11 +124,23 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setTagConstraints([
                 ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($aimModifier);
+
+        $aimHunterModifier = new VariableEventModifierConfig('modifier_for_player_x1.33percentage_on_action_shoot_hunter');
+        $aimHunterModifier
+            ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->setDelta(1.33)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
+            ->setTagConstraints([
+                ActionEnum::SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+        ;
+        $manager->persist($aimHunterModifier);
 
         $antiGravScooterModifier = new VariableEventModifierConfig(ModifierNameEnum::ANTIGRAV_SCOOTER_CONVERSION_MODIFIER);
         $antiGravScooterModifier
@@ -246,6 +259,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(self::GLOVES_MODIFIER, $glovesModifier);
         $this->addReference(self::SOAP_MODIFIER, $soapModifier);
         $this->addReference(self::AIM_MODIFIER, $aimModifier);
+        $this->addReference(self::AIM_HUNTER_MODIFIER, $aimHunterModifier);
         $this->addReference(self::SCOOTER_MODIFIER, $antiGravScooterModifier);
         $this->addReference(self::ROLLING_BOULDER, $rollingBoulderModifier);
         $this->addReference(self::OSCILLOSCOPE_SUCCESS_MODIFIER, $oscilloscopeSuccessModifier);

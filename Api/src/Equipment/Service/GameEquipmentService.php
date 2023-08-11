@@ -228,8 +228,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         );
         $this->eventService->callEvent($destroyPatrolShipEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $this->movePatrolShipContentToSpace($patrolShip, $player, $tags);
-
         // kill player if they don't have a functional spacesuit
         if (!$player->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)) {
             $deathPlayerEvent = new PlayerEvent(
@@ -239,12 +237,13 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             );
             $this->eventService->callEvent($deathPlayerEvent, PlayerEvent::DEATH_PLAYER);
 
-            return;
         }
 
         // put player in space instead of landing bay
         $player->changePlace($daedalus->getSpace());
         $this->persistEntities([$player]);
+
+        $this->movePatrolShipContentToSpace($patrolShip, $player, $tags);
     }
 
     private function movePatrolShipContentToSpace(GameEquipment $patrolShip, Player $player, array $tags): void

@@ -432,7 +432,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M134,1l10,0" />
                         </g>
-                        <g id="Patrol-Ship-7" serif:id="Patrol Ship 7" :class="{visible : isBroken('equipment', 'alpha_bay_2' , 'patrol_ship_alpha2_wallis')}">
+                        <g id="Dynarcade" serif:id="Dynarcade" :class="{visible : isBroken('equipment', 'alpha_bay_2', 'dynarcade')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"

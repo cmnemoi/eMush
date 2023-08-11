@@ -9,29 +9,20 @@ use Mush\Action\Actions\GetUp;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
-use Mush\Equipment\Entity\EquipmentMechanic as Mechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Event\InteractWithEquipmentEvent;
-use Mush\Equipment\Event\MoveEquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
@@ -44,9 +35,9 @@ final class ActionSubscriber implements EventSubscriberInterface
 {
     private ActionSideEffectsServiceInterface $actionSideEffectsService;
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private GetUp $getUpAction;
     private GearToolServiceInterface $gearToolService;
-    private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
@@ -54,9 +45,9 @@ final class ActionSubscriber implements EventSubscriberInterface
     public function __construct(
         ActionSideEffectsServiceInterface $actionSideEffectsService,
         EventServiceInterface $eventService,
+        GameEquipmentServiceInterface $gameEquipmentService,
         GetUp $getUp,
         GearToolServiceInterface $gearToolService,
-        PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService
@@ -64,8 +55,8 @@ final class ActionSubscriber implements EventSubscriberInterface
         $this->actionSideEffectsService = $actionSideEffectsService;
         $this->eventService = $eventService;
         $this->getUpAction = $getUp;
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->gearToolService = $gearToolService;
-        $this->playerService = $playerService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
@@ -132,7 +123,10 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function inflictDamageToDaedalus(ActionEvent $event): void
     {
-        $patrolShipMechanic = $this->getPatrolShipMechanic($event);
+        /** @var GameEquipment $patrolShip */
+        $patrolShip = $event->getActionParameter();
+        /** @var PatrolShip $patrolShipMechanic */
+        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
             $patrolShipMechanic->getFailedManoeuvreDaedalusDamage()
         );
@@ -153,7 +147,10 @@ final class ActionSubscriber implements EventSubscriberInterface
         /** @var GameEquipment $patrolShip */
         $patrolShip = $event->getActionParameter();
         /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $this->getPatrolShipMechanic($event);
+        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
+        if ($patrolShipMechanic === null) {
+            throw new \LogicException("Patrol ship {$patrolShip->getName()} should have a patrol ship mechanic");
+        }
 
         /** @var ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
@@ -183,13 +180,16 @@ final class ActionSubscriber implements EventSubscriberInterface
         );
 
         if ($patrolShipArmor->getCharge() <= 0) {
-            $this->handlePatrolShipDestruction($event);
+            $this->gameEquipmentService->handlePatrolShipDestruction($patrolShip, $event->getAuthor(), $event->getTags());
         }
     }
 
     private function inflictDamageToPlayer(ActionEvent $event): void
     {
-        $patrolShipMechanic = $this->getPatrolShipMechanic($event);
+        /** @var GameEquipment $patrolShip */
+        $patrolShip = $event->getActionParameter();
+        /** @var PatrolShip $patrolShipMechanic */
+        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
             $patrolShipMechanic->getFailedManoeuvrePlayerDamage()
         );
@@ -204,80 +204,5 @@ final class ActionSubscriber implements EventSubscriberInterface
 
         $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
-    }
-
-    private function getPatrolShipMechanic(ActionEvent $event): PatrolShip
-    {
-        /** @var GameEquipment $patrolShip */
-        $patrolShip = $event->getActionParameter();
-        /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => in_array(EquipmentMechanicEnum::PATROL_SHIP, $mechanic->getMechanics()))->first();
-
-        return $patrolShipMechanic;
-    }
-
-    private function handlePatrolShipDestruction(ActionEvent $event): void
-    {
-        /** @var GameEquipment $patrolShip */
-        $patrolShip = $event->getActionParameter();
-        /** @var Player $player */
-        $player = $event->getAuthor();
-        /** @var Daedalus $daedalus */
-        $daedalus = $player->getDaedalus();
-
-        // destroy patrol ship
-        $destroyPatrolShipEvent = new InteractWithEquipmentEvent(
-            $patrolShip,
-            $event->getAuthor(),
-            VisibilityEnum::HIDDEN,
-            $event->getTags(),
-            new \DateTime(),
-        );
-        $this->eventService->callEvent($destroyPatrolShipEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-
-        // put player in space instead of landing bay
-        $player->changePlace($daedalus->getSpace());
-        $this->playerService->persist($player);
-
-        $this->movePatrolShipContentToSpace($event);
-
-        // kill player if they don't have a functional spacesuit
-        if (!$player->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)) {
-            $deathPlayerEvent = new PlayerEvent(
-                $player,
-                [EndCauseEnum::PATROL_SHIP_MANOEUVRE_EXPLOSION],
-                new \DateTime()
-            );
-            $this->eventService->callEvent($deathPlayerEvent, PlayerEvent::DEATH_PLAYER);
-        }
-    }
-
-    private function movePatrolShipContentToSpace(ActionEvent $event): void
-    {
-        /** @var GameEquipment $patrolShip */
-        $patrolShip = $event->getActionParameter();
-        /** @var Player $player */
-        $player = $event->getAuthor();
-        /** @var Daedalus $daedalus */
-        $daedalus = $player->getDaedalus();
-        /** @var Place $space */
-        $space = $daedalus->getSpace();
-
-        /** @var Place $patrolShipPlace */
-        $patrolShipPlace = $daedalus->getPlaceByName($patrolShip->getName());
-        $patrolShipPlaceContent = $patrolShipPlace->getEquipments();
-
-        /** @var GameEquipment $item */
-        foreach ($patrolShipPlaceContent as $item) {
-            $moveEquipmentEvent = new MoveEquipmentEvent(
-                equipment: $item,
-                newHolder: $space,
-                author: $player,
-                visibility: VisibilityEnum::HIDDEN,
-                tags: $event->getTags(),
-                time: new \DateTime(),
-            );
-            $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);
-        }
     }
 }

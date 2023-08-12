@@ -56,18 +56,6 @@ class ShootHunter extends AttemptAction
         return $parameter instanceof Hunter;
     }
 
-    private function selectHunterToShoot(): Hunter
-    {
-        if ($this->parameter instanceof Hunter) {
-            return $this->parameter;
-        }
-
-        $hunters = $this->player->getDaedalus()->getAttackingHunters()->toArray();
-        $hunterToShoot = $this->randomService->getRandomElements($hunters, number: 1);
-
-        return reset($hunterToShoot);
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::SPACE_BATTLE, 'groups' => ['visibility']]));

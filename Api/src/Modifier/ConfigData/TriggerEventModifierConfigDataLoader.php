@@ -5,7 +5,7 @@ namespace Mush\Modifier\ConfigData;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 
-class TriggerEventModifierConfigDataLoader extends ModifierConfigDataLoader
+class TriggerEventModifierConfigDataLoader extends EventModifierConfigDataLoader
 {
     public function loadConfigsData(): void
     {
@@ -25,15 +25,8 @@ class TriggerEventModifierConfigDataLoader extends ModifierConfigDataLoader
                 $modifierConfig = new TriggerEventModifierConfig($configName);
             }
 
-            $modifierConfig
-                ->setTargetEvent($modifierConfigData['targetEvent'])
-                ->setApplyOnTarget($modifierConfigData['applyOnTarget'])
-                ->setTagConstraints($modifierConfigData['tagConstraints'])
-                ->setModifierRange($modifierConfigData['modifierRange'])
-                ->setModifierName($modifierConfigData['modifierName'])
-            ;
             $modifierConfig = $this->setEventConfig($modifierConfig, $modifierConfigData['triggeredEvent']);
-
+            $this->loadEventModifierData($modifierConfig, $modifierConfigData);
             $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);
 
             $this->entityManager->persist($modifierConfig);

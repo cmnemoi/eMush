@@ -8,7 +8,7 @@ use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Service\EventCreationServiceInterface;
 
-class addEvent extends AbstractModifierHandler
+class AddEvent extends AbstractModifierHandler
 {
     protected string $name = ModifierStrategyEnum::ADD_EVENT;
 

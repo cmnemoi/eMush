@@ -520,10 +520,8 @@ class DiseaseConfigData
             'diseasePointMin' => 4,
             'diseasePointLength' => 4,
             'override' => [],
-            'modifierConfigs' => [],
-            'symptomConfigs' => [
-                'deaf_ON_new_message_default',
-            ],
+            'modifierConfigs' => ['deaf_ON_new_message_default', 'deaf_ON_read_message_default'],
+            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'destroyed_ears',
@@ -537,10 +535,10 @@ class DiseaseConfigData
             'override' => ['damaged_ears'],
             'modifierConfigs' => [
                 'direct_modifier_player_-1_max_moralPoint',
-            ],
-            'symptomConfigs' => [
                 'deaf_ON_new_message_default',
+                'deaf_ON_read_message_default',
             ],
+            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'head_trauma',
@@ -987,10 +985,9 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'direct_modifier_player_-4_max_moralPoint',
+                'coprolalia_ON_new_message_default',
             ],
-            'symptomConfigs' => [
-                'coprolalia_messages_ON_new_message_default',
-            ],
+            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'crabism',
@@ -1038,10 +1035,10 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'direct_modifier_player_-3_max_moralPoint',
+                'paranoia_ON_new_message_default',
+                'paranoia_ON_read_message_default',
             ],
-            'symptomConfigs' => [
-                'paranoia_messages_ON_new_message_default',
-            ],
+            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'psychotic_episodes',

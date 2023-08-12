@@ -32,6 +32,7 @@ use Mush\Game\ConfigData\TriumphConfigDataLoader;
 use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Hunter\ConfigData\HunterConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
+use Mush\Modifier\ConfigData\EventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
@@ -45,6 +46,7 @@ class ConfigDataLoaderService
     private ArrayCollection $dataLoaders;
 
     public function __construct(ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader,
+                                EventModifierConfigDataLoader $eventModifierConfigDataLoader,
                                 VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader,
                                 TriggerEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader,
                                 DirectModifierConfigDataLoader $directModifierConfigDataLoader,
@@ -86,6 +88,7 @@ class ConfigDataLoaderService
             [
                 $variableEventConfigDataLoader,
                 $modifierActivationRequirementDataLoader,
+                $eventModifierConfigDataLoader,
                 $variableEventModifierConfigDataLoader,
                 $triggerEventModifierConfigDataLoader,
                 $directModifierConfigDataLoader,

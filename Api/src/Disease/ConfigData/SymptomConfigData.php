@@ -138,13 +138,6 @@ class SymptomConfigData
             ],
         ],
         [
-            'name' => 'deaf_ON_new_message_default',
-            'symptomName' => 'deaf',
-            'trigger' => 'new_message',
-            'visibility' => 'public',
-            'symptomActivationRequirements' => [],
-        ],
-        [
             'name' => 'septicemia_ON_new_cycle_default',
             'symptomName' => 'septicemia',
             'trigger' => 'new_cycle',
@@ -221,20 +214,6 @@ class SymptomConfigData
                 'reason_move',
                 'random_16',
             ],
-        ],
-        [
-            'name' => 'coprolalia_messages_ON_new_message_default',
-            'symptomName' => 'coprolalia_messages',
-            'trigger' => 'new_message',
-            'visibility' => 'public',
-            'symptomActivationRequirements' => [],
-        ],
-        [
-            'name' => 'paranoia_messages_ON_new_message_default',
-            'symptomName' => 'paranoia_messages',
-            'trigger' => 'new_message',
-            'visibility' => 'public',
-            'symptomActivationRequirements' => [],
         ],
     ];
 }

@@ -22,6 +22,9 @@ class EventService implements EventServiceInterface
         $this->modifierService = $modifierService;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function callEvent(AbstractGameEvent $event, string $name, AbstractGameEvent $caller = null): EventChain
     {
         if ($caller !== null) {
@@ -35,7 +38,13 @@ class EventService implements EventServiceInterface
         $events = $this->applyModifiers($event);
 
         foreach ($events as $event) {
-            $this->eventDispatcher->dispatch($event, $event->getEventName());
+            if ($event->getPriority() !== 0) {
+                // a condition in triggerEventModifierConfig allow to avoid infinite loop
+                // This allows triggered events to be themselves modified
+                $this->callEvent($event, $event->getEventName());
+            } else {
+                $this->eventDispatcher->dispatch($event, $event->getEventName());
+            }
         }
 
         return $events;
@@ -63,6 +72,9 @@ class EventService implements EventServiceInterface
         return $events->getInitialEvent();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function eventCancelReason(AbstractGameEvent $event, string $name): ?string
     {
         $event->setEventName($name);

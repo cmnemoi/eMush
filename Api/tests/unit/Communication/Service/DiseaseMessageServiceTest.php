@@ -15,7 +15,6 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
-use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -68,7 +67,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
-        $symptomConfig = new SymptomConfig(SymptomEnum::DEAF);
+        $symptomConfig = new SymptomConfig(MessageModificationEnum::DEAF_SPEAK);
         $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
@@ -83,7 +82,7 @@ class DiseaseMessageServiceTest extends TestCase
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('some message');
 
-        $modifiedMessage = $this->service->applyModifierEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::DEAF_SPEAK);
 
         $this->assertEquals('SOME MESSAGE', $modifiedMessage->getMessage());
     }
@@ -120,7 +119,7 @@ class DiseaseMessageServiceTest extends TestCase
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
-        $modifiedMessage = $this->service->applyModifierEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
         $this->assertEquals($message, $modifiedMessage);
     }
@@ -177,7 +176,7 @@ class DiseaseMessageServiceTest extends TestCase
             ->once()
         ;
 
-        $modifiedMessage = $this->service->applyModifierEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
         $this->assertEquals('modified message', $modifiedMessage->getMessage());
         $this->assertEquals([], $modifiedMessage->getTranslationParameters());
@@ -236,7 +235,7 @@ class DiseaseMessageServiceTest extends TestCase
             ->once()
         ;
 
-        $modifiedMessage = $this->service->applyModifierEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
         $this->assertEquals('prefix, some message', $modifiedMessage->getMessage());
         $this->assertEquals([], $modifiedMessage->getTranslationParameters());
@@ -294,7 +293,7 @@ class DiseaseMessageServiceTest extends TestCase
             ->once()
         ;
 
-        $modifiedMessage = $this->service->applyModifierEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
         $this->assertEquals('modified message', $modifiedMessage->getMessage());
         $this->assertEquals([], $modifiedMessage->getTranslationParameters());
@@ -351,7 +350,7 @@ class DiseaseMessageServiceTest extends TestCase
             ->once()
         ;
 
-        $modifiedMessage = $this->service->applyModifierEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
         $this->assertEquals('modified message', $modifiedMessage->getMessage());
         $this->assertEquals(
@@ -432,7 +431,7 @@ class DiseaseMessageServiceTest extends TestCase
             ->once()
         ;
 
-        $modifiedMessage = $this->service->applyModifierEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
         $this->assertEquals('modified message', $modifiedMessage->getMessage());
         $this->assertEquals([], $modifiedMessage->getTranslationParameters());

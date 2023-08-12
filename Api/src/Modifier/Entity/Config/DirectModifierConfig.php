@@ -45,4 +45,14 @@ class DirectModifierConfig extends AbstractModifierConfig
 
         return $this;
     }
+
+    public function getTranslationKey(): ?string
+    {
+        return $this->triggeredEvent->getTranslationKey();
+    }
+
+    public function getTranslationParameters(): array
+    {
+        return $this->triggeredEvent->getTranslationParameters();
+    }
 }

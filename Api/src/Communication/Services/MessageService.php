@@ -24,7 +24,6 @@ class MessageService implements MessageServiceInterface
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        MessageModifierServiceInterface $diseaseMessageService,
         EventServiceInterface $eventService,
         MessageRepository $messageRepository
     ) {

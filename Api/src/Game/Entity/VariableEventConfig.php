@@ -8,6 +8,7 @@ use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 
 /**
@@ -113,5 +114,29 @@ class VariableEventConfig extends AbstractEventConfig
         ;
 
         return $reverseEvent;
+    }
+
+    public function getTranslationKey(): ?string
+    {
+        if ($this->quantity < 0) {
+            return $this->eventName . 'decrease';
+        } else {
+            return $this->eventName . 'increase';
+        }
+    }
+
+    public function getTranslationParameters(): array
+    {
+        $parameters = [
+            'quantity' => $this->quantity,
+            'variable' => $this->targetVariable,
+        ];
+
+        $emoteMap = PlayerVariableEnum::getEmoteMap();
+        if (isset($emoteMap[$this->targetVariable])) {
+            $parameters['emote'] = $emoteMap[$this->targetVariable];
+        }
+
+        return $parameters;
     }
 }

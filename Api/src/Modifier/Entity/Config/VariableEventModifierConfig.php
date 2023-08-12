@@ -5,8 +5,10 @@ namespace Mush\Modifier\Entity\Config;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 
 /**
  * One of the modifier type
@@ -148,5 +150,44 @@ class VariableEventModifierConfig extends EventModifierConfig
         }
 
         return parent::doModifierApplies($event);
+    }
+
+    public function getTranslationKey(): ?string
+    {
+        if ($this->mode == VariableModifierModeEnum::MULTIPLICATIVE) {
+            if ($this->delta < 1) {
+                $key = $this->targetEvent . '_decrease';
+            } else {
+                $key = $this->targetEvent . '_increase';
+            }
+            $this->delta = (1 - $this->delta) * 100;
+        } else {
+            if ($this->delta < 0) {
+                $key = $this->targetEvent . '_decrease';
+            } else {
+                $key = $this->targetEvent . '_increase';
+            }
+        }
+
+        foreach (array_keys($this->tagConstraints) as $tagConstraint) {
+            if ($this->tagConstraints[$tagConstraint] !== ModifierRequirementEnum::NONE_TAGS) {
+                $key .= '_' . $tagConstraint;
+            }
+        }
+
+        return $key;
+    }
+
+    public function getTranslationParameters(): array
+    {
+        $parameters = parent::getTranslationParameters();
+
+        $emoteMap = PlayerVariableEnum::getEmoteMap();
+        if (isset($emoteMap[$this->targetVariable])) {
+            $parameters['emote'] = $emoteMap[$this->targetVariable];
+        }
+        $parameters['quantity'] = abs($this->delta);
+
+        return $parameters;
     }
 }

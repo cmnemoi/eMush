@@ -2,6 +2,8 @@
 
 namespace Mush\Action\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class ActionTypeEnum
 {
     public const ACTION_TECHNICIAN = 'action_technician';
@@ -14,4 +16,16 @@ class ActionTypeEnum
     public const ACTION_SUPER_DIRTY = 'action_super_dirty';
 
     public const ACTION_ADMIN = 'action_admin';
+
+    public static function getAll(): ArrayCollection
+    {
+        $actionsType = new ArrayCollection();
+        $reflectionClass = new \ReflectionClass(__CLASS__);
+        $constants = $reflectionClass->getConstants();
+        foreach ($constants as $constant) {
+            $actionsType->add($constant);
+        }
+
+        return $actionsType;
+    }
 }

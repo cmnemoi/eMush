@@ -6,12 +6,6 @@ namespace Mush\Modifier\Enum;
  * Class enumerating the activationRequirements applied on modifiers
  * GameModifier is only applied if the activationRequirement is valid.
  *
- * REASON: the modifier is applied on a certain reason.
- *        For example, only on Move actions.
- *
- * NOT_REASON : the modifier is applied on every reason except the one specified.
- *            For example, on all actions except Move.
- *
  * RANDOM: the application of the modifier is random
  *
  * PLAYER_IN_ROOM: the activationRequirement is applied on the number of player in the room
@@ -30,10 +24,6 @@ namespace Mush\Modifier\Enum;
  */
 class ModifierRequirementEnum
 {
-    public const REASON = 'reason';
-
-    public const NOT_REASON = 'not_reason';
-
     public const RANDOM = 'random';
 
     public const PLAYER_IN_ROOM = 'player_in_room';

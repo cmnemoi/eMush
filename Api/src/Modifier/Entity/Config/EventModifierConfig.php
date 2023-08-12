@@ -3,6 +3,8 @@
 namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 
@@ -134,5 +136,27 @@ class EventModifierConfig extends AbstractModifierConfig
         }
 
         return $anyConstraint;
+    }
+
+    public function getTranslationKey(): ?string
+    {
+        return $this->targetEvent;
+    }
+
+    public function getTranslationParameters(): array
+    {
+        $parameters = parent::getTranslationParameters();
+
+        $tagConstraints = $this->tagConstraints;
+        foreach (array_keys($tagConstraints) as $tagKey) {
+            if ($tagConstraints[$tagKey] !== ModifierRequirementEnum::NONE_TAGS &&
+                ActionTypeEnum::getAll()->contains($tagKey) ||
+                ActionEnum::getAll()->contains($tagKey)
+            ) {
+                $parameters['action_name'] = $tagKey;
+            }
+        }
+
+        return $parameters;
     }
 }

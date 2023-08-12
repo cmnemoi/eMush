@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\DifficultyConfigFixtures;
@@ -56,6 +57,10 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 2 => 1,
                 3 => 1,
             ])
+            ->setActions([
+                ActionEnum::SHOOT_HUNTER,
+                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+            ])
         ;
         $manager->persist($asteroid);
 
@@ -86,6 +91,10 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 3 => 1,
                 4 => 1,
             ])
+            ->setActions([
+                ActionEnum::SHOOT_HUNTER,
+                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+            ])
         ;
         $manager->persist($dice);
 
@@ -111,6 +120,10 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setNumberOfDroppedScrap([
                 1 => 1,
                 2 => 1,
+            ])
+            ->setActions([
+                ActionEnum::SHOOT_HUNTER,
+                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
             ])
         ;
         $manager->persist($hunter);
@@ -138,6 +151,10 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 1 => 1,
                 2 => 1,
             ])
+            ->setActions([
+                ActionEnum::SHOOT_HUNTER,
+                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+            ])
         ;
         $manager->persist($spider);
 
@@ -164,6 +181,10 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 1 => 1,
                 2 => 1,
                 3 => 1,
+            ])
+            ->setActions([
+                ActionEnum::SHOOT_HUNTER,
+                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
             ])
         ;
         $manager->persist($trax);

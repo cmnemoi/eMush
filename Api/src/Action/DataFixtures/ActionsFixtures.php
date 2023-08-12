@@ -774,8 +774,9 @@ class ActionsFixtures extends Fixture
         $shootHunterTurret
             ->setName(ActionEnum::SHOOT_HUNTER . '_turret')
             ->setActionName(ActionEnum::SHOOT_HUNTER)
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setTypes([ActionTypeEnum::ACTION_SHOOT])
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setTarget(GameItem::class)
+            ->setTypes([ActionTypeEnum::ACTION_SHOOT_HUNTER])
             ->setActionCost(1)
             ->setSuccessRate(30)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
@@ -811,8 +812,9 @@ class ActionsFixtures extends Fixture
         $shootHunterPatrolShip
             ->setName(ActionEnum::SHOOT_HUNTER . '_patrolship')
             ->setActionName(ActionEnum::SHOOT_HUNTER . '_patrolship')
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setTypes([ActionTypeEnum::ACTION_SHOOT])
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setTarget(GameItem::class)
+            ->setTypes([ActionTypeEnum::ACTION_SHOOT_HUNTER])
             ->setActionCost(1)
             ->setSuccessRate(40)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)

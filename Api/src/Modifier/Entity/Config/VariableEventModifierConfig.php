@@ -16,6 +16,8 @@ use Mush\Modifier\Enum\VariableModifierModeEnum;
  * delta: the amount of modification
  * targetVariable: the name of the variable that can be modified
  * mode: specify the mode of application of the delta (additive, multiplicative or set)
+ *
+ * By default, additive modifier priority : -120 / multiplicative modifier priority : -140
  */
 #[ORM\Entity]
 class VariableEventModifierConfig extends EventModifierConfig
@@ -33,6 +35,7 @@ class VariableEventModifierConfig extends EventModifierConfig
     {
         $this->targetEvent = VariableEventInterface::CHANGE_VARIABLE;
         $this->modifierStrategy = ModifierStrategyEnum::VARIABLE_MODIFIER;
+        $this->priority = -120;
 
         parent::__construct($name);
     }
@@ -124,6 +127,16 @@ class VariableEventModifierConfig extends EventModifierConfig
     public function setMode(string $mode): self
     {
         $this->mode = $mode;
+
+        switch ($mode) {
+            case VariableModifierModeEnum::MULTIPLICATIVE:
+                $this->priority = -140;
+                break;
+            case VariableModifierModeEnum::ADDITIVE:
+                $this->priority = -120;
+                break;
+            default:
+        }
 
         return $this;
     }

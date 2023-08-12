@@ -27,7 +27,7 @@ class EventModifierConfig extends AbstractModifierConfig
     protected string $modifierStrategy;
 
     #[ORM\Column(type: 'int', nullable: false)]
-    protected int $priority = 1;
+    protected int $priority = -1;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $applyOnTarget = false;

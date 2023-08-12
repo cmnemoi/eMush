@@ -4,6 +4,7 @@ namespace Mush\Game\Service;
 
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Modifier\Service\EventModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -70,8 +71,18 @@ class EventService implements EventServiceInterface
 
         $lastEvent = $events->last();
 
-        if ($lastEvent instanceof ModifierEvent) {
-            $modifierConfig = $lastEvent->getModifier()->getModifierConfig();
+        if (!($lastEvent instanceof AbstractGameEvent)) {
+            return null;
+        }
+
+        $preventEvent = $events->filter(fn (AbstractGameEvent $event) => (
+            $event->getPriority() === $lastEvent->getPriority() &&
+            $event instanceof ModifierEvent &&
+            $event->getModifier()->getModifierConfig()->getModifierStrategy() === ModifierStrategyEnum::PREVENT_EVENT
+        ))->first();
+
+        if ($preventEvent instanceof ModifierEvent) {
+            $modifierConfig = $preventEvent->getModifier()->getModifierConfig();
 
             return $modifierConfig->getModifierName() ?: $modifierConfig->getName();
         }

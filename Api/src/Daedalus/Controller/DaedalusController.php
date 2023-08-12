@@ -231,6 +231,9 @@ class DaedalusController extends AbstractFOSRestController
         if ($daedalus->getDaedalusInfo()->isDaedalusFinished()) {
             return $this->view(['error' => 'Daedalus is already finished'], 400);
         }
+        if ($daedalus->isCycleChange()) {
+            return $this->view(['error' => 'Daedalus changing cycle'], Response::HTTP_CONFLICT);
+        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $this->daedalusService->endDaedalus(

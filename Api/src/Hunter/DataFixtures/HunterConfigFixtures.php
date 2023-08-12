@@ -32,6 +32,11 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $this->getReference(DifficultyConfigFixtures::DEFAULT_DIFFICULTY_CONFIG);
 
+        /** @var Action $shootHunterAction */
+        $shootHunterAction = $this->getReference(ActionsFixtures::SHOOT_HUNTER_TURRET);
+        /** @var Action $shootHunterPatrolShipAction */
+        $shootHunterPatrolShipAction = $this->getReference(ActionsFixtures::SHOOT_HUNTER_PATROL_SHIP);
+
         /** @var StatusConfig $asteroidCharge */
         $asteroidCharge = $this->getReference(ChargeStatusFixtures::ASTEROID_CHARGE);
         $asteroidDamageRange = $this->buildUniformDamageRange(0, 0);
@@ -58,8 +63,8 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 3 => 1,
             ])
             ->setActions([
-                ActionEnum::SHOOT_HUNTER,
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+                $shootHunterAction,
+                $shootHunterPatrolShipAction,
             ])
         ;
         $manager->persist($asteroid);
@@ -92,8 +97,8 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 4 => 1,
             ])
             ->setActions([
-                ActionEnum::SHOOT_HUNTER,
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+                $shootHunterAction,
+                $shootHunterPatrolShipAction,
             ])
         ;
         $manager->persist($dice);
@@ -122,8 +127,8 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 2 => 1,
             ])
             ->setActions([
-                ActionEnum::SHOOT_HUNTER,
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+                $shootHunterAction,
+                $shootHunterPatrolShipAction,
             ])
         ;
         $manager->persist($hunter);
@@ -152,8 +157,8 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 2 => 1,
             ])
             ->setActions([
-                ActionEnum::SHOOT_HUNTER,
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+                $shootHunterAction,
+                $shootHunterPatrolShipAction,
             ])
         ;
         $manager->persist($spider);
@@ -183,8 +188,8 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 3 => 1,
             ])
             ->setActions([
-                ActionEnum::SHOOT_HUNTER,
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+                $shootHunterAction,
+                $shootHunterPatrolShipAction,
             ])
         ;
         $manager->persist($trax);

@@ -55,13 +55,26 @@ class HunterConfigDataLoader extends ConfigDataLoader
                 ->setSpawnDifficulty($hunterConfigData['spawnDifficulty'])
                 ->setScrapDropTable(new ProbaCollection($hunterConfigData['scrapDropTable']))
                 ->setNumberOfDroppedScrap($hunterConfigData['numberOfDroppedScrap'])
-                ->setActions($hunterConfigData['actions'])
             ;
+            $this->setHunterConfigActions($hunterConfig, $hunterConfigData);
             $this->setHunterConfigInitialStatuses($hunterConfig, $hunterConfigData);
 
             $this->entityManager->persist($hunterConfig);
         }
         $this->entityManager->flush();
+    }
+
+    private function setHunterConfigActions(HunterConfig $hunterConfig, array $hunterConfigData): void
+    {
+        $actions = [];
+        foreach ($hunterConfigData['actions'] as $actionName) {
+            $action = $this->actionRepository->findOneBy(['name' => $actionName]);
+            if ($action === null) {
+                throw new \Exception('Action not found: ' . $actionName);
+            }
+            $actions[] = $action;
+        }
+        $hunterConfig->setActions(new ArrayCollection($actions));
     }
 
     private function setHunterConfigInitialStatuses(HunterConfig $hunterConfig, array $hunterConfigData): void

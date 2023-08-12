@@ -2,6 +2,9 @@
 
 namespace Mush\Disease\ConfigData;
 
+use Mush\Action\Enum\ActionEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
+
 /** @codeCoverageIgnore */
 class SymptomConfigData
 {
@@ -11,10 +14,11 @@ class SymptomConfigData
             'symptomName' => 'biting',
             'trigger' => 'new_cycle',
             'visibility' => 'public',
-            'symptomActivationRequirements' => [
+            'modifierActivationRequirements' => [
                 'player_in_room_not_alone',
                 'random_16',
             ],
+            'tagConstraints' => [],
         ],
         [
             'name' => 'breakouts_ON_post.action_default',
@@ -23,8 +27,8 @@ class SymptomConfigData
             'visibility' => 'public',
             'symptomActivationRequirements' => [
                 'random_16',
-                'reason_move',
             ],
+            'tagConstraints' => [ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
             'name' => 'cat_allergy_ON_post.action_default',
@@ -122,20 +126,11 @@ class SymptomConfigData
             ],
         ],
         [
-            'name' => 'cant_move_ON_move_default',
-            'symptomName' => 'cant_move',
-            'trigger' => 'move',
+            'name' => 'deaf_ON_new_message_default',
+            'symptomName' => 'deaf',
+            'trigger' => 'new_message',
             'visibility' => 'public',
             'symptomActivationRequirements' => [],
-        ],
-        [
-            'name' => 'cant_pick_up_heavy_items_ON_take_default',
-            'symptomName' => 'cant_pick_up_heavy_items',
-            'trigger' => 'take',
-            'visibility' => 'public',
-            'symptomActivationRequirements' => [
-                'item_status_heavy',
-            ],
         ],
         [
             'name' => 'septicemia_ON_new_cycle_default',
@@ -185,27 +180,6 @@ class SymptomConfigData
             ],
         ],
         [
-            'name' => 'no_attack_actions_ON_action_attack_default',
-            'symptomName' => 'no_attack_actions',
-            'trigger' => 'action_attack',
-            'visibility' => 'public',
-            'symptomActivationRequirements' => [],
-        ],
-        [
-            'name' => 'no_piloting_actions_ON_action_pilot_default',
-            'symptomName' => 'no_piloting_actions',
-            'trigger' => 'action_pilot',
-            'visibility' => 'public',
-            'symptomActivationRequirements' => [],
-        ],
-        [
-            'name' => 'no_shoot_actions_ON_action_shoot_default',
-            'symptomName' => 'no_shoot_actions',
-            'trigger' => 'action_shoot',
-            'visibility' => 'public',
-            'symptomActivationRequirements' => [],
-        ],
-        [
             'name' => 'psychotic_attacks_ON_post.action_default',
             'symptomName' => 'psychotic_attacks',
             'trigger' => 'post.action',
@@ -214,6 +188,20 @@ class SymptomConfigData
                 'reason_move',
                 'random_16',
             ],
+        ],
+        [
+            'name' => 'coprolalia_messages_ON_new_message_default',
+            'symptomName' => 'coprolalia_messages',
+            'trigger' => 'new_message',
+            'visibility' => 'public',
+            'symptomActivationRequirements' => [],
+        ],
+        [
+            'name' => 'paranoia_messages_ON_new_message_default',
+            'symptomName' => 'paranoia_messages',
+            'trigger' => 'new_message',
+            'visibility' => 'public',
+            'symptomActivationRequirements' => [],
         ],
     ];
 }

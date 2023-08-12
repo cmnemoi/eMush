@@ -35,7 +35,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
     public const REDUCE_MAX_2_ACTION_POINT = 'reduce_max_2_action_point';
     public const REDUCE_MAX_3_MORAL_POINT = 'reduce_max_3_moral_point';
     public const REDUCE_MAX_4_MORAL_POINT = 'reduce_max_4_moral_point';
-    public const NOT_REASON_MOVE = 'not_reason_move';
 
     public function load(ObjectManager $manager): void
     {
@@ -52,13 +51,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->buildName()
         ;
         $manager->persist($fourPeopleInRoomActivationRequirement);
-
-        $notMoveActionActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::NOT_REASON);
-        $notMoveActionActivationRequirement
-            ->setActivationRequirement(ActionEnum::MOVE)
-            ->buildName()
-        ;
-        $manager->persist($notMoveActionActivationRequirement);
 
         /** @var ModifierActivationRequirement $randActivationRequirement16 */
         $randActivationRequirement16 = $this->getReference(DiseaseModifierConfigFixtures::RANDOM_16);
@@ -87,8 +79,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ModifierScopeEnum::ACTIONS)
+            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS])
             ->addModifierRequirement($catInRoomActivationRequirement)
-            ->addModifierRequirement($notMoveActionActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($catInRoomNotMove2ActionIncrease);
@@ -203,7 +195,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $this->addReference(self::REDUCE_MAX_2_ACTION_POINT, $reduceMax2ActionPoint);
         $this->addReference(self::REDUCE_MAX_3_MORAL_POINT, $reduceMax3MoralPoint);
         $this->addReference(self::REDUCE_MAX_4_MORAL_POINT, $reduceMax4MoralPoint);
-        $this->addReference(self::NOT_REASON_MOVE, $notMoveActionActivationRequirement);
     }
 
     public function getDependencies(): array

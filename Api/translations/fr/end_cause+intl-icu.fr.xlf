@@ -577,21 +577,21 @@
         <target>Vous aviez des bugs à corriger dans d'autres univers !</target>
       </segment>
     </unit>
-    <unit id="patrol_ship_manoeuvre_explosion">
+    <unit id="patrol_ship_explosion">
       <segment id="name" state="translated">
-        <source>patrol_ship_manoeuvre_explosion.name</source>
+        <source>patrol_ship_explosion.name</source>
         <target>Patrouilleur pulvérisé</target>
       </segment>
       <segment id="short_name" state="translated">
-        <source>patrol_ship_manoeuvre_explosion.short_name</source>
+        <source>patrol_ship_explosion.short_name</source>
         <target>Manœuvre ratée !</target>
       </segment>
       <segment id="category" state="translated">
-        <source>patrol_ship_manoeuvre_explosion.category</source>
+        <source>patrol_ship_explosion.category</source>
         <target>Vous êtes mort !</target>
       </segment>
       <segment id="description" state="translated">
-        <source>patrol_ship_manoeuvre_explosion.description</source>
+        <source>patrol_ship_explosion.description</source>
         <target>Votre monoplace s'est pulvérisé sur le Daedalus. Pas de chance.</target>
       </segment>
     </unit>

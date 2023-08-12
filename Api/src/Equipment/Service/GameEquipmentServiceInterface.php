@@ -60,9 +60,7 @@ interface GameEquipmentServiceInterface
      * Handle patrol ship destruction.
      *
      * - destroy patrol ship
-     * - put player in space instead of landing bay
      * - move patrol ship content to space
-     * - kill player if they don't have a functional spacesuit
      *
      * @param GameEquipment $patrolShip patrol ship to be destroyed
      * @param Player        $player     player inside the patrol ship

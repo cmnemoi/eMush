@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
-use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
@@ -27,7 +26,6 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 
@@ -215,34 +213,16 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function handlePatrolShipDestruction(GameEquipment $patrolShip, Player $player, array $tags): void
     {
-        /** @var Daedalus $daedalus */
-        $daedalus = $patrolShip->getDaedalus();
-
-        // destroy patrol ship
         $destroyPatrolShipEvent = new InteractWithEquipmentEvent(
             $patrolShip,
             $player,
             VisibilityEnum::HIDDEN,
-            $tags,
+            array_merge($tags, [EndCauseEnum::PATROL_SHIP_EXPLOSION]),
             new \DateTime(),
         );
         $this->eventService->callEvent($destroyPatrolShipEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        // put player in space instead of landing bay
-        $player->changePlace($daedalus->getSpace());
-        $this->persistEntities([$player]);
-
         $this->movePatrolShipContentToSpace($patrolShip, $player, $tags);
-
-        // kill player if they don't have a functional spacesuit
-        if (!$player->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)) {
-            $deathPlayerEvent = new PlayerEvent(
-                $player,
-                [EndCauseEnum::PATROL_SHIP_MANOEUVRE_EXPLOSION],
-                new \DateTime()
-            );
-            $this->eventService->callEvent($deathPlayerEvent, PlayerEvent::DEATH_PLAYER);
-        }
     }
 
     private function movePatrolShipContentToSpace(GameEquipment $patrolShip, Player $player, array $tags): void

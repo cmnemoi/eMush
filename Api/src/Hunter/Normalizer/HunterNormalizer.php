@@ -42,10 +42,12 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
         $currentPlayer = $context['currentPlayer'];
         /** @var Hunter $hunter */
         $hunter = $object;
+        $context['hunter'] = $hunter;
+
         /** @var ChargeStatus $hunterCharges */
         $hunterCharges = $hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
-        // if hunter (not asteroid) is not in truce cycle anymore, it may not have charges
-        $hunterChargesAmount = $hunterCharges?->getCharge();
+        $hunterChargesAmount = $hunterCharges?->getCharge();  // if hunter (not asteroid) is not in truce cycle anymore, it may not have charges
+
         $hunterHealth = $hunter->getHealth();
         $hunterKey = $hunter->getName();
         $isHunterAnAsteroid = $hunterKey === HunterEnum::ASTEROID;
@@ -70,11 +72,27 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
             ),
             'health' => $hunterHealth,
             'charges' => $isHunterAnAsteroid ? null : $hunterChargesAmount,
-            'actions' => $this->gearToolService->getActionsTools(
-                player: $currentPlayer,
-                scopes: [ActionScopeEnum::ROOM],
-                target: Hunter::class
-            ),
+            'actions' => $this->getActions($currentPlayer, $format, $context),
         ];
+    }
+
+    private function getActions(Player $currentPlayer, ?string $format, array $context): array 
+    {
+        $actions = [];
+        
+        $toolsActions = $this->gearToolService->getActionsTools(
+            player: $currentPlayer,
+            scopes: [ActionScopeEnum::ROOM],
+            target: Hunter::class
+        );
+
+        foreach ($toolsActions as $action) {
+            $normedAction = $this->normalizer->normalize($action, $format, $context);
+            if (is_array($normedAction) && count($normedAction) > 0) {
+                $actions[] = $normedAction;
+            }
+        }
+
+        return $actions;
     }
 }

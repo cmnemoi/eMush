@@ -65,9 +65,7 @@ class RoomLogController extends AbstractFOSRestController
         }
 
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isCycleChange()) {
-            $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
-        }
+        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $logs = $this->roomLogService->getRoomLog($player);
 
@@ -105,9 +103,7 @@ class RoomLogController extends AbstractFOSRestController
         }
 
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isCycleChange()) {
-            $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
-        }
+        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $language = $daedalus->getLanguage();
 

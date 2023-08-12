@@ -4,19 +4,31 @@ declare(strict_types=1);
 
 namespace Mush\Hunter\Normalizer;
 
+use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\HunterStatusEnum;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class HunterNormalizer implements NormalizerInterface
+final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+    use NormalizerAwareTrait;
+
+    private GearToolServiceInterface $gearToolService;
     private TranslationServiceInterface $translationService;
 
-    public function __construct(TranslationServiceInterface $translationService)
-    {
+    public function __construct(
+        GearToolServiceInterface $gearToolService,
+        TranslationServiceInterface $translationService
+    ) {
+        $this->gearToolService = $gearToolService;
         $this->translationService = $translationService;
     }
 
@@ -27,14 +39,14 @@ final class HunterNormalizer implements NormalizerInterface
 
     public function normalize(mixed $object, string $format = null, array $context = []): array
     {
+        /** @var Player $currentPlayer */
+        $currentPlayer = $context['currentPlayer'];
         /** @var Hunter $hunter */
         $hunter = $object;
         /** @var ChargeStatus $hunterCharges */
         $hunterCharges = $hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
         // if hunter (not asteroid) is not in truce cycle anymore, it may not have charges
-        if ($hunterCharges !== null) {
-            $hunterChargesAmount = $hunterCharges->getCharge();
-        }
+        $hunterChargesAmount = $hunterCharges?->getCharge();
         $hunterHealth = $hunter->getHealth();
         $hunterKey = $hunter->getName();
         $isHunterAnAsteroid = $hunterKey === HunterEnum::ASTEROID;
@@ -58,7 +70,41 @@ final class HunterNormalizer implements NormalizerInterface
                 language: $hunter->getDaedalus()->getLanguage()
             ),
             'health' => $hunterHealth,
-            'charges' => $isHunterAnAsteroid ? ($hunterChargesAmount ?? null) : null,
+            'charges' => $isHunterAnAsteroid ? null : $hunterChargesAmount,
+            'actions' => $this->getActions($object, $currentPlayer, $format, $context),
         ];
+    }
+
+    private function getActions(Hunter $hunter, Player $currentPlayer, ?string $format, array $context): array
+    {
+        $actions = [];
+
+        $contextActions = $this->gearToolService->getActionsTools(
+            player: $currentPlayer,
+            scopes: [ActionScopeEnum::ROOM],
+            target: Hunter::class
+        );
+
+        /** @var Action $action */
+        foreach ($contextActions as $action) {
+            $normalizedAction = $this->normalizer->normalize($action, $format, $context);
+            if (is_array($normalizedAction) && count($normalizedAction) > 0) {
+                $actions[] = $normalizedAction;
+            }
+        }
+
+        $actionsObject = $hunter->getHunterConfig()->getActions()
+            ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::CURRENT)
+        ;
+
+        /** @var Action $action */
+        foreach ($actionsObject as $action) {
+            $normalizedAction = $this->normalizer->normalize($action, $format, $context);
+            if (is_array($normalizedAction) && count($normalizedAction) > 0) {
+                $actions[] = $normalizedAction;
+            }
+        }
+
+        return $actions;
     }
 }

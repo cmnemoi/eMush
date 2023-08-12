@@ -71,7 +71,7 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
                 language: $hunter->getDaedalus()->getLanguage()
             ),
             'health' => $hunterHealth,
-            'charges' => $isHunterAnAsteroid ? null : $hunterChargesAmount,
+            'charges' => $isHunterAnAsteroid ? $hunterChargesAmount : null,
             'actions' => $this->getActions($currentPlayer, $format, $context),
         ];
     }

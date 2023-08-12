@@ -4,12 +4,19 @@ declare(strict_types=1);
 
 namespace Tests\Mush\Hunter\Normalizer;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Normalizer\HunterNormalizer;
+use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use PHPUnit\Framework\TestCase;
 
@@ -21,6 +28,8 @@ final class HunterNormalizerTest extends TestCase
     private const HUNTER_DESCRIPTION = 'Chasseur standard de la FDS';
 
     private HunterNormalizer $normalizer;
+    /** @var GearToolServiceInterface|Mockery\Mock */
+    private GearToolServiceInterface $gearToolService;
     /** @var TranslationServiceInterface|Mockery\Mock */
     private TranslationServiceInterface $translationService;
 
@@ -28,9 +37,10 @@ final class HunterNormalizerTest extends TestCase
      * @before
      */
     public function before()
-    {
+    {   
+        $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
-        $this->normalizer = new HunterNormalizer($this->translationService);
+        $this->normalizer = new HunterNormalizer($this->gearToolService, $this->translationService);
     }
 
     /**
@@ -60,8 +70,14 @@ final class HunterNormalizerTest extends TestCase
     public function testNormalizeReturnsExpectedArray(): void
     {
         $chargeStatus = $this->createMock(ChargeStatus::class);
+        $currentPlayer = $this->createMock(Player::class);
         $daedalus = $this->createMock(Daedalus::class);
         $hunter = $this->createMock(Hunter::class);
+
+        $context = [
+            'currentPlayer' => $currentPlayer,
+            'hunter' => $hunter,
+        ];
 
         $chargeStatus->method('getCharge')->willReturn(6);
 
@@ -100,6 +116,13 @@ final class HunterNormalizerTest extends TestCase
             ->once()
         ;
 
+        $this->gearToolService
+            ->shouldReceive('getActionsTools')
+            ->with($currentPlayer, [ActionScopeEnum::ROOM], Hunter::class)
+            ->andReturn(new ArrayCollection([]))
+            ->once()
+        ;
+
         $expected = [
             'id' => 1,
             'key' => HunterEnum::ASTEROID,
@@ -107,16 +130,24 @@ final class HunterNormalizerTest extends TestCase
             'description' => self::ASTEROID_DESCRIPTION,
             'health' => 20,
             'charges' => 6,
+            'actions' => [],
         ];
 
-        $this->assertEquals($expected, $this->normalizer->normalize($hunter));
+        $this->assertEquals($expected, $this->normalizer->normalize($hunter, context: $context));
     }
 
     public function testNormalizeReturnsNullChargesForNonAsteroidHunter(): void
-    {
+    {   
+        $action = $this->createMock(Action::class);
         $chargeStatus = $this->createMock(ChargeStatus::class);
+        $currentPlayer = $this->createMock(Player::class);
         $daedalus = $this->createMock(Daedalus::class);
         $hunter = $this->createMock(Hunter::class);
+
+        $context = [
+            'currentPlayer' => $currentPlayer,
+            'hunter' => $hunter,
+        ];
 
         $chargeStatus->method('getCharge')->willReturn(1);
 
@@ -155,6 +186,13 @@ final class HunterNormalizerTest extends TestCase
             ->once()
         ;
 
+        $this->gearToolService
+            ->shouldReceive('getActionsTools')
+            ->with($currentPlayer, [ActionScopeEnum::ROOM], Hunter::class)
+            ->andReturn(new ArrayCollection([]))
+            ->once()
+        ;
+
         $expected = [
             'id' => 1,
             'key' => HunterEnum::HUNTER,
@@ -162,8 +200,9 @@ final class HunterNormalizerTest extends TestCase
             'description' => self::HUNTER_DESCRIPTION,
             'health' => 6,
             'charges' => null,
+            'actions' => [],
         ];
 
-        $this->assertEquals($expected, $this->normalizer->normalize($hunter));
+        $this->assertEquals($expected, $this->normalizer->normalize($hunter, context: $context));
     }
 }

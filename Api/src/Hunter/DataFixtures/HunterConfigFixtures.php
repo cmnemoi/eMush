@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\DifficultyConfigFixtures;
@@ -32,11 +31,6 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $this->getReference(DifficultyConfigFixtures::DEFAULT_DIFFICULTY_CONFIG);
-
-        /** @var Action $shootHunterAction */
-        $shootHunterAction = $this->getReference(ActionsFixtures::SHOOT_HUNTER_TURRET);
-        /** @var Action $shootHunterPatrolShipAction */
-        $shootHunterPatrolShipAction = $this->getReference(ActionsFixtures::SHOOT_HUNTER_PATROL_SHIP);
 
         /** @var StatusConfig $asteroidCharge */
         $asteroidCharge = $this->getReference(ChargeStatusFixtures::ASTEROID_CHARGE);

@@ -3194,7 +3194,7 @@ class EquipmentConfigData
             ],
             'mechanics' => [
                 'tool_turret_command_default',
-                'weapon_turret_default'
+                'weapon_turret_default',
             ],
             'initStatuses' => [
                 'electric_charges_turret_command_default',

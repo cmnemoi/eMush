@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Hunter\Normalizer;
 
-use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;

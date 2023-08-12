@@ -12,7 +12,7 @@ use Mush\Hunter\Repository\HunterConfigRepository;
 use Mush\Status\Repository\StatusConfigRepository;
 
 class HunterConfigDataLoader extends ConfigDataLoader
-{   
+{
     private ActionRepository $actionRepository;
     private HunterConfigRepository $hunterConfigRepository;
     private StatusConfigRepository $statusConfigRepository;

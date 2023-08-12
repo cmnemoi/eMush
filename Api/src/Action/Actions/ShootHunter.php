@@ -5,9 +5,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NumberOfAttackingHunters;
 use Mush\Action\Validator\Reach;
@@ -106,7 +104,7 @@ class ShootHunter extends AttemptAction
             ->filter(fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
             ->filter(fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
             ->first();
-        
+
         if (!$shootingEquipment instanceof GameEquipment) {
             throw new \Exception("Shoot hunter action : {$this->player->getPlace()->getName()} should have a shooting shooting equipment (turret or patrol ship)");
         }

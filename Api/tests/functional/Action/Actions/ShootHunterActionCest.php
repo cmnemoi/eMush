@@ -47,7 +47,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
     }
 
     public function testShootHunterSuccess(FunctionalTester $I)
-    {        
+    {
         $event = new HunterPoolEvent(
             $this->daedalus,
             ['test'],
@@ -71,7 +71,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $I->assertTrue($this->shootHunterAction->isVisible());
 
         $this->shootHunterAction->execute();
-        
+
         $I->assertNotEquals($hunter->getHunterConfig()->getInitialHealth(), $hunter->getHealth());
         $I->assertEquals(
             $this->player1->getActionPoint(),
@@ -105,7 +105,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
             ->setEquipment($turretConfig)
         ;
         $I->haveInRepository($turret);
-        
+
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
 

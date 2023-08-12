@@ -34,6 +34,7 @@ class HunterConfigDataLoader extends ConfigDataLoader
                 $hunterConfig = new HunterConfig();
             } elseif (!($hunterConfig instanceof HunterConfig)) {
                 $this->entityManager->remove($hunterConfig);
+                $this->entityManager->flush();
                 $hunterConfig = new HunterConfig();
             }
 
@@ -50,6 +51,7 @@ class HunterConfigDataLoader extends ConfigDataLoader
                 ->setSpawnDifficulty($hunterConfigData['spawnDifficulty'])
                 ->setScrapDropTable(new ProbaCollection($hunterConfigData['scrapDropTable']))
                 ->setNumberOfDroppedScrap($hunterConfigData['numberOfDroppedScrap'])
+                ->setActions($hunterConfigData['actions'])
             ;
             $this->setHunterConfigInitialStatuses($hunterConfig, $hunterConfigData);
 

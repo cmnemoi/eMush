@@ -5,6 +5,7 @@ namespace Mush\Hunter\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Entity\Action;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableCollection;
@@ -243,5 +244,15 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
     public function canShoot(): bool
     {
         return !$this->hasStatus(HunterStatusEnum::HUNTER_CHARGE);
+    }
+
+    public function getActions(): Collection
+    {
+        return $this->getHunterConfig()->getActions();
+    }
+
+    public function getActionByName(string $name): ?Action
+    {
+        return $this->getHunterConfig()->getActionByName($name);
     }
 }

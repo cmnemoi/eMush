@@ -52,12 +52,12 @@ class ShootHunter extends AttemptAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $parameter instanceof Hunter;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::SPACE_BATTLE, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::UNLOADED_WEAPON]));
         $metadata->addConstraint(new NumberOfAttackingHunters([
@@ -73,7 +73,6 @@ class ShootHunter extends AttemptAction
             return;
         }
 
-        $daedalus = $this->player->getDaedalus();
         /** @var GameEquipment $equipment */
         $equipment = $this->parameter;
 
@@ -81,10 +80,8 @@ class ShootHunter extends AttemptAction
         $weapon = $this->getWeaponMechanic($equipment);
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($weapon->getBaseDamageRange());
 
-        $hunter = $daedalus->getAttackingHunters()->first();
-        if (!$hunter) {
-            throw new \Exception('There should be attacking hunters if ShootHunter action is available.');
-        }
+        /** @var Hunter $hunter */
+        $hunter = $this->parameter;
 
         $shotDoesntKillHunter = $damage < $hunter->getHealth();
         if ($shotDoesntKillHunter) {

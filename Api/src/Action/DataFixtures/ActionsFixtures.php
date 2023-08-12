@@ -82,9 +82,11 @@ class ActionsFixtures extends Fixture
     public const SHOOT = 'shoot';
     public const PLAY_ARCADE = 'play.arcade';
     public const SHOOT_HUNTER_TURRET = 'shoot.hunter.turret';
+    public const SHOOT_RANDOM_HUNTER_TURRET = 'shoot.random.hunter.turret';
     public const TAKEOFF = 'takeoff';
     public const LAND = 'land';
     public const SHOOT_HUNTER_PATROL_SHIP = 'shoot.hunter.patrol_ship';
+    public const SHOOT_RANDOM_HUNTER_PATROL_SHIP = 'shoot.random.hunter.patrol_ship';
     public const COLLECT_SCRAP = 'collect.scrap';
     public const RENOVATE = 'renovate';
 
@@ -784,8 +786,8 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($shootHunterTurret);
 
-        $shootHunterTurret = new Action();
-        $shootHunterTurret
+        $shootRandomHunterTurret = new Action();
+        $shootRandomHunterTurret
             ->setName(ActionEnum::SHOOT_RANDOM_HUNTER . '_turret')
             ->setActionName(ActionEnum::SHOOT_RANDOM_HUNTER)
             ->setScope(ActionScopeEnum::CURRENT)
@@ -794,7 +796,7 @@ class ActionsFixtures extends Fixture
             ->setSuccessRate(30)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
         ;
-        $manager->persist($shootHunterTurret);
+        $manager->persist($shootRandomHunterTurret);
 
         $takeoff = new Action();
         $takeoff
@@ -940,9 +942,11 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::SHOOT, $shootAction);
         $this->addReference(self::PLAY_ARCADE, $playArcade);
         $this->addReference(self::SHOOT_HUNTER_TURRET, $shootHunterTurret);
+        $this->addReference(self::SHOOT_RANDOM_HUNTER_TURRET, $shootRandomHunterTurret);
         $this->addReference(self::TAKEOFF, $takeoff);
         $this->addReference(self::LAND, $land);
         $this->addReference(self::SHOOT_HUNTER_PATROL_SHIP, $shootHunterPatrolShip);
+        $this->addReference(self::SHOOT_RANDOM_HUNTER_PATROL_SHIP, $shootRandomHunterTurret);
         $this->addReference(self::COLLECT_SCRAP, $collectScrap);
         $this->addReference(self::RENOVATE, $renovate);
     }

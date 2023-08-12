@@ -14,7 +14,7 @@ use Mush\Hunter\Entity\Hunter;
  */
 class ActionData
 {
-    public static $dataArray = [
+    public static array $dataArray = [
         [
             'name' => 'suicide',
             'action_name' => 'suicide',

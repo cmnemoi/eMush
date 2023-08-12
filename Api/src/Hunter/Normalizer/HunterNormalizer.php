@@ -71,40 +71,11 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
             ),
             'health' => $hunterHealth,
             'charges' => $isHunterAnAsteroid ? null : $hunterChargesAmount,
-            'actions' => $this->getActions($object, $currentPlayer, $format, $context),
+            'actions' => $$this->gearToolService->getActionsTools(
+                player: $currentPlayer,
+                scopes: [ActionScopeEnum::ROOM],
+                target: Hunter::class
+            ),
         ];
-    }
-
-    private function getActions(Hunter $hunter, Player $currentPlayer, ?string $format, array $context): array
-    {
-        $actions = [];
-
-        $contextActions = $this->gearToolService->getActionsTools(
-            player: $currentPlayer,
-            scopes: [ActionScopeEnum::ROOM],
-            target: Hunter::class
-        );
-
-        /** @var Action $action */
-        foreach ($contextActions as $action) {
-            $normalizedAction = $this->normalizer->normalize($action, $format, $context);
-            if (is_array($normalizedAction) && count($normalizedAction) > 0) {
-                $actions[] = $normalizedAction;
-            }
-        }
-
-        $actionsObject = $hunter->getHunterConfig()->getActions()
-            ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::CURRENT)
-        ;
-
-        /** @var Action $action */
-        foreach ($actionsObject as $action) {
-            $normalizedAction = $this->normalizer->normalize($action, $format, $context);
-            if (is_array($normalizedAction) && count($normalizedAction) > 0) {
-                $actions[] = $normalizedAction;
-            }
-        }
-
-        return $actions;
     }
 }

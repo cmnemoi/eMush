@@ -63,10 +63,6 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 2 => 1,
                 3 => 1,
             ])
-            ->setActions([
-                $shootHunterAction,
-                $shootHunterPatrolShipAction,
-            ])
         ;
         $manager->persist($asteroid);
 
@@ -97,10 +93,6 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 3 => 1,
                 4 => 1,
             ])
-            ->setActions([
-                $shootHunterAction,
-                $shootHunterPatrolShipAction,
-            ])
         ;
         $manager->persist($dice);
 
@@ -126,10 +118,6 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setNumberOfDroppedScrap([
                 1 => 1,
                 2 => 1,
-            ])
-            ->setActions([
-                $shootHunterAction,
-                $shootHunterPatrolShipAction,
             ])
         ;
         $manager->persist($hunter);
@@ -157,10 +145,6 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 1 => 1,
                 2 => 1,
             ])
-            ->setActions([
-                $shootHunterAction,
-                $shootHunterPatrolShipAction,
-            ])
         ;
         $manager->persist($spider);
 
@@ -187,10 +171,6 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 1 => 1,
                 2 => 1,
                 3 => 1,
-            ])
-            ->setActions([
-                $shootHunterAction,
-                $shootHunterPatrolShipAction,
             ])
         ;
         $manager->persist($trax);

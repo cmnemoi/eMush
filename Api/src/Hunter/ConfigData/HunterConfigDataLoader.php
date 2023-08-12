@@ -38,7 +38,6 @@ class HunterConfigDataLoader extends ConfigDataLoader
                 $hunterConfig = new HunterConfig();
             } elseif (!($hunterConfig instanceof HunterConfig)) {
                 $this->entityManager->remove($hunterConfig);
-                $this->entityManager->flush();
                 $hunterConfig = new HunterConfig();
             }
 

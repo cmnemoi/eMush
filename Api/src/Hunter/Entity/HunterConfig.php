@@ -5,7 +5,6 @@ namespace Mush\Hunter\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Entity\Action;
 use Mush\Game\Entity\ProbaCollection;
 use Mush\Status\Entity\Config\StatusConfig;
 
@@ -56,9 +55,6 @@ class HunterConfig
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
     private array $numberOfDroppedScrap = [];
-
-    #[ORM\ManyToMany(targetEntity: Action::class)]
-    private Collection $actions;
 
     public function __construct()
     {
@@ -241,32 +237,6 @@ class HunterConfig
         }
 
         $this->numberOfDroppedScrap = $numberOfDroppedScrap;
-
-        return $this;
-    }
-
-    public function getActions(): Collection
-    {
-        return $this->actions;
-    }
-
-    public function getActionByName(string $name): ?Action
-    {
-        $actions = $this->actions->filter(fn (Action $action) => $action->getActionName() === $name);
-
-        return $actions->isEmpty() ? null : $actions->first();
-    }
-
-    /**
-     * @param Collection<int, Action> $actions
-     */
-    public function setActions(Collection|array $actions): static
-    {
-        if (is_array($actions)) {
-            $actions = new ArrayCollection($actions);
-        }
-
-        $this->actions = $actions;
 
         return $this;
     }

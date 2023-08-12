@@ -12,10 +12,4 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 final class ShootHunterPatrolShip extends ShootHunter
 {
     protected string $name = ActionEnum::SHOOT_HUNTER_PATROL_SHIP;
-
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {
-        parent::loadValidatorMetadata($metadata);
-        $metadata->addConstraint(new PlaceType(['type' => PlaceTypeEnum::PATROL_SHIP, 'groups' => ['visibility']]));
-    }
 }

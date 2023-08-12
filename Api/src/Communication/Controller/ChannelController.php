@@ -90,9 +90,6 @@ class ChannelController extends AbstractFOSRestController
         }
 
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isCycleChange()) {
-            return $this->view(['error' => 'Daedalus changing cycle'], Response::HTTP_CONFLICT);
-        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         if (!$this->canCreateChannel->isSatisfied($player)) {
@@ -136,9 +133,6 @@ class ChannelController extends AbstractFOSRestController
         }
 
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isCycleChange()) {
-            return $this->view(['error' => 'Daedalus changing cycle'], Response::HTTP_CONFLICT);
-        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         if (!$this->canCreateChannel->isSatisfied($player)) {
@@ -176,9 +170,6 @@ class ChannelController extends AbstractFOSRestController
         }
 
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isCycleChange()) {
-            return $this->view(['error' => 'Daedalus changing cycle'], Response::HTTP_CONFLICT);
-        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $channels = $this->channelService->getPlayerChannels($player);
@@ -211,9 +202,6 @@ class ChannelController extends AbstractFOSRestController
         }
 
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isCycleChange()) {
-            return $this->view(['error' => 'Daedalus changing cycle'], Response::HTTP_CONFLICT);
-        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
@@ -269,9 +257,6 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
-        if ($daedalus->isCycleChange()) {
-            return $this->view(['error' => 'Daedalus changing cycle'], Response::HTTP_CONFLICT);
-        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         if (!($invitedPlayer = $this->playerService->findById($invited))) {
@@ -322,9 +307,6 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
-        if ($daedalus->isCycleChange()) {
-            return $this->view(['error' => 'Daedalus changing cycle'], Response::HTTP_CONFLICT);
-        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         return $this->view(
@@ -359,9 +341,6 @@ class ChannelController extends AbstractFOSRestController
         }
 
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isCycleChange()) {
-            return $this->view(['error' => 'Daedalus changing cycle'], Response::HTTP_CONFLICT);
-        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $this->channelService->exitChannel($player, $channel);
@@ -405,9 +384,6 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
-        if ($daedalus->isCycleChange()) {
-            return $this->view(['error' => 'Daedalus changing cycle'], Response::HTTP_CONFLICT);
-        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $messageCreate->setChannel($channel);
@@ -476,9 +452,6 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
-        if ($daedalus->isCycleChange()) {
-            return $this->view(['error' => 'Daedalus changing cycle'], Response::HTTP_CONFLICT);
-        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         /** @var User $user */

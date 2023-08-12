@@ -130,9 +130,6 @@ class PlayerController extends AbstractFOSRestController
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_CREATE);
 
         $daedalus = $playerCreateRequest->getDaedalus();
-        if ($daedalus->isCycleChange()) {
-            return $this->view(['error' => 'Daedalus changing cycle'], Response::HTTP_CONFLICT);
-        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         if ($daedalus->getDaedalusInfo()->isDaedalusFinished()) {

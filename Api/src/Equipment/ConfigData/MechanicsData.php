@@ -3204,9 +3204,7 @@ class MechanicsData
             'failedManoeuvreDaedalusDamage' => null,
             'failedManoeuvrePatrolShipDamage' => null,
             'failedManoeuvrePlayerDamage' => null,
-            'actions' => [
-                ActionEnum::SHOOT_HUNTER . '_turret',
-            ],
+            'actions' => [],
             'modifierConfigs' => [],
         ],
         [
@@ -3241,9 +3239,7 @@ class MechanicsData
             'failedManoeuvreDaedalusDamage' => null,
             'failedManoeuvrePatrolShipDamage' => null,
             'failedManoeuvrePlayerDamage' => null,
-            'actions' => [
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
-            ],
+            'actions' => [],
             'modifierConfigs' => [],
         ],
         [

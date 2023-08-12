@@ -294,7 +294,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setDockingPlace(RoomEnum::ALPHA_BAY)
         ;
         $patrolShipWeapon = $this->createWeapon(
-            [$shootHunterPatrolShipAction],
+            [],
             EquipmentEnum::PATROL_SHIP
         );
         $patrolShipWeapon->setBaseDamageRange(
@@ -552,7 +552,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $shootHunterTurret */
         $shootHunterTurret = $this->getReference(ActionsFixtures::SHOOT_HUNTER_TURRET);
 
-        $turretMechanic = $this->createWeapon([$shootHunterTurret], EquipmentEnum::TURRET_COMMAND);
+        $turretMechanic = $this->createWeapon([], EquipmentEnum::TURRET_COMMAND);
         $turretMechanic->setBaseDamageRange(
             [
                 2 => 1,

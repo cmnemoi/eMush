@@ -36,7 +36,7 @@ class HunterConfigData
                 3 => 1,
             ],
             'actions' => [
-                ActionEnum::SHOOT_HUNTER,
+                ActionEnum::SHOOT_HUNTER . '_turret',
                 ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
             ],
         ],
@@ -69,7 +69,7 @@ class HunterConfigData
                 4 => 1,
             ],
             'actions' => [
-                ActionEnum::SHOOT_HUNTER,
+                ActionEnum::SHOOT_HUNTER . '_turret',
                 ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
             ],
         ],
@@ -99,7 +99,7 @@ class HunterConfigData
                 2 => 1,
             ],
             'actions' => [
-                ActionEnum::SHOOT_HUNTER,
+                ActionEnum::SHOOT_HUNTER . '_turret',
                 ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
             ],
         ],
@@ -129,7 +129,7 @@ class HunterConfigData
                 2 => 1,
             ],
             'actions' => [
-                ActionEnum::SHOOT_HUNTER,
+                ActionEnum::SHOOT_HUNTER . '_turret',
                 ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
             ],
         ],
@@ -159,7 +159,7 @@ class HunterConfigData
                 3 => 1,
             ],
             'actions' => [
-                ActionEnum::SHOOT_HUNTER,
+                ActionEnum::SHOOT_HUNTER . '_turret',
                 ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
             ],
         ],

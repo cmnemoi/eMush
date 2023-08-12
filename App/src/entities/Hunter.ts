@@ -1,3 +1,5 @@
+import { Action } from "./Action";
+
 export class Hunter {
     public id!: number;
     public key!: string;
@@ -5,9 +7,11 @@ export class Hunter {
     public description!: string;
     public health!: integer;
     public charges: integer|null;
+    public actions: Array<Action>;
 
     constructor() {
         this.charges = null;
+        this.actions = new Array<Action>();
     }
 
     public load(object: any): Hunter {
@@ -18,22 +22,16 @@ export class Hunter {
             this.description = object.description;
             this.health = object.health;
             this.charges = object.charges;
+            object.actions.forEach((actionObject: any) => {
+                this.actions.push((new Action).load(actionObject));
+            });
         }
         
         return this;
     }
 
-    public jsonEncode(): object {
-        const data : any = {
-            'id': this.id,
-            'key': this.key,
-            'name': this.name,
-            'description': this.description,
-            'health': this.health,
-            'charges': this.charges,
-        };
-
-        return data;
+    public jsonEncode(): string {
+        return JSON.stringify(this);
     }
 
     public decode(jsonString : string): Hunter {

@@ -16,8 +16,6 @@ use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -68,9 +66,8 @@ class RoomLogController extends AbstractFOSRestController
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
         }
-        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $logs = $this->roomLogService->getRoomLog($player);
 
@@ -109,9 +106,8 @@ class RoomLogController extends AbstractFOSRestController
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+            $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
         }
-        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $language = $daedalus->getLanguage();
 

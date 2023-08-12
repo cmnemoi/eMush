@@ -2829,7 +2829,7 @@ class EquipmentConfigData
                 'examine',
                 'report_equipment',
             ],
-            'mechanics' => ['weapon_patrol_ship_default', 'patrol_ship_patrol_ship_alpha_longane_default'],
+            'mechanics' => ['tool_patrol_ship_default', 'weapon_patrol_ship_default', 'patrol_ship_patrol_ship_alpha_longane_default'],
             'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
@@ -2847,7 +2847,7 @@ class EquipmentConfigData
                 'examine',
                 'report_equipment',
             ],
-            'mechanics' => ['weapon_patrol_ship_default', 'patrol_ship_patrol_ship_alpha_jujube_default'],
+            'mechanics' => ['tool_patrol_ship_default', 'weapon_patrol_ship_default', 'patrol_ship_patrol_ship_alpha_jujube_default'],
             'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
@@ -2865,7 +2865,7 @@ class EquipmentConfigData
                 'examine',
                 'report_equipment',
             ],
-            'mechanics' => ['weapon_patrol_ship_default', 'patrol_ship_patrol_ship_alpha_tamarin_default'],
+            'mechanics' => ['tool_patrol_ship_default', 'weapon_patrol_ship_default', 'patrol_ship_patrol_ship_alpha_tamarin_default'],
             'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
@@ -2883,7 +2883,7 @@ class EquipmentConfigData
                 'examine',
                 'report_equipment',
             ],
-            'mechanics' => ['weapon_patrol_ship_default', 'patrol_ship_patrol_ship_bravo_socrate_default'],
+            'mechanics' => ['tool_patrol_ship_default', 'weapon_patrol_ship_default', 'patrol_ship_patrol_ship_bravo_socrate_default'],
             'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
@@ -2901,7 +2901,7 @@ class EquipmentConfigData
                 'examine',
                 'report_equipment',
             ],
-            'mechanics' => ['weapon_patrol_ship_default', 'patrol_ship_patrol_ship_bravo_epicure_default'],
+            'mechanics' => ['tool_patrol_ship_default', 'weapon_patrol_ship_default', 'patrol_ship_patrol_ship_bravo_epicure_default'],
             'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
@@ -2919,7 +2919,7 @@ class EquipmentConfigData
                 'examine',
                 'report_equipment',
             ],
-            'mechanics' => ['weapon_patrol_ship_default', 'patrol_ship_patrol_ship_bravo_planton_default'],
+            'mechanics' => ['tool_patrol_ship_default', 'weapon_patrol_ship_default', 'patrol_ship_patrol_ship_bravo_planton_default'],
             'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
@@ -2937,7 +2937,7 @@ class EquipmentConfigData
                 'examine',
                 'report_equipment',
             ],
-            'mechanics' => ['weapon_patrol_ship_default', 'patrol_ship_patrol_ship_alpha_2_wallis_default'],
+            'mechanics' => ['tool_patrol_ship_default', 'weapon_patrol_ship_default', 'patrol_ship_patrol_ship_alpha_2_wallis_default'],
             'initStatuses' => ['electric_charges_patrol_ship_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default'],
         ],
         [
@@ -3192,7 +3192,10 @@ class EquipmentConfigData
                 'report_equipment',
                 'examine',
             ],
-            'mechanics' => ['weapon_turret_default'],
+            'mechanics' => [
+                'tool_turret_command_default',
+                'weapon_turret_default'
+            ],
             'initStatuses' => [
                 'electric_charges_turret_command_default',
             ],

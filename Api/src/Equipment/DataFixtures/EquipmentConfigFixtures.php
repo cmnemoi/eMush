@@ -293,6 +293,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ])
             ->setDockingPlace(RoomEnum::ALPHA_BAY)
         ;
+        $patrolShipTool = $this->createTool([$shootHunterPatrolShipAction], EquipmentEnum::PATROL_SHIP);
         $patrolShipWeapon = $this->createWeapon(
             [],
             EquipmentEnum::PATROL_SHIP
@@ -313,10 +314,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActions(new ArrayCollection([$repair12, $examineAction]))
-            ->setMechanics([$patrolShipMechanic, $patrolShipWeapon])
+            ->setMechanics([$patrolShipMechanic, $patrolShipTool, $patrolShipWeapon])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($patrolShipMechanic);
+        $manager->persist($patrolShipTool);
         $manager->persist($patrolShipWeapon);
         $manager->persist($patrolShip);
 
@@ -552,8 +554,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $shootHunterTurret */
         $shootHunterTurret = $this->getReference(ActionsFixtures::SHOOT_HUNTER_TURRET);
 
-        $turretMechanic = $this->createWeapon([], EquipmentEnum::TURRET_COMMAND);
-        $turretMechanic->setBaseDamageRange(
+        $turretTool = $this->createTool([$shootHunterTurret], EquipmentEnum::TURRET_COMMAND);
+        $turretWeapon = $this->createWeapon([$shootHunterTurret], EquipmentEnum::TURRET_COMMAND);
+        $turretWeapon->setBaseDamageRange(
             [
                 2 => 1,
                 3 => 1,
@@ -567,13 +570,14 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$turretMechanic]))
+            ->setMechanics(new ArrayCollection([$turretTool, $turretWeapon]))
             ->setInitStatuses(new ArrayCollection([$turretCharge]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($turretCommand);
-        $manager->persist($turretMechanic);
+        $manager->persist($turretTool);
+        $manager->persist($turretWeapon);
 
         /** @var Action $selfSurgeryAction */
         $selfSurgeryAction = $this->getReference(ActionsFixtures::SELF_SURGERY);

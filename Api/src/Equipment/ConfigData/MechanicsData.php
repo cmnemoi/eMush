@@ -3456,5 +3456,19 @@ class MechanicsData
             ],
             'modifierConfigs' => [],
         ],
+        [
+            'name' => 'tool_turret_command_default',
+            'type' => 'tool',
+            'actions' => [
+                ActionEnum::SHOOT_HUNTER . '_turret',
+            ],
+        ],
+        [
+            'name' => 'tool_patrol_ship_default',
+            'type' => 'tool',
+            'actions' => [
+                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+            ],
+        ],
     ];
 }

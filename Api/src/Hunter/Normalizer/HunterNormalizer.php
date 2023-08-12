@@ -76,10 +76,10 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
         ];
     }
 
-    private function getActions(Player $currentPlayer, ?string $format, array $context): array 
+    private function getActions(Player $currentPlayer, ?string $format, array $context): array
     {
         $actions = [];
-        
+
         $toolsActions = $this->gearToolService->getActionsTools(
             player: $currentPlayer,
             scopes: [ActionScopeEnum::ROOM],

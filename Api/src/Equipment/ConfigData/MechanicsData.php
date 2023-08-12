@@ -3205,7 +3205,7 @@ class MechanicsData
             'failedManoeuvrePatrolShipDamage' => null,
             'failedManoeuvrePlayerDamage' => null,
             'actions' => [
-                ActionEnum::SHOOT_RANDOM_HUNTER,
+                ActionEnum::SHOOT_RANDOM_HUNTER . '_turret',
             ],
             'modifierConfigs' => [],
         ],

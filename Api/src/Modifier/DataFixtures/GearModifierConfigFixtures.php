@@ -15,12 +15,13 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
-use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -48,11 +49,10 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
     public function load(ObjectManager $manager): void
     {
-        $apronModifier = new TriggerEventModifierConfig(ModifierNameEnum::APRON_MODIFIER);
+        $apronModifier = new EventModifierConfig(ModifierNameEnum::APRON_MODIFIER);
 
         $apronModifier
-            ->setTriggeredEvent(null)
-            ->setReplaceEvent(true)
+            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setTargetEvent(StatusEvent::STATUS_APPLIED)
             ->setTagConstraints([
                 PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ALL_TAGS,
@@ -89,10 +89,9 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($wrenchModifier);
 
-        $glovesModifier = new TriggerEventModifierConfig('preventClumsinessModifier');
+        $glovesModifier = new EventModifierConfig('preventClumsinessModifier');
         $glovesModifier
-            ->setTriggeredEvent(null)
-            ->setReplaceEvent(true)
+            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setApplyOnTarget(true)
             ->setTagConstraints([EndCauseEnum::CLUMSINESS => ModifierRequirementEnum::ALL_TAGS])

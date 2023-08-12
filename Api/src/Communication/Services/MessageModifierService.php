@@ -4,15 +4,14 @@ namespace Mush\Communication\Services;
 
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\DiseaseMessagesEnum;
-use Mush\Disease\Enum\SymptomEnum;
-use Mush\Game\Enum\EventEnum;
+use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 
-class DiseaseMessageService implements DiseaseMessageServiceInterface
+class MessageModifierService implements MessageModifierServiceInterface
 {
     private const COPROLALIA_TRIGGER_CHANCE = 33;
     private const COPROLALIA_REPLACE_CHANCE = 50;
@@ -20,7 +19,7 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
     private const PARANOIA_TRIGGER_CHANCE = 33;
     private const PARANOIA_REPLACE_CHANCE = 60;
     private const PARANOIA_ACCUSE_CHANCE = 50;
-    public const PARANOIA_AWARENESS = 50;
+    public const PARANOIA_DENIAL = 50;
 
     private RandomServiceInterface $randomService;
     private TranslationServiceInterface $translationService;
@@ -33,47 +32,47 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
         $this->translationService = $translationService;
     }
 
-    public function applyDiseaseEffects(Message $message): Message
-    {
+    public function applyModifierEffects(
+        Message $message,
+        ?Player $player,
+        string $effectName
+    ): Message {
         $messageContent = $message->getMessage();
 
-        $playerInfo = $message->getAuthor();
-
-        if ($playerInfo === null ||
-            ($player = $playerInfo->getPlayer()) === null
-        ) {
-            return $message;
+        switch ($effectName) {
+            case MessageModificationEnum::COPROLALIA_MESSAGES:
+                return $this->applyCoprolaliaEffect($message, $player);
+            case MessageModificationEnum::PARANOIA_MESSAGES:
+                return $this->applyParanoiaEffect($message, $player);
+            case MessageModificationEnum::PARANOIA_DENIAL:
+                return $this->applyParanoiaDenial($message, $player);
+            case MessageModificationEnum::DEAF_LISTEN:
+                return $message->setMessage($this->applyDeafListenEffect());
+            case MessageModificationEnum::DEAF_SPEAK:
+                return $message->setMessage($this->applyDeafSpeakEffect($messageContent));
+            default:
+                return $message;
         }
-
-        $playerSymptoms = $player
-            ->getMedicalConditions()
-            ->getActiveDiseases()
-            ->getAllSymptoms()
-            ->getTriggeredSymptoms([EventEnum::NEW_MESSAGE])
-        ;
-
-        if ($playerSymptoms->hasSymptomByName(SymptomEnum::COPROLALIA_MESSAGES)) {
-            $message = $this->applyCoprolaliaEffect($message, $player->getDaedalus()->getLanguage());
-        }
-
-        if ($playerSymptoms->hasSymptomByName(SymptomEnum::PARANOIA_MESSAGES)) {
-            $message = $this->applyParanoiaEffect($message, $player);
-        }
-
-        if ($playerSymptoms->hasSymptomByName(SymptomEnum::DEAF)) {
-            $message->setMessage($this->applyDeafEffect($messageContent));
-        }
-
-        return $message;
     }
 
-    private function applyDeafEffect(string $message): string
+    private function applyDeafSpeakEffect(string $message): string
     {
         return strtoupper($message);
     }
 
-    private function applyCoprolaliaEffect(Message $message, string $language): Message
+    private function applyDeafListenEffect(): string
     {
+        return '...';
+    }
+
+    private function applyCoprolaliaEffect(Message $message, ?Player $player): Message
+    {
+        if ($player === null) {
+            throw new \LogicException('Coprolalia modifier can only be applied to player sent messages');
+        }
+
+        $language = $player->getDaedalus()->getLanguage();
+
         $messageContent = $message->getMessage();
 
         if (!$this->randomService->isSuccessful(self::COPROLALIA_TRIGGER_CHANCE)) {
@@ -120,8 +119,12 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
         );
     }
 
-    private function applyParanoiaEffect(Message $message, Player $player): Message
+    private function applyParanoiaEffect(Message $message, ?Player $player): Message
     {
+        if ($player === null) {
+            throw new \LogicException('Paranoia modifier can only be applied to player sent messages');
+        }
+
         if (!$this->randomService->isSuccessful(self::PARANOIA_TRIGGER_CHANCE)) {
             return $message;
         }
@@ -163,15 +166,33 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
             ) . $messageContent;
         }
 
-        if (!$this->randomService->isSuccessful(self::PARANOIA_AWARENESS)) {
+        if (!$this->randomService->isSuccessful(self::PARANOIA_DENIAL)) {
             $message
                 ->setTranslationParameters([
                     DiseaseMessagesEnum::ORIGINAL_MESSAGE => $message->getMessage(),
-                    DiseaseMessagesEnum::MODIFICATION_CAUSE => SymptomEnum::PARANOIA_MESSAGES,
+                    DiseaseMessagesEnum::MODIFICATION_CAUSE => MessageModificationEnum::PARANOIA_MESSAGES,
                 ]);
         }
 
         $message->setMessage($messageContent);
+
+        return $message;
+    }
+
+    private function applyParanoiaDenial(Message $message, ?Player $player): Message
+    {
+        if ($player === null) {
+            throw new \LogicException('Paranoia modifier can only be applied to player sent messages');
+        }
+
+        $translationParameters = $message->getTranslationParameters();
+        if (
+            $message->getAuthor() === $player->getPlayerInfo() &&
+            array_key_exists(DiseaseMessagesEnum::ORIGINAL_MESSAGE, $translationParameters) &&
+            $translationParameters[DiseaseMessagesEnum::MODIFICATION_CAUSE] === MessageModificationEnum::PARANOIA_MESSAGES
+        ) {
+            $message->setMessage($translationParameters[DiseaseMessagesEnum::ORIGINAL_MESSAGE]);
+        }
 
         return $message;
     }

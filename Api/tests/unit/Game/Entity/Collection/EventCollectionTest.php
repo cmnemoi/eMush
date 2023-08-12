@@ -2,21 +2,14 @@
 
 namespace Mush\Test\Event\Entity\Collection;
 
-use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusVariableEvent;
-use Mush\Game\Entity\Collection\EventCollection;
+use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
 
 class EventCollectionTest extends TestCase
@@ -49,7 +42,7 @@ class EventCollectionTest extends TestCase
         $event5 = new AbstractGameEvent([], new \DateTime());
         $event5->setPriority(1);
 
-        $eventCollection = new EventCollection([$event4]);
+        $eventCollection = new EventChain([$event4]);
 
         $eventCollection = $eventCollection->addEvent($event5);
 
@@ -57,11 +50,27 @@ class EventCollectionTest extends TestCase
         $this->assertEquals($event4, $eventCollection->first());
         $this->assertEquals($event5, $eventCollection->next());
 
-
         $eventCollection = $eventCollection->addEvent($event1);
 
         $this->assertCount(3, $eventCollection);
         $this->assertEquals($event1, $eventCollection->first());
+        $this->assertEquals($event4, $eventCollection->next());
+        $this->assertEquals($event5, $eventCollection->next());
+
+        $eventCollection = $eventCollection->addEvent($event3);
+
+        $this->assertCount(4, $eventCollection);
+        $this->assertEquals($event1, $eventCollection->first());
+        $this->assertEquals($event3, $eventCollection->next());
+        $this->assertEquals($event4, $eventCollection->next());
+        $this->assertEquals($event5, $eventCollection->next());
+
+        $eventCollection = $eventCollection->addEvent($event2);
+
+        $this->assertCount(5, $eventCollection);
+        $this->assertEquals($event1, $eventCollection->first());
+        $this->assertEquals($event2, $eventCollection->next());
+        $this->assertEquals($event3, $eventCollection->next());
         $this->assertEquals($event4, $eventCollection->next());
         $this->assertEquals($event5, $eventCollection->next());
     }

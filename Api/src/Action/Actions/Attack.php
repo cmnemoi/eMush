@@ -178,7 +178,7 @@ class Attack extends AttemptAction
         /** @var ActionVariableEvent $criticalRollEvent */
         $criticalRollEvent = $this->eventService->computeEventModifications($criticalRollEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);
 
-        return $this->randomService->isSuccessful($criticalRollEvent->getQuantity());
+        return $this->randomService->isSuccessful($criticalRollEvent->getRoundedQuantity());
     }
 
     private function createDamageEvent(int $damage, Player $target, Player $author): PlayerVariableEvent

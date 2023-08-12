@@ -3,8 +3,6 @@
 namespace Mush\Communication\Normalizer;
 
 use Mush\Communication\Entity\Message;
-use Mush\Communication\Enum\DiseaseMessagesEnum;
-use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
@@ -50,20 +48,7 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
         }
 
         $translationParameters = $object->getTranslationParameters();
-        if ($this->hasPlayerSymptom($currentPlayer, SymptomEnum::DEAF)) {
-            $message = $this->translationService->translate(
-                DiseaseMessagesEnum::DEAF,
-                [],
-                'disease_message',
-                $language
-            );
-        } elseif (
-            $object->getAuthor() === $currentPlayer->getPlayerInfo() &&
-            array_key_exists(DiseaseMessagesEnum::ORIGINAL_MESSAGE, $translationParameters) &&
-            $this->hasPlayerSymptom($currentPlayer, $translationParameters[DiseaseMessagesEnum::MODIFICATION_CAUSE])
-        ) {
-            $message = $translationParameters[DiseaseMessagesEnum::ORIGINAL_MESSAGE];
-        } elseif ($object->getAuthor()) {
+        if ($object->getAuthor()) {
             $message = $object->getMessage();
         } elseif ($object->getNeron()) {
             $message = $this->translationService->translate(

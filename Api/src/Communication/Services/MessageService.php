@@ -19,18 +19,16 @@ use Mush\Status\Enum\PlayerStatusEnum;
 class MessageService implements MessageServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private DiseaseMessageServiceInterface $diseaseMessageService;
     private EventServiceInterface $eventService;
     private MessageRepository $messageRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        DiseaseMessageServiceInterface $diseaseMessageService,
+        MessageModifierServiceInterface $diseaseMessageService,
         EventServiceInterface $eventService,
         MessageRepository $messageRepository
     ) {
         $this->entityManager = $entityManager;
-        $this->diseaseMessageService = $diseaseMessageService;
         $this->eventService = $eventService;
         $this->messageRepository = $messageRepository;
     }
@@ -47,8 +45,6 @@ class MessageService implements MessageServiceInterface
             ->setParent($createMessage->getParent())
         ;
 
-        $message = $this->diseaseMessageService->applyDiseaseEffects($message);
-
         $rootMessage = $createMessage->getParent();
         if ($rootMessage) {
             $root = $rootMessage;
@@ -60,11 +56,20 @@ class MessageService implements MessageServiceInterface
             $this->entityManager->persist($root);
         }
 
+        $messageEvent = new MessageEvent(
+            $message,
+            $player,
+            [],
+            new \DateTime()
+        );
+        $events = $this->eventService->callEvent($messageEvent, MessageEvent::NEW_MESSAGE);
+
+        /** @var MessageEvent $modifiedEvent */
+        $modifiedEvent = $events->getInitialEvent();
+        $message = $messageEvent->getMessage();
+
         $this->entityManager->persist($message);
         $this->entityManager->flush();
-
-        $messageEvent = new MessageEvent($message, [], new \DateTime());
-        $this->eventService->callEvent($messageEvent, MessageEvent::NEW_MESSAGE);
 
         return $message;
     }
@@ -97,7 +102,23 @@ class MessageService implements MessageServiceInterface
             $ageLimit = new \DateInterval('PT24H');
         }
 
-        return new ArrayCollection($this->messageRepository->findByChannel($channel, $ageLimit));
+        $messages = $this->messageRepository->findByChannel($channel, $ageLimit);
+        $modifiedMessages = [];
+
+        foreach ($messages as $message) {
+            $messageEvent = new MessageEvent(
+                $message,
+                $player,
+                [],
+                new \DateTime()
+            );
+            /** @var MessageEvent $event */
+            $event = $this->eventService->computeEventModifications($messageEvent, MessageEvent::READ_MESSAGE);
+
+            $modifiedMessages[] = $event->getMessage();
+        }
+
+        return new ArrayCollection($modifiedMessages);
     }
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool

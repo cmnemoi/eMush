@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\DiseaseMessagesEnum;
+use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Communication\Normalizer\MessageNormalizer;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -349,7 +350,7 @@ class MessageNormalizerTest extends TestCase
         $otherPlayer = new Player();
         $otherPlayerInfo = new PlayerInfo($otherPlayer, new User(), $playerConfig);
 
-        $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
+        $symptomConfig = new SymptomConfig(MessageModificationEnum::PARANOIA_MESSAGES);
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
         $playerDisease = new PlayerDisease();
@@ -368,7 +369,7 @@ class MessageNormalizerTest extends TestCase
             ->setMessage('modified message')
             ->setCreatedAt($createdAt)
             ->setTranslationParameters([
-                DiseaseMessagesEnum::MODIFICATION_CAUSE => SymptomEnum::PARANOIA_MESSAGES,
+                DiseaseMessagesEnum::MODIFICATION_CAUSE => MessageModificationEnum::PARANOIA_MESSAGES,
                 DiseaseMessagesEnum::ORIGINAL_MESSAGE => 'original message',
             ])
         ;
@@ -413,7 +414,7 @@ class MessageNormalizerTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), $playerConfig);
         $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
 
-        $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
+        $symptomConfig = new SymptomConfig(MessageModificationEnum::PARANOIA_MESSAGES);
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
         $playerDisease = new PlayerDisease();
@@ -432,7 +433,7 @@ class MessageNormalizerTest extends TestCase
             ->setMessage('modified message')
             ->setCreatedAt($createdAt)
             ->setTranslationParameters([
-                DiseaseMessagesEnum::MODIFICATION_CAUSE => SymptomEnum::PARANOIA_MESSAGES,
+                DiseaseMessagesEnum::MODIFICATION_CAUSE => MessageModificationEnum::PARANOIA_MESSAGES,
                 DiseaseMessagesEnum::ORIGINAL_MESSAGE => 'original message',
             ])
         ;

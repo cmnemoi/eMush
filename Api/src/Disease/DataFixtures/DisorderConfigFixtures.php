@@ -16,6 +16,8 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\DisorderModifierConfigFixtures;
+use Mush\Modifier\DataFixtures\InjuryModifierConfigFixtures;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
 class DisorderConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -52,6 +54,13 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         /** @var VariableEventModifierConfig $reduceMax4MoralPoint */
         $reduceMax4MoralPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_4_MORAL_POINT);
 
+        /** @var EventModifierConfig $coprolaliaSymptom */
+        $coprolaliaSymptom = $this->getReference(InjuryModifierConfigFixtures::COPROLALIA_MODIFIER);
+        /** @var EventModifierConfig $paranoiaSymptom */
+        $paranoiaSymptom = $this->getReference(InjuryModifierConfigFixtures::PARANOIA_MODIFIER);
+        /** @var EventModifierConfig $paranoiaDenial */
+        $paranoiaDenial = $this->getReference(InjuryModifierConfigFixtures::PARANOIA_DENIAL_MODIFIER);
+
         /** @var SymptomConfig $biting */
         $biting = $this->getReference(DiseaseSymptomConfigFixtures::BITING);
         /** @var SymptomConfig $fearOfCats */
@@ -64,10 +73,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $noShootActions = $this->getReference(DisorderSymptomConfigFixtures::NO_SHOOT_ACTIONS);
         /** @var SymptomConfig $psychoticAttacks */
         $psychoticAttacks = $this->getReference(DisorderSymptomConfigFixtures::PSYCHOTIC_ATTACKS);
-        /** @var SymptomConfig $coprolaliaSymptom */
-        $coprolaliaSymptom = $this->getReference(DisorderSymptomConfigFixtures::COPROLALIA_MESSAGES);
-        /** @var SymptomConfig $paranoiaSymptom */
-        $paranoiaSymptom = $this->getReference(DisorderSymptomConfigFixtures::PARANOIA_MESSAGES);
 
         $agoraphobia = new DiseaseConfig();
         $agoraphobia
@@ -129,8 +134,8 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setType(TypeEnum::DISORDER)
             ->setModifierConfigs([
                 $reduceMax4MoralPoint,
+                $coprolaliaSymptom,
             ])
-            ->setSymptomConfigs(new SymptomConfigCollection([$coprolaliaSymptom]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($coprolalia);
@@ -167,8 +172,9 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setType(TypeEnum::DISORDER)
             ->setModifierConfigs([
                 $reduceMax3MoralPoint,
+                $paranoiaSymptom,
+                $paranoiaDenial,
             ])
-            ->setSymptomConfigs(new SymptomConfigCollection([$paranoiaSymptom]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($paranoia);

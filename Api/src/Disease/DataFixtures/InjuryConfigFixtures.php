@@ -16,6 +16,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\DisorderModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\InjuryModifierConfigFixtures;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
 class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -63,6 +64,10 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $shootAction20PercentAccuracyLost = $this->getReference(InjuryModifierConfigFixtures::SHOOT_ACTION_20_PERCENT_ACCURACY_LOST);
         /** @var VariableEventModifierConfig $shootAction40PercentAccuracyLost */
         $shootAction40PercentAccuracyLost = $this->getReference(InjuryModifierConfigFixtures::SHOOT_ACTION_40_PERCENT_ACCURACY_LOST);
+        /** @var EventModifierConfig $deafListen */
+        $deafListen = $this->getReference(InjuryModifierConfigFixtures::DEAF_LISTEN_MODIFIER);
+        /** @var EventModifierConfig $deafSpeak */
+        $deafSpeak = $this->getReference(InjuryModifierConfigFixtures::DEAF_SPEAK_MODIFIER);
 
         /** @var SymptomConfig $cantMove */
         $cantMove = $this->getReference(InjurySymptomConfigFixtures::CANT_MOVE);
@@ -70,8 +75,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $cantPickUpHeavyItems = $this->getReference(InjurySymptomConfigFixtures::CANT_PICK_UP_HEAVY_ITEMS);
         /** @var SymptomConfig $consumeVomiting */
         $consumeVomiting = $this->getReference(DiseaseSymptomConfigFixtures::CONSUME_VOMITING);
-        /** @var SymptomConfig $deaf */
-        $deaf = $this->getReference(InjurySymptomConfigFixtures::DEAF);
         /** @var SymptomConfig $drooling */
         $drooling = $this->getReference(DiseaseSymptomConfigFixtures::DROOLING);
         /** @var SymptomConfig $moveVomiting */
@@ -169,9 +172,8 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $damagedEars
             ->setDiseaseName(InjuryEnum::DAMAGED_EARS)
             ->setType(TypeEnum::INJURY)
-            ->setSymptomConfigs(new SymptomConfigCollection([
-                $deaf,
-            ]))
+            ->setModifierConfigs([$deafListen, $deafSpeak])
+
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($damagedEars);
@@ -182,10 +184,9 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs([
                 $reduceMax1MoralPoint,
+                $deafListen,
+                $deafSpeak,
             ])
-            ->setSymptomConfigs(new SymptomConfigCollection([
-                $deaf,
-            ]))
             ->setOverride([InjuryEnum::DAMAGED_EARS])
             ->buildName(GameConfigEnum::DEFAULT)
         ;

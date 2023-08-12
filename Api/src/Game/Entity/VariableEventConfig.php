@@ -74,15 +74,19 @@ class VariableEventConfig extends AbstractEventConfig
         return $this;
     }
 
-    public function createEvent(array $tags, \DateTime $date, GameVariableHolderInterface $variableHolder = null): AbstractGameEvent
-    {
+    public function createEvent(
+        int $priority,
+        array $tags,
+        \DateTime $date,
+        GameVariableHolderInterface $variableHolder = null
+    ): AbstractGameEvent {
         switch ($this->variableHolderClass) {
             case ModifierHolderClassEnum::PLAYER:
                 if (!$variableHolder instanceof Player) {
                     throw new \Exception('a player should be provided to create a playerVariableEvent');
                 }
                 $event = new PlayerVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
-                $event->setEventName($this->eventName);
+                $event->setEventName($this->eventName)->setPriority($priority);
 
                 return $event;
             case ModifierHolderClassEnum::DAEDALUS:
@@ -90,7 +94,7 @@ class VariableEventConfig extends AbstractEventConfig
                     throw new \Exception('a daedalus should be provided to create a daedalusVariableEvent');
                 }
                 $event = new DaedalusVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
-                $event->setEventName($this->eventName);
+                $event->setEventName($this->eventName)->setPriority($priority);
 
                 return $event;
             default:

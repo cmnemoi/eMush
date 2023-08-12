@@ -102,7 +102,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         bool $reverse
     ): void {
         $triggeredEventConfig = $modifierConfig->getTriggeredEvent();
-        $events = $this->eventCreationService->createEvents($triggeredEventConfig, $modifierRange, $tags, $time, $reverse);
+        $events = $this->eventCreationService->createEvents($triggeredEventConfig, $modifierRange, 0, $tags, $time, $reverse);
 
         /** @var AbstractGameEvent $event */
         foreach ($events as $event) {

@@ -8,13 +8,13 @@ use Mush\Game\Event\VariableEventInterface;
 
 class DaedalusVariableEvent extends DaedalusEvent implements VariableEventInterface
 {
-    private int $quantity;
+    private float $quantity;
     private string $variableName;
 
     public function __construct(
         Daedalus $daedalus,
         string $variableName,
-        int $quantity,
+        float $quantity,
         array $tags,
         \DateTime $time
     ) {
@@ -24,16 +24,21 @@ class DaedalusVariableEvent extends DaedalusEvent implements VariableEventInterf
         parent::__construct($daedalus, $tags, $time);
     }
 
-    public function setQuantity(int $quantity): self
+    public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function getQuantity(): int
+    public function getQuantity(): float
     {
         return $this->quantity;
+    }
+
+    public function getRoundedQuantity(): int
+    {
+        return intval($this->quantity);
     }
 
     public function getVariable(): GameVariable

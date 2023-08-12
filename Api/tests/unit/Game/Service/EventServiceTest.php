@@ -311,7 +311,7 @@ class EventServiceTest extends TestCase
                 $functionEvent instanceof DaedalusVariableEvent &&
                 $functionEvent->getEventName() === 'eventName' &&
                 $functionEvent->getTime() === $time &&
-                $functionEvent->getQuantity() === $event->getQuantity()
+                $functionEvent->getRoundedQuantity() === $event->getRoundedQuantity()
             ))
             ->andReturn($modifiedEvent)
             ->once()
@@ -341,7 +341,7 @@ class EventServiceTest extends TestCase
                 $dispatchedEvent->getEventName() === 'eventName' &&
                 $eventName === 'eventName' &&
                 $dispatchedEvent->getTime() === $modifiedEvent->getTime() &&
-                $dispatchedEvent->getQuantity() === $modifiedEvent->getQuantity()
+                $dispatchedEvent->getRoundedQuantity() === $modifiedEvent->getRoundedQuantity()
             ))
             ->once()
         ;
@@ -384,7 +384,7 @@ class EventServiceTest extends TestCase
                 $functionEvent instanceof DaedalusVariableEvent &&
                 $functionEvent->getEventName() === 'eventName' &&
                 $functionEvent->getTime() === $time &&
-                $functionEvent->getQuantity() === $event->getQuantity()
+                $functionEvent->getRoundedQuantity() === $event->getRoundedQuantity()
             ))
             ->andReturn($modifiedEvent)
             ->once()
@@ -400,7 +400,7 @@ class EventServiceTest extends TestCase
         $this->assertEquals('eventName', $newEvent->getEventName());
         $this->assertEquals(['test'], $newEvent->getTags());
         $this->assertEquals($time, $newEvent->getTime());
-        $this->assertEquals(4, $newEvent->getQuantity());
+        $this->assertEquals(4, $newEvent->getRoundedQuantity());
         $this->assertEquals(DaedalusVariableEnum::FUEL, $newEvent->getVariableName());
     }
 
@@ -446,7 +446,7 @@ class EventServiceTest extends TestCase
         $this->assertEquals('eventName', $newEvent->getEventName());
         $this->assertEquals(['test'], $newEvent->getTags());
         $this->assertEquals($time, $newEvent->getTime());
-        $this->assertEquals(2, $newEvent->getQuantity());
+        $this->assertEquals(2, $newEvent->getRoundedQuantity());
         $this->assertEquals(DaedalusVariableEnum::FUEL, $newEvent->getVariableName());
     }
 
@@ -505,7 +505,7 @@ class EventServiceTest extends TestCase
                 $dispatchedEvent->getEventName() === 'eventName' &&
                 $eventName === 'eventName' &&
                 $dispatchedEvent->getTime() === $time &&
-                $dispatchedEvent->getQuantity() === $event->getQuantity()
+                $dispatchedEvent->getRoundedQuantity() === $event->getRoundedQuantity()
             ))
             ->once()
         ;

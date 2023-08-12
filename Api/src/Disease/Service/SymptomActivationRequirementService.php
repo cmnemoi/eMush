@@ -96,7 +96,7 @@ class SymptomActivationRequirementService implements SymptomActivationRequiremen
         /** @var ActionVariableEvent $rollEvent */
         $rollEvent = $this->eventService->computeEventModifications($actionEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);
 
-        return $this->randomService->isSuccessful($rollEvent->getQuantity());
+        return $this->randomService->isSuccessful($rollEvent->getRoundedQuantity());
     }
 
     private function checkPlayerEquipmentActivationRequirement(?string $expectedEquipment, Player $player): bool

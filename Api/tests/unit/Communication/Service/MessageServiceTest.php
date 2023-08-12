@@ -9,7 +9,7 @@ use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Repository\MessageRepository;
-use Mush\Communication\Services\DiseaseMessageServiceInterface;
+use Mush\Communication\Services\MessageModifierServiceInterface;
 use Mush\Communication\Services\MessageService;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -28,8 +28,8 @@ class MessageServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
-    /** @var DiseaseMessageServiceInterface|Mockery\mock */
-    private DiseaseMessageServiceInterface $diseaseMessageService;
+    /** @var MessageModifierServiceInterface|Mockery\mock */
+    private MessageModifierServiceInterface $diseaseMessageService;
     /** @var EventServiceInterface|Mockery\mock */
     private EventServiceInterface $eventService;
     /** @var MessageRepository|Mockery\mock */
@@ -43,7 +43,7 @@ class MessageServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
-        $this->diseaseMessageService = \Mockery::mock(DiseaseMessageServiceInterface::class);
+        $this->diseaseMessageService = \Mockery::mock(MessageModifierServiceInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->messageRepository = \Mockery::mock(MessageRepository::class);
 

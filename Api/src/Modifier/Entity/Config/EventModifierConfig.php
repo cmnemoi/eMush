@@ -59,12 +59,12 @@ class EventModifierConfig extends AbstractModifierConfig
         return $this;
     }
 
-    public function getPriority(): bool
+    public function getPriority(): int
     {
         return $this->priority;
     }
 
-    public function setPriority(bool $priority): self
+    public function setPriority(int $priority): self
     {
         $this->priority = $priority;
 

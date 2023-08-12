@@ -33,7 +33,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $delta = $playerEvent->getQuantity();
+        $delta = $playerEvent->getRoundedQuantity();
         $modifiedVariable = $playerEvent->getVariableName();
 
         if ($delta === 0) {

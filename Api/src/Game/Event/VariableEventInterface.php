@@ -15,9 +15,11 @@ interface VariableEventInterface
 
     public function getVariable(): GameVariable;
 
-    public function getQuantity(): int;
+    public function getRoundedQuantity(): int;
 
-    public function setQuantity(int $quantity): self;
+    public function getQuantity(): float;
+
+    public function setQuantity(float $quantity): self;
 
     public function getTags(): array;
 

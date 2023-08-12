@@ -37,7 +37,7 @@ class ActionService implements ActionServiceInterface
         /** @var ActionVariableEvent $movementPointCostEvent */
         $movementPointCostEvent = $this->eventService->computeEventModifications($movementPointCostEvent, ActionVariableEvent::APPLY_COST);
 
-        $movementPointCost = $movementPointCostEvent->getQuantity();
+        $movementPointCost = $movementPointCostEvent->getRoundedQuantity();
         $missingMovementPoints = $movementPointCost - $player->getMovementPoint();
         if ($missingMovementPoints > 0) {
             $this->handleConversionEvents($player, $action, $parameter, $missingMovementPoints, true);
@@ -68,7 +68,7 @@ class ActionService implements ActionServiceInterface
         $conversionGainEvent = $this->eventService->computeEventModifications($conversionGainEvent, ActionVariableEvent::APPLY_COST);
 
         // Compute how much conversion are needed to have the required number of movement point for the action
-        $movementPointGain = $conversionGainEvent->getQuantity();
+        $movementPointGain = $conversionGainEvent->getRoundedQuantity();
         $numberOfConversions = (int) ceil($missingMovementPoints / (-$movementPointGain));
 
         // How much each conversion is going to cost in action points
@@ -90,7 +90,7 @@ class ActionService implements ActionServiceInterface
             }
         }
 
-        return $numberOfConversions * $conversionCostEvent->getQuantity();
+        return $numberOfConversions * $conversionCostEvent->getRoundedQuantity();
     }
 
     private function getActionEvent(
@@ -125,7 +125,7 @@ class ActionService implements ActionServiceInterface
         /** @var ActionVariableEvent $actionVariableEvent */
         $actionVariableEvent = $this->eventService->computeEventModifications($actionVariableEvent, $eventName);
 
-        $value = $actionVariableEvent->getQuantity();
+        $value = $actionVariableEvent->getRoundedQuantity();
 
         // handle the cost of converting action points to movement points
         if ($variableName === PlayerVariableEnum::ACTION_POINT) {
@@ -133,7 +133,7 @@ class ActionService implements ActionServiceInterface
             /** @var ActionVariableEvent $movementVariableEvent */
             $movementVariableEvent = $this->eventService->computeEventModifications($movementVariableEvent, ActionVariableEvent::APPLY_COST);
 
-            $missingMovementPoints = $movementVariableEvent->getQuantity() - $player->getMovementPoint();
+            $missingMovementPoints = $movementVariableEvent->getRoundedQuantity() - $player->getMovementPoint();
             if ($missingMovementPoints > 0) {
                 $costToAdd = $this->handleConversionEvents($player, $action, $parameter, $missingMovementPoints, false);
 

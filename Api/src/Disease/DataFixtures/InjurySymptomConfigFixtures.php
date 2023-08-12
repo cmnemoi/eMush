@@ -23,7 +23,6 @@ class InjurySymptomConfigFixtures extends Fixture implements DependentFixtureInt
 {
     public const CANT_MOVE = 'cant_move';
     public const CANT_PICK_UP_HEAVY_ITEMS = 'cant_pick_up_heavy_items';
-    public const DEAF = 'deaf';
     public const MUTE = 'mute';
     public const SEPTICEMIA_ON_CYCLE_CHANGE = 'septicemia_on_cycle_change';
     public const SEPTICEMIA_ON_DIRTY_EVENT = 'septicemia_on_dirty_event';
@@ -64,13 +63,6 @@ class InjurySymptomConfigFixtures extends Fixture implements DependentFixtureInt
         ;
         $manager->persist($cantPickUpHeavyItems);
 
-        $deaf = new SymptomConfig(SymptomEnum::DEAF);
-        $deaf
-            ->setTrigger(EventEnum::NEW_MESSAGE)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
-        $manager->persist($deaf);
-
         $septicemiaOnCycleChange = new SymptomConfig(SymptomEnum::SEPTICEMIA);
         $septicemiaOnCycleChange
             ->setTrigger(EventEnum::NEW_CYCLE)
@@ -107,7 +99,6 @@ class InjurySymptomConfigFixtures extends Fixture implements DependentFixtureInt
 
         $this->addReference(self::CANT_MOVE, $cantMove);
         $this->addReference(self::CANT_PICK_UP_HEAVY_ITEMS, $cantPickUpHeavyItems);
-        $this->addReference(self::DEAF, $deaf);
         $this->addReference(self::MUTE, $mute);
         $this->addReference(self::SEPTICEMIA_ON_CYCLE_CHANGE, $septicemiaOnCycleChange);
         $this->addReference(self::SEPTICEMIA_ON_DIRTY_EVENT, $septicemiaOnDirtyEvent);

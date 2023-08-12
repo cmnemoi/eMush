@@ -47,14 +47,19 @@ class RollPercentageEvent extends AbstractGameEvent implements VariableEventInte
         return $this->percentageVariable;
     }
 
-    public function getQuantity(): int
+    public function getRoundedQuantity(): int
     {
         return $this->percentageVariable->getValue();
     }
 
-    public function setQuantity(int $quantity): self
+    public function getQuantity(): float
     {
-        $this->percentageVariable->setValue($quantity);
+        return $this->percentageVariable->getValue();
+    }
+
+    public function setQuantity(float $quantity): self
+    {
+        $this->percentageVariable->setValue(intval($quantity));
 
         return $this;
     }

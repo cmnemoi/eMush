@@ -30,7 +30,7 @@ class ModifierSubscriber implements EventSubscriberInterface
 
     public function onApplyModifier(ModifierEvent $event): void
     {
-        if ($event->wasModifierUsed() && ($logKey = $event->mapLog(LogEnum::MODIFIER_LOG_ENUM[LogEnum::VALUE])) !== null) {
+        if (($logKey = $event->mapLog(LogEnum::MODIFIER_LOG_ENUM[LogEnum::VALUE])) !== null) {
             $logVisibility = $event->mapLog(LogEnum::MODIFIER_LOG_ENUM[LogEnum::VISIBILITY]) ?: VisibilityEnum::HIDDEN;
 
             $this->createEventLog($logKey, $logVisibility, $event);

@@ -9,13 +9,17 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Communication\Enum\MessageModificationEnum;
+use Mush\Communication\Event\MessageEvent;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 
@@ -30,6 +34,11 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const SHOOT_ACTION_15_PERCENT_ACCURACY_LOST = 'shoot_action_15_percent_accuracy_lost';
     public const SHOOT_ACTION_20_PERCENT_ACCURACY_LOST = 'shoot_action_20_percent_accuracy_lost';
     public const SHOOT_ACTION_40_PERCENT_ACCURACY_LOST = 'shoot_action_40_percent_accuracy_lost';
+    public const DEAF_LISTEN_MODIFIER = 'deaf_listen_modifier';
+    public const DEAF_SPEAK_MODIFIER = 'deaf_speak_modifier';
+    public const COPROLALIA_MODIFIER = 'coprolalia_modifier';
+    public const PARANOIA_MODIFIER = 'paranoia_modifier';
+    public const PARANOIA_DENIAL_MODIFIER = 'paranoia_denial_modifier';
 
     public function load(ObjectManager $manager): void
     {
@@ -149,6 +158,51 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $shootAction40PercentAccuracyLost->buildName();
         $manager->persist($shootAction40PercentAccuracyLost);
 
+        $deafSpeak = new EventModifierConfig(MessageModificationEnum::DEAF_SPEAK);
+        $deafSpeak
+            ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
+            ->setTargetEvent(MessageEvent::NEW_MESSAGE)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setName('deaf_speak_modifier_fixture')
+        ;
+        $manager->persist($deafSpeak);
+
+        $deafListen = new EventModifierConfig(MessageModificationEnum::DEAF_LISTEN);
+        $deafListen
+            ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
+            ->setTargetEvent(MessageEvent::READ_MESSAGE)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setName('deaf_listen__modifier_fixture')
+        ;
+        $manager->persist($deafListen);
+
+        $paranoia = new EventModifierConfig(MessageModificationEnum::PARANOIA_MESSAGES);
+        $paranoia
+            ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
+            ->setTargetEvent(MessageEvent::NEW_MESSAGE)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setName('paranoia_modifier_fixture')
+        ;
+        $manager->persist($paranoia);
+
+        $paranoiaDenial = new EventModifierConfig(MessageModificationEnum::PARANOIA_DENIAL);
+        $paranoiaDenial
+            ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
+            ->setTargetEvent(MessageEvent::READ_MESSAGE)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setName('paranoia_denial_fixture')
+        ;
+        $manager->persist($paranoia);
+
+        $coprolalia = new EventModifierConfig(MessageModificationEnum::COPROLALIA_MESSAGES);
+        $coprolalia
+            ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
+            ->setTargetEvent(MessageEvent::NEW_MESSAGE)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setName('coprolalia_modifier_fixture')
+        ;
+        $manager->persist($coprolalia);
+
         $manager->flush();
 
         $this->addReference(self::NOT_MOVE_ACTION_1_INCREASE, $notMoveAction1Increase);
@@ -160,6 +214,11 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::SHOOT_ACTION_15_PERCENT_ACCURACY_LOST, $shootAction15PercentAccuracyLost);
         $this->addReference(self::SHOOT_ACTION_20_PERCENT_ACCURACY_LOST, $shootAction20PercentAccuracyLost);
         $this->addReference(self::SHOOT_ACTION_40_PERCENT_ACCURACY_LOST, $shootAction40PercentAccuracyLost);
+        $this->addReference(self::DEAF_SPEAK_MODIFIER, $deafSpeak);
+        $this->addReference(self::DEAF_LISTEN_MODIFIER, $deafListen);
+        $this->addReference(self::COPROLALIA_MODIFIER, $coprolalia);
+        $this->addReference(self::PARANOIA_MODIFIER, $paranoia);
+        $this->addReference(self::PARANOIA_DENIAL_MODIFIER, $paranoiaDenial);
     }
 
     public function getDependencies(): array

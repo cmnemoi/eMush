@@ -21,9 +21,11 @@ class AbstractGameEvent extends Event
         $this->time = $time;
     }
 
-    public function setEventName(string $eventName): void
+    public function setEventName(string $eventName): self
     {
         $this->eventName = $eventName;
+
+        return $this;
     }
 
     public function getEventName(): string

@@ -29,7 +29,7 @@ class TriggerEventModifierConfig extends EventModifierConfig
     {
         parent::__construct($name);
 
-        $this->modifierStrategy = ModifierStrategyEnum::TRIGGER_EVENT;
+        $this->modifierStrategy = ModifierStrategyEnum::ADD_EVENT;
         $this->addNoneTagName();
     }
 
@@ -38,10 +38,8 @@ class TriggerEventModifierConfig extends EventModifierConfig
         $baseName = $this->modifierName;
         $triggeredEvent = $this->triggeredEvent;
 
-        if ($baseName === null && $triggeredEvent !== null) {
+        if ($baseName === null) {
             $baseName = $triggeredEvent->getName();
-        } elseif ($baseName === null) {
-            $baseName = 'prevent';
         }
 
         $this->name = $baseName . '_ON_' . $this->getTargetEvent() . '_' . $configName;
@@ -104,11 +102,6 @@ class TriggerEventModifierConfig extends EventModifierConfig
         $this->triggeredEvent = $triggeredEvent;
 
         return $this;
-    }
-
-    public function getReplaceEvent(): bool
-    {
-        return $this->priority === 0;
     }
 
     public function getVisibility(): string

@@ -77,7 +77,7 @@ class ModifierServiceTest extends TestCase
 
         $this->assertInstanceOf(ActionVariableEvent::class, $modifiedEvent);
         $this->assertEquals(ActionVariableEnum::PERCENTAGE_SUCCESS, $modifiedEvent->getVariableName());
-        $this->assertEquals(75, $modifiedEvent->getQuantity());
+        $this->assertEquals(75, $modifiedEvent->getRoundedQuantity());
 
         // multiplicative and additive
         $event = new ActionVariableEvent($action, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
@@ -96,7 +96,7 @@ class ModifierServiceTest extends TestCase
 
         $this->assertInstanceOf(ActionVariableEvent::class, $modifiedEvent);
         $this->assertEquals(ActionVariableEnum::PERCENTAGE_SUCCESS, $modifiedEvent->getVariableName());
-        $this->assertEquals(85, $modifiedEvent->getQuantity());
+        $this->assertEquals(85, $modifiedEvent->getRoundedQuantity());
 
         // add attempt
         $event = new ActionVariableEvent($action, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
@@ -110,7 +110,7 @@ class ModifierServiceTest extends TestCase
 
         $this->assertInstanceOf(ActionVariableEvent::class, $modifiedEvent);
         $this->assertEquals(ActionVariableEnum::PERCENTAGE_SUCCESS, $modifiedEvent->getVariableName());
-        $this->assertEquals(intval(50 * 1.25 ** 1 * 1.5 + 10), $modifiedEvent->getQuantity());
+        $this->assertEquals(intval(50 * 1.25 ** 1 * 1.5 + 10), $modifiedEvent->getRoundedQuantity());
 
         // More attempts
         $event = new ActionVariableEvent($action, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
@@ -120,7 +120,7 @@ class ModifierServiceTest extends TestCase
 
         $this->assertInstanceOf(ActionVariableEvent::class, $modifiedEvent);
         $this->assertEquals(ActionVariableEnum::PERCENTAGE_SUCCESS, $modifiedEvent->getVariableName());
-        $this->assertEquals(intval(50 * 1.25 ** 3 * 1.5 + 10), $modifiedEvent->getQuantity());
+        $this->assertEquals(intval(50 * 1.25 ** 3 * 1.5 + 10), $modifiedEvent->getRoundedQuantity());
 
         // Set Value
         $event = new ActionVariableEvent($action, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
@@ -139,7 +139,7 @@ class ModifierServiceTest extends TestCase
 
         $this->assertInstanceOf(ActionVariableEvent::class, $modifiedEvent);
         $this->assertEquals(ActionVariableEnum::PERCENTAGE_SUCCESS, $modifiedEvent->getVariableName());
-        $this->assertEquals(intval(10), $modifiedEvent->getQuantity());
+        $this->assertEquals(intval(10), $modifiedEvent->getRoundedQuantity());
     }
 
     public function testApplyModifierNoActionPercentage()
@@ -182,7 +182,7 @@ class ModifierServiceTest extends TestCase
 
         $this->assertInstanceOf(ActionVariableEvent::class, $modifiedEvent);
         $this->assertEquals(PlayerVariableEnum::MOVEMENT_POINT, $modifiedEvent->getVariableName());
-        $this->assertEquals(intval(75), $modifiedEvent->getQuantity());
+        $this->assertEquals(intval(75), $modifiedEvent->getRoundedQuantity());
     }
 
     public function testGetEventModifiedValueWithChangeInSign()
@@ -215,6 +215,6 @@ class ModifierServiceTest extends TestCase
         $modifiedEvent = $this->service->applyVariableModifiers($modifierCollection, $event);
 
         $this->assertInstanceOf(PlayerVariableEvent::class, $modifiedEvent);
-        $this->assertEquals(0, $modifiedEvent->getQuantity());
+        $this->assertEquals(0, $modifiedEvent->getRoundedQuantity());
     }
 }

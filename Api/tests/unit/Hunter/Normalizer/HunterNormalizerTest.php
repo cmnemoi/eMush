@@ -6,7 +6,6 @@ namespace Tests\Mush\Hunter\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\Action;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Service\GearToolServiceInterface;
@@ -15,7 +14,6 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Normalizer\HunterNormalizer;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use PHPUnit\Framework\TestCase;
@@ -37,7 +35,7 @@ final class HunterNormalizerTest extends TestCase
      * @before
      */
     public function before()
-    {   
+    {
         $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
         $this->normalizer = new HunterNormalizer($this->gearToolService, $this->translationService);
@@ -137,7 +135,7 @@ final class HunterNormalizerTest extends TestCase
     }
 
     public function testNormalizeReturnsNullChargesForNonAsteroidHunter(): void
-    {   
+    {
         $action = $this->createMock(Action::class);
         $chargeStatus = $this->createMock(ChargeStatus::class);
         $currentPlayer = $this->createMock(Player::class);

@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Hunter\Entity\Hunter;
 
 class ActionsFixtures extends Fixture
 {

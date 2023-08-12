@@ -18,5 +18,4 @@ final class ShootHunterPatrolShip extends ShootHunter
         parent::loadValidatorMetadata($metadata);
         $metadata->addConstraint(new PlaceType(['type' => PlaceTypeEnum::PATROL_SHIP, 'groups' => ['visibility']]));
     }
-
 }

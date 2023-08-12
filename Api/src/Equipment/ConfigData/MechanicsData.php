@@ -3204,7 +3204,9 @@ class MechanicsData
             'failedManoeuvreDaedalusDamage' => null,
             'failedManoeuvrePatrolShipDamage' => null,
             'failedManoeuvrePlayerDamage' => null,
-            'actions' => [],
+            'actions' => [
+                ActionEnum::SHOOT_RANDOM_HUNTER,
+            ],
             'modifierConfigs' => [],
         ],
         [
@@ -3239,7 +3241,9 @@ class MechanicsData
             'failedManoeuvreDaedalusDamage' => null,
             'failedManoeuvrePatrolShipDamage' => null,
             'failedManoeuvrePlayerDamage' => null,
-            'actions' => [],
+            'actions' => [
+                ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP,
+            ],
             'modifierConfigs' => [],
         ],
         [

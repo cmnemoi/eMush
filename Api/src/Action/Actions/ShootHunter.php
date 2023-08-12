@@ -35,6 +35,8 @@ class ShootHunter extends AttemptAction
     private const SHOOT_HUNTER_LOG_MAP = [
         ActionEnum::SHOOT_HUNTER => ActionLogEnum::SHOOT_HUNTER_SUCCESS,
         ActionEnum::SHOOT_HUNTER_PATROL_SHIP => ActionLogEnum::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
+        ActionEnum::SHOOT_RANDOM_HUNTER => ActionLogEnum::SHOOT_HUNTER_SUCCESS,
+        ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP => ActionLogEnum::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
     ];
     private RoomLogServiceInterface $roomLogService;
 
@@ -52,6 +54,18 @@ class ShootHunter extends AttemptAction
     protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof Hunter;
+    }
+
+    private function selectHunterToShoot(): Hunter
+    {
+        if ($this->parameter instanceof Hunter) {
+            return $this->parameter;
+        }
+
+        $hunters = $this->player->getDaedalus()->getAttackingHunters()->toArray();
+        $hunterToShoot = $this->randomService->getRandomElements($hunters, number: 1);
+
+        return reset($hunterToShoot);
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -79,7 +93,7 @@ class ShootHunter extends AttemptAction
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($weapon->getBaseDamageRange());
 
         /** @var Hunter $hunter */
-        $hunter = $this->parameter;
+        $hunter = $this->selectHunterToShoot();
 
         $shotDoesntKillHunter = $damage < $hunter->getHealth();
         if ($shotDoesntKillHunter) {

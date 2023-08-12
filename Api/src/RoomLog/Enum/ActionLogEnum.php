@@ -340,6 +340,10 @@ class ActionLogEnum
             ActionOutputEnum::SUCCESS => self::SHOOT_HUNTER_SUCCESS,
             ActionOutputEnum::FAIL => self::SHOOT_HUNTER_FAIL,
         ],
+        ActionEnum::SHOOT_RANDOM_HUNTER => [
+            ActionOutputEnum::SUCCESS => self::SHOOT_HUNTER_SUCCESS,
+            ActionOutputEnum::FAIL => self::SHOOT_HUNTER_FAIL,
+        ],
         ActionEnum::TAKEOFF => [
             ActionOutputEnum::SUCCESS => self::TAKEOFF_SUCCESS,
             ActionOutputEnum::FAIL => self::TAKEOFF_NO_PILOT,
@@ -349,6 +353,10 @@ class ActionLogEnum
             ActionOutputEnum::FAIL => self::LAND_NO_PILOT,
         ],
         ActionEnum::SHOOT_HUNTER_PATROL_SHIP => [
+            ActionOutputEnum::SUCCESS => self::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
+            ActionOutputEnum::FAIL => self::SHOOT_HUNTER_PATROL_SHIP_FAIL,
+        ],
+        ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP => [
             ActionOutputEnum::SUCCESS => self::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
             ActionOutputEnum::FAIL => self::SHOOT_HUNTER_PATROL_SHIP_FAIL,
         ],

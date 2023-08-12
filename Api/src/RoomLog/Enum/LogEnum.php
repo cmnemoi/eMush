@@ -70,7 +70,9 @@ class LogEnum
 
     public const HUNTER_DEATH_LOG_ENUM = [
         ActionEnum::SHOOT_HUNTER => self::HUNTER_DEATH_TURRET,
+        ActionEnum::SHOOT_RANDOM_HUNTER => self::HUNTER_DEATH_TURRET,
         ActionEnum::SHOOT_HUNTER_PATROL_SHIP => self::HUNTER_DEATH_PATROL_SHIP,
+        ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP => self::HUNTER_DEATH_PATROL_SHIP,
     ];
 
     public static function getSurgeryLogs(): array

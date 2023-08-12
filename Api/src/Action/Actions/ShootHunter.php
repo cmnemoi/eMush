@@ -13,6 +13,7 @@ use Mush\Action\Validator\NumberOfAttackingHunters;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\EquipmentMechanic as Mechanic;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -72,11 +73,11 @@ class ShootHunter extends AttemptAction
             return;
         }
 
-        /** @var GameEquipment $equipment */
-        $equipment = $this->parameter;
+        /** @var GameEquipment $shootingEquipment */
+        $shootingEquipment = $this->getShootingEquipment();
 
         /** @var Weapon $weapon */
-        $weapon = $this->getWeaponMechanic($equipment);
+        $weapon = $this->getWeaponMechanic($shootingEquipment);
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($weapon->getBaseDamageRange());
 
         /** @var Hunter $hunter */
@@ -98,12 +99,27 @@ class ShootHunter extends AttemptAction
         $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function getWeaponMechanic(GameEquipment $parameter): Weapon
+    private function getShootingEquipment(): GameEquipment
+    {
+        /** @var GameEquipment $shootingEquipment */
+        $shootingEquipment = $this->player->getPlace()->getEquipments()
+            ->filter(fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
+            ->filter(fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
+            ->first();
+        
+        if (!$shootingEquipment instanceof GameEquipment) {
+            throw new \Exception("Shoot hunter action : {$this->player->getPlace()->getName()} should have a shooting shooting equipment (turret or patrol ship)");
+        }
+
+        return $shootingEquipment;
+    }
+
+    private function getWeaponMechanic(GameEquipment $shootingEquipment): Weapon
     {
         /** @var Weapon $weapon */
-        $weapon = $parameter->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->first();
+        $weapon = $shootingEquipment->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->first();
         if (!$weapon instanceof Weapon) {
-            throw new \Exception("Shoot hunter action : {$weapon->getName()} should have a weapon mechanic");
+            throw new \Exception("Shoot hunter action : {$shootingEquipment->getName()} should have a weapon mechanic");
         }
 
         return $weapon;

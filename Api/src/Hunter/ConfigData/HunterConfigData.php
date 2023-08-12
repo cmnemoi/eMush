@@ -2,7 +2,6 @@
 
 namespace Mush\Hunter\ConfigData;
 
-use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Hunter\Enum\HunterEnum;
@@ -35,10 +34,6 @@ class HunterConfigData
                 2 => 1,
                 3 => 1,
             ],
-            'actions' => [
-                ActionEnum::SHOOT_HUNTER . '_turret',
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
-            ],
         ],
         [
             'name' => HunterEnum::DICE . '_default',
@@ -68,10 +63,6 @@ class HunterConfigData
                 3 => 1,
                 4 => 1,
             ],
-            'actions' => [
-                ActionEnum::SHOOT_HUNTER . '_turret',
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
-            ],
         ],
         [
             'name' => HunterEnum::HUNTER . '_default',
@@ -97,10 +88,6 @@ class HunterConfigData
             'numberOfDroppedScrap' => [
                 1 => 1,
                 2 => 1,
-            ],
-            'actions' => [
-                ActionEnum::SHOOT_HUNTER . '_turret',
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
             ],
         ],
         [
@@ -128,10 +115,6 @@ class HunterConfigData
                 1 => 1,
                 2 => 1,
             ],
-            'actions' => [
-                ActionEnum::SHOOT_HUNTER . '_turret',
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
-            ],
         ],
         [
             'name' => HunterEnum::TRAX . '_default',
@@ -157,10 +140,6 @@ class HunterConfigData
                 1 => 1,
                 2 => 1,
                 3 => 1,
-            ],
-            'actions' => [
-                ActionEnum::SHOOT_HUNTER . '_turret',
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
             ],
         ],
     ];

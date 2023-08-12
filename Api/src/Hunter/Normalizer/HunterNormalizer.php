@@ -71,7 +71,7 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
             ),
             'health' => $hunterHealth,
             'charges' => $isHunterAnAsteroid ? null : $hunterChargesAmount,
-            'actions' => $$this->gearToolService->getActionsTools(
+            'actions' => $this->gearToolService->getActionsTools(
                 player: $currentPlayer,
                 scopes: [ActionScopeEnum::ROOM],
                 target: Hunter::class

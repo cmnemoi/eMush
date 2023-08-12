@@ -59,7 +59,6 @@ class ShootHunter extends AttemptAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::SPACE_BATTLE, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::UNLOADED_WEAPON]));
         $metadata->addConstraint(new NumberOfAttackingHunters([
             'mode' => NumberOfAttackingHunters::EQUAL,
             'number' => 0,

@@ -42,21 +42,6 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $this->shootHunterAction = $I->grabService(ShootHunter::class);
     }
 
-    public function testShootHunterNoAttackingHunters(FunctionalTester $I)
-    {
-        $turretConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'turret_command_default']);
-        $turret = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
-        $turret
-            ->setName('turret')
-            ->setEquipment($turretConfig)
-        ;
-        $I->haveInRepository($turret);
-
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $turret);
-
-        $I->assertFalse($this->shootHunterAction->isVisible());
-    }
-
     public function testShootHunterSuccess(FunctionalTester $I)
     {
         $event = new HunterPoolEvent(
@@ -74,11 +59,13 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($turret);
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $turret);
-
-        $this->shootHunterAction->execute();
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
+
+        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+
+        $this->shootHunterAction->execute();
+        
         $I->assertNotEquals($hunter->getHunterConfig()->getInitialHealth(), $hunter->getHealth());
         $I->assertEquals(
             $this->player1->getActionPoint(),
@@ -112,13 +99,14 @@ class ShootHunterActionCest extends AbstractFunctionalTest
             ->setEquipment($turretConfig)
         ;
         $I->haveInRepository($turret);
+        
+        /** @var Hunter $hunter */
+        $hunter = $this->daedalus->getAttackingHunters()->first();
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $turret);
+        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
 
         $this->shootHunterAction->execute();
 
-        /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
         $I->assertEquals($hunter->getHunterConfig()->getInitialHealth(), $hunter->getHealth());
         $I->assertEquals(
             $this->player1->getActionPoint(),
@@ -155,7 +143,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $hunter->setHealth(1); // make sure hunter will die after the shot
         $I->haveInRepository($hunter);
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $turret);
+        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
 
         $this->shootHunterAction->execute();
 
@@ -191,6 +179,11 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         );
         $this->eventService->callEvent($event, HunterPoolEvent::UNPOOL_HUNTERS);
 
+        /** @var Hunter $hunter */
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter->setHealth(1); // make sure hunter will die after the shot
+        $I->haveInRepository($hunter);
+
         $turretConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'turret_command_default']);
         $turret = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $turret
@@ -212,7 +205,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $lensesModifier = new GameModifier($this->player1, $lensesModifierConfig);
         $I->haveInRepository($lensesModifier);
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $turret);
+        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
 
         $I->assertEquals(intval(40 * 1.33), $this->shootHunterAction->getSuccessRate());
     }

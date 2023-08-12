@@ -783,6 +783,18 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($shootHunterTurret);
 
+        $shootHunterTurret = new Action();
+        $shootHunterTurret
+            ->setName(ActionEnum::SHOOT_RANDOM_HUNTER . '_turret')
+            ->setActionName(ActionEnum::SHOOT_RANDOM_HUNTER)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setTypes([ActionTypeEnum::ACTION_SHOOT_HUNTER])
+            ->setActionCost(1)
+            ->setSuccessRate(30)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
+        ;
+        $manager->persist($shootHunterTurret);
+
         $takeoff = new Action();
         $takeoff
             ->setName(ActionEnum::TAKEOFF)
@@ -820,6 +832,18 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
         ;
         $manager->persist($shootHunterPatrolShip);
+
+        $shootRandomHunterPatrolShip = new Action();
+        $shootRandomHunterPatrolShip
+            ->setName(ActionEnum::SHOOT_RANDOM_HUNTER . '_patrolship')
+            ->setActionName(ActionEnum::SHOOT_RANDOM_HUNTER . '_patrolship')
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setTypes([ActionTypeEnum::ACTION_SHOOT_HUNTER])
+            ->setActionCost(1)
+            ->setSuccessRate(40)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
+        ;
+        $manager->persist($shootRandomHunterPatrolShip);
 
         $collectScrap = new Action();
         $collectScrap

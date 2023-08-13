@@ -76,25 +76,26 @@
             <div class="cycle-time">
                 <Tippy tag="div">
                     <ul>
-                        <li><img class="casio-img" src="@/assets/images/casio.png"></li>
+                        <li v-if="isCycleChangeAvailable(daedalus)"><img class="casio-img" src="@/assets/images/casio.png"></li>
                         <li>
-                            <countdown-timer :end-date="daedalus.timer.timerCycle">
+                            <countdown-timer :end-date="daedalus?.timer?.timerCycle">
                                 <template #default="slotProps">
-                                    <div v-if="daedalus?.timer?.timerCycle > new Date()" class="flex-row">
-                                        <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour }}h</span>
+                                    <div v-if="isCycleChangeAvailable(daedalus)"  class="flex-row">
+                                        <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour
+                                        }}h</span>
                                         <span class="cycle-time-left">{{ slotProps.min }}m</span>
                                         <span class="cycle-time-left">{{ slotProps.sec }}s</span>
                                     </div>
                                     <div v-else>
-                                        <button class="new-cycle-button" @click="refreshPage()">Nouveau cycle</button>
+                                        <button class="new-cycle-button" @click="triggerCycleChange(player)">{{ $t('Nouveau cycle') }}</button>
                                     </div>
                                 </template>
                             </countdown-timer>
                         </li>
                     </ul>
                     <template #content>
-                        <h1 v-html="formatContent(daedalus.timer.name)" />
-                        <p v-html="formatContent(daedalus.timer.description)" />
+                        <h1 v-html="formatContent(daedalus?.timer?.name)" />
+                        <p v-html="formatContent(daedalus?.timer?.description)" />
                     </template>
                 </Tippy>
             </div>
@@ -108,24 +109,38 @@ import { Player } from "@/entities/Player";
 import CountdownTimer from "@/components/Utils/CountdownTimer.vue";
 import Alerts from "@/components/Game/Ship/Alerts.vue";
 import { defineComponent } from "vue";
+import { mapActions, mapState } from "vuex";
+import PlayerService from "@/services/player.service";
 
-export default defineComponent ({
+
+export default defineComponent({
     name: "BannerPanel",
     components: { Alerts, CountdownTimer },
     props: {
         player: Player,
         daedalus: Daedalus
     },
+    computed: {
+        ...mapState('player', [
+            'player'
+        ]),
+    },
     methods: {
-        refreshPage() {
-            window.location.reload();
+        ...mapActions({
+            'clearPlayer': 'player/clearPlayer',
+            'loadPlayer': 'player/loadPlayer',
+        }),
+        isCycleChangeAvailable(daedalus: Daedalus | undefined): boolean {
+            return daedalus?.timer?.timerCycle - new Date() >= 0;
         },
-    }
+        triggerCycleChange(player: Player) {
+            PlayerService.triggerCycleChange(player);
+        },
+    },
 });
 </script>
 
 <style  lang="scss" scoped>
-
 .titles,
 .title,
 .game-banner,
@@ -186,7 +201,7 @@ span.tippy-tooltip {
     background: #4077b5;
     box-shadow: 0 0 5px 1px #15273c inset, 0 0 0 1px #234164;
 
-    & > div {
+    &>div {
         position: relative;
         width: 100%;
         height: 100%;
@@ -237,7 +252,7 @@ span.tippy-tooltip {
 .daedalus-banner {
     align-items: center;
 
-    & > div {
+    &>div {
         margin: 0 12px;
         align-items: center;
     }
@@ -246,9 +261,11 @@ span.tippy-tooltip {
         :not(:last-child) {
             padding-right: 1em;
         }
+
         img {
             padding: 2px 0 0 4px;
         }
+
         li {
             display: flex;
         }
@@ -261,13 +278,14 @@ span.tippy-tooltip {
     .cycle-time img {
         margin-right: 0.4em;
     }
-    .cycle-time ul {align-items: center;}
+
+    .cycle-time ul {
+        align-items: center;
+    }
 }
 
 .new-cycle-button {
-@include button-style();
+    @include button-style();
     display: block;
     margin: 0.2rem;
-}
-
-</style>
+}</style>

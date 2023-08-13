@@ -76,11 +76,11 @@
             <div class="cycle-time">
                 <Tippy tag="div">
                     <ul>
-                        <li v-if="isCycleChangeAvailable(daedalus)"><img class="casio-img" src="@/assets/images/casio.png"></li>
+                        <li v-if="!isCycleChangeAvailable(daedalus)"><img class="casio-img" src="@/assets/images/casio.png"></li>
                         <li>
                             <countdown-timer :end-date="daedalus?.timer?.timerCycle">
                                 <template #default="slotProps">
-                                    <div v-if="isCycleChangeAvailable(daedalus)"  class="flex-row">
+                                    <div v-if="!isCycleChangeAvailable(daedalus)"  class="flex-row">
                                         <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour
                                         }}h</span>
                                         <span class="cycle-time-left">{{ slotProps.min }}m</span>
@@ -121,7 +121,10 @@ export default defineComponent({
     },
     methods: {
         isCycleChangeAvailable(daedalus: Daedalus | undefined): boolean {
-            return daedalus?.timer?.timerCycle - new Date() >= 0;
+            if (!daedalus?.timer?.timerCycle) {
+                return false;
+            }
+            return (daedalus.timer.timerCycle).getTime() - (new Date()).getTime() <= 0;
         },
         triggerCycleChange(player: Player) {
             PlayerService.triggerCycleChange(player);

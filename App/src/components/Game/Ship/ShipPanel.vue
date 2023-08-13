@@ -72,9 +72,6 @@ export default defineComponent ({
             'selectedTarget'
         ]),
         targetPanel() {
-            // if (this.selectedTarget instanceof Hunter) {
-            //     return null;
-            // }
             return this.selectedTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
         },
         target(): Hunter | null {

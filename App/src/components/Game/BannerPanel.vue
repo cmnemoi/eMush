@@ -109,7 +109,6 @@ import { Player } from "@/entities/Player";
 import CountdownTimer from "@/components/Utils/CountdownTimer.vue";
 import Alerts from "@/components/Game/Ship/Alerts.vue";
 import { defineComponent } from "vue";
-import { mapActions, mapState } from "vuex";
 import PlayerService from "@/services/player.service";
 
 
@@ -120,16 +119,7 @@ export default defineComponent({
         player: Player,
         daedalus: Daedalus
     },
-    computed: {
-        ...mapState('player', [
-            'player'
-        ]),
-    },
     methods: {
-        ...mapActions({
-            'clearPlayer': 'player/clearPlayer',
-            'loadPlayer': 'player/loadPlayer',
-        }),
         isCycleChangeAvailable(daedalus: Daedalus | undefined): boolean {
             return daedalus?.timer?.timerCycle - new Date() >= 0;
         },

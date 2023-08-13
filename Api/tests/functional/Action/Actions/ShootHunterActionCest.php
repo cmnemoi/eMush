@@ -46,6 +46,46 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $this->shootHunterAction = $I->grabService(ShootHunter::class);
     }
 
+    public function testCannotShootWithUnloadedWeapon(FunctionalTester $I)
+    {
+        $event = new HunterPoolEvent(
+            $this->daedalus,
+            ['test'],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, HunterPoolEvent::UNPOOL_HUNTERS);
+
+        $turretConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'turret_command_default']);
+        $turret = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::FRONT_ALPHA_TURRET));
+        $turret
+            ->setName('turret')
+            ->setEquipment($turretConfig)
+        ;
+        $I->haveInRepository($turret);
+
+        /** @var Hunter $hunter */
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+
+        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+
+        $I->assertTrue($this->shootHunterAction->isVisible());
+
+        $this->shootHunterAction->execute();
+
+        $I->assertNotEquals($hunter->getHunterConfig()->getInitialHealth(), $hunter->getHealth());
+        $I->assertEquals(
+            $this->player1->getActionPoint(),
+            $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
+        );
+        $I->seeInRepository(RoomLog::class, [
+            'place' => RoomEnum::FRONT_ALPHA_TURRET,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => ActionLogEnum::SHOOT_HUNTER_SUCCESS,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+    }
+
     public function testShootHunterSuccess(FunctionalTester $I)
     {
         $event = new HunterPoolEvent(

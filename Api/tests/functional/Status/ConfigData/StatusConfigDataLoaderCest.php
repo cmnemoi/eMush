@@ -68,7 +68,7 @@ class StatusConfigDataLoaderCest
         unset($configData['chargeStrategy']);
         unset($configData['maxCharge']);
         unset($configData['startCharge']);
-        unset($configData['dischargeStrategy']);
+        unset($configData['dischargeStrategies']);
         unset($configData['autoRemove']);
         unset($configData['modifierConfigs']);
 

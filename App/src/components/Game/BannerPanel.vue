@@ -87,7 +87,7 @@
                                         <span class="cycle-time-left">{{ slotProps.sec }}s</span>
                                     </div>
                                     <div v-else>
-                                        <button class="new-cycle-button" @click="triggerCycleChange(player)">{{ $t('Nouveau cycle') }}</button>
+                                        <button class="new-cycle-button" @click="triggerCycleChange(player)">{{ $t('game.communications.newCycle') }}</button>
                                     </div>
                                 </template>
                             </countdown-timer>

@@ -7,6 +7,7 @@ class ReachEnum
     public const INVENTORY = 'inventory';
     public const SHELVE = 'shelve';
     public const ROOM = 'room';
+    public const SPACE_BATTLE = 'space_battle';
     public const SHELVE_NOT_HIDDEN = 'shelve_not_hidden';
 
     // @TODO not implemented because no use as of now

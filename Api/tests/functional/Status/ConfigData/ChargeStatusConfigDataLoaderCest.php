@@ -61,7 +61,6 @@ class ChargeStatusConfigDataLoaderCest
             'chargeStrategy' => 'cycle_increment',
             'maxCharge' => 4,
             'startCharge' => 1,
-            'dischargeStrategy' => 'express_cook',
             'autoRemove' => false,
         ]);
     }
@@ -73,6 +72,7 @@ class ChargeStatusConfigDataLoaderCest
     {
         unset($configData['type']);
         unset($configData['modifierConfigs']);
+        unset($configData['dischargeStrategies']);
 
         return $configData;
     }

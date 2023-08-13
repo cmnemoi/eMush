@@ -4,6 +4,7 @@ namespace Mush\Hunter\ConfigData;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Action\Repository\ActionRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Game\Entity\ProbaCollection;
 use Mush\Hunter\Entity\HunterConfig;
@@ -12,15 +13,18 @@ use Mush\Status\Repository\StatusConfigRepository;
 
 class HunterConfigDataLoader extends ConfigDataLoader
 {
+    private ActionRepository $actionRepository;
     private HunterConfigRepository $hunterConfigRepository;
     private StatusConfigRepository $statusConfigRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
+        ActionRepository $actionRepository,
         HunterConfigRepository $hunterConfigRepository,
         StatusConfigRepository $statusConfigRepository
     ) {
         parent::__construct($entityManager);
+        $this->actionRepository = $actionRepository;
         $this->hunterConfigRepository = $hunterConfigRepository;
         $this->statusConfigRepository = $statusConfigRepository;
     }

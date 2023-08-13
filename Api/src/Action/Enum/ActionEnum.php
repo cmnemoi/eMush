@@ -83,6 +83,8 @@ class ActionEnum
     public const DISPENSE = 'dispense';
     public const SHOOT_HUNTER = 'shoot_hunter';
     public const SHOOT_HUNTER_PATROL_SHIP = 'shoot_hunter_patrol_ship';
+    public const SHOOT_RANDOM_HUNTER = 'shoot_random_hunter';
+    public const SHOOT_RANDOM_HUNTER_PATROL_SHIP = 'shoot_random_hunter_patrol_ship';
     public const ACCES_TERMINAL = 'acces_terminal';
     public const CONTACT_SOL = 'contact_sol';
     public const INSTALL_CAMERA = 'install_camera';

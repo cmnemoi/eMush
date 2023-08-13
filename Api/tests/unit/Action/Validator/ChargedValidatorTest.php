@@ -47,7 +47,7 @@ class ChargedValidatorTest extends TestCase
         $target->setEquipment($itemConfig);
 
         $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategy(ActionEnum::EXPRESS_COOK);
+        $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategies([ActionEnum::EXPRESS_COOK]);
         $chargeStatus = new ChargeStatus($target, $statusConfig);
 
         $chargeStatus->setCharge(1);
@@ -91,7 +91,7 @@ class ChargedValidatorTest extends TestCase
         ;
 
         $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategy(ActionEnum::EXPRESS_COOK);
+        $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategies([ActionEnum::EXPRESS_COOK]);
         $chargeStatus = new ChargeStatus($target, $statusConfig);
         $chargeStatus
             ->setCharge(0)

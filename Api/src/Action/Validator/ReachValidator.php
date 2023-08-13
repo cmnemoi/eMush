@@ -6,6 +6,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Hunter\Entity\Hunter;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -31,6 +32,8 @@ class ReachValidator extends ConstraintValidator
             $canReach = $this->canReachGameEquipment($player, $parameter, $constraint->reach);
         } elseif ($parameter instanceof Player) {
             $canReach = $this->canReachPlayer($player, $parameter, $constraint->reach);
+        } elseif ($parameter instanceof Hunter) {
+            $canReach = $this->canReachHunter($player, $constraint->reach);
         } else {
             throw new LogicException('invalid parameter type');
         }
@@ -84,8 +87,23 @@ class ReachValidator extends ConstraintValidator
                     return false;
                 }
                 break;
+
+            case ReachEnum::SPACE_BATTLE:
+                if (!$player->canSeeSpaceBattle() || !$player->canReachEquipment($parameter)) {
+                    return false;
+                }
+                break;
         }
 
         return true;
+    }
+
+    private function canReachHunter(Player $player, string $reach): bool
+    {
+        if ($reach !== ReachEnum::SPACE_BATTLE) {
+            throw new LogicException('invalid reach for hunter');
+        }
+
+        return $player->canSeeSpaceBattle();
     }
 }

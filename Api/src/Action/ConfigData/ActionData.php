@@ -7,13 +7,14 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Hunter\Entity\Hunter;
 
 /**
  * @codeCoverageIgnore
  */
 class ActionData
 {
-    public static $dataArray = [
+    public static array $dataArray = [
         [
             'name' => 'suicide',
             'action_name' => 'suicide',
@@ -1338,6 +1339,21 @@ class ActionData
             'name' => ActionEnum::SHOOT_HUNTER . '_turret',
             'action_name' => ActionEnum::SHOOT_HUNTER,
             'types' => [ActionTypeEnum::ACTION_SHOOT_HUNTER],
+            'target' => Hunter::class,
+            'scope' => ActionScopeEnum::ROOM,
+            'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::PRIVATE],
+            'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 30, 'min_value' => 1, 'max_value' => 99],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+        ],
+        [
+            'name' => ActionEnum::SHOOT_RANDOM_HUNTER . '_turret',
+            'action_name' => ActionEnum::SHOOT_RANDOM_HUNTER,
+            'types' => [ActionTypeEnum::ACTION_SHOOT_HUNTER],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
             'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::PRIVATE],
@@ -1352,6 +1368,21 @@ class ActionData
         [
             'name' => ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
             'action_name' => ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+            'types' => [ActionTypeEnum::ACTION_SHOOT_HUNTER],
+            'target' => Hunter::class,
+            'scope' => ActionScopeEnum::ROOM,
+            'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::PRIVATE],
+            'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 40, 'min_value' => 1, 'max_value' => 99],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+        ],
+        [
+            'name' => ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP,
+            'action_name' => ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP,
             'types' => [ActionTypeEnum::ACTION_SHOOT_HUNTER],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,

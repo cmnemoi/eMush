@@ -3205,7 +3205,7 @@ class MechanicsData
             'failedManoeuvrePatrolShipDamage' => null,
             'failedManoeuvrePlayerDamage' => null,
             'actions' => [
-                ActionEnum::SHOOT_HUNTER . '_turret',
+                ActionEnum::SHOOT_RANDOM_HUNTER . '_turret',
             ],
             'modifierConfigs' => [],
         ],
@@ -3242,7 +3242,7 @@ class MechanicsData
             'failedManoeuvrePatrolShipDamage' => null,
             'failedManoeuvrePlayerDamage' => null,
             'actions' => [
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+                ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP,
             ],
             'modifierConfigs' => [],
         ],
@@ -3459,6 +3459,20 @@ class MechanicsData
                 ActionEnum::COLLECT_SCRAP,
             ],
             'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'tool_turret_command_default',
+            'type' => 'tool',
+            'actions' => [
+                ActionEnum::SHOOT_HUNTER . '_turret',
+            ],
+        ],
+        [
+            'name' => 'tool_patrol_ship_default',
+            'type' => 'tool',
+            'actions' => [
+                ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+            ],
         ],
     ];
 }

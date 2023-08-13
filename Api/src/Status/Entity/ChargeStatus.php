@@ -57,9 +57,14 @@ class ChargeStatus extends Status
         return $this->getStatusConfig()->getChargeStrategy();
     }
 
-    public function getDischargeStrategy(): ?string
+    public function getDischargeStrategies(): array
     {
-        return $this->getStatusConfig()->getDischargeStrategy();
+        return $this->getStatusConfig()->getDischargeStrategies();
+    }
+
+    public function hasDischargeStrategy(string $strategy): bool
+    {
+        return in_array($strategy, $this->getDischargeStrategies(), true);
     }
 
     public function getThreshold(): ?int

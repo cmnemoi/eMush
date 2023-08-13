@@ -80,7 +80,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(4)
             ->setStartCharge(1)
-            ->setDischargeStrategy(ActionEnum::EXPRESS_COOK)
+            ->setDischargeStrategies([ActionEnum::EXPRESS_COOK])
             ->buildName(GameConfigEnum::DEFAULT, ToolItemEnum::MICROWAVE)
         ;
         $manager->persist($microwaveCharge);
@@ -93,7 +93,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(8)
             ->setStartCharge(2)
-            ->setDischargeStrategy(ModifierNameEnum::ANTIGRAV_SCOOTER_CONVERSION_MODIFIER)
+            ->setDischargeStrategies([ModifierNameEnum::ANTIGRAV_SCOOTER_CONVERSION_MODIFIER])
             ->buildName(GameConfigEnum::DEFAULT, GearItemEnum::ANTIGRAV_SCOOTER)
         ;
         $manager->persist($scooterCharge);
@@ -106,7 +106,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(3)
             ->setStartCharge(1)
-            ->setDischargeStrategy(ActionEnum::SHOOT)
+            ->setDischargeStrategies([ActionEnum::SHOOT])
             ->buildName(GameConfigEnum::DEFAULT, ItemEnum::BLASTER)
         ;
         $manager->persist($blasterCharge);
@@ -119,7 +119,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(12)
             ->setStartCharge(12)
-            ->setDischargeStrategy(ActionEnum::SHOOT)
+            ->setDischargeStrategies([ActionEnum::SHOOT])
             ->buildName(GameConfigEnum::DEFAULT, ItemEnum::OLD_FAITHFUL)
         ;
         $manager->persist($oldFaithfulCharge);
@@ -132,7 +132,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(1)
             ->setStartCharge(1)
-            ->setDischargeStrategy(ActionEnum::SHOOT)
+            ->setDischargeStrategies([ActionEnum::SHOOT])
             ->buildName(GameConfigEnum::DEFAULT, ItemEnum::ROCKET_LAUNCHER)
         ;
         $manager->persist($bigWeaponCharge);
@@ -145,7 +145,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
             ->setMaxCharge(1)
             ->setStartCharge(1)
-            ->setDischargeStrategy(ActionEnum::DISPENSE)
+            ->setDischargeStrategies([ActionEnum::DISPENSE])
             ->buildName(GameConfigEnum::DEFAULT, EquipmentEnum::NARCOTIC_DISTILLER)
         ;
         $manager->persist($dispenserCharge);
@@ -158,7 +158,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
             ->setMaxCharge(1)
             ->setStartCharge(1)
-            ->setDischargeStrategy(ActionEnum::COFFEE)
+            ->setDischargeStrategies([ActionEnum::COFFEE])
             ->buildName(GameConfigEnum::DEFAULT, EquipmentEnum::COFFEE_MACHINE)
         ;
         $manager->persist($coffeeCharge);
@@ -171,7 +171,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(4)
             ->setStartCharge(4)
-            ->setDischargeStrategy(ActionEnum::SHOOT_HUNTER)
+            ->setDischargeStrategies([ActionEnum::SHOOT_HUNTER, ActionEnum::SHOOT_RANDOM_HUNTER])
             ->buildName(GameConfigEnum::DEFAULT, EquipmentEnum::TURRET_COMMAND)
         ;
         $manager->persist($turretCharge);

@@ -125,7 +125,7 @@ class CoffeeActionCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::HEAVY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategy(ActionEnum::COFFEE)
+            ->setDischargeStrategies([ActionEnum::COFFEE])
         ;
 
         $chargeStatus = new ChargeStatus($gameEquipment, $statusConfig);

@@ -150,6 +150,9 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         if (array_key_exists('equipment', $context)) {
             $parameter = $context['equipment'];
         }
+        if (array_key_exists('hunter', $context)) {
+            $parameter = $context['hunter'];
+        }
 
         return $parameter;
     }

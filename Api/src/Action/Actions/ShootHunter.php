@@ -99,6 +99,7 @@ class ShootHunter extends AttemptAction
         $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
+    // @TODO: hack to recover shooting equipment. This has to be improved in a bigger weapon rework (and all items which "target" something)
     private function getShootingEquipment(): GameEquipment
     {
         /** @var GameEquipment $shootingEquipment */
@@ -108,7 +109,7 @@ class ShootHunter extends AttemptAction
             ->first();
 
         if (!$shootingEquipment instanceof GameEquipment) {
-            throw new \Exception("Shoot hunter action : {$this->player->getPlace()->getName()} should have a shooting shooting equipment (turret or patrol ship)");
+            throw new \Exception("Shoot hunter action : {$this->player->getPlace()->getName()} should have a shooting equipment (turret or patrol ship)");
         }
 
         return $shootingEquipment;

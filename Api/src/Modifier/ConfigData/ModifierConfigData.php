@@ -5,9 +5,13 @@ namespace Mush\Modifier\ConfigData;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Communication\Enum\MessageModificationEnum;
+use Mush\Communication\Event\MessageEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Disease\Enum\SymptomEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
@@ -16,6 +20,7 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -33,7 +38,6 @@ class ModifierConfigData
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
-            'triggeredEvent' => null,
             'visibility' => null,
             'delta' => 1.0,
             'targetVariable' => 'movementPoint',
@@ -867,7 +871,7 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
         ],
         [
-            'name' => 'modifier_for_player_+1actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
+            'name' => 'modifier_for_player_+1actionPoint',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
@@ -891,7 +895,7 @@ class ModifierConfigData
             ],
         ],
         [
-            'name' => 'modifier_for_player_+2actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
+            'name' => 'modifier_for_player_+2actionPoint',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
@@ -915,7 +919,7 @@ class ModifierConfigData
             ],
         ],
         [
-            'name' => 'modifier_for_player_+3actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
+            'name' => 'modifier_for_player_+3actionPoint',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
@@ -1368,6 +1372,326 @@ class ModifierConfigData
             'modifierRange' => 'player',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+        ],
+        [
+            'name' => 'prevent_move',
+            'modifierName' => 'prevent_move',
+            'targetEvent' => ActionEvent::PRE_ACTION,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'triggeredEvent' => null,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'prevent_pick_heavy_item',
+            'modifierName' => 'prevent_pick_heavy_item',
+            'targetEvent' => ActionEvent::PRE_ACTION,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => -1,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'triggeredEvent' => null,
+            'modifierActivationRequirements' => ['item_status_heavy'],
+            'tagConstraints' => [
+                ActionEnum::TAKE => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'prevent_attack_actions',
+            'modifierName' => 'prevent_attack_actions',
+            'targetEvent' => ActionEvent::PRE_ACTION,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'triggeredEvent' => null,
+            'replaceEvent' => true,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_ATTACK => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'prevent_piloting_actions',
+            'modifierName' => 'no_piloting_actions',
+            'targetEvent' => ActionEvent::PRE_ACTION,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'triggeredEvent' => null,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_PILOT => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'prevent_shoot_actions',
+            'modifierName' => 'no_shoot_actions',
+            'targetEvent' => ActionEvent::PRE_ACTION,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'triggeredEvent' => null,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'mute_modifier',
+            'modifierName' => 'mute_modifier',
+            'targetEvent' => MessageEvent::NEW_MESSAGE,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'triggeredEvent' => null,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
+        [
+            'name' => 'septicemia_cycle_change',
+            'modifierName' => SymptomEnum::SEPTICEMIA,
+            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => ['player_status_dirty'],
+        ],
+        [
+            'name' => 'septicemia_post_action',
+            'modifierName' => SymptomEnum::SEPTICEMIA,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => ['player_status_dirty'],
+        ],
+        [
+            'name' => 'septicemia_on_dirty',
+            'modifierName' => SymptomEnum::SEPTICEMIA,
+            'targetEvent' => StatusEvent::STATUS_APPLIED,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'fear_of_cat_on_move',
+            'modifierName' => SymptomEnum::FEAR_OF_CATS,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [
+                'random_50',
+                'player_equipment_schrodinger',
+            ],
+            'tagConstraints' => [
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'psychotic_attacks_on_move',
+            'modifierName' => SymptomEnum::PSYCHOTIC_ATTACKS,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [
+                'random_16',
+            ],
+            'tagConstraints' => [
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'biting_on_move',
+            'modifierName' => SymptomEnum::BITING,
+            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [
+                'random_16',
+            ],
+            'tagConstraints' => [],
+        ],
+        [
+            'name' => 'breakouts_on_move',
+            'modifierName' => SymptomEnum::BREAKOUTS,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [
+                'random_16',
+            ],
+            'tagConstraints' => [],
+        ],
+        [
+            'name' => 'cat_allergy_on_take_schrodinger_random16',
+            'modifierName' => SymptomEnum::CAT_ALLERGY,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [
+                'random_16',
+            ],
+            'tagConstraints' => [
+                ActionEnum::TAKE => ModifierRequirementEnum::ALL_TAGS,
+                ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
+            ],
+        ],
+        [
+            'name' => 'cat_sneezing_on_move_random16',
+            'modifierName' => SymptomEnum::SNEEZING,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [
+                'random_16',
+                'item_in_room_schrodinger',
+            ],
+            'tagConstraints' => [
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'vomiting_consume',
+            'modifierName' => SymptomEnum::VOMITING,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'vomiting_move_random_40',
+            'modifierName' => SymptomEnum::VOMITING,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => ['random_40'],
+            'tagConstraints' => [
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'cycle_dirtiness',
+            'modifierName' => SymptomEnum::DIRTINESS,
+            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
+        [
+            'name' => 'cycle_dirtiness_random_40',
+            'modifierName' => SymptomEnum::DIRTINESS,
+            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => ['random_40'],
+            'tagConstraints' => [],
+        ],
+        [
+            'name' => 'drooling_on_move',
+            'modifierName' => SymptomEnum::DROOLING,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => ['random_16'],
+            'tagConstraints' => [
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'foaming_on_move',
+            'modifierName' => SymptomEnum::FOAMING_MOUTH,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => ['random_16'],
+            'tagConstraints' => [
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'mush_sneezing',
+            'modifierName' => SymptomEnum::SNEEZING,
+            'targetEvent' => ActionEvent::POST_ACTION,
+            'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
+            'priority' => -1,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [
+                'random_16',
+                'player_in_room_mush',
+            ],
+            'tagConstraints' => [
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+            ],
         ],
     ];
 }

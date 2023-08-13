@@ -5,54 +5,49 @@ namespace Mush\Disease\SymptomHandler;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Event\ActionEvent;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Entity\Collection\EventChain;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\PlayerServiceInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class FearCats extends AbstractSymptomHandler
 {
     protected string $name = SymptomEnum::FEAR_OF_CATS;
-    private ActionServiceInterface $actionService;
-    private EventServiceInterface $eventService;
-    private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
-    private ValidatorInterface $validator;
 
     public function __construct(
-        ActionServiceInterface $actionService,
-        EventServiceInterface $eventService,
-        PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
-        ValidatorInterface $validator,
     ) {
-        $this->actionService = $actionService;
-        $this->eventService = $eventService;
-        $this->playerService = $playerService;
         $this->randomService = $randomService;
-        $this->validator = $validator;
     }
 
-    public function applyEffects(string $symptomName, Player $player, \DateTime $time): void
-    {
-        if ($symptomName !== SymptomEnum::FEAR_OF_CATS) {
-            return;
-        }
-
+    public function applyEffects(
+        Player $player,
+        int $priority,
+        array $tags,
+        \DateTime $time
+    ): EventChain {
         $logParameters = [];
         $logParameters[$player->getLogKey()] = $player->getLogName();
 
-        $this->makePlayerRandomlyMoving($player);
+        $moveEvent = $this->makePlayerRandomlyMoving($player);
+
+        if ($moveEvent !== null) {
+            $moveEvent->setPriority($priority);
+
+            return new EventChain([$moveEvent]);
+        }
+
+        return new EventChain([]);
     }
 
     /**
      * This function takes a player as an argument, draws a random room and make them move to it.
      */
-    private function makePlayerRandomlyMoving(Player $player): void
+    private function makePlayerRandomlyMoving(Player $player): ?AbstractGameEvent
     {
         // get non broken doors
         $availaibleDoors = $player->getPlace()->getDoors()->filter(function (GameEquipment $door) {
@@ -60,7 +55,7 @@ class FearCats extends AbstractSymptomHandler
         })->toArray();
 
         if (count($availaibleDoors) === 0) {
-            return;
+            return null;
         }
 
         // get random door
@@ -72,13 +67,13 @@ class FearCats extends AbstractSymptomHandler
             return $action->getActionName() === ActionEnum::MOVE;
         })->first();
 
-        $moveAction = new Move(
-            $this->eventService,
-            $this->actionService,
-            $this->validator,
-            $this->playerService
+        $moveEventAction = new ActionEvent(
+            $moveActionEntity,
+            $player,
+            $randomDoor
         );
-        $moveAction->loadParameters($moveActionEntity, $player, $randomDoor);
-        $moveAction->execute();
+        $moveEventAction->setEventName(ActionEvent::EXECUTE_ACTION);
+
+        return $moveEventAction;
     }
 }

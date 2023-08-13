@@ -3,7 +3,7 @@
 namespace Mush\Disease\SymptomHandler;
 
 use Mush\Disease\Enum\SymptomEnum;
-use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Entity\Collection\EventChain;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -11,22 +11,15 @@ use Mush\Player\Event\PlayerEvent;
 class Septicemia extends AbstractSymptomHandler
 {
     protected string $name = SymptomEnum::SEPTICEMIA;
-    private EventServiceInterface $eventService;
 
-    public function __construct(
-        EventServiceInterface $eventService,
-    ) {
-        $this->eventService = $eventService;
-    }
-
-    public function applyEffects(string $symptomName, Player $player, \DateTime $time): void
-    {
-        if ($symptomName !== SymptomEnum::SEPTICEMIA) {
-            return;
-        }
-
+    public function applyEffects(
+        Player $player,
+        int $priority,
+        array $tags,
+        \DateTime $time
+    ): EventChain {
         if (!$player->isAlive()) {
-            return;
+            return new EventChain([]);
         }
 
         $playerEvent = new PlayerEvent(
@@ -35,6 +28,11 @@ class Septicemia extends AbstractSymptomHandler
             $time
         );
 
-        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $playerEvent
+            ->setPriority($priority)
+            ->setEventName(PlayerEvent::DEATH_PLAYER)
+        ;
+
+        return new EventChain([$playerEvent]);
     }
 }

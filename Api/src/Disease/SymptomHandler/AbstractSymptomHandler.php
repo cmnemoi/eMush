@@ -2,6 +2,9 @@
 
 namespace Mush\Disease\SymptomHandler;
 
+use Mush\Game\Entity\Collection\EventChain;
+use Mush\Player\Entity\Player;
+
 abstract class AbstractSymptomHandler
 {
     protected string $name = '';
@@ -11,5 +14,10 @@ abstract class AbstractSymptomHandler
         return $this->name;
     }
 
-    abstract public function applyEffects(string $symptomName, AbstractGameEvent $triggeringEvent, \DateTime $time): void;
+    abstract public function applyEffects(
+        Player $player,
+        int $priority,
+        array $tags,
+        \DateTime $time
+    ): EventChain;
 }

@@ -5,7 +5,6 @@ namespace Mush\Disease\Entity\Config;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -35,9 +34,6 @@ class DiseaseConfig implements LogParameterInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $resistance = 0;
 
-    #[ORM\ManyToMany(targetEntity: SymptomConfig::class)]
-    private Collection $symptomConfigs;
-
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $delayMin = 0;
 
@@ -56,7 +52,6 @@ class DiseaseConfig implements LogParameterInterface
     public function __construct()
     {
         $this->modifierConfigs = new ArrayCollection();
-        $this->symptomConfigs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -134,27 +129,6 @@ class DiseaseConfig implements LogParameterInterface
     public function setResistance(int $resistance): self
     {
         $this->resistance = $resistance;
-
-        return $this;
-    }
-
-    public function getSymptomConfigs(): SymptomConfigCollection
-    {
-        $symptomConfigs = new SymptomConfigCollection();
-        foreach ($this->symptomConfigs as $symptomConfig) {
-            $symptomConfigs->add($symptomConfig);
-        }
-
-        return $symptomConfigs;
-    }
-
-    public function setSymptomConfigs(SymptomConfigCollection|array $symptomConfigs): self
-    {
-        if (is_array($symptomConfigs)) {
-            $symptomConfigs = new SymptomConfigCollection($symptomConfigs);
-        }
-
-        $this->symptomConfigs = $symptomConfigs;
 
         return $this;
     }

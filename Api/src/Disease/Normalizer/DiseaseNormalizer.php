@@ -3,10 +3,7 @@
 namespace Mush\Disease\Normalizer;
 
 use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Entity\Config\SymptomActivationRequirement;
-use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
-use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Player\Entity\Player;
@@ -45,7 +42,6 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         );
 
         $description = $this->getModifierEffects($diseaseConfig, $description, $language);
-        $description = $this->getSymptomEffects($diseaseConfig, $description, $language);
 
         return [
             'key' => $diseaseConfig->getDiseaseName(),
@@ -58,44 +54,6 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
             'type' => $diseaseConfig->getType(),
             'description' => $description,
        ];
-    }
-
-    private function getSymptomEffects(DiseaseConfig $diseaseConfig, string $description, string $language): string
-    {
-        // first get symptom effects
-        $symptomEffects = [];
-        /** @var SymptomConfig $symptomConfig */
-        foreach ($diseaseConfig->getSymptomConfigs() as $symptomConfig) {
-            $name = $symptomConfig->getSymptomName();
-
-            $randomActivationRequirement = $symptomConfig->getSymptomActivationRequirements()
-                ->filter(fn (SymptomActivationRequirement $activationRequirement) => $activationRequirement->getActivationRequirementName() === SymptomActivationRequirementEnum::RANDOM);
-            if (!$randomActivationRequirement->isEmpty()) {
-                $chance = $randomActivationRequirement->first()->getValue();
-            } else {
-                $chance = 100;
-            }
-
-            $effect = $this->translationService->translate(
-                $name . '.description',
-                ['chance' => $chance],
-                'modifiers',
-                $language
-            );
-
-            if (!in_array($effect, $symptomEffects)) {
-                array_push($symptomEffects, $effect);
-            }
-        }
-
-        // then add them to the description
-        if (!empty($symptomEffects)) {
-            foreach ($symptomEffects as $symptomEffect) {
-                $description = $description . '//' . $symptomEffect;
-            }
-        }
-
-        return $description;
     }
 
     private function getModifierEffects(DiseaseConfig $diseaseConfig, string $description, string $language): string

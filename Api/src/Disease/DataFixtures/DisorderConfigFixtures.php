@@ -5,9 +5,7 @@ namespace Mush\Disease\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\TypeEnum;
@@ -60,19 +58,18 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $paranoiaSymptom = $this->getReference(InjuryModifierConfigFixtures::PARANOIA_MODIFIER);
         /** @var EventModifierConfig $paranoiaDenial */
         $paranoiaDenial = $this->getReference(InjuryModifierConfigFixtures::PARANOIA_DENIAL_MODIFIER);
-
-        /** @var SymptomConfig $biting */
-        $biting = $this->getReference(DiseaseSymptomConfigFixtures::BITING);
-        /** @var SymptomConfig $fearOfCats */
-        $fearOfCats = $this->getReference(DisorderSymptomConfigFixtures::FEAR_OF_CATS);
-        /** @var SymptomConfig $noAttackActions */
-        $noAttackActions = $this->getReference(DisorderSymptomConfigFixtures::NO_ATTACK_ACTIONS);
-        /** @var SymptomConfig $noPilotingActions */
-        $noPilotingActions = $this->getReference(DisorderSymptomConfigFixtures::NO_PILOTING_ACTIONS);
-        /** @var SymptomConfig $noShootActions */
-        $noShootActions = $this->getReference(DisorderSymptomConfigFixtures::NO_SHOOT_ACTIONS);
-        /** @var SymptomConfig $psychoticAttacks */
-        $psychoticAttacks = $this->getReference(DisorderSymptomConfigFixtures::PSYCHOTIC_ATTACKS);
+        /** @var EventModifierConfig $biting */
+        $biting = $this->getReference(InjuryModifierConfigFixtures::BITING);
+        /** @var EventModifierConfig $fearOfCats */
+        $fearOfCats = $this->getReference(InjuryModifierConfigFixtures::FEAR_OF_CATS);
+        /** @var EventModifierConfig $noAttackActions */
+        $noAttackActions = $this->getReference(InjuryModifierConfigFixtures::PREVENT_ATTACK_ACTION);
+        /** @var EventModifierConfig $noPilotingActions */
+        $noPilotingActions = $this->getReference(InjuryModifierConfigFixtures::PREVENT_PILOTING);
+        /** @var EventModifierConfig $noShootActions */
+        $noShootActions = $this->getReference(InjuryModifierConfigFixtures::PREVENT_SHOOT_ACTION);
+        /** @var EventModifierConfig $psychoticAttacks */
+        $psychoticAttacks = $this->getReference(InjuryModifierConfigFixtures::PSYCHOTIC_ATTACKS);
 
         $agoraphobia = new DiseaseConfig();
         $agoraphobia
@@ -81,10 +78,8 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setModifierConfigs([
                 $fourPeopleOneActionIncrease,
                 $fourPeopleOneMovementIncrease,
-            ])
-            ->setSymptomConfigs(new SymptomConfigCollection([
                 $noPilotingActions,
-            ]))
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($agoraphobia);
@@ -96,10 +91,8 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setModifierConfigs([
                 $catInRoomMove2MovementIncrease,
                 $catInRoomNotMove2ActionIncrease,
-            ])
-            ->setSymptomConfigs(new SymptomConfigCollection([
                 $fearOfCats,
-            ]))
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($ailurophobia);
@@ -121,9 +114,9 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $chronicVertigo
             ->setDiseaseName(DisorderEnum::CHRONIC_VERTIGO)
             ->setType(TypeEnum::DISORDER)
-            ->setSymptomConfigs(new SymptomConfigCollection([
+            ->setModifierConfigs([
                 $noPilotingActions,
-            ]))
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($chronicVertigo);
@@ -183,10 +176,10 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $psychoticEpisode
             ->setDiseaseName(DisorderEnum::PSYCHOTIC_EPISODE)
             ->setType(TypeEnum::DISORDER)
-            ->setSymptomConfigs(new SymptomConfigCollection([
+            ->setModifierConfigs([
                 $biting,
                 $psychoticAttacks,
-            ]))
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($psychoticEpisode);
@@ -206,9 +199,9 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $vertigo
             ->setDiseaseName(DisorderEnum::VERTIGO)
             ->setType(TypeEnum::DISORDER)
-            ->setSymptomConfigs(new SymptomConfigCollection([
+            ->setModifierConfigs([
                 $noPilotingActions,
-            ]))
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($vertigo);
@@ -217,10 +210,10 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $weaponPhobia
             ->setDiseaseName(DisorderEnum::WEAPON_PHOBIA)
             ->setType(TypeEnum::DISORDER)
-            ->setSymptomConfigs(new SymptomConfigCollection([
+            ->setModifierConfigs([
                 $noAttackActions,
                 $noShootActions,
-            ]))
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($weaponPhobia);
@@ -262,7 +255,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         return [
             GameConfigFixtures::class,
             DisorderModifierConfigFixtures::class,
-            DisorderSymptomConfigFixtures::class,
+            InjuryModifierConfigFixtures::class,
         ];
     }
 }

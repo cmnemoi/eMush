@@ -334,7 +334,7 @@ class StatusConfigData
             'startCharge' => null,
             'dischargeStrategy' => 'none',
             'autoRemove' => null,
-            'modifierConfigs' => [],
+            'modifierConfigs' => ['mute_modifier'],
         ],
         [
             'name' => 'germaphobe_default',

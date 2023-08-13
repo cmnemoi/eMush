@@ -30,6 +30,7 @@ class ModifierRequirementEnum
     public const ALONE = 'alone';
     public const NOT_ALONE = 'not_alone';
     public const FOUR_PEOPLE = 'four_people';
+    public const MUSH_IN_ROOM = 'mush_in_room';
 
     public const ITEM_IN_ROOM = 'item_in_room';
 

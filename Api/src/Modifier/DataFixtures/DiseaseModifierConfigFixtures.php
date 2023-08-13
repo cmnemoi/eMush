@@ -58,6 +58,8 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
     public const INFECTED_4_HEALTH_LOSS = 'infected_4_health_loss';
     public const INCREASE_CYCLE_DISEASE_CHANCES_10 = 'increase_cycle_disease_chances_10';
     public const RANDOM_16 = 'random_16_modifier';
+    public const RANDOM_40 = 'random_40_modifier';
+    public const RANDOM_50 = 'random_50_modifier';
 
     public function load(ObjectManager $manager): void
     {
@@ -450,6 +452,8 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $this->addReference(self::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST, $shootAction10PercentAccuracyLost);
         $this->addReference(self::INCREASE_CYCLE_DISEASE_CHANCES_10, $increaseCycleDiseaseChances10);
         $this->addReference(self::RANDOM_16, $randActivationRequirement16);
+        $this->addReference(self::RANDOM_50, $randActivationRequirement50);
+        $this->addReference(self::RANDOM_40, $randActivationRequirement40);
     }
 
     public function getDependencies(): array

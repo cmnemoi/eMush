@@ -10,5 +10,5 @@ class ModifierStrategyEnum
     public const MESSAGE_MODIFIER = 'message_modifier';
     public const PREVENT_EVENT = 'prevent_event';
 
-    public const SYMPTOM = 'symptom';
+    public const SYMPTOM_MODIFIER = 'symptom_modifier';
 }

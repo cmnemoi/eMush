@@ -83,11 +83,6 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
         ];
     }
 
-    private function hasPlayerSymptom(Player $player, string $symptom): bool
-    {
-        return $player->getMedicalConditions()->getActiveDiseases()->getAllSymptoms()->hasSymptomByName($symptom);
-    }
-
     private function getMessageDate(\DateTime $dateTime, string $language): string
     {
         $dateInterval = $dateTime->diff(new \DateTime());

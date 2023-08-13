@@ -12,6 +12,7 @@ use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\StatusHolderInterface;
 
 class ModifierRequirementService implements ModifierRequirementServiceInterface
 {
@@ -75,8 +76,8 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
             case ModifierRequirementEnum::ITEM_IN_ROOM:
                 return $this->handleItemInRoomActivationRequirement($activationRequirement, $holder);
 
-            case ModifierRequirementEnum::PLAYER_STATUS:
-                return $this->handlePlayerStatusActivationRequirement($activationRequirement, $holder);
+            case ModifierRequirementEnum::STATUS:
+                return $this->handleStatusActivationRequirement($activationRequirement, $holder);
 
             default:
                 throw new \LogicException('this activationRequirement is not implemented');
@@ -101,6 +102,8 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
                 return $players->count() === 1;
             case ModifierRequirementEnum::FOUR_PEOPLE:
                 return $players->count() >= 4;
+            case ModifierRequirementEnum::MUSH_IN_ROOM:
+                return $players->filter(fn (Player $player) => $player->isMush())->count() >= 1;
 
             default:
                 throw new \LogicException('This activationRequirement is invalid for player_in_room');
@@ -161,10 +164,10 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         })->count() > 0;
     }
 
-    private function handlePlayerStatusActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolder $holder): bool
+    private function handleStatusActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolder $holder): bool
     {
-        if (!$holder instanceof Player) {
-            throw new \LogicException('PLAYER_STATUS activationRequirement can only be applied on a player');
+        if (!$holder instanceof StatusHolderInterface) {
+            throw new \LogicException('STATUS activationRequirement can only be applied on a statusHolder');
         }
         /** @var Player $player */
         $player = $holder;

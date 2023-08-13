@@ -4,6 +4,7 @@ namespace Mush\Modifier\ConfigData;
 
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class ModifierActivationRequirementData
 {
@@ -57,6 +58,12 @@ class ModifierActivationRequirementData
             'value' => 100,
         ],
         [
+            'name' => 'player_status_dirty',
+            'activationRequirementName' => ModifierRequirementEnum::STATUS,
+            'activationRequirement' => PlayerStatusEnum::DIRTY,
+            'value' => 100,
+        ],
+        [
           'name' => 'player_equipment_schrodinger',
           'activationRequirementName' => 'player_equipment',
           'activationRequirement' => 'schrodinger',
@@ -79,6 +86,12 @@ class ModifierActivationRequirementData
           'activationRequirementName' => 'player_in_room',
           'activationRequirement' => 'four_people',
           'value' => 100,
+        ],
+        [
+            'name' => 'player_in_room_mush',
+            'activationRequirementName' => 'player_in_room',
+            'activationRequirement' => 'mush_in_room',
+            'value' => 100,
         ],
         [
           'name' => 'random_70',

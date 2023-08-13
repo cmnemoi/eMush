@@ -3,7 +3,6 @@
 namespace Mush\Game\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Disease\Entity\Config\SymptomConfig;
 
 /**
  * Class storing the various information needed to create events.
@@ -14,7 +13,6 @@ use Mush\Disease\Entity\Config\SymptomConfig;
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
     'variable_event_config' => VariableEventConfig::class,
-    'symptom_config' => SymptomConfig::class,
 ])]
 abstract class AbstractEventConfig
 {

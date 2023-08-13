@@ -11,10 +11,8 @@ use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Event\MessageEvent;
 use Mush\Communication\Repository\MessageRepository;
-use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Status\Enum\PlayerStatusEnum;
 
 class MessageService implements MessageServiceInterface
 {
@@ -122,8 +120,15 @@ class MessageService implements MessageServiceInterface
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool
     {
-        if ($player->hasStatus(PlayerStatusEnum::GAGGED) ||
-            $player->getMedicalConditions()->getActiveDiseases()->getAllSymptoms()->hasSymptomByName(SymptomEnum::MUTE) ||
+        $messageEvent = new MessageEvent(
+            new Message(),
+            $player,
+            [],
+            new \DateTime()
+        );
+        $event = $this->eventService->computeEventModifications($messageEvent, MessageEvent::NEW_MESSAGE);
+
+        if ($event === null ||
             !$player->isAlive()
         ) {
             return false;

@@ -15,6 +15,7 @@ class ActionEvent extends AbstractGameEvent
     public const PRE_ACTION = 'pre.action';
     public const POST_ACTION = 'post.action';
     public const RESULT_ACTION = 'result.action';
+    public const EXECUTE_ACTION = 'execute.action';
 
     private Action $action;
     private ?LogParameterInterface $actionParameter;

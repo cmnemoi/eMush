@@ -3,51 +3,52 @@
 namespace Mush\Disease\SymptomHandler;
 
 use Mush\Action\Actions\Attack;
-use Mush\Action\Actions\Shoot;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Event\ActionEvent;
 use Mush\Disease\Enum\SymptomEnum;
-use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class PsychoticAttack extends AbstractSymptomHandler
 {
     protected string $name = SymptomEnum::PSYCHOTIC_ATTACKS;
-    private ActionServiceInterface $actionService;
-    private EventServiceInterface $eventService;
-    private DiseaseCauseServiceInterface $diseaseCauseService;
     private RandomServiceInterface $randomService;
-    private ValidatorInterface $validator;
 
     public function __construct(
-        ActionServiceInterface $actionService,
-        EventServiceInterface $eventService,
-        DiseaseCauseServiceInterface $diseaseCauseService,
         RandomServiceInterface $randomService,
-        ValidatorInterface $validator,
     ) {
-        $this->actionService = $actionService;
-        $this->eventService = $eventService;
-        $this->diseaseCauseService = $diseaseCauseService;
         $this->randomService = $randomService;
-        $this->validator = $validator;
     }
 
-    public function applyEffects(string $symptomName, Player $player, \DateTime $time): void
-    {
-        if ($symptomName !== SymptomEnum::PSYCHOTIC_ATTACKS) {
-            return;
+    public function applyEffects(
+        Player $player,
+        int $priority,
+        array $tags,
+        \DateTime $time
+    ): EventChain {
+        $attackEvent = $this->makePlayerRandomlyAttacking($player);
+        $shootEvent = $this->makePlayerRandomlyShooting($player);
+
+        // check if those events are possible. If both, randomly pick one
+        if ($attackEvent === null && $shootEvent === null) {
+            return new EventChain([]);
+        } elseif (
+            $attackEvent !== null &&
+            ($shootEvent === null || $this->randomService->isSuccessful(50))
+        ) {
+            $event = $attackEvent;
+        } else {
+            $event = $shootEvent;
         }
 
-        $this->makePlayerRandomlyAttacking($player);
-        $this->makePlayerRandomlyShooting($player);
+        $event->setPriority($priority);
+
+        return new EventChain([$event]);
     }
 
     private function drawRandomPlayerInRoom(Player $player): ?Player
@@ -79,16 +80,16 @@ class PsychoticAttack extends AbstractSymptomHandler
      * This function takes a Player, draws a random player in its room and makes them attack the selected player.
      * If the room is empty or if player doesn't have a knife, does nothing.
      */
-    private function makePlayerRandomlyAttacking(Player $player): void
+    private function makePlayerRandomlyAttacking(Player $player): ?ActionEvent
     {
         $victim = $this->drawRandomPlayerInRoom($player);
         if ($victim === null) {
-            return;
+            return null;
         }
 
         $knife = $this->getPlayerWeapon($player, ItemEnum::KNIFE);
         if ($knife === null) {
-            return;
+            return null;
         }
 
         /** @var Action $attackActionEntity */
@@ -100,32 +101,26 @@ class PsychoticAttack extends AbstractSymptomHandler
             throw new \Exception('makePlayerRandomlyAttacking() : Player ' . $player->getName() . ' should have a Attack action');
         }
 
-        $attackAction = new Attack(
-            $this->eventService,
-            $this->actionService,
-            $this->validator,
-            $this->randomService,
-            $this->diseaseCauseService
-        );
+        $actionEvent = new ActionEvent($attackActionEntity, $player, $victim);
+        $actionEvent->setEventName(ActionEvent::EXECUTE_ACTION);
 
-        $attackAction->loadParameters($attackActionEntity, $player, $victim);
-        $attackAction->execute();
+        return $actionEvent;
     }
 
     /**
      * This function takes a Player, draws a random player in its room and makes them attack the selected player.
      * If the room is empty or if player doesn't have a knife, does nothing.
      */
-    private function makePlayerRandomlyShooting(Player $player): void
+    private function makePlayerRandomlyShooting(Player $player): ?ActionEvent
     {
         $victim = $this->drawRandomPlayerInRoom($player);
         if ($victim === null) {
-            return;
+            return null;
         }
 
         $blaster = $this->getPlayerWeapon($player, ItemEnum::BLASTER);
         if ($blaster === null) {
-            return;
+            return null;
         }
 
         /** @var Action $shootActionEntity */
@@ -137,15 +132,9 @@ class PsychoticAttack extends AbstractSymptomHandler
             throw new \Exception('makePlayerRandomlyShooting() : Player' . $player->getName() . 'should have a Shoot action');
         }
 
-        $shootAction = new Shoot(
-            $this->eventService,
-            $this->actionService,
-            $this->validator,
-            $this->randomService,
-            $this->diseaseCauseService
-        );
+        $actionEvent = new ActionEvent($shootActionEntity, $player, $victim);
+        $actionEvent->setEventName(ActionEvent::EXECUTE_ACTION);
 
-        $shootAction->loadParameters($shootActionEntity, $player, $victim);
-        $shootAction->execute();
+        return $actionEvent;
     }
 }

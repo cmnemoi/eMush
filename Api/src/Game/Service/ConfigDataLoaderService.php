@@ -9,8 +9,6 @@ use Mush\Daedalus\ConfigData\RandomItemPlacesDataLoader;
 use Mush\Disease\ConfigData\ConsumableDiseaseConfigDataLoader;
 use Mush\Disease\ConfigData\DiseaseCauseConfigDataLoader;
 use Mush\Disease\ConfigData\DiseaseConfigDataLoader;
-use Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader;
-use Mush\Disease\ConfigData\SymptomConfigDataLoader;
 use Mush\Equipment\ConfigData\BlueprintDataLoader;
 use Mush\Equipment\ConfigData\BookDataLoader;
 use Mush\Equipment\ConfigData\DocumentDataLoader;
@@ -53,8 +51,6 @@ class ConfigDataLoaderService
                                 VariableEventConfigDataLoader $variableEventConfigDataLoader,
                                 ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader,
                                 StatusConfigDataLoader $statusConfigDataLoader,
-                                SymptomActivationRequirementDataLoader $symptomActivationRequirementDataLoader,
-                                SymptomConfigDataLoader $symptomConfigDataLoader,
                                 DiseaseConfigDataLoader $diseaseConfigDataLoader,
                                 ActionDataLoader $actionDataLoader,
                                 BookDataLoader $bookDataLoader,
@@ -94,8 +90,6 @@ class ConfigDataLoaderService
                 $directModifierConfigDataLoader,
                 $chargeStatusConfigDataLoader,
                 $statusConfigDataLoader,
-                $symptomActivationRequirementDataLoader,
-                $symptomConfigDataLoader,
                 $diseaseConfigDataLoader,
                 $actionDataLoader,
                 $blueprintDataLoader,

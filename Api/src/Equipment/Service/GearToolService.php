@@ -174,8 +174,7 @@ class GearToolService implements GearToolServiceInterface
     private function getChargeStatus(string $actionName, GameEquipment $equipment): ?ChargeStatus
     {
         $charges = $equipment->getStatuses()->filter(function (Status $status) use ($actionName) {
-            return $status instanceof ChargeStatus &&
-                $status->getDischargeStrategy() === $actionName;
+            return $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName);
         });
 
         if ($charges->count() > 0) {

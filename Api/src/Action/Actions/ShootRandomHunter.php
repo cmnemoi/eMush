@@ -19,10 +19,4 @@ class ShootRandomHunter extends ShootHunter
     {
         return $parameter instanceof GameEquipment;
     }
-
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {
-        parent::loadValidatorMetadata($metadata);
-        $metadata->addConstraint(new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::UNLOADED_WEAPON]));
-    }
 }

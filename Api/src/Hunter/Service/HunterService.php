@@ -50,6 +50,11 @@ class HunterService implements HunterServiceInterface
         $this->statusService = $statusService;
     }
 
+    public function findById(int $id): ?Hunter
+    {
+        return $this->entityManager->getRepository(Hunter::class)->find($id);
+    }
+
     public function killHunter(Hunter $hunter): void
     {
         $daedalus = $hunter->getDaedalus();

@@ -8,6 +8,7 @@ use Mush\Action\ActionResult\Error;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Hunter\Service\HunterServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -18,15 +19,18 @@ class ActionStrategyService implements ActionStrategyServiceInterface
     private array $actions = [];
     private PlayerServiceInterface $playerService;
     private GameEquipmentServiceInterface $equipmentService;
+    private HunterServiceInterface $hunterService;
     private EntityManagerInterface $entityManager;
 
     public function __construct(
         PlayerServiceInterface $playerService,
         GameEquipmentServiceInterface $equipmentService,
+        HunterServiceInterface $hunterService,
         EntityManagerInterface $entityManager
     ) {
         $this->playerService = $playerService;
         $this->equipmentService = $equipmentService;
+        $this->hunterService = $hunterService;
         $this->entityManager = $entityManager;
     }
 
@@ -76,6 +80,10 @@ class ActionStrategyService implements ActionStrategyServiceInterface
 
             if ($playerId = $parameter['player'] ?? null) {
                 return $this->playerService->findById($playerId);
+            }
+
+            if ($hunterId = $parameter['hunter'] ?? null) {
+                return $this->hunterService->findById($hunterId);
             }
         }
 

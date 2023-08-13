@@ -24,7 +24,6 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\StatusEnum;
 
 class ShootHunterActionCest extends AbstractFunctionalTest
 {
@@ -71,7 +70,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
     }
 
     public function testCannotShootWithUnloadedWeapon(FunctionalTester $I)
-    {   
+    {
         /** @var ChargeStatus $status */
         $status = $this->turret->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
         $status->setCharge(0);
@@ -101,7 +100,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
     }
 
     public function testCannotShootIfPlayerCannotSeeSpaceBattle(FunctionalTester $I)
-    {   
+    {
         // spawn player and a turret in laboratory
         // even with a turret in the lab, player cannot see the space battle there
         // so they should not be able to shoot
@@ -149,7 +148,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
     }
 
     public function testShootHunterFail(FunctionalTester $I)
-    {   
+    {
         $this->action->setSuccessRate(0);
 
         /** @var Hunter $hunter */

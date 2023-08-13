@@ -226,4 +226,27 @@ class PlayerController extends AbstractFOSRestController
 
         return $this->view(['message' => 'Player quarantined successfully'], Response::HTTP_OK);
     }
+
+    /**
+     * Trigger cycle change.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The player id",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Tag(name="Player")
+     * @Security(name="Bearer")
+     * @Rest\Get(path="/{id}/cycle-change")
+     * @Rest\View()
+     */
+    public function triggerCycleChange(Player $player): View
+    {
+        $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
+
+        $this->cycleService->handleCycleChange(new \DateTime(), $player->getDaedalus());
+
+        return $this->view(['message' => 'Cycle change triggered successfully'], Response::HTTP_OK);
+    }
 }

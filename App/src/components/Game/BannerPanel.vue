@@ -280,5 +280,17 @@ span.tippy-tooltip {
 .new-cycle-button {
     @include button-style();
     display: block;
-    margin: 0.2rem;
-}</style>
+    border: solid 1px white;
+    box-shadow: 0 0 5px 4px rgb(0, 116, 223) inset;
+    animation: pulse-border 1s linear infinite;
+
+    @keyframes pulse-border {
+        0% {
+            border-color: #4077b5;
+        }
+        100% {
+            border-color: white;
+        }
+    }
+}
+</style>

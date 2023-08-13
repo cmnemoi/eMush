@@ -3,6 +3,7 @@ import { Room } from "@/entities/Room";
 import { Player } from "@/entities/Player";
 import { Equipment } from "@/entities/Equipment";
 import { Item } from "@/entities/Item";
+import { Hunter } from "@/entities/Hunter";
 
 const state =  {
     loading: false,
@@ -58,7 +59,7 @@ const mutations : MutationTree<any> = {
     setRoom(state, room: Room | null) {
         state.room = room;
     },
-    setSelectedTarget(state, target: Player | Equipment | null) {
+    setSelectedTarget(state, target: Player | Equipment | Hunter | null) {
         state.selectedTarget = target;
 
         if (!(target instanceof Item)) {
@@ -87,6 +88,14 @@ const mutations : MutationTree<any> = {
             }
         } else if (oldTarget instanceof Equipment) {
             const targetList = (<Room> state.room).equipments;
+            for (let i = 0; i < targetList.length; i++) {
+                const target = targetList[i];
+                if (oldTarget.id === target.id) {
+                    return state.selectedTarget = target;
+                }
+            }
+        } else if (oldTarget instanceof Hunter) {
+            const targetList = (<Room> state.room).hunters;
             for (let i = 0; i < targetList.length; i++) {
                 const target = targetList[i];
                 if (oldTarget.id === target.id) {

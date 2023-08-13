@@ -242,7 +242,7 @@ export default defineComponent({
         height: 303px;
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
+        flex-wrap: wrap-reverse;
         align-content: end;
         padding: 1px;
     }

@@ -5,7 +5,9 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NumberOfAttackingHunters;
 use Mush\Action\Validator\Reach;
@@ -60,6 +62,7 @@ class ShootHunter extends AttemptAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::SPACE_BATTLE, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::UNLOADED_WEAPON]));
         $metadata->addConstraint(new NumberOfAttackingHunters([
             'mode' => NumberOfAttackingHunters::EQUAL,
             'number' => 0,

@@ -285,11 +285,7 @@ export default defineComponent({
     }
 
     .highlight {
-        width: 54px;
-        height: 54px;
-        border: 5px red;
-        box-shadow: 0 0 0 2px inset rgb(153, 255, 153), 0 0 8px 2px inset rgb(17, 56, 128);
-        background-color: red;
+        box-shadow: 0px 0px 8px 3px red;
     }
     
 </style>

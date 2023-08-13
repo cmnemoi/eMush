@@ -7,7 +7,7 @@ use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 
 interface HunterServiceInterface
-{   
+{
     public function findById(int $id): ?Hunter;
 
     public function makeHuntersShoot(HunterCollection $attackingHunters): void;

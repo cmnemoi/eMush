@@ -93,7 +93,7 @@ export default defineComponent ({
             'selectTarget': 'room/selectTarget'
         }),
         selectHunter(target: Hunter) {
-            this.selectTarget({target: target});
+            this.selectTarget({ target: target });
         },
         async executeTargetAction(target: Hunter | null, action: Action): Promise<void> {
             if (action.canExecute) {

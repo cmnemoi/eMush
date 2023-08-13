@@ -19,7 +19,7 @@
                 :my-position="room"
                 :minimap="player.daedalus.minimap"
             />
-            <RoomInventoryPanel v-if="isInventoryOpen" :Hunters="room.Hunters" />
+            <RoomInventoryPanel v-if="isInventoryOpen" :items="room.items" />
             <component
                 :is="targetPanel"
                 v-else-if="selectedTarget"

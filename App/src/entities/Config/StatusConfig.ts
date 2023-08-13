@@ -11,7 +11,7 @@ export class StatusConfig {
     public chargeStrategy: string|null;
     public maxCharge: number|null;
     public startCharge: number|null;
-    public dischargeStrategy: string|null;
+    public dischargeStrategies: string[]|null;
     public autoRemove: boolean|null;
     public modifierConfigs: ModifierConfig[]|null;
 
@@ -26,7 +26,7 @@ export class StatusConfig {
         this.chargeStrategy = null;
         this.maxCharge = null;
         this.startCharge = null;
-        this.dischargeStrategy = null;
+        this.dischargeStrategies = [];
         this.autoRemove = null;
         this.modifierConfigs = null;
     }
@@ -49,7 +49,7 @@ export class StatusConfig {
             if (this.configType === 'ChargeStatusConfig') {
                 this.chargeVisibility = object.chargeVisibility;
                 this.chargeStrategy = object.chargeStrategy;
-                this.dischargeStrategy = object.dischargeStrategy;
+                this.dischargeStrategies = object.dischargeStrategies;
                 this.maxCharge = object.maxCharge;
                 this.startCharge = object.startCharge;
                 this.autoRemove = object.autoRemove;
@@ -70,7 +70,7 @@ export class StatusConfig {
         if (this.configType === 'ChargeStatusConfig') {
             data['chargeVisibility'] = this.chargeVisibility;
             data['chargeStrategy'] = this.chargeStrategy;
-            data['dischargeStrategy'] = this.dischargeStrategy;
+            data['dischargeStrategies'] = this.dischargeStrategies;
             data['maxCharge'] = this.maxCharge;
             data['startCharge'] = this.startCharge;
             data['autoRemove'] = this.autoRemove;

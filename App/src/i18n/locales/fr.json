@@ -239,7 +239,7 @@
 			"visibility": "Visibilité",
 			"chargeVisibility": "Visibilité des charges",
 			"chargeStrategy": "Mode de chargement",
-			"dischargeStrategy": "Mode de décharge",
+			"dischargeStrategies": "Modes de décharge",
 			"maxCharge": "Nombre de charges maximum",
 			"startCharge": "Nombre de charges initiales"
 		},

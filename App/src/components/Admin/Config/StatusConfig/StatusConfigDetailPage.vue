@@ -40,13 +40,6 @@
                     type="text"
                     :errors="errors.chargeStrategy"
                 />
-                <Input
-                    :label="$t('admin.statusConfig.dischargeStrategy')"
-                    id="statusConfig_dischargeStrategy"
-                    v-model="statusConfig.dischargeStrategy"
-                    type="text"
-                    :errors="errors.dischargeStrategy"
-                />
             </div>
             <div class="flex-row">
                 <Input
@@ -78,6 +71,12 @@
                 <span>condition: {{ child.delta }}</span>
             </template>
         </ChildCollectionManager>
+        <h3>{{ $t('admin.statusConfig.dischargeStrategies') }}</h3>
+        <StringArrayManager
+            :array="statusConfig.dischargeStrategies"
+            @addElement="statusConfig.dischargeStrategies?.push($event)"
+            @removeElement="statusConfig.dischargeStrategies?.splice(statusConfig.dischargeStrategies.indexOf($event), 1)"
+        />
         <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
@@ -94,6 +93,7 @@ import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
 
 interface StatusConfigState {
     statusConfig: null|StatusConfig
@@ -105,7 +105,8 @@ export default defineComponent({
     components: {
         ChildCollectionManager,
         Input,
-        UpdateConfigButtons
+        UpdateConfigButtons,
+        StringArrayManager,
     },
     data: function (): StatusConfigState {
         return {

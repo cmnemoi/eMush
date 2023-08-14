@@ -49,6 +49,7 @@ gitpod-setup-env-variables:
 	sudo cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
 
 install: setup-env-variables build install-api start-mush-database install-front install-eternal-twin setup-JWT-certificates create-crew fill-daedalus
+	@echo "Installation completed successfully ! You can access eMush at http://localhost/"
 
 install-eternal-twin: start-mush-database
 	docker compose -f docker/docker-compose.yml run -u node eternal_twin yarn install
@@ -66,8 +67,6 @@ install-front:
 
 remove-all: #Warning, it will remove EVERY container, images, volumes and network not only emushs ones
 	docker system prune --volumes -a
-
-reset-dependencies: install-api install-front install-eternal-twin
 
 remove-all: #Warning, it will remove EVERY container, images, volumes and network not only emushs ones
 	docker system prune --volumes -a

@@ -117,7 +117,6 @@ export default defineComponent({
             return hunterEnum[hunter.key].image;
         },
         isHunterSelected: function(hunter: Hunter): boolean {
-            console.log(this.selectedHunter);
             return this.selectedHunter instanceof Hunter && this.selectedHunter.id === hunter.id;
         },
         isPlayerInRoom(roomKey: string | undefined) : boolean {

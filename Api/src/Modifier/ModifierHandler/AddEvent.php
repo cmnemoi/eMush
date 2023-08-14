@@ -36,6 +36,7 @@ class AddEvent extends AbstractModifierHandler
         if ($priority === 0) {
             $priority = -1;
         }
+        $tags[] = $modifier->getModifierConfig()->getModifierName() ?: $modifier->getModifierConfig()->getName();
 
         $newEvents = $this->eventCreationService->createEvents(
             $eventConfig,

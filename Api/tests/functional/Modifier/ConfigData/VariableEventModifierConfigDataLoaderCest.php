@@ -58,6 +58,7 @@ class VariableEventModifierConfigDataLoaderCest
         unset($configData['visibility']);
         unset($configData['modifierActivationRequirements']);
         unset($configData['tagConstraints']);
+        unset($configData['strategy']);
 
         return $configData;
     }

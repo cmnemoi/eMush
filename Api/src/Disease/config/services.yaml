@@ -24,7 +24,3 @@ services:
     public: true
   Mush\Disease\ConfigData\DiseaseConfigDataLoader:
     public: true
-  Mush\Disease\ConfigData\SymptomConfigDataLoader:
-    public: true
-  Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader:
-    public: true

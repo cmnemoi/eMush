@@ -54,18 +54,18 @@ class EventChain extends ArrayCollection
     public function updateInitialEvent(AbstractGameEvent $newEvent): self
     {
         // find the initial event, i.e. the event with a priority of 0
-        $initialEvents = $this->filter(fn (AbstractGameEvent $event) => $event->getPriority() === 0);
-
+        $initialEvents = $this->getInitialEvent();
         // Maybe the initial event has already been removed (prevent modifier)
-        if ($initialEvents->count() === 0) {
+        if ($initialEvents === null) {
             return $this;
         }
 
-        $initialEventsIndex = $this->filter(fn (AbstractGameEvent $event) => $event->getPriority() === 0)->count();
-        $eventArray = $this->toArray();
-        array_splice($eventArray, $initialEventsIndex, 1, [$newEvent]);
+        $newEvent->setPriority(0);
 
-        return new EventChain($eventArray);
+        $this->removeElement($initialEvents);
+        $this->add($newEvent);
+
+        return $this;
     }
 
     /**
@@ -75,10 +75,10 @@ class EventChain extends ArrayCollection
     {
         $sortedEvents = $this->sortEvents();
         // find where to add the new event
-        $lowerPriority = $sortedEvents->filter(fn (AbstractGameEvent $event) => $event->getPriority() < $priority);
+        $lowerPriority = $sortedEvents->filter(fn (AbstractGameEvent $event) => $event->getPriority() < $priority)->count();
 
         $eventArray = $sortedEvents->toArray();
-        array_splice($eventArray, $lowerPriority->count());
+        array_splice($eventArray, $lowerPriority);
 
         return new EventChain($eventArray);
     }

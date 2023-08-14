@@ -404,6 +404,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$random16])
+            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierName(SymptomEnum::BREAKOUTS)
         ;
         $manager->persist($breakoutsModifier);

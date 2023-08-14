@@ -3,7 +3,9 @@
 namespace Mush;
 
 use Mush\Action\DependencyInjection\ActionPass;
+use Mush\Disease\DependencyInjection\SymptomHandlerPass;
 use Mush\Equipment\DependencyInjection\EquipmentCycleHandlerPass;
+use Mush\Modifier\DependencyInjection\ModifierHandlerPass;
 use Mush\Status\DependencyInjection\ChargeStrategyPass;
 use Mush\Status\DependencyInjection\StatusCycleHandlerPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -44,5 +46,7 @@ class Kernel extends BaseKernel
         $container->addCompilerPass(new ChargeStrategyPass());
         $container->addCompilerPass(new StatusCycleHandlerPass());
         $container->addCompilerPass(new EquipmentCycleHandlerPass());
+        $container->addCompilerPass(new SymptomHandlerPass());
+        $container->addCompilerPass(new ModifierHandlerPass());
     }
 }

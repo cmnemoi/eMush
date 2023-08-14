@@ -10,15 +10,9 @@ use Mush\Communication\Services\MessageModifierService;
 use Mush\Communication\Services\MessageModifierServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Disease\Entity\Collection\SymptomConfigCollection;
-use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Entity\Config\SymptomConfig;
-use Mush\Disease\Entity\PlayerDisease;
-use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationService;
@@ -67,18 +61,6 @@ class DiseaseMessageServiceTest extends TestCase
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
-        $symptomConfig = new SymptomConfig(MessageModificationEnum::DEAF_SPEAK);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
-
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('some message');
 
@@ -99,20 +81,6 @@ class DiseaseMessageServiceTest extends TestCase
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setDaedalus($daedalus);
-
-        $symptomConfig = new SymptomConfig(MessageModificationEnum::COPROLALIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('some message');
@@ -136,20 +104,6 @@ class DiseaseMessageServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-
-        $symptomConfig = new SymptomConfig(MessageModificationEnum::COPROLALIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('some message');
@@ -194,20 +148,6 @@ class DiseaseMessageServiceTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-
-        $symptomConfig = new SymptomConfig(MessageModificationEnum::COPROLALIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('Some message');
@@ -254,20 +194,6 @@ class DiseaseMessageServiceTest extends TestCase
 
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
-        $symptomConfig = new SymptomConfig(MessageModificationEnum::PARANOIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
-
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('some message');
 
@@ -310,20 +236,6 @@ class DiseaseMessageServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-
-        $symptomConfig = new SymptomConfig(MessageModificationEnum::PARANOIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('Some message');
@@ -384,20 +296,6 @@ class DiseaseMessageServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
 
         $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
-
-        $symptomConfig = new SymptomConfig(MessageModificationEnum::PARANOIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('Some message');

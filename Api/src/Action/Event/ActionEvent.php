@@ -27,7 +27,12 @@ class ActionEvent extends AbstractGameEvent
         $this->author = $player;
         $this->actionParameter = $actionParameter;
 
-        parent::__construct($action->getActionTags(), new \DateTime());
+        $tags = $action->getActionTags();
+        if ($actionParameter !== null) {
+            $tags[] = $actionParameter->getLogName();
+        }
+
+        parent::__construct($tags, new \DateTime());
     }
 
     public function getAuthor(): Player

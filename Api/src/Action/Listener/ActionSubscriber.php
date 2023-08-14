@@ -74,9 +74,14 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         $actionConfig = $event->getAction();
         $player = $event->getAuthor();
+        $actionName = $actionConfig->getActionName();
 
         /** @var AbstractAction $action */
-        $action = $this->actionStrategyService->getAction($actionConfig->getName());
+        $action = $this->actionStrategyService->getAction($actionName);
+
+        if ($action === null) {
+            throw new \Exception("this action is not implemented ({$actionName})");
+        }
 
         $action->loadParameters($actionConfig, $player, $event->getActionParameter());
         $action->execute();

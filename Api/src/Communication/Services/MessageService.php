@@ -120,6 +120,10 @@ class MessageService implements MessageServiceInterface
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool
     {
+        if (!$player->isAlive()) {
+            return false;
+        }
+
         $messageEvent = new MessageEvent(
             new Message(),
             $player,
@@ -128,13 +132,7 @@ class MessageService implements MessageServiceInterface
         );
         $event = $this->eventService->computeEventModifications($messageEvent, MessageEvent::NEW_MESSAGE);
 
-        if ($event === null ||
-            !$player->isAlive()
-        ) {
-            return false;
-        }
-
-        return true;
+        return $event !== null;
     }
 
     /**

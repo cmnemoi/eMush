@@ -11,9 +11,7 @@ use Mush\Communication\Normalizer\MessageNormalizer;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -22,6 +20,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -283,9 +282,9 @@ class MessageNormalizerTest extends TestCase
         $otherPlayer = new Player();
         $otherPlayerInfo = new PlayerInfo($otherPlayer, new User(), $playerConfig);
 
-        $symptomConfig = new SymptomConfig(MessageModificationEnum::PARANOIA_MESSAGES);
+        $symptomConfig = new EventModifierConfig(MessageModificationEnum::PARANOIA_MESSAGES);
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
+        $diseaseConfig->setModifierConfigs([$symptomConfig]);
         $playerDisease = new PlayerDisease();
         $playerDisease
             ->setDiseaseConfig($diseaseConfig)

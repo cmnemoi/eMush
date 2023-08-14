@@ -7,7 +7,6 @@ use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Entity\Collection\EventChain;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
@@ -32,10 +31,6 @@ class CatAllergy extends AbstractSymptomHandler
         array $tags,
         \DateTime $time
     ): EventChain {
-        $logParameters = [];
-        $logParameters[$player->getLogKey()] = $player->getLogName();
-        $logParameters['character_gender'] = CharacterEnum::isMale($player->getName()) ? 'male' : 'female';
-
         $damageEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::HEALTH_POINT,

@@ -55,9 +55,9 @@ class EventService implements EventServiceInterface
      */
     private function applyModifiers(AbstractGameEvent $event): EventChain
     {
-        $modifiers = $event->getModifiers();
+        $event->setPriority(0);
 
-        return $this->modifierService->applyModifiers($modifiers, $event);
+        return $this->modifierService->applyModifiers($event);
     }
 
     /**
@@ -81,24 +81,22 @@ class EventService implements EventServiceInterface
 
         $events = $this->applyModifiers($event);
 
-        $lastEvent = $events->last();
-
-        if (!($lastEvent instanceof AbstractGameEvent)) {
+        if ($events->getInitialEvent() !== null) {
             return null;
         }
 
+        /** @var AbstractGameEvent $lastEvent */
+        $lastEvent = $events->last();
+
+        /** @var ModifierEvent $preventEvent */
         $preventEvent = $events->filter(fn (AbstractGameEvent $event) => (
             $event->getPriority() === $lastEvent->getPriority() &&
             $event instanceof ModifierEvent &&
             $event->getModifier()->getModifierConfig()->getModifierStrategy() === ModifierStrategyEnum::PREVENT_EVENT
         ))->first();
 
-        if ($preventEvent instanceof ModifierEvent) {
-            $modifierConfig = $preventEvent->getModifier()->getModifierConfig();
+        $modifierConfig = $preventEvent->getModifier()->getModifierConfig();
 
-            return $modifierConfig->getModifierName() ?: $modifierConfig->getName();
-        }
-
-        return null;
+        return $modifierConfig->getModifierName() ?: $modifierConfig->getName();
     }
 }

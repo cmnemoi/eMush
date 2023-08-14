@@ -20,9 +20,6 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -145,6 +142,7 @@ class MessageServiceTest extends TestCase
         $player = new Player();
         $channel = new Channel();
 
+        // dead player
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
         $player->setPlayerInfo($playerInfo);
@@ -153,11 +151,19 @@ class MessageServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlayerInfo($playerInfo);
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn(new MessageEvent(new Message(), $player, [], new \DateTime()))
+            ->once()
+        ;
         $this->assertTrue($this->service->canPlayerPostMessage($player, $channel));
 
-        $statusConfig = new StatusConfig();
-        $statusConfig->setStatusName(PlayerStatusEnum::GAGGED);
-        $status = new Status($player, $statusConfig);
+        // event new message is prevented
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn(null)
+            ->once()
+        ;
         $this->assertFalse($this->service->canPlayerPostMessage($player, $channel));
     }
 

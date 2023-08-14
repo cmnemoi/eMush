@@ -7,7 +7,6 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 
@@ -28,9 +27,10 @@ class EventModifierService implements EventModifierServiceInterface
 
     // return an array with all the event to dispatch
     // the event are returned in their priority order
-    public function applyModifiers(ModifierCollection $modifiers, AbstractGameEvent $initialEvent): EventChain
+    public function applyModifiers(AbstractGameEvent $initialEvent): EventChain
     {
-        $initialEvent->setPriority(0);
+        $modifiers = $initialEvent->getModifiers();
+
         $events = new EventChain([$initialEvent]);
 
         // @TODO add a new modifier strategy to handle the increase due to attempts (require a better handling of the modifier "origin")
@@ -62,6 +62,7 @@ class EventModifierService implements EventModifierServiceInterface
                     return $events;
                 }
                 $initialEvent->addTag($modifier->getModifierConfig()->getModifierName() ?: $modifier->getModifierConfig()->getName());
+
                 $events->updateInitialEvent($initialEvent);
             }
         }

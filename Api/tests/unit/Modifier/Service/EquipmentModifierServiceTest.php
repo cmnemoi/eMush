@@ -259,7 +259,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $player, [], $date, $player, null)
+            ->with($modifierConfig1, $player, [], $date, null)
             ->once()
         ;
         $this->service->takeEquipment($gameEquipment, $player, [], $date);
@@ -274,7 +274,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $player, [], $date, $player, $charge)
+            ->with($modifierConfig1, $player, [], $date, $charge)
             ->once()
         ;
         $this->service->takeEquipment($gameEquipment, $player, [], $date);

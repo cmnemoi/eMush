@@ -17,6 +17,7 @@ class ModifierHandlerService implements ModifierHandlerServiceInterface
     public function getModifierHandler(GameModifier $modifier): ?AbstractModifierHandler
     {
         $strategyName = $modifier->getModifierConfig()->getModifierStrategy();
+
         if (!$strategyName || !isset($this->strategies[$strategyName])) {
             return null;
         }

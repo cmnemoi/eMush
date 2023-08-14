@@ -7,10 +7,20 @@ A REST Api developed using Symfony 5.1 that manage the Mush game. Creating new D
 ### Mush App
 A front-end developed using VueJs
 
-
 ## Getting Started
 
+### Gitpod : your development environment in the cloud
+
+If you don't want to go through the installation process, you can try using the project's Gitpod workspace (in alpha): 
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://gitlab.com/eternaltwin/mush/mush)
+
+This will create a new workspace in the cloud with all the dependencies installed and the project ready to run. You will need  a Gitpod account to use this feature.
+
+### Installing with Docker
+
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
 See endpoints for information on the different endpoints available.
 
 ### Prerequisites
@@ -93,7 +103,7 @@ password : 1234567891
 
 You should land in a fully working Daedalus!
 
-## Installing without Docker
+### Installing without Docker
 Clone repository https://gitlab.com/eternaltwin/mush/mush.git
 
 Install NVM and yarn https://github.com/coreybutler/nvm-windows/releases

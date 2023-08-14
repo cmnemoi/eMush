@@ -139,7 +139,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $I->assertNotFalse($asteroid);
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
         $I->assertNotNull($asteroid->getStatusByName(HunterStatusEnum::HUNTER_CHARGE));
-        $I->assertEquals(6, $truceStatus->getCharge());
+        $I->assertEquals(7, $truceStatus->getCharge());
 
         $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
         $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));

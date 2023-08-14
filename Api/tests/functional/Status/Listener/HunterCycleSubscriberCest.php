@@ -4,13 +4,9 @@ namespace functional\Status\Listener;
 
 use App\Tests\AbstractFunctionalTest;
 use App\Tests\FunctionalTester;
-use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\HunterStatusEnum;
 
 class HunterCycleSubscriberCest extends AbstractFunctionalTest
 {

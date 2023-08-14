@@ -7,7 +7,7 @@ use Mush\Game\Event\AbstractGameEvent;
 
 abstract class AbstractHunterEvent extends AbstractGameEvent
 {
-    public const MAKE_HUNTERS_SHOOT = 'make.hunters.shoot';
+    public const HUNTER_SHOT = 'hunter.shot';
 
     protected Daedalus $daedalus;
 

@@ -51,22 +51,19 @@ gitpod-setup-env-variables:
 install: setup-env-variables build install-api start-mush-database install-front install-eternal-twin setup-JWT-certificates create-crew fill-daedalus
 	@echo "Installation completed successfully ! You can access eMush at http://localhost/"
 
-install-eternal-twin: start-mush-database
-	docker compose -f docker/docker-compose.yml run -u node eternal_twin yarn install
-	docker compose -f docker/docker-compose.yml run -u node eternal_twin yarn etwin db create
-
 install-api:
 	docker start mush_php mush_database eternal_twin &&\
 	docker compose -f docker/docker-compose.yml run -u dev mush_php composer install &&\
 	docker compose -f docker/docker-compose.yml run -u dev mush_php ./reset.sh --init
 
+install-eternal-twin: start-mush-database
+	docker compose -f docker/docker-compose.yml run -u node eternal_twin yarn install
+	docker compose -f docker/docker-compose.yml run -u node eternal_twin yarn etwin db create
+
 install-front:
 	docker start mush_front &&\
 	docker compose -f docker/docker-compose.yml run -u node mush_front yarn install &&\
 	docker compose -f docker/docker-compose.yml run -u node mush_front ./reset.sh
-
-remove-all: #Warning, it will remove EVERY container, images, volumes and network not only emushs ones
-	docker system prune --volumes -a
 
 remove-all: #Warning, it will remove EVERY container, images, volumes and network not only emushs ones
 	docker system prune --volumes -a
@@ -85,16 +82,6 @@ setup-JWT-certificates:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php openssl genpkey -pass pass:mush -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
 	docker compose -f docker/docker-compose.yml run -u dev mush_php openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout
 	docker compose -f docker/docker-compose.yml run -u dev mush_php chmod go+r config/jwt/private.pem
-
-setup-env-variables:
-	cp ./Api/.env.dist ./Api/.env
-	cp ./App/.env.dist ./App/.env
-	cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
-
-setup-JWT-certificates:
-	docker exec -it -udev mush_php openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
-	docker exec -it -udev mush_php openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
-	docker exec -i -udev mush_php chmod go+r config/jwt/private.pem
 
 start-mush-database:
 	docker start mush_database

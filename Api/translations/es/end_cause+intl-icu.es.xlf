@@ -577,6 +577,24 @@
         <target>suicide.description</target>
       </segment>
     </unit>
+    <unit id="patrol_ship_explosion">
+      <segment id="name" state="initial">
+        <source>patrol_ship_explosion.name</source>
+        <target>patrol_ship_explosion.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>patrol_ship_explosion.short_name</source>
+        <target>patrol_ship_explosion.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>patrol_ship_explosion.category</source>
+        <target>patrol_ship_explosion.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>patrol_ship_explosion.description</source>
+        <target>patrol_ship_explosion.description</target>
+      </segment>
+    </unit>
     <unit id="still_living">
       <segment id="name" state="initial">
         <source>still_living.name</source>

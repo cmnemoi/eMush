@@ -577,6 +577,24 @@
         <target>You had bugs to fix in other universes!</target>
       </segment>
     </unit>
+    <unit id="patrol_ship_explosion">
+      <segment id="name" state="translated">
+        <source>patrol_ship_explosion.name</source>
+        <target>Pulverized patrol ship</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>patrol_ship_explosion.short_name</source>
+        <target>A failed manoeuvre!</target>
+      </segment>
+      <segment id="category" state="translated">
+        <source>patrol_ship_explosion.category</source>
+        <target>You are dead!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>patrol_ship_explosion.description</source>
+        <target>Your one-seater pulverized itself on the Daedalus. Bad luck.</target>
+      </segment>
+    </unit>
     <unit id="still_living">
       <segment id="name" state="translated">
         <source>still_living.name</source>

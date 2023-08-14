@@ -239,7 +239,7 @@
 			"visibility": "Visibilite",
 			"chargeVisibility": "Charge Visibilite",
 			"chargeStrategy": "Charge Strategie",
-			"dischargeStrategy": "Decharge Strategie",
+			"dischargeStrategies": "Modes de décharge",
 			"maxCharge": "Max Charge",
 			"startCharge": "Init Charge"
 		},
@@ -539,7 +539,8 @@
 			"day": "Jour",
 			"cycle": "Cycle",
 			"showMessageChildren": "Afficher {count} réponse | Afficher {count} réponses",
-			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses"
+			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses",
+			"newCycle": "Nouveau cycle"
 		}
 	},
 	"newsPage": {

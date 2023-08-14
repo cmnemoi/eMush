@@ -76,6 +76,18 @@ const PlayerService = {
         }
 
         return closedPlayer;
+    },
+
+    triggerCycleChange: (player: Player): Promise<void> => {
+        store.dispatch('player/setLoading', { loading: true });
+        return ApiService.get(PLAYER_ENDPOINT + '/' + player.id + '/cycle-change')
+            .then(() => {
+                store.dispatch("communication/clearRoomLogs", null, { root: true });
+                store.dispatch('player/reloadPlayer', { playerId: player.id });
+                store.dispatch("communication/loadRoomLogs", null, { root: true });
+                store.dispatch("communication/loadChannels", null, { root: true });
+            });
+
     }
 };
 export default PlayerService;

@@ -28,7 +28,7 @@ export default {
     computed:{
         hour(){
             const h = Math.trunc((this.endDate - this.now) / 1000 / 3600);
-            return h>9?h:'0'+h;
+            return h;
         },
         min(){
             const m = Math.trunc((this.endDate - this.now) / 1000 / 60) % 60;

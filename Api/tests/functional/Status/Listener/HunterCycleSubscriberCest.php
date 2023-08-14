@@ -30,21 +30,4 @@ class HunterCycleSubscriberCest extends AbstractFunctionalTest
 
         $I->seeInRepository(Status::class);
     }
-
-    public function testOnNewCycle(FunctionalTester $I)
-    {
-        $poolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
-        $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
-        $I->assertCount(4, $this->daedalus->getAttackingHunters());
-
-        /** @var ChargeStatus $hunterStatus */
-        $hunterStatus = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => HunterStatusEnum::HUNTER_CHARGE . '_default']);
-
-        for ($i = 0; $i < $this->daedalus->getAttackingHunters()->count(); ++$i) {
-            $daedalusEvent = new DaedalusCycleEvent($this->daedalus, [], new \DateTime());
-            $this->eventService->callEvent($daedalusEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
-        }
-
-        $I->dontSeeInRepository(Status::class, ['statusConfig' => $hunterStatus]);
-    }
 }

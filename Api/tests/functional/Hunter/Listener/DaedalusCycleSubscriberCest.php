@@ -17,6 +17,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Status\Enum\HunterStatusEnum;
@@ -34,10 +35,16 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
     public function testMakeHunterShoot(FunctionalTester $I)
     {
+        $this->daedalus->setHunterPoints(10); // spawn a single hunter
         $poolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
-        $I->assertNotEmpty($this->daedalus->getAttackingHunters());
+        /** @var Hunter $hunter */
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter->getHunterConfig()->setHitChance(100); // make sure it hits to avoid false negative tests
+
+        // remove truce status
+        $hunter->removeStatus($hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE));
 
         $dateDaedalusLastCycle = $this->daedalus->getCycleStartedAt();
         $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
@@ -50,6 +57,70 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         $initHull = $this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull();
         $I->assertNotEquals($initHull, $this->daedalus->getHull());
+    }
+
+    public function testHunterCannotShootTwoConsecutiveCycles(FunctionalTester $I)
+    {
+        $this->daedalus->setHunterPoints(10); // spawn a single hunter
+        $poolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
+        $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+
+        /** @var Hunter $hunter */
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter->getHunterConfig()->setHitChance(100); // make sure it hits to avoid false negative tests
+
+        // remove truce status
+        $hunter->removeStatus($hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE));
+        $I->haveInRepository($hunter);
+
+        $dateDaedalusLastCycle = $this->daedalus->getCycleStartedAt();
+        $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+        $cycleEvent = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            $dateDaedalusLastCycle
+        );
+        $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        $initHull = $this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull();
+        $I->assertNotEquals($initHull, $this->daedalus->getHull());
+
+        $hullBeforeCycleChange = $this->daedalus->getHull();
+
+        $dateDaedalusLastCycle = $this->daedalus->getCycleStartedAt();
+        $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+        $cycleEvent = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            $dateDaedalusLastCycle
+        );
+        $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        $I->assertEquals($hullBeforeCycleChange, $this->daedalus->getHull());
+
+        $dateDaedalusLastCycle = $this->daedalus->getCycleStartedAt();
+        $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+        $cycleEvent = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            $dateDaedalusLastCycle
+        );
+        $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        $I->assertNotEquals($hullBeforeCycleChange, $this->daedalus->getHull());
+
+        $hullBeforeCycleChange = $this->daedalus->getHull();
+
+        $dateDaedalusLastCycle = $this->daedalus->getCycleStartedAt();
+        $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+        $cycleEvent = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            $dateDaedalusLastCycle
+        );
+        $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        $I->assertEquals($hullBeforeCycleChange, $this->daedalus->getHull());
     }
 
     public function testAsteroidTruceCycles(FunctionalTester $I): void

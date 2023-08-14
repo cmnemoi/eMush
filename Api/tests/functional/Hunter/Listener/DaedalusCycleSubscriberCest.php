@@ -139,7 +139,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $I->assertNotFalse($asteroid);
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
         $I->assertNotNull($asteroid->getStatusByName(HunterStatusEnum::HUNTER_CHARGE));
-        $I->assertEquals(7, $truceStatus->getCharge());
+        $I->assertEquals(6 + 1, $truceStatus->getCharge()); // 6 cycles of truce + 1 for its spawn
 
         $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
         $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
@@ -153,7 +153,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         // asteroid should not have shot
         $initHull = $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull();
         $I->assertEquals($initHull, $daedalus->getHull());
-        $I->assertEquals(5, $truceStatus->getCharge());
+        $I->assertEquals(5 + 1, $truceStatus->getCharge()); // 5 cycles of truce + 1 for its spawn
     }
 
     private function createDaedalusForAsteroidTest(FunctionalTester $I): Daedalus

@@ -52,6 +52,6 @@ Some statuses have an effect on cycle changes. This directory implement the effe
   - charge strategy
   - starting charge
   - max charge
-  - discharge strategy
+  - discharge strategies
 
 

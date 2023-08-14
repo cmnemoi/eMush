@@ -1693,5 +1693,20 @@ class ModifierConfigData
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_player_x1.33percentage_on_action_shoot_hunter',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 1.33,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
+            'mode' => 'multiplicative',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [ActionTypeEnum::ACTION_SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS],
+        ],
     ];
 }

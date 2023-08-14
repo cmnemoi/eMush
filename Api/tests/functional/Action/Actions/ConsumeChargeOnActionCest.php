@@ -59,7 +59,7 @@ class ConsumeChargeOnActionCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategy(ActionEnum::COFFEE)
+            ->setDischargeStrategies([ActionEnum::COFFEE])
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
@@ -266,7 +266,7 @@ class ConsumeChargeOnActionCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategy(ActionEnum::COFFEE)
+            ->setDischargeStrategies([ActionEnum::COFFEE])
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
@@ -346,7 +346,7 @@ class ConsumeChargeOnActionCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategy(ActionEnum::COFFEE)
+            ->setDischargeStrategies([ActionEnum::COFFEE])
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);

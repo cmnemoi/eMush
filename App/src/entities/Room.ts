@@ -3,6 +3,7 @@ import { Door } from "@/entities/Door";
 import { Player } from "@/entities/Player";
 import { Equipment } from "@/entities/Equipment";
 import { Status } from "@/entities/Status";
+import { Hunter } from "./Hunter";
 
 //@Hack: rooms that are handled by phaser and displayed with Phaser
 export const PhaserRooms = [
@@ -54,6 +55,7 @@ export class Room {
     public players: Array<Player>;
     public isOnFire: boolean;
     public type: string|null;
+    public hunters: Array<Hunter>;
 
     constructor() {
         this.id = null;
@@ -65,6 +67,7 @@ export class Room {
         this.statuses = [];
         this.isOnFire = false;
         this.type = null;
+        this.hunters = [];
     }
     load(object: any): Room {
         if (typeof object !== "undefined") {

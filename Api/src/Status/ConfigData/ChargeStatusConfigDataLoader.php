@@ -29,7 +29,7 @@ class ChargeStatusConfigDataLoader extends StatusConfigDataLoader
                 ->setChargeStrategy($statusConfigData['chargeStrategy'])
                 ->setMaxCharge($statusConfigData['maxCharge'])
                 ->setStartCharge($statusConfigData['startCharge'])
-                ->setDischargeStrategy($statusConfigData['dischargeStrategy'])
+                ->setDischargeStrategies($statusConfigData['dischargeStrategies'])
                 ->setAutoRemove($statusConfigData['autoRemove'])
             ;
             $this->setStatusConfigModifierConfigs($statusConfig, $statusConfigData['modifierConfigs']);

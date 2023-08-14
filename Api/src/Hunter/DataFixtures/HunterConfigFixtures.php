@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\DifficultyConfigFixtures;
@@ -185,6 +186,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             GameConfigFixtures::class,
             ChargeStatusFixtures::class,
             DifficultyConfigFixtures::class,
+            ActionsFixtures::class,
         ];
     }
 

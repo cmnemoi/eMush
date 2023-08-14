@@ -11,6 +11,8 @@
             <SpaceBattleView
                 v-if="player.canSeeSpaceBattle()"
                 :player="player"
+                :selectedHunter="getTargetHunter"
+                @select="selectHunter"
             />
             <MiniMap
                 v-if="isMinimapAvailable"
@@ -46,6 +48,7 @@ import { Action } from "@/entities/Action";
 import { Equipment } from "@/entities/Equipment";
 import SpaceBattleView from "@/components/Game/SpaceBattleView.vue";
 import { player } from "@/store/player.module";
+import { Hunter } from "@/entities/Hunter";
 
 export default defineComponent ({
     name: "ShipPanel",
@@ -71,9 +74,29 @@ export default defineComponent ({
         targetPanel() {
             return this.selectedTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
         },
+        target(): Hunter | null {
+            return this.selectedTarget;
+        },
+        getTargetHunter(): Hunter | null {
+            return this.selectedTarget instanceof Hunter ? this.selectedTarget : null;
+        },
         ...mapState('daedalus', [
             'isMinimapAvailable'
         ])
+    },
+    methods: {
+        ...mapActions({
+            'executeAction': 'action/executeAction',
+            'selectTarget': 'room/selectTarget'
+        }),
+        selectHunter(target: Hunter) {
+            this.selectTarget({ target: target });
+        },
+        async executeTargetAction(target: Hunter | null, action: Action): Promise<void> {
+            if (action.canExecute) {
+                await this.executeAction({ target, action });
+            }
+        },
     }
 });
 </script>

@@ -175,7 +175,7 @@ class TakeSubscriberCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::HAZARDOUS)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategy('soapShowerActionModifier')
+            ->setDischargeStrategies(['soapShowerActionModifier'])
             ->buildName(GameConfigEnum::TEST)
         ;
 
@@ -259,7 +259,7 @@ class TakeSubscriberCest
         $statusConfig
             ->setStatusName(ActionEnum::REPAIR)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategy(ActionEnum::SHOWER)
+            ->setDischargeStrategies([ActionEnum::SHOWER])
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);

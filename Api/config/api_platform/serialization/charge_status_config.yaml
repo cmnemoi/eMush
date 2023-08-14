@@ -8,7 +8,7 @@ Mush\Status\Entity\Config\ChargeStatusConfig:
       groups: [ 'status_config_read', 'status_config_write' ]
     startCharge :
       groups: [ 'status_config_read', 'status_config_write' ]
-    dischargeStrategy :
+    dischargeStrategies :
       groups: [ 'status_config_read', 'status_config_write' ]
     autoRemove :
       groups: [ 'status_config_read', 'status_config_write' ]

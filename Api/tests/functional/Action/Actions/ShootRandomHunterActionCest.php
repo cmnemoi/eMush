@@ -4,7 +4,7 @@ namespace functional\Action\Actions;
 
 use App\Tests\AbstractFunctionalTest;
 use App\Tests\FunctionalTester;
-use Mush\Action\Actions\ShootHunter;
+use Mush\Action\Actions\ShootRandomHunter;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -25,10 +25,10 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
-class ShootHunterActionCest extends AbstractFunctionalTest
+class ShootRandomHunterActionCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
-    private ShootHunter $shootHunterAction;
+    private ShootRandomHunter $shootRandomHunterAction;
     private Action $action;
     private GameEquipment $turret;
 
@@ -47,6 +47,8 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $this->player1->setPlace($frontAlphaTurret);
         $I->haveInRepository($this->player1);
 
+        $this->daedalus->setHunterPoints(10);
+        $I->haveInRepository($this->daedalus);
         $event = new HunterPoolEvent(
             $this->daedalus,
             ['test'],
@@ -66,7 +68,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $turretChargeStatus = new ChargeStatus($this->turret, $turretChargeStatusConfig);
         $I->haveInRepository($turretChargeStatus);
 
-        $this->shootHunterAction = $I->grabService(ShootHunter::class);
+        $this->shootRandomHunterAction = $I->grabService(ShootRandomHunter::class);
     }
 
     public function testCannotShootWithUnloadedWeapon(FunctionalTester $I)
@@ -77,13 +79,10 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $I->haveInRepository($status);
         $I->haveInRepository($this->turret);
 
-        /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $this->shootRandomHunterAction->loadParameters($this->action, $this->player1, $this->turret);
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
-
-        $I->assertTrue($this->shootHunterAction->isVisible());
-        $I->assertNotNull($this->shootHunterAction->cannotExecuteReason());
+        $I->assertTrue($this->shootRandomHunterAction->isVisible());
+        $I->assertNotNull($this->shootRandomHunterAction->cannotExecuteReason());
     }
 
     public function testCannotShootWithoutShootingEquipmentInRoom(FunctionalTester $I)
@@ -91,12 +90,9 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $this->player1->setPlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $I->haveInRepository($this->player1);
 
-        /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $this->shootRandomHunterAction->loadParameters($this->action, $this->player1, $this->turret);
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
-
-        $I->assertFalse($this->shootHunterAction->isVisible());
+        $I->assertFalse($this->shootRandomHunterAction->isVisible());
     }
 
     public function testCannotShootIfPlayerCannotSeeSpaceBattle(FunctionalTester $I)
@@ -117,21 +113,21 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootRandomHunterAction->loadParameters($this->action, $this->player1, $this->turret);
 
-        $I->assertFalse($this->shootHunterAction->isVisible());
+        $I->assertFalse($this->shootRandomHunterAction->isVisible());
     }
 
-    public function testShootHunterSuccess(FunctionalTester $I)
+    public function testShootRandomHunterSuccess(FunctionalTester $I)
     {
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootRandomHunterAction->loadParameters($this->action, $this->player1, $this->turret);
 
-        $I->assertTrue($this->shootHunterAction->isVisible());
+        $I->assertTrue($this->shootRandomHunterAction->isVisible());
 
-        $this->shootHunterAction->execute();
+        $this->shootRandomHunterAction->execute();
 
         $I->assertNotEquals($hunter->getHunterConfig()->getInitialHealth(), $hunter->getHealth());
         $I->assertEquals(
@@ -147,18 +143,18 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testShootHunterFail(FunctionalTester $I)
+    public function testShootRandomHunterFail(FunctionalTester $I)
     {
         $this->action->setSuccessRate(0);
 
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootRandomHunterAction->loadParameters($this->action, $this->player1, $this->turret);
 
-        $I->assertTrue($this->shootHunterAction->isVisible());
+        $I->assertTrue($this->shootRandomHunterAction->isVisible());
 
-        $this->shootHunterAction->execute();
+        $this->shootRandomHunterAction->execute();
 
         $I->assertEquals($hunter->getHunterConfig()->getInitialHealth(), $hunter->getHealth());
         $I->assertEquals(
@@ -174,18 +170,18 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testShootHunterWhenDeadOnlySeeDeathLog(FunctionalTester $I)
+    public function testShootRandomHunterWhenDeadOnlySeeDeathLog(FunctionalTester $I)
     {
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
         $hunter->setHealth(1); // make sure hunter will die after the shot
         $I->haveInRepository($hunter);
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootRandomHunterAction->loadParameters($this->action, $this->player1, $this->turret);
 
-        $I->assertTrue($this->shootHunterAction->isVisible());
+        $I->assertTrue($this->shootRandomHunterAction->isVisible());
 
-        $this->shootHunterAction->execute();
+        $this->shootRandomHunterAction->execute();
 
         $I->assertNotEquals($hunter->getHunterConfig()->getInitialHealth(), $hunter->getHealth());
         $I->assertEquals(
@@ -208,7 +204,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testShootHunterSuccessRateWithLenses(FunctionalTester $I): void
+    public function testShootRandomHunterSuccessRateWithLenses(FunctionalTester $I): void
     {
         $this->action->setSuccessRate(40);
 
@@ -230,10 +226,10 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $lensesModifier = new GameModifier($this->player1, $lensesModifierConfig);
         $I->haveInRepository($lensesModifier);
 
-        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootRandomHunterAction->loadParameters($this->action, $this->player1, $this->turret);
 
-        $I->assertTrue($this->shootHunterAction->isVisible());
+        $I->assertTrue($this->shootRandomHunterAction->isVisible());
 
-        $I->assertEquals(intval(40 * 1.33), $this->shootHunterAction->getSuccessRate());
+        $I->assertEquals(intval(40 * 1.33), $this->shootRandomHunterAction->getSuccessRate());
     }
 }

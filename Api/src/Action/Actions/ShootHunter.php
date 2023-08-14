@@ -13,6 +13,7 @@ use Mush\Action\Validator\NumberOfAttackingHunters;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\EquipmentMechanic as Mechanic;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -36,6 +37,8 @@ class ShootHunter extends AttemptAction
     private const SHOOT_HUNTER_LOG_MAP = [
         ActionEnum::SHOOT_HUNTER => ActionLogEnum::SHOOT_HUNTER_SUCCESS,
         ActionEnum::SHOOT_HUNTER_PATROL_SHIP => ActionLogEnum::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
+        ActionEnum::SHOOT_RANDOM_HUNTER => ActionLogEnum::SHOOT_HUNTER_SUCCESS,
+        ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP => ActionLogEnum::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
     ];
     private RoomLogServiceInterface $roomLogService;
 
@@ -52,12 +55,12 @@ class ShootHunter extends AttemptAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $parameter instanceof Hunter;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::SPACE_BATTLE, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::UNLOADED_WEAPON]));
         $metadata->addConstraint(new NumberOfAttackingHunters([
@@ -73,18 +76,15 @@ class ShootHunter extends AttemptAction
             return;
         }
 
-        $daedalus = $this->player->getDaedalus();
-        /** @var GameEquipment $equipment */
-        $equipment = $this->parameter;
+        /** @var GameEquipment $shootingEquipment */
+        $shootingEquipment = $this->getShootingEquipment();
 
         /** @var Weapon $weapon */
-        $weapon = $this->getWeaponMechanic($equipment);
+        $weapon = $this->getWeaponMechanic($shootingEquipment);
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($weapon->getBaseDamageRange());
 
-        $hunter = $daedalus->getAttackingHunters()->first();
-        if (!$hunter) {
-            throw new \Exception('There should be attacking hunters if ShootHunter action is available.');
-        }
+        /** @var Hunter $hunter */
+        $hunter = $this->selectHunterToShoot();
 
         $shotDoesntKillHunter = $damage < $hunter->getHealth();
         if ($shotDoesntKillHunter) {
@@ -102,12 +102,28 @@ class ShootHunter extends AttemptAction
         $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function getWeaponMechanic(GameEquipment $parameter): Weapon
+    // @TODO: hack to recover shooting equipment. This has to be improved in a bigger weapon rework (and all items which "target" something)
+    private function getShootingEquipment(): GameEquipment
+    {
+        /** @var GameEquipment $shootingEquipment */
+        $shootingEquipment = $this->player->getPlace()->getEquipments()
+            ->filter(fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
+            ->filter(fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
+            ->first();
+
+        if (!$shootingEquipment instanceof GameEquipment) {
+            throw new \Exception("Shoot hunter action : {$this->player->getPlace()->getName()} should have a shooting equipment (turret or patrol ship)");
+        }
+
+        return $shootingEquipment;
+    }
+
+    private function getWeaponMechanic(GameEquipment $shootingEquipment): Weapon
     {
         /** @var Weapon $weapon */
-        $weapon = $parameter->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->first();
+        $weapon = $shootingEquipment->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->first();
         if (!$weapon instanceof Weapon) {
-            throw new \Exception("Shoot hunter action : {$weapon->getName()} should have a weapon mechanic");
+            throw new \Exception("Shoot hunter action : {$shootingEquipment->getName()} should have a weapon mechanic");
         }
 
         return $weapon;
@@ -128,5 +144,17 @@ class ShootHunter extends AttemptAction
             parameters: $logParameters,
             dateTime: new \DateTime(),
         );
+    }
+
+    private function selectHunterToShoot(): Hunter
+    {
+        if ($this->parameter instanceof Hunter) {
+            return $this->parameter;
+        }
+
+        $hunters = $this->player->getDaedalus()->getAttackingHunters()->toArray();
+        $hunterToShoot = $this->randomService->getRandomElements($hunters, number: 1);
+
+        return reset($hunterToShoot);
     }
 }

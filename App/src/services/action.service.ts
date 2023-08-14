@@ -7,6 +7,7 @@ import { Action } from "@/entities/Action";
 import { AxiosResponse } from "axios";
 import urlJoin from "url-join";
 import store from "@/store";
+import { Hunter } from "@/entities/Hunter";
 
 // @ts-ignore
 const PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
@@ -14,7 +15,7 @@ const PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
 const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
 
 const ActionService = {
-    executeTargetAction(target: Item | Equipment | Player | null, action: Action): Promise<AxiosResponse> {
+    executeTargetAction(target: Item | Equipment | Player | Hunter | null, action: Action): Promise<AxiosResponse> {
         const currentPlayer = store.getters["player/player"];
         return ApiService.post(urlJoin(PLAYER_ENDPOINT, String(currentPlayer.id),'action'), {
             action: action.id,
@@ -30,6 +31,8 @@ const ActionService = {
                 return { equipment: target.id };
             } else if (target instanceof Player) {
                 return { player: target.id };
+            } else if (target instanceof Hunter) {
+                return { hunter: target.id };
             }
         }
     },

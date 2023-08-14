@@ -76,22 +76,26 @@
             <div class="cycle-time">
                 <Tippy tag="div">
                     <ul>
-                        <li><img class="casio-img" src="@/assets/images/casio.png"></li>
+                        <li v-if="!isCycleChangeAvailable(daedalus)"><img class="casio-img" src="@/assets/images/casio.png"></li>
                         <li>
-                            <countdown-timer :end-date="daedalus.timer.timerCycle">
+                            <countdown-timer :end-date="daedalus?.timer?.timerCycle">
                                 <template #default="slotProps">
-                                    <div class="flex-row">
-                                        <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour }}h</span>
+                                    <div v-if="!isCycleChangeAvailable(daedalus)"  class="flex-row">
+                                        <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour
+                                        }}h</span>
                                         <span class="cycle-time-left">{{ slotProps.min }}m</span>
                                         <span class="cycle-time-left">{{ slotProps.sec }}s</span>
+                                    </div>
+                                    <div v-else>
+                                        <button class="new-cycle-button flashing" @click="triggerCycleChange(player)">{{ $t('game.communications.newCycle') }}</button>
                                     </div>
                                 </template>
                             </countdown-timer>
                         </li>
                     </ul>
                     <template #content>
-                        <h1 v-html="formatContent(daedalus.timer.name)" />
-                        <p v-html="formatContent(daedalus.timer.description)" />
+                        <h1 v-html="formatContent(daedalus?.timer?.name)" />
+                        <p v-html="formatContent(daedalus?.timer?.description)" />
                     </template>
                 </Tippy>
             </div>
@@ -105,25 +109,38 @@ import { Player } from "@/entities/Player";
 import CountdownTimer from "@/components/Utils/CountdownTimer.vue";
 import Alerts from "@/components/Game/Ship/Alerts.vue";
 import { defineComponent } from "vue";
+import PlayerService from "@/services/player.service";
 
-export default defineComponent ({
+
+export default defineComponent({
     name: "BannerPanel",
     components: { Alerts, CountdownTimer },
     props: {
         player: Player,
         daedalus: Daedalus
-    }
+    },
+    methods: {
+        isCycleChangeAvailable(daedalus: Daedalus | undefined): boolean {
+            if (!daedalus?.timer?.timerCycle) {
+                return false;
+            }
+            return (daedalus.timer.timerCycle).getTime() - (new Date()).getTime() <= 0;
+        },
+        triggerCycleChange(player: Player) {
+            PlayerService.triggerCycleChange(player);
+        },
+    },
 });
 </script>
 
 <style  lang="scss" scoped>
-
 .titles,
 .title,
 .game-banner,
 .daedalus-banner,
 .character-banner,
 .daedalus-players,
+.flashing,
 .cycle-time {
     flex-direction: row;
 }
@@ -178,7 +195,7 @@ span.tippy-tooltip {
     background: #4077b5;
     box-shadow: 0 0 5px 1px #15273c inset, 0 0 0 1px #234164;
 
-    & > div {
+    &>div {
         position: relative;
         width: 100%;
         height: 100%;
@@ -229,7 +246,7 @@ span.tippy-tooltip {
 .daedalus-banner {
     align-items: center;
 
-    & > div {
+    &>div {
         margin: 0 12px;
         align-items: center;
     }
@@ -238,9 +255,11 @@ span.tippy-tooltip {
         :not(:last-child) {
             padding-right: 1em;
         }
+
         img {
             padding: 2px 0 0 4px;
         }
+
         li {
             display: flex;
         }
@@ -253,7 +272,14 @@ span.tippy-tooltip {
     .cycle-time img {
         margin-right: 0.4em;
     }
-    .cycle-time ul {align-items: center;}
+
+    .cycle-time ul {
+        align-items: center;
+    }
 }
 
+.new-cycle-button {
+    @include button-style();
+    display: block;
+}
 </style>

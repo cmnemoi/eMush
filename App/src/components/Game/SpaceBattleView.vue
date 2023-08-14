@@ -50,6 +50,8 @@
     <div class="hunters-container">
         <Tippy tag="div"
                class="hunter-container"
+               :class="isHunterSelected(hunter) ? 'highlight' : ''"
+               @mousedown.stop="$emit('select', hunter)"
                v-for="(hunter, key) in player?.spaceBattle?.hunters"
                :key="key">
             <div :class="'sub-fighter-container-inner ship' + ' ' + hunter.key">
@@ -80,7 +82,15 @@ export default defineComponent({
     name: 'SpaceBattleView',
     props: {
         player: Player,
+        selectedHunter: {
+            type: Hunter,
+            required: false,
+            default: null
+        }
     },
+    emits: [
+        'select'
+    ],
     methods: {
         getPlayerCharacterBodyByName(playerKey: string | undefined) : string | undefined {
             if (playerKey === undefined) return;
@@ -105,6 +115,9 @@ export default defineComponent({
         },
         getHunterImage(hunter: Hunter) : string {
             return hunterEnum[hunter.key].image;
+        },
+        isHunterSelected: function(hunter: Hunter): boolean {
+            return this.selectedHunter instanceof Hunter && this.selectedHunter.id === hunter.id;
         },
         isPlayerInRoom(roomKey: string | undefined) : boolean {
             if (roomKey === undefined) return false;
@@ -228,7 +241,7 @@ export default defineComponent({
         height: 303px;
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
+        flex-wrap: wrap-reverse;
         align-content: end;
         padding: 1px;
     }
@@ -268,6 +281,10 @@ export default defineComponent({
     div.tippy-tooltip {
         margin-right: 5px;
         margin-left: 5px;
+    }
+
+    .highlight {
+        box-shadow: 0px 0px 8px 3px red;
     }
     
 </style>

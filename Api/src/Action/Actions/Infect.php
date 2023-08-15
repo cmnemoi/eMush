@@ -108,7 +108,11 @@ class Infect extends AbstractAction
 
         /** @var ChargeStatus $mushStatus */
         $mushStatus = $this->player->getStatusByName(PlayerStatusEnum::MUSH);
-        $mushStatus->addCharge(-1);
-        $this->statusService->persist($mushStatus);
+        $this->statusService->updateCharge(
+            $mushStatus,
+            -1,
+            $this->action->getActionTags(),
+            new \DateTime()
+        );
     }
 }

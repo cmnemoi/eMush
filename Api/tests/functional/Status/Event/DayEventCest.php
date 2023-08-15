@@ -3,7 +3,11 @@
 namespace Mush\Tests\Status\Event;
 
 use App\Tests\FunctionalTester;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -11,6 +15,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
@@ -35,8 +40,19 @@ class DayEventCest
 
         $daedalus->setCycle(1);
 
+        $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => 'decomposing']);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'statusConfigs' => new ArrayCollection([$statusConfig]),
+        ]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Player $player */
@@ -95,7 +111,7 @@ class DayEventCest
             ->setStatusName(EquipmentStatusEnum::DECOMPOSING)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setMaxCharge(5)
-            ->setAutoRemove(true)
+            ->setAutoRemove(false)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_RESET)
             ->buildName(GameConfigEnum::TEST)
         ;

@@ -239,7 +239,7 @@
 			"visibility": "Visibility",
 			"chargeVisibility": "Charges Visibility",
 			"chargeStrategy": "Charge Mode",
-			"dischargeStrategy": "Discharge Mode",
+			"dischargeStrategies": "Modes de décharge",
 			"maxCharge": "Maximum charges amount",
 			"startCharge": "Initial charges amount"
 		},
@@ -539,7 +539,8 @@
 			"day": "Day",
 			"cycle": "Cycle",
 			"showMessageChildren": "Afficher {count} réponse | Afficher {count} réponses",
-			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses"
+			"hideMessageChildren": "Hide {count} answer | Hide {count} answers",
+			"newCycle": "New cycle"
 		}
 	},
 	"newsPage": {

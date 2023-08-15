@@ -790,6 +790,16 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         <target>Fire a Teslatron charge at an enemy ship.</target>
       </segment>
     </unit>
+    <unit id="shoot_random_hunter">
+      <segment id="name" state="translated">
+        <source>shoot_random_hunter.name</source>
+        <target>Fire</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shoot_random_hunter.description</source>
+        <target>Fire a Teslatron charge at an enemy ship. </target>
+      </segment>
+    </unit>
     <unit id="takeoff">
       <segment id="name" state="translated">
         <source>takeoff.name</source>
@@ -817,6 +827,18 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
       <segment id="description" state="translated">
         <source>shoot_hunter_patrol_ship.description</source>
+        <target>Fire a Teslatron charge at an enemy ship.
+// 
+Upgradeable with Missiles.</target>
+      </segment>
+    </unit>
+    <unit id="shoot_random_hunter_patrol_ship">
+      <segment id="name" state="translated">
+        <source>shoot_random_hunter_patrol_ship.name</source>
+        <target>Fire on a hunter</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shoot_random_hunter_patrol_ship.description</source>
         <target>Fire a Teslatron charge at an enemy ship.
 // 
 Upgradeable with Missiles.</target>

@@ -751,13 +751,21 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="takeoff_no_pilot">
       <segment id="takeoff_no_pilot" state="translated">
         <source>takeoff_no_pilot</source>
-        <target>**{character}**'s takeoff was so bad that they've damaged their equipment.</target>
+        <target>{character_gender, select,
+    male {**{character}**'s takeoff was so bad that he's damaged his equipment.}
+    female {**{character}**'s takeoff was so bad that she's damaged her equipment.}
+   other {**{character}**'s takeoff was so bad that they've damaged their equipment.}
+}</target>
       </segment>
     </unit>
     <unit id="land_no_pilot">
       <segment id="land_no_pilot" state="translated">
         <source>land_no_pilot</source>
-        <target>**{character}**'s landing was so bad that they've damaged their equipment.</target>
+        <target>{character_gender, select,
+    male {**{character}**'s landing was so bad that he's damaged his equipment.}
+    female {**{character}**'s landing was so bad that she's damaged her equipment.}
+   other {**{character}**'s landing was so bad that they've damaged their equipment.}
+}</target>
       </segment>
     </unit>
     <unit id="takeoff_success">

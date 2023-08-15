@@ -1011,13 +1011,21 @@
     <unit id="takeoff_no_pilot">
       <segment id="takeoff_no_pilot" state="translated">
         <source>takeoff_no_pilot</source>
-        <target>Le décollage de **{character}** est si mauvais qu'il a endommagé son appareil.</target>
+        <target>{character_gender, select,
+    male {Le décollage de **{character}** est si mauvais qu'il a endommagé son appareil.}
+    female {Le décollage de **{character}** est si mauvais qu'elle a endommagé son appareil.}
+    other {Le décollage de **{character}** est si mauvais qu'il a endommagé son appareil.}
+}</target>
       </segment>
     </unit>
     <unit id="land_no_pilot">
       <segment id="land_no_pilot" state="translated">
         <source>land_no_pilot</source>
-        <target>L'atterrissage de **{character}** est si mauvais qu'il a endommagé son appareil.</target>
+        <target>{character_gender, select,
+    male {L'atterrissage de **{character}** est si mauvais qu'il a endommagé son appareil.}
+    female {L'atterrissage de **{character}** est si mauvais qu'elle a endommagé son appareil.}
+    other {L'atterrissage de **{character}** est si mauvais qu'il a endommagé son appareil.}
+}</target>
       </segment>
     </unit>
     <unit id="takeoff_success">

@@ -61,19 +61,20 @@ class LogDeclinationEnum
             LogEnum::ATTACKED_BY_HUNTER => [self::VERSION => 4],
             DiseaseMessagesEnum::REPLACE_COPROLALIA => [
                 self::VERSION => 13,
-                self::WORD_COPROLALIA => 20,
                 self::ANIMAL_COPROLALIA => 14,
                 self::PREFIX_COPROLALIA => 4,
                 self::ADJECTIVE_COPROLALIA => 6,
                 self::BALLS_COPROLALIA => 9,
+                self::WORD_COPROLALIA => 20,
+
             ],
             DiseaseMessagesEnum::PRE_COPROLALIA => [
                 self::VERSION => 3,
-                self::WORD_COPROLALIA => 20,
                 self::ANIMAL_COPROLALIA => 14,
                 self::PREFIX_COPROLALIA => 4,
                 self::ADJECTIVE_COPROLALIA => 6,
                 self::BALLS_COPROLALIA => 9,
+                self::WORD_COPROLALIA => 20,
             ],
             DiseaseMessagesEnum::POST_COPROLALIA => [
                 self::VERSION => 3,

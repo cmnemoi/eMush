@@ -628,11 +628,12 @@ export default class DaedalusScene extends Phaser.Scene
 
 
         this.cameras.main.setBounds(-this.game.scale.gameSize.width/2, -this.game.scale.gameSize.height/2 +72, sceneCartesianSize.x, sceneCartesianSize.y);
-        if (sceneCartesianSize.x - 64 > this.game.scale.gameSize.width) {
+
+        if (sceneCartesianSize.x - 80 > this.game.scale.gameSize.width) {
             this.isScreenSliding.x = true;
             this.cameras.main.setBounds(-this.sceneIsoSize.y, -72, sceneCartesianSize.x, sceneCartesianSize.y + 72);
         }
-        if (sceneCartesianSize.y - 64 > this.game.scale.gameSize.height) {
+        if (sceneCartesianSize.y - 80 > this.game.scale.gameSize.height) {
             this.isScreenSliding.y = true;
             this.cameras.main.setBounds(-this.sceneIsoSize.y, -72, sceneCartesianSize.x, sceneCartesianSize.y + 72);
         }

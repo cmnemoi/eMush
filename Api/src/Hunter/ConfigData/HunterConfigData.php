@@ -4,7 +4,10 @@ namespace Mush\Hunter\ConfigData;
 
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Game\Entity\ProbaCollection;
+use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 
 /** @codeCoverageIgnore */
@@ -34,6 +37,7 @@ class HunterConfigData
                 2 => 1,
                 3 => 1,
             ],
+            'targets' => [],
         ],
         [
             'name' => HunterEnum::DICE . '_default',
@@ -63,6 +67,12 @@ class HunterConfigData
                 3 => 1,
                 4 => 1,
             ],
+            'targets' => [
+                HunterTargetEnum::HUNTER => 20,
+                HunterTargetEnum::MERCHANT_SHIP => 20, 
+                HunterTargetEnum::PATROL_SHIP => 15, 
+                HunterTargetEnum::PLAYER => 5, 
+            ]
         ],
         [
             'name' => HunterEnum::HUNTER . '_default',
@@ -89,6 +99,12 @@ class HunterConfigData
                 1 => 1,
                 2 => 1,
             ],
+            'targets' => [
+                HunterTargetEnum::HUNTER => 20,
+                HunterTargetEnum::MERCHANT_SHIP => 20, 
+                HunterTargetEnum::PATROL_SHIP => 15, 
+                HunterTargetEnum::PLAYER => 5, 
+            ]
         ],
         [
             'name' => HunterEnum::SPIDER . '_default',
@@ -114,6 +130,12 @@ class HunterConfigData
             'numberOfDroppedScrap' => [
                 1 => 1,
                 2 => 1,
+            ],
+            'targets' => [
+                HunterTargetEnum::HUNTER => 20,
+                HunterTargetEnum::MERCHANT_SHIP => 20, 
+                HunterTargetEnum::PATROL_SHIP => 15, 
+                HunterTargetEnum::PLAYER => 5, 
             ],
         ],
         [
@@ -141,6 +163,12 @@ class HunterConfigData
                 2 => 1,
                 3 => 1,
             ],
+            'targets' => [
+                HunterTargetEnum::HUNTER => 20,
+                HunterTargetEnum::MERCHANT_SHIP => 20, 
+                HunterTargetEnum::PATROL_SHIP => 15, 
+                HunterTargetEnum::PLAYER => 5, 
+            ]
         ],
     ];
 }

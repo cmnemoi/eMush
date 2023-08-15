@@ -56,6 +56,9 @@ class HunterConfig
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
     private array $numberOfDroppedScrap = [];
 
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    private array $targets = [];
+
     public function __construct()
     {
         $this->initialStatuses = new ArrayCollection();

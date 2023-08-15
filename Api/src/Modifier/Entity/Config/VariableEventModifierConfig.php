@@ -154,19 +154,14 @@ class VariableEventModifierConfig extends EventModifierConfig
 
     public function getTranslationKey(): ?string
     {
-        if ($this->mode == VariableModifierModeEnum::MULTIPLICATIVE) {
-            if ($this->delta < 1) {
-                $key = $this->targetEvent . '_decrease';
-            } else {
-                $key = $this->targetEvent . '_increase';
-            }
-            $this->delta = (1 - $this->delta) * 100;
+        if ($this->mode === VariableModifierModeEnum::SET_VALUE) {
+            $key = $this->targetEvent . '_set_value';
+        } elseif ($this->mode === VariableModifierModeEnum::MULTIPLICATIVE && $this->delta < 1 ||
+            $this->mode === VariableModifierModeEnum::ADDITIVE && $this->delta < 0
+        ) {
+            $key = $this->targetEvent . '_decrease';
         } else {
-            if ($this->delta < 0) {
-                $key = $this->targetEvent . '_decrease';
-            } else {
-                $key = $this->targetEvent . '_increase';
-            }
+            $key = $this->targetEvent . '_increase';
         }
 
         foreach (array_keys($this->tagConstraints) as $tagConstraint) {
@@ -186,7 +181,12 @@ class VariableEventModifierConfig extends EventModifierConfig
         if (isset($emoteMap[$this->targetVariable])) {
             $parameters['emote'] = $emoteMap[$this->targetVariable];
         }
-        $parameters['quantity'] = abs($this->delta);
+
+        if ($this->mode === VariableModifierModeEnum::MULTIPLICATIVE) {
+            $parameters['quantity'] = (1 - $this->delta) * 100;
+        } else {
+            $parameters['quantity'] = abs($this->delta);
+        }
 
         return $parameters;
     }

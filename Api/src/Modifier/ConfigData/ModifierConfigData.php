@@ -318,7 +318,6 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -335,7 +334,6 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -888,7 +886,6 @@ class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::CONSUME => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::SURGERY => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::SELF_SURGERY => ModifierRequirementEnum::NONE_TAGS,
                 ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
@@ -912,7 +909,6 @@ class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::CONSUME => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::SURGERY => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::SELF_SURGERY => ModifierRequirementEnum::NONE_TAGS,
                 ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
@@ -936,7 +932,6 @@ class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::CONSUME => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::SURGERY => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::SELF_SURGERY => ModifierRequirementEnum::NONE_TAGS,
                 ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
@@ -1043,7 +1038,6 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1230,7 +1224,6 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1250,7 +1243,6 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1270,7 +1262,6 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1290,7 +1281,6 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1310,7 +1300,6 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -1421,7 +1410,7 @@ class ModifierConfigData
         ],
         [
             'name' => 'prevent_piloting_actions',
-            'modifierName' => 'no_piloting_actions',
+            'modifierName' => 'prevent_piloting_actions',
             'targetEvent' => ActionEvent::PRE_ACTION,
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => -1,
@@ -1436,7 +1425,7 @@ class ModifierConfigData
         ],
         [
             'name' => 'prevent_shoot_actions',
-            'modifierName' => 'no_shoot_actions',
+            'modifierName' => 'prevent_shoot_actions',
             'targetEvent' => ActionEvent::PRE_ACTION,
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => -1,
@@ -1471,8 +1460,8 @@ class ModifierConfigData
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'event_modifier',
-            'modifierActivationRequirements' => [],
-            'tagConstraints' => ['player_status_dirty'],
+            'modifierActivationRequirements' => ['player_status_dirty'],
+            'tagConstraints' => [],
         ],
         [
             'name' => 'septicemia_post_action',
@@ -1483,8 +1472,8 @@ class ModifierConfigData
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'event_modifier',
-            'modifierActivationRequirements' => [],
-            'tagConstraints' => ['player_status_dirty'],
+            'modifierActivationRequirements' => ['player_status_dirty'],
+            'tagConstraints' => [],
         ],
         [
             'name' => 'septicemia_on_dirty',
@@ -1534,7 +1523,7 @@ class ModifierConfigData
             ],
         ],
         [
-            'name' => 'biting_on_move',
+            'name' => 'biting_on_cycle',
             'modifierName' => SymptomEnum::BITING,
             'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
             'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
@@ -1606,7 +1595,6 @@ class ModifierConfigData
             'type' => 'event_modifier',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
@@ -1697,6 +1685,7 @@ class ModifierConfigData
             'name' => 'modifier_for_player_x1.33percentage_on_action_shoot_hunter',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'priority' => -140,
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',

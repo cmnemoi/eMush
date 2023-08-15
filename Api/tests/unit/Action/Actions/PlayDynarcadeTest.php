@@ -58,7 +58,7 @@ class PlayDynarcadeTest extends AbstractActionTest
 
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setEquipment($item)->setName('dynarcarde');
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -102,7 +102,7 @@ class PlayDynarcadeTest extends AbstractActionTest
 
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setEquipment($item)->setName('dynarcarde');
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 

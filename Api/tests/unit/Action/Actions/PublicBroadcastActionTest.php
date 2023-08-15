@@ -50,7 +50,7 @@ class PublicBroadcastActionTest extends AbstractActionTest
 
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setEquipment($item)->setName('equipment');
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 

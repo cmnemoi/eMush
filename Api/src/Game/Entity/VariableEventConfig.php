@@ -119,17 +119,17 @@ class VariableEventConfig extends AbstractEventConfig
     public function getTranslationKey(): ?string
     {
         if ($this->quantity < 0) {
-            return $this->eventName . 'decrease';
+            return $this->eventName . '.decrease';
         } else {
-            return $this->eventName . 'increase';
+            return $this->eventName . '.increase';
         }
     }
 
     public function getTranslationParameters(): array
     {
         $parameters = [
-            'quantity' => $this->quantity,
-            'variable' => $this->targetVariable,
+            'quantity' => abs($this->quantity),
+            'target_variable' => $this->targetVariable,
         ];
 
         $emoteMap = PlayerVariableEnum::getEmoteMap();

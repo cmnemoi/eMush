@@ -72,16 +72,9 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
                 $language
             );
 
-            if ($effect) {
-                if (!in_array($effect, $effects)) {
-                    array_push($effects, $effect);
-                }
-            }
-        }
-
-        if (!empty($effects)) {
-            foreach ($effects as $effect) {
-                $description = $description . '//' . $effect;
+            if (!in_array($effect, $effects)) {
+                $effects[] = $effect;
+                $description = $description . '//• ' . $effect;
             }
         }
 

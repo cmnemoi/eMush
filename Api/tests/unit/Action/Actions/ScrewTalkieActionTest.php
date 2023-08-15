@@ -10,11 +10,14 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\User\Entity\User;
 
 class ScrewTalkieActionTest extends AbstractActionTest
 {
@@ -48,8 +51,10 @@ class ScrewTalkieActionTest extends AbstractActionTest
         $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
-
         $targetPlayer = $this->createPlayer($daedalus, $room);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $gameItem = new GameItem($targetPlayer);
         $item = new ItemConfig();
@@ -78,8 +83,10 @@ class ScrewTalkieActionTest extends AbstractActionTest
         $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
-
         $targetPlayer = $this->createPlayer($daedalus, $room);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $gameItem = new GameItem($targetPlayer);
         $item = new ItemConfig();

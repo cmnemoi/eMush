@@ -124,8 +124,10 @@ class MessageService implements MessageServiceInterface
             return false;
         }
 
+        $dummyMessage = new Message();
+        $dummyMessage->setMessage('')->setAuthor($player->getPlayerInfo())->setChannel($channel);
         $messageEvent = new MessageEvent(
-            new Message(),
+            $dummyMessage,
             $player,
             [],
             new \DateTime()

@@ -329,7 +329,7 @@ class DiseaseConfigData
                 'modifier_for_player_set_-2healthPoint_on_new_cycle',
                 'foaming_on_move',
                 'drooling_on_move',
-                'biting_on_move',
+                'biting_on_cycle',
                 'psychotic_attacks_on_move',
             ],
         ],
@@ -403,6 +403,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => ['burns_50_of_body'],
             'modifierConfigs' => [
+                'direct_modifier_player_-4_max_healthPoint',
                 'modifier_for_player_+10percentage_on_cycle_disease',
                 'septicemia_post_action',
                 'septicemia_on_dirty',
@@ -734,6 +735,7 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_x0.6percentage_on_action_shoot',
                 'modifier_for_player_+2actionPoint',
+                'direct_modifier_player_-2_max_healthPoint',
             ],
         ],
         [
@@ -964,7 +966,7 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'biting_on_move',
+                'biting_on_cycle',
                 'psychotic_attacks_on_move',
             ],
         ],

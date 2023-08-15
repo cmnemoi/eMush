@@ -7,34 +7,28 @@
         <target>roll.percentage_increase_cycle_disease.description</target>
       </segment>
     </unit>
-    <unit id="max_point_decrease">
+    <unit id="change.value.max.decrease">
       <segment id="description" state="initial">
-        <source>max_point_decrease.description</source>
+        <source>change.value.max.decrease.cycle.description</source>
         <target>max_point_decrease.description</target>
       </segment>
     </unit>
-    <unit id="player.new.cycle_decrease">
+    <unit id="change.variable.decrease_on_player.new.cycle">
       <segment id="description" state="initial">
-        <source>player.new.cycle_decrease.description</source>
+        <source>change.variable.decrease_on_player.new.cycle.description</source>
         <target>player.new.cycle_decrease.description</target>
       </segment>
     </unit>
-    <unit id="infection.player_decrease">
+    <unit id="change.variable.decrease_on_infection.player">
       <segment id="description" state="initial">
-        <source>infection.player_decrease.description</source>
+        <source>change.variable.decrease_on_infection.player.description</source>
         <target>infection.player_decrease.description</target>
       </segment>
     </unit>
-    <unit id="apply.cost_decrease">
+    <unit id="change.variable.decrease_on_post.action">
       <segment id="description" state="initial">
-        <source>apply.cost_decrease.description</source>
+        <source>change.variable.decrease_on_post.action.description</source>
         <target>apply.cost_decrease.description</target>
-      </segment>
-    </unit>
-    <unit id="post.action_decrease">
-      <segment id="description" state="initial">
-        <source>post.action_decrease.description</source>
-        <target>post.action_decrease.description</target>
       </segment>
     </unit>
     <unit id="apply.cost_increase_move">
@@ -55,144 +49,135 @@
         <target>roll.action.percentage_decrease_shoot.description</target>
       </segment>
     </unit>
-    <unit id="biting">
+    <unit id="biting_on_player.new.cycle">
       <segment id="description" state="initial">
-        <source>biting.description</source>
+        <source>biting_on_player.new.cycle.description</source>
         <target>biting.description</target>
       </segment>
     </unit>
-    <unit id="breakouts">
+    <unit id="breakouts_on_post.action">
       <segment id="description" state="initial">
-        <source>breakouts.description</source>
+        <source>breakouts_on_post.action.description</source>
         <target>breakouts.description</target>
       </segment>
     </unit>
-    <unit id="disease_cycle">
+    <unit id="roll.percentage_increase_cycle_disease">
       <segment id="description" state="initial">
-        <source>disease_cycle.description</source>
+        <source>roll.percentage_increase_cycle_disease.description</source>
         <target>disease_cycle.description</target>
       </segment>
     </unit>
-    <unit id="cant_move">
+    <unit id="prevent_move_on_pre.action">
       <segment id="description" state="initial">
-        <source>cant_move.description</source>
+        <source>prevent_move_on_pre.action.description</source>
         <target>cant_move.description</target>
       </segment>
     </unit>
-    <unit id="cant_pick_up_heavy_item">
+    <unit id="prevent_pick_heavy_item_on_pre.action">
       <segment id="description" state="initial">
-        <source>cant_pick_up_heavy_items.description</source>
+        <source>prevent_pick_heavy_item_on_pre.action.description</source>
         <target>cant_pick_up_heavy_items.description</target>
       </segment>
     </unit>
-    <unit id="cat_allergy">
+    <unit id="cat_allergy_on_post.action">
       <segment id="description" state="initial">
-        <source>cat_allergy.description</source>
+        <source>cat_allergy_on_post.action.description</source>
         <target>cat_allergy.description</target>
       </segment>
     </unit>
-    <unit id="dirtiness">
+    <unit id="dirtiness_on_player.new.cycle">
       <segment id="description" state="initial">
-        <source>dirtiness.description</source>
+        <source>dirtiness_on_player.new.cycle.description</source>
         <target>dirtiness.description</target>
       </segment>
     </unit>
-    <unit id="deaf">
+    <unit id="deaf_speak_on_new_message">
       <segment id="description" state="initial">
-        <source>deaf.description</source>
+        <source>deaf_speak_on_new_message.description</source>
         <target>deaf.description</target>
       </segment>
     </unit>
-    <unit id="drooling">
+    <unit id="drooling_on_post.action">
       <segment id="description" state="initial">
-        <source>drooling.description</source>
+        <source>drooling_on_post.action.description</source>
         <target>drooling.description</target>
       </segment>
     </unit>
-    <unit id="fear_of_cats">
+    <unit id="fear_of_cats_on_post.action">
       <segment id="description" state="initial">
-        <source>fear_of_cats.description</source>
+        <source>fear_of_cats_on_post.action.description</source>
         <target>fear_of_cats.description</target>
       </segment>
     </unit>
-    <unit id="foaming_mouth">
+    <unit id="foaming_mouth_on_post.action">
       <segment id="description" state="initial">
-        <source>foaming_mouth.description</source>
+        <source>foaming_mouth_on_post.action.description</source>
         <target>foaming_mouth.description</target>
       </segment>
     </unit>
-    <unit id="mute">
+    <unit id="mute_modifier_on_new_message">
       <segment id="description" state="initial">
-        <source>mute.description</source>
+        <source>mute_modifier_on_new_message.description</source>
         <target>mute.description</target>
       </segment>
     </unit>
-    <unit id="nausea">
+    <unit id="sneezing_on_post.action">
       <segment id="description" state="initial">
-        <source>nausea.description</source>
-        <target>nausea.description</target>
-      </segment>
-    </unit>
-    <unit id="sneezing">
-      <segment id="description" state="initial">
-        <source>sneezing.description</source>
+        <source>sneezing_on_post.action.description</source>
         <target>sneezing.description</target>
       </segment>
     </unit>
-    <unit id="no_attack_actions">
+    <unit id="prevent_attack_actions_on_pre.action">
       <segment id="description" state="initial">
-        <source>no_attack_actions.description</source>
+        <source>prevent_attack_actions_on_pre.action.description</source>
         <target>no_attack_actions.description</target>
       </segment>
     </unit>
-    <unit id="no_piloting_actions">
+    <unit id="prevent_piloting_actions_on_pre.action">
       <segment id="description" state="initial">
-        <source>no_piloting_actions.description</source>
+        <source>prevent_piloting_actions_on_pre.action.description</source>
         <target>no_piloting_actions.description</target>
       </segment>
     </unit>
-    <unit id="no_shoot_actions">
+    <unit id="prevent_shoot_actions_on_pre.action">
       <segment id="description" state="initial">
-        <source>no_shoot_actions.description</source>
+        <source>prevent_shoot_actions_on_pre.action.description</source>
         <target>no_shoot_actions.description</target>
       </segment>
     </unit>
-    <unit id="psychotic_attacks">
+    <unit id="psychotic_attacks_on_post.action">
       <segment id="description" state="initial">
-        <source>psychotic_attacks.description</source>
+        <source>psychotic_attacks_on_post.action.description</source>
         <target>psychotic_attacks.description</target>
       </segment>
     </unit>
-    <unit id="septicemia">
+    <unit id="septicemia_on_status.applied">
       <segment id="description" state="initial">
-        <source>septicemia.description</source>
+        <source>septicemia_on_status.applied.description</source>
         <target>septicemia.description</target>
       </segment>
     </unit>
-    <unit id="vomiting">
+    <unit id="vomiting_on_post.action">
       <segment id="description" state="initial">
-        <source>vomiting.description</source>
+        <source>vomiting_on_post.action.description</source>
         <target>vomiting.description</target>
       </segment>
     </unit>
-    <unit id="coprolalia_messages">
+    <unit id="coprolalia_messages_on_new_message">
       <segment id="description" state="initial">
-        <source>coprolalia_messages.description</source>
+        <source>coprolalia_messages_on_new_message.description</source>
         <target>coprolalia_messages.description</target>
       </segment>
     </unit>
-    <unit id="paranoia_messages">
+    <unit id="paranoia_messages_on_new_message">
       <segment id="description" state="initial">
-        <source>paranoia_messages.description</source>
+        <source>paranoia_messages_on_new_message.description</source>
         <target>paranoia_messages.description</target>
       </segment>
     </unit>
-    <unit id="new_cycle_increase">
-      <notes>
-        <note>new_cycle_increase</note>
-      </notes>
+    <unit id="change.variable.increase_on_player.new.cycle">
       <segment state="initial">
-        <source>new_cycle_increase.description</source>
+        <source>change.variable.increase_on_player.new.cycle.description</source>
         <target>new_cycle_increase.description</target>
       </segment>
     </unit>

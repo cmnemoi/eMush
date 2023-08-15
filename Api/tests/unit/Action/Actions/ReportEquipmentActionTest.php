@@ -42,6 +42,7 @@ class ReportEquipmentActionTest extends AbstractActionTest
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $gameEquipment = new GameEquipment($room);
+        $gameEquipment->setName('equipment');
 
         $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 

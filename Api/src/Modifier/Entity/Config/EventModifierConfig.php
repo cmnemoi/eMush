@@ -140,7 +140,9 @@ class EventModifierConfig extends AbstractModifierConfig
 
     public function getTranslationKey(): ?string
     {
-        return $this->targetEvent;
+        $name = $this->modifierName ?: $this->name;
+
+        return $name . '_on_' . $this->targetEvent;
     }
 
     public function getTranslationParameters(): array

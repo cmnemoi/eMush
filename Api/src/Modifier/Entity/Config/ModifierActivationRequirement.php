@@ -94,7 +94,7 @@ class ModifierActivationRequirement
 
     public function getTranslationParameters(): array
     {
-        if ($this->activationRequirement === ModifierRequirementEnum::RANDOM) {
+        if ($this->activationRequirementName === ModifierRequirementEnum::RANDOM) {
             return ['chance' => $this->value];
         }
 

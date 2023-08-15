@@ -11,8 +11,11 @@ use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\User\Entity\User;
 
 class DoTheThingActionTest extends AbstractActionTest
 {
@@ -68,8 +71,10 @@ class DoTheThingActionTest extends AbstractActionTest
         $room->setDaedalus($daedalus);
 
         $player = $this->createPlayer($daedalus, $room);
-
         $targetPlayer = $this->createPlayer($daedalus, $room);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 

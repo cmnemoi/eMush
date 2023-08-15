@@ -118,7 +118,7 @@ class TriggerEventModifierConfig extends EventModifierConfig
 
     public function getTranslationKey(): ?string
     {
-        return $this->targetEvent . '_' . $this->triggeredEvent->getTranslationKey();
+        return $this->triggeredEvent->getTranslationKey() . '_on_' . $this->targetEvent;
     }
 
     public function getTranslationParameters(): array

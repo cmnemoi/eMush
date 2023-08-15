@@ -55,7 +55,7 @@ class TryKubeTest extends AbstractActionTest
 
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setEquipment($item)->setName('cube');
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -79,7 +79,7 @@ class TryKubeTest extends AbstractActionTest
 
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setEquipment($item)->setName('cube');
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 

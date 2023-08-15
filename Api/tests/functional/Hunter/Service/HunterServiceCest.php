@@ -10,55 +10,82 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Service\HunterService;
+use Mush\Place\Enum\RoomEnum;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Symfony\Component\Uid\Uuid;
 
 class HunterServiceCest extends AbstractFunctionalTest
 {
     private HunterService $hunterService;
+    private ChargeStatusConfig $pasiphaeArmorStatusConfig;
+    private ChargeStatus $pasiphaeArmorStatus;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $this->hunterService = $I->grabService(HunterService::class);
+
+        $pasiphaeRoom = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
+
+        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new GameEquipment($pasiphaeRoom);
+        $pasiphae
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig)
+        ;
+        $I->haveInRepository($pasiphae);
+
+        $this->pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+        $this->pasiphaeArmorStatus = new ChargeStatus($pasiphae, $this->pasiphaeArmorStatusConfig);
+        $I->haveInRepository($this->pasiphaeArmorStatus);
+
+        $this->player2->setPlace($this->daedalus->getPlaceByName(RoomEnum::SPACE));
+        $I->haveInRepository($this->player2);
+
+        $this->daedalus->setHunterPoints(10); // spawn a single hunter
+        $this->hunterService->unpoolHunters($this->daedalus, new \DateTime());
+
     }
 
     public function testUnpoolHunters(FunctionalTester $I)
     {
         $this->hunterService->unpoolHunters($this->daedalus, new \DateTime());
-        $I->assertCount(4, $this->daedalus->getAttackingHunters());
+        $I->assertCount(1, $this->daedalus->getAttackingHunters());
         $I->assertCount(0, $this->daedalus->getHunterPool());
     }
 
-    public function testMakeHuntersShoot(FunctionalTester $I)
+    public function testMakeHuntersShootDaedalus(FunctionalTester $I)
     {
-        $initialHull = $this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull();
-        $this->daedalus->setHunterPoints(100);
-        $this->hunterService->unpoolHunters($this->daedalus, new \DateTime());
+        $this->testMakeHuntersShootTarget($I, HunterTargetEnum::DAEDALUS);
+        $I->assertNotEquals(
+            expected: $this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull(),
+            actual: $this->daedalus->getHull()
+        );
+    }
 
-        // remove the truce status and setup accuracy to 100% to avoid false negative tests
-        $hunters = $this->daedalus->getAttackingHunters();
-        /** @var Hunter $hunter */
-        foreach ($hunters as $hunter) {
-            $status = $hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
-            $hunter->removeStatus($status);
-
-            $hunter->getHunterConfig()->setHitChance(100);
-        }
-
-        $this->hunterService->makeHuntersShoot($hunters);
-        $I->assertNotEquals($initialHull, $this->daedalus->getHull());
-
-        foreach ($hunters as $hunter) {
-            $I->assertFalse($hunter->canShoot());
-        }
+    public function testMakeHuntersShootPatrolShip(FunctionalTester $I)
+    {
+        $this->testMakeHuntersShootTarget($I, HunterTargetEnum::PATROL_SHIP);
+        $I->assertNotEquals(
+            expected: $this->pasiphaeArmorStatusConfig->getStartCharge(),
+            actual: $this->pasiphaeArmorStatus->getCharge()
+        );
     }
 
     public function testMakeHuntersShootAsteroidFullHealth(FunctionalTester $I)
@@ -185,5 +212,22 @@ class HunterServiceCest extends AbstractFunctionalTest
         $I->haveInRepository($daedalus);
 
         return $daedalus;
+    }
+
+    private function testMakeHuntersShootTarget(FunctionalTester $I, string $target)
+    {   
+        // remove the truce status and setup target and accuracy
+        $hunters = $this->daedalus->getAttackingHunters();
+        /** @var Hunter $hunter */
+        foreach ($hunters as $hunter) {
+            $status = $hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
+            $hunter->removeStatus($status);
+            $hunter->setTarget($target);
+            $hunter->getHunterConfig()->setHitChance(100);
+
+            $I->haveInRepository($hunter);
+        }
+
+        $this->hunterService->makeHuntersShoot($hunters);
     }
 }

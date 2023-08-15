@@ -365,6 +365,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsBreakable(true)
             ->setActions(new ArrayCollection([$repair12, $examineAction]))
             ->setMechanics([$pasiphaeMechanic])
+            ->setInitStatuses(new ArrayCollection([$this->getReference(ChargeStatusFixtures::PASIPHAE_ARMOR)]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($pasiphaeMechanic);

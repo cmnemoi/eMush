@@ -219,7 +219,10 @@
 			"revertOnRemove": "Inverser lors de la suppression",
 			"tagConstraints": "Condition sur les tags de l'événement",
 			"directModifier": "Modificateur direct",
-			"modifierName": "Nom du modificateur"
+			"modifierName": "Nom du modificateur",
+			"eventModifier": "Tout les modificateurs d'événements",
+			"priority": "Ordre d'application",
+			"modifierStrategy": "Stratégie du modificateur"
 		},
 		"eventConfig": {
 			"name": "Nom",

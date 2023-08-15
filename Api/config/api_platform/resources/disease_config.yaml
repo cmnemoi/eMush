@@ -22,7 +22,3 @@ Mush\Disease\Entity\Config\DiseaseConfig:
       subresource:
         resourceClass: 'Mush\Modifier\Entity\ModifierConfig'
         collection: true
-    symptomConfigs:
-      subresource:
-        resourceClass: 'Mush\Disease\Entity\SymptomConfig'
-        collection: true

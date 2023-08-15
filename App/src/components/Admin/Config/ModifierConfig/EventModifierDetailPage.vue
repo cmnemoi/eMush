@@ -30,6 +30,13 @@
                 :errors="errors.targetEvent"
             />
             <Input
+                :label="$t('admin.modifierConfig.priority')"
+                id="modifierConfig_priority"
+                v-model="modifierConfig.priority"
+                type="text"
+                :errors="errors.priority"
+            />
+            <Input
                 :label="$t('admin.modifierConfig.applyOnActionParameter')"
                 type="checkbox"
                 class="configCheckbox"
@@ -71,13 +78,14 @@
                     type="text"
                     :errors="errors.triggeredEvent"
                 />
+            </div>
+            <div v-if="modifierConfig.type === 'EventModifierConfig'">
                 <Input
-                    :label="$t('admin.modifierConfig.replaceEvent')"
-                    type="checkbox"
-                    class="configCheckbox"
-                    id="replaceEvent"
-                    v-model="modifierConfig.replaceEvent"
-                    :errors="errors.replaceEvent"
+                    :label="$t('admin.modifierConfig.modifierStrategy')"
+                    id="triggeredEvent"
+                    v-model="modifierConfig.modifierStrategy"
+                    type="text"
+                    :errors="errors.modifierStrategy"
                 />
             </div>
         </div>

@@ -11,8 +11,6 @@ import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
 import { CharacterConfig } from "@/entities/Config/CharacterConfig";
 import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
-import { SymptomConfig } from "@/entities/Config/SymptomConfig";
-import { SymptomActivationRequirement } from "@/entities/Config/SymptomActivationRequirement";
 import { Mechanics } from "@/entities/Config/Mechanics";
 import { PlaceConfig } from "@/entities/Config/PlaceConfig";
 import { RandomItemPlaces } from "@/entities/Config/RandomItemPlaces";
@@ -52,10 +50,6 @@ const CHARACTER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "characte
 const EQUIPMENT_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "equipment_configs");
 // @ts-ignore
 const DISEASE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "disease_configs");
-// @ts-ignore
-const SYMPTOM_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "symptom_configs");
-// @ts-ignore
-const SYMPTOM_REQUIREMENT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "symptom_activation_requirements");
 // @ts-ignore
 const MECHANICS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "mechanics");
 // @ts-ignore
@@ -540,94 +534,6 @@ const GameConfigService = {
         }
 
         return diseaseConfig;
-    },
-
-    createSymptomConfig: async (symptomConfig: SymptomConfig): Promise<SymptomConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const symptomConfigRecord: Record<string, any> = symptomConfig.jsonEncode();
-
-        const symptomConfigData = await ApiService.post(SYMPTOM_CONFIG_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', symptomConfigRecord)
-            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
-
-        if (symptomConfigData.data) {
-            symptomConfig = (new SymptomConfig()).load(symptomConfigData.data);
-        }
-
-        return symptomConfig;
-    },
-
-    loadSymptomConfig: async(symptomConfigId: number): Promise<SymptomConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const symptomConfigData = await ApiService.get(SYMPTOM_CONFIG_ENDPOINT + '/' + symptomConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
-            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
-
-        let symptomConfig = null;
-        if (symptomConfigData.data) {
-            symptomConfig = (new SymptomConfig()).load(symptomConfigData.data);
-        }
-
-        return symptomConfig;
-    },
-
-    updateSymptomConfig: async(symptomConfig: SymptomConfig): Promise<SymptomConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const symptomConfigData = await ApiService.put(SYMPTOM_CONFIG_ENDPOINT + '/' + symptomConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', symptomConfig.jsonEncode())
-            .catch((e) => {
-                store.dispatch('gameConfig/setLoading', { loading: false });
-                throw e;
-            });
-
-        store.dispatch('gameConfig/setLoading', { loading: false });
-
-        if (symptomConfigData.data) {
-            symptomConfig = (new SymptomConfig()).load(symptomConfigData.data);
-        }
-
-        return symptomConfig;
-    },
-
-    createSymptomActivationRequirement: async (symptomActivationRequirement: SymptomActivationRequirement): Promise<SymptomActivationRequirement | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const symptomActivationRequirementRecord: Record<string, any> = symptomActivationRequirement.jsonEncode();
-
-        const symptomActivationRequirementData = await ApiService.post(SYMPTOM_REQUIREMENT_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', symptomActivationRequirementRecord)
-            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
-
-        if (symptomActivationRequirementData.data) {
-            symptomActivationRequirement = (new SymptomActivationRequirement()).load(symptomActivationRequirementData.data);
-        }
-
-        return symptomActivationRequirement;
-    },
-
-    loadSymptomActivationRequirement: async(symptomActivationRequirementId: number): Promise<SymptomActivationRequirement | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const symptomActivationRequirementData = await ApiService.get(SYMPTOM_REQUIREMENT_ENDPOINT + '/' + symptomActivationRequirementId + '?XDEBUG_SESSION_START=PHPSTORM')
-            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
-
-        let symptomActivationRequirement = null;
-        if (symptomActivationRequirementData.data) {
-            symptomActivationRequirement = (new SymptomActivationRequirement()).load(symptomActivationRequirementData.data);
-        }
-
-        return symptomActivationRequirement;
-    },
-
-    updateSymptomActivationRequirement: async(symptomActivationRequirement: SymptomActivationRequirement): Promise<SymptomActivationRequirement | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const symptomActivationRequirementData = await ApiService.put(SYMPTOM_REQUIREMENT_ENDPOINT + '/' + symptomActivationRequirement.id + '?XDEBUG_SESSION_START=PHPSTORM', symptomActivationRequirement.jsonEncode())
-            .catch((e) => {
-                store.dispatch('gameConfig/setLoading', { loading: false });
-                throw e;
-            });
-
-        store.dispatch('gameConfig/setLoading', { loading: false });
-
-        if (symptomActivationRequirementData.data) {
-            symptomActivationRequirement = (new SymptomActivationRequirement()).load(symptomActivationRequirementData.data);
-        }
-
-        return symptomActivationRequirement;
     },
 
     createMechanics: async (mechanics: Mechanics): Promise<Mechanics | null> => {

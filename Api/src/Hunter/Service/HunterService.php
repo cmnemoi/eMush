@@ -258,6 +258,8 @@ class HunterService implements HunterServiceInterface
             case HunterTargetEnum::DAEDALUS:
                 $this->shootAtDaedalus($hunter, $damage);
                 break;
+            case HunterTargetEnum::PATROL_SHIP:
+                break;
             default:
                 throw new \Exception("Unknown hunter target {$hunter->getTarget()}");
         }

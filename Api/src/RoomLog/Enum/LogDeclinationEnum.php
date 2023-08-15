@@ -66,7 +66,6 @@ class LogDeclinationEnum
                 self::ADJECTIVE_COPROLALIA => 6,
                 self::BALLS_COPROLALIA => 9,
                 self::WORD_COPROLALIA => 20,
-
             ],
             DiseaseMessagesEnum::PRE_COPROLALIA => [
                 self::VERSION => 3,

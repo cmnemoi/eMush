@@ -43,16 +43,22 @@ class HunterServiceCest extends AbstractFunctionalTest
         $this->daedalus->setHunterPoints(100);
         $this->hunterService->unpoolHunters($this->daedalus, new \DateTime());
 
-        // remove the truce status
-        $hunters = $I->grabEntitiesFromRepository(Hunter::class);
+        // remove the truce status and setup accuracy to 100% to avoid false negative tests
+        $hunters = $this->daedalus->getAttackingHunters();
         /** @var Hunter $hunter */
         foreach ($hunters as $hunter) {
             $status = $hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
             $hunter->removeStatus($status);
+
+            $hunter->getHunterConfig()->setHitChance(100);
         }
 
-        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+        $this->hunterService->makeHuntersShoot($hunters);
         $I->assertNotEquals($initialHull, $this->daedalus->getHull());
+
+        foreach ($hunters as $hunter) {
+            $I->assertFalse($hunter->canShoot());
+        }
     }
 
     public function testMakeHuntersShootAsteroidFullHealth(FunctionalTester $I)

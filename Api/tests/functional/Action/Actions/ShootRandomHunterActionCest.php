@@ -222,7 +222,7 @@ class ShootRandomHunterActionCest extends AbstractFunctionalTest
         $I->haveInRepository($lenses);
 
         /** @var VariableEventModifierConfig $lensesModifierConfig */
-        $lensesModifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'modifier_for_player_x1.33percentage_on_action_shoot_hunter']);
+        $lensesModifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'modifier_for_player_x1.1percentage_on_action_shoot_hunter']);
         $lensesModifier = new GameModifier($this->player1, $lensesModifierConfig);
         $I->haveInRepository($lensesModifier);
 
@@ -230,6 +230,6 @@ class ShootRandomHunterActionCest extends AbstractFunctionalTest
 
         $I->assertTrue($this->shootRandomHunterAction->isVisible());
 
-        $I->assertEquals(intval(40 * 1.33), $this->shootRandomHunterAction->getSuccessRate());
+        $I->assertEquals(intval(40 * 1.1), $this->shootRandomHunterAction->getSuccessRate());
     }
 }

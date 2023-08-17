@@ -37,7 +37,7 @@ class HunterConfigData
                 2 => 1,
                 3 => 1,
             ],
-            'targets' => [],
+            'targetProbabilities' => [],
         ],
         [
             'name' => HunterEnum::DICE . '_default',
@@ -67,7 +67,7 @@ class HunterConfigData
                 3 => 1,
                 4 => 1,
             ],
-            'targets' => [
+            'targetProbabilities' => [
                 HunterTargetEnum::HUNTER => 20,
                 HunterTargetEnum::MERCHANT_SHIP => 20, 
                 HunterTargetEnum::PATROL_SHIP => 15, 
@@ -99,7 +99,7 @@ class HunterConfigData
                 1 => 1,
                 2 => 1,
             ],
-            'targets' => [
+            'targetProbabilities' => [
                 HunterTargetEnum::HUNTER => 20,
                 HunterTargetEnum::MERCHANT_SHIP => 20, 
                 HunterTargetEnum::PATROL_SHIP => 15, 
@@ -131,7 +131,7 @@ class HunterConfigData
                 1 => 1,
                 2 => 1,
             ],
-            'targets' => [
+            'targetProbabilities' => [
                 HunterTargetEnum::HUNTER => 20,
                 HunterTargetEnum::MERCHANT_SHIP => 20, 
                 HunterTargetEnum::PATROL_SHIP => 15, 
@@ -163,7 +163,7 @@ class HunterConfigData
                 2 => 1,
                 3 => 1,
             ],
-            'targets' => [
+            'targetProbabilities' => [
                 HunterTargetEnum::HUNTER => 20,
                 HunterTargetEnum::MERCHANT_SHIP => 20, 
                 HunterTargetEnum::PATROL_SHIP => 15, 

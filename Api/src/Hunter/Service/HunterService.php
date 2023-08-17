@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
@@ -21,6 +22,8 @@ use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Event\AbstractHunterEvent;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Place\Enum\PlaceTypeEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Service\StatusService;
@@ -263,6 +266,46 @@ class HunterService implements HunterServiceInterface
             default:
                 throw new \Exception("Unknown hunter target {$hunter->getTarget()}");
         }
+    }
+
+    private function selectHunterTarget(Hunter $hunter): void
+    {   
+        $targetProbabilities = $hunter->getHunterConfig()->getTargetProbabilities();
+        
+        // @TODO if Meridon Scramber project is not completed, remove Hunter target
+        $daedalusProjects = new ArrayCollection([]);
+        if (!$daedalusProjects->contains('Meridon Scrambler')) {
+            $targetProbabilities->removeElement(HunterTargetEnum::HUNTER);
+        }
+
+        // @TODO if there is no merchant ship in battle, remove merchant ship target
+        $merchantShips = new ArrayCollection([]);
+        if ($merchantShips->isEmpty()) {
+            $targetProbabilities->removeElement(HunterTargetEnum::MERCHANT_SHIP);
+        }
+
+        //if there is no patrol ship in battle, remove patrol ship target
+        $patrolShips = RoomEnum::getPatrolShips()
+            ->map(fn (string $patrolShip) => $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $hunter->getDaedalus())->first())
+            ->filter(fn ($patrolShip) => $patrolShip instanceof GameEquipment)
+        ;
+        $patrolShipsInBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP);
+        if ($patrolShipsInBattle->isEmpty()) {
+            $targetProbabilities->removeElement(HunterTargetEnum::PATROL_SHIP);
+        }
+
+        //if there is no player in battle, remove player target
+        $playersInBattle = $patrolShipsInBattle->filter(fn (GameEquipment $patrolShip) => $patrolShip->getPlace()->getNumberOfPlayersAlive() > 0);
+        if ($playersInBattle->isEmpty()) {
+            $targetProbabilities->removeElement(HunterTargetEnum::PLAYER);
+        }
+
+        $selectedTarget = $this->randomService->getSingleRandomElementFromProbaCollection($targetProbabilities);
+        if (!$selectedTarget) {
+            return;
+        }
+
+        $hunter->setTarget($selectedTarget);
     }
 
     private function shootAtDaedalus(Hunter $hunter, int $damage): void

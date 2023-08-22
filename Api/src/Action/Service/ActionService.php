@@ -69,7 +69,14 @@ class ActionService implements ActionServiceInterface
 
         // Compute how much conversion are needed to have the required number of movement point for the action
         $movementPointGain = $conversionGainEvent->getQuantity();
-        $numberOfConversions = (int) ceil($missingMovementPoints / (-$movementPointGain));
+        try {
+            $numberOfConversions = (int) ceil($missingMovementPoints / (-$movementPointGain));
+        } catch (\Exception $e) {
+            throw new \Exception('Division by zero');
+        }
+        finally {
+            $numberOfConversions = 0;
+        }
 
         // How much each conversion is going to cost in action points
         $conversionCostEvent = new ActionVariableEvent(

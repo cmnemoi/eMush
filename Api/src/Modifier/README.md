@@ -18,10 +18,10 @@ Rather than checking every gear in every room every time the player check the co
 - Triggering an additional event before a given event
 
 ### How to choose priority of a modifier ?
-The choice of priority depends on the type of eventModifier you are using:
+The choice of [priority](./Enum/PriorityEnum) depends on the type of eventModifier you are using:
 - TriggerEventModifier: indicates if the triggered event is dispatched before (<0) or after (>0) the initial event. Several triggered events can be sorted one relative to another.
-- PreventEvent: remove all the event with a priority higher than the modifier one. E.g. to prevent the initial event, chose -1.
-- Variable modifiers: On which order is the initial event quantity modified? Overall, multiplicative modifiers should have a lower priority than additive ones. By default, use priority between -150 to -100.
+- PreventEvent: remove all the event with a priority higher than the modifier one. E.g. to prevent the initial event, chose -50.
+- Variable modifiers: On which order is the initial event quantity modified? Overall, multiplicative modifiers should have a lower priority than additive ones. By default, use priority between -1 to -20.
 
 # Architecture 
 
@@ -52,13 +52,14 @@ The choice of priority depends on the type of eventModifier you are using:
   - [EventModifierConfig](./Entity/Config/EventModifierConfig.php):
     - Create a GameModifier and trigger whenever a targetEvent is dispatched
     - The effect can be set thanks to the ModifierStrategy property
-    - Typical use cases: prevent an event from being triggered
+  
 
 
 ### Strategies of EventModifiers
 - [PreventEvent](./ModifierHandler/PreventEvent.php):
   - Stop the dispatching of events
   - Typical use cases: prevent an event from being triggered
+  - In game use example : apron prevent the event ApplyStatus if status is dirty
 - [AddEvent](./ModifierHandler/AddEvent.php):
   - Specific for [TriggerEventModifierConfig](./Entity/Config/TriggerEventModifierConfig.php)
   - Create a new event that can be dispatched either after or before the initial event

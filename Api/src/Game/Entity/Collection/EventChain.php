@@ -27,25 +27,30 @@ class EventChain extends ArrayCollection
     }
 
     /**
-     * `EventChain::sortEvent` will sort the events according to their priority.
+     * `EventChain::addEvent() will add an event at a position given by the priority.
      */
-    public function sortEvents(): self
+    public function addEvent(AbstractGameEvent $newEvent): self
     {
-        $array = $this->toArray();
+        // find where to add the new event
+        $lowerPriority = $this->filter(fn (AbstractGameEvent $event) => $event->getPriority() < $newEvent->getPriority())->count();
 
-        usort($array, function ($a, $b) {
-            return ($a->getPriority() < $b->getPriority()) ? -1 : 1;
-        });
+        $eventArray = $this->toArray();
+        array_splice($eventArray, $lowerPriority, 0, [$newEvent]);
 
-        return new EventChain($array);
+        return new EventChain($eventArray);
     }
 
     /**
-     * `EventChain::addEvent()` will merge two event chain.
+     * `EventChain::addEvents()` will merge two event chain.
      */
     public function addEvents(EventChain $eventsToAdd): self
     {
-        return new EventChain(array_merge($this->toArray(), $eventsToAdd->toArray()));
+        $newEventChain = $this;
+        foreach ($eventsToAdd as $event) {
+            $newEventChain = $newEventChain->addEvent($event);
+        }
+
+        return $newEventChain;
     }
 
     /**
@@ -73,11 +78,10 @@ class EventChain extends ArrayCollection
      */
     public function stopEvents(int $priority): self
     {
-        $sortedEvents = $this->sortEvents();
         // find where to add the new event
-        $lowerPriority = $sortedEvents->filter(fn (AbstractGameEvent $event) => $event->getPriority() < $priority)->count();
+        $lowerPriority = $this->filter(fn (AbstractGameEvent $event) => $event->getPriority() < $priority)->count();
 
-        $eventArray = $sortedEvents->toArray();
+        $eventArray = $this->toArray();
         array_splice($eventArray, $lowerPriority);
 
         return new EventChain($eventArray);

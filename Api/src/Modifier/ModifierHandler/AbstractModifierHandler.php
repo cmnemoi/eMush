@@ -29,7 +29,7 @@ abstract class AbstractModifierHandler
         array $tags,
         \DateTime $time
     ): EventChain {
-        $priority = $modifier->getModifierConfig()->getPriority();
+        $priority = $modifier->getModifierConfig()->getPriorityInt();
 
         // no event in the chain should have a priority of 0 (restricted to the initialEvent)
         if ($priority === 0) {

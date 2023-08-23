@@ -31,10 +31,9 @@ class AddEvent extends AbstractModifierHandler
         $modifierConfig = $modifier->getModifierConfig();
         $eventConfig = $modifierConfig->getTriggeredEvent();
 
-        // no event in the chain should have a priority of 0 (restricted to the initialEvent)
-        $priority = $modifierConfig->getPriority();
+        $priority = $modifierConfig->getPriorityInt();
         if ($priority === 0) {
-            $priority = -1;
+            throw new \Exception('Modifier cannot have a priority of 0 (restricted to the initialEvent)');
         }
         $tags[] = $modifier->getModifierConfig()->getModifierName() ?: $modifier->getModifierConfig()->getName();
 

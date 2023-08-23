@@ -73,7 +73,7 @@ class EventModifierService implements EventModifierServiceInterface
             $events->updateInitialEvent($initialEvent);
         }
 
-        return $events->sortEvents();
+        return $events;
     }
 
     private function getInitValue(VariableEventInterface $event): float

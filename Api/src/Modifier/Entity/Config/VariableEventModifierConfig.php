@@ -3,6 +3,7 @@
 namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Enum\PriorityEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
@@ -37,7 +38,7 @@ class VariableEventModifierConfig extends EventModifierConfig
     {
         $this->targetEvent = VariableEventInterface::CHANGE_VARIABLE;
         $this->modifierStrategy = ModifierStrategyEnum::VARIABLE_MODIFIER;
-        $this->priority = -120;
+        $this->priority = PriorityEnum::ADDITIVE_MODIFIER_VALUE;
 
         parent::__construct($name);
     }
@@ -129,16 +130,6 @@ class VariableEventModifierConfig extends EventModifierConfig
     public function setMode(string $mode): self
     {
         $this->mode = $mode;
-
-        switch ($mode) {
-            case VariableModifierModeEnum::MULTIPLICATIVE:
-                $this->priority = -140;
-                break;
-            case VariableModifierModeEnum::ADDITIVE:
-                $this->priority = -120;
-                break;
-            default:
-        }
 
         return $this;
     }

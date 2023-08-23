@@ -29,7 +29,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
-final class CollectScrapActionCest extends AbstractFunctionalTest
+final class CollectScrapCest extends AbstractFunctionalTest
 {
     private Action $collectScrapActionConfig;
     private Action $landActionConfig;

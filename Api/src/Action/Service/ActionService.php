@@ -2,7 +2,9 @@
 
 namespace Mush\Action\Service;
 
+use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -11,9 +13,6 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 
 class ActionService implements ActionServiceInterface
 {
-    public const BASE_MOVEMENT_POINT_CONVERSION_GAIN = -2;
-    public const BASE_MOVEMENT_POINT_CONVERSION_COST = 1;
-
     private EventServiceInterface $eventService;
 
     public function __construct(
@@ -55,31 +54,37 @@ class ActionService implements ActionServiceInterface
         int $missingMovementPoints,
         bool $dispatch
     ): int {
+        /** @var Action $getUpActionConfig */
+        $convertActionConfig = $player->getPlayerInfo()->getCharacterConfig()->getActionByName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT);
+
         // first get how much movement point each conversion provides
         $conversionGainEvent = new ActionVariableEvent(
-            $action,
+            $convertActionConfig,
             PlayerVariableEnum::MOVEMENT_POINT,
-            self::BASE_MOVEMENT_POINT_CONVERSION_GAIN,
+            $convertActionConfig->getMovementCost(),
             $player,
-            $parameter
+            null
         );
-        $conversionGainEvent->addTag(ActionVariableEvent::MOVEMENT_CONVERSION);
+
         /** @var ActionVariableEvent $conversionGainEvent */
         $conversionGainEvent = $this->eventService->computeEventModifications($conversionGainEvent, ActionVariableEvent::APPLY_COST);
 
         // Compute how much conversion are needed to have the required number of movement point for the action
         $movementPointGain = $conversionGainEvent->getQuantity();
+
+        if ($movementPointGain === 0) {
+            return 9999;
+        }
         $numberOfConversions = (int) ceil($missingMovementPoints / (-$movementPointGain));
 
         // How much each conversion is going to cost in action points
         $conversionCostEvent = new ActionVariableEvent(
-            $action,
+            $convertActionConfig,
             PlayerVariableEnum::ACTION_POINT,
-            self::BASE_MOVEMENT_POINT_CONVERSION_COST,
+            $convertActionConfig->getActionCost(),
             $player,
-            $parameter
+            null
         );
-        $conversionCostEvent->addTag(ActionVariableEvent::MOVEMENT_CONVERSION);
         /** @var ActionVariableEvent $conversionCostEvent */
         $conversionCostEvent = $this->eventService->computeEventModifications($conversionCostEvent, ActionVariableEvent::APPLY_COST);
 

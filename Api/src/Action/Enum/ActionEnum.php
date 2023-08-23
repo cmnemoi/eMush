@@ -104,6 +104,7 @@ class ActionEnum
     public const WHISPER = 'whisper';
     public const REPORT_FIRE = 'report_fire';
     public const DO_THE_THING = 'do_the_thing';
+    public const CONVERT_ACTION_TO_MOVEMENT = 'convert_action_to_movement';
 
     // Skill-related actions (Humans)
     public const FIERY_SPEECH = 'fiery_speech';

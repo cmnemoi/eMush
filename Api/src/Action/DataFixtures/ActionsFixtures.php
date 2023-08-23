@@ -89,6 +89,7 @@ class ActionsFixtures extends Fixture
     public const SHOOT_RANDOM_HUNTER_PATROL_SHIP = 'shoot.random.hunter.patrol_ship';
     public const COLLECT_SCRAP = 'collect.scrap';
     public const RENOVATE = 'renovate';
+    public const CONVERT_ACTION_TO_MOVEMENT = 'convert_action_to_movement';
 
     public function load(ObjectManager $manager): void
     {
@@ -873,6 +874,15 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PRIVATE)
         ;
         $manager->persist($renovate);
+
+        $convertActionToMovement = new Action();
+        $convertActionToMovement
+            ->setName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
+            ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setActionVariablesArray()
+        ;
+        $manager->persist($suicide);
 
         $manager->flush();
 

@@ -4,8 +4,10 @@ namespace Mush\Action\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Repository\ActionRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
+use Mush\Player\Enum\PlayerVariableEnum;
 
 class ActionDataLoader extends ConfigDataLoader
 {
@@ -46,15 +48,15 @@ class ActionDataLoader extends ConfigDataLoader
 
     private function setActionVariables(Action $action, array $actionData): void
     {
-        $actionIsSuperDirty = $actionData['percentageDirtiness']['min_value'] !== 0;
+        $gameVariables = $action->getGameVariables();
+        $gameVariables->setValuesByName($actionData['percentageDirtiness'], ActionVariableEnum::PERCENTAGE_DIRTINESS);
+        $gameVariables->setValuesByName($actionData['percentageInjury'], ActionVariableEnum::PERCENTAGE_INJURY);
+        $gameVariables->setValuesByName($actionData['percentageSuccess'], ActionVariableEnum::PERCENTAGE_SUCCESS);
+        $gameVariables->setValuesByName($actionData['percentageCritical'], ActionVariableEnum::PERCENTAGE_CRITICAL);
 
-        $action->setActionCost($actionData['actionPoint']['value']);
-        $action->setCriticalRate($actionData['percentageCritical']['value']);
-        $action->setDirtyRate($actionData['percentageDirtiness']['value'], $actionIsSuperDirty);
-        $action->setInjuryRate($actionData['percentageInjury']['value']);
-        $action->setMoralCost($actionData['moralPoint']['value']);
-        $action->setMovementCost($actionData['movementPoint']['value']);
-        $action->setSuccessRate($actionData['percentageSuccess']['value']);
+        $gameVariables->setValuesByName($actionData['actionPoint'], PlayerVariableEnum::ACTION_POINT);
+        $gameVariables->setValuesByName($actionData['moralPoint'], PlayerVariableEnum::MORAL_POINT);
+        $gameVariables->setValuesByName($actionData['movementPoint'], PlayerVariableEnum::MOVEMENT_POINT);
     }
 
     private function setActionVisibilities(Action $action, array $visibilityData): void

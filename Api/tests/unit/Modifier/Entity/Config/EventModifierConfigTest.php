@@ -26,7 +26,7 @@ class EventModifierConfigTest extends TestCase
             ->setTagConstraints([
                 ActionEnum::CHECK_INFECTION => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::ANATHEM => ModifierRequirementEnum::ALL_TAGS,
-                ActionVariableEvent::MOVEMENT_CONVERSION => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS,
                 ModifierNameEnum::APRON_MODIFIER => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::SHOWER => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -43,7 +43,7 @@ class EventModifierConfigTest extends TestCase
         $event->addTag(ModifierNameEnum::APRON_MODIFIER);
         $this->assertFalse($modifier->doModifierApplies($event));
 
-        $event->addTag(ActionVariableEvent::MOVEMENT_CONVERSION);
+        $event->addTag(ActionEnum::CONVERT_ACTION_TO_MOVEMENT);
         $this->assertFalse($modifier->doModifierApplies($event));
 
         $event->addTag(ActionEnum::ANATHEM);

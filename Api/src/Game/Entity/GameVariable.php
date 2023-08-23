@@ -166,4 +166,35 @@ class GameVariable
 
         return $this;
     }
+
+    public function setValueByName(?int $value, string $name): static
+    {
+        switch ($name) {
+            case 'value':
+                if ($value !== null) {
+                    $this->setValue($value);
+                }
+
+                return $this;
+            case 'max_value':
+                $this->setMaxValue($value);
+
+                return $this;
+            case 'min_value':
+                $this->setMinValue($value);
+
+                return $this;
+        }
+
+        return $this;
+    }
+
+    public function setValuesFromArray(array $values): static
+    {
+        foreach ($values as $key => $value) {
+            $this->setValueByName($value, $key);
+        }
+
+        return $this;
+    }
 }

@@ -13,6 +13,7 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Entity\Hunter;
+use Mush\Player\Enum\PlayerVariableEnum;
 
 class ActionsFixtures extends Fixture
 {
@@ -880,8 +881,9 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionVariablesArray()
         ;
+        $convertActionToMovement->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
+        $convertActionToMovement->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $manager->persist($suicide);
 
         $manager->flush();
@@ -959,5 +961,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::SHOOT_RANDOM_HUNTER_PATROL_SHIP, $shootRandomHunterTurret);
         $this->addReference(self::COLLECT_SCRAP, $collectScrap);
         $this->addReference(self::RENOVATE, $renovate);
+        $this->addReference(self::CONVERT_ACTION_TO_MOVEMENT, $convertActionToMovement);
     }
 }

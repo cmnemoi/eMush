@@ -491,7 +491,7 @@ class ModifierConfigData
             'targetVariable' => 'movementPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionVariableEvent::MOVEMENT_CONVERSION => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'modifier_for_player_+1movementPoint_on_event_action_movement_conversion_if_cycle_even',
@@ -508,7 +508,7 @@ class ModifierConfigData
             'modifierActivationRequirements' => [
                 'cycle_even',
             ],
-            'tagConstraints' => [ActionVariableEvent::MOVEMENT_CONVERSION => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'modifier_for_player_x1.5percentage_on_strengthen_hull',
@@ -583,7 +583,7 @@ class ModifierConfigData
             'targetVariable' => 'movementPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionVariableEvent::MOVEMENT_CONVERSION => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'modifier_for_daedalus_+1movementPoint_on_change.variable_if_reason_new_cycle',
@@ -947,7 +947,7 @@ class ModifierConfigData
             'targetVariable' => 'movementPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionVariableEvent::MOVEMENT_CONVERSION => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'modifier_for_player_-1movementPoint_on_move_if_player_in_room_not_alone',

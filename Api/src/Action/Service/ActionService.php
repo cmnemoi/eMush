@@ -2,10 +2,10 @@
 
 namespace Mush\Action\Service;
 
-use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Action\Repository\ActionRepository;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -14,11 +14,14 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 class ActionService implements ActionServiceInterface
 {
     private EventServiceInterface $eventService;
+    private ActionRepository $actionRepository;
 
     public function __construct(
         EventServiceInterface $eventService,
+        ActionRepository $actionRepository
     ) {
         $this->eventService = $eventService;
+        $this->actionRepository = $actionRepository;
     }
 
     public function applyCostToPlayer(Player $player, Action $action, ?LogParameterInterface $parameter): Player
@@ -39,7 +42,7 @@ class ActionService implements ActionServiceInterface
         $movementPointCost = $movementPointCostEvent->getQuantity();
         $missingMovementPoints = $movementPointCost - $player->getMovementPoint();
         if ($missingMovementPoints > 0) {
-            $this->handleConversionEvents($player, $action, $parameter, $missingMovementPoints, true);
+            $this->handleConversionEvents($player, $missingMovementPoints, true);
         }
 
         $this->eventService->callEvent($movementPointCostEvent, ActionVariableEvent::APPLY_COST);
@@ -49,13 +52,13 @@ class ActionService implements ActionServiceInterface
 
     private function handleConversionEvents(
         Player $player,
-        Action $action,
-        ?LogParameterInterface $parameter,
         int $missingMovementPoints,
         bool $dispatch
     ): int {
-        /** @var Action $getUpActionConfig */
-        $convertActionConfig = $player->getPlayerInfo()->getCharacterConfig()->getActionByName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT);
+        /** @var Action $convertActionConfig */
+        $convertActionConfig = $this->actionRepository->findOneBy([
+            'actionName' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT,
+        ]);
 
         // first get how much movement point each conversion provides
         $conversionGainEvent = new ActionVariableEvent(
@@ -73,7 +76,8 @@ class ActionService implements ActionServiceInterface
         $movementPointGain = $conversionGainEvent->getQuantity();
 
         if ($movementPointGain === 0) {
-            return 9999;
+            // set to a cost impossible for the player
+            return $player->getVariableValueByName(PlayerVariableEnum::ACTION_POINT) + 10;
         }
         $numberOfConversions = (int) ceil($missingMovementPoints / (-$movementPointGain));
 
@@ -140,7 +144,7 @@ class ActionService implements ActionServiceInterface
 
             $missingMovementPoints = $movementVariableEvent->getQuantity() - $player->getMovementPoint();
             if ($missingMovementPoints > 0) {
-                $costToAdd = $this->handleConversionEvents($player, $action, $parameter, $missingMovementPoints, false);
+                $costToAdd = $this->handleConversionEvents($player, $missingMovementPoints, false);
 
                 return $value + $costToAdd;
             }

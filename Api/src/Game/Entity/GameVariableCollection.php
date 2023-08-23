@@ -76,6 +76,15 @@ abstract class GameVariableCollection
         return $variable;
     }
 
+    public function setValuesByName(array $values, string $name): GameVariable
+    {
+        $variable = $this->getVariableByName($name);
+
+        $variable->setValuesFromArray($values);
+
+        return $variable;
+    }
+
     public function hasVariable(string $name): bool
     {
         return !$this->gameVariables

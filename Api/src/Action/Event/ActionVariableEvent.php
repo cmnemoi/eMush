@@ -48,7 +48,9 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
 
     public function getRoundedQuantity(): int
     {
-        return intval($this->quantity);
+        $variable = $this->getVariable();
+
+        return $variable->getValueInRange(intval($this->quantity));
     }
 
     public function getQuantity(): float

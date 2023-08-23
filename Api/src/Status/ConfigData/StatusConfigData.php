@@ -865,8 +865,8 @@ class StatusConfigData
             'type' => 'charge_status_config',
             'chargeVisibility' => VisibilityEnum::PUBLIC,
             'chargeStrategy' => 'cycle_decrement',
-            'maxCharge' => 6,
-            'startCharge' => 6,
+            'maxCharge' => 6 + 1,
+            'startCharge' => 6 + 1, // 6 cycles of truce + 1 for its apparition
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
@@ -878,8 +878,8 @@ class StatusConfigData
             'type' => 'charge_status_config',
             'chargeVisibility' => VisibilityEnum::HIDDEN,
             'chargeStrategy' => 'cycle_decrement',
-            'maxCharge' => 1,
-            'startCharge' => 1,
+            'maxCharge' => 1 + 1,
+            'startCharge' => 1 + 1, // 1 cycle of truce + 1 for its apparition
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],

@@ -336,8 +336,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(HunterStatusEnum::HUNTER_CHARGE)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
-            ->setStartCharge(6)
-            ->setMaxCharge(6)
+            ->setStartCharge(6 + 1) // 6 cycles of truce + 1 for its apparition
+            ->setMaxCharge(6 + 1)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
             ->setAutoRemove(true)
             ->buildName(GameConfigEnum::DEFAULT, HunterEnum::ASTEROID)
@@ -349,8 +349,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(HunterStatusEnum::HUNTER_CHARGE)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setStartCharge(1)
-            ->setMaxCharge(1)
+            ->setStartCharge(1 + 1) // 1 cycle of truce + 1 for its apparition
+            ->setMaxCharge(1 + 1)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
             ->setAutoRemove(true)
             ->buildName(GameConfigEnum::DEFAULT)

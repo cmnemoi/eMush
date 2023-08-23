@@ -72,12 +72,11 @@ class InfectActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->times(2);
-        $this->statusService->shouldReceive('persist')->once();
+        $this->statusService->shouldReceive('updateCharge')->once();
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $player->getStatuses());
-        $this->assertEquals(0, $player->getStatusByName(PlayerStatusEnum::MUSH)->getCharge());
     }
 }

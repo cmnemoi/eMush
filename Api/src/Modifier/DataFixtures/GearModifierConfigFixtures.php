@@ -121,24 +121,24 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($soapModifier);
 
-        $aimModifier = new VariableEventModifierConfig('increaseShootPercentage10Percent');
+        $aimModifier = new VariableEventModifierConfig('increaseShootPercentage33Percent');
         $aimModifier
             ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
-            ->setDelta(1.1)
+            ->setDelta(1.33)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setTagConstraints([
-                ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_SHOOT => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setPriority(PriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($aimModifier);
 
-        $aimHunterModifier = new VariableEventModifierConfig('modifier_for_player_x1.33percentage_on_action_shoot_hunter');
+        $aimHunterModifier = new VariableEventModifierConfig('modifier_for_player_x1.1percentage_on_action_shoot_hunter');
         $aimHunterModifier
             ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
-            ->setDelta(1.33)
+            ->setDelta(1.1)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setTagConstraints([

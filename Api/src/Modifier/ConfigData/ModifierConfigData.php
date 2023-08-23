@@ -525,7 +525,7 @@ class ModifierConfigData
             ],
         ],
         [
-            'name' => 'modifier_for_player_x1.1percentage_on_action_shoot',
+            'name' => 'modifier_for_player_x1.1percentage_on_action_shoot_hunter',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
@@ -539,7 +539,7 @@ class ModifierConfigData
             'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS],
+            'tagConstraints' => [ActionTypeEnum::ACTION_SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
             'name' => 'modifier_for_player_+2movementPoint_on_event_action_movement_conversion',
@@ -1625,7 +1625,7 @@ class ModifierConfigData
             ],
         ],
         [
-            'name' => 'modifier_for_player_x1.33percentage_on_action_shoot_hunter',
+            'name' => 'modifier_for_player_x1.33percentage_on_action_shoot',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'priority' => PriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
@@ -1638,7 +1638,7 @@ class ModifierConfigData
             'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionTypeEnum::ACTION_SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS],
+            'tagConstraints' => [ActionTypeEnum::ACTION_SHOOT => ModifierRequirementEnum::ANY_TAGS],
         ],
     ];
 }

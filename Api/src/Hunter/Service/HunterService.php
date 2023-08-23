@@ -22,6 +22,7 @@ use Mush\Hunter\Event\AbstractHunterEvent;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Service\StatusService;
 use Psr\Log\LoggerInterface;
 
@@ -70,7 +71,27 @@ class HunterService implements HunterServiceInterface
 
     public function makeHuntersShoot(HunterCollection $attackingHunters): void
     {
-        $attackingHunters->map(fn (Hunter $hunter) => $this->makeHunterShoot($hunter));
+        /** @var Hunter $hunter */
+        foreach ($attackingHunters as $hunter) {
+            if (!$hunter->canShoot()) {
+                continue;
+            }
+
+            $successRate = $hunter->getHunterConfig()->getHitChance();
+            if (!$this->randomService->isSuccessful($successRate)) {
+                return;
+            }
+
+            $this->makeHunterShoot($hunter);
+
+            // hunter gets a truce cycle after shooting
+            $this->createHunterTruceCycleStatus($hunter);
+
+            // destroy asteroid if it has shot
+            if ($hunter->getName() === HunterEnum::ASTEROID) {
+                $this->killHunter($hunter);
+            }
+        }
     }
 
     public function persist(array $entities): void
@@ -154,6 +175,23 @@ class HunterService implements HunterServiceInterface
         }
     }
 
+    private function createHunterTruceCycleStatus(Hunter $hunter): void
+    {
+        $truceCycleStatus = $hunter->getHunterConfig()->getInitialStatuses()->filter(
+            fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === HunterStatusEnum::HUNTER_CHARGE
+        )->first();
+
+        if (!$truceCycleStatus) {
+            throw new \Exception('Hunter config should have a HUNTER_CHARGE status config');
+        }
+        $this->statusService->createStatusFromConfig(
+            $truceCycleStatus,
+            $hunter,
+            [AbstractHunterEvent::HUNTER_SHOT],
+            new \DateTime()
+        );
+    }
+
     private function dropScrap(Hunter $hunter): void
     {
         $scrapDropTable = $hunter->getHunterConfig()->getScrapDropTable();
@@ -210,17 +248,8 @@ class HunterService implements HunterServiceInterface
 
     private function makeHunterShoot(Hunter $hunter): void
     {
-        if (!$hunter->canShoot()) {
-            return;
-        }
-
         $damage = $this->getHunterDamage($hunter);
         if (!$damage) {
-            return;
-        }
-
-        $successRate = $hunter->getHunterConfig()->getHitChance();
-        if (!$this->randomService->isSuccessful($successRate)) {
             return;
         }
 
@@ -232,11 +261,6 @@ class HunterService implements HunterServiceInterface
             default:
                 throw new \Exception("Unknown hunter target {$hunter->getTarget()}");
         }
-
-        // destroy asteroid if it has shot
-        if ($hunter->getName() === HunterEnum::ASTEROID) {
-            $this->killHunter($hunter);
-        }
     }
 
     private function shootAtDaedalus(Hunter $hunter, int $damage): void
@@ -245,7 +269,7 @@ class HunterService implements HunterServiceInterface
             daedalus: $hunter->getDaedalus(),
             variableName: DaedalusVariableEnum::HULL,
             quantity: -$damage,
-            tags: [AbstractHunterEvent::MAKE_HUNTERS_SHOOT],
+            tags: [AbstractHunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );
 

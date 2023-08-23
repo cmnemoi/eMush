@@ -16,7 +16,15 @@ class DailyReset extends AbstractChargeStrategy
         if (!in_array(EventEnum::NEW_DAY, $reasons) || $status->getCharge() >= $status->getThreshold()) {
             return $status;
         }
-        $status->setCharge($status->getThreshold() ?? 0);
+        $currentCharge = $status->getCharge();
+        $finalCharge = $status->getThreshold() ?? 0;
+
+        $this->statusService->updateCharge(
+            $status,
+            $finalCharge - $currentCharge,
+            $reasons,
+            $time
+        );
 
         return $status;
     }

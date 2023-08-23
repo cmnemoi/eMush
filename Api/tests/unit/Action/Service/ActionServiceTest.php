@@ -171,7 +171,7 @@ class ActionServiceTest extends TestCase
 
         // Start conversion
         $this->actionRepository->shouldReceive('findOneBy')
-            ->with(['action_name' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT])
+            ->with(['actionName' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT])
             ->andReturn($convertActionToMovement)
             ->once()
         ;
@@ -288,7 +288,7 @@ class ActionServiceTest extends TestCase
 
         // Start conversion
         $this->actionRepository->shouldReceive('findOneBy')
-            ->with(['action_name' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT])
+            ->with(['actionName' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT])
             ->andReturn($convertActionToMovement)
             ->once()
         ;
@@ -560,7 +560,7 @@ class ActionServiceTest extends TestCase
 
         // Now check if action points are needed for a conversion event
         $this->actionRepository->shouldReceive('findOneBy')
-            ->with(['action_name' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT])
+            ->with(['actionName' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT])
             ->andReturn($convertActionToMovement)
             ->once()
         ;

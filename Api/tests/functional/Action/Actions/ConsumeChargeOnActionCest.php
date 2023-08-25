@@ -433,7 +433,7 @@ class ConsumeChargeOnActionCest
         $this->coffeeAction->loadParameters($actionEntity, $player, $gameEquipment);
 
         $I->assertEquals(1, $this->coffeeAction->getMovementPointCost());
-        $I->assertEquals(1, $this->coffeeAction->getActionPointCost());
+        $I->assertEquals(0, $this->coffeeAction->getActionPointCost());
         $I->assertEquals(1, $chargeStatus->getCharge());
 
         $this->coffeeAction->execute();

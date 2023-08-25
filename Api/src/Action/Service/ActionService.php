@@ -136,20 +136,34 @@ class ActionService implements ActionServiceInterface
 
         $value = $actionVariableEvent->getQuantity();
 
-        // handle the cost of converting action points to movement points
-        if ($variableName === PlayerVariableEnum::ACTION_POINT) {
-            $movementVariableEvent = $this->getActionEvent($player, $action, $parameter, PlayerVariableEnum::MOVEMENT_POINT);
-            /** @var ActionVariableEvent $movementVariableEvent */
-            $movementVariableEvent = $this->eventService->computeEventModifications($movementVariableEvent, ActionVariableEvent::APPLY_COST);
+        return $variable->getValueInRange($value);
+    }
 
-            $missingMovementPoints = $movementVariableEvent->getQuantity() - $player->getMovementPoint();
-            if ($missingMovementPoints > 0) {
-                $costToAdd = $this->handleConversionEvents($player, $missingMovementPoints, false);
+    public function playerCanAffordPoints(
+        Player $player,
+        Action $action,
+        ?LogParameterInterface $parameter
+    ): bool {
+        $playerAction = $player->getActionPoint();
+        $playerMovement = $player->getMovementPoint();
+        $playerMorale = $player->getMoralPoint();
 
-                return $value + $costToAdd;
-            }
+        $moraleCost = $this->getActionModifiedActionVariable($player, $action, $parameter, PlayerVariableEnum::MORAL_POINT);
+        $actionCost = $this->getActionModifiedActionVariable($player, $action, $parameter, PlayerVariableEnum::ACTION_POINT);
+        $movementCost = $this->getActionModifiedActionVariable($player, $action, $parameter, PlayerVariableEnum::MOVEMENT_POINT);
+        $extraActionPoints = 0;
+
+        if ($playerMorale < $moraleCost) {
+            return false;
         }
 
-        return $variable->getValueInRange($value);
+        if ($playerMovement < $movementCost) {
+            $extraActionPoints = $this->handleConversionEvents($player, $movementCost - $playerMovement, false);
+        }
+        if ($playerAction < $extraActionPoints + $actionCost) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -172,16 +172,16 @@ class GameVariable
         switch ($name) {
             case 'value':
                 if ($value !== null) {
-                    $this->setValue($value);
+                    $this->value = $value;
                 }
 
                 return $this;
             case 'max_value':
-                $this->setMaxValue($value);
+                $this->maxValue = $value;
 
                 return $this;
             case 'min_value':
-                $this->setMinValue($value);
+                $this->minValue = $value;
 
                 return $this;
         }

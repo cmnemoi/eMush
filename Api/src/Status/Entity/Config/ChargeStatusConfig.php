@@ -21,7 +21,7 @@ class ChargeStatusConfig extends StatusConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $startCharge = 0;
 
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[ORM\Column(type: 'array', nullable: true)]
     private array $dischargeStrategies = [ChargeStrategyTypeEnum::NONE];
 
     #[ORM\Column(type: 'boolean', nullable: false)]

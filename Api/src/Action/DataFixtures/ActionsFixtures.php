@@ -13,6 +13,7 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Entity\Hunter;
+use Mush\Player\Enum\PlayerVariableEnum;
 
 class ActionsFixtures extends Fixture
 {
@@ -89,6 +90,7 @@ class ActionsFixtures extends Fixture
     public const SHOOT_RANDOM_HUNTER_PATROL_SHIP = 'shoot.random.hunter.patrol_ship';
     public const COLLECT_SCRAP = 'collect.scrap';
     public const RENOVATE = 'renovate';
+    public const CONVERT_ACTION_TO_MOVEMENT = 'convert_action_to_movement';
 
     public function load(ObjectManager $manager): void
     {
@@ -874,6 +876,16 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($renovate);
 
+        $convertActionToMovement = new Action();
+        $convertActionToMovement
+            ->setName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
+            ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
+            ->setScope(ActionScopeEnum::SELF)
+        ;
+        $convertActionToMovement->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
+        $convertActionToMovement->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $manager->persist($suicide);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -949,5 +961,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::SHOOT_RANDOM_HUNTER_PATROL_SHIP, $shootRandomHunterTurret);
         $this->addReference(self::COLLECT_SCRAP, $collectScrap);
         $this->addReference(self::RENOVATE, $renovate);
+        $this->addReference(self::CONVERT_ACTION_TO_MOVEMENT, $convertActionToMovement);
     }
 }

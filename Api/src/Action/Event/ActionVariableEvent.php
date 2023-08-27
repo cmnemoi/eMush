@@ -13,7 +13,6 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 class ActionVariableEvent extends ActionEvent implements VariableEventInterface
 {
     public const APPLY_COST = 'apply.cost';
-    public const MOVEMENT_CONVERSION = 'movement.conversion';
     public const ROLL_ACTION_PERCENTAGE = 'roll.action.percentage';
 
     public const VARIABLE_TO_EVENT_MAP = [

@@ -21,6 +21,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\User\Entity\User;
 
 class MovementPointConversionCest
@@ -57,6 +58,16 @@ class MovementPointConversionCest
         ;
         $I->haveInRepository($moveActionEntity);
 
+        $convertActionEntity = new Action();
+        $convertActionEntity
+            ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
+            ->setScope(ActionScopeEnum::SELF)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $I->haveInRepository($convertActionEntity);
+
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
         $door = new Door($room2);
@@ -92,7 +103,7 @@ class MovementPointConversionCest
         $this->moveAction->loadParameters($moveActionEntity, $player, $door);
 
         $I->assertEquals(1, $this->moveAction->getMovementPointCost());
-        $I->assertEquals(1, $this->moveAction->getActionPointCost());
+        $I->assertEquals(0, $this->moveAction->getActionPointCost());
         $I->assertEquals($player->getActionPoint(), 2);
         $I->assertEquals($player->getMovementPoint(), 0);
 
@@ -126,6 +137,16 @@ class MovementPointConversionCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
+
+        $convertActionEntity = new Action();
+        $convertActionEntity
+            ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
+            ->setScope(ActionScopeEnum::SELF)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $I->haveInRepository($convertActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
@@ -162,8 +183,9 @@ class MovementPointConversionCest
 
         $this->moveAction->loadParameters($moveActionEntity, $player, $door);
 
+        $I->assertNull($this->moveAction->cannotExecuteReason());
         $I->assertEquals(2, $this->moveAction->getMovementPointCost());
-        $I->assertEquals(1, $this->moveAction->getActionPointCost());
+        $I->assertEquals(0, $this->moveAction->getActionPointCost());
         $I->assertEquals($player->getActionPoint(), 10);
         $I->assertEquals($player->getMovementPoint(), 1);
 
@@ -197,6 +219,16 @@ class MovementPointConversionCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
+
+        $convertActionEntity = new Action();
+        $convertActionEntity
+            ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
+            ->setScope(ActionScopeEnum::SELF)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $I->haveInRepository($convertActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
@@ -233,7 +265,7 @@ class MovementPointConversionCest
         $this->moveAction->loadParameters($moveActionEntity, $player, $door);
 
         $I->assertEquals(5, $this->moveAction->getMovementPointCost());
-        $I->assertEquals(2, $this->moveAction->getActionPointCost());
+        $I->assertEquals(0, $this->moveAction->getActionPointCost());
         $I->assertEquals($player->getActionPoint(), 10);
         $I->assertEquals($player->getMovementPoint(), 1);
 
@@ -241,5 +273,77 @@ class MovementPointConversionCest
 
         $I->assertEquals($player->getActionPoint(), 8);
         $I->assertEquals($player->getMovementPoint(), 0);
+    }
+
+    public function testConversionImpossible(FunctionalTester $I)
+    {
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $I->flushToDatabase();
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var Place $room2 */
+        $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
+
+        $moveActionEntity = new Action();
+        $moveActionEntity
+            ->setActionName(ActionEnum::MOVE)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setMovementCost(1)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($moveActionEntity);
+
+        $convertActionEntity = new Action();
+        $convertActionEntity
+            ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
+            ->setScope(ActionScopeEnum::SELF)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $I->haveInRepository($convertActionEntity);
+
+        /** @var EquipmentConfig $doorConfig */
+        $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
+        $door = new Door($room2);
+        $door
+            ->setName('door name')
+            ->setEquipment($doorConfig)
+        ;
+        $I->haveInRepository($door);
+        $room->addDoor($door);
+        $room2->addDoor($door);
+        $I->refreshEntities($room, $room2, $door);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(0)
+            ->setMovementPoint(0)
+        ;
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $this->moveAction->loadParameters($moveActionEntity, $player, $door);
+
+        $I->assertNotNull($this->moveAction->cannotExecuteReason());
     }
 }

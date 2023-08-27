@@ -3,7 +3,9 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Action\Repository\ActionRepository;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -11,15 +13,15 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 
 class ActionService implements ActionServiceInterface
 {
-    public const BASE_MOVEMENT_POINT_CONVERSION_GAIN = -2;
-    public const BASE_MOVEMENT_POINT_CONVERSION_COST = 1;
-
     private EventServiceInterface $eventService;
+    private ActionRepository $actionRepository;
 
     public function __construct(
         EventServiceInterface $eventService,
+        ActionRepository $actionRepository
     ) {
         $this->eventService = $eventService;
+        $this->actionRepository = $actionRepository;
     }
 
     public function applyCostToPlayer(Player $player, Action $action, ?LogParameterInterface $parameter): Player
@@ -40,7 +42,7 @@ class ActionService implements ActionServiceInterface
         $movementPointCost = $movementPointCostEvent->getQuantity();
         $missingMovementPoints = $movementPointCost - $player->getMovementPoint();
         if ($missingMovementPoints > 0) {
-            $this->handleConversionEvents($player, $action, $parameter, $missingMovementPoints, true);
+            $this->handleConversionEvents($player, $missingMovementPoints, true);
         }
 
         $this->eventService->callEvent($movementPointCostEvent, ActionVariableEvent::APPLY_COST);
@@ -50,36 +52,43 @@ class ActionService implements ActionServiceInterface
 
     private function handleConversionEvents(
         Player $player,
-        Action $action,
-        ?LogParameterInterface $parameter,
         int $missingMovementPoints,
         bool $dispatch
     ): int {
+        /** @var Action $convertActionConfig */
+        $convertActionConfig = $this->actionRepository->findOneBy([
+            'actionName' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT,
+        ]);
+
         // first get how much movement point each conversion provides
         $conversionGainEvent = new ActionVariableEvent(
-            $action,
+            $convertActionConfig,
             PlayerVariableEnum::MOVEMENT_POINT,
-            self::BASE_MOVEMENT_POINT_CONVERSION_GAIN,
+            $convertActionConfig->getMovementCost(),
             $player,
-            $parameter
+            null
         );
-        $conversionGainEvent->addTag(ActionVariableEvent::MOVEMENT_CONVERSION);
+
         /** @var ActionVariableEvent $conversionGainEvent */
         $conversionGainEvent = $this->eventService->computeEventModifications($conversionGainEvent, ActionVariableEvent::APPLY_COST);
 
         // Compute how much conversion are needed to have the required number of movement point for the action
         $movementPointGain = $conversionGainEvent->getQuantity();
+
+        if ($movementPointGain === 0) {
+            // set to a cost impossible for the player
+            return $player->getVariableValueByName(PlayerVariableEnum::ACTION_POINT) + 10;
+        }
         $numberOfConversions = (int) ceil($missingMovementPoints / (-$movementPointGain));
 
         // How much each conversion is going to cost in action points
         $conversionCostEvent = new ActionVariableEvent(
-            $action,
+            $convertActionConfig,
             PlayerVariableEnum::ACTION_POINT,
-            self::BASE_MOVEMENT_POINT_CONVERSION_COST,
+            $convertActionConfig->getActionCost(),
             $player,
-            $parameter
+            null
         );
-        $conversionCostEvent->addTag(ActionVariableEvent::MOVEMENT_CONVERSION);
         /** @var ActionVariableEvent $conversionCostEvent */
         $conversionCostEvent = $this->eventService->computeEventModifications($conversionCostEvent, ActionVariableEvent::APPLY_COST);
 
@@ -127,20 +136,34 @@ class ActionService implements ActionServiceInterface
 
         $value = $actionVariableEvent->getQuantity();
 
-        // handle the cost of converting action points to movement points
-        if ($variableName === PlayerVariableEnum::ACTION_POINT) {
-            $movementVariableEvent = $this->getActionEvent($player, $action, $parameter, PlayerVariableEnum::MOVEMENT_POINT);
-            /** @var ActionVariableEvent $movementVariableEvent */
-            $movementVariableEvent = $this->eventService->computeEventModifications($movementVariableEvent, ActionVariableEvent::APPLY_COST);
+        return $variable->getValueInRange($value);
+    }
 
-            $missingMovementPoints = $movementVariableEvent->getQuantity() - $player->getMovementPoint();
-            if ($missingMovementPoints > 0) {
-                $costToAdd = $this->handleConversionEvents($player, $action, $parameter, $missingMovementPoints, false);
+    public function playerCanAffordPoints(
+        Player $player,
+        Action $action,
+        ?LogParameterInterface $parameter
+    ): bool {
+        $playerAction = $player->getActionPoint();
+        $playerMovement = $player->getMovementPoint();
+        $playerMorale = $player->getMoralPoint();
 
-                return $value + $costToAdd;
-            }
+        $moraleCost = $this->getActionModifiedActionVariable($player, $action, $parameter, PlayerVariableEnum::MORAL_POINT);
+        $actionCost = $this->getActionModifiedActionVariable($player, $action, $parameter, PlayerVariableEnum::ACTION_POINT);
+        $movementCost = $this->getActionModifiedActionVariable($player, $action, $parameter, PlayerVariableEnum::MOVEMENT_POINT);
+        $extraActionPoints = 0;
+
+        if ($playerMorale < $moraleCost) {
+            return false;
         }
 
-        return $variable->getValueInRange($value);
+        if ($playerMovement < $movementCost) {
+            $extraActionPoints = $this->handleConversionEvents($player, $movementCost - $playerMovement, false);
+        }
+        if ($playerAction < $extraActionPoints + $actionCost) {
+            return false;
+        }
+
+        return true;
     }
 }

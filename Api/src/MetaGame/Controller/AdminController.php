@@ -2,11 +2,14 @@
 
 namespace Mush\MetaGame\Controller;
 
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Equipment\Entity\Mechanics\Entity;
 use Mush\Game\Validator\ErrorHandlerTrait;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
@@ -36,6 +39,7 @@ class AdminController extends AbstractFOSRestController
     use ErrorHandlerTrait;
 
     private DaedalusServiceInterface $daedalusService;
+    private EntityManagerInterface $entityManager;
     private PlaceServiceInterface $placeService;
     private PlayerServiceInterface $playerService;
     private UserServiceInterface $userService;
@@ -148,7 +152,15 @@ class AdminController extends AbstractFOSRestController
      * @Rest\View()
      */
     public function migrate(KernelInterface $kernel): View
-    {
+    {   
+        $admin = $this->getUser();
+        if (!$admin instanceof User) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
+        }
+        if (!$admin->isAdmin()) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can migrate');
+        }
+
         $application = new Application($kernel);
         $application->setAutoExit(false);
 

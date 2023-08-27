@@ -20,6 +20,7 @@ import NewsListPage from "@/components/Admin/News/NewsListPage.vue";
 import NewsWritePage from "@/components/Admin/News/NewsWritePage.vue";
 import NewsPage from "@/components/NewsPage.vue";
 import PlayerListPage from "@/components/Admin/Player/PlayerListPage.vue";
+import SQLQueryPage from "@/components/Admin/SQL/SQLQueryPage.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 
 const routes = [
@@ -150,6 +151,12 @@ const routes = [
                 name: "AdminPlayerList",
                 path: 'player-list',
                 component: PlayerListPage
+            },
+            {
+                name: "AdminSQLQueryPage",
+                path: 'sql-query',
+                component: SQLQueryPage
+
             }
         ]
     },

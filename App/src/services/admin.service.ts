@@ -24,6 +24,13 @@ const AdminService = {
 
         return response;
     },
+    executeSQLQuery: async(query: string): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(ADMIN_ENDPOINT + '/execute-sql/' + query);
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     getPlayerInfoList: async(params: Record<string, unknown> | undefined): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.get(PLAYER_INFO_ENDPOINT, params);

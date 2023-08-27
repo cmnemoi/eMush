@@ -45,11 +45,13 @@ class AdminController extends AbstractFOSRestController
     private UserServiceInterface $userService;
 
     public function __construct(DaedalusServiceInterface $daedalusService,
+                                EntityManagerInterface $entityManager,
                                 PlaceServiceInterface $placeService,
                                 PlayerServiceInterface $playerService,
                                 UserServiceInterface $userService
     ) {
         $this->daedalusService = $daedalusService;
+        $this->entityManager = $entityManager;
         $this->placeService = $placeService;
         $this->playerService = $playerService;
         $this->userService = $userService;
@@ -182,6 +184,46 @@ class AdminController extends AbstractFOSRestController
         return $this->view([
             'message' => 'Migration exectued successfully',
             'stackTrace' => $output->fetch(),
+        ],
+            Response::HTTP_OK);
+    }
+
+    /**
+     * Execute SQL query on the server.
+     *
+     * @OA\Parameter(
+     *      name="query",
+     *      in="path",
+     *      description="The query to execute",
+     *       @OA\Schema(type="string")
+     * )
+     * @OA\Tag(name="Admin")
+     * @Security(name="Bearer")
+     * @Rest\Post(path="/execute-sql/{query}")
+     * @Rest\View()
+     */
+    public function executeSQLQuery(Request $request): View
+    {
+        $admin = $this->getUser();
+        if (!$admin instanceof User) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
+        }
+        if (!$admin->isAdmin()) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can execute SQL queries on the server!');
+        }
+
+        $query = $request->get('query');
+        if (!$query) {
+            throw new HttpException(Response::HTTP_BAD_REQUEST, 'No query provided');
+        }
+
+        $connection = $this->entityManager->getConnection();
+        $statement = $connection->prepare($query);
+        $result = $statement->executeQuery();
+
+        return $this->view([
+            'message' => 'Query executed successfully',
+            'result' => $result->fetchAssociative(),
         ],
             Response::HTTP_OK);
     }

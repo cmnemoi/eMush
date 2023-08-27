@@ -17,9 +17,13 @@ use Mush\User\Entity\User;
 use Mush\User\Service\UserServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -133,5 +137,40 @@ class AdminController extends AbstractFOSRestController
         }
 
         return $this->view('Rooms added successfully', Response::HTTP_OK);
+    }
+
+    /**
+     * Migrate : execute migrations (update DB schema), load configs data and create new Daedaluses if needed.
+     *
+     * @OA\Tag(name="Admin")
+     * @Security(name="Bearer")
+     * @Rest\Post(path="/migrate")
+     * @Rest\View()
+     */
+    public function migrate(KernelInterface $kernel): View
+    {
+        $application = new Application($kernel);
+        $application->setAutoExit(false);
+
+        $input = new ArrayInput([
+            'command' => 'mush:migrate',
+        ]);
+
+        $output = new BufferedOutput();
+        $result = $application->run($input, $output);
+
+        if ($result !== 0) {
+            return $this->view([
+                'errorCode' => $result,
+                'stackTrace' => $output->fetch(),
+            ],
+                Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return $this->view([
+            'message' => 'Migration exectued successfully',
+            'stackTrace' => $output->fetch(),
+        ],
+            Response::HTTP_OK);
     }
 }

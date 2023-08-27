@@ -270,7 +270,8 @@
 			"name": "Nom du Daedalus :",
 			"create": "Créer un Daedalus",
 			"config": "Configuration du Daedalus",
-			"language": "Langue du Daedalus"
+			"language": "Langue du Daedalus",
+			"migrate": "Exécuter les migrations"
 		},
 		"save": "Sauvegarder",
 		"show": "Montrer",

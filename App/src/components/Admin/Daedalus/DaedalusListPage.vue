@@ -26,6 +26,9 @@
             <button class = "action-button" type="button" @click="destroyAllDaedaluses">
                 {{$t("admin.daedalus.destroyAllDaedaluses")}}
             </button>
+            <button class="action-button" type="button" @click="migrate">
+                {{$t("admin.daedalus.migrate")}}
+            </button>
         </div>
         <Datatable
             :headers='fields'
@@ -205,6 +208,11 @@ export default defineComponent({
         },
         destroyAllDaedaluses() {
             DaedalusService.destroyAllDaedaluses().then(() => {
+                this.loadData();
+            });
+        },
+        migrate() {
+            AdminService.migrate().then(() => {
                 this.loadData();
             });
         }

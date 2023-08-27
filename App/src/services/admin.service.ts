@@ -31,6 +31,13 @@ const AdminService = {
 
         return response;
     },
+    migrate: async(): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(ADMIN_ENDPOINT + '/migrate');
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     quarantinePlayer: async(playerId: number): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(QUARANTINE_PLAYER_ENDPOINT + '/' + playerId);

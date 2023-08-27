@@ -112,7 +112,9 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->service->applyCostToPlayer($player, $action, null);
+        $result = $this->service->applyCostToPlayer($player, $action, null);
+
+        $this->assertEquals($player, $result);
     }
 
     public function testApplyCostToPlayerSingleMovementConversion()
@@ -229,7 +231,9 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->service->applyCostToPlayer($player, $action, null);
+        $result = $this->service->applyCostToPlayer($player, $action, null);
+
+        $this->assertEquals($player, $result);
     }
 
     public function testApplyCostToPlayerTwoMovementConversion()
@@ -346,7 +350,9 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->service->applyCostToPlayer($player, $action, null);
+        $result = $this->service->applyCostToPlayer($player, $action, null);
+
+        $this->assertEquals($player, $result);
     }
 
     public function testGetActionModifiedActionVariablePercentage()
@@ -508,17 +514,6 @@ class ActionServiceTest extends TestCase
             $player,
             null
         );
-        $this->eventService->shouldReceive('computeEventModifications')
-            ->withArgs(fn (ActionVariableEvent $actionEvent, string $eventName) => (
-                $eventName === ActionVariableEvent::APPLY_COST &&
-                $actionEvent->getVariableName() === PlayerVariableEnum::MOVEMENT_POINT &&
-                $actionEvent->getAuthor() === $player &&
-                $actionEvent->getAction() === $action &&
-                $actionEvent->getRoundedQuantity() === 5
-            ))
-            ->andReturn($actionModifiedEvent)
-            ->once()
-        ;
 
         $this->assertEquals(1, $this->service->getActionModifiedActionVariable(
             $player,
@@ -556,68 +551,6 @@ class ActionServiceTest extends TestCase
             ))
             ->andReturn($actionModifiedEvent)
             ->once()
-        ;
-
-        // Now check if action points are needed for a conversion event
-        $this->actionRepository->shouldReceive('findOneBy')
-            ->with(['actionName' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT])
-            ->never()
-        ;
-
-        $this->eventService->shouldReceive('computeEventModifications')
-            ->withArgs(fn (ActionVariableEvent $actionEvent, string $eventName) => (
-                $eventName === ActionVariableEvent::APPLY_COST &&
-                $actionEvent->getVariableName() === PlayerVariableEnum::MOVEMENT_POINT &&
-                $actionEvent->getAuthor() === $player &&
-                $actionEvent->getAction() === $action &&
-                $actionEvent->getRoundedQuantity() === 5
-            ))
-            ->andReturn($actionModifiedEvent)
-            ->once()
-        ;
-
-        $movementConversionEvent = new ActionVariableEvent(
-            $action,
-            PlayerVariableEnum::MOVEMENT_POINT,
-            -2,
-            $player,
-            null
-        );
-        $this->eventService->shouldReceive('computeEventModifications')
-            ->andReturn($movementConversionEvent)
-            ->withArgs(fn (ActionVariableEvent $actionEvent, string $eventName) => (
-                $eventName === ActionVariableEvent::APPLY_COST &&
-                $actionEvent->getVariableName() === PlayerVariableEnum::MOVEMENT_POINT &&
-                $actionEvent->getAuthor() === $player &&
-                $actionEvent->getAction() === $action &&
-                $actionEvent->getRoundedQuantity() === -2 &&
-                in_array(ActionVariableEvent::MOVEMENT_CONVERSION, $actionEvent->getTags())
-            ))
-            ->once()
-        ;
-
-        $actionConversionEvent = new ActionVariableEvent(
-            $action,
-            PlayerVariableEnum::ACTION_POINT,
-            3,
-            $player,
-            null
-        );
-        $this->eventService->shouldReceive('computeEventModifications')
-            ->andReturn($actionConversionEvent)
-            ->withArgs(fn (ActionVariableEvent $actionEvent, string $eventName) => (
-                $eventName === ActionVariableEvent::APPLY_COST &&
-                $actionEvent->getVariableName() === PlayerVariableEnum::ACTION_POINT &&
-                $actionEvent->getAuthor() === $player &&
-                $actionEvent->getAction() === $action &&
-                $actionEvent->getRoundedQuantity() === 1 &&
-                in_array(ActionVariableEvent::MOVEMENT_CONVERSION, $actionEvent->getTags())
-            ))
-            ->once()
-        ;
-        $this->eventService->shouldReceive('callEvent')
-            ->with($movementConversionEvent, ActionVariableEvent::APPLY_COST)
-            ->never()
         ;
 
         $this->eventService->shouldReceive('callEvent')

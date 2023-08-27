@@ -35,15 +35,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
-        textarea {
-            background: transparent;
-            border: thin solid rgba(255, 255, 255, .25);
-            color: #fff;
-            font-size: 1.2em;
-            font-weight: 300;
-            letter-spacing: .05em;
-            padding: 0.5em 0.5em 0.5em 0;
-            width: 100%;
-        }
+    textarea {
+        background: transparent;
+        border: thin solid rgba(255, 255, 255, .25);
+        color: #fff;
+        font-size: 1.2em;
+        font-weight: 300;
+        letter-spacing: .05em;
+        padding: 0.5em 0.5em 0.5em 0;
+        width: 100%;
+    }
 </style>

@@ -2,9 +2,12 @@
 
 namespace Mush\Test\Action\Validator;
 
+use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\ActionPoint;
-use Mush\Action\Validator\ActionPointValidator;
+use Mush\Action\Entity\Action;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\PlayerCanAffordPoints;
+use Mush\Action\Validator\PlayerCanAffordPointsValidator;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
@@ -13,16 +16,21 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 class ActionPointValidatorTest extends TestCase
 {
-    private ActionPointValidator $validator;
-    private ActionPoint $constraint;
+    private PlayerCanAffordPointsValidator $validator;
+    private PlayerCanAffordPoints $constraint;
+
+    /** @var ActionServiceInterface|Mockery\Mock */
+    private ActionServiceInterface $actionService;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new ActionPointValidator();
-        $this->constraint = new ActionPoint();
+        $this->actionService = \Mockery::mock(ActionServiceInterface::class);
+
+        $this->validator = new PlayerCanAffordPointsValidator($this->actionService);
+        $this->constraint = new PlayerCanAffordPoints();
     }
 
     /**
@@ -53,11 +61,20 @@ class ActionPointValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ]);
+            ])
+        ;
+        $action
+            ->shouldReceive([
+                'getAction' => new Action(),
+            ])
+        ;
+        $action
+            ->shouldReceive([
+                'getParameter' => null,
+            ])
+        ;
 
-        $action->shouldReceive('getActionPointCost')->andReturn(1);
-        $action->shouldReceive('getMoralPointCost')->andReturn(1);
-        $action->shouldReceive('getMovementPointCost')->andReturn(1);
+        $this->actionService->shouldReceive('playerCanAffordPoints')->andReturn(true);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -83,47 +100,20 @@ class ActionPointValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ]);
-
-        $action->shouldReceive('getActionPointCost')->andReturn(6);
-        $action->shouldReceive('getMoralPointCost')->andReturn(1);
-        $action->shouldReceive('getMovementPointCost')->andReturn(1);
-
-        $this->initValidator($this->constraint->message);
-        $this->validator->validate($action, $this->constraint);
-    }
-
-    public function testWithMovementPointConversion()
-    {
-        $characterConfig = new CharacterConfig();
-        $characterConfig
-            ->setInitActionPoint(5)
-            ->setMaxActionPoint(12)
-            ->setInitMoralPoint(5)
-            ->setMaxMoralPoint(12)
-            ->setMaxMovementPoint(0)
-            ->setInitMovementPoint(5)
+            ])
         ;
-        $player = new Player();
-        $player
-            ->setPlayerVariables($characterConfig)
-        ;
-
-        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getPlayer' => $player,
+                'getAction' => new Action(),
+            ])
+        ;
+        $action
+            ->shouldReceive([
+                'getParameter' => null,
             ])
         ;
 
-        $action->shouldReceive('getActionPointCost')->andReturn(1);
-        $action->shouldReceive('getMoralPointCost')->andReturn(0);
-        $action->shouldReceive('getMovementPointCost')->andReturn(1);
-
-        $this->initValidator();
-        $this->validator->validate($action, $this->constraint);
-
-        $player->setActionPoint(0);
+        $this->actionService->shouldReceive('playerCanAffordPoints')->andReturn(false);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

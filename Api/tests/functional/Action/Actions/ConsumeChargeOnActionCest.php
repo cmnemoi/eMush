@@ -304,6 +304,16 @@ class ConsumeChargeOnActionCest
         ;
         $I->haveInRepository($actionEntity);
 
+        $convertActionEntity = new Action();
+        $convertActionEntity
+            ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
+            ->setScope(ActionScopeEnum::SELF)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $I->haveInRepository($convertActionEntity);
+
         $equipmentCoffee = new EquipmentConfig();
         $equipmentCoffee
             ->setEquipmentName(GameRationEnum::COFFEE)
@@ -322,7 +332,7 @@ class ConsumeChargeOnActionCest
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-1)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTagConstraints([ActionVariableEvent::MOVEMENT_CONVERSION => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
@@ -423,7 +433,7 @@ class ConsumeChargeOnActionCest
         $this->coffeeAction->loadParameters($actionEntity, $player, $gameEquipment);
 
         $I->assertEquals(1, $this->coffeeAction->getMovementPointCost());
-        $I->assertEquals(1, $this->coffeeAction->getActionPointCost());
+        $I->assertEquals(0, $this->coffeeAction->getActionPointCost());
         $I->assertEquals(1, $chargeStatus->getCharge());
 
         $this->coffeeAction->execute();

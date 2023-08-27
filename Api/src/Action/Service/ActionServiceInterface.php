@@ -16,4 +16,6 @@ interface ActionServiceInterface
         ?LogParameterInterface $parameter,
         string $variableName
     ): int;
+
+    public function playerCanAffordPoints(Player $player, Action $action, ?LogParameterInterface $parameter): bool;
 }

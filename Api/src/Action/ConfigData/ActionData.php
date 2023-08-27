@@ -1455,5 +1455,20 @@ class ActionData
             'percentageSuccess' => ['value' => 12, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
+        [
+            'name' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT,
+            'action_name' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT,
+            'types' => [],
+            'target' => null,
+            'scope' => 'self',
+            'visibilities' => ['success' => 'hidden', 'fail' => 'hidden'],
+            'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => -2, 'min_value' => null, 'max_value' => 0],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+        ],
     ];
 }

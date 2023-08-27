@@ -66,7 +66,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(PriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTagConstraints([ActionVariableEvent::MOVEMENT_CONVERSION => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($disabledConversionModifier);

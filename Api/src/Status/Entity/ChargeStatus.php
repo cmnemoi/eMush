@@ -57,13 +57,16 @@ class ChargeStatus extends Status
         return $this->getStatusConfig()->getChargeStrategy();
     }
 
-    public function getDischargeStrategies(): array
+    public function getDischargeStrategies(): ?array
     {
         return $this->getStatusConfig()->getDischargeStrategies();
     }
 
     public function hasDischargeStrategy(string $strategy): bool
-    {
+    {   
+        if ($this->getDischargeStrategies() === null) {
+            return false;
+        }
         return in_array($strategy, $this->getDischargeStrategies(), true);
     }
 

@@ -2,7 +2,6 @@
 
 namespace Mush\Daedalus\ConfigData;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Repository\DaedalusConfigRepository;
@@ -87,6 +86,6 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
             $placeConfigs[] = $placeConfig;
         }
 
-        $daedalusConfig->setPlaceConfigs(new ArrayCollection($placeConfigs));
+        $daedalusConfig->setPlaceConfigs($placeConfigs);
     }
 }

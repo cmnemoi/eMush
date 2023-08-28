@@ -46,7 +46,7 @@ abstract class AbstractAction
 
     abstract protected function support(?LogParameterInterface $parameter): bool;
 
-    public function loadParameters(Action $action, Player $player, ?LogParameterInterface $parameter = null): void
+    public function loadParameters(Action $action, Player $player, LogParameterInterface $parameter = null): void
     {
         if (!$this->support($parameter)) {
             $className = isset($parameter) ? $parameter->getClassName() : '$parameter is null';
@@ -93,8 +93,8 @@ abstract class AbstractAction
 
     public function execute(): ActionResult
     {
-        if (!$this->isVisible() ||
-            $this->cannotExecuteReason() !== null
+        if (!$this->isVisible()
+            || $this->cannotExecuteReason() !== null
         ) {
             return new Error('Cannot execute action');
         }

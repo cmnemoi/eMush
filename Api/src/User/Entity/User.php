@@ -93,12 +93,7 @@ class User implements UserInterface
         return null;
     }
 
-    public function getSalt()
-    {
-        return null;
-    }
-
-    public function eraseCredentials()
+    public function eraseCredentials(): null
     {
         return null;
     }

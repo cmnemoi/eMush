@@ -52,7 +52,7 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             // ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction, $updateTalkieAction]))
-            ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction]))
+            ->setActions([$takeAction, $examineAction, $repair25, $dropAction])
             ->setIsPersonal(true)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -64,7 +64,7 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction]))
+            ->setActions([$takeAction, $examineAction, $repair25, $dropAction])
             // ->setInitStatuses(new ArrayCollection([$updatingStatus]))
             ->setIsPersonal(true)
             ->buildName(GameConfigEnum::DEFAULT)
@@ -77,7 +77,7 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction]))
+            ->setActions([$takeAction, $examineAction, $repair25, $dropAction])
             ->setIsPersonal(true)
             ->buildName(GameConfigEnum::DEFAULT)
         ;

@@ -35,8 +35,8 @@ class HasActionValidator extends ConstraintValidator
         $action = $value->getAction();
         $player = $value->getPlayer();
 
-        if (($this->isPlayerAction($parameter, $player, $action) || $this->isParameterAction($parameter, $action)) &&
-            $this->gearToolService->getUsedTool($player, $value->getActionName()) === null
+        if (($this->isPlayerAction($parameter, $player, $action) || $this->isParameterAction($parameter, $action))
+            && $this->gearToolService->getUsedTool($player, $value->getActionName()) === null
         ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
@@ -57,8 +57,8 @@ class HasActionValidator extends ConstraintValidator
      */
     private function isParameterAction(?LogParameterInterface $parameter, Action $action): bool
     {
-        return ($parameter instanceof Player && !$parameter->getTargetActions()->contains($action)) ||
-            ($parameter instanceof GameEquipment && !$parameter->getActions()->contains($action))
+        return ($parameter instanceof Player && !$parameter->getTargetActions()->contains($action))
+            || ($parameter instanceof GameEquipment && !$parameter->getActions()->contains($action))
         ;
     }
 }

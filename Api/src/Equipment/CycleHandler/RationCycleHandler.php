@@ -56,8 +56,8 @@ class RationCycleHandler extends AbstractCycleHandler
     private function handleStatus(GameEquipment $gameRation, Ration $ration): void
     {
         // If ration is not perishable or frozen or decomposing do nothing
-        if (!$ration->getIsPerishable() ||
-            $gameRation->getStatuses()->exists(
+        if (!$ration->getIsPerishable()
+            || $gameRation->getStatuses()->exists(
                 fn (int $key, Status $status) => in_array($status->getName(), [EquipmentStatusEnum::DECOMPOSING, EquipmentStatusEnum::FROZEN])
             )
         ) {

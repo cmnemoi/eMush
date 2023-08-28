@@ -36,9 +36,9 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         $currentPlayer = $context['currentPlayer'];
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        if ($this->isVisibilityPublic($status) ||
-            $this->isVisibilityPrivateForUser($status, $currentPlayer) ||
-            ($status->getVisibility() === VisibilityEnum::MUSH && $currentPlayer->isMush())
+        if ($this->isVisibilityPublic($status)
+            || $this->isVisibilityPrivateForUser($status, $currentPlayer)
+            || ($status->getVisibility() === VisibilityEnum::MUSH && $currentPlayer->isMush())
         ) {
             $normedStatus = [
                 'key' => $statusName,

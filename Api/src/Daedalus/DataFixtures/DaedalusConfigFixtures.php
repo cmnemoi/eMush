@@ -27,7 +27,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG, GameConfig::class);
 
         $daedalusConfig = new DaedalusConfig();
 

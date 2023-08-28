@@ -8,7 +8,11 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 #[ORM\Entity]
 class Drug extends Ration
 {
-    protected bool $isPerishable = false;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->isPerishable = false;
+    }
 
     public function getMechanics(): array
     {

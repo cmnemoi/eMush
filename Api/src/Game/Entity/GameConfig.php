@@ -97,7 +97,7 @@ class GameConfig
     }
 
     /**
-     * @psalm-param ArrayCollection<int, CharacterConfig> $charactersConfig
+     * @psalm-param ArrayCollection<int<0, max>, CharacterConfig> $charactersConfig
      */
     public function setCharactersConfig(ArrayCollection|array $charactersConfig): static
     {
@@ -123,7 +123,7 @@ class GameConfig
     }
 
     /**
-     * @psalm-param ArrayCollection<int, TriumphConfig> $triumphConfig
+     * @psalm-param ArrayCollection<int<0, max>, TriumphConfig> $triumphConfig
      */
     public function setTriumphConfig(ArrayCollection|array $triumphConfig): self
     {
@@ -149,7 +149,7 @@ class GameConfig
     }
 
     /**
-     * @psalm-param ArrayCollection<int, EquipmentConfig> $equipmentsConfig
+     * @psalm-param ArrayCollection<int<0, max>, EquipmentConfig> $equipmentsConfig
      */
     public function setEquipmentsConfig(ArrayCollection|array $equipmentsConfig): static
     {
@@ -175,7 +175,7 @@ class GameConfig
     }
 
     /**
-     * @psalm-param ArrayCollection<int, DiseaseCauseConfig> $diseaseCauseConfig
+     * @psalm-param ArrayCollection<int<0, max>, DiseaseCauseConfig> $diseaseCauseConfig
      */
     public function setDiseaseCauseConfig(ArrayCollection|array $diseaseCauseConfig): static
     {
@@ -201,7 +201,7 @@ class GameConfig
     }
 
     /**
-     * @psalm-param ArrayCollection<int, DiseaseConfig> $diseaseConfig
+     * @psalm-param ArrayCollection<int<0, max>, DiseaseConfig> $diseaseConfig
      */
     public function setDiseaseConfig(ArrayCollection|array $diseaseConfig): static
     {
@@ -227,7 +227,7 @@ class GameConfig
     }
 
     /**
-     * @psalm-param ArrayCollection<int, ConsumableDiseaseConfig> $consumableDiseaseConfig
+     * @psalm-param ArrayCollection<int<0, max>, ConsumableDiseaseConfig> $consumableDiseaseConfig
      */
     public function setConsumableDiseaseConfig(ArrayCollection|array $consumableDiseaseConfig): static
     {
@@ -272,7 +272,7 @@ class GameConfig
     }
 
     /**
-     * @psalm-param ArrayCollection<int, StatusConfig> $statusConfigs
+     * @psalm-param ArrayCollection<int<0, max>, StatusConfig> $statusConfigs
      */
     public function setStatusConfigs(ArrayCollection|array $statusConfigs): static
     {
@@ -291,7 +291,7 @@ class GameConfig
     }
 
     /**
-     * @psalm-param ArrayCollection<int, HunterConfig> $hunterConfigs
+     * @psalm-param ArrayCollection<int<0, max>, HunterConfig> $hunterConfigs
      */
     public function setHunterConfigs(ArrayCollection|array $hunterConfigs): static
     {

@@ -55,9 +55,9 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $holder = $equipment->getHolder();
 
         if (
-            $equipment instanceof GameItem &&
-            $holder instanceof Player &&
-            $holder->getEquipments()->count() > $holder->getPlayerInfo()->getCharacterConfig()->getMaxItemInInventory()
+            $equipment instanceof GameItem
+            && $holder instanceof Player
+            && $holder->getEquipments()->count() > $holder->getPlayerInfo()->getCharacterConfig()->getMaxItemInInventory()
         ) {
             $this->equipmentModifierService->dropEquipment($equipment, $holder, $event->getTags(), $event->getTime());
         }

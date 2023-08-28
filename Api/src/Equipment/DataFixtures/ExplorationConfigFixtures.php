@@ -31,6 +31,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
+        /** @var ArrayCollection $actions */
         $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
         /** @var Action $reportAction */

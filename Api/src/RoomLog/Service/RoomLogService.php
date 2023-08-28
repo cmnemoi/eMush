@@ -152,7 +152,7 @@ class RoomLogService implements RoomLogServiceInterface
         Place $place,
         string $visibility,
         string $type,
-        ?Player $player = null,
+        Player $player = null,
         array $parameters = [],
         \DateTime $dateTime = null
     ): RoomLog {
@@ -204,14 +204,14 @@ class RoomLogService implements RoomLogServiceInterface
         $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
 
         if (
-            $visibility === VisibilityEnum::SECRET &&
-            ($placeHasAWitness ||
-             $placeHasAFunctionalCamera)
+            $visibility === VisibilityEnum::SECRET
+            && ($placeHasAWitness
+             || $placeHasAFunctionalCamera)
         ) {
             return VisibilityEnum::REVEALED;
         } elseif (
-            $visibility === VisibilityEnum::COVERT &&
-            $placeHasAFunctionalCamera
+            $visibility === VisibilityEnum::COVERT
+            && $placeHasAFunctionalCamera
         ) {
             return VisibilityEnum::REVEALED;
         }

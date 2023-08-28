@@ -26,7 +26,7 @@ class SymptomActivationRequirementService implements SymptomActivationRequiremen
         $this->randomService = $randomService;
     }
 
-    public function getActiveSymptoms(SymptomConfigCollection $symptomConfigs, Player $player, array $tags, ?Action $action = null): SymptomConfigCollection
+    public function getActiveSymptoms(SymptomConfigCollection $symptomConfigs, Player $player, array $tags, Action $action = null): SymptomConfigCollection
     {
         $activeSymptoms = new SymptomConfigCollection();
 

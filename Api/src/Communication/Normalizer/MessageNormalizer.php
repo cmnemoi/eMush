@@ -58,9 +58,9 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
                 $language
             );
         } elseif (
-            $object->getAuthor() === $currentPlayer->getPlayerInfo() &&
-            array_key_exists(DiseaseMessagesEnum::ORIGINAL_MESSAGE, $translationParameters) &&
-            $this->hasPlayerSymptom($currentPlayer, $translationParameters[DiseaseMessagesEnum::MODIFICATION_CAUSE])
+            $object->getAuthor() === $currentPlayer->getPlayerInfo()
+            && array_key_exists(DiseaseMessagesEnum::ORIGINAL_MESSAGE, $translationParameters)
+            && $this->hasPlayerSymptom($currentPlayer, $translationParameters[DiseaseMessagesEnum::MODIFICATION_CAUSE])
         ) {
             $message = $translationParameters[DiseaseMessagesEnum::ORIGINAL_MESSAGE];
         } elseif ($object->getAuthor()) {

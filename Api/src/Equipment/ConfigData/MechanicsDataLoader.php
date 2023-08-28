@@ -2,7 +2,6 @@
 
 namespace Mush\Equipment\ConfigData;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
 use Mush\Action\Repository\ActionRepository;
@@ -38,6 +37,6 @@ abstract class MechanicsDataLoader extends ConfigDataLoader
             }
             $actions[] = $action;
         }
-        $mechanics->setActions(new ArrayCollection($actions));
+        $mechanics->setActions($actions);
     }
 }

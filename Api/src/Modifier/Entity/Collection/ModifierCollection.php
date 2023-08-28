@@ -29,8 +29,8 @@ class ModifierCollection extends ArrayCollection
     public function getEventModifiers(AbstractGameEvent $event): self
     {
         return $this->filter(fn (GameModifier $modifier) => (
-            $modifier->getModifierConfig()->doModifierApplies($event) &&
-            (($charge = $modifier->getCharge()) === null || $charge->getCharge() > 0)
+            $modifier->getModifierConfig()->doModifierApplies($event)
+            && (($charge = $modifier->getCharge()) === null || $charge->getCharge() > 0)
         ));
     }
 
@@ -41,15 +41,15 @@ class ModifierCollection extends ArrayCollection
 
     public function getTriggerEventModifiersNoReplace(): self
     {
-        return $this->filter(fn (GameModifier $modifier) => ($modifierConfig = $modifier->getModifierConfig()) instanceof TriggerEventModifierConfig &&
-            !$modifierConfig->getReplaceEvent()
+        return $this->filter(fn (GameModifier $modifier) => ($modifierConfig = $modifier->getModifierConfig()) instanceof TriggerEventModifierConfig
+            && !$modifierConfig->getReplaceEvent()
         );
     }
 
     public function getTriggerEventModifiersReplace(): self
     {
-        return $this->filter(fn (GameModifier $modifier) => ($modifierConfig = $modifier->getModifierConfig()) instanceof TriggerEventModifierConfig &&
-            $modifierConfig->getReplaceEvent()
+        return $this->filter(fn (GameModifier $modifier) => ($modifierConfig = $modifier->getModifierConfig()) instanceof TriggerEventModifierConfig
+            && $modifierConfig->getReplaceEvent()
         );
     }
 

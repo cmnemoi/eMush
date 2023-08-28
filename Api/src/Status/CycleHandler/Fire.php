@@ -66,8 +66,8 @@ class Fire extends AbstractStatusCycleHandler
         foreach ($room->getDoors() as $door) {
             $adjacentRoom = $door->getOtherRoom($room);
 
-            if (!$adjacentRoom->hasStatus(StatusEnum::FIRE) &&
-                $this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())
+            if (!$adjacentRoom->hasStatus(StatusEnum::FIRE)
+                && $this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())
             ) {
                 $statusEvent = new StatusEvent(
                     StatusEnum::FIRE,

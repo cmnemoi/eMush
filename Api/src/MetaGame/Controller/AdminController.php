@@ -37,9 +37,9 @@ class AdminController extends AbstractFOSRestController
     private UserServiceInterface $userService;
 
     public function __construct(DaedalusServiceInterface $daedalusService,
-                                PlaceServiceInterface $placeService,
-                                PlayerServiceInterface $playerService,
-                                UserServiceInterface $userService
+        PlaceServiceInterface $placeService,
+        PlayerServiceInterface $playerService,
+        UserServiceInterface $userService
     ) {
         $this->daedalusService = $daedalusService;
         $this->placeService = $placeService;
@@ -54,11 +54,16 @@ class AdminController extends AbstractFOSRestController
      *     name="id",
      *     in="path",
      *     description="The player to close id",
+     *
      *     @OA\Schema(type="string")
      * )
+     *
      * @OA\Tag(name="Admin")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Post(path="/close-player/{id}")
+     *
      * @Rest\View()
      */
     public function closePlayer(Request $request): View
@@ -92,11 +97,16 @@ class AdminController extends AbstractFOSRestController
      *      name="id",
      *      in="path",
      *      description="The daedalus id",
+     *
      *       @OA\Schema(type="string")
      * )
+     *
      * @OA\Tag(name="Admin")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Post(path="/add-new-rooms-to-daedalus/{id}")
+     *
      * @Rest\View()
      */
     public function addNewRoomsToDaedalus(Request $request): View

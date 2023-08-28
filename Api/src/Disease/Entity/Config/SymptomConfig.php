@@ -61,7 +61,7 @@ class SymptomConfig
         return $this;
     }
 
-    public function buildName(string $configName, ?string $details = null): self
+    public function buildName(string $configName, string $details = null): self
     {
         if ($details === null) {
             $this->name = $this->symptomName . '_ON_' . $this->getTrigger() . '_' . $configName;

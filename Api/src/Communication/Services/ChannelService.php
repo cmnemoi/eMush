@@ -124,8 +124,8 @@ class ChannelService implements ChannelServiceInterface
             /** @var Player $invitablePlayer */
             $invitablePlayer = $invitablePlayerInfo->getPlayer();
             if ($this->canPlayerCommunicate($player)) {
-                if ($this->canPlayerCommunicate($invitablePlayer) ||
-                $this->canPlayerWhisperInChannel($channel, $invitablePlayer)) {
+                if ($this->canPlayerCommunicate($invitablePlayer)
+                || $this->canPlayerWhisperInChannel($channel, $invitablePlayer)) {
                     $availablePlayers->add($invitablePlayer);
                 }
             } elseif ($this->canPlayerWhisper($player, $invitablePlayer)) {
@@ -179,10 +179,10 @@ class ChannelService implements ChannelServiceInterface
 
     public function canPlayerCommunicate(Player $player): bool
     {
-        if ($player->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) ||
-            $player->hasOperationalEquipmentByName(ItemEnum::WALKIE_TALKIE) ||
-            $player->hasStatus(PlayerStatusEnum::BRAINSYNC) ||
-            $player->getPlace()->hasOperationalEquipmentByName(EquipmentEnum::COMMUNICATION_CENTER)
+        if ($player->hasOperationalEquipmentByName(ItemEnum::ITRACKIE)
+            || $player->hasOperationalEquipmentByName(ItemEnum::WALKIE_TALKIE)
+            || $player->hasStatus(PlayerStatusEnum::BRAINSYNC)
+            || $player->getPlace()->hasOperationalEquipmentByName(EquipmentEnum::COMMUNICATION_CENTER)
         ) {
             return true;
         }
@@ -224,9 +224,9 @@ class ChannelService implements ChannelServiceInterface
 
             if (!($participant instanceof Player)) {
                 return false;
-            } elseif ($participant !== $player &&
-                $this->canPlayerCommunicate($participant) &&
-                $this->canPlayerWhisper($player, $participant)
+            } elseif ($participant !== $player
+                && $this->canPlayerCommunicate($participant)
+                && $this->canPlayerWhisper($player, $participant)
             ) {
                 return true;
             }
@@ -259,9 +259,9 @@ class ChannelService implements ChannelServiceInterface
             }
 
             if (
-                !$this->canPlayerCommunicate($participant) &&
-                !$this->canPlayerWhisperInChannel($channel, $participant) &&
-                !$pirateAccess
+                !$this->canPlayerCommunicate($participant)
+                && !$this->canPlayerWhisperInChannel($channel, $participant)
+                && !$pirateAccess
             ) {
                 $this->exitChannel($participant, $channel, $time, $reason);
             }
@@ -273,8 +273,8 @@ class ChannelService implements ChannelServiceInterface
         $channels = $this->channelRepository->findByPlayer($player->getPlayerInfo(), $privateOnly);
 
         if ($player->isAlive() && !$this->canPlayerCommunicate($player) && !$privateOnly) {
-            return $channels->filter(fn (Channel $channel) => $channel->isScope(ChannelScopeEnum::PRIVATE) ||
-                $channel->isScope(ChannelScopeEnum::MUSH)
+            return $channels->filter(fn (Channel $channel) => $channel->isScope(ChannelScopeEnum::PRIVATE)
+                || $channel->isScope(ChannelScopeEnum::MUSH)
             );
         }
 
@@ -299,8 +299,8 @@ class ChannelService implements ChannelServiceInterface
     {
         $channels = $this->channelRepository->findByPlayer($piratedPlayer->getPlayerInfo());
 
-        return $channels->filter(fn (Channel $channel) => !$this->isChannelWhisperOnly($channel) &&
-            !$channel->isScope(ChannelScopeEnum::MUSH)
+        return $channels->filter(fn (Channel $channel) => !$this->isChannelWhisperOnly($channel)
+            && !$channel->isScope(ChannelScopeEnum::MUSH)
         );
     }
 

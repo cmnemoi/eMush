@@ -43,8 +43,11 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
+        /** @var ArrayCollection $actions */
         $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
+        /** @var ArrayCollection $plantActions */
         $plantActions = new ArrayCollection([$treatAction, $waterAction]);
+        /** @var ArrayCollection $fruitActions */
         $fruitActions = new ArrayCollection([$consumeRationAction, $transplantAction]);
 
         $bananaMechanic = new Fruit();
@@ -65,7 +68,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$bananaMechanic]))
+            ->setMechanics([$bananaMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -90,7 +93,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$bananaTreeMechanic]))
+            ->setMechanics([$bananaTreeMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -132,7 +135,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
-                ->setMechanics(new ArrayCollection([$alienFruitMechanic]))
+                ->setMechanics([$alienFruitMechanic])
                 ->setActions($actions)
                 ->buildName(GameConfigEnum::DEFAULT)
             ;
@@ -153,7 +156,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
                 ->setIsStackable(false)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
-                ->setMechanics(new ArrayCollection([$alienPlantMechanic]))
+                ->setMechanics([$alienPlantMechanic])
                 ->setActions($actions)
                 ->buildName(GameConfigEnum::DEFAULT)
             ;
@@ -180,7 +183,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$junkinMechanic]))
+            ->setMechanics([$junkinMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -203,7 +206,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$bumpjunkinMechanic]))
+            ->setMechanics([$bumpjunkinMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;

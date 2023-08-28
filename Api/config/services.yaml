@@ -6,6 +6,7 @@
 parameters:
 
 imports:
+    - { resource: ../src/Logger/config/services.yaml }
     - { resource: ./api_platform/api_filters.yaml }
     - { resource: ../src/Daedalus/config/services.yaml }
     - { resource: ../src/Game/config/services.yaml }
@@ -21,9 +22,7 @@ imports:
     - { resource: ../src/Alert/config/services.yaml }
     - { resource: ../src/Modifier/config/services.yaml }
     - { resource: ../src/MetaGame/config/services.yaml }
-    - { resource: ../src/Logger/config/services.yaml }
     - { resource: ../src/Hunter/config/services.yaml }
-
 
 services:
     # default configuration for services in *this* file

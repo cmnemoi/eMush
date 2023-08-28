@@ -3,7 +3,6 @@
 namespace Mush\Disease\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
@@ -58,7 +57,7 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
         $junkinDiseasesConfig = new ConsumableDiseaseConfig();
         $junkinDiseasesConfig
             ->setCauseName(GameFruitEnum::JUNKIN)
-            ->setAttributes(new ArrayCollection([$junkbumpkinitis]))
+            ->setAttributes([$junkbumpkinitis])
             ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
         ;
         $junkbumpkinitis->setConsumableDiseaseConfig($junkinDiseasesConfig);
@@ -85,7 +84,7 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
         $alienSteak = new ConsumableDiseaseConfig();
         $alienSteak
             ->setCauseName(GameRationEnum::ALIEN_STEAK)
-            ->setAttributes(new ArrayCollection([$acidReflux, $tapeworm]))
+            ->setAttributes([$acidReflux, $tapeworm])
             ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
         ;
         $acidReflux->setConsumableDiseaseConfig($alienSteak);
@@ -103,7 +102,7 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
         $vitaminBar = new ConsumableDiseaseConfig();
         $vitaminBar
             ->setCauseName(GameRationEnum::SUPERVITAMIN_BAR)
-            ->setAttributes(new ArrayCollection([$nausea]))
+            ->setAttributes([$nausea])
             ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
         ;
 

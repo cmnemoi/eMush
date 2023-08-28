@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class ChargeStatus extends Status
 {
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $charge = 0;
+    private int $charge;
 
     public function __construct(StatusHolderInterface $statusHolder, ChargeStatusConfig $statusConfig)
     {

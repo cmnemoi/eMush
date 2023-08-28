@@ -98,8 +98,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $equipment = $event->getGameEquipment();
         $holder = $equipment->getHolder();
 
-        if ($holder instanceof Player &&
-            $holder->getEquipments()->count() > $holder->getPlayerInfo()->getCharacterConfig()->getMaxItemInInventory()
+        if ($holder instanceof Player
+            && $holder->getEquipments()->count() > $holder->getPlayerInfo()->getCharacterConfig()->getMaxItemInInventory()
         ) {
             $equipmentEvent = new InteractWithEquipmentEvent(
                 $equipment,

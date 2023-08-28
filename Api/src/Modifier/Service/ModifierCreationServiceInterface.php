@@ -20,7 +20,7 @@ interface ModifierCreationServiceInterface
         array $tags,
         \DateTime $time,
         ?Player $player,
-        ?ChargeStatus $chargeStatus = null
+        ChargeStatus $chargeStatus = null
     ): void;
 
     public function deleteModifier(

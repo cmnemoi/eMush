@@ -181,8 +181,8 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             return;
         }
 
-        if ($gameEquipment->getEquipment()->isFireDestroyable() &&
-            $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
+        if ($gameEquipment->getEquipment()->isFireDestroyable()
+            && $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $equipmentEvent = new EquipmentEvent(
                 $gameEquipment,
@@ -194,9 +194,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 
-        if ($gameEquipment->getEquipment()->isFireBreakable() &&
-            !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
-            $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
+        if ($gameEquipment->getEquipment()->isFireBreakable()
+            && !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)
+            && $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::BROKEN,

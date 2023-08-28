@@ -132,8 +132,8 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         }
 
         $charges = $statusHolder->getStatuses()->filter(function (Status $status) use ($modifierName) {
-            return $status instanceof ChargeStatus &&
-                $status->hasDischargeStrategy($modifierName);
+            return $status instanceof ChargeStatus
+                && $status->hasDischargeStrategy($modifierName);
         });
 
         if ($charges->count() > 0) {

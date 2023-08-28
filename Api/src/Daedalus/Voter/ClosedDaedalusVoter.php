@@ -6,6 +6,12 @@ use Mush\Daedalus\Entity\ClosedDaedalus;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+/**
+ * @template TAttribute of string
+ * @template TSubject of mixed
+ *
+ * @template-extends Voter<TAttribute, TSubject>
+ */
 class ClosedDaedalusVoter extends Voter
 {
     public const DAEDALUS_IS_FINISHED = 'DAEDALUS_IS_FINISHED';

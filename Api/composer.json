@@ -9,7 +9,7 @@
         "ext-openssl": "*",
         "api-platform/core": "^2.7",
         "composer/package-versions-deprecated": "^1.11",
-        "doctrine/annotations": "^1.0",
+        "doctrine/annotations": "^2.0",
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.8",
@@ -23,24 +23,24 @@
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.6",
         "sensio/framework-extra-bundle": "^6.1",
-        "symfony/asset": "6.2.*",
-        "symfony/console": "6.2.*",
-        "symfony/dotenv": "6.2.*",
-        "symfony/expression-language": "6.2.*",
+        "symfony/asset": "6.3.*",
+        "symfony/console": "6.3.*",
+        "symfony/dotenv": "6.3.*",
+        "symfony/expression-language": "6.3.*",
         "symfony/flex": "^2.2",
-        "symfony/framework-bundle": "6.2.*",
-        "symfony/http-client": "6.2.*",
+        "symfony/framework-bundle": "6.3.*",
+        "symfony/http-client": "6.3.*",
         "symfony/monolog-bundle": "^3.6",
-        "symfony/property-access": "6.2.*",
-        "symfony/property-info": "6.2.*",
-        "symfony/proxy-manager-bridge": "6.2.*",
-        "symfony/security-bundle": "6.2.*",
-        "symfony/serializer": "6.2.*",
-        "symfony/translation": "6.2.*",
-        "symfony/twig-bundle": "6.2.*",
-        "symfony/uid": "6.2.*",
-        "symfony/validator": "6.2.*",
-        "symfony/yaml": "6.2.*",
+        "symfony/property-access": "6.3.*",
+        "symfony/property-info": "6.3.*",
+        "symfony/proxy-manager-bridge": "6.3.*",
+        "symfony/security-bundle": "6.3.*",
+        "symfony/serializer": "6.3.*",
+        "symfony/translation": "6.3.*",
+        "symfony/twig-bundle": "6.3.*",
+        "symfony/uid": "6.3.*",
+        "symfony/validator": "6.3.*",
+        "symfony/yaml": "6.3.*",
         "twig/extra-bundle": "^3.3",
         "twig/twig": "^3.3"
     },
@@ -109,7 +109,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "6.2.*"
+            "require": "6.3.*"
         }
     }
 }

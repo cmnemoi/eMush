@@ -27,8 +27,8 @@ class CookableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($parameter, GameEquipment::class);
         }
 
-        if ($parameter->getEquipment()->getEquipmentName() !== GameRationEnum::STANDARD_RATION &&
-            !$parameter->hasStatus(EquipmentStatusEnum::FROZEN)
+        if ($parameter->getEquipment()->getEquipmentName() !== GameRationEnum::STANDARD_RATION
+            && !$parameter->hasStatus(EquipmentStatusEnum::FROZEN)
         ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();

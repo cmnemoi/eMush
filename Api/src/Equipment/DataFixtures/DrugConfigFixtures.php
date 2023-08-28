@@ -3,7 +3,6 @@
 namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
@@ -32,7 +31,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
+        $actions = [$takeAction, $dropAction, $hideAction, $examineAction];
 
         $drugMechanic = new Drug();
         //  possibilities are stored as key, array value represent the probability to get the key value
@@ -51,7 +50,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
-                ->setMechanics(new ArrayCollection([$drugMechanic]))
+                ->setMechanics([$drugMechanic])
                 ->setActions($actions)
                 ->buildName(GameConfigEnum::DEFAULT)
             ;

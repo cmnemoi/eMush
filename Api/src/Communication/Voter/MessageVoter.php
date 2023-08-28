@@ -12,6 +12,12 @@ use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+/**
+ * @template TAttribute of string
+ * @template TSubject of mixed
+ *
+ * @template-extends Voter<TAttribute, TSubject>
+ */
 class MessageVoter extends Voter
 {
     public const VIEW = 'view';
@@ -74,8 +80,8 @@ class MessageVoter extends Voter
         // check for pirated channels
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
-        return $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
-            ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()));
+        return $channel->isPublic() || $channel->isPlayerParticipant($playerInfo)
+            || ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()));
     }
 
     private function canCreate(Channel $channel, PlayerInfo $playerInfo): bool
@@ -86,10 +92,10 @@ class MessageVoter extends Voter
         // check for pirated channels
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
-        return $this->channelService->canPlayerCommunicate($player) && $playerInfo->isAlive() &&
-            ($channel->isPublic() ||
-                $channel->isPlayerParticipant($playerInfo) ||
-                ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
+        return $this->channelService->canPlayerCommunicate($player) && $playerInfo->isAlive()
+            && ($channel->isPublic()
+                || $channel->isPlayerParticipant($playerInfo)
+                || ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
             );
     }
 }

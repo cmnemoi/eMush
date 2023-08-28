@@ -111,7 +111,7 @@ class BuildActionCest
         return $gameEquipment;
     }
 
-    private function createBlueprint(array $ingredients, Action $buildAction, ?EquipmentConfig $product = null): Blueprint
+    private function createBlueprint(array $ingredients, Action $buildAction, EquipmentConfig $product = null): Blueprint
     {
         if ($product === null) {
             $product = new ItemConfig();

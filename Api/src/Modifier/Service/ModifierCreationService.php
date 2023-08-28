@@ -49,7 +49,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         array $tags,
         \DateTime $time,
         ?Player $player,
-        ?ChargeStatus $chargeStatus = null
+        ChargeStatus $chargeStatus = null
     ): void {
         if ($modifierConfig instanceof EventModifierConfig) {
             $this->createGameEventModifier($modifierConfig, $holder, $chargeStatus);
@@ -61,7 +61,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
     private function createGameEventModifier(
         EventModifierConfig $modifierConfig,
         ModifierHolder $holder,
-        ?ChargeStatus $chargeStatus = null
+        ChargeStatus $chargeStatus = null
     ): void {
         $modifier = new GameModifier($holder, $modifierConfig);
 

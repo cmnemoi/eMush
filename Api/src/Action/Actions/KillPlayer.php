@@ -38,7 +38,7 @@ class KillPlayer extends AbstractAction
         ValidatorInterface $validationService,
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
-        ) {
+    ) {
         parent::__construct($eventService, $actionService, $validationService);
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;

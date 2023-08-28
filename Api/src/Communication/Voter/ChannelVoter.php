@@ -11,7 +11,12 @@ use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class ChannelVoter extends Voter
+/**
+ * @template TAttribute of string
+ * @template TSubject of mixed
+ *
+ * @template-extends Voter<TAttribute, TSubject>
+ */ class ChannelVoter extends Voter
 {
     public const VIEW = 'view';
 
@@ -71,7 +76,7 @@ class ChannelVoter extends Voter
         // check for pirated channels
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
-        return $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
-            ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()));
+        return $channel->isPublic() || $channel->isPlayerParticipant($playerInfo)
+            || ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()));
     }
 }

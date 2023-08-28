@@ -31,7 +31,7 @@ class GameVariable
         ?GameVariableCollection $variableCollection,
         string $name,
         int $initValue,
-        ?int $maxValue = null,
+        int $maxValue = null,
         ?int $minValue = 0
     ) {
         $this->name = $name;

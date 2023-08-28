@@ -51,8 +51,8 @@ class ChargedValidator extends ConstraintValidator
     private function getChargeStatus(string $actionName, StatusHolderInterface $holder): ?ChargeStatus
     {
         $charges = $holder->getStatuses()->filter(function (Status $status) use ($actionName) {
-            return $status instanceof ChargeStatus &&
-                $status->hasDischargeStrategy($actionName);
+            return $status instanceof ChargeStatus
+                && $status->hasDischargeStrategy($actionName);
         });
 
         if ($charges->count() > 0) {

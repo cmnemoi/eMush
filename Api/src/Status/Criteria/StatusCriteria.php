@@ -8,7 +8,7 @@ class StatusCriteria
 {
     private Daedalus $daedalus;
 
-    private $name = null;
+    private $name;
 
     public function __construct(Daedalus $daedalus)
     {

@@ -76,10 +76,10 @@ class EventServiceTest extends TestCase
 
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent->getTags() === $event->getTags() &&
-                $dispatchedEvent->getEventName() === 'eventName' &&
-                $eventName === 'eventName' &&
-                $dispatchedEvent->getTime() === $event->getTime()
+                $dispatchedEvent->getTags() === $event->getTags()
+                && $dispatchedEvent->getEventName() === 'eventName'
+                && $eventName === 'eventName'
+                && $dispatchedEvent->getTime() === $event->getTime()
             ))
             ->once()
         ;
@@ -133,10 +133,10 @@ class EventServiceTest extends TestCase
 
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent->getTags() === $event->getTags() &&
-                $dispatchedEvent->getEventName() === 'eventName' &&
-                $eventName === 'eventName' &&
-                $dispatchedEvent->getTime() === $event->getTime()
+                $dispatchedEvent->getTags() === $event->getTags()
+                && $dispatchedEvent->getEventName() === 'eventName'
+                && $eventName === 'eventName'
+                && $dispatchedEvent->getTime() === $event->getTime()
             ))
             ->once()
         ;
@@ -196,32 +196,32 @@ class EventServiceTest extends TestCase
         // dispatch the triggered event
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent instanceof PlayerCycleEvent &&
-                $dispatchedEvent->getTags() === $triggeredEvent->getTags() &&
-                $dispatchedEvent->getEventName() === VariableEventInterface::CHANGE_VARIABLE &&
-                $eventName === VariableEventInterface::CHANGE_VARIABLE &&
-                $dispatchedEvent->getTime() === $time
+                $dispatchedEvent instanceof PlayerCycleEvent
+                && $dispatchedEvent->getTags() === $triggeredEvent->getTags()
+                && $dispatchedEvent->getEventName() === VariableEventInterface::CHANGE_VARIABLE
+                && $eventName === VariableEventInterface::CHANGE_VARIABLE
+                && $dispatchedEvent->getTime() === $time
             ))
             ->once()
         ;
         // dispatch the modifier Application
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent instanceof ModifierEvent &&
-                $dispatchedEvent->getTags() === ['test', 'modifierName'] &&
-                $dispatchedEvent->getEventName() === ModifierEvent::APPLY_MODIFIER &&
-                $eventName === ModifierEvent::APPLY_MODIFIER &&
-                $dispatchedEvent->getTime() === $time
+                $dispatchedEvent instanceof ModifierEvent
+                && $dispatchedEvent->getTags() === ['test', 'modifierName']
+                && $dispatchedEvent->getEventName() === ModifierEvent::APPLY_MODIFIER
+                && $eventName === ModifierEvent::APPLY_MODIFIER
+                && $dispatchedEvent->getTime() === $time
             ))
             ->once()
         ;
         // dispatch the event
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent->getTags() === $event->getTags() &&
-                $dispatchedEvent->getEventName() === 'eventName' &&
-                $eventName === 'eventName' &&
-                $dispatchedEvent->getTime() === $event->getTime()
+                $dispatchedEvent->getTags() === $event->getTags()
+                && $dispatchedEvent->getEventName() === 'eventName'
+                && $eventName === 'eventName'
+                && $dispatchedEvent->getTime() === $event->getTime()
             ))
             ->once()
         ;
@@ -307,11 +307,11 @@ class EventServiceTest extends TestCase
         ;
         $this->eventModifierService->shouldReceive('applyVariableModifiers')
             ->withArgs(fn (ModifierCollection $modifiers, AbstractGameEvent $functionEvent) => (
-                $modifiers->count() === 1 && $modifiers->first() === $modifier &&
-                $functionEvent instanceof DaedalusVariableEvent &&
-                $functionEvent->getEventName() === 'eventName' &&
-                $functionEvent->getTime() === $time &&
-                $functionEvent->getQuantity() === $event->getQuantity()
+                $modifiers->count() === 1 && $modifiers->first() === $modifier
+                && $functionEvent instanceof DaedalusVariableEvent
+                && $functionEvent->getEventName() === 'eventName'
+                && $functionEvent->getTime() === $time
+                && $functionEvent->getQuantity() === $event->getQuantity()
             ))
             ->andReturn($modifiedEvent)
             ->once()
@@ -320,11 +320,11 @@ class EventServiceTest extends TestCase
         // dispatch the modifier Application
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent instanceof ModifierEvent &&
-                $dispatchedEvent->getTags() === ['test', 'modifierName'] &&
-                $dispatchedEvent->getEventName() === ModifierEvent::APPLY_MODIFIER &&
-                $eventName === ModifierEvent::APPLY_MODIFIER &&
-                $dispatchedEvent->getTime() === $time
+                $dispatchedEvent instanceof ModifierEvent
+                && $dispatchedEvent->getTags() === ['test', 'modifierName']
+                && $dispatchedEvent->getEventName() === ModifierEvent::APPLY_MODIFIER
+                && $eventName === ModifierEvent::APPLY_MODIFIER
+                && $dispatchedEvent->getTime() === $time
             ))
             ->once()
         ;
@@ -336,12 +336,12 @@ class EventServiceTest extends TestCase
         // dispatch the event
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent instanceof DaedalusVariableEvent &&
-                $dispatchedEvent->getTags() === $modifiedEvent->getTags() &&
-                $dispatchedEvent->getEventName() === 'eventName' &&
-                $eventName === 'eventName' &&
-                $dispatchedEvent->getTime() === $modifiedEvent->getTime() &&
-                $dispatchedEvent->getQuantity() === $modifiedEvent->getQuantity()
+                $dispatchedEvent instanceof DaedalusVariableEvent
+                && $dispatchedEvent->getTags() === $modifiedEvent->getTags()
+                && $dispatchedEvent->getEventName() === 'eventName'
+                && $eventName === 'eventName'
+                && $dispatchedEvent->getTime() === $modifiedEvent->getTime()
+                && $dispatchedEvent->getQuantity() === $modifiedEvent->getQuantity()
             ))
             ->once()
         ;
@@ -380,11 +380,11 @@ class EventServiceTest extends TestCase
         ;
         $this->eventModifierService->shouldReceive('applyVariableModifiers')
             ->withArgs(fn (ModifierCollection $modifiers, AbstractGameEvent $functionEvent) => (
-                $modifiers->count() === 1 && $modifiers->first() === $modifier &&
-                $functionEvent instanceof DaedalusVariableEvent &&
-                $functionEvent->getEventName() === 'eventName' &&
-                $functionEvent->getTime() === $time &&
-                $functionEvent->getQuantity() === $event->getQuantity()
+                $modifiers->count() === 1 && $modifiers->first() === $modifier
+                && $functionEvent instanceof DaedalusVariableEvent
+                && $functionEvent->getEventName() === 'eventName'
+                && $functionEvent->getTime() === $time
+                && $functionEvent->getQuantity() === $event->getQuantity()
             ))
             ->andReturn($modifiedEvent)
             ->once()
@@ -485,11 +485,11 @@ class EventServiceTest extends TestCase
         // dispatch the modifier Application
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent instanceof ModifierEvent &&
-                $dispatchedEvent->getTags() === ['test', 'modifierName'] &&
-                $dispatchedEvent->getEventName() === ModifierEvent::APPLY_MODIFIER &&
-                $eventName === ModifierEvent::APPLY_MODIFIER &&
-                $dispatchedEvent->getTime() === $time
+                $dispatchedEvent instanceof ModifierEvent
+                && $dispatchedEvent->getTags() === ['test', 'modifierName']
+                && $dispatchedEvent->getEventName() === ModifierEvent::APPLY_MODIFIER
+                && $eventName === ModifierEvent::APPLY_MODIFIER
+                && $dispatchedEvent->getTime() === $time
             ))
             ->once()
         ;
@@ -501,11 +501,11 @@ class EventServiceTest extends TestCase
         // dispatch the event
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent instanceof DaedalusVariableEvent &&
-                $dispatchedEvent->getEventName() === 'eventName' &&
-                $eventName === 'eventName' &&
-                $dispatchedEvent->getTime() === $time &&
-                $dispatchedEvent->getQuantity() === $event->getQuantity()
+                $dispatchedEvent instanceof DaedalusVariableEvent
+                && $dispatchedEvent->getEventName() === 'eventName'
+                && $eventName === 'eventName'
+                && $dispatchedEvent->getTime() === $time
+                && $dispatchedEvent->getQuantity() === $event->getQuantity()
             ))
             ->once()
         ;
@@ -542,11 +542,11 @@ class EventServiceTest extends TestCase
         // dispatch the modifier Application
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent instanceof ModifierEvent &&
-                $dispatchedEvent->getTags() === ['test', 'modifierName'] &&
-                $dispatchedEvent->getEventName() === ModifierEvent::APPLY_MODIFIER &&
-                $eventName === ModifierEvent::APPLY_MODIFIER &&
-                $dispatchedEvent->getTime() === $time
+                $dispatchedEvent instanceof ModifierEvent
+                && $dispatchedEvent->getTags() === ['test', 'modifierName']
+                && $dispatchedEvent->getEventName() === ModifierEvent::APPLY_MODIFIER
+                && $eventName === ModifierEvent::APPLY_MODIFIER
+                && $dispatchedEvent->getTime() === $time
             ))
             ->once()
         ;
@@ -604,10 +604,10 @@ class EventServiceTest extends TestCase
         // dispatch the modifier Application
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent instanceof ModifierEvent &&
-                $dispatchedEvent->getEventName() === ModifierEvent::APPLY_MODIFIER &&
-                $eventName === ModifierEvent::APPLY_MODIFIER &&
-                $dispatchedEvent->getTime() === $time
+                $dispatchedEvent instanceof ModifierEvent
+                && $dispatchedEvent->getEventName() === ModifierEvent::APPLY_MODIFIER
+                && $eventName === ModifierEvent::APPLY_MODIFIER
+                && $dispatchedEvent->getTime() === $time
             ))
             ->once()
         ;
@@ -619,11 +619,11 @@ class EventServiceTest extends TestCase
         // dispatch the triggered event
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent instanceof PlayerCycleEvent &&
-                $dispatchedEvent->getTags() === $triggeredEvent->getTags() &&
-                $dispatchedEvent->getEventName() === VariableEventInterface::CHANGE_VARIABLE &&
-                $eventName === VariableEventInterface::CHANGE_VARIABLE &&
-                $dispatchedEvent->getTime() === $time
+                $dispatchedEvent instanceof PlayerCycleEvent
+                && $dispatchedEvent->getTags() === $triggeredEvent->getTags()
+                && $dispatchedEvent->getEventName() === VariableEventInterface::CHANGE_VARIABLE
+                && $eventName === VariableEventInterface::CHANGE_VARIABLE
+                && $dispatchedEvent->getTime() === $time
             ))
             ->once()
         ;

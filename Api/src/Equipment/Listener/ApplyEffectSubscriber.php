@@ -107,8 +107,8 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
-        if (($delta = $consumableEffect->getMoralPoint()) !== null &&
-            !($isFrozen && $delta > 0)) {
+        if (($delta = $consumableEffect->getMoralPoint()) !== null
+            && !($isFrozen && $delta > 0)) {
             $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::MORAL_POINT,

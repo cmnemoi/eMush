@@ -232,7 +232,7 @@ class IsReportedValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    protected function initValidator(?string $expectedMessage = null)
+    protected function initValidator(string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);

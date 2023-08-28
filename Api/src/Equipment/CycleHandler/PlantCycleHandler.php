@@ -63,8 +63,8 @@ class PlantCycleHandler extends AbstractCycleHandler
 
         /** @var ChargeStatus $youngStatus */
         $youngStatus = $object->getStatusByName(EquipmentStatusEnum::PLANT_YOUNG);
-        if ($youngStatus &&
-            $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
+        if ($youngStatus
+            && $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
         ) {
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::PLANT_YOUNG,
@@ -79,8 +79,8 @@ class PlantCycleHandler extends AbstractCycleHandler
 
         $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();
 
-        if ($this->randomService->isSuccessful($diseaseRate) &&
-            !$object->hasStatus(EquipmentStatusEnum::PLANT_DISEASED)
+        if ($this->randomService->isSuccessful($diseaseRate)
+            && !$object->hasStatus(EquipmentStatusEnum::PLANT_DISEASED)
         ) {
             $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_DISEASED, $object, [EventEnum::NEW_CYCLE], new \DateTime());
 
@@ -138,10 +138,10 @@ class PlantCycleHandler extends AbstractCycleHandler
             $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_DRY, $gamePlant, [EventEnum::NEW_CYCLE], new \DateTime());
 
             $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
-        // If plant was dried, become hydropot
+            // If plant was dried, become hydropot
         } elseif ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRY) !== null) {
             $this->handleDriedPlant($gamePlant, $dateTime);
-        // If plant was not thirsty or dried become thirsty
+            // If plant was not thirsty or dried become thirsty
         } else {
             $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant, [EventEnum::NEW_CYCLE], new \DateTime());
 

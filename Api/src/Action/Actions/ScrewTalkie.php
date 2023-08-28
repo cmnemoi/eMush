@@ -79,8 +79,8 @@ class ScrewTalkie extends AbstractAction
         $parameter = $this->parameter;
 
         /** @var GameItem $talkie */
-        $talkie = $parameter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::WALKIE_TALKIE ||
-            $item->getName() === ItemEnum::ITRACKIE
+        $talkie = $parameter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::WALKIE_TALKIE
+            || $item->getName() === ItemEnum::ITRACKIE
         )->first();
 
         if (!$talkie->isBroken()) {

@@ -35,10 +35,10 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
 
     public function handleSpoiledFood(Player $player, GameEquipment $gameEquipment): void
     {
-        if (($gameEquipment->hasStatus(EquipmentStatusEnum::HAZARDOUS) &&
-                $this->randomService->isSuccessful(self::HAZARDOUS_RATE))
-            || ($gameEquipment->hasStatus(EquipmentStatusEnum::DECOMPOSING) &&
-                $this->randomService->isSuccessful(self::DECOMPOSING_RATE))
+        if (($gameEquipment->hasStatus(EquipmentStatusEnum::HAZARDOUS)
+                && $this->randomService->isSuccessful(self::HAZARDOUS_RATE))
+            || ($gameEquipment->hasStatus(EquipmentStatusEnum::DECOMPOSING)
+                && $this->randomService->isSuccessful(self::DECOMPOSING_RATE))
         ) {
             $this->handleDiseaseForCause(DiseaseCauseEnum::PERISHED_FOOD, $player);
         }
@@ -64,8 +64,8 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
 
             /** @var ConsumableDiseaseAttribute $cure */
             foreach ($consumableEffect->getCures() as $cure) {
-                if (($disease = $player->getMedicalConditionByName($cure->getDisease())) !== null &&
-                    $this->randomService->isSuccessful($cure->getRate())
+                if (($disease = $player->getMedicalConditionByName($cure->getDisease())) !== null
+                    && $this->randomService->isSuccessful($cure->getRate())
                 ) {
                     $this->playerDiseaseService->removePlayerDisease($disease, [DiseaseStatusEnum::DRUG_HEALED], new \DateTime(), VisibilityEnum::PRIVATE);
                 }

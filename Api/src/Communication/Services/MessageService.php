@@ -102,9 +102,9 @@ class MessageService implements MessageServiceInterface
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool
     {
-        if ($player->hasStatus(PlayerStatusEnum::GAGGED) ||
-            $player->getMedicalConditions()->getActiveDiseases()->getAllSymptoms()->hasSymptomByName(SymptomEnum::MUTE) ||
-            !$player->isAlive()
+        if ($player->hasStatus(PlayerStatusEnum::GAGGED)
+            || $player->getMedicalConditions()->getActiveDiseases()->getAllSymptoms()->hasSymptomByName(SymptomEnum::MUTE)
+            || !$player->isAlive()
         ) {
             return false;
         }

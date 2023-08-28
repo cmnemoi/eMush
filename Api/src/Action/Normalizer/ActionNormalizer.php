@@ -157,7 +157,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         return $parameter;
     }
 
-    private function getTypesDescriptions(string $description, array $types, ?string $language = null): string
+    private function getTypesDescriptions(string $description, array $types, string $language = null): string
     {
         foreach ($types as $type) {
             if (key_exists($type, self::ACTION_TYPE_DESCRIPTION_MAP)) {

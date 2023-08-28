@@ -7,6 +7,12 @@ use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+/**
+ * @template TAttribute of string
+ * @template TSubject of mixed
+ *
+ * @template-extends Voter<TAttribute, TSubject>
+ */
 class PlayerVoter extends Voter
 {
     public const PLAYER_VIEW = 'player_view';

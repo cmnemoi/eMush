@@ -7,6 +7,12 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
+/**
+ * @template TAttribute of string
+ * @template TSubject of mixed
+ *
+ * @template-extends Voter<TAttribute, TSubject>
+ */
 class UserVoter extends Voter
 {
     public const USER_IN_GAME = 'user_in_game';
@@ -19,7 +25,7 @@ class UserVoter extends Voter
         $this->roleHierarchy = $roleHierarchy;
     }
 
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
         // if the attribute isn't one we support, return false
         if (!in_array($attribute, [self::USER_IN_GAME, self::EDIT_USER_ROLE])) {
@@ -29,7 +35,7 @@ class UserVoter extends Voter
         return true;
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 

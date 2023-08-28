@@ -63,12 +63,13 @@ class ChargeStatus extends Status
     }
 
     public function hasDischargeStrategy(string $strategy): bool
-    {
-        if ($this->getDischargeStrategies() === null) {
+    {   
+        $dischargeStrategies = $this->getDischargeStrategies();
+        if ($dischargeStrategies === null) {
             return false;
         }
 
-        return in_array($strategy, $this->getDischargeStrategies(), true);
+        return in_array($strategy, $dischargeStrategies, strict: true);
     }
 
     public function getThreshold(): ?int

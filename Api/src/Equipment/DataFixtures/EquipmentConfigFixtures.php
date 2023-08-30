@@ -357,6 +357,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
         ;
 
+        /** @var ChargeStatusConfig $pasiphaeArmor */
+        $pasiphaeArmor = $this->getReference(ChargeStatusFixtures::PASIPHAE_ARMOR);
         $pasiphae = new EquipmentConfig();
         $pasiphae
             ->setEquipmentName(EquipmentEnum::PASIPHAE)
@@ -365,7 +367,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsBreakable(true)
             ->setActions(new ArrayCollection([$repair12, $examineAction]))
             ->setMechanics([$pasiphaeMechanic])
-            ->setInitStatuses(new ArrayCollection([$this->getReference(ChargeStatusFixtures::PASIPHAE_ARMOR)]))
+            ->setInitStatuses(new ArrayCollection([$pasiphaeArmor]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($pasiphaeMechanic);

@@ -4,8 +4,6 @@ namespace Mush\Hunter\ConfigData;
 
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Game\Entity\ProbaCollection;
-use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Status\Enum\HunterStatusEnum;
@@ -69,10 +67,10 @@ class HunterConfigData
             ],
             'targetProbabilities' => [
                 HunterTargetEnum::HUNTER => 20,
-                HunterTargetEnum::MERCHANT_SHIP => 20, 
-                HunterTargetEnum::PATROL_SHIP => 15, 
-                HunterTargetEnum::PLAYER => 5, 
-            ]
+                HunterTargetEnum::MERCHANT_SHIP => 20,
+                HunterTargetEnum::PATROL_SHIP => 15,
+                HunterTargetEnum::PLAYER => 5,
+            ],
         ],
         [
             'name' => HunterEnum::HUNTER . '_default',
@@ -101,10 +99,10 @@ class HunterConfigData
             ],
             'targetProbabilities' => [
                 HunterTargetEnum::HUNTER => 20,
-                HunterTargetEnum::MERCHANT_SHIP => 20, 
-                HunterTargetEnum::PATROL_SHIP => 15, 
-                HunterTargetEnum::PLAYER => 5, 
-            ]
+                HunterTargetEnum::MERCHANT_SHIP => 20,
+                HunterTargetEnum::PATROL_SHIP => 15,
+                HunterTargetEnum::PLAYER => 5,
+            ],
         ],
         [
             'name' => HunterEnum::SPIDER . '_default',
@@ -133,9 +131,9 @@ class HunterConfigData
             ],
             'targetProbabilities' => [
                 HunterTargetEnum::HUNTER => 20,
-                HunterTargetEnum::MERCHANT_SHIP => 20, 
-                HunterTargetEnum::PATROL_SHIP => 15, 
-                HunterTargetEnum::PLAYER => 5, 
+                HunterTargetEnum::MERCHANT_SHIP => 20,
+                HunterTargetEnum::PATROL_SHIP => 15,
+                HunterTargetEnum::PLAYER => 5,
             ],
         ],
         [
@@ -165,10 +163,10 @@ class HunterConfigData
             ],
             'targetProbabilities' => [
                 HunterTargetEnum::HUNTER => 20,
-                HunterTargetEnum::MERCHANT_SHIP => 20, 
-                HunterTargetEnum::PATROL_SHIP => 15, 
-                HunterTargetEnum::PLAYER => 5, 
-            ]
+                HunterTargetEnum::MERCHANT_SHIP => 20,
+                HunterTargetEnum::PATROL_SHIP => 15,
+                HunterTargetEnum::PLAYER => 5,
+            ],
         ],
     ];
 }

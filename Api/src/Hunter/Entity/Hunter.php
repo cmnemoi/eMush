@@ -9,7 +9,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableCollection;
 use Mush\Game\Entity\GameVariableHolderInterface;
-use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -49,8 +48,8 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
     #[ORM\OneToMany(mappedBy: 'hunter', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
 
-    #[ORM\Column(type: 'string')]
-    private string $target = HunterTargetEnum::DAEDALUS;
+    #[ORM\OneToOne(targetEntity: HunterTarget::class, cascade: ['ALL'], orphanRemoval: true)]
+    private HunterTarget $target;
 
     #[ORM\Column(type: 'boolean')]
     private bool $inPool = false;
@@ -61,6 +60,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
         $this->hunterConfig = $hunterConfig;
         $this->modifiers = new ArrayCollection();
         $this->statuses = new ArrayCollection();
+        $this->target = new HunterTarget();
     }
 
     public function getId(): int
@@ -92,12 +92,12 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
         return $this;
     }
 
-    public function getTarget(): string
+    public function getTarget(): HunterTarget
     {
         return $this->target;
     }
 
-    public function setTarget(string $target): self
+    public function setTarget(HunterTarget $target): self
     {
         $this->target = $target;
 

@@ -225,9 +225,21 @@ class HunterServiceCest extends AbstractFunctionalTest
             $hunterTarget = new HunterTarget($hunter);
             switch ($targetType) {
                 case HunterTargetEnum::DAEDALUS:
+                    $hunter->getHunterConfig()->setTargetProbabilities([
+                        HunterTargetEnum::HUNTER => 0,
+                        HunterTargetEnum::MERCHANT_SHIP => 0,
+                        HunterTargetEnum::PATROL_SHIP => 0,
+                        HunterTargetEnum::PLAYER => 0,
+                    ]);
                     $hunterTarget->setTargetEntity($this->daedalus);
                     break;
                 case HunterTargetEnum::PATROL_SHIP:
+                    $hunter->getHunterConfig()->setTargetProbabilities([
+                        HunterTargetEnum::HUNTER => 0,
+                        HunterTargetEnum::MERCHANT_SHIP => 0,
+                        HunterTargetEnum::PATROL_SHIP => 100,
+                        HunterTargetEnum::PLAYER => 0,
+                    ]);
                     $hunterTarget->setTargetEntity($this->pasiphae);
                     break;
                 default:

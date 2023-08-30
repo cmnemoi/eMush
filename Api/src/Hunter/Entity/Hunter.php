@@ -60,7 +60,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
         $this->hunterConfig = $hunterConfig;
         $this->modifiers = new ArrayCollection();
         $this->statuses = new ArrayCollection();
-        $this->target = new HunterTarget();
+        $this->target = new HunterTarget($this);
     }
 
     public function getId(): int

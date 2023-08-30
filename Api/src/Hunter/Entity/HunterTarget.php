@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Hunter\Enum\HunterTargetEnum;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 
 #[ORM\Entity]
@@ -27,14 +28,25 @@ class HunterTarget
     #[ORM\ManyToOne(targetEntity: Player::class)]
     private ?Player $player = null;
 
+    public function __construct(Hunter $hunter)
+    {
+        $this->setTargetEntity($hunter->getDaedalus());
+    }
+
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function getTargetEntity(): Daedalus|GameEquipment|Player|null
+    public function getTargetEntity(): Daedalus|GameEquipment|Player
     {
-        return $this->daedalus ?? $this->patrolShip ?? $this->player;
+        $target = $this->daedalus ?? $this->patrolShip ?? $this->player;
+
+        if ($target === null) {
+            throw new \Exception('Hunter target type should be a Daedalus, GameEquipment or Player instance, got null.');
+        }
+
+        return $target;
     }
 
     public function setTargetEntity(Daedalus|GameEquipment|Player $target): self
@@ -75,5 +87,15 @@ class HunterTarget
         }
 
         throw new \Exception('Hunter target type should be a Daedalus, GameEquipment or Player instance, got null.');
+    }
+
+    public function isInBattle(): bool
+    {
+        $targetEntity = $this->getTargetEntity();
+        if ($targetEntity instanceof Daedalus) {
+            return true;
+        }
+
+        return $targetEntity->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP;
     }
 }

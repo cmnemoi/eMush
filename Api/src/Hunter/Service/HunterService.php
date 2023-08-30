@@ -8,6 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
@@ -17,15 +18,18 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterConfig;
+use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Event\AbstractHunterEvent;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Player;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\HunterStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusService;
 use Psr\Log\LoggerInterface;
 
@@ -249,6 +253,9 @@ class HunterService implements HunterServiceInterface
         return (int) $this->randomService->getSingleRandomElementFromProbaCollection($hunterDamageRange);
     }
 
+    /**
+     * @psalm-suppress NoValue
+     */
     private function makeHunterShoot(Hunter $hunter): void
     {
         $damage = $this->getHunterDamage($hunter);
@@ -256,62 +263,86 @@ class HunterService implements HunterServiceInterface
             return;
         }
 
+        $successRate = $hunter->getHunterConfig()->getHitChance();
+        if (!$this->randomService->isSuccessful($successRate)) {
+            return;
+        }
+
+        $this->selectHunterTarget($hunter);
+        if (!$hunter->getTarget()->isInBattle()) {
+            return;
+        }
+
+        $hunterTarget = $hunter->getTarget()->getTargetEntity();
+
         // TODO: handle other targets
-        switch ($hunter->getTarget()) {
-            case HunterTargetEnum::DAEDALUS:
-                $this->shootAtDaedalus($hunter, $damage);
+        switch ($hunterTarget) {
+            case $hunterTarget instanceof Daedalus:
+                $this->shootAtDaedalus($hunterTarget, $damage);
                 break;
-            case HunterTargetEnum::PATROL_SHIP:
+            case $hunterTarget instanceof GameEquipment:
+                $this->shootAtPatrolShip($hunterTarget, $damage);
+                break;
+            case $hunterTarget instanceof Player:
                 break;
             default:
                 throw new \Exception("Unknown hunter target {$hunter->getTarget()}");
         }
+
+        // destroy asteroid if it has shot
+        if ($hunter->getName() === HunterEnum::ASTEROID) {
+            $this->killHunter($hunter);
+        }
     }
 
     private function selectHunterTarget(Hunter $hunter): void
-    {   
+    {
+        // by default, aim at Daedalus
+        $selectedTarget = new HunterTarget($hunter);
+        $hunter->setTarget($selectedTarget);
+
         $targetProbabilities = $hunter->getHunterConfig()->getTargetProbabilities();
-        
-        // @TODO if Meridon Scramber project is not completed, remove Hunter target
-        $daedalusProjects = new ArrayCollection([]);
-        if (!$daedalusProjects->contains('Meridon Scrambler')) {
-            $targetProbabilities->removeElement(HunterTargetEnum::HUNTER);
-        }
 
-        // @TODO if there is no merchant ship in battle, remove merchant ship target
-        $merchantShips = new ArrayCollection([]);
-        if ($merchantShips->isEmpty()) {
-            $targetProbabilities->removeElement(HunterTargetEnum::MERCHANT_SHIP);
-        }
-
-        //if there is no patrol ship in battle, remove patrol ship target
-        $patrolShips = RoomEnum::getPatrolShips()
+        // if there is no patrol ship in battle, remove patrol ship target from probabilities to draw
+        $patrolShips = EquipmentEnum::getPatrolShips()
             ->map(fn (string $patrolShip) => $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $hunter->getDaedalus())->first())
             ->filter(fn ($patrolShip) => $patrolShip instanceof GameEquipment)
         ;
         $patrolShipsInBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP);
-        if ($patrolShipsInBattle->isEmpty()) {
-            $targetProbabilities->removeElement(HunterTargetEnum::PATROL_SHIP);
+
+        if (!$patrolShipsInBattle->isEmpty()) {
+            $successRate = $targetProbabilities->get(HunterTargetEnum::PATROL_SHIP);
+            if ($successRate === null) {
+                throw new \LogicException('Patrol ship target probability should not be null');
+            }
+            if ($this->randomService->isSuccessful($successRate)) {
+                $draw = $this->randomService->getRandomElements($patrolShipsInBattle->toArray(), number: 1);
+                $patrolShip = reset($draw);
+                $selectedTarget->setTargetEntity($patrolShip);
+
+                return;
+            }
         }
 
-        //if there is no player in battle, remove player target
-        $playersInBattle = $patrolShipsInBattle->filter(fn (GameEquipment $patrolShip) => $patrolShip->getPlace()->getNumberOfPlayersAlive() > 0);
-        if ($playersInBattle->isEmpty()) {
-            $targetProbabilities->removeElement(HunterTargetEnum::PLAYER);
+        // if there is no player in battle, remove player target from probabilities to draw
+        $playersInBattle = $hunter->getDaedalus()->getPlayers()->getPlayerAlive()->filter(fn ($player) => $player->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP);
+        if (!$playersInBattle->isEmpty()) {
+            $successRate = $targetProbabilities->get(HunterTargetEnum::PLAYER);
+            if ($successRate === null) {
+                throw new \LogicException('Player target probability should not be null');
+            }
+            if ($this->randomService->isSuccessful($successRate)) {
+                $draw = $this->randomService->getRandomElements($playersInBattle->toArray(), number: 1);
+                $player = reset($draw);
+                $selectedTarget->setTargetEntity($player);
+            }
         }
-
-        $selectedTarget = $this->randomService->getSingleRandomElementFromProbaCollection($targetProbabilities);
-        if (!$selectedTarget) {
-            return;
-        }
-
-        $hunter->setTarget($selectedTarget);
     }
 
-    private function shootAtDaedalus(Hunter $hunter, int $damage): void
+    private function shootAtDaedalus(Daedalus $daedalus, int $damage): void
     {
         $daedalusVariableEvent = new DaedalusVariableEvent(
-            daedalus: $hunter->getDaedalus(),
+            daedalus: $daedalus,
             variableName: DaedalusVariableEnum::HULL,
             quantity: -$damage,
             tags: [AbstractHunterEvent::HUNTER_SHOT],
@@ -319,5 +350,20 @@ class HunterService implements HunterServiceInterface
         );
 
         $this->eventService->callEvent($daedalusVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function shootAtPatrolShip(GameEquipment $patrolShip, int $damage): void
+    {
+        /** @var ChargeStatus $patrolShipArmor */
+        $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+
+        $this->statusService->updateCharge(
+            chargeStatus: $patrolShipArmor,
+            delta: -$damage,
+            tags: [AbstractHunterEvent::MAKE_HUNTERS_SHOOT],
+            time: new \DateTime()
+        );
+
+        // @TODO send an event to destroy patrol ship if no armor left
     }
 }

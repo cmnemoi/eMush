@@ -86,10 +86,15 @@ class HunterService implements HunterServiceInterface
 
             $successRate = $hunter->getHunterConfig()->getHitChance();
             if (!$this->randomService->isSuccessful($successRate)) {
-                return;
+                continue;
             }
 
             $this->makeHunterShoot($hunter);
+
+            $this->selectHunterTarget($hunter);
+            if (!$hunter->getTarget()->isInBattle()) {
+                continue;
+            }
 
             // hunter gets a truce cycle after shooting
             $this->createHunterTruceCycleStatus($hunter);
@@ -263,16 +268,6 @@ class HunterService implements HunterServiceInterface
             return;
         }
 
-        $successRate = $hunter->getHunterConfig()->getHitChance();
-        if (!$this->randomService->isSuccessful($successRate)) {
-            return;
-        }
-
-        $this->selectHunterTarget($hunter);
-        if (!$hunter->getTarget()->isInBattle()) {
-            return;
-        }
-
         $hunterTarget = $hunter->getTarget()->getTargetEntity();
 
         // TODO: handle other targets
@@ -286,12 +281,7 @@ class HunterService implements HunterServiceInterface
             case $hunterTarget instanceof Player:
                 break;
             default:
-                throw new \Exception("Unknown hunter target {$hunter->getTarget()}");
-        }
-
-        // destroy asteroid if it has shot
-        if ($hunter->getName() === HunterEnum::ASTEROID) {
-            $this->killHunter($hunter);
+                throw new \Exception("Unknown hunter target {$hunter->getTarget()->getType()}");
         }
     }
 
@@ -360,7 +350,7 @@ class HunterService implements HunterServiceInterface
         $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,
             delta: -$damage,
-            tags: [AbstractHunterEvent::MAKE_HUNTERS_SHOOT],
+            tags: [AbstractHunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );
 

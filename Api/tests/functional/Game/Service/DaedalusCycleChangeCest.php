@@ -35,13 +35,14 @@ class DaedalusCycleChangeCest
 {
     private CycleServiceInterface $cycleService;
 
-    public function _before(FunctionalTester $I)
-    {
-        $this->cycleService = $I->grabService(CycleServiceInterface::class);
-    }
+    private DateTime $currentTime;
+    private Daedalus $daedalus;
+    private Player $player;
 
-    public function testChangeManyCyclesSubscriber(FunctionalTester $I)
-    {
+    public function _before(FunctionalTester $I)
+    {   
+        $this->cycleService = $I->grabService(CycleServiceInterface::class);
+
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
@@ -93,13 +94,12 @@ class DaedalusCycleChangeCest
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
-        $time = new \DateTime();
-        $lastCycle = $time->sub(new \DateInterval('PT151H')); // subtract 150 h (ie 50 cycles)
+        $this->currentTime = new \DateTime();
+        $lastCycle = $this->currentTime->sub(new \DateInterval('PT151H')); // subtract 150 h (ie 50 cycles)
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
-        $daedalus->setDaedalusVariables($daedalusConfig);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $this->daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
+        $this->daedalus->setDaedalusVariables($daedalusConfig);
+        $daedalusInfo = new DaedalusInfo($this->daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
             ->setGameStatus(GameStatusEnum::CURRENT)
@@ -114,8 +114,8 @@ class DaedalusCycleChangeCest
         $I->haveInRepository($channel);
 
         /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-        $space = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'space']);
+        $room = $I->have(Place::class, ['daedalus' => $this->daedalus]);
+        $space = $I->have(Place::class, ['daedalus' => $this->daedalus, 'name' => 'space']);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -130,26 +130,47 @@ class DaedalusCycleChangeCest
         ;
         $I->haveInRepository($characterConfig);
 
-        /** @var Player $player */
-        $player = $I->have(
+        /** @var Player $this->player */
+        $this->player = $I->have(
             Player::class, [
-                'daedalus' => $daedalus,
+                'daedalus' => $this->daedalus,
                 'place' => $room,
             ]
         );
-        $player->setPlayerVariables($characterConfig);
-        $player->setVariableValueByName(PlayerVariableEnum::SATIETY, 5000);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $this->player->setPlayerVariables($characterConfig);
+        $this->player->setVariableValueByName(PlayerVariableEnum::SATIETY, 5000);
+        $playerInfo = new PlayerInfo($this->player, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $this->cycleService->handleCycleChange($time, $daedalus);
-
-        $I->assertEquals($daedalusInfo->getGameStatus(), GameStatusEnum::CURRENT);
-        $I->assertEquals($playerInfo->getGameStatus(), GameStatusEnum::CURRENT);
-        $I->assertFalse($daedalus->isCycleChange());
-        $I->assertEquals($daedalus->getDay(), 6);
+        $this->player->setPlayerInfo($playerInfo);
+        $I->haveInRepository($this->player);
     }
+
+    public function testChangeManyCyclesSubscriber(FunctionalTester $I)
+    {
+        $this->cycleService->handleCycleChange($this->currentTime, $this->daedalus);
+
+        $I->assertEquals($this->daedalus->getDaedalusInfo()->getGameStatus(), GameStatusEnum::CURRENT);
+        $I->assertEquals($this->player->getPlayerInfo()->getGameStatus(), GameStatusEnum::CURRENT);
+        $I->assertFalse($this->daedalus->isCycleChange());
+        $I->assertEquals($this->daedalus->getDay(), 6);
+    }
+
+    public function testMultipleCycleChangeCallsTriggerItOnlyOnce(FunctionalTester $I): void
+    {
+        $time = new \DateTime();
+        $lastCycle = $time->sub(new \DateInterval('PT3H1M')); // subtract 3 h and 1 minute (ie 1 cycle)
+        $this->daedalus->setCycleStartedAt(new \DateTime());
+        $I->haveInRepository($this->daedalus);
+
+        $I->assertFalse($this->daedalus->isCycleChange());
+        for ($i = 0; $i < 10; ++$i) {
+            $this->cycleService->handleCycleChange($time, $this->daedalus);
+        }
+
+        $I->assertFalse($this->daedalus->isCycleChange());
+        $I->assertEquals($this->daedalus->getCycle(), 2);
+
+    }
+    
 }

@@ -18,14 +18,13 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Service\HunterService;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Symfony\Component\Uid\Uuid;
@@ -33,6 +32,7 @@ use Symfony\Component\Uid\Uuid;
 class HunterServiceCest extends AbstractFunctionalTest
 {
     private HunterService $hunterService;
+    private GameEquipment $pasiphae;
     private ChargeStatusConfig $pasiphaeArmorStatusConfig;
     private ChargeStatus $pasiphaeArmorStatus;
 
@@ -44,15 +44,15 @@ class HunterServiceCest extends AbstractFunctionalTest
         $pasiphaeRoom = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($pasiphaeRoom);
-        $pasiphae
+        $this->pasiphae = new GameEquipment($pasiphaeRoom);
+        $this->pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig)
         ;
-        $I->haveInRepository($pasiphae);
+        $I->haveInRepository($this->pasiphae);
 
         $this->pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $this->pasiphaeArmorStatus = new ChargeStatus($pasiphae, $this->pasiphaeArmorStatusConfig);
+        $this->pasiphaeArmorStatus = new ChargeStatus($this->pasiphae, $this->pasiphaeArmorStatusConfig);
         $I->haveInRepository($this->pasiphaeArmorStatus);
 
         $this->player2->setPlace($this->daedalus->getPlaceByName(RoomEnum::SPACE));
@@ -60,7 +60,6 @@ class HunterServiceCest extends AbstractFunctionalTest
 
         $this->daedalus->setHunterPoints(10); // spawn a single hunter
         $this->hunterService->unpoolHunters($this->daedalus, new \DateTime());
-
     }
 
     public function testUnpoolHunters(FunctionalTester $I)
@@ -128,7 +127,7 @@ class HunterServiceCest extends AbstractFunctionalTest
         $asteroid->removeStatus($truceStatus);
         $asteroid->setHealth(1);
 
-        $I->refreshEntities([$asteroid]);
+        $I->haveInRepository($asteroid);
 
         $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
 
@@ -214,15 +213,30 @@ class HunterServiceCest extends AbstractFunctionalTest
         return $daedalus;
     }
 
-    private function testMakeHuntersShootTarget(FunctionalTester $I, string $target)
-    {   
+    private function testMakeHuntersShootTarget(FunctionalTester $I, string $targetType): void
+    {
         // remove the truce status and setup target and accuracy
         $hunters = $this->daedalus->getAttackingHunters();
         /** @var Hunter $hunter */
         foreach ($hunters as $hunter) {
             $status = $hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
             $hunter->removeStatus($status);
-            $hunter->setTarget($target);
+
+            $hunterTarget = new HunterTarget($hunter);
+            switch ($targetType) {
+                case HunterTargetEnum::DAEDALUS:
+                    $hunterTarget->setTargetEntity($this->daedalus);
+                    break;
+                case HunterTargetEnum::PATROL_SHIP:
+                    $hunterTarget->setTargetEntity($this->pasiphae);
+                    break;
+                default:
+                    throw new \Exception('Unknown target type: ' . $targetType);
+            }
+
+            $I->haveInRepository($hunterTarget);
+
+            $hunter->setTarget($hunterTarget);
             $hunter->getHunterConfig()->setHitChance(100);
 
             $I->haveInRepository($hunter);

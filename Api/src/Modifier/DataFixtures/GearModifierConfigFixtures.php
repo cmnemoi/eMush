@@ -11,7 +11,6 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\DataFixtures\EventConfigFixtures;
-use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
@@ -274,7 +273,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
     public function getDependencies(): array
     {
         return [
-            GameConfigFixtures::class,
             EventConfigFixtures::class,
         ];
     }

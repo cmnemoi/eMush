@@ -9,8 +9,6 @@ use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\DiseaseEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -19,9 +17,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var VariableEventModifierConfig $reduceMax1HealthPoint */
         $reduceMax1HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_HEALTH_POINT);
         /** @var VariableEventModifierConfig $reduceMax2HealthPoint */
@@ -387,34 +382,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($vitaminDeficiency);
 
-        $gameConfig
-            ->addDiseaseConfig($foodPoisoning)
-            ->addDiseaseConfig($vitaminDeficiency)
-            ->addDiseaseConfig($tapeworm)
-            ->addDiseaseConfig($syphilis)
-            ->addDiseaseConfig($spaceRabies)
-            ->addDiseaseConfig($smallPox)
-            ->addDiseaseConfig($nausea)
-            ->addDiseaseConfig($skinInflammation)
-            ->addDiseaseConfig($sinusStorm)
-            ->addDiseaseConfig($sepsis)
-            ->addDiseaseConfig($rubella)
-            ->addDiseaseConfig($rejuvenation)
-            ->addDiseaseConfig($quincksOedema)
-            ->addDiseaseConfig($mushAllergy)
-            ->addDiseaseConfig($migraine)
-            ->addDiseaseConfig($junkbumpkinitis)
-            ->addDiseaseConfig($gastroenteritis)
-            ->addDiseaseConfig($fungicInfection)
-            ->addDiseaseConfig($flu)
-            ->addDiseaseConfig($extremeTinnitus)
-            ->addDiseaseConfig($cold)
-            ->addDiseaseConfig($catAllergy)
-            ->addDiseaseConfig($blackBite)
-            ->addDiseaseConfig($acidReflux)
-        ;
-        $manager->persist($gameConfig);
-
         $manager->flush();
 
         $this->addReference(DiseaseEnum::FOOD_POISONING, $foodPoisoning);
@@ -446,7 +413,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            GameConfigFixtures::class,
             DiseaseModifierConfigFixtures::class,
             DiseaseSymptomConfigFixtures::class,
             DisorderSymptomConfigFixtures::class,

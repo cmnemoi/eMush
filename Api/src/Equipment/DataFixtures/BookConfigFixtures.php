@@ -12,8 +12,6 @@ use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Enum\DocumentContentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\SkillEnum;
 
@@ -21,9 +19,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $dropAction */
@@ -79,8 +74,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 
             $manager->persist($apprentonMechanic);
             $manager->persist($apprenton);
-
-            $gameConfig->addEquipmentConfig($apprenton);
         }
 
         // Then Documents
@@ -168,17 +161,8 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
-
         $manager->persist($postItMechanic);
         $manager->persist($postIt);
-
-        $gameConfig
-            ->addEquipmentConfig($document)
-            ->addEquipmentConfig($mushResearch)
-            ->addEquipmentConfig($commandersManual)
-            ->addEquipmentConfig($postIt)
-        ;
-        $manager->persist($gameConfig);
 
         $manager->flush();
     }
@@ -187,7 +171,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             ActionsFixtures::class,
-            GameConfigFixtures::class,
         ];
     }
 }

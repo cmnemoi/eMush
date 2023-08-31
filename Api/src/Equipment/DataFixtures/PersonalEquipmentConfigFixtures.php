@@ -11,8 +11,6 @@ use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -25,9 +23,6 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
 
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $dropAction */
@@ -83,9 +78,6 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
         ;
         $manager->persist($tracker);
 
-        $gameConfig->addEquipmentConfig($iTrackie)->addEquipmentConfig($tracker)->addEquipmentConfig($walkieTalkie);
-        $manager->persist($gameConfig);
-
         $manager->flush();
 
         $this->addReference(self::ITRACKIE, $iTrackie);
@@ -98,7 +90,6 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
         return [
             ActionsFixtures::class,
             TechnicianFixtures::class,
-            GameConfigFixtures::class,
             ChargeStatusFixtures::class,
         ];
     }

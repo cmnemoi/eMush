@@ -12,17 +12,12 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 
 class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $dropAction */
@@ -284,27 +279,12 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($supervitaminBarMechanic);
         $manager->persist($supervitaminBar);
 
-        $gameConfig
-            ->addEquipmentConfig($standardRation)
-            ->addEquipmentConfig($cookedRation)
-            ->addEquipmentConfig($coffee)
-            ->addEquipmentConfig($anabolic)
-            ->addEquipmentConfig($alienSteack)
-            ->addEquipmentConfig($spacePotato)
-            ->addEquipmentConfig($proactivePuffedRice)
-            ->addEquipmentConfig($lombrickBar)
-            ->addEquipmentConfig($supervitaminBar)
-            ->addEquipmentConfig($organicWaste)
-        ;
-        $manager->persist($gameConfig);
-
         $manager->flush();
     }
 
     public function getDependencies(): array
     {
         return [
-            GameConfigFixtures::class,
             ActionsFixtures::class,
         ];
     }

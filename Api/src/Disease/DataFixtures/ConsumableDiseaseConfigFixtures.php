@@ -13,17 +13,12 @@ use Mush\Disease\Enum\DisorderEnum;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 
 class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var DiseaseCauseConfig $diseaseCausesConfig */
         $diseaseCausesConfig = $this->getReference(DiseaseCausesConfigFixtures::ALIEN_FRUIT_DISEASE_CAUSE_CONFIG);
 
@@ -46,7 +41,6 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
                 ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
             ;
             $manager->persist($alienFruitDiseasesConfig);
-            $gameConfig->addConsumableDiseaseConfig($alienFruitDiseasesConfig);
         }
 
         $junkbumpkinitis = new ConsumableDiseaseAttribute();
@@ -63,7 +57,6 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
         $junkbumpkinitis->setConsumableDiseaseConfig($junkinDiseasesConfig);
 
         $manager->persist($junkinDiseasesConfig);
-        $gameConfig->addConsumableDiseaseConfig($junkinDiseasesConfig);
 
         $acidReflux = new ConsumableDiseaseAttribute();
         $acidReflux
@@ -90,7 +83,6 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
         $acidReflux->setConsumableDiseaseConfig($alienSteak);
         $tapeworm->setConsumableDiseaseConfig($alienSteak);
         $manager->persist($alienSteak);
-        $gameConfig->addConsumableDiseaseConfig($alienSteak);
 
         $nausea = new ConsumableDiseaseAttribute();
         $nausea
@@ -108,7 +100,6 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
 
         $nausea->setConsumableDiseaseConfig($vitaminBar);
         $manager->persist($vitaminBar);
-        $gameConfig->addConsumableDiseaseConfig($vitaminBar);
 
         $cures = [
             DiseaseEnum::VITAMIN_DEFICIENCY => 1,
@@ -136,17 +127,14 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
 
             ;
             $manager->persist($drugDiseaseConfig);
-            $gameConfig->addConsumableDiseaseConfig($drugDiseaseConfig);
         }
 
-        $manager->persist($gameConfig);
         $manager->flush();
     }
 
     public function getDependencies()
     {
         return [
-            GameConfigFixtures::class,
             DiseaseCausesConfigFixtures::class,
         ];
     }

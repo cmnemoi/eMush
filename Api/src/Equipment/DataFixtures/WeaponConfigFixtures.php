@@ -13,8 +13,6 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
@@ -25,9 +23,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $dropAction */
@@ -298,24 +293,12 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(ItemEnum::LIZARO_JUNGLE, $lizaroJungle);
         $this->addReference(ItemEnum::ROCKET_LAUNCHER, $rocketLauncher);
 
-        $gameConfig
-            ->addEquipmentConfig($blaster)
-            ->addEquipmentConfig($knife)
-            ->addEquipmentConfig($lizaroJungle)
-            ->addEquipmentConfig($grenade)
-            ->addEquipmentConfig($oldFaithful)
-            ->addEquipmentConfig($rocketLauncher)
-            ->addEquipmentConfig($natamy)
-        ;
-        $manager->persist($gameConfig);
-
         $manager->flush();
     }
 
     public function getDependencies(): array
     {
         return [
-            GameConfigFixtures::class,
             ChargeStatusFixtures::class,
             StatusFixtures::class,
         ];

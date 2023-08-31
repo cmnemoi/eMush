@@ -8,7 +8,6 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\EventConfigFixtures;
-use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
@@ -209,7 +208,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
     public function getDependencies(): array
     {
         return [
-            GameConfigFixtures::class,
             EventConfigFixtures::class,
             DiseaseModifierConfigFixtures::class,
         ];

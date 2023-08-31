@@ -3,7 +3,6 @@
 namespace Mush\Disease\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
@@ -12,14 +11,13 @@ use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Disease\Enum\SymptomEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 
-class InjurySymptomConfigFixtures extends Fixture implements DependentFixtureInterface
+class InjurySymptomConfigFixtures extends Fixture
 {
     public const CANT_MOVE = 'cant_move';
     public const CANT_PICK_UP_HEAVY_ITEMS = 'cant_pick_up_heavy_items';
@@ -112,12 +110,5 @@ class InjurySymptomConfigFixtures extends Fixture implements DependentFixtureInt
         $this->addReference(self::SEPTICEMIA_ON_CYCLE_CHANGE, $septicemiaOnCycleChange);
         $this->addReference(self::SEPTICEMIA_ON_DIRTY_EVENT, $septicemiaOnDirtyEvent);
         $this->addReference(self::SEPTICEMIA_ON_POST_ACTION, $septicemiaOnPostAction);
-    }
-
-    public function getDependencies(): array
-    {
-        return [
-            GameConfigFixtures::class,
-        ];
     }
 }

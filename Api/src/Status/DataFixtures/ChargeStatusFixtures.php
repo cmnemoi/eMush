@@ -10,8 +10,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Enum\HunterEnum;
@@ -58,9 +56,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
             ->setStatusName(StatusEnum::ATTEMPT)
@@ -400,37 +395,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($pasiphaeArmor);
 
-        $gameConfig
-            ->addStatusConfig($attemptConfig)
-            ->addStatusConfig($scooterCharge)
-            ->addStatusConfig($oldFaithfulCharge)
-            ->addStatusConfig($bigWeaponCharge)
-            ->addStatusConfig($turretCharge)
-            ->addStatusConfig($microwaveCharge)
-            ->addStatusConfig($coffeeCharge)
-            ->addStatusConfig($dispenserCharge)
-            ->addStatusConfig($blasterCharge)
-            ->addStatusConfig($patrolShipCharge)
-            ->addStatusConfig($fireStatus)
-            ->addStatusConfig($plantYoung)
-            ->addStatusConfig($eurekaMoment)
-            ->addStatusConfig($firstTime)
-            ->addStatusConfig($mushStatus)
-            ->addStatusConfig($contaminated)
-            ->addStatusConfig($combustionChamber)
-            ->addStatusConfig($drug_eaten)
-            ->addStatusConfig($did_the_thing)
-            ->addStatusConfig($did_boring_speech)
-            ->addStatusConfig($updatingTrackie)
-            ->addStatusConfig($already_washed_in_the_sink)
-            ->addStatusConfig($asteroidCharge)
-            ->addStatusConfig($hunterCharge)
-            ->addStatusConfig($rejuvenationCharge)
-            ->addStatusConfig($patrolShipArmor)
-            ->addStatusConfig($pasiphaeArmor)
-        ;
-        $manager->persist($gameConfig);
-
         $manager->flush();
 
         $this->addReference(self::SCOOTER_CHARGE, $scooterCharge);
@@ -464,7 +428,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            GameConfigFixtures::class,
             StatusModifierConfigFixtures::class,
         ];
     }

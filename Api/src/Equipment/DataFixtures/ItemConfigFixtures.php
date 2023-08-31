@@ -11,8 +11,6 @@ use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
@@ -20,11 +18,10 @@ use Mush\Status\Entity\Config\StatusConfig;
 
 class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const METAL_SCRAPS = 'metal_scraps';
+    public const PLASTIC_SCRAPS = 'plastic_scraps';
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $dropAction */
@@ -208,25 +205,11 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($fuelCapsule);
 
-        // @TODO add drones, cat, coffee thermos, lunchbox, survival kit
-
-        $gameConfig
-            ->addEquipmentConfig($mycoAlarm)
-            ->addEquipmentConfig($plasticScraps)
-            ->addEquipmentConfig($metalScraps)
-            ->addEquipmentConfig($oldTShirt)
-            ->addEquipmentConfig($thickTube)
-            ->addEquipmentConfig($mushSample)
-            ->addEquipmentConfig($mushDisk)
-            ->addEquipmentConfig($starmapFragment)
-            ->addEquipmentConfig($waterStick)
-            ->addEquipmentConfig($hydropot)
-            ->addEquipmentConfig($oxygenCapsule)
-            ->addEquipmentConfig($fuelCapsule)
-        ;
-        $manager->persist($gameConfig);
-
         $manager->flush();
+
+
+        $this->addReference(self::METAL_SCRAPS, $metalScraps);
+        $this->addReference(self::PLASTIC_SCRAPS, $plasticScraps);
     }
 
     public function getDependencies(): array
@@ -234,7 +217,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         return [
             ActionsFixtures::class,
             TechnicianFixtures::class,
-            GameConfigFixtures::class,
             ChargeStatusFixtures::class,
             StatusFixtures::class,
         ];

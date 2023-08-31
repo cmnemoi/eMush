@@ -3,23 +3,18 @@
 namespace Mush\Game\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\DifficultyConfig;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Enum\GameConfigEnum;
 
-class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterface
+class DifficultyConfigFixtures extends Fixture
 {
     public const DEFAULT_DIFFICULTY_CONFIG = 'default_difficulty_config';
 
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         $difficultyConfig = new DifficultyConfig();
 
         $difficultyConfig
@@ -83,18 +78,8 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
 
         $manager->persist($difficultyConfig);
 
-        $gameConfig->setDifficultyConfig($difficultyConfig);
-        $manager->persist($gameConfig);
-
         $manager->flush();
 
         $this->addReference(self::DEFAULT_DIFFICULTY_CONFIG, $difficultyConfig);
-    }
-
-    public function getDependencies(): array
-    {
-        return [
-            GameConfigFixtures::class,
-        ];
     }
 }

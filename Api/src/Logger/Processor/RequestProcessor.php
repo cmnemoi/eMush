@@ -6,7 +6,7 @@ use Monolog\Attribute\AsMonologProcessor;
 use Monolog\LogRecord;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-#[AsMonologProcessor()]
+#[AsMonologProcessor]
 class RequestProcessor
 {
     private $requestStack;

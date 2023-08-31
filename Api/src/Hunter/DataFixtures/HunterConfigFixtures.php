@@ -3,16 +3,13 @@
 namespace Mush\Hunter\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\DifficultyConfigFixtures;
-use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\DifficultyConfig;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\ProbaCollection;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Hunter\Entity\HunterConfig;
@@ -27,8 +24,6 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $this->getReference(DifficultyConfigFixtures::DEFAULT_DIFFICULTY_CONFIG);
 
@@ -169,23 +164,12 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($trax);
 
-        /** @var ArrayCollection $hunterCollection */
-        $hunterCollection = new ArrayCollection([
-            $asteroid,
-            $dice,
-            $hunter,
-            $spider,
-            $trax,
-        ]);
-        $gameConfig->setHunterConfigs($hunterCollection);
-
         $manager->flush();
     }
 
     public function getDependencies(): array
     {
         return [
-            GameConfigFixtures::class,
             ChargeStatusFixtures::class,
             DifficultyConfigFixtures::class,
             ActionsFixtures::class,

@@ -11,7 +11,6 @@ use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Disease\Enum\SymptomEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 
@@ -109,7 +108,6 @@ class DisorderSymptomConfigFixtures extends Fixture implements DependentFixtureI
     public function getDependencies(): array
     {
         return [
-            GameConfigFixtures::class,
             DiseaseSymptomConfigFixtures::class,
         ];
     }

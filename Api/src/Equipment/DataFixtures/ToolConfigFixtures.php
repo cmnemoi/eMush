@@ -13,8 +13,6 @@ use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
@@ -25,9 +23,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $dropAction */
@@ -372,25 +367,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $this->addReference(ToolItemEnum::EXTINGUISHER, $extinguisher);
 
-        $gameConfig
-            ->addEquipmentConfig($hackerKit)
-            ->addEquipmentConfig($blockOfPostIt)
-            ->addEquipmentConfig($camera)
-            ->addEquipmentConfig($extinguisher)
-            ->addEquipmentConfig($ductTape)
-            ->addEquipmentConfig($madKube)
-            ->addEquipmentConfig($microwave)
-            ->addEquipmentConfig($superFreezer)
-            ->addEquipmentConfig($alienHolographicTV)
-            ->addEquipmentConfig($medikit)
-            ->addEquipmentConfig($sporeSucker)
-            ->addEquipmentConfig($jarOfAlienOil)
-            ->addEquipmentConfig($bandage)
-            ->addEquipmentConfig($retroFungalSerum)
-            ->addEquipmentConfig($spaceCapsule)
-        ;
-        $manager->persist($gameConfig);
-
         $manager->flush();
     }
 
@@ -399,7 +375,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         return [
             ActionsFixtures::class,
             TechnicianFixtures::class,
-            GameConfigFixtures::class,
             ChargeStatusFixtures::class,
             StatusFixtures::class,
         ];

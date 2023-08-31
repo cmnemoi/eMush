@@ -10,16 +10,12 @@ use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\GameDrugEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 
 class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $dropAction */
@@ -55,17 +51,14 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->buildName(GameConfigEnum::DEFAULT)
             ;
             $manager->persist($drug);
-            $gameConfig->addEquipmentConfig($drug);
         }
         $manager->persist($drugMechanic);
-        $manager->persist($gameConfig);
         $manager->flush();
     }
 
     public function getDependencies(): array
     {
         return [
-            GameConfigFixtures::class,
             ActionsFixtures::class,
         ];
     }

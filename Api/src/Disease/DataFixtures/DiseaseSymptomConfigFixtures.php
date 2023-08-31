@@ -3,7 +3,6 @@
 namespace Mush\Disease\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
@@ -12,13 +11,12 @@ use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
-class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureInterface
+class DiseaseSymptomConfigFixtures extends Fixture
 {
     public const BITING = 'biting';
     public const BREAKOUTS = 'breakouts';
@@ -234,12 +232,5 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::ITEM_IN_ROOM_CAT, $catIsInRoomActivationRequirement);
         $this->addReference(self::REASON_MOVE, $moveActionActivationRequirement);
         $this->addReference(self::RANDOM_16, $randActivationRequirement16);
-    }
-
-    public function getDependencies(): array
-    {
-        return [
-            GameConfigFixtures::class,
-        ];
     }
 }

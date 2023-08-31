@@ -50,7 +50,7 @@ abstract class AbstractAction
     {
         if (!$this->support($parameter)) {
             $className = isset($parameter) ? $parameter->getClassName() : '$parameter is null';
-            throw new \InvalidArgumentException("Invalid action parameter, the parameter [{$className}] isn't supported.");
+            throw new \InvalidArgumentException("Invalid action parameter, the parameter [$className] isn't supported.");
         }
 
         $this->action = $action;

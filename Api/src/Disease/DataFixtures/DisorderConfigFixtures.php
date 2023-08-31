@@ -11,8 +11,6 @@ use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\TypeEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\DisorderModifierConfigFixtures;
@@ -22,9 +20,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var VariableEventModifierConfig $catInRoomMove2MovementIncrease */
         $catInRoomMove2MovementIncrease = $this->getReference(DisorderModifierConfigFixtures::CAT_IN_ROOM_MOVE_2_MOVEMENT_INCREASE);
         /** @var VariableEventModifierConfig $catInRoomNotMove2ActionIncrease */
@@ -219,22 +214,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         ;
         $manager->persist($weaponPhobia);
 
-        $gameConfig
-            ->addDiseaseConfig($agoraphobia)
-            ->addDiseaseConfig($ailurophobia)
-            ->addDiseaseConfig($chronicMigraine)
-            ->addDiseaseConfig($chronicVertigo)
-            ->addDiseaseConfig($coprolalia)
-            ->addDiseaseConfig($crabism)
-            ->addDiseaseConfig($depression)
-            ->addDiseaseConfig($paranoia)
-            ->addDiseaseConfig($psychoticEpisode)
-            ->addDiseaseConfig($spleen)
-            ->addDiseaseConfig($vertigo)
-            ->addDiseaseConfig($weaponPhobia)
-        ;
-        $manager->persist($gameConfig);
-
         $manager->flush();
 
         $this->addReference(DisorderEnum::AGORAPHOBIA, $agoraphobia);
@@ -254,7 +233,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
     public function getDependencies()
     {
         return [
-            GameConfigFixtures::class,
             DisorderModifierConfigFixtures::class,
             DisorderSymptomConfigFixtures::class,
         ];

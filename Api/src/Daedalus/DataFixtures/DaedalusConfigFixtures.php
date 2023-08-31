@@ -3,15 +3,12 @@
 namespace Mush\Daedalus\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Enum\RoomEnum;
 
@@ -20,15 +17,12 @@ use Mush\Place\Enum\RoomEnum;
  *
  * @codeCoverageIgnore
  */
-class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterface
+class DaedalusConfigFixtures extends Fixture
 {
     public const DEFAULT_DAEDALUS = 'default.daedalus';
 
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG, GameConfig::class);
-
         $daedalusConfig = new DaedalusConfig();
 
         $daedalusConfig
@@ -82,18 +76,8 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
 
         $manager->persist($daedalusConfig);
 
-        $gameConfig->setDaedalusConfig($daedalusConfig);
-        $manager->persist($gameConfig);
-
         $manager->flush();
 
         $this->addReference(self::DEFAULT_DAEDALUS, $daedalusConfig);
-    }
-
-    public function getDependencies()
-    {
-        return [
-            GameConfigFixtures::class,
-        ];
     }
 }

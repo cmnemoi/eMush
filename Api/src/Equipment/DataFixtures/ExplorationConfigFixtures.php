@@ -11,17 +11,12 @@ use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 
 class ExplorationConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $dropAction */
@@ -143,17 +138,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         ;
         $manager->persist($whiteFlag);
 
-        $gameConfig
-            ->addEquipmentConfig($compass)
-            ->addEquipmentConfig($rope)
-            ->addEquipmentConfig($drill)
-            ->addEquipmentConfig($babelModule)
-            ->addEquipmentConfig($echolocator)
-            ->addEquipmentConfig($thermosensor)
-            ->addEquipmentConfig($whiteFlag)
-        ;
-        $manager->persist($gameConfig);
-
         $manager->flush();
 
         $this->addReference(ItemEnum::ECHOLOCATOR, $echolocator);
@@ -166,7 +150,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
     {
         return [
             ActionsFixtures::class,
-            GameConfigFixtures::class,
         ];
     }
 }

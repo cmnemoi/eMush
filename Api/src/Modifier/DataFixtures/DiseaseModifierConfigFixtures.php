@@ -11,7 +11,6 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\EventConfigFixtures;
-use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
@@ -455,7 +454,6 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
     public function getDependencies(): array
     {
         return [
-            GameConfigFixtures::class,
             EventConfigFixtures::class,
         ];
     }

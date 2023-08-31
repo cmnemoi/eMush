@@ -5,8 +5,6 @@ namespace Mush\Status\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
@@ -61,9 +59,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var VariableEventModifierConfig $increaseCycleDiseaseChances30 */
         $increaseCycleDiseaseChances30 = $this->getReference(StatusModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_30);
 
@@ -426,50 +421,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($screwedTalkie);
 
-        $gameConfig
-            ->addStatusConfig($alienArtefact)
-            ->addStatusConfig($heavy)
-            ->addStatusConfig($moduleAccess)
-            ->addStatusConfig($hidden)
-            ->addStatusConfig($broken)
-            ->addStatusConfig($unstable)
-            ->addStatusConfig($hazardous)
-            ->addStatusConfig($decomposing)
-            ->addStatusConfig($frozen)
-            ->addStatusConfig($plantThirsty)
-            ->addStatusConfig($plantDry)
-            ->addStatusConfig($plantDiseased)
-            ->addStatusConfig($documentContent)
-            ->addStatusConfig($reinforced)
-            ->addStatusConfig($antisocial)
-            ->addStatusConfig($berzerk)
-            ->addStatusConfig($brainsync)
-            ->addStatusConfig($burdened)
-            ->addStatusConfig($demoralized)
-            ->addStatusConfig($dirty)
-            ->addStatusConfig($disabled)
-            ->addStatusConfig($focused)
-            ->addStatusConfig($fullStomach)
-            ->addStatusConfig($gagged)
-            ->addStatusConfig($germaphobe)
-            ->addStatusConfig($guardian)
-            ->addStatusConfig($highlyInactive)
-            ->addStatusConfig($hyperactive)
-            ->addStatusConfig($immunized)
-            ->addStatusConfig($inactive)
-            ->addStatusConfig($lost)
-            ->addStatusConfig($lyingDown)
-            ->addStatusConfig($multiTeamster)
-            ->addStatusConfig($outcast)
-            ->addStatusConfig($pacifist)
-            ->addStatusConfig($pregnant)
-            ->addStatusConfig($starving)
-            ->addStatusConfig($stuckInTheShip)
-            ->addStatusConfig($suicidal)
-            ->addStatusConfig($watched_public_broadcast)
-        ;
-        $manager->persist($gameConfig);
-
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
         $this->addReference(self::HEAVY_STATUS, $heavy);
         $this->addReference(self::MODULE_ACCESS_STATUS, $moduleAccess);
@@ -517,7 +468,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            GameConfigFixtures::class,
             StatusModifierConfigFixtures::class,
         ];
     }

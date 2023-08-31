@@ -10,7 +10,6 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\DataFixtures\EventConfigFixtures;
-use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -165,7 +164,6 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public function getDependencies(): array
     {
         return [
-            GameConfigFixtures::class,
             EventConfigFixtures::class,
         ];
     }

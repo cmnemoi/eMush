@@ -3,25 +3,18 @@
 namespace Mush\Game\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\TriumphConfig;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Enum\VisibilityEnum;
 
-class TriumphConfigFixtures extends Fixture implements DependentFixtureInterface
+class TriumphConfigFixtures extends Fixture
 {
     /**
      * @return void
      */
     public function load(ObjectManager $manager)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         $alienScience = new TriumphConfig();
         $alienScience
             ->setName(TriumphEnum::ALIEN_SCIENCE)
@@ -393,30 +386,6 @@ class TriumphConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($allPregnant);
 
-        /** @var ArrayCollection $triumphCollection */
-        $triumphCollection = new ArrayCollection([
-            $alienScience, $expedition, $superNova,
-            $firstStarmap, $nextStarmap,
-            $cycleMush, $startingMush, $cycleMushLate, $conversionMush, $infectionMush,
-            $humanocideMush, $chunDead, $returnSolMush, $edenMush,
-            $cycleHuman, $cycleInactive,
-            $newPlanetOrbit, $solContact,
-            $smallResearch, $standardResearch, $brilliantResearch,
-            $solReturn, $solMushIntruder, $hunterKilled, $mushicide,
-            $rebelWolf, $niceSurgery,
-            $edenByCrewAlive, $edenByAlienPlant, $edenGender, $eden, $edenCat, $edenCatDead,
-            $edenCatMush, $edenDisease, $edenEngineers, $edenBiologist, $edenMushIntruder, $edenByPregnant, $edenComputed,
-            $anathem, $pregnancy, $allPregnant,
-        ]);
-        $gameConfig->setTriumphConfig($triumphCollection);
-
         $manager->flush();
-    }
-
-    public function getDependencies(): array
-    {
-        return [
-            DaedalusConfigFixtures::class,
-        ];
     }
 }

@@ -10,7 +10,6 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\DataFixtures\EventConfigFixtures;
-use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
@@ -286,7 +285,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public function getDependencies(): array
     {
         return [
-            GameConfigFixtures::class,
             EventConfigFixtures::class,
         ];
     }

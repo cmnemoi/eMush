@@ -17,8 +17,6 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
@@ -32,9 +30,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
@@ -652,52 +647,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($tabulatrix);
 
-        $gameConfig
-            ->addEquipmentConfig($icarus)
-            ->addEquipmentConfig($door)
-            ->addEquipmentConfig($comsCenter)
-            ->addEquipmentConfig($neronCore)
-            ->addEquipmentConfig($astroTerminal)
-            ->addEquipmentConfig($researchLab)
-            ->addEquipmentConfig($pilgred)
-            ->addEquipmentConfig($calculator)
-            ->addEquipmentConfig($biosTerminal)
-            ->addEquipmentConfig($commandTerminal)
-            ->addEquipmentConfig($planetScanner)
-            ->addEquipmentConfig($jukebox)
-            ->addEquipmentConfig($emergencyReactor)
-            ->addEquipmentConfig($reactorLateral)
-            ->addEquipmentConfig($antenna)
-            ->addEquipmentConfig($gravitySimulator)
-            ->addEquipmentConfig($thalasso)
-            ->addEquipmentConfig($patrolShip)
-            ->addEquipmentConfig($pasiphae)
-            ->addEquipmentConfig($camera)
-            ->addEquipmentConfig($combustionChamber)
-            ->addEquipmentConfig($kitchen)
-            ->addEquipmentConfig($narcoticDistiller)
-            ->addEquipmentConfig($shower)
-            ->addEquipmentConfig($dynarcade)
-            ->addEquipmentConfig($bed)
-            ->addEquipmentConfig($medlabBed)
-            ->addEquipmentConfig($coffeMachine)
-            ->addEquipmentConfig($cryoModule)
-            ->addEquipmentConfig($mycoscan)
-            ->addEquipmentConfig($turretCommand)
-            ->addEquipmentConfig($surgicalPlot)
-            ->addEquipmentConfig($fuelTank)
-            ->addEquipmentConfig($oxygenTank)
-            ->addEquipmentConfig($tabulatrix)
-        ;
-        $manager->persist($gameConfig);
-
         $manager->flush();
     }
 
     public function getDependencies(): array
     {
         return [
-            GameConfigFixtures::class,
             ActionsFixtures::class,
             TechnicianFixtures::class,
             ChargeStatusFixtures::class,

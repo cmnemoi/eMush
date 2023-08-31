@@ -13,17 +13,12 @@ use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 
 class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $dropAction */
@@ -270,21 +265,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($blueprintSniperHelmetMechanic);
         $manager->persist($blueprintSniperHelmet);
-
-        $gameConfig
-            ->addEquipmentConfig($blueprintEcholocator)
-            ->addEquipmentConfig($blueprintWhiteFlag)
-            ->addEquipmentConfig($blueprintBabelModule)
-            ->addEquipmentConfig($blueprintThermosensor)
-            ->addEquipmentConfig($blueprintGrenade)
-            ->addEquipmentConfig($blueprintOldFaithful)
-            ->addEquipmentConfig($blueprintLizaroJungle)
-            ->addEquipmentConfig($blueprintRocketLauncher)
-            ->addEquipmentConfig($blueprintExtinguisher)
-            ->addEquipmentConfig($blueprintOscilloscope)
-            ->addEquipmentConfig($blueprintSniperHelmet)
-        ;
-        $manager->persist($gameConfig);
 
         $manager->flush();
     }

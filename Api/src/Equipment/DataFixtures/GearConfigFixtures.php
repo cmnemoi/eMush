@@ -14,8 +14,6 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
@@ -31,9 +29,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $this->objectManager = $manager;
-
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
@@ -364,25 +359,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(GearItemEnum::OSCILLOSCOPE, $oscilloscope);
         $this->addReference(GearItemEnum::SNIPER_HELMET, $sniperHelmet);
 
-        $gameConfig
-            ->addEquipmentConfig($wrench)
-            ->addEquipmentConfig($plasteniteArmor)
-            ->addEquipmentConfig($apron)
-            ->addEquipmentConfig($gloves)
-            ->addEquipmentConfig($soap)
-            ->addEquipmentConfig($alienBottleOpener)
-            ->addEquipmentConfig($antiGravScooter)
-            ->addEquipmentConfig($sniperHelmet)
-            ->addEquipmentConfig($lenses)
-            ->addEquipmentConfig($rollingBoulder)
-            ->addEquipmentConfig($oscilloscope)
-            ->addEquipmentConfig($spacesuit)
-            ->addEquipmentConfig($superSoaper)
-            ->addEquipmentConfig($printedCircuitJelly)
-            ->addEquipmentConfig($invertebrateShell)
-            ->addEquipmentConfig($liquidMap)
-        ;
-        $manager->persist($gameConfig);
         $manager->flush();
     }
 
@@ -391,7 +367,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         return [
             ActionsFixtures::class,
             TechnicianFixtures::class,
-            GameConfigFixtures::class,
             ChargeStatusFixtures::class,
             StatusFixtures::class,
             GearModifierConfigFixtures::class,

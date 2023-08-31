@@ -15,8 +15,6 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Equipment\DataFixtures\PersonalEquipmentConfigFixtures;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -347,18 +345,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setStartingItems($iTrackieCollection)
         ;
         $manager->persist($terrence);
-
-        /** @var ArrayCollection<array-key, CharacterConfig> $characterConfigs */
-        $characterConfigs = new ArrayCollection([
-            $andie, $chun, $derek, $eleesha, $frieda, $gioele, $hua, $ian,
-            $janice, $jinSu, $kuanTi, $paola, $raluca, $roland, $stephen, $terrence,
-        ]);
-
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-        $gameConfig
-            ->setCharactersConfig($characterConfigs)
-        ;
 
         $manager->flush();
     }

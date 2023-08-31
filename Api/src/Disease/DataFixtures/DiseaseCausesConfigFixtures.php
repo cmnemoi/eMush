@@ -3,7 +3,6 @@
 namespace Mush\Disease\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
@@ -11,19 +10,16 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\InjuryEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 
-class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInterface
+class DiseaseCausesConfigFixtures extends Fixture
 {
     public const ALIEN_FRUIT_DISEASE_CAUSE_CONFIG = 'alien.fruit.disease.cause.config';
+    public const CONTACT_DISEASE_CAUSE_TEST = 'contact.disease.cause.test';
+    public const DISEASE_CYCLE_TEST = 'disease.cycle.test';
 
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         $diseaseCauseAlienFruit = new DiseaseCauseConfig();
         $diseaseCauseAlienFruit
             ->setCauseName(DiseaseCauseEnum::ALIEN_FRUIT)
@@ -115,6 +111,14 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         ;
         $manager->persist($diseaseCauseCycleDepressed);
         $manager->persist($diseaseCauseCycle);
+
+        $diseaseCauseCycleTest = new DiseaseCauseConfig();
+        $diseaseCauseCycleTest
+            ->setCauseName(DiseaseCauseEnum::CYCLE)
+            ->setDiseases([])
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $manager->persist($diseaseCauseCycleTest);
 
         $diseaseCausesBacterialContact = new DiseaseCauseConfig();
         $diseaseCausesBacterialContact
@@ -277,6 +281,13 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         ;
         $manager->persist($diseaseCauseContact);
 
+        $diseaseCauseContactTest = new DiseaseCauseConfig();
+        $diseaseCauseContactTest
+            ->setCauseName(DiseaseCauseEnum::CONTACT)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $manager->persist($diseaseCauseContactTest);
+
         $diseaseCauseCriticalFailKnife = new DiseaseCauseConfig();
         $diseaseCauseCriticalFailKnife
             ->setCauseName(DiseaseCauseEnum::CRITICAL_FAIL_KNIFE)
@@ -358,35 +369,10 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         ;
         $manager->persist($diseaseCauseCriticalSuccessBlaster);
 
-        $gameConfig
-            ->addDiseaseCauseConfig($diseaseCauseAlienFruit)
-            ->addDiseaseCauseConfig($diseaseCausePerishedFood)
-            ->addDiseaseCauseConfig($diseaseCauseCycle)
-            ->addDiseaseCauseConfig($diseaseCauseCycleDepressed)
-            ->addDiseaseCauseConfig($diseaseCausesBacterialContact)
-            ->addDiseaseCauseConfig($diseaseCausesFakeDisease)
-            ->addDiseaseCauseConfig($diseaseCauseFailedSurgery)
-            ->addDiseaseCauseConfig($diseaseCauseInfection)
-            ->addDiseaseCauseConfig($diseaseCauseSex)
-            ->addDiseaseCauseConfig($diseaseCauseTrauma)
-            ->addDiseaseCauseConfig($diseaseCauseContact)
-            ->addDiseaseCauseConfig($diseaseCauseCriticalFailKnife)
-            ->addDiseaseCauseConfig($diseaseCauseCriticalSuccessKnife)
-            ->addDiseaseCauseConfig($diseaseCauseCriticalFailBlaster)
-            ->addDiseaseCauseConfig($diseaseCauseCriticalSuccessBlaster)
-        ;
-
-        $manager->persist($gameConfig);
-
         $manager->flush();
 
         $this->addReference(self::ALIEN_FRUIT_DISEASE_CAUSE_CONFIG, $diseaseCauseAlienFruit);
-    }
-
-    public function getDependencies()
-    {
-        return [
-            GameConfigFixtures::class,
-        ];
+        $this->addReference(self::CONTACT_DISEASE_CAUSE_TEST, $diseaseCauseContactTest);
+        $this->addReference(self::DISEASE_CYCLE_TEST, $diseaseCauseCycleTest);
     }
 }

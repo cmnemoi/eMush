@@ -10,8 +10,6 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\InjuryEnum;
 use Mush\Disease\Enum\TypeEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\DisorderModifierConfigFixtures;
@@ -22,9 +20,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var VariableEventModifierConfig $consume2ActionLoss */
         $consume2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_2_ACTION_LOSS);
         /** @var VariableEventModifierConfig $cycle1HealthLost */
@@ -502,47 +497,12 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($bustedShoulder);
 
-        $gameConfig
-            ->addDiseaseConfig($brokenFinger)
-            ->addDiseaseConfig($brokenFoot)
-            ->addDiseaseConfig($brokenLeg)
-            ->addDiseaseConfig($brokenRibs)
-            ->addDiseaseConfig($bruisedShoulder)
-            ->addDiseaseConfig($burns50OfBody)
-            ->addDiseaseConfig($burns90OfBody)
-            ->addDiseaseConfig($burntArms)
-            ->addDiseaseConfig($burntHand)
-            ->addDiseaseConfig($burstNose)
-            ->addDiseaseConfig($bustedArmJoint)
-            ->addDiseaseConfig($bustedShoulder)
-            ->addDiseaseConfig($criticalHaemorrhage)
-            ->addDiseaseConfig($haemorrhage)
-            ->addDiseaseConfig($minorHaemorrhage)
-            ->addDiseaseConfig($damagedEars)
-            ->addDiseaseConfig($destroyedEars)
-            ->addDiseaseConfig($disfunctionalLiver)
-            ->addDiseaseConfig($headTrauma)
-            ->addDiseaseConfig($implantedBullet)
-            ->addDiseaseConfig($innerEarDamaged)
-            ->addDiseaseConfig($mashedFoot)
-            ->addDiseaseConfig($mashedHand)
-            ->addDiseaseConfig($missingFinger)
-            ->addDiseaseConfig($openAirBrain)
-            ->addDiseaseConfig($puncturedLung)
-            ->addDiseaseConfig($mashedArms)
-            ->addDiseaseConfig($mashedLegs)
-            ->addDiseaseConfig($tornTongue)
-            ->addDiseaseConfig($brokenShoulder)
-        ;
-        $manager->persist($gameConfig);
-
         $manager->flush();
     }
 
     public function getDependencies()
     {
         return [
-            GameConfigFixtures::class,
             DiseaseModifierConfigFixtures::class,
             DiseaseSymptomConfigFixtures::class,
             DisorderSymptomConfigFixtures::class,

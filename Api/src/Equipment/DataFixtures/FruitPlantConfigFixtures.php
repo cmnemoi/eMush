@@ -15,17 +15,12 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GamePlantEnum;
-use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 
 class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
         /** @var Action $dropAction */
@@ -75,8 +70,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $manager->persist($bananaMechanic);
         $manager->persist($banana);
 
-        $gameConfig->addEquipmentConfig($banana);
-
         $bananaTreeMechanic = new Plant();
         //  possibilities are stored as key, array value represent the probability to get the key value
         $bananaTreeMechanic
@@ -99,7 +92,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         ;
         $manager->persist($bananaTreeMechanic);
         $manager->persist($bananaTree);
-        $gameConfig->addEquipmentConfig($bananaTree);
 
         $alienFruitPlant = [
             GameFruitEnum::CREEPNUT => GamePlantEnum::CREEPIST,
@@ -162,8 +154,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ;
             $manager->persist($alienPlantMechanic);
             $manager->persist($alienPlant);
-
-            $gameConfig->addEquipmentConfig($alienFruit)->addEquipmentConfig($alienPlant);
         }
 
         $junkinMechanic = new Fruit();
@@ -189,7 +179,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         ;
         $manager->persist($junkinMechanic);
         $manager->persist($junkin);
-        $gameConfig->addEquipmentConfig($junkin);
 
         $bumpjunkinMechanic = new Plant();
         $bumpjunkinMechanic
@@ -212,9 +201,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         ;
         $manager->persist($bumpjunkinMechanic);
         $manager->persist($bumpjunkin);
-        $gameConfig->addEquipmentConfig($bumpjunkin);
-
-        $manager->persist($gameConfig);
 
         $manager->flush();
     }
@@ -223,7 +209,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
     {
         return [
             ActionsFixtures::class,
-            GameConfigFixtures::class,
         ];
     }
 }

@@ -88,6 +88,8 @@ class AdminController extends AbstractFOSRestController
         if ($this->playerService->endPlayer($playerToClose, '')) {
             return $this->view('Player closed successfully', Response::HTTP_OK);
         }
+
+        throw new \Exception('Unable to close player');
     }
 
     /**

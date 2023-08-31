@@ -14,6 +14,7 @@ modules:
         - DataFactory:
               depends: Doctrine2
         - \App\Tests\Helper\Factories\DaedalusFactory
+        - \App\Tests\Helper\Factories\GameConfigFactory
         - \App\Tests\Helper\Factories\PlayerFactory
         - \App\Tests\Helper\Factories\RoomFactory
         - \App\Tests\Helper\Factories\EquipmentFactory

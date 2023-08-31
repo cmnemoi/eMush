@@ -82,6 +82,10 @@ class Attack extends AttemptAction
     }
 
     // Special checkResult for Attack action waiting for a refactor
+
+    /**
+     * @throws \Exception
+     */
     protected function checkResult(): ActionResult
     {
         $knife = $this->getPlayerKnife();
@@ -106,6 +110,9 @@ class Attack extends AttemptAction
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     protected function applyEffect(ActionResult $result): void
     {
         $player = $this->player;
@@ -145,6 +152,9 @@ class Attack extends AttemptAction
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     private function getPlayerKnife(): Weapon
     {
         /** @var GameItem $knifeItem */

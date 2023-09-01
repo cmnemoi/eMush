@@ -176,6 +176,9 @@ class AdminController extends AbstractFOSRestController
         if (!$daedalus) {
             throw new HttpException(Response::HTTP_NOT_FOUND, 'Daedalus not found');
         }
+        if ($daedalus->getDaedalusInfo()->isDaedalusFinished()) {
+            throw new HttpException(Response::HTTP_BAD_REQUEST, "Won't delete alert elements of a finished Daedalus");
+        }
 
         $daedalusAlerts = $this->alertService->findByDaedalus($daedalus);
 

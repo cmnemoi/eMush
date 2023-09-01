@@ -12,7 +12,6 @@ use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
@@ -39,21 +38,18 @@ class AdminController extends AbstractFOSRestController
 
     private AlertServiceInterface $alertService;
     private DaedalusServiceInterface $daedalusService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlaceServiceInterface $placeService;
     private PlayerServiceInterface $playerService;
     private UserServiceInterface $userService;
 
     public function __construct(AlertServiceInterface $alertService,
                                 DaedalusServiceInterface $daedalusService,
-                                GameEquipmentServiceInterface $gameEquipmentService,
                                 PlaceServiceInterface $placeService,
                                 PlayerServiceInterface $playerService,
                                 UserServiceInterface $userService
     ) {
         $this->alertService = $alertService;
         $this->daedalusService = $daedalusService;
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->placeService = $placeService;
         $this->playerService = $playerService;
         $this->userService = $userService;

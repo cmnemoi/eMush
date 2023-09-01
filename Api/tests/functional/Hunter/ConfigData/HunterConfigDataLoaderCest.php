@@ -26,6 +26,7 @@ class HunterConfigDataLoaderCest
             unset($hunterConfigData['initialStatuses']);
             unset($hunterConfigData['scrapDropTable']);
             unset($hunterConfigData['numberOfDroppedScrap']);
+            unset($hunterConfigData['targetProbabilities']);
 
             $I->seeInRepository(HunterConfig::class, $hunterConfigData);
         }
@@ -41,6 +42,7 @@ class HunterConfigDataLoaderCest
         unset($config['initialStatuses']);
         unset($config['scrapDropTable']);
         unset($config['numberOfDroppedScrap']);
+        unset($config['targetProbabilities']);
 
         $this->hunterConfigDataLoader->loadConfigsData();
 

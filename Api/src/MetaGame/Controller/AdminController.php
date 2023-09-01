@@ -2,9 +2,14 @@
 
 namespace Mush\MetaGame\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
+use Mush\Alert\Entity\Alert;
+use Mush\Alert\Entity\AlertElement;
+use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
@@ -31,58 +36,23 @@ class AdminController extends AbstractFOSRestController
 {
     use ErrorHandlerTrait;
 
+    private AlertServiceInterface $alertService;
     private DaedalusServiceInterface $daedalusService;
     private PlaceServiceInterface $placeService;
     private PlayerServiceInterface $playerService;
     private UserServiceInterface $userService;
 
-    public function __construct(DaedalusServiceInterface $daedalusService,
+    public function __construct(AlertServiceInterface $alertService,
+                                DaedalusServiceInterface $daedalusService,
                                 PlaceServiceInterface $placeService,
                                 PlayerServiceInterface $playerService,
                                 UserServiceInterface $userService
     ) {
+        $this->alertService = $alertService;
         $this->daedalusService = $daedalusService;
         $this->placeService = $placeService;
         $this->playerService = $playerService;
         $this->userService = $userService;
-    }
-
-    /**
-     * Close (archive) a player so their user can join another game.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The player to close id",
-     *     @OA\Schema(type="string")
-     * )
-     * @OA\Tag(name="Admin")
-     * @Security(name="Bearer")
-     * @Rest\Post(path="/close-player/{id}")
-     * @Rest\View()
-     */
-    public function closePlayer(Request $request): View
-    {
-        $admin = $this->getUser();
-        if (!$admin instanceof User) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
-        }
-        if (!$admin->isAdmin()) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can close players this way');
-        }
-
-        $playerId = intval($request->get('id'));
-        $playerToClose = $this->playerService->findById($playerId);
-        if (!$playerToClose instanceof Player) {
-            throw new HttpException(Response::HTTP_NOT_FOUND, 'Player to close not found');
-        }
-        if ($playerToClose->isAlive()) {
-            throw new HttpException(Response::HTTP_BAD_REQUEST, 'Player to close is still alive');
-        }
-
-        if ($this->playerService->endPlayer($playerToClose, '')) {
-            return $this->view('Player closed successfully', Response::HTTP_OK);
-        }
     }
 
     /**
@@ -133,5 +103,141 @@ class AdminController extends AbstractFOSRestController
         }
 
         return $this->view('Rooms added successfully', Response::HTTP_OK);
+    }
+
+    /**
+     * Close (archive) a player so their user can join another game.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The player to close id",
+     *     @OA\Schema(type="string")
+     * )
+     * @OA\Tag(name="Admin")
+     * @Security(name="Bearer")
+     * @Rest\Post(path="/close-player/{id}")
+     * @Rest\View()
+     */
+    public function closePlayer(Request $request): View
+    {
+        $admin = $this->getUser();
+        if (!$admin instanceof User) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
+        }
+        if (!$admin->isAdmin()) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can close players this way');
+        }
+
+        $playerId = intval($request->get('id'));
+        $playerToClose = $this->playerService->findById($playerId);
+        if (!$playerToClose instanceof Player) {
+            throw new HttpException(Response::HTTP_NOT_FOUND, 'Player to close not found');
+        }
+        if ($playerToClose->isAlive()) {
+            throw new HttpException(Response::HTTP_BAD_REQUEST, 'Player to close is still alive');
+        }
+
+        if ($this->playerService->endPlayer($playerToClose, '')) {
+            return $this->view('Player closed successfully', Response::HTTP_OK);
+        }
+    }
+
+    /**
+     * Delete Daedalus duplicated alert elements.
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The daedalus id",
+     *       @OA\Schema(type="string")
+     * )
+     * @OA\Tag(name="Admin")
+     * @Security(name="Bearer")
+     * @Rest\Post(path="/delete-daedalus-duplicated-alert-elements/{id}")
+     * @Rest\View()
+     */
+    public function deleteDaedalusDuplicatedAlertElements(Request $request): View
+    {
+        $admin = $this->getUser();
+        if (!$admin instanceof User) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
+        }
+        if (!$admin->isAdmin()) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can delete alert elements!');
+        }
+
+        $daedalusId = intval($request->get('id'));
+        $daedalus = $this->daedalusService->findById($daedalusId);
+        if (!$daedalus) {
+            throw new HttpException(Response::HTTP_NOT_FOUND, 'Daedalus not found');
+        }
+        if ($daedalus->getDaedalusInfo()->isDaedalusFinished()) {
+            throw new HttpException(Response::HTTP_BAD_REQUEST, "Won't delete alert elements of a finished Daedalus");
+        }
+
+        $daedalusAlerts = $this->alertService->findByDaedalus($daedalus);
+
+        $numberOfElementsDeleted = 0;
+
+        /** @var Alert $alert */
+        foreach ($daedalusAlerts as $alert) {
+            $alertElements = $alert->getAlertElements();
+
+            if ($alertElements->count() < 2) {
+                continue;
+            }
+
+            $potentiallyDuplicatedAlertElements = $this->getPotentiallyDuplicatedAlertElements($alertElements);
+
+            /** @var AlertElement $alertElementToExamine */
+            foreach ($potentiallyDuplicatedAlertElements as $alertElementToExamine) {
+                $remainingElements = $this->removeElement($potentiallyDuplicatedAlertElements, $alertElementToExamine);
+
+                /** @var AlertElement $alertElement */
+                foreach ($remainingElements as $alertElement) {
+                    if ($this->alertElementHaveSameEquipmentOrPlace($alertElementToExamine, $alertElement)) {
+                        $alert->getAlertElements()->removeElement($alertElement);
+                        $this->alertService->deleteAlertElement($alertElement);
+                        ++$numberOfElementsDeleted;
+                    }
+                }
+            }
+        }
+
+        return $this->view("{$numberOfElementsDeleted} alert elements deleted successfully", Response::HTTP_OK);
+    }
+
+    private function alertElementHaveSameEquipmentOrPlace(AlertElement $element1, AlertElement $element2): bool
+    {
+        if ($element1->getEquipment() && $element2->getEquipment()) {
+            return $element1->getEquipment()->getId() === $element2->getEquipment()->getId();
+        }
+
+        if ($element1->getPlace() && $element2->getPlace()) {
+            return $element1->getPlace()->getId() === $element2->getPlace()->getId();
+        }
+
+        return false;
+    }
+
+    private function getPotentiallyDuplicatedAlertElements(Collection $alertElements): Collection
+    {
+        $examined = new ArrayCollection();
+
+        foreach ($alertElements as $element) {
+            if ($element->getEquipment() || $element->getPlace()) {
+                $examined->add($element);
+            }
+        }
+
+        return $examined;
+    }
+
+    private function removeElement(Collection $collection, $element): Collection
+    {
+        $collection->removeElement($element);
+
+        return $collection;
     }
 }

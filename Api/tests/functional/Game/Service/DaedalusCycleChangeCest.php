@@ -158,14 +158,15 @@ class DaedalusCycleChangeCest
 
     public function testMultipleCycleChangeCallsTriggerItOnlyOnce(FunctionalTester $I): void
     {
-        $time = new \DateTime();
-        $lastCycle = $time->sub(new \DateInterval('PT3H1M')); // subtract 3 h and 1 minute (ie 1 cycle)
-        $this->daedalus->setCycleStartedAt(new \DateTime());
+        $lastCycle = (new \DateTime())->sub(new \DateInterval('PT3H1M')); // subtract 3 h and 1 minute (ie 1 cycle)
+        $now = new \DateTime();
+        
+        $this->daedalus->setCycleStartedAt($lastCycle);
         $I->haveInRepository($this->daedalus);
 
         $I->assertFalse($this->daedalus->isCycleChange());
         for ($i = 0; $i < 10; ++$i) {
-            $this->cycleService->handleCycleChange($time, $this->daedalus);
+            $this->cycleService->handleCycleChange($now, $this->daedalus);
         }
 
         $I->assertFalse($this->daedalus->isCycleChange());

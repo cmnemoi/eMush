@@ -177,6 +177,7 @@ class AlertService implements AlertServiceInterface
 
         $alertElement = $this->findAlertElementByEquipment($equipment);
 
+        // do not create alert element if this equipment is already reported
         if ($alertElement !== null) {
             return;
         }
@@ -244,6 +245,7 @@ class AlertService implements AlertServiceInterface
 
         $alertElement = $this->findAlertElementByPlace($place);
 
+        // do not create alert element if this place is already reported
         if ($alertElement !== null) {
             return;
         }

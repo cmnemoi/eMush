@@ -1,0 +1,67 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Mush\Tests\Alert\Listener;
+
+use App\Tests\AbstractFunctionalTest;
+use App\Tests\FunctionalTester;
+use Mush\Alert\Entity\Alert;
+use Mush\Alert\Service\AlertServiceInterface;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Place\Enum\RoomEnum;
+
+class AlertServiceCest extends AbstractFunctionalTest
+{
+    private AlertServiceInterface $alertService;
+    private GameEquipment $mycoscan;
+
+    public function _before(FunctionalTester $I): void
+    {
+        parent::_before($I);
+
+        $mycoscanConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => 'mycoscan']);
+        $this->mycoscan = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $this->mycoscan->setEquipment($mycoscanConfig);
+        $this->mycoscan->setName(EquipmentEnum::MYCOSCAN);
+        $I->haveInRepository($this->mycoscan);
+
+        $this->alertService = $I->grabService(AlertServiceInterface::class);
+    }
+
+    public function testHandleEquipmentBreakCreateAnAlertElement(FunctionalTester $I): void
+    {
+        $I->dontSeeInRepository(Alert::class);
+        // given a mycoscan
+
+        // when handleEquipmentBreak is called on it
+        $this->alertService->handleEquipmentBreak($this->mycoscan);
+
+        // then check that an alert element is created
+        /** @var Alert $alert */
+        $alert = $I->grabEntityFromRepository(Alert::class);
+
+        /** @var AlertElement $alertElement */
+        $alertElement = $this->alertService->getAlertEquipmentElement($alert, $this->mycoscan);
+        $I->assertNotNull($alertElement);
+    }
+
+    public function testHandleEquipmentBreakDoesNotCreateMultipleAlertElementForASingleEquipment(FunctionalTester $I): void
+    {
+        $I->dontSeeInRepository(Alert::class);
+        // given a mycoscan
+
+        // when handleEquipmentBreak is called twice on it
+        $this->alertService->handleEquipmentBreak($this->mycoscan);
+        $this->alertService->handleEquipmentBreak($this->mycoscan);
+
+        // then check that a single alert element is created
+        /** @var Alert $alert */
+        $alert = $I->grabEntityFromRepository(Alert::class);
+
+        $alertElements = $alert->getAlertElements();
+        $I->assertCount(1, $alertElements);
+    }
+}

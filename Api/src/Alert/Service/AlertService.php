@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
+use Mush\Alert\Repository\AlertElementRepository;
 use Mush\Alert\Repository\AlertRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
@@ -19,6 +20,7 @@ use Psr\Log\LoggerInterface;
 class AlertService implements AlertServiceInterface
 {
     private EntityManagerInterface $entityManager;
+    private AlertElementRepository $alertElementRepository;
     private AlertRepository $repository;
     private LoggerInterface $logger;
 
@@ -28,10 +30,12 @@ class AlertService implements AlertServiceInterface
 
     public function __construct(
         EntityManagerInterface $entityManager,
+        AlertElementRepository $alertElementRepository,
         AlertRepository $repository,
         LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
+        $this->alertElementRepository = $alertElementRepository;
         $this->repository = $repository;
         $this->logger = $logger;
     }
@@ -73,14 +77,14 @@ class AlertService implements AlertServiceInterface
 
     public function findAlertElementByEquipment(GameEquipment $equipment): ?AlertElement
     {
-        $alertElement = $this->entityManager->getRepository(AlertElement::class)->findOneBy(['equipment' => $equipment]);
+        $alertElement = $this->alertElementRepository->findOneBy(['equipment' => $equipment]);
 
         return $alertElement;
     }
 
     public function findAlertElementByPlace(Place $place): ?AlertElement
     {
-        $alertElement = $this->entityManager->getRepository(AlertElement::class)->findOneBy(['place' => $place]);
+        $alertElement = $this->alertElementRepository->findOneBy(['place' => $place]);
 
         return $alertElement;
     }

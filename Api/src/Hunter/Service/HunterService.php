@@ -91,13 +91,13 @@ class HunterService implements HunterServiceInterface
                 continue;
             }
 
-            $this->makeHunterShoot($hunter);
-
             // @TODO test that the target doesn't change until hunter has made a successful shot
             $this->selectHunterTarget($hunter);
             if (!$hunter->getTarget()->isInBattle()) {
                 continue;
             }
+
+            $this->makeHunterShoot($hunter);
 
             // hunter gets a truce cycle after shooting
             $this->createHunterTruceCycleStatus($hunter);

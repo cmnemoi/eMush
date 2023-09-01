@@ -55,7 +55,7 @@ class HunterServiceCest extends AbstractFunctionalTest
         $this->pasiphaeArmorStatus = new ChargeStatus($this->pasiphae, $this->pasiphaeArmorStatusConfig);
         $I->haveInRepository($this->pasiphaeArmorStatus);
 
-        $this->player2->setPlace($this->daedalus->getPlaceByName(RoomEnum::SPACE));
+        $this->player2->setPlace($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $I->haveInRepository($this->player2);
 
         $this->daedalus->setHunterPoints(10); // spawn a single hunter
@@ -91,6 +91,18 @@ class HunterServiceCest extends AbstractFunctionalTest
     {
         $this->testMakeHuntersShootTarget($I, HunterTargetEnum::PLAYER);
         $I->assertNotEquals(
+            expected: $this->player2->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
+            actual: $this->player2->getHealthPoint(),
+        );
+    }
+
+    public function testMakeHuntersDoNotShootEntitiesNotInBattle(FunctionalTester $I): void
+    {
+        $this->player2->setPlace($this->daedalus->getPlaceByName(RoomEnum::SPACE));
+        $I->haveInRepository($this->player2);
+        $this->testMakeHuntersShootTarget($I, HunterTargetEnum::PLAYER);
+        
+        $I->assertEquals(
             expected: $this->player2->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             actual: $this->player2->getHealthPoint(),
         );

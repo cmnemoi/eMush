@@ -35,12 +35,12 @@ class DaedalusCycleChangeCest
 {
     private CycleServiceInterface $cycleService;
 
-    private DateTime $currentTime;
+    private \DateTime $currentTime;
     private Daedalus $daedalus;
     private Player $player;
 
     public function _before(FunctionalTester $I)
-    {   
+    {
         $this->cycleService = $I->grabService(CycleServiceInterface::class);
 
         $diseaseConfig = new DiseaseConfig();
@@ -130,7 +130,7 @@ class DaedalusCycleChangeCest
         ;
         $I->haveInRepository($characterConfig);
 
-        /** @var Player $this->player */
+        /* @var Player $this->player */
         $this->player = $I->have(
             Player::class, [
                 'daedalus' => $this->daedalus,
@@ -160,7 +160,7 @@ class DaedalusCycleChangeCest
     {
         $lastCycle = (new \DateTime())->sub(new \DateInterval('PT3H1M')); // subtract 3 h and 1 minute (ie 1 cycle)
         $now = new \DateTime();
-        
+
         $this->daedalus->setCycleStartedAt($lastCycle);
         $I->haveInRepository($this->daedalus);
 
@@ -171,7 +171,5 @@ class DaedalusCycleChangeCest
 
         $I->assertFalse($this->daedalus->isCycleChange());
         $I->assertEquals($this->daedalus->getCycle(), 2);
-
     }
-    
 }

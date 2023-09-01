@@ -71,6 +71,20 @@ class AlertService implements AlertServiceInterface
         }
     }
 
+    public function findAlertElementByEquipment(GameEquipment $equipment): ?AlertElement
+    {
+        $alertElement = $this->entityManager->getRepository(AlertElement::class)->findOneBy(['equipment' => $equipment]);
+
+        return $alertElement;
+    }
+
+    public function findAlertElementByPlace(Place $place): ?AlertElement
+    {
+        $alertElement = $this->entityManager->getRepository(AlertElement::class)->findOneBy(['place' => $place]);
+
+        return $alertElement;
+    }
+
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Alert
     {
         $alert = $this->repository->findOneBy(['daedalus' => $daedalus, 'name' => $name]);
@@ -157,10 +171,14 @@ class AlertService implements AlertServiceInterface
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_EQUIPMENTS);
         }
 
+        $alertElement = $this->findAlertElementByEquipment($equipment);
+
+        if ($alertElement !== null) {
+            return;
+        }
+
         $equipmentElement = new AlertElement();
-        $equipmentElement
-            ->setEquipment($equipment)
-        ;
+        $equipmentElement->setEquipment($equipment);
 
         $this->persistAlertElement($equipmentElement);
 
@@ -219,6 +237,15 @@ class AlertService implements AlertServiceInterface
         $daedalus = $place->getDaedalus();
 
         $fireAlert = $this->getAlert($daedalus, AlertEnum::FIRES);
+
+        $alertElement = $this->findAlertElementByPlace($place);
+
+        if ($alertElement !== null) {
+            return;
+        }
+
+        $equipmentElement = new AlertElement();
+        $equipmentElement->setPlace($place);
 
         $reportedFire = new AlertElement();
         $reportedFire->setPlace($place);

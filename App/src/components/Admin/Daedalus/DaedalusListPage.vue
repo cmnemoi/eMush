@@ -60,6 +60,12 @@
                             @click="addNewRoomsToDaedalus(slotProps.id)">
                         {{ $t("admin.daedalus.addNewRooms") }}
                     </button>
+                    <button v-if="slotProps.gameStatus != 'finished'"
+                            class="action-button"
+                            type="button"
+                            @click="deleteDaedalusDuplicatedAlertElements(slotProps.id)">
+                        {{ $t("admin.daedalus.deleteDuplicatedAlertElements") }}
+                    </button>
                 </div>
             </template>
 
@@ -195,6 +201,11 @@ export default defineComponent({
         },
         addNewRoomsToDaedalus(id: number) {
             AdminService.addNewRoomsToDaedalus(id).then(() => {
+                this.loadData();
+            });
+        },
+        deleteDaedalusDuplicatedAlertElements(id: number) {
+            AdminService.deleteDaedalusDuplicatedAlertElements(id).then(() => {
                 this.loadData();
             });
         },

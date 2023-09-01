@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
+use Mush\Alert\Repository\AlertElementRepository;
 use Mush\Alert\Repository\AlertRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
@@ -19,6 +20,7 @@ use Psr\Log\LoggerInterface;
 class AlertService implements AlertServiceInterface
 {
     private EntityManagerInterface $entityManager;
+    private AlertElementRepository $alertElementRepository;
     private AlertRepository $repository;
     private LoggerInterface $logger;
 
@@ -28,10 +30,12 @@ class AlertService implements AlertServiceInterface
 
     public function __construct(
         EntityManagerInterface $entityManager,
+        AlertElementRepository $alertElementRepository,
         AlertRepository $repository,
         LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
+        $this->alertElementRepository = $alertElementRepository;
         $this->repository = $repository;
         $this->logger = $logger;
     }
@@ -69,6 +73,20 @@ class AlertService implements AlertServiceInterface
         } else {
             $this->persist($alert);
         }
+    }
+
+    public function findAlertElementByEquipment(GameEquipment $equipment): ?AlertElement
+    {
+        $alertElement = $this->alertElementRepository->findOneBy(['equipment' => $equipment]);
+
+        return $alertElement;
+    }
+
+    public function findAlertElementByPlace(Place $place): ?AlertElement
+    {
+        $alertElement = $this->alertElementRepository->findOneBy(['place' => $place]);
+
+        return $alertElement;
     }
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Alert
@@ -157,10 +175,15 @@ class AlertService implements AlertServiceInterface
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_EQUIPMENTS);
         }
 
+        $alertElement = $this->findAlertElementByEquipment($equipment);
+
+        // do not create alert element if this equipment is already reported
+        if ($alertElement !== null) {
+            return;
+        }
+
         $equipmentElement = new AlertElement();
-        $equipmentElement
-            ->setEquipment($equipment)
-        ;
+        $equipmentElement->setEquipment($equipment);
 
         $this->persistAlertElement($equipmentElement);
 
@@ -219,6 +242,16 @@ class AlertService implements AlertServiceInterface
         $daedalus = $place->getDaedalus();
 
         $fireAlert = $this->getAlert($daedalus, AlertEnum::FIRES);
+
+        $alertElement = $this->findAlertElementByPlace($place);
+
+        // do not create alert element if this place is already reported
+        if ($alertElement !== null) {
+            return;
+        }
+
+        $equipmentElement = new AlertElement();
+        $equipmentElement->setPlace($place);
 
         $reportedFire = new AlertElement();
         $reportedFire->setPlace($place);

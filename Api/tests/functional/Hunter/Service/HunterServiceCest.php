@@ -87,6 +87,15 @@ class HunterServiceCest extends AbstractFunctionalTest
         );
     }
 
+    public function testMakeHuntersShootPlayer(FunctionalTester $I)
+    {
+        $this->testMakeHuntersShootTarget($I, HunterTargetEnum::PLAYER);
+        $I->assertNotEquals(
+            expected: $this->player2->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
+            actual: $this->player2->getHealthPoint(),
+        );
+    }
+
     public function testMakeHuntersShootAsteroidFullHealth(FunctionalTester $I)
     {
         $daedalus = $this->createDaedalusForAsteroidTest($I);
@@ -241,6 +250,15 @@ class HunterServiceCest extends AbstractFunctionalTest
                         HunterTargetEnum::PLAYER => 0,
                     ]);
                     $hunterTarget->setTargetEntity($this->pasiphae);
+                    break;
+                case HunterTargetEnum::PLAYER:
+                    $hunter->getHunterConfig()->setTargetProbabilities([
+                        HunterTargetEnum::HUNTER => 0,
+                        HunterTargetEnum::MERCHANT_SHIP => 0,
+                        HunterTargetEnum::PATROL_SHIP => 0,
+                        HunterTargetEnum::PLAYER => 100,
+                    ]);
+                    $hunterTarget->setTargetEntity($this->player2);
                     break;
                 default:
                     throw new \Exception('Unknown target type: ' . $targetType);

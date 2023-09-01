@@ -26,6 +26,8 @@ use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\HunterStatusEnum;
@@ -91,6 +93,7 @@ class HunterService implements HunterServiceInterface
 
             $this->makeHunterShoot($hunter);
 
+            // @TODO test that the target doesn't change until hunter has made a successful shot
             $this->selectHunterTarget($hunter);
             if (!$hunter->getTarget()->isInBattle()) {
                 continue;
@@ -270,7 +273,7 @@ class HunterService implements HunterServiceInterface
 
         $hunterTarget = $hunter->getTarget()->getTargetEntity();
 
-        // TODO: handle other targets
+        // @TODO: handle hunter and merchant targets in the future
         switch ($hunterTarget) {
             case $hunterTarget instanceof Daedalus:
                 $this->shootAtDaedalus($hunterTarget, $damage);
@@ -279,6 +282,7 @@ class HunterService implements HunterServiceInterface
                 $this->shootAtPatrolShip($hunterTarget, $damage);
                 break;
             case $hunterTarget instanceof Player:
+                $this->shootAtPlayer($hunterTarget, $damage);
                 break;
             default:
                 throw new \Exception("Unknown hunter target {$hunter->getTarget()->getType()}");
@@ -356,4 +360,19 @@ class HunterService implements HunterServiceInterface
 
         // @TODO send an event to destroy patrol ship if no armor left
     }
+
+    private function shootAtPlayer(Player $player, int $damage): void
+    {
+        $playerVariableEvent = new PlayerVariableEvent(
+            player: $player,
+            variableName: PlayerVariableEnum::HEALTH_POINT,
+            quantity: -$damage,
+            tags: [AbstractHunterEvent::HUNTER_SHOT],
+            time: new \DateTime()
+        );
+
+        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+
 }

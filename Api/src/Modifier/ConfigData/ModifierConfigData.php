@@ -511,7 +511,7 @@ class ModifierConfigData
             'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
-            'name' => 'modifier_for_player_x1.5percentage_on_strengthen_hull',
+            'name' => 'modifier_for_player_x2percentage_on_strengthen_hull',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'applyOnTarget' => false,
@@ -519,7 +519,7 @@ class ModifierConfigData
             'type' => 'variable_event_modifier',
             'triggeredEvent' => null,
             'visibility' => null,
-            'delta' => 1.5,
+            'delta' => 2.0,
             'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],

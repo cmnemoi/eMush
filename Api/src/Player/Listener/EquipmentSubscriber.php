@@ -5,7 +5,6 @@ namespace Mush\Player\Listener;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -38,7 +37,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
 
         // if player not in a patrol ship, don't kill them!
-        if ($player->getPlace()->getType() !== PlaceTypeEnum::PATROL_SHIP) {
+        if (!$player->isInAPatrolShip()) {
             return;
         }
 

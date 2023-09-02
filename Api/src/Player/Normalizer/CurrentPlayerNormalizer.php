@@ -15,7 +15,6 @@ use Mush\Equipment\Normalizer\SpaceBattleTurretNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -227,7 +226,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             ->map(fn (string $patrolShip) => $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $daedalus)->first())
             ->filter(fn ($patrolShip) => $patrolShip instanceof GameEquipment)
         ;
-        $patrolShipsInBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP);
+        $patrolShipsInBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
         return new ArrayCollection(array_values($patrolShipsInBattle->toArray()));
     }

@@ -15,6 +15,7 @@ use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
+use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -26,7 +27,7 @@ use Mush\Player\Entity\Player;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus')]
-class Daedalus implements ModifierHolder, GameVariableHolderInterface
+class Daedalus implements ModifierHolder, GameVariableHolderInterface, HunterTargetEntityInterface
 {
     use TimestampableEntity;
 
@@ -474,5 +475,20 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface
         $safeCycles = new ArrayCollection($this->daedalusInfo->getGameConfig()->getDifficultyConfig()->getHunterSafeCycles());
 
         return $safeCycles->contains($this->cycle);
+    }
+
+    public function isInAPatrolShip(): bool
+    {
+        return false;
+    }
+
+    public function isInSpace(): bool
+    {
+        return false;
+    }
+
+    public function isInSpaceBattle(): bool
+    {
+        return true;
     }
 }

@@ -21,7 +21,6 @@ use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Service\HunterService;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -118,7 +117,7 @@ class HunterServiceCest extends AbstractFunctionalTest
         $hunters = $this->daedalus->getAttackingHunters();
         $this->hunterService->makeHuntersShoot($hunters);
 
-        $I->assertTrue($this->player2->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP);
+        $I->assertTrue($this->player2->isInAPatrolShip());
 
         // then player health is reduced
         $I->assertLessThan(

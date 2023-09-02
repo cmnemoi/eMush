@@ -8,10 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -31,7 +33,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'door' => Door::class,
     'game_item' => GameItem::class,
 ])]
-class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolder
+class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolder, HunterTargetEntityInterface
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -259,5 +261,20 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
 
         return null;
+    }
+
+    public function isInAPatrolShip(): bool
+    {
+        return $this->getPlace()->getName() === PlaceTypeEnum::PATROL_SHIP;
+    }
+
+    public function isInSpace(): bool
+    {
+        return $this->getPlace()->getName() === PlaceTypeEnum::SPACE;
+    }
+
+    public function isInSpaceBattle(): bool
+    {
+        return $this->isInAPatrolShip() || $this->isInSpace();
     }
 }

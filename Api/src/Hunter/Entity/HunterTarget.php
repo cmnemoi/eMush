@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Hunter\Enum\HunterTargetEnum;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 
 #[ORM\Entity]
@@ -38,7 +37,7 @@ class HunterTarget
         return $this->id;
     }
 
-    public function getTargetEntity(): Daedalus|GameEquipment|Player
+    public function getTargetEntity(): HunterTargetEntityInterface
     {
         $target = $this->daedalus ?? $this->patrolShip ?? $this->player;
 
@@ -49,7 +48,7 @@ class HunterTarget
         return $target;
     }
 
-    public function setTargetEntity(Daedalus|GameEquipment|Player $target): self
+    public function setTargetEntity(HunterTargetEntityInterface $target): self
     {
         $this->daedalus = null;
         $this->patrolShip = null;
@@ -91,16 +90,6 @@ class HunterTarget
 
     public function isInBattle(): bool
     {
-        $spaceBattlePlaceTypes = [
-            PlaceTypeEnum::PATROL_SHIP,
-            PlaceTypeEnum::SPACE,
-        ];
-
-        $targetEntity = $this->getTargetEntity();
-        if ($targetEntity instanceof Daedalus) {
-            return true;
-        }
-
-        return in_array($targetEntity->getPlace()->getType(), $spaceBattlePlaceTypes);
+        return $this->getTargetEntity()->isInSpaceBattle();
     }
 }

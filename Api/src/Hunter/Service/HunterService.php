@@ -24,7 +24,6 @@ use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Event\AbstractHunterEvent;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -302,7 +301,7 @@ class HunterService implements HunterServiceInterface
             ->map(fn (string $patrolShip) => $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $hunter->getDaedalus())->first())
             ->filter(fn ($patrolShip) => $patrolShip instanceof GameEquipment)
         ;
-        $patrolShipsInBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP);
+        $patrolShipsInBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
         if (!$patrolShipsInBattle->isEmpty()) {
             $successRate = $targetProbabilities->get(HunterTargetEnum::PATROL_SHIP);
@@ -318,11 +317,7 @@ class HunterService implements HunterServiceInterface
             }
         }
 
-        // if there is no player in battle, remove player target from probabilities to draw
-        $isInPatrolShip = fn (Player $player) => $player->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP;
-        $isInSpace = fn (Player $player) => $player->getPlace()->getType() === PlaceTypeEnum::SPACE;
-
-        $playersInBattle = $hunter->getDaedalus()->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $isInPatrolShip($player) || $isInSpace($player));
+        $playersInBattle = $hunter->getDaedalus()->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $player->isInSpaceBattle());
         if (!$playersInBattle->isEmpty()) {
             $successRate = $targetProbabilities->get(HunterTargetEnum::PLAYER);
             if ($successRate === null) {

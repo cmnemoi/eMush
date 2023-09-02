@@ -29,12 +29,12 @@ class StatusEventSubscriber implements EventSubscriberInterface
     }
 
     public function onStatusChargeUpdated(StatusEvent $statusEvent)
-    {   
+    {
         // only handle patrol ship armor status
         if ($statusEvent->getStatusName() !== EquipmentStatusEnum::PATROL_SHIP_ARMOR) {
             return;
         }
-        
+
         /** @var GameEquipment $patrolShip */
         $patrolShip = $statusEvent->getStatusHolder();
         /** @var Player $patrolShipPilot */

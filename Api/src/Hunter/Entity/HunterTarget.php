@@ -90,7 +90,7 @@ class HunterTarget
     }
 
     public function isInBattle(): bool
-    {   
+    {
         $spaceBattlePlaceTypes = [
             PlaceTypeEnum::PATROL_SHIP,
             PlaceTypeEnum::SPACE,

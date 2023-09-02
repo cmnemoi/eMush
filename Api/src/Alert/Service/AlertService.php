@@ -423,7 +423,7 @@ class AlertService implements AlertServiceInterface
         $alertElement->setPlace($place);
 
         $this->persistAlertElement($alertElement);
-        
+
         $alert->addAlertElement($alertElement);
 
         $this->persist($alert);

@@ -90,12 +90,17 @@ class HunterTarget
     }
 
     public function isInBattle(): bool
-    {
+    {   
+        $spaceBattlePlaceTypes = [
+            PlaceTypeEnum::PATROL_SHIP,
+            PlaceTypeEnum::SPACE,
+        ];
+
         $targetEntity = $this->getTargetEntity();
         if ($targetEntity instanceof Daedalus) {
             return true;
         }
 
-        return $targetEntity->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP;
+        return in_array($targetEntity->getPlace()->getType(), $spaceBattlePlaceTypes);
     }
 }

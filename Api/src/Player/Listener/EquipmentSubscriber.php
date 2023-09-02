@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Service\EventServiceInterface;
@@ -30,15 +31,15 @@ class EquipmentSubscriber implements EventSubscriberInterface
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
-    {
+    {   
+        // only handle patrol ship destructions
+        if (!EquipmentEnum::getPatrolShips()->contains($event->getGameEquipment()->getName())) {
+            return;
+        }
+
         $player = $event->getAuthor();
         if (!$player) {
             throw new \RuntimeException('Event should have author');
-        }
-
-        // if player not in a patrol ship, don't kill them!
-        if (!$player->isInAPatrolShip()) {
-            return;
         }
 
         // move player to the space instead of landing bay

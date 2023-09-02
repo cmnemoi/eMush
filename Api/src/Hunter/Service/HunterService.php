@@ -32,6 +32,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusService;
 use Psr\Log\LoggerInterface;
 
@@ -91,7 +92,6 @@ class HunterService implements HunterServiceInterface
                 continue;
             }
 
-            // @TODO test that the target doesn't change until hunter has made a successful shot
             $this->selectHunterTarget($hunter);
             if (!$hunter->getTarget()->isInBattle()) {
                 continue;
@@ -279,7 +279,7 @@ class HunterService implements HunterServiceInterface
                 $this->shootAtDaedalus($hunterTarget, $damage);
                 break;
             case $hunterTarget instanceof GameEquipment:
-                $this->shootAtPatrolShip($hunterTarget, $damage);
+                $this->shootAtPatrolShip($hunterTarget, $damage, $hunter);
                 break;
             case $hunterTarget instanceof Player:
                 $this->shootAtPlayer($hunterTarget, $damage);
@@ -349,10 +349,16 @@ class HunterService implements HunterServiceInterface
         $this->eventService->callEvent($daedalusVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function shootAtPatrolShip(GameEquipment $patrolShip, int $damage): void
+    private function shootAtPatrolShip(GameEquipment $patrolShip, int $damage, Hunter $hunter): void
     {
         /** @var ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+
+        /** @var Player $patrolShipPilot */
+        $patrolShipPilot = $patrolShip->getDaedalus()->getPlaceByName($patrolShip->getName())?->getPlayers()->getPlayerAlive()->first();
+        if (!$patrolShipPilot) {
+            throw new \LogicException("Patrol ship {$patrolShip->getName()} should have a pilot");
+        }
 
         $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,
@@ -361,7 +367,21 @@ class HunterService implements HunterServiceInterface
             time: new \DateTime()
         );
 
-        // @TODO send an event to destroy patrol ship if no armor left
+        if ($patrolShipArmor->getCharge() <= 0) {
+            // reset hunter target so the patrol ship can be safely deleted
+            $hunter->setTarget(new HunterTarget($hunter));
+            $this->persist([$hunter]);
+
+            $statusEvent = new StatusEvent(
+                statusName: EquipmentStatusEnum::PATROL_SHIP_ARMOR,
+                holder: $patrolShip,
+                tags: [AbstractHunterEvent::HUNTER_SHOT],
+                time: new \DateTime()
+            );
+            $statusEvent->setAuthor($patrolShipPilot);
+
+            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_CHARGE_UPDATED);
+        }
     }
 
     private function shootAtPlayer(Player $player, int $damage): void

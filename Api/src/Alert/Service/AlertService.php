@@ -182,14 +182,7 @@ class AlertService implements AlertServiceInterface
             return;
         }
 
-        $equipmentElement = new AlertElement();
-        $equipmentElement->setEquipment($equipment);
-
-        $this->persistAlertElement($equipmentElement);
-
-        $brokenAlert->addAlertElement($equipmentElement);
-
-        $this->persist($brokenAlert);
+        $this->createEquipmentAlertElement($equipment, $brokenAlert);
     }
 
     public function handleEquipmentRepair(GameEquipment $equipment): void
@@ -230,8 +223,13 @@ class AlertService implements AlertServiceInterface
         $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment);
         $alertEquipment = $filteredList->first();
 
-        if ($filteredList->count() !== 1 || !$alertEquipment) {
-            throw new \LogicException('this equipment should be reported exactly one time');
+        if (!$alertEquipment) {
+            $alertEquipment = $this->createEquipmentAlertElement($equipment, $alert);
+            $filteredList->add($alertEquipment);
+        }
+
+        if ($filteredList->count() !== 1) {
+            throw new \LogicException("this equipment should be reported exactly one time. Currently reported {$filteredList->count()} times");
         }
 
         return $alertEquipment;
@@ -250,16 +248,7 @@ class AlertService implements AlertServiceInterface
             return;
         }
 
-        $equipmentElement = new AlertElement();
-        $equipmentElement->setPlace($place);
-
-        $reportedFire = new AlertElement();
-        $reportedFire->setPlace($place);
-
-        $this->persistAlertElement($reportedFire);
-
-        $fireAlert->addAlertElement($reportedFire);
-        $this->persist($fireAlert);
+        $this->createFireAlertElement($place, $fireAlert);
     }
 
     public function handleFireStop(Place $place): void
@@ -284,7 +273,12 @@ class AlertService implements AlertServiceInterface
         $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getPlace() === $place);
         $fireAlert = $filteredList->first();
 
-        if ($filteredList->count() !== 1 || !$fireAlert) {
+        if (!$fireAlert) {
+            $fireAlert = $this->createFireAlertElement($place, $alert);
+            $filteredList->add($fireAlert);
+        }
+
+        if ($filteredList->count() !== 1) {
             throw new \LogicException("this fire should be reported exactly one time. Currently reported {$filteredList->count()} times");
         }
 
@@ -407,5 +401,33 @@ class AlertService implements AlertServiceInterface
         }
 
         return $this->getAlertEquipmentElement($alert, $equipment)->getPlayerInfo() !== null;
+    }
+
+    private function createEquipmentAlertElement(GameEquipment $equipment, Alert $alert): AlertElement
+    {
+        $alertElement = new AlertElement();
+        $alertElement->setEquipment($equipment);
+
+        $this->persistAlertElement($alertElement);
+
+        $alert->addAlertElement($alertElement);
+
+        $this->persist($alert);
+
+        return $alertElement;
+    }
+
+    private function createFireAlertElement(Place $place, Alert $alert): AlertElement
+    {
+        $alertElement = new AlertElement();
+        $alertElement->setPlace($place);
+
+        $this->persistAlertElement($alertElement);
+
+        $alert->addAlertElement($alertElement);
+
+        $this->persist($alert);
+
+        return $alertElement;
     }
 }

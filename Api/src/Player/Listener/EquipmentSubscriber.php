@@ -31,7 +31,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
-    {   
+    {
         // only handle patrol ship destructions
         if (!EquipmentEnum::getPatrolShips()->contains($event->getGameEquipment()->getName())) {
             return;

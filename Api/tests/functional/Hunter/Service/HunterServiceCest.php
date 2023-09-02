@@ -162,6 +162,20 @@ class HunterServiceCest extends AbstractFunctionalTest
         $I->assertFalse($this->player2->isAlive());
     }
 
+    public function testMakeHunterShootKillsPlayerIfNoHealth(FunctionalTester $I): void
+    {
+        // given hunter has a 100% chance to target a player and player health is 1
+        $this->hunter->getHunterConfig()->addTargetProbability(target: HunterTargetEnum::PLAYER, probability: 100);
+        $this->player2->setHealthPoint(1);
+        $I->haveInRepository($this->hunter);
+
+        // when hunter shoots
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // then player is dead
+        $I->assertFalse($this->player2->isAlive());
+    }
+
     public function testMakeHuntersShootAsteroidFullHealth(FunctionalTester $I)
     {
         $daedalus = $this->createDaedalusForAsteroidTest($I);

@@ -407,6 +407,9 @@ class AlertService implements AlertServiceInterface
     {
         $alertElement = new AlertElement();
         $alertElement->setEquipment($equipment);
+
+        $this->persistAlertElement($alertElement);
+
         $alert->addAlertElement($alertElement);
 
         $this->persist($alert);
@@ -418,6 +421,9 @@ class AlertService implements AlertServiceInterface
     {
         $alertElement = new AlertElement();
         $alertElement->setPlace($place);
+
+        $this->persistAlertElement($alertElement);
+        
         $alert->addAlertElement($alertElement);
 
         $this->persist($alert);

@@ -64,4 +64,37 @@ class AlertServiceCest extends AbstractFunctionalTest
         $alertElements = $alert->getAlertElements();
         $I->assertCount(1, $alertElements);
     }
+
+    public function testGetAlertEquipmentElement(FunctionalTester $I): void
+    {
+        // given a mycoscan, break it and get the alert
+        $this->alertService->handleEquipmentBreak($this->mycoscan);
+        /** @var Alert $alert */
+        $alert = $I->grabEntityFromRepository(Alert::class);
+
+        // when getAlertEquipmentElement is called on it
+        $alertElement = $this->alertService->getAlertEquipmentElement($alert, $this->mycoscan);
+
+        // then check that the alert element is returned
+        $I->assertNotNull($alertElement);
+    }
+
+    public function testGetAlertEquipmentWithoutAlertElementBefore(FunctionalTester $I): void
+    {
+        // given a mycoscan, break it and get the alert. remove alert element
+        $this->alertService->handleEquipmentBreak($this->mycoscan);
+        /** @var Alert $alert */
+        $alert = $I->grabEntityFromRepository(Alert::class);
+
+        $alertElements = $alert->getAlertElements();
+        $alertElement = $alertElements->first();
+        $alert->getAlertElements()->removeElement($alertElement);
+        $I->haveInRepository($alert);
+
+        // when getAlertEquipmentElement is called on it
+        $alertElement = $this->alertService->getAlertEquipmentElement($alert, $this->mycoscan);
+
+        // then check that the alert element is returned
+        $I->assertNotNull($alertElement);
+    }
 }

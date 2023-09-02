@@ -58,7 +58,10 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 2 => 1,
                 3 => 1,
             ])
-            ->setTargetProbabilities([])
+            ->setTargetProbabilities([
+                HunterTargetEnum::PATROL_SHIP => 0,
+                HunterTargetEnum::PLAYER => 0,
+            ])
         ;
         $manager->persist($asteroid);
 
@@ -90,10 +93,8 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 4 => 1,
             ])
             ->setTargetProbabilities([
-                HunterTargetEnum::HUNTER => 100,
-                HunterTargetEnum::MERCHANT_SHIP => 100,
-                HunterTargetEnum::PATROL_SHIP => 100,
-                HunterTargetEnum::PLAYER => 100,
+                HunterTargetEnum::PATROL_SHIP => 0,
+                HunterTargetEnum::PLAYER => 0,
             ])
         ;
         $manager->persist($dice);
@@ -122,10 +123,8 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 2 => 1,
             ])
             ->setTargetProbabilities([
-                HunterTargetEnum::HUNTER => 100,
-                HunterTargetEnum::MERCHANT_SHIP => 100,
-                HunterTargetEnum::PATROL_SHIP => 100,
-                HunterTargetEnum::PLAYER => 100,
+                HunterTargetEnum::PATROL_SHIP => 0,
+                HunterTargetEnum::PLAYER => 0,
             ])
         ;
 
@@ -155,10 +154,8 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 2 => 1,
             ])
             ->setTargetProbabilities([
-                HunterTargetEnum::HUNTER => 100,
-                HunterTargetEnum::MERCHANT_SHIP => 100,
-                HunterTargetEnum::PATROL_SHIP => 100,
-                HunterTargetEnum::PLAYER => 100,
+                HunterTargetEnum::PATROL_SHIP => 0,
+                HunterTargetEnum::PLAYER => 0,
             ])
         ;
 
@@ -189,10 +186,8 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 3 => 1,
             ])
             ->setTargetProbabilities([
-                HunterTargetEnum::HUNTER => 100,
-                HunterTargetEnum::MERCHANT_SHIP => 100,
-                HunterTargetEnum::PATROL_SHIP => 100,
-                HunterTargetEnum::PLAYER => 100,
+                HunterTargetEnum::PATROL_SHIP => 0,
+                HunterTargetEnum::PLAYER => 0,
             ])
         ;
 

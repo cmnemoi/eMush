@@ -89,7 +89,6 @@ class AlertServiceCest extends AbstractFunctionalTest
         $alertElements = $alert->getAlertElements();
         $alertElement = $alertElements->first();
         $alert->getAlertElements()->removeElement($alertElement);
-        $I->haveInRepository($alert);
 
         // when getAlertEquipmentElement is called on it
         $alertElement = $this->alertService->getAlertEquipmentElement($alert, $this->mycoscan);

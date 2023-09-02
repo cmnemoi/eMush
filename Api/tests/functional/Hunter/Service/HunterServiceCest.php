@@ -144,14 +144,22 @@ class HunterServiceCest extends AbstractFunctionalTest
         );
     }
 
-    public function testMakeHuntersShootHunterDoesNotChangeTargetUntilASuccessfulShot(FunctionalTester $I): void
+    public function testMakeHunterShootDestroyPatrolShipIfNoArmor(FunctionalTester $I): void
     {
-        // given a hunter targeting a player
+        // given hunter has a 100% chance to target a patrol ship and patrol ship armor status charge is 1
+        $this->hunter->getHunterConfig()->addTargetProbability(target: HunterTargetEnum::PATROL_SHIP, probability: 100);
+        $this->pasiphaeArmorStatus->setCharge(1);
+        $I->haveInRepository($this->hunter);
+        $I->haveInRepository($this->pasiphaeArmorStatus);
 
-        // when the hunter shoots and misses 3 times
-        $I->markTestIncomplete('TODO');
+        // when hunter shoots
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
-        // then hunter target is still a player
+        // then patrol ship is destroyed and player is dead
+        $I->dontSeeInRepository(GameEquipment::class, [
+            'name' => EquipmentEnum::PASIPHAE,
+        ]);
+        $I->assertFalse($this->player1->isAlive());
     }
 
     public function testMakeHuntersShootAsteroidFullHealth(FunctionalTester $I)

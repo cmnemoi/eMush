@@ -18,10 +18,10 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Hunter\Entity\Hunter;
-use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Service\HunterService;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -35,6 +35,7 @@ class HunterServiceCest extends AbstractFunctionalTest
     private GameEquipment $pasiphae;
     private ChargeStatusConfig $pasiphaeArmorStatusConfig;
     private ChargeStatus $pasiphaeArmorStatus;
+    private Hunter $hunter;
 
     public function _before(FunctionalTester $I)
     {
@@ -60,6 +61,14 @@ class HunterServiceCest extends AbstractFunctionalTest
 
         $this->daedalus->setHunterPoints(10); // spawn a single hunter
         $this->hunterService->unpoolHunters($this->daedalus, new \DateTime());
+
+        /* @var Hunter $hunter */
+        $this->hunter = $this->daedalus->getAttackingHunters()->first();
+        $truceStatus = $this->hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
+        $this->hunter->removeStatus($truceStatus);
+        $this->hunter->getHunterConfig()->setHitChance(100);
+
+        $I->haveInRepository($this->hunter);
     }
 
     public function testUnpoolHunters(FunctionalTester $I)
@@ -71,8 +80,13 @@ class HunterServiceCest extends AbstractFunctionalTest
 
     public function testMakeHuntersShootDaedalus(FunctionalTester $I)
     {
-        $this->testMakeHuntersShootTarget($I, HunterTargetEnum::DAEDALUS);
-        $I->assertNotEquals(
+        // given hunter has a 0% chance to target any other target (default, so do nothing)
+
+        // when hunter shoots
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // then daedalus hull is damaged
+        $I->assertLessThan(
             expected: $this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull(),
             actual: $this->daedalus->getHull()
         );
@@ -80,8 +94,15 @@ class HunterServiceCest extends AbstractFunctionalTest
 
     public function testMakeHuntersShootPatrolShip(FunctionalTester $I)
     {
-        $this->testMakeHuntersShootTarget($I, HunterTargetEnum::PATROL_SHIP);
-        $I->assertNotEquals(
+        // given hunter has a 100% chance to target a patrol ship
+        $this->hunter->getHunterConfig()->addTargetProbability(target: HunterTargetEnum::PATROL_SHIP, probability: 100);
+        $I->haveInRepository($this->hunter);
+
+        // when hunter shoots
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // then patrol ship armor is damaged
+        $I->assertLessThan(
             expected: $this->pasiphaeArmorStatusConfig->getStartCharge(),
             actual: $this->pasiphaeArmorStatus->getCharge()
         );
@@ -89,8 +110,18 @@ class HunterServiceCest extends AbstractFunctionalTest
 
     public function testMakeHuntersShootPlayer(FunctionalTester $I)
     {
-        $this->testMakeHuntersShootTarget($I, HunterTargetEnum::PLAYER);
-        $I->assertNotEquals(
+        // given hunter has a 100% chance to target a player
+        $this->hunter->getHunterConfig()->addTargetProbability(target: HunterTargetEnum::PLAYER, probability: 100);
+        $I->haveInRepository($this->hunter);
+
+        // when hunter shoots
+        $hunters = $this->daedalus->getAttackingHunters();
+        $this->hunterService->makeHuntersShoot($hunters);
+
+        $I->assertTrue($this->player2->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP);
+
+        // then player health is reduced
+        $I->assertLessThan(
             expected: $this->player2->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             actual: $this->player2->getHealthPoint(),
         );
@@ -98,14 +129,29 @@ class HunterServiceCest extends AbstractFunctionalTest
 
     public function testMakeHuntersDoNotShootEntitiesNotInBattle(FunctionalTester $I): void
     {
-        $this->player2->setPlace($this->daedalus->getPlaceByName(RoomEnum::SPACE));
+        // given hunter has a 100% chance to target a player, but the player is in laboratory (not in battle)
+        $this->hunter->getHunterConfig()->addTargetProbability(target: HunterTargetEnum::PLAYER, probability: 100);
+        $this->player2->setPlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $I->haveInRepository($this->player2);
-        $this->testMakeHuntersShootTarget($I, HunterTargetEnum::PLAYER);
-        
+
+        // when hunter shoots
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // then player health is not reduced
         $I->assertEquals(
             expected: $this->player2->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             actual: $this->player2->getHealthPoint(),
         );
+    }
+
+    public function testMakeHuntersShootHunterDoesNotChangeTargetUntilASuccessfulShot(FunctionalTester $I): void
+    {
+        // given a hunter targeting a player
+
+        // when the hunter shoots and misses 3 times
+        $I->markTestIncomplete('TODO');
+
+        // then hunter target is still a player
     }
 
     public function testMakeHuntersShootAsteroidFullHealth(FunctionalTester $I)
@@ -232,58 +278,5 @@ class HunterServiceCest extends AbstractFunctionalTest
         $I->haveInRepository($daedalus);
 
         return $daedalus;
-    }
-
-    private function testMakeHuntersShootTarget(FunctionalTester $I, string $targetType): void
-    {
-        // remove the truce status and setup target and accuracy
-        $hunters = $this->daedalus->getAttackingHunters();
-        /** @var Hunter $hunter */
-        foreach ($hunters as $hunter) {
-            $status = $hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
-            $hunter->removeStatus($status);
-
-            $hunterTarget = new HunterTarget($hunter);
-            switch ($targetType) {
-                case HunterTargetEnum::DAEDALUS:
-                    $hunter->getHunterConfig()->setTargetProbabilities([
-                        HunterTargetEnum::HUNTER => 0,
-                        HunterTargetEnum::MERCHANT_SHIP => 0,
-                        HunterTargetEnum::PATROL_SHIP => 0,
-                        HunterTargetEnum::PLAYER => 0,
-                    ]);
-                    $hunterTarget->setTargetEntity($this->daedalus);
-                    break;
-                case HunterTargetEnum::PATROL_SHIP:
-                    $hunter->getHunterConfig()->setTargetProbabilities([
-                        HunterTargetEnum::HUNTER => 0,
-                        HunterTargetEnum::MERCHANT_SHIP => 0,
-                        HunterTargetEnum::PATROL_SHIP => 100,
-                        HunterTargetEnum::PLAYER => 0,
-                    ]);
-                    $hunterTarget->setTargetEntity($this->pasiphae);
-                    break;
-                case HunterTargetEnum::PLAYER:
-                    $hunter->getHunterConfig()->setTargetProbabilities([
-                        HunterTargetEnum::HUNTER => 0,
-                        HunterTargetEnum::MERCHANT_SHIP => 0,
-                        HunterTargetEnum::PATROL_SHIP => 0,
-                        HunterTargetEnum::PLAYER => 100,
-                    ]);
-                    $hunterTarget->setTargetEntity($this->player2);
-                    break;
-                default:
-                    throw new \Exception('Unknown target type: ' . $targetType);
-            }
-
-            $I->haveInRepository($hunterTarget);
-
-            $hunter->setTarget($hunterTarget);
-            $hunter->getHunterConfig()->setHitChance(100);
-
-            $I->haveInRepository($hunter);
-        }
-
-        $this->hunterService->makeHuntersShoot($hunters);
     }
 }

@@ -164,7 +164,7 @@ class AbstractFunctionalTest
         ;
         $I->haveInRepository($extraRoom);
 
-        $I->refreshEntities($daedalus);
+        $I->haveInRepository($daedalus);
 
         return $extraRoom;
     }

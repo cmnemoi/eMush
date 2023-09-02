@@ -259,4 +259,11 @@ class HunterConfig
 
         return $this;
     }
+
+    public function addTargetProbability(string $target, int $probability): static
+    {
+        $this->targetProbabilities[$target] = $probability;
+
+        return $this;
+    }
 }

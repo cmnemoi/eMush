@@ -30,8 +30,8 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Service\StatusService;
 use Psr\Log\LoggerInterface;
 
@@ -319,7 +319,10 @@ class HunterService implements HunterServiceInterface
         }
 
         // if there is no player in battle, remove player target from probabilities to draw
-        $playersInBattle = $hunter->getDaedalus()->getPlayers()->getPlayerAlive()->filter(fn ($player) => $player->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP);
+        $isInPatrolShip = fn (Player $player) => $player->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP;
+        $isInSpace = fn (Player $player) => $player->getPlace()->getType() === PlaceTypeEnum::SPACE;
+
+        $playersInBattle = $hunter->getDaedalus()->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $isInPatrolShip($player) || $isInSpace($player));
         if (!$playersInBattle->isEmpty()) {
             $successRate = $targetProbabilities->get(HunterTargetEnum::PLAYER);
             if ($successRate === null) {
@@ -373,6 +376,4 @@ class HunterService implements HunterServiceInterface
 
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
-
-
 }

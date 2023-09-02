@@ -3,6 +3,7 @@
 namespace Mush\Player\Enum;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Hunter\Event\AbstractHunterEvent;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\StatusEnum;
@@ -94,6 +95,9 @@ class EndCauseEnum
         ModifierScopeEnum::EVENT_CLUMSINESS => self::CLUMSINESS,
         ActionEnum::AUTO_DESTROY => self::SUPER_NOVA,
         ActionEnum::COLLECT_SCRAP => self::SPACE_BATTLE,
+        ActionEnum::LAND => self::PATROL_SHIP_EXPLOSION,
+        ActionEnum::TAKEOFF => self::PATROL_SHIP_EXPLOSION,
+        AbstractHunterEvent::HUNTER_SHOT => self::SPACE_BATTLE,
     ];
 
     public static function getAll(): array

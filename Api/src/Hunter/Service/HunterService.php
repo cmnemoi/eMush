@@ -351,12 +351,15 @@ class HunterService implements HunterServiceInterface
 
     private function shootAtPatrolShip(GameEquipment $patrolShip, int $damage, Hunter $hunter): void
     {
-        /** @var ChargeStatus $patrolShipArmor */
+        /** @var ?ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        if (!$patrolShipArmor) {
+            throw new \LogicException("Patrol ship {$patrolShip->getName()} should have a patrol ship armor status");
+        }
 
-        /** @var Player $patrolShipPilot */
+        /** @var ?Player|false $patrolShipPilot */
         $patrolShipPilot = $patrolShip->getDaedalus()->getPlaceByName($patrolShip->getName())?->getPlayers()->getPlayerAlive()->first();
-        if (!$patrolShipPilot) {
+        if (!$patrolShipPilot instanceof Player) {
             throw new \LogicException("Patrol ship {$patrolShip->getName()} should have a pilot");
         }
 

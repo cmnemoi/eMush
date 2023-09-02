@@ -159,7 +159,7 @@ class HunterServiceCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(GameEquipment::class, [
             'name' => EquipmentEnum::PASIPHAE,
         ]);
-        $I->assertFalse($this->player1->isAlive());
+        $I->assertFalse($this->player2->isAlive());
     }
 
     public function testMakeHuntersShootAsteroidFullHealth(FunctionalTester $I)

@@ -41,17 +41,24 @@ docker-watch:
 fill-daedalus:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:fill-daedalus
 
+gitpod-install: gitpod-setup-env-variables build install-api start-mush-database install-front install-eternal-twin setup-JWT-certificates create-crew fill-daedalus
+
+gitpod-setup-env-variables:
+	sudo cp ./Api/.env.dist ./Api/.env
+	sudo cp ./App/.env.dist ./App/.env
+	sudo cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
+
 install: setup-env-variables build install-api start-mush-database install-front install-eternal-twin setup-JWT-certificates create-crew fill-daedalus
 	@echo "Installation completed successfully ! You can access eMush at http://localhost/"
-
-install-eternal-twin: start-mush-database
-	docker compose -f docker/docker-compose.yml run -u node eternal_twin yarn install
-	docker compose -f docker/docker-compose.yml run -u node eternal_twin yarn etwin db create
 
 install-api:
 	docker start mush_php mush_database eternal_twin &&\
 	docker compose -f docker/docker-compose.yml run -u dev mush_php composer install &&\
 	docker compose -f docker/docker-compose.yml run -u dev mush_php ./reset.sh --init
+
+install-eternal-twin: start-mush-database
+	docker compose -f docker/docker-compose.yml run -u node eternal_twin yarn install
+	docker compose -f docker/docker-compose.yml run -u node eternal_twin yarn etwin db create
 
 install-front:
 	docker start mush_front &&\

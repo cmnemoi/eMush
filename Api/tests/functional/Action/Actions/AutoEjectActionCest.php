@@ -49,7 +49,38 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $this->autoEjectAction = $I->grabService(AutoEject::class);
     }
 
-    public function testAutoEjectSuccess(FunctionalTester $I)
+    public function testAutoEjectNotAvailableIfNoSpaceSuitInPlayerInventory(FunctionalTester $I): void
+    {
+        // given a player having no space suit in their inventory
+        $I->assertEmpty($this->player1->getEquipments());
+
+        // when the player auto ejects
+        $this->autoEjectAction->loadParameters($this->actionConfig, $this->player1, $this->pasiphae);
+
+        // then player should not be able to auto eject
+        $I->assertFalse($this->autoEjectAction->isVisible());
+    }
+
+    public function testAutoEjectNotAvailableIfNotInAPatrolShip(FunctionalTester $I): void
+    {
+        // given a player having a space suit in their inventory but not in a patrol ship
+        $spaceSuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
+        $spaceSuit = new GameItem($this->player1);
+        $spaceSuit
+            ->setName(GearItemEnum::SPACESUIT)
+            ->setEquipment($spaceSuitConfig)
+        ;
+        $I->haveInRepository($spaceSuit);
+        $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+
+        // when the player auto ejects
+        $this->autoEjectAction->loadParameters($this->actionConfig, $this->player1, $this->pasiphae);
+
+        // then player should not be able to auto eject
+        $I->assertFalse($this->autoEjectAction->isVisible());
+    }
+
+    public function testAutoEjectSuccess(FunctionalTester $I): void
     {
         // given a player having a space suit in their inventory
         $spaceSuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);

@@ -390,7 +390,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
-            ->setActions([$takeAction, $dropAction, $hideAction, $examineAction, $dismantle12, $repair6, $sabotage6, $reportAction])
+            ->setActions(new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction, $dismantle12, $repair6, $sabotage6, $reportAction]))
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
             ->setMechanics(new ArrayCollection([$spaceSuitMechanic]))
             ->buildName(GameConfigEnum::DEFAULT)

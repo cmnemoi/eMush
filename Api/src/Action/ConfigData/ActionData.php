@@ -5,6 +5,7 @@ namespace Mush\Action\ConfigData;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Entity\Hunter;
@@ -1474,7 +1475,7 @@ class ActionData
             'name' => ActionEnum::AUTO_EJECT,
             'action_name' => ActionEnum::AUTO_EJECT,
             'types' => [],
-            'target' => null,
+            'target' => GameEquipment::class,
             'scope' => ActionScopeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => 'hidden'],
             'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],

@@ -860,5 +860,17 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         Nécessite un Débris Métallique.</target>
       </segment>
     </unit>
+    <unit id="auto_eject">
+      <segment id="name" state="final">
+        <source>auto_eject.name</source>
+        <target>Auto-Ejection</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>auto_eject.description</source>
+        <target>Vous avez perdu cette bataille, mais pas la guerre ! 
+        //
+        Ou bien, vous avez simplement envie de prendre l'air... ou pas.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

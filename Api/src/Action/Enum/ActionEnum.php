@@ -65,7 +65,6 @@ class ActionEnum
     public const RENOVATE = 'renovate';
     public const AUTO_EJECT = 'auto_eject';
 
-
     // Equipment-enabled actions
     public const INSERT_FUEL = 'insert_fuel';
     public const INSERT_FUEL_CHAMBER = 'insert_fuel_chamber';

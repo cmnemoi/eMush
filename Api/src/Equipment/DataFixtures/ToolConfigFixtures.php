@@ -373,7 +373,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
 
         $manager->persist($spaceCapsule);
-        
+
         /** @var Action $autoEjectAction */
         $autoEjectAction = $this->getReference(ActionsFixtures::AUTO_EJECT);
 
@@ -397,7 +397,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($spaceSuitMechanic);
         $manager->persist($spaceSuit);
-
 
         $this->addReference(ToolItemEnum::EXTINGUISHER, $extinguisher);
 

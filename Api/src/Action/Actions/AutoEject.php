@@ -14,7 +14,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -31,7 +30,7 @@ final class AutoEject extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService
-    ) { 
+    ) {
         parent::__construct(
             $eventService,
             $actionService,
@@ -57,7 +56,7 @@ final class AutoEject extends AbstractAction
     }
 
     protected function applyEffect(ActionResult $result): void
-    {   
+    {
         $this->player->changePlace($this->getPlayer()->getDaedalus()->getSpace());
         $this->playerService->persist($this->player);
     }

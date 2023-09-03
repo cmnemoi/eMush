@@ -105,7 +105,7 @@ class EquipmentNormalizerTest extends TestCase
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
-            ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], null)
+            ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameEquipment::class)
             ->andReturn(new ArrayCollection([]))
             ->once()
         ;
@@ -252,7 +252,7 @@ class EquipmentNormalizerTest extends TestCase
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
-            ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], null)
+            ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameEquipment::class)
             ->andReturn(new ArrayCollection([]))
             ->once()
         ;

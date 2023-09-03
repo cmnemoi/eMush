@@ -22,6 +22,9 @@ use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 
 final class AutoEjectActionCest extends AbstractFunctionalTest
 {
@@ -72,6 +75,28 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($spaceSuit);
         $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+
+        // when we load the auto eject action
+        $this->autoEjectAction->loadParameters($this->actionConfig, $this->player1, $this->pasiphae);
+
+        // then player should not see the action
+        $I->assertFalse($this->autoEjectAction->isVisible());
+    }
+
+    public function testAutoEjectNotAvailableIfBrokenSpaceSuitInPlayerInventory(FunctionalTester $I): void
+    {
+        // given a player have a broken space suit in their inventory
+        $spaceSuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
+        $spaceSuit = new GameItem($this->player1);
+        $spaceSuit
+            ->setName(GearItemEnum::SPACESUIT)
+            ->setEquipment($spaceSuitConfig)
+        ;
+        $I->haveInRepository($spaceSuit);
+
+        $brokenStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
+        $brokenStatus = new Status($spaceSuit, $brokenStatusConfig);
+        $I->haveInRepository($brokenStatus);
 
         // when we load the auto eject action
         $this->autoEjectAction->loadParameters($this->actionConfig, $this->player1, $this->pasiphae);

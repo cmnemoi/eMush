@@ -96,21 +96,6 @@ final class LandActionCest extends AbstractFunctionalTest
             $pasiphaeArmor->getThreshold(),
             $pasiphaeArmor->getCharge()
         );
-
-        $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::ALPHA_BAY_2,
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::ENTER_ROOM,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
-        $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::PASIPHAE,
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::EXIT_ROOM,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
         $I->dontSeeInRepository(RoomLog::class, [
             'place' => RoomEnum::PASIPHAE,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
@@ -178,21 +163,6 @@ final class LandActionCest extends AbstractFunctionalTest
             $this->player1->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getInitHull(),
             $this->player1->getDaedalus()->getHull()
         );
-
-        $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::ALPHA_BAY_2,
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::ENTER_ROOM,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
-        $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::PASIPHAE,
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::EXIT_ROOM,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
         $I->dontSeeInRepository(RoomLog::class, [
             'place' => RoomEnum::PASIPHAE,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),

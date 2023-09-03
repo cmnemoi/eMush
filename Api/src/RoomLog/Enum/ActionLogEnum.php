@@ -103,6 +103,7 @@ class ActionLogEnum
     public const SHOOT_HUNTER_PATROL_SHIP_FAIL = 'shoot_hunter_patrol_ship_fail';
     public const RENOVATE_SUCCESS = 'renovate_success';
     public const RENOVATE_FAIL = 'renovate_fail';
+    public const AUTO_EJECT_SUCCESS = 'auto_eject_success';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -363,6 +364,9 @@ class ActionLogEnum
         ActionEnum::RENOVATE => [
             ActionOutputEnum::SUCCESS => self::RENOVATE_SUCCESS,
             ActionOutputEnum::FAIL => self::RENOVATE_FAIL,
+        ],
+        ActionEnum::AUTO_EJECT => [
+            ActionOutputEnum::SUCCESS => self::AUTO_EJECT_SUCCESS,
         ],
     ];
 }

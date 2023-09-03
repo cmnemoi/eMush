@@ -1475,7 +1475,7 @@ class ActionData
             'name' => ActionEnum::AUTO_EJECT,
             'action_name' => ActionEnum::AUTO_EJECT,
             'types' => [],
-            'target' => GameEquipment::class,
+            'target' => null,
             'scope' => ActionScopeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => 'hidden'],
             'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],

@@ -893,7 +893,6 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::AUTO_EJECT)
             ->setActionName(ActionEnum::AUTO_EJECT)
             ->setScope(ActionScopeEnum::ROOM)
-            ->setTarget(GameEquipment::class)
             ->setActionCost(1)
             ->setInjuryRate(25)
             ->setDirtyRate(25)

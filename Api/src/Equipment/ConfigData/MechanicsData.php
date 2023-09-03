@@ -3472,5 +3472,12 @@ class MechanicsData
                 ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP,
             ],
         ],
+        [
+            'name' => 'tool_spacesuit_default',
+            'type' => 'tool',
+            'actions' => [
+                ActionEnum::AUTO_EJECT,
+            ],
+        ],
     ];
 }

@@ -12,6 +12,7 @@ use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -63,6 +64,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var StatusConfig $heavyStatus */
         $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
 
+        /** @var Action $dismantle12 */
+        $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
         /** @var Action $dismantle325 */
         $dismantle325 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
         /** @var Action $dismantle425 */
@@ -370,6 +373,31 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
 
         $manager->persist($spaceCapsule);
+        
+        /** @var Action $autoEjectAction */
+        $autoEjectAction = $this->getReference(ActionsFixtures::AUTO_EJECT);
+
+        $spaceSuitMechanic = new Tool();
+        $spaceSuitMechanic
+            ->addAction($autoEjectAction)
+            ->buildName(EquipmentMechanicEnum::TOOL . '_' . GearItemEnum::SPACESUIT, GameConfigEnum::DEFAULT)
+        ;
+
+        $spaceSuit = new ItemConfig();
+        $spaceSuit
+            ->setEquipmentName(GearItemEnum::SPACESUIT)
+            ->setIsStackable(true)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
+            ->setIsBreakable(true)
+            ->setActions([$takeAction, $dropAction, $hideAction, $examineAction, $dismantle12, $repair6, $sabotage6, $reportAction])
+            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
+            ->setMechanics(new ArrayCollection([$spaceSuitMechanic]))
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($spaceSuitMechanic);
+        $manager->persist($spaceSuit);
+
 
         $this->addReference(ToolItemEnum::EXTINGUISHER, $extinguisher);
 
@@ -389,6 +417,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addEquipmentConfig($bandage)
             ->addEquipmentConfig($retroFungalSerum)
             ->addEquipmentConfig($spaceCapsule)
+            ->addEquipmentConfig($spaceSuit)
         ;
         $manager->persist($gameConfig);
 

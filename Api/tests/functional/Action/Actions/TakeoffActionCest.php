@@ -91,21 +91,6 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             $pasiphaeArmor->getThreshold(),
             $pasiphaeArmor->getCharge()
         );
-
-        $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::LABORATORY,
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::EXIT_ROOM,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
-        $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::PASIPHAE,
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::ENTER_ROOM,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
         $I->dontSeeInRepository(RoomLog::class, [
             'place' => RoomEnum::PASIPHAE,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),

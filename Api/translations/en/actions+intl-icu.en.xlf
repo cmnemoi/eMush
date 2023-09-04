@@ -797,7 +797,7 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
       <segment id="description" state="translated">
         <source>shoot_random_hunter.description</source>
-        <target>Fire a Teslatron charge at an enemy ship. </target>
+        <target>Fire a Teslatron charge at an enemy ship.</target>
       </segment>
     </unit>
     <unit id="takeoff">

@@ -81,7 +81,7 @@
                     16 {burne {preposition_coprolalia}}
                     17 {peau {preposition_coprolalia}}
                     18 {queue de {animal_coprolalia}}
-                    19 {{animal_coprolalia}{animal, select,
+                    19 {{animal_coprolalia} {animal, select,
                         1 {{adjective_female_single_coprolalia}}
                         8 {{adjective_female_single_coprolalia}}
                         9 {{adjective_female_single_coprolalia}}

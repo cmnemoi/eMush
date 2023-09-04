@@ -36,7 +36,7 @@ class AbstractFunctionalTest
         $this->daedalus = $this->createDaedalus($I);
         $this->players = $this->createPlayers($I, $this->daedalus);
         $this->daedalus->setPlayers($this->players);
-        $I->refreshEntities($this->daedalus);
+        $I->haveInRepository($this->daedalus);
 
         $this->player1 = $this->players->first();
         $this->player2 = $this->players->last();
@@ -164,7 +164,7 @@ class AbstractFunctionalTest
         ;
         $I->haveInRepository($extraRoom);
 
-        $I->refreshEntities($daedalus);
+        $I->haveInRepository($daedalus);
 
         return $extraRoom;
     }

@@ -2,10 +2,10 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -32,7 +32,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        if (!$event->hasTag(EndCauseEnum::PATROL_SHIP_EXPLOSION)) {
+        // only handle patrol ship destructions
+        if (!EquipmentEnum::getPatrolShips()->contains($event->getGameEquipment()->getName())) {
             return;
         }
 
@@ -49,7 +50,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         if (!$player->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)) {
             $deathPlayerEvent = new PlayerEvent(
                 $player,
-                [EndCauseEnum::PATROL_SHIP_EXPLOSION],
+                $event->getTags(),
                 new \DateTime()
             );
             $this->eventService->callEvent($deathPlayerEvent, PlayerEvent::DEATH_PLAYER);

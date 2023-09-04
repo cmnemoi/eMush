@@ -18,10 +18,12 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableCollection;
 use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -39,7 +41,7 @@ use Mush\User\Entity\User;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolder, EquipmentHolderInterface, GameVariableHolderInterface
+class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolder, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -517,5 +519,20 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         );
 
         return in_array($this->getPlace()->getName(), $spaceBattleRooms, true);
+    }
+
+    public function isInAPatrolShip(): bool
+    {
+        return $this->getPlace()->getType() === PlaceTypeEnum::PATROL_SHIP;
+    }
+
+    public function isInSpace(): bool
+    {
+        return $this->getPlace()->getType() === PlaceTypeEnum::SPACE;
+    }
+
+    public function isInSpaceBattle(): bool
+    {
+        return $this->isInAPatrolShip() || $this->isInSpace();
     }
 }

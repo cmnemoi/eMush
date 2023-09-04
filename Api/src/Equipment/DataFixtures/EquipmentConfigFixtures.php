@@ -553,9 +553,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $turretCharge = $this->getReference(ChargeStatusFixtures::TURRET_CHARGE);
         /** @var Action $shootHunterTurret */
         $shootHunterTurret = $this->getReference(ActionsFixtures::SHOOT_HUNTER_TURRET);
+        /** @var Action $shootRandomHunterTurret */
+        $shootRandomHunterTurret = $this->getReference(ActionsFixtures::SHOOT_RANDOM_HUNTER_TURRET);
 
-        $turretTool = $this->createTool([$shootHunterTurret], EquipmentEnum::TURRET_COMMAND);
-        $turretWeapon = $this->createWeapon([$shootHunterTurret], EquipmentEnum::TURRET_COMMAND);
+        $turretTool = $this->createTool([$shootHunterTurret, $shootRandomHunterTurret], EquipmentEnum::TURRET_COMMAND);
+        $turretWeapon = $this->createWeapon([], EquipmentEnum::TURRET_COMMAND);
         $turretWeapon->setBaseDamageRange(
             [
                 2 => 1,

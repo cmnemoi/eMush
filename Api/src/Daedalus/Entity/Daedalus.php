@@ -477,17 +477,20 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface, HunterTar
         return $safeCycles->contains($this->cycle);
     }
 
-    public function isInAPatrolShip(): bool
+    /** Implementation of `HunterTargetEntityInterface`. Always returns `false`. */
+    public function isInAPatrolShip(): false
     {
         return false;
     }
 
-    public function isInSpace(): bool
+    /** Implementation of `HunterTargetEntityInterface`. Always returns `false`. */
+    public function isInSpace(): false
     {
         return false;
     }
 
-    public function isInSpaceBattle(): bool
+    /** Implementation of `HunterTargetEntityInterface`. Always returns `true`. */
+    public function isInSpaceBattle(): true
     {
         return true;
     }

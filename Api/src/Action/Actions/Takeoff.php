@@ -85,6 +85,8 @@ final class Takeoff extends AbstractAction
             throw new \RuntimeException('Patrol ship room not found');
         }
 
+        // @TODO: use PlayerService::changePlace instead.
+        // /!\ You need to delete all treatments in Modifier::ActionSubscriber before! /!\
         $this->player->changePlace($patrolshipRoom);
         $this->playerService->persist($this->player);
 

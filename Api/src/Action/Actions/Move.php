@@ -60,8 +60,10 @@ class Move extends AbstractAction
         $parameter = $this->parameter;
 
         $newRoom = $parameter->getOtherRoom($this->player->getPlace());
-        $this->player->changePlace($newRoom);
 
+        // @TODO: use PlayerService::changePlace instead.
+        // /!\ You need to delete all treatments in Modifier::ActionSubscriber before! /!\
+        $this->player->changePlace($newRoom);
         $this->playerService->persist($this->player);
     }
 }

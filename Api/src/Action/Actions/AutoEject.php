@@ -57,7 +57,6 @@ final class AutoEject extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $this->player->changePlace($this->getPlayer()->getDaedalus()->getSpace());
-        $this->playerService->persist($this->player);
+        $this->playerService->changePlace(player: $this->player, place: $this->player->getDaedalus()->getSpace());
     }
 }

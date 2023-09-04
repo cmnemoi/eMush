@@ -18,6 +18,7 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
     public const CONVERSION_PLAYER = 'conversion.player';
     public const END_PLAYER = 'end.player';
     public const DELETE_PLAYER = 'delete.player';
+    public const CHANGED_PLACE = 'changed.place';
 
     protected string $visibility = VisibilityEnum::PRIVATE;
     protected ?CharacterConfig $characterConfig = null;

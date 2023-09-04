@@ -91,6 +91,7 @@ class ActionsFixtures extends Fixture
     public const COLLECT_SCRAP = 'collect.scrap';
     public const RENOVATE = 'renovate';
     public const CONVERT_ACTION_TO_MOVEMENT = 'convert_action_to_movement';
+    public const AUTO_EJECT = 'auto.eject';
 
     public function load(ObjectManager $manager): void
     {
@@ -884,7 +885,18 @@ class ActionsFixtures extends Fixture
         ;
         $convertActionToMovement->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionToMovement->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
-        $manager->persist($suicide);
+        $manager->persist($convertActionToMovement);
+
+        $autoEject = new Action();
+        $autoEject
+            ->setName(ActionEnum::AUTO_EJECT)
+            ->setActionName(ActionEnum::AUTO_EJECT)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setActionCost(1)
+            ->setInjuryRate(25)
+            ->setDirtyRate(25)
+        ;
+        $manager->persist($autoEject);
 
         $manager->flush();
 
@@ -962,5 +974,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::COLLECT_SCRAP, $collectScrap);
         $this->addReference(self::RENOVATE, $renovate);
         $this->addReference(self::CONVERT_ACTION_TO_MOVEMENT, $convertActionToMovement);
+        $this->addReference(self::AUTO_EJECT, $autoEject);
     }
 }

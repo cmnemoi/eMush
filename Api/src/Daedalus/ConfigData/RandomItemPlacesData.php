@@ -34,6 +34,12 @@ class RandomItemPlacesData
                 GearItemEnum::STAINPROOF_APRON,
                 ToolItemEnum::MEDIKIT,
                 GearItemEnum::ANTIGRAV_SCOOTER,
+                GearItemEnum::SPACESUIT,
+                GearItemEnum::SPACESUIT,
+                GearItemEnum::SPACESUIT,
+                GearItemEnum::SPACESUIT,
+                GearItemEnum::SPACESUIT,
+                GearItemEnum::SPACESUIT,
             ],
             'places' => [
                 RoomEnum::FRONT_STORAGE,

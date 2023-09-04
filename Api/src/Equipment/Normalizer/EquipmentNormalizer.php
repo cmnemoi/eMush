@@ -145,7 +145,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         if ($gameEquipment instanceof GameItem) {
             $target = GameItem::class;
         } else {
-            $target = null;
+            $target = GameEquipment::class;
         }
 
         return $this->gearToolService->getActionsTools($currentPlayer, $scopes, $target);

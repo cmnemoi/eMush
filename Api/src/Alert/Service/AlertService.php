@@ -167,6 +167,11 @@ class AlertService implements AlertServiceInterface
 
     public function handleEquipmentBreak(GameEquipment $equipment): void
     {
+        // GameItems don't generate alerts
+        if ($equipment instanceof GameItem) {
+            return;
+        }
+
         if ($equipment instanceof Door) {
             $daedalus = $equipment->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_DOORS);
@@ -212,12 +217,12 @@ class AlertService implements AlertServiceInterface
     public function getAlertEquipmentElement(Alert $alert, GameEquipment $equipment): AlertElement
     {
         if ($equipment instanceof GameItem) {
-            $this->logger->info('GameItem should not generate alerts',
-                [
-                    'daedalus' => $equipment->getDaedalus()->getId(),
-                    'equipment' => $equipment->getId(),
-                ]
-            );
+            $exception = new \LogicException('GameItem should not generate alerts');
+            $this->logger->error($exception->getMessage(), [
+                'daedalus' => $equipment->getDaedalus()->getId(),
+                'equipment' => $equipment->getId(),
+            ]);
+            throw $exception;
         }
 
         $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment);
@@ -229,7 +234,12 @@ class AlertService implements AlertServiceInterface
         }
 
         if ($filteredList->count() !== 1) {
-            throw new \LogicException("this equipment should be reported exactly one time. Currently reported {$filteredList->count()} times");
+            $exception = new \LogicException("this equipment should be reported exactly one time. Currently reported {$filteredList->count()} times");
+            $this->logger->error($exception->getMessage(), [
+                'daedalus' => $equipment->getDaedalus()->getId(),
+                'equipment' => $equipment->getId(),
+            ]);
+            throw $exception;
         }
 
         return $alertEquipment;
@@ -279,7 +289,12 @@ class AlertService implements AlertServiceInterface
         }
 
         if ($filteredList->count() !== 1) {
-            throw new \LogicException("this fire should be reported exactly one time. Currently reported {$filteredList->count()} times");
+            $exception = new \LogicException("this fire should be reported exactly one time. Currently reported {$filteredList->count()} times");
+            $this->logger->error($exception->getMessage(), [
+                'daedalus' => $place->getDaedalus()->getId(),
+                'place' => $place->getId(),
+            ]);
+            throw $exception;
         }
 
         return $fireAlert;
@@ -380,14 +395,12 @@ class AlertService implements AlertServiceInterface
             return false;
         }
         if ($equipment instanceof GameItem) {
-            $this->logger->info('GameItem should not generate alerts',
-                [
-                    'daedalus' => $equipment->getDaedalus()->getId(),
-                    'equipment' => $equipment->getId(),
-                ]
-            );
-
-            return false;
+            $exception = new \LogicException('GameItem should not generate alerts');
+            $this->logger->error($exception->getMessage(), [
+                'daedalus' => $equipment->getDaedalus()->getId(),
+                'equipment' => $equipment->getId(),
+            ]);
+            throw $exception;
         }
 
         if ($equipment instanceof Door) {

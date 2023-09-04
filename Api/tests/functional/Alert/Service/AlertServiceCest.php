@@ -10,7 +10,9 @@ use Mush\Alert\Entity\Alert;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Enum\RoomEnum;
 
 class AlertServiceCest extends AbstractFunctionalTest
@@ -95,5 +97,21 @@ class AlertServiceCest extends AbstractFunctionalTest
 
         // then check that the alert element is returned
         $I->assertNotNull($alertElement);
+    }
+
+    public function testHandleEquipmentBreakDontCreateAlertForGameItem(FunctionalTester $I): void
+    {
+        // given a GameItem like a walkie talkie
+        $walkieTalkieConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::WALKIE_TALKIE]);
+        $walkieTalkie = new GameItem($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $walkieTalkie->setEquipment($walkieTalkieConfig);
+        $walkieTalkie->setName(ItemEnum::WALKIE_TALKIE);
+        $I->haveInRepository($walkieTalkie);
+
+        // when handleEquipmentBreak is called on it
+        $this->alertService->handleEquipmentBreak($walkieTalkie);
+
+        // then check that no alert is created
+        $I->dontSeeInRepository(Alert::class);
     }
 }

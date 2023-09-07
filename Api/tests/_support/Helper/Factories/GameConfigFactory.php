@@ -7,7 +7,6 @@ namespace App\Tests\Helper\Factories;
 
 use Codeception\Module;
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
@@ -73,7 +72,7 @@ class GameConfigFactory extends \Codeception\Module
             'name' => GameConfigEnum::TEST,
             'difficultyConfig' => 'entity|' . DifficultyConfig::class,
             'daedalusConfig' => 'entity|' . DaedalusConfig::class,
-            'statusConfigs' => function($entity) use($statusRepository) {return $statusRepository->findBy(['statusName' => StatusEnum::ATTEMPT]);},
+            'statusConfigs' => function ($entity) use ($statusRepository) {return $statusRepository->findBy(['statusName' => StatusEnum::ATTEMPT]); },
                 // $statusRepository->findOneBy(['name' => StatusEnum::ATTEMPT]),
                 // $statusRepository->findOneBy(['name' => StatusEnum::FIRE]),
                 // $statusRepository->findOneBy(['name' => StatusEnum::FIRE])

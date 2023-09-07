@@ -52,9 +52,6 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         return $data instanceof GameEquipment;
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */

@@ -53,6 +53,8 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function persist(GameEquipment $equipment): GameEquipment
     {
+        codecept_debug('fromService_'.sprintf('VVV%s', spl_object_id($this->entityManager)));
+
         $this->entityManager->persist($equipment);
         $this->entityManager->flush();
 

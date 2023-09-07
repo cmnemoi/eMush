@@ -43,9 +43,6 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         return $data instanceof Action && empty($context['groups']);
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, string $format = null, array $context = []): array
     {
         $actionClass = $this->actionStrategyService->getAction($object->getActionName());

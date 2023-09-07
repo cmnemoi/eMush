@@ -24,9 +24,6 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         return $data instanceof Status;
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, string $format = null, array $context = []): array
     {
         $status = $object;

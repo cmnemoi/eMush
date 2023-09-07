@@ -24,9 +24,6 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
         return $data instanceof Message;
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, string $format = null, array $context = []): array
     {
         $child = [];

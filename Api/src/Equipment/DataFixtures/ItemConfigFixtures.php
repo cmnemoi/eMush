@@ -20,6 +20,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public const METAL_SCRAPS = 'metal_scraps';
     public const PLASTIC_SCRAPS = 'plastic_scraps';
+
     public function load(ObjectManager $manager): void
     {
         /** @var Action $takeAction */
@@ -206,7 +207,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($fuelCapsule);
 
         $manager->flush();
-
 
         $this->addReference(self::METAL_SCRAPS, $metalScraps);
         $this->addReference(self::PLASTIC_SCRAPS, $plasticScraps);

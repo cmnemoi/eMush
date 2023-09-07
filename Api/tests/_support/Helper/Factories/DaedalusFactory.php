@@ -6,12 +6,6 @@ namespace App\Tests\Helper\Factories;
 // all public methods declared in helper class will be available in $I
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Game\Entity\DifficultyConfig;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
 
 class DaedalusFactory extends \Codeception\Module
 {

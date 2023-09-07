@@ -27,9 +27,6 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
         return $data instanceof Channel;
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */

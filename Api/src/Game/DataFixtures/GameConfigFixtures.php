@@ -10,11 +10,8 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Disease\DataFixtures\DiseaseCausesConfigFixtures;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Equipment\DataFixtures\ItemConfigFixtures;
-use Mush\Equipment\DataFixtures\ToolConfigFixtures;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\EquipmentMechanic;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -58,7 +55,6 @@ class GameConfigFixtures extends Fixture implements DependentFixtureInterface
         $gameConfig = $this->addEquipmentConfig(ItemConfigFixtures::METAL_SCRAPS, $gameConfig, ItemConfig::class);
         $gameConfig = $this->addEquipmentConfig(ItemConfigFixtures::PLASTIC_SCRAPS, $gameConfig, ItemConfig::class);
 
-
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $this->getReference(DaedalusConfigFixtures::DEFAULT_DAEDALUS, DaedalusConfig::class);
         $gameConfig->setDaedalusConfig($daedalusConfig);
@@ -92,7 +88,7 @@ class GameConfigFixtures extends Fixture implements DependentFixtureInterface
             DaedalusConfigFixtures::class,
             DifficultyConfigFixtures::class,
             DiseaseCausesConfigFixtures::class,
-            ItemConfigFixtures::class
+            ItemConfigFixtures::class,
         ];
     }
 }

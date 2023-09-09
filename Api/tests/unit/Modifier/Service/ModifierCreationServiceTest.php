@@ -130,9 +130,9 @@ class ModifierCreationServiceTest extends TestCase
         $this->entityManager
             ->shouldReceive('persist')
             ->withArgs(fn (GameModifier $modifier) => (
-                $modifier->getModifierHolder() === $player &&
-                $modifier->getModifierConfig() === $modifierConfig &&
-                $modifier->getCharge() === $charge
+                $modifier->getModifierHolder() === $player
+                && $modifier->getModifierConfig() === $modifierConfig
+                && $modifier->getCharge() === $charge
             ))
             ->once()
         ;

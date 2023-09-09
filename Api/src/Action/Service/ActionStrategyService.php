@@ -71,9 +71,9 @@ class ActionStrategyService implements ActionStrategyServiceInterface
     private function loadParameter(?array $parameter): ?LogParameterInterface
     {
         if ($parameter !== null) {
-            if (($equipmentId = $parameter['door'] ?? null) ||
-                ($equipmentId = $parameter['item'] ?? null) ||
-                ($equipmentId = $parameter['equipment'] ?? null)
+            if (($equipmentId = $parameter['door'] ?? null)
+                || ($equipmentId = $parameter['item'] ?? null)
+                || ($equipmentId = $parameter['equipment'] ?? null)
             ) {
                 return $this->equipmentService->findById($equipmentId);
             }

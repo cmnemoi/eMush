@@ -26,7 +26,7 @@ class Log
         return $this->logRecord;
     }
 
-    public function setLogRecord(LogRecord $logRecord)
+    public function setLogRecord(LogRecord $logRecord): void
     {
         $this->logRecord = $logRecord;
     }

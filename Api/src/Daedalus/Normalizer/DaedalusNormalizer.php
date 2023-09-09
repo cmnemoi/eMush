@@ -30,9 +30,6 @@ class DaedalusNormalizer implements NormalizerInterface
         return $data instanceof Daedalus && $group === false;
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, string $format = null, array $context = []): array
     {
         /** @var Daedalus $daedalus */

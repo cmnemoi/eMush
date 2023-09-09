@@ -21,7 +21,7 @@ class HunterSubscriber implements EventSubscriberInterface
         HunterServiceInterface $hunterService,
         NeronMessageServiceInterface $neronMessageService,
         RoomLogServiceInterface $roomLogService
-        ) {
+    ) {
         $this->hunterService = $hunterService;
         $this->neronMessageService = $neronMessageService;
         $this->roomLogService = $roomLogService;

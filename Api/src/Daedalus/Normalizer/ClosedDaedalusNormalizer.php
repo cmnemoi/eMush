@@ -36,9 +36,6 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         return $data instanceof ClosedDaedalus;
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var ClosedDaedalus $daedalus */

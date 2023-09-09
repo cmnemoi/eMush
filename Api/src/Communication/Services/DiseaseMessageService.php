@@ -39,8 +39,8 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
 
         $playerInfo = $message->getAuthor();
 
-        if ($playerInfo === null ||
-            ($player = $playerInfo->getPlayer()) === null
+        if ($playerInfo === null
+            || ($player = $playerInfo->getPlayer()) === null
         ) {
             return $message;
         }

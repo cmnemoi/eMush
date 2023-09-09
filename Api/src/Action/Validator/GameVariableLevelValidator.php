@@ -85,8 +85,8 @@ class GameVariableLevelValidator extends ConstraintValidator
 
     private function checkInRangeVariableLevel(GameVariable $gameVariable): bool
     {
-        if ($gameVariable->getMaxValue() !== null && $gameVariable->getValue() < $gameVariable->getMaxValue() &&
-            $gameVariable->getMinValue() !== null && $gameVariable->getValue() > $gameVariable->getMinValue()
+        if ($gameVariable->getMaxValue() !== null && $gameVariable->getValue() < $gameVariable->getMaxValue()
+            && $gameVariable->getMinValue() !== null && $gameVariable->getValue() > $gameVariable->getMinValue()
         ) {
             return true;
         }

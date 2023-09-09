@@ -114,9 +114,9 @@ class DiseaseCauseServiceTest extends TestCase
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->withArgs(fn ($probaCollection) => (
-                $probaCollection instanceof ProbaCollection &&
-                key_exists('name', $probaCollection->toArray())) &&
-                $probaCollection->toArray()['name'] === 1
+                $probaCollection instanceof ProbaCollection
+                && key_exists('name', $probaCollection->toArray()))
+                && $probaCollection->toArray()['name'] === 1
             )
             ->andReturn($diseaseName)
             ->once()
@@ -180,9 +180,9 @@ class DiseaseCauseServiceTest extends TestCase
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->withArgs(fn ($probaCollection) => (
-                $probaCollection instanceof ProbaCollection &&
-                key_exists('name', $probaCollection->toArray())) &&
-                $probaCollection->toArray()['name'] === 1
+                $probaCollection instanceof ProbaCollection
+                && key_exists('name', $probaCollection->toArray()))
+                && $probaCollection->toArray()['name'] === 1
             )
             ->andReturn($diseaseName)
             ->once()
@@ -342,9 +342,9 @@ class DiseaseCauseServiceTest extends TestCase
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->withArgs(fn ($probaCollection) => (
-                $probaCollection instanceof ProbaCollection &&
-                key_exists('name', $probaCollection->toArray())) &&
-                $probaCollection->toArray()['name'] === 1
+                $probaCollection instanceof ProbaCollection
+                && key_exists('name', $probaCollection->toArray()))
+                && $probaCollection->toArray()['name'] === 1
             )
             ->andReturn($diseaseName)
             ->once()

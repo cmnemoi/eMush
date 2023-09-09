@@ -24,9 +24,6 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         return $data instanceof Status;
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, string $format = null, array $context = []): array
     {
         $status = $object;
@@ -36,9 +33,9 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         $currentPlayer = $context['currentPlayer'];
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        if ($this->isVisibilityPublic($status) ||
-            $this->isVisibilityPrivateForUser($status, $currentPlayer) ||
-            ($status->getVisibility() === VisibilityEnum::MUSH && $currentPlayer->isMush())
+        if ($this->isVisibilityPublic($status)
+            || $this->isVisibilityPrivateForUser($status, $currentPlayer)
+            || ($status->getVisibility() === VisibilityEnum::MUSH && $currentPlayer->isMush())
         ) {
             $normedStatus = [
                 'key' => $statusName,

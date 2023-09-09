@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionVariables;
 use Mush\Daedalus\Entity\DaedalusVariables;
-use Mush\Equipment\Entity\Mechanics\Entity;
 use Mush\Hunter\Entity\HunterVariables;
 use Mush\Player\Entity\PlayerVariables;
 

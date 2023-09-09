@@ -40,9 +40,6 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
         return $data instanceof Place;
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, string $format = null, array $context = []): array
     {
         /** @var Place $room */

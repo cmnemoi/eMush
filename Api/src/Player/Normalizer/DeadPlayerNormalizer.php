@@ -27,9 +27,9 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
     {
         $currentPlayer = $context['currentPlayer'] ?? null;
 
-        return $data instanceof Player &&
-            $data === $currentPlayer &&
-            $data->getPlayerInfo()->getGameStatus() === GameStatusEnum::FINISHED
+        return $data instanceof Player
+            && $data === $currentPlayer
+            && $data->getPlayerInfo()->getGameStatus() === GameStatusEnum::FINISHED
         ;
     }
 

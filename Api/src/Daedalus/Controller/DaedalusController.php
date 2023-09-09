@@ -144,10 +144,13 @@ class DaedalusController extends AbstractFOSRestController
      *
      * @OA\RequestBody (
      *      description="Input data format",
+     *
      *         @OA\MediaType(
      *             mediaType="application/json",
+     *
      *      @OA\Schema(
      *              type="object",
+     *
      *                  @OA\Property(
      *                     property="name",
      *                     description="The name of the Daedalus",
@@ -167,11 +170,13 @@ class DaedalusController extends AbstractFOSRestController
      *             )
      *         )
      *     )
+     *
      * @OA\Tag (name="Daedalus")
      *
      * @Security (name="Bearer")
      *
      * @ParamConverter("daedalusCreateRequest", converter="DaedalusCreateRequestConverter")
+     *
      * @Rest\Post(path="/create-daedalus", requirements={"id"="\d+"})
      */
     public function createDaedalus(DaedalusCreateRequest $daedalusCreateRequest): View
@@ -184,8 +189,8 @@ class DaedalusController extends AbstractFOSRestController
         $user = $this->getUser();
 
         $userRoles = $user->getRoles();
-        if (!(in_array(RoleEnum::SUPER_ADMIN, $userRoles, true) ||
-            in_array(RoleEnum::ADMIN, $userRoles, true))) {
+        if (!(in_array(RoleEnum::SUPER_ADMIN, $userRoles, true)
+            || in_array(RoleEnum::ADMIN, $userRoles, true))) {
             throw new AccessDeniedException('User is not an admin');
         }
 
@@ -216,8 +221,8 @@ class DaedalusController extends AbstractFOSRestController
         $user = $this->getUser();
 
         $userRoles = $user->getRoles();
-        if (!(in_array(RoleEnum::SUPER_ADMIN, $userRoles, true) ||
-            in_array(RoleEnum::ADMIN, $userRoles, true))) {
+        if (!(in_array(RoleEnum::SUPER_ADMIN, $userRoles, true)
+            || in_array(RoleEnum::ADMIN, $userRoles, true))) {
             throw new AccessDeniedException('User is not an admin');
         }
 
@@ -257,8 +262,8 @@ class DaedalusController extends AbstractFOSRestController
         $user = $this->getUser();
 
         $userRoles = $user->getRoles();
-        if (!(in_array(RoleEnum::SUPER_ADMIN, $userRoles, true) ||
-            in_array(RoleEnum::ADMIN, $userRoles, true))) {
+        if (!(in_array(RoleEnum::SUPER_ADMIN, $userRoles, true)
+            || in_array(RoleEnum::ADMIN, $userRoles, true))) {
             throw new AccessDeniedException('User is not an admin');
         }
 

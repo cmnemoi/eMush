@@ -50,9 +50,9 @@ class ReachValidator extends ConstraintValidator
             throw new LogicException('invalid reach for player');
         }
 
-        if ($parameter === $player ||
-            $parameter->getPlace() !== $player->getPlace() ||
-            !$parameter->isAlive()
+        if ($parameter === $player
+            || $parameter->getPlace() !== $player->getPlace()
+            || !$parameter->isAlive()
         ) {
             return false;
         }

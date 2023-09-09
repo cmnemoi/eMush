@@ -217,9 +217,9 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
             if (in_array($status->getStatusConfig()->getStatusName(), EquipmentStatusEnum::getOutOfOrderStatuses())) {
                 return false;
             }
-            if (($status->getStatusConfig()->getStatusName() === EquipmentStatusEnum::ELECTRIC_CHARGES) &&
-                 $status instanceof ChargeStatus &&
-                 $status->getCharge() === 0
+            if (($status->getStatusConfig()->getStatusName() === EquipmentStatusEnum::ELECTRIC_CHARGES)
+                 && $status instanceof ChargeStatus
+                 && $status->getCharge() === 0
             ) {
                 return false;
             }

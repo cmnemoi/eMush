@@ -39,11 +39,11 @@ class FillDaedalusCommand extends Command
     private const OPTION_DAEDALUS_LOCALE = 'daedalus_locale';
 
     public function __construct(HttpClientInterface $httpClient,
-                                CharacterConfigRepository $characterConfigRepository,
-                                DaedalusRepository $daedalusRepository,
-                                DaedalusServiceInterface $daedalusService,
-                                LoginService $loginService,
-                                PlayerServiceInterface $playerService)
+        CharacterConfigRepository $characterConfigRepository,
+        DaedalusRepository $daedalusRepository,
+        DaedalusServiceInterface $daedalusService,
+        LoginService $loginService,
+        PlayerServiceInterface $playerService)
     {
         parent::__construct();
         $this->httpClient = $httpClient;

@@ -78,8 +78,8 @@ final class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getAction();
         $player = $event->getAuthor();
 
-        if ($action->getActionName() !== $this->getUpAction->getActionName() &&
-            $lyingDownStatus = $player->getStatusByName(PlayerStatusEnum::LYING_DOWN)
+        if ($action->getActionName() !== $this->getUpAction->getActionName()
+            && $lyingDownStatus = $player->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
             $getUpAction = $player->getPlayerInfo()->getCharacterConfig()->getActionByName(ActionEnum::GET_UP);
 
@@ -102,9 +102,9 @@ final class ActionSubscriber implements EventSubscriberInterface
         $this->gearToolService->applyChargeCost($player, $action->getActionName(), $action->getTypes());
         $player->getDaedalus()->addDailyActionPointsSpent($action->getActionCost());
 
-        if ($actionParameter instanceof Player &&
-            in_array($action->getActionName(), ActionEnum::getForceGetUpActions()) &&
-            $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
+        if ($actionParameter instanceof Player
+            && in_array($action->getActionName(), ActionEnum::getForceGetUpActions())
+            && $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
             $actionParameter->removeStatus($lyingDownStatus);
         }

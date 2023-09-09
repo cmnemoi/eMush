@@ -43,10 +43,10 @@ class AdminController extends AbstractFOSRestController
     private UserServiceInterface $userService;
 
     public function __construct(AlertServiceInterface $alertService,
-                                DaedalusServiceInterface $daedalusService,
-                                PlaceServiceInterface $placeService,
-                                PlayerServiceInterface $playerService,
-                                UserServiceInterface $userService
+        DaedalusServiceInterface $daedalusService,
+        PlaceServiceInterface $placeService,
+        PlayerServiceInterface $playerService,
+        UserServiceInterface $userService
     ) {
         $this->alertService = $alertService;
         $this->daedalusService = $daedalusService;
@@ -62,11 +62,16 @@ class AdminController extends AbstractFOSRestController
      *      name="id",
      *      in="path",
      *      description="The daedalus id",
+     *
      *       @OA\Schema(type="string")
      * )
+     *
      * @OA\Tag(name="Admin")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Post(path="/add-new-rooms-to-daedalus/{id}")
+     *
      * @Rest\View()
      */
     public function addNewRoomsToDaedalus(Request $request): View
@@ -112,11 +117,16 @@ class AdminController extends AbstractFOSRestController
      *     name="id",
      *     in="path",
      *     description="The player to close id",
+     *
      *     @OA\Schema(type="string")
      * )
+     *
      * @OA\Tag(name="Admin")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Post(path="/close-player/{id}")
+     *
      * @Rest\View()
      */
     public function closePlayer(Request $request): View
@@ -150,11 +160,16 @@ class AdminController extends AbstractFOSRestController
      *      name="id",
      *      in="path",
      *      description="The daedalus id",
+     *
      *       @OA\Schema(type="string")
      * )
+     *
      * @OA\Tag(name="Admin")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Post(path="/delete-daedalus-duplicated-alert-elements/{id}")
+     *
      * @Rest\View()
      */
     public function deleteDaedalusDuplicatedAlertElements(Request $request): View

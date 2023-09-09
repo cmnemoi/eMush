@@ -109,9 +109,9 @@ class FireTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (PlayerVariableEvent $playerEvent, string $eventName) => (
-                intval($playerEvent->getQuantity()) === -2 &&
-                $eventName === VariableEventInterface::CHANGE_VARIABLE &&
-                $playerEvent->getVariableName() === PlayerVariableEnum::HEALTH_POINT
+                intval($playerEvent->getQuantity()) === -2
+                && $eventName === VariableEventInterface::CHANGE_VARIABLE
+                && $playerEvent->getVariableName() === PlayerVariableEnum::HEALTH_POINT
             ))
             ->once()
         ;
@@ -119,8 +119,8 @@ class FireTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (DaedalusVariableEvent $daedalusEvent, string $eventName) => (
-                $eventName === VariableEventInterface::CHANGE_VARIABLE &&
-                $daedalusEvent->getVariableName() === DaedalusVariableEnum::HULL
+                $eventName === VariableEventInterface::CHANGE_VARIABLE
+                && $daedalusEvent->getVariableName() === DaedalusVariableEnum::HULL
             ))
             ->once()
         ;

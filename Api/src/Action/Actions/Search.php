@@ -67,9 +67,9 @@ class Search extends AbstractAction
                 ->getMostRecent(EquipmentStatusEnum::HIDDEN, $hiddenItems)
             ;
 
-            if (!($hiddenStatus = $mostRecentHiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN)) ||
-                !($hiddenBy = $hiddenStatus->getTarget()) ||
-                !$hiddenBy instanceof Player
+            if (!($hiddenStatus = $mostRecentHiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN))
+                || !($hiddenBy = $hiddenStatus->getTarget())
+                || !$hiddenBy instanceof Player
             ) {
                 throw new \LogicException('invalid hidden status');
             }

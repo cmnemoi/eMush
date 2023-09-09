@@ -341,8 +341,8 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
 
         $tagConstraints = $modifierConfig->getTagConstraints();
         foreach (array_keys($tagConstraints) as $action) {
-            if ($tagConstraints[$action] !== ModifierRequirementEnum::NONE_TAGS &&
-                ActionEnum::getAll()->contains($action)
+            if ($tagConstraints[$action] !== ModifierRequirementEnum::NONE_TAGS
+                && ActionEnum::getAll()->contains($action)
             ) {
                 $action = $this->translateAction($action, $language);
                 if (!in_array($action, $actions)) {

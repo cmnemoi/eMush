@@ -160,8 +160,8 @@ class GameEquipmentServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => (
-                $event instanceof StatusEvent &&
-                $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG))
+                $event instanceof StatusEvent
+                && $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG))
             ->once()
         ;
         $this->eventService->shouldReceive('callEvent')->once();
@@ -203,8 +203,8 @@ class GameEquipmentServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => (
-                $event instanceof StatusEvent &&
-                $event->getStatusName() === EquipmentStatusEnum::DOCUMENT_CONTENT))
+                $event instanceof StatusEvent
+                && $event->getStatusName() === EquipmentStatusEnum::DOCUMENT_CONTENT))
             ->once()
         ;
         $this->eventService->shouldReceive('callEvent')->once();

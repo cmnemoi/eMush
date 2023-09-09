@@ -214,8 +214,8 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
 
     public function hasOperationalEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name &&
-            $gameEquipment->isOperational()
+        return !$this->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name
+            && $gameEquipment->isOperational()
         )->isEmpty();
     }
 

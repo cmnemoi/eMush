@@ -244,7 +244,7 @@ class GearToolServiceTest extends TestCase
 
         $item2 = new ItemConfig();
         $item2
-            ->setEquipmentName(ItemEnum::METAL_SCRAPS)
+            ->setEquipmentName(ItemEnum::PLASTIC_SCRAPS)
             ->setMechanics(new arrayCollection([$tool2]))
         ;
 

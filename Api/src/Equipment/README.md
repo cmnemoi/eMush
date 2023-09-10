@@ -27,11 +27,11 @@ Consequently, it is present in 2 different places at once.
 
 # Entities
 ## GameEquipment
-Is the occurence of an equipment in a Daedalus,  this entity will hold the actual equipment informations (statuses, room, etc...)
+Is the occurrence of equipment in a Daedalus,  this entity will hold the actual equipment informations (statuses, room, etc...)
 
 ## EquipmentConfig
 Is an abstract class holding all the default information of an Equipment (breakableRate, isAlienArtifact, isFirebreakable etc...)  
-The Equipment is unique accross a GameConfig
+The Equipment is unique across a GameConfig
 
 ## ItemConfig and GameItem
 Refine the Equipment classes in order to add specificities of the Items (isHideable, isDropable, etc...)
@@ -53,11 +53,11 @@ These are items with passive effects. They change events cost and output using [
 
 ## Tools (parent of Weapon, BluePrint, Book, Document)
 
-These are items with specific actions
+These are items with specific actions. Each equipment can only have one tool mechanic.
 
 ### Weapon
 
-Is a tool with the action Attack and some dammage, accuracy, etc...
+Is a tool with the action Attack and some damage, accuracy, etc...
 
 ### Book
 

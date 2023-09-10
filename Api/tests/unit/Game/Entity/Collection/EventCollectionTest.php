@@ -125,19 +125,21 @@ class EventCollectionTest extends TestCase
         $event5 = new AbstractGameEvent([], new \DateTime());
         $event5->setPriority(1)->setEventName('five');
 
-        $eventCollection = new EventChain([$event4, $event1, $event3, $event5]);
+        $eventCollection = new EventChain([$event1, $event3, $event4, $event5]);
 
         $updatedEvents = $eventCollection->updateInitialEvent($event2);
 
         $this->assertCount(4, $updatedEvents);
 
-        $this->assertContains($event1, $updatedEvents);
-        $this->assertContains($event3, $updatedEvents);
-        $this->assertContains($event5, $updatedEvents);
-        $eventTest = $updatedEvents->last();
+        $this->assertEquals($event1, $updatedEvents->first());
+        $this->assertEquals($event3, $updatedEvents->next());
+
+        $eventTest = $updatedEvents->next();
+        $this->assertEquals($event2, $eventTest);
         $this->assertInstanceOf(AbstractGameEvent::class, $eventTest);
-        $this->assertEquals('two', $eventTest->getEventName());
         $this->assertEquals(0, $eventTest->getPriority());
+
+        $this->assertEquals($event5, $updatedEvents->next());
     }
 
     public function testStopEvent()

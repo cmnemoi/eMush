@@ -138,7 +138,6 @@ class GearToolService implements GearToolServiceInterface
 
     public function applyChargeCost(Player $player, string $actionName, array $types = []): void
     {
-        dump('lol');
         $tool = $this->getUsedTool($player, $actionName);
         if ($tool) {
             $this->removeCharge($tool, $actionName, $types, new \DateTime());
@@ -149,7 +148,6 @@ class GearToolService implements GearToolServiceInterface
     {
         $chargeStatus = $this->getChargeStatus($actionName, $equipment);
 
-        dump('yoyo');
         if ($chargeStatus !== null) {
             $chargeStatus = $this->statusService->updateCharge($chargeStatus, -1, $tags, $time);
 

@@ -22,7 +22,7 @@ class DaedalusConfigData
             'dailySporeNb' => 4,
             'nbMush' => 2,
             'cyclePerGameDay' => 8,
-            'cycleLength' => 180,
+            'cycleLength' => 3,
             'randomItemPlaces' => 'default',
             'placeConfigs' => [
                 RoomEnum::BRIDGE . '_default',

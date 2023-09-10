@@ -65,12 +65,13 @@ class EventChain extends ArrayCollection
             return $this;
         }
 
+        $lowerPriority = $this->filter(fn (AbstractGameEvent $event) => $event->getPriority() === 0)->count();
+        $eventArray = $this->toArray();
         $newEvent->setPriority(0);
 
-        $this->removeElement($initialEvents);
-        $this->add($newEvent);
+        array_splice($eventArray, $lowerPriority + 1, 1, [$newEvent]);
 
-        return $this;
+        return new EventChain($eventArray);
     }
 
     /**

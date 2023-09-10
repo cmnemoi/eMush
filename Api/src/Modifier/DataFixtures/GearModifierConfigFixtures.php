@@ -10,13 +10,16 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -26,7 +29,6 @@ use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 
@@ -242,15 +244,16 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($gravityConversionModifier);
 
-        $gravityCycleModifier = new VariableEventModifierConfig('gravityIncreaseMovementGainOnNewCycle');
+        /** @var AbstractEventConfig $eventConfigGain1Movement */
+        $eventConfigGain1Movement = $this->getReference(EventConfigFixtures::MOVEMENT_INCREASE_1);
+        $gravityCycleModifier = new TriggerEventModifierConfig('gravityIncreaseMovementGainOnNewCycle');
         $gravityCycleModifier
-            ->setDelta(1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setTriggeredEvent($eventConfigGain1Movement)
+            ->setTargetEvent(DaedalusCycleEvent::DAEDALUS_NEW_CYCLE)
             ->setApplyOnTarget(true)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints(['base_player_cycle_change' => ModifierRequirementEnum::ANY_TAGS])
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
+            ->setTagConstraints([])
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
         ;
         $manager->persist($gravityCycleModifier);

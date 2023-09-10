@@ -229,7 +229,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         /** @var Daedalus $daedalus */
         $daedalus = $patrolShip->getDaedalus();
         /** @var Place $patrolShipPlace */
-        $patrolShipPlace = $patrolShip->getHolder();
+        $patrolShipPlace = $daedalus->getPlaceByName($patrolShip->getName());
         if (!$patrolShipPlace instanceof Place) {
             throw new \LogicException('Patrol ship holder should be a place');
         }

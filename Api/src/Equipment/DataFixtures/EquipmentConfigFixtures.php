@@ -293,19 +293,21 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ])
             ->setDockingPlace(RoomEnum::ALPHA_BAY)
         ;
-        $patrolShipTool = $this->createTool([$shootHunterPatrolShipAction], EquipmentEnum::PATROL_SHIP);
         $patrolShipWeapon = $this->createWeapon(
             [],
             EquipmentEnum::PATROL_SHIP
         );
-        $patrolShipWeapon->setBaseDamageRange(
-            [
-                3 => 1,
-                4 => 1,
-                5 => 1,
-                6 => 1,
-            ]
-        );
+        $patrolShipWeapon
+            ->setBaseDamageRange(
+                [
+                    3 => 1,
+                    4 => 1,
+                    5 => 1,
+                    6 => 1,
+                ]
+            )
+            ->addAction($shootHunterPatrolShipAction)
+        ;
 
         $patrolShip = new EquipmentConfig();
         $patrolShip
@@ -314,11 +316,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActions(new ArrayCollection([$repair12, $examineAction]))
-            ->setMechanics([$patrolShipMechanic, $patrolShipTool, $patrolShipWeapon])
+            ->setMechanics([$patrolShipMechanic, $patrolShipWeapon])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($patrolShipMechanic);
-        $manager->persist($patrolShipTool);
         $manager->persist($patrolShipWeapon);
         $manager->persist($patrolShip);
 
@@ -559,15 +560,18 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $shootRandomHunterTurret */
         $shootRandomHunterTurret = $this->getReference(ActionsFixtures::SHOOT_RANDOM_HUNTER_TURRET);
 
-        $turretTool = $this->createTool([$shootHunterTurret, $shootRandomHunterTurret], EquipmentEnum::TURRET_COMMAND);
         $turretWeapon = $this->createWeapon([], EquipmentEnum::TURRET_COMMAND);
-        $turretWeapon->setBaseDamageRange(
-            [
-                2 => 1,
-                3 => 1,
-                4 => 1,
-            ]
-        );
+        $turretWeapon
+            ->setBaseDamageRange(
+                [
+                    2 => 1,
+                    3 => 1,
+                    4 => 1,
+                ]
+            )
+            ->addAction($shootHunterTurret)
+            ->addAction($shootRandomHunterTurret)
+        ;
 
         $turretCommand = new EquipmentConfig();
         $turretCommand
@@ -575,13 +579,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$turretTool, $turretWeapon]))
+            ->setMechanics(new ArrayCollection([$turretWeapon]))
             ->setInitStatuses(new ArrayCollection([$turretCharge]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($turretCommand);
-        $manager->persist($turretTool);
         $manager->persist($turretWeapon);
 
         /** @var Action $selfSurgeryAction */

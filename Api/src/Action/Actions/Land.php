@@ -23,10 +23,8 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -36,18 +34,14 @@ final class Land extends AbstractAction
     protected string $name = ActionEnum::LAND;
 
     private PlayerServiceInterface $playerService;
-    private PlaceServiceInterface $placeService;
     private RandomServiceInterface $randomService;
-    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        PlaceServiceInterface $placeService,
         RandomServiceInterface $randomService,
-        RoomLogServiceInterface $roomLogService
     ) {
         parent::__construct(
             $eventService,
@@ -56,9 +50,7 @@ final class Land extends AbstractAction
         );
 
         $this->playerService = $playerService;
-        $this->placeService = $placeService;
         $this->randomService = $randomService;
-        $this->roomLogService = $roomLogService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool

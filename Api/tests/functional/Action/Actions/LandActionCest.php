@@ -188,7 +188,7 @@ final class LandActionCest extends AbstractFunctionalTest
         $this->landAction->loadParameters($this->action, $this->player1, $this->pasiphae);
         $this->landAction->execute();
 
-        // then patrol ship is still in alpha bay 2
+        // then dynarcade is still in alpha bay 2
         $I->assertEquals(
             $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2)->getName(),
             $dynarcade->getPlace()->getName()

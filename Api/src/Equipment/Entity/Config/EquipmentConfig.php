@@ -12,7 +12,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
@@ -130,7 +129,7 @@ class EquipmentConfig
     }
 
     /**
-     * @psalm-param array|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Blueprint>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Book>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Document>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Drug>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Fruit>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Gear>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Plant>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Ration>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Tool>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Weapon>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Gear|\Mush\Equipment\Entity\Mechanics\Tool>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Gear|\Mush\Equipment\Entity\EquipmentMechanic>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\PatrolShip> $mechanics
+     * @psalm-param array<array-key, EquipmentMechanic>|ArrayCollection<array-key, EquipmentMechanic> $mechanics
      */
     public function setMechanics(Collection|array $mechanics): static
     {
@@ -205,7 +204,7 @@ class EquipmentConfig
     }
 
     /**
-     * @param Collection<int, Action> $actions
+     * @param Collection<int<0, max>, Action>|array<int, Action> $actions
      */
     public function setActions(Collection|array $actions): static
     {
@@ -231,7 +230,7 @@ class EquipmentConfig
     }
 
     /**
-     * @psalm-param ArrayCollection<int, ChargeStatusConfig>|ArrayCollection<int, StatusConfig> $initStatuses
+     * @psalm-param ArrayCollection<array-key, StatusConfig>| array<array-key, StatusConfig> $initStatuses
      */
     public function setInitStatuses(ArrayCollection|array $initStatuses): static
     {

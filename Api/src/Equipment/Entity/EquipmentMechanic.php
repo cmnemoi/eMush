@@ -98,7 +98,7 @@ abstract class EquipmentMechanic
     }
 
     /**
-     * @param Collection<int, Action> $actions
+     * @param Collection<int<0, max>, Action>|array<int, Action> $actions
      */
     public function setActions(Collection|array $actions): static
     {

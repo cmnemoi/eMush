@@ -393,7 +393,8 @@ class TriumphConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($allPregnant);
 
-        $gameConfig->setTriumphConfig(new ArrayCollection([
+        /** @var ArrayCollection $triumphConfigs */
+        $triumphConfigs = new ArrayCollection([
             $alienScience, $expedition, $superNova,
             $firstStarmap, $nextStarmap,
             $cycleMush, $startingMush, $cycleMushLate, $conversionMush, $infectionMush,
@@ -406,7 +407,8 @@ class TriumphConfigFixtures extends Fixture implements DependentFixtureInterface
             $edenByCrewAlive, $edenByAlienPlant, $edenGender, $eden, $edenCat, $edenCatDead,
             $edenCatMush, $edenDisease, $edenEngineers, $edenBiologist, $edenMushIntruder, $edenByPregnant, $edenComputed,
             $anathem, $pregnancy, $allPregnant,
-        ]));
+        ]);
+        $gameConfig->setTriumphConfig($triumphConfigs);
 
         $manager->flush();
     }

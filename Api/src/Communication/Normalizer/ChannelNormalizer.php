@@ -45,6 +45,8 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
         $participants = [];
         /** @var ChannelPlayer $participant */
         foreach ($object->getParticipants() as $participant) {
+            /** @var \DateTime $joinDate */
+            $joinDate = $participant->getCreatedAt();
             $player = $participant->getParticipant();
             $character = $player->getName();
             $participants[] = [
@@ -53,7 +55,7 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
                     'key' => $character,
                     'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
                 ],
-                'joinedAt' => $participant->getCreatedAt()->format(\DateTime::ATOM),
+                'joinedAt' => $joinDate->format(\DateTime::ATOM),
             ];
         }
 

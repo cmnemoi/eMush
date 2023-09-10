@@ -3,7 +3,6 @@
 namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
@@ -35,7 +34,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
+        $actions = [$takeAction, $dropAction, $hideAction, $examineAction];
 
         // @TODO add support_drone and swedish_sofa
 
@@ -53,7 +52,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintEcholocatorMechanic]))
+            ->setMechanics([$blueprintEcholocatorMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -74,7 +73,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintWhiteFlagMechanic]))
+            ->setMechanics([$blueprintWhiteFlagMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -95,7 +94,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintThermosensorMechanic]))
+            ->setMechanics([$blueprintThermosensorMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -116,7 +115,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintBabelModuleMechanic]))
+            ->setMechanics([$blueprintBabelModuleMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -137,7 +136,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintGrenadeMechanic]))
+            ->setMechanics([$blueprintGrenadeMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -158,7 +157,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintOldFaithfulMechanic]))
+            ->setMechanics([$blueprintOldFaithfulMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -179,7 +178,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintLizaroJungleMechanic]))
+            ->setMechanics([$blueprintLizaroJungleMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -200,7 +199,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintRocketLauncherMechanic]))
+            ->setMechanics([$blueprintRocketLauncherMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -221,7 +220,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintExtinguisherMechanic]))
+            ->setMechanics([$blueprintExtinguisherMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -242,7 +241,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintOscilloscopeMechanic]))
+            ->setMechanics([$blueprintOscilloscopeMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -263,7 +262,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$blueprintSniperHelmetMechanic]))
+            ->setMechanics([$blueprintSniperHelmetMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;

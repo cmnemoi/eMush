@@ -2,7 +2,6 @@
 
 namespace Mush\Hunter\ConfigData;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Repository\ActionRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
@@ -74,6 +73,6 @@ class HunterConfigDataLoader extends ConfigDataLoader
             }
             $statusConfigs[] = $statusConfig;
         }
-        $hunterConfig->setInitialStatuses(new ArrayCollection($statusConfigs));
+        $hunterConfig->setInitialStatuses($statusConfigs);
     }
 }

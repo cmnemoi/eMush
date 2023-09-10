@@ -54,6 +54,7 @@ class HunterConfigDataLoader extends ConfigDataLoader
                 ->setSpawnDifficulty($hunterConfigData['spawnDifficulty'])
                 ->setScrapDropTable(new ProbaCollection($hunterConfigData['scrapDropTable']))
                 ->setNumberOfDroppedScrap($hunterConfigData['numberOfDroppedScrap'])
+                ->setTargetProbabilities($hunterConfigData['targetProbabilities'])
             ;
             $this->setHunterConfigInitialStatuses($hunterConfig, $hunterConfigData);
 

@@ -5,6 +5,7 @@ namespace Mush\Hunter\ConfigData;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 
 /** @codeCoverageIgnore */
@@ -33,6 +34,10 @@ class HunterConfigData
                 1 => 1,
                 2 => 1,
                 3 => 1,
+            ],
+            'targetProbabilities' => [
+                HunterTargetEnum::PATROL_SHIP => 0,
+                HunterTargetEnum::PLAYER => 0,
             ],
         ],
         [
@@ -63,6 +68,10 @@ class HunterConfigData
                 3 => 1,
                 4 => 1,
             ],
+            'targetProbabilities' => [
+                HunterTargetEnum::PATROL_SHIP => 15,
+                HunterTargetEnum::PLAYER => 5,
+            ],
         ],
         [
             'name' => HunterEnum::HUNTER . '_default',
@@ -88,6 +97,10 @@ class HunterConfigData
             'numberOfDroppedScrap' => [
                 1 => 1,
                 2 => 1,
+            ],
+            'targetProbabilities' => [
+                HunterTargetEnum::PATROL_SHIP => 15,
+                HunterTargetEnum::PLAYER => 5,
             ],
         ],
         [
@@ -115,6 +128,10 @@ class HunterConfigData
                 1 => 1,
                 2 => 1,
             ],
+            'targetProbabilities' => [
+                HunterTargetEnum::PATROL_SHIP => 15,
+                HunterTargetEnum::PLAYER => 5,
+            ],
         ],
         [
             'name' => HunterEnum::TRAX . '_default',
@@ -140,6 +157,10 @@ class HunterConfigData
                 1 => 1,
                 2 => 1,
                 3 => 1,
+            ],
+            'targetProbabilities' => [
+                HunterTargetEnum::PATROL_SHIP => 15,
+                HunterTargetEnum::PLAYER => 5,
             ],
         ],
     ];

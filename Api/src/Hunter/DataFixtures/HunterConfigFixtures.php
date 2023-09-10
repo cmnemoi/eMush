@@ -17,6 +17,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\Entity\Config\StatusConfig;
 
@@ -57,6 +58,10 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 2 => 1,
                 3 => 1,
             ])
+            ->setTargetProbabilities([
+                HunterTargetEnum::PATROL_SHIP => 0,
+                HunterTargetEnum::PLAYER => 0,
+            ])
         ;
         $manager->persist($asteroid);
 
@@ -87,6 +92,10 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 3 => 1,
                 4 => 1,
             ])
+            ->setTargetProbabilities([
+                HunterTargetEnum::PATROL_SHIP => 0,
+                HunterTargetEnum::PLAYER => 0,
+            ])
         ;
         $manager->persist($dice);
 
@@ -113,7 +122,12 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 1 => 1,
                 2 => 1,
             ])
+            ->setTargetProbabilities([
+                HunterTargetEnum::PATROL_SHIP => 0,
+                HunterTargetEnum::PLAYER => 0,
+            ])
         ;
+
         $manager->persist($hunter);
 
         $spiderDamageRange = $this->buildUniformDamageRange(1, 3);
@@ -139,7 +153,12 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 1 => 1,
                 2 => 1,
             ])
+            ->setTargetProbabilities([
+                HunterTargetEnum::PATROL_SHIP => 0,
+                HunterTargetEnum::PLAYER => 0,
+            ])
         ;
+
         $manager->persist($spider);
 
         $traxDamageRange = $this->buildUniformDamageRange(2, 3);
@@ -166,7 +185,12 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 2 => 1,
                 3 => 1,
             ])
+            ->setTargetProbabilities([
+                HunterTargetEnum::PATROL_SHIP => 0,
+                HunterTargetEnum::PLAYER => 0,
+            ])
         ;
+
         $manager->persist($trax);
 
         $gameConfig->setHunterConfigs(new ArrayCollection([

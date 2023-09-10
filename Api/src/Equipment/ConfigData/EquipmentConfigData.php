@@ -2227,7 +2227,7 @@ class EquipmentConfigData
                 'repair_percent_6',
                 'sabotage_percent_6',
             ],
-            'mechanics' => [],
+            'mechanics' => ['tool_spacesuit_default'],
             'initStatuses' => [],
         ],
         [

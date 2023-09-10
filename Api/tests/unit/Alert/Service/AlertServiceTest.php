@@ -8,6 +8,7 @@ use Mockery;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
+use Mush\Alert\Repository\AlertElementRepository;
 use Mush\Alert\Repository\AlertRepository;
 use Mush\Alert\Service\AlertService;
 use Mush\Alert\Service\AlertServiceInterface;
@@ -32,6 +33,7 @@ class AlertServiceTest extends TestCase
     private AlertServiceInterface $alertService;
 
     private EntityManagerInterface|Mockery\Mock $entityManager;
+    private AlertElementRepository|Mockery\Mock $alertElementRepository;
     private AlertRepository|Mockery\Mock $repository;
     private LoggerInterface|Mockery\Mock $logger;
 
@@ -41,11 +43,13 @@ class AlertServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->alertElementRepository = \Mockery::mock(AlertElementRepository::class);
         $this->repository = \Mockery::mock(AlertRepository::class);
         $this->logger = \Mockery::mock(LoggerInterface::class);
 
         $this->alertService = new AlertService(
             $this->entityManager,
+            $this->alertElementRepository,
             $this->repository,
             $this->logger
         );
@@ -212,6 +216,7 @@ class AlertServiceTest extends TestCase
             ->andReturn(null)
             ->once()
         ;
+        $this->alertElementRepository->shouldReceive('findOneBy')->once();
 
         $this->entityManager->shouldReceive('persist')->twice();
         $this->entityManager->shouldReceive('remove')->never();
@@ -241,6 +246,7 @@ class AlertServiceTest extends TestCase
             ->andReturn($alert)
             ->once()
         ;
+        $this->alertElementRepository->shouldReceive('findOneBy')->once();
 
         $this->entityManager->shouldReceive('persist')->twice();
         $this->entityManager->shouldReceive('remove')->never();
@@ -327,6 +333,7 @@ class AlertServiceTest extends TestCase
             ->andReturn(null)
             ->once()
         ;
+        $this->alertElementRepository->shouldReceive('findOneBy')->once();
 
         $this->entityManager->shouldReceive('persist')->twice();
         $this->entityManager->shouldReceive('remove')->never();

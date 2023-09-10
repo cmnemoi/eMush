@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
+use Mush\Alert\Repository\AlertElementRepository;
 use Mush\Alert\Repository\AlertRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
@@ -19,6 +20,7 @@ use Psr\Log\LoggerInterface;
 class AlertService implements AlertServiceInterface
 {
     private EntityManagerInterface $entityManager;
+    private AlertElementRepository $alertElementRepository;
     private AlertRepository $repository;
     private LoggerInterface $logger;
 
@@ -28,10 +30,12 @@ class AlertService implements AlertServiceInterface
 
     public function __construct(
         EntityManagerInterface $entityManager,
+        AlertElementRepository $alertElementRepository,
         AlertRepository $repository,
         LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
+        $this->alertElementRepository = $alertElementRepository;
         $this->repository = $repository;
         $this->logger = $logger;
     }
@@ -69,6 +73,20 @@ class AlertService implements AlertServiceInterface
         } else {
             $this->persist($alert);
         }
+    }
+
+    public function findAlertElementByEquipment(GameEquipment $equipment): ?AlertElement
+    {
+        $alertElement = $this->alertElementRepository->findOneBy(['equipment' => $equipment]);
+
+        return $alertElement;
+    }
+
+    public function findAlertElementByPlace(Place $place): ?AlertElement
+    {
+        $alertElement = $this->alertElementRepository->findOneBy(['place' => $place]);
+
+        return $alertElement;
     }
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Alert
@@ -149,6 +167,11 @@ class AlertService implements AlertServiceInterface
 
     public function handleEquipmentBreak(GameEquipment $equipment): void
     {
+        // GameItems don't generate alerts
+        if ($equipment instanceof GameItem) {
+            return;
+        }
+
         if ($equipment instanceof Door) {
             $daedalus = $equipment->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_DOORS);
@@ -157,16 +180,14 @@ class AlertService implements AlertServiceInterface
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_EQUIPMENTS);
         }
 
-        $equipmentElement = new AlertElement();
-        $equipmentElement
-            ->setEquipment($equipment)
-        ;
+        $alertElement = $this->findAlertElementByEquipment($equipment);
 
-        $this->persistAlertElement($equipmentElement);
+        // do not create alert element if this equipment is already reported
+        if ($alertElement !== null) {
+            return;
+        }
 
-        $brokenAlert->addAlertElement($equipmentElement);
-
-        $this->persist($brokenAlert);
+        $this->createEquipmentAlertElement($equipment, $brokenAlert);
     }
 
     public function handleEquipmentRepair(GameEquipment $equipment): void
@@ -196,19 +217,29 @@ class AlertService implements AlertServiceInterface
     public function getAlertEquipmentElement(Alert $alert, GameEquipment $equipment): AlertElement
     {
         if ($equipment instanceof GameItem) {
-            $this->logger->info('GameItem should not generate alerts',
-                [
-                    'daedalus' => $equipment->getDaedalus()->getId(),
-                    'equipment' => $equipment->getId(),
-                ]
-            );
+            $exception = new \LogicException('GameItem should not generate alerts');
+            $this->logger->error($exception->getMessage(), [
+                'daedalus' => $equipment->getDaedalus()->getId(),
+                'equipment' => $equipment->getId(),
+            ]);
+            throw $exception;
         }
 
         $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment);
         $alertEquipment = $filteredList->first();
 
-        if ($filteredList->count() !== 1 || !$alertEquipment) {
-            throw new \LogicException('this equipment should be reported exactly one time');
+        if (!$alertEquipment) {
+            $alertEquipment = $this->createEquipmentAlertElement($equipment, $alert);
+            $filteredList->add($alertEquipment);
+        }
+
+        if ($filteredList->count() !== 1) {
+            $exception = new \LogicException("this equipment should be reported exactly one time. Currently reported {$filteredList->count()} times");
+            $this->logger->error($exception->getMessage(), [
+                'daedalus' => $equipment->getDaedalus()->getId(),
+                'equipment' => $equipment->getId(),
+            ]);
+            throw $exception;
         }
 
         return $alertEquipment;
@@ -220,13 +251,14 @@ class AlertService implements AlertServiceInterface
 
         $fireAlert = $this->getAlert($daedalus, AlertEnum::FIRES);
 
-        $reportedFire = new AlertElement();
-        $reportedFire->setPlace($place);
+        $alertElement = $this->findAlertElementByPlace($place);
 
-        $this->persistAlertElement($reportedFire);
+        // do not create alert element if this place is already reported
+        if ($alertElement !== null) {
+            return;
+        }
 
-        $fireAlert->addAlertElement($reportedFire);
-        $this->persist($fireAlert);
+        $this->createFireAlertElement($place, $fireAlert);
     }
 
     public function handleFireStop(Place $place): void
@@ -251,8 +283,18 @@ class AlertService implements AlertServiceInterface
         $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getPlace() === $place);
         $fireAlert = $filteredList->first();
 
-        if ($filteredList->count() !== 1 || !$fireAlert) {
-            throw new \LogicException("this fire should be reported exactly one time. Currently reported {$filteredList->count()} times");
+        if (!$fireAlert) {
+            $fireAlert = $this->createFireAlertElement($place, $alert);
+            $filteredList->add($fireAlert);
+        }
+
+        if ($filteredList->count() !== 1) {
+            $exception = new \LogicException("this fire should be reported exactly one time. Currently reported {$filteredList->count()} times");
+            $this->logger->error($exception->getMessage(), [
+                'daedalus' => $place->getDaedalus()->getId(),
+                'place' => $place->getId(),
+            ]);
+            throw $exception;
         }
 
         return $fireAlert;
@@ -353,14 +395,12 @@ class AlertService implements AlertServiceInterface
             return false;
         }
         if ($equipment instanceof GameItem) {
-            $this->logger->info('GameItem should not generate alerts',
-                [
-                    'daedalus' => $equipment->getDaedalus()->getId(),
-                    'equipment' => $equipment->getId(),
-                ]
-            );
-
-            return false;
+            $exception = new \LogicException('GameItem should not generate alerts');
+            $this->logger->error($exception->getMessage(), [
+                'daedalus' => $equipment->getDaedalus()->getId(),
+                'equipment' => $equipment->getId(),
+            ]);
+            throw $exception;
         }
 
         if ($equipment instanceof Door) {
@@ -374,5 +414,33 @@ class AlertService implements AlertServiceInterface
         }
 
         return $this->getAlertEquipmentElement($alert, $equipment)->getPlayerInfo() !== null;
+    }
+
+    private function createEquipmentAlertElement(GameEquipment $equipment, Alert $alert): AlertElement
+    {
+        $alertElement = new AlertElement();
+        $alertElement->setEquipment($equipment);
+
+        $this->persistAlertElement($alertElement);
+
+        $alert->addAlertElement($alertElement);
+
+        $this->persist($alert);
+
+        return $alertElement;
+    }
+
+    private function createFireAlertElement(Place $place, Alert $alert): AlertElement
+    {
+        $alertElement = new AlertElement();
+        $alertElement->setPlace($place);
+
+        $this->persistAlertElement($alertElement);
+
+        $alert->addAlertElement($alertElement);
+
+        $this->persist($alert);
+
+        return $alertElement;
     }
 }

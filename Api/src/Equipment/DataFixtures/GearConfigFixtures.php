@@ -284,25 +284,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($oscilloscope);
 
-        $spacesuitActions = clone $actions;
-        $spacesuitActions->add($dismantle12);
-        $spacesuitActions->add($repair6);
-        $spacesuitActions->add($sabotage6);
-        $spacesuitActions->add($reportAction);
-
-        $spacesuit = new ItemConfig();
-        $spacesuit
-            ->setEquipmentName(GearItemEnum::SPACESUIT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(true)
-            ->setIsBreakable(true)
-            ->setActions($spacesuitActions)
-            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 1])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
-        $manager->persist($spacesuit);
-
         $superSoaper = new ItemConfig();
         $superSoaper
             ->setEquipmentName(GearItemEnum::SUPER_SOAPER)
@@ -371,7 +352,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addEquipmentConfig($lenses)
             ->addEquipmentConfig($rollingBoulder)
             ->addEquipmentConfig($oscilloscope)
-            ->addEquipmentConfig($spacesuit)
             ->addEquipmentConfig($superSoaper)
             ->addEquipmentConfig($printedCircuitJelly)
             ->addEquipmentConfig($invertebrateShell)

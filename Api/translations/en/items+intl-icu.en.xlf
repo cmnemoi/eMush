@@ -694,17 +694,15 @@ Lets you communicate on the General Channel.</target>
       </segment>
       <segment id="description" state="translated">
         <source>itrackie.description</source>
-        <target>The iTrackie®© represents arguably the finest in digital gadgetry. It looks good, it's elegant, subtle, it vibrates, and almost never breaks down.
-//
-Allows you to communicate remotely with other crew members.
-//
-Allows you to access the upgraded mini-map of the Daedalus.</target>
+        <target>The iTrackie®© represents arguably the finest in digital gadgetry. It looks good, it's elegant, subtle, it vibrates, and almost never breaks down.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie.examine</source>
         <target>The iTrackie®© represents arguably the finest in digital gadgetry. It looks good, it's elegant, subtle, it vibrates, and almost never breaks down.
 //
-Allows you to communicate remotely with other crew members.</target>
+Allows you to communicate remotely with other crew members.
+//
+Allows you to access the upgraded mini-map of the Daedalus.</target>
       </segment>
     </unit>
     <unit id="adjustable_wrench">
@@ -1023,14 +1021,16 @@ Losing a hand doesn't make for a good day.</target>
       </segment>
       <segment id="description" state="translated">
         <source>spacesuit.description</source>
-        <target>The spacesuit allows crew members to explore planets without oxygen
-
+        <target>The spacesuit allows crew members to explore planets without oxygen.
+//
 Allows you to survive after being ejected into space and breathe on planets with no oxygen.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>spacesuit.examine</source>
-        <target>The spacesuit allows crew members to explore planets without oxygen
+        <target>The spacesuit allows crew members to explore planets without oxygen.
+//
 Allows you to survive after being ejected into space and breathe on planets with no oxygen.
+//
 The player can go into space via a launch bay for external repair missions. The character may also participate in an expedition to a planet with an unbreathable atmosphere.</target>
       </segment>
     </unit>

@@ -31,6 +31,7 @@ class ShootRandomHunterActionCest extends AbstractFunctionalTest
     private ShootRandomHunter $shootRandomHunterAction;
     private Action $action;
     private GameEquipment $turret;
+    private ChargeStatus $turretChargeStatus;
 
     public function _before(FunctionalTester $I)
     {
@@ -65,8 +66,8 @@ class ShootRandomHunterActionCest extends AbstractFunctionalTest
         $I->haveInRepository($this->turret);
 
         $turretChargeStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => 'electric_charges_turret_command_default']);
-        $turretChargeStatus = new ChargeStatus($this->turret, $turretChargeStatusConfig);
-        $I->haveInRepository($turretChargeStatus);
+        $this->turretChargeStatus = new ChargeStatus($this->turret, $turretChargeStatusConfig);
+        $I->haveInRepository($this->turretChargeStatus);
 
         $this->shootRandomHunterAction = $I->grabService(ShootRandomHunter::class);
     }
@@ -134,6 +135,10 @@ class ShootRandomHunterActionCest extends AbstractFunctionalTest
             $this->player1->getActionPoint(),
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
         );
+        $I->assertEquals(
+            expected: $this->turretChargeStatus->getStatusConfig()->getStartCharge() - 1,
+            actual: $this->turretChargeStatus->getCharge(),
+        );
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::FRONT_ALPHA_TURRET,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
@@ -160,6 +165,10 @@ class ShootRandomHunterActionCest extends AbstractFunctionalTest
         $I->assertEquals(
             $this->player1->getActionPoint(),
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
+        );
+        $I->assertEquals(
+            expected: $this->turretChargeStatus->getStatusConfig()->getStartCharge() - 1,
+            actual: $this->turretChargeStatus->getCharge(),
         );
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::FRONT_ALPHA_TURRET,

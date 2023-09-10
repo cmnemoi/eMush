@@ -24,6 +24,13 @@ const AdminService = {
 
         return response;
     },
+    deleteDaedalusDuplicatedAlertElements: async(daedalusId: integer): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(ADMIN_ENDPOINT + '/delete-daedalus-duplicated-alert-elements/' + String(daedalusId));
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     getPlayerInfoList: async(params: Record<string, unknown> | undefined): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.get(PLAYER_INFO_ENDPOINT, params);

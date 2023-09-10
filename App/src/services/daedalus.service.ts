@@ -75,6 +75,13 @@ const DaedalusService = {
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
+    },
+    unlockDaedalus: async (daedalusId: integer): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = ApiService.post(DAEDALUS_ENDPOINT + '/unlock-daedalus/' + daedalusId);
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
     }
 
 };

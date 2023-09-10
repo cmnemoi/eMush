@@ -91,6 +91,9 @@ final class Land extends AbstractAction
         $patrolShipMechanic = $this->getPatrolShipMechanic($patrolShip);
 
         $patrolShipDockingPlace = $this->findPlaceByName($patrolShipMechanic->getDockingPlace());
+
+        // @TODO: use PlayerService::changePlace instead.
+        // /!\ You need to delete all treatments in Modifier::ActionSubscriber before! /!\
         $this->player->changePlace($patrolShipDockingPlace);
         $this->playerService->persist($this->player);
 
@@ -145,6 +148,7 @@ final class Land extends AbstractAction
         );
     }
 
+    // @TODO: use Daedalus::getPlaceByName instead
     private function findPlaceByName(string $name): Place
     {
         $place = $this->placeService->findByNameAndDaedalus($name, $this->player->getDaedalus());
@@ -155,6 +159,7 @@ final class Land extends AbstractAction
         return $place;
     }
 
+    // @TODO : use GameEquipment::getMechanicByName instead
     private function getPatrolShipMechanic(GameEquipment $patrolShip): PatrolShip
     {
         /** @var PatrolShip $patrolShipMechanic */

@@ -12,3 +12,5 @@ Mush\Daedalus\Entity\Daedalus:
       groups: [ 'daedalus_read' ]
     updatedAt:
       groups: [ 'daedalus_read' ]
+    isCycleChange:
+      groups: [ 'daedalus_read' ]

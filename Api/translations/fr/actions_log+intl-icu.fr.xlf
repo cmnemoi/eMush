@@ -1064,5 +1064,15 @@
         <target>Votre tentative a échoué.</target>
       </segment>
     </unit>
+    <unit id="auto_eject_success">
+      <segment id="auto_eject_success" state="translated">
+        <source>auto_eject_success</source>
+        <target>{character_gender, select,
+        male {**{character}** s'est ejecté du monoplace.}
+        female {**{character}** s'est ejectée du monoplace.}
+        other {**{character}** s'est ejecté du monoplace.}
+      }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

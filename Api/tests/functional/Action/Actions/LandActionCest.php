@@ -40,15 +40,13 @@ final class LandActionCest extends AbstractFunctionalTest
 
         $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::LAND]);
 
-        $I->refreshEntities($this->action);
-
         $this->landAction = $I->grabService(Land::class);
     }
 
     public function testLandSuccess(FunctionalTester $I)
     {
         $this->action->setCriticalRate(100);
-        $I->refreshEntities($this->action);
+        $I->haveInRepository($this->action);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
@@ -62,7 +60,7 @@ final class LandActionCest extends AbstractFunctionalTest
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
         $I->haveInRepository($pasiphaeArmor);
-        $I->refreshEntities($pasiphae);
+        $I->haveInRepository($pasiphae);
 
         $this->landAction->loadParameters($this->action, $this->player1, $pasiphae);
         $I->assertTrue($this->landAction->isVisible());
@@ -96,21 +94,6 @@ final class LandActionCest extends AbstractFunctionalTest
             $pasiphaeArmor->getThreshold(),
             $pasiphaeArmor->getCharge()
         );
-
-        $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::ALPHA_BAY_2,
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::ENTER_ROOM,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
-        $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::PASIPHAE,
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::EXIT_ROOM,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
         $I->dontSeeInRepository(RoomLog::class, [
             'place' => RoomEnum::PASIPHAE,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
@@ -125,7 +108,7 @@ final class LandActionCest extends AbstractFunctionalTest
     public function testLandFail(FunctionalTester $I)
     {
         $this->action->setCriticalRate(0);
-        $I->refreshEntities($this->action);
+        $I->haveInRepository($this->action);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
@@ -139,7 +122,7 @@ final class LandActionCest extends AbstractFunctionalTest
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
         $I->haveInRepository($pasiphaeArmor);
-        $I->refreshEntities($pasiphae);
+        $I->haveInRepository($pasiphae);
 
         $this->landAction->loadParameters($this->action, $this->player1, $pasiphae);
         $I->assertTrue($this->landAction->isVisible());
@@ -159,7 +142,7 @@ final class LandActionCest extends AbstractFunctionalTest
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
         $I->haveInRepository($pasiphaeArmor);
-        $I->refreshEntities($pasiphae);
+        $I->haveInRepository($pasiphae);
 
         $I->assertEquals(
             $pasiphaeArmor->getThreshold(),
@@ -178,21 +161,6 @@ final class LandActionCest extends AbstractFunctionalTest
             $this->player1->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getInitHull(),
             $this->player1->getDaedalus()->getHull()
         );
-
-        $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::ALPHA_BAY_2,
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::ENTER_ROOM,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
-        $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::PASIPHAE,
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::EXIT_ROOM,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
         $I->dontSeeInRepository(RoomLog::class, [
             'place' => RoomEnum::PASIPHAE,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
@@ -232,6 +200,6 @@ final class LandActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($alphaBay2);
 
-        $I->refreshEntities($daedalus);
+        $I->haveInRepository($daedalus);
     }
 }

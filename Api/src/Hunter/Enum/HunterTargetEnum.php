@@ -6,6 +6,8 @@ namespace Mush\Hunter\Enum;
 class HunterTargetEnum
 {
     public const DAEDALUS = 'daedalus';
+    public const HUNTER = 'hunter';
+    public const MERCHANT_SHIP = 'merchant_ship';
     public const PLAYER = 'player';
-    public const PATROLSHIP = 'patrolship';
+    public const PATROL_SHIP = 'patrol_ship';
 }

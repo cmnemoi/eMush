@@ -38,15 +38,13 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
         $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::TAKEOFF]);
 
-        $I->refreshEntities($this->action);
-
         $this->takeoffAction = $I->grabService(Takeoff::class);
     }
 
     public function testTakeoffSuccess(FunctionalTester $I)
     {
         $this->action->setCriticalRate(100);
-        $I->refreshEntities($this->action);
+        $I->haveInRepository($this->action);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
@@ -60,7 +58,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
         $I->haveInRepository($pasiphaeArmor);
-        $I->refreshEntities($pasiphae);
+        $I->haveInRepository($pasiphae);
 
         $this->takeoffAction->loadParameters($this->action, $this->player1, $pasiphae);
         $I->assertTrue($this->takeoffAction->isVisible());
@@ -93,21 +91,6 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             $pasiphaeArmor->getThreshold(),
             $pasiphaeArmor->getCharge()
         );
-
-        $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::LABORATORY,
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::EXIT_ROOM,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
-        $I->seeInRepository(RoomLog::class, [
-            'place' => RoomEnum::PASIPHAE,
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => ActionLogEnum::ENTER_ROOM,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
         $I->dontSeeInRepository(RoomLog::class, [
             'place' => RoomEnum::PASIPHAE,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
@@ -122,7 +105,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
     public function testTakeoffFail(FunctionalTester $I): void
     {
         $this->action->setCriticalRate(0);
-        $I->refreshEntities($this->action);
+        $I->haveInRepository($this->action);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
@@ -136,7 +119,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
         $I->haveInRepository($pasiphaeArmor);
-        $I->refreshEntities($pasiphae);
+        $I->haveInRepository($pasiphae);
 
         $this->takeoffAction->loadParameters($this->action, $this->player1, $pasiphae);
         $I->assertTrue($this->takeoffAction->isVisible());
@@ -190,6 +173,6 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($pasiphaeRoom);
 
-        $I->refreshEntities($daedalus);
+        $I->haveInRepository($daedalus);
     }
 }

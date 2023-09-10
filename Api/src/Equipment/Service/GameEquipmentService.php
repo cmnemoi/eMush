@@ -25,7 +25,6 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 
@@ -217,7 +216,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $patrolShip,
             $player,
             VisibilityEnum::HIDDEN,
-            array_merge($tags, [EndCauseEnum::PATROL_SHIP_EXPLOSION]),
+            $tags,
             new \DateTime(),
         );
         $this->eventService->callEvent($destroyPatrolShipEvent, EquipmentEvent::EQUIPMENT_DESTROYED);

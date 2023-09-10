@@ -48,17 +48,29 @@
             </template>
             <template #row-actions="slotProps">
                 <div class="flex-row">
-                    <button v-if="slotProps.gameStatus != 'finished'"
+                    <button v-if="!daedalusIsFinished(slotProps)"
                             class="action-button"
                             type="button"
                             @click="destroyDaedalus(slotProps.id)">
                         {{ $t("admin.daedalus.destroy") }}
                     </button>
-                    <button v-if="slotProps.gameStatus != 'finished'"
+                    <button v-if="!daedalusIsFinished(slotProps) && slotProps.isCycleChange"
+                            class="action-button"
+                            type="button"
+                            @click="unlockDaedalus(slotProps.id)">
+                        {{ $t("admin.daedalus.unlock") }}
+                    </button>
+                    <button v-if="!daedalusIsFinished(slotProps)"
                             class="action-button"
                             type="button"
                             @click="addNewRoomsToDaedalus(slotProps.id)">
                         {{ $t("admin.daedalus.addNewRooms") }}
+                    </button>
+                    <button v-if="!daedalusIsFinished(slotProps)"
+                            class="action-button"
+                            type="button"
+                            @click="deleteDaedalusDuplicatedAlertElements(slotProps.id)">
+                        {{ $t("admin.daedalus.deleteDuplicatedAlertElements") }}
                     </button>
                 </div>
             </template>
@@ -198,6 +210,14 @@ export default defineComponent({
                 this.loadData();
             });
         },
+        daedalusIsFinished(daedalus: any) {
+            return daedalus.gameStatus === 'finished' || daedalus.gameStatus === 'closed';
+        },
+        deleteDaedalusDuplicatedAlertElements(id: number) {
+            AdminService.deleteDaedalusDuplicatedAlertElements(id).then(() => {
+                this.loadData();
+            });
+        },
         destroyDaedalus(id: number) {
             DaedalusService.destroyDaedalus(id).then(() => {
                 this.loadData();
@@ -205,6 +225,11 @@ export default defineComponent({
         },
         destroyAllDaedaluses() {
             DaedalusService.destroyAllDaedaluses().then(() => {
+                this.loadData();
+            });
+        },
+        unlockDaedalus(id: number) {
+            DaedalusService.unlockDaedalus(id).then(() => {
                 this.loadData();
             });
         }

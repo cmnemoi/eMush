@@ -26,20 +26,9 @@ class ActionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ActionEvent::PRE_ACTION => 'onPreAction',
             ActionEvent::RESULT_ACTION => 'onResultAction',
             ActionEvent::POST_ACTION => 'onPostAction',
         ];
-    }
-
-    public function onPreAction(ActionEvent $event): void
-    {
-        $action = $event->getAction();
-        $player = $event->getAuthor();
-
-        if (ActionEnum::getChangingRoomPatrolshipActions()->contains($action->getActionName())) {
-            $this->createMoveRoomLog($player, ActionLogEnum::EXIT_ROOM);
-        }
     }
 
     public function onResultAction(ActionEvent $event): void
@@ -71,7 +60,7 @@ class ActionSubscriber implements EventSubscriberInterface
             $this->createForceGetUpLog($actionParameter);
         }
 
-        if (ActionEnum::getChangingRoomActions()->contains($action->getActionName())) {
+        if ($action->getActionName() === ActionEnum::MOVE) {
             $this->createMoveRoomLog($player, ActionLogEnum::ENTER_ROOM);
         }
 

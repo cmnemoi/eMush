@@ -706,15 +706,15 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
       </segment>
       <segment id="description" state="translated">
         <source>itrackie.description</source>
-        <target>L'iTrackie®© est ce qui se fait de mieux en matière de gadget numérique. Il est beau, élégant, sobre, il vibre et ne tombe presque jamais en panne.
-Permet de communiquer à distance avec les autres équipiers.
-Permet d'avoir accès à la mini-carte augmentée du Daedalus</target>
+        <target>L'iTrackie®© est ce qui se fait de mieux en matière de gadget numérique. Il est beau, élégant, sobre, il vibre et ne tombe presque jamais en panne.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie.examine</source>
         <target>L'iTrackie®© est ce qui se fait de mieux en matière de gadget numérique. Il est beau, élégant, sobre, il vibre et ne tombe presque jamais en panne.
+//
 Permet de communiquer à distance avec les autres équipiers.
-Permet d'avoir accès à la mini-carte augmentée du Daedalus</target>
+//
+Permet d'avoir accès à la mini-carte augmentée du Daedalus.</target>
       </segment>
     </unit>
     <unit id="adjustable_wrench">
@@ -1025,14 +1025,17 @@ Perdre une main. C'est désagréable.</target>
       </segment>
       <segment id="description" state="translated">
         <source>spacesuit.description</source>
-        <target>La combinaison spatiale permet d'explorer des planètes sans oxygène
-Permet de survivre après une éjection et de respirer sur les planètes non-respirables.</target>
+        <target>La combinaison spatiale permet d'explorer des planètes sans oxygène.
+//
+Permet de survivre après une éjection et de respirer sur les planètes non respirables.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>spacesuit.examine</source>
-        <target>La combinaison spatiale permet d'explorer des planètes sans oxygène
-Permet de survivre après une éjection et de respirer sur les planètes non-respirables.
-Le joueur peut sortir dans l'espace depuis une baie de lancement pour une mission de réparation externe. Le personnage peut également participer à une expédition sur une planète à l’atmosphère non-respirable.</target>
+        <target>La combinaison spatiale permet d'explorer des planètes sans oxygène.
+//
+Permet de survivre après une éjection et de respirer sur les planètes non respirables.
+//
+Le joueur peut sortir dans l'espace depuis une baie de lancement pour une mission de réparation externe. Le personnage peut également participer à une expédition sur une planète à l’atmosphère non respirable.</target>
       </segment>
     </unit>
     <unit id="stainproof_apron">
@@ -1982,7 +1985,7 @@ On aurrait pu s'en servir en cuisine mais le chef n'en voulait pas...</target>
         <source>invertebrate_shell.examine</source>
         <target>Incroyable, ce paisible crustacé alien en forme de tube a exactement le même diamètre que les obus tesla des tourelles du Daedalus !
 //
-+100% aux dégâts de la tourelle où il est placé. Si détruit provoque un incendie dans la pièce.
++100% aux dégâts de la tourelle dans laquelle il est placé. Si détruit, provoque un incendie dans la pièce.
 //
 Il n'a pas l'air tout à fait mort.</target>
       </segment>

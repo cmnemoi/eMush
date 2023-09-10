@@ -264,8 +264,10 @@
 		},
 		"daedalus": {
 			"addNewRooms": "Ajouter des pièces",
+			"deleteDuplicatedAlertElements": "Supprimer les reports d'alertes",
 			"destroy": "Destroy",
 			"destroyAllDaedaluses": "Destroy all Daedaluses",
+			"unlock": "Débloquer le changement de cycle",
 			"createDaedalus": "Create a Daedalus",
 			"name": "Daedalus name :",
 			"create": "Create a Daedalus",

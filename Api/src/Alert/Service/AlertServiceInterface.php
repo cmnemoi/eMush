@@ -21,6 +21,8 @@ interface AlertServiceInterface
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Alert;
 
+    public function findByDaedalus(Daedalus $daedalus): ArrayCollection;
+
     public function hullAlert(Daedalus $daedalus): void;
 
     public function oxygenAlert(Daedalus $daedalus): void;

@@ -132,6 +132,19 @@ class PlayerService implements PlayerServiceInterface
         return $playerInfo instanceof PlayerInfo ? $playerInfo->getPlayer() : null;
     }
 
+    public function changePlace(Player $player, Place $place): Player
+    {
+        $player->changePlace($place);
+        $playerEvent = new PlayerEvent(
+            $player,
+            [PlayerEvent::CHANGED_PLACE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($playerEvent, PlayerEvent::CHANGED_PLACE);
+
+        return $this->persist($player);
+    }
+
     public function createPlayer(Daedalus $daedalus, User $user, string $character): Player
     {
         $player = new Player();

@@ -126,7 +126,7 @@ final class LandActionCest extends AbstractFunctionalTest
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             $this->player1->getHealthPoint()
         );
-        $I->assertEquals(
+        $I->assertNotEquals(
             $this->pasiphaeArmor->getThreshold(),
             $this->pasiphaeArmor->getCharge()
         );

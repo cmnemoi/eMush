@@ -12,7 +12,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\EquipmentMechanic as Mechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -27,7 +26,6 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -88,14 +86,16 @@ final class Land extends AbstractAction
     {
         /** @var GameEquipment $patrolShip */
         $patrolShip = $this->parameter;
-        $patrolShipMechanic = $this->getPatrolShipMechanic($patrolShip);
-
-        $patrolShipDockingPlace = $this->findPlaceByName($patrolShipMechanic->getDockingPlace());
-
-        // @TODO: use PlayerService::changePlace instead.
-        // /!\ You need to delete all treatments in Modifier::ActionSubscriber before! /!\
-        $this->player->changePlace($patrolShipDockingPlace);
-        $this->playerService->persist($this->player);
+        /** @var PatrolShip $patrolShipMechanic */
+        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
+        if (!$patrolShipMechanic instanceof PatrolShip) {
+            throw new \RuntimeException("Patrol ship {$patrolShip->getName()} should have a patrol ship mechanic");
+        }
+        /** @var Place $patrolShipDockingPlace */
+        $patrolShipDockingPlace = $this->player->getDaedalus()->getPlaceByName($patrolShipMechanic->getDockingPlace());
+        if (!$patrolShipDockingPlace instanceof Place) {
+            throw new \RuntimeException("Patrol ship {$patrolShip->getName()} should have a docking place");
+        }
 
         $equipmentEvent = new MoveEquipmentEvent(
             equipment: $patrolShip,
@@ -107,64 +107,9 @@ final class Land extends AbstractAction
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
 
-        $this->moveScrapToPatrolShipDockingPlace($patrolShipDockingPlace, $patrolShip);
-    }
-
-    private function moveScrapToPatrolShipDockingPlace(Place $patrolShipDockingPlace, GameEquipment $patrolShip): void
-    {
-        /** @var Place $patrolShipPlace */
-        $patrolShipPlace = $this->findPlaceByName($patrolShip->getName());
-        $patrolShipPlaceContent = $patrolShipPlace->getEquipments();
-
-        // if no scrap in patrol ship, then there is nothing to move : abort
-        if ($patrolShipPlaceContent->isEmpty()) {
-            return;
-        }
-
-        /** @var GameEquipment $scrap */
-        foreach ($patrolShipPlaceContent as $scrap) {
-            $moveEquipmentEvent = new MoveEquipmentEvent(
-                equipment: $scrap,
-                newHolder: $patrolShipDockingPlace,
-                author: $this->player,
-                visibility: VisibilityEnum::HIDDEN,
-                tags: $this->getAction()->getActionTags(),
-                time: new \DateTime(),
-            );
-            $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);
-        }
-
-        $logParameters = [
-            $this->player->getLogKey() => $this->player->getLogName(),
-        ];
-        $this->roomLogService->createLog(
-            logKey: LogEnum::PATROL_DISCHARGE,
-            place: $patrolShipDockingPlace,
-            visibility: VisibilityEnum::PUBLIC,
-            type: 'event_log',
-            player: $this->player,
-            parameters: $logParameters,
-            dateTime: new \DateTime(),
-        );
-    }
-
-    // @TODO: use Daedalus::getPlaceByName instead
-    private function findPlaceByName(string $name): Place
-    {
-        $place = $this->placeService->findByNameAndDaedalus($name, $this->player->getDaedalus());
-        if ($place === null) {
-            throw new \RuntimeException("Place $name not found");
-        }
-
-        return $place;
-    }
-
-    // @TODO : use GameEquipment::getMechanicByName instead
-    private function getPatrolShipMechanic(GameEquipment $patrolShip): PatrolShip
-    {
-        /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => in_array(EquipmentMechanicEnum::PATROL_SHIP, $mechanic->getMechanics()))->first();
-
-        return $patrolShipMechanic;
+        // @TODO: use PlayerService::changePlace instead.
+        // /!\ You need to delete all treatments in Modifier::ActionSubscriber before! /!\
+        $this->player->changePlace($patrolShipDockingPlace);
+        $this->playerService->persist($this->player);
     }
 }

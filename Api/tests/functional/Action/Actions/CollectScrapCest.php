@@ -66,6 +66,11 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $this->pasiphaeArmor = new ChargeStatus($this->pasiphae, $pasiphaeArmorConfig);
 
+        // ensure pasiphae is full armor before each test to avoid false negatives
+        $this->pasiphaeArmor->setCharge(12);
+        $I->haveInRepository($this->pasiphaeArmor);
+        $I->haveInRepository($this->pasiphae);
+
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
@@ -215,6 +220,26 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
             'log' => LogEnum::PATROL_DISCHARGE,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+    }
+
+    public function testLandingWihScrapCollectedButPasiphaeIsDestroyed(FunctionalTester $I): void
+    {
+        // given we collected scrap successfully
+        $this->testCollectScrapActionSuccess($I);
+
+        // given land action has a 0% critical rate so it will fail and pasiphae will be damaged
+        $this->landActionConfig->setCriticalRate(0);
+
+        // given pasiphae has 1 armor so it will be destroyed at landing
+        $this->pasiphaeArmor->setCharge(1);
+
+        // when player lands
+        $this->landAction->loadParameters($this->landActionConfig, $this->player1, $this->pasiphae);
+        $this->landAction->execute();
+
+        // then there should not be scrap in alpha bay 2
+        $alphaBay2 = $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2);
+        $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
     }
 
     public function testLandingWithoutScrapCollected($I): void

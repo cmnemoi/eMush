@@ -126,12 +126,6 @@ final class LandActionCest extends AbstractFunctionalTest
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             $this->player1->getHealthPoint()
         );
-        /** @var ChargeStatusConfig $pasiphaeArmorConfig */
-        $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $this->pasiphaeArmor = new ChargeStatus($this->pasiphae, $pasiphaeArmorConfig);
-        $I->haveInRepository($this->pasiphaeArmor);
-        $I->haveInRepository($this->pasiphae);
-
         $I->assertEquals(
             $this->pasiphaeArmor->getThreshold(),
             $this->pasiphaeArmor->getCharge()

@@ -251,7 +251,8 @@ class PlayerService implements PlayerServiceInterface
             PlayerVariableEnum::ACTION_POINT,
             self::CYCLE_ACTION_CHANGE,
             [EventEnum::NEW_CYCLE, self::BASE_PLAYER_CYCLE_CHANGE],
-            $date);
+            $date
+        );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $playerModifierEvent = new PlayerVariableEvent(

@@ -59,7 +59,7 @@ class CycleService implements CycleServiceInterface
                     );
                     $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-                    // Do not continue make cycle if Daedalus is finish
+                    // Do not continue make cycle if Daedalus is finished
                     if ($daedalusInfo->getGameStatus() === GameStatusEnum::FINISHED) {
                         break;
                     }

@@ -1,4 +1,4 @@
-const ARACK = 'arack';
+const ARACK = 'spider';
 const ASTEROID = 'asteroid';
 const D1000 = 'd1000';  
 const HUNTER = 'hunter';

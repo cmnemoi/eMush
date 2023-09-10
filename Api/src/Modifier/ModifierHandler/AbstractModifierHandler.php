@@ -40,7 +40,7 @@ abstract class AbstractModifierHandler
         $modifierEvent->setEventName(ModifierEvent::APPLY_MODIFIER);
         $modifierEvent->setPriority($priority);
 
-        $eventCollection->addEvent($modifierEvent);
+        $eventCollection = $eventCollection->addEvent($modifierEvent);
 
         return $eventCollection;
     }

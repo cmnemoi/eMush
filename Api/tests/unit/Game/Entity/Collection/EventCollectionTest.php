@@ -159,18 +159,40 @@ class EventCollectionTest extends TestCase
         $event5 = new AbstractGameEvent([], new \DateTime());
         $event5->setPriority(1)->setEventName('five');
 
-        $eventCollection = new EventChain([$event4, $event1, $event3, $event5]);
+        $eventCollection = new EventChain([
+            $event1, $event2, $event3, $event4, $event5,
+        ]);
 
         $updatedEvents = $eventCollection->stopEvents(-10);
         $this->assertEmpty($updatedEvents);
+        $this->assertNotContains($event1, $updatedEvents);
+        $this->assertNotContains($event2, $updatedEvents);
+        $this->assertNotContains($event3, $updatedEvents);
+        $this->assertNotContains($event4, $updatedEvents);
+        $this->assertNotContains($event5, $updatedEvents);
 
         $updatedEvents = $eventCollection->stopEvents(0);
-        $this->assertCount(2, $updatedEvents);
+        $this->assertCount(4, $updatedEvents);
+        $this->assertContains($event1, $updatedEvents);
+        $this->assertContains($event2, $updatedEvents);
+        $this->assertContains($event3, $updatedEvents);
+        $this->assertContains($event4, $updatedEvents);
+        $this->assertNotContains($event5, $updatedEvents);
 
         $updatedEvents = $eventCollection->stopEvents(-1);
-        $this->assertCount(1, $updatedEvents);
+        $this->assertCount(3, $updatedEvents);
+        $this->assertContains($event1, $updatedEvents);
+        $this->assertContains($event2, $updatedEvents);
+        $this->assertContains($event3, $updatedEvents);
+        $this->assertNotContains($event4, $updatedEvents);
+        $this->assertNotContains($event5, $updatedEvents);
 
         $updatedEvents = $eventCollection->stopEvents(10);
-        $this->assertCount(4, $updatedEvents);
+        $this->assertCount(5, $updatedEvents);
+        $this->assertContains($event1, $updatedEvents);
+        $this->assertContains($event2, $updatedEvents);
+        $this->assertContains($event3, $updatedEvents);
+        $this->assertContains($event4, $updatedEvents);
+        $this->assertContains($event5, $updatedEvents);
     }
 }

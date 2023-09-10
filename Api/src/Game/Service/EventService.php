@@ -37,13 +37,13 @@ class EventService implements EventServiceInterface
 
         $events = $this->applyModifiers($event);
 
-        foreach ($events as $event) {
-            if ($event->getPriority() !== 0) {
+        foreach ($events as $modifierEvent) {
+            if ($modifierEvent->getPriority() !== 0) {
                 // a condition in triggerEventModifierConfig allow to avoid infinite loop
                 // This allows triggered events to be themselves modified
-                $this->callEvent($event, $event->getEventName());
+                $this->callEvent($modifierEvent, $modifierEvent->getEventName());
             } else {
-                $this->eventDispatcher->dispatch($event, $event->getEventName());
+                $this->eventDispatcher->dispatch($modifierEvent, $modifierEvent->getEventName());
             }
         }
 

@@ -80,7 +80,7 @@ class EventChain extends ArrayCollection
     public function stopEvents(int $priority): self
     {
         // find where to add the new event
-        $lowerPriority = $this->filter(fn (AbstractGameEvent $event) => $event->getPriority() < $priority)->count();
+        $lowerPriority = $this->filter(fn (AbstractGameEvent $event) => $event->getPriority() <= $priority)->count();
 
         $eventArray = $this->toArray();
         array_splice($eventArray, $lowerPriority);

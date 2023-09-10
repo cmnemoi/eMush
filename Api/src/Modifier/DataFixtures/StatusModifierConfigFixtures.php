@@ -12,7 +12,6 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
-use Mush\Game\Enum\PriorityEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
@@ -21,6 +20,7 @@ use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -52,7 +52,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setPriority(PriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS])
             ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT)
@@ -64,7 +64,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setPriority(PriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -83,7 +83,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setPriority(PriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS])
             ->addModifierRequirement($notAloneActivationRequirement)
@@ -97,7 +97,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setPriority(PriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([ActionTypeEnum::ACTION_AGGRESSIVE => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLACE)
@@ -109,7 +109,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setPriority(PriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -124,7 +124,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($notAloneActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
@@ -135,7 +135,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $lostModifier
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -146,7 +146,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints(['base_player_cycle_change' => ModifierRequirementEnum::ALL_TAGS])
@@ -161,7 +161,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $starvingModifier
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerEvent::PLAYER_NEW_CYCLE)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::STARVING)
@@ -173,7 +173,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(RollPercentageEvent::ROLL_PERCENTAGE)
             ->setDelta(30)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setPriority(PriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setApplyOnTarget(false)
             ->setTagConstraints([PlayerEvent::CYCLE_DISEASE => ModifierRequirementEnum::ALL_TAGS])
@@ -187,7 +187,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $mushShowerModifier
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::SHOWER => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::WASH_IN_SINK => ModifierRequirementEnum::ANY_TAGS,
@@ -202,7 +202,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::SATIETY)
             ->setDelta(4)
             ->setMode(VariableModifierModeEnum::SET_VALUE)
-            ->setPriority(PriorityEnum::OVERRIDE_VALUE_PRIORITY)
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setApplyOnTarget(true)
             ->setTagConstraints([
@@ -215,7 +215,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $mushConsumeModifier = new EventModifierConfig('mushConsumeModifier');
         $mushConsumeModifier
-            ->setPriority(PriorityEnum::PREVENT_EVENT)
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setApplyOnTarget(true)
             ->setTagConstraints([

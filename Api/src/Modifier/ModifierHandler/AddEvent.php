@@ -31,7 +31,7 @@ class AddEvent extends AbstractModifierHandler
         $modifierConfig = $modifier->getModifierConfig();
         $eventConfig = $modifierConfig->getTriggeredEvent();
 
-        $priority = $modifierConfig->getPriorityInt();
+        $priority = $modifierConfig->getPriorityAsInteger();
         if ($priority === 0) {
             throw new \Exception('Modifier cannot have a priority of 0 (restricted to the initialEvent)');
         }

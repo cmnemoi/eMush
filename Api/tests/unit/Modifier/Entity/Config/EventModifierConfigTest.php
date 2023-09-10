@@ -6,13 +6,13 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Game\Enum\PriorityEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -86,16 +86,16 @@ class EventModifierConfigTest extends TestCase
     {
         $modifier = new EventModifierConfig('unitTestVariableEventModifier');
         $modifier
-            ->setPriority(PriorityEnum::BEFORE_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::BEFORE_INITIAL_EVENT)
         ;
 
-        $this->assertEquals(PriorityEnum::PRIORITY_MAP[PriorityEnum::BEFORE_INITIAL_EVENT], $modifier->getPriorityInt());
-        $this->assertEquals(PriorityEnum::BEFORE_INITIAL_EVENT, $modifier->getPriority());
+        $this->assertEquals(ModifierPriorityEnum::PRIORITY_MAP[ModifierPriorityEnum::BEFORE_INITIAL_EVENT], $modifier->getPriorityAsInteger());
+        $this->assertEquals(ModifierPriorityEnum::BEFORE_INITIAL_EVENT, $modifier->getPriority());
 
         $modifier
             ->setPriority('4')
         ;
-        $this->assertEquals(4, $modifier->getPriorityInt());
+        $this->assertEquals(4, $modifier->getPriorityAsInteger());
         $this->assertEquals('4', $modifier->getPriority());
     }
 }

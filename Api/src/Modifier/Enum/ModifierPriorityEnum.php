@@ -1,12 +1,12 @@
 <?php
 
-namespace Mush\Game\Enum;
+namespace Mush\Modifier\Enum;
 
 /**
  * List priority as human-readable strings
  * Priority can also be set as a number e.g. '4'.
  */
-class PriorityEnum
+class ModifierPriorityEnum
 {
     public const INITIAL_SET_VALUE = 'initialSetValuePriority';
     public const MULTIPLICATIVE_MODIFIER_VALUE = 'multiplicativeModifierPriority';

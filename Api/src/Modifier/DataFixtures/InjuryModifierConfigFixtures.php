@@ -17,12 +17,12 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
-use Mush\Game\Enum\PriorityEnum;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
@@ -79,7 +79,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setPriority(PriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([
                 ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
@@ -98,7 +98,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setPriority(PriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([
                 ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
@@ -118,7 +118,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(3)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setPriority(PriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([
                 ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
                 ActionEnum::CONSUME => ModifierRequirementEnum::NONE_TAGS,
@@ -163,7 +163,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->setDelta(0.85)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
-            ->setPriority(PriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
+            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setTagConstraints([ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -187,7 +187,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->setDelta(0.60)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
-            ->setPriority(PriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
+            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setTagConstraints([ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -199,7 +199,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $deafSpeak
             ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
             ->setTargetEvent(MessageEvent::NEW_MESSAGE)
-            ->setPriority(PriorityEnum::OVERRIDE_VALUE_PRIORITY)
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setName('deaf_speak_modifier_fixture')
         ;
@@ -209,7 +209,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $deafListen
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setTargetEvent(MessageEvent::READ_MESSAGE)
-            ->setPriority(PriorityEnum::OVERRIDE_VALUE_PRIORITY)
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setName('deaf_listen__modifier_fixture')
         ;
@@ -219,7 +219,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $paranoia
             ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
             ->setTargetEvent(MessageEvent::NEW_MESSAGE)
-            ->setPriority(PriorityEnum::OVERRIDE_VALUE_PRIORITY)
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setName('paranoia_modifier_fixture')
         ;
@@ -229,7 +229,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $paranoiaDenial
             ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
             ->setTargetEvent(MessageEvent::READ_MESSAGE)
-            ->setPriority(PriorityEnum::OVERRIDE_VALUE_PRIORITY)
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setName('paranoia_denial_fixture')
         ;
@@ -239,7 +239,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $coprolalia
             ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
             ->setTargetEvent(MessageEvent::NEW_MESSAGE)
-            ->setPriority(PriorityEnum::OVERRIDE_VALUE_PRIORITY)
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setName('coprolalia_modifier_fixture')
         ;
@@ -250,7 +250,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::PRE_ACTION)
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setPriority(PriorityEnum::PREVENT_EVENT)
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setTagConstraints([
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -272,7 +272,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTagConstraints([
                 ActionEnum::TAKE => ModifierRequirementEnum::ANY_TAGS,
             ])
-            ->setPriority(PriorityEnum::PREVENT_EVENT)
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$heavyRequirement])
         ;
@@ -287,7 +287,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTagConstraints([
                 ActionTypeEnum::ACTION_ATTACK => ModifierRequirementEnum::ANY_TAGS,
             ])
-            ->setPriority(PriorityEnum::PREVENT_EVENT)
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($preventAttackActions);
@@ -300,7 +300,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTagConstraints([
                 ActionTypeEnum::ACTION_PILOT => ModifierRequirementEnum::ANY_TAGS,
             ])
-            ->setPriority(PriorityEnum::PREVENT_EVENT)
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($preventPiloting);
@@ -313,7 +313,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTagConstraints([
                 ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
             ])
-            ->setPriority(PriorityEnum::PREVENT_EVENT)
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($preventShoot);
@@ -323,7 +323,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(MessageEvent::NEW_MESSAGE)
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setPriority(PriorityEnum::PREVENT_EVENT)
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($muteModifier);
@@ -340,7 +340,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($dirtyRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(SymptomEnum::SEPTICEMIA)
@@ -352,7 +352,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($dirtyRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(SymptomEnum::SEPTICEMIA)
@@ -364,7 +364,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(StatusEvent::STATUS_APPLIED)
             ->setApplyOnTarget(true)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(SymptomEnum::SEPTICEMIA)
@@ -385,7 +385,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$random50, $catRequirement])
@@ -400,7 +400,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$random16])
@@ -413,7 +413,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$random16])
             ->setModifierName(SymptomEnum::BITING)
@@ -425,7 +425,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$random16])
@@ -438,7 +438,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
                 ActionEnum::TAKE => ModifierRequirementEnum::ALL_TAGS,
@@ -454,7 +454,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS,
             ])
@@ -472,7 +472,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
@@ -489,7 +489,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -503,7 +503,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $cycleDirtiness
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(SymptomEnum::DIRTINESS)
@@ -514,7 +514,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $cycleDirtinessRandom
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($random40)
@@ -527,7 +527,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -542,7 +542,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setApplyOnTarget(false)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -563,7 +563,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
-            ->setPriority(PriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
             ])

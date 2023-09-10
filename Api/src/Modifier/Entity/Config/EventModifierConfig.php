@@ -5,8 +5,8 @@ namespace Mush\Modifier\Entity\Config;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
-use Mush\Game\Enum\PriorityEnum;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 
 /**
@@ -30,7 +30,7 @@ class EventModifierConfig extends AbstractModifierConfig
     protected string $modifierStrategy;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    protected string $priority = PriorityEnum::BEFORE_INITIAL_EVENT;
+    protected string $priority = ModifierPriorityEnum::BEFORE_INITIAL_EVENT;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $applyOnTarget = false;
@@ -62,10 +62,10 @@ class EventModifierConfig extends AbstractModifierConfig
         return $this;
     }
 
-    public function getPriorityInt(): int
+    public function getPriorityAsInteger(): int
     {
-        if (key_exists($this->priority, PriorityEnum::PRIORITY_MAP)) {
-            return PriorityEnum::PRIORITY_MAP[$this->priority];
+        if (key_exists($this->priority, ModifierPriorityEnum::PRIORITY_MAP)) {
+            return ModifierPriorityEnum::PRIORITY_MAP[$this->priority];
         }
 
         return intval($this->priority);

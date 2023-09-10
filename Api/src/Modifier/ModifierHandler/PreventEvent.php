@@ -17,7 +17,7 @@ class PreventEvent extends AbstractModifierHandler
         array $tags,
         \DateTime $time
     ): EventChain {
-        $events = $events->stopEvents($modifier->getModifierConfig()->getPriorityInt());
+        $events = $events->stopEvents($modifier->getModifierConfig()->getPriorityAsInteger());
 
         return $this->addModifierEvent($events, $modifier, $tags, $time);
     }

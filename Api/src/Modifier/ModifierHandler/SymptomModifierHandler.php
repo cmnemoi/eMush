@@ -54,7 +54,7 @@ class SymptomModifierHandler extends AbstractModifierHandler
 
         $symptomEvents = $symptomHandler->applyEffects(
             $player,
-            $modifier->getModifierConfig()->getPriorityInt(),
+            $modifier->getModifierConfig()->getPriorityAsInteger(),
             $tags,
             $time
         );

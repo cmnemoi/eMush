@@ -220,6 +220,7 @@ class StatusService implements StatusServiceInterface
 
     public function updateCharge(ChargeStatus $chargeStatus, int $delta, array $tags, \DateTime $time): ?ChargeStatus
     {
+        dump('coucou');
         $newCharge = $chargeStatus->getCharge() + $delta;
         $threshold = $chargeStatus->getThreshold();
 

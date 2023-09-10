@@ -172,7 +172,7 @@ final class LandActionCest extends AbstractFunctionalTest
         // given land action has a 0% critical rate so it will fail
         $this->action->setCriticalRate(0);
 
-        // given patrol ship armor is equals to one so it will be destroyed at landing
+        // given pasiphae armor is equals to one so it will be destroyed at landing
         $this->pasiphaeArmor->setCharge(1);
 
         // given dynarcade is in alpha bay 2

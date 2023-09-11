@@ -35,7 +35,7 @@ class DifficultyConfigDataLoaderCest
         ]);
 
         // check that we've loaded all the difficulty configs
-        $I->seeNumRecords(1, DifficultyConfig::class);
+        $I->seeNumRecords(2, DifficultyConfig::class);
     }
 
     public function testLoadConfigsDataConfigAlreadyExists(FunctionalTester $I)

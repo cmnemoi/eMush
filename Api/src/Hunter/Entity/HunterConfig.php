@@ -56,8 +56,8 @@ class HunterConfig
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
     private array $numberOfDroppedScrap = [];
 
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
-    private array $targetProbabilities = [];
+    #[ORM\Column(type: 'array', nullable: true)]
+    private ?array $targetProbabilities = [];
 
     public function __construct()
     {
@@ -244,8 +244,12 @@ class HunterConfig
         return $this;
     }
 
-    public function getTargetProbabilities(): ProbaCollection
+    public function getTargetProbabilities(): ?ProbaCollection
     {
+        if ($this->targetProbabilities === null) {
+            return null;
+        }
+
         return new ProbaCollection($this->targetProbabilities);
     }
 
@@ -262,6 +266,9 @@ class HunterConfig
 
     public function addTargetProbability(string $target, int $probability): static
     {
+        if ($this->targetProbabilities === null) {
+            $this->targetProbabilities = [];
+        }
         $this->targetProbabilities[$target] = $probability;
 
         return $this;

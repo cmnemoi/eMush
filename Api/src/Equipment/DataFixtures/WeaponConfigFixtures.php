@@ -131,7 +131,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
+            ->setIsBreakable(false)
             ->setMechanics(new ArrayCollection([$knifeMechanic]))
             ->setActions($actions25)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])

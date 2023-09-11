@@ -2344,7 +2344,7 @@ class EquipmentConfigData
         [
             'name' => 'knife_default',
             'equipmentName' => 'knife',
-            'isBreakable' => true,
+            'isBreakable' => false,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
             'dismountedProducts' => ['metal_scraps' => 1],

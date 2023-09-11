@@ -23,25 +23,25 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
         $difficultyConfig = new DifficultyConfig();
 
         $difficultyConfig
-            ->setName(GameConfigEnum::DEFAULT)
-            ->setEquipmentBreakRate(30)
-            ->setDoorBreakRate(40)
-            ->setEquipmentFireBreakRate(30)
+            ->setName('difficultyConfig_'.GameConfigEnum::TEST)
+            ->setEquipmentBreakRate(0)
+            ->setDoorBreakRate(0)
+            ->setEquipmentFireBreakRate(0)
             ->setStartingFireRate(2)
-            ->setPropagatingFireRate(30)
-            ->setHullFireDamageRate(20)
-            ->setTremorRate(5)
-            ->setMetalPlateRate(5)
-            ->setElectricArcRate(5)
-            ->setPanicCrisisRate(5)
+            ->setPropagatingFireRate(0)
+            ->setHullFireDamageRate(0)
+            ->setTremorRate(0)
+            ->setMetalPlateRate(0)
+            ->setElectricArcRate(0)
+            ->setPanicCrisisRate(0)
             ->setFireHullDamage([2 => 1, 4 => 1])
             ->setFirePlayerDamage([2 => 1])
             ->setElectricArcPlayerDamage([3 => 1])
             ->setTremorPlayerDamage([1 => 1, 2 => 1, 3 => 1])
             ->setMetalPlatePlayerDamage([4 => 1, 5 => 1, 6 => 1])
             ->setPanicCrisisPlayerDamage([3 => 1])
-            ->setPlantDiseaseRate(5)
-            ->setCycleDiseaseRate(20)
+            ->setPlantDiseaseRate(0)
+            ->setCycleDiseaseRate(0)
             ->setEquipmentBreakRateDistribution([
                 EquipmentEnum::BIOS_TERMINAL => 3,
                 EquipmentEnum::COMMUNICATION_CENTER => 6,
@@ -76,7 +76,7 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
                 DifficultyEnum::HARD => 4,
                 DifficultyEnum::VERY_HARD => 9,
             ])
-            ->setHunterSpawnRate(20)
+            ->setHunterSpawnRate(0)
             ->setHunterSafeCycles([2, 3])
             ->setStartingHuntersNumberOfTruceCycles(2)
         ;

@@ -304,7 +304,7 @@ class HunterService implements HunterServiceInterface
         $patrolShipsInBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
         if (!$patrolShipsInBattle->isEmpty()) {
-            $successRate = $targetProbabilities->get(HunterTargetEnum::PATROL_SHIP);
+            $successRate = $targetProbabilities?->get(HunterTargetEnum::PATROL_SHIP);
             if ($successRate === null) {
                 throw new \LogicException('Patrol ship target probability should not be null');
             }
@@ -319,7 +319,7 @@ class HunterService implements HunterServiceInterface
 
         $playersInBattle = $hunter->getDaedalus()->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $player->isInSpaceBattle());
         if (!$playersInBattle->isEmpty()) {
-            $successRate = $targetProbabilities->get(HunterTargetEnum::PLAYER);
+            $successRate = $targetProbabilities?->get(HunterTargetEnum::PLAYER);
             if ($successRate === null) {
                 throw new \LogicException('Player target probability should not be null');
             }

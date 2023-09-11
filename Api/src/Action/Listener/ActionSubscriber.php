@@ -115,6 +115,17 @@ final class ActionSubscriber implements EventSubscriberInterface
         ) {
             $this->handlePatrolshipManoeuvreDamage($event);
         }
+
+        if ($event->getAction()->getActionName() === ActionEnum::LAND) {
+            /** @var GameEquipment $patrolShip */
+            $patrolShip = $event->getActionParameter();
+
+            /** @var ?ChargeStatus $patrolShipArmor */
+            $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+            if ($patrolShipArmor instanceof ChargeStatus && $patrolShipArmor->getCharge() > 0) {
+                $this->moveScrapToPatrolShipDockingPlace($event);
+            }
+        }
     }
 
     private function handlePatrolshipManoeuvreDamage(ActionEvent $event): void
@@ -185,10 +196,6 @@ final class ActionSubscriber implements EventSubscriberInterface
         if ($patrolShipArmor->getCharge() <= 0) {
             $this->gameEquipmentService->handlePatrolShipDestruction($patrolShip, $event->getAuthor(), $event->getTags());
         }
-
-        if ($event->getAction()->getActionName() === ActionEnum::LAND && $patrolShipArmor->getCharge() > 0) {
-            $this->moveScrapToPatrolShipDockingPlace($event);
-        }
     }
 
     private function inflictDamageToPlayer(ActionEvent $event): void
@@ -215,7 +222,8 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function moveScrapToPatrolShipDockingPlace(ActionEvent $event): void
     {
-        $daedalus = $event->getAuthor()->getDaedalus();
+        $player = $event->getAuthor();
+        $daedalus = $player->getDaedalus();
         /** @var GameEquipment $patrolShip */
         $patrolShip = $event->getActionParameter();
 
@@ -234,9 +242,6 @@ final class ActionSubscriber implements EventSubscriberInterface
         /** @var Place $patrolShipPlace */
         $patrolShipPlace = $daedalus->getPlaceByName($patrolShip->getName());
         $patrolShipPlaceContent = $patrolShipPlace->getEquipments();
-
-        /** @var Player $player */
-        $player = $event->getAuthor();
 
         // if no scrap in patrol ship, then there is nothing to move : abort
         if ($patrolShipPlaceContent->isEmpty()) {

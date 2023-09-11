@@ -54,7 +54,7 @@ class CycleIncrementTest extends TestCase
     }
 
     private function createStatus(): ChargeStatus
-    {   
+    {
         $place = new Place();
         $place->setType(PlaceTypeEnum::ROOM);
         $player = new Player();

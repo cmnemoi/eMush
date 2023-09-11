@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230817192917 extends AbstractMigration
+final class Version20230911143222 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,13 +20,14 @@ final class Version20230817192917 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE hunter_config ADD target_probabilities TEXT DEFAULT \'[]\' NOT NULL');
-        $this->addSql('COMMENT ON COLUMN hunter_config.target_probabilities IS \'(DC2Type:array)\'');
+        $this->addSql('ALTER TABLE hunter_config DROP target_probabilities');
+        $this->addSql('ALTER TABLE hunter_config ADD target_probabilities TEXT DEFAULT NULL');
+
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE hunter_config DROP target_probabilities');
+        $this->addSql('ALTER TABLE hunter_config ALTER target_probabilities SET NOT NULL');
     }
 }

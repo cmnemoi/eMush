@@ -66,11 +66,6 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $this->pasiphaeArmor = new ChargeStatus($this->pasiphae, $pasiphaeArmorConfig);
 
-        // ensure pasiphae is full armor before each test to avoid false negatives
-        $this->pasiphaeArmor->setCharge(12);
-        $I->haveInRepository($this->pasiphaeArmor);
-        $I->haveInRepository($this->pasiphae);
-
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
@@ -202,13 +197,14 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testLandingWithScrapCollected(FunctionalTester $I): void
+    public function testLandSuccessWithScrapCollected(FunctionalTester $I): void
     {
         $this->testCollectScrapActionSuccess($I);
 
         $alphaBay2 = $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2);
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
 
+        $this->landActionConfig->setCriticalRate(100); // 100% critical rate so landing is always successful
         $this->landAction->loadParameters($this->landActionConfig, $this->player1, $this->pasiphae);
         $this->landAction->execute();
 
@@ -222,7 +218,7 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testLandingWihScrapCollectedButPasiphaeIsDestroyed(FunctionalTester $I): void
+    public function testLandSuccessWihScrapCollectedButPasiphaeIsDestroyed(FunctionalTester $I): void
     {
         // given we collected scrap successfully
         $this->testCollectScrapActionSuccess($I);
@@ -242,7 +238,7 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
     }
 
-    public function testLandingWithoutScrapCollected($I): void
+    public function testLandSuccessWithoutScrapCollected($I): void
     {
         $alphaBay2 = $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2);
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
@@ -252,6 +248,27 @@ final class CollectScrapActionCest extends AbstractFunctionalTest
 
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
         $I->dontSeeInRepository(RoomLog::class, [
+            'place' => RoomEnum::ALPHA_BAY_2,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => LogEnum::PATROL_DISCHARGE,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+    }
+
+    public function testLandFailWithScrapCollected(FunctionalTester $I): void
+    {
+        $this->testCollectScrapActionSuccess($I);
+
+        $alphaBay2 = $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2);
+        $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
+
+        $this->landActionConfig->setCriticalRate(0); // 0% critical rate so landing will fail
+        $this->landAction->loadParameters($this->landActionConfig, $this->player1, $this->pasiphae);
+        $this->landAction->execute();
+
+        $I->assertTrue($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
+        $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::ALPHA_BAY_2,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo(),

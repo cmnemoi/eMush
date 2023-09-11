@@ -20,11 +20,11 @@ class DifficultyConfigDataLoaderCest
         $this->difficultyConfigDataLoader->loadConfigsData();
 
         $I->seeInRepository(DifficultyConfig::class, [
-            'name' => 'default',
+            'name' => 'difficultyConfig_test',
             'equipmentBreakRate' => 0,
             'doorBreakRate' => 0,
             'equipmentFireBreakRate' => 0,
-            'startingFireRate' => 2,
+            'startingFireRate' => 0,
             'propagatingFireRate' => 0,
             'hullFireDamageRate' => 0,
             'tremorRate' => 0,

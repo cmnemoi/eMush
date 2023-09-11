@@ -23,7 +23,7 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
         $difficultyConfig = new DifficultyConfig();
 
         $difficultyConfig
-            ->setName('difficultyConfig_'.GameConfigEnum::TEST)
+            ->setName('difficultyConfig_' . GameConfigEnum::TEST)
             ->setEquipmentBreakRate(0)
             ->setDoorBreakRate(0)
             ->setEquipmentFireBreakRate(0)

@@ -22,7 +22,6 @@ final class Version20230911143222 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE hunter_config DROP target_probabilities');
         $this->addSql('ALTER TABLE hunter_config ADD target_probabilities TEXT DEFAULT NULL');
-
     }
 
     public function down(Schema $schema): void

@@ -35,8 +35,7 @@ class PatrolShipDataLoaderCest
             $I->seeInRepository(PatrolShip::class, $patrolShipData);
         }
 
-        // 8 real ships + 1 dummy fixture
-        $I->seeNumRecords(count($this->getPatrolShipsFromMechanicsDataArray()) + 1, PatrolShip::class);
+        $I->seeNumRecords(count($this->getPatrolShipsFromMechanicsDataArray()), PatrolShip::class);
     }
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)

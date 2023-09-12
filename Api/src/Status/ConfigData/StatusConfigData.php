@@ -691,7 +691,7 @@ class StatusConfigData
             'visibility' => 'public',
             'type' => 'charge_status_config',
             'chargeVisibility' => 'public',
-            'chargeStrategy' => 'cycle_increment',
+            'chargeStrategy' => ChargeStrategyTypeEnum::PATROL_SHIP_CHARGE_INCREMENT,
             'maxCharge' => 10,
             'startCharge' => 10,
             'dischargeStrategies' => ['shoot_hunter_patrol_ship', ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP],

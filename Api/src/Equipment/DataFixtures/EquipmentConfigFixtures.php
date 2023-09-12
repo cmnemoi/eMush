@@ -278,7 +278,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $patrolShipMechanic = $this->createPatrolShip(
             [$takeoffAction, $landAction, $renovateAction],
-            EquipmentEnum::PATROL_SHIP
+            EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN
         );
         $patrolShipMechanic
             ->setFailedManoeuvreDaedalusDamage([
@@ -311,7 +311,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $patrolShip = new EquipmentConfig();
         $patrolShip
-            ->setEquipmentName(EquipmentEnum::PATROL_SHIP)
+            ->setEquipmentName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)

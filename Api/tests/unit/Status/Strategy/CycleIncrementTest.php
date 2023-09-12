@@ -3,14 +3,20 @@
 namespace Mush\Test\Status\Strategy;
 
 use Mockery;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
 use Mush\Status\ChargeStrategies\CycleIncrement;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class CycleIncrementTest extends TestCase
@@ -49,12 +55,20 @@ class CycleIncrementTest extends TestCase
 
     private function createStatus(): ChargeStatus
     {
+        $place = new Place();
+        $place->setType(PlaceTypeEnum::ROOM);
+        $player = new Player();
+        $player->setPlace($place);
+        $user = new User();
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName(CharacterEnum::CHAO);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(10)
         ;
-        $status = new ChargeStatus(new Player(), $statusConfig);
+        $status = new ChargeStatus($player, $statusConfig);
         $status
             ->setCharge(0)
         ;

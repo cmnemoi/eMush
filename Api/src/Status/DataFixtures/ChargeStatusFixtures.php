@@ -181,6 +181,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::PATROL_SHIP_CHARGE_INCREMENT)
             ->setMaxCharge(10)
             ->setStartCharge(10)
             ->buildName(GameConfigEnum::DEFAULT, EquipmentEnum::PATROL_SHIP)

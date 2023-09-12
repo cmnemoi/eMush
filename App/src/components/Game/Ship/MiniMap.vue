@@ -312,7 +312,7 @@
                             <path class="floor" serif:id="floor" d="M179.958,67l0,-6l-6,-0l0,6l6,0Z" />
                             <path class="wall" serif:id="wall" d="M180.958,61l0,6" />
                         </g>
-                        <g id="Reactor-2" serif:id="Reactor 2" :class="{visible : isBroken('equipment', 'engine_room' , 'reactor_lateral')}">
+                        <g id="Reactor-2" serif:id="Reactor 2" :class="{visible : isBroken('equipment', 'engine_room' , 'emergency_reactor')}">
                             <path class="floor" serif:id="floor" d="M179.958,51l0,-6l-6,0l0,6l6,0Z" />
                             <path class="wall" serif:id="wall" d="M180.958,45l0,6" />
                         </g>

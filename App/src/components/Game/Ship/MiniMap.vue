@@ -528,11 +528,11 @@
                         </g>
                     </g>
                     <g id="Refectory1" serif:id="Refectory">
-                        <g id="Coffee-Machine" serif:id="Coffee Machine" :class="{visible : isBroken('equipment', 'refectory' , 'kitchen')}">
+                        <g id="Coffee-Machine" serif:id="Coffee Machine" :class="{visible : isBroken('equipment', 'refectory' , 'coffee_machine')}">
                             <path class="floor" serif:id="floor" d="M84,52l0,4l4,0l0,-4l-4,0Z" />
                             <path class="wall" serif:id="wall" d="M83,56l0,-4" />
                         </g>
-                        <g id="Kitchen" :class="{visible : isBroken('equipment', 'refectory' , 'coffee_machine')}">
+                        <g id="Kitchen" :class="{visible : isBroken('equipment', 'refectory' , 'kitchen')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"

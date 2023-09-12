@@ -397,7 +397,7 @@
                         </g>
                     </g>
                     <g id="Rear-Alpha-Storage1" serif:id="Rear Alpha Storage">
-                        <g id="Fuel-Tank1" serif:id="Fuel Tank" :class="{visible : isBroken('equipment', 'rear_alpha_storage' , 'oxygen_tank')}">
+                        <g id="Fuel-Tank1" serif:id="Fuel Tank" :class="{visible : isBroken('equipment', 'rear_alpha_storage' , 'fuel_tank')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"

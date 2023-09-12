@@ -2,10 +2,12 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -35,13 +37,31 @@ class StatusSubscriber implements EventSubscriberInterface
 
     public function onStatusApplied(StatusEvent $event): void
     {
+        $statusName = $event->getStatusName();
+        $statusHolder = $event->getStatusHolder();
+
         if ($event->getStatusConfig() === null) {
             $this->statusService->createStatusFromName(
-                $event->getStatusName(),
+                $statusName,
                 $event->getDaedalus(),
-                $event->getStatusHolder(),
+                $statusHolder,
                 $event->getTime(),
                 $event->getStatusTarget()
+            );
+        }
+
+        if ($statusName === EquipmentStatusEnum::BROKEN &&
+            $statusHolder instanceof GameEquipment &&
+            $statusHolder->hasStatus(EquipmentStatusEnum::ELECTRIC_CHARGES)
+        ) {
+            /** @var ChargeStatus $electricCharges */
+            $electricCharges = $statusHolder->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+
+            $this->statusService->updateCharge(
+                chargeStatus: $electricCharges,
+                delta: -$electricCharges->getThreshold(),
+                tags: $event->getTags(),
+                time: $event->getTime()
             );
         }
     }

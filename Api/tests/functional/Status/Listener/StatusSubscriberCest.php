@@ -30,9 +30,9 @@ final class StatusSubscriberCest extends AbstractFunctionalTest
 
     public function testOnBrokenStatusAppliedOnEquipmentWithElectricCharges(FunctionalTester $I)
     {
-        // given a patrol ship in alpha bay 2 with electric charges charge status
+        // given a patrol ship in alpha bay with electric charges charge status
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY));
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig)

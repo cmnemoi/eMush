@@ -301,8 +301,8 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::ANTENNA,
                 EquipmentEnum::PLANET_SCANNER,
                 EquipmentEnum::PILGRED,
-                EquipmentEnum::REACTOR_LATERAL,
-                EquipmentEnum::REACTOR_LATERAL,
+                EquipmentEnum::REACTOR_LATERAL_ALPHA,
+                EquipmentEnum::REACTOR_LATERAL_BRAVO,
                 EquipmentEnum::EMERGENCY_REACTOR,
                 EquipmentEnum::COMBUSTION_CHAMBER,
             ])

@@ -36,7 +36,9 @@ class DifficultyConfigData
                 EquipmentEnum::RESEARCH_LABORATORY => 6,
                 EquipmentEnum::CALCULATOR => 6,
                 EquipmentEnum::EMERGENCY_REACTOR => 6,
-                EquipmentEnum::REACTOR_LATERAL => 6,
+                EquipmentEnum::REACTOR_LATERAL => 6, // @TODO: remove this after the ships using it are finished
+                EquipmentEnum::REACTOR_LATERAL_ALPHA => 6,
+                EquipmentEnum::REACTOR_LATERAL_BRAVO => 6,
                 EquipmentEnum::GRAVITY_SIMULATOR => 6,
                 EquipmentEnum::ASTRO_TERMINAL => 12,
                 EquipmentEnum::COMMAND_TERMINAL => 12,

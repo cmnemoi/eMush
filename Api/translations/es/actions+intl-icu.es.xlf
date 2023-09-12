@@ -841,5 +841,15 @@
         <target>renovate.description</target>
       </segment>
     </unit>
+    <unit id="auto_eject">
+      <segment id="name" state="initial">
+        <source>auto_eject.name</source>
+        <target>auto_eject.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>auto_eject.description</source>
+        <target>auto_eject.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

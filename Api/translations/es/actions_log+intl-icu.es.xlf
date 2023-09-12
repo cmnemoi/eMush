@@ -577,5 +577,11 @@
         <target>renovate_fail</target>
       </segment>
     </unit>
+    <unit id="auto_eject_success">
+      <segment id="auto_eject_success" state="initial">
+        <source>auto_eject_success</source>
+        <target>auto_eject_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

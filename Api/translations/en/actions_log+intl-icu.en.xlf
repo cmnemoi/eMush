@@ -804,5 +804,16 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>Your attempt failed.</target>
       </segment>
     </unit>
+    <unit id="auto_eject_success">
+      <segment id="auto_eject_success" state="translated">
+        <source>auto_eject_success</source>
+        <target>{character_gender, select,
+    male {**{character}** ejected from one-seater.}
+    female {**{character}** ejected from one-seater.}
+    other {**{character}** ejected from one-seater.}
+}
+</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -479,6 +479,9 @@
                             <path class="floor" serif:id="floor" d="M106,44l0,8l4,0l0,-8l-4,-0Z" />
                             <path class="wall" serif:id="wall" d="M105,52l0,-8" />
                         </g>
+                        <g id="Calculator" serif:id="Calculator" :class="{visible : isBroken('equipment', 'nexus' , 'calculator')}">
+                            <path class="floor" serif:id="floor" d="M113,40l0,8l4,0l0,-8l-4,-0Z" />
+                        </g>
                     </g>
                     <g id="Alpha-Dorm1" serif:id="Alpha Dorm">
                         <g id="Shower1" serif:id="Shower" :class="{visible : isBroken('equipment', 'alpha_dorm' , 'shower')}">

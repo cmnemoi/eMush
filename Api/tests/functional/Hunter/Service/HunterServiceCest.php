@@ -65,7 +65,7 @@ class HunterServiceCest extends AbstractFunctionalTest
         $this->hunter = $this->daedalus->getAttackingHunters()->first();
         $truceStatus = $this->hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
         $this->hunter->removeStatus($truceStatus);
-        $this->hunter->getHunterConfig()->setHitChance(100);
+        $this->hunter->setHitChance(100);
 
         $I->haveInRepository($this->hunter);
     }
@@ -178,7 +178,7 @@ class HunterServiceCest extends AbstractFunctionalTest
     public function testMakeHuntersShootHitChanceAugmentsAfterFailedShot(FunctionalTester $I): void
     {
         // given hunter has a 0% chance to hit
-        $this->hunter->getHunterConfig()->setHitChance(0);
+        $this->hunter->setHitChance(0);
         $I->haveInRepository($this->hunter);
 
         // when hunter shoots
@@ -187,7 +187,23 @@ class HunterServiceCest extends AbstractFunctionalTest
         // then hunter hit chance is augmented by `bonusAfterFailedShot`
         $I->assertEquals(
             expected: 0 + $this->hunter->getHunterConfig()->getBonusAfterFailedShot(),
-            actual: $this->hunter->getHunterConfig()->getHitChance(),
+            actual: $this->hunter->getHitChance(),
+        );
+    }
+
+    public function testMakeHuntersShootHitChanceGetsResetToDefaultAfterSuccessfulShot(FunctionalTester $I): void
+    {
+        // given hunter has a 100% chance to hit
+        $this->hunter->setHitChance(100);
+        $I->haveInRepository($this->hunter);
+
+        // when hunter shoots
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // then hunter hit chance is back to default
+        $I->assertEquals(
+            expected: $this->hunter->getHunterConfig()->getHitChance(),
+            actual: $this->hunter->getHitChance(),
         );
     }
 

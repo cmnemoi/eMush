@@ -175,7 +175,23 @@ class HunterServiceCest extends AbstractFunctionalTest
         $I->assertFalse($this->player2->isAlive());
     }
 
-    public function testMakeHuntersShootAsteroidFullHealth(FunctionalTester $I)
+    public function testMakeHuntersShootHitChanceAugmentsAfterFailedShot(FunctionalTester $I): void
+    {
+        // given hunter has a 0% chance to hit
+        $this->hunter->getHunterConfig()->setHitChance(0);
+        $I->haveInRepository($this->hunter);
+
+        // when hunter shoots
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // then hunter hit chance is augmented by `bonusAfterFailedShot`
+        $I->assertEquals(
+            expected: 0 + $this->hunter->getHunterConfig()->getBonusAfterFailedShot(),
+            actual: $this->hunter->getHunterConfig()->getHitChance(),
+        );
+    }
+
+    public function testMakeHuntersShootAsteroidFullHealth(FunctionalTester $I): void
     {
         $daedalus = $this->createDaedalusForAsteroidTest($I);
         $daedalus->setHunterPoints(25);

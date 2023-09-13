@@ -258,6 +258,35 @@ class HunterServiceCest extends AbstractFunctionalTest
         $I->assertIsEmpty($daedalus->getAttackingHunters()); // asteroid should be destroyed
     }
 
+    public function testMakeHuntersShootD1000ActsThreeTimesACycle(FunctionalTester $I): void
+    {
+        // given D1000 is spawned
+        $daedalus = $this->createDaedalusForD1000Test($I);
+        $daedalus->setHunterPoints(30);
+        $this->hunterService->unpoolHunters($daedalus, new \DateTime());
+
+        // given D1000 has no truce status, 100% hit chance and 6 damage
+        /** @var Hunter $d1000 */
+        $d1000 = $daedalus
+                            ->getAttackingHunters()
+                            ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
+                            ->first()
+        ;
+        $truceStatus = $d1000->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
+        $d1000->removeStatus($truceStatus);
+        $d1000->getHunterConfig()->setHitChance(100);
+        $d1000->getHunterConfig()->setDamageRange([6 => 1]);
+
+        // when hunter shoots
+        $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
+
+        // then daedalus hull is damaged by the triple of D1000 damage
+        $I->assertEquals(
+            expected: $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull() - 6 * 3,
+            actual: $daedalus->getHull()
+        );
+    }
+
     public function testMakeHuntersShootAsteroidNotDestroyedIfCantShoot(FunctionalTester $I)
     {
         $daedalus = $this->createDaedalusForAsteroidTest($I);
@@ -300,6 +329,57 @@ class HunterServiceCest extends AbstractFunctionalTest
         // only asteroids can spawn
         $gameConfig->setHunterConfigs(
             $gameConfig->getHunterConfigs()->filter(fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)
+        );
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $neron = new Neron();
+        $I->haveInRepository($neron);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo
+            ->setName(Uuid::v4()->toRfc4122())
+            ->setNeron($neron)
+        ;
+        $I->haveInRepository($daedalusInfo);
+
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
+        $I->haveInRepository($channel);
+
+        $I->refreshEntities($daedalusInfo);
+
+        $places = $this->createPlaces($I, $daedalus);
+        $daedalus->setPlaces($places);
+
+        $daedalus->setDaedalusVariables($daedalusConfig);
+
+        $I->haveInRepository($daedalus);
+
+        return $daedalus;
+    }
+
+    private function createDaedalusForD1000Test(FunctionalTester $I): Daedalus
+    {
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        /** @var Daedalus $daedalus */
+        $daedalus = new Daedalus();
+        $daedalus
+            ->setDay(10) // so D1000 can spawn
+            ->setCycle(0)
+            ->setDaedalusVariables($daedalusConfig)
+            ->setCycleStartedAt(new \DateTime())
+        ;
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        // only D100 can spawn
+        $gameConfig->setHunterConfigs(
+            $gameConfig->getHunterConfigs()->filter(fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::DICE)
         );
 
         /** @var LocalizationConfig $localizationConfig */

@@ -69,28 +69,30 @@ class ProbaCollection extends ArrayCollection
     }
 
     /**
-     * Returns the lowest probability in the collection.
+     * Returns the lowest element (index) in the collection.
      */
-    public function min(): ?int
+    public function minElement(): ?int
     {
-        $data = $this->getProbabilities();
-        if (empty($data)) {
-            return null;
+        $probaCollectionAsArray = $this->getProbabilities();
+        $keys = array_keys($probaCollectionAsArray);
+        if (is_int($keys[0])) {
+            return min($keys);
         }
 
-        return min($data);
+        return null;
     }
 
     /**
-     * Returns the highest probability in the collection.
+     * Returns the highest element (index) in the collection.
      */
-    public function max(): ?int
+    public function maxElement(): ?int
     {
-        $data = $this->getProbabilities();
-        if (empty($data)) {
-            return null;
+        $probaCollectionAsArray = $this->getProbabilities();
+        $keys = array_keys($probaCollectionAsArray);
+        if (is_int($keys[0])) {
+            return max($keys);
         }
 
-        return max($data);
+        return null;
     }
 }

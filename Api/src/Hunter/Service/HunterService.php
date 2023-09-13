@@ -130,7 +130,7 @@ class HunterService implements HunterServiceInterface
             $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, $hunterTypes);
 
             // do not create a hunter if not enough points
-            if ($hunterPoints < $hunterProbaCollection->min()) {
+            if ($hunterPoints < $hunterProbaCollection->minElement()) {
                 break;
             }
             $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaCollection(

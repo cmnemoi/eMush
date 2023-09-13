@@ -169,6 +169,18 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
         return $this;
     }
 
+    public function getHitChance(): int
+    {
+        return $this->getVariableValueByName(HunterVariableEnum::HIT_CHANCE);
+    }
+
+    public function setHitChance(int $hitChance): static
+    {
+        $this->setVariableValueByName($hitChance, HunterVariableEnum::HIT_CHANCE);
+
+        return $this;
+    }
+
     public function addStatus(Status $status): static
     {
         if (!$this->getStatuses()->contains($status)) {

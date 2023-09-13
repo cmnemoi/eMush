@@ -48,10 +48,6 @@ class HunterVariableSubscriber implements EventSubscriberInterface
         $hunter = $event->getHunter();
         $variableName = $event->getVariableName();
 
-        if (!$author) {
-            throw new \Exception('HunterVariableEvent should have an author');
-        }
-
         $gameVariable = $hunter->getVariableByName($variableName);
         $newVariableValuePoint = $gameVariable->getValue() + $change;
 

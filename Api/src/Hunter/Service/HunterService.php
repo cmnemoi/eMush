@@ -86,7 +86,7 @@ class HunterService implements HunterServiceInterface
                 continue;
             }
 
-            $successRate = $hunter->getHunterConfig()->getHitChance();
+            $successRate = $hunter->getHitChance();
             if (!$this->randomService->isSuccessful($successRate)) {
                 $this->addBonusToHunterHitChance($hunter);
                 continue;
@@ -101,6 +101,9 @@ class HunterService implements HunterServiceInterface
 
             // hunter gets a truce cycle after shooting
             $this->createHunterTruceCycleStatus($hunter);
+
+            // after a successful shot, reset hit chance to its default value
+            $this->resetHunterHitChance($hunter);
 
             // destroy asteroid if it has shot
             if ($hunter->getName() === HunterEnum::ASTEROID) {
@@ -157,12 +160,9 @@ class HunterService implements HunterServiceInterface
         $this->persist([$daedalus]);
     }
 
-    private function addBonusToHunterHitChance($hunter): void
+    private function addBonusToHunterHitChance(Hunter $hunter): void
     {
-        $hunterConfig = $hunter->getHunterConfig();
-        $bonusAfterFailedShot = $hunterConfig->getBonusAfterFailedShot();
-        $hunterConfig->setHitChance($hunterConfig->getHitChance() + $bonusAfterFailedShot);
-
+        $hunter->setHitChance($hunter->getHitChance() + $hunter->getHunterConfig()->getBonusAfterFailedShot());
         $this->persist([$hunter]);
     }
 
@@ -296,6 +296,12 @@ class HunterService implements HunterServiceInterface
             default:
                 throw new \Exception("Unknown hunter target {$hunter->getTarget()->getType()}");
         }
+    }
+
+    private function resetHunterHitChance(Hunter $hunter): void
+    {
+        $hunter->setHitChance($hunter->getHunterConfig()->getHitChance());
+        $this->persist([$hunter]);
     }
 
     private function selectHunterTarget(Hunter $hunter): void

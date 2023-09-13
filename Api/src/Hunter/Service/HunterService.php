@@ -82,32 +82,34 @@ class HunterService implements HunterServiceInterface
     {
         /** @var Hunter $hunter */
         foreach ($attackingHunters as $hunter) {
+            $numberOfActions = $hunter->getName() === HunterEnum::DICE ? 3 : 1;
             if (!$hunter->canShoot()) {
                 continue;
             }
-
-            $successRate = $hunter->getHitChance();
-            if (!$this->randomService->isSuccessful($successRate)) {
+            for ($i = 0; $i < $numberOfActions; ++$i) {
+                $successRate = $hunter->getHitChance();
+                if (!$this->randomService->isSuccessful($successRate)) {
                 $this->addBonusToHunterHitChance($hunter);
-                continue;
-            }
+                    continue;
+                }
 
-            $this->selectHunterTarget($hunter);
-            if (!$hunter->getTarget()->isInBattle()) {
-                continue;
-            }
+                $this->selectHunterTarget($hunter);
+                if (!$hunter->getTarget()->isInBattle()) {
+                    continue;
+                }
 
-            $this->makeHunterShoot($hunter);
+                $this->makeHunterShoot($hunter);
 
-            // hunter gets a truce cycle after shooting
-            $this->createHunterTruceCycleStatus($hunter);
+                // hunter gets a truce cycle after shooting
+                $this->createHunterTruceCycleStatus($hunter);
 
-            // after a successful shot, reset hit chance to its default value
-            $this->resetHunterHitChance($hunter);
+                // after a successful shot, reset hit chance to its default value
+                $this->resetHunterHitChance($hunter);
 
-            // destroy asteroid if it has shot
-            if ($hunter->getName() === HunterEnum::ASTEROID) {
-                $this->killHunter($hunter);
+                // destroy asteroid if it has shot
+                if ($hunter->getName() === HunterEnum::ASTEROID) {
+                    $this->killHunter($hunter);
+                }
             }
         }
     }

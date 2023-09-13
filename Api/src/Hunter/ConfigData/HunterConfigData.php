@@ -39,6 +39,7 @@ class HunterConfigData
                 HunterTargetEnum::PATROL_SHIP => 0,
                 HunterTargetEnum::PLAYER => 0,
             ],
+            'bonusAfterFailedShot' => 0,
         ],
         [
             'name' => HunterEnum::DICE . '_default',
@@ -72,6 +73,7 @@ class HunterConfigData
                 HunterTargetEnum::PATROL_SHIP => 15,
                 HunterTargetEnum::PLAYER => 5,
             ],
+            'bonusAfterFailedShot' => 10,
         ],
         [
             'name' => HunterEnum::HUNTER . '_default',
@@ -102,6 +104,7 @@ class HunterConfigData
                 HunterTargetEnum::PATROL_SHIP => 15,
                 HunterTargetEnum::PLAYER => 5,
             ],
+            'bonusAfterFailedShot' => 10,
         ],
         [
             'name' => HunterEnum::SPIDER . '_default',
@@ -132,6 +135,7 @@ class HunterConfigData
                 HunterTargetEnum::PATROL_SHIP => 15,
                 HunterTargetEnum::PLAYER => 5,
             ],
+            'bonusAfterFailedShot' => 10,
         ],
         [
             'name' => HunterEnum::TRAX . '_default',
@@ -162,6 +166,7 @@ class HunterConfigData
                 HunterTargetEnum::PATROL_SHIP => 15,
                 HunterTargetEnum::PLAYER => 5,
             ],
+            'bonusAfterFailedShot' => 10,
         ],
     ];
 }

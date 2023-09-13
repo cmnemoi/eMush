@@ -88,6 +88,7 @@ class HunterService implements HunterServiceInterface
 
             $successRate = $hunter->getHunterConfig()->getHitChance();
             if (!$this->randomService->isSuccessful($successRate)) {
+                $this->addBonusToHunterHitChance($hunter);
                 continue;
             }
 
@@ -154,6 +155,15 @@ class HunterService implements HunterServiceInterface
         $wave->map(fn ($hunter) => $this->createHunterStatuses($hunter, $time));
         $this->persist($wave->toArray());
         $this->persist([$daedalus]);
+    }
+
+    private function addBonusToHunterHitChance($hunter): void
+    {
+        $hunterConfig = $hunter->getHunterConfig();
+        $bonusAfterFailedShot = $hunterConfig->getBonusAfterFailedShot();
+        $hunterConfig->setHitChance($hunterConfig->getHitChance() + $bonusAfterFailedShot);
+
+        $this->persist([$hunter]);
     }
 
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter

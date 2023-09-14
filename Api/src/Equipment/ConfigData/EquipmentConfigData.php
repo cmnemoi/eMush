@@ -2734,7 +2734,7 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
-            'name' => 'reactor_lateral_default',  // @TODO : remove this after ships using it are finished
+            'name' => 'reactor_lateral_default',
             'equipmentName' => 'reactor_lateral',
             'isBreakable' => true,
             'isFireDestroyable' => false,

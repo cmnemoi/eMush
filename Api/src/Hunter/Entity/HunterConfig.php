@@ -59,6 +59,9 @@ class HunterConfig
     #[ORM\Column(type: 'array', nullable: true)]
     private ?array $targetProbabilities = [];
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => '0'])]
+    private int $bonusAfterFailedShot = 0;
+
     public function __construct()
     {
         $this->initialStatuses = new ArrayCollection();
@@ -147,6 +150,13 @@ class HunterConfig
 
     public function setHitChance(int $hitChance): static
     {
+        if ($hitChance < 0) {
+            $hitChance = 0;
+        }
+        if ($hitChance > 100) {
+            $hitChance = 100;
+        }
+
         $this->hitChance = $hitChance;
 
         return $this;
@@ -154,6 +164,13 @@ class HunterConfig
 
     public function getDodgeChance(): int
     {
+        if ($this->dodgeChance < 0) {
+            $this->dodgeChance = 0;
+        }
+        if ($this->dodgeChance > 100) {
+            $this->dodgeChance = 100;
+        }
+
         return $this->dodgeChance;
     }
 
@@ -270,6 +287,18 @@ class HunterConfig
             $this->targetProbabilities = [];
         }
         $this->targetProbabilities[$target] = $probability;
+
+        return $this;
+    }
+
+    public function getBonusAfterFailedShot(): int
+    {
+        return $this->bonusAfterFailedShot;
+    }
+
+    public function setBonusAfterFailedShot(int $bonusAfterFailedShot): static
+    {
+        $this->bonusAfterFailedShot = $bonusAfterFailedShot;
 
         return $this;
     }

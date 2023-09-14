@@ -41,7 +41,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
-        $hunter->getHunterConfig()->setHitChance(100); // make sure it hits to avoid false negative tests
+        $hunter->setHitChance(100); // make sure it hits to avoid false negative tests
 
         // remove truce status
         $hunter->removeStatus($hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE));
@@ -67,7 +67,8 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
-        $hunter->getHunterConfig()->setHitChance(100); // make sure it hits to avoid false negative tests
+        $hunter->setHitChance(100); // make sure it hits to avoid false negative tests
+        $I->haveInRepository($hunter);
 
         // remove truce status
         $hunter->removeStatus($hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE));
@@ -87,6 +88,11 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         $hullBeforeCycleChange = $this->daedalus->getHull();
 
+        /** @var Hunter $hunter */
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter->setHitChance(100); // make sure it hits to avoid false negative tests
+        $I->haveInRepository($hunter);
+
         $dateDaedalusLastCycle = $this->daedalus->getCycleStartedAt();
         $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
         $cycleEvent = new DaedalusCycleEvent(
@@ -97,6 +103,11 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         $I->assertEquals($hullBeforeCycleChange, $this->daedalus->getHull());
+
+        /** @var Hunter $hunter */
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter->setHitChance(100); // make sure it hits to avoid false negative tests
+        $I->haveInRepository($hunter);
 
         $dateDaedalusLastCycle = $this->daedalus->getCycleStartedAt();
         $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));

@@ -41,7 +41,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
-        $hunter->getHunterConfig()->setHitChance(100); // make sure it hits to avoid false negative tests
+        $hunter->setHitChance(100); // make sure it hits to avoid false negative tests
 
         // remove truce status
         $hunter->removeStatus($hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE));
@@ -67,7 +67,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();
-        $hunter->getHunterConfig()->setHitChance(100); // make sure it hits to avoid false negative tests
+        $hunter->setHitChance(100); // make sure it hits to avoid false negative tests
 
         // remove truce status
         $hunter->removeStatus($hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE));

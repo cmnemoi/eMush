@@ -312,7 +312,7 @@
                             <path class="floor" serif:id="floor" d="M179.958,67l0,-6l-6,-0l0,6l6,0Z" />
                             <path class="wall" serif:id="wall" d="M180.958,61l0,6" />
                         </g>
-                        <g id="Reactor-2" serif:id="Reactor 2" :class="{visible : isBroken('equipment', 'engine_room' , 'reactor_lateral')}">
+                        <g id="Reactor-2" serif:id="Reactor 2" :class="{visible : isBroken('equipment', 'engine_room' , 'emergency_reactor')}">
                             <path class="floor" serif:id="floor" d="M179.958,51l0,-6l-6,0l0,6l6,0Z" />
                             <path class="wall" serif:id="wall" d="M180.958,45l0,6" />
                         </g>
@@ -397,7 +397,7 @@
                         </g>
                     </g>
                     <g id="Rear-Alpha-Storage1" serif:id="Rear Alpha Storage">
-                        <g id="Fuel-Tank1" serif:id="Fuel Tank" :class="{visible : isBroken('equipment', 'rear_alpha_storage' , 'oxygen_tank')}">
+                        <g id="Fuel-Tank1" serif:id="Fuel Tank" :class="{visible : isBroken('equipment', 'rear_alpha_storage' , 'fuel_tank')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -479,6 +479,9 @@
                             <path class="floor" serif:id="floor" d="M106,44l0,8l4,0l0,-8l-4,-0Z" />
                             <path class="wall" serif:id="wall" d="M105,52l0,-8" />
                         </g>
+                        <g id="Calculator" serif:id="Calculator" :class="{visible : isBroken('equipment', 'nexus' , 'calculator')}">
+                            <path class="floor" serif:id="floor" d="M113,40l0,8l4,0l0,-8l-4,-0Z" />
+                        </g>
                     </g>
                     <g id="Alpha-Dorm1" serif:id="Alpha Dorm">
                         <g id="Shower1" serif:id="Shower" :class="{visible : isBroken('equipment', 'alpha_dorm' , 'shower')}">
@@ -528,11 +531,11 @@
                         </g>
                     </g>
                     <g id="Refectory1" serif:id="Refectory">
-                        <g id="Coffee-Machine" serif:id="Coffee Machine" :class="{visible : isBroken('equipment', 'refectory' , 'kitchen')}">
+                        <g id="Coffee-Machine" serif:id="Coffee Machine" :class="{visible : isBroken('equipment', 'refectory' , 'coffee_machine')}">
                             <path class="floor" serif:id="floor" d="M84,52l0,4l4,0l0,-4l-4,0Z" />
                             <path class="wall" serif:id="wall" d="M83,56l0,-4" />
                         </g>
-                        <g id="Kitchen" :class="{visible : isBroken('equipment', 'refectory' , 'coffee_machine')}">
+                        <g id="Kitchen" :class="{visible : isBroken('equipment', 'refectory' , 'kitchen')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -551,7 +554,7 @@
                         </g>
                     </g>
                     <g id="Alpha-Bay1" serif:id="Alpha Bay">
-                        <g id="Patrol-Ship-3" serif:id="Patrol Ship 3" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_tamarin')}">
+                        <g id="Patrol-Ship-3" serif:id="Patrol Ship 3" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_longane')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -562,7 +565,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M102.958,1l10,0" />
                         </g>
-                        <g id="Patrol-Ship-2" serif:id="Patrol Ship 2" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_longane')}">
+                        <g id="Patrol-Ship-2" serif:id="Patrol Ship 2" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_tamarin')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"

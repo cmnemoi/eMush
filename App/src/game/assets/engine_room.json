@@ -975,7 +975,7 @@
                  "gid":91,
                  "height":181,
                  "id":3,
-                 "name":"reactor_lateral",
+                 "name":"reactor_lateral_bravo",
                  "properties":[
                         {
                          "name":"collides",
@@ -1051,7 +1051,7 @@
                  "gid":91,
                  "height":181,
                  "id":5,
-                 "name":"reactor_lateral",
+                 "name":"reactor_lateral_alpha",
                  "properties":[
                         {
                          "name":"collides",
@@ -1449,7 +1449,7 @@
  "nextobjectid":33,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"git",
+ "tiledversion":"1.10.2",
  "tileheight":16,
  "tilesets":[
         {

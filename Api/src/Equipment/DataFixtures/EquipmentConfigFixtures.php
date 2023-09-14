@@ -208,16 +208,27 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($emergencyReactor);
 
-        $reactorLateral = new EquipmentConfig();
-        $reactorLateral
-            ->setEquipmentName(EquipmentEnum::REACTOR_LATERAL)
+        $reactorLateralAlpha = new EquipmentConfig();
+        $reactorLateralAlpha
+            ->setEquipmentName(EquipmentEnum::REACTOR_LATERAL_ALPHA)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActions(new ArrayCollection([$repair6, $sabotage6, $reportAction, $examineAction]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
-        $manager->persist($reactorLateral);
+        $manager->persist($reactorLateralAlpha);
+
+        $reactorLateralBravo = new EquipmentConfig();
+        $reactorLateralBravo
+            ->setEquipmentName(EquipmentEnum::REACTOR_LATERAL_BRAVO)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setIsBreakable(true)
+            ->setActions(new ArrayCollection([$repair6, $sabotage6, $reportAction, $examineAction]))
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($reactorLateralBravo);
 
         $antennaGear = $this->createGear([GearModifierConfigFixtures::ANTENNA_MODIFIER], EquipmentEnum::ANTENNA);
 
@@ -678,7 +689,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addEquipmentConfig($planetScanner)
             ->addEquipmentConfig($jukebox)
             ->addEquipmentConfig($emergencyReactor)
-            ->addEquipmentConfig($reactorLateral)
+            ->addEquipmentConfig($reactorLateralAlpha)
+            ->addEquipmentConfig($reactorLateralBravo)
             ->addEquipmentConfig($antenna)
             ->addEquipmentConfig($gravitySimulator)
             ->addEquipmentConfig($thalasso)

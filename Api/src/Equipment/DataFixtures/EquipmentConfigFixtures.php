@@ -327,7 +327,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActions([$repair12, $examineAction])
-            ->setMechanics([$patrolShipMechanic, $patrolShipTool, $patrolShipWeapon])
+            ->setMechanics([$patrolShipMechanic, $patrolShipWeapon])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($patrolShipMechanic);

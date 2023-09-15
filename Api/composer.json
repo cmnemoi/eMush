@@ -109,7 +109,7 @@
         "cs-fixer": "vendor/bin/php-cs-fixer fix",
         "cs-fixer:fix": "@cs-fixer",
         "diff": "php bin/console doctrine:migrations:diff -n",
-        "drop-database": "php bin/console doctrine:database:drop --force",
+        "drop-database": "php bin/console doctrine:schema:drop --full-database --force",
         "generate-migration": "@diff",
         "fill-daedalus": "php bin/console mush:fill-daedalus",
         "functional": [
@@ -129,6 +129,7 @@
         "psalm:clear-cache": "vendor/bin/psalm --clear-cache",
         "reset": [
             "@load-fixtures",
+            "php bin/console doctrine:database:create --if-not-exists",
             "@drop-database",
             "php bin/console mush:migrate --dev"
         ],

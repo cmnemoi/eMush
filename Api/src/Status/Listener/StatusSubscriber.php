@@ -50,9 +50,9 @@ class StatusSubscriber implements EventSubscriberInterface
             );
         }
 
-        if ($statusName === EquipmentStatusEnum::BROKEN &&
-            $statusHolder instanceof GameEquipment &&
-            $statusHolder->hasStatus(EquipmentStatusEnum::ELECTRIC_CHARGES)
+        if ($statusName === EquipmentStatusEnum::BROKEN
+            && $statusHolder instanceof GameEquipment
+            && $statusHolder->hasStatus(EquipmentStatusEnum::ELECTRIC_CHARGES)
         ) {
             /** @var ChargeStatus $electricCharges */
             $electricCharges = $statusHolder->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);

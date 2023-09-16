@@ -187,18 +187,19 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
                             ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
                             ->first()
         ;
+        $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::TRUCE_CYCLES);
         /** @var ChargeStatusConfig $truceStatusConfig */
-        $truceStatusConfig = $asteroid->getStatusByName(HunterStatusEnum::TRUCE_CYCLES)->getStatusConfig();
+        $truceStatusConfig = $truceStatus?->getStatusConfig();
 
-        for ($i = 0; $i < $truceStatusConfig->getStartCharge() + 1; ++$i) {
+        for ($i = 0; $i < $truceStatusConfig->getStartCharge(); ++$i) {
             $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
             $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
-            $cycleEvent = new DaedalusCycleEvent(
+            $cycleEvent = new HunterCycleEvent(
                 $daedalus,
                 [EventEnum::NEW_CYCLE],
                 $dateDaedalusLastCycle
             );
-            $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+            $this->eventService->callEvent($cycleEvent, HunterCycleEvent::HUNTER_NEW_CYCLE);
         }
 
         // asteroid should have shot
@@ -239,7 +240,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $this->eventService->callEvent($cycleEvent, HunterCycleEvent::HUNTER_NEW_CYCLE);
 
         // then daedalus hull is damaged twice over the three actions
-        // first time, d100 has a target so it shots
+        // first time, d1000 has a target so it shots
         // second time, d1000 has no target so it does not shoot
         // third time, d1000 has a target so it shots
         $I->assertEquals(

@@ -18,6 +18,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Service\HunterService;
@@ -63,11 +64,16 @@ class HunterServiceCest extends AbstractFunctionalTest
 
         /* @var Hunter $hunter */
         $this->hunter = $this->daedalus->getAttackingHunters()->first();
-        $truceStatus = $this->hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
-        $this->hunter->removeStatus($truceStatus);
         $this->hunter->setHitChance(100);
 
         $I->haveInRepository($this->hunter);
+
+        // make hunters shoot once so they have selected a target for tests
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // reset daedalus armor to max
+        $this->daedalus->setHull($this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull());
+        $I->haveInRepository($this->daedalus);
     }
 
     public function testUnpoolHunters(FunctionalTester $I)
@@ -93,8 +99,10 @@ class HunterServiceCest extends AbstractFunctionalTest
 
     public function testMakeHuntersShootPatrolShip(FunctionalTester $I)
     {
-        // given hunter has a 100% chance to target a patrol ship
-        $this->hunter->getHunterConfig()->addTargetProbability(target: HunterTargetEnum::PATROL_SHIP, probability: 100);
+        // given hunter targets a patrol ship
+        $target = new HunterTarget($this->hunter);
+        $target->setTargetEntity($this->pasiphae);
+        $this->hunter->setTarget($target);
         $I->haveInRepository($this->hunter);
 
         // when hunter shoots
@@ -109,8 +117,10 @@ class HunterServiceCest extends AbstractFunctionalTest
 
     public function testMakeHuntersShootPlayer(FunctionalTester $I)
     {
-        // given hunter has a 100% chance to target a player
-        $this->hunter->getHunterConfig()->addTargetProbability(target: HunterTargetEnum::PLAYER, probability: 100);
+        // given hunter targets a player
+        $target = new HunterTarget($this->hunter);
+        $target->setTargetEntity($this->player2);
+        $this->hunter->setTarget($target);
         $I->haveInRepository($this->hunter);
 
         // when hunter shoots
@@ -145,10 +155,13 @@ class HunterServiceCest extends AbstractFunctionalTest
 
     public function testMakeHunterShootDestroyPatrolShipIfNoArmor(FunctionalTester $I): void
     {
-        // given hunter has a 100% chance to target a patrol ship and patrol ship armor status charge is 1
-        $this->hunter->getHunterConfig()->addTargetProbability(target: HunterTargetEnum::PATROL_SHIP, probability: 100);
-        $this->pasiphaeArmorStatus->setCharge(1);
+        // given hunter targets a patrol ship and patrol ship armor status charge is 1
+        $target = new HunterTarget($this->hunter);
+        $target->setTargetEntity($this->pasiphae);
+        $this->hunter->setTarget($target);
         $I->haveInRepository($this->hunter);
+
+        $this->pasiphaeArmorStatus->setCharge(1);
         $I->haveInRepository($this->pasiphaeArmorStatus);
 
         // when hunter shoots
@@ -163,10 +176,13 @@ class HunterServiceCest extends AbstractFunctionalTest
 
     public function testMakeHunterShootKillsPlayerIfNoHealth(FunctionalTester $I): void
     {
-        // given hunter has a 100% chance to target a player and player health is 1
-        $this->hunter->getHunterConfig()->addTargetProbability(target: HunterTargetEnum::PLAYER, probability: 100);
-        $this->player2->setHealthPoint(1);
+        // given hunter targets a player and player health is 1
+        $target = new HunterTarget($this->hunter);
+        $target->setTargetEntity($this->player2);
+        $this->hunter->setTarget($target);
         $I->haveInRepository($this->hunter);
+
+        $this->player2->setHealthPoint(1);
 
         // when hunter shoots
         $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
@@ -262,28 +278,29 @@ class HunterServiceCest extends AbstractFunctionalTest
     {
         // given D1000 is spawned
         $daedalus = $this->createDaedalusForD1000Test($I);
-        $daedalus->setHunterPoints(30);
-        $this->hunterService->unpoolHunters($daedalus, new \DateTime());
 
-        // given D1000 has no truce status, 100% hit chance and 6 damage
+        // given D1000 has no truce status, 100% hit chance, aim the Daedalus and 6 damage
         /** @var Hunter $d1000 */
         $d1000 = $daedalus
                             ->getAttackingHunters()
                             ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
                             ->first()
         ;
-        $truceStatus = $d1000->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
-        $d1000->removeStatus($truceStatus);
-        $d1000->getHunterConfig()->setHitChance(100);
+        $d1000->setHitChance(100);
         $d1000->getHunterConfig()->setDamageRange([6 => 1]);
+
+        $hunterTarget = new HunterTarget($d1000);
+        $hunterTarget->setTargetEntity($daedalus);
+        $d1000->setTarget($hunterTarget);
+        $I->haveInRepository($d1000);
 
         // when hunter shoots
         $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
 
         // then daedalus hull is damaged by the triple of D1000 damage
         $I->assertEquals(
-            expected: $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull() - 6 * 3,
-            actual: $daedalus->getHull()
+            expected: $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull() - 6 * 2,
+            actual: $daedalus->getHull(),
         );
     }
 
@@ -359,6 +376,16 @@ class HunterServiceCest extends AbstractFunctionalTest
 
         $I->haveInRepository($daedalus);
 
+        $daedalus->setHunterPoints(25);
+        $this->hunterService->unpoolHunters($daedalus, new \DateTime());
+
+        // make hunters shoot once so they have selected a target for tests
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // reset daedalus armor to max
+        $this->daedalus->setHull($this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull());
+        $I->haveInRepository($this->daedalus);
+
         return $daedalus;
     }
 
@@ -408,7 +435,15 @@ class HunterServiceCest extends AbstractFunctionalTest
 
         $daedalus->setDaedalusVariables($daedalusConfig);
 
-        $I->haveInRepository($daedalus);
+        $daedalus->setHunterPoints(30);
+        $this->hunterService->unpoolHunters($daedalus, new \DateTime());
+
+        // make hunters shoot once so they have selected a target for tests
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // reset daedalus armor to max
+        $this->daedalus->setHull($this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull());
+        $I->haveInRepository($this->daedalus);
 
         return $daedalus;
     }

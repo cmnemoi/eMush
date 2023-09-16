@@ -4,5 +4,5 @@ namespace Mush\Status\Enum;
 
 class HunterStatusEnum
 {
-    public const TRUCE_CYCLE = 'truce_cycle';
+    public const TRUCE_CYCLES = 'truce_cycles';
 }

@@ -154,10 +154,10 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
                             ->first()
         ;
         $I->assertNotFalse($asteroid);
-        $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::TRUCE_CYCLE);
+        $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::TRUCE_CYCLES);
         /** @var ChargeStatusConfig $truceStatusConfig */
         $truceStatusConfig = $truceStatus->getStatusConfig();
-        $I->assertNotNull($asteroid->getStatusByName(HunterStatusEnum::TRUCE_CYCLE));
+        $I->assertNotNull($asteroid->getStatusByName(HunterStatusEnum::TRUCE_CYCLES));
 
         $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
         $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
@@ -188,7 +188,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
                             ->first()
         ;
         /** @var ChargeStatusConfig $truceStatusConfig */
-        $truceStatusConfig = $asteroid->getStatusByName(HunterStatusEnum::TRUCE_CYCLE)->getStatusConfig();
+        $truceStatusConfig = $asteroid->getStatusByName(HunterStatusEnum::TRUCE_CYCLES)->getStatusConfig();
 
         for ($i = 0; $i < $truceStatusConfig->getStartCharge() + 1; ++$i) {
             $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();

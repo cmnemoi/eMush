@@ -49,7 +49,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const DID_BORING_SPEECH_STATUS = 'did_boring_speech_status';
     public const ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
     public const ASTEROID_CHARGE = 'asteroid_charge';
-    public const TRUCE_CYCLE = 'truce_cycle';
+    public const TRUCE_CYCLES = 'truce_cycles';
     public const HAS_REJUVENATED = 'has_rejuvenated';
     public const PATROL_SHIP_ARMOR = 'patrol_ship_armor';
     public const PASIPHAE_ARMOR = 'pasiphae_armor';
@@ -343,7 +343,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
         $asteroidCharge = new ChargeStatusConfig();
         $asteroidCharge
-            ->setStatusName(HunterStatusEnum::TRUCE_CYCLE)
+            ->setStatusName(HunterStatusEnum::TRUCE_CYCLES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setStartCharge(6)

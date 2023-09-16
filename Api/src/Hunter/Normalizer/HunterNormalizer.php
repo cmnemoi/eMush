@@ -44,7 +44,7 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
         $context['hunter'] = $hunter;
 
         /** @var ChargeStatus $hunterTruceCyclesStatus */
-        $hunterTruceCyclesStatus = $hunter->getStatusByName(HunterStatusEnum::TRUCE_CYCLE);
+        $hunterTruceCyclesStatus = $hunter->getStatusByName(HunterStatusEnum::TRUCE_CYCLES);
         $hunterTruceCycles = $hunterTruceCyclesStatus?->getCharge();  // only asteroids have truce cycles
 
         $hunterHealth = $hunter->getHealth();

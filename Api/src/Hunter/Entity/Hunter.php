@@ -254,7 +254,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
 
     public function canShoot(): bool
     {
-        return !$this->hasStatus(HunterStatusEnum::TRUCE_CYCLE);
+        return !$this->hasStatus(HunterStatusEnum::TRUCE_CYCLES);
     }
 
     public function hasSelectedATarget(): bool

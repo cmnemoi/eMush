@@ -63,6 +63,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 HunterTargetEnum::PLAYER => 0,
             ])
             ->setBonusAfterFailedShot(0)
+            ->setNumberOfActionsPerCycle(1)
         ;
         $manager->persist($asteroid);
 
@@ -96,6 +97,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 HunterTargetEnum::PLAYER => 0,
             ])
             ->setBonusAfterFailedShot(10)
+            ->setNumberOfActionsPerCycle(3)
         ;
         $manager->persist($dice);
 
@@ -126,6 +128,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 HunterTargetEnum::PLAYER => 0,
             ])
             ->setBonusAfterFailedShot(10)
+            ->setNumberOfActionsPerCycle(1)
         ;
 
         $manager->persist($hunter);
@@ -157,6 +160,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 HunterTargetEnum::PLAYER => 0,
             ])
             ->setBonusAfterFailedShot(10)
+            ->setNumberOfActionsPerCycle(1)
         ;
 
         $manager->persist($spider);
@@ -189,6 +193,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 HunterTargetEnum::PLAYER => 0,
             ])
             ->setBonusAfterFailedShot(10)
+            ->setNumberOfActionsPerCycle(1)
         ;
 
         $manager->persist($trax);

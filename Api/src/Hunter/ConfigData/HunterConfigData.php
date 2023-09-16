@@ -40,6 +40,7 @@ class HunterConfigData
                 HunterTargetEnum::PLAYER => 0,
             ],
             'bonusAfterFailedShot' => 0,
+            'numberOfActionsPerCycle' => 1,
         ],
         [
             'name' => HunterEnum::DICE . '_default',
@@ -74,6 +75,7 @@ class HunterConfigData
                 HunterTargetEnum::PLAYER => 5,
             ],
             'bonusAfterFailedShot' => 10,
+            'numberOfActionsPerCycle' => 3,
         ],
         [
             'name' => HunterEnum::HUNTER . '_default',
@@ -105,6 +107,7 @@ class HunterConfigData
                 HunterTargetEnum::PLAYER => 5,
             ],
             'bonusAfterFailedShot' => 10,
+            'numberOfActionsPerCycle' => 1,
         ],
         [
             'name' => HunterEnum::SPIDER . '_default',
@@ -136,6 +139,7 @@ class HunterConfigData
                 HunterTargetEnum::PLAYER => 5,
             ],
             'bonusAfterFailedShot' => 10,
+            'numberOfActionsPerCycle' => 1,
         ],
         [
             'name' => HunterEnum::TRAX . '_default',
@@ -167,6 +171,7 @@ class HunterConfigData
                 HunterTargetEnum::PLAYER => 5,
             ],
             'bonusAfterFailedShot' => 10,
+            'numberOfActionsPerCycle' => 1,
         ],
     ];
 }

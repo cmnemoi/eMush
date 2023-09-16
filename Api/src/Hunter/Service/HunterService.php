@@ -85,7 +85,7 @@ class HunterService implements HunterServiceInterface
                 continue;
             }
 
-            $numberOfActions = $hunter->getName() === HunterEnum::DICE ? 3 : 1;
+            $numberOfActions = $hunter->getHunterConfig()->getNumberOfActionsPerCycle();
             for ($i = 0; $i < $numberOfActions; ++$i) {
                 if (!$hunter->hasSelectedATarget()) {
                     $this->selectHunterTarget($hunter);

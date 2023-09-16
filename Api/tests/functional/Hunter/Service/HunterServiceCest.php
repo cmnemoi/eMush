@@ -79,6 +79,22 @@ class HunterServiceCest extends AbstractFunctionalTest
         $I->assertCount(0, $this->daedalus->getHunterPool());
     }
 
+    public function testUnpoolHuntersSpawnMaxAsteroidPerWave(FunctionalTester $I)
+    {
+        // given daedalus is D5 so asteroid can spawn
+        $this->daedalus->setDay(5);
+
+        // given daedalus has a lot of points
+        $this->daedalus->setHunterPoints(1000);
+
+        // when unpooling hunters
+        $this->hunterService->unpoolHunters($this->daedalus, new \DateTime());
+
+        // then only `maxAsteroidsPerWave` asteroids are spawned
+        $maxAsteroidsPerWave = $this->daedalus->getGameConfig()->getHunterConfigs()->filter(fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)->first()->getMaxPerWave();
+        $I->assertCount($maxAsteroidsPerWave, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::ASTEROID));
+    }
+
     public function testMakeHuntersShootDaedalus(FunctionalTester $I)
     {
         // given hunter has a 0% chance to target any other target (default, so do nothing)

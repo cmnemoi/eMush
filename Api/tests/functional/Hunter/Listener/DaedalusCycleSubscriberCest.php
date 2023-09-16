@@ -22,6 +22,7 @@ use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterCycleEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\HunterStatusEnum;
 use Symfony\Component\Uid\Uuid;
 
@@ -154,8 +155,9 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         ;
         $I->assertNotFalse($asteroid);
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
+        /** @var ChargeStatusConfig $truceStatusConfig */
+        $truceStatusConfig = $truceStatus->getStatusConfig();
         $I->assertNotNull($asteroid->getStatusByName(HunterStatusEnum::HUNTER_CHARGE));
-        $I->assertEquals(6 + 1, $truceStatus->getCharge()); // 6 cycles of truce + 1 for its spawn
 
         $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
         $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
@@ -169,7 +171,39 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         // asteroid should not have shot
         $initHull = $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull();
         $I->assertEquals($initHull, $daedalus->getHull());
-        $I->assertEquals(5 + 1, $truceStatus->getCharge()); // 5 cycles of truce + 1 for its spawn
+        $I->assertEquals($truceStatusConfig->getStartCharge() - 1, $truceStatus->getCharge());
+    }
+
+    public function testAsteroidShootAfterDefinedCycles(FunctionalTester $I): void
+    {
+        $daedalus = $this->createDaedalusForAsteroidTest($I);
+        $daedalus->setHunterPoints(25);
+        $poolEvent = new HunterPoolEvent($daedalus, ['test'], new \DateTime());
+        $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+
+        /** @var Hunter $asteroid */
+        $asteroid = $daedalus
+                            ->getAttackingHunters()
+                            ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
+                            ->first()
+        ;
+        /** @var ChargeStatusConfig $truceStatusConfig */
+        $truceStatusConfig = $asteroid->getStatusByName(HunterStatusEnum::HUNTER_CHARGE)->getStatusConfig();
+
+        for ($i = 0; $i < $truceStatusConfig->getStartCharge() + 1; ++$i) {
+            $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
+            $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+            $cycleEvent = new DaedalusCycleEvent(
+                $daedalus,
+                [EventEnum::NEW_CYCLE],
+                $dateDaedalusLastCycle
+            );
+            $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        }
+
+        // asteroid should have shot
+        $initHull = $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull();
+        $I->assertEquals($initHull - $asteroid->getHealth(), $daedalus->getHull());
     }
 
     public function testMakeHuntersShootD1000ActsThreeTimesACycleOnTwoConsecutiveCycles(FunctionalTester $I): void
@@ -187,13 +221,12 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
                             ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
                             ->first()
         ;
+        $d1000->getHunterConfig()->setHitChance(100)->setDamageRange([6 => 1]);
         $d1000->setHitChance(100);
-        $d1000->getHunterConfig()->setDamageRange([6 => 1]);
 
         $hunterTarget = new HunterTarget($d1000);
         $hunterTarget->setTargetEntity($daedalus);
         $d1000->setTarget($hunterTarget);
-        $I->haveInRepository($d1000);
 
         // when hunter shoots
         $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
@@ -205,7 +238,10 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         );
         $this->eventService->callEvent($cycleEvent, HunterCycleEvent::HUNTER_NEW_CYCLE);
 
-        // then daedalus hull is damaged by the triple of D1000 damage
+        // then daedalus hull is damaged twice over the three actions
+        // first time, d100 has a target so it shots
+        // second time, d1000 has no target so it does not shoot
+        // third time, d1000 has no target so it does not shoot
         $I->assertEquals(
             expected: $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull() - 6 * 2,
             actual: $daedalus->getHull(),
@@ -221,7 +257,10 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         );
         $this->eventService->callEvent($cycleEvent, HunterCycleEvent::HUNTER_NEW_CYCLE);
 
-        // then daedalus hull is damaged by the triple of D1000 damage
+        // then daedalus hull is damaged once over the three actions
+        // first time, d1000 has no target so it does not shoot
+        // second time, d1000 has a target so it shots
+        // third time, d1000 has no target so it does not shoot
         $I->assertEquals(
             expected: $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull() - 6 * 3,
             actual: $daedalus->getHull(),

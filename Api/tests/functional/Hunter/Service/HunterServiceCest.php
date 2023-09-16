@@ -62,18 +62,14 @@ class HunterServiceCest extends AbstractFunctionalTest
         $this->daedalus->setHunterPoints(10); // spawn a single hunter
         $this->hunterService->unpoolHunters($this->daedalus, new \DateTime());
 
-        /* @var Hunter $hunter */
         $this->hunter = $this->daedalus->getAttackingHunters()->first();
         $this->hunter->setHitChance(100);
 
+        $target = new HunterTarget($this->hunter);
+        $target->setTargetEntity($this->daedalus);
+        $this->hunter->setTarget($target);
+
         $I->haveInRepository($this->hunter);
-
-        // make hunters shoot once so they have selected a target for tests
-        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
-
-        // reset daedalus armor to max
-        $this->daedalus->setHull($this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull());
-        $I->haveInRepository($this->daedalus);
     }
 
     public function testUnpoolHunters(FunctionalTester $I)
@@ -226,9 +222,6 @@ class HunterServiceCest extends AbstractFunctionalTest
     public function testMakeHuntersShootAsteroidFullHealth(FunctionalTester $I): void
     {
         $daedalus = $this->createDaedalusForAsteroidTest($I);
-        $daedalus->setHunterPoints(25);
-        $this->hunterService->unpoolHunters($daedalus, new \DateTime());
-
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
                             ->getAttackingHunters()
@@ -250,9 +243,6 @@ class HunterServiceCest extends AbstractFunctionalTest
     public function testMakeHuntersShootAsteroidNotFullHealth(FunctionalTester $I)
     {
         $daedalus = $this->createDaedalusForAsteroidTest($I);
-        $daedalus->setHunterPoints(25);
-        $this->hunterService->unpoolHunters($daedalus, new \DateTime());
-
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
                             ->getAttackingHunters()
@@ -262,7 +252,6 @@ class HunterServiceCest extends AbstractFunctionalTest
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
         $asteroid->removeStatus($truceStatus);
         $asteroid->setHealth(1);
-
         $I->haveInRepository($asteroid);
 
         $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
@@ -279,25 +268,13 @@ class HunterServiceCest extends AbstractFunctionalTest
         // given D1000 is spawned
         $daedalus = $this->createDaedalusForD1000Test($I);
 
-        // given D1000 has no truce status, 100% hit chance, aim the Daedalus and 6 damage
-        /** @var Hunter $d1000 */
-        $d1000 = $daedalus
-                            ->getAttackingHunters()
-                            ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
-                            ->first()
-        ;
-        $d1000->setHitChance(100);
-        $d1000->getHunterConfig()->setDamageRange([6 => 1]);
-
-        $hunterTarget = new HunterTarget($d1000);
-        $hunterTarget->setTargetEntity($daedalus);
-        $d1000->setTarget($hunterTarget);
-        $I->haveInRepository($d1000);
-
         // when hunter shoots
         $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
 
-        // then daedalus hull is damaged by the triple of D1000 damage
+        // then daedalus hull is damaged twice over the three actions it has
+        // first time, d100 has a target so it shots
+        // second time, d1000 has no target so it does not shoot
+        // third time, d1000 has a target so it shots
         $I->assertEquals(
             expected: $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull() - 6 * 2,
             actual: $daedalus->getHull(),
@@ -307,16 +284,12 @@ class HunterServiceCest extends AbstractFunctionalTest
     public function testMakeHuntersShootAsteroidNotDestroyedIfCantShoot(FunctionalTester $I)
     {
         $daedalus = $this->createDaedalusForAsteroidTest($I);
-        $daedalus->setHunterPoints(25);
-        $this->hunterService->unpoolHunters($daedalus, new \DateTime());
-
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
                             ->getAttackingHunters()
                             ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
                             ->first()
         ;
-        $I->assertNotFalse($asteroid);
         $I->assertNotNull($asteroid->getStatusByName(HunterStatusEnum::HUNTER_CHARGE));
 
         $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
@@ -367,7 +340,7 @@ class HunterServiceCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($channel);
 
-        $I->refreshEntities($daedalusInfo);
+        $I->haveInRepository($daedalusInfo);
 
         $places = $this->createPlaces($I, $daedalus);
         $daedalus->setPlaces($places);
@@ -379,12 +352,16 @@ class HunterServiceCest extends AbstractFunctionalTest
         $daedalus->setHunterPoints(25);
         $this->hunterService->unpoolHunters($daedalus, new \DateTime());
 
-        // make hunters shoot once so they have selected a target for tests
-        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
-
-        // reset daedalus armor to max
-        $this->daedalus->setHull($this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull());
-        $I->haveInRepository($this->daedalus);
+        /** @var Hunter $asteroid */
+        $asteroid = $daedalus
+            ->getAttackingHunters()
+            ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
+            ->first()
+        ;
+        $hunterTarget = new HunterTarget($asteroid);
+        $hunterTarget->setTargetEntity($daedalus);
+        $asteroid->setTarget($hunterTarget);
+        $I->haveInRepository($asteroid);
 
         return $daedalus;
     }
@@ -404,7 +381,7 @@ class HunterServiceCest extends AbstractFunctionalTest
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        // only D100 can spawn
+        // only D1000 can spawn
         $gameConfig->setHunterConfigs(
             $gameConfig->getHunterConfigs()->filter(fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::DICE)
         );
@@ -428,7 +405,7 @@ class HunterServiceCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($channel);
 
-        $I->refreshEntities($daedalusInfo);
+        $I->haveInRepository($daedalusInfo);
 
         $places = $this->createPlaces($I, $daedalus);
         $daedalus->setPlaces($places);
@@ -438,12 +415,20 @@ class HunterServiceCest extends AbstractFunctionalTest
         $daedalus->setHunterPoints(30);
         $this->hunterService->unpoolHunters($daedalus, new \DateTime());
 
-        // make hunters shoot once so they have selected a target for tests
-        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+        /** @var Hunter $d1000 */
+        $d1000 = $daedalus
+                            ->getAttackingHunters()
+                            ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
+                            ->first()
+        ;
 
-        // reset daedalus armor to max
-        $this->daedalus->setHull($this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull());
-        $I->haveInRepository($this->daedalus);
+        $d1000->getHunterConfig()->setHitChance(100)->setDamageRange([6 => 1]);
+        $d1000->setHitChance(100);
+
+        $hunterTarget = new HunterTarget($d1000);
+        $hunterTarget->setTargetEntity($daedalus);
+        $d1000->setTarget($hunterTarget);
+        $I->haveInRepository($d1000);
 
         return $daedalus;
     }

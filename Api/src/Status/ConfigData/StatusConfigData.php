@@ -868,25 +868,12 @@ class StatusConfigData
             'type' => 'charge_status_config',
             'chargeVisibility' => VisibilityEnum::PUBLIC,
             'chargeStrategy' => 'cycle_decrement',
-            'maxCharge' => 6 + 1,
-            'startCharge' => 6 + 1, // 6 cycles of truce + 1 for its apparition
+            'maxCharge' => 6,
+            'startCharge' => 6,
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
         ],
-        // [
-        //     'name' => HunterStatusEnum::HUNTER_CHARGE . '_default',
-        //     'statusName' => HunterStatusEnum::HUNTER_CHARGE,
-        //     'visibility' => VisibilityEnum::HIDDEN,
-        //     'type' => 'charge_status_config',
-        //     'chargeVisibility' => VisibilityEnum::HIDDEN,
-        //     'chargeStrategy' => 'none',
-        //     'maxCharge' => 1,
-        //     'startCharge' => 1, // 1 cycle of truce + 1 for its apparition
-        //     'dischargeStrategies' => ['none'],
-        //     'autoRemove' => true,
-        //     'modifierConfigs' => [],
-        // ],
         [
             'name' => PlayerStatusEnum::HAS_REJUVENATED . '_default',
             'statusName' => PlayerStatusEnum::HAS_REJUVENATED,

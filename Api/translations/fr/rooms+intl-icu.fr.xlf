@@ -351,5 +351,15 @@
         <target>dans le </target>
       </segment>
     </unit>
+    <unit id="space">
+      <segment id="name" state="translated">
+        <source>space.name</source>
+        <target>Espace infini</target>
+      </segment>
+      <segment id="loc_prep" state="translated">
+        <source>space.loc_prep</source>
+        <target>dans l' </target>
+      </segment>
+    </unit>
   </file>
 </xliff>

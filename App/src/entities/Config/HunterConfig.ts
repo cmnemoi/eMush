@@ -16,6 +16,8 @@ export class HunterConfig {
     public initialStatuses: StatusConfig[]|null;
     public scrapDropTable: Map<string, integer>|null;
     public numberOfDroppedScrap: Map<integer, integer>|null;
+    public bonusAfterFailedShot: number|null;
+    public numberOfActionsPerCycle: number|null;
 
     constructor() {
         this.iri = null;
@@ -33,6 +35,8 @@ export class HunterConfig {
         this.initialStatuses = [];
         this.scrapDropTable = new Map<string, integer>();
         this.numberOfDroppedScrap = new Map<integer, integer>();
+        this.bonusAfterFailedShot = null;
+        this.numberOfActionsPerCycle = null;
     }
     load(object:any) : HunterConfig {
         if (typeof object !== "undefined") {
@@ -47,6 +51,8 @@ export class HunterConfig {
             this.maxPerWave = object['maxPerWave'];
             this.drawWeight = object['drawWeight'];
             this.spawnDifficulty = object['spawnDifficulty'];
+            this.bonusAfterFailedShot = object['bonusAfterFailedShot'];
+            this.numberOfActionsPerCycle = object['numberOfActionsPerCycle'];
             if (typeof object.damageRange !== 'undefined') {
                 for (const [key, value] of Object.entries(object.damageRange)) {
                     if (typeof key === 'string' && typeof value === 'number') {
@@ -112,6 +118,8 @@ export class HunterConfig {
             "initialStatuses": initialStatuses,
             "scrapDropTable": scrapDropTable,
             "numberOfDroppedScrap": numberOfDroppedScrap,
+            "bonusAfterFailedShot": this.bonusAfterFailedShot,
+            "numberOfActionsPerCycle": this.numberOfActionsPerCycle,
         };
     }
     decode(jsonString : string): HunterConfig {

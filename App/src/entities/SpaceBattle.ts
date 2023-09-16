@@ -40,7 +40,7 @@ export class SpaceBattle {
             });
             // sort turrets by their name instead of their id so they are always displayed in the same order
             this.turrets.sort((a, b) => {
-                return a.name.localeCompare(b.name);
+                return a.displayOrder - b.displayOrder;
             });
         }
         

@@ -354,18 +354,18 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($asteroidCharge);
 
-        $hunterCharge = new ChargeStatusConfig();
-        $hunterCharge
-            ->setStatusName(HunterStatusEnum::HUNTER_CHARGE)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setStartCharge(1 + 1) // 1 cycle of truce + 1 for its apparition
-            ->setMaxCharge(1 + 1)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
-            ->setAutoRemove(true)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
-        $manager->persist($hunterCharge);
+        // $hunterCharge = new ChargeStatusConfig();
+        // $hunterCharge
+        //     ->setStatusName(HunterStatusEnum::HUNTER_CHARGE)
+        //     ->setVisibility(VisibilityEnum::HIDDEN)
+        //     ->setChargeVisibility(VisibilityEnum::HIDDEN)
+        //     ->setStartCharge(1) // 1 cycle of truce
+        //     ->setMaxCharge(1)
+        //     ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
+        //     ->setAutoRemove(true)
+        //     ->buildName(GameConfigEnum::DEFAULT)
+        // ;
+        // $manager->persist($hunterCharge);
 
         $rejuvenationCharge = new ChargeStatusConfig();
         $rejuvenationCharge
@@ -425,7 +425,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($updatingTrackie)
             ->addStatusConfig($already_washed_in_the_sink)
             ->addStatusConfig($asteroidCharge)
-            ->addStatusConfig($hunterCharge)
+            // ->addStatusConfig($hunterCharge)
             ->addStatusConfig($rejuvenationCharge)
             ->addStatusConfig($patrolShipArmor)
             ->addStatusConfig($pasiphaeArmor)
@@ -457,7 +457,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::UPDATING_TRACKIE_STATUS, $updatingTrackie);
         $this->addReference(self::ALREADY_WASHED_IN_THE_SINK, $already_washed_in_the_sink);
         $this->addReference(self::ASTEROID_CHARGE, $asteroidCharge);
-        $this->addReference(self::HUNTER_CHARGE, $hunterCharge);
+        // $this->addReference(self::HUNTER_CHARGE, $hunterCharge);
         $this->addReference(self::PATROL_SHIP_ARMOR, $patrolShipArmor);
         $this->addReference(self::PASIPHAE_ARMOR, $pasiphaeArmor);
     }

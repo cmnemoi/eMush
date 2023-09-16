@@ -1,9 +1,9 @@
 <?php
 
-namespace Mush\Test\Action\Actions;
+namespace Mush\Tests\unit\Action\Actions;
 
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\SpreadFire;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;

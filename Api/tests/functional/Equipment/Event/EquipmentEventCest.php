@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Tests\Equipment\Event;
+namespace Mush\Tests\functional\Equipment\Event;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -21,6 +20,7 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class EquipmentEventCest

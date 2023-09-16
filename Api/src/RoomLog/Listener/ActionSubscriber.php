@@ -2,7 +2,7 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Game\Enum\VisibilityEnum;

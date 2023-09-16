@@ -2,8 +2,8 @@
 
 namespace Mush\Action\Service;
 
-use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Player\Entity\Player;
 
 interface ActionStrategyServiceInterface

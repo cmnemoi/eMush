@@ -2,8 +2,8 @@
 
 namespace Mush\Action\Event;
 
-use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;

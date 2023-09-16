@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Status\Strategy;
+namespace Mush\Tests\unit\Status\Strategy;
 
 use Mockery;
 use Mush\Game\Enum\CharacterEnum;

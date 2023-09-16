@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Tests\Communication\Event;
+namespace Mush\Tests\functional\Communication\Event;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
@@ -26,6 +25,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class NeronMessageCycleCest

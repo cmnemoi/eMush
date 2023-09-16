@@ -2,7 +2,6 @@
 
 namespace Mush\Tests\functional\Equipment\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Equipment\ConfigData\GearDataLoader;
@@ -11,6 +10,7 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
+use Mush\Tests\FunctionalTester;
 
 class GearDataLoaderCest
 {

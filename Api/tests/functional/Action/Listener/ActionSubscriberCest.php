@@ -1,12 +1,10 @@
 <?php
 
-namespace functional\Action\Listener;
+namespace Mush\Tests\functional\Action\Listener;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\ActionResult\Fail;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Listener\ActionSubscriber;
@@ -42,6 +40,8 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class ActionSubscriberCest extends AbstractFunctionalTest

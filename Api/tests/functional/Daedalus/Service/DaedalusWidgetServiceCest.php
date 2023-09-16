@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Tests\Functional\Daedalus\Service;
+namespace Mush\Tests\functional\Daedalus\Service;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Daedalus\Service\DaedalusWidgetService;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -19,6 +17,8 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 
 final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
 {

@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Equipment\Event;
+namespace Mush\Tests\functional\Equipment\Event;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -40,6 +39,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class PlantNewDayCest

@@ -2,10 +2,10 @@
 
 namespace Mush\Tests\functional\Disease\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Mush\Disease\ConfigData\SymptomActivationRequirementData;
 use Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader;
 use Mush\Disease\Entity\Config\SymptomActivationRequirement;
+use Mush\Tests\FunctionalTester;
 
 class SymptomActivationRequirementDataLoaderCest
 {

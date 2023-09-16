@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Status\Entity;
+namespace Mush\Tests\unit\Status\Entity;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;

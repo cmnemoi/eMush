@@ -1,16 +1,16 @@
 <?php
 
-namespace Mush\Test\Action\Actions;
+namespace Mush\Tests\unit\Action\Actions;
 
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\UseBandage;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 
-class UseBandageActionTest extends AbstractActionTest
+class UseBandageTest extends AbstractActionTest
 {
     /**
      * @before

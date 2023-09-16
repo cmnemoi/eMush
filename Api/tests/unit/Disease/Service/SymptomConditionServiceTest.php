@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Disease\Service;
+namespace Mush\Tests\unit\Disease\Service;
 
 use Mockery;
 use Mush\Action\Enum\ActionEnum;
@@ -26,7 +26,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class SymptomActivationRequirementServiceTest extends TestCase
+class SymptomConditionServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;

@@ -2,10 +2,10 @@
 
 namespace Mush\Tests\functional\Action\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Action\Entity\Action;
 use Mush\Game\Entity\GameVariable;
+use Mush\Tests\FunctionalTester;
 
 class ActionDataLoaderCest
 {

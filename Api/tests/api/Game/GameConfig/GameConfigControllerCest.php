@@ -2,9 +2,9 @@
 
 namespace Mush\Tests\api\Game\GameConfig;
 
-use App\Tests\ApiTester;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Tests\ApiTester;
 
 class GameConfigControllerCest
 {

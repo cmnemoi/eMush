@@ -1,9 +1,7 @@
 <?php
 
-namespace functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Mush\Action\Actions\ShootHunter;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
@@ -24,6 +22,8 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 
 class ShootHunterActionCest extends AbstractFunctionalTest
 {

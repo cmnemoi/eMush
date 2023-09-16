@@ -2,7 +2,6 @@
 
 namespace Mush\Tests\functional\Equipment\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Equipment\ConfigData\BlueprintDataLoader;
@@ -26,6 +25,7 @@ use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigDataLoader;
+use Mush\Tests\FunctionalTester;
 
 class EquipmentConfigDataLoaderCest
 {

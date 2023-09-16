@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Status\Event;
+namespace Mush\Tests\functional\Status\Event;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -23,6 +22,7 @@ use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Mush\Tests\FunctionalTester;
 
 class AddBrokenStatusEventCest
 {

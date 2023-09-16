@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Action\Validator;
+namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\PreMush;

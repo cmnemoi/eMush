@@ -2,10 +2,10 @@
 
 namespace Mush\Tests\functional\Place\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Mush\Place\ConfigData\PlaceConfigData;
 use Mush\Place\ConfigData\PlaceConfigDataLoader;
 use Mush\Place\Entity\PlaceConfig;
+use Mush\Tests\FunctionalTester;
 
 class PlaceConfigDataLoaderCest
 {

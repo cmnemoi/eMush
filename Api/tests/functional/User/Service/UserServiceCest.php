@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\User\Service;
+namespace Mush\Tests\functional\User\Service;
 
-use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
@@ -10,6 +9,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 use Mush\User\Service\UserService;
 

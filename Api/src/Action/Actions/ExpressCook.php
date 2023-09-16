@@ -2,7 +2,7 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 
 class ExpressCook extends AbstractCook

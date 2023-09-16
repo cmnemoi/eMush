@@ -2,12 +2,12 @@
 
 namespace Mush\Tests\functional\Modifier\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Tests\FunctionalTester;
 
 class TriggerEventModifierConfigDataLoaderCest
 {

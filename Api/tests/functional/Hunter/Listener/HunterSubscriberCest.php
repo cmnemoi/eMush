@@ -1,9 +1,7 @@
 <?php
 
-namespace functional\Hunter\Listener;
+namespace Mush\Tests\functional\Hunter\Listener;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -12,6 +10,8 @@ use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Hunter\Listener\HunterSubscriber;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 
 class HunterSubscriberCest extends AbstractFunctionalTest
 {

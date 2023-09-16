@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Communication\Listener;
+namespace Mush\Tests\functional\Communication\Listener;
 
-use App\Tests\FunctionalTester;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -19,6 +18,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class PlayerDeathCest

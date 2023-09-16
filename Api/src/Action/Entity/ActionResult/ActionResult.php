@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Action\ActionResult;
+namespace Mush\Action\Entity\ActionResult;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;

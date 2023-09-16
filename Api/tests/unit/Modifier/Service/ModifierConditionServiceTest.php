@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Modifier\Service;
+namespace Mush\Tests\unit\Modifier\Service;
 
 use Mockery;
 use Mush\Action\Enum\ActionEnum;
@@ -22,7 +22,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class ModifierActivationRequirementServiceTest extends TestCase
+class ModifierConditionServiceTest extends TestCase
 {
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;

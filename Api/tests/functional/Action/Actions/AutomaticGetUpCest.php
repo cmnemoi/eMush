@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Disassemble;
 use Mush\Action\Entity\Action;
@@ -30,6 +29,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class AutomaticGetUpCest

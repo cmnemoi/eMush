@@ -1,9 +1,7 @@
 <?php
 
-namespace Mush\Tests\Modifier\Event;
+namespace Mush\Tests\functional\Modifier\Event;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -22,6 +20,8 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Event\StatusEvent;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 
 class CycleEventCest extends AbstractFunctionalTest
 {

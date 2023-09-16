@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Modifier\Listener;
+namespace Mush\Tests\functional\Modifier\Listener;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\Action;
@@ -31,6 +30,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class MoveSubscriberCest

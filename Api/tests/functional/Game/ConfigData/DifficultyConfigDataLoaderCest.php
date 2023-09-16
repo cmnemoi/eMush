@@ -1,10 +1,10 @@
 <?php
 
-namespace Mush\Tests\functional\Triumph\ConfigData;
+namespace Mush\Tests\functional\Game\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Mush\Game\ConfigData\DifficultyConfigDataLoader;
 use Mush\Game\Entity\DifficultyConfig;
+use Mush\Tests\FunctionalTester;
 
 class DifficultyConfigDataLoaderCest
 {

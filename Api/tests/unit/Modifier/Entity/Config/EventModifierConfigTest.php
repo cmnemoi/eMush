@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Modifier\Entity\Config;
+namespace Mush\Tests\unit\Modifier\Entity\Config;
 
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;

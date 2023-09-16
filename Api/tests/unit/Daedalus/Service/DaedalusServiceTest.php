@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Daedalus\Service;
+namespace Mush\Tests\unit\Daedalus\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;

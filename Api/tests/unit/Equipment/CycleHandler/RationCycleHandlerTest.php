@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Equipment\CycleHandler;
+namespace Mush\Tests\unit\Equipment\CycleHandler;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;

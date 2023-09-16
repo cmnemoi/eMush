@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Cook;
 use Mush\Action\Entity\Action;
@@ -16,6 +15,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class CookActionCest

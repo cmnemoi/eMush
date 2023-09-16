@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Player\Service;
+namespace Mush\Tests\functional\Disease\Service;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -20,6 +19,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class DiseaseCauseServiceCest

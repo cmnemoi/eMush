@@ -1,13 +1,13 @@
 <?php
 
-namespace functional\Daedalus\Service;
+namespace Mush\Tests\functional\Daedalus\Service;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 
 class DaedalusServiceCest extends AbstractFunctionalTest
 {

@@ -2,11 +2,11 @@
 
 namespace Mush\Tests\functional\Equipment\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\ConfigData\ItemConfigDataLoader;
 use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\Tests\FunctionalTester;
 
 class ItemConfigDataLoaderCest extends EquipmentConfigDataLoaderCest
 {

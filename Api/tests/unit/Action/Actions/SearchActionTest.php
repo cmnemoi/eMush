@@ -1,11 +1,11 @@
 <?php
 
-namespace Mush\Test\Action\Actions;
+namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Fail;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Search;
+use Mush\Action\Entity\ActionResult\Fail;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;

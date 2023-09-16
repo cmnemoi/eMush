@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\User\Validator;
+namespace Mush\Tests\unit\User\Validator;
 
 use Mockery;
 use Mush\User\Enum\RoleEnum;

@@ -1,12 +1,12 @@
 <?php
 
-namespace Mush\Test\Status\Service;
+namespace Mush\Tests\unit\Status\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
-use Mush\Action\ActionResult\Fail;
-use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\ActionResult\Fail;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;

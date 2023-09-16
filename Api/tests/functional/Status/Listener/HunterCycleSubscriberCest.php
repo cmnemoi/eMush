@@ -1,11 +1,11 @@
 <?php
 
-namespace functional\Status\Listener;
+namespace Mush\Tests\functional\Status\Listener;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 
 class HunterCycleSubscriberCest extends AbstractFunctionalTest
 {

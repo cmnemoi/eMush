@@ -2,12 +2,12 @@
 
 namespace Mush\Tests\functional\Daedalus\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Mush\Daedalus\ConfigData\DaedalusConfigDataLoader;
 use Mush\Daedalus\ConfigData\RandomItemPlacesDataLoader;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Place\ConfigData\PlaceConfigDataLoader;
+use Mush\Tests\FunctionalTester;
 
 class DaedalusConfigDataLoaderCest
 {

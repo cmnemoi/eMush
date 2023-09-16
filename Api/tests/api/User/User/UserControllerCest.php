@@ -1,8 +1,8 @@
 <?php
 
-namespace Mush\Tests\api\Game\GameConfig;
+namespace Mush\Tests\api\User\User;
 
-use App\Tests\ApiTester;
+use Mush\Tests\ApiTester;
 use Mush\User\Entity\User;
 
 class UserControllerCest

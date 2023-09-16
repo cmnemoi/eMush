@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Tests\Place\Event;
+namespace Mush\Tests\functional\Place\Event;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
@@ -40,6 +39,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class RoomEventCest

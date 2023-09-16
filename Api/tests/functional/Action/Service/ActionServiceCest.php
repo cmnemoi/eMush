@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Action\Service;
+namespace Mush\Tests\functional\Action\Service;
 
-use App\Tests\FunctionalTester;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
@@ -28,6 +27,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class ActionServiceCest

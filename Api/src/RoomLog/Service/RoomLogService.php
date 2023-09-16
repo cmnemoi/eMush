@@ -3,7 +3,7 @@
 namespace Mush\RoomLog\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;

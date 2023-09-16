@@ -1,9 +1,7 @@
 <?php
 
-namespace functional\Hunter\Service;
+namespace Mush\Tests\functional\Hunter\Service;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -27,6 +25,8 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 use Symfony\Component\Uid\Uuid;
 
 class HunterServiceCest extends AbstractFunctionalTest

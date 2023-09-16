@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Action\ActionResult;
+namespace Mush\Action\Entity\ActionResult;
 
 class Error extends ActionResult
 {

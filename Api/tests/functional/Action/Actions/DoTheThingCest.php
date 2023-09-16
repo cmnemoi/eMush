@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\DoTheThing;
 use Mush\Action\Entity\Action;
@@ -41,6 +40,7 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class DoTheThingCest

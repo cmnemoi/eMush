@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace Mush\Tests;
 
 use Mush\User\Entity\User;
 

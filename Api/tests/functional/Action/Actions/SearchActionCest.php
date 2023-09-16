@@ -2,13 +2,12 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\ActionResult\Fail;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Hide;
 use Mush\Action\Actions\Search;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\Fail;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -27,6 +26,7 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class SearchActionCest

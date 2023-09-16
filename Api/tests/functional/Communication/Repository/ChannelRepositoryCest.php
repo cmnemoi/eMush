@@ -2,7 +2,6 @@
 
 namespace Mush\Tests\functional\Communication\Repository;
 
-use App\Tests\FunctionalTester;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -17,6 +16,7 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class ChannelRepositoryCest

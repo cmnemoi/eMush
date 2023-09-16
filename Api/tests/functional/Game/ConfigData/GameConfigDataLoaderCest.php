@@ -2,7 +2,6 @@
 
 namespace Mush\Tests\functional\Game\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Daedalus\ConfigData\DaedalusConfigData;
 use Mush\Daedalus\ConfigData\DaedalusConfigDataLoader;
@@ -48,6 +47,7 @@ use Mush\Player\ConfigData\CharacterConfigDataLoader;
 use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigData;
 use Mush\Status\ConfigData\StatusConfigDataLoader;
+use Mush\Tests\FunctionalTester;
 
 class GameConfigDataLoaderCest
 {

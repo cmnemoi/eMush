@@ -150,8 +150,9 @@ class HunterService implements HunterServiceInterface
 
             // do not create a hunter if max per wave is reached
             $maxPerWave = $hunter->getHunterConfig()->getMaxPerWave();
-            if ($maxPerWave && $wave->getAllHuntersByType($hunter->getName())->count() > $maxPerWave) {
+            if ($maxPerWave && $wave->getAllHuntersByType($hunter->getName())->count() === $maxPerWave) {
                 $hunterTypes->removeElement($hunterNameToCreate);
+                $this->delete([$hunter]);
                 continue;
             }
 
@@ -203,6 +204,14 @@ class HunterService implements HunterServiceInterface
                 $time
             );
         }
+    }
+
+    private function delete(array $entities): void
+    {
+        foreach ($entities as $entity) {
+            $this->entityManager->remove($entity);
+        }
+        $this->entityManager->flush();
     }
 
     private function dropScrap(Hunter $hunter): void

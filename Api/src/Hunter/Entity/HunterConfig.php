@@ -65,7 +65,6 @@ class HunterConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => '1'])]
     private int $numberOfActionsPerCycle = 1;
 
-
     public function __construct()
     {
         $this->initialStatuses = new ArrayCollection();

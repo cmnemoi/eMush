@@ -2,9 +2,9 @@
 
 namespace Mush\Tests\functional\RoomLog\Listener;
 
-use Mush\Action\ActionResult\Fail;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\Fail;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Daedalus\Entity\Daedalus;

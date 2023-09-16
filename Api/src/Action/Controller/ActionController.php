@@ -6,7 +6,7 @@ use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
-use Mush\Action\ActionResult\Error;
+use Mush\Action\Entity\ActionResult\Error;
 use Mush\Action\Entity\Dto\ActionRequest;
 use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Player\Entity\Player;

@@ -2,8 +2,8 @@
 
 namespace Mush\Tests\unit\Action\Actions;
 
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\GetUp;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;

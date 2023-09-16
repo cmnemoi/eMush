@@ -3,8 +3,8 @@
 namespace Mush\Tests\functional\Action\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\ActionResult\Fail;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Listener\ActionSubscriber;

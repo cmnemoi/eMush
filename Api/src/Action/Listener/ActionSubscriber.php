@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Action\Listener;
 
-use Mush\Action\ActionResult\Fail;
 use Mush\Action\Actions\GetUp;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;

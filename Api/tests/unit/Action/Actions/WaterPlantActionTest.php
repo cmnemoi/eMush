@@ -3,8 +3,8 @@
 namespace Mush\Tests\unit\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\WaterPlant;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;

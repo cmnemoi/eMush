@@ -2,9 +2,9 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
-use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;

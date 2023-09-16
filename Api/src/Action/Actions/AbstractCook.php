@@ -2,8 +2,8 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Cookable;
 use Mush\Action\Validator\Reach;

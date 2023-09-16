@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Status\CycleHandler;
+namespace Mush\Tests\unit\Status\CycleHandler;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;

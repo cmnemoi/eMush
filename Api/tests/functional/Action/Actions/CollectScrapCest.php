@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-namespace functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\CollectScrap;
 use Mush\Action\Actions\Land;
@@ -28,8 +26,10 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 
-final class CollectScrapActionCest extends AbstractFunctionalTest
+final class CollectScrapCest extends AbstractFunctionalTest
 {
     private Action $collectScrapActionConfig;
     private Action $landActionConfig;

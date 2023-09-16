@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Player\Service;
+namespace Mush\Tests\unit\RoomLog\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;

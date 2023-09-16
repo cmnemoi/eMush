@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Player\Service;
+namespace Mush\Tests\unit\Player\Service;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;

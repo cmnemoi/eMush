@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Action\Actions;
+namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
 use Mush\Action\ActionResult\Success;
@@ -14,7 +14,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 
-class UltraHealActionTest extends AbstractActionTest
+class UltraHealTest extends AbstractActionTest
 {
     /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;

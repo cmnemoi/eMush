@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Player\Service;
+namespace Mush\Tests\functional\Player\Service;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -19,6 +18,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Service\PlayerService;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class CreatePlayerServiceCest

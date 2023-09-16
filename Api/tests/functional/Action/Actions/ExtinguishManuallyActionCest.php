@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
-use App\Tests\FunctionalTester;
 use Mush\Action\Actions\ExtinguishManually;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
@@ -30,6 +29,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class ExtinguishManuallyActionCest

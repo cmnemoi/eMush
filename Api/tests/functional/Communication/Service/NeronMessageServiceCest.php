@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Communication\Service;
+namespace Mush\Tests\functional\Communication\Service;
 
-use App\Tests\FunctionalTester;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -13,6 +12,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Tests\FunctionalTester;
 
 class NeronMessageServiceCest
 {

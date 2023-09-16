@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Equipment\Repository;
+namespace Mush\Tests\functional\Equipment\Repository;
 
-use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -14,6 +13,7 @@ use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Tests\FunctionalTester;
 
 class GameEquipmentRepositoryCest
 {

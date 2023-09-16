@@ -1,11 +1,11 @@
 <?php
 
-namespace Mush\Tests\functional\Localization\ConfigData;
+namespace Mush\Tests\functional\Game\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Mush\Game\ConfigData\LocalizationConfigData;
 use Mush\Game\ConfigData\LocalizationConfigDataLoader;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Tests\FunctionalTester;
 
 class LocalizationConfigDataLoaderCest
 {

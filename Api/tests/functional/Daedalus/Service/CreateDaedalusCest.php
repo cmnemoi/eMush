@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Daedalus\Service;
+namespace Mush\Tests\functional\Daedalus\Service;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\DaedalusConfig;
@@ -32,6 +31,7 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
+use Mush\Tests\FunctionalTester;
 
 class CreateDaedalusCest
 {

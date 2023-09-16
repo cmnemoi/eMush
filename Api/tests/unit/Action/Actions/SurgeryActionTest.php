@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Action\Actions;
+namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
 use Mush\Action\ActionResult\CriticalSuccess;

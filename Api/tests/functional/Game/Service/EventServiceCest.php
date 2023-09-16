@@ -1,9 +1,7 @@
 <?php
 
-namespace functional\Game\Service;
+namespace Mush\Tests\functional\Game\Service;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Game\Entity\VariableEventConfig;
@@ -13,6 +11,8 @@ use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Event\ModifierEvent;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 
 class EventServiceCest extends AbstractFunctionalTest
 {

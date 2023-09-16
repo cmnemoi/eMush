@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Alert\Listener;
+namespace Mush\Tests\functional\Alert\Service;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -14,6 +12,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 
 class AlertServiceCest extends AbstractFunctionalTest
 {

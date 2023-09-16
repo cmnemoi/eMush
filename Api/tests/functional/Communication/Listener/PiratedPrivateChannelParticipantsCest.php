@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Tests\Communication\Event;
+namespace Mush\Tests\functional\Communication\Listener;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Drop;
 use Mush\Action\Actions\Move;
@@ -40,6 +39,7 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class PiratedPrivateChannelParticipantsCest

@@ -2,7 +2,6 @@
 
 namespace Mush\Tests\functional\Disease\Listener;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Actions\Move;
@@ -45,6 +44,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class ActionSubscriberCest

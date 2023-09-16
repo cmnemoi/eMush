@@ -2,7 +2,6 @@
 
 namespace Mush\Tests\functional\Disease\Listener;
 
-use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
@@ -22,6 +21,7 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class PlayerCycleSubscriberCest

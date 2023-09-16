@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Mush\Hunter\Normalizer;
+namespace Mush\Tests\unit\Hunter\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\Action;

@@ -2,7 +2,6 @@
 
 namespace Mush\Tests\functional\Disease\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Mush\Disease\ConfigData\DiseaseConfigData;
 use Mush\Disease\ConfigData\DiseaseConfigDataLoader;
 use Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader;
@@ -13,6 +12,7 @@ use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
+use Mush\Tests\FunctionalTester;
 
 class DiseaseConfigDataLoaderCest
 {

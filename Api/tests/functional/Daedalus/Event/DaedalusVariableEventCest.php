@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Daedalus\Event;
+namespace Mush\Tests\functional\Daedalus\Event;
 
-use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -16,6 +15,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Place\Entity\Place;
+use Mush\Tests\FunctionalTester;
 
 class DaedalusVariableEventCest
 {

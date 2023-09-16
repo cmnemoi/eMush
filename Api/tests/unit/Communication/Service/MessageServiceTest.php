@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Communication\Service;
+namespace Mush\Tests\unit\Communication\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;

@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\RoomLog\Listener;
+namespace Mush\Tests\functional\RoomLog\Listener;
 
-use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -19,6 +18,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
+use Mush\Tests\FunctionalTester;
 
 class EquipmentSubscriberCest
 {

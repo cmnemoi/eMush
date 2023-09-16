@@ -2,11 +2,11 @@
 
 namespace Mush\Tests\functional\Game\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Game\Entity\VariableEventConfig;
+use Mush\Tests\FunctionalTester;
 
 class VariableEventConfigDataLoaderCest
 {

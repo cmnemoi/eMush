@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Tests\RoomLog\Listener;
+namespace Mush\Tests\functional\RoomLog\Listener;
 
-use App\Tests\FunctionalTester;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Entity\Action;
@@ -20,6 +19,7 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Listener\ActionSubscriber;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class ActionSubscriberCest

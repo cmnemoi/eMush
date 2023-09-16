@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Tests\Status\Event;
+namespace Mush\Tests\functional\Status\Event;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -20,6 +19,7 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
+use Mush\Tests\FunctionalTester;
 
 class DayEventCest
 {

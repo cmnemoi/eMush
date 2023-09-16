@@ -1,6 +1,6 @@
 <?php
 
-namespace unit\Daedalus\Service;
+namespace Mush\Tests\unit\Daedalus\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;

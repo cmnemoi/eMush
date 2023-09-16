@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-namespace functional\Status\Listener;
+namespace Mush\Tests\functional\Status\Listener;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -16,6 +14,8 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Listener\StatusSubscriber;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 
 final class StatusSubscriberCest extends AbstractFunctionalTest
 {

@@ -1,9 +1,7 @@
 <?php
 
-namespace functional\Hunter\Listener;
+namespace Mush\Tests\functional\Hunter\Listener;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -21,6 +19,8 @@ use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Status\Enum\HunterStatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 use Symfony\Component\Uid\Uuid;
 
 class DaedalusCycleSubscriberCest extends AbstractFunctionalTest

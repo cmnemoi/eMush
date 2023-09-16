@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Tests\Alert\Listener;
+namespace Mush\Tests\functional\Alert\Listener;
 
-use App\Tests\FunctionalTester;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
@@ -28,6 +27,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Mush\Tests\FunctionalTester;
 
 class StatusSubscriberCest
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Daedalus\Validator;
+namespace Mush\Tests\unit\Daedalus\Validator;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;

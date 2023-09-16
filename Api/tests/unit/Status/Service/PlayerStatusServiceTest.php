@@ -1,6 +1,6 @@
 <?php
 
-namespace unit\Status\Service;
+namespace Mush\Tests\unit\Status\Service;
 
 use Codeception\PHPUnit\TestCase;
 use Mockery;

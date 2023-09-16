@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Tests\Status\Event;
+namespace Mush\Tests\functional\Status\Event;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -29,6 +28,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class CycleEventCest

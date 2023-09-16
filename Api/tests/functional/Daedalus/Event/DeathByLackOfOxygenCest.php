@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Daedalus\Event;
+namespace Mush\Tests\functional\Daedalus\Event;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -36,6 +35,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class DeathByLackOfOxygenCest

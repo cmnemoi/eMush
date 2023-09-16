@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Tests\functional\Equipment\ConfigData;
+namespace Mush\Tests\functional\Player\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Disease\ConfigData\DiseaseConfigDataLoader;
 use Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader;
@@ -29,6 +28,7 @@ use Mush\Player\ConfigData\CharacterConfigDataLoader;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigDataLoader;
+use Mush\Tests\FunctionalTester;
 
 class CharacterConfigDataLoaderCest
 {

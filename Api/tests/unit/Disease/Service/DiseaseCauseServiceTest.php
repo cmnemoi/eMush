@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Disease\Service;
+namespace Mush\Tests\unit\Disease\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;

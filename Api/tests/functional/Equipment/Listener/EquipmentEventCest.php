@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Equipment\Listener;
+namespace Mush\Tests\functional\Equipment\Listener;
 
-use App\Tests\FunctionalTester;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -22,6 +21,7 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class EquipmentEventCest

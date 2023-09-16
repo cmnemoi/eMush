@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Modifier\Service;
+namespace Mush\Tests\unit\Modifier\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;

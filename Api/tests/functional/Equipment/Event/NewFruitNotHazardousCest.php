@@ -1,15 +1,15 @@
 <?php
 
-namespace functional\Equipment\Event;
+namespace Mush\Tests\functional\Equipment\Event;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 
 class NewFruitNotHazardousCest extends AbstractFunctionalTest
 {

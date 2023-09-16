@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Alert\Service;
+namespace Mush\Tests\unit\Alert\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;

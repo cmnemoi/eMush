@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Mush\Equipment\Normalizer;
+namespace Mush\Tests\unit\Equipment\Normalizer;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;

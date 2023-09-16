@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Modifier\Listener;
+namespace Mush\Tests\functional\Modifier\Listener;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
@@ -29,6 +28,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Mush\Tests\FunctionalTester;
 
 class BreakRepairEquipmentSubscriberCest
 {

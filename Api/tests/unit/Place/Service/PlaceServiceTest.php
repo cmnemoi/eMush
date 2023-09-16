@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Place\Service;
+namespace Mush\Tests\unit\Place\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;

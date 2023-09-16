@@ -2,12 +2,12 @@
 
 namespace Mush\Tests\functional\Equipment\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Equipment\ConfigData\MechanicsData;
 use Mush\Equipment\ConfigData\PlantDataLoader;
 use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Tests\FunctionalTester;
 
 class PlantDataLoaderCest
 {

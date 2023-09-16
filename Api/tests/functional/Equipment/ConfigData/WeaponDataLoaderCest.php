@@ -2,11 +2,11 @@
 
 namespace Mush\Tests\functional\Equipment\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Equipment\ConfigData\MechanicsData;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
 use Mush\Equipment\Entity\Mechanics\Weapon;
+use Mush\Tests\FunctionalTester;
 
 class WeaponDataLoaderCest
 {

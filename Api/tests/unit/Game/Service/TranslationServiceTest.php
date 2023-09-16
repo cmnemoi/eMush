@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Game\Service;
+namespace Mush\Tests\unit\Game\Service;
 
 use Mockery;
 use Mush\Communication\Enum\DiseaseMessagesEnum;

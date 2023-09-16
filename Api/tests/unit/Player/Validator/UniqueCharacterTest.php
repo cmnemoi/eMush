@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Player\Validator;
+namespace Mush\Tests\unit\Player\Validator;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;

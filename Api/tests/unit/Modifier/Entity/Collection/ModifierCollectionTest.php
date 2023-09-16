@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Modifier\Entity\Collection;
+namespace Mush\Tests\unit\Modifier\Entity\Collection;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;

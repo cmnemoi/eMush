@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Communication\Repository;
+namespace Mush\Tests\functional\Communication\Repository;
 
-use App\Tests\FunctionalTester;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Entity\Message;
@@ -15,6 +14,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class MessageRepositoryCest

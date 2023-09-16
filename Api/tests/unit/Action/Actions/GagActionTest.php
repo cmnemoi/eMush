@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Action\Actions;
+namespace Mush\Tests\unit\Action\Actions;
 
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Gag;

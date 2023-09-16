@@ -38,8 +38,8 @@ abstract class AbstractActionTest extends TestCase
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof ActionEvent &&
-                $event->getAction() === $this->actionEntity
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof ActionEvent
+                && $event->getAction() === $this->actionEntity
             )
             ->times(3)
         ;

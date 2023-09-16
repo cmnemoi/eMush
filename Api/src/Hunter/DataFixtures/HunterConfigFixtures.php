@@ -41,7 +41,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(HunterEnum::ASTEROID . '_default')
             ->setHunterName(HunterEnum::ASTEROID)
             ->setInitialHealth(20)
-            ->setInitialStatuses(new ArrayCollection([$asteroidCharge]))
+            ->setInitialStatuses([$asteroidCharge])
             ->setDamageRange($asteroidDamageRange)
             ->setHitChance(100)
             ->setDodgeChance(20)
@@ -74,7 +74,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(HunterEnum::DICE . '_default')
             ->setHunterName(HunterEnum::DICE)
             ->setInitialHealth(30)
-            ->setInitialStatuses(new ArrayCollection([$hunterCharge]))
+            ->setInitialStatuses([$hunterCharge])
             ->setDamageRange($diceDamageRange)
             ->setHitChance(60)
             ->setDodgeChance(20)
@@ -107,7 +107,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(HunterEnum::HUNTER . '_default')
             ->setHunterName(HunterEnum::HUNTER)
             ->setInitialHealth(6)
-            ->setInitialStatuses(new ArrayCollection([$hunterCharge]))
+            ->setInitialStatuses([$hunterCharge])
             ->setDamageRange($hunterDamageRange)
             ->setHitChance(80)
             ->setDodgeChance(50)
@@ -139,7 +139,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(HunterEnum::SPIDER . '_default')
             ->setHunterName(HunterEnum::SPIDER)
             ->setInitialHealth(6)
-            ->setInitialStatuses(new ArrayCollection([$hunterCharge]))
+            ->setInitialStatuses([$hunterCharge])
             ->setDamageRange($spiderDamageRange)
             ->setHitChance(80)
             ->setDodgeChance(50)
@@ -171,7 +171,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(HunterEnum::TRAX . '_default')
             ->setHunterName(HunterEnum::TRAX)
             ->setInitialHealth(10)
-            ->setInitialStatuses(new ArrayCollection([$hunterCharge]))
+            ->setInitialStatuses([$hunterCharge])
             ->setDamageRange($traxDamageRange)
             ->setHitChance(50)
             ->setDodgeChance(50)
@@ -198,13 +198,15 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($trax);
 
-        $gameConfig->setHunterConfigs(new ArrayCollection([
+        /** @var ArrayCollection $hunters */
+        $hunters = new ArrayCollection([
             $asteroid,
             $dice,
             $hunter,
             $spider,
             $trax,
-        ]));
+        ]);
+        $gameConfig->setHunterConfigs($hunters);
 
         $manager->flush();
     }

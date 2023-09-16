@@ -8,5 +8,5 @@ use Mush\Player\Entity\Player;
 
 interface SymptomActivationRequirementServiceInterface
 {
-    public function getActiveSymptoms(SymptomConfigCollection $symptomConfigs, Player $player, array $tags, ?Action $action = null): SymptomConfigCollection;
+    public function getActiveSymptoms(SymptomConfigCollection $symptomConfigs, Player $player, array $tags, Action $action = null): SymptomConfigCollection;
 }

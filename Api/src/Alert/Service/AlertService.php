@@ -104,13 +104,13 @@ class AlertService implements AlertServiceInterface
     public function hullAlert(Daedalus $daedalus): void
     {
         if (
-            $daedalus->getHull() > self::HULL_ALERT &&
-            ($hullAlert = $this->findByNameAndDaedalus(AlertEnum::LOW_HULL, $daedalus)) !== null
+            $daedalus->getHull() > self::HULL_ALERT
+            && ($hullAlert = $this->findByNameAndDaedalus(AlertEnum::LOW_HULL, $daedalus)) !== null
         ) {
             $this->delete($hullAlert);
         } elseif (
-            $daedalus->getHull() <= self::HULL_ALERT &&
-            $this->findByNameAndDaedalus(AlertEnum::LOW_HULL, $daedalus) === null
+            $daedalus->getHull() <= self::HULL_ALERT
+            && $this->findByNameAndDaedalus(AlertEnum::LOW_HULL, $daedalus) === null
         ) {
             $hullAlert = new Alert();
             $hullAlert
@@ -125,15 +125,15 @@ class AlertService implements AlertServiceInterface
     public function oxygenAlert(Daedalus $daedalus): void
     {
         if (
-            $daedalus->getOxygen() > self::OXYGEN_ALERT &&
-            ($oxygenAlert = $this->findByNameAndDaedalus(AlertEnum::LOW_OXYGEN, $daedalus)) !== null
+            $daedalus->getOxygen() > self::OXYGEN_ALERT
+            && ($oxygenAlert = $this->findByNameAndDaedalus(AlertEnum::LOW_OXYGEN, $daedalus)) !== null
         ) {
             $this->delete($oxygenAlert);
 
             return;
         } elseif (
-            $daedalus->getOxygen() <= self::OXYGEN_ALERT &&
-            $this->findByNameAndDaedalus(AlertEnum::LOW_OXYGEN, $daedalus) === null
+            $daedalus->getOxygen() <= self::OXYGEN_ALERT
+            && $this->findByNameAndDaedalus(AlertEnum::LOW_OXYGEN, $daedalus) === null
         ) {
             $oxygenAlert = new Alert();
             $oxygenAlert

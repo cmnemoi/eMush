@@ -50,9 +50,9 @@ class StatusSubscriber implements EventSubscriberInterface
             );
         }
 
-        if ($statusName === EquipmentStatusEnum::BROKEN &&
-            $statusHolder instanceof GameEquipment &&
-            $statusHolder->hasStatus(EquipmentStatusEnum::ELECTRIC_CHARGES)
+        if ($statusName === EquipmentStatusEnum::BROKEN
+            && $statusHolder instanceof GameEquipment
+            && $statusHolder->hasStatus(EquipmentStatusEnum::ELECTRIC_CHARGES)
         ) {
             /** @var ChargeStatus $electricCharges */
             $electricCharges = $statusHolder->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
@@ -92,9 +92,9 @@ class StatusSubscriber implements EventSubscriberInterface
         $holder = $event->getStatusHolder();
 
         // If so, remove the screwed talkie status from the owner of the talkie and the pirate
-        if ($holder instanceof GameItem &&
-            in_array($holder->getName(), [ItemEnum::ITRACKIE, ItemEnum::WALKIE_TALKIE]) &&
-            $event->getStatusName() === EquipmentStatusEnum::BROKEN
+        if ($holder instanceof GameItem
+            && in_array($holder->getName(), [ItemEnum::ITRACKIE, ItemEnum::WALKIE_TALKIE])
+            && $event->getStatusName() === EquipmentStatusEnum::BROKEN
         ) {
             /** @var Player $piratedPlayer */
             $piratedPlayer = $holder->getOwner();

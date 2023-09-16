@@ -41,7 +41,7 @@ class MessageRepository extends ServiceEntityRepository
         return current($results);
     }
 
-    public function findByChannel(Channel $channel, ?\DateInterval $ageLimit = null): array
+    public function findByChannel(Channel $channel, \DateInterval $ageLimit = null): array
     {
         $queryBuilder = $this->createQueryBuilder('message');
 

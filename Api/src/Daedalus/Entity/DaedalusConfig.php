@@ -160,7 +160,7 @@ class DaedalusConfig
     }
 
     /**
-     * @param Collection<int, PlaceConfig> $placeConfigs
+     * @param Collection<array-key, PlaceConfig>|array<array-key, PlaceConfig> $placeConfigs
      */
     public function setPlaceConfigs(Collection|array $placeConfigs): static
     {

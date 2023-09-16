@@ -52,9 +52,9 @@ class ActionSubscriber implements EventSubscriberInterface
         $actionParameter = $event->getActionParameter();
         $player = $event->getAuthor();
 
-        if ($actionParameter instanceof Player &&
-            in_array($action->getActionName(), ActionEnum::getForceGetUpActions()) &&
-            $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
+        if ($actionParameter instanceof Player
+            && in_array($action->getActionName(), ActionEnum::getForceGetUpActions())
+            && $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
             $actionParameter->removeStatus($lyingDownStatus);
             $this->createForceGetUpLog($actionParameter);

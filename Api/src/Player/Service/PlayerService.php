@@ -277,14 +277,14 @@ class PlayerService implements PlayerServiceInterface
 
         $gameConfig = $player->getDaedalus()->getGameConfig();
 
-        if ($player->isMush() &&
-            ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))
+        if ($player->isMush()
+            && ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))
         ) {
             $triumphChange = $mushTriumph->getTriumph();
         }
 
-        if (!$player->isMush() &&
-            ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))
+        if (!$player->isMush()
+            && ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))
         ) {
             $triumphChange = $humanTriumph->getTriumph();
         }
@@ -388,8 +388,6 @@ class PlayerService implements PlayerServiceInterface
      * This function handle the compensation for a player who died because of quarantine.
      * Currently it drops 3-4 organic waste.
      * TODO: add more powerful compensation?
-     *
-     * @param Place $playerPlace
      */
     private function handleQuarantineCompensation(Place $playerDeathPlace)
     {

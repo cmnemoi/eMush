@@ -261,8 +261,8 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (DiseaseEvent $event) => (
-                $event->getPlayerDisease() === $diseasePlayer) &&
-                in_array(DiseaseCauseEnum::INCUBATING_END, $event->getTags())
+                $event->getPlayerDisease() === $diseasePlayer)
+                && in_array(DiseaseCauseEnum::INCUBATING_END, $event->getTags())
             )
             ->once()
         ;
@@ -272,8 +272,8 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (DiseaseEvent $event) => (
-                $event->getPlayerDisease() === $diseasePlayer2) &&
-                in_array(DiseaseCauseEnum::OVERRODE, $event->getTags())
+                $event->getPlayerDisease() === $diseasePlayer2)
+                && in_array(DiseaseCauseEnum::OVERRODE, $event->getTags())
             )
             ->once()
         ;

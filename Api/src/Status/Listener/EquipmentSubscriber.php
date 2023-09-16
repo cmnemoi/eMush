@@ -74,8 +74,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
             if ($equipment->hasStatus(EquipmentStatusEnum::HIDDEN)) {
                 $this->statusService->removeStatus(EquipmentStatusEnum::HIDDEN, $equipment, $reasons, $time);
             } elseif (
-                $equipment->hasStatus(EquipmentStatusEnum::HEAVY) &&
-                !$holder->hasStatus(PlayerStatusEnum::BURDENED)
+                $equipment->hasStatus(EquipmentStatusEnum::HEAVY)
+                && !$holder->hasStatus(PlayerStatusEnum::BURDENED)
             ) {
                 $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::BURDENED, $holder->getDaedalus());
                 $this->statusService->createStatusFromConfig($statusConfig, $holder, $reasons, $time);
@@ -90,10 +90,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $time = $event->getTime();
 
         $player = $equipment->getHolder();
-        if ($player instanceof Player &&
-            $player->hasStatus(PlayerStatusEnum::BURDENED) &&
-            $equipment->hasStatus(EquipmentStatusEnum::HEAVY) &&
-            $player->getEquipments()->filter(function (GameItem $item) {
+        if ($player instanceof Player
+            && $player->hasStatus(PlayerStatusEnum::BURDENED)
+            && $equipment->hasStatus(EquipmentStatusEnum::HEAVY)
+            && $player->getEquipments()->filter(function (GameItem $item) {
                 return $item->hasStatus(EquipmentStatusEnum::HEAVY);
             })->count() >= 1
         ) {

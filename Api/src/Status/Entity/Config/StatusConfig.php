@@ -68,7 +68,7 @@ class StatusConfig
         return $this;
     }
 
-    public function buildName(string $configName, ?string $details = null): static
+    public function buildName(string $configName, string $details = null): static
     {
         if ($details === null) {
             $this->name = $this->statusName . '_' . $configName;

@@ -46,7 +46,9 @@ class RoomLogController extends AbstractFOSRestController
      * Perform an action.
      *
      * @OA\Tag(name="RoomLog")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Get(path="")
      */
     public function getRoomLogs(): View
@@ -58,8 +60,8 @@ class RoomLogController extends AbstractFOSRestController
 
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
-        if ($playerInfo === null ||
-            !($player = $playerInfo->getPlayer())
+        if ($playerInfo === null
+            || !($player = $playerInfo->getPlayer())
         ) {
             throw new AccessDeniedException();
         }
@@ -84,7 +86,9 @@ class RoomLogController extends AbstractFOSRestController
      * Perform an action.
      *
      * @OA\Tag(name="RoomLog")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Get(path="/channel")
      */
     public function getRoomLogChannel(): View
@@ -96,8 +100,8 @@ class RoomLogController extends AbstractFOSRestController
 
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
-        if ($playerInfo === null ||
-            !($player = $playerInfo->getPlayer())
+        if ($playerInfo === null
+            || !($player = $playerInfo->getPlayer())
         ) {
             throw new AccessDeniedException();
         }

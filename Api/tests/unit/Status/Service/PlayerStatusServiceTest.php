@@ -190,8 +190,8 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING &&
-                $event->getStatusHolder() === $player
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING
+                && $event->getStatusHolder() === $player
             )
             ->once()
         ;
@@ -227,15 +227,15 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH &&
-                $event->getStatusHolder() === $player
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH
+                && $event->getStatusHolder() === $player
             )
             ->once()
         ;
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING &&
-                $event->getStatusHolder() === $player
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING
+                && $event->getStatusHolder() === $player
             )
             ->once()
         ;
@@ -249,8 +249,8 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH &&
-                $event->getStatusHolder() === $player
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH
+                && $event->getStatusHolder() === $player
             )
             ->once()
         ;
@@ -267,15 +267,15 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH &&
-                $event->getStatusHolder() === $player
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH
+                && $event->getStatusHolder() === $player
             )
             ->once()
         ;
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING &&
-                $event->getStatusHolder() === $player
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING
+                && $event->getStatusHolder() === $player
             )
             ->once()
         ;

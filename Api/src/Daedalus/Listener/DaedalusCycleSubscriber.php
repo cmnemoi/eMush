@@ -102,8 +102,8 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
     private function handleDaedalusEnd(Daedalus $daedalus, \DateTime $time): bool
     {
-        if ($daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->isEmpty() &&
-            !$daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->isEmpty()
+        if ($daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->isEmpty()
+            && !$daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->isEmpty()
         ) {
             $endDaedalusEvent = new DaedalusEvent(
                 $daedalus,

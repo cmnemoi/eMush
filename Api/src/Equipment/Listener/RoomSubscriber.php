@@ -42,10 +42,10 @@ class RoomSubscriber implements EventSubscriberInterface
 
         /** @var GameEquipment $equipment */
         foreach ($room->getEquipments() as $equipment) {
-            if (!$equipment->isBroken() &&
-                !($equipment instanceof Door) &&
-                !($equipment instanceof GameItem) &&
-                $equipment->isBreakable()) {
+            if (!$equipment->isBroken()
+                && !($equipment instanceof Door)
+                && !($equipment instanceof GameItem)
+                && $equipment->isBreakable()) {
                 $statusEvent = new StatusEvent(
                     EquipmentStatusEnum::BROKEN,
                     $equipment,

@@ -114,7 +114,7 @@ class HunterConfig
     }
 
     /**
-     * @param Collection<int, StatusConfig> $initialStatuses
+     * @param Collection<int, StatusConfig>|array<int, StatusConfig> $initialStatuses
      */
     public function setInitialStatuses(Collection|array $initialStatuses): static
     {

@@ -59,9 +59,9 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
     {
         $currentPlayer = $context['currentPlayer'] ?? null;
 
-        return $data instanceof Player &&
-            $data === $currentPlayer &&
-            $data->isAlive()
+        return $data instanceof Player
+            && $data === $currentPlayer
+            && $data->isAlive()
         ;
     }
 

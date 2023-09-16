@@ -27,9 +27,9 @@ class ValidateCrewDeathCommand extends Command
     private UserRepository $userRepository;
 
     public function __construct(CharacterConfigRepository $characterConfigRepository,
-                                PlayerServiceInterface $playerService,
-                                PlayerInfoRepository $playerInfoRepository,
-                                UserRepository $userRepository)
+        PlayerServiceInterface $playerService,
+        PlayerInfoRepository $playerInfoRepository,
+        UserRepository $userRepository)
     {
         parent::__construct();
         $this->characterConfigRepository = $characterConfigRepository;

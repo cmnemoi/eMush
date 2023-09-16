@@ -16,7 +16,7 @@ interface RoomLogServiceInterface
         Place $place,
         string $visibility,
         string $type,
-        ?Player $player = null,
+        Player $player = null,
         array $parameters = [],
         \DateTime $dateTime = null
     ): RoomLog;

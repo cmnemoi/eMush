@@ -16,7 +16,7 @@ class TranslationService implements TranslationServiceInterface
         $this->translator = $translator;
     }
 
-    public function translate(string $key, array $parameters, string $domain, ?string $language = null): string
+    public function translate(string $key, array $parameters, string $domain, string $language = null): string
     {
         if ($language === null) {
             $language = $this->translator->getLocale();

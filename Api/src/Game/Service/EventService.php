@@ -200,8 +200,8 @@ class EventService implements EventServiceInterface
         $modifiers = $this->modifierRequirementService->getActiveModifiers($modifiers, $event->getTags());
         $preventModifiers = $modifiers->getTriggerEventModifiersReplace()->filter(
             fn (GameModifier $modifier) => (
-                ($modifierConfig = $modifier->getModifierConfig()) instanceof TriggerEventModifierConfig &&
-                $modifierConfig->getTriggeredEvent() === null
+                ($modifierConfig = $modifier->getModifierConfig()) instanceof TriggerEventModifierConfig
+                && $modifierConfig->getTriggeredEvent() === null
             )
         );
 

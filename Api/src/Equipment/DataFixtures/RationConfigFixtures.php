@@ -3,7 +3,6 @@
 namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
@@ -36,7 +35,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var Action $consumeRationAction */
         $consumeRationAction = $this->getReference(ActionsFixtures::RATION_CONSUME);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
+        $actions = [$takeAction, $dropAction, $hideAction, $examineAction];
 
         $standardRationMechanic = new Ration();
         $standardRationMechanic
@@ -56,7 +55,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$standardRationMechanic]))
+            ->setMechanics([$standardRationMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -80,7 +79,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$cookedRationMechanic]))
+            ->setMechanics([$cookedRationMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -104,7 +103,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$alienSteackMechanic]))
+            ->setMechanics([$alienSteackMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -128,7 +127,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$coffeeMechanic]))
+            ->setMechanics([$coffeeMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -152,7 +151,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$anabolicMechanic]))
+            ->setMechanics([$anabolicMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -177,7 +176,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$lombrickBarMechanic]))
+            ->setMechanics([$lombrickBarMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -202,7 +201,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$organicWasteMechanic]))
+            ->setMechanics([$organicWasteMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -228,7 +227,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$proactivePuffedRiceMechanic]))
+            ->setMechanics([$proactivePuffedRiceMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -253,7 +252,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$spacePotatoMechanic]))
+            ->setMechanics([$spacePotatoMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -278,7 +277,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$supervitaminBarMechanic]))
+            ->setMechanics([$supervitaminBarMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;

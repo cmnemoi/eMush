@@ -27,7 +27,6 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\User\Entity\User;
@@ -67,8 +66,6 @@ class DaedalusCycleChangeCest
         $fireStatusConfig->setStatusName(StatusEnum::FIRE)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($fireStatusConfig);
 
-        $hunterChargeConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => HunterStatusEnum::HUNTER_CHARGE . '_default']);
-
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         /** @var DaedalusConfig $daedalusConfig */
@@ -88,7 +85,7 @@ class DaedalusCycleChangeCest
             'localizationConfig' => $localizationConfig,
             'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
-            'statusConfigs' => new ArrayCollection([$fullStomachConfig, $fireStatusConfig, $hunterChargeConfig]),
+            'statusConfigs' => new ArrayCollection([$fullStomachConfig, $fireStatusConfig]),
             'hunterConfigs' => new ArrayCollection($hunterConfigs),
         ]);
 

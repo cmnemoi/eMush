@@ -862,8 +862,8 @@ class StatusConfigData
             'modifierConfigs' => [],
         ],
         [
-            'name' => HunterStatusEnum::HUNTER_CHARGE . '_asteroid_default',
-            'statusName' => HunterStatusEnum::HUNTER_CHARGE,
+            'name' => HunterStatusEnum::TRUCE_CYCLE . '_asteroid_default',
+            'statusName' => HunterStatusEnum::TRUCE_CYCLE,
             'visibility' => VisibilityEnum::PUBLIC,
             'type' => 'charge_status_config',
             'chargeVisibility' => VisibilityEnum::PUBLIC,

@@ -8,7 +8,6 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Entity\Hunter;
-use Mush\Hunter\Enum\HunterEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\HunterStatusEnum;
@@ -44,13 +43,12 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
         $hunter = $object;
         $context['hunter'] = $hunter;
 
-        /** @var ChargeStatus $hunterCharges */
-        $hunterCharges = $hunter->getStatusByName(HunterStatusEnum::HUNTER_CHARGE);
-        $hunterChargesAmount = $hunterCharges?->getCharge();  // if hunter (not asteroid) is not in truce cycle anymore, it may not have charges
+        /** @var ChargeStatus $hunterTruceCyclesStatus */
+        $hunterTruceCyclesStatus = $hunter->getStatusByName(HunterStatusEnum::TRUCE_CYCLE);
+        $hunterTruceCycles = $hunterTruceCyclesStatus?->getCharge();  // only asteroids have truce cycles
 
         $hunterHealth = $hunter->getHealth();
         $hunterKey = $hunter->getName();
-        $isHunterAnAsteroid = $hunterKey === HunterEnum::ASTEROID;
 
         return [
             'id' => $hunter->getId(),
@@ -64,14 +62,14 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
             'description' => $this->translationService->translate(
                 key: $hunterKey . '.description',
                 parameters: [
-                    'charges' => $hunterChargesAmount ?? 0,
+                    'charges' => $hunterTruceCycles ?? 0,
                     'health' => $hunterHealth,
                 ],
                 domain: 'hunter',
                 language: $hunter->getDaedalus()->getLanguage()
             ),
             'health' => $hunterHealth,
-            'charges' => $isHunterAnAsteroid ? $hunterChargesAmount : null,
+            'charges' => $hunterTruceCycles,
             'actions' => $this->getActions($currentPlayer, $format, $context),
         ];
     }

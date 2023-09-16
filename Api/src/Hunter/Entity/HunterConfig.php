@@ -62,6 +62,9 @@ class HunterConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => '0'])]
     private int $bonusAfterFailedShot = 0;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => '1'])]
+    private int $numberOfActionsPerCycle = 1;
+
     public function __construct()
     {
         $this->initialStatuses = new ArrayCollection();
@@ -299,6 +302,18 @@ class HunterConfig
     public function setBonusAfterFailedShot(int $bonusAfterFailedShot): static
     {
         $this->bonusAfterFailedShot = $bonusAfterFailedShot;
+
+        return $this;
+    }
+
+    public function getNumberOfActionsPerCycle(): int
+    {
+        return $this->numberOfActionsPerCycle;
+    }
+
+    public function setNumberOfActionsPerCycle(int $numberOfActionsPerCycle): static
+    {
+        $this->numberOfActionsPerCycle = $numberOfActionsPerCycle;
 
         return $this;
     }

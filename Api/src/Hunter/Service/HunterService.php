@@ -30,7 +30,6 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusService;
 use Psr\Log\LoggerInterface;
@@ -86,28 +85,35 @@ class HunterService implements HunterServiceInterface
                 continue;
             }
 
-            $successRate = $hunter->getHitChance();
-            if (!$this->randomService->isSuccessful($successRate)) {
-                $this->addBonusToHunterHitChance($hunter);
-                continue;
-            }
+            $numberOfActions = $hunter->getHunterConfig()->getNumberOfActionsPerCycle();
+            for ($i = 0; $i < $numberOfActions; ++$i) {
+                if (!$hunter->hasSelectedATarget()) {
+                    $this->selectHunterTarget($hunter);
+                    continue;
+                }
 
-            $this->selectHunterTarget($hunter);
-            if (!$hunter->getTarget()->isInBattle()) {
-                continue;
-            }
+                $successRate = $hunter->getHitChance();
+                if (!$this->randomService->isSuccessful($successRate)) {
+                    $this->addBonusToHunterHitChance($hunter);
+                    continue;
+                }
 
-            $this->makeHunterShoot($hunter);
+                if (!$hunter->getTarget()?->isInBattle()) {
+                    continue;
+                }
 
-            // hunter gets a truce cycle after shooting
-            $this->createHunterTruceCycleStatus($hunter);
+                $this->makeHunterShoot($hunter);
 
-            // after a successful shot, reset hit chance to its default value
-            $this->resetHunterHitChance($hunter);
+                // hunter must select a new target after a successful shot
+                $hunter->resetTarget();
 
-            // destroy asteroid if it has shot
-            if ($hunter->getName() === HunterEnum::ASTEROID) {
-                $this->killHunter($hunter);
+                // after a successful shot, reset hit chance to its default value
+                $this->resetHunterHitChance($hunter);
+
+                // destroy asteroid if it has shot
+                if ($hunter->getName() === HunterEnum::ASTEROID) {
+                    $this->killHunter($hunter);
+                }
             }
         }
     }
@@ -130,7 +136,7 @@ class HunterService implements HunterServiceInterface
             $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, $hunterTypes);
 
             // do not create a hunter if not enough points
-            if ($hunterPoints < $hunterProbaCollection->min()) {
+            if ($hunterPoints < $hunterProbaCollection->minElement()) {
                 break;
             }
             $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaCollection(
@@ -199,23 +205,6 @@ class HunterService implements HunterServiceInterface
         }
     }
 
-    private function createHunterTruceCycleStatus(Hunter $hunter): void
-    {
-        $truceCycleStatus = $hunter->getHunterConfig()->getInitialStatuses()->filter(
-            fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === HunterStatusEnum::HUNTER_CHARGE
-        )->first();
-
-        if (!$truceCycleStatus) {
-            throw new \Exception('Hunter config should have a HUNTER_CHARGE status config');
-        }
-        $this->statusService->createStatusFromConfig(
-            $truceCycleStatus,
-            $hunter,
-            [AbstractHunterEvent::HUNTER_SHOT],
-            new \DateTime()
-        );
-    }
-
     private function dropScrap(Hunter $hunter): void
     {
         $scrapDropTable = $hunter->getHunterConfig()->getScrapDropTable();
@@ -280,7 +269,7 @@ class HunterService implements HunterServiceInterface
             return;
         }
 
-        $hunterTarget = $hunter->getTarget()->getTargetEntity();
+        $hunterTarget = $hunter->getTarget()?->getTargetEntity();
 
         // @TODO: handle hunter and merchant targets in the future
         switch ($hunterTarget) {
@@ -294,7 +283,7 @@ class HunterService implements HunterServiceInterface
                 $this->shootAtPlayer($hunterTarget, $damage);
                 break;
             default:
-                throw new \Exception("Unknown hunter target {$hunter->getTarget()->getType()}");
+                throw new \Exception("Unknown hunter target {$hunter->getTarget()?->getType()}");
         }
     }
 

@@ -28,4 +28,8 @@ Mush\Hunter\Entity\HunterConfig:
       groups: [ 'hunter_config_read', 'hunter_config_write' ]
     initialStatuses:
       groups: [ 'hunter_config_write' ]
+    bonusAfterFailedShot:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
+    numberOfActionsPerCycle:
+      groups: [ 'hunter_config_read', 'hunter_config_write' ]
  

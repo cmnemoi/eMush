@@ -68,6 +68,20 @@
                 type="number"
                 :errors="errors.spawnDifficulty"
             />
+            <Input
+                :label="$t('admin.hunterConfig.bonusAfterFailedShot')"
+                id="hunterConfig_bonusAfterFailedShot"
+                v-model="hunterConfig.bonusAfterFailedShot"
+                type="number"
+                :errors="errors.bonusAfterFailedShot"
+            />
+            <Input
+                :label="$t('admin.hunterConfig.numberOfActionsPerCycle')"
+                id="hunterConfig_numberOfActionsPerCycle"
+                v-model="hunterConfig.numberOfActionsPerCycle"
+                type="number"
+                :errors="errors.numberOfActionsPerCycle"
+            />
         </div>
         <MapManager
             :label="$t('admin.hunterConfig.damageRange')"

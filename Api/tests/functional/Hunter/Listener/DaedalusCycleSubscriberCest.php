@@ -241,7 +241,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         // then daedalus hull is damaged twice over the three actions
         // first time, d100 has a target so it shots
         // second time, d1000 has no target so it does not shoot
-        // third time, d1000 has no target so it does not shoot
+        // third time, d1000 has a target so it shots
         $I->assertEquals(
             expected: $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull() - 6 * 2,
             actual: $daedalus->getHull(),

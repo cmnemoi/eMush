@@ -83,25 +83,27 @@ class HunterService implements HunterServiceInterface
         /** @var Hunter $hunter */
         foreach ($attackingHunters as $hunter) {
             $numberOfActions = $hunter->getName() === HunterEnum::DICE ? 3 : 1;
-            if (!$hunter->canShoot()) {
-                continue;
-            }
+            
             for ($i = 0; $i < $numberOfActions; ++$i) {
+                if (!$hunter->hasSelectedATarget()) {
+                    $this->selectHunterTarget($hunter);
+                    continue;
+                }
+                
                 $successRate = $hunter->getHitChance();
                 if (!$this->randomService->isSuccessful($successRate)) {
-                $this->addBonusToHunterHitChance($hunter);
+                    $this->addBonusToHunterHitChance($hunter);
                     continue;
                 }
 
-                $this->selectHunterTarget($hunter);
                 if (!$hunter->getTarget()->isInBattle()) {
                     continue;
                 }
 
                 $this->makeHunterShoot($hunter);
 
-                // hunter gets a truce cycle after shooting
-                $this->createHunterTruceCycleStatus($hunter);
+                // hunter must select a new target after a successful shot
+                $hunter->resetTarget();
 
                 // after a successful shot, reset hit chance to its default value
                 $this->resetHunterHitChance($hunter);
@@ -111,6 +113,7 @@ class HunterService implements HunterServiceInterface
                     $this->killHunter($hunter);
                 }
             }
+
         }
     }
 

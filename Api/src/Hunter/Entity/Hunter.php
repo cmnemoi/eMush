@@ -49,7 +49,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
     private Collection $statuses;
 
     #[ORM\OneToOne(targetEntity: HunterTarget::class, cascade: ['ALL'], orphanRemoval: true)]
-    private HunterTarget $target;
+    private ?HunterTarget $target;
 
     #[ORM\Column(type: 'boolean')]
     private bool $inPool = false;
@@ -60,7 +60,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
         $this->hunterConfig = $hunterConfig;
         $this->modifiers = new ArrayCollection();
         $this->statuses = new ArrayCollection();
-        $this->target = new HunterTarget($this);
+        $this->target = null;
     }
 
     public function getId(): int
@@ -92,7 +92,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
         return $this;
     }
 
-    public function getTarget(): HunterTarget
+    public function getTarget(): ?HunterTarget
     {
         return $this->target;
     }
@@ -255,5 +255,17 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
     public function canShoot(): bool
     {
         return !$this->hasStatus(HunterStatusEnum::HUNTER_CHARGE);
+    }
+
+    public function hasSelectedATarget(): bool
+    {
+        return $this->target !== null;
+    }
+
+    public function resetTarget(): static
+    {
+        $this->target = null;
+
+        return $this;
     }
 }

@@ -24,6 +24,8 @@
         <source>dice.description</source>
         <target>Un gros cube qui tire très très fort
                 //
+                Attaque plusieurs fois par cycle.
+                //
                 Pas de poursuite.</target>
       </segment>
     </unit>

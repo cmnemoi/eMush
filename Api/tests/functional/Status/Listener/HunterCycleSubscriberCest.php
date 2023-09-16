@@ -23,7 +23,5 @@ class HunterCycleSubscriberCest extends AbstractFunctionalTest
         $poolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
         $I->assertCount(4, $this->daedalus->getAttackingHunters());
-
-        $I->seeInRepository(Status::class);
     }
 }

@@ -137,7 +137,6 @@ final class HunterNormalizerTest extends TestCase
     public function testNormalizeReturnsNullChargesForNonAsteroidHunter(): void
     {
         $action = $this->createMock(Action::class);
-        $chargeStatus = $this->createMock(ChargeStatus::class);
         $currentPlayer = $this->createMock(Player::class);
         $daedalus = $this->createMock(Daedalus::class);
         $hunter = $this->createMock(Hunter::class);
@@ -147,14 +146,12 @@ final class HunterNormalizerTest extends TestCase
             'hunter' => $hunter,
         ];
 
-        $chargeStatus->method('getCharge')->willReturn(1);
-
         $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
 
         $hunter->method('getId')->willReturn(1);
         $hunter->method('getName')->willReturn(HunterEnum::HUNTER);
         $hunter->method('getHealth')->willReturn(6);
-        $hunter->method('getStatusByName')->willReturn($chargeStatus);
+        $hunter->method('getStatusByName')->willReturn(null);
         $hunter->method('getDaedalus')->willReturn($daedalus);
 
         $this->translationService
@@ -174,7 +171,7 @@ final class HunterNormalizerTest extends TestCase
             ->with(
                 HunterEnum::HUNTER . '.description',
                 [
-                    'charges' => 1,
+                    'charges' => null,
                     'health' => 6,
                 ],
                 'hunter',

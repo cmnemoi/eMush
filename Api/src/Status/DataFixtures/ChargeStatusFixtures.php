@@ -49,7 +49,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const DID_BORING_SPEECH_STATUS = 'did_boring_speech_status';
     public const ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
     public const ASTEROID_CHARGE = 'asteroid_charge';
-    public const HUNTER_CHARGE = 'hunter_charge';
+    public const TRUCE_CYCLES = 'truce_cycles';
     public const HAS_REJUVENATED = 'has_rejuvenated';
     public const PATROL_SHIP_ARMOR = 'patrol_ship_armor';
     public const PASIPHAE_ARMOR = 'pasiphae_armor';
@@ -343,29 +343,16 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
         $asteroidCharge = new ChargeStatusConfig();
         $asteroidCharge
-            ->setStatusName(HunterStatusEnum::HUNTER_CHARGE)
+            ->setStatusName(HunterStatusEnum::TRUCE_CYCLES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
-            ->setStartCharge(6 + 1) // 6 cycles of truce + 1 for its apparition
-            ->setMaxCharge(6 + 1)
+            ->setStartCharge(6)
+            ->setMaxCharge(6)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
             ->setAutoRemove(true)
             ->buildName(GameConfigEnum::DEFAULT, HunterEnum::ASTEROID)
         ;
         $manager->persist($asteroidCharge);
-
-        $hunterCharge = new ChargeStatusConfig();
-        $hunterCharge
-            ->setStatusName(HunterStatusEnum::HUNTER_CHARGE)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setStartCharge(1 + 1) // 1 cycle of truce + 1 for its apparition
-            ->setMaxCharge(1 + 1)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
-            ->setAutoRemove(true)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
-        $manager->persist($hunterCharge);
 
         $rejuvenationCharge = new ChargeStatusConfig();
         $rejuvenationCharge
@@ -425,7 +412,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($updatingTrackie)
             ->addStatusConfig($already_washed_in_the_sink)
             ->addStatusConfig($asteroidCharge)
-            ->addStatusConfig($hunterCharge)
             ->addStatusConfig($rejuvenationCharge)
             ->addStatusConfig($patrolShipArmor)
             ->addStatusConfig($pasiphaeArmor)
@@ -457,7 +443,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::UPDATING_TRACKIE_STATUS, $updatingTrackie);
         $this->addReference(self::ALREADY_WASHED_IN_THE_SINK, $already_washed_in_the_sink);
         $this->addReference(self::ASTEROID_CHARGE, $asteroidCharge);
-        $this->addReference(self::HUNTER_CHARGE, $hunterCharge);
         $this->addReference(self::PATROL_SHIP_ARMOR, $patrolShipArmor);
         $this->addReference(self::PASIPHAE_ARMOR, $pasiphaeArmor);
     }

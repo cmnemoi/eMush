@@ -33,7 +33,6 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -68,7 +67,6 @@ class DeathByLackOfOxygenCest
         $fireStatusConfig = new ChargeStatusConfig();
         $fireStatusConfig->setStatusName(StatusEnum::FIRE)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($fireStatusConfig);
-        $hunterCharge = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => HunterStatusEnum::HUNTER_CHARGE . '_default']);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
@@ -81,7 +79,7 @@ class DeathByLackOfOxygenCest
             'localizationConfig' => $localizationConfig,
             'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
-            'statusConfigs' => new ArrayCollection([$fireStatusConfig, $hunterCharge]),
+            'statusConfigs' => new ArrayCollection([$fireStatusConfig]),
             'hunterConfigs' => new ArrayCollection($hunterConfigs),
         ]);
 
@@ -189,7 +187,6 @@ class DeathByLackOfOxygenCest
         $fireStatusConfig = new ChargeStatusConfig();
         $fireStatusConfig->setStatusName(StatusEnum::FIRE)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($fireStatusConfig);
-        $hunterCharge = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => HunterStatusEnum::HUNTER_CHARGE . '_default']);
 
         /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['name' => ItemEnum::OXYGEN_CAPSULE]);
@@ -205,7 +202,7 @@ class DeathByLackOfOxygenCest
             'localizationConfig' => $localizationConfig,
             'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
-            'statusConfigs' => new ArrayCollection([$fireStatusConfig, $hunterCharge]),
+            'statusConfigs' => new ArrayCollection([$fireStatusConfig]),
             'hunterConfigs' => new ArrayCollection($hunterConfigs),
         ]);
 
@@ -319,7 +316,6 @@ class DeathByLackOfOxygenCest
         $fireStatusConfig = new ChargeStatusConfig();
         $fireStatusConfig->setStatusName(StatusEnum::FIRE)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($fireStatusConfig);
-        $hunterCharge = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => HunterStatusEnum::HUNTER_CHARGE . '_default']);
 
         /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['name' => ItemEnum::OXYGEN_CAPSULE]);
@@ -335,7 +331,7 @@ class DeathByLackOfOxygenCest
             'localizationConfig' => $localizationConfig,
             'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
-            'statusConfigs' => new ArrayCollection([$fireStatusConfig, $hunterCharge]),
+            'statusConfigs' => new ArrayCollection([$fireStatusConfig]),
             'hunterConfigs' => new ArrayCollection($hunterConfigs),
         ]);
 

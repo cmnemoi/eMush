@@ -63,18 +63,17 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 HunterTargetEnum::PLAYER => 0,
             ])
             ->setBonusAfterFailedShot(0)
+            ->setNumberOfActionsPerCycle(1)
         ;
         $manager->persist($asteroid);
 
         /** @var StatusConfig $hunterCharge */
-        $hunterCharge = $this->getReference(ChargeStatusFixtures::HUNTER_CHARGE);
         $diceDamageRange = $this->buildUniformDamageRange(3, 6);
         $dice = new HunterConfig();
         $dice
             ->setName(HunterEnum::DICE . '_default')
             ->setHunterName(HunterEnum::DICE)
             ->setInitialHealth(30)
-            ->setInitialStatuses([$hunterCharge])
             ->setDamageRange($diceDamageRange)
             ->setHitChance(60)
             ->setDodgeChance(20)
@@ -98,6 +97,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 HunterTargetEnum::PLAYER => 0,
             ])
             ->setBonusAfterFailedShot(10)
+            ->setNumberOfActionsPerCycle(3)
         ;
         $manager->persist($dice);
 
@@ -107,7 +107,6 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(HunterEnum::HUNTER . '_default')
             ->setHunterName(HunterEnum::HUNTER)
             ->setInitialHealth(6)
-            ->setInitialStatuses([$hunterCharge])
             ->setDamageRange($hunterDamageRange)
             ->setHitChance(80)
             ->setDodgeChance(50)
@@ -129,6 +128,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 HunterTargetEnum::PLAYER => 0,
             ])
             ->setBonusAfterFailedShot(10)
+            ->setNumberOfActionsPerCycle(1)
         ;
 
         $manager->persist($hunter);
@@ -139,7 +139,6 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(HunterEnum::SPIDER . '_default')
             ->setHunterName(HunterEnum::SPIDER)
             ->setInitialHealth(6)
-            ->setInitialStatuses([$hunterCharge])
             ->setDamageRange($spiderDamageRange)
             ->setHitChance(80)
             ->setDodgeChance(50)
@@ -161,6 +160,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 HunterTargetEnum::PLAYER => 0,
             ])
             ->setBonusAfterFailedShot(10)
+            ->setNumberOfActionsPerCycle(1)
         ;
 
         $manager->persist($spider);
@@ -171,7 +171,6 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(HunterEnum::TRAX . '_default')
             ->setHunterName(HunterEnum::TRAX)
             ->setInitialHealth(10)
-            ->setInitialStatuses([$hunterCharge])
             ->setDamageRange($traxDamageRange)
             ->setHitChance(50)
             ->setDodgeChance(50)
@@ -194,6 +193,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
                 HunterTargetEnum::PLAYER => 0,
             ])
             ->setBonusAfterFailedShot(10)
+            ->setNumberOfActionsPerCycle(1)
         ;
 
         $manager->persist($trax);

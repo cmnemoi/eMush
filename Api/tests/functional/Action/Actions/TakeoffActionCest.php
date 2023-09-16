@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Action\Actions;
 
+
 use Mush\Action\Actions\Takeoff;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\Fail;

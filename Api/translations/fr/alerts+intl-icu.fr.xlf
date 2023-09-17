@@ -77,7 +77,7 @@
     <unit id="lost_crewmate">
       <segment id="name" state="translated">
         <source>lost_crewmate.name</source>
-        <target>Equipier perdu</target>
+        <target>Équipier perdu</target>
       </segment>
       <segment id="description" state="translated">
         <source>lost_crewmate.description</source>

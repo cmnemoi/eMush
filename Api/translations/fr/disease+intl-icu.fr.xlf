@@ -134,7 +134,7 @@
     <unit id="quincks_oedema">
       <segment id="name" state="translated">
         <source>quincks_oedema.name</source>
-        <target>Oedeme de Quincke</target>
+        <target>Œdème de Quincke</target>
       </segment>
       <segment id="description" state="translated">
         <source>quincks_oedema.description</source>

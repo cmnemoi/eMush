@@ -358,7 +358,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>space.loc_prep</source>
-        <target>dans l' </target>
+        <target>dans l'</target>
       </segment>
     </unit>
   </file>

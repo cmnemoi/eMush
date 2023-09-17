@@ -133,7 +133,7 @@
     <unit id="soil_prevented">
       <segment state="translated">
         <source>soil_prevented</source>
-        <target>C'est dégoûtant... Heureusement que vous aviez votre **Tablier intachable**...</target>
+        <target>C'est dégoutant... Heureusement que vous aviez votre **Tablier intachable**...</target>
       </segment>
     </unit>
     <unit id="clumsiness">

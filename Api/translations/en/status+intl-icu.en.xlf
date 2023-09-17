@@ -316,7 +316,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>migraine.description</source>
-        <target>A particularly tenacious heavy migraine is harrassing the patient at the moment, but it'll eventually go away...</target>
+        <target>A particularly tenacious heavy migraine is harassing the patient at the moment, but it'll eventually go away...</target>
       </segment>
       <segment id="effect" state="initial">
         <source>migraine.examine</source>
@@ -540,7 +540,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>chronic_vertigo.description</source>
-        <target>You have chronic vertigo which proves to be quite debiliating.</target>
+        <target>You have chronic vertigo which proves to be quite debilitating.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>chronic_vertigo.examine</source>

@@ -890,7 +890,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>dysfunctional_liver.description</source>
-        <target>Vous pouvez encore vivre avec votre foie détruit mais combien de temps et dans quelles conditions ?</target>
+        <target>Vous pouvez encore vivre avec votre foie détruit, mais combien de temps et dans quelles conditions ?</target>
       </segment>
       <segment id="effect" state="translated">
         <source>dysfunctional_liver.examine</source>

@@ -1277,12 +1277,12 @@ The quadrometric compass means you can find yourself if you get lost on an exped
       </segment>
       <segment id="description" state="translated">
         <source>rope.description</source>
-        <target>On expeditions, the rope allows you to get out of an impass.
+        <target>On expeditions, the rope allows you to get out of an dead-end.
     Expedition : Removes possibility of personal damage which could happen in "Seismic", "Grotto" and "Mountain" areas, but does not prevent sudden deaths.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>rope.examine</source>
-        <target>On expeditions, the rope allows you to get out of an impass.
+        <target>On expeditions, the rope allows you to get out of an dead-end.
     Expedition : Removes possibility of personal damage which could happen in "Seismic", "Grotto" and "Mountain" areas, but does not prevent sudden deaths.
 
 Looking at the probability statistics of what one would conceivably find aboard the Daedalus, the rope got zero. However...</target>
@@ -2037,7 +2037,7 @@ When this is on ther Bridge, the Liquid Map will reveal one or two sectors of a 
       <segment id="examine" state="translated">
         <source>magellan_liquid_map.examine</source>
         <target>A beautiful map which clearly displays all the info you might need on any of the planets in the Magellan system.
-When this is on ther Bridge, the Liquid Map will reveal one or two sectors of a discovered planet
+When this is on the Bridge, the Liquid Map will reveal one or two sectors of a discovered planet
 You get the feeling that this thing is trying to speak to you. You must be dreaming.</target>
       </segment>
     </unit>
@@ -2888,11 +2888,11 @@ If you take care of this plant it will repay you with Oxygen and delicious Botti
       </segment>
       <segment id="description" state="translated">
         <source>platacia.description</source>
-        <target>The Platacia is an allergic savannah tree with no true interest. Allows to accomodate a plant of the hydroponic garden.</target>
+        <target>The Platacia is an allergic savannah tree with no true interest. Allows to accommodate a plant of the hydroponic garden.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>platacia.examine</source>
-        <target>The Platacia is an allergic savannah tree with no true interest. Allows to accomodate a plant of the hydroponic garden.</target>
+        <target>The Platacia is an allergic savannah tree with no true interest. Allows to accommodate a plant of the hydroponic garden.</target>
       </segment>
     </unit>
     <unit id="tubiliscus">

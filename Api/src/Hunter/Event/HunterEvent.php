@@ -9,6 +9,7 @@ use Mush\RoomLog\Event\LoggableEventInterface;
 
 class HunterEvent extends AbstractGameEvent implements LoggableEventInterface
 {
+    public const ASTEROID_DESTRUCTION = 'asteroid.destruction';
     public const HUNTER_DEATH = 'hunter.death';
 
     protected Hunter $hunter;

@@ -64,17 +64,24 @@ class HunterService implements HunterServiceInterface
         return $this->entityManager->getRepository(Hunter::class)->find($id);
     }
 
-    public function killHunter(Hunter $hunter): void
+    public function killHunter(Hunter $hunter, array $reasons, Player $author = null): void
     {
         $daedalus = $hunter->getDaedalus();
-
-        $this->dropScrap($hunter);
 
         $daedalus->getDaedalusInfo()->getClosedDaedalus()->incrementNumberOfHuntersKilled();
 
         $daedalus->getAttackingHunters()->removeElement($hunter);
-        $this->entityManager->remove($hunter);
-        $this->persist([$daedalus]);
+
+        $this->delete([$hunter]);
+
+        $hunterDeathEvent = new HunterEvent(
+            $hunter,
+            VisibilityEnum::PUBLIC,
+            $reasons,
+            new \DateTime()
+        );
+        $hunterDeathEvent->setAuthor($author);
+        $this->eventService->callEvent($hunterDeathEvent, HunterEvent::HUNTER_DEATH);
     }
 
     public function makeHuntersShoot(HunterCollection $attackingHunters): void
@@ -112,7 +119,7 @@ class HunterService implements HunterServiceInterface
 
                 // destroy asteroid if it has shot
                 if ($hunter->getName() === HunterEnum::ASTEROID) {
-                    $this->killHunter($hunter);
+                    $this->killHunter($hunter, [HunterEvent::ASTEROID_DESTRUCTION]);
                 }
             }
         }

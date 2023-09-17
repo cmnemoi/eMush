@@ -20,8 +20,8 @@ class HunterSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            HunterEvent::HUNTER_DEATH => ['onHunterDeath', -10], // kill the hunter before deleting the alert (how does it work lol)
-            HunterPoolEvent::UNPOOL_HUNTERS => ['onUnpoolHunters', -10],
+            HunterEvent::HUNTER_DEATH => 'onHunterDeath',
+            HunterPoolEvent::UNPOOL_HUNTERS => 'onUnpoolHunters',
         ];
     }
 

@@ -81,14 +81,14 @@ class HunterService implements HunterServiceInterface
     {
         /** @var Hunter $hunter */
         foreach ($attackingHunters as $hunter) {
-            if (!$hunter->canShoot()) {
-                continue;
-            }
-
             $numberOfActions = $hunter->getHunterConfig()->getNumberOfActionsPerCycle();
             for ($i = 0; $i < $numberOfActions; ++$i) {
                 if (!$hunter->hasSelectedATarget()) {
                     $this->selectHunterTarget($hunter);
+                    continue;
+                }
+
+                if (!$hunter->canShoot()) {
                     continue;
                 }
 

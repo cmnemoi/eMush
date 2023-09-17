@@ -31,7 +31,7 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Uid\Uuid;
 
-class HunterServiceCest extends AbstractFunctionalTest
+class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private HunterService $hunterService;

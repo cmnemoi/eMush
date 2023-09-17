@@ -811,8 +811,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     male {**{character}** ejected from one-seater.}
     female {**{character}** ejected from one-seater.}
     other {**{character}** ejected from one-seater.}
-}
-</target>
+}</target>
       </segment>
     </unit>
   </file>

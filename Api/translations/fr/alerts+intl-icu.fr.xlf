@@ -12,7 +12,7 @@
       </segment>
       <segment id="report" state="translated">
         <source>broken_doors.report</source>
-        <target>**{character}** a reporté une porte bloquée {loc_prep}**{place}**.</target>
+        <target>**{character}** a reporté une porte bloquée {loc_prep} **{place}**.</target>
       </segment>
     </unit>
     <unit id="fires">
@@ -26,7 +26,7 @@
       </segment>
       <segment id="report" state="translated">
         <source>fires.report</source>
-        <target>**{character}** a reporté un incendie {loc_prep}**{place}**.</target>
+        <target>**{character}** a reporté un incendie {loc_prep} **{place}**.</target>
       </segment>
     </unit>
     <unit id="broken_equipments">
@@ -40,7 +40,7 @@
       </segment>
       <segment id="report" state="translated">
         <source>broken_equipments.report</source>
-        <target>**{character}** a reporté un équipement endommagé {loc_prep}**{place}**.</target>
+        <target>**{character}** a reporté un équipement endommagé {loc_prep} **{place}**.</target>
       </segment>
     </unit>
     <unit id="no_gravity">

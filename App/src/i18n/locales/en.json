@@ -523,7 +523,9 @@
 			"initialStatuses": "Status de départ",
 			"scrapDropTable": "Table des débris laissés à la mort (débris => probabilité)",
 			"spawnDifficulty": "Jour d'apparition",
-			"numberOfDroppedScrap": "Nombre de débris laissés à la mort (nombre => probabilité)"
+			"numberOfDroppedScrap": "Nombre de débris laissés à la mort (nombre => probabilité)",
+			"bonusAfterFailedShot": "Bonus pour toucher après un tir raté",
+			"numberOfActionsPerCycle": "Nombre d'actions par cycle"
 		},
 		"playerList": {
 			"closePlayer": "Fermer (archiver) ce joueur",

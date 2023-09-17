@@ -15,10 +15,12 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
+use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Hunter\Service\HunterService;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -31,6 +33,7 @@ use Symfony\Component\Uid\Uuid;
 
 class HunterServiceCest extends AbstractFunctionalTest
 {
+    private EventServiceInterface $eventService;
     private HunterService $hunterService;
     private GameEquipment $pasiphae;
     private ChargeStatusConfig $pasiphaeArmorStatusConfig;
@@ -40,6 +43,7 @@ class HunterServiceCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->hunterService = $I->grabService(HunterService::class);
 
         $pasiphaeRoom = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
@@ -366,7 +370,8 @@ class HunterServiceCest extends AbstractFunctionalTest
         $I->haveInRepository($daedalus);
 
         $daedalus->setHunterPoints(25);
-        $this->hunterService->unpoolHunters($daedalus, new \DateTime());
+        $hunterPoolEvent = new HunterPoolEvent($daedalus, ['test'], new \DateTime());
+        $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
         /** @var Hunter $asteroid */
         $asteroid = $daedalus

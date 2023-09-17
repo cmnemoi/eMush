@@ -72,8 +72,7 @@ class HunterService implements HunterServiceInterface
 
         $daedalus->getAttackingHunters()->removeElement($hunter);
 
-        $this->entityManager->remove($hunter);
-        $this->persist([$daedalus]);
+        $this->delete([$hunter]);
 
         $hunterDeathEvent = new HunterEvent(
             $hunter,

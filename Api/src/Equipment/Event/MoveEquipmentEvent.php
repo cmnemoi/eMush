@@ -15,7 +15,7 @@ final class MoveEquipmentEvent extends InteractWithEquipmentEvent
     public function __construct(
         GameEquipment $equipment,
         EquipmentHolderInterface $newHolder,
-        Player $author = null,
+        Player $author,
         string $visibility,
         array $tags,
         \DateTime $time

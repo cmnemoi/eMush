@@ -45,7 +45,7 @@ class GameConfigDataLoader extends ConfigDataLoader
         ConsumableDiseaseConfigRepository $consumableDiseaseConfigRepository,
         HunterConfigRepository $hunterConfigRepository
     ) {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->gameConfigRepository = $gameConfigRepository;
         $this->daedalusConfigRepository = $daedalusConfigRepository;
         $this->difficultyConfigRepository = $difficultyConfigRepository;

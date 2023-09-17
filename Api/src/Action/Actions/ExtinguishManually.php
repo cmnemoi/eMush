@@ -12,7 +12,7 @@ use Mush\Status\Event\StatusEvent;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * Class implemeting the Manual Extinguish action.
+ * Class implementing the Manual Extinguish action.
  * This action is granted by the Firefighter skill. (@TODO).
  *
  * For 1 Action Point, this action gives a 10% chance to extinguish a fire.

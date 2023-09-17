@@ -14,7 +14,7 @@ class TriumphConfigDataLoader extends ConfigDataLoader
         EntityManagerInterface $entityManager,
         TriumphConfigRepository $triumphConfigRepository)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->triumphConfigRepository = $triumphConfigRepository;
     }
 

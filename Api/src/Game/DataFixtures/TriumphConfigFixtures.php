@@ -368,13 +368,13 @@ class TriumphConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($edenComputed);
 
-        $anathem = new TriumphConfig();
-        $anathem
-            ->setName(TriumphEnum::ANATHEM)
+        $anathema = new TriumphConfig();
+        $anathema
+            ->setName(TriumphEnum::ANATHEMA)
             ->setTriumph(8)
             ->setTeam(VisibilityEnum::HUMAN)
         ;
-        $manager->persist($anathem);
+        $manager->persist($anathema);
 
         $pregnancy = new TriumphConfig();
         $pregnancy
@@ -406,7 +406,7 @@ class TriumphConfigFixtures extends Fixture implements DependentFixtureInterface
             $rebelWolf, $niceSurgery,
             $edenByCrewAlive, $edenByAlienPlant, $edenGender, $eden, $edenCat, $edenCatDead,
             $edenCatMush, $edenDisease, $edenEngineers, $edenBiologist, $edenMushIntruder, $edenByPregnant, $edenComputed,
-            $anathem, $pregnancy, $allPregnant,
+            $anathema, $pregnancy, $allPregnant,
         ]);
         $gameConfig->setTriumphConfig($triumphConfigs);
 

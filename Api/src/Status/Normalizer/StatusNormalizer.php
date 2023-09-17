@@ -7,9 +7,9 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class StatusNormalizer implements ContextAwareNormalizerInterface
+class StatusNormalizer implements NormalizerInterface
 {
     private TranslationServiceInterface $translationService;
 

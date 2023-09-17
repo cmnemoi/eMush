@@ -18,7 +18,7 @@ class SymptomConfigDataLoader extends ConfigDataLoader
         SymptomConfigRepository $symptomConfigRepository,
         SymptomActivationRequirementRepository $symptomActivationRequirementRepository)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->symptomConfigRepository = $symptomConfigRepository;
         $this->symptomActivationRequirementRepository = $symptomActivationRequirementRepository;
     }

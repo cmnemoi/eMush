@@ -47,7 +47,7 @@ class TriumphConfigData
         ['name' => 'eden_mush_intruder', 'triumph' => -16, 'is_all_crew' => true, 'team' => VisibilityEnum::PUBLIC],
         ['name' => 'eden_by_pregnant', 'triumph' => 8, 'is_all_crew' => true, 'team' => VisibilityEnum::PUBLIC],
         ['name' => 'eden_computed', 'triumph' => 4, 'is_all_crew' => true, 'team' => VisibilityEnum::PUBLIC],
-        ['name' => 'anathem', 'triumph' => 8, 'is_all_crew' => false, 'team' => VisibilityEnum::PUBLIC],
+        ['name' => 'anathema', 'triumph' => 8, 'is_all_crew' => false, 'team' => VisibilityEnum::PUBLIC],
         ['name' => 'pregnancy', 'triumph' => 8, 'is_all_crew' => false, 'team' => VisibilityEnum::PUBLIC],
         ['name' => 'all_pregnant', 'triumph' => 2, 'is_all_crew' => true, 'team' => VisibilityEnum::PUBLIC],
     ];

@@ -349,10 +349,10 @@
         <target>fear_of_cats_notif</target>
       </segment>
     </unit>
-    <unit id="fitfull_sleep">
-      <segment id="fitfull_sleep" state="initial">
-        <source>fitfull_sleep</source>
-        <target>fitfull_sleep</target>
+    <unit id="fitful_sleep">
+      <segment id="fitful_sleep" state="initial">
+        <source>fitful_sleep</source>
+        <target>fitful_sleep</target>
       </segment>
     </unit>
     <unit id="surgery_success">

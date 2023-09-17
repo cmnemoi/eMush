@@ -88,16 +88,16 @@ class CycleEventCest extends AbstractFunctionalTest
         $I->assertCount(1, $this->player1->getStatuses());
         $I->assertCount(1, $this->player1->getModifiers());
 
-        /** @var TriggerEventModifierConfig $fitfullModifierConfig */
-        $fitfullModifierConfig = $I->grabEntityFromRepository(
-            TriggerEventModifierConfig::class, ['name' => 'cycle1ActionLostRand16FitfullSleep']
+        /** @var TriggerEventModifierConfig $fitfulModifierConfig */
+        $fitfulModifierConfig = $I->grabEntityFromRepository(
+            TriggerEventModifierConfig::class, ['name' => 'cycle1ActionLostRand16FitfulSleep']
         );
 
-        $fitfullModifierConfig->setModifierActivationRequirements([]);
-        $I->flushToDatabase($fitfullModifierConfig);
+        $fitfulModifierConfig->setModifierActivationRequirements([]);
+        $I->flushToDatabase($fitfulModifierConfig);
 
-        $fitfullModifier = new GameModifier($this->player1, $fitfullModifierConfig);
-        $I->haveInRepository($fitfullModifier);
+        $fitfulModifier = new GameModifier($this->player1, $fitfulModifierConfig);
+        $I->haveInRepository($fitfulModifier);
 
         $daedalusCycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
@@ -107,7 +107,7 @@ class CycleEventCest extends AbstractFunctionalTest
         $I->seeInRepository(RoomLog::class, [
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => PlayerModifierLogEnum::FITFULL_SLEEP,
+            'log' => PlayerModifierLogEnum::FITFUL_SLEEP,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }

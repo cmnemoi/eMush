@@ -156,7 +156,7 @@ class TranslationServiceTest extends TestCase
             ->shouldReceive('trans')
             ->with(
                 EquipmentEnum::ANTENNA . '.short_name',
-                ['target_item' => EquipmentEnum::ANTENNA, 'end_cause' => EndCauseEnum::NO_INFIRMERY],
+                ['target_item' => EquipmentEnum::ANTENNA, 'end_cause' => EndCauseEnum::NO_INFIRMERIE],
                 'items',
                 LanguageEnum::FRENCH
             )
@@ -168,7 +168,7 @@ class TranslationServiceTest extends TestCase
                 EquipmentEnum::ANTENNA . '.gender',
                 [
                     'target_item' => EquipmentEnum::ANTENNA,
-                    'end_cause' => EndCauseEnum::NO_INFIRMERY,
+                    'end_cause' => EndCauseEnum::NO_INFIRMERIE,
                     'target_equipment' => 'Antenne',
                 ],
                 'items',
@@ -182,7 +182,7 @@ class TranslationServiceTest extends TestCase
                 EquipmentEnum::ANTENNA . '.first_letter',
                 [
                     'target_item' => EquipmentEnum::ANTENNA,
-                    'end_cause' => EndCauseEnum::NO_INFIRMERY,
+                    'end_cause' => EndCauseEnum::NO_INFIRMERIE,
                     'target_equipment' => 'Antenne',
                     'target_equipment_gender' => 'female',
                 ],
@@ -197,7 +197,7 @@ class TranslationServiceTest extends TestCase
                 EquipmentEnum::ANTENNA . '.plural_name',
                 [
                     'target_item' => EquipmentEnum::ANTENNA,
-                    'end_cause' => EndCauseEnum::NO_INFIRMERY,
+                    'end_cause' => EndCauseEnum::NO_INFIRMERIE,
                     'target_equipment' => 'Antenne',
                     'target_equipment_gender' => 'female',
                     'target_equipment_first_letter' => 'vowel',
@@ -211,10 +211,10 @@ class TranslationServiceTest extends TestCase
         $this->translator
             ->shouldReceive('trans')
             ->with(
-                EndCauseEnum::NO_INFIRMERY . '.name',
+                EndCauseEnum::NO_INFIRMERIE . '.name',
                 [
                     'target_item' => EquipmentEnum::ANTENNA,
-                    'end_cause' => EndCauseEnum::NO_INFIRMERY,
+                    'end_cause' => EndCauseEnum::NO_INFIRMERIE,
                     'target_equipment' => 'Antenne',
                     'target_equipment_gender' => 'female',
                     'target_equipment_first_letter' => 'vowel',
@@ -237,7 +237,7 @@ class TranslationServiceTest extends TestCase
 
         $initialParameters = [
             'target_item' => EquipmentEnum::ANTENNA,
-            'end_cause' => EndCauseEnum::NO_INFIRMERY,
+            'end_cause' => EndCauseEnum::NO_INFIRMERIE,
         ];
 
         $this->translator->shouldReceive('trans')

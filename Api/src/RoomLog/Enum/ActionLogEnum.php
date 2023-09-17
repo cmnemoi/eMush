@@ -110,7 +110,7 @@ class ActionLogEnum
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';
 
-    public const PLAY_ARCADE_SUCCESS = 'play_arcade_succes';
+    public const PLAY_ARCADE_SUCCESS = 'play_arcade_success';
     public const PLAY_ARCADE_FAIL = 'play_arcade_fail';
 
     public const ACTION_LOGS = [

@@ -259,15 +259,15 @@
         <target>A mutated can't do that. He can only move, sabotage and strike, and that's more than enough...</target>
       </segment>
     </unit>
-    <unit id="wisper_mute">
+    <unit id="whisper_mute">
       <segment id="description" state="translated">
-        <source>wisper_mute.description</source>
+        <source>whisper_mute.description</source>
         <target>You cannot communicate anymore.</target>
       </segment>
     </unit>
-    <unit id="wisper_no_available_chanel">
+    <unit id="whisper_no_available_chanel">
       <segment id="description" state="translated">
-        <source>wisper_no_available_chanel.description</source>
+        <source>whisper_no_available_chanel.description</source>
         <target>This crewmate is already too busy with other conversations.</target>
       </segment>
     </unit>
@@ -283,15 +283,15 @@
         <target>There is already a pariah onboard!</target>
       </segment>
     </unit>
-    <unit id="lonely_aprenticeship">
+    <unit id="lonely_apprenticeship">
       <segment id="description" state="translated">
-        <source>lonely_aprenticeship.description</source>
+        <source>lonely_apprenticeship.description</source>
         <target>You will need other crew members to do this.</target>
       </segment>
     </unit>
-    <unit id="list_alredy_printed">
+    <unit id="list_already_printed">
       <segment id="description" state="final">
-        <source>list_alredy_printed.description</source>
+        <source>list_already_printed.description</source>
         <target>You have already printed this information.</target>
       </segment>
     </unit>
@@ -391,9 +391,9 @@
         <target>PILGRED is not operational.</target>
       </segment>
     </unit>
-    <unit id="not_enought_map_fragments">
+    <unit id="not_enough_map_fragments">
       <segment id="description" state="translated">
-        <source>not_enought_map_fragments.description</source>
+        <source>not_enough_map_fragments.description</source>
         <target>This starmap shard is interesting. Maybe with a few more pieces, you could learn more about its origin.</target>
       </segment>
     </unit>

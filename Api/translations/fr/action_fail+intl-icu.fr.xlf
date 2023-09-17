@@ -282,15 +282,15 @@
         <target>Un muté ne peut pas faire cela. Il peut seulement se déplacer, saboter et frapper, et c'est largement suffisant...</target>
       </segment>
     </unit>
-    <unit id="wisper_mute">
+    <unit id="whisper_mute">
       <segment id="description" state="translated">
-        <source>wisper_mute.description</source>
+        <source>whisper_mute.description</source>
         <target>Vous ne pouvez plus communiquer.</target>
       </segment>
     </unit>
-    <unit id="wisper_no_available_chanel">
+    <unit id="whisper_no_available_chanel">
       <segment id="description" state="translated">
-        <source>wisper_no_available_chanel.description</source>
+        <source>whisper_no_available_chanel.description</source>
         <target>Cet équipier est déjà trop pris par d'autres conversations.</target>
       </segment>
     </unit>
@@ -310,15 +310,15 @@
         <target>Il y a déjà un paria à bord !</target>
       </segment>
     </unit>
-    <unit id="lonely_aprenticeship">
+    <unit id="lonely_apprenticeship">
       <segment id="description" state="translated">
-        <source>lonely_aprenticeship.description</source>
+        <source>lonely_apprenticeship.description</source>
         <target>Pour réaliser cette action, vous avez besoin d'autres équipiers.</target>
       </segment>
     </unit>
-    <unit id="list_alredy_printed">
+    <unit id="list_already_printed">
       <segment id="description" state="final">
-        <source>list_alredy_printed.description</source>
+        <source>list_already_printed.description</source>
         <target>Vous avez déjà imprimé ces informations.</target>
       </segment>
     </unit>
@@ -422,9 +422,9 @@
         <target>PILGRED n'est pas opérationnel.</target>
       </segment>
     </unit>
-    <unit id="not_enought_map_fragments">
+    <unit id="not_enough_map_fragments">
       <segment id="description" state="translated">
-        <source>not_enought_map_fragments.description</source>
+        <source>not_enough_map_fragments.description</source>
         <target>Ce morceau de carte stellaire est intéressant, peut-être qu'avec un peu plus d'exemplaires, vous pourriez en apprendre plus sur leur origine.</target>
       </segment>
     </unit>

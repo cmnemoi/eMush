@@ -1207,7 +1207,7 @@ class ActionData
             'types' => [],
             'target' => null,
             'scope' => 'current',
-            'visibilities' => ['success' => 'secret', 'fail' => 'privatie'],
+            'visibilities' => ['success' => 'secret', 'fail' => 'private'],
             'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

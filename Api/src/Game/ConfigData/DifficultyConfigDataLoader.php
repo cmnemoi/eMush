@@ -14,7 +14,7 @@ class DifficultyConfigDataLoader extends ConfigDataLoader
         EntityManagerInterface $entityManager,
         DifficultyConfigRepository $difficultyConfigRepository)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->difficultyConfigRepository = $difficultyConfigRepository;
     }
 

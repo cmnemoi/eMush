@@ -14,9 +14,9 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class ActionNormalizer implements ContextAwareNormalizerInterface
+class ActionNormalizer implements NormalizerInterface
 {
     private TranslationServiceInterface $translationService;
     private ActionStrategyServiceInterface $actionStrategyService;

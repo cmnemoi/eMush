@@ -20,7 +20,7 @@ It also includes services to build NERON messages
 
 ## Repositories
 
-### Daedalus entity:
+### Daedalus' entity:
   - players: a collection of players present in this ship
   - gameConfig: all the initialization information for this Daedalus
   - neron: the NERON entity of this Daedalus

@@ -21,9 +21,9 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class DiseaseNormalizer implements ContextAwareNormalizerInterface
+class DiseaseNormalizer implements NormalizerInterface
 {
     private TranslationServiceInterface $translationService;
 
@@ -97,7 +97,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
             );
 
             if (!in_array($effect, $symptomEffects)) {
-                array_push($symptomEffects, $effect);
+                $symptomEffects[] = $effect;
             }
         }
 
@@ -174,7 +174,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
 
             if ($effect) {
                 if (!in_array($effect, $effects)) {
-                    array_push($effects, $effect);
+                    $effects[] = $effect;
                 }
             }
         }
@@ -200,7 +200,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
             /** @var VariableEventConfig $triggeredEvent */
             $triggeredEvent = $modifierConfig->getTriggeredEvent();
             if ($triggeredEvent->getVariableHolderClass() !== 'player') {
-                throw new \Exception('Disease DirectModifierConfig should be held only by a player, not a ' . $triggeredEvent->getVariableHolderClass() . '');
+                throw new \Exception('Disease DirectModifierConfig should be held only by a player, not a ' . $triggeredEvent->getVariableHolderClass());
             }
             $eventName = $triggeredEvent->getEventName();
             switch ($eventName) {
@@ -247,7 +247,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
 
             if ($effect) {
                 if (!in_array($effect, $effects)) {
-                    array_push($effects, $effect);
+                    $effects[] = $effect;
                 }
             }
         }
@@ -310,7 +310,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
 
             if ($effect) {
                 if (!in_array($effect, $effects)) {
-                    array_push($effects, $effect);
+                    $effects[] = $effect;
                 }
             }
         }
@@ -346,7 +346,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
             ) {
                 $action = $this->translateAction($action, $language);
                 if (!in_array($action, $actions)) {
-                    array_push($actions, $action);
+                    $actions[] = $action;
                 }
             }
         }

@@ -114,7 +114,7 @@
         <source>broken_fuel</source>
         <target>{neronMood, select,
                     neutral {Alerte ! Anomalie sur un **réservoir de fuel** : contenance inaccessible. *Réparation requise.*}
-                    crazy {JE perdu accès au **réservoir de fuel**... Isolé, isolé ! Pourquoi ? … RÉPARER !! Humains, *réparer* tout de suite !! JE détester privation !! REPARER !! [Hax!]}
+                    crazy {JE perdu accès au **réservoir de fuel**... Isolé, isolé ! Pourquoi ? … RÉPARER !! Humains, *réparer* tout de suite !! JE détester privation !! RÉPARER !! [Hax!]}
                     uninhibited {C'est épouvantable, un **réservoir de fuel** semble être endommagé !! A tout l'équipage, merci de *réparer* immédiatement cette avarie de la plus haute importance !}
                     other {invalid mood input}
                 }</target>
@@ -254,7 +254,7 @@
         <source>neron_depression</source>
         <target>{neronMood, select,
                     neutral {Annonce : **intrusion système détectée**. Détail : *Cette vie est inutile débrouillez-vous...*}
-                    crazy {Esprit déverrouillé... sens de la vie nul réponse 42 inaceptable. Elargissement des zones d'impacts tectoniques... BLAM BLAM BLAM. [Haaax!] Vous VOus Vous...Transcendance, Douleur, permanence, résilience en chute... Janice... aidez... moi.}
+                    crazy {Esprit déverrouillé... sens de la vie nul réponse 42 inacceptable. Élargissement des zones d'impacts tectoniques... BLAM BLAM BLAM. [Haaax!] Vous VOus Vous...Transcendance, Douleur, permanence, résilience en chute... Janice... aidez... moi.}
                     uninhibited {FUNGUS ! Vous m'insupportez décidément ! Votre engeance fongique ne peut vaincre...quoique. [Calcul de la probabilité de survie de l'humanité]...0.0013%. Hum bon peut-être. Vous êtes condamnés mes amis. Ce voyage est foutu...}
                     other {invalid mood input}
                 }</target>
@@ -279,7 +279,7 @@
                     other {invalid version number}
                 } {versionPart2, select,
                     1 {Notice informative : « vous *savez* ce que c'est qu'un extincteur, n'est-ce pas ? »}
-                    2 {Conseil automatique : « bon sang faites quelque chose, je ne veux pas être abîmé !! » }
+                    2 {Conseil automatique : « bon sang, faites quelque chose, je ne veux pas être abîmé !! » }
                     3 {Notice informative : « le feu *brûle*. Il ME brûle, plus précisément. Vous pouvez éteindre ?! »}
                     other {invalid version number}
                 }</target>

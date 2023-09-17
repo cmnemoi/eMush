@@ -44,7 +44,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
     public const CYCLE_1_HEALTH_LOST_RAND_10 = 'cycle_1_health_lost_rand_10';
     public const CYCLE_1_ACTION_LOST_RAND_16 = 'cycle_1_action_lost_rand_16';
     public const CYCLE_1_HEALTH_LOST_RAND_16 = 'cycle_1_health_lost_rand_16';
-    public const CYCLE_1_ACTION_LOST_RAND_16_FITFULL_SLEEP = 'cycle_1_action_lost_rand_16_fitfull_sleep';
+    public const CYCLE_1_ACTION_LOST_RAND_16_FITFUL_SLEEP = 'cycle_1_action_lost_rand_16_fitful_sleep';
     public const CYCLE_1_ACTION_LOST_RAND_20 = 'cycle_1_action_lost_rand_20';
     public const CYCLE_1_ACTION_LOST_RAND_30 = 'cycle_1_action_lost_rand_30';
     public const CYCLE_2_ACTION_LOST_RAND_40 = 'cycle_2_action_lost_rand_40';
@@ -407,17 +407,17 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($increaseCycleDiseaseChances10);
 
-        $cycle1ActionLostRand16FitfullSleep = new TriggerEventModifierConfig('cycle1ActionLostRand16FitfullSleep');
-        $cycle1ActionLostRand16FitfullSleep
+        $cycle1ActionLostRand16FitfulSleep = new TriggerEventModifierConfig('cycle1ActionLostRand16FitfulSleep');
+        $cycle1ActionLostRand16FitfulSleep
             ->setTriggeredEvent($eventConfigLose1Action)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement16)
             ->addModifierRequirement($lyingDownActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::FITFULL_SLEEP)
+            ->setModifierName(ModifierNameEnum::FITFUL_SLEEP)
         ;
-        $manager->persist($cycle1ActionLostRand16FitfullSleep);
+        $manager->persist($cycle1ActionLostRand16FitfulSleep);
 
         $manager->flush();
 
@@ -435,7 +435,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $this->addReference(self::CYCLE_1_HEALTH_LOST_RAND_10, $cycle1HealthLostRand10);
         $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_16, $cycle1ActionLostRand16);
         $this->addReference(self::CYCLE_1_HEALTH_LOST_RAND_16, $cycle1HealthLostRand16);
-        $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_16_FITFULL_SLEEP, $cycle1ActionLostRand16FitfullSleep);
+        $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_16_FITFUL_SLEEP, $cycle1ActionLostRand16FitfulSleep);
         $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_20, $cycle1ActionLostRand20);
         $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_30, $cycle1ActionLostRand30);
         $this->addReference(self::CYCLE_2_ACTION_LOST_RAND_40, $cycle2ActionLostRand40);

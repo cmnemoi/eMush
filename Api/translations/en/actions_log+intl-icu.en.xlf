@@ -507,14 +507,14 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     7 {Grand is our destiny, I tell you! Let us take back this formidable vessel. On board of it is the most valiant crew. We shall succeed in getting rid of all these Hunters. Let us celebrate humanity's future victory over the Mush!}
     8 {I had a dream. And in this dream, a new humanity greets the battered hulk of the Daedalus before launching a huge fleet to reconquer Sol, armed with its immunity to the Mush. I have witnessed the future - of that, I am certain. We shall succeed. WE SHALL SUCCEED!}
     9 {I can see it in your eyes: the same dread that could engulf my heart. A day may come when the courage of humanity will fail, when all of us will succumb to infection. But that day has not yet come to pass. Today, we fight! I order you to stand proud, Humans of Sol!}
-    10 {Should the attacks not cease and should the whole world not survive this epos, we may yet be proud to be the crew that vanguards the last hope to the edge of space, to the promised land. Never forget: We are the FUTURE!}
+    10 {Should the attacks not cease and should the whole world not survive this epoch, we may yet be proud to be the crew that vanguards the last hope to the edge of space, to the promised land. Never forget: We are the FUTURE!}
     11 {My friends, the hour is perilous, I'm not going to hide it from you. But where others give up, WE will know how to make a difference, because WE are the cream of the crop and such is our duty!}
     12 {Do not forget that we have been chosen amongst all to save humanity. No one is better-suited than us. Remember all of those who remained at the mercy of the Mush to make this voyage possible. Do not let them down!}
     13 {We have been, and may still be overwhelmed by the force of the mushrooms! But has the final word been spoken? Should hope disappear? Is our defeat final? No! The flame of resistance must not be snuffed out, and will not be snuffed out.}
-    14 {Your situation may seem hopeless. Some of you may have lost familiy and friends, but know that you are the lucky ones! Why, you ask? Because you've got me as your superior!}
+    14 {Your situation may seem hopeless. Some of you may have lost family and friends, but know that you are the lucky ones! Why, you ask? Because you've got me as your superior!}
     15 {Pull yourselves together, you bunch of downers! The enemy is at our doorstep, but we shall atomize it! The Mush won't get us. We will crush them like common mushrooms. We are the best, we will emerge victorious!}
     16 {Tap, tap, tap, 1, 2, 1, 2, can you hear me? I'll make it nice and simple for you, slowpokes! Together with Stephen, we've prepared a maxi-sized chocolate cake for you, and I'm counting on all of you to dig in! Guaranteed laxative-free this time! TO THE TABLE!!!}
-    17 {ALL TOGETHER! Hunter, if I catch ya, YOU DIE! Booooya! Mush, if I find ya, I'll PUT YOU DOWN! Booooya! Spores tremble from the sound of our booming cries! Booooya! Cuz' with the Deadalus, soon we will find cirruses, crocuses and other prunuses! Booooya!}
+    17 {ALL TOGETHER! Hunter, if I catch ya, YOU DIE! Booooya! Mush, if I find ya, I'll PUT YOU DOWN! Booooya! Spores tremble from the sound of our booming cries! Booooya! Cuz' with the Deadalus, soon we will find citruses, crocuses and other prunuses! Booooya!}
     18 {You may start to worry when the Mush infect me, but for at the moment you don't have to, because with me, NOTHING is going to happen to you! But if they should ever get me, then, and only then, you will have no hope.}
     19 {You, who are much more than my subordinates, I am telling you: Despite the crushing weight of our responsibility, I am proud as ever to lead a crew like no other to such a noble destiny!}
     other {Comrades! Our destiny is to save humanity... We are the hope that the last Martyrs of Sol were waiting for and we will show that we are worthy of their memoirs! We are the future and we will fight until the end of time!}
@@ -730,8 +730,8 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>Dammit - lost again, it's unreal - this bloody machine almost killed you to boot!</target>
       </segment>
     </unit>
-    <unit id="play_arcade_succes">
-      <segment id="play_arcade_succes" state="translated">
+    <unit id="play_arcade_success">
+      <segment id="play_arcade_success" state="translated">
         <source>play_arcade_succes</source>
         <target>OH YEEAAHH. **{character}** has defeated Xatator, the boss on LEVEL 10!</target>
       </segment>

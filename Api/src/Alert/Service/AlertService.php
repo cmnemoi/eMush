@@ -77,16 +77,12 @@ class AlertService implements AlertServiceInterface
 
     public function findAlertElementByEquipment(GameEquipment $equipment): ?AlertElement
     {
-        $alertElement = $this->alertElementRepository->findOneBy(['equipment' => $equipment]);
-
-        return $alertElement;
+        return $this->alertElementRepository->findOneBy(['equipment' => $equipment]);
     }
 
     public function findAlertElementByPlace(Place $place): ?AlertElement
     {
-        $alertElement = $this->alertElementRepository->findOneBy(['place' => $place]);
-
-        return $alertElement;
+        return $this->alertElementRepository->findOneBy(['place' => $place]);
     }
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Alert
@@ -129,8 +125,6 @@ class AlertService implements AlertServiceInterface
             && ($oxygenAlert = $this->findByNameAndDaedalus(AlertEnum::LOW_OXYGEN, $daedalus)) !== null
         ) {
             $this->delete($oxygenAlert);
-
-            return;
         } elseif (
             $daedalus->getOxygen() <= self::OXYGEN_ALERT
             && $this->findByNameAndDaedalus(AlertEnum::LOW_OXYGEN, $daedalus) === null
@@ -367,8 +361,6 @@ class AlertService implements AlertServiceInterface
             $alert->setDaedalus($daedalus)->setName(AlertEnum::HUNGER);
 
             $this->persist($alert);
-
-            return;
         } elseif ($totalSatiety > $playersAlive->count() * self::FAMINE_ALERT && $alert !== null) {
             $this->delete($alert);
         }

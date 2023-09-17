@@ -525,8 +525,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $coffeeMachineMechanic = $this->createTool([$coffeeAction], EquipmentEnum::COFFEE_MACHINE);
 
-        $coffeMachine = new EquipmentConfig();
-        $coffeMachine
+        $coffeeMachine = new EquipmentConfig();
+        $coffeeMachine
             ->setEquipmentName(EquipmentEnum::COFFEE_MACHINE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -536,7 +536,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setActions([$repair12, $sabotage12, $reportAction, $examineAction])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
-        $manager->persist($coffeMachine);
+        $manager->persist($coffeeMachine);
         $manager->persist($coffeeMachineMechanic);
 
         $cryoModule = new EquipmentConfig();
@@ -700,7 +700,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addEquipmentConfig($dynarcade)
             ->addEquipmentConfig($bed)
             ->addEquipmentConfig($medlabBed)
-            ->addEquipmentConfig($coffeMachine)
+            ->addEquipmentConfig($coffeeMachine)
             ->addEquipmentConfig($cryoModule)
             ->addEquipmentConfig($mycoscan)
             ->addEquipmentConfig($turretCommand)

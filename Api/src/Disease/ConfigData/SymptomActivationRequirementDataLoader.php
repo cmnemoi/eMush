@@ -15,7 +15,7 @@ class SymptomActivationRequirementDataLoader extends ConfigDataLoader
         EntityManagerInterface $entityManager,
         SymptomActivationRequirementRepository $modifierActivationRequirementRepository)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->modifierActivationRequirementRepository = $modifierActivationRequirementRepository;
     }
 

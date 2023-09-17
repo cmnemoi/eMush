@@ -7,9 +7,9 @@ use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class AlertNormalizer implements ContextAwareNormalizerInterface
+class AlertNormalizer implements NormalizerInterface
 {
     private TranslationServiceInterface $translationService;
 

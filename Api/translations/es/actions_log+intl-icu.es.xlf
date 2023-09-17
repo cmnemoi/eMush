@@ -511,8 +511,8 @@
         <target>Oh no, perdiste otra vez, ¡además esa máquina endemoniada casi te mata!</target>
       </segment>
     </unit>
-    <unit id="play_arcade_succes">
-      <segment id="play_arcade_succes" state="translated">
+    <unit id="play_arcade_success">
+      <segment id="play_arcade_success" state="translated">
         <source>play_arcade_succes</source>
         <target>OH SIIIII. **{character}** ha vencido a Xatator, ¡el jefe del NIVEL10!</target>
       </segment>

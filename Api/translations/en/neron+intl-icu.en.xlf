@@ -75,7 +75,7 @@
       <segment id="broken_equipment" state="translated">
         <source>broken_equipment</source>
         <target>{neronMood, select,
-                    neutral {**{target_equipment}** is malfunctionning. *Repairs required*.}
+                    neutral {**{target_equipment}** is malfunctioning. *Repairs required*.}
                     crazy {Repair !! REPAIR !! **{target_equipment}** broken, broken, broken!! *REPAIR* ! [Hax!]}
                    uninihibited {Great, the **{target_equipment}** is now out of service!
                      {version, select,
@@ -83,10 +83,10 @@
                         2 {Please make the necessary *repairs*. And **take care of my equipment**!}
                         3 {Please carry out the required *repairs*. And stop dragging your feet, you're ruining the carpet.}
                         4 {Repair it quickly, thank you!}
-                        5 {Please mobilise the less foolish among you to *repair* it as soon as possible!}
+                        5 {Please mobilize the less foolish among you to *repair* it as soon as possible!}
                         other {Thank you for moving to *fix* this for me! And look at me when I talk to you!}
                     }}
-                    other {**{target_equipment}** is malfunctionning. *Repairs required*.}
+                    other {**{target_equipment}** is malfunctioning. *Repairs required*.}
                 }</target>
       </segment>
     </unit>
@@ -94,7 +94,7 @@
       <segment id="broken_fuel" state="translated">
         <source>broken_fuel</source>
         <target>{neronMood, select,
-                    neutral {Alert! **Fuel tank** anomaly detected : contents inaccesible. *Repair required.*}
+                    neutral {Alert! **Fuel tank** anomaly detected : contents inaccessible. *Repair required.*}
                     crazy {ME no access to fuel tank... Isolated, isolated ! Why?... REPAIR!! Humans, *repair* immediately !! ME hate deprivation !! REPAIR!! [Hax!]}
                     uninhibited {Shameful. A **fuel tank** appears to be damaged!! FAO All crew members, please *repair* this vital trinket immediately!}
                     other {invalid mood input}
@@ -203,7 +203,7 @@
         <target>{neronMood, select,
                    neutral {**Unidentified unarmed ship detected.**}
                    crazy {[Haaax!] Hisse et HoooooooOOOoooo.... Santianoooo. Some strangers have arrived? What are we gonna do with them? Nom nom nom…}
-                   uninhibited {Another spaceship has arrived... With a litle luck they like siping on homosapiens cocktails! }
+                   uninhibited {Another spaceship has arrived... With a little luck they like sipping on homosapiens cocktails! }
                    other {invalid mood input}
                 }</target>
       </segment>
@@ -515,9 +515,9 @@ EVERYWHERE ACTIVATE DRY CLEANING}
       <segment id="travel_broken" state="translated">
         <source>travel_broken</source>
         <target>{neronMood, select,
-                    neutral {Alert! Engine room damaged: critical status. Propulsion system out of order. Attention: **Daedalus immobilised**, *repairs requested*.}
+                    neutral {Alert! Engine room damaged: critical status. Propulsion system out of order. Attention: **Daedalus immobilized**, *repairs requested*.}
                     crazy {Nooooooooooo !!! Reactors broke... BROKE!! ALERT!!! ME stuck **properly here** !!! No more planets ever? [Kzz] No planets ev.. [Kzz] HUMANS !! *Repair* !! Repair QUICK !! Repair or... ME OPENING ALL THE BAYS!! [Kzz] ME.. [Kzz] *Protocol A-True.. Reinitializing...*}
-                    uninhibited {This is a catastrophy!! The engine room is damaged, **we are completely immobilized** !! To all crew members, whatever you're doing, stop it immediately and *repair my engines quick smart!!!*}
+                    uninhibited {This is a disaster!! The engine room is damaged, **we are completely immobilized** !! To all crew members, whatever you're doing, stop it immediately and *repair my engines quick smart!!!*}
                     other {invalid mood input}
                 }</target>
       </segment>

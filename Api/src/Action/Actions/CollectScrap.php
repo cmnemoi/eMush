@@ -19,6 +19,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -125,7 +126,7 @@ final class CollectScrap extends AbstractAction
             tags: $this->getAction()->getActionTags(),
             time: new \DateTime()
         );
-        $this->eventService->callEvent($playerVariableEvent, PlayerVariableEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
     private function damagePasiphae(PatrolShip $pasiphaeMechanic, Place $pasiphaePlace): void

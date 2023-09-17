@@ -381,12 +381,11 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         $gear = new Gear();
 
-        /** @var ArrayCollection<int, AbstractModifierConfig> */
-        $modifierConfigs = new ArrayCollection();
+        $modifierConfigs = [];
         foreach ($modifierConfigNames as $modifierConfigName) {
             $currentModifierConfig = $this->getReference($modifierConfigName);
             if ($currentModifierConfig instanceof AbstractModifierConfig) {
-                $modifierConfigs->add($currentModifierConfig);
+                $modifierConfigs[] = $currentModifierConfig;
             }
         }
 

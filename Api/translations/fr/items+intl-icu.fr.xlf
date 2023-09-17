@@ -1956,7 +1956,7 @@ Malgré son aspect, il ne fait presque aucun mal.</target>
         <source>printed_circuit_jelly.examine</source>
         <target>Appliquée dans le Nexus sur les parties les plus intimes de NERON elle permettra d'accélérer de 3% les calculs du laboratoire.
 Tant qu'elle se trouve dans le Nexus, la Gelée augmente vos essais de recherche de 3%.
-On aurrait pu s'en servir en cuisine mais le chef n'en voulait pas...</target>
+On aurait pu s'en servir en cuisine, mais le chef n'en voulait pas...</target>
       </segment>
     </unit>
     <unit id="invertebrate_shell">
@@ -2728,11 +2728,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>cactax.description</source>
-        <target>Originaire des grands désert de Tantris, le cactuor est utilisé dans certains rites indigènes pour les cérémonies sa...</target>
+        <target>Originaire des grands déserts de Tantris, le cactuor est utilisé dans certains rites indigènes pour les cérémonies sa...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>cactax.examine</source>
-        <target>Originaire des grands désert de Tantris, le cactuor est utilisé dans certains rites indigènes pour les cérémonies sa...</target>
+        <target>Originaire des grands déserts de Tantris, le cactuor est utilisé dans certains rites indigènes pour les cérémonies sa...</target>
       </segment>
     </unit>
     <unit id="bifflon">
@@ -3174,9 +3174,9 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="examine" state="translated">
         <source>proactive_puffed_rice.examine</source>
-        <target>La plaie des mécaniciens. Ces grains de riz doivent être stockés dans un lieu hermetique, sinon ils s'échappent et partent se cacher dans les mécanismes des portes automatiques.
+        <target>La plaie des mécaniciens. Ces grains de riz doivent être stockés dans un lieu hermétique, sinon ils s'échappent et partent se cacher dans les mécanismes des portes automatiques.
 +10 :pa:
-Imperissable
+Impérissable
 +5 satiété
 55% de chances : endommage une porte du Daedalus</target>
       </segment>
@@ -3304,11 +3304,11 @@ Imperissable
       </segment>
       <segment id="description" state="translated">
         <source>space_potato.description</source>
-        <target>Haaa les frites de patates spatiales ! C'est bizarre les mecs adorent tous ce truc, mais les femmes de l'équipage leur ont interdit d'en manger dans le refectoire. Il parait que ça sent les chaussettes et que c'est vraiment bourratif...</target>
+        <target>Haaa les frites de patates spatiales ! C'est bizarre les mecs adorent tous ce truc, mais les femmes de l'équipage leur ont interdit d'en manger dans le réfectoire. Il parait que ça sent les chaussettes et que c'est vraiment bourratif...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>space_potato.examine</source>
-        <target>Haaa les frites de patates spatiales ! C'est bizarre les mecs adorent tous ce truc, mais les femmes de l'équipage leur ont interdit d'en manger dans le refectoire. Il parait que ça sent les chaussettes et que c'est vraiment bourratif...</target>
+        <target>Haaa les frites de patates spatiales ! C'est bizarre les mecs adorent tous ce truc, mais les femmes de l'équipage leur ont interdit d'en manger dans le réfectoire. Il parait que ça sent les chaussettes et que c'est vraiment bourratif...</target>
       </segment>
     </unit>
     <unit id="standard_ration">
@@ -3457,7 +3457,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
       <segment id="examine" state="translated">
         <source>document.examine</source>
         <target>Les documents peuvent être lus. Qui sait ce que celui-ci peut contenir ?
-La curiosité est certes un vilain défaut mais bon... C'est un document, secret, inutile ou indispensable. Qui sait ce qu'il contient...</target>
+La curiosité est certes un vilain défaut, mais bon... C'est un document, secret, inutile ou indispensable. Qui sait ce qu'il contient...</target>
       </segment>
     </unit>
     <unit id="commanders_manual">
@@ -3483,7 +3483,7 @@ La curiosité est certes un vilain défaut mais bon... C'est un document, secret
       </segment>
       <segment id="examine" state="translated">
         <source>commanders_manual.examine</source>
-        <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+        <target>Les Livres. Un média antique, mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
 Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
       </segment>
     </unit>
@@ -3538,13 +3538,13 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
       <segment id="examine" state="translated">
         <source>post_it.examine</source>
         <target>Un pense-bête qui ne colle qu'à moitié...
-Ces insupportables petits feuillets traînent partout... Et puis qui peut-en avoir réellement besoin?</target>
+Ces insupportables petits feuillets traînent partout... Et puis qui peut en avoir réellement besoin?</target>
       </segment>
     </unit>
     <unit id="camera_item.examine">
       <segment state="translated">
         <source>camera_item.examine</source>
-        <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain.
+        <target>La caméra est un outil de surveillance bien pratique pour --espionner-- surveiller votre prochain.
 //
 En sa présence, les actions *discrètes* et *furtives* effectuées sont révélées.
 //

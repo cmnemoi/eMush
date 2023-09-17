@@ -118,10 +118,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         )->isEmpty()
         ) {
             $this->addOxygen($object, $plantEffect, $dateTime);
-            if ($plantStatus->filter(fn (Status $status) => in_array(
-                $status->getName(),
-                [EquipmentStatusEnum::PLANT_THIRSTY]
-            ))->isEmpty()
+            if ($plantStatus->filter(fn (Status $status) => $status->getName() == EquipmentStatusEnum::PLANT_THIRSTY)->isEmpty()
             ) {
                 $this->addFruit($object, $plantType, $dateTime);
             }

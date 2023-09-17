@@ -61,7 +61,7 @@ class DaedalusNormalizer implements NormalizerInterface
                         'daedalus',
                         $language
                     ),
-                    'timerCycle' => $this->cycleService->getDateStartNextCycle($object)->format(\DateTime::ATOM),
+                    'timerCycle' => $this->cycleService->getDateStartNextCycle($object)->format(\DateTimeInterface::ATOM),
                 ],
                 'calendar' => [
                     'name' => $this->translationService->translate('calendar.name', [], 'daedalus', $language),

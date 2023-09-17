@@ -408,9 +408,9 @@
         <target>:cat: The cat was in the room, you couldn't help but run away...</target>
       </segment>
     </unit>
-    <unit id="fitfull_sleep">
-      <segment id="fitfull_sleep" state="translated">
-        <source>fitfull_sleep</source>
+    <unit id="fitful_sleep">
+      <segment id="fitful_sleep" state="translated">
+        <source>fitful_sleep</source>
         <target>Your sleep is restless, impossible to recover properly...</target>
       </segment>
     </unit>

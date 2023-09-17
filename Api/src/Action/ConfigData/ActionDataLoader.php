@@ -17,7 +17,7 @@ class ActionDataLoader extends ConfigDataLoader
         EntityManagerInterface $entityManager,
         ActionRepository $actionRepository
     ) {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->actionRepository = $actionRepository;
     }
 

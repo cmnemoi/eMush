@@ -107,7 +107,7 @@ class CycleEventCest extends AbstractFunctionalTest
         $I->seeInRepository(RoomLog::class, [
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => PlayerModifierLogEnum::FITFULL_SLEEP,
+            'log' => PlayerModifierLogEnum::FITFUL_SLEEP,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }

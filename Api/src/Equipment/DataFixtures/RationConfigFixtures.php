@@ -97,8 +97,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(EquipmentMechanicEnum::RATION . '_' . GameRationEnum::ALIEN_STEAK, GameConfigEnum::DEFAULT)
         ;
 
-        $alienSteack = new ItemConfig();
-        $alienSteack
+        $alienSteak = new ItemConfig();
+        $alienSteak
             ->setEquipmentName(GameRationEnum::ALIEN_STEAK)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -108,7 +108,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($alienSteackMechanic);
-        $manager->persist($alienSteack);
+        $manager->persist($alienSteak);
 
         $coffeeMechanic = new Ration();
         $coffeeMechanic
@@ -289,7 +289,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addEquipmentConfig($cookedRation)
             ->addEquipmentConfig($coffee)
             ->addEquipmentConfig($anabolic)
-            ->addEquipmentConfig($alienSteack)
+            ->addEquipmentConfig($alienSteak)
             ->addEquipmentConfig($spacePotato)
             ->addEquipmentConfig($proactivePuffedRice)
             ->addEquipmentConfig($lombrickBar)

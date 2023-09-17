@@ -521,14 +521,14 @@
         <target>destroyed_ears.description</target>
       </segment>
     </unit>
-    <unit id="disfunctional_liver">
+    <unit id="dysfunctional_liver">
       <segment id="name" state="initial">
-        <source>disfunctional_liver.name</source>
-        <target>disfunctional_liver.name</target>
+        <source>dysfunctional_liver.name</source>
+        <target>dysfunctional_liver.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>disfunctional_liver.description</source>
-        <target>disfunctional_liver.description</target>
+        <source>dysfunctional_liver.description</source>
+        <target>dysfunctional_liver.description</target>
       </segment>
     </unit>
     <unit id="haemorrhage">

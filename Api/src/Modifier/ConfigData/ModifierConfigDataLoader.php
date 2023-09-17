@@ -21,7 +21,7 @@ abstract class ModifierConfigDataLoader extends ConfigDataLoader
         ModifierActivationRequirementRepository $modifierActivationRequirementRepository,
         EventConfigRepository $eventConfigRepository
     ) {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->modifierConfigRepository = $modifierConfigRepository;
         $this->modifierActivationRequirementRepository = $modifierActivationRequirementRepository;
         $this->eventConfigRepository = $eventConfigRepository;

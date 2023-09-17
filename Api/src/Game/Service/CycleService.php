@@ -51,7 +51,7 @@ class CycleService implements CycleServiceInterface
 
             try {
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
-                    $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($daedalusConfig->getCycleLength()) . 'M'));
+                    $dateDaedalusLastCycle->add(new \DateInterval('PT' . $daedalusConfig->getCycleLength() . 'M'));
                     $cycleEvent = new DaedalusCycleEvent(
                         $daedalus,
                         [EventEnum::NEW_CYCLE],
@@ -91,7 +91,7 @@ class CycleService implements CycleServiceInterface
 
         $nextCycleStartAt = clone $dateDaedalusLastCycle;
 
-        return $nextCycleStartAt->add(new \DateInterval('PT' . strval($daedalusConfig->getCycleLength()) . 'M'));
+        return $nextCycleStartAt->add(new \DateInterval('PT' . $daedalusConfig->getCycleLength() . 'M'));
     }
 
     // get day cycle from date (value between 1 and $gameConfig->getCyclePerGameDay())
@@ -114,7 +114,7 @@ class CycleService implements CycleServiceInterface
 
     /**
      * Get Daedalus first cycle date
-     * First actual cycle of the ship (ie: for 3h cycle in fr, if the ship start C8, then it will be 21h:00).
+     * First actual cycle of the ship (ie: for 3h cycle in France, if the ship start C8, then it will be 21h:00).
      */
     public function getDaedalusStartingCycleDate(Daedalus $daedalus): \DateTime
     {
@@ -128,7 +128,7 @@ class CycleService implements CycleServiceInterface
         $firstDayDate = clone $firstCycleDate;
         $firstDayDate
             ->setTimezone(new \DateTimeZone($timeConfig->getTimeZone()))
-            ->setTime(0, 0, 0, 0)
+            ->setTime(0, 0)
             ->setTimezone(new \DateTimeZone('UTC'))
         ;
 
@@ -136,7 +136,7 @@ class CycleService implements CycleServiceInterface
         $numberOfCompleteDay = intval($this->getDateIntervalAsMinutes($firstCycleDate, $firstDayDate) / $gameDayLength);
         $minutesBetweenDayStartAndDaedalusFirstCycle = $numberOfCompleteDay * $gameDayLength + (($daedalus->getCycle() - 1) * $daedalusConfig->getCycleLength());
 
-        return $firstDayDate->add(new \DateInterval('PT' . strval($minutesBetweenDayStartAndDaedalusFirstCycle) . 'M'));
+        return $firstDayDate->add(new \DateInterval('PT' . $minutesBetweenDayStartAndDaedalusFirstCycle . 'M'));
     }
 
     public function getNumberOfCycleElapsed(\DateTime $start, \DateTime $end, Daedalus $daedalus): int

@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  * This action is granted by the Motivator skill. (@TODO).
  *
  * For 2 PA, "Boring Speech" gives 3 Movement Points
- * to all the players in the room, minus the discourer.
+ * to all the players in the room, minus the speaker.
  * Can be used only once per day.
  *
  * More info : http://www.mushpedia.com/wiki/Motivator

@@ -16,7 +16,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * implement self heal action.
+ * implement self-heal action.
  * For 3 Action Points, this action gives back 3 health points to the player which uses it.
  *  - +1 health point if the Ultra-healing pommade research is active (@TODO)
  *  - +2 health point if the player has the Medic skill (@TODO).

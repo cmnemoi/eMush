@@ -29,7 +29,7 @@ class CharacterConfigDataLoader extends ConfigDataLoader
         EquipmentConfigRepository $itemConfigRepository,
         StatusConfigRepository $statusConfigRepository)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->characterConfigRepository = $characterConfigRepository;
         $this->actionRepository = $actionRepository;
         $this->diseaseConfigRepository = $diseaseConfigRepository;

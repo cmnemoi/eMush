@@ -49,7 +49,7 @@ class EndCauseEnum
     public const MANKAROG = 'mankarog';
     public const PATROL_SHIP_EXPLOSION = 'patrol_ship_explosion';
 
-    public const NO_INFIRMERY = 'no_infirmerie'; // cause of death lost in a bug
+    public const NO_INFIRMERIE = 'no_infirmerie'; // cause of death lost in a bug
 
     public const DEATH_CAUSE_MAP = [
         self::STILL_LIVING => self::STILL_LIVING,
@@ -85,7 +85,7 @@ class EndCauseEnum
         self::INFECTION => self::INFECTION,
         self::MANKAROG => self::MANKAROG,
         self::PATROL_SHIP_EXPLOSION => self::PATROL_SHIP_EXPLOSION,
-        self::NO_INFIRMERY => self::NO_INFIRMERY,
+        self::NO_INFIRMERIE => self::NO_INFIRMERIE,
         ActionEnum::HIT => self::ASSASSINATED,
         ActionEnum::SHOOT => self::ASSASSINATED,
         ActionEnum::ATTACK => self::ASSASSINATED,

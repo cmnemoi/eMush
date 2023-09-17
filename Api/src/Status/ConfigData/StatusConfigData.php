@@ -756,7 +756,7 @@ class StatusConfigData
             'visibility' => 'mush',
             'type' => 'charge_status_config',
             'chargeVisibility' => 'hidden',
-            'chargeStrategy' => 'dayly_reset',
+            'chargeStrategy' => 'daily_reset',
             'maxCharge' => 1,
             'startCharge' => 1,
             'dischargeStrategies' => ['none'],

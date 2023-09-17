@@ -15,7 +15,7 @@ class RandomItemPlacesDataLoader extends ConfigDataLoader
         EntityManagerInterface $entityManager,
         RandomItemPlacesRepository $randomItemPlacesRepository)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->randomItemPlacesRepository = $randomItemPlacesRepository;
     }
 

@@ -22,7 +22,7 @@ class InjuryEnum
     public const MINOR_HAEMORRHAGE = 'minor_haemorrhage';
     public const DAMAGED_EARS = 'damaged_ears';
     public const DESTROYED_EARS = 'destroyed_ears';
-    public const DISFUNCTIONAL_LIVER = 'disfunctional_liver';
+    public const DYSFUNCTIONAL_LIVER = 'dysfunctional_liver';
     public const HEAD_TRAUMA = 'head_trauma';
     public const IMPLANTED_BULLET = 'implanted_bullet';
     public const INNER_EAR_DAMAGED = 'inner_ear_damaged';

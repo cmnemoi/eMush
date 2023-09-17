@@ -8,9 +8,9 @@ use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class MessageNormalizer implements ContextAwareNormalizerInterface
+class MessageNormalizer implements NormalizerInterface
 {
     private TranslationServiceInterface $translationService;
 

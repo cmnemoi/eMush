@@ -119,14 +119,12 @@ class LoginService
 
         $this->userService->persist($user);
 
-        $token = $this->jwtEncoder
+        return $this->jwtEncoder
             ->encode([
                     'code' => $nonce,
                     'exp' => $expiryTime,
                 ]
             );
-
-        return $token;
     }
 
     public function getAuthorizationUri(string $scope, ?string $state): string

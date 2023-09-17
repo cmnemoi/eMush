@@ -51,7 +51,7 @@ class ValidateCrewDeathCommand extends Command
             try {
                 $user = $this->userRepository->loadUserByUsername($name);
                 if ($user == null) {
-                    $io->warning("$name doesen't have an account. Skipping ...");
+                    $io->warning("$name does not have an account. Skipping ...");
                     continue;
                 }
                 $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);

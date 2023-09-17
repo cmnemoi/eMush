@@ -883,17 +883,17 @@
         <target>TODO</target>
       </segment>
     </unit>
-    <unit id="disfunctional_liver">
+    <unit id="dysfunctional_liver">
       <segment id="name" state="translated">
-        <source>disfunctional_liver.name</source>
+        <source>dysfunctional_liver.name</source>
         <target>Foie hors d'état</target>
       </segment>
       <segment id="description" state="translated">
-        <source>disfunctional_liver.description</source>
+        <source>dysfunctional_liver.description</source>
         <target>Vous pouvez encore vivre avec votre foie détruit mais combien de temps et dans quelles conditions ?</target>
       </segment>
       <segment id="effect" state="translated">
-        <source>disfunctional_liver.examine</source>
+        <source>dysfunctional_liver.examine</source>
         <target>TODO</target>
       </segment>
     </unit>

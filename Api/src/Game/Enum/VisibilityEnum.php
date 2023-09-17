@@ -13,7 +13,7 @@ namespace Mush\Game\Enum;
  * REVEALED: secret or covert action that has been revealed
  * MUSH: only player with mush status can see this element
  * HUMAN: only human player can see this element
- * HIDEN: this element is not visible to anyone but administrators and developers
+ * HIDDEN: this element is not visible to anyone but administrators and developers
  */
 class VisibilityEnum
 {

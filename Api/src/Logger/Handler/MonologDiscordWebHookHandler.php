@@ -16,6 +16,7 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
 
     public function __construct(HttpClientInterface $httpClient)
     {
+        parent::__construct();
         $this->httpClient = $httpClient;
     }
 

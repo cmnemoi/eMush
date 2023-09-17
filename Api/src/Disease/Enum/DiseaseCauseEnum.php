@@ -14,7 +14,7 @@ class DiseaseCauseEnum
     public const PERISHED_FOOD = 'perished_food';
     public const CONSUMABLE_EFFECT = 'consumable_effect';
     public const INCUBATING_END = 'incubating_end';
-    public const ALIEN_STEACK = 'alien_steack';
+    public const ALIEN_STEAK = 'alien_steak';
     public const ALIEN_FRUIT = 'alien_fruit';
     public const INFECTION = 'infection';
     public const CRITICAL_FAIL_KNIFE = 'critical_fail_knife';

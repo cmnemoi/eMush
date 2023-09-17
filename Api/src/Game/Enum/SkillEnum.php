@@ -31,7 +31,7 @@ class SkillEnum
     public const LEADER = 'leader';
     public const LETHARGY = 'lethargy';
     public const LOGISTICS_EXPERT = 'logistics_expert';
-    public const MANKINDS_ONLY_HOPE = 'mankinds_only_hope';
+    public const MANKIND_ONLY_HOPE = 'mankind_only_hope';
     public const MEDIC = 'medic';
     public const METALWORKER = 'metalworker';
     public const MOTIVATOR = 'motivator';

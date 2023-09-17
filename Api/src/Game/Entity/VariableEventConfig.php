@@ -33,7 +33,7 @@ class VariableEventConfig extends AbstractEventConfig
 
     public function buildName(): static
     {
-        $this->name = $this->eventName . '_' . $this->variableHolderClass . '_' . strval($this->quantity) . '_' . $this->targetVariable;
+        $this->name = $this->eventName . '_' . $this->variableHolderClass . '_' . $this->quantity . '_' . $this->targetVariable;
 
         return $this;
     }

@@ -1,5 +1,5 @@
 # Action
-This module handle the actions executed by the player. If applies effects and compute what actons are availlable to the player.
+This module handle the actions executed by the player. If applies effects and compute what actons are available to the player.
 
 # Architecture 
 
@@ -67,4 +67,4 @@ Obvious example:
 - Add the [action data](./ConfigData/ActionData.php) (cost, name, injury rate...) and fixtures in  [ActionsFixtures](./DataFixtures/ActionsFixtures.php).
 - Add the action to the associated equipment or player respectively in [equipment data](../Equipment/ConfigData/EquipmentConfigData.php) or [character config data](../Player/ConfigData/CharacterConfigData.php).
 - Setup action log visibility in [ActionLogEnum](../RoomLog/Enum/ActionLogEnum.php)
-- Add french translations in [actions+intl-icu.fr.xlf](../../translations/fr/actions+intl-icu.fr.xlf), [actions_log+intl-icu.fr.xlf](../../translations/fr/actions_log+intl-icu.fr.xlf) (and [action_fail+intl-icu.fr.xlf](../../translations/fr/action_fail+intl-icu.fr.xlf) if needed).
+- Add French translations in [actions+intl-icu.fr.xlf](../../translations/fr/actions+intl-icu.fr.xlf), [actions_log+intl-icu.fr.xlf](../../translations/fr/actions_log+intl-icu.fr.xlf) (and [action_fail+intl-icu.fr.xlf](../../translations/fr/action_fail+intl-icu.fr.xlf) if needed).

@@ -369,8 +369,8 @@ class ModifierConfigData
             'tagConstraints' => [PlayerEvent::CYCLE_DISEASE => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
-            'name' => 'fitfull_sleep_for_player_-1actionPoint_on_new_cycle_if_random_16_if_player_status_lying_down',
-            'modifierName' => 'fitfull_sleep',
+            'name' => 'fitful_sleep_for_player_-1actionPoint_on_new_cycle_if_random_16_if_player_status_lying_down',
+            'modifierName' => 'fitful_sleep',
             'targetEvent' => 'player.new.cycle',
             'applyOnTarget' => true,
             'modifierRange' => 'player',
@@ -556,7 +556,7 @@ class ModifierConfigData
             'tagConstraints' => [ActionEnum::STRENGTHEN_HULL => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
-            'name' => 'modifier_for_daedalus_-1actionPoint_on_TODO comms. action',
+            'name' => 'modifier_for_daedalus_-1actionPoint_on_TODO coms. action',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'applyOnTarget' => false,

@@ -15,7 +15,7 @@ class ModifierActivationRequirementDataLoader extends ConfigDataLoader
         EntityManagerInterface $entityManager,
         ModifierActivationRequirementRepository $modifierActivationRequirementRepository)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->modifierActivationRequirementRepository = $modifierActivationRequirementRepository;
     }
 

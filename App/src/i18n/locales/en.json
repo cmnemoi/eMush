@@ -480,7 +480,7 @@
 			"elementToAdd": "Element to add : "
 		},
 		"consumableDiseaseConfig": {
-			"pageTitle": "Modification of the diseases given/healed by the consummable ",
+			"pageTitle": "Modification of the diseases given/healed by the consumable ",
 			"curesName": "Diseases cured (disease => probability of being chosen)",
 			"diseasesName": "Diseases given (disease => probability of being chosen)",
 			"diseasesChances": "Probability of giving a disease (probability => probability of being chosen)",

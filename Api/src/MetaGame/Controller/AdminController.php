@@ -10,7 +10,6 @@ use FOS\RestBundle\View\View;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Service\AlertServiceInterface;
-use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
 use Mush\Place\Entity\Place;
@@ -93,7 +92,6 @@ class AdminController extends AbstractFOSRestController
             throw new HttpException(Response::HTTP_BAD_REQUEST, "Won't add rooms to a finished Daedalus");
         }
 
-        /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
 
         /** @var PlaceConfig $placeConfig */
@@ -151,6 +149,8 @@ class AdminController extends AbstractFOSRestController
         if ($this->playerService->endPlayer($playerToClose, '')) {
             return $this->view('Player closed successfully', Response::HTTP_OK);
         }
+
+        throw new \Exception('impossible to close player');
     }
 
     /**

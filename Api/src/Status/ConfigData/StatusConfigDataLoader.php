@@ -19,7 +19,7 @@ class StatusConfigDataLoader extends ConfigDataLoader
         StatusConfigRepository $statusConfigRepository,
         ModifierConfigRepository $modifierConfigRepository
     ) {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->statusConfigRepository = $statusConfigRepository;
         $this->modifierConfigRepository = $modifierConfigRepository;
     }

@@ -730,8 +730,8 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>Dammit - lost again, it's unreal - this bloody machine almost killed you to boot!</target>
       </segment>
     </unit>
-    <unit id="play_arcade_succes">
-      <segment id="play_arcade_succes" state="translated">
+    <unit id="play_arcade_success">
+      <segment id="play_arcade_success" state="translated">
         <source>play_arcade_succes</source>
         <target>OH YEEAAHH. **{character}** has defeated Xatator, the boss on LEVEL 10!</target>
       </segment>

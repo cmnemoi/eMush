@@ -312,9 +312,8 @@ class SymptomService implements SymptomServiceInterface
         }
 
         $draw = $this->randomService->getRandomElements($otherPlayersInRoom, 1);
-        $drawnPlayer = reset($draw);
 
-        return $drawnPlayer;
+        return reset($draw);
     }
 
     private function getPlayerWeapon(Player $player, string $weapon): ?EquipmentConfig
@@ -405,17 +404,17 @@ class SymptomService implements SymptomServiceInterface
      */
     private function makePlayerRandomlyMoving(Player $player): void
     {
-        // get non broken doors
-        $availaibleDoors = $player->getPlace()->getDoors()->filter(function (GameEquipment $door) {
+        // get non-broken doors
+        $availableDoors = $player->getPlace()->getDoors()->filter(function (GameEquipment $door) {
             return !$door->isBroken();
         })->toArray();
 
-        if (count($availaibleDoors) === 0) {
+        if (count($availableDoors) === 0) {
             return;
         }
 
         // get random door
-        $selectedDoor = $this->randomService->getRandomElements($availaibleDoors, 1);
+        $selectedDoor = $this->randomService->getRandomElements($availableDoors, 1);
         $randomDoor = reset($selectedDoor);
 
         /** @var Action $moveActionEntity */

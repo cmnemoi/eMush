@@ -124,6 +124,5 @@ class Fire extends AbstractStatusCycleHandler
 
     public function handleNewDay(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
-        return;
     }
 }

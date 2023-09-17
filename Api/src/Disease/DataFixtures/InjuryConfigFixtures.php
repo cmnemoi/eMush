@@ -316,7 +316,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         // Torso
         $disfunctionalLiver = new DiseaseConfig();
         $disfunctionalLiver
-            ->setDiseaseName(InjuryEnum::DISFUNCTIONAL_LIVER)
+            ->setDiseaseName(InjuryEnum::DYSFUNCTIONAL_LIVER)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs([
                 $notMoveAction1Increase,

@@ -21,7 +21,7 @@ class ChargeStrategyTypeEnum
     public const CYCLE_INCREMENT = 'cycle_increment';
     public const CYCLE_DECREMENT = 'cycle_decrement';
     public const GROWING_PLANT = 'growing_plant';
-    public const DAILY_RESET = 'dayly_reset';
+    public const DAILY_RESET = 'daily_reset';
     public const NONE = 'none';
     public const NO_DISCHARGE = 'no_discharge';
     public const PATROL_SHIP_CHARGE_INCREMENT = 'patrol_ship_charge_increment';

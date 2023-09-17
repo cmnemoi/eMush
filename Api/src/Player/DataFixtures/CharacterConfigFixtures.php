@@ -81,7 +81,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setInitStatuses([$immunizedStatus])
             ->setSkills([
                 SkillEnum::LETHARGY,
-                SkillEnum::MANKINDS_ONLY_HOPE,
+                SkillEnum::MANKIND_ONLY_HOPE,
                 SkillEnum::NURSE,
                 SkillEnum::PREMONITION,
                 SkillEnum::SNEAK,

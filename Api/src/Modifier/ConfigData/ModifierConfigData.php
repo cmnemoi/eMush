@@ -1186,5 +1186,20 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [ActionTypeEnum::ACTION_SHOOT => ModifierRequirementEnum::ANY_TAGS],
         ],
+        [
+            'name' => 'modifier_for_player_set_0moralPoint_on_change.variable',
+            'modifierName' => null,
+            'targetEvent' => 'change.variable',
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 0.0,
+            'targetVariable' => 'moralPoint',
+            'mode' => 'set_value',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
 }

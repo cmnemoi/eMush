@@ -768,6 +768,7 @@ class StatusConfigData
                 'modifier_for_player_set_0moralPoint_on_change.variable_if_reason_consume',
                 'modifier_for_player_set_0movementPoint_on_change.variable_if_reason_consume',
                 'modifier_for_player_set_4satiety_on_change.variable_if_reason_consume',
+                'modifier_for_player_set_0moralPoint_on_change.variable',
             ],
         ],
         [

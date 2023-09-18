@@ -1294,7 +1294,7 @@ class ActionData
         [
             'name' => 'screw_talkie',
             'action_name' => 'screw_talkie',
-            'types' => ['action_aggressive'],
+            'types' => [],
             'target' => null,
             'scope' => 'other_player',
             'visibilities' => ['success' => 'covert', 'fail' => 'private'],

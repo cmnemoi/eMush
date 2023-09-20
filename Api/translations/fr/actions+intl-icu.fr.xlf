@@ -872,5 +872,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         Ou bien, vous avez simplement envie de prendre l'air... ou pas.</target>
       </segment>
     </unit>
+    <unit id="insert_fuel_chamber">
+      <segment id="name" state="final">
+        <source>insert_fuel_chamber.name</source>
+        <target>Insérer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>insert_fuel_chamber.description</source>
+        <target>Injecte le fuel dans la Chambre de Combustion du moteur.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -7,6 +7,7 @@ namespace Mush\Tests\Functional\Action\Actions;
 use Mush\Action\Actions\InsertFuelChamber;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -110,7 +111,7 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
         $I->assertFalse($this->insertFuelChamberAction->isVisible());
     }
 
-    public function testInsertFuelChamberNotVisibleIfMaxAmountInCombustionChamber(FunctionalTester $I): void
+    public function testInsertFuelChamberNotExecutableIfMaxAmountInCombustionChamber(FunctionalTester $I): void
     {
         $this->givenAFuelCapsuleInPlayerInventory($I);
         $this->givenACombustionChamberInEngineRoom($I);
@@ -122,8 +123,11 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
         $fuelCapsule = $this->player->getEquipmentByName(ItemEnum::FUEL_CAPSULE);
         $this->insertFuelChamberAction->loadParameters($this->insertFuelChamberActionConfig, $this->player, $fuelCapsule);
 
-        // then action is not visible
-        $I->assertFalse($this->insertFuelChamberAction->isVisible());
+        // then action is not executable
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::COMBUSTION_CHAMBER_FULL,
+            actual: $this->insertFuelChamberAction->cannotExecuteReason()
+        );
     }
 
     private function givenACombustionChamberInEngineRoom(FunctionalTester $I): GameEquipment

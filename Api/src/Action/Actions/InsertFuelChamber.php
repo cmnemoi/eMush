@@ -7,6 +7,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\ParameterName;
@@ -36,7 +37,8 @@ final class InsertFuelChamber extends InsertAction
                 'target' => GameVariableLevel::DAEDALUS,
                 'checkMode' => GameVariableLevel::IS_MAX,
                 'variableName' => DaedalusVariableEnum::COMBUSTION_CHAMBER_FUEL,
-                'groups' => ['visibility'],
+                'groups' => ['execute'],
+                'message' => ActionImpossibleCauseEnum::COMBUSTION_CHAMBER_FULL,
             ]),
         ]);
     }

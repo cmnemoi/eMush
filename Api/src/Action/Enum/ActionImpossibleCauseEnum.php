@@ -96,6 +96,7 @@ class ActionImpossibleCauseEnum
     public const SCREWED_TALKIE_NO_TALKIE = 'screwed_talkie_no_talkie';
     public const ALREADY_WASHED_IN_SINK_TODAY = 'already_washed_in_sink_today';
     public const DAEDALUS_ALREADY_FULL_HULL = 'daedalus_already_full_hull';
+    public const COMBUSTION_CHAMBER_FULL = 'combustion_chamber_full';
 
     public const UPDATE_TALKIE_REQUIRE_NERON = 'update_talkie_require_neron';
     public const UPDATE_TALKIE_REQUIRE_TRACKER = 'update_talkie_require_tracker';

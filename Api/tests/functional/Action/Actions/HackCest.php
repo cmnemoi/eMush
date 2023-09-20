@@ -139,7 +139,6 @@ final class HackCest extends AbstractFunctionalTest
         ]);
     }
 
-
     public function testHackNotVisibleIfPlayerDoesNotHaveHackerKitInInventory(FunctionalTester $I): void
     {
         $commandTerminal = $this->givenACommandTerminalOnTheBridge($I);

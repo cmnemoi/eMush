@@ -1486,5 +1486,20 @@ class ActionData
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
+        [
+            'name' => ActionEnum::INSERT_FUEL_CHAMBER,
+            'action_name' => ActionEnum::INSERT_FUEL_CHAMBER,
+            'types' => [],
+            'target' => null,
+            'scope' => ActionScopeEnum::CURRENT,
+            'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => 'hidden'],
+            'actionPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => null, 'max_value' => 0],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+        ],
     ];
 }

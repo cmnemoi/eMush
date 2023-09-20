@@ -27,7 +27,6 @@ final class Version20230920084533 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE config_daedalus DROP init_combustion_chamber_fuel');
         $this->addSql('ALTER TABLE config_daedalus DROP max_combustion_chamber_fuel');
     }

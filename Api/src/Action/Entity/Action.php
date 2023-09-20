@@ -2,6 +2,9 @@
 
 namespace Mush\Action\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Game\Entity\GameVariable;
@@ -9,28 +12,49 @@ use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
+#[ApiResource(
+    shortName: 'Action',
+    description: 'eMush Action configs',
+    normalizationContext: ['groups' => ['action_read']],
+    denormalizationContext: ['groups' => ['action_write']]
+)]
+#[GetCollection(
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_ADMIN")',
+    filters: ['default.search_filter', 'default.order_filter']
+)]
+#[Get(
+    security: 'is_granted("ROLE_ADMIN")',
+)]
 class Action implements GameVariableHolderInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['action_read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[Groups(['action_read', 'action_write'])]
     private string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['action_read', 'action_write'])]
     private string $actionName;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['action_read', 'action_write'])]
     private array $types = [];
 
     #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(['action_read', 'action_write'])]
     private ?string $target = null;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['action_read', 'action_write'])]
     private string $scope;
 
     #[ORM\Column(type: 'array', nullable: false)]
@@ -40,6 +64,7 @@ class Action implements GameVariableHolderInterface
     ];
 
     #[ORM\ManyToOne(targetEntity: ActionVariables::class, cascade: ['ALL'])]
+    #[Groups(['action_read', 'action_write'])]
     private ActionVariables $actionVariables;
 
     public function __construct()

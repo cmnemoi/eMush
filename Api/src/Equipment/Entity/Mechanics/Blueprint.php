@@ -4,17 +4,20 @@ namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 class Blueprint extends Tool
 {
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private string $craftedEquipmentName;
 
     /**
      * @var array<string, int>
      */
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $ingredients = [];
 
     public function getMechanics(): array

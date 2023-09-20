@@ -2,6 +2,9 @@
 
 namespace Mush\Daedalus\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,9 +12,24 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'daedalus_closed')]
+#[ApiResource(
+    shortName: 'ClosedDaedalus',
+    description: 'eMush Closed Daedalus',
+    normalizationContext: ['groups' => ['closed_daedalus_read']],
+)]
+#[GetCollection(
+    paginationEnabled: false,
+    security: 'is_granted("ROLE_USER")',
+    filters: ['default.search_filter', 'default.order_filter']
+)]
+#[Get(
+    paginationEnabled: false,
+    security: 'is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)',
+)]
 class ClosedDaedalus
 {
     use TimestampableEntity;
@@ -19,24 +37,30 @@ class ClosedDaedalus
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['closed_daedalus_read'])]
     private int $id;
 
     #[ORM\OneToOne(inversedBy: 'closedDaedalus', targetEntity: DaedalusInfo::class)]
     private DaedalusInfo $daedalusInfo;
 
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: ClosedPlayer::class)]
+    #[Groups(['closed_daedalus_read'])]
     private Collection $players;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['closed_daedalus_read'])]
     private string $endCause = EndCauseEnum::STILL_LIVING;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['closed_daedalus_read'])]
     private int $endDay = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['closed_daedalus_read'])]
     private int $endCycle = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['closed_daedalus_read'])]
     private int $numberOfHuntersKilled = 0;
 
     public function getId(): int

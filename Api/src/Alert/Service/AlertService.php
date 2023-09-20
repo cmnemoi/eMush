@@ -351,7 +351,7 @@ class AlertService implements AlertServiceInterface
         $totalSatiety = 0;
         $playersAlive = $daedalus->getPlayers()->getPlayerAlive();
         foreach ($playersAlive as $player) {
-            $totalSatiety = $totalSatiety + $player->getSatiety();
+            $totalSatiety += $player->getSatiety();
         }
 
         $alert = $this->findByNameAndDaedalus(AlertEnum::HUNGER, $daedalus);

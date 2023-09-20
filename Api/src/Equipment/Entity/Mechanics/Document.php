@@ -4,17 +4,21 @@ namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 class Document extends Tool
 {
     #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private ?string $content;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private bool $isTranslated = false;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private bool $canShred = false;
 
     public function getMechanics(): array

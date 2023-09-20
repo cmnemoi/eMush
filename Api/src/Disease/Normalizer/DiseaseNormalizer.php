@@ -219,9 +219,9 @@ class DiseaseNormalizer implements NormalizerInterface
             }
             $quantity = $triggeredEvent->getQuantity();
             if ($quantity < 0) {
-                $key = $key . '_decrease';
+                $key .= '_decrease';
             } else {
-                $key = $key . '_increase';
+                $key .= '_increase';
             }
 
             $targetVariable = $triggeredEvent->getTargetVariable();

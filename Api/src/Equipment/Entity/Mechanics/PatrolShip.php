@@ -6,29 +6,37 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\ProbaCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 class PatrolShip extends EquipmentMechanic
 {
     #[ORM\Column(type: 'array', nullable: true, options: ['default' => '[]'])]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $collectScrapNumber = [];
 
     #[ORM\Column(type: 'array', nullable: true, options: ['default' => '[]'])]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $collectScrapPatrolShipDamage = [];
 
     #[ORM\Column(type: 'array', nullable: true, options: ['default' => '[]'])]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $collectScrapPlayerDamage = [];
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private string $dockingPlace = '';
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $failedManoeuvreDaedalusDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $failedManoeuvrePatrolShipDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $failedManoeuvrePlayerDamage = [];
 
     public function getMechanics(): array

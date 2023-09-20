@@ -2,13 +2,31 @@
 
 namespace Mush\Player\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Enum\EndCauseEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
+#[ApiResource(
+    shortName: 'ClosedPlayer',
+    description: 'eMush Closed Player',
+    normalizationContext: ['groups' => ['closed_player_read']],
+)]
+#[GetCollection(
+    paginationEnabled: false,
+    security: 'is_granted("ROLE_USER")',
+    filters: ['default.search_filter', 'default.order_filter', 'closedPlayer.search_filter']
+)]
+#[Get(
+    paginationEnabled: false,
+    security: 'is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)',
+)]
 class ClosedPlayer
 {
     use TimestampableEntity;
@@ -16,30 +34,38 @@ class ClosedPlayer
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['closed_player_read'])]
     private ?int $id = null;
 
     #[ORM\OneToOne(mappedBy: 'closedPlayer', targetEntity: PlayerInfo::class)]
     private PlayerInfo $playerInfo;
 
     #[ORM\ManyToOne(targetEntity: ClosedDaedalus::class, inversedBy: 'players')]
+    #[Groups(['closed_player_read'])]
     private ClosedDaedalus $daedalus;
 
     #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(['closed_player_read'])]
     private ?string $message = null;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['closed_player_read'])]
     private string $endCause = EndCauseEnum::NO_INFIRMERIE;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['closed_player_read'])]
     private int $dayDeath = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['closed_player_read'])]
     private int $cycleDeath = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['closed_player_read'])]
     private int $likes = 0;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
+    #[Groups(['closed_player_read'])]
     private bool $isMush = false;
 
     public function getId(): ?int

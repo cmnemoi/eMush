@@ -8,11 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 class Gear extends EquipmentMechanic
 {
     #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private Collection $modifierConfigs;
 
     public function getMechanics(): array

@@ -6,32 +6,40 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\ProbaCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 class Ration extends EquipmentMechanic
 {
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $moralPoints;
     // possibilities are stored as key, array value represent the probability to get the key value
     // see ProbaCollection Entity
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $actionPoints;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $movementPoints;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $healthPoints;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     protected ?int $satiety = null;
 
     // Store any extra effect the food has as key with the chance to get it as value
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $extraEffects;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     protected bool $isPerishable = true;
 
     public function __construct()

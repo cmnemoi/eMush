@@ -5,26 +5,33 @@ namespace Mush\Equipment\Entity\Mechanics;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\ProbaCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 class Weapon extends Tool
 {
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private int $baseAccuracy = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $baseDamageRange;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private int $expeditionBonus = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private int $criticalSuccessRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private int $criticalFailRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private int $oneShotRate = 0;
 
     public function __construct()

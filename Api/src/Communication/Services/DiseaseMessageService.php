@@ -95,7 +95,7 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
 
             $messageContent = rtrim($messageContent, '.?!');
 
-            $messageContent = $messageContent . $this->createCoprolaliaMessage($messageKey, $language);
+            $messageContent .= $this->createCoprolaliaMessage($messageKey, $language);
         }
 
         $message

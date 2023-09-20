@@ -6,17 +6,21 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\ProbaCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 class Plant extends EquipmentMechanic
 {
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private string $fruitName;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $maturationTime;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['mechanic_read', 'mechanic_write'])]
     private array $oxygen;
 
     public function __construct()

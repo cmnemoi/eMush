@@ -14,7 +14,10 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -56,6 +59,48 @@ final class HackCest extends AbstractFunctionalTest
         $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::FOCUSED));
     }
 
+    public function testHackSuccessFocusedStatusTargetsCommandTerminal(FunctionalTester $I): void
+    {
+        $commandTerminal = $this->givenACommandTerminalOnTheBridge($I);
+        $this->givenAHackerKitInPlayerInventory($I);
+
+        // given player has a 100% chance to hack the command terminal
+        $this->hackActionConfig->setSuccessRate(100);
+
+        // when player hacks the command terminal
+        $this->hackAction->loadParameters($this->hackActionConfig, $this->player, $commandTerminal);
+        $this->hackAction->execute();
+
+        // then player's focused status targets the command terminal
+        $focusedStatus = $this->player->getStatusByName(PlayerStatusEnum::FOCUSED);
+        $I->assertEquals(
+            expected: $commandTerminal,
+            actual: $focusedStatus?->getTarget()
+        );
+    }
+
+    public function testHackSuccessFocusedPrintsLog(FunctionalTester $I): void
+    {
+        $commandTerminal = $this->givenACommandTerminalOnTheBridge($I);
+        $this->givenAHackerKitInPlayerInventory($I);
+
+        // given player has a 100% chance to hack the command terminal
+        $this->hackActionConfig->setSuccessRate(100);
+
+        // when player hacks the command terminal
+        $this->hackAction->loadParameters($this->hackActionConfig, $this->player, $commandTerminal);
+        $this->hackAction->execute();
+
+        // then a log is printed on the bridge
+        $I->seeInRepository(RoomLog::class, [
+            'place' => RoomEnum::BRIDGE,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player->getPlayerInfo(),
+            'log' => ActionLogEnum::HACK_SUCCESS,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
+    }
+
     public function testHackFailDoesNotGrantFocusedStatus(FunctionalTester $I): void
     {
         $commandTerminal = $this->givenACommandTerminalOnTheBridge($I);
@@ -71,6 +116,29 @@ final class HackCest extends AbstractFunctionalTest
         // then player does not have the focused status
         $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::FOCUSED));
     }
+
+    public function testHackFailFocusedPrintsLog(FunctionalTester $I): void
+    {
+        $commandTerminal = $this->givenACommandTerminalOnTheBridge($I);
+        $this->givenAHackerKitInPlayerInventory($I);
+
+        // given player has a 0% chance to hack the command terminal
+        $this->hackActionConfig->setSuccessRate(0);
+
+        // when player hacks the command terminal
+        $this->hackAction->loadParameters($this->hackActionConfig, $this->player, $commandTerminal);
+        $this->hackAction->execute();
+
+        // then a log is printed on the bridge
+        $I->seeInRepository(RoomLog::class, [
+            'place' => RoomEnum::BRIDGE,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player->getPlayerInfo(),
+            'log' => ActionLogEnum::HACK_FAIL,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
+    }
+
 
     public function testHackNotVisibleIfPlayerDoesNotHaveHackerKitInInventory(FunctionalTester $I): void
     {

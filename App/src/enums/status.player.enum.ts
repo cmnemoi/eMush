@@ -1,75 +1,73 @@
-const STARVING = "starving";
-const BURDENED = "burdened";
-const DISABLED = "disabled";
-const FULL_STOMACH = "full_stomach";
-const IMMUNIZED = "immunized";
-const LYING_DOWN = "lying_down";
-const DIRTY = "dirty";
-const MUSH = "mush";
-const PACIFIST = "pacifist";
-const DEMORALIZED = "demoralized";
-const SUICIDAL = "suicidal";
-const SPORES = "spores";
-const ANTISOCIAL = "antisocial";
-const FIRST_TIME = "first_time";
-const PREGNANT = "pregnant";
-const GAGGED = "gagged";
-const FOCUSED = "focused";
-
+export enum StatusPlayerNameEnum {
+    STARVING = "starving",
+    BURDENED = "burdened",
+    DISABLED = "disabled",
+    FULL_STOMACH = "full_stomach",
+    IMMUNIZED = "immunized",
+    LYING_DOWN = "lying_down",
+    DIRTY = "dirty",
+    MUSH = "mush",
+    PACIFIST = "pacifist",
+    DEMORALIZED = "demoralized",
+    SUICIDAL = "suicidal",
+    SPORES = "spores",
+    ANTISOCIAL = "antisocial",
+    FIRST_TIME = "first_time",
+    PREGNANT = "pregnant",
+    GAGGED = "gagged",
+    FOCUSED = "focused"
+};
 
 export const statusPlayerEnum: {[index: string]: any} = {
-    [STARVING]: {
+    [StatusPlayerNameEnum.STARVING]: {
         'icon': require('@/assets/images/status/starving.png')
     },
-    [FIRST_TIME]: {
+    [StatusPlayerNameEnum.FIRST_TIME]: {
         'icon': require('@/assets/images/status/first_time.png')
     },
-    [BURDENED]: {
+    [StatusPlayerNameEnum.BURDENED]: {
         'icon': require('@/assets/images/status/heavy.png')
     },
-    [DISABLED]: {
+    [StatusPlayerNameEnum.DISABLED]: {
         'icon': require('@/assets/images/status/disabled.png')
     },
-    [FULL_STOMACH]: {
+    [StatusPlayerNameEnum.FULL_STOMACH]: {
         'icon': require('@/assets/images/status/belly_full.png')
     },
-    [IMMUNIZED]: {
+    [StatusPlayerNameEnum.IMMUNIZED]: {
         'icon': require('@/assets/images/status/immune.png')
     },
-    [LYING_DOWN]: {
+    [StatusPlayerNameEnum.LYING_DOWN]: {
         'icon': require('@/assets/images/status/laid.png')
     },
-    [DIRTY]: {
+    [StatusPlayerNameEnum.DIRTY]: {
         'icon': require('@/assets/images/status/stinky.png')
     },
-    [MUSH]: {
+    [StatusPlayerNameEnum.MUSH]: {
         'icon': require('@/assets/images/status/mush.png')
     },
-    [PACIFIST]: {
+    [StatusPlayerNameEnum.PACIFIST]: {
         'icon': require('@/assets/images/status/pacifist.png')
     },
-    [DEMORALIZED]: {
+    [StatusPlayerNameEnum.DEMORALIZED]: {
         'icon': require('@/assets/images/status/demoralized.png')
     },
-    [SUICIDAL]: {
+    [StatusPlayerNameEnum.SUICIDAL]: {
         'icon': require('@/assets/images/status/suicidal.png')
     },
-    [SPORES]: {
+    [StatusPlayerNameEnum.SPORES]: {
         'icon': require('@/assets/images/status/spore.png')
     },
-    [ANTISOCIAL]: {
+    [StatusPlayerNameEnum.ANTISOCIAL]: {
         'icon': require('@/assets/images/status/unsociable.png')
     },
-    [FIRST_TIME]: {
-        'icon': require('@/assets/images/status/first_time.png')
-    },
-    [PREGNANT]: {
+    [StatusPlayerNameEnum.PREGNANT]: {
         'icon': require('@/assets/images/status/pregnant.png')
     },
-    [GAGGED]: {
+    [StatusPlayerNameEnum.GAGGED]: {
         'icon': require('@/assets/images/status/gagged.png')
     },
-    [FOCUSED]: {
+    [StatusPlayerNameEnum.FOCUSED]: {
         'icon': require('@/assets/images/status/moduling.png')
     }
 };

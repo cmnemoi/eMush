@@ -1,5 +1,5 @@
 # Game
-This module handles all the features outside a ship : News, moderations (complaints, forum)...
+This module handles all the features outside a ship : News, moderation (complaints, forum)...
 
 # Architecture 
 

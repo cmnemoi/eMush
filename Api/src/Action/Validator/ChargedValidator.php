@@ -31,7 +31,7 @@ class ChargedValidator extends ConstraintValidator
 
         $parameter = $value->getParameter();
         if (!$parameter instanceof GameEquipment) {
-            // hack for Shoot hunter action : the parameter is the hunter but we want to check the turret / patrol ship charges
+            // hack for Shoot hunter action : the parameter is the hunter, but we want to check the turret / patrol ship charges
             if ($parameter instanceof Hunter) {
                 $parameter = $this->getShootingEquipment($value->getPlayer());
             } else {
@@ -51,8 +51,8 @@ class ChargedValidator extends ConstraintValidator
     private function getChargeStatus(string $actionName, StatusHolderInterface $holder): ?ChargeStatus
     {
         $charges = $holder->getStatuses()->filter(function (Status $status) use ($actionName) {
-            return $status instanceof ChargeStatus &&
-                $status->hasDischargeStrategy($actionName);
+            return $status instanceof ChargeStatus
+                && $status->hasDischargeStrategy($actionName);
         });
 
         if ($charges->count() > 0) {

@@ -17,10 +17,10 @@ modules:
     - Doctrine2:
         depends: Symfony
         cleanup: true
-    - \App\Tests\Helper\Functional
+    - \Mush\Tests\Helper\Functional
     - DataFactory:
         depends: Doctrine2
-    - \App\Tests\Helper\Factories\DaedalusFactory
-    - \App\Tests\Helper\Factories\PlayerFactory
-    - \App\Tests\Helper\Factories\RoomFactory
-    - \App\Tests\Helper\Factories\EquipmentFactory
+    - \Mush\Tests\Helper\Factories\DaedalusFactory
+    - \Mush\Tests\Helper\Factories\PlayerFactory
+    - \Mush\Tests\Helper\Factories\RoomFactory
+    - \Mush\Tests\Helper\Factories\EquipmentFactory

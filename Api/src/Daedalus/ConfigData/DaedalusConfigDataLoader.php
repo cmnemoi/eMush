@@ -2,7 +2,6 @@
 
 namespace Mush\Daedalus\ConfigData;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Repository\DaedalusConfigRepository;
@@ -22,7 +21,7 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
         PlaceConfigRepository $placeConfigRepository,
         RandomItemPlacesRepository $randomItemPlacesRepository)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->daedalusConfigRepository = $daedalusConfigRepository;
         $this->placeConfigRepository = $placeConfigRepository;
         $this->randomItemPlacesRepository = $randomItemPlacesRepository;
@@ -87,6 +86,6 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
             $placeConfigs[] = $placeConfig;
         }
 
-        $daedalusConfig->setPlaceConfigs(new ArrayCollection($placeConfigs));
+        $daedalusConfig->setPlaceConfigs($placeConfigs);
     }
 }

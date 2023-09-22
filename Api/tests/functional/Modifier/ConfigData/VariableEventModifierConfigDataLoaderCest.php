@@ -2,11 +2,11 @@
 
 namespace Mush\Tests\functional\Modifier\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Tests\FunctionalTester;
 
 class VariableEventModifierConfigDataLoaderCest
 {

@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Communication\Listener;
+namespace Mush\Tests\functional\Communication\Listener;
 
-use App\Tests\FunctionalTester;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
@@ -23,6 +22,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class ActionSubscriberCest

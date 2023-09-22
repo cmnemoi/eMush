@@ -1,6 +1,6 @@
 <?php
 
-namespace unit\Daedalus\Service;
+namespace Mush\Tests\unit\Daedalus\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
@@ -98,9 +98,9 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (StatusEvent $event) => (
-                $event->getStatusHolder() === $room1 &&
-                in_array(EventEnum::NEW_CYCLE, $event->getTags()) &&
-                $event->getStatusName() === StatusEnum::FIRE
+                $event->getStatusHolder() === $room1
+                && in_array(EventEnum::NEW_CYCLE, $event->getTags())
+                && $event->getStatusName() === StatusEnum::FIRE
             ))
             ->once()
         ;
@@ -208,10 +208,10 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->randomService
             ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
             ->withArgs(fn ($probaArray, $number, $funcDaedalus) => (
-                $probaArray instanceof ProbaCollection &&
-                $probaArray->toArray() === ['communication_center' => 1] &&
-                $number === 1 &&
-                $funcDaedalus === $daedalus
+                $probaArray instanceof ProbaCollection
+                && $probaArray->toArray() === ['communication_center' => 1]
+                && $number === 1
+                && $funcDaedalus === $daedalus
             ))
             ->andReturn([$equipment])
             ->once()
@@ -220,8 +220,8 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (StatusEvent $event) => (
-                $event->getStatusHolder() === $equipment &&
-                $event->getStatusName() === EquipmentStatusEnum::BROKEN))
+                $event->getStatusHolder() === $equipment
+                && $event->getStatusName() === EquipmentStatusEnum::BROKEN))
             ->once()
         ;
 
@@ -268,8 +268,8 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (StatusEvent $event) => (
-                $event->getStatusHolder() === $equipment &&
-                $event->getStatusName() === EquipmentStatusEnum::BROKEN))
+                $event->getStatusHolder() === $equipment
+                && $event->getStatusName() === EquipmentStatusEnum::BROKEN))
             ->never()
         ;
 
@@ -313,10 +313,10 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->randomService
             ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
             ->withArgs(fn ($probaArray, $number, $funcDaedalus) => (
-                $probaArray instanceof ProbaCollection &&
-                $probaArray->toArray() === ['communication_center' => 1] &&
-                $number === 1 &&
-                $funcDaedalus === $daedalus
+                $probaArray instanceof ProbaCollection
+                && $probaArray->toArray() === ['communication_center' => 1]
+                && $number === 1
+                && $funcDaedalus === $daedalus
             ))
             ->andReturn([$equipment])
             ->once()
@@ -325,8 +325,8 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (StatusEvent $event) => (
-                $event->getStatusHolder() === $equipment &&
-                $event->getStatusName() === EquipmentStatusEnum::BROKEN))
+                $event->getStatusHolder() === $equipment
+                && $event->getStatusName() === EquipmentStatusEnum::BROKEN))
             ->once()
         ;
 
@@ -367,8 +367,8 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (StatusEvent $event) => (
-                $event->getStatusHolder() === $door &&
-                $event->getStatusName() === EquipmentStatusEnum::BROKEN))
+                $event->getStatusHolder() === $door
+                && $event->getStatusName() === EquipmentStatusEnum::BROKEN))
             ->once()
         ;
 

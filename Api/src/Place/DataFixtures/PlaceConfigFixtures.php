@@ -301,8 +301,8 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::ANTENNA,
                 EquipmentEnum::PLANET_SCANNER,
                 EquipmentEnum::PILGRED,
-                EquipmentEnum::REACTOR_LATERAL,
-                EquipmentEnum::REACTOR_LATERAL,
+                EquipmentEnum::REACTOR_LATERAL_ALPHA,
+                EquipmentEnum::REACTOR_LATERAL_BRAVO,
                 EquipmentEnum::EMERGENCY_REACTOR,
                 EquipmentEnum::COMBUSTION_CHAMBER,
             ])
@@ -628,7 +628,8 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($pasiphae);
 
-        $daedalusConfig->setPlaceConfigs(new ArrayCollection([
+        /** @var ArrayCollection $placeCollection */
+        $placeCollection = new ArrayCollection([
             $bridge,
             $alphaBay, $bravoBay, $alphaBay2, $icarusBay,
             $nexus, $medLab, $laboratory,
@@ -639,7 +640,8 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             $frontStorage, $centerAlphaStorage, $centreBravoStorage, $rearAlphaStorage, $rearBravoStorage, $space,
             $patrolship_alpha_2_wallis, $patrolship_alpha_longane, $patrolship_alpha_jujube, $patrolship_alpha_tamarin,
             $patrolship_bravo_socrate, $patrolship_bravo_planton, $patrolship_bravo_epicure, $pasiphae,
-        ]));
+        ]);
+        $daedalusConfig->setPlaceConfigs($placeCollection);
         $manager->persist($daedalusConfig);
 
         $manager->flush();

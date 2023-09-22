@@ -5,8 +5,8 @@ namespace Mush\Status\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\EventServiceInterface;
@@ -91,7 +91,7 @@ class StatusService implements StatusServiceInterface
         StatusHolderInterface $holder,
         array $reasons,
         \DateTime $time,
-        ?StatusHolderInterface $target = null
+        StatusHolderInterface $target = null
     ): Status {
         if ($statusConfig instanceof ChargeStatusConfig) {
             $status = new ChargeStatus($holder, $statusConfig);
@@ -119,7 +119,7 @@ class StatusService implements StatusServiceInterface
         Daedalus $daedalus,
         StatusHolderInterface $holder,
         \DateTime $time,
-        ?StatusHolderInterface $target = null
+        StatusHolderInterface $target = null
     ): Status {
         $statusConfig = $this->getStatusConfigByNameAndDaedalus($statusName, $daedalus);
 
@@ -196,9 +196,9 @@ class StatusService implements StatusServiceInterface
                 foreach ($pickedEquipments as $equipment) {
                     $pickedEquipmentsStatus = $pickedEquipment->getStatusByName($statusName);
                     $equipmentsStatus = $equipment->getStatusByName($statusName);
-                    if ($pickedEquipmentsStatus &&
-                        $equipmentsStatus &&
-                        $pickedEquipmentsStatus->getCreatedAt() < $equipmentsStatus->getCreatedAt()) {
+                    if ($pickedEquipmentsStatus
+                        && $equipmentsStatus
+                        && $pickedEquipmentsStatus->getCreatedAt() < $equipmentsStatus->getCreatedAt()) {
                         $pickedEquipment = $equipment;
                     }
                 }

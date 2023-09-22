@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Modifier\Service;
+namespace Mush\Tests\unit\Modifier\Service;
 
 use Mockery;
 use Mush\Action\Entity\Action;
@@ -25,7 +25,7 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
 
-class ModifierServiceTest extends TestCase
+class EventModifierServiceTest extends TestCase
 {
     private EventModifierService $service;
 

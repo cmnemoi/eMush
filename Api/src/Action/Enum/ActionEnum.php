@@ -86,7 +86,7 @@ class ActionEnum
     public const SHOOT_HUNTER_PATROL_SHIP = 'shoot_hunter_patrol_ship';
     public const SHOOT_RANDOM_HUNTER = 'shoot_random_hunter';
     public const SHOOT_RANDOM_HUNTER_PATROL_SHIP = 'shoot_random_hunter_patrol_ship';
-    public const ACCES_TERMINAL = 'acces_terminal';
+    public const ACCESS_TERMINAL = 'access_terminal';
     public const CONTACT_SOL = 'contact_sol';
     public const INSTALL_CAMERA = 'install_camera';
     public const REMOVE_CAMERA = 'remove_camera';
@@ -126,7 +126,7 @@ class ActionEnum
     public const PUTSCH = 'putsch';
     public const RUN_HOME = 'run_home';
     public const DAUNT = 'daunt';
-    public const ANATHEM = 'anathem';
+    public const ANATHEMA = 'anathema';
     public const METALWORKER = 'gen_metal';
     public const GEN_METAL = 'gen_metal';
     public const MOTIVATIONAL_SPEECH = 'motivational_speech';
@@ -150,7 +150,7 @@ class ActionEnum
     public const SCREW_TALKIE = 'screw_talkie';
     public const SPREAD_FIRE = 'spread_fire';
     public const NERON_DEPRESS = 'neron_depress';
-    public const MASS_MUSHIFICATION = 'mass_ggeddon';
+    public const MASS_MUSHIFICATION = 'mass_mushification';
     public const MASS_GGEDON = 'mass_ggeddon';
 
     public static function getPermanentItemActions(): array

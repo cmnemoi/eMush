@@ -588,11 +588,11 @@
                         other {invalid gender input}
                     }}
                     3 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Ce rictus est inquiétant.}
-                    4 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Etait-ce vraiment nécessaire ?}
+                    4 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Était-ce vraiment nécessaire ?}
                     5 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Mais pourquoi ?}
                     6 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Sans doute pour faire une BA.}
                     7 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Son but est sans doute louable.}
-                    8 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Son sourire vous rapelle quelque chose.}
+                    8 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Son sourire vous rappelle quelque chose.}
                     9 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Vous connaissez ce rire...}
                     10 {{character_gender, select,
                         male {**{character}** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être le surveiller de plus près.}
@@ -738,19 +738,19 @@
         <source>motivational_speech</source>
         <target>{version, select,
                     1 {Bon les cocos ça va pas du tout là. Vous assurez tellement bien que le Mush va se suicider de désespoir. Je vous rappelle qu'on doit l'étudier avant, alors simulez un peu de pessimisme, ok ?}
-                    2 {Bonjour - Excusez ma tenue, je sors de la douche. Je suis convaincu que la solution à nos problèmes se trouve dans la bonne utilisation du Sofa Suédois qui se trouve à bord. Il nous faut pénétrer les défenses du Mush et le baillonner !}
+                    2 {Bonjour - Excusez ma tenue, je sors de la douche. Je suis convaincu que la solution à nos problèmes se trouve dans la bonne utilisation du Sofa Suédois qui se trouve à bord. Il nous faut pénétrer les défenses du Mush et le bâillonner !}
                     3 {Chers équipiers, nous sommes chargés d'une mission comme il n'en existe pas de plus grande, et nous avons les moyens de l'accomplir ! La FDS ne le sait que trop bien, pour quelle autre raison est-ce qu'elle nous attaquerait ?}
                     4 {Compagnons, ayez confiance. Le Mush essaie de nous diviser et de nous démoraliser mais ses tentatives seront vaines si nous restons unis. Je le sens tout au fond de moi, nous sortirons vainqueurs de ce conflit. Un brillant avenir nous attend.}
                     5 {Compagnons ! Notre Destin est de sauver l'Humanité… Nous sommes l'espoir qu'attendaient les martyrs de Sol et nous nous montrerons dignes de leurs mémoires ! Nous sommes le futur et nous irons de l’avant jusqu’à la fin des temps !}
                     6 {Compagnons ! Redressez la tête, gardez espoir ! La victoire est proche. Nous allons triompher. En effet, nous sommes sur le point de… euh… de… Ah zut, quelqu'un peut m'aider à déchiffrer la suite de cette copie de discours ?}
                     7 {Grandiose est notre destinée, je vous lis ! Reprenons en main ce formidable vaisseau. A son bord, son équipage est des plus valeureux. Nous réussirons à nous débarrasser de tous ces Hunters. Festoyons à la future victoire de l'humanité sur le Mush !}
                     8 {J'ai fait un rêve. Dans ce rêve, une nouvelle humanité saluait l'épave du Daedalus avant de lancer une énorme flotte à la reconquête de Sol, forte de son immunité au Mush. J'ai vu l'avenir, j'en suis sûr. Nous réussirons. NOUS RÉUSSIRONS !}
-                    9 {Je lis dans vos yeux, la même peur qui pourrait saisir mon coeur. Un jour peut venir, où le courage des Hommes faillira, où nous serons tous infectés. Ce jour n'est pas arrivé. Aujourd'hui nous combattrons ! Je vous ordonne de tenir, Hommes de Sol !}
+                    9 {Je lis dans vos yeux, la même peur qui pourrait saisir mon cœur. Un jour peut venir, où le courage des Hommes faillira, où nous serons tous infectés. Ce jour n'est pas arrivé. Aujourd'hui nous combattrons ! Je vous ordonne de tenir, Hommes de Sol !}
                     10 {Même si les attaques ne cessent pas et que tout le monde ne survivra pas à cette épopée, nous pouvons être fières d'être l'équipage qui mènera le dernier espoir aux confins de l'espace, en terre promise. Ne l'oubliez jamais: Nous sommes l'AVENIR !}
                     11 {Mes amis, l'heure est grave je ne vous le cache pas. Mais là où d'autres baisseraient les bras, NOUS saurons faire la différence car NOUS sommes la fine fleur de l'élite et que tel est notre devoir !}
                     12 {N'oubliez pas que nous avons été choisis d'entre tous pour sauver l'humanité. Personne d'autre que nous ne saurait mieux y arriver. Pensez à tous ceux qui sont restés à la merci du mush pour rendre ce voyage possible, ne les décevez pas !}
-                    13 {Nous avons été et sommes submergés par la force des champignons ! Mais le dernier mot est-il dit ? L'espérance doit-elle disparaître ? La défaite est-elle définitive ? Non ! La flamme de la résistance ne doit pas s'éteindre et ne s'éteindra pas.}
-                    14 {Nous sommes peut-être dans une situation qui semble déséspérée. Peut-être que certains d'entre-vous ont perdus leurs familles et leurs amis mais sachez que vous êtes les plus chanceux ! Pourquoi me direz-vous ? Car vous m'avez pour supérieur !}
+                    13 {Nous avons été et sommes submergés par la force des champignons ! Mais le dernier mot est-il dit ? L'espérance doit-elle disparaitre ? La défaite est-elle définitive ? Non ! La flamme de la résistance ne doit pas s'éteindre et ne s'éteindra pas.}
+                    14 {Nous sommes peut-être dans une situation qui semble désespérée. Peut-être que certains d'entre-vous ont perdus leurs familles et leurs amis mais sachez que vous êtes les plus chanceux ! Pourquoi me direz-vous ? Car vous m'avez pour supérieur !}
                     15 {Secouez-vous un peu, bande de moules ! L'ennemi est à nos portes mais nous allons l'atomiser ! Le Mush ne nous aura pas. Nous l’écraserons comme un vulgaire champignon. Nous sommes les meilleurs, nous vaincrons !}
                     16 {tap tap 1, 2, 1, 2, y m'entendent c'est bon? Je vais vous la faire simple et brève mes pépères! Avec Stephen on vous a préparé un maxi gâteau au chocolat, et je compte sur vous tous pour bien le dégommer! Garanti sans laxatif ce coup-ci! A TABLE!!!}
                     17 {TOUS AVEC MOI! Hunter, si j't'attrape, TU MEURS! BoUYAAA Mush, si j'te trouve, j'TE COUCHE! BoUYAAA Spores tremblez sous le cris de notre Stentor! BoUYAAA Car avec le Deadalus, bientôt nous retrouverons cirrus crocus et autres prunus! BoUYAAA}
@@ -764,8 +764,8 @@
       <segment id="boring_speech" state="translated">
         <source>boring_speech</source>
         <target>{version, select,
-                    1 {Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. PITIE FAITES LE TAIRE.}
-                    2 {Moi Commandant du Daedalus, je promets la fin de la crise Mush. Moi Commandant du Daedalus, je prônerais l'égalité homme/femme.Moi Commandant du Daedalus, il faudra Le Faire une fois par jour.Moi Commandant du Daedalus, les femmes enceintes seront exemptées de travail.Moi Commandant du Daedalus, je ne vendrais aucun d'entre vous à des esclavagistes.Moi Commandant du Daedalus, nous mangerons 5 fruits et légumes par jour.Moi Commandant du Daedalus, NERON sera de bonne humeur.Moi Commandant du Daedalus, les douches seront publiques.Moi Commandant du Daedalus, nous irons sur Eden.Moi Commandant du Daedalus, …}
+                    1 {Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. PITIÉ FAITES LE TAIRE.}
+                    2 {Moi Commandant du Daedalus, je promets la fin de la crise Mush. Moi Commandant du Daedalus, je prônerais l'égalité homme/femme. Moi Commandant du Daedalus, il faudra Le Faire une fois par jour. Moi Commandant du Daedalus, les femmes enceintes seront exemptées de travail. Moi Commandant du Daedalus, je ne vendrais aucun d'entre vous à des esclavagistes. Moi Commandant du Daedalus, nous mangerons 5 fruits et légumes par jour. Moi Commandant du Daedalus, NERON sera de bonne humeur. Moi Commandant du Daedalus, les douches seront publiques. Moi Commandant du Daedalus, nous irons sur Eden. Moi Commandant du Daedalus, …}
                     3 {Comme le dit le grand Président Maubrick, il faut toujours croire en la FDS, ne pas frapper ses voisins, et traiter les femmes avec respect.Comme le dit le grand Président Maubrick, le Mush ne peut rien face à nous.Moi d'mon temps, le Président Maubrick il...}
                     other {invalid version input}
                 }</target>
@@ -843,7 +843,7 @@
                     6 {Les duels à la lame finissent rarement bien, **{character}** opère une coupe drastique dans le capital santé de **{target_character}**.}
                     7 {Malgré une jolie esquive, **{target_character}** verse un peu de son sang.}
                     8 {Peut-être l'esquive malencontreuse, peut-être le mauvais mouvement, peut-être une mauvaise imitation de combat vue dans un holodisque... **{target_character}** s'empale sur la lame de **{character}** avec lourdeur.}
-                    9 {Une reminescence de cours d'escrime ou un coup de chance, **{character}** perfore la défense de **{target_character}** sans problème.}
+                    9 {Une réminiscence de cours d'escrime ou un coup de chance, **{character}** perfore la défense de **{target_character}** sans problème.}
                     other {invalid version input}
                 }</target>
       </segment>
@@ -855,8 +855,8 @@
                     1 {**{character}** dégaine sa lame et tente de frapper **{target_character}** mais rate sa cible.}
                     2 {Zip, l'arme de **{character}** esquive fort élégamment **{target_character}** pour se heurter à un mur insolent.}
                     3 {**{target_character}** se retourne vers **{character}** qui le menace de sa lame. Trop vif, trop rapide, trop précis, bref, trop...**{character}** fait un effort surhumain mais se trouve pris d'un malaise...}
-                    4 {Au moment d'aggresser **{target_character}**, **{character}** se prend les pieds dans un tapis imaginaire et rate sa cible.}
-                    5 {Qui eut crû que **{target_character}** aie de si bons réflèxes...**{character}** rate lamentablement son coup.}
+                    4 {Au moment d’agresser **{target_character}**, **{character}** se prend les pieds dans un tapis imaginaire et rate sa cible.}
+                    5 {Qui eut crû que **{target_character}** aie de si bons réflexes...**{character}** rate lamentablement son coup.}
                     other {invalid version input}
                 }</target>
       </segment>
@@ -990,8 +990,8 @@
         <target>Oh purée encore perdu, spa vrai qu'cette machine diabolique a failli vous tuer en plus !</target>
       </segment>
     </unit>
-    <unit id="play_arcade_succes">
-      <segment id="play_arcade_succes" state="translated">
+    <unit id="play_arcade_success">
+      <segment id="play_arcade_success" state="translated">
         <source>play_arcade_succes</source>
         <target>OH OUIIIII. **{character}** a vaincu Xatator le boss du NIVEAUUUUU 10 !</target>
       </segment>
@@ -1068,9 +1068,9 @@
       <segment id="auto_eject_success" state="translated">
         <source>auto_eject_success</source>
         <target>{character_gender, select,
-        male {**{character}** s'est ejecté du monoplace.}
-        female {**{character}** s'est ejectée du monoplace.}
-        other {**{character}** s'est ejecté du monoplace.}
+        male {**{character}** s'est éjecté du monoplace.}
+        female {**{character}** s'est éjectée du monoplace.}
+        other {**{character}** s'est éjecté du monoplace.}
       }</target>
       </segment>
     </unit>

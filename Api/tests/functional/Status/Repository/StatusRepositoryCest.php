@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Tests\Status\Repository;
+namespace Mush\Tests\functional\Status\Repository;
 
-use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -17,6 +16,7 @@ use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Repository\StatusRepository;
+use Mush\Tests\FunctionalTester;
 
 class StatusRepositoryCest
 {

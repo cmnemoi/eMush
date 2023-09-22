@@ -3,7 +3,7 @@
 namespace Mush\Status\Service;
 
 use Doctrine\Common\Collections\Collection;
-use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
@@ -30,7 +30,7 @@ interface StatusServiceInterface
         StatusHolderInterface $holder,
         array $reasons,
         \DateTime $time,
-        ?StatusHolderInterface $target = null
+        StatusHolderInterface $target = null
     ): Status;
 
     public function createStatusFromName(
@@ -38,7 +38,7 @@ interface StatusServiceInterface
         Daedalus $daedalus,
         StatusHolderInterface $holder,
         \DateTime $time,
-        ?StatusHolderInterface $target = null
+        StatusHolderInterface $target = null
     ): Status;
 
     public function handleAttempt(Player $player, string $actionName, ActionResult $result): void;

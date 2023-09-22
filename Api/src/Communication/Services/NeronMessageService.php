@@ -48,7 +48,7 @@ class NeronMessageService implements NeronMessageServiceInterface
         Daedalus $daedalus,
         array $parameters,
         \DateTime $dateTime,
-        ?Message $parent = null
+        Message $parent = null
     ): Message {
         $daedalusInfo = $daedalus->getDaedalusInfo();
         $publicChannel = $this->channelService->getPublicChannel($daedalusInfo);

@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Communication\Listener;
+namespace Mush\Tests\functional\Communication\Listener;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
@@ -30,6 +29,7 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class StatusSubscriberCest

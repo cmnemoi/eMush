@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Equipment\Event;
+namespace Mush\Tests\functional\Equipment\Event;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -39,8 +38,8 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class PlantNewDayCest
@@ -87,7 +86,6 @@ class PlantNewDayCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantThirsty);
-        $hunterCharge = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => HunterStatusEnum::HUNTER_CHARGE . '_default']);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
@@ -135,7 +133,7 @@ class PlantNewDayCest
             'daedalusConfig' => $daedalusConfig,
             'localizationConfig' => $localizationConfig,
             'difficultyConfig' => $difficultyConfig,
-            'statusConfigs' => new ArrayCollection([$plantYoung, $plantThirsty, $plantDry, $plantDiseased, $fireStatusConfig, $hunterCharge]),
+            'statusConfigs' => new ArrayCollection([$plantYoung, $plantThirsty, $plantDry, $plantDiseased, $fireStatusConfig]),
             'equipmentsConfig' => new ArrayCollection([$fruitConfig, $plantConfig, $hydropotConfig]),
             'hunterConfigs' => new ArrayCollection($hunterConfigs),
         ]);
@@ -255,7 +253,6 @@ class PlantNewDayCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantThirsty);
-        $hunterCharge = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => HunterStatusEnum::HUNTER_CHARGE . '_default']);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
@@ -302,7 +299,7 @@ class PlantNewDayCest
             'daedalusConfig' => $daedalusConfig,
             'localizationConfig' => $localizationConfig,
             'difficultyConfig' => $difficultyConfig,
-            'statusConfigs' => new ArrayCollection([$plantYoung, $plantThirsty, $plantDry, $plantDiseased, $fireStatusConfig, $hunterCharge]),
+            'statusConfigs' => new ArrayCollection([$plantYoung, $plantThirsty, $plantDry, $plantDiseased, $fireStatusConfig]),
             'equipmentsConfig' => new ArrayCollection([$fruitConfig, $plantConfig, $hydropotConfig]),
             'hunterConfigs' => new ArrayCollection($hunterConfigs),
         ]);
@@ -428,9 +425,6 @@ class PlantNewDayCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantThirsty);
-        $hunterCharge = $I->grabEntityFromRepository(ChargeStatusConfig::class, [
-            'name' => HunterStatusEnum::HUNTER_CHARGE . '_default',
-        ]);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
@@ -477,7 +471,7 @@ class PlantNewDayCest
             'daedalusConfig' => $daedalusConfig,
             'localizationConfig' => $localizationConfig,
             'difficultyConfig' => $difficultyConfig,
-            'statusConfigs' => new ArrayCollection([$plantYoung, $plantThirsty, $plantDry, $plantDiseased, $fireStatusConfig, $hunterCharge]),
+            'statusConfigs' => new ArrayCollection([$plantYoung, $plantThirsty, $plantDry, $plantDiseased, $fireStatusConfig]),
             'equipmentsConfig' => new ArrayCollection([$fruitConfig, $plantConfig, $hydropotConfig]),
             'hunterConfigs' => new ArrayCollection($hunterConfigs),
         ]);
@@ -602,9 +596,6 @@ class PlantNewDayCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantThirsty);
-        $hunterCharge = $I->grabEntityFromRepository(ChargeStatusConfig::class, [
-            'name' => HunterStatusEnum::HUNTER_CHARGE . '_default',
-        ]);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
@@ -652,7 +643,7 @@ class PlantNewDayCest
             'daedalusConfig' => $daedalusConfig,
             'localizationConfig' => $localizationConfig,
             'difficultyConfig' => $difficultyConfig,
-            'statusConfigs' => new ArrayCollection([$plantYoung, $plantThirsty, $plantDry, $plantDiseased, $fireStatusConfig, $hunterCharge]),
+            'statusConfigs' => new ArrayCollection([$plantYoung, $plantThirsty, $plantDry, $plantDiseased, $fireStatusConfig]),
             'equipmentsConfig' => new ArrayCollection([$fruitConfig, $plantConfig, $hydropotConfig]),
             'hunterConfigs' => new ArrayCollection($hunterConfigs),
         ]);
@@ -780,7 +771,6 @@ class PlantNewDayCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($plantThirsty);
-        $hunterCharge = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => HunterStatusEnum::HUNTER_CHARGE . '_default']);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
@@ -827,7 +817,7 @@ class PlantNewDayCest
             'daedalusConfig' => $daedalusConfig,
             'localizationConfig' => $localizationConfig,
             'difficultyConfig' => $difficultyConfig,
-            'statusConfigs' => new ArrayCollection([$plantYoung, $plantThirsty, $plantDry, $plantDiseased, $fireStatusConfig, $hunterCharge]),
+            'statusConfigs' => new ArrayCollection([$plantYoung, $plantThirsty, $plantDry, $plantDiseased, $fireStatusConfig]),
             'equipmentsConfig' => new ArrayCollection([$fruitConfig, $plantConfig, $hydropotConfig]),
             'hunterConfigs' => new ArrayCollection($hunterConfigs),
         ]);

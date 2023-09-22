@@ -8,8 +8,10 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class DiseaseNormalizer implements ContextAwareNormalizerInterface
+class DiseaseNormalizer implements NormalizerInterface
 {
     private TranslationServiceInterface $translationService;
 

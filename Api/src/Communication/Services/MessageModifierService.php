@@ -211,9 +211,8 @@ class MessageModifierService implements MessageModifierServiceInterface
         }
 
         $characterDraw = $this->randomService->getRandomElements($characters, 1);
-        $character = reset($characterDraw);
 
-        return $character;
+        return reset($characterDraw);
     }
 
     private function getVersionParameter(array $parameters, string $versionKey): array

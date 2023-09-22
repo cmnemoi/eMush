@@ -1,6 +1,6 @@
 <?php
 
-namespace unit\Player\Voter;
+namespace Mush\Tests\unit\Player\Voter;
 
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Voter\MessageVoter;

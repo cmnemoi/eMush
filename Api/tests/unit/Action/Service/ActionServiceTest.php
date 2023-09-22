@@ -1,6 +1,6 @@
 <?php
 
-namespace unit\Action\Service;
+namespace Mush\Tests\unit\Action\Service;
 
 use Mockery;
 use Mush\Action\Entity\Action;

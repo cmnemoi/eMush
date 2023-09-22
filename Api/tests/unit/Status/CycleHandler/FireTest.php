@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Status\CycleHandler;
+namespace Mush\Tests\unit\Status\CycleHandler;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
@@ -119,8 +119,8 @@ class FireTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (DaedalusVariableEvent $daedalusEvent, string $eventName) => (
-                $eventName === VariableEventInterface::CHANGE_VARIABLE &&
-                $daedalusEvent->getVariableName() === DaedalusVariableEnum::HULL
+                $eventName === VariableEventInterface::CHANGE_VARIABLE
+                && $daedalusEvent->getVariableName() === DaedalusVariableEnum::HULL
             ))
             ->once()
         ;

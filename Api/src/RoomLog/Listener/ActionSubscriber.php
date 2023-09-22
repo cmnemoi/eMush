@@ -2,7 +2,7 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Game\Enum\VisibilityEnum;
@@ -52,9 +52,9 @@ class ActionSubscriber implements EventSubscriberInterface
         $actionParameter = $event->getActionParameter();
         $player = $event->getAuthor();
 
-        if ($actionParameter instanceof Player &&
-            in_array($action->getActionName(), ActionEnum::getForceGetUpActions()) &&
-            $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
+        if ($actionParameter instanceof Player
+            && in_array($action->getActionName(), ActionEnum::getForceGetUpActions())
+            && $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
             $actionParameter->removeStatus($lyingDownStatus);
             $this->createForceGetUpLog($actionParameter);

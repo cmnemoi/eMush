@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Player\Event;
+namespace Mush\Tests\unit\Player\Event;
 
 use Mockery;
 use Mush\Game\Service\EventServiceInterface;

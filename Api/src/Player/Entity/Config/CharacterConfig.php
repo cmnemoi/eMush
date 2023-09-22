@@ -117,7 +117,7 @@ class CharacterConfig
     }
 
     /**
-     * @param Collection<int, StatusConfig> $initStatuses
+     * @param Collection<int, StatusConfig>|array<int, StatusConfig> $initStatuses
      */
     public function setInitStatuses(Collection|array $initStatuses): static
     {
@@ -143,7 +143,7 @@ class CharacterConfig
     }
 
     /**
-     * @param Collection<int, Action> $actions
+     * @param Collection<array-key, Action>|array<int, Action> $actions
      */
     public function setActions(Collection|array $actions): static
     {
@@ -174,7 +174,7 @@ class CharacterConfig
     }
 
     /**
-     * @param Collection<int, ItemConfig> $items
+     * @param Collection<int, ItemConfig>|array<int, ItemConfig> $items
      */
     public function setStartingItems(Collection|array $items): static
     {
@@ -193,7 +193,7 @@ class CharacterConfig
     }
 
     /**
-     * @param Collection<int, DiseaseConfig> $initDiseases
+     * @param Collection<int, DiseaseConfig>|array<int, DiseaseConfig> $initDiseases
      */
     public function setInitDiseases(Collection|array $initDiseases): static
     {

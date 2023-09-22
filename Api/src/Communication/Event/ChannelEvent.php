@@ -15,7 +15,7 @@ class ChannelEvent extends AbstractGameEvent
 
     private Channel $channel;
 
-    public function __construct(Channel $channel, array $tags, \DateTime $time, ?Player $player = null)
+    public function __construct(Channel $channel, array $tags, \DateTime $time, Player $player = null)
     {
         parent::__construct($tags, $time);
         $this->channel = $channel;

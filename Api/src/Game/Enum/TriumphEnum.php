@@ -45,7 +45,7 @@ class TriumphEnum
     public const EDEN_MUSH_INTRUDER = 'eden_mush_intruder';
     public const EDEN_BY_PREGNANT = 'eden_by_pregnant';
     public const EDEN_COMPUTED = 'eden_computed';
-    public const ANATHEM = 'anathem';
+    public const ANATHEMA = 'anathema';
     public const PREGNANCY = 'pregnancy';
     public const ALL_PREGNANT = 'all_pregnant';
     public const SUCCESS_REPAIR = 'success_repair';
@@ -56,8 +56,6 @@ class TriumphEnum
 
     /**
      * @return string[]
-     *
-     * @psalm-return list{'cycle_mush', 'starting_mush', 'cycle_mush_late', 'conversion', 'infection', 'humanocide', 'chun_dead', 'sol_return_mush', 'eden_mush'}
      */
     public static function getMushTriumph(): array
     {
@@ -76,8 +74,6 @@ class TriumphEnum
 
     /**
      * @return string[]
-     *
-     * @psalm-return list{'cycle_human', 'cycle_inactive', 'new_planet_orbit', 'sol_contact', 'small_research', 'standard_research', 'brilliant_research', 'sol_return', 'sol_mush_intruder', 'hunter_killed', 'mushicide', 'rebel_wolf', 'nice_surgery', 'eden_crew_alive', 'eden_alien_plant', 'eden_gender', 'eden', 'eden_cat', 'eden_cat_dead', 'eden_cat_mush', 'eden_disease', 'eden_engineers', 'eden_biologist', 'eden_mush_intruder', 'eden_by_pregnant', 'eden_computed', 'anathem', 'pregnancy', 'all_pregnant', 'success_repair', 'success_repair_hull', 'success_fire', 'mush_vaccinated', 'alien_killed'}
      */
     public static function getHumanTriumph(): array
     {
@@ -108,7 +104,7 @@ class TriumphEnum
             self::EDEN_MUSH_INTRUDER,
             self::EDEN_BY_PREGNANT,
             self::EDEN_COMPUTED,
-            self::ANATHEM,
+            self::ANATHEMA,
             self::PREGNANCY,
             self::ALL_PREGNANT,
             self::SUCCESS_REPAIR,
@@ -121,8 +117,6 @@ class TriumphEnum
 
     /**
      * @return string[]
-     *
-     * @psalm-return list{'eden_crew_alive', 'eden_alien_plant', 'eden_gender', 'eden', 'eden_cat', 'eden_cat_dead', 'eden_cat_mush', 'eden_disease', 'eden_engineers', 'eden_biologist', 'eden_mush_intruder', 'eden_by_pregnant', 'eden_computed', 'eden_mush'}
      */
     public static function getReachingEden(): array
     {

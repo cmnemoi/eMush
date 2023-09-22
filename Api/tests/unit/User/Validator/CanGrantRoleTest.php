@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\User\Validator;
+namespace Mush\Tests\unit\User\Validator;
 
 use Mockery;
 use Mush\User\Enum\RoleEnum;
@@ -74,7 +74,7 @@ class CanGrantRoleTest extends TestCase
         $this->validator->validate($roles, $constraint);
     }
 
-    protected function initValidator(?string $expectedMessage = null)
+    protected function initValidator(string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);

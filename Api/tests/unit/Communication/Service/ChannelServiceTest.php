@@ -758,8 +758,8 @@ class ChannelServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getChannel() === $channel &&
-                $channelPlayer->getParticipant() === $playerInfo
+            ->withArgs(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getChannel() === $channel
+                && $channelPlayer->getParticipant() === $playerInfo
             )
             ->once()
         ;

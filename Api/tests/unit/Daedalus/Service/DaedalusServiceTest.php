@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Daedalus\Service;
+namespace Mush\Tests\unit\Daedalus\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -328,9 +328,9 @@ class DaedalusServiceTest extends TestCase
 
         $this->randomService->shouldReceive('getRandomElementsFromProbaCollection')
             ->withArgs(fn ($probaCollection, $number) => (
-                $probaCollection instanceof ProbaCollection &&
-                $probaCollection->toArray() === ['player1' => 1, 'player2' => 1, 'player3' => 1] &&
-                $number === 2
+                $probaCollection instanceof ProbaCollection
+                && $probaCollection->toArray() === ['player1' => 1, 'player2' => 1, 'player3' => 1]
+                && $number === 2
             ))
             ->andReturn(['player1', 'player3'])
             ->once()

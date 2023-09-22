@@ -15,7 +15,7 @@ class DiseaseCauseConfigDataLoader extends ConfigDataLoader
         EntityManagerInterface $entityManager,
         DiseaseCauseConfigRepository $diseaseCauseConfigRepository)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->diseaseCauseConfigRepository = $diseaseCauseConfigRepository;
     }
 

@@ -19,6 +19,14 @@ class HunterVariables extends GameVariableCollection
             minValue: 0
         );
 
-        parent::__construct([$healthVariable]);
+        $hitChance = new GameVariable(
+            variableCollection: $this,
+            name: HunterVariableEnum::HIT_CHANCE,
+            initValue: $hunterConfig->getHitChance(),
+            minValue: 0,
+            maxValue: 100
+        );
+
+        parent::__construct([$healthVariable, $hitChance]);
     }
 }

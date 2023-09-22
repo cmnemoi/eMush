@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Daedalus\Validator;
+namespace Mush\Tests\unit\Daedalus\Validator;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
@@ -77,7 +77,7 @@ class StartingDaedalusTest extends TestCase
         $this->assertTrue(true);
     }
 
-    protected function initValidator(?string $expectedMessage = null)
+    protected function initValidator(string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);

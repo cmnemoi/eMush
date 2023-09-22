@@ -2,7 +2,6 @@
 
 namespace Mush\Tests\functional\Status\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Modifier\ConfigData\EventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
@@ -11,6 +10,7 @@ use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigData;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Tests\FunctionalTester;
 
 class ChargeStatusConfigDataLoaderCest
 {

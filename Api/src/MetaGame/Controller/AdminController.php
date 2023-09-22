@@ -10,7 +10,6 @@ use FOS\RestBundle\View\View;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Service\AlertServiceInterface;
-use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
 use Mush\Place\Entity\Place;
@@ -43,10 +42,10 @@ class AdminController extends AbstractFOSRestController
     private UserServiceInterface $userService;
 
     public function __construct(AlertServiceInterface $alertService,
-                                DaedalusServiceInterface $daedalusService,
-                                PlaceServiceInterface $placeService,
-                                PlayerServiceInterface $playerService,
-                                UserServiceInterface $userService
+        DaedalusServiceInterface $daedalusService,
+        PlaceServiceInterface $placeService,
+        PlayerServiceInterface $playerService,
+        UserServiceInterface $userService
     ) {
         $this->alertService = $alertService;
         $this->daedalusService = $daedalusService;
@@ -62,11 +61,16 @@ class AdminController extends AbstractFOSRestController
      *      name="id",
      *      in="path",
      *      description="The daedalus id",
+     *
      *       @OA\Schema(type="string")
      * )
+     *
      * @OA\Tag(name="Admin")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Post(path="/add-new-rooms-to-daedalus/{id}")
+     *
      * @Rest\View()
      */
     public function addNewRoomsToDaedalus(Request $request): View
@@ -88,7 +92,6 @@ class AdminController extends AbstractFOSRestController
             throw new HttpException(Response::HTTP_BAD_REQUEST, "Won't add rooms to a finished Daedalus");
         }
 
-        /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
 
         /** @var PlaceConfig $placeConfig */
@@ -112,11 +115,16 @@ class AdminController extends AbstractFOSRestController
      *     name="id",
      *     in="path",
      *     description="The player to close id",
+     *
      *     @OA\Schema(type="string")
      * )
+     *
      * @OA\Tag(name="Admin")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Post(path="/close-player/{id}")
+     *
      * @Rest\View()
      */
     public function closePlayer(Request $request): View
@@ -141,6 +149,8 @@ class AdminController extends AbstractFOSRestController
         if ($this->playerService->endPlayer($playerToClose, '')) {
             return $this->view('Player closed successfully', Response::HTTP_OK);
         }
+
+        throw new \Exception('impossible to close player');
     }
 
     /**
@@ -150,11 +160,16 @@ class AdminController extends AbstractFOSRestController
      *      name="id",
      *      in="path",
      *      description="The daedalus id",
+     *
      *       @OA\Schema(type="string")
      * )
+     *
      * @OA\Tag(name="Admin")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Post(path="/delete-daedalus-duplicated-alert-elements/{id}")
+     *
      * @Rest\View()
      */
     public function deleteDaedalusDuplicatedAlertElements(Request $request): View

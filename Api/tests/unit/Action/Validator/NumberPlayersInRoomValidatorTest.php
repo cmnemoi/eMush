@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Action\Validator;
+namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\NumberPlayersAliveInRoom;
@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class NumberPlayersAliveInRoomValidatorTest extends TestCase
+class NumberPlayersInRoomValidatorTest extends TestCase
 {
     private NumberPlayersAliveInRoomValidator $validator;
     private NumberPlayersAliveInRoom $constraint;
@@ -124,7 +124,7 @@ class NumberPlayersAliveInRoomValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint, 'execute');
     }
 
-    protected function initValidator(?string $expectedMessage = null)
+    protected function initValidator(string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);

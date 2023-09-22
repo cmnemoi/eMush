@@ -2,8 +2,8 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\HasEquipment;
@@ -79,8 +79,8 @@ class ScrewTalkie extends AbstractAction
         $parameter = $this->parameter;
 
         /** @var GameItem $talkie */
-        $talkie = $parameter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::WALKIE_TALKIE ||
-            $item->getName() === ItemEnum::ITRACKIE
+        $talkie = $parameter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::WALKIE_TALKIE
+            || $item->getName() === ItemEnum::ITRACKIE
         )->first();
 
         if (!$talkie->isBroken()) {

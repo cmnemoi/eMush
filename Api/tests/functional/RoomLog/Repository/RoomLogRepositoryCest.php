@@ -2,7 +2,6 @@
 
 namespace Mush\Tests\functional\RoomLog\Repository;
 
-use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
@@ -14,6 +13,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Repository\RoomLogRepository;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class RoomLogRepositoryCest

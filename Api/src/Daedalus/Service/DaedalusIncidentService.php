@@ -118,7 +118,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         if ($numberOfEquipmentBroken > 0) {
             $workingEquipmentBreakRateDistribution = $this->getWorkingEquipmentBreakRateDistribution($daedalus);
 
-            // If there is no working equipment, we don't have to break anything so we return 0
+            // If there is no working equipment, we don't have to break anything, so we return 0
             if ($workingEquipmentBreakRateDistribution->isEmpty()) {
                 return 0;
             }
@@ -263,7 +263,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     /**
      * Get the number of incidents that will happen during the cycle.
-     * Incident number follows approximatively a Poisson distribution P(lambda)
+     * Incident number follows approximately a Poisson distribution P(lambda)
      * where lambda = 3.3*10^(-3) * day^1.7 is the average number of incidents per cycle.
      * During this alpha phase, the number of incidents is multiplied by a constant (currently 5).
      */

@@ -1,10 +1,10 @@
 <?php
 
-namespace Mush\Test\Action\Actions;
+namespace Mush\Tests\unit\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\LieDown;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -66,10 +66,10 @@ class LieDownActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
-                $event->getStatusName() === PlayerStatusEnum::LYING_DOWN &&
-                $event->getStatusHolder() === $player &&
-                $event->getStatusTarget() === $gameEquipment
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent
+                && $event->getStatusName() === PlayerStatusEnum::LYING_DOWN
+                && $event->getStatusHolder() === $player
+                && $event->getStatusTarget() === $gameEquipment
             )
             ->once()
         ;

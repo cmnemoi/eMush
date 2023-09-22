@@ -1,11 +1,11 @@
 <?php
 
-namespace Mush\Test\Action\Actions;
+namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Fail;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Land;
+use Mush\Action\Entity\ActionResult\Fail;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -14,20 +14,15 @@ use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Place\Service\PlaceServiceInterface;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class LandActionTest extends AbstractActionTest
 {
     /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var PlaceServiceInterface|Mockery\Mock */
-    private PlaceServiceInterface $placeService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var RoomLogServiceInterface|Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
 
     /**
      * @before
@@ -40,18 +35,14 @@ class LandActionTest extends AbstractActionTest
         $this->actionEntity->setCriticalRate(20);
 
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
-        $this->placeService = \Mockery::mock(PlaceServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
-        $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
 
         $this->action = new Land(
             $this->eventService,
             $this->actionService,
             $this->validator,
             $this->playerService,
-            $this->placeService,
             $this->randomService,
-            $this->roomLogService
         );
     }
 
@@ -69,15 +60,22 @@ class LandActionTest extends AbstractActionTest
 
         $roomStart = new Place();
         $roomStart->setDaedalus($daedalus);
+        $roomStart->setName(RoomEnum::PASIPHAE);
+
         $roomEnd = new Place();
         $roomEnd->setDaedalus($daedalus);
+        $roomEnd->setName(RoomEnum::ALPHA_BAY_2);
+
+        $patrolShipMechanic = new PatrolShip();
+        $patrolShipMechanic->setDockingPlace(RoomEnum::ALPHA_BAY_2);
+
         $patrollerConfig = new EquipmentConfig();
-        $patrollerConfig->setName(EquipmentEnum::PATROL_SHIP);
-        $patrollerConfig->setEquipmentName(EquipmentEnum::PATROL_SHIP);
-        $patrollerConfig->setMechanics([new PatrolShip()]);
+        $patrollerConfig->setName(EquipmentEnum::PASIPHAE);
+        $patrollerConfig->setEquipmentName(EquipmentEnum::PASIPHAE);
+        $patrollerConfig->setMechanics([$patrolShipMechanic]);
 
         $patroller = new GameEquipment($roomStart);
-        $patroller->setName(EquipmentEnum::PATROL_SHIP);
+        $patroller->setName(EquipmentEnum::PASIPHAE);
         $patroller->setEquipment($patrollerConfig);
 
         $this->playerService->shouldReceive('persist');
@@ -85,8 +83,6 @@ class LandActionTest extends AbstractActionTest
         $player = $this->createPlayer($daedalus, $roomStart);
 
         $this->action->loadParameters($this->actionEntity, $player, $patroller);
-
-        $this->placeService->shouldReceive('findByNameAndDaedalus')->andReturn($roomEnd);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('randomPercent')->andReturn(100);
@@ -104,16 +100,27 @@ class LandActionTest extends AbstractActionTest
 
         $roomStart = new Place();
         $roomStart->setDaedalus($daedalus);
+        $roomStart->setName(RoomEnum::PASIPHAE);
+
         $roomEnd = new Place();
         $roomEnd->setDaedalus($daedalus);
+        $roomEnd->setName(RoomEnum::ALPHA_BAY_2);
 
         $patrollerConfig = new EquipmentConfig();
-        $patrollerConfig->setName(EquipmentEnum::PATROL_SHIP);
-        $patrollerConfig->setEquipmentName(EquipmentEnum::PATROL_SHIP);
+        $patrollerConfig->setName(EquipmentEnum::PASIPHAE);
+        $patrollerConfig->setEquipmentName(EquipmentEnum::PASIPHAE);
         $patrollerConfig->setMechanics([new PatrolShip()]);
 
+        $patrolShipMechanic = new PatrolShip();
+        $patrolShipMechanic->setDockingPlace(RoomEnum::ALPHA_BAY_2);
+
+        $patrollerConfig = new EquipmentConfig();
+        $patrollerConfig->setName(EquipmentEnum::PASIPHAE);
+        $patrollerConfig->setEquipmentName(EquipmentEnum::PASIPHAE);
+        $patrollerConfig->setMechanics([$patrolShipMechanic]);
+
         $patroller = new GameEquipment($roomStart);
-        $patroller->setName(EquipmentEnum::PATROL_SHIP);
+        $patroller->setName(EquipmentEnum::PASIPHAE);
         $patroller->setEquipment($patrollerConfig);
 
         $this->playerService->shouldReceive('persist');
@@ -122,7 +129,6 @@ class LandActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $patroller);
 
-        $this->placeService->shouldReceive('findByNameAndDaedalus')->andReturn($roomEnd);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('randomPercent')->andReturn(0);
         $this->eventService->shouldReceive('callEvent')->times(1);

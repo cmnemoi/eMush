@@ -866,5 +866,17 @@ Upgradeable with Missiles.</target>
 Requires *Scrap Metal*.</target>
       </segment>
     </unit>
+    <unit id="auto_eject">
+      <segment id="name" state="translated">
+        <source>auto_eject.name</source>
+        <target>Auto-Eject</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>auto_eject.description</source>
+        <target>For when you have lost the battle, but not the war!
+//
+Or you simply need some fresh air.... or not.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

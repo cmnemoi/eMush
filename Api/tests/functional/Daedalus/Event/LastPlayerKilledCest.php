@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Daedalus\Event;
+namespace Mush\Tests\functional\Daedalus\Event;
 
-use App\Tests\FunctionalTester;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -20,6 +19,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class LastPlayerKilledCest

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Modifier\Entity\Config;
+namespace Mush\Tests\unit\Modifier\Entity\Config;
 
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
@@ -27,7 +27,7 @@ class EventModifierConfigTest extends TestCase
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([
                 ActionEnum::CHECK_INFECTION => ModifierRequirementEnum::NONE_TAGS,
-                ActionEnum::ANATHEM => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::ANATHEMA => ModifierRequirementEnum::ALL_TAGS,
                 ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS,
                 ModifierNameEnum::APRON_MODIFIER => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::SHOWER => ModifierRequirementEnum::ANY_TAGS,
@@ -48,7 +48,7 @@ class EventModifierConfigTest extends TestCase
         $event->addTag(ActionEnum::CONVERT_ACTION_TO_MOVEMENT);
         $this->assertFalse($modifier->doModifierApplies($event));
 
-        $event->addTag(ActionEnum::ANATHEM);
+        $event->addTag(ActionEnum::ANATHEMA);
         $this->assertTrue($modifier->doModifierApplies($event));
 
         $event->addTag(ActionEnum::CHECK_INFECTION);

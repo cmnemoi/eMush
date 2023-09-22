@@ -27,8 +27,8 @@ class PlantWaterableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($parameter, GameEquipment::class);
         }
 
-        if ($parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY) === null &&
-            $parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRY) === null
+        if ($parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY) === null
+            && $parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRY) === null
         ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();

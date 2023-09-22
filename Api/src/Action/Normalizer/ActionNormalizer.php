@@ -14,9 +14,9 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class ActionNormalizer implements ContextAwareNormalizerInterface
+class ActionNormalizer implements NormalizerInterface
 {
     private TranslationServiceInterface $translationService;
     private ActionStrategyServiceInterface $actionStrategyService;
@@ -43,9 +43,6 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         return $data instanceof Action && empty($context['groups']);
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, string $format = null, array $context = []): array
     {
         $actionClass = $this->actionStrategyService->getAction($object->getActionName());
@@ -157,7 +154,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         return $parameter;
     }
 
-    private function getTypesDescriptions(string $description, array $types, ?string $language = null): string
+    private function getTypesDescriptions(string $description, array $types, string $language = null): string
     {
         foreach ($types as $type) {
             if (key_exists($type, self::ACTION_TYPE_DESCRIPTION_MAP)) {

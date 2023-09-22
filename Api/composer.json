@@ -101,7 +101,111 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "apply-migrations": "php bin/console doctrine:migrations:migrate -n",
+        "create-daedalus": "php bin/console mush:create-daedalus",
+        "codecept:run": "vendor/bin/codecept run",
+        "codecept:clean": "vendor/bin/codecept clean",
+        "cs-fixer": "vendor/bin/php-cs-fixer fix",
+        "cs-fixer:fix": "@cs-fixer",
+        "diff": "php bin/console doctrine:migrations:diff -n",
+        "drop-database": "php bin/console doctrine:schema:drop --full-database --force",
+        "generate-migration": "@diff",
+        "fill-daedalus": "php bin/console mush:fill-daedalus",
+        "functional": [
+            "vendor/bin/codecept run tests/functional"
+        ],
+        "lint": [
+            "@cs-fixer",
+            "@psalm"
+        ],
+        "load-fixtures": [
+            "php bin/console doctrine:database:create --env=test --if-not-exists",
+            "php bin/console doctrine:schema:drop --full-database --env=test -f",
+            "php bin/console doctrine:schema:update --env=test -f",
+            "php bin/console doctrine:fixtures:load --env=test -n --verbose"
+        ],
+        "psalm": "vendor/bin/psalm",
+        "psalm:clear-cache": "vendor/bin/psalm --clear-cache",
+        "reset": [
+            "@load-fixtures",
+            "php bin/console doctrine:database:create --if-not-exists",
+            "@drop-database",
+            "php bin/console mush:migrate --dev"
+        ],
+        "test": [
+            "vendor/bin/codecept run"
+        ],
+        "test:action": [
+            "vendor/bin/codecept run tests/unit/Action",
+            "vendor/bin/codecept run tests/functional/Action"
+        ],
+        "test:api": [
+            "vendor/bin/codecept run tests/api"
+        ],
+        "test:alert": [
+            "vendor/bin/codecept run tests/unit/Alert",
+            "vendor/bin/codecept run tests/functional/Alert"
+        ],
+        "test:communication": [
+            "vendor/bin/codecept run tests/unit/Communication",
+            "vendor/bin/codecept run tests/functional/Communication"
+        ],
+        "test:daedalus": [
+            "vendor/bin/codecept run tests/unit/Daedalus",
+            "vendor/bin/codecept run tests/functional/Daedalus"
+        ],
+        "test:disease": [
+            "vendor/bin/codecept run tests/unit/Disease",
+            "vendor/bin/codecept run tests/functional/Disease"
+        ],
+        "test:equipment": [
+            "vendor/bin/codecept run tests/unit/Equipment",
+            "vendor/bin/codecept run tests/functional/Equipment"
+        ],
+        "test:functional": [
+            "vendor/bin/codecept run tests/functional"
+        ],
+        "test:game": [
+            "vendor/bin/codecept run tests/unit/Game",
+            "vendor/bin/codecept run tests/functional/Game"
+        ],
+        "test:hunter": [
+            "vendor/bin/codecept run tests/unit/Hunter",
+            "vendor/bin/codecept run tests/functional/Hunter"
+        ],
+        "test:modifier": [
+            "vendor/bin/codecept run tests/unit/Modifier",
+            "vendor/bin/codecept run tests/functional/Modifier"
+        ],
+        "test:place": [
+            "vendor/bin/codecept run tests/unit/Place",
+            "vendor/bin/codecept run tests/functional/Place"
+        ],
+        "test:player": [
+            "vendor/bin/codecept run tests/unit/Player",
+            "vendor/bin/codecept run tests/functional/Player"
+        ],
+        "test:room-log": [
+            "vendor/bin/codecept run tests/unit/RoomLog",
+            "vendor/bin/codecept run tests/functional/RoomLog"
+        ],
+        "test:status": [
+            "vendor/bin/codecept run tests/unit/Status",
+            "vendor/bin/codecept run tests/functional/Status"
+        ],
+        "test:unit": [
+            "vendor/bin/codecept run tests/unit"
+        ],
+        "test:user": [
+            "vendor/bin/codecept run tests/unit/User",
+            "vendor/bin/codecept run tests/functional/User"
+        ],
+        "unit": [
+            "vendor/bin/codecept run tests/unit"
+        ],
+        "update-schema": "@apply-migrations",
+        "validate-crew-death": "php bin/console mush:validate-crew-death"
     },
     "conflict": {
         "symfony/symfony": "*"

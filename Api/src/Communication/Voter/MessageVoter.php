@@ -74,8 +74,8 @@ class MessageVoter extends Voter
         // check for pirated channels
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
-        return $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
-            ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()));
+        return $channel->isPublic() || $channel->isPlayerParticipant($playerInfo)
+            || ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()));
     }
 
     private function canCreate(Channel $channel, PlayerInfo $playerInfo): bool
@@ -86,10 +86,10 @@ class MessageVoter extends Voter
         // check for pirated channels
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
-        return $this->channelService->canPlayerCommunicate($player) && $playerInfo->isAlive() &&
-            ($channel->isPublic() ||
-                $channel->isPlayerParticipant($playerInfo) ||
-                ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
+        return $this->channelService->canPlayerCommunicate($player) && $playerInfo->isAlive()
+            && ($channel->isPublic()
+                || $channel->isPlayerParticipant($playerInfo)
+                || ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
             );
     }
 }

@@ -259,15 +259,15 @@
         <target>Un mutado no puede hacer eso. Solo puede desplazarse, sabotear y golpear, eso ya es suficiemente bueno.</target>
       </segment>
     </unit>
-    <unit id="wisper_mute">
+    <unit id="whisper_mute">
       <segment id="description" state="translated">
-        <source>wisper_mute.description</source>
+        <source>whisper_mute.description</source>
         <target>Ya no puedes comunicarte.</target>
       </segment>
     </unit>
-    <unit id="wisper_no_available_chanel">
+    <unit id="whisper_no_available_chanel">
       <segment id="description" state="translated">
-        <source>wisper_no_available_chanel.description</source>
+        <source>whisper_no_available_chanel.description</source>
         <target>Este tripulante ya esta ocupado con otras conversaciones.</target>
       </segment>
     </unit>
@@ -283,15 +283,15 @@
         <target>already_outcast_onboard.description</target>
       </segment>
     </unit>
-    <unit id="lonely_aprenticeship">
+    <unit id="lonely_apprenticeship">
       <segment id="description" state="translated">
-        <source>lonely_aprenticeship.description</source>
+        <source>lonely_apprenticeship.description</source>
         <target>Para realizar esta acción, necesita otros miembros del equipo.</target>
       </segment>
     </unit>
-    <unit id="list_alredy_printed">
+    <unit id="list_already_printed">
       <segment id="description" state="translated">
-        <source>list_alredy_printed.description</source>
+        <source>list_already_printed.description</source>
         <target>Ya has perforado estas informaciones.</target>
       </segment>
     </unit>
@@ -391,9 +391,9 @@
         <target>PILGRED no está operativo.</target>
       </segment>
     </unit>
-    <unit id="not_enought_map_fragments">
+    <unit id="not_enough_map_fragments">
       <segment id="description" state="translated">
-        <source>not_enought_map_fragments.description</source>
+        <source>not_enough_map_fragments.description</source>
         <target>Esta pieza de mapa estelar es interesante, tal vez con algunas copias más puedas aprender más sobre su origen.</target>
       </segment>
     </unit>

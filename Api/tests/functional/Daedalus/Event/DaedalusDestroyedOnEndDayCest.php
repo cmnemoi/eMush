@@ -1,8 +1,7 @@
 <?php
 
-namespace functional\Daedalus\Event;
+namespace Mush\Tests\functional\Daedalus\Event;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -23,11 +22,10 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class DaedalusDestroyedOnEndDayCest
@@ -44,7 +42,6 @@ class DaedalusDestroyedOnEndDayCest
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(PlayerStatusEnum::MUSH)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
-        $hunterCharge = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => HunterStatusEnum::HUNTER_CHARGE . '_default']);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
@@ -55,7 +52,7 @@ class DaedalusDestroyedOnEndDayCest
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
             'localizationConfig' => $localizationConfig,
-            'statusConfigs' => new ArrayCollection([$statusConfig, $hunterCharge]),
+            'statusConfigs' => new ArrayCollection([$statusConfig]),
             'hunterConfigs' => new ArrayCollection($hunterConfigs),
         ]);
 

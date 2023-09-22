@@ -771,7 +771,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="final">
         <source>play_arcade.description</source>
-        <target>Permet de se défouler un peu en tabassant des Spaces PewPewz. C'est si bon... par contre la dificulté est... mortelle !</target>
+        <target>Permet de se défouler un peu en tabassant des Spaces PewPewz. C'est si bon... par contre la difficulté est... mortelle !</target>
       </segment>
     </unit>
     <unit id="shoot_hunter">

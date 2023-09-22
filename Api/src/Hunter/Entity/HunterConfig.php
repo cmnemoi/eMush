@@ -56,8 +56,14 @@ class HunterConfig
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
     private array $numberOfDroppedScrap = [];
 
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
-    private array $targetProbabilities = [];
+    #[ORM\Column(type: 'array', nullable: true)]
+    private ?array $targetProbabilities = [];
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => '0'])]
+    private int $bonusAfterFailedShot = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => '1'])]
+    private int $numberOfActionsPerCycle = 1;
 
     public function __construct()
     {
@@ -111,7 +117,7 @@ class HunterConfig
     }
 
     /**
-     * @param Collection<int, StatusConfig> $initialStatuses
+     * @param Collection<int, StatusConfig>|array<int, StatusConfig> $initialStatuses
      */
     public function setInitialStatuses(Collection|array $initialStatuses): static
     {
@@ -147,6 +153,13 @@ class HunterConfig
 
     public function setHitChance(int $hitChance): static
     {
+        if ($hitChance < 0) {
+            $hitChance = 0;
+        }
+        if ($hitChance > 100) {
+            $hitChance = 100;
+        }
+
         $this->hitChance = $hitChance;
 
         return $this;
@@ -154,6 +167,13 @@ class HunterConfig
 
     public function getDodgeChance(): int
     {
+        if ($this->dodgeChance < 0) {
+            $this->dodgeChance = 0;
+        }
+        if ($this->dodgeChance > 100) {
+            $this->dodgeChance = 100;
+        }
+
         return $this->dodgeChance;
     }
 
@@ -244,8 +264,12 @@ class HunterConfig
         return $this;
     }
 
-    public function getTargetProbabilities(): ProbaCollection
+    public function getTargetProbabilities(): ?ProbaCollection
     {
+        if ($this->targetProbabilities === null) {
+            return null;
+        }
+
         return new ProbaCollection($this->targetProbabilities);
     }
 
@@ -262,7 +286,34 @@ class HunterConfig
 
     public function addTargetProbability(string $target, int $probability): static
     {
+        if ($this->targetProbabilities === null) {
+            $this->targetProbabilities = [];
+        }
         $this->targetProbabilities[$target] = $probability;
+
+        return $this;
+    }
+
+    public function getBonusAfterFailedShot(): int
+    {
+        return $this->bonusAfterFailedShot;
+    }
+
+    public function setBonusAfterFailedShot(int $bonusAfterFailedShot): static
+    {
+        $this->bonusAfterFailedShot = $bonusAfterFailedShot;
+
+        return $this;
+    }
+
+    public function getNumberOfActionsPerCycle(): int
+    {
+        return $this->numberOfActionsPerCycle;
+    }
+
+    public function setNumberOfActionsPerCycle(int $numberOfActionsPerCycle): static
+    {
+        $this->numberOfActionsPerCycle = $numberOfActionsPerCycle;
 
         return $this;
     }

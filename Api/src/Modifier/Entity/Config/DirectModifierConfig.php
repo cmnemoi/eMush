@@ -7,7 +7,7 @@ use Mush\Game\Entity\AbstractEventConfig;
 
 /**
  * Class storing the various information needed to apply a directModifier.
- * Whenever a directModifier is applied (e.g. new disease, picking a skill..) or removed,
+ * Whenever a directModifier is applied (e.g. new disease, picking a skill...) or removed,
  * the effect of the directModifier is dispatched.
  *
  * eventConfig: a config to create an event

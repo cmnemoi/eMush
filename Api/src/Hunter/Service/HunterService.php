@@ -30,7 +30,6 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusService;
 use Psr\Log\LoggerInterface;
@@ -65,45 +64,63 @@ class HunterService implements HunterServiceInterface
         return $this->entityManager->getRepository(Hunter::class)->find($id);
     }
 
-    public function killHunter(Hunter $hunter): void
+    public function killHunter(Hunter $hunter, array $reasons, Player $author = null): void
     {
         $daedalus = $hunter->getDaedalus();
-
-        $this->dropScrap($hunter);
 
         $daedalus->getDaedalusInfo()->getClosedDaedalus()->incrementNumberOfHuntersKilled();
 
         $daedalus->getAttackingHunters()->removeElement($hunter);
-        $this->entityManager->remove($hunter);
-        $this->persist([$daedalus]);
+
+        $this->delete([$hunter]);
+
+        $hunterDeathEvent = new HunterEvent(
+            $hunter,
+            VisibilityEnum::PUBLIC,
+            $reasons,
+            new \DateTime()
+        );
+        $hunterDeathEvent->setAuthor($author);
+        $this->eventService->callEvent($hunterDeathEvent, HunterEvent::HUNTER_DEATH);
     }
 
     public function makeHuntersShoot(HunterCollection $attackingHunters): void
     {
         /** @var Hunter $hunter */
         foreach ($attackingHunters as $hunter) {
-            if (!$hunter->canShoot()) {
-                continue;
-            }
+            $numberOfActions = $hunter->getHunterConfig()->getNumberOfActionsPerCycle();
+            for ($i = 0; $i < $numberOfActions; ++$i) {
+                if (!$hunter->hasSelectedATarget()) {
+                    $this->selectHunterTarget($hunter);
+                    continue;
+                }
 
-            $successRate = $hunter->getHunterConfig()->getHitChance();
-            if (!$this->randomService->isSuccessful($successRate)) {
-                continue;
-            }
+                if (!$hunter->canShoot()) {
+                    continue;
+                }
 
-            $this->selectHunterTarget($hunter);
-            if (!$hunter->getTarget()->isInBattle()) {
-                continue;
-            }
+                $successRate = $hunter->getHitChance();
+                if (!$this->randomService->isSuccessful($successRate)) {
+                    $this->addBonusToHunterHitChance($hunter);
+                    continue;
+                }
 
-            $this->makeHunterShoot($hunter);
+                if (!$hunter->getTarget()?->isInBattle()) {
+                    continue;
+                }
 
-            // hunter gets a truce cycle after shooting
-            $this->createHunterTruceCycleStatus($hunter);
+                $this->makeHunterShoot($hunter);
 
-            // destroy asteroid if it has shot
-            if ($hunter->getName() === HunterEnum::ASTEROID) {
-                $this->killHunter($hunter);
+                // hunter must select a new target after a successful shot
+                $hunter->resetTarget();
+
+                // after a successful shot, reset hit chance to its default value
+                $this->resetHunterHitChance($hunter);
+
+                // destroy asteroid if it has shot
+                if ($hunter->getName() === HunterEnum::ASTEROID) {
+                    $this->killHunter($hunter, [HunterEvent::ASTEROID_DESTRUCTION]);
+                }
             }
         }
     }
@@ -126,7 +143,7 @@ class HunterService implements HunterServiceInterface
             $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, $hunterTypes);
 
             // do not create a hunter if not enough points
-            if ($hunterPoints < $hunterProbaCollection->min()) {
+            if ($hunterPoints < $hunterProbaCollection->minElement()) {
                 break;
             }
             $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaCollection(
@@ -140,8 +157,9 @@ class HunterService implements HunterServiceInterface
 
             // do not create a hunter if max per wave is reached
             $maxPerWave = $hunter->getHunterConfig()->getMaxPerWave();
-            if ($maxPerWave && $wave->getAllHuntersByType($hunter->getName())->count() > $maxPerWave) {
+            if ($maxPerWave && $wave->getAllHuntersByType($hunter->getName())->count() === $maxPerWave) {
                 $hunterTypes->removeElement($hunterNameToCreate);
+                $this->delete([$hunter]);
                 continue;
             }
 
@@ -154,6 +172,12 @@ class HunterService implements HunterServiceInterface
         $wave->map(fn ($hunter) => $this->createHunterStatuses($hunter, $time));
         $this->persist($wave->toArray());
         $this->persist([$daedalus]);
+    }
+
+    private function addBonusToHunterHitChance(Hunter $hunter): void
+    {
+        $hunter->setHitChance($hunter->getHitChance() + $hunter->getHunterConfig()->getBonusAfterFailedShot());
+        $this->persist([$hunter]);
     }
 
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter
@@ -189,21 +213,12 @@ class HunterService implements HunterServiceInterface
         }
     }
 
-    private function createHunterTruceCycleStatus(Hunter $hunter): void
+    private function delete(array $entities): void
     {
-        $truceCycleStatus = $hunter->getHunterConfig()->getInitialStatuses()->filter(
-            fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === HunterStatusEnum::HUNTER_CHARGE
-        )->first();
-
-        if (!$truceCycleStatus) {
-            throw new \Exception('Hunter config should have a HUNTER_CHARGE status config');
+        foreach ($entities as $entity) {
+            $this->entityManager->remove($entity);
         }
-        $this->statusService->createStatusFromConfig(
-            $truceCycleStatus,
-            $hunter,
-            [AbstractHunterEvent::HUNTER_SHOT],
-            new \DateTime()
-        );
+        $this->entityManager->flush();
     }
 
     private function dropScrap(Hunter $hunter): void
@@ -270,7 +285,7 @@ class HunterService implements HunterServiceInterface
             return;
         }
 
-        $hunterTarget = $hunter->getTarget()->getTargetEntity();
+        $hunterTarget = $hunter->getTarget()?->getTargetEntity();
 
         // @TODO: handle hunter and merchant targets in the future
         switch ($hunterTarget) {
@@ -284,8 +299,14 @@ class HunterService implements HunterServiceInterface
                 $this->shootAtPlayer($hunterTarget, $damage);
                 break;
             default:
-                throw new \Exception("Unknown hunter target {$hunter->getTarget()->getType()}");
+                throw new \Exception("Unknown hunter target {$hunter->getTarget()?->getType()}");
         }
+    }
+
+    private function resetHunterHitChance(Hunter $hunter): void
+    {
+        $hunter->setHitChance($hunter->getHunterConfig()->getHitChance());
+        $this->persist([$hunter]);
     }
 
     private function selectHunterTarget(Hunter $hunter): void
@@ -304,7 +325,7 @@ class HunterService implements HunterServiceInterface
         $patrolShipsInBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
         if (!$patrolShipsInBattle->isEmpty()) {
-            $successRate = $targetProbabilities->get(HunterTargetEnum::PATROL_SHIP);
+            $successRate = $targetProbabilities?->get(HunterTargetEnum::PATROL_SHIP);
             if ($successRate === null) {
                 throw new \LogicException('Patrol ship target probability should not be null');
             }
@@ -319,7 +340,7 @@ class HunterService implements HunterServiceInterface
 
         $playersInBattle = $hunter->getDaedalus()->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $player->isInSpaceBattle());
         if (!$playersInBattle->isEmpty()) {
-            $successRate = $targetProbabilities->get(HunterTargetEnum::PLAYER);
+            $successRate = $targetProbabilities?->get(HunterTargetEnum::PLAYER);
             if ($successRate === null) {
                 throw new \LogicException('Player target probability should not be null');
             }

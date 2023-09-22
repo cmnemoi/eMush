@@ -59,7 +59,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
     private function createGameEventModifier(
         EventModifierConfig $modifierConfig,
         ModifierHolder $holder,
-        ?ChargeStatus $chargeStatus = null
+        ChargeStatus $chargeStatus = null
     ): void {
         $modifier = new GameModifier($holder, $modifierConfig);
 

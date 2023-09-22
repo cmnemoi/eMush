@@ -2703,7 +2703,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [],
             'modifierConfigs' => [
-                'modifier_for_daedalus_-1actionPoint_on_TODO comms. action',
+                'modifier_for_daedalus_-1actionPoint_on_TODO coms. action',
             ],
         ],
         [

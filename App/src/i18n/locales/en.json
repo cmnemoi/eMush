@@ -480,7 +480,7 @@
 			"elementToAdd": "Element to add : "
 		},
 		"consumableDiseaseConfig": {
-			"pageTitle": "Modification of the diseases given/healed by the consummable ",
+			"pageTitle": "Modification of the diseases given/healed by the consumable ",
 			"curesName": "Diseases cured (disease => probability of being chosen)",
 			"diseasesName": "Diseases given (disease => probability of being chosen)",
 			"diseasesChances": "Probability of giving a disease (probability => probability of being chosen)",
@@ -523,7 +523,9 @@
 			"initialStatuses": "Status de départ",
 			"scrapDropTable": "Table des débris laissés à la mort (débris => probabilité)",
 			"spawnDifficulty": "Jour d'apparition",
-			"numberOfDroppedScrap": "Nombre de débris laissés à la mort (nombre => probabilité)"
+			"numberOfDroppedScrap": "Nombre de débris laissés à la mort (nombre => probabilité)",
+			"bonusAfterFailedShot": "Bonus pour toucher après un tir raté",
+			"numberOfActionsPerCycle": "Nombre d'actions par cycle"
 		},
 		"playerList": {
 			"closePlayer": "Fermer (archiver) ce joueur",

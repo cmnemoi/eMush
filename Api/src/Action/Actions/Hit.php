@@ -2,9 +2,9 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\CriticalSuccess;
-use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\CriticalSuccess;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\PreMush;

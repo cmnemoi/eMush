@@ -1,11 +1,11 @@
 <?php
 
-namespace Mush\Test\Action\Actions;
+namespace Mush\Tests\unit\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Hyperfreeze;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -86,9 +86,9 @@ class HyperfreezeActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
-                $event->getStatusName() === EquipmentStatusEnum::FROZEN &&
-                $event->getStatusHolder() === $gameRation)
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent
+                && $event->getStatusName() === EquipmentStatusEnum::FROZEN
+                && $event->getStatusHolder() === $gameRation)
             ->once()
         ;
 

@@ -139,7 +139,7 @@ class RandomService implements RandomServiceInterface
     }
 
     // This function takes an array [element => proba%] as input and send back an array
-    // Instead of proba relative ponderation also work
+    // Instead of proba relative weight also work
     public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): int|string|null
     {
         if (count($array) < 1) {

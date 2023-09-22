@@ -316,7 +316,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>migraine.description</source>
-        <target>A particularly tenacious heavy migraine is harrassing the patient at the moment, but it'll eventually go away...</target>
+        <target>A particularly tenacious heavy migraine is harassing the patient at the moment, but it'll eventually go away...</target>
       </segment>
       <segment id="effect" state="initial">
         <source>migraine.examine</source>
@@ -540,7 +540,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>chronic_vertigo.description</source>
-        <target>You have chronic vertigo which proves to be quite debiliating.</target>
+        <target>You have chronic vertigo which proves to be quite debilitating.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>chronic_vertigo.examine</source>
@@ -883,18 +883,18 @@
         <target>destroyed_ears.examine</target>
       </segment>
     </unit>
-    <unit id="disfunctional_liver">
+    <unit id="dysfunctional_liver">
       <segment id="name" state="translated">
-        <source>disfunctional_liver.name</source>
+        <source>dysfunctional_liver.name</source>
         <target>Disfunctional Liver</target>
       </segment>
       <segment id="description" state="initial">
-        <source>disfunctional_liver.description</source>
-        <target>disfunctional_liver.description</target>
+        <source>dysfunctional_liver.description</source>
+        <target>dysfunctional_liver.description</target>
       </segment>
       <segment id="effect" state="initial">
-        <source>disfunctional_liver.examine</source>
-        <target>disfunctional_liver.examine</target>
+        <source>dysfunctional_liver.examine</source>
+        <target>dysfunctional_liver.examine</target>
       </segment>
     </unit>
     <unit id="haemorrhage">

@@ -14,7 +14,7 @@ class ModifierNameEnum
     public const SCREAMING = 'screaming';
     public const WALL_HEAD_BANG = 'wall_head_bang';
     public const RUN_IN_CIRCLES = 'run_in_circles';
-    public const FITFULL_SLEEP = 'fitfull_sleep';
+    public const FITFUL_SLEEP = 'fitful_sleep';
     public const LYING_DOWN_MODIFIER = 'lying_down_modifier';
     public const ANTIGRAV_SCOOTER_CONVERSION_MODIFIER = 'antigrav_scooter_conversion_modifier';
 }

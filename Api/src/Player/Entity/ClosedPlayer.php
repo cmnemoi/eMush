@@ -28,7 +28,7 @@ class ClosedPlayer
     private ?string $message = null;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $endCause = EndCauseEnum::NO_INFIRMERY;
+    private string $endCause = EndCauseEnum::NO_INFIRMERIE;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $dayDeath = 0;

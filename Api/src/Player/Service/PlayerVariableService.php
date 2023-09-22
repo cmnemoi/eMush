@@ -44,8 +44,8 @@ class PlayerVariableService implements PlayerVariableServiceInterface
 
     private function getSatietyChange(int $delta, Player $player): int
     {
-        if ($delta >= 0 &&
-            $player->getSatiety() < 0
+        if ($delta >= 0
+            && $player->getSatiety() < 0
         ) {
             return $delta;
         } else {

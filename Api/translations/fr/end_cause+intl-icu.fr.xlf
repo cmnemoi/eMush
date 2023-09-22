@@ -106,7 +106,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>alien_abducted.description</source>
-        <target>Vous allez contribuer aux progrès de la science d'une autre civililisation. Bravo !</target>
+        <target>Vous allez contribuer aux progrès de la science d'une autre civilisation. Bravo !</target>
       </segment>
     </unit>
     <unit id="assassinated">
@@ -160,7 +160,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>asphyxia.description</source>
-        <target>Vous étouffez par manque d'oxygène. C'est long et douleureux et puis c'est frustrant aussi.</target>
+        <target>Vous étouffez par manque d'oxygène. C'est long et douloureux et puis c'est frustrant aussi.</target>
       </segment>
     </unit>
     <unit id="abandoned">

@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Tests\Alert\Listener;
+namespace Mush\Tests\functional\Alert\Listener;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
@@ -26,6 +25,7 @@ use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Tests\FunctionalTester;
 
 class EquipmentSubscriberCest
 {

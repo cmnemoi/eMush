@@ -27,14 +27,14 @@ Consequently, it is present in 2 different places at once.
 
 # Entities
 ## GameEquipment
-Is the occurrence of equipment in a Daedalus,  this entity will hold the actual equipment informations (statuses, room, etc...)
+Is the occurrence of equipment in a Daedalus,  this entity will hold the actual equipment information (statuses, room, etc...)
 
 ## EquipmentConfig
 Is an abstract class holding all the default information of an Equipment (breakableRate, isAlienArtifact, isFirebreakable etc...)  
 The Equipment is unique across a GameConfig
 
 ## ItemConfig and GameItem
-Refine the Equipment classes in order to add specificities of the Items (isHideable, isDropable, etc...)
+Refine the Equipment classes in order to add specificities of the Items (isHideable, isDroppable, etc...)
 
 ## EquipmentMechanic
 Describe the gameplay mechanisms of each equipment (plant, ration, tool...)

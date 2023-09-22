@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Game\Service;
+namespace Mush\Tests\unit\Game\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;

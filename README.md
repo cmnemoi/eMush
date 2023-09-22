@@ -229,7 +229,7 @@ mush_php:
 Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 Please read [API.md](./Api/README.md) for details on the API architecture
-Please read [APP.md](./APP/README.md) for details on the APP architecture
+Please read [APP.md](./App/README.md) for details on the APP architecture
 
 ## License
 

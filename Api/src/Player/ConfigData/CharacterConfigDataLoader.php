@@ -2,7 +2,6 @@
 
 namespace Mush\Player\ConfigData;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
 use Mush\Action\Repository\ActionRepository;
@@ -30,7 +29,7 @@ class CharacterConfigDataLoader extends ConfigDataLoader
         EquipmentConfigRepository $itemConfigRepository,
         StatusConfigRepository $statusConfigRepository)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->characterConfigRepository = $characterConfigRepository;
         $this->actionRepository = $actionRepository;
         $this->diseaseConfigRepository = $diseaseConfigRepository;
@@ -89,7 +88,7 @@ class CharacterConfigDataLoader extends ConfigDataLoader
             }
             $actions[] = $action;
         }
-        $characterConfig->setActions(new ArrayCollection($actions));
+        $characterConfig->setActions($actions);
     }
 
     private function setCharacterConfigInitDiseases(CharacterConfig $characterConfig, array $characterConfigData): void
@@ -102,7 +101,7 @@ class CharacterConfigDataLoader extends ConfigDataLoader
             }
             $diseaseConfigs[] = $diseaseConfig;
         }
-        $characterConfig->setInitDiseases(new ArrayCollection($diseaseConfigs));
+        $characterConfig->setInitDiseases($diseaseConfigs);
     }
 
     private function setCharacterConfigStartingItems(CharacterConfig $characterConfig, array $characterConfigData): void
@@ -116,7 +115,7 @@ class CharacterConfigDataLoader extends ConfigDataLoader
             }
             $itemConfigs[] = $itemConfig;
         }
-        $characterConfig->setStartingItems(new ArrayCollection($itemConfigs));
+        $characterConfig->setStartingItems($itemConfigs);
     }
 
     private function setCharacterConfigInitStatuses(CharacterConfig $characterConfig, array $characterConfigData): void
@@ -129,6 +128,6 @@ class CharacterConfigDataLoader extends ConfigDataLoader
             }
             $statusConfigs[] = $statusConfig;
         }
-        $characterConfig->setInitStatuses(new ArrayCollection($statusConfigs));
+        $characterConfig->setInitStatuses($statusConfigs);
     }
 }

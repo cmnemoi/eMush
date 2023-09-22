@@ -14,7 +14,7 @@ class LocalizationConfigDataLoader extends ConfigDataLoader
         EntityManagerInterface $entityManager,
         LocalizationConfigRepository $localizationConfigRepository
     ) {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->localizationConfigRepository = $localizationConfigRepository;
     }
 

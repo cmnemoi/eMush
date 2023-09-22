@@ -71,7 +71,9 @@ class ChannelController extends AbstractFOSRestController
      * Create a channel.
      *
      * @OA\Tag(name="Channel")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Post(path="")
      */
     public function createChannelAction(): View
@@ -80,8 +82,8 @@ class ChannelController extends AbstractFOSRestController
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         if (
-            $playerInfo === null ||
-            ($player = $playerInfo->getPlayer()) === null
+            $playerInfo === null
+            || ($player = $playerInfo->getPlayer()) === null
         ) {
             throw new AccessDeniedException('User should be in game');
         }
@@ -113,7 +115,9 @@ class ChannelController extends AbstractFOSRestController
      * Check if a new private channel can be created.
      *
      * @OA\Tag(name="Channel")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Get(path="/canCreatePrivate")
      */
     public function canCreateChannelAction(): View
@@ -122,8 +126,8 @@ class ChannelController extends AbstractFOSRestController
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         if (
-            $playerInfo === null ||
-            ($player = $playerInfo->getPlayer()) === null
+            $playerInfo === null
+            || ($player = $playerInfo->getPlayer()) === null
         ) {
             throw new AccessDeniedException('User should be in game');
         }
@@ -154,7 +158,9 @@ class ChannelController extends AbstractFOSRestController
      * Get the channels.
      *
      * @OA\Tag(name="Channel")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Get(path="")
      */
     public function getChannelsActions(): View
@@ -163,8 +169,8 @@ class ChannelController extends AbstractFOSRestController
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         if (
-            $playerInfo === null ||
-            ($player = $playerInfo->getPlayer()) === null
+            $playerInfo === null
+            || ($player = $playerInfo->getPlayer()) === null
         ) {
             throw new AccessDeniedException('User should be in game');
         }
@@ -186,7 +192,9 @@ class ChannelController extends AbstractFOSRestController
      * Get the pirated channels.
      *
      * @OA\Tag(name="channel")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Get (path="/pirated")")
      */
     public function getPiratedChannelsActions(): View
@@ -195,8 +203,8 @@ class ChannelController extends AbstractFOSRestController
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         if (
-            $playerInfo === null ||
-            ($player = $playerInfo->getPlayer()) === null
+            $playerInfo === null
+            || ($player = $playerInfo->getPlayer()) === null
         ) {
             throw new AccessDeniedException('User should be in game');
         }
@@ -229,10 +237,13 @@ class ChannelController extends AbstractFOSRestController
      *
      *    @OA\RequestBody (
      *      description="Input data format",
+     *
      *      @OA\MediaType(
      *          mediaType="application/json",
+     *
      *          @OA\Schema(
      *              type="object",
+     *
      *              @OA\Property(
      *                  type="int",
      *                  property="player",
@@ -241,8 +252,11 @@ class ChannelController extends AbstractFOSRestController
      *          )
      *      )
      *    )
+     *
      * @OA\Tag(name="Channel")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Post(path="/{channel}/invite")
      */
     public function inviteAction(Request $request, Channel $channel): View
@@ -290,7 +304,9 @@ class ChannelController extends AbstractFOSRestController
      * Get invitable player to the channel.
      *
      * @OA\Tag(name="Channel")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Get(path="/{channel}/invite")
      */
     public function getInvitablePlayerAction(Request $request, Channel $channel): View
@@ -319,7 +335,9 @@ class ChannelController extends AbstractFOSRestController
      * exit a channel.
      *
      * @OA\Tag(name="Channel")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Post(path="/{channel}/exit")
      */
     public function exitAction(Channel $channel): View
@@ -330,8 +348,8 @@ class ChannelController extends AbstractFOSRestController
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         if (
-            $playerInfo === null ||
-            ($player = $playerInfo->getPlayer()) === null
+            $playerInfo === null
+            || ($player = $playerInfo->getPlayer()) === null
         ) {
             throw new AccessDeniedException('User should be in game');
         }
@@ -352,12 +370,16 @@ class ChannelController extends AbstractFOSRestController
      * Create a message in the channel.
      *
      * @OA\Tag(name="Channel")
+     *
      *    @OA\RequestBody (
      *      description="Input data format",
+     *
      *      @OA\MediaType(
      *          mediaType="application/json",
+     *
      *          @OA\Schema(
      *              type="object",
+     *
      *              @OA\Property(
      *                  type="integer",
      *                  property="parent",
@@ -376,8 +398,11 @@ class ChannelController extends AbstractFOSRestController
      *          )
      *      )
      *    )
+     *
      * @ParamConverter("messageCreate", converter="MessageCreateParamConverter")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Post(path="/{channel}/message")
      */
     public function createMessageAction(CreateMessage $messageCreate, Channel $channel): View
@@ -443,7 +468,9 @@ class ChannelController extends AbstractFOSRestController
      * Get channel messages.
      *
      * @OA\Tag(name="Channel")
+     *
      * @Security(name="Bearer")
+     *
      * @Rest\Get (path="/{channel}/message")
      */
     public function getMessages(Request $request, Channel $channel): View
@@ -459,8 +486,8 @@ class ChannelController extends AbstractFOSRestController
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
         if (
-            $playerInfo === null ||
-            ($player = $playerInfo->getPlayer()) === null
+            $playerInfo === null
+            || ($player = $playerInfo->getPlayer()) === null
         ) {
             throw new AccessDeniedException('User should be in game');
         }

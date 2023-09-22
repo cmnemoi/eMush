@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
-  <file id="equipements.ext">
+  <file id="equipments.ext">
     <unit id="antenna">
       <segment id="name" state="translated">
         <source>antenna.name</source>
@@ -492,7 +492,63 @@
       </segment>
       <segment id="examine" state="translated">
         <source>reactor_lateral.examine</source>
+        <target>Placé dans la Salle de Moteurs, le réacteur latéral permet de faire tourner le Daedalus. 
+//
+Permettent de faire tourner cette bonne vieille carne.</target>
+      </segment>
+    </unit>
+    <unit id="reactor_lateral_alpha">
+      <segment id="name" state="translated">
+        <source>reactor_lateral_alpha.name</source>
+        <target>Réacteur Latéral</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>reactor_lateral_alpha.short_name</source>
+        <target>Réacteur Latéral</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>reactor_lateral_alpha.plural_name</source>
+        <target>Réacteurs Latéraux</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>reactor_lateral_alpha.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>reactor_lateral_alpha.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>reactor_lateral_alpha.examine</source>
         <target>Placé dans la Salle de Moteurs, le réacteur latéral permet de faire tourner le Daedalus. Permettent de faire tourner cette bonne vieille carne.</target>
+      </segment>
+    </unit>
+    <unit id="reactor_lateral_bravo">
+      <segment id="name" state="translated">
+        <source>reactor_lateral_bravo.name</source>
+        <target>Réacteur Latéral</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>reactor_lateral_bravo.short_name</source>
+        <target>Réacteur Latéral</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>reactor_lateral_bravo.plural_name</source>
+        <target>Réacteurs Latéraux</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>reactor_lateral_bravo.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>reactor_lateral_bravo.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>reactor_lateral_bravo.examine</source>
+        <target>Placé dans la Salle de Moteurs, le réacteur latéral permet de faire tourner le Daedalus. 
+//
+Permet de faire tourner cette bonne vieille carne.</target>
       </segment>
     </unit>
     <unit id="mycoscan">

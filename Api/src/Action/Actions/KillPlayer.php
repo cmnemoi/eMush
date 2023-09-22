@@ -2,8 +2,8 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasRole;
@@ -38,7 +38,7 @@ class KillPlayer extends AbstractAction
         ValidatorInterface $validationService,
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
-        ) {
+    ) {
         parent::__construct($eventService, $actionService, $validationService);
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;

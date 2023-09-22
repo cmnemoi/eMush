@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Communication\Voter;
+namespace Mush\Tests\unit\Communication\Voter;
 
 use Mockery;
 use Mush\Communication\Entity\Channel;

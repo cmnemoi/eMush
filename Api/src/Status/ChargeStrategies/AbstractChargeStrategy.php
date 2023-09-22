@@ -17,9 +17,7 @@ abstract class AbstractChargeStrategy
 
     public function execute(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus
     {
-        $status = $this->apply($status, $reasons, $time);
-
-        return $status;
+        return $this->apply($status, $reasons, $time);
     }
 
     abstract protected function apply(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus;

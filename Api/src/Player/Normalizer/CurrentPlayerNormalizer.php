@@ -21,11 +21,11 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
+class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
@@ -59,9 +59,9 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
     {
         $currentPlayer = $context['currentPlayer'] ?? null;
 
-        return $data instanceof Player &&
-            $data === $currentPlayer &&
-            $data->isAlive()
+        return $data instanceof Player
+            && $data === $currentPlayer
+            && $data->isAlive()
         ;
     }
 
@@ -126,7 +126,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             }
         }
 
-        $playerData = array_merge($playerData, [
+        return array_merge($playerData, [
             'room' => $this->normalizer->normalize($object->getPlace(), $format, $context),
             'skills' => $player->getSkills(),
             'actions' => $this->getActions($object, $format, $context),
@@ -138,8 +138,6 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
         ]);
-
-        return $playerData;
     }
 
     private function normalizePlayerGameVariable(Player $player, string $variable, string $language): array

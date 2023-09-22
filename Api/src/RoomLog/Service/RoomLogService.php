@@ -3,7 +3,7 @@
 namespace Mush\RoomLog\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -152,7 +152,7 @@ class RoomLogService implements RoomLogServiceInterface
         Place $place,
         string $visibility,
         string $type,
-        ?Player $player = null,
+        Player $player = null,
         array $parameters = [],
         \DateTime $dateTime = null
     ): RoomLog {
@@ -194,24 +194,24 @@ class RoomLogService implements RoomLogServiceInterface
 
         $place = $player->getPlace();
 
-        $placeEquipements = $place->getEquipments();
+        $placeEquipments = $place->getEquipments();
 
         $equipmentIsACamera = fn (GameEquipment $gameEquipment): bool => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
 
-        $equipementIsNotBroken = fn (GameEquipment $gameEquipment): bool => $gameEquipment->isBroken() === false;
+        $equipmentIsNotBroken = fn (GameEquipment $gameEquipment): bool => $gameEquipment->isBroken() === false;
 
-        $placeHasAFunctionalCamera = $placeEquipements->filter($equipmentIsACamera)->filter($equipementIsNotBroken)->count() > 0;
+        $placeHasAFunctionalCamera = $placeEquipments->filter($equipmentIsACamera)->filter($equipmentIsNotBroken)->count() > 0;
         $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
 
         if (
-            $visibility === VisibilityEnum::SECRET &&
-            ($placeHasAWitness ||
-             $placeHasAFunctionalCamera)
+            $visibility === VisibilityEnum::SECRET
+            && ($placeHasAWitness
+             || $placeHasAFunctionalCamera)
         ) {
             return VisibilityEnum::REVEALED;
         } elseif (
-            $visibility === VisibilityEnum::COVERT &&
-            $placeHasAFunctionalCamera
+            $visibility === VisibilityEnum::COVERT
+            && $placeHasAFunctionalCamera
         ) {
             return VisibilityEnum::REVEALED;
         }

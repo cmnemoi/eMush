@@ -82,8 +82,8 @@ class EventModifierService implements EventModifierServiceInterface
         $variableName = $variable->getName();
         $initialValue = $event->getQuantity();
 
-        if ($event instanceof ActionVariableEvent &&
-            $variableName === ActionVariableEnum::PERCENTAGE_SUCCESS
+        if ($event instanceof ActionVariableEvent
+            && $variableName === ActionVariableEnum::PERCENTAGE_SUCCESS
         ) {
             /** @var ?Attempt $attemptStatus */
             $attemptStatus = $event->getAuthor()->getStatusByName(StatusEnum::ATTEMPT);

@@ -41,8 +41,8 @@ class ModifierCollection extends ArrayCollection
     public function getEventModifiers(AbstractGameEvent $event): self
     {
         return $this->filter(fn (GameModifier $modifier) => (
-            $modifier->getModifierConfig()->doModifierApplies($event) &&
-            (($charge = $modifier->getCharge()) === null || $charge->getCharge() > 0)
+            $modifier->getModifierConfig()->doModifierApplies($event)
+            && (($charge = $modifier->getCharge()) === null || $charge->getCharge() > 0)
         ));
     }
 

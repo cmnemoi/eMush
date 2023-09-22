@@ -511,8 +511,8 @@
         <target>Oh no, perdiste otra vez, ¡además esa máquina endemoniada casi te mata!</target>
       </segment>
     </unit>
-    <unit id="play_arcade_succes">
-      <segment id="play_arcade_succes" state="translated">
+    <unit id="play_arcade_success">
+      <segment id="play_arcade_success" state="translated">
         <source>play_arcade_succes</source>
         <target>OH SIIIII. **{character}** ha vencido a Xatator, ¡el jefe del NIVEL10!</target>
       </segment>
@@ -575,6 +575,12 @@
       <segment id="renovate_fail" state="initial">
         <source>renovate_fail</source>
         <target>renovate_fail</target>
+      </segment>
+    </unit>
+    <unit id="auto_eject_success">
+      <segment id="auto_eject_success" state="initial">
+        <source>auto_eject_success</source>
+        <target>auto_eject_success</target>
       </segment>
     </unit>
   </file>

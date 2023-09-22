@@ -1,4 +1,4 @@
-namespace: App\Tests
+namespace: Mush\Tests
 paths:
     tests: tests
     output: tests/_output

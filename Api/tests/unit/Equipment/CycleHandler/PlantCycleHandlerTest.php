@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Unit\Equipment\CycleHandler;
+namespace Mush\Tests\unit\Equipment\CycleHandler;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
@@ -163,9 +163,9 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
-                $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG &&
-                $event->getStatusHolder() === $gamePlant)
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent
+                && $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG
+                && $event->getStatusHolder() === $gamePlant)
             ->once()
         ;
 
@@ -255,9 +255,9 @@ class PlantCycleHandlerTest extends TestCase
         $this->gameEquipmentService->shouldReceive('persist');
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
-                $event->getStatusName() === EquipmentStatusEnum::PLANT_THIRSTY &&
-                $event->getStatusHolder() === $gamePlant)
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent
+                && $event->getStatusName() === EquipmentStatusEnum::PLANT_THIRSTY
+                && $event->getStatusHolder() === $gamePlant)
             ->once()
         ;
 
@@ -316,9 +316,9 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
-                $event->getStatusName() === EquipmentStatusEnum::PLANT_DRY &&
-                $event->getStatusHolder() === $gamePlant)
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent
+                && $event->getStatusName() === EquipmentStatusEnum::PLANT_DRY
+                && $event->getStatusHolder() === $gamePlant)
             ->once();
 
         $this->eventService->shouldReceive('callEvent')
@@ -380,8 +380,8 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
         $this->eventService->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getGameEquipment() === $gamePlant
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent
+                && $event->getGameEquipment() === $gamePlant
             )->once()
         ;
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();

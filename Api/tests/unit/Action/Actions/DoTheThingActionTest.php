@@ -1,10 +1,10 @@
 <?php
 
-namespace Mush\Test\Action\Actions;
+namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\DoTheThing;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;

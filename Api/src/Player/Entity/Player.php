@@ -170,8 +170,8 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
      */
     public function canReachEquipment(GameEquipment $gameEquipment): bool
     {
-        if ($gameEquipment instanceof Door &&
-            $gameEquipment->getRooms()->contains($this->getPlace())
+        if ($gameEquipment instanceof Door
+            && $gameEquipment->getRooms()->contains($this->getPlace())
         ) {
             return true;
         }
@@ -228,8 +228,8 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function hasOperationalEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name &&
-            $gameItem->isOperational()
+        return !$this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name
+            && $gameItem->isOperational()
         )->isEmpty();
     }
 

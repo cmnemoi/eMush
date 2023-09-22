@@ -32,8 +32,8 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
             $holder = $modifier->getModifierHolder();
             $chargeStatus = $modifier->getCharge();
             if (
-                $chargeStatus === null ||
-                $chargeStatus->getCharge() > 0
+                $chargeStatus === null
+                || $chargeStatus->getCharge() > 0
             ) {
                 if ($this->checkModifier($modifier)) {
                     $validatedModifiers->add($modifier);

@@ -38,7 +38,7 @@ class ActionImpossibleCauseEnum
     public const FLIRT_SAME_FAMILY = 'flirt_same_family';
     public const DAILY_SPORE_LIMIT = 'daily_spore_limit';
     public const PERSONAL_SPORE_LIMIT = 'personal_spore_limit';
-    public const BOOBYTRAP_ALREADY_DONE = 'boobytrap_already_done';
+    public const BOOBY_TRAP_ALREADY_DONE = 'booby_trap_already_done';
     public const SLIME_ALREADY_DONE = 'slime_already_done';
     public const INFECT_IMMUNE = 'infect_immune';
     public const INFECT_NO_SPORE = 'infect_no_spore';
@@ -47,12 +47,12 @@ class ActionImpossibleCauseEnum
     public const PHAGOCYTE_NO_SPORE = 'phagocyte_no_spore';
     public const TRANSFER_NO_SPORE = 'transfer_no_spore';
     public const MUTATED = 'mutated';
-    public const WISPER_MUTE = 'wisper_mute';
-    public const WISPER_NO_AVAILABLE_CHANEL = 'wisper_no_available_chanel';
+    public const WHISPER_MUTE = 'whisper_mute';
+    public const WHISPER_NO_AVAILABLE_CHANEL = 'whisper_no_available_chanel';
     public const TARGET_ALREADY_OUTCAST = 'target_already_outcast';
     public const ALREADY_OUTCAST_ONBOARD = 'already_outcast_onboard';
-    public const LONELY_APRENTICESHIP = 'lonely_aprenticeship';
-    public const LIST_ALREDY_PRINTED = 'list_alredy_printed';
+    public const LONELY_APPRENTICESHIP = 'lonely_apprenticeship';
+    public const LIST_ALREADY_PRINTED = 'list_already_printed';
     public const LIST_NO_MUSH = 'list_no_mush';
     public const ISSUE_MISSION_ALREADY_ISSUED = 'issue_mission_already_issued';
     public const ISSUE_MISSION_NO_TARGET = 'issue_mission_no_target';
@@ -70,7 +70,7 @@ class ActionImpossibleCauseEnum
     public const SABOTAGE_NO_DOOR = 'sabotage_no_door';
     public const ANALYSE_NOTHING_UNDISCOVERED = 'analyse_nothing_undiscovered';
     public const NO_PILGRED = 'no_pilgred';
-    public const NOT_ENOUGHT_MAP_FRAGMENTS = 'not_enought_map_fragments';
+    public const NOT_ENOUGH_MAP_FRAGMENTS = 'not_enough_map_fragments';
     public const NO_DIRECTION_PICKED = 'no_direction_picked';
     public const COMS_ALREADY_ATTEMPTED = 'coms_already_attempted';
     public const NO_ACTIVE_REBEL = 'no_active_rebel';

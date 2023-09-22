@@ -7,9 +7,9 @@ use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class ChannelNormalizer implements ContextAwareNormalizerInterface
+class ChannelNormalizer implements NormalizerInterface
 {
     private TranslationServiceInterface $translationService;
     private MessageServiceInterface $messageService;
@@ -27,9 +27,6 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
         return $data instanceof Channel;
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */
@@ -48,6 +45,8 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
         $participants = [];
         /** @var ChannelPlayer $participant */
         foreach ($object->getParticipants() as $participant) {
+            /** @var \DateTime $joinDate */
+            $joinDate = $participant->getCreatedAt();
             $player = $participant->getParticipant();
             $character = $player->getName();
             $participants[] = [
@@ -56,7 +55,7 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
                     'key' => $character,
                     'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
                 ],
-                'joinedAt' => $participant->getCreatedAt()->format(\DateTime::ATOM),
+                'joinedAt' => $joinDate->format(\DateTimeInterface::ATOM),
             ];
         }
 
@@ -66,7 +65,7 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
             'name' => $this->translationService->translate($object->getScope() . '.name', [], 'chat', $language),
             'description' => $this->translationService->translate($object->getScope() . '.description', [], 'chat', $language),
             'participants' => $participants,
-            'createdAt' => $object->getCreatedAt()->format(\DateTime::ATOM),
+            'createdAt' => $object->getCreatedAt()->format(\DateTimeInterface::ATOM),
             'newMessageAllowed' => $this->messageService->canPlayerPostMessage($currentPlayer, $object),
             'piratedPlayer' => $piratedPlayerId,
         ];

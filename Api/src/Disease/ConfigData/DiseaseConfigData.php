@@ -221,7 +221,7 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_20',
-                'fitfull_sleep_for_player_-1actionPoint_on_new_cycle_if_random_16_if_player_status_lying_down',
+                'fitful_sleep_for_player_-1actionPoint_on_new_cycle_if_random_16_if_player_status_lying_down',
                 'modifier_for_player_+10percentage_on_cycle_disease',
             ],
         ],
@@ -632,8 +632,8 @@ class DiseaseConfigData
             ],
         ],
         [
-            'diseaseName' => 'disfunctional_liver',
-            'name' => 'disfunctional_liver_default',
+            'diseaseName' => 'dysfunctional_liver',
+            'name' => 'dysfunctional_liver_default',
             'type' => 'injury',
             'resistance' => 0,
             'delayMin' => 0,

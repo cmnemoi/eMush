@@ -3,10 +3,10 @@
 namespace Mush\Action\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Error;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Hunter\Service\HunterServiceInterface;
 use Mush\Player\Entity\Player;
@@ -71,9 +71,9 @@ class ActionStrategyService implements ActionStrategyServiceInterface
     private function loadParameter(?array $parameter): ?LogParameterInterface
     {
         if ($parameter !== null) {
-            if (($equipmentId = $parameter['door'] ?? null) ||
-                ($equipmentId = $parameter['item'] ?? null) ||
-                ($equipmentId = $parameter['equipment'] ?? null)
+            if (($equipmentId = $parameter['door'] ?? null)
+                || ($equipmentId = $parameter['item'] ?? null)
+                || ($equipmentId = $parameter['equipment'] ?? null)
             ) {
                 return $this->equipmentService->findById($equipmentId);
             }

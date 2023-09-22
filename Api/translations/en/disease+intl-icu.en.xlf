@@ -521,13 +521,13 @@
         <target>Your ears have disappeared. Maybe if you look hard enough...</target>
       </segment>
     </unit>
-    <unit id="disfunctional_liver">
+    <unit id="dysfunctional_liver">
       <segment id="name" state="translated">
-        <source>disfunctional_liver.name</source>
-        <target>Disfunctional Liver</target>
+        <source>dysfunctional_liver.name</source>
+        <target>Dysfunctional Liver</target>
       </segment>
       <segment id="description" state="translated">
-        <source>disfunctional_liver.description</source>
+        <source>dysfunctional_liver.description</source>
         <target>You can still live with your destroyed liver but for how long and under what conditions?</target>
       </segment>
     </unit>

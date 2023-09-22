@@ -16,12 +16,15 @@ use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -119,9 +122,9 @@ final class ActionSubscriber implements EventSubscriberInterface
         $this->gearToolService->applyChargeCost($player, $action->getActionName(), $action->getTypes());
         $player->getDaedalus()->addDailyActionPointsSpent($action->getActionCost());
 
-        if ($actionParameter instanceof Player &&
-            in_array($action->getActionName(), ActionEnum::getForceGetUpActions()) &&
-            $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
+        if ($actionParameter instanceof Player
+            && in_array($action->getActionName(), ActionEnum::getForceGetUpActions())
+            && $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
             $actionParameter->removeStatus($lyingDownStatus);
         }
@@ -131,6 +134,17 @@ final class ActionSubscriber implements EventSubscriberInterface
             && $event->getActionResult() instanceof Fail
         ) {
             $this->handlePatrolshipManoeuvreDamage($event);
+        }
+
+        if ($event->getAction()->getActionName() === ActionEnum::LAND) {
+            /** @var GameEquipment $patrolShip */
+            $patrolShip = $event->getActionParameter();
+
+            /** @var ?ChargeStatus $patrolShipArmor */
+            $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+            if ($patrolShipArmor instanceof ChargeStatus && $patrolShipArmor->getCharge() > 0) {
+                $this->moveScrapToPatrolShipDockingPlace($event);
+            }
         }
     }
 
@@ -224,5 +238,60 @@ final class ActionSubscriber implements EventSubscriberInterface
 
         $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function moveScrapToPatrolShipDockingPlace(ActionEvent $event): void
+    {
+        $player = $event->getAuthor();
+        $daedalus = $player->getDaedalus();
+        /** @var GameEquipment $patrolShip */
+        $patrolShip = $event->getActionParameter();
+
+        /** @var PatrolShip $patrolShipMechanic */
+        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
+        if ($patrolShipMechanic === null) {
+            throw new \LogicException("Patrol ship {$patrolShip->getName()} should have a patrol ship mechanic");
+        }
+
+        /** @var Place $patrolShipDockingPlace */
+        $patrolShipDockingPlace = $daedalus->getPlaceByName($patrolShipMechanic->getDockingPlace());
+        if ($patrolShipDockingPlace === null) {
+            throw new \LogicException("Patrol ship docking place {$patrolShipMechanic->getDockingPlace()} not found");
+        }
+
+        /** @var Place $patrolShipPlace */
+        $patrolShipPlace = $daedalus->getPlaceByName($patrolShip->getName());
+        $patrolShipPlaceContent = $patrolShipPlace->getEquipments();
+
+        // if no scrap in patrol ship, then there is nothing to move : abort
+        if ($patrolShipPlaceContent->isEmpty()) {
+            return;
+        }
+
+        /** @var GameEquipment $scrap */
+        foreach ($patrolShipPlaceContent as $scrap) {
+            $moveEquipmentEvent = new MoveEquipmentEvent(
+                equipment: $scrap,
+                newHolder: $patrolShipDockingPlace,
+                author: $player,
+                visibility: VisibilityEnum::HIDDEN,
+                tags: $event->getTags(),
+                time: new \DateTime(),
+            );
+            $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+        }
+
+        $logParameters = [
+            $player->getLogKey() => $player->getLogName(),
+        ];
+        $this->roomLogService->createLog(
+            logKey: LogEnum::PATROL_DISCHARGE,
+            place: $patrolShipDockingPlace,
+            visibility: VisibilityEnum::PUBLIC,
+            type: 'event_log',
+            player: $player,
+            parameters: $logParameters,
+            dateTime: new \DateTime(),
+        );
     }
 }

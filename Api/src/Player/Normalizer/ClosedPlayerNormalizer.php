@@ -7,11 +7,11 @@ use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Service\PlayerServiceInterface;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class ClosedPlayerNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
+class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
@@ -59,9 +59,12 @@ class ClosedPlayerNormalizer implements ContextAwareNormalizerInterface, Normali
             throw new \Exception('ClosedPlayerNormalizer: data is not an array');
         }
 
+        /** @var \DateTime $startDate */
+        $startDate = $closedPlayer->getCreatedAt();
+
         if ($daedalus->isDaedalusFinished()) {
             $data['characterKey'] = $closedPlayer->getPlayerInfo()->getCharacterConfig()->getCharacterName();
-            $data['startCycle'] = $this->cycleService->getInDayCycleFromDate($closedPlayer->getCreatedAt(), $daedalus);
+            $data['startCycle'] = $this->cycleService->getInDayCycleFromDate($startDate, $daedalus);
             $data['userId'] = $closedPlayer->getPlayerInfo()->getUser()->getUserId();
             $data['username'] = $closedPlayer->getPlayerInfo()->getUser()->getUsername();
         }

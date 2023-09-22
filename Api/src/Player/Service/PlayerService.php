@@ -251,7 +251,8 @@ class PlayerService implements PlayerServiceInterface
             PlayerVariableEnum::ACTION_POINT,
             self::CYCLE_ACTION_CHANGE,
             [EventEnum::NEW_CYCLE, self::BASE_PLAYER_CYCLE_CHANGE],
-            $date);
+            $date
+        );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $playerModifierEvent = new PlayerVariableEvent(
@@ -276,14 +277,14 @@ class PlayerService implements PlayerServiceInterface
 
         $gameConfig = $player->getDaedalus()->getGameConfig();
 
-        if ($player->isMush() &&
-            ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))
+        if ($player->isMush()
+            && ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))
         ) {
             $triumphChange = $mushTriumph->getTriumph();
         }
 
-        if (!$player->isMush() &&
-            ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))
+        if (!$player->isMush()
+            && ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))
         ) {
             $triumphChange = $humanTriumph->getTriumph();
         }
@@ -387,8 +388,6 @@ class PlayerService implements PlayerServiceInterface
      * This function handle the compensation for a player who died because of quarantine.
      * Currently it drops 3-4 organic waste.
      * TODO: add more powerful compensation?
-     *
-     * @param Place $playerPlace
      */
     private function handleQuarantineCompensation(Place $playerDeathPlace)
     {

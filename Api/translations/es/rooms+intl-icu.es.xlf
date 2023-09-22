@@ -8,7 +8,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>bridge.loc_prep</source>
-        <target>on el </target>
+        <target>on el</target>
       </segment>
     </unit>
     <unit id="alpha_bay">
@@ -18,7 +18,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>alpha_bay.loc_prep</source>
-        <target>en la </target>
+        <target>en la</target>
       </segment>
     </unit>
     <unit id="bravo_bay">
@@ -28,7 +28,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>bravo_bay.loc_prep</source>
-        <target>en la </target>
+        <target>en la</target>
       </segment>
     </unit>
     <unit id="alpha_bay_2">
@@ -38,7 +38,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>alpha_bay_2.loc_prep</source>
-        <target>en la </target>
+        <target>en la</target>
       </segment>
     </unit>
     <unit id="nexus">
@@ -48,7 +48,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>nexus.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="medlab">
@@ -68,7 +68,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>laboratory.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="refectory">
@@ -78,7 +78,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>refectory.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="hydroponic_garden">
@@ -88,7 +88,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>hydroponic_garden.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="engine_room">
@@ -98,7 +98,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>engine_room.loc_prep</source>
-        <target>en la </target>
+        <target>en la</target>
       </segment>
     </unit>
     <unit id="front_alpha_turret">
@@ -108,7 +108,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_alpha_turret.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="centre_alpha_turret">
@@ -118,7 +118,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>centre_alpha_turret.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="rear_alpha_turret">
@@ -128,7 +128,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_alpha_turret.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="front_bravo_turret">
@@ -138,7 +138,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_bravo_turret.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="centre_bravo_turret">
@@ -148,7 +148,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>centre_bravo_turret.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="rear_bravo_turret">
@@ -158,7 +158,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_bravo_turret.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="front_corridor">
@@ -168,7 +168,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_corridor.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="central_corridor">
@@ -178,7 +178,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>central_corridor.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="rear_corridor">
@@ -188,7 +188,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_corridor.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="icarus_bay">
@@ -198,7 +198,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>icarus_bay.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="alpha_dorm">
@@ -208,7 +208,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>alpha_dorm.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="bravo_dorm">
@@ -218,7 +218,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>bravo_dorm.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="front_storage">
@@ -228,7 +228,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_storage.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="center_alpha_storage">
@@ -238,7 +238,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>center_alpha_storage.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="center_bravo_storage">
@@ -248,7 +248,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>center_bravo_storage.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="rear_alpha_storage">
@@ -258,7 +258,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_alpha_storage.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="rear_bravo_storage">
@@ -268,7 +268,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_bravo_storage.loc_prep</source>
-        <target>en el </target>
+        <target>en el</target>
       </segment>
     </unit>
     <unit id="patrol_ship_bravo_epicure">
@@ -349,6 +349,16 @@
       <segment id="loc_prep" state="initial">
         <source>pasiphae.loc_prep</source>
         <target>pasiphae.loc_prep</target>
+      </segment>
+    </unit>
+    <unit id="space">
+      <segment id="name" state="initial">
+        <source>space.name</source>
+        <target>space.name</target>
+      </segment>
+      <segment id="loc_prep" state="initial">
+        <source>space.loc_prep</source>
+        <target>space.loc_prep</target>
       </segment>
     </unit>
   </file>

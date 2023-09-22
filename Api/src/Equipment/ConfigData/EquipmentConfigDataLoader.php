@@ -2,7 +2,6 @@
 
 namespace Mush\Equipment\ConfigData;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
 use Mush\Action\Repository\ActionRepository;
@@ -27,7 +26,7 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
         MechanicsRepository $mechanicsRepository,
         StatusConfigRepository $statusConfigRepository)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->equipmentConfigRepository = $equipmentConfigRepository;
         $this->actionRepository = $actionRepository;
         $this->mechanicsRepository = $mechanicsRepository;
@@ -81,7 +80,7 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
             }
             $actions[] = $action;
         }
-        $equipmentConfig->setActions(new ArrayCollection($actions));
+        $equipmentConfig->setActions($actions);
     }
 
     protected function setEquipmentConfigMechanics(EquipmentConfig $equipmentConfig, array $equipmentConfigData): void
@@ -95,7 +94,7 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
             }
             $mechanics[] = $mechanic;
         }
-        $equipmentConfig->setMechanics(new ArrayCollection($mechanics));
+        $equipmentConfig->setMechanics($mechanics);
     }
 
     protected function setEquipmentConfigStatusConfigs(EquipmentConfig $equipmentConfig, array $equipmentConfigData): void
@@ -108,6 +107,6 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
             }
             $statusConfigs[] = $statusConfig;
         }
-        $equipmentConfig->setInitStatuses(new ArrayCollection($statusConfigs));
+        $equipmentConfig->setInitStatuses($statusConfigs);
     }
 }

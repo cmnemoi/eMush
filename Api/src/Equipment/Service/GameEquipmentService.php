@@ -180,8 +180,8 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             return;
         }
 
-        if ($gameEquipment->getEquipment()->isFireDestroyable() &&
-            $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
+        if ($gameEquipment->getEquipment()->isFireDestroyable()
+            && $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $equipmentEvent = new EquipmentEvent(
                 $gameEquipment,
@@ -193,9 +193,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 
-        if ($gameEquipment->getEquipment()->isFireBreakable() &&
-            !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
-            $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
+        if ($gameEquipment->getEquipment()->isFireBreakable()
+            && !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)
+            && $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::BROKEN,
@@ -229,7 +229,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         /** @var Daedalus $daedalus */
         $daedalus = $patrolShip->getDaedalus();
         /** @var Place $patrolShipPlace */
-        $patrolShipPlace = $patrolShip->getHolder();
+        $patrolShipPlace = $daedalus->getPlaceByName($patrolShip->getName());
         if (!$patrolShipPlace instanceof Place) {
             throw new \LogicException('Patrol ship holder should be a place');
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace Mush\Tests;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

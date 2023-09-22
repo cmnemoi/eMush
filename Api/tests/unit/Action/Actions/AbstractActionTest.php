@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Action\Actions;
+namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
@@ -38,8 +38,8 @@ abstract class AbstractActionTest extends TestCase
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof ActionEvent &&
-                $event->getAction() === $this->actionEntity
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof ActionEvent
+                && $event->getAction() === $this->actionEntity
             )
             ->times(3)
         ;

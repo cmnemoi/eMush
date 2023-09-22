@@ -5,9 +5,9 @@ namespace Mush\RoomLog\Normalizer;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class RoomLogNormalizer implements ContextAwareNormalizerInterface
+class RoomLogNormalizer implements NormalizerInterface
 {
     private TranslationServiceInterface $translationService;
 

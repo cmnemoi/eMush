@@ -87,7 +87,6 @@ class MushActionFixtures extends Fixture
             ->setName(ActionEnum::SCREW_TALKIE)
             ->setActionName(ActionEnum::SCREW_TALKIE)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setActionCost(3)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
         ;

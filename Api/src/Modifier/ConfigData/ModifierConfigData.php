@@ -418,8 +418,8 @@ class ModifierConfigData
             'tagConstraints' => [PlayerEvent::CYCLE_DISEASE => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
-            'name' => 'fitfull_sleep_for_player_-1actionPoint_on_new_cycle_if_random_16_if_player_status_lying_down',
-            'modifierName' => 'fitfull_sleep',
+            'name' => 'fitful_sleep_for_player_-1actionPoint_on_new_cycle_if_random_16_if_player_status_lying_down',
+            'modifierName' => 'fitful_sleep',
             'targetEvent' => 'player.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
@@ -629,7 +629,7 @@ class ModifierConfigData
             'tagConstraints' => [ActionEnum::STRENGTHEN_HULL => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
-            'name' => 'modifier_for_daedalus_-1actionPoint_on_TODO comms. action',
+            'name' => 'modifier_for_daedalus_-1actionPoint_on_TODO coms. action',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
@@ -1639,6 +1639,21 @@ class ModifierConfigData
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [ActionTypeEnum::ACTION_SHOOT => ModifierRequirementEnum::ANY_TAGS],
+        ],
+        [
+            'name' => 'modifier_for_player_set_0moralPoint_on_change.variable',
+            'modifierName' => null,
+            'targetEvent' => 'change.variable',
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 0.0,
+            'targetVariable' => 'moralPoint',
+            'mode' => 'set_value',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
         ],
     ];
 }

@@ -2,8 +2,8 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Success;
+use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\HasStatus;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -12,7 +12,7 @@ use Mush\Status\Event\StatusEvent;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * Class implemeting the Manual Extinguish action.
+ * Class implementing the Manual Extinguish action.
  * This action is granted by the Firefighter skill. (@TODO).
  *
  * For 1 Action Point, this action gives a 10% chance to extinguish a fire.

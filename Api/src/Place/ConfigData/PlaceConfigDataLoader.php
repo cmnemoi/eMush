@@ -15,7 +15,7 @@ class PlaceConfigDataLoader extends ConfigDataLoader
         EntityManagerInterface $entityManager,
         PlaceConfigRepository $placeConfigRepository)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->placeConfigRepository = $placeConfigRepository;
     }
 

@@ -19,11 +19,11 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
+class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
@@ -40,9 +40,6 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
         return $data instanceof Place;
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, string $format = null, array $context = []): array
     {
         /** @var Place $room */

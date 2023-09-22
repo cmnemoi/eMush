@@ -85,7 +85,7 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
         $alienSteak = new ConsumableDiseaseConfig();
         $alienSteak
             ->setCauseName(GameRationEnum::ALIEN_STEAK)
-            ->setAttributes(new ArrayCollection([$acidReflux, $tapeworm]))
+            ->setAttributes([$acidReflux, $tapeworm])
             ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
         ;
         $acidReflux->setConsumableDiseaseConfig($alienSteak);

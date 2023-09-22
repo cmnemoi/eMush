@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Communication\Service;
+namespace Mush\Tests\unit\Communication\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;

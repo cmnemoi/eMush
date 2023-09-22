@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\User\Voter;
+namespace Mush\Tests\unit\User\Voter;
 
 use Mockery;
 use Mush\User\Entity\User;

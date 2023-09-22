@@ -87,7 +87,7 @@ class PlaceConfigData
             'type' => 'room',
             'doors' => ['engine_room_bay_alpha_2', 'engine_room_bay_icarus', 'engine_room_rear_alpha_storage', 'engine_room_rear_bravo_storage', 'engine_room_rear_alpha_turret', 'engine_room_rear_bravo_turret'],
             'items' => [],
-            'equipments' => ['antenna', 'planet_scanner', 'pilgred', 'reactor_lateral', 'reactor_lateral', 'emergency_reactor', 'combustion_chamber'],
+            'equipments' => ['antenna', 'planet_scanner', 'pilgred', 'reactor_lateral_alpha', 'reactor_lateral_bravo', 'emergency_reactor', 'combustion_chamber'],
         ],
         [
             'name' => 'front_alpha_turret_default',

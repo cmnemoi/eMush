@@ -119,7 +119,7 @@ class CharacterConfigData
             'characterName' => 'chun',
             'skills' => [
                 'lethargy',
-                'mankinds_only_hope',
+                'mankind_only_hope',
                 'nurse',
                 'premonition',
                 'sneak',

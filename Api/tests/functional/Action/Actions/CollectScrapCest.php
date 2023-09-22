@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-namespace functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
-use App\Tests\AbstractFunctionalTest;
-use App\Tests\FunctionalTester;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\CollectScrap;
 use Mush\Action\Actions\Land;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -28,6 +26,8 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\FunctionalTester;
 
 final class CollectScrapCest extends AbstractFunctionalTest
 {
@@ -197,13 +197,14 @@ final class CollectScrapCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testLandingWithScrapCollected(FunctionalTester $I): void
+    public function testLandSuccessWithScrapCollected(FunctionalTester $I): void
     {
         $this->testCollectScrapActionSuccess($I);
 
         $alphaBay2 = $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2);
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
 
+        $this->landActionConfig->setCriticalRate(100); // 100% critical rate so landing is always successful
         $this->landAction->loadParameters($this->landActionConfig, $this->player1, $this->pasiphae);
         $this->landAction->execute();
 
@@ -217,7 +218,27 @@ final class CollectScrapCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testLandingWithoutScrapCollected($I): void
+    public function testLandSuccessWihScrapCollectedButPasiphaeIsDestroyed(FunctionalTester $I): void
+    {
+        // given we collected scrap successfully
+        $this->testCollectScrapActionSuccess($I);
+
+        // given land action has a 0% critical rate so it will fail and pasiphae will be damaged
+        $this->landActionConfig->setCriticalRate(0);
+
+        // given pasiphae has 1 armor so it will be destroyed at landing
+        $this->pasiphaeArmor->setCharge(1);
+
+        // when player lands
+        $this->landAction->loadParameters($this->landActionConfig, $this->player1, $this->pasiphae);
+        $this->landAction->execute();
+
+        // then there should not be scrap in alpha bay 2
+        $alphaBay2 = $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2);
+        $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
+    }
+
+    public function testLandSuccessWithoutScrapCollected($I): void
     {
         $alphaBay2 = $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2);
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
@@ -227,6 +248,27 @@ final class CollectScrapCest extends AbstractFunctionalTest
 
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
         $I->dontSeeInRepository(RoomLog::class, [
+            'place' => RoomEnum::ALPHA_BAY_2,
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => LogEnum::PATROL_DISCHARGE,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+    }
+
+    public function testLandFailWithScrapCollected(FunctionalTester $I): void
+    {
+        $this->testCollectScrapActionSuccess($I);
+
+        $alphaBay2 = $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2);
+        $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
+
+        $this->landActionConfig->setCriticalRate(0); // 0% critical rate so landing will fail
+        $this->landAction->loadParameters($this->landActionConfig, $this->player1, $this->pasiphae);
+        $this->landAction->execute();
+
+        $I->assertTrue($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
+        $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::ALPHA_BAY_2,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo(),

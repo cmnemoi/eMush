@@ -2,25 +2,19 @@
 
 namespace Mush\Hunter\Listener;
 
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
-use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterVariableEvent;
 use Mush\Hunter\Service\HunterServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class HunterVariableSubscriber implements EventSubscriberInterface
 {
-    private EventServiceInterface $eventService;
     private HunterServiceInterface $hunterService;
 
     public function __construct(
-        EventServiceInterface $eventService,
         HunterServiceInterface $hunterService,
     ) {
-        $this->eventService = $eventService;
         $this->hunterService = $hunterService;
     }
 
@@ -48,10 +42,6 @@ class HunterVariableSubscriber implements EventSubscriberInterface
         $hunter = $event->getHunter();
         $variableName = $event->getVariableName();
 
-        if (!$author) {
-            throw new \Exception('HunterVariableEvent should have an author');
-        }
-
         $gameVariable = $hunter->getVariableByName($variableName);
         $newVariableValuePoint = $gameVariable->getValue() + $change;
 
@@ -60,14 +50,7 @@ class HunterVariableSubscriber implements EventSubscriberInterface
         switch ($variableName) {
             case HunterVariableEnum::HEALTH:
                 if ($newVariableValuePoint <= 0) {
-                    $hunterDeathEvent = new HunterEvent(
-                        $hunter,
-                        VisibilityEnum::PUBLIC,
-                        array_merge($event->getTags(), [HunterEvent::HUNTER_DEATH]),
-                        $date
-                    );
-                    $hunterDeathEvent->setAuthor($author);
-                    $this->eventService->callEvent($hunterDeathEvent, HunterEvent::HUNTER_DEATH);
+                    $this->hunterService->killHunter($hunter, $event->getTags(), $author);
                 }
 
                 return;

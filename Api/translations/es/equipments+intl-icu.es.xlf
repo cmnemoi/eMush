@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
-  <file id="equipements.ext">
+  <file id="equipments.ext">
     <unit id="antenna">
       <segment id="name" state="translated">
         <source>antenna.name</source>
@@ -513,7 +513,60 @@ Aquí las artes culinarias y marciales podrían encontrarse.</target>
       <segment id="examine" state="translated">
         <source>reactor_lateral.examine</source>
         <target>Ubicado en la sala de motores, este reactor permite el funcionamiento del Daedalus.
+//
 Además sirve para hacer barbacoas.</target>
+      </segment>
+    </unit>
+    <unit id="reactor_lateral_alpha">
+      <segment id="name" state="initial">
+        <source>reactor_lateral_alpha.name</source>
+        <target>reactor_lateral_alpha.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>reactor_lateral_alpha.short_name</source>
+        <target>reactor_lateral_alpha.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>reactor_lateral_alpha.plural_name</source>
+        <target>reactor_lateral_alpha.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>reactor_lateral_alpha.gender</source>
+        <target>reactor_lateral_alpha.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>reactor_lateral_alpha.first_letter</source>
+        <target>reactor_lateral_alpha.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>reactor_lateral_alpha.examine</source>
+        <target>reactor_lateral_alpha.examine</target>
+      </segment>
+    </unit>
+    <unit id="reactor_lateral_bravo">
+      <segment id="name" state="initial">
+        <source>reactor_lateral_bravo.name</source>
+        <target>reactor_lateral_bravo.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>reactor_lateral_bravo.short_name</source>
+        <target>reactor_lateral_bravo.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>reactor_lateral_bravo.plural_name</source>
+        <target>reactor_lateral_bravo.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>reactor_lateral_bravo.gender</source>
+        <target>reactor_lateral_bravo.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>reactor_lateral_bravo.first_letter</source>
+        <target>reactor_lateral_bravo.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>reactor_lateral_bravo.examine</source>
+        <target>reactor_lateral_bravo.examine</target>
       </segment>
     </unit>
     <unit id="mycoscan">

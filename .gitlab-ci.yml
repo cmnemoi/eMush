@@ -30,6 +30,7 @@ stages:
     - composer install
     - cp .env.gitlab .env.test
     - cp .env.gitlab .env
+    - bin/console doctrine:schema:drop --full-database --env=test -f
     - bin/console doctrine:schema:update -f
     - bin/console doctrine:fixtures:load -n --env=test
     - openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:mush

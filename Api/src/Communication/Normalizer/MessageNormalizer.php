@@ -6,9 +6,9 @@ use Mush\Communication\Entity\Message;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class MessageNormalizer implements ContextAwareNormalizerInterface
+class MessageNormalizer implements NormalizerInterface
 {
     private TranslationServiceInterface $translationService;
 
@@ -22,9 +22,6 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
         return $data instanceof Message;
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, string $format = null, array $context = []): array
     {
         $child = [];

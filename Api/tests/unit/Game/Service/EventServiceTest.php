@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Game\Service;
+namespace Mush\Tests\unit\Game\Service;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
@@ -70,10 +70,10 @@ class EventServiceTest extends TestCase
 
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent->getTags() === $event->getTags() &&
-                $dispatchedEvent->getEventName() === 'eventName' &&
-                $eventName === 'eventName' &&
-                $dispatchedEvent->getTime() === $event->getTime()
+                $dispatchedEvent->getTags() === $event->getTags()
+                && $dispatchedEvent->getEventName() === 'eventName'
+                && $eventName === 'eventName'
+                && $dispatchedEvent->getTime() === $event->getTime()
             ))
             ->once()
         ;
@@ -132,10 +132,10 @@ class EventServiceTest extends TestCase
 
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent->getTags() === $event->getTags() &&
-                $dispatchedEvent->getEventName() === 'eventName' &&
-                $eventName === 'eventName' &&
-                $dispatchedEvent->getTime() === $event->getTime()
+                $dispatchedEvent->getTags() === $event->getTags()
+                && $dispatchedEvent->getEventName() === 'eventName'
+                && $eventName === 'eventName'
+                && $dispatchedEvent->getTime() === $event->getTime()
             ))
             ->once()
         ;

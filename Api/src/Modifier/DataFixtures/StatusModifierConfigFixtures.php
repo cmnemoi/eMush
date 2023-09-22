@@ -160,7 +160,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $starvingModifier = new TriggerEventModifierConfig('starvingModifier');
         $starvingModifier
             ->setTriggeredEvent($eventConfig)
-            ->setTargetEvent(PlayerEvent::PLAYER_NEW_CYCLE)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)

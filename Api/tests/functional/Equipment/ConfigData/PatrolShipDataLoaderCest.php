@@ -2,13 +2,13 @@
 
 namespace Mush\Tests\functional\Equipment\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Equipment\ConfigData\MechanicsData;
 use Mush\Equipment\ConfigData\PatrolShipDataLoader;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Tests\FunctionalTester;
 
 class PatrolShipDataLoaderCest
 {
@@ -35,8 +35,7 @@ class PatrolShipDataLoaderCest
             $I->seeInRepository(PatrolShip::class, $patrolShipData);
         }
 
-        // 8 real ships + 1 dummy fixture
-        $I->seeNumRecords(count($this->getPatrolShipsFromMechanicsDataArray()) + 1, PatrolShip::class);
+        $I->seeNumRecords(count($this->getPatrolShipsFromMechanicsDataArray()), PatrolShip::class);
     }
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)

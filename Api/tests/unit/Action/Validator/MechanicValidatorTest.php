@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Action\Validator;
+namespace Mush\Tests\unit\Action\Validator;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\AbstractAction;
@@ -90,7 +90,7 @@ class MechanicValidatorTest extends TestCase
         $this->assertTrue(true);
     }
 
-    protected function initValidator(?string $expectedMessage = null)
+    protected function initValidator(string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);

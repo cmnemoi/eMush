@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Tests\Communication\Event;
+namespace Mush\Tests\functional\Communication\Listener;
 
-use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Drop;
 use Mush\Action\Actions\Move;
@@ -35,6 +34,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class PrivateChannelAuthorizationCest

@@ -134,7 +134,7 @@
     <unit id="quincks_oedema">
       <segment id="name" state="translated">
         <source>quincks_oedema.name</source>
-        <target>Oedeme de Quincke</target>
+        <target>Œdème de Quincke</target>
       </segment>
       <segment id="description" state="translated">
         <source>quincks_oedema.description</source>
@@ -521,13 +521,13 @@
         <target>Vos oreilles ont disparues. Peut-être qu'en cherchant bien...</target>
       </segment>
     </unit>
-    <unit id="disfunctional_liver">
+    <unit id="dysfunctional_liver">
       <segment id="name" state="translated">
-        <source>disfunctional_liver.name</source>
+        <source>dysfunctional_liver.name</source>
         <target>Foie hors d'état</target>
       </segment>
       <segment id="description" state="translated">
-        <source>disfunctional_liver.description</source>
+        <source>dysfunctional_liver.description</source>
         <target>Vous pouvez encore vivre avec votre foie détruit mais combien de temps et dans quelles conditions ?</target>
       </segment>
     </unit>

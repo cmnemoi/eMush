@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Daedalus\Service;
+namespace Mush\Tests\unit\Daedalus\Service;
 
 use Mockery;
 use Mush\Alert\Enum\AlertEnum;

@@ -61,16 +61,16 @@ class VariableEventModifierConfig extends EventModifierConfig
         switch ($mode) {
             case VariableModifierModeEnum::ADDITIVE:
                 if ($delta > 0) {
-                    $name = $name . '_+' . strval($delta) . $targetVariable;
+                    $name = $name . '_+' . $delta . $targetVariable;
                 } elseif ($delta < 0) {
-                    $name = $name . '_-' . strval(-$delta) . $targetVariable;
+                    $name = $name . '_-' . -$delta . $targetVariable;
                 }
                 break;
             case VariableModifierModeEnum::SET_VALUE:
-                $name = $name . '_set_' . strval($delta) . $targetVariable;
+                $name = $name . '_set_' . $delta . $targetVariable;
                 break;
             case VariableModifierModeEnum::MULTIPLICATIVE:
-                $name = $name . '_x' . strval($delta) . $targetVariable;
+                $name = $name . '_x' . $delta . $targetVariable;
                 break;
         }
 

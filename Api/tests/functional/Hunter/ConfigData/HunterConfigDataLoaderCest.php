@@ -2,10 +2,10 @@
 
 namespace Mush\Tests\functional\Hunter\ConfigData;
 
-use App\Tests\FunctionalTester;
 use Mush\Hunter\ConfigData\HunterConfigData;
 use Mush\Hunter\ConfigData\HunterConfigDataLoader;
 use Mush\Hunter\Entity\HunterConfig;
+use Mush\Tests\FunctionalTester;
 
 class HunterConfigDataLoaderCest
 {

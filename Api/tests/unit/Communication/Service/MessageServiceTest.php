@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Communication\Service;
+namespace Mush\Tests\unit\Communication\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
@@ -223,9 +223,9 @@ class MessageServiceTest extends TestCase
 
         $this->messageRepository
             ->shouldReceive('findByChannel')
-            ->withArgs(fn ($channelTest, $age) => $channelTest === $channel &&
-                $age instanceof \DateInterval &&
-                intval($age->format('%H')) === 24
+            ->withArgs(fn ($channelTest, $age) => $channelTest === $channel
+                && $age instanceof \DateInterval
+                && intval($age->format('%H')) === 24
             )
             ->andReturn([$message1, $message2])
         ;

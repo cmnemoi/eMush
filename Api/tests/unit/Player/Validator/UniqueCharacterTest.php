@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Player\Validator;
+namespace Mush\Tests\unit\Player\Validator;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
@@ -92,7 +92,7 @@ class UniqueCharacterTest extends TestCase
         $this->assertTrue(true);
     }
 
-    protected function initValidator(?string $expectedMessage = null)
+    protected function initValidator(string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);

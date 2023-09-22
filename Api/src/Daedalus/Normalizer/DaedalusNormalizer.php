@@ -30,9 +30,6 @@ class DaedalusNormalizer implements NormalizerInterface
         return $data instanceof Daedalus && $group === false;
     }
 
-    /**
-     * @param mixed $object
-     */
     public function normalize($object, string $format = null, array $context = []): array
     {
         /** @var Daedalus $daedalus */
@@ -64,7 +61,7 @@ class DaedalusNormalizer implements NormalizerInterface
                         'daedalus',
                         $language
                     ),
-                    'timerCycle' => $this->cycleService->getDateStartNextCycle($object)->format(\DateTime::ATOM),
+                    'timerCycle' => $this->cycleService->getDateStartNextCycle($object)->format(\DateTimeInterface::ATOM),
                 ],
                 'calendar' => [
                     'name' => $this->translationService->translate('calendar.name', [], 'daedalus', $language),

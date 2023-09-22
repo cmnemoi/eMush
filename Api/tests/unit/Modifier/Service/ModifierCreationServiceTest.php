@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Modifier\Service;
+namespace Mush\Tests\unit\Modifier\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
@@ -140,9 +140,9 @@ class ModifierCreationServiceTest extends TestCase
         $this->entityManager
             ->shouldReceive('persist')
             ->withArgs(fn (GameModifier $modifier) => (
-                $modifier->getModifierHolder() === $player &&
-                $modifier->getModifierConfig() === $modifierConfig &&
-                $modifier->getCharge() === $charge
+                $modifier->getModifierHolder() === $player
+                && $modifier->getModifierConfig() === $modifierConfig
+                && $modifier->getCharge() === $charge
             ))
             ->once()
         ;

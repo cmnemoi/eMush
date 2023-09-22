@@ -1080,6 +1080,12 @@
         <target>Le niveau de la chambre de combustion est maintenant de : {quantity}</target>
       </segment>
     </unit>
+    <unit id="retrieve_fuel_chamber_success">
+      <segment id="retrieve_fuel_chamber_success" state="translated">
+        <source>retrieve_fuel_chamber_success</source>
+        <target>Le niveau de la chambre de combustion est maintenant de : {quantity}</target>
+      </segment>
+    </unit>
     <unit id="hack_success">
       <segment id="hack_success" state="translated">
         <source>hack_success</source>

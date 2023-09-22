@@ -882,6 +882,16 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Injecte le fuel dans la Chambre de Combustion du moteur.</target>
       </segment>
     </unit>
+    <unit id="retrieve_fuel_chamber">
+      <segment id="name" state="final">
+        <source>retrieve_fuel_chamber.name</source>
+        <target>Récupérer Capsule de Fuel</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>retrieve_fuel_chamber.description</source>
+        <target>Permet de récupérer une Capsule du moteur.</target>
+      </segment>
+    </unit>
     <unit id="hack">
       <segment id="name" state="final">
         <source>hack.name</source>

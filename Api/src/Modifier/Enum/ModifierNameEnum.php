@@ -16,6 +16,5 @@ class ModifierNameEnum
     public const RUN_IN_CIRCLES = 'run_in_circles';
     public const FITFUL_SLEEP = 'fitful_sleep';
     public const LYING_DOWN_MODIFIER = 'lying_down_modifier';
-
     public const ANTIGRAV_SCOOTER_CONVERSION_MODIFIER = 'antigrav_scooter_conversion_modifier';
 }

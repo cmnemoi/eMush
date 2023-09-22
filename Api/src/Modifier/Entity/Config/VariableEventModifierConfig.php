@@ -5,7 +5,11 @@ namespace Mush\Modifier\Entity\Config;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Enum\ModifierPriorityEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 
 /**
  * One of the modifier type
@@ -15,6 +19,8 @@ use Mush\Modifier\Enum\VariableModifierModeEnum;
  * delta: the amount of modification
  * targetVariable: the name of the variable that can be modified
  * mode: specify the mode of application of the delta (additive, multiplicative or set)
+ *
+ * By default, additive modifier priority : -120 / multiplicative modifier priority : -140
  */
 #[ORM\Entity]
 class VariableEventModifierConfig extends EventModifierConfig
@@ -31,6 +37,8 @@ class VariableEventModifierConfig extends EventModifierConfig
     public function __construct($name)
     {
         $this->targetEvent = VariableEventInterface::CHANGE_VARIABLE;
+        $this->modifierStrategy = ModifierStrategyEnum::VARIABLE_MODIFIER;
+        $this->priority = ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE;
 
         parent::__construct($name);
     }
@@ -133,5 +141,44 @@ class VariableEventModifierConfig extends EventModifierConfig
         }
 
         return parent::doModifierApplies($event);
+    }
+
+    public function getTranslationKey(): ?string
+    {
+        if ($this->mode === VariableModifierModeEnum::SET_VALUE) {
+            $key = $this->targetEvent . '_set_value';
+        } elseif ($this->mode === VariableModifierModeEnum::MULTIPLICATIVE && $this->delta < 1
+            || $this->mode === VariableModifierModeEnum::ADDITIVE && $this->delta < 0
+        ) {
+            $key = $this->targetEvent . '_decrease';
+        } else {
+            $key = $this->targetEvent . '_increase';
+        }
+
+        foreach (array_keys($this->tagConstraints) as $tagConstraint) {
+            if ($this->tagConstraints[$tagConstraint] !== ModifierRequirementEnum::NONE_TAGS) {
+                $key .= '_' . $tagConstraint;
+            }
+        }
+
+        return $key;
+    }
+
+    public function getTranslationParameters(): array
+    {
+        $parameters = parent::getTranslationParameters();
+
+        $emoteMap = PlayerVariableEnum::getEmoteMap();
+        if (isset($emoteMap[$this->targetVariable])) {
+            $parameters['emote'] = $emoteMap[$this->targetVariable];
+        }
+
+        if ($this->mode === VariableModifierModeEnum::MULTIPLICATIVE) {
+            $parameters['quantity'] = (1 - $this->delta) * 100;
+        } else {
+            $parameters['quantity'] = abs($this->delta);
+        }
+
+        return $parameters;
     }
 }

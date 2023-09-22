@@ -10,6 +10,7 @@ class AbstractGameEvent extends Event
 {
     private string $eventName;
     private bool $isModified = false;
+    private int $priority = 0;
     protected ?Player $author = null;
     protected \DateTime $time;
     protected array $tags;
@@ -20,9 +21,11 @@ class AbstractGameEvent extends Event
         $this->time = $time;
     }
 
-    public function setEventName(string $eventName): void
+    public function setEventName(string $eventName): self
     {
         $this->eventName = $eventName;
+
+        return $this;
     }
 
     public function getEventName(): string
@@ -38,6 +41,18 @@ class AbstractGameEvent extends Event
     public function setIsModified(bool $isModified): self
     {
         $this->isModified = $isModified;
+
+        return $this;
+    }
+
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(int $priority): self
+    {
+        $this->priority = $priority;
 
         return $this;
     }

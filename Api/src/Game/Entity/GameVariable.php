@@ -3,6 +3,7 @@
 namespace Mush\Game\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Entity\Collection\GameVariableCollection;
 
 #[ORM\Entity]
 class GameVariable

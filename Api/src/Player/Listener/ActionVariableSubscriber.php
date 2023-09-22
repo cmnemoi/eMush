@@ -41,7 +41,7 @@ class ActionVariableSubscriber implements EventSubscriberInterface
         $playerVariableEvent = new PlayerVariableEvent(
             $event->getAuthor(),
             $event->getVariableName(),
-            -$event->getQuantity(),
+            -$event->getRoundedQuantity(),
             $event->getTags(),
             $event->getTime()
         );
@@ -53,7 +53,7 @@ class ActionVariableSubscriber implements EventSubscriberInterface
     public function onRollPercentage(ActionVariableEvent $event): void
     {
         if ($event->getVariableName() === ActionVariableEnum::PERCENTAGE_INJURY) {
-            $isHurt = $this->randomService->isSuccessful($event->getQuantity());
+            $isHurt = $this->randomService->isSuccessful($event->getRoundedQuantity());
 
             $tags = $event->getTags();
             $tags[] = EndCauseEnum::CLUMSINESS;

@@ -3,6 +3,7 @@
 namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'modifier_activation_requirement')]
@@ -89,5 +90,14 @@ class ModifierActivationRequirement
     public function getValue(): ?int
     {
         return $this->value;
+    }
+
+    public function getTranslationParameters(): array
+    {
+        if ($this->activationRequirementName === ModifierRequirementEnum::RANDOM) {
+            return ['chance' => $this->value];
+        }
+
+        return [];
     }
 }

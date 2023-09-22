@@ -60,4 +60,14 @@ abstract class AbstractEventConfig
     {
         return null;
     }
+
+    public function getTranslationKey(): ?string
+    {
+        return $this->eventName;
+    }
+
+    public function getTranslationParameters(): array
+    {
+        return [];
+    }
 }

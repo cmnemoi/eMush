@@ -12,6 +12,7 @@ use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\StatusHolderInterface;
 
 class ModifierRequirementService implements ModifierRequirementServiceInterface
 {
@@ -23,7 +24,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         $this->randomService = $randomService;
     }
 
-    public function getActiveModifiers(ModifierCollection $modifiers, array $reasons): ModifierCollection
+    public function getActiveModifiers(ModifierCollection $modifiers): ModifierCollection
     {
         $validatedModifiers = new ModifierCollection();
 
@@ -34,7 +35,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
                 $chargeStatus === null
                 || $chargeStatus->getCharge() > 0
             ) {
-                if ($this->checkModifier($modifier, $reasons, $holder)) {
+                if ($this->checkModifier($modifier)) {
                     $validatedModifiers->add($modifier);
                 }
             }
@@ -43,12 +44,13 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         return $validatedModifiers;
     }
 
-    private function checkModifier(GameModifier $modifier, array $reasons, ModifierHolder $holder): bool
+    public function checkModifier(GameModifier $modifier): bool
     {
         $modifierConfig = $modifier->getModifierConfig();
+        $holder = $modifier->getModifierHolder();
 
         foreach ($modifierConfig->getModifierActivationRequirements() as $activationRequirement) {
-            if (!$this->checkActivationRequirement($activationRequirement, $reasons, $holder)) {
+            if (!$this->checkActivationRequirement($activationRequirement, $holder)) {
                 return false;
             }
         }
@@ -56,15 +58,9 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         return true;
     }
 
-    private function checkActivationRequirement(ModifierActivationRequirement $activationRequirement, array $reasons, ModifierHolder $holder): bool
+    private function checkActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolder $holder): bool
     {
         switch ($activationRequirement->getActivationRequirementName()) {
-            case ModifierRequirementEnum::REASON:
-                return in_array($activationRequirement->getActivationRequirement(), $reasons);
-
-            case ModifierRequirementEnum::NOT_REASON:
-                return !in_array($activationRequirement->getActivationRequirement(), $reasons);
-
             case ModifierRequirementEnum::RANDOM:
                 return $this->randomService->isSuccessful(intval($activationRequirement->getValue()));
 
@@ -80,8 +76,8 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
             case ModifierRequirementEnum::ITEM_IN_ROOM:
                 return $this->handleItemInRoomActivationRequirement($activationRequirement, $holder);
 
-            case ModifierRequirementEnum::PLAYER_STATUS:
-                return $this->handlePlayerStatusActivationRequirement($activationRequirement, $holder);
+            case ModifierRequirementEnum::STATUS:
+                return $this->handleStatusActivationRequirement($activationRequirement, $holder);
 
             default:
                 throw new \LogicException('this activationRequirement is not implemented');
@@ -106,6 +102,8 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
                 return $players->count() === 1;
             case ModifierRequirementEnum::FOUR_PEOPLE:
                 return $players->count() >= 4;
+            case ModifierRequirementEnum::MUSH_IN_ROOM:
+                return $players->filter(fn (Player $player) => $player->isMush())->count() >= 1;
 
             default:
                 throw new \LogicException('This activationRequirement is invalid for player_in_room');
@@ -166,10 +164,10 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         })->count() > 0;
     }
 
-    private function handlePlayerStatusActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolder $holder): bool
+    private function handleStatusActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolder $holder): bool
     {
-        if (!$holder instanceof Player) {
-            throw new \LogicException('PLAYER_STATUS activationRequirement can only be applied on a player');
+        if (!$holder instanceof StatusHolderInterface) {
+            throw new \LogicException('STATUS activationRequirement can only be applied on a statusHolder');
         }
         /** @var Player $player */
         $player = $holder;

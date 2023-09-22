@@ -34,7 +34,7 @@ class ActionVariableSubscriber implements EventSubscriberInterface
     public function onRollPercentage(ActionVariableEvent $event): void
     {
         if ($event->getVariableName() === ActionVariableEnum::PERCENTAGE_DIRTINESS) {
-            $isDirty = $this->randomService->isSuccessful($event->getQuantity());
+            $isDirty = $this->randomService->isSuccessful($event->getRoundedQuantity());
             $tags = $event->getTags();
 
             if ($isDirty) {

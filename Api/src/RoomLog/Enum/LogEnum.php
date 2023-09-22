@@ -3,6 +3,7 @@
 namespace Mush\RoomLog\Enum;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 
@@ -59,12 +60,30 @@ class LogEnum
             ModifierNameEnum::DISABLED_MOVE_MODIFIER => VisibilityEnum::PUBLIC,
             ModifierNameEnum::APRON_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::GLOVES_MODIFIER => VisibilityEnum::PRIVATE,
+            SymptomEnum::BITING => VisibilityEnum::PUBLIC,
+            SymptomEnum::BREAKOUTS => VisibilityEnum::PUBLIC,
+            SymptomEnum::CAT_ALLERGY => VisibilityEnum::PUBLIC,
+            SymptomEnum::DIRTINESS => VisibilityEnum::PRIVATE,
+            SymptomEnum::DROOLING => VisibilityEnum::PUBLIC,
+            SymptomEnum::FEAR_OF_CATS => VisibilityEnum::PUBLIC,
+            SymptomEnum::FOAMING_MOUTH => VisibilityEnum::PUBLIC,
+            SymptomEnum::SNEEZING => VisibilityEnum::PUBLIC,
+            SymptomEnum::VOMITING => VisibilityEnum::PUBLIC,
         ],
         self::VALUE => [
             ModifierNameEnum::MUSH_SATIETY_CONSUME => self::CONSUME_MUSH,
             ModifierNameEnum::DISABLED_MOVE_MODIFIER => self::HELP_DISABLED,
             ModifierNameEnum::APRON_MODIFIER => self::SOIL_PREVENTED,
             ModifierNameEnum::GLOVES_MODIFIER => self::CLUMSINESS_PREVENTED,
+            SymptomEnum::BITING => SymptomEnum::BITING,
+            SymptomEnum::BREAKOUTS => SymptomEnum::BREAKOUTS,
+            SymptomEnum::CAT_ALLERGY => SymptomEnum::CAT_ALLERGY,
+            SymptomEnum::DIRTINESS => SymptomEnum::DIRTINESS,
+            SymptomEnum::DROOLING => SymptomEnum::DROOLING,
+            SymptomEnum::FEAR_OF_CATS => SymptomEnum::FEAR_OF_CATS,
+            SymptomEnum::FOAMING_MOUTH => SymptomEnum::FOAMING_MOUTH,
+            SymptomEnum::SNEEZING => SymptomEnum::SNEEZING,
+            SymptomEnum::VOMITING => SymptomEnum::VOMITING,
         ],
     ];
 

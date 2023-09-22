@@ -4,7 +4,7 @@ namespace Mush\Modifier\ConfigData;
 
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
-class VariableEventModifierConfigDataLoader extends ModifierConfigDataLoader
+class VariableEventModifierConfigDataLoader extends EventModifierConfigDataLoader
 {
     public function loadConfigsData(): void
     {
@@ -28,12 +28,8 @@ class VariableEventModifierConfigDataLoader extends ModifierConfigDataLoader
                 ->setMode($modifierConfigData['mode'])
                 ->setDelta($modifierConfigData['delta'])
                 ->setTargetVariable($modifierConfigData['targetVariable'])
-                ->setTargetEvent($modifierConfigData['targetEvent'])
-                ->setApplyOnTarget($modifierConfigData['applyOnTarget'])
-                ->setTagConstraints($modifierConfigData['tagConstraints'])
-                ->setModifierRange($modifierConfigData['modifierRange'])
-                ->setModifierName($modifierConfigData['modifierName'])
             ;
+            $this->loadEventModifierData($modifierConfig, $modifierConfigData);
             $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);
 
             $this->entityManager->persist($modifierConfig);

@@ -4,14 +4,10 @@ namespace Mush\Disease\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Mush\Disease\Service\SymptomActivationRequirementServiceInterface;
-use Mush\Disease\Service\SymptomServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionSubscriber implements EventSubscriberInterface
@@ -21,21 +17,15 @@ class ActionSubscriber implements EventSubscriberInterface
     private DiseaseCauseServiceInterface $diseaseCauseService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private RandomServiceInterface $randomService;
-    private SymptomServiceInterface $symptomService;
-    private SymptomActivationRequirementServiceInterface $symptomActivationRequirementService;
 
     public function __construct(
         DiseaseCauseServiceInterface $diseaseCauseService,
         RandomServiceInterface $randomService,
-        PlayerDiseaseServiceInterface $playerDiseaseService,
-        SymptomServiceInterface $symptomService,
-        SymptomActivationRequirementServiceInterface $symptomActivationRequirementService)
-    {
+        PlayerDiseaseServiceInterface $playerDiseaseService
+    ) {
         $this->diseaseCauseService = $diseaseCauseService;
         $this->randomService = $randomService;
         $this->playerDiseaseService = $playerDiseaseService;
-        $this->symptomService = $symptomService;
-        $this->symptomActivationRequirementService = $symptomActivationRequirementService;
     }
 
     public static function getSubscribedEvents(): array
@@ -48,23 +38,6 @@ class ActionSubscriber implements EventSubscriberInterface
     public function onPostAction(ActionEvent $event): void
     {
         $this->handleContactDiseases($event);
-        $this->handlePostActionSymptoms($event);
-    }
-
-    private function getPlayerSymptomConfigs(Player $player): SymptomConfigCollection
-    {
-        $playerDiseases = $player->getMedicalConditions()->getActiveDiseases();
-
-        $symptomConfigs = new SymptomConfigCollection([]);
-        foreach ($playerDiseases as $disease) {
-            foreach ($disease->getDiseaseConfig()->getSymptomConfigs() as $symptomConfig) {
-                if (!$symptomConfigs->contains($symptomConfig)) {
-                    $symptomConfigs->add($symptomConfig);
-                }
-            }
-        }
-
-        return $symptomConfigs;
     }
 
     private function handleContactDiseases(ActionEvent $event): void
@@ -112,27 +85,6 @@ class ActionSubscriber implements EventSubscriberInterface
 
         if ($this->randomService->isSuccessful(self::CONTACT_DISEASE_RATE)) {
             $this->playerDiseaseService->createDiseaseFromName($diseaseToTransmit, $playerToTransmitTo, [DiseaseCauseEnum::CONTACT]);
-        }
-    }
-
-    private function handlePostActionSymptoms(ActionEvent $event): void
-    {
-        $player = $event->getAuthor();
-        $action = $event->getAction();
-
-        $postActionSymptomConfigs = $this->getPlayerSymptomConfigs($player)->getTriggeredSymptoms([ActionEvent::POST_ACTION]);
-        $postActionSymptomConfigs = $this->symptomActivationRequirementService->getActiveSymptoms($postActionSymptomConfigs, $player, $action->getActionTags(), $action);
-
-        foreach ($postActionSymptomConfigs as $symptomConfig) {
-            $this->symptomService->handleBreakouts($symptomConfig, $player, $event->getTime());
-            $this->symptomService->handleCatAllergy($symptomConfig, $player, $event->getTime());
-            $this->symptomService->handleDrooling($symptomConfig, $player, $event->getTime());
-            $this->symptomService->handleFearOfCats($symptomConfig, $player, $event->getTime());
-            $this->symptomService->handleFoamingMouth($symptomConfig, $player, $event->getTime());
-            $this->symptomService->handlePsychoticAttacks($symptomConfig, $player);
-            $this->symptomService->handleSepticemia($symptomConfig, $player, $event->getTime());
-            $this->symptomService->handleSneezing($symptomConfig, $player, $event->getTime());
-            $this->symptomService->handleVomiting($symptomConfig, $player, $event->getTime());
         }
     }
 }

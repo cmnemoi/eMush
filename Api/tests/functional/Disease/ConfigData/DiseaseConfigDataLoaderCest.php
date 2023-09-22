@@ -4,11 +4,10 @@ namespace Mush\Tests\functional\Disease\ConfigData;
 
 use Mush\Disease\ConfigData\DiseaseConfigData;
 use Mush\Disease\ConfigData\DiseaseConfigDataLoader;
-use Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader;
-use Mush\Disease\ConfigData\SymptomConfigDataLoader;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
+use Mush\Modifier\ConfigData\EventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
@@ -27,24 +26,21 @@ class DiseaseConfigDataLoaderCest
         $eventConfigDataLoader = $I->grabService(VariableEventConfigDataLoader::class);
         /** @var ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader */
         $modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
-        /** @var SymptomActivationRequirementDataLoader $symptomActivationRequirementDataLoader */
-        $symptomActivationRequirementDataLoader = $I->grabService(SymptomActivationRequirementDataLoader::class);
         /** @var VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader */
         $triggerEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
         /** @var TriggerEventModifierConfigDataLoader $variableEventModifierConfigDataLoader */
         $variableEventModifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
+        /** @var EventModifierConfigDataLoader $eventModifierConfigDataLoader */
+        $eventModifierConfigDataLoader = $I->grabService(EventModifierConfigDataLoader::class);
         /** @var DirectModifierConfigDataLoader $directModifierConfigDataLoader */
         $directModifierConfigDataLoader = $I->grabService(DirectModifierConfigDataLoader::class);
-        /** @var SymptomConfigDataLoader $symptomConfigDataLoader */
-        $symptomConfigDataLoader = $I->grabService(SymptomConfigDataLoader::class);
 
         $modifierActivationRequirementDataLoader->loadConfigsData();
         $eventConfigDataLoader->loadConfigsData();
-        $symptomActivationRequirementDataLoader->loadConfigsData();
+        $eventModifierConfigDataLoader->loadConfigsData();
         $variableEventModifierConfigDataLoader->loadConfigsData();
         $triggerEventModifierConfigDataLoader->loadConfigsData();
         $directModifierConfigDataLoader->loadConfigsData();
-        $symptomConfigDataLoader->loadConfigsData();
 
         $this->diseaseConfigDataLoader = $I->grabService(DiseaseConfigDataLoader::class);
     }

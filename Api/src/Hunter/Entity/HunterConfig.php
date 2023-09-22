@@ -5,7 +5,7 @@ namespace Mush\Hunter\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Game\Entity\ProbaCollection;
+use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]

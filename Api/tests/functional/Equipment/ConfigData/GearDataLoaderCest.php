@@ -7,6 +7,7 @@ use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Equipment\ConfigData\GearDataLoader;
 use Mush\Equipment\ConfigData\MechanicsData;
 use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Modifier\ConfigData\EventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
@@ -15,9 +16,6 @@ use Mush\Tests\FunctionalTester;
 class GearDataLoaderCest
 {
     private GearDataLoader $gearDataLoader;
-    private ActionDataLoader $actionDataLoader;
-    private VariableEventModifierConfigDataLoader $variableEvnetModifierConfigDataLoader;
-    private ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
 
     // TODO: add other TriggerEventModifierConfigs if necessary
 
@@ -27,11 +25,13 @@ class GearDataLoaderCest
         $variableEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
         $modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
         $triggerEventModifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
+        $eventModifierConfigDataLoader = $I->grabService(EventModifierConfigDataLoader::class);
 
         $modifierActivationRequirementDataLoader->loadConfigsData();
         $actionDataLoader->loadConfigsData();
         $triggerEventModifierConfigDataLoader->loadConfigsData();
         $variableEventModifierConfigDataLoader->loadConfigsData();
+        $eventModifierConfigDataLoader->loadConfigsData();
 
         $this->gearDataLoader = $I->grabService(GearDataLoader::class);
     }

@@ -264,7 +264,7 @@ class PlantCycleHandlerTest extends TestCase
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
                 && $event->getDaedalus() === $daedalus
-                && $event->getQuantity() === 10
+                && $event->getRoundedQuantity() === 10
             )->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
@@ -324,7 +324,7 @@ class PlantCycleHandlerTest extends TestCase
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
                 && $event->getDaedalus() === $daedalus
-                && $event->getQuantity() === 10)
+                && $event->getRoundedQuantity() === 10)
             ->once();
 
         // Thirsty plant

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 
 /**
  * One of the modifier type
@@ -13,16 +14,13 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
  *
  * visibility: the visibility of the triggered event
  * triggeredEventConfig: a config to create the triggered event
- * replaceEvent: does the new event replace the initial one?
+ * priority: priority of the new event (negative means before the initial event, 0 means replace the initial event)
  */
 #[ORM\Entity]
 class TriggerEventModifierConfig extends EventModifierConfig
 {
     #[ORM\ManyToOne(targetEntity: AbstractEventConfig::class)]
-    protected ?AbstractEventConfig $triggeredEvent;
-
-    #[ORM\Column(type: 'boolean', nullable: false)]
-    protected bool $replaceEvent = false;
+    protected AbstractEventConfig $triggeredEvent;
 
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $visibility = VisibilityEnum::PUBLIC;
@@ -31,6 +29,7 @@ class TriggerEventModifierConfig extends EventModifierConfig
     {
         parent::__construct($name);
 
+        $this->modifierStrategy = ModifierStrategyEnum::ADD_EVENT;
         $this->addNoneTagName();
     }
 
@@ -39,10 +38,8 @@ class TriggerEventModifierConfig extends EventModifierConfig
         $baseName = $this->modifierName;
         $triggeredEvent = $this->triggeredEvent;
 
-        if ($baseName === null && $triggeredEvent !== null) {
+        if ($baseName === null) {
             $baseName = $triggeredEvent->getName();
-        } elseif ($baseName === null) {
-            $baseName = 'prevent';
         }
 
         $this->name = $baseName . '_ON_' . $this->getTargetEvent() . '_' . $configName;
@@ -95,26 +92,14 @@ class TriggerEventModifierConfig extends EventModifierConfig
         return $this;
     }
 
-    public function getTriggeredEvent(): ?AbstractEventConfig
+    public function getTriggeredEvent(): AbstractEventConfig
     {
         return $this->triggeredEvent;
     }
 
-    public function setTriggeredEvent(?AbstractEventConfig $triggeredEvent): self
+    public function setTriggeredEvent(AbstractEventConfig $triggeredEvent): self
     {
         $this->triggeredEvent = $triggeredEvent;
-
-        return $this;
-    }
-
-    public function getReplaceEvent(): bool
-    {
-        return $this->replaceEvent;
-    }
-
-    public function setReplaceEvent(bool $replaceEvent): self
-    {
-        $this->replaceEvent = $replaceEvent;
 
         return $this;
     }
@@ -129,5 +114,17 @@ class TriggerEventModifierConfig extends EventModifierConfig
         $this->visibility = $visibility;
 
         return $this;
+    }
+
+    public function getTranslationKey(): ?string
+    {
+        return $this->triggeredEvent->getTranslationKey() . '_on_' . $this->targetEvent;
+    }
+
+    public function getTranslationParameters(): array
+    {
+        $parameters = parent::getTranslationParameters();
+
+        return array_merge($parameters, $this->triggeredEvent->getTranslationParameters());
     }
 }

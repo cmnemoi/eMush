@@ -8,19 +8,18 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Communication\Event\MessageEvent;
 use Mush\Communication\Repository\MessageRepository;
-use Mush\Communication\Services\DiseaseMessageServiceInterface;
+use Mush\Communication\Services\MessageModifierServiceInterface;
 use Mush\Communication\Services\MessageService;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -28,8 +27,8 @@ class MessageServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
-    /** @var DiseaseMessageServiceInterface|Mockery\mock */
-    private DiseaseMessageServiceInterface $diseaseMessageService;
+    /** @var MessageModifierServiceInterface|Mockery\mock */
+    private MessageModifierServiceInterface $diseaseMessageService;
     /** @var EventServiceInterface|Mockery\mock */
     private EventServiceInterface $eventService;
     /** @var MessageRepository|Mockery\mock */
@@ -43,7 +42,6 @@ class MessageServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
-        $this->diseaseMessageService = \Mockery::mock(DiseaseMessageServiceInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->messageRepository = \Mockery::mock(MessageRepository::class);
 
@@ -54,7 +52,6 @@ class MessageServiceTest extends TestCase
 
         $this->service = new MessageService(
             $this->entityManager,
-            $this->diseaseMessageService,
             $this->eventService,
             $this->messageRepository
         );
@@ -84,11 +81,8 @@ class MessageServiceTest extends TestCase
             ->setChannel($channel)
             ->setMessage('some message');
 
-        $this->diseaseMessageService
-            ->shouldReceive('applyDiseaseEffects')
-            ->with(Message::class)
-            ->andReturn($messageClass)
-            ->once();
+        $messageEvent = new MessageEvent(new Message(), $player, [], new \DateTime());
+        $messageEvent->setPriority(0);
 
         $messageClass->shouldReceive('setAuthor')->with($player);
         $messageClass->shouldReceive('setChannel')->with($channel);
@@ -97,7 +91,7 @@ class MessageServiceTest extends TestCase
         $messageClass->shouldReceive('getParent')->andReturn(null);
 
         $messageClass->shouldReceive('getAuthor')->andReturn($player->getPlayerInfo());
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('callEvent')->andReturn(new EventChain([$messageEvent]))->once();
 
         $message = $this->service->createPlayerMessage($player, $playerMessageDto);
 
@@ -124,12 +118,8 @@ class MessageServiceTest extends TestCase
         ;
         $playerMessageDto->setParent($message);
 
-        $this->diseaseMessageService
-            ->shouldReceive('applyDiseaseEffects')
-            ->with(Message::class)
-            ->andReturn($messageClass)
-            ->once()
-        ;
+        $messageEvent = new MessageEvent(new Message(), $player, [], new \DateTime());
+        $messageEvent->setPriority(0);
 
         $messageClass->shouldReceive('setAuthor')->with($player);
         $messageClass->shouldReceive('setChannel')->with($channel);
@@ -140,7 +130,7 @@ class MessageServiceTest extends TestCase
         $messageClass->shouldReceive('getParent')->with($message)->andReturn(null);
 
         $messageClass->shouldReceive('getAuthor');
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('callEvent')->andReturn(new EventChain([$messageEvent]))->once();
 
         $messageWithParent = $this->service->createPlayerMessage($player, $playerMessageDto);
 
@@ -152,6 +142,7 @@ class MessageServiceTest extends TestCase
         $player = new Player();
         $channel = new Channel();
 
+        // dead player
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
         $player->setPlayerInfo($playerInfo);
@@ -160,11 +151,19 @@ class MessageServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlayerInfo($playerInfo);
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn(new MessageEvent(new Message(), $player, [], new \DateTime()))
+            ->once()
+        ;
         $this->assertTrue($this->service->canPlayerPostMessage($player, $channel));
 
-        $statusConfig = new StatusConfig();
-        $statusConfig->setStatusName(PlayerStatusEnum::GAGGED);
-        $status = new Status($player, $statusConfig);
+        // event new message is prevented
+        $this->eventService
+            ->shouldReceive('computeEventModifications')
+            ->andReturn(null)
+            ->once()
+        ;
         $this->assertFalse($this->service->canPlayerPostMessage($player, $channel));
     }
 
@@ -202,6 +201,10 @@ class MessageServiceTest extends TestCase
             ->with($channel, null)
             ->andReturn([$message1, $message2])
         ;
+        $this->eventService->shouldReceive('computeEventModifications')
+            ->andReturn(new MessageEvent($message1, $player, [], new \DateTime()))
+            ->twice()
+        ;
 
         $messages = $this->service->getChannelMessages($player, $channel);
 
@@ -225,6 +228,10 @@ class MessageServiceTest extends TestCase
                 && intval($age->format('%H')) === 24
             )
             ->andReturn([$message1, $message2])
+        ;
+        $this->eventService->shouldReceive('computeEventModifications')
+            ->andReturn(new MessageEvent($message1, $player, [], new \DateTime()))
+            ->twice()
         ;
 
         $messages = $this->service->getChannelMessages($player, $channel);

@@ -8,6 +8,7 @@ use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 
 /**
@@ -74,15 +75,19 @@ class VariableEventConfig extends AbstractEventConfig
         return $this;
     }
 
-    public function createEvent(array $tags, \DateTime $date, GameVariableHolderInterface $variableHolder = null): AbstractGameEvent
-    {
+    public function createEvent(
+        int $priority,
+        array $tags,
+        \DateTime $date,
+        GameVariableHolderInterface $variableHolder = null
+    ): AbstractGameEvent {
         switch ($this->variableHolderClass) {
             case ModifierHolderClassEnum::PLAYER:
                 if (!$variableHolder instanceof Player) {
                     throw new \Exception('a player should be provided to create a playerVariableEvent');
                 }
                 $event = new PlayerVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
-                $event->setEventName($this->eventName);
+                $event->setEventName($this->eventName)->setPriority($priority);
 
                 return $event;
             case ModifierHolderClassEnum::DAEDALUS:
@@ -90,7 +95,7 @@ class VariableEventConfig extends AbstractEventConfig
                     throw new \Exception('a daedalus should be provided to create a daedalusVariableEvent');
                 }
                 $event = new DaedalusVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
-                $event->setEventName($this->eventName);
+                $event->setEventName($this->eventName)->setPriority($priority);
 
                 return $event;
             default:
@@ -109,5 +114,29 @@ class VariableEventConfig extends AbstractEventConfig
         ;
 
         return $reverseEvent;
+    }
+
+    public function getTranslationKey(): ?string
+    {
+        if ($this->quantity < 0) {
+            return $this->eventName . '.decrease';
+        } else {
+            return $this->eventName . '.increase';
+        }
+    }
+
+    public function getTranslationParameters(): array
+    {
+        $parameters = [
+            'quantity' => abs($this->quantity),
+            'target_variable' => $this->targetVariable,
+        ];
+
+        $emoteMap = PlayerVariableEnum::getEmoteMap();
+        if (isset($emoteMap[$this->targetVariable])) {
+            $parameters['emote'] = $emoteMap[$this->targetVariable];
+        }
+
+        return $parameters;
     }
 }

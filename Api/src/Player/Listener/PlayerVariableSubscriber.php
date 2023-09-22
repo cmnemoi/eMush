@@ -45,7 +45,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         }
 
         $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getQuantity();
+        $delta = $playerEvent->getRoundedQuantity();
         $variableName = $playerEvent->getVariableName();
 
         $this->handlePlayerVariableChange($playerEvent, $player, $variableName, $delta);
@@ -58,7 +58,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         }
 
         $player = $playerEvent->getPlayer();
-        $newValue = $playerEvent->getQuantity();
+        $newValue = $playerEvent->getRoundedQuantity();
         $variable = $playerEvent->getVariable();
         $variableName = $variable->getName();
 
@@ -74,7 +74,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         }
 
         $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getQuantity();
+        $delta = $playerEvent->getRoundedQuantity();
         $variable = $playerEvent->getVariable();
 
         $variable->changeMaxValue($delta);
@@ -114,7 +114,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
 
     private function handleInfection(Player $player, PlayerVariableEvent $playerEvent): void
     {
-        if ($playerEvent->getQuantity() > 0 && !$player->isMush()) {
+        if ($playerEvent->getRoundedQuantity() > 0 && !$player->isMush()) {
             $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
         }
 

@@ -8,6 +8,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 class MakeSickActionTest extends AbstractActionTest
 {
@@ -46,9 +49,12 @@ class MakeSickActionTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent');
 
         $player = $this->createPlayer(new Daedalus(), $room);
-        $playerTarget = $this->createPlayer(new Daedalus(), $room);
+        $targetPlayer = $this->createPlayer(new Daedalus(), $room);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
-        $this->action->loadParameters($this->actionEntity, $player, $playerTarget);
+        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->diseaseCauseService->shouldReceive('handleDiseaseForCause');

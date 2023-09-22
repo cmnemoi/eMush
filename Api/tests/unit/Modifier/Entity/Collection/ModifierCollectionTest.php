@@ -228,35 +228,4 @@ class ModifierCollectionTest extends TestCase
         $this->assertNotContains($modifier3, $result);
         $this->assertNotContains($modifier4, $result);
     }
-
-    public function testGetModifierByConfigType()
-    {
-        $time = new \DateTime();
-        $player = new Player();
-        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
-        $modifierConfig2 = new VariableEventModifierConfig('unitTestVariableEventModifier');
-        $modifierConfig3 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
-        $modifierConfig3->setReplaceEvent(true);
-        $modifierConfig4 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
-
-        $modifier1 = new GameModifier($player, $modifierConfig1);
-        $modifier2 = new GameModifier($player, $modifierConfig2);
-        $modifier3 = new GameModifier(new Daedalus(), $modifierConfig3);
-        $modifier4 = new GameModifier(new Place(), $modifierConfig4);
-
-        $modifierCollection = new ModifierCollection([$modifier1, $modifier2, $modifier3, $modifier4]);
-
-        $result = $modifierCollection->getTriggerEventModifiersNoReplace();
-        $this->assertCount(1, $result);
-        $this->assertContains($modifier4, $result);
-
-        $result = $modifierCollection->getTriggerEventModifiersReplace();
-        $this->assertCount(1, $result);
-        $this->assertContains($modifier3, $result);
-
-        $result = $modifierCollection->getVariableEventModifiers();
-        $this->assertCount(2, $result);
-        $this->assertContains($modifier1, $result);
-        $this->assertContains($modifier2, $result);
-    }
 }

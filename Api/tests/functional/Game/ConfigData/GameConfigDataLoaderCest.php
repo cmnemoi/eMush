@@ -12,9 +12,6 @@ use Mush\Disease\ConfigData\DiseaseCauseConfigData;
 use Mush\Disease\ConfigData\DiseaseCauseConfigDataLoader;
 use Mush\Disease\ConfigData\DiseaseConfigData;
 use Mush\Disease\ConfigData\DiseaseConfigDataLoader;
-use Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader;
-use Mush\Disease\ConfigData\SymptomConfigDataLoader;
-use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Equipment\ConfigData\BlueprintDataLoader;
 use Mush\Equipment\ConfigData\BookDataLoader;
 use Mush\Equipment\ConfigData\DocumentDataLoader;
@@ -39,6 +36,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Hunter\ConfigData\HunterConfigData;
 use Mush\Hunter\ConfigData\HunterConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
+use Mush\Modifier\ConfigData\EventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
@@ -53,48 +51,6 @@ class GameConfigDataLoaderCest
 {
     private GameConfigDataLoader $gameConfigDataLoader;
 
-    // StatusConfig + dependencies
-    private ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
-    private VariableEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader;
-    private ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader;
-    private StatusConfigDataLoader $statusConfigDataLoader;
-
-    // DiseaseConfig + dependencies
-    private SymptomActivationRequirement $symptomActivationRequirement;
-    private SymptomConfigDataLoader $symptomConfigDataLoader;
-    private DiseaseConfigDataLoader $diseaseConfigDataLoader;
-
-    // EquipmentConfig + dependencies
-    private ActionDataLoader $actionDataLoader;
-    private BlueprintDataLoader $blueprintDataLoader;
-    private BookDataLoader $bookDataLoader;
-    private DocumentDataLoader $documentDataLoader;
-    private DrugDataLoader $drugDataLoader;
-    private FruitDataLoader $fruitDataLoader;
-    private GearDataLoader $gearDataLoader;
-    private PlantDataLoader $plantDataLoader;
-    private RationDataLoader $rationDataLoader;
-    private ToolDataLoader $toolDataLoader;
-    private WeaponDataLoader $weaponDataLoader;
-    private PatrolShipDataLoader $patrolShipDataLoader;
-    private EquipmentConfigDataLoader $equipmentConfigDataLoader;
-    private ItemConfigDataLoader $itemConfigDataLoader;
-
-    // CharacterConfig needs everything above
-    private CharacterConfigDataLoader $characterConfigDataLoader;
-
-    // DaedalusConfig + dependencies
-    private RandomItemPlacesDataLoader $randomItemPlacesDataLoader;
-    private PlaceConfigDataLoader $placeConfigDataLoader;
-    private DaedalusConfigDataLoader $daedalusConfigDataLoader;
-
-    // Do not have dependencies
-    private DifficultyConfigDataLoader $difficultyConfigDataLoader;
-    private TriumphConfigDataLoader $triumphConfigDataLoader;
-    private DiseaseCauseConfigDataLoader $diseaseCauseConfigDataLoader;
-    private ConsumableDiseaseConfigDataLoader $consumableDiseaseConfigDataLoader;
-    private HunterConfigDataLoader $hunterConfigDataLoader;
-
     private array $dependenciesDataLoaders = [];
 
     public function _before(FunctionalTester $I)
@@ -103,12 +59,11 @@ class GameConfigDataLoaderCest
             $I->grabService(VariableEventConfigDataLoader::class),
             $I->grabService(ModifierActivationRequirementDataLoader::class),
             $I->grabService(VariableEventModifierConfigDataLoader::class),
+            $I->grabService(EventModifierConfigDataLoader::class),
             $I->grabService(TriggerEventModifierConfigDataLoader::class),
             $I->grabService(DirectModifierConfigDataLoader::class),
             $I->grabService(ChargeStatusConfigDataLoader::class),
             $I->grabService(StatusConfigDataLoader::class),
-            $I->grabService(SymptomActivationRequirementDataLoader::class),
-            $I->grabService(SymptomConfigDataLoader::class),
             $I->grabService(DiseaseConfigDataLoader::class),
             $I->grabService(ActionDataLoader::class),
             $I->grabService(BlueprintDataLoader::class),

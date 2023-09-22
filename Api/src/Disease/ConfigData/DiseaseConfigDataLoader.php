@@ -5,7 +5,6 @@ namespace Mush\Disease\ConfigData;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Repository\DiseaseConfigRepository;
-use Mush\Disease\Repository\SymptomConfigRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Repository\ModifierConfigRepository;
@@ -14,7 +13,6 @@ class DiseaseConfigDataLoader extends ConfigDataLoader
 {
     private DiseaseConfigRepository $diseaseConfigRepository;
     private ModifierConfigRepository $modifierConfigRepository;
-    private SymptomConfigRepository $symptomConfigRepository;
 
     // @TODO : remove SymptomConfig logic when it will be definitely deprecated
 
@@ -22,12 +20,11 @@ class DiseaseConfigDataLoader extends ConfigDataLoader
         EntityManagerInterface $entityManager,
         DiseaseConfigRepository $diseaseConfigRepository,
         ModifierConfigRepository $modifierConfigRepository,
-        SymptomConfigRepository $symptomConfigRepository)
-    {
+    ) {
         parent::__construct($entityManager);
+        $this->entityManager = $entityManager;
         $this->diseaseConfigRepository = $diseaseConfigRepository;
         $this->modifierConfigRepository = $modifierConfigRepository;
-        $this->symptomConfigRepository = $symptomConfigRepository;
     }
 
     public function loadConfigsData(): void
@@ -51,7 +48,6 @@ class DiseaseConfigDataLoader extends ConfigDataLoader
                 ->setOverride($diseaseConfigData['override'])
             ;
             $this->setDiseaseConfigModifierConfigs($diseaseConfig, $diseaseConfigData);
-            $this->setDiseaseConfigSymptomConfigs($diseaseConfig, $diseaseConfigData);
 
             $this->entityManager->persist($diseaseConfig);
         }
@@ -70,18 +66,5 @@ class DiseaseConfigDataLoader extends ConfigDataLoader
             $modifierConfigs[] = $modifierConfig;
         }
         $diseaseConfig->setModifierConfigs($modifierConfigs);
-    }
-
-    private function setDiseaseConfigSymptomConfigs(DiseaseConfig $diseaseConfig, array $diseaseConfigData): void
-    {
-        $symptomConfigs = [];
-        foreach ($diseaseConfigData['symptomConfigs'] as $symptomConfigName) {
-            $symptomConfig = $this->symptomConfigRepository->findOneBy(['name' => $symptomConfigName]);
-            if ($symptomConfig === null) {
-                throw new \Exception('Symptom config not found: ' . $symptomConfigName);
-            }
-            $symptomConfigs[] = $symptomConfig;
-        }
-        $diseaseConfig->setSymptomConfigs($symptomConfigs);
     }
 }

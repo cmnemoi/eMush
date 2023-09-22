@@ -15,6 +15,10 @@ services:
       - '../Kernel.php'
       - '../Tests/'
 
+  Mush\Modifier\ModifierHandler\:
+    resource: '../ModifierHandler/'
+    tags: ['mush.modifier.modifier_handler']
+
   Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader:
     public: true
   Mush\Modifier\ConfigData\TriggerVariableEventModifierConfigDataLoader:

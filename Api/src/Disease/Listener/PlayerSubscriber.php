@@ -71,7 +71,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         /** @var PlayerVariableEvent $rollEvent */
         $rollEvent = $this->eventService->computeEventModifications($rollEvent, RollPercentageEvent::ROLL_PERCENTAGE);
-        $diseaseRate = $rollEvent->getQuantity();
+        $diseaseRate = $rollEvent->getRoundedQuantity();
 
         if ($this->randomService->isSuccessful($diseaseRate)) {
             if ($player->hasStatus(PlayerStatusEnum::DEMORALIZED) || $player->hasStatus(PlayerStatusEnum::SUICIDAL)) {

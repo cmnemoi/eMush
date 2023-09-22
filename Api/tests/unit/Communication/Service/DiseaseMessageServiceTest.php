@@ -5,20 +5,14 @@ namespace Mush\Tests\unit\Communication\Service;
 use Mockery;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\DiseaseMessagesEnum;
-use Mush\Communication\Services\DiseaseMessageService;
-use Mush\Communication\Services\DiseaseMessageServiceInterface;
+use Mush\Communication\Enum\MessageModificationEnum;
+use Mush\Communication\Services\MessageModifierService;
+use Mush\Communication\Services\MessageModifierServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Disease\Entity\Collection\SymptomConfigCollection;
-use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Entity\Config\SymptomConfig;
-use Mush\Disease\Entity\PlayerDisease;
-use Mush\Disease\Enum\DiseaseStatusEnum;
-use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationService;
@@ -33,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 
 class DiseaseMessageServiceTest extends TestCase
 {
-    private DiseaseMessageServiceInterface $service;
+    private MessageModifierServiceInterface $service;
 
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
@@ -48,7 +42,7 @@ class DiseaseMessageServiceTest extends TestCase
         $this->translationService = \Mockery::mock(TranslationService::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
-        $this->service = new DiseaseMessageService(
+        $this->service = new MessageModifierService(
             $this->randomService,
             $this->translationService
         );
@@ -67,22 +61,10 @@ class DiseaseMessageServiceTest extends TestCase
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
-        $symptomConfig = new SymptomConfig(SymptomEnum::DEAF);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
-
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('some message');
 
-        $modifiedMessage = $this->service->applyDiseaseEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::DEAF_SPEAK);
 
         $this->assertEquals('SOME MESSAGE', $modifiedMessage->getMessage());
     }
@@ -100,26 +82,12 @@ class DiseaseMessageServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setDaedalus($daedalus);
 
-        $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
-
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
-        $modifiedMessage = $this->service->applyDiseaseEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
         $this->assertEquals($message, $modifiedMessage);
     }
@@ -136,20 +104,6 @@ class DiseaseMessageServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-
-        $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('some message');
@@ -176,7 +130,7 @@ class DiseaseMessageServiceTest extends TestCase
             ->once()
         ;
 
-        $modifiedMessage = $this->service->applyDiseaseEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
         $this->assertEquals('modified message', $modifiedMessage->getMessage());
         $this->assertEquals([], $modifiedMessage->getTranslationParameters());
@@ -194,20 +148,6 @@ class DiseaseMessageServiceTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-
-        $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('Some message');
@@ -235,7 +175,7 @@ class DiseaseMessageServiceTest extends TestCase
             ->once()
         ;
 
-        $modifiedMessage = $this->service->applyDiseaseEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
         $this->assertEquals('prefix, some message', $modifiedMessage->getMessage());
         $this->assertEquals([], $modifiedMessage->getTranslationParameters());
@@ -253,20 +193,6 @@ class DiseaseMessageServiceTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-
-        $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('some message');
@@ -293,7 +219,7 @@ class DiseaseMessageServiceTest extends TestCase
             ->once()
         ;
 
-        $modifiedMessage = $this->service->applyDiseaseEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
         $this->assertEquals('modified message', $modifiedMessage->getMessage());
         $this->assertEquals([], $modifiedMessage->getTranslationParameters());
@@ -310,20 +236,6 @@ class DiseaseMessageServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-
-        $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('Some message');
@@ -350,13 +262,13 @@ class DiseaseMessageServiceTest extends TestCase
             ->once()
         ;
 
-        $modifiedMessage = $this->service->applyDiseaseEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
         $this->assertEquals('modified message', $modifiedMessage->getMessage());
         $this->assertEquals(
             [
                 DiseaseMessagesEnum::ORIGINAL_MESSAGE => 'Some message',
-                DiseaseMessagesEnum::MODIFICATION_CAUSE => SymptomEnum::PARANOIA_MESSAGES,
+                DiseaseMessagesEnum::MODIFICATION_CAUSE => MessageModificationEnum::PARANOIA_MESSAGES,
             ], $modifiedMessage->getTranslationParameters()
         );
     }
@@ -384,20 +296,6 @@ class DiseaseMessageServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
 
         $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
-
-        $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
         $message->setAuthor($playerInfo)->setMessage('Some message');
@@ -431,7 +329,7 @@ class DiseaseMessageServiceTest extends TestCase
             ->once()
         ;
 
-        $modifiedMessage = $this->service->applyDiseaseEffects($message);
+        $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
         $this->assertEquals('modified message', $modifiedMessage->getMessage());
         $this->assertEquals([], $modifiedMessage->getTranslationParameters());

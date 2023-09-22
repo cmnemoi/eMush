@@ -21,6 +21,9 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 class ShootActionTest extends AbstractActionTest
 {
@@ -66,7 +69,11 @@ class ShootActionTest extends AbstractActionTest
         $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
-        $otherPlayer = $this->createPlayer($daedalus, $room);
+        $targetPlayer = $this->createPlayer($daedalus, $room);
+
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $mechanic = new Weapon();
         $mechanic
@@ -86,18 +93,18 @@ class ShootActionTest extends AbstractActionTest
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
-        $this->action->loadParameters($this->actionEntity, $player, $otherPlayer);
+        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $actionVariableEventCritical = new ActionVariableEvent(
             $this->actionEntity,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             $mechanic->getCriticalSuccessRate(),
             $player,
-            $otherPlayer
+            $targetPlayer
         );
 
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $otherPlayer, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(100)
             ->once()
         ;
@@ -123,7 +130,10 @@ class ShootActionTest extends AbstractActionTest
         $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
-        $otherPlayer = $this->createPlayer($daedalus, $room);
+        $targetPlayer = $this->createPlayer($daedalus, $room);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $mechanic = new Weapon();
         $mechanic
@@ -143,14 +153,14 @@ class ShootActionTest extends AbstractActionTest
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
-        $this->action->loadParameters($this->actionEntity, $player, $otherPlayer);
+        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $actionVariableEventCritical = new ActionVariableEvent(
             $this->actionEntity,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             $mechanic->getCriticalSuccessRate(),
             $player,
-            $otherPlayer
+            $targetPlayer
         );
         $this->eventService
             ->shouldReceive('computeEventModifications')
@@ -158,7 +168,7 @@ class ShootActionTest extends AbstractActionTest
             ->once()
         ;
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $otherPlayer, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(100)
             ->once()
         ;
@@ -176,7 +186,10 @@ class ShootActionTest extends AbstractActionTest
         $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
-        $otherPlayer = $this->createPlayer($daedalus, $room);
+        $targetPlayer = $this->createPlayer($daedalus, $room);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $mechanic = new Weapon();
         $mechanic
@@ -196,18 +209,18 @@ class ShootActionTest extends AbstractActionTest
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
-        $this->action->loadParameters($this->actionEntity, $player, $otherPlayer);
+        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $actionVariableEventCritical = new ActionVariableEvent(
             $this->actionEntity,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             $mechanic->getOneShotRate(),
             $player,
-            $otherPlayer
+            $targetPlayer
         );
 
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $otherPlayer, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(100)
             ->once()
         ;
@@ -232,7 +245,10 @@ class ShootActionTest extends AbstractActionTest
         $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
-        $otherPlayer = $this->createPlayer($daedalus, $room);
+        $targetPlayer = $this->createPlayer($daedalus, $room);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $mechanic = new Weapon();
         $mechanic
@@ -252,17 +268,17 @@ class ShootActionTest extends AbstractActionTest
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
-        $this->action->loadParameters($this->actionEntity, $player, $otherPlayer);
+        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $actionVariableEventCritical = new ActionVariableEvent(
             $this->actionEntity,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             100,
             $player,
-            $otherPlayer
+            $targetPlayer
         );
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $otherPlayer, ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(0)
             ->once()
         ;

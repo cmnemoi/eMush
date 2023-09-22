@@ -10,7 +10,6 @@ use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 
 class ModifierCreationService implements ModifierCreationServiceInterface
@@ -48,13 +47,12 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         ModifierHolder $holder,
         array $tags,
         \DateTime $time,
-        ?Player $player,
         ChargeStatus $chargeStatus = null
     ): void {
         if ($modifierConfig instanceof EventModifierConfig) {
             $this->createGameEventModifier($modifierConfig, $holder, $chargeStatus);
         } elseif ($modifierConfig instanceof DirectModifierConfig) {
-            $this->createDirectModifier($modifierConfig, $holder, $player, $tags, $time, false);
+            $this->createDirectModifier($modifierConfig, $holder, $tags, $time, false);
         }
     }
 
@@ -77,12 +75,11 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         ModifierHolder $holder,
         array $tags,
         \DateTime $time,
-        ?Player $player,
     ): void {
         if ($modifierConfig instanceof EventModifierConfig) {
             $this->deleteGameEventModifier($modifierConfig, $holder);
         } elseif ($modifierConfig instanceof DirectModifierConfig && $modifierConfig->getRevertOnRemove()) {
-            $this->createDirectModifier($modifierConfig, $holder, $player, $tags, $time, true);
+            $this->createDirectModifier($modifierConfig, $holder, $tags, $time, true);
         }
     }
 
@@ -100,13 +97,12 @@ class ModifierCreationService implements ModifierCreationServiceInterface
     private function createDirectModifier(
         DirectModifierConfig $modifierConfig,
         ModifierHolder $modifierRange,
-        ?Player $player,
         array $tags,
         \DateTime $time,
         bool $reverse
     ): void {
         $triggeredEventConfig = $modifierConfig->getTriggeredEvent();
-        $events = $this->eventCreationService->createEvents($triggeredEventConfig, $modifierRange, $player, $tags, $time, $reverse);
+        $events = $this->eventCreationService->createEvents($triggeredEventConfig, $modifierRange, 0, $tags, $time, $reverse);
 
         /** @var AbstractGameEvent $event */
         foreach ($events as $event) {

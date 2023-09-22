@@ -28,6 +28,7 @@ class AbstractFunctionalTest
 {
     protected Daedalus $daedalus;
     protected ArrayCollection $players;
+    protected Player $player;
     protected Player $player1;
     protected Player $player2;
 
@@ -40,6 +41,7 @@ class AbstractFunctionalTest
 
         $this->player1 = $this->players->first();
         $this->player2 = $this->players->last();
+        $this->player = $this->player1;
     }
 
     protected function createDaedalus(FunctionalTester $I): Daedalus

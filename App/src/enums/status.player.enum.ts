@@ -14,6 +14,7 @@ const ANTISOCIAL = "antisocial";
 const FIRST_TIME = "first_time";
 const PREGNANT = "pregnant";
 const GAGGED = "gagged";
+const FOCUSED = "focused";
 
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -67,5 +68,8 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [GAGGED]: {
         'icon': require('@/assets/images/status/gagged.png')
+    },
+    [FOCUSED]: {
+        'icon': require('@/assets/images/status/moduling.png')
     }
 };

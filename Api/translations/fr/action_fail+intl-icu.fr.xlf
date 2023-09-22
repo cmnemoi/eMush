@@ -606,5 +606,11 @@
         <target>La coque n'a pas besoin de réparations.</target>
       </segment>
     </unit>
+    <unit id="combustion_chambre_full">
+      <segment state="final">
+        <source>combustion_chamber_full.description</source>
+        <target>La chambre de combustion est pleine.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

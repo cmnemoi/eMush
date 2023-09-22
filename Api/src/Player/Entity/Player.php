@@ -233,6 +233,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         )->isEmpty();
     }
 
+    public function getEquipmentByName(string $name): ?GameEquipment
+    {
+        $equipment = $this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name);
+
+        return $equipment->isEmpty() ? null : $equipment->first();
+    }
+
     public function addStatus(Status $status): static
     {
         if (!$this->getStatuses()->contains($status)) {

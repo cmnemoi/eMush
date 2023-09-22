@@ -3610,6 +3610,7 @@ class EquipmentConfigData
             'actions' => [
                 'take',
                 'examine',
+                'insert_fuel_chamber',
             ],
             'mechanics' => [],
             'initStatuses' => [],

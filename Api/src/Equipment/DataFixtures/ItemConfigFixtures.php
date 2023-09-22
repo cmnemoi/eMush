@@ -200,13 +200,15 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($oxygenCapsule);
 
+        /** @var Action $insertFuelChamber */
+        $insertFuelChamber = $this->getReference(ActionsFixtures::INSERT_FUEL_CHAMBER);
         $fuelCapsule = new ItemConfig();
         $fuelCapsule
             ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions([$takeAction, $examineAction])
+            ->setActions([$takeAction, $examineAction, $insertFuelChamber])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($fuelCapsule);

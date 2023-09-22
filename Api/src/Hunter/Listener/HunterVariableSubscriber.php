@@ -37,7 +37,8 @@ class HunterVariableSubscriber implements EventSubscriberInterface
     private function changeVariable(HunterVariableEvent $event): void
     {
         $author = $event->getAuthor();
-        $change = $event->getQuantity();
+        $change = $event->getRoundedQuantity();
+        $date = $event->getTime();
         $hunter = $event->getHunter();
         $variableName = $event->getVariableName();
 

@@ -111,4 +111,24 @@ abstract class AbstractModifierConfig
 
         return $this;
     }
+
+    public function getTranslationKey(): ?string
+    {
+        return $this->modifierName;
+    }
+
+    public function getTranslationParameters(): array
+    {
+        $parameters = [];
+
+        foreach ($this->modifierActivationRequirements as $requirement) {
+            $parameters = array_merge($parameters, $requirement->getTranslationParameters());
+        }
+
+        if (!key_exists('chance', $parameters)) {
+            $parameters['chance'] = 100;
+        }
+
+        return $parameters;
+    }
 }

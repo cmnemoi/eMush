@@ -7,36 +7,30 @@
         <target>Increases your chances of falling ill.</target>
       </segment>
     </unit>
-    <unit id="max_point_decrease">
+    <unit id="change.value.max.decrease">
       <segment id="description" state="translated">
-        <source>max_point_decrease.description</source>
+        <source>change.value.max.decrease.cycle.description</source>
         <target>Max {emote} **-{quantity}**.</target>
       </segment>
     </unit>
-    <unit id="player.new.cycle_decrease">
+    <unit id="change.variable.decrease_on_player.new.cycle">
       <segment id="description" state="translated">
-        <source>player.new.cycle_decrease.description</source>
+        <source>change.variable.decrease_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Each cycle, lose **{quantity}** {emote}.}
                     other {Each cycle, **{chance}%** chance to lose **{quantity}** {emote}.}
                 }</target>
       </segment>
     </unit>
-    <unit id="infection.player_decrease">
+    <unit id="change.variable.decrease_on_infection.player">
       <segment id="description" state="translated">
-        <source>infection.player_decrease.description</source>
+        <source>change.variable.decrease_on_infection.player.description</source>
         <target>Lose **{quantity}** {emote} whenever you receive a spore.</target>
       </segment>
     </unit>
-    <unit id="apply.cost_decrease">
+    <unit id="change.variable.decrease_on_post.action">
       <segment id="description" state="translated">
-        <source>apply.cost_decrease.description</source>
-        <target>For each **{action_name}** action, lose **{quantity}** {emote}.</target>
-      </segment>
-    </unit>
-    <unit id="post.action_decrease">
-      <segment id="description" state="translated">
-        <source>post.action_decrease.description</source>
+        <source>change.variable.decrease_on_post.action.description</source>
         <target>For each **{action_name}** action, lose **{quantity}** {emote}.</target>
       </segment>
     </unit>
@@ -58,150 +52,145 @@
         <target>Accuracy **-{quantity}%**.</target>
       </segment>
     </unit>
-    <unit id="biting">
+    <unit id="biting_on_player.new.cycle">
       <segment id="description" state="translated">
-        <source>biting.description</source>
+        <source>biting_on_player.new.cycle.description</source>
         <target>Gives the symptom **Biting**.</target>
       </segment>
     </unit>
-    <unit id="breakouts">
+    <unit id="breakouts_on_post.action">
       <segment id="description" state="translated">
-        <source>breakouts.description</source>
+        <source>breakouts_on_post.action.description</source>
         <target>Gives the symptom **Breakouts**.</target>
       </segment>
     </unit>
-    <unit id="disease_cycle">
+    <unit id="roll.percentage_increase_cycle_disease">
       <segment id="description" state="translated">
-        <source>disease_cycle.description</source>
+        <source>roll.percentage_increase_cycle_disease.description</source>
         <target>{chance, select,
                     100 {Every cycle, fall ill.}
                     other {Every cycle, a **{chance}%** chance, fall ill.}
                     }</target>
       </segment>
     </unit>
-    <unit id="cant_move">
+    <unit id="prevent_move_on_pre.action">
       <segment id="description" state="translated">
-        <source>cant_move.description</source>
+        <source>prevent_move_on_pre.action.description</source>
         <target>Impossible to move.</target>
       </segment>
     </unit>
-    <unit id="cant_pick_up_heavy_item">
+    <unit id="prevent_pick_heavy_item_on_pre.action">
       <segment id="description" state="translated">
-        <source>cant_pick_up_heavy_items.description</source>
+        <source>prevent_pick_heavy_item_on_pre.action.description</source>
         <target>Impossible to carry heavy items.</target>
       </segment>
     </unit>
-    <unit id="cat_allergy">
+    <unit id="cat_allergy_on_post.action">
       <segment id="description" state="translated">
-        <source>cat_allergy.description</source>
+        <source>cat_allergy_on_post.action.description</source>
         <target>Gives the symptom **Cat Allergy**.</target>
       </segment>
     </unit>
-    <unit id="dirtiness">
+    <unit id="dirtiness_on_player.new.cycle">
       <segment id="description" state="translated">
-        <source>dirtiness.description</source>
+        <source>dirtiness_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Every cycle, makes you dirty.}
                     other {Every cycle, a **{chance}%** chance, makes you dirty.}
                     }</target>
       </segment>
     </unit>
-    <unit id="deaf">
+    <unit id="deaf_speak_on_new_message">
       <segment id="description" state="translated">
-        <source>deaf.description</source>
+        <source>deaf_speak_on_new_message.description</source>
         <target>Makes you deaf.</target>
       </segment>
     </unit>
-    <unit id="drooling">
+    <unit id="drooling_on_post.action">
       <segment id="description" state="translated">
-        <source>drooling.description</source>
+        <source>drooling_on_post.action.description</source>
         <target>Gives the symptom **Drooling**.</target>
       </segment>
     </unit>
-    <unit id="fear_of_cats">
+    <unit id="fear_of_cats_on_post.action">
       <segment id="description" state="translated">
-        <source>fear_of_cats.description</source>
+        <source>fear_of_cats_on_post.action.description</source>
         <target>Gives the symptom **Fear of Cats**.</target>
       </segment>
     </unit>
-    <unit id="foaming_mouth">
+    <unit id="foaming_mouth_on_post.action">
       <segment id="description" state="translated">
-        <source>foaming_mouth.description</source>
+        <source>foaming_mouth_on_post.action.description</source>
         <target>Gives the symptom **Foaming Mouth**.</target>
       </segment>
     </unit>
-    <unit id="mute">
+    <unit id="mute_modifier_on_new_message">
       <segment id="description" state="translated">
-        <source>mute.description</source>
+        <source>mute_modifier_on_new_message.description</source>
         <target>Makes you mute.</target>
       </segment>
     </unit>
-    <unit id="nausea">
+    <unit id="sneezing_on_post.action">
       <segment id="description" state="translated">
-        <source>nausea.description</source>
-        <target>Gives the symptom **Nausea**.</target>
-      </segment>
-    </unit>
-    <unit id="sneezing">
-      <segment id="description" state="translated">
-        <source>sneezing.description</source>
+        <source>sneezing_on_post.action.description</source>
         <target>Gives the symptom **Sneezing**.</target>
       </segment>
     </unit>
-    <unit id="no_attack_actions">
+    <unit id="prevent_attack_actions_on_pre.action">
       <segment id="description" state="translated">
-        <source>no_attack_actions.description</source>
+        <source>prevent_attack_actions_on_pre.action.description</source>
         <target>Forbids the action **Attack**.</target>
       </segment>
     </unit>
-    <unit id="no_piloting_actions">
+    <unit id="prevent_piloting_actions_on_pre.action">
       <segment id="description" state="translated">
-        <source>no_piloting_actions.description</source>
+        <source>prevent_piloting_actions_on_pre.action.description</source>
         <target>Impossible to pilot.</target>
       </segment>
     </unit>
-    <unit id="no_shoot_actions">
+    <unit id="prevent_shoot_actions_on_pre.action">
       <segment id="description" state="translated">
-        <source>no_shoot_actions.description</source>
+        <source>prevent_shoot_actions_on_pre.action.description</source>
         <target>Forbids the action **Shoot**.</target>
       </segment>
     </unit>
-    <unit id="psychotic_attacks">
+    <unit id="psychotic_attacks_on_post.action">
       <segment id="description" state="translated">
-        <source>psychotic_attacks.description</source>
+        <source>psychotic_attacks_on_post.action.description</source>
         <target>Gives the symptom **Psychotic episodes**.</target>
       </segment>
     </unit>
-    <unit id="septicemia">
+    <unit id="septicemia_on_status.applied">
       <segment id="description" state="translated">
-        <source>septicemia.description</source>
+        <source>septicemia_on_status.applied.description</source>
         <target>You will die if you become **Dirty**.</target>
       </segment>
     </unit>
-    <unit id="vomiting">
+    <unit id="vomiting_on_post.action">
       <segment id="description" state="translated">
-        <source>vomiting.description</source>
-        <target>Gives the symptom **Vomiting**.</target>
+        <source>vomiting_on_post.action.description</source>
+        <target>{chance, select,
+          100 {Gives the symptom **Vomiting**.}
+          other {Gives the symptom **Nausea**.}
+          }
+        </target>
       </segment>
     </unit>
-    <unit id="coprolalia_messages">
+    <unit id="coprolalia_messages_on_new_message">
       <segment id="description" state="translated">
-        <source>coprolalia_messages.description</source>
+        <source>coprolalia_messages_on_new_message.description</source>
         <target>Your messages are sometimes modified.</target>
       </segment>
     </unit>
-    <unit id="paranoia_messages">
+    <unit id="paranoia_messages_on_new_message">
       <segment id="description" state="translated">
-        <source>paranoia_messages.description</source>
+        <source>paranoia_messages_on_new_message.description</source>
         <target>Your messages are sometimes modified.</target>
       </segment>
     </unit>
-    <unit id="new_cycle_increase">
-      <notes>
-        <note>new_cycle_increase</note>
-      </notes>
+    <unit id="change.variable.increase_on_player.new.cycle">
       <segment state="translated">
-        <source>new_cycle_increase.description</source>
+        <source>change.variable.increase_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Every cycle, gain **{quantity}** {emote}.}
                     other {Every cycle, a **{chance}%** chance, gain **{quantity}** {emote}.}

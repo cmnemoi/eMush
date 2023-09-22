@@ -3,7 +3,10 @@
 namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 
 /**
@@ -23,6 +26,12 @@ class EventModifierConfig extends AbstractModifierConfig
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $targetEvent;
 
+    #[ORM\Column(type: 'string', nullable: false)]
+    protected string $modifierStrategy;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    protected string $priority = ModifierPriorityEnum::BEFORE_INITIAL_EVENT;
+
     #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $applyOnTarget = false;
 
@@ -37,6 +46,39 @@ class EventModifierConfig extends AbstractModifierConfig
     public function setTargetEvent(string $targetEvent): self
     {
         $this->targetEvent = $targetEvent;
+
+        return $this;
+    }
+
+    public function getModifierStrategy(): string
+    {
+        return $this->modifierStrategy;
+    }
+
+    public function setModifierStrategy(string $modifierStrategy): self
+    {
+        $this->modifierStrategy = $modifierStrategy;
+
+        return $this;
+    }
+
+    public function getPriorityAsInteger(): int
+    {
+        if (key_exists($this->priority, ModifierPriorityEnum::PRIORITY_MAP)) {
+            return ModifierPriorityEnum::PRIORITY_MAP[$this->priority];
+        }
+
+        return intval($this->priority);
+    }
+
+    public function getPriority(): string
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(string $priority): self
+    {
+        $this->priority = $priority;
 
         return $this;
     }
@@ -104,5 +146,29 @@ class EventModifierConfig extends AbstractModifierConfig
         }
 
         return $anyConstraint;
+    }
+
+    public function getTranslationKey(): ?string
+    {
+        $name = $this->modifierName ?: $this->name;
+
+        return $name . '_on_' . $this->targetEvent;
+    }
+
+    public function getTranslationParameters(): array
+    {
+        $parameters = parent::getTranslationParameters();
+
+        $tagConstraints = $this->tagConstraints;
+        foreach (array_keys($tagConstraints) as $tagKey) {
+            if ($tagConstraints[$tagKey] !== ModifierRequirementEnum::NONE_TAGS
+                && ActionTypeEnum::getAll()->contains($tagKey)
+                || ActionEnum::getAll()->contains($tagKey)
+            ) {
+                $parameters['action_name'] = $tagKey;
+            }
+        }
+
+        return $parameters;
     }
 }

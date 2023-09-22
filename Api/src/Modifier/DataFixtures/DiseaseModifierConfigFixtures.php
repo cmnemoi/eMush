@@ -20,6 +20,7 @@ use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -58,6 +59,8 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
     public const INFECTED_4_HEALTH_LOSS = 'infected_4_health_loss';
     public const INCREASE_CYCLE_DISEASE_CHANCES_10 = 'increase_cycle_disease_chances_10';
     public const RANDOM_16 = 'random_16_modifier';
+    public const RANDOM_40 = 'random_40_modifier';
+    public const RANDOM_50 = 'random_50_modifier';
 
     public function load(ObjectManager $manager): void
     {
@@ -103,7 +106,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($randActivationRequirement50);
 
-        $lyingDownActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PLAYER_STATUS);
+        $lyingDownActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::STATUS);
         $lyingDownActivationRequirement
             ->setActivationRequirement(PlayerStatusEnum::LYING_DOWN)
             ->buildName()
@@ -115,6 +118,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setDelta(1)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -172,6 +176,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $cycle1HealthLost
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -183,6 +188,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $cycle2HealthLost
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -194,6 +200,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $cycle4HealthLost
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -205,6 +212,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $cycle1MovementLost
             ->setTriggeredEvent($eventConfigMovementLose1)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -216,6 +224,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $cycle1SatietyLost
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -229,6 +238,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTriggeredEvent($eventConfigLose1Action)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement10)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -239,6 +249,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTriggeredEvent($eventConfigLose1Health)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement10)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -249,6 +260,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTriggeredEvent($eventConfigLose1Action)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -259,6 +271,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTriggeredEvent($eventConfigLose1Health)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -268,6 +281,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $cycle1ActionLostRand20
             ->setTriggeredEvent($eventConfigLose1Action)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement20)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -278,6 +292,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $cycle1ActionLostRand30
             ->setTriggeredEvent($eventConfigLose1Action)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement30)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -291,6 +306,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $cycle2ActionLostRand40
             ->setTriggeredEvent($eventConfigLose2Action)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->addModifierRequirement($randActivationRequirement40)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -302,6 +318,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTriggeredEvent($eventConfigMovementLose1)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement50)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -312,6 +329,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTriggeredEvent($eventConfigLose1Health)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement50)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -321,6 +339,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $consume1ActionLoss
             ->setTriggeredEvent($eventConfigLose1Action)
             ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
@@ -333,6 +352,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $consume2ActionLoss
             ->setTriggeredEvent($eventConfigLose2Action)
             ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
@@ -347,24 +367,20 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $infected4HealthLost
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerEvent::INFECTION_PLAYER)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($infected4HealthLost);
 
-        $takeCatActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PLAYER_EQUIPMENT);
-        $takeCatActivationRequirement
-            ->setActivationRequirement(ItemEnum::SCHRODINGER)
-            ->buildName()
-        ;
-        $manager->persist($takeCatActivationRequirement);
         /** @var AbstractEventConfig $eventConfig */
         $eventConfig = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_6);
         $takeCat6HealthLost = new TriggerEventModifierConfig('takeCat6HealthLost');
         $takeCat6HealthLost
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->addModifierRequirement($takeCatActivationRequirement)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
+            ->setTagConstraints([ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS, ActionEnum::TAKE => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($takeCat6HealthLost);
@@ -375,6 +391,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $cycle1SatietyIncrease
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -386,6 +403,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(0.9)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
+            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setTagConstraints([
                 ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
             ])
@@ -398,6 +416,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTargetVariable(RollPercentageEvent::ROLL_PERCENTAGE)
             ->setDelta(10)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setApplyOnTarget(false)
             ->setTagConstraints([
@@ -412,6 +431,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTriggeredEvent($eventConfigLose1Action)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement16)
             ->addModifierRequirement($lyingDownActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -450,6 +470,8 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $this->addReference(self::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST, $shootAction10PercentAccuracyLost);
         $this->addReference(self::INCREASE_CYCLE_DISEASE_CHANCES_10, $increaseCycleDiseaseChances10);
         $this->addReference(self::RANDOM_16, $randActivationRequirement16);
+        $this->addReference(self::RANDOM_50, $randActivationRequirement50);
+        $this->addReference(self::RANDOM_40, $randActivationRequirement40);
     }
 
     public function getDependencies(): array

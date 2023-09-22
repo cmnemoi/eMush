@@ -82,37 +82,6 @@ class ModifierConditionServiceTest extends TestCase
         $this->assertEmpty($result);
     }
 
-    public function testReasonActivationRequirementModifier()
-    {
-        $daedalus = new Daedalus();
-        $room = new Place();
-        $room->setDaedalus($daedalus);
-
-        $modifierActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::REASON);
-        $modifierActivationRequirement->setActivationRequirement(ActionEnum::HIDE);
-
-        // create a gear with daedalus modifier
-        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
-        $modifierConfig1
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setTargetEvent('action')
-            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->addModifierRequirement($modifierActivationRequirement)
-        ;
-
-        $modifier = new GameModifier($room, $modifierConfig1);
-
-        $modifierCollection = new ModifierCollection([$modifier]);
-
-        $result = $this->service->getActiveModifiers($modifierCollection, [ActionEnum::HIDE], $room);
-        $this->assertEquals($result, $modifierCollection);
-
-        $result = $this->service->getActiveModifiers($modifierCollection, [ActionEnum::DROP], $room);
-        $this->assertEmpty($result);
-    }
-
     public function testPlayerInRoomActivationRequirementModifier()
     {
         $daedalus = new Daedalus();

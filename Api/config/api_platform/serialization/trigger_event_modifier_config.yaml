@@ -20,5 +20,5 @@ Mush\Modifier\Entity\Config\TriggerEventModifierConfig:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     triggeredEvent:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    replaceEvent:
+    priority:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]

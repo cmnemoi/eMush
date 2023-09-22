@@ -158,6 +158,6 @@ class Surgery extends AbstractAction
         /** @var ActionVariableEvent $criticalRollEvent */
         $criticalRollEvent = $this->eventService->computeEventModifications($criticalRollEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);
 
-        return $criticalRollEvent->getQuantity();
+        return $criticalRollEvent->getRoundedQuantity();
     }
 }

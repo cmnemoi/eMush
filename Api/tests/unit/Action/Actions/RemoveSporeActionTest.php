@@ -48,7 +48,7 @@ class RemoveSporeActionTest extends AbstractActionTest
 
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setEquipment($item)->setName('sporeSucker');
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 

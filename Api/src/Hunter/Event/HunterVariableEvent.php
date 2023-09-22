@@ -9,7 +9,7 @@ use Mush\Hunter\Entity\Hunter;
 
 class HunterVariableEvent extends HunterEvent implements VariableEventInterface
 {
-    private int $quantity;
+    private float $quantity;
     private string $variableName;
 
     public function __construct(Hunter $hunter, string $variableName, int $quantity, array $tags, \DateTime $time)
@@ -39,12 +39,17 @@ class HunterVariableEvent extends HunterEvent implements VariableEventInterface
         return $this->variableName;
     }
 
-    public function getQuantity(): int
+    public function getRoundedQuantity(): int
+    {
+        return intval($this->quantity);
+    }
+
+    public function getQuantity(): float
     {
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): self
+    public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
 

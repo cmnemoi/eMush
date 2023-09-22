@@ -5,8 +5,6 @@ namespace Mush\Modifier\Entity\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
-use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 
 /**
@@ -17,6 +15,20 @@ class ModifierCollection extends ArrayCollection
     public function addModifiers(self $modifierCollection): self
     {
         return new ModifierCollection(array_merge($this->toArray(), $modifierCollection->toArray()));
+    }
+
+    /**
+     * `ModifierCollection::sortModifiers` sort modifiers by priority order.
+     */
+    public function sortModifiers(): self
+    {
+        $array = $this->toArray();
+
+        usort($array, function ($a, $b) {
+            return ($a->getModifierConfig()->getPriority() < $b->getModifierConfig()->getPriority()) ? -1 : 1;
+        });
+
+        return new ModifierCollection($array);
     }
 
     public function getModifierFromConfig(AbstractModifierConfig $modifierConfig): ?GameModifier
@@ -37,24 +49,5 @@ class ModifierCollection extends ArrayCollection
     public function getTargetModifiers(bool $condition): self
     {
         return $this->filter(fn (GameModifier $modifier) => $modifier->getModifierConfig()->getApplyOnTarget() === $condition);
-    }
-
-    public function getTriggerEventModifiersNoReplace(): self
-    {
-        return $this->filter(fn (GameModifier $modifier) => ($modifierConfig = $modifier->getModifierConfig()) instanceof TriggerEventModifierConfig
-            && !$modifierConfig->getReplaceEvent()
-        );
-    }
-
-    public function getTriggerEventModifiersReplace(): self
-    {
-        return $this->filter(fn (GameModifier $modifier) => ($modifierConfig = $modifier->getModifierConfig()) instanceof TriggerEventModifierConfig
-            && $modifierConfig->getReplaceEvent()
-        );
-    }
-
-    public function getVariableEventModifiers(): self
-    {
-        return $this->filter(fn (GameModifier $modifier) => ($modifier->getModifierConfig()) instanceof VariableEventModifierConfig);
     }
 }

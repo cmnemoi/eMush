@@ -39,7 +39,7 @@ class ActionService implements ActionServiceInterface
         /** @var ActionVariableEvent $movementPointCostEvent */
         $movementPointCostEvent = $this->eventService->computeEventModifications($movementPointCostEvent, ActionVariableEvent::APPLY_COST);
 
-        $movementPointCost = $movementPointCostEvent->getQuantity();
+        $movementPointCost = $movementPointCostEvent->getRoundedQuantity();
         $missingMovementPoints = $movementPointCost - $player->getMovementPoint();
         if ($missingMovementPoints > 0) {
             $this->handleConversionEvents($player, $missingMovementPoints, true);
@@ -73,7 +73,7 @@ class ActionService implements ActionServiceInterface
         $conversionGainEvent = $this->eventService->computeEventModifications($conversionGainEvent, ActionVariableEvent::APPLY_COST);
 
         // Compute how much conversion are needed to have the required number of movement point for the action
-        $movementPointGain = $conversionGainEvent->getQuantity();
+        $movementPointGain = $conversionGainEvent->getRoundedQuantity();
 
         if ($movementPointGain === 0) {
             // set to a cost impossible for the player
@@ -99,7 +99,7 @@ class ActionService implements ActionServiceInterface
             }
         }
 
-        return $numberOfConversions * $conversionCostEvent->getQuantity();
+        return $numberOfConversions * $conversionCostEvent->getRoundedQuantity();
     }
 
     private function getActionEvent(
@@ -134,7 +134,7 @@ class ActionService implements ActionServiceInterface
         /** @var ActionVariableEvent $actionVariableEvent */
         $actionVariableEvent = $this->eventService->computeEventModifications($actionVariableEvent, $eventName);
 
-        $value = $actionVariableEvent->getQuantity();
+        $value = $actionVariableEvent->getRoundedQuantity();
 
         return $variable->getValueInRange($value);
     }

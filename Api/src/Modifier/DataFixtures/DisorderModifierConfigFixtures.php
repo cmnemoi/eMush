@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\ActionVariableEvent;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -16,8 +17,8 @@ use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
-use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -35,7 +36,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
     public const REDUCE_MAX_2_ACTION_POINT = 'reduce_max_2_action_point';
     public const REDUCE_MAX_3_MORAL_POINT = 'reduce_max_3_moral_point';
     public const REDUCE_MAX_4_MORAL_POINT = 'reduce_max_4_moral_point';
-    public const NOT_REASON_MOVE = 'not_reason_move';
 
     public function load(ObjectManager $manager): void
     {
@@ -53,13 +53,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         ;
         $manager->persist($fourPeopleInRoomActivationRequirement);
 
-        $notMoveActionActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::NOT_REASON);
-        $notMoveActionActivationRequirement
-            ->setActivationRequirement(ActionEnum::MOVE)
-            ->buildName()
-        ;
-        $manager->persist($notMoveActionActivationRequirement);
-
         /** @var ModifierActivationRequirement $randActivationRequirement16 */
         $randActivationRequirement16 = $this->getReference(DiseaseModifierConfigFixtures::RANDOM_16);
 
@@ -75,6 +68,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionEnum::MOVE)
             ->addModifierRequirement($catInRoomActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -86,9 +80,10 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS])
             ->addModifierRequirement($catInRoomActivationRequirement)
-            ->addModifierRequirement($notMoveActionActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($catInRoomNotMove2ActionIncrease);
@@ -99,6 +94,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $cycle1ActionLostRand16WithScreaming
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::SCREAMING)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -111,6 +107,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $cycle1HealthLostRand16WithWallHeadBang
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::WALL_HEAD_BANG)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -123,6 +120,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $cycle1MoralLostRand70
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement70)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -134,6 +132,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $cycle2MovementLostRand16WithRunInCircles
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::RUN_IN_CIRCLES)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -145,7 +144,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->addModifierRequirement($fourPeopleInRoomActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -156,7 +156,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->addModifierRequirement($fourPeopleInRoomActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -203,7 +204,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $this->addReference(self::REDUCE_MAX_2_ACTION_POINT, $reduceMax2ActionPoint);
         $this->addReference(self::REDUCE_MAX_3_MORAL_POINT, $reduceMax3MoralPoint);
         $this->addReference(self::REDUCE_MAX_4_MORAL_POINT, $reduceMax4MoralPoint);
-        $this->addReference(self::NOT_REASON_MOVE, $notMoveActionActivationRequirement);
     }
 
     public function getDependencies(): array

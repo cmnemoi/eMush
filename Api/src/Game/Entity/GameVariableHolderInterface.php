@@ -2,6 +2,8 @@
 
 namespace Mush\Game\Entity;
 
+use Mush\Game\Entity\Collection\GameVariableCollection;
+
 interface GameVariableHolderInterface
 {
     public function getVariableByName(string $variableName): GameVariable;

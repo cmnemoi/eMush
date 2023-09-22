@@ -84,16 +84,6 @@
                 <span>{{ $t('admin.modifierConfig.mode') }}: {{ child.mode }}</span>
             </template>
         </ChildCollectionManager>
-        <h3>{{ $t('admin.diseaseConfig.symptomConfigs') }}</h3>
-        <ChildCollectionManager :children="diseaseConfig.symptomConfigs" @addId="selectNewSymptomConfig" @remove="removeSymptomConfig">
-            <template #header="child">
-                <span>{{ child.id }} - {{ child.symptomName }}</span>
-               
-            </template>
-            <template #body="child">
-                <span>{{ $t('admin.symptomConfig.trigger') }}: {{ child.trigger }}</span>
-            </template>
-        </ChildCollectionManager>
         <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
@@ -104,7 +94,6 @@ import GameConfigService from "@/services/game_config.service";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
-import { SymptomConfig } from "@/entities/Config/SymptomConfig";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import Input from "@/components/Utils/Input.vue";
@@ -141,9 +130,7 @@ export default defineComponent({
             if (this.diseaseConfig?.modifierConfigs !== undefined){
                 newDiseaseConfig.modifierConfigs = this.diseaseConfig?.modifierConfigs;
             }
-            if (this.diseaseConfig?.symptomConfigs !== undefined){
-                newDiseaseConfig.symptomConfigs = this.diseaseConfig?.symptomConfigs;
-            }
+
             GameConfigService.createDiseaseConfig(newDiseaseConfig).then((res: DiseaseConfig | null) => {
                 const newDiseaseConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/disease-config', String(res?.id));
                 window.location.href = newDiseaseConfigUrl;
@@ -180,17 +167,6 @@ export default defineComponent({
                                 });
                                 if (this.diseaseConfig instanceof DiseaseConfig) {
                                     this.diseaseConfig.modifierConfigs = modifierConfigs;
-                                }
-                            });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'disease_configs', String(this.diseaseConfig.id), 'symptom_configs'))
-                            .then((result) => {
-                                const symptomConfigs : SymptomConfig[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
-                                    const symptomConfig = (new SymptomConfig()).load(datum);
-                                    symptomConfigs.push(symptomConfig);
-                                });
-                                if (this.diseaseConfig instanceof DiseaseConfig) {
-                                    this.diseaseConfig.symptomConfigs = symptomConfigs;
                                 }
                             });
                     }
@@ -231,18 +207,6 @@ export default defineComponent({
                 this.diseaseConfig.modifierConfigs = removeItem(this.diseaseConfig.modifierConfigs, child);
             }
         },
-        selectNewSymptomConfig(selectedId: any) {
-            GameConfigService.loadSymptomConfig(selectedId).then((res) => {
-                if (res && this.diseaseConfig && this.diseaseConfig.symptomConfigs) {
-                    this.diseaseConfig.symptomConfigs.push(res);
-                }
-            });
-        },
-        removeSymptomConfig(child: any) {
-            if (this.diseaseConfig && this.diseaseConfig.symptomConfigs) {
-                this.diseaseConfig.symptomConfigs = removeItem(this.diseaseConfig.symptomConfigs, child);
-            }
-        },
     },
     beforeMount() {
         const diseaseConfigId = String(this.$route.params.diseaseConfigId);
@@ -259,17 +223,6 @@ export default defineComponent({
                         });
                         if (this.diseaseConfig instanceof DiseaseConfig) {
                             this.diseaseConfig.modifierConfigs = modifierConfigs;
-                        }
-                    });
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'disease_configs', diseaseConfigId, 'symptom_configs'))
-                    .then((result) => {
-                        const symptomConfigs : SymptomConfig[] = [];
-                        result.data['hydra:member'].forEach((datum: any) => {
-                            const currentSymptomConfig = (new SymptomConfig()).load(datum);
-                            symptomConfigs.push(currentSymptomConfig);
-                        });
-                        if (this.diseaseConfig instanceof DiseaseConfig) {
-                            this.diseaseConfig.symptomConfigs = symptomConfigs;
                         }
                     });
             }

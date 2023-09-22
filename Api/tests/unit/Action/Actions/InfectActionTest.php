@@ -8,10 +8,13 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\User\Entity\User;
 
 class InfectActionTest extends AbstractActionTest
 {
@@ -53,8 +56,10 @@ class InfectActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
         $player->setSpores(1);
-
         $targetPlayer = $this->createPlayer($daedalus, $room);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $mushConfig = new ChargeStatusConfig();
         $mushConfig->setStatusName(PlayerStatusEnum::MUSH);

@@ -222,6 +222,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(15)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
+            ->setTypes([ActionEnum::CONSUME])
         ;
 
         $manager->persist($drugConsumeAction);

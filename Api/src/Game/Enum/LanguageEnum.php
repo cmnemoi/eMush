@@ -28,6 +28,8 @@ class LanguageEnum
     public const DISEASE_MESSAGE = 'disease_message';
     public const HUNTER = 'hunter';
     public const PLACE = 'place';
+    public const ACTION = 'actions';
+    public const ACTION_NAME = 'action_name';
 
     // translation domains
     public const CHARACTERS = 'characters';
@@ -55,6 +57,7 @@ class LanguageEnum
         self::DISEASE => self::DISEASE,
         self::HUNTER => self::HUNTER,
         self::PLACE => self::ROOMS,
+        self::ACTION_NAME => self::ACTION,
         LogDeclinationEnum::BALLS_COPROLALIA => self::DISEASE_MESSAGE,
         LogDeclinationEnum::PREFIX_COPROLALIA => self::DISEASE_MESSAGE,
         LogDeclinationEnum::ADJECTIVE_COPROLALIA => self::DISEASE_MESSAGE,
@@ -85,6 +88,7 @@ class LanguageEnum
             self::STATUS => ['name'],
             self::DISEASE => ['name'],
             self::HUNTER => ['name'],
+            self::ACTION => ['name'],
             LogDeclinationEnum::BALLS_COPROLALIA => ['balls_coprolalia'],
             LogDeclinationEnum::PREFIX_COPROLALIA => ['prefix_coprolalia'],
             LogDeclinationEnum::ADJECTIVE_COPROLALIA => [
@@ -113,6 +117,7 @@ class LanguageEnum
             self::STATUS => ['name'],
             self::DISEASE => ['name'],
             self::HUNTER => ['name'],
+            self::ACTION => ['name'],
             LogDeclinationEnum::BALLS_COPROLALIA => ['balls_coprolalia'],
             LogDeclinationEnum::PREFIX_COPROLALIA => ['prefix_coprolalia'],
             LogDeclinationEnum::ADJECTIVE_COPROLALIA => ['adjective_coprolalia'],

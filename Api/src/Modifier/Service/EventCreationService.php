@@ -5,6 +5,7 @@ namespace Mush\Modifier\Service;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\AbstractEventConfig;
+use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -17,17 +18,17 @@ class EventCreationService implements EventCreationServiceInterface
     public function createEvents(
         AbstractEventConfig $eventConfig,
         ModifierHolder $modifierRange,
-        ?Player $player,
+        int $priority,
         array $tags,
         \DateTime $time,
         bool $reverse = false
-    ): array {
+    ): EventChain {
         if ($reverse) {
             $eventConfig = $eventConfig->revertEvent();
         }
 
         if ($eventConfig instanceof VariableEventConfig) {
-            return $this->createVariableEvents($eventConfig, $tags, $time, $modifierRange);
+            return $this->createVariableEvents($eventConfig, $priority, $tags, $time, $modifierRange);
         } else {
             $className = $eventConfig::class;
             throw new \Exception("This eventConfig ({$className}) class is not supported");
@@ -36,26 +37,27 @@ class EventCreationService implements EventCreationServiceInterface
 
     private function createVariableEvents(
         VariableEventConfig $eventConfig,
+        int $priority,
         array $tags,
         \DateTime $time,
         ModifierHolder $modifierRange,
-    ): array {
+    ): EventChain {
         $variableHolderClass = $eventConfig->getVariableHolderClass();
         switch ($variableHolderClass) {
             case ModifierHolderClassEnum::DAEDALUS:
                 $daedalus = $this->getDaedalusFromModifierHolder($modifierRange);
 
-                return [$eventConfig->createEvent($tags, $time, $daedalus)];
+                return new EventChain([$eventConfig->createEvent($priority, $tags, $time, $daedalus)]);
 
             case ModifierHolderClassEnum::PLAYER:
                 $players = $this->getPlayersFromModifierHolder($modifierRange);
 
                 $events = [];
                 foreach ($players as $player) {
-                    $events[] = $eventConfig->createEvent($tags, $time, $player);
+                    $events[] = $eventConfig->createEvent($priority, $tags, $time, $player);
                 }
 
-                return $events;
+                return new EventChain($events);
             default:
                 throw new \Exception("This variableHolderClass {$variableHolderClass} is not supported");
         }

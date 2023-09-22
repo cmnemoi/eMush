@@ -38,8 +38,8 @@ class PsychoticAttack extends AbstractSymptomHandler
         if ($attackEvent === null && $shootEvent === null) {
             return new EventChain([]);
         } elseif (
-            $attackEvent !== null &&
-            ($shootEvent === null || $this->randomService->isSuccessful(50))
+            $attackEvent !== null
+            && ($shootEvent === null || $this->randomService->isSuccessful(50))
         ) {
             $event = $attackEvent;
         } else {

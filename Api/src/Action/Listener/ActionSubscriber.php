@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Action\Listener;
 
-use Mush\Action\ActionResult\Fail;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
@@ -98,8 +98,8 @@ final class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getAction();
         $player = $event->getAuthor();
 
-        if ($action->getActionName() !== ActionEnum::GET_UP &&
-            $player->getStatusByName(PlayerStatusEnum::LYING_DOWN)
+        if ($action->getActionName() !== ActionEnum::GET_UP
+            && $player->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
             /** @var Action $getUpActionConfig */
             $getUpActionConfig = $player->getPlayerInfo()->getCharacterConfig()->getActionByName(ActionEnum::GET_UP);

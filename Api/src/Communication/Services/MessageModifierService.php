@@ -39,20 +39,14 @@ class MessageModifierService implements MessageModifierServiceInterface
     ): Message {
         $messageContent = $message->getMessage();
 
-        switch ($effectName) {
-            case MessageModificationEnum::COPROLALIA_MESSAGES:
-                return $this->applyCoprolaliaEffect($message, $player);
-            case MessageModificationEnum::PARANOIA_MESSAGES:
-                return $this->applyParanoiaEffect($message, $player);
-            case MessageModificationEnum::PARANOIA_DENIAL:
-                return $this->applyParanoiaDenial($message, $player);
-            case MessageModificationEnum::DEAF_LISTEN:
-                return $message->setMessage($this->applyDeafListenEffect());
-            case MessageModificationEnum::DEAF_SPEAK:
-                return $message->setMessage($this->applyDeafSpeakEffect($messageContent));
-            default:
-                return $message;
-        }
+        return match ($effectName) {
+            MessageModificationEnum::COPROLALIA_MESSAGES => $this->applyCoprolaliaEffect($message, $player),
+            MessageModificationEnum::PARANOIA_MESSAGES => $this->applyParanoiaEffect($message, $player),
+            MessageModificationEnum::PARANOIA_DENIAL => $this->applyParanoiaDenial($message, $player),
+            MessageModificationEnum::DEAF_LISTEN => $message->setMessage($this->applyDeafListenEffect()),
+            MessageModificationEnum::DEAF_SPEAK => $message->setMessage($this->applyDeafSpeakEffect($messageContent)),
+            default => $message,
+        };
     }
 
     private function applyDeafSpeakEffect(string $message): string
@@ -187,9 +181,9 @@ class MessageModifierService implements MessageModifierServiceInterface
 
         $translationParameters = $message->getTranslationParameters();
         if (
-            $message->getAuthor() === $player->getPlayerInfo() &&
-            array_key_exists(DiseaseMessagesEnum::ORIGINAL_MESSAGE, $translationParameters) &&
-            $translationParameters[DiseaseMessagesEnum::MODIFICATION_CAUSE] === MessageModificationEnum::PARANOIA_MESSAGES
+            $message->getAuthor() === $player->getPlayerInfo()
+            && array_key_exists(DiseaseMessagesEnum::ORIGINAL_MESSAGE, $translationParameters)
+            && $translationParameters[DiseaseMessagesEnum::MODIFICATION_CAUSE] === MessageModificationEnum::PARANOIA_MESSAGES
         ) {
             $message->setMessage($translationParameters[DiseaseMessagesEnum::ORIGINAL_MESSAGE]);
         }

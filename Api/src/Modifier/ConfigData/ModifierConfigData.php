@@ -1646,14 +1646,18 @@ class ModifierConfigData
             'targetEvent' => 'change.variable',
             'applyOnTarget' => true,
             'modifierRange' => 'player',
-            'type' => 'variable_event_modifier',
             'triggeredEvent' => null,
+            'priority' => ModifierPriorityEnum::PREVENT_EVENT,
             'visibility' => null,
             'delta' => 0.0,
             'targetVariable' => 'moralPoint',
             'mode' => 'set_value',
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'type' => 'event_modifier',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [],
+            'tagConstraints' => [
+                PlayerVariableEnum::MORAL_POINT => ModifierRequirementEnum::ANY_TAGS,
+            ],
         ],
     ];
 }

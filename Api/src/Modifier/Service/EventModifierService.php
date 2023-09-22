@@ -46,8 +46,8 @@ class EventModifierService implements EventModifierServiceInterface
         foreach ($modifiers as $modifier) {
             // Check if the modifier applies
             if (
-                $modifier->getModifierConfig()->doModifierApplies($initialEvent) &&
-                $this->modifierRequirementService->checkModifier($modifier)
+                $modifier->getModifierConfig()->doModifierApplies($initialEvent)
+                && $this->modifierRequirementService->checkModifier($modifier)
             ) {
                 $handler = $this->modifierHandlerService->getModifierHandler($modifier);
                 if ($handler === null) {

@@ -47,7 +47,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         ModifierHolder $holder,
         array $tags,
         \DateTime $time,
-        ?ChargeStatus $chargeStatus = null
+        ChargeStatus $chargeStatus = null
     ): void {
         if ($modifierConfig instanceof EventModifierConfig) {
             $this->createGameEventModifier($modifierConfig, $holder, $chargeStatus);

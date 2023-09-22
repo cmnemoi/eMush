@@ -147,8 +147,8 @@ class VariableEventModifierConfig extends EventModifierConfig
     {
         if ($this->mode === VariableModifierModeEnum::SET_VALUE) {
             $key = $this->targetEvent . '_set_value';
-        } elseif ($this->mode === VariableModifierModeEnum::MULTIPLICATIVE && $this->delta < 1 ||
-            $this->mode === VariableModifierModeEnum::ADDITIVE && $this->delta < 0
+        } elseif ($this->mode === VariableModifierModeEnum::MULTIPLICATIVE && $this->delta < 1
+            || $this->mode === VariableModifierModeEnum::ADDITIVE && $this->delta < 0
         ) {
             $key = $this->targetEvent . '_decrease';
         } else {

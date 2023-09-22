@@ -109,9 +109,9 @@ class FireTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (PlayerVariableEvent $playerEvent, string $eventName) => (
-                intval($playerEvent->getRoundedQuantity()) === -2 &&
-                $eventName === VariableEventInterface::CHANGE_VARIABLE &&
-                $playerEvent->getVariableName() === PlayerVariableEnum::HEALTH_POINT
+                intval($playerEvent->getRoundedQuantity()) === -2
+                && $eventName === VariableEventInterface::CHANGE_VARIABLE
+                && $playerEvent->getVariableName() === PlayerVariableEnum::HEALTH_POINT
             ))
             ->once()
         ;

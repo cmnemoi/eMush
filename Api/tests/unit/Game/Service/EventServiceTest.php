@@ -197,8 +197,8 @@ class EventServiceTest extends TestCase
         ;
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent === $triggeredEvent &&
-                $eventName === StatusEvent::STATUS_APPLIED
+                $dispatchedEvent === $triggeredEvent
+                && $eventName === StatusEvent::STATUS_APPLIED
             ))
             ->once()
         ;
@@ -211,16 +211,16 @@ class EventServiceTest extends TestCase
         ;
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent === $modifierEvent &&
-                $eventName === ModifierEvent::APPLY_MODIFIER
+                $dispatchedEvent === $modifierEvent
+                && $eventName === ModifierEvent::APPLY_MODIFIER
             ))
             ->once()
         ;
         // dispatch the event
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent === $event &&
-                $eventName === 'eventName'
+                $dispatchedEvent === $event
+                && $eventName === 'eventName'
             ))
             ->once()
         ;
@@ -315,8 +315,8 @@ class EventServiceTest extends TestCase
         ;
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent === $modifierEvent &&
-                $eventName === ModifierEvent::APPLY_MODIFIER
+                $dispatchedEvent === $modifierEvent
+                && $eventName === ModifierEvent::APPLY_MODIFIER
             ))
             ->once()
         ;
@@ -324,8 +324,8 @@ class EventServiceTest extends TestCase
         // dispatch the event
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent === $modifiedEvent &&
-                $eventName === 'eventName'
+                $dispatchedEvent === $modifiedEvent
+                && $eventName === 'eventName'
             ))
             ->once()
         ;
@@ -412,8 +412,8 @@ class EventServiceTest extends TestCase
         ;
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
-                $dispatchedEvent === $modifierEvent &&
-                $eventName === ModifierEvent::APPLY_MODIFIER
+                $dispatchedEvent === $modifierEvent
+                && $eventName === ModifierEvent::APPLY_MODIFIER
             ))
             ->once()
         ;

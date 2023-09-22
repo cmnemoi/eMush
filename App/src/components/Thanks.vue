@@ -32,7 +32,9 @@
                         </svg>
                         <b>{{ $t('footer.alphaVersion') }}.</b> 
                         {{ $t('alpha.issue') }}
-                        <a href="https://discord.gg/Jb8Nwjck6r" target="_blank">Discord</a>.
+                        <a href="https://discord.gg/Jb8Nwjck6r" target="_blank">Discord</a>
+                        {{ $t('alpha.issue2') }}
+                        <a href="https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1" target="_blank">forum</a>.
                     </span>
                     <span class="crowdin">{{ $t('footer.crowdin') }}<a :href=crowdin>Crowdin</a>!</span>
                     <div class="versionId">

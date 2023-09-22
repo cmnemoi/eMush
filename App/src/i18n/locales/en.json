@@ -10,7 +10,8 @@
 		"inventoryDescription": "Click here to open the Room Inventory",
 		"equipment": "Equipment",
 		"player": "Players",
-		"issue": "Please report the encountered bugs on"
+		"issue": "Please report the encountered bugs on",
+		"issue2": "ou le"
 	},
 	"footer": {
 		"alphaVersion": "Alpha Version",
@@ -29,7 +30,8 @@
 	"banner": {
 		"ranking": "Rankings",
 		"user": "My account",
-		"news": "News"
+		"news": "News",
+		"forum": "Forum"
 	},
 	"ranking": {
 		"ship_end_cause": "End cause",

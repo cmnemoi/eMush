@@ -40,6 +40,7 @@ class RandomItemPlacesData
                 GearItemEnum::SPACESUIT,
                 GearItemEnum::SPACESUIT,
                 GearItemEnum::SPACESUIT,
+                ToolItemEnum::HACKER_KIT,
             ],
             'places' => [
                 RoomEnum::FRONT_STORAGE,

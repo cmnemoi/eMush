@@ -104,6 +104,7 @@ class ActionLogEnum
     public const RENOVATE_SUCCESS = 'renovate_success';
     public const RENOVATE_FAIL = 'renovate_fail';
     public const AUTO_EJECT_SUCCESS = 'auto_eject_success';
+    public const INSERT_FUEL_CHAMBER_SUCCESS = 'insert_fuel_chamber_success';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -367,6 +368,9 @@ class ActionLogEnum
         ],
         ActionEnum::AUTO_EJECT => [
             ActionOutputEnum::SUCCESS => self::AUTO_EJECT_SUCCESS,
+        ],
+        ActionEnum::INSERT_FUEL_CHAMBER => [
+            ActionOutputEnum::SUCCESS => self::INSERT_FUEL_CHAMBER_SUCCESS,
         ],
     ];
 }

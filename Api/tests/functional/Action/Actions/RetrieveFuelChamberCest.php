@@ -14,7 +14,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -27,7 +26,6 @@ final class RetrieveFuelChamberCest extends AbstractFunctionalTest
 {
     private Action $retrieveFuelChamberActionConfig;
     private RetrieveFuelChamber $retrieveFuelChamberAction;
-    private Player $player;
 
     public function _before(FunctionalTester $I): void
     {

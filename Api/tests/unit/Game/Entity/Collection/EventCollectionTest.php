@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Test\Event\Entity\Collection;
+namespace Mush\Tests\unit\Game\Entity\Collection;
 
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Event\AbstractGameEvent;

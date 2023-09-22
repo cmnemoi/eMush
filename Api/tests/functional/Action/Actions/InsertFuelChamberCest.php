@@ -16,7 +16,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -29,14 +28,12 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
 {
     private Action $insertFuelChamberActionConfig;
     private InsertFuelChamber $insertFuelChamberAction;
-    private Player $player;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
 
-        $this->player = $this->player1;
         $this->player->changePlace($engineRoom);
         $this->insertFuelChamberActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::INSERT_FUEL_CHAMBER]);
         $this->insertFuelChamberAction = $I->grabService(InsertFuelChamber::class);

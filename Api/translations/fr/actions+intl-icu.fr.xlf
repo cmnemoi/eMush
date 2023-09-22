@@ -882,5 +882,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Injecte le fuel dans la Chambre de Combustion du moteur.</target>
       </segment>
     </unit>
+    <unit id="hack">
+      <segment id="name" state="final">
+        <source>hack.name</source>
+        <target>Forcer l'accès</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>hack.description</source>
+        <target>Permet de tenter de forcer l'accès à ce terminal grâce à votre Bidouilleur.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

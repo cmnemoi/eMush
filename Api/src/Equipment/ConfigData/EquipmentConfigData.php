@@ -2672,6 +2672,7 @@ class EquipmentConfigData
                 'sabotage_percent_12',
                 'report_equipment',
                 'examine',
+                'hack',
             ],
             'mechanics' => [],
             'initStatuses' => [],
@@ -3611,6 +3612,7 @@ class EquipmentConfigData
             'actions' => [
                 'take',
                 'examine',
+                'insert_fuel_chamber',
             ],
             'mechanics' => [],
             'initStatuses' => [],

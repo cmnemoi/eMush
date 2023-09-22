@@ -339,6 +339,25 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface, HunterTar
         return $this;
     }
 
+    public function getCombustionChamberFuel(): int
+    {
+        return $this->getVariableValueByName(DaedalusVariableEnum::COMBUSTION_CHAMBER_FUEL);
+    }
+
+    public function setCombustionChamberFuel(int $combustionChamberFuel): static
+    {
+        $this->setVariableValueByName($combustionChamberFuel, DaedalusVariableEnum::COMBUSTION_CHAMBER_FUEL);
+
+        return $this;
+    }
+
+    public function addCombustionChamberFuel(int $combustionChamberFuel): static
+    {
+        $this->setCombustionChamberFuel($this->getCombustionChamberFuel() + $combustionChamberFuel);
+
+        return $this;
+    }
+
     public function getCycle(): int
     {
         return $this->cycle;

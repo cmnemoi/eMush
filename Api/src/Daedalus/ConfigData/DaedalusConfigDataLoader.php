@@ -43,14 +43,17 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
                 ->setInitHull($daedalusConfigData['initHull'])
                 ->setInitShield($daedalusConfigData['initShield'])
                 ->setInitHunterPoints($daedalusConfigData['initHunterPoints'])
+                ->setInitCombustionChamberFuel($daedalusConfigData['initCombustionChamberFuel'])
                 ->setMaxOxygen($daedalusConfigData['maxOxygen'])
                 ->setMaxFuel($daedalusConfigData['maxFuel'])
                 ->setMaxHull($daedalusConfigData['maxHull'])
                 ->setMaxShield($daedalusConfigData['maxShield'])
+                ->setMaxCombustionChamberFuel($daedalusConfigData['maxCombustionChamberFuel'])
                 ->setDailySporeNb($daedalusConfigData['dailySporeNb'])
                 ->setNbMush($daedalusConfigData['nbMush'])
                 ->setCyclePerGameDay($daedalusConfigData['cyclePerGameDay'])
-                ->setCycleLength($daedalusConfigData['cycleLength']);
+                ->setCycleLength($daedalusConfigData['cycleLength'])
+            ;
 
             $this->setDaedalusConfigRandomItemPlaces($daedalusConfig, $daedalusConfigData);
             $this->setDaedalusConfigPlaceConfigs($daedalusConfig, $daedalusConfigData);

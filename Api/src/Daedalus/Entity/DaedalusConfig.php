@@ -35,6 +35,9 @@ class DaedalusConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $initHunterPoints = 0;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $initCombustionChamberFuel = 0;
+
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $maxOxygen = 0;
 
@@ -46,6 +49,9 @@ class DaedalusConfig
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $maxShield = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $maxCombustionChamberFuel = 0;
 
     #[ORM\OneToOne(targetEntity: RandomItemPlaces::class, cascade: ['ALL'])]
     private ?RandomItemPlaces $randomItemPlaces = null;
@@ -142,6 +148,18 @@ class DaedalusConfig
         return $this;
     }
 
+    public function getInitCombustionChamberFuel(): int
+    {
+        return $this->initCombustionChamberFuel;
+    }
+
+    public function setInitCombustionChamberFuel(int $initCombustionChamberFuel): static
+    {
+        $this->initCombustionChamberFuel = $initCombustionChamberFuel;
+
+        return $this;
+    }
+
     public function getRandomItemPlaces(): ?RandomItemPlaces
     {
         return $this->randomItemPlaces;
@@ -233,6 +251,18 @@ class DaedalusConfig
         return $this;
     }
 
+    public function getMaxCombustionChamberFuel(): int
+    {
+        return $this->maxCombustionChamberFuel;
+    }
+
+    public function setMaxCombustionChamberFuel(int $maxCombustionChamberFuel): static
+    {
+        $this->maxCombustionChamberFuel = $maxCombustionChamberFuel;
+
+        return $this;
+    }
+
     public function getVariableFromName(string $variableName): int
     {
         switch ($variableName) {
@@ -246,6 +276,8 @@ class DaedalusConfig
                 return $this->maxShield;
             case DaedalusVariableEnum::HUNTER_POINTS:
                 return $this->initHunterPoints;
+            case DaedalusVariableEnum::COMBUSTION_CHAMBER_FUEL:
+                return $this->maxCombustionChamberFuel;
             default:
                 throw new \LogicException('this is not a valid daedalusVariable');
         }

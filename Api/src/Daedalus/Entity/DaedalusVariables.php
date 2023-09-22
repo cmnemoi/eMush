@@ -59,6 +59,14 @@ class DaedalusVariables extends GameVariableCollection
             minValue: 0
         );
 
-        parent::__construct([$fuelVariable, $oxygenVariable, $hullVariable, $shieldVariable, $sporeVariable, $hunterPointsVariable]);
+        $combustionChamberVariable = new GameVariable(
+            $this,
+            DaedalusVariableEnum::COMBUSTION_CHAMBER_FUEL,
+            $daedalusConfig->getInitCombustionChamberFuel(),
+            $daedalusConfig->getMaxCombustionChamberFuel(),
+            minValue: 0
+        );
+
+        parent::__construct([$fuelVariable, $oxygenVariable, $hullVariable, $shieldVariable, $sporeVariable, $hunterPointsVariable, $combustionChamberVariable]);
     }
 }

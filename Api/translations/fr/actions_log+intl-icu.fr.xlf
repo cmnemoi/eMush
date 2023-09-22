@@ -1074,5 +1074,23 @@
       }</target>
       </segment>
     </unit>
+    <unit id="insert_fuel_chamber_success">
+      <segment id="insert_fuel_chamber_success" state="translated">
+        <source>insert_fuel_chamber_success</source>
+        <target>Le niveau de la chambre de combustion est maintenant de : {quantity}</target>
+      </segment>
+    </unit>
+    <unit id="hack_success">
+      <segment id="hack_success" state="translated">
+        <source>hack_success</source>
+        <target>Vous rentrez dans le système !</target>
+      </segment>
+    </unit>
+    <unit id="hack_fail">
+      <segment id="hack_fail" state="translated">
+        <source>hack_fail</source>
+        <target>Impossible de craquer ce système...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

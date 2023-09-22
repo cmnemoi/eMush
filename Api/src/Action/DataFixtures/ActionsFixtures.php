@@ -93,6 +93,7 @@ class ActionsFixtures extends Fixture
     public const CONVERT_ACTION_TO_MOVEMENT = 'convert_action_to_movement';
     public const AUTO_EJECT = 'auto.eject';
     public const INSERT_FUEL_CHAMBER = 'insert.fuel.chamber';
+    public const RETRIEVE_FUEL_CHAMBER = 'retrieve.fuel.chamber';
     public const HACK = 'hack';
 
     public function load(ObjectManager $manager): void
@@ -911,6 +912,17 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($insertFuelChamber);
 
+        $retrieveFuelChamber = new Action();
+        $retrieveFuelChamber
+            ->setName(ActionEnum::RETRIEVE_FUEL_CHAMBER)
+            ->setActionName(ActionEnum::RETRIEVE_FUEL_CHAMBER)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setDirtyRate(15)
+            ->setInjuryRate(1)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
+        ;
+        $manager->persist($retrieveFuelChamber);
+
         $hack = new Action();
         $hack
             ->setName(ActionEnum::HACK)
@@ -999,6 +1011,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::CONVERT_ACTION_TO_MOVEMENT, $convertActionToMovement);
         $this->addReference(self::AUTO_EJECT, $autoEject);
         $this->addReference(self::INSERT_FUEL_CHAMBER, $insertFuelChamber);
+        $this->addReference(self::RETRIEVE_FUEL_CHAMBER, $retrieveFuelChamber);
         $this->addReference(self::HACK, $hack);
     }
 }

@@ -3034,6 +3034,7 @@ class EquipmentConfigData
                 'sabotage_percent_12',
                 'report_equipment',
                 'examine',
+                'retrieve_fuel_chamber',
             ],
             'mechanics' => [],
             'initStatuses' => [

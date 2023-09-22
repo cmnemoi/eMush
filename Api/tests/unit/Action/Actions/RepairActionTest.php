@@ -59,6 +59,7 @@ class RepairActionTest extends AbstractActionTest
 
         $gameItem
             ->setEquipment($item)
+            ->setName('item')
         ;
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
@@ -93,6 +94,7 @@ class RepairActionTest extends AbstractActionTest
 
         $gameItem
             ->setEquipment($item)
+            ->setName('item')
         ;
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);

@@ -55,6 +55,7 @@ class CheckSporeLevelActionTest extends AbstractActionTest
         ;
 
         $gameEquipment = new GameEquipment($room);
+        $gameEquipment->setName('equipment');
 
         $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 

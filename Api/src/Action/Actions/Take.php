@@ -41,12 +41,15 @@ class Take extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
+        $tags = $this->getAction()->getActionTags();
+        $tags[] = $parameter->getName();
+
         $equipmentEvent = new MoveEquipmentEvent(
             $parameter,
             $this->player,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $tags,
             new \DateTime(),
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);

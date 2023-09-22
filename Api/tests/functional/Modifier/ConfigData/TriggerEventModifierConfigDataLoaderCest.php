@@ -3,6 +3,7 @@
 namespace Mush\Tests\functional\Modifier\ConfigData;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
@@ -16,6 +17,9 @@ class TriggerEventModifierConfigDataLoaderCest
     public function _before(FunctionalTester $I)
     {
         $this->triggerEventModifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
+
+        $requirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
+        $requirementDataLoader->loadConfigsData();
     }
 
     public function testLoadConfigsData(FunctionalTester $I)

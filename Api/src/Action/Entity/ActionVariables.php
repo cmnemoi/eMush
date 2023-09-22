@@ -4,8 +4,8 @@ namespace Mush\Action\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
-use Mush\Game\Entity\GameVariableCollection;
 use Mush\Player\Enum\PlayerVariableEnum;
 
 #[ORM\Entity]

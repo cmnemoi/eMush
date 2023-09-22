@@ -18,11 +18,8 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'direct_modifier_player_-1_max_healthPoint',
-            ],
-            'symptomConfigs' => [
-                'vomiting_ON_post.action_consume_drug_default',
-                'vomiting_ON_post.action_move_default',
-                'vomiting_ON_post.action_consume_default',
+                'vomiting_consume',
+                'vomiting_move_random_40',
             ],
         ],
         [
@@ -37,11 +34,8 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'modifier_for_player_set_-2actionPoint_on_post.action_if_reason_consume',
-            ],
-            'symptomConfigs' => [
-                'vomiting_ON_post.action_consume_drug_default',
-                'vomiting_ON_post.action_move_default',
-                'vomiting_ON_post.action_consume_default',
+                'vomiting_consume',
+                'vomiting_move_random_40',
             ],
         ],
         [
@@ -58,7 +52,6 @@ class DiseaseConfigData
                 'modifier_for_player_set_-4healthPoint_on_infection.player',
                 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_10',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'cat_allergy',
@@ -70,10 +63,9 @@ class DiseaseConfigData
             'diseasePointMin' => 4,
             'diseasePointLength' => 4,
             'override' => [],
-            'modifierConfigs' => [],
-            'symptomConfigs' => [
-                'sneezing_ON_post.action_cat_default',
-                'cat_allergy_ON_post.action_default',
+            'modifierConfigs' => [
+                'cat_sneezing_on_move_random16',
+                'cat_allergy_on_take_schrodinger_random16',
             ],
         ],
         [
@@ -89,7 +81,6 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_20',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'extreme_tinnitus',
@@ -105,7 +96,6 @@ class DiseaseConfigData
                 'direct_modifier_player_-2_max_moralPoint',
                 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_16',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'flu',
@@ -122,12 +112,9 @@ class DiseaseConfigData
                 'direct_modifier_player_-2_max_healthPoint',
                 'direct_modifier_player_-2_max_moralPoint',
                 'modifier_for_player_set_-1healthPoint_on_new_cycle_if_random_10',
-            ],
-            'symptomConfigs' => [
-                'dirtiness_ON_new_cycle_random_40_default',
-                'vomiting_ON_post.action_move_default',
-                'vomiting_ON_post.action_consume_default',
-                'vomiting_ON_post.action_consume_drug_default',
+                'cycle_dirtiness_random_40',
+                'vomiting_move_random_40',
+                'vomiting_consume',
             ],
         ],
         [
@@ -143,9 +130,7 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'direct_modifier_player_-2_max_healthPoint',
                 'direct_modifier_player_-2_max_moralPoint',
-            ],
-            'symptomConfigs' => [
-                'dirtiness_ON_new_cycle_default',
+                'cycle_dirtiness',
             ],
         ],
         [
@@ -163,12 +148,9 @@ class DiseaseConfigData
                 'direct_modifier_player_-1_max_healthPoint',
                 'modifier_for_player_set_-1healthPoint_on_new_cycle_if_random_16',
                 'modifier_for_player_set_-1actionPoint_on_post.action_if_reason_consume',
-            ],
-            'symptomConfigs' => [
-                'dirtiness_ON_new_cycle_default',
-                'vomiting_ON_post.action_move_default',
-                'vomiting_ON_post.action_consume_default',
-                'vomiting_ON_post.action_consume_drug_default',
+                'cycle_dirtiness',
+                'vomiting_move_random_40',
+                'vomiting_consume',
             ],
         ],
         [
@@ -182,7 +164,6 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'migraine',
@@ -197,7 +178,6 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_20',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'mush_allergy',
@@ -211,9 +191,7 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'modifier_for_player_set_-4healthPoint_on_infection.player',
-            ],
-            'symptomConfigs' => [
-                'sneezing_ON_post.action_mush_default',
+                'mush_sneezing',
             ],
         ],
         [
@@ -230,7 +208,6 @@ class DiseaseConfigData
                 'modifier_for_player_+1movementPoint_on_move',
                 'direct_modifier_player_-4_max_healthPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'rejuvenation',
@@ -247,7 +224,6 @@ class DiseaseConfigData
                 'fitful_sleep_for_player_-1actionPoint_on_new_cycle_if_random_16_if_player_status_lying_down',
                 'modifier_for_player_+10percentage_on_cycle_disease',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'rubella',
@@ -264,7 +240,6 @@ class DiseaseConfigData
                 'direct_modifier_player_-1_max_moralPoint',
                 'modifier_for_player_set_-1movementPoint_on_new_cycle_if_random_50',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'sepsis',
@@ -279,7 +254,6 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_set_-4healthPoint_on_new_cycle',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'sinus_storm',
@@ -294,7 +268,6 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_30',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'skin_inflammation',
@@ -306,9 +279,8 @@ class DiseaseConfigData
             'diseasePointMin' => 4,
             'diseasePointLength' => 4,
             'override' => [],
-            'modifierConfigs' => [],
-            'symptomConfigs' => [
-                'breakouts_ON_post.action_default',
+            'modifierConfigs' => [
+                'breakouts_on_move',
             ],
         ],
         [
@@ -323,9 +295,7 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'modifier_for_player_+1satiety_on_new_cycle',
-            ],
-            'symptomConfigs' => [
-                'vomiting_ON_post.action_move_default',
+                'vomiting_move_random_40',
             ],
         ],
         [
@@ -344,7 +314,6 @@ class DiseaseConfigData
                 'direct_modifier_player_-2_max_healthPoint',
                 'direct_modifier_player_-2_max_moralPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'space_rabies',
@@ -358,12 +327,10 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'modifier_for_player_set_-2healthPoint_on_new_cycle',
-            ],
-            'symptomConfigs' => [
-                'foaming_mouth_ON_post.action_default',
-                'drooling_ON_post.action_default',
-                'biting_ON_new_cycle_default',
-                'psychotic_attacks_ON_post.action_default',
+                'foaming_on_move',
+                'drooling_on_move',
+                'biting_on_cycle',
+                'psychotic_attacks_on_move',
             ],
         ],
         [
@@ -381,7 +348,6 @@ class DiseaseConfigData
                 'modifier_for_player_x0.9percentage_on_action_shoot',
                 'direct_modifier_player_-2_max_moralPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'tapeworm',
@@ -396,7 +362,6 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_set_-1satiety_on_new_cycle',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'vitamin_deficiency',
@@ -411,7 +376,6 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_10',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'burns_50_of_body',
@@ -425,9 +389,8 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'modifier_for_player_+10percentage_on_cycle_disease',
-                'modifier_for_player_+1actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
+                'modifier_for_player_+1actionPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'burns_90_of_body',
@@ -440,12 +403,11 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => ['burns_50_of_body'],
             'modifierConfigs' => [
+                'direct_modifier_player_-4_max_healthPoint',
                 'modifier_for_player_+10percentage_on_cycle_disease',
-            ],
-            'symptomConfigs' => [
-                'septicemia_ON_status.applied_default',
-                'septicemia_ON_post.action_default',
-                'septicemia_ON_new_cycle_default',
+                'septicemia_post_action',
+                'septicemia_on_dirty',
+                'septicemia_cycle_change',
             ],
         ],
         [
@@ -461,7 +423,6 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'direct_modifier_player_-2_max_moralPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'critical_haemorrhage',
@@ -477,7 +438,6 @@ class DiseaseConfigData
                 'modifier_for_player_set_-2healthPoint_on_new_cycle',
                 'direct_modifier_player_-2_max_healthPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'haemorrhage',
@@ -493,7 +453,6 @@ class DiseaseConfigData
                 'direct_modifier_player_-1_max_healthPoint',
                 'modifier_for_player_set_-1healthPoint_on_new_cycle',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'minor_haemorrhage',
@@ -508,7 +467,6 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_set_-1healthPoint_on_new_cycle',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'damaged_ears',
@@ -520,10 +478,7 @@ class DiseaseConfigData
             'diseasePointMin' => 4,
             'diseasePointLength' => 4,
             'override' => [],
-            'modifierConfigs' => [],
-            'symptomConfigs' => [
-                'deaf_ON_new_message_default',
-            ],
+            'modifierConfigs' => ['deaf_ON_new_message_default', 'deaf_ON_read_message_default'],
         ],
         [
             'diseaseName' => 'destroyed_ears',
@@ -537,9 +492,8 @@ class DiseaseConfigData
             'override' => ['damaged_ears'],
             'modifierConfigs' => [
                 'direct_modifier_player_-1_max_moralPoint',
-            ],
-            'symptomConfigs' => [
                 'deaf_ON_new_message_default',
+                'deaf_ON_read_message_default',
             ],
         ],
         [
@@ -554,11 +508,9 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'direct_modifier_player_-3_max_moralPoint',
-            ],
-            'symptomConfigs' => [
-                'septicemia_ON_status.applied_default',
-                'septicemia_ON_post.action_default',
-                'septicemia_ON_new_cycle_default',
+                'septicemia_post_action',
+                'septicemia_on_dirty',
+                'septicemia_cycle_change',
             ],
         ],
         [
@@ -573,11 +525,9 @@ class DiseaseConfigData
             'override' => ['head_trauma'],
             'modifierConfigs' => [
                 'direct_modifier_player_-2_max_moralPoint',
-            ],
-            'symptomConfigs' => [
-                'septicemia_ON_status.applied_default',
-                'septicemia_ON_post.action_default',
-                'septicemia_ON_new_cycle_default',
+                'septicemia_post_action',
+                'septicemia_on_dirty',
+                'septicemia_cycle_change',
             ],
         ],
         [
@@ -591,9 +541,8 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_+1actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
+                'modifier_for_player_+1actionPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'inner_ear_damaged',
@@ -606,11 +555,9 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_+1actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
+                'modifier_for_player_+1actionPoint',
                 'modifier_for_player_+1movementPoint_on_move',
-            ],
-            'symptomConfigs' => [
-                'no_piloting_actions_ON_action_pilot_default',
+                'prevent_piloting_actions',
             ],
         ],
         [
@@ -623,10 +570,7 @@ class DiseaseConfigData
             'diseasePointMin' => 4,
             'diseasePointLength' => 4,
             'override' => [],
-            'modifierConfigs' => [],
-            'symptomConfigs' => [
-                'mute_ON_action_spoken_default',
-            ],
+            'modifierConfigs' => ['mute_modifier'],
         ],
         [
             'diseaseName' => 'broken_foot',
@@ -641,7 +585,6 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_+1movementPoint_on_move',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'mashed_foot',
@@ -657,7 +600,6 @@ class DiseaseConfigData
                 'direct_modifier_player_-3_max_movementPoint',
                 'modifier_for_player_+1movementPoint_on_move',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'broken_leg',
@@ -673,7 +615,6 @@ class DiseaseConfigData
                 'direct_modifier_player_-5_max_movementPoint',
                 'modifier_for_player_+1movementPoint_on_move',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'mashed_legs',
@@ -687,9 +628,7 @@ class DiseaseConfigData
             'override' => ['broken_leg', 'broken_foot', 'mashed_foot'],
             'modifierConfigs' => [
                 'direct_modifier_player_-12_max_movementPoint',
-            ],
-            'symptomConfigs' => [
-                'cant_move_ON_move_default',
+                'prevent_move',
             ],
         ],
         [
@@ -704,12 +643,10 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'modifier_for_player_set_-2actionPoint_on_post.action_if_reason_consume',
-                'modifier_for_player_+1actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
-            ],
-            'symptomConfigs' => [
-                'vomiting_ON_post.action_move_default',
-                'drooling_ON_post.action_default',
-                'vomiting_ON_post.action_consume_default',
+                'modifier_for_player_+1actionPoint',
+                'vomiting_consume',
+                'vomiting_move_random_40',
+                'drooling_on_move',
             ],
         ],
         [
@@ -724,10 +661,8 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'modifier_for_player_set_-2healthPoint_on_new_cycle',
-                'modifier_for_player_+2actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
-            ],
-            'symptomConfigs' => [
-                'mute_ON_action_spoken_default',
+                'modifier_for_player_+2actionPoint',
+                'mute_modifier',
             ],
         ],
         [
@@ -743,7 +678,6 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_x0.8percentage_on_action_shoot',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'broken_finger',
@@ -756,9 +690,8 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_+1actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
+                'modifier_for_player_+1actionPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'missing_finger',
@@ -771,9 +704,8 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => ['broken_finger'],
             'modifierConfigs' => [
-                'modifier_for_player_+1actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
+                'modifier_for_player_+1actionPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'burnt_hand',
@@ -787,9 +719,8 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'direct_modifier_player_-1_max_healthPoint',
-                'modifier_for_player_+1actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
+                'modifier_for_player_+1actionPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'mashed_hand',
@@ -803,9 +734,9 @@ class DiseaseConfigData
             'override' => ['missing_finger', 'broken_finger', 'burnt_hand'],
             'modifierConfigs' => [
                 'modifier_for_player_x0.6percentage_on_action_shoot',
-                'modifier_for_player_+2actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
+                'modifier_for_player_+2actionPoint',
+                'direct_modifier_player_-2_max_healthPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'burnt_arms',
@@ -819,10 +750,9 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'modifier_for_player_+10percentage_on_cycle_disease',
-                'modifier_for_player_+2actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
+                'modifier_for_player_+2actionPoint',
                 'modifier_for_player_x0.8percentage_on_action_shoot',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'busted_arm_joint',
@@ -836,9 +766,8 @@ class DiseaseConfigData
             'override' => ['mashed_arms'],
             'modifierConfigs' => [
                 'modifier_for_player_x0.6percentage_on_action_shoot',
-                'modifier_for_player_+2actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
+                'modifier_for_player_+2actionPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'mashed_arms',
@@ -851,10 +780,9 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => ['burnt_hand', 'broken_finger', 'missing_finger', 'mashed_hand', 'busted_arm_joint'],
             'modifierConfigs' => [
-                'modifier_for_player_+3actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
+                'modifier_for_player_+3actionPoint',
                 'modifier_for_player_x0.6percentage_on_action_shoot',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'bruised_shoulder',
@@ -870,7 +798,6 @@ class DiseaseConfigData
                 'direct_modifier_player_-1_max_healthPoint',
                 'modifier_for_player_x0.9percentage_on_action_shoot',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'broken_shoulder',
@@ -885,9 +812,7 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'direct_modifier_player_-1_max_healthPoint',
                 'modifier_for_player_x0.8percentage_on_action_shoot',
-            ],
-            'symptomConfigs' => [
-                'cant_pick_up_heavy_items_ON_take_default',
+                'prevent_pick_heavy_item',
             ],
         ],
         [
@@ -902,10 +827,8 @@ class DiseaseConfigData
             'override' => ['burnt_hand', 'broken_finger', 'missing_finger', 'mashed_hand', 'busted_arm_joint', 'mashed_arms', 'bruised_shoulder', 'broken_shoulder'],
             'modifierConfigs' => [
                 'modifier_for_player_x0.6percentage_on_action_shoot',
-                'modifier_for_player_+2actionPoint_on_actions_if_not_reason_move_if_not_reason_consume_if_not_reason_consume_drug_if_not_reason_surgery_if_not_reason_self_surgery',
-            ],
-            'symptomConfigs' => [
-                'cant_pick_up_heavy_items_ON_take_default',
+                'modifier_for_player_+2actionPoint',
+                'prevent_pick_heavy_item',
             ],
         ],
         [
@@ -921,9 +844,7 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_+1actionPoint_on_actions_if_player_in_room_four_people',
                 'modifier_for_player_+1movementPoint_on_actions_if_player_in_room_four_people',
-            ],
-            'symptomConfigs' => [
-                'no_piloting_actions_ON_action_pilot_default',
+                'prevent_piloting_actions',
             ],
         ],
         [
@@ -939,9 +860,7 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_+2movementPoint_on_move_if_item_in_room_schrodinger',
                 'modifier_for_player_+2actionPoint_on_actions_if_item_in_room_schrodinger_if_not_reason_move',
-            ],
-            'symptomConfigs' => [
-                'fear_of_cats_ON_post.action_default',
+                'fear_of_cat_on_move',
             ],
         ],
         [
@@ -958,7 +877,6 @@ class DiseaseConfigData
                 'direct_modifier_player_-2_max_moralPoint',
                 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_16',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'chronic_vertigo',
@@ -970,9 +888,8 @@ class DiseaseConfigData
             'diseasePointMin' => 4,
             'diseasePointLength' => 4,
             'override' => [],
-            'modifierConfigs' => [],
-            'symptomConfigs' => [
-                'no_piloting_actions_ON_action_pilot_default',
+            'modifierConfigs' => [
+                'prevent_piloting_actions',
             ],
         ],
         [
@@ -987,9 +904,7 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'direct_modifier_player_-4_max_moralPoint',
-            ],
-            'symptomConfigs' => [
-                'coprolalia_messages_ON_new_message_default',
+                'coprolalia_ON_new_message_default',
             ],
         ],
         [
@@ -1008,7 +923,6 @@ class DiseaseConfigData
                 'screaming_for_player_set_-1actionPoint_on_new_cycle_if_random_16',
                 'direct_modifier_player_-4_max_moralPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'depression',
@@ -1024,7 +938,6 @@ class DiseaseConfigData
                 'direct_modifier_player_-2_max_actionPoint',
                 'direct_modifier_player_-2_max_moralPoint',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'paranoia',
@@ -1038,9 +951,8 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'direct_modifier_player_-3_max_moralPoint',
-            ],
-            'symptomConfigs' => [
-                'paranoia_messages_ON_new_message_default',
+                'paranoia_ON_new_message_default',
+                'paranoia_ON_read_message_default',
             ],
         ],
         [
@@ -1053,10 +965,9 @@ class DiseaseConfigData
             'diseasePointMin' => 4,
             'diseasePointLength' => 4,
             'override' => [],
-            'modifierConfigs' => [],
-            'symptomConfigs' => [
-                'psychotic_attacks_ON_post.action_default',
-                'biting_ON_new_cycle_default',
+            'modifierConfigs' => [
+                'biting_on_cycle',
+                'psychotic_attacks_on_move',
             ],
         ],
         [
@@ -1072,7 +983,6 @@ class DiseaseConfigData
             'modifierConfigs' => [
                 'modifier_for_player_set_-1moralPoint_on_new_cycle_if_random_70',
             ],
-            'symptomConfigs' => [],
         ],
         [
             'diseaseName' => 'vertigo',
@@ -1084,9 +994,8 @@ class DiseaseConfigData
             'diseasePointMin' => 4,
             'diseasePointLength' => 4,
             'override' => [],
-            'modifierConfigs' => [],
-            'symptomConfigs' => [
-                'no_piloting_actions_ON_action_pilot_default',
+            'modifierConfigs' => [
+                'prevent_piloting_actions',
             ],
         ],
         [
@@ -1099,10 +1008,9 @@ class DiseaseConfigData
             'diseasePointMin' => 4,
             'diseasePointLength' => 4,
             'override' => [],
-            'modifierConfigs' => [],
-            'symptomConfigs' => [
-                'no_attack_actions_ON_action_attack_default',
-                'no_shoot_actions_ON_action_shoot_default',
+            'modifierConfigs' => [
+                'prevent_attack_actions',
+                'prevent_shoot_actions',
             ],
         ],
     ];

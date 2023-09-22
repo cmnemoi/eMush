@@ -1,5 +1,4 @@
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
-import { SymptomConfig } from "@/entities/Config/SymptomConfig";
 
 export class DiseaseConfig {
     public iri: string|null;
@@ -9,7 +8,6 @@ export class DiseaseConfig {
     public type: string|null;
     public modifierConfigs: ModifierConfig[]|null;
     public resistance: number|null;
-    public symptomConfigs: SymptomConfig[]|null;
     public delayMin: number|null;
     public delayLength: number|null;
     public diseasePointMin: number|null;
@@ -24,7 +22,6 @@ export class DiseaseConfig {
         this.type = null;
         this.modifierConfigs = [];
         this.resistance = null;
-        this.symptomConfigs = [];
         this.delayMin = null;
         this.delayLength = null;
         this.diseasePointMin = null;
@@ -53,21 +50,11 @@ export class DiseaseConfig {
             });
             this.modifierConfigs = modifierConfigs;
         }
-        if (typeof object.symptomConfig !== 'undefined') {
-            const symptomConfigs : SymptomConfig[] = [];
-            object.symptomConfig.forEach((symptomConfigData: any) => {
-                const symptomConfig = (new SymptomConfig()).load(symptomConfigData);
-                symptomConfigs.push(symptomConfig);
-            });
-            this.symptomConfigs = symptomConfigs;
-        }
         return this;
     }
     jsonEncode() : object {
         const modifierConfigs : string[] = [];
         this.modifierConfigs?.forEach(modifierConfig => (typeof modifierConfig.iri === 'string' ? modifierConfigs.push(modifierConfig.iri) : null));
-        const symptomConfigs : string[] = [];
-        this.symptomConfigs?.forEach(symptomConfig => (typeof symptomConfig.iri === 'string' ? symptomConfigs.push(symptomConfig.iri) : null));
         return {
             'id': this.id,
             'diseaseName': this.diseaseName,
@@ -75,7 +62,6 @@ export class DiseaseConfig {
             'type': this.type,
             'modifierConfigs': modifierConfigs,
             'resistance': this.resistance,
-            'symptomConfigs': symptomConfigs,
             'delayMin': this.delayMin,
             'delayLength': this.delayLength,
             'diseasePointMin': this.diseasePointMin,    

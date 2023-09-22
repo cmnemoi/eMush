@@ -70,6 +70,10 @@ export default defineComponent({
         return {
             entityType: { endpoint: 'variable_event_modifier_configs', detailPage: 'AdminEventModifierConfigDetail' },
             entityTypeOption: [
+                { key: 'admin.modifierConfig.eventModifier', value: {
+                    endpoint: 'event_modifier_configs',
+                    detailPage: 'AdminEventModifierConfigDetail'
+                } },
                 { key: 'admin.modifierConfig.variableModifier', value: {
                     endpoint: 'variable_event_modifier_configs',
                     detailPage: 'AdminEventModifierConfigDetail'

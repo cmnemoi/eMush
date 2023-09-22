@@ -10,13 +10,13 @@ use Mush\RoomLog\Event\LoggableEventInterface;
 
 class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface, VariableEventInterface
 {
-    private int $quantity;
+    private float $quantity;
     private string $variableName;
 
     public function __construct(
         Player $player,
         string $variableName,
-        int $quantity,
+        float $quantity,
         array $tags,
         \DateTime $time
     ) {
@@ -26,12 +26,17 @@ class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface,
         parent::__construct($player, $tags, $time);
     }
 
-    public function getQuantity(): int
+    public function getRoundedQuantity(): int
+    {
+        return intval($this->quantity);
+    }
+
+    public function getQuantity(): float
     {
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): self
+    public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
 

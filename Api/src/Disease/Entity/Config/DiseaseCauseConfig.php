@@ -3,7 +3,7 @@
 namespace Mush\Disease\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Game\Entity\ProbaCollection;
+use Mush\Game\Entity\Collection\ProbaCollection;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_cause_config')]

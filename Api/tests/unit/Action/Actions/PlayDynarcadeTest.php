@@ -58,7 +58,7 @@ class PlayDynarcadeTest extends AbstractActionTest
 
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setEquipment($item)->setName('dynarcarde');
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -81,7 +81,7 @@ class PlayDynarcadeTest extends AbstractActionTest
         ->withArgs([\Mockery::on(function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
             return $event->getAuthor() == $expectedPlayerModifierEvent->getAuthor()
                  && $event->getVariableName() == $expectedPlayerModifierEvent->getVariableName()
-                 && $event->getQuantity() == $expectedPlayerModifierEvent->getQuantity()
+                 && $event->getRoundedQuantity() == $expectedPlayerModifierEvent->getRoundedQuantity()
                  && $event->getTags() == $expectedPlayerModifierEvent->getTags()
                  && $event->getVisibility() == $expectedPlayerModifierEvent->getVisibility();
         }), VariableEventInterface::CHANGE_VARIABLE])
@@ -102,7 +102,7 @@ class PlayDynarcadeTest extends AbstractActionTest
 
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setEquipment($item)->setName('dynarcarde');
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -126,7 +126,7 @@ class PlayDynarcadeTest extends AbstractActionTest
         ->withArgs([\Mockery::on(function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
             return $event->getAuthor() == $expectedPlayerModifierEvent->getAuthor()
                  && $event->getVariableName() == $expectedPlayerModifierEvent->getVariableName()
-                 && $event->getQuantity() == $expectedPlayerModifierEvent->getQuantity()
+                 && $event->getRoundedQuantity() == $expectedPlayerModifierEvent->getRoundedQuantity()
                  && $event->getTags() == $expectedPlayerModifierEvent->getTags()
                  && $event->getVisibility() == $expectedPlayerModifierEvent->getVisibility();
         }), VariableEventInterface::CHANGE_VARIABLE])

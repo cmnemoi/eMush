@@ -25,13 +25,13 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
         ActionVariableEnum::PERCENTAGE_INJURY => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
     ];
 
-    private int $quantity;
+    private float $quantity;
     private string $variableName;
 
     public function __construct(
         Action $action,
         string $variableName,
-        int $quantity,
+        float $quantity,
         Player $player,
         ?LogParameterInterface $actionParameter
     ) {
@@ -45,12 +45,19 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
         );
     }
 
-    public function getQuantity(): int
+    public function getRoundedQuantity(): int
+    {
+        $variable = $this->getVariable();
+
+        return $variable->getValueInRange(intval($this->quantity));
+    }
+
+    public function getQuantity(): float
     {
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): self
+    public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
 

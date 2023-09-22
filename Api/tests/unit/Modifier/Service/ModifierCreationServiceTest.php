@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\EventServiceInterface;
@@ -76,7 +77,7 @@ class ModifierCreationServiceTest extends TestCase
         $this->service->delete($playerModifier);
     }
 
-    public function testCreateEventModifier()
+    public function testCreateDaedalusEventModifier()
     {
         $daedalus = new Daedalus();
 
@@ -91,7 +92,10 @@ class ModifierCreationServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $daedalus, [], new \DateTime(), null);
+    }
 
+    public function testCreatePlaceEventModifier()
+    {
         // create a place GameModifier
         $room = new Place();
         $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
@@ -105,7 +109,10 @@ class ModifierCreationServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $room, [], new \DateTime(), null);
+    }
 
+    public function testCreatePlayerEventModifier()
+    {
         // create a player GameModifier
         $player = new Player();
         $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
@@ -119,7 +126,10 @@ class ModifierCreationServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $player, [], new \DateTime(), null);
+    }
 
+    public function testCreatePlayerEventModifierWithCharge()
+    {
         // create a player GameModifier with charge
         $player = new Player();
         $charge = new ChargeStatus($player, new ChargeStatusConfig());
@@ -138,8 +148,11 @@ class ModifierCreationServiceTest extends TestCase
         ;
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->createModifier($modifierConfig, $player, [], new \DateTime(), null, $charge);
+        $this->service->createModifier($modifierConfig, $player, [], new \DateTime(), $charge);
+    }
 
+    public function testCreateEquipmentEventModifier()
+    {
         // create an equipment GameModifier
         $equipment = new GameEquipment(new Place());
         $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
@@ -193,7 +206,7 @@ class ModifierCreationServiceTest extends TestCase
         $this->eventCreationService
             ->shouldReceive('createEvents')
             ->with($eventConfig, $daedalus, null, $tags, $time, false)
-            ->andReturn($events)
+            ->andReturn(new EventChain($events))
             ->once();
 
         $this->eventService->shouldReceive('callEvent')->twice();
@@ -228,8 +241,8 @@ class ModifierCreationServiceTest extends TestCase
         $events = [$event];
         $this->eventCreationService
             ->shouldReceive('createEvents')
-            ->with($eventConfig, $daedalus, null, $tags, $time, true)
-            ->andReturn($events)
+            ->with($eventConfig, $daedalus, 0, $tags, $time, true)
+            ->andReturn(new EventChain($events))
             ->once()
         ;
 

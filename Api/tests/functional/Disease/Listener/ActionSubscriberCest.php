@@ -16,16 +16,14 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Entity\Config\SymptomActivationRequirement;
-use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\SymptomEnum;
+use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Listener\ActionSubscriber;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -38,6 +36,12 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -51,9 +55,13 @@ class ActionSubscriberCest
 {
     private ActionSubscriber $subscriber;
 
+    private EventServiceInterface $eventService;
+
     public function _before(FunctionalTester $I)
     {
         $this->subscriber = $I->grabService(ActionSubscriber::class);
+
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testOnPostActionBreakoutsSymptom(FunctionalTester $I)
@@ -118,17 +126,14 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
-            'name' => 'reason_move',
-        ]);
-        $moveActionSymptomActivationRequirement->setValue(100);
-        $I->refreshEntities($moveActionSymptomActivationRequirement);
-
-        $symptomConfig = new SymptomConfig('breakouts');
+        $symptomConfig = new EventModifierConfig('breakouts_test');
         $symptomConfig
-            ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
-            ->buildName(GameConfigEnum::TEST)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setApplyOnTarget(false)
+            ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierName(SymptomEnum::BREAKOUTS)
         ;
 
         $I->haveInRepository($symptomConfig);
@@ -136,11 +141,13 @@ class ActionSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->setModifierConfigs([$symptomConfig])
             ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
+
+        $I->refreshEntities($player);
 
         $playerDisease = new PlayerDisease();
         $playerDisease
@@ -149,10 +156,11 @@ class ActionSubscriberCest
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseasePoint(10)
         ;
-
         $I->haveInRepository($playerDisease);
 
-        $I->refreshEntities($player);
+        $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
+        $this->eventService->callEvent($diseaseEvent, DiseaseEvent::APPEAR_DISEASE);
+        $I->assertCount(1, $player->getModifiers());
 
         $moveAction = $I->grabService(Move::class);
 
@@ -234,30 +242,24 @@ class ActionSubscriberCest
 
         $I->haveInRepository($cat);
 
-        $takeActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
-            'name' => 'reason_take',
-        ]);
-        $takeActionSymptomActivationRequirement->setValue(100);
-        $I->refreshEntities($takeActionSymptomActivationRequirement);
-
-        $holdCatSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
-            'name' => 'player_equipment_schrodinger',
-        ]);
-
-        $symptomConfig = new SymptomConfig(SymptomEnum::CAT_ALLERGY);
+        $symptomConfig = new EventModifierConfig(SymptomEnum::CAT_ALLERGY . '_test');
         $symptomConfig
-            ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomActivationRequirement($takeActionSymptomActivationRequirement)
-            ->addSymptomActivationRequirement($holdCatSymptomActivationRequirement)
-            ->buildName(GameConfigEnum::TEST)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setApplyOnTarget(false)
+            ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
+            ->setTagConstraints([
+                ActionEnum::TAKE => ModifierRequirementEnum::ALL_TAGS,
+                ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierName(SymptomEnum::CAT_ALLERGY)
         ;
-
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::CAT_ALLERGY)
-            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->setModifierConfigs([$symptomConfig])
             ->buildName(GameConfigEnum::TEST)
         ;
 
@@ -270,10 +272,12 @@ class ActionSubscriberCest
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseasePoint(10)
         ;
-
         $I->haveInRepository($playerDisease);
-
         $I->refreshEntities($player);
+
+        $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
+        $this->eventService->callEvent($diseaseEvent, DiseaseEvent::APPEAR_DISEASE);
+        $I->assertCount(1, $player->getModifiers());
 
         $takeAction = $I->grabService(Take::class);
 
@@ -344,17 +348,16 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
-            'name' => 'reason_move',
-        ]);
-        $moveActionSymptomActivationRequirement->setValue(100);
-        $I->refreshEntities($moveActionSymptomActivationRequirement);
-
-        $symptomConfig = new SymptomConfig(SymptomEnum::DROOLING);
+        $symptomConfig = new EventModifierConfig(SymptomEnum::DROOLING . '_test');
         $symptomConfig
-            ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
-            ->buildName(GameConfigEnum::TEST)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setApplyOnTarget(false)
+            ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
+            ->setTagConstraints([
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierName(SymptomEnum::DROOLING)
         ;
 
         $I->haveInRepository($symptomConfig);
@@ -362,7 +365,7 @@ class ActionSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->setModifierConfigs([$symptomConfig])
             ->buildName(GameConfigEnum::TEST)
         ;
 
@@ -375,10 +378,12 @@ class ActionSubscriberCest
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseasePoint(10)
         ;
-
         $I->haveInRepository($playerDisease);
-
         $I->refreshEntities($player);
+
+        $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
+        $this->eventService->callEvent($diseaseEvent, DiseaseEvent::APPEAR_DISEASE);
+        $I->assertCount(1, $player->getModifiers());
 
         $moveAction = $I->grabService(Move::class);
 
@@ -449,17 +454,16 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
-            'name' => 'reason_move',
-        ]);
-        $moveActionSymptomActivationRequirement->setValue(100);
-        $I->refreshEntities($moveActionSymptomActivationRequirement);
-
-        $symptomConfig = new SymptomConfig(SymptomEnum::FOAMING_MOUTH);
+        $symptomConfig = new EventModifierConfig(SymptomEnum::FOAMING_MOUTH . '_test');
         $symptomConfig
-            ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
-            ->buildName(GameConfigEnum::TEST)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
+            ->setApplyOnTarget(false)
+            ->setTagConstraints([
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierName(SymptomEnum::FOAMING_MOUTH)
         ;
 
         $I->haveInRepository($symptomConfig);
@@ -467,7 +471,7 @@ class ActionSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->setModifierConfigs([$symptomConfig])
             ->buildName(GameConfigEnum::TEST)
         ;
 
@@ -482,8 +486,11 @@ class ActionSubscriberCest
         ;
 
         $I->haveInRepository($playerDisease);
-
         $I->refreshEntities($player);
+
+        $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
+        $this->eventService->callEvent($diseaseEvent, DiseaseEvent::APPEAR_DISEASE);
+        $I->assertCount(1, $player->getModifiers());
 
         $moveAction = $I->grabService(Move::class);
 
@@ -554,17 +561,16 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
-            'name' => 'reason_move',
-        ]);
-        $moveActionSymptomActivationRequirement->setValue(100);
-        $I->refreshEntities($moveActionSymptomActivationRequirement);
-
-        $symptomConfig = new SymptomConfig(SymptomEnum::SNEEZING);
+        $symptomConfig = new EventModifierConfig(SymptomEnum::SNEEZING . '_test');
         $symptomConfig
-            ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
-            ->buildName(GameConfigEnum::TEST)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setApplyOnTarget(false)
+            ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
+            ->setTagConstraints([
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierName(SymptomEnum::SNEEZING)
         ;
 
         $I->haveInRepository($symptomConfig);
@@ -572,7 +578,7 @@ class ActionSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->setModifierConfigs([$symptomConfig])
             ->buildName(GameConfigEnum::TEST)
         ;
 
@@ -585,10 +591,12 @@ class ActionSubscriberCest
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseasePoint(10)
         ;
-
         $I->haveInRepository($playerDisease);
-
         $I->refreshEntities($player);
+
+        $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
+        $this->eventService->callEvent($diseaseEvent, DiseaseEvent::APPEAR_DISEASE);
+        $I->assertCount(1, $player->getModifiers());
 
         $moveAction = $I->grabService(Move::class);
 
@@ -724,38 +732,24 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
-            'name' => 'reason_move',
-        ]);
-        $moveActionSymptomActivationRequirement->setValue(100);
-        $I->refreshEntities($moveActionSymptomActivationRequirement);
-
-        $consumeActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
-            'name' => 'reason_consume',
-        ]);
-
-        $moveVomitingConfig = new SymptomConfig(SymptomEnum::VOMITING);
-        $moveVomitingConfig
-            ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
-            ->buildName(GameConfigEnum::TEST, ActionEnum::MOVE)
+        $vomitingConfig = new EventModifierConfig(SymptomEnum::VOMITING);
+        $vomitingConfig
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setApplyOnTarget(false)
+            ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
+            ->setTagConstraints([
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierName(SymptomEnum::VOMITING)
         ;
-
-        $I->haveInRepository($moveVomitingConfig);
-
-        $consumeVomitingConfig = new SymptomConfig(SymptomEnum::VOMITING);
-        $consumeVomitingConfig
-            ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomActivationRequirement($consumeActionSymptomActivationRequirement)
-            ->buildName(GameConfigEnum::TEST, ActionEnum::CONSUME)
-        ;
-
-        $I->haveInRepository($consumeVomitingConfig);
+        $I->haveInRepository($vomitingConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->setSymptomConfigs(new SymptomConfigCollection([$moveVomitingConfig, $consumeVomitingConfig]))
+            ->setModifierConfigs([$vomitingConfig])
             ->buildName(GameConfigEnum::TEST)
         ;
 
@@ -768,10 +762,12 @@ class ActionSubscriberCest
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseasePoint(10)
         ;
-
         $I->haveInRepository($playerDisease);
-
         $I->refreshEntities($player);
+
+        $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
+        $this->eventService->callEvent($diseaseEvent, DiseaseEvent::APPEAR_DISEASE);
+        $I->assertCount(1, $player->getModifiers());
 
         $moveAction = $I->grabService(Move::class);
 
@@ -872,22 +868,19 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
-            'name' => 'reason_move',
-        ]);
-        $moveActionSymptomActivationRequirement->setValue(100);
-        $I->refreshEntities($moveActionSymptomActivationRequirement);
-
-        $catInRoomSymptomActivationRequirement = $I->grabEntityFromRepository(SymptomActivationRequirement::class, [
+        $catInRoomSymptomActivationRequirement = $I->grabEntityFromRepository(ModifierActivationRequirement::class, [
             'name' => 'item_in_room_schrodinger',
         ]);
 
-        $symptomConfig = new SymptomConfig(SymptomEnum::FEAR_OF_CATS);
+        $symptomConfig = new EventModifierConfig(SymptomEnum::FEAR_OF_CATS . '_test');
         $symptomConfig
-            ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
-            ->addSymptomActivationRequirement($catInRoomSymptomActivationRequirement)
-            ->buildName(GameConfigEnum::TEST)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setApplyOnTarget(false)
+            ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
+            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierActivationRequirements([$catInRoomSymptomActivationRequirement])
+            ->setModifierName(SymptomEnum::FEAR_OF_CATS)
         ;
 
         $I->haveInRepository($symptomConfig);
@@ -895,7 +888,7 @@ class ActionSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->setModifierConfigs([$symptomConfig])
             ->buildName(GameConfigEnum::TEST)
         ;
 
@@ -908,10 +901,12 @@ class ActionSubscriberCest
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseasePoint(10)
         ;
-
         $I->haveInRepository($playerDisease);
-
         $I->refreshEntities($player);
+
+        $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
+        $this->eventService->callEvent($diseaseEvent, DiseaseEvent::APPEAR_DISEASE);
+        $I->assertCount(1, $player->getModifiers());
 
         $moveAction = $I->grabService(Move::class);
 
@@ -928,17 +923,20 @@ class ActionSubscriberCest
 
     public function testPostActionPsychoticAttackSymptom(FunctionalTester $I)
     {
-        $symptomConfig = new SymptomConfig('psychotic_attacks');
+        $symptomConfig = new EventModifierConfig('psychotic_attacks_test');
         $symptomConfig
-            ->setTrigger(ActionEvent::POST_ACTION)
-            ->buildName(GameConfigEnum::TEST)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setApplyOnTarget(false)
+            ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierName(SymptomEnum::PSYCHOTIC_ATTACKS)
         ;
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->setModifierConfigs([$symptomConfig])
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseConfig);
@@ -949,13 +947,20 @@ class ActionSubscriberCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseCauseConfig);
+        $diseaseCauseContactConfig = new DiseaseCauseConfig();
+        $diseaseCauseContactConfig
+            ->setDiseases([])
+            ->setCauseName(DiseaseCauseEnum::CONTACT)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($diseaseCauseContactConfig);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'diseaseCauseConfig' => new ArrayCollection([$diseaseCauseConfig]),
+            'diseaseCauseConfig' => new ArrayCollection([$diseaseCauseConfig, $diseaseCauseContactConfig]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
         ]);
 
@@ -987,20 +992,39 @@ class ActionSubscriberCest
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->buildName(GameConfigEnum::TEST)
         ;
+        $I->haveInRepository($attackAction);
 
-        $searchAction = new Action();
-        $searchAction
-            ->setActionName(ActionEnum::SEARCH)
-            ->setScope(ActionScopeEnum::SELF)
+        $moveActionEntity = new Action();
+        $moveActionEntity
+            ->setActionName(ActionEnum::MOVE)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST)
         ;
-
-        $I->haveInRepository($attackAction);
-        $I->haveInRepository($searchAction);
+        $I->haveInRepository($moveActionEntity);
 
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+        /** @var Place $room2 */
+        $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
+
+        /** @var EquipmentConfig $doorConfig */
+        $doorConfig = new EquipmentConfig();
+        $doorConfig
+            ->setEquipmentName('door')
+            ->setName('door')
+            ->setActions(new ArrayCollection([$moveActionEntity]))
+        ;
+        $I->haveInRepository($doorConfig);
+        $door = new Door($room2);
+        $door
+            ->setName('door name')
+            ->setEquipment($doorConfig)
+        ;
+        $I->haveInRepository($door);
+        $place->addDoor($door);
+        $room2->addDoor($door);
+        $I->refreshEntities($place, $room2, $door);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
@@ -1023,7 +1047,7 @@ class ActionSubscriberCest
         /** @var Player $otherPlayer */
         $otherPlayer = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'place' => $place,
+            'place' => $room2,
         ]);
         $otherPlayer->setPlayerVariables($characterConfig);
         $otherPlayer->setHealthPoint(1);
@@ -1062,18 +1086,20 @@ class ActionSubscriberCest
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseasePoint(10)
         ;
-
         $I->haveInRepository($playerDisease);
-
         $I->refreshEntities($player);
 
-        $event = new ActionEvent($searchAction, $player, $otherPlayer);
+        $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
+        $this->eventService->callEvent($diseaseEvent, DiseaseEvent::APPEAR_DISEASE);
+        $I->assertCount(1, $player->getModifiers());
 
-        $this->subscriber->onPostAction($event);
+        $moveAction = $I->grabService(Move::class);
+        $moveAction->loadParameters($moveActionEntity, $player, $door);
+        $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
             'playerInfo' => $playerInfo,
-            'place' => $place->getName(),
+            'place' => $room2->getName(),
             'daedalusInfo' => $daedalusInfo,
             'log' => 'attack_success',
         ]);

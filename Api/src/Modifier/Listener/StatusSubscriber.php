@@ -59,7 +59,6 @@ class StatusSubscriber implements EventSubscriberInterface
                 $modifierHolder,
                 $event->getTags(),
                 $event->getTime(),
-                null
             );
         }
 
@@ -95,7 +94,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 return;
             }
 
-            $this->modifierCreationService->deleteModifier($modifierConfig, $modifierHolder, $event->getTags(), $event->getTime(), null);
+            $this->modifierCreationService->deleteModifier($modifierConfig, $modifierHolder, $event->getTags(), $event->getTime());
         }
     }
 

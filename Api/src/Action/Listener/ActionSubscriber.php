@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Mush\Action\Listener;
 
-use Mush\Action\Actions\GetUp;
+use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
+use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
@@ -39,7 +41,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     private ActionSideEffectsServiceInterface $actionSideEffectsService;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private GetUp $getUpAction;
+    private ActionStrategyServiceInterface $actionStrategyService;
     private GearToolServiceInterface $gearToolService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
@@ -49,7 +51,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         ActionSideEffectsServiceInterface $actionSideEffectsService,
         EventServiceInterface $eventService,
         GameEquipmentServiceInterface $gameEquipmentService,
-        GetUp $getUp,
+        ActionStrategyServiceInterface $actionStrategyService,
         GearToolServiceInterface $gearToolService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
@@ -57,7 +59,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     ) {
         $this->actionSideEffectsService = $actionSideEffectsService;
         $this->eventService = $eventService;
-        $this->getUpAction = $getUp;
+        $this->actionStrategyService = $actionStrategyService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->gearToolService = $gearToolService;
         $this->randomService = $randomService;
@@ -70,7 +72,25 @@ final class ActionSubscriber implements EventSubscriberInterface
         return [
             ActionEvent::PRE_ACTION => ['onPreAction', 1],
             ActionEvent::POST_ACTION => 'onPostAction',
+            ActionEvent::EXECUTE_ACTION => 'onExecuteAction',
         ];
+    }
+
+    public function onExecuteAction(ActionEvent $event): void
+    {
+        $actionConfig = $event->getAction();
+        $player = $event->getAuthor();
+        $actionName = $actionConfig->getActionName();
+
+        /** @var AbstractAction $action */
+        $action = $this->actionStrategyService->getAction($actionName);
+
+        if ($action === null) {
+            throw new \Exception("this action is not implemented ({$actionName})");
+        }
+
+        $action->loadParameters($actionConfig, $player, $event->getActionParameter());
+        $action->execute();
     }
 
     public function onPreAction(ActionEvent $event): void
@@ -78,17 +98,17 @@ final class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getAction();
         $player = $event->getAuthor();
 
-        if ($action->getActionName() !== $this->getUpAction->getActionName()
-            && $lyingDownStatus = $player->getStatusByName(PlayerStatusEnum::LYING_DOWN)
+        if ($action->getActionName() !== ActionEnum::GET_UP
+            && $player->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
-            $getUpAction = $player->getPlayerInfo()->getCharacterConfig()->getActionByName(ActionEnum::GET_UP);
+            /** @var Action $getUpActionConfig */
+            $getUpActionConfig = $player->getPlayerInfo()->getCharacterConfig()->getActionByName(ActionEnum::GET_UP);
 
-            if ($getUpAction === null) {
-                throw new \LogicException('character do not have get up action');
-            }
+            /** @var AbstractAction $getUpAction */
+            $getUpAction = $this->actionStrategyService->getAction(ActionEnum::GET_UP);
 
-            $this->getUpAction->loadParameters($getUpAction, $player);
-            $this->getUpAction->execute();
+            $getUpAction->loadParameters($getUpActionConfig, $player);
+            $getUpAction->execute();
         }
     }
 

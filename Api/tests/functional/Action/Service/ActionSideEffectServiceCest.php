@@ -143,6 +143,7 @@ class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $I->assertCount(1, $this->player1->getModifiers());
 
         $this->searchAction->loadParameters($this->action, $this->player1, null);
+
         $this->searchAction->execute();
 
         $I->assertEquals($initHealthPoints, $this->player1->getHealthPoint());

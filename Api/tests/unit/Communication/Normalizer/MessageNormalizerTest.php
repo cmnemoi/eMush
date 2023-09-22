@@ -6,22 +6,21 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\DiseaseMessagesEnum;
+use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Communication\Normalizer\MessageNormalizer;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
-use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -262,72 +261,6 @@ class MessageNormalizerTest extends TestCase
         ], $normalizedData);
     }
 
-    public function testNormalizeDeafPlayerMessage()
-    {
-        $gameConfig = new GameConfig();
-        $localizationConfig = new LocalizationConfig();
-        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-
-        $daedalus = new Daedalus();
-        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-
-        $playerConfig = new CharacterConfig();
-        $playerConfig->setName('name');
-
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), $playerConfig);
-        $player->setDaedalus($daedalus);
-
-        $symptomConfig = new SymptomConfig(SymptomEnum::DEAF);
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
-
-        $createdAt = new \DateTime();
-
-        $message = new Message();
-        $message
-            ->setAuthor($playerInfo)
-            ->setMessage('message')
-            ->setCreatedAt($createdAt)
-        ;
-
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('name.name', [], 'characters', LanguageEnum::FRENCH)
-            ->andReturn('translatedName')
-        ;
-
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with(DiseaseMessagesEnum::DEAF, [], 'disease_message', LanguageEnum::FRENCH)
-            ->andReturn('...')
-        ;
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
-            ->andReturn('translated date')
-            ->once()
-        ;
-
-        $context = ['currentPlayer' => $player];
-        $normalizedData = $this->normalizer->normalize($message, null, $context);
-
-        $this->assertEquals([
-            'id' => null,
-            'character' => ['key' => 'name', 'value' => 'translatedName'],
-            'message' => '...',
-            'date' => 'translated date',
-            'child' => [],
-        ], $normalizedData);
-    }
-
     public function testNormalizeParanoiacPlayerMessage()
     {
         $gameConfig = new GameConfig();
@@ -349,9 +282,9 @@ class MessageNormalizerTest extends TestCase
         $otherPlayer = new Player();
         $otherPlayerInfo = new PlayerInfo($otherPlayer, new User(), $playerConfig);
 
-        $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
+        $symptomConfig = new EventModifierConfig(MessageModificationEnum::PARANOIA_MESSAGES);
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
+        $diseaseConfig->setModifierConfigs([$symptomConfig]);
         $playerDisease = new PlayerDisease();
         $playerDisease
             ->setDiseaseConfig($diseaseConfig)
@@ -368,7 +301,7 @@ class MessageNormalizerTest extends TestCase
             ->setMessage('modified message')
             ->setCreatedAt($createdAt)
             ->setTranslationParameters([
-                DiseaseMessagesEnum::MODIFICATION_CAUSE => SymptomEnum::PARANOIA_MESSAGES,
+                DiseaseMessagesEnum::MODIFICATION_CAUSE => MessageModificationEnum::PARANOIA_MESSAGES,
                 DiseaseMessagesEnum::ORIGINAL_MESSAGE => 'original message',
             ])
         ;
@@ -392,70 +325,6 @@ class MessageNormalizerTest extends TestCase
             'id' => null,
             'character' => ['key' => 'name', 'value' => 'translatedName'],
             'message' => 'modified message',
-            'date' => 'translated date',
-            'child' => [],
-        ], $normalizedData);
-    }
-
-    public function testNormalizeParanoiacPlayerMessageSelf()
-    {
-        $gameConfig = new GameConfig();
-        $localizationConfig = new LocalizationConfig();
-        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-
-        $daedalus = new Daedalus();
-        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-
-        $playerConfig = new CharacterConfig();
-        $playerConfig->setName('name');
-
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), $playerConfig);
-        $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
-
-        $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
-
-        $player->addMedicalCondition($playerDisease);
-
-        $createdAt = new \DateTime();
-
-        $message = new Message();
-        $message
-            ->setAuthor($playerInfo)
-            ->setMessage('modified message')
-            ->setCreatedAt($createdAt)
-            ->setTranslationParameters([
-                DiseaseMessagesEnum::MODIFICATION_CAUSE => SymptomEnum::PARANOIA_MESSAGES,
-                DiseaseMessagesEnum::ORIGINAL_MESSAGE => 'original message',
-            ])
-        ;
-
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('name.name', [], 'characters', LanguageEnum::FRENCH)
-            ->andReturn('translatedName')
-        ;
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
-            ->andReturn('translated date')
-            ->once()
-        ;
-
-        $context = ['currentPlayer' => $player];
-        $normalizedData = $this->normalizer->normalize($message, null, $context);
-
-        $this->assertEquals([
-            'id' => null,
-            'character' => ['key' => 'name', 'value' => 'translatedName'],
-            'message' => 'original message',
             'date' => 'translated date',
             'child' => [],
         ], $normalizedData);

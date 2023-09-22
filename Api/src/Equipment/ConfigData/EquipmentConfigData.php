@@ -2993,6 +2993,7 @@ class EquipmentConfigData
                 'repair_percent_12',
                 'examine',
                 'report_equipment',
+                ActionEnum::TAKEOFF,
             ],
             'mechanics' => ['patrol_ship_pasiphae_default'],
             'initStatuses' => [EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default'],

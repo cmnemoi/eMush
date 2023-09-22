@@ -2,6 +2,10 @@
 
 namespace Mush\Modifier\ConfigData;
 
+use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+
 class ModifierActivationRequirementData
 {
     public static array $dataArray = [
@@ -43,21 +47,21 @@ class ModifierActivationRequirementData
         ],
         [
           'name' => 'player_status_lying_down',
-          'activationRequirementName' => 'player_status',
+          'activationRequirementName' => 'status',
           'activationRequirement' => 'lying_down',
           'value' => 100,
         ],
         [
-          'name' => 'reason_consume',
-          'activationRequirementName' => 'reason',
-          'activationRequirement' => 'consume',
-          'value' => 100,
+            'name' => 'item_status_heavy',
+            'activationRequirementName' => ModifierRequirementEnum::STATUS,
+            'activationRequirement' => EquipmentStatusEnum::HEAVY,
+            'value' => 100,
         ],
         [
-          'name' => 'reason_consume_drug',
-          'activationRequirementName' => 'reason',
-          'activationRequirement' => 'consume_drug',
-          'value' => 100,
+            'name' => 'player_status_dirty',
+            'activationRequirementName' => ModifierRequirementEnum::STATUS,
+            'activationRequirement' => PlayerStatusEnum::DIRTY,
+            'value' => 100,
         ],
         [
           'name' => 'player_equipment_schrodinger',
@@ -69,18 +73,6 @@ class ModifierActivationRequirementData
           'name' => 'cycle_even',
           'activationRequirementName' => 'cycle',
           'activationRequirement' => 'even',
-          'value' => 100,
-        ],
-        [
-          'name' => 'reason_strengthen_hull',
-          'activationRequirementName' => 'reason',
-          'activationRequirement' => 'strengthen_hull',
-          'value' => 100,
-        ],
-        [
-          'name' => 'reason_new_cycle',
-          'activationRequirementName' => 'reason',
-          'activationRequirement' => 'new_cycle',
           'value' => 100,
         ],
         [
@@ -96,10 +88,10 @@ class ModifierActivationRequirementData
           'value' => 100,
         ],
         [
-          'name' => 'not_reason_move',
-          'activationRequirementName' => 'not_reason',
-          'activationRequirement' => 'move',
-          'value' => 100,
+            'name' => 'player_in_room_mush',
+            'activationRequirementName' => 'player_in_room',
+            'activationRequirement' => 'mush_in_room',
+            'value' => 100,
         ],
         [
           'name' => 'random_70',
@@ -108,45 +100,9 @@ class ModifierActivationRequirementData
           'value' => 70,
         ],
         [
-          'name' => 'not_reason_consume',
-          'activationRequirementName' => 'not_reason',
-          'activationRequirement' => 'consume',
-          'value' => 100,
-        ],
-        [
-          'name' => 'not_reason_consume_drug',
-          'activationRequirementName' => 'not_reason',
-          'activationRequirement' => 'consume_drug',
-          'value' => 100,
-        ],
-        [
-          'name' => 'not_reason_surgery',
-          'activationRequirementName' => 'not_reason',
-          'activationRequirement' => 'surgery',
-          'value' => 100,
-        ],
-        [
-          'name' => 'not_reason_self_surgery',
-          'activationRequirementName' => 'not_reason',
-          'activationRequirement' => 'self_surgery',
-          'value' => 100,
-        ],
-        [
           'name' => 'player_in_room_not_alone',
           'activationRequirementName' => 'player_in_room',
           'activationRequirement' => 'not_alone',
-          'value' => 100,
-        ],
-        [
-          'name' => 'reason_shower',
-          'activationRequirementName' => 'reason',
-          'activationRequirement' => 'shower',
-          'value' => 100,
-        ],
-        [
-          'name' => 'reason_wash_in_sink',
-          'activationRequirementName' => 'reason',
-          'activationRequirement' => 'wash_in_sink',
           'value' => 100,
         ],
     ];

@@ -18,6 +18,9 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 class SurgeryActionTest extends AbstractActionTest
 {
@@ -57,20 +60,23 @@ class SurgeryActionTest extends AbstractActionTest
     {
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);
+        $targetPlayer = $this->createPlayer(new Daedalus(), $room);
 
-        $playerToHeal = $this->createPlayer(new Daedalus(), $room);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $diseaseConfig1 = new DiseaseConfig();
         $diseaseConfig1->setType(TypeEnum::DISEASE);
         $playerDisease1 = new PlayerDisease();
-        $playerDisease1->setDiseaseConfig($diseaseConfig1)->setPlayer($playerToHeal);
+        $playerDisease1->setDiseaseConfig($diseaseConfig1)->setPlayer($targetPlayer);
 
         $diseaseConfig2 = new DiseaseConfig();
         $diseaseConfig2->setType(TypeEnum::INJURY);
         $playerDisease2 = new PlayerDisease();
-        $playerDisease2->setDiseaseConfig($diseaseConfig2)->setPlayer($playerToHeal);
+        $playerDisease2->setDiseaseConfig($diseaseConfig2)->setPlayer($targetPlayer);
 
-        $playerToHeal->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
+        $targetPlayer->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
         $actionVariableEvent = new ActionVariableEvent(
             $this->actionEntity,
@@ -106,7 +112,7 @@ class SurgeryActionTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $playerToHeal);
+        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
@@ -119,8 +125,10 @@ class SurgeryActionTest extends AbstractActionTest
     {
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);
-
-        $playerToHeal = $this->createPlayer(new Daedalus(), $room);
+        $targetPlayer = $this->createPlayer(new Daedalus(), $room);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $diseaseConfig1 = new DiseaseConfig();
         $diseaseConfig1->setType(TypeEnum::DISEASE);
@@ -132,7 +140,7 @@ class SurgeryActionTest extends AbstractActionTest
         $playerDisease2 = new PlayerDisease();
         $playerDisease2->setDiseaseConfig($diseaseConfig2);
 
-        $playerToHeal->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
+        $targetPlayer->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
         $actionVariableEvent = new ActionVariableEvent(
             $this->actionEntity,
@@ -168,7 +176,7 @@ class SurgeryActionTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $playerToHeal);
+        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
@@ -182,8 +190,10 @@ class SurgeryActionTest extends AbstractActionTest
     {
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);
-
-        $playerToHeal = $this->createPlayer(new Daedalus(), $room);
+        $targetPlayer = $this->createPlayer(new Daedalus(), $room);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $diseaseConfig1 = new DiseaseConfig();
         $diseaseConfig1->setType(TypeEnum::DISEASE);
@@ -195,7 +205,7 @@ class SurgeryActionTest extends AbstractActionTest
         $playerDisease2 = new PlayerDisease();
         $playerDisease2->setDiseaseConfig($diseaseConfig2);
 
-        $playerToHeal->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
+        $targetPlayer->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
         $actionVariableEvent = new ActionVariableEvent(
             $this->actionEntity,
@@ -231,7 +241,7 @@ class SurgeryActionTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $playerToHeal);
+        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');

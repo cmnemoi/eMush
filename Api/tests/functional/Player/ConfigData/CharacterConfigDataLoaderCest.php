@@ -4,8 +4,6 @@ namespace Mush\Tests\functional\Player\ConfigData;
 
 use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Disease\ConfigData\DiseaseConfigDataLoader;
-use Mush\Disease\ConfigData\SymptomActivationRequirementDataLoader;
-use Mush\Disease\ConfigData\SymptomConfigDataLoader;
 use Mush\Equipment\ConfigData\BlueprintDataLoader;
 use Mush\Equipment\ConfigData\BookDataLoader;
 use Mush\Equipment\ConfigData\DocumentDataLoader;
@@ -20,6 +18,7 @@ use Mush\Equipment\ConfigData\WeaponDataLoader;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
+use Mush\Modifier\ConfigData\EventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
@@ -43,6 +42,7 @@ class CharacterConfigDataLoaderCest
             $I->grabService(VariableEventConfigDataLoader::class),
             $I->grabService(ModifierActivationRequirementDataLoader::class),
             $I->grabService(VariableEventModifierConfigDataLoader::class),
+            $I->grabService(EventModifierConfigDataLoader::class),
             $I->grabService(TriggerEventModifierConfigDataLoader::class),
             $I->grabService(DirectModifierConfigDataLoader::class),
             $I->grabService(ChargeStatusConfigDataLoader::class),
@@ -60,9 +60,7 @@ class CharacterConfigDataLoaderCest
             $I->grabService(WeaponDataLoader::class),
             $I->grabService(ItemConfigDataLoader::class),
             // init diseases
-            $I->grabService(SymptomActivationRequirementDataLoader::class),
             $I->grabService(DiseaseConfigDataLoader::class),
-            $I->grabService(SymptomConfigDataLoader::class),
         ];
 
         // load dependencies

@@ -33,7 +33,7 @@ class DaedalusVariableSubscriber implements EventSubscriberInterface
 
         $daedalus = $event->getDaedalus();
         $date = $event->getTime();
-        $change = $event->getQuantity();
+        $change = $event->getRoundedQuantity();
 
         $this->daedalusService->changeVariable($event->getVariableName(), $daedalus, $change, $date);
     }
@@ -45,7 +45,7 @@ class DaedalusVariableSubscriber implements EventSubscriberInterface
         }
 
         $daedalus = $daedalusEvent->getDaedalus();
-        $delta = $daedalusEvent->getQuantity();
+        $delta = $daedalusEvent->getRoundedQuantity();
         $variable = $daedalusEvent->getVariable();
 
         $variable->changeMaxValue($delta);

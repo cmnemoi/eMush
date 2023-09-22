@@ -10,8 +10,6 @@ Mush\Disease\Entity\Config\DiseaseConfig:
       groups: [ 'disease_config_read', 'disease_config_write' ]
     modifierConfigs:
       groups: [ 'disease_config_read', 'disease_config_write' ]
-    symptomConfigs:
-      groups: [ 'disease_config_read', 'disease_config_write' ]
     resistance:
       groups: [ 'disease_config_read', 'disease_config_write' ]
     delayMin:

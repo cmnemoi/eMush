@@ -234,14 +234,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $showerModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_SHOWER_MODIFIER);
         /** @var VariableEventModifierConfig $consumeSatietyModifier */
         $consumeSatietyModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_SATIETY_MODIFIER);
-        /** @var VariableEventModifierConfig $consumeActionModifier */
-        $consumeActionModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_ACTION_MODIFIER);
-        /** @var VariableEventModifierConfig $consumeMovementModifier */
-        $consumeMovementModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_MOVEMENT_MODIFIER);
-        /** @var VariableEventModifierConfig $consumeHealthModifier */
-        $consumeHealthModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_HEALTH_MODIFIER);
-        /** @var VariableEventModifierConfig $consumeMoralModifier */
-        $consumeMoralModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_MORAL_MODIFIER);
+        /** @var VariableEventModifierConfig $consumeModifier */
+        $consumeModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_MODIFIER);
 
         $mushStatus = new ChargeStatusConfig();
         $mushStatus
@@ -253,10 +247,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStartCharge(1)
             ->setModifierConfigs([
                 $showerModifier,
-                $consumeActionModifier,
-                $consumeHealthModifier,
-                $consumeMoralModifier,
-                $consumeMovementModifier,
+                $consumeModifier,
                 $consumeSatietyModifier,
             ])
             ->buildName(GameConfigEnum::DEFAULT)

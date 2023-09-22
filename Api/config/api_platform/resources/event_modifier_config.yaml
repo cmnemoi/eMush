@@ -1,0 +1,26 @@
+Mush\Modifier\Entity\Config\EventModifierConfig:
+  shortName: 'EventModifierConfig'
+  description: 'eMush EventModifierConfig'
+  attributes:
+    pagination_items_per_page: 25
+    security: 'is_granted("ROLE_USER")'
+    normalization_context:
+      groups: [ 'modifier_config_read' ]
+    denormalization_context:
+      groups: [ 'modifier_config_write' ]
+  collectionOperations:
+    get:
+      security: 'is_granted("ROLE_MODERATOR")'
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_MODERATOR")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'
+  properties:
+    modifierActivationRequirements:
+      subresource:
+        resourceClass: 'Mush\Modifier\Entity\ModifierActivationRequirement'
+        collection: true

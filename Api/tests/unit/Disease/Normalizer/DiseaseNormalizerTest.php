@@ -3,12 +3,10 @@
 namespace Mush\Tests\unit\Disease\Normalizer;
 
 use Mockery;
+use Mush\Action\Event\ActionEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Entity\Config\SymptomActivationRequirement;
-use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Disease\Enum\SymptomEnum;
@@ -18,8 +16,9 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationService;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
-use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use PHPUnit\Framework\TestCase;
@@ -104,7 +103,7 @@ class DiseaseNormalizerTest extends TestCase
         $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig
             ->setDelta(-6)
-            ->setTargetEvent(ModifierScopeEnum::INJURY)
+            ->setTargetEvent(ActionEvent::PRE_ACTION)
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
         ;
         $diseaseConfig = new DiseaseConfig();
@@ -131,8 +130,8 @@ class DiseaseNormalizerTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                'injury_decrease.description',
-                ['chance' => 100,  'action_name' => '', 'emote' => ':pmo:', 'quantity' => 6],
+                'pre.action_decrease.description',
+                ['chance' => 100, 'emote' => ':pmo:', 'quantity' => 6],
                 'modifiers',
                 LanguageEnum::FRENCH
             )
@@ -162,16 +161,19 @@ class DiseaseNormalizerTest extends TestCase
 
         $player->setDaedalus($daedalus);
 
-        $symptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::RANDOM);
+        $symptomActivationRequirement = new ModifierActivationRequirement(SymptomActivationRequirementEnum::RANDOM);
         $symptomActivationRequirement->setValue(15);
 
-        $symptomConfig = new SymptomConfig(SymptomEnum::BITING);
-        $symptomConfig->addSymptomActivationRequirement($symptomActivationRequirement);
+        $symptomConfig = new EventModifierConfig(SymptomEnum::BITING);
+        $symptomConfig
+            ->addModifierRequirement($symptomActivationRequirement)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+        ;
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('name')
-            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->setModifierConfigs([$symptomConfig])
         ;
 
         $playerDisease = new PlayerDisease();
@@ -192,7 +194,7 @@ class DiseaseNormalizerTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                'biting.description',
+                'biting_on_post.action.description',
                 ['chance' => 15],
                 'modifiers',
                 LanguageEnum::FRENCH

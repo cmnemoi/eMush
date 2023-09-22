@@ -15,6 +15,7 @@ class ActionEvent extends AbstractGameEvent
     public const PRE_ACTION = 'pre.action';
     public const POST_ACTION = 'post.action';
     public const RESULT_ACTION = 'result.action';
+    public const EXECUTE_ACTION = 'execute.action';
 
     private Action $action;
     private ?LogParameterInterface $actionParameter;
@@ -26,7 +27,12 @@ class ActionEvent extends AbstractGameEvent
         $this->author = $player;
         $this->actionParameter = $actionParameter;
 
-        parent::__construct($action->getActionTags(), new \DateTime());
+        $tags = $action->getActionTags();
+        if ($actionParameter !== null) {
+            $tags[] = $actionParameter->getLogName();
+        }
+
+        parent::__construct($tags, new \DateTime());
     }
 
     public function getAuthor(): Player

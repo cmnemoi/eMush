@@ -22,3 +22,5 @@ Mush\Modifier\Entity\Config\VariableEventModifierConfig:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     mode:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    priority:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]

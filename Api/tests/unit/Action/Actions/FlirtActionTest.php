@@ -8,7 +8,10 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\User\Entity\User;
 
 class FlirtActionTest extends AbstractActionTest
 {
@@ -47,8 +50,10 @@ class FlirtActionTest extends AbstractActionTest
         $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
-
         $targetPlayer = $this->createPlayer($daedalus, $room);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $room->setDaedalus($player->getDaedalus());
 

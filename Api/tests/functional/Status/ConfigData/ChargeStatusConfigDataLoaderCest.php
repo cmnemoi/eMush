@@ -3,6 +3,7 @@
 namespace Mush\Tests\functional\Status\ConfigData;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Modifier\ConfigData\EventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
@@ -14,20 +15,19 @@ use Mush\Tests\FunctionalTester;
 class ChargeStatusConfigDataLoaderCest
 {
     private ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader;
-    private ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader;
-    private TriggerEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader;
-    private VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader;
 
     public function _before(FunctionalTester $I)
     {
         // load dependencies
-        $this->modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
-        $this->triggerEventModifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
-        $this->variableEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
+        $modifierActivationRequirementDataLoader = $I->grabService(ModifierActivationRequirementDataLoader::class);
+        $triggerEventModifierConfigDataLoader = $I->grabService(TriggerEventModifierConfigDataLoader::class);
+        $eventModifierConfigDataLoader = $I->grabService(EventModifierConfigDataLoader::class);
+        $variableEventModifierConfigDataLoader = $I->grabService(VariableEventModifierConfigDataLoader::class);
 
-        $this->modifierActivationRequirementDataLoader->loadConfigsData();
-        $this->triggerEventModifierConfigDataLoader->loadConfigsData();
-        $this->variableEventModifierConfigDataLoader->loadConfigsData();
+        $modifierActivationRequirementDataLoader->loadConfigsData();
+        $triggerEventModifierConfigDataLoader->loadConfigsData();
+        $variableEventModifierConfigDataLoader->loadConfigsData();
+        $eventModifierConfigDataLoader->loadConfigsData();
 
         $this->chargeStatusConfigDataLoader = $I->grabService(ChargeStatusConfigDataLoader::class);
     }

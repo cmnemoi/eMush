@@ -10,7 +10,8 @@
 		"inventoryDescription": "Cliquez ici pour ouvrir l'inventaire de la pièce.",
 		"equipment": "Équipement",
 		"player": "Joueurs",
-		"issue": "Merci de signaler les bugs rencontrés sur"
+		"issue": "Merci de signaler les bugs rencontrés sur",
+		"issue2": "ou le"
 	},
 	"footer": {
 		"alphaVersion": "Version Alpha",
@@ -29,7 +30,8 @@
 	"banner": {
 		"ranking": "Classements",
 		"user": "Mon Compte",
-		"news": "News"
+		"news": "News",
+		"forum": "Forum"
 	},
 	"ranking": {
 		"ship_end_cause": "Cause de la destruction",

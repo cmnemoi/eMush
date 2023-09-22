@@ -10,6 +10,7 @@
             <router-link v-if="loggedIn" :to="{ name: 'RankingPage' }">{{ $t("banner.ranking") }}</router-link>
             <router-link v-if="isAdmin" :to="{ name: 'Admin' }">Admin</router-link>
             <router-link v-if="loggedIn" :to="{ name: 'NewsPage' }">{{ $t("banner.news") }}</router-link>
+            <a v-if="loggedIn" :href="forumLink">{{ $t("banner.forum") }}</a>
             <Login />
         </div>
     </div>
@@ -25,6 +26,11 @@ export default defineComponent ({
     name: 'Banner',
     components: {
         Login
+    },
+    data() {
+        return {
+            forumLink: "https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1"
+        };
     },
     computed: {
         ...mapGetters('auth', [

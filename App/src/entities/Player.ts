@@ -6,6 +6,7 @@ import { Action } from "@/entities/Action";
 import { Character } from "@/entities/Character";
 import { QuantityPoint } from "@/entities/QuantityPoint";
 import { SpaceBattle } from "./SpaceBattle";
+import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 
 export class Player {
     public id!: number;
@@ -139,5 +140,18 @@ export class Player {
     public isInARoom(): boolean
     {
         return this.room?.type === 'room';
+    }
+
+    public isFocused(): boolean
+    {
+        return this.statuses.filter((status: Status) => {
+            return status.key === StatusPlayerNameEnum.FOCUSED;
+        }).length > 0;
+    }
+
+    public isFocusedOnTerminal(terminal: string): boolean {
+        return this.statuses.filter((status: Status) => {
+            return status.key === StatusPlayerNameEnum.FOCUSED && status.target?.key === terminal;
+        }).length > 0;
     }
 }

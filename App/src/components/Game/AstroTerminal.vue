@@ -53,7 +53,14 @@
                     <img src="@/assets/images/astro/planet_unknown.png">
                 </div>
                 <div class="analysis">
-                    <p>Scanning impossible...</p>
+                    <!-- <p>Scanning impossible...</p> -->
+                    <p>80% <img src="@/assets/images/astro/thermosensors.png"></p>
+                    <div class="actions">
+                        <button>
+                            <span class="cost">2<img src="@/assets/images/pa.png" alt="ap"></span>
+                            <span>Scan (80%)</span>
+                        </button>
+                    </div>
                 </div>
             </section>
         </div>
@@ -178,7 +185,9 @@ export default defineComponent ({
     }
 
     .analysis {
+        flex: 1;
         padding: 1em 2em;
+        text-align: center;
 
         ul {
             flex-wrap: wrap;
@@ -195,7 +204,7 @@ export default defineComponent ({
             @include button-style;
             margin: 1px 4px;
 
-            &:not(.delete) { flex: 1; }
+            &:not(.delete) { min-width: 10em; }
         }
     }
 }

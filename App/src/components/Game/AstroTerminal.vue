@@ -28,23 +28,12 @@
                         <li><img src="@/assets/images/astro/forest.png"></li>
                         <li><img src="@/assets/images/astro/cold.png"></li>
                         <li><img src="@/assets/images/astro/ocean.png"></li>
-                        <li><img src="@/assets/images/astro/forest.png"></li>
-                        <li><img src="@/assets/images/astro/cold.png"></li>
-                        <li><img src="@/assets/images/astro/ocean.png"></li>
-                        <li><img src="@/assets/images/astro/forest.png"></li>
-                        <li><img src="@/assets/images/astro/cold.png"></li>
-                        <li><img src="@/assets/images/astro/cold.png"></li>
-                        <li><img src="@/assets/images/astro/ocean.png"></li>
-                        <li><img src="@/assets/images/astro/forest.png"></li>
-                        <li><img src="@/assets/images/astro/cold.png"></li>
-                        <li><img src="@/assets/images/astro/ocean.png"></li>
-                        <li><img src="@/assets/images/astro/forest.png"></li>
-                        <li><img src="@/assets/images/astro/cold.png"></li>
-                        <li><img src="@/assets/images/astro/ocean.png"></li>
+                        <li><img src="@/assets/images/astro/unknown.png"></li>
+                        <li><img src="@/assets/images/astro/unknown.png"></li>
+                        <li><img src="@/assets/images/astro/unknown.png"></li>
                         <li><img src="@/assets/images/astro/forest.png"></li>
                         <li><img src="@/assets/images/astro/cold.png"></li>
                         <li><img src="@/assets/images/astro/cold.png"></li>
-                        <li><img src="@/assets/images/astro/ocean.png"></li>
                     </ul>
                     <div class="actions">
                         <button>
@@ -58,17 +47,15 @@
                 </div>
             </section>
 
-            <section class="planet undiscovered">
+            <section class="planet unknown">
                 <h3>???</h3>
                 <div class="card">
-                    <img src="@/assets/images/astro/planet_0_small.png">
+                    <img src="@/assets/images/astro/planet_unknown.png">
                 </div>
                 <div class="analysis">
                     <p>Scanning impossible...</p>
                 </div>
             </section>
-            
-
         </div>
         <button class="exit">
             Quitter
@@ -91,6 +78,7 @@ export default defineComponent ({
 .astro-terminal {
     position: relative;
     flex-direction: column;
+    overflow: hidden;
     width: 424px;
     height: 460px;
     padding: 5px 8px;
@@ -109,13 +97,9 @@ export default defineComponent ({
 .tips { @extend %retracted-tips; }
 
 .planet-container {
-    // flex-direction: row;
     align-items: stretch;
     padding-bottom: .3em;
-    min-height: 276px;
     overflow: auto;
-
-    scroll-snap-type: y mandatory; // scroll will snap to projects
 
     --scrollbarBG: white;
     --thumbBG: rgba(0, 116, 223, 1);
@@ -145,11 +129,13 @@ export default defineComponent ({
     flex-direction: row;
     align-items: center;
     margin-bottom: .8em;
-    background: $lightCyan url("~@/assets/images/astro/astro_bg.png") no-repeat right bottom;
+    background: $lightCyan url("~@/assets/images/astro/astro_bg.svg") no-repeat right bottom;
     border-top: 2px solid #89e8fa;
     border-left: 2px solid $green;
 
     scroll-snap-align: start; // to control scroll snapping
+
+    &.unknown { border-left: 2px solid #aad4e5; }
 
     h3 {
         position: absolute;
@@ -160,16 +146,16 @@ export default defineComponent ({
         background: #89e8fa;
         text-align: center;
         font-size: 1em;
+        letter-spacing: 0.03em;
         font-weight: normal;
-        font-variant: small-caps;
+        text-transform: uppercase;
         line-height: 1em;
 
         @include corner-bezel(0, 0, 1.5em, 0);
     }
 
     .card {
-        margin: 0.4em 1em;
-        width: 40%;
+        margin: 1.5em 1em 0.4em;
         align-items: center;
 
         img {
@@ -180,13 +166,13 @@ export default defineComponent ({
 
         p {
             font-size: 0.92em;
-            letter-spacing: 0.03em;
+            letter-spacing: 0.02em;
             font-variant: small-caps;
             margin: 0.2em 0;
         }
 
         span {
-            color: #357fdd;
+            color: #2c74d1;
             margin-right: 0.6em;;
         }
     }
@@ -208,6 +194,8 @@ export default defineComponent ({
         button {
             @include button-style;
             margin: 1px 4px;
+
+            &:not(.delete) { flex: 1; }
         }
     }
 }

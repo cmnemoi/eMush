@@ -1,63 +1,74 @@
 <template>
     <div class="astro-terminal">
-        <h1><img src="@/assets/images/spot2.svg"> Cœur de NERON V4.54</h1>
+        <h1><img src="@/assets/images/spot2.svg"> Astro Terminal</h1>
         <div class="tips">
             <input id="tips" type="checkbox" name="tips">
             <label for="tips">
-                Vous êtes dans le Coeur de <em class="red">NERON</em>. Ici vous pouvez le mettre à jour et <strong>débloquer des fonctionnalités</strong> avancées bénéfiques pour toute l'équipage. Ces fonctionnalités font partie du projet original <em class="red">Magellan</em>.
+                Afin de trouver une planète à explorer, il faut d'abord <strong>réaliser un scan</strong> pour en trouver jusqu'à un maximum de 2. Les résultats des planètes trouvées sont personnels et exclusifs à chaque personne.
                 <br><br>
-                Les projets avanceront mieux si vous possédez <strong>les compétences adéquates</strong>.
+                Une fois une planète trouvée et choisie, vous devez communiquer à l'équipage l'<strong>orientation et le fuel</strong> nécessaire pour s'y rendre. Ceci permettra au <strong>Commandant</strong> de déplacer le Daedalus vers la planète choisie.
                 <br><br>
-                Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. <strong>Le travail alterné avec un camarade est la clé !</strong>
+                Lorsque le Daedalus est arrivé et en orbite, il est impossible de scanner pour rechercher d'autres planètes. Par contre, vous pouvez <strong>sonder la planète</strong> en orbite pour obtenir des GéoDonnées supplementaires. Ces données serviront au corps expéditionnaire, qui pourra préparer à l'avance l'exploration.
                 <br><br>
-                Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.
+                Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis le Terminal de Commandement.
             </label>
         </div>
-        <div class="project-container">
-            <div class="project">
-                <h3>Anti-gravity Thrusters</h3>
+        <div class="planet-container">
+            <section class="planet">
+                <h3>Goulidon</h3>
                 <div class="card">
-                    <img src="@/assets/images/projects/icarus_antigrav_propeller.png">
-                    <div class="progress-container">
-                        <div>
-                            <img class="skill" src="@/assets/images/skills/human/cook.png">
-                            <img class="skill" src="@/assets/images/skills/human/sturdy.png">
-                        </div>
-                        <span class="completion">0%</span>
+                    <img src="@/assets/images/astro/planet_0_small.png">
+                    <p><span>Direction</span> East</p>
+                    <p><span>Fuel required</span> 3</p>
+                </div>
+                <div class="analysis">
+                    <ul>
+                        <li><img src="@/assets/images/astro/cold.png"></li>
+                        <li><img src="@/assets/images/astro/ocean.png"></li>
+                        <li><img src="@/assets/images/astro/forest.png"></li>
+                        <li><img src="@/assets/images/astro/cold.png"></li>
+                        <li><img src="@/assets/images/astro/ocean.png"></li>
+                        <li><img src="@/assets/images/astro/forest.png"></li>
+                        <li><img src="@/assets/images/astro/cold.png"></li>
+                        <li><img src="@/assets/images/astro/ocean.png"></li>
+                        <li><img src="@/assets/images/astro/forest.png"></li>
+                        <li><img src="@/assets/images/astro/cold.png"></li>
+                        <li><img src="@/assets/images/astro/cold.png"></li>
+                        <li><img src="@/assets/images/astro/ocean.png"></li>
+                        <li><img src="@/assets/images/astro/forest.png"></li>
+                        <li><img src="@/assets/images/astro/cold.png"></li>
+                        <li><img src="@/assets/images/astro/ocean.png"></li>
+                        <li><img src="@/assets/images/astro/forest.png"></li>
+                        <li><img src="@/assets/images/astro/cold.png"></li>
+                        <li><img src="@/assets/images/astro/ocean.png"></li>
+                        <li><img src="@/assets/images/astro/forest.png"></li>
+                        <li><img src="@/assets/images/astro/cold.png"></li>
+                        <li><img src="@/assets/images/astro/cold.png"></li>
+                        <li><img src="@/assets/images/astro/ocean.png"></li>
+                    </ul>
+                    <div class="actions">
+                        <button>
+                            <span class="cost">2<img src="@/assets/images/pa.png" alt="ap"></span>
+                            <span>Analysis</span>
+                        </button>
+                        <button class="delete">
+                            <img src="@/assets/images/bin.png">
+                        </button>
                     </div>
                 </div>
-                <p class="description">
-                    Increases your chances of successfully landing on a planet
-                </p>
-                <p class="efficiency">
-                    Efficacité : 18% - 18%
-                </p>
-                <button class="action-participate">
-                    Participer
-                </button>
-            </div>
+            </section>
 
-            <div class="project ongoing">
-                <h3>Launch Propulsion System</h3>
+            <section class="planet undiscovered">
+                <h3>???</h3>
                 <div class="card">
-                    <img src="@/assets/images/projects/patrol_ship_launcher.png">
-                    <div class="progress-container">
-                        <div>
-                            <img class="skill" src="@/assets/images/skills/human/sturdy.png">
-                        </div>
-                        <span class="completion">25%</span>
-                    </div>
+                    <img src="@/assets/images/astro/planet_0_small.png">
                 </div>
-                <p class="description">
-                    Takeoff manœuvres cost less :ap: .
-                </p>
-                <p class="efficiency">
-                    Efficacité : 3% - 3%
-                </p>
-                <button class="action-participate">
-                    Participer
-                </button>
-            </div>
+                <div class="analysis">
+                    <p>Scanning impossible...</p>
+                </div>
+            </section>
+            
+
         </div>
         <button class="exit">
             Quitter
@@ -81,6 +92,7 @@ export default defineComponent ({
     position: relative;
     flex-direction: column;
     width: 424px;
+    height: 460px;
     padding: 5px 8px;
     color: $deepBlue;
     background: $brightCyan;
@@ -96,24 +108,24 @@ export default defineComponent ({
 
 .tips { @extend %retracted-tips; }
 
-.project-container {
-    flex-direction: row;
+.planet-container {
+    // flex-direction: row;
     align-items: stretch;
     padding-bottom: .3em;
     min-height: 276px;
     overflow: auto;
 
-    scroll-snap-type: x mandatory; // scroll will snap to projects
+    scroll-snap-type: y mandatory; // scroll will snap to projects
 
     --scrollbarBG: white;
     --thumbBG: rgba(0, 116, 223, 1);
     --border-radius: 6px;
 
-    scrollbar-width: medium;
+    scrollbar-width: thin;
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 
     &::-webkit-scrollbar {
-        height: 8px;
+        width: 8px;
         border-radius: var(--border-radius);
     }
 
@@ -128,89 +140,75 @@ export default defineComponent ({
     }
 }
 
-.project {
-    min-width: 132px;
-    width: 132px;
-    padding-bottom: .4em;
-    margin-right: 6px;
-    background: $lightCyan url("~@/assets/images/neroncore_bg.svg") no-repeat right bottom;
-    border-left: 2px solid #aad4e5;
+.planet {
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: .8em;
+    background: $lightCyan url("~@/assets/images/astro/astro_bg.png") no-repeat right bottom;
+    border-top: 2px solid #89e8fa;
+    border-left: 2px solid $green;
 
     scroll-snap-align: start; // to control scroll snapping
 
-    @include corner-bezel(0, 6.5px, 0);
-
     h3 {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        min-height: 42px;
+        position: absolute;
+        top: 0;
+        left: 0;
         margin: 0;
-        padding-bottom: .25em;
+        padding: .25em 2.5em .25em .5em;
         background: #89e8fa;
         text-align: center;
         font-size: 1em;
         font-weight: normal;
         font-variant: small-caps;
         line-height: 1em;
+
+        @include corner-bezel(0, 0, 1.5em, 0);
     }
 
     .card {
-        flex-direction: row;
-        padding: 4px;
+        margin: 0.4em 1em;
+        width: 40%;
+        align-items: center;
 
         img {
             width: fit-content;
             height: fit-content;
+            margin: 0.8em 0;
         }
 
-        .progress-container {
-            flex: 1;
-            align-items: stretch;
-            margin: auto;
-
-            & > div {
-                flex-direction: row;
-                justify-content: center;
-            }
+        p {
+            font-size: 0.92em;
+            letter-spacing: 0.03em;
+            font-variant: small-caps;
+            margin: 0.2em 0;
         }
 
-        .completion {
-            margin: .1em;
-            font-size: 2.25em;
-            letter-spacing: -.03em;
-            opacity: .7;
-            text-align: center;
+        span {
+            color: #357fdd;
+            margin-right: 0.6em;;
         }
     }
 
-    .description {
-        margin: .8em 4px;
-        flex: 1;
+    .analysis {
+        padding: 1em 2em;
+
+        ul {
+            flex-wrap: wrap;
+            gap: 0.2em 1.2em;
+            margin-bottom: 0.8em;
+        }
     }
 
-    .efficiency {
-        opacity: .6;
-        margin: .6em 0;
-        font-size: .9em;
-        font-style: italic;
-        text-align: center;
-    }
+    .actions {
+        flex-direction: row;
+        justify-content: space-evenly;
 
-    .action-participate {
-        @include button-style;
-        margin: 1px 4px;
-    }
-
-    &.ongoing {
-        border-color: $green;
-
-        .completion {
-            opacity: 1;
-            color: darken($green, 5%);
-            text-shadow: 0 0 10px white;
-            }
+        button {
+            @include button-style;
+            margin: 1px 4px;
+        }
     }
 }
 

@@ -49,6 +49,57 @@
                 </div>
             </div>
         </section>
+
+        <section class="planet unknown">
+            <h3>???</h3>
+            <div class="card">
+                <img src="@/assets/images/astro/planet_unknown.png">
+            </div>
+            <div class="analysis">
+                <!-- <p>Scanning impossible...</p> -->
+                <p>80% <img src="@/assets/images/astro/thermosensors.png"></p>
+                <div class="actions">
+                    <button>
+                        <span class="cost">2<img src="@/assets/images/pa.png" alt="ap"></span>
+                        <span>Scan (80%)</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="planet unknown">
+            <h3>???</h3>
+            <div class="card">
+                <img src="@/assets/images/astro/planet_unknown.png">
+            </div>
+            <div class="analysis">
+                <!-- <p>Scanning impossible...</p> -->
+                <p>80% <img src="@/assets/images/astro/thermosensors.png"></p>
+                <div class="actions">
+                    <button>
+                        <span class="cost">2<img src="@/assets/images/pa.png" alt="ap"></span>
+                        <span>Scan (80%)</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="planet unknown">
+            <h3>???</h3>
+            <div class="card">
+                <img src="@/assets/images/astro/planet_unknown.png">
+            </div>
+            <div class="analysis">
+                <!-- <p>Scanning impossible...</p> -->
+                <p>80% <img src="@/assets/images/astro/thermosensors.png"></p>
+                <div class="actions">
+                    <button>
+                        <span class="cost">2<img src="@/assets/images/pa.png" alt="ap"></span>
+                        <span>Scan (80%)</span>
+                    </button>
+                </div>
+            </div>
+        </section>
     </div>
 </template>
 
@@ -63,34 +114,10 @@ export default defineComponent ({
 <style  lang="scss" scoped>
 
 .planet {
-    position: relative;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: .8em;
-    background: $lightCyan url("~@/assets/images/astro/astro_bg.svg") no-repeat right bottom;
-    border-top: 2px solid #89e8fa;
-    border-left: 2px solid $green;
+    @extend %terminal-section;
+    background-image: url("~@/assets/images/astro/astro_bg.svg");
 
-    scroll-snap-align: start; // to control scroll snapping
-
-    &.unknown { border-left: 2px solid #aad4e5; }
-
-    h3 {
-        position: absolute;
-        top: 0;
-        left: 0;
-        margin: 0;
-        padding: .25em 2.5em .25em .5em;
-        background: #89e8fa;
-        text-align: center;
-        font-size: 1em;
-        letter-spacing: 0.03em;
-        font-weight: normal;
-        text-transform: uppercase;
-        line-height: 1em;
-
-        @include corner-bezel(0, 0, 1.5em, 0);
-    }
+    &.unknown { border-left-color: #aad4e5; }
 
     .card {
         margin: 1.5em 1em 0.4em;

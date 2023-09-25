@@ -63,14 +63,7 @@ export default defineComponent ({
     /* SCROLLBAR STYLING */
     .chatbox,
     .chatbox-container {
-        --scrollbarBG: white;
-        --thumbBG: $deepBlue;
-
-        scrollbar-width: thin;
-        scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-        &::-webkit-scrollbar { width: 6px; }
-        &::-webkit-scrollbar-track { background: var(--scrollbarBG); }
-        &::-webkit-scrollbar-thumb { background-color: var(--thumbBG); }
+        @extend %game-scrollbar;
     }
 
     .loading {

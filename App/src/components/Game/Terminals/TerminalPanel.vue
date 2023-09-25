@@ -54,30 +54,8 @@ export default defineComponent ({
 
         align-items: stretch;
         padding-bottom: .3em;
-        overflow: auto;
 
-        // scrollbar styling
-        --scrollbarBG: white;
-        --thumbBG: rgba(0, 116, 223, 1);
-        --border-radius: 6px;
-
-        scrollbar-width: thin;
-        scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-
-        &::-webkit-scrollbar {
-            width: 8px;
-            border-radius: var(--border-radius);
-        }
-
-        &::-webkit-scrollbar-track {
-            background: var(--scrollbarBG);
-            border-radius: var(--border-radius);
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: var(--thumbBG);
-            border-radius: var(--border-radius);
-        }
+        @extend %game-scrollbar;
     }
 }
 

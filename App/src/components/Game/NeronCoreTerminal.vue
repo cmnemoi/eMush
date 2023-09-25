@@ -1,3 +1,5 @@
+<!-- OBSOLETE -->
+
 <template>
     <div class="neron-core-terminal">
         <h1><img src="@/assets/images/spot2.svg"> Cœur de NERON V4.54</h1>
@@ -81,6 +83,7 @@ export default defineComponent ({
     position: relative;
     flex-direction: column;
     width: 424px;
+    height: 460px;
     padding: 5px 8px;
     color: $deepBlue;
     background: $brightCyan;
@@ -116,7 +119,6 @@ export default defineComponent ({
         height: 8px;
         border-radius: var(--border-radius);
     }
-}
 
     &::-webkit-scrollbar-track {
         background: var(--scrollbarBG);

@@ -49,57 +49,6 @@
                 </div>
             </div>
         </section>
-
-        <section class="planet unknown">
-            <h3>???</h3>
-            <div class="card">
-                <img src="@/assets/images/astro/planet_unknown.png">
-            </div>
-            <div class="analysis">
-                <!-- <p>Scanning impossible...</p> -->
-                <p>80% <img src="@/assets/images/astro/thermosensors.png"></p>
-                <div class="actions">
-                    <button>
-                        <span class="cost">2<img src="@/assets/images/pa.png" alt="ap"></span>
-                        <span>Scan (80%)</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <section class="planet unknown">
-            <h3>???</h3>
-            <div class="card">
-                <img src="@/assets/images/astro/planet_unknown.png">
-            </div>
-            <div class="analysis">
-                <!-- <p>Scanning impossible...</p> -->
-                <p>80% <img src="@/assets/images/astro/thermosensors.png"></p>
-                <div class="actions">
-                    <button>
-                        <span class="cost">2<img src="@/assets/images/pa.png" alt="ap"></span>
-                        <span>Scan (80%)</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <section class="planet unknown">
-            <h3>???</h3>
-            <div class="card">
-                <img src="@/assets/images/astro/planet_unknown.png">
-            </div>
-            <div class="analysis">
-                <!-- <p>Scanning impossible...</p> -->
-                <p>80% <img src="@/assets/images/astro/thermosensors.png"></p>
-                <div class="actions">
-                    <button>
-                        <span class="cost">2<img src="@/assets/images/pa.png" alt="ap"></span>
-                        <span>Scan (80%)</span>
-                    </button>
-                </div>
-            </div>
-        </section>
     </div>
 </template>
 

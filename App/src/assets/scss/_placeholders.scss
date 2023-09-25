@@ -1,5 +1,6 @@
 /* PLACEHOLDERS */
 
+// Tips for Terminals, retracted by default and extend on click
 %retracted-tips {
     position: relative;
     margin: .35em 0;
@@ -62,5 +63,62 @@
         font-size: .75em;
         text-transform: uppercase;
         letter-spacing: .05em;
+    }
+}
+
+// Terminal sections style with left-side border and small h3
+%terminal-section {
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: .8em;
+    background-color: $lightCyan;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    border-top: 3px solid #89e8fa;
+    border-left: 3px solid $green;
+
+    h3 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: .25em 2.5em .25em .5em;
+        background: #89e8fa;
+        text-align: center;
+        font-size: 1em;
+        letter-spacing: 0.03em;
+        font-weight: normal;
+        text-transform: uppercase;
+        line-height: 1em;
+
+        // @include corner-bezel(0, 0, 1.5em, 0);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 100% calc(100% - 1.5em), calc(100% - 1.5em) 100%, 0 100%, 0 100%, 0 0);
+    }
+}
+
+
+//in-game scrollbar styling, 8px thick only with emush colors
+%game-scrollbar {
+    --scrollbarBG: white;
+    --thumbBG: rgba(0, 116, 223, 1);
+    --border-radius: 6px;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        border-radius: var(--border-radius);
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--scrollbarBG);
+        border-radius: var(--border-radius);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--thumbBG);
+        border-radius: var(--border-radius);
     }
 }

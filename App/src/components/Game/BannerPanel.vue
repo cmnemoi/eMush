@@ -143,6 +143,8 @@ export default defineComponent({
 .flashing,
 .cycle-time {
     flex-direction: row;
+    justify-content: flex-end;
+    min-width: 7em;
 }
 
 p,

@@ -3,6 +3,7 @@
 namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Place\Entity\Place;
@@ -30,6 +31,9 @@ class StatusTarget
 
     #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'statuses')]
     private ?Place $place = null;
+
+    #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'statuses')]
+    private ?Daedalus $daedalus = null;
 
     #[ORM\ManyToOne(targetEntity: Hunter::class, inversedBy: 'statuses')]
     private ?Hunter $hunter = null;
@@ -129,6 +133,22 @@ class StatusTarget
         return $this;
     }
 
+    public function getDaedalus(): ?Daedalus
+    {
+        return $this->daedalus;
+    }
+
+    public function setDaedalus(?Daedalus $daedalus): self
+    {
+        $this->daedalus = $daedalus;
+
+        if ($daedalus !== null) {
+            $daedalus->addStatusTarget($this);
+        }
+
+        return $this;
+    }
+
     public function removeStatusLinksTarget(): void
     {
         $this->owner = null;
@@ -136,5 +156,6 @@ class StatusTarget
         $this->player = null;
         $this->gameEquipment = null;
         $this->place = null;
+        $this->daedalus = null;
     }
 }

@@ -4,7 +4,7 @@ namespace Mush\Modifier\Entity;
 
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 
-interface ModifierHolder
+interface ModifierHolderInterface
 {
     public function getModifiers(): ModifierCollection;
 

@@ -6,6 +6,7 @@ use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Place\Entity\Place;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -51,6 +52,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 return;
 
             case StatusEnum::FIRE:
+                /** @var Place $place */
                 $place = $event->getPlace();
                 $this->alertService->handleFireStart($place);
 
@@ -76,6 +78,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 return;
 
             case StatusEnum::FIRE:
+                /** @var Place $place */
                 $place = $event->getPlace();
                 $this->alertService->handleFireStop($place);
 

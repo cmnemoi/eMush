@@ -7,7 +7,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
@@ -88,9 +88,17 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         return $this->visibility;
     }
 
-    public function getPlace(): Place
+    public function getPlace(): ?Place
     {
-        return $this->holder->getPlace();
+        if ($this->holder instanceof Place) {
+            return $this->holder;
+        } elseif ($this->holder instanceof Player) {
+            return $this->holder->getPlace();
+        } elseif ($this->holder instanceof GameEquipment) {
+            return $this->holder->getPlace();
+        }
+
+        return null;
     }
 
     public function getLogParameters(): array
@@ -111,7 +119,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
     {
         $holder = $this->holder;
 
-        if ($holder instanceof ModifierHolder) {
+        if ($holder instanceof ModifierHolderInterface) {
             return $holder->getAllModifiers()->getEventModifiers($this);
         }
 

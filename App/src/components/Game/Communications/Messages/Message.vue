@@ -279,7 +279,7 @@ export default defineComponent ({
 
     &.main-message {
         .text {
-            padding-left: 46px;
+            padding-left: 52px;
             &::before { content: none; } // removes the bubble triangle
         }
     }

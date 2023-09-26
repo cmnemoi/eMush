@@ -157,7 +157,7 @@ export class Player {
     }
 
     // @TODO: in the future, translate and normalize directly terminal name from back end.
-    public getFocusedTerminalName(): String|undefined|null {
+    public getFocusedTerminalName(): string|undefined|null {
         const status = this.statuses.filter((status: Status) => {
             return status.key === StatusPlayerNameEnum.FOCUSED;
         });

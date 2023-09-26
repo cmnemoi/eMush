@@ -193,27 +193,9 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-@keyframes popUpSlide {
-    0% {top: 17px; opacity: 0%;}
-    100% {top: 0; opacity: 100%;}
-}
-.iconLife{
+
+.iconLife, .iconMorale {
     position: relative;
-    opacity: 0;
-    top: 17px;
-}
-.quantityLife {
-    z-index: 10;
-    &:hover + .iconLife { animation: popUpSlide 0.7s linear 1; opacity: 1; top: 0; }
-}
-.iconMorale{
-    position: relative;
-    opacity: 0;
-    top: 17px;
-}
-.quantityMorale {
-    z-index: 10;
-    &:hover + .iconMorale { animation: popUpSlide 0.7s linear 1; opacity: 1; top: 0; }
 }
 
 .char-panel {
@@ -310,71 +292,6 @@ export default defineComponent ({
         }
     }
 }
-
-
-
-// Legacy hp styling
-/* .health-points {
-    flex-direction: row;
-    margin: 3px 0;
-
-    .life,
-    .morale {
-        flex-direction: row;
-        align-items: center;
-        margin-right: 3px;
-
-        p,
-        ul {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            border: 1px solid lighten($greyBlue, 3.2);
-            border-radius: 3px;
-            background: $greyBlue;
-            box-shadow: 0 0 4px 1px inset rgba(28, 29, 56, 1);
-        }
-
-        p {
-            min-width: 24px;
-            height: 15px;
-            margin: 1px;
-            padding-right: 1px;
-            font-size: 0.6em;
-            letter-spacing: 0.03em;
-            border-right-width: 0;
-
-            img {
-                width: 11px;
-                height: 13px;
-                margin-right: 1px;
-            }
-        }
-
-        ul {
-            // min-width: 59px;
-            height: 11px;
-            border-radius: 2px;
-            margin-left: -2px;
-            border-left-width: 0;
-
-            li {
-                width: 3px;
-                height: 5px;
-                margin-right: 1px;
-                background: rgba(138, 170, 44, 1);
-                box-shadow: 1px 1px 0 0 inset rgba(255, 255, 255, 0.7);
-
-                &.empty {
-                    background: rgba(37, 72, 137, 1);
-                    box-shadow: 1px 1px 0 0 inset rgba(78, 154, 255, 0.7);
-                }
-            }
-        }
-    }
-} */
-
-
 
 .inventory ul {
     display: flex;

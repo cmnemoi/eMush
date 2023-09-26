@@ -4,7 +4,7 @@ namespace Mush\Modifier\Service\ModifierListenerService;
 
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Entity\Player;
@@ -43,7 +43,7 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
         }
     }
 
-    private function getModifierHolderFromConfig(Player $player, AbstractModifierConfig $modifierConfig): ?ModifierHolder
+    private function getModifierHolderFromConfig(Player $player, AbstractModifierConfig $modifierConfig): ?ModifierHolderInterface
     {
         switch ($modifierConfig->getModifierRange()) {
             case ModifierHolderClassEnum::DAEDALUS:

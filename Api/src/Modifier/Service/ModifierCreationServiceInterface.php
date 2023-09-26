@@ -4,7 +4,7 @@ namespace Mush\Modifier\Service;
 
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Status\Entity\ChargeStatus;
 
 interface ModifierCreationServiceInterface
@@ -15,7 +15,7 @@ interface ModifierCreationServiceInterface
 
     public function createModifier(
         AbstractModifierConfig $modifierConfig,
-        ModifierHolder $holder,
+        ModifierHolderInterface $holder,
         array $tags,
         \DateTime $time,
         ChargeStatus $chargeStatus = null
@@ -23,7 +23,7 @@ interface ModifierCreationServiceInterface
 
     public function deleteModifier(
         AbstractModifierConfig $modifierConfig,
-        ModifierHolder $holder,
+        ModifierHolderInterface $holder,
         array $tags,
         \DateTime $time,
     ): void;

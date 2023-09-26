@@ -12,7 +12,7 @@ use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -24,7 +24,7 @@ use Mush\Status\Enum\HunterStatusEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter')]
-class Hunter implements GameVariableHolderInterface, LogParameterInterface, ModifierHolder, StatusHolderInterface
+class Hunter implements GameVariableHolderInterface, LogParameterInterface, ModifierHolderInterface, StatusHolderInterface
 {
     use TargetStatusTrait;
 

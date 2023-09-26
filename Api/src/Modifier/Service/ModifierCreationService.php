@@ -9,7 +9,7 @@ use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Status\Entity\ChargeStatus;
 
 class ModifierCreationService implements ModifierCreationServiceInterface
@@ -44,7 +44,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
 
     public function createModifier(
         AbstractModifierConfig $modifierConfig,
-        ModifierHolder $holder,
+        ModifierHolderInterface $holder,
         array $tags,
         \DateTime $time,
         ChargeStatus $chargeStatus = null
@@ -58,7 +58,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
 
     private function createGameEventModifier(
         EventModifierConfig $modifierConfig,
-        ModifierHolder $holder,
+        ModifierHolderInterface $holder,
         ChargeStatus $chargeStatus = null
     ): void {
         $modifier = new GameModifier($holder, $modifierConfig);
@@ -72,7 +72,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
 
     public function deleteModifier(
         AbstractModifierConfig $modifierConfig,
-        ModifierHolder $holder,
+        ModifierHolderInterface $holder,
         array $tags,
         \DateTime $time,
     ): void {
@@ -85,7 +85,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
 
     private function deleteGameEventModifier(
         EventModifierConfig $modifierConfig,
-        ModifierHolder $holder,
+        ModifierHolderInterface $holder,
     ): void {
         $modifier = $holder->getModifiers()->getModifierFromConfig($modifierConfig);
 
@@ -96,7 +96,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
 
     private function createDirectModifier(
         DirectModifierConfig $modifierConfig,
-        ModifierHolder $modifierRange,
+        ModifierHolderInterface $modifierRange,
         array $tags,
         \DateTime $time,
         bool $reverse

@@ -36,6 +36,7 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         $holder = $event->getStatusHolder();
         $statusName = $event->getStatusName();
+        $place = $event->getPlace();
 
         $logMap = StatusEventLogEnum::STATUS_EVENT_LOGS[StatusEvent::STATUS_APPLIED];
         if (isset($logMap[$statusName])) {
@@ -46,10 +47,14 @@ class StatusSubscriber implements EventSubscriberInterface
 
         $this->createEventLog($logKey, $event);
 
-        if ($holder instanceof Door && $statusName === EquipmentStatusEnum::BROKEN) {
+        if (
+            $holder instanceof Door
+            && $statusName === EquipmentStatusEnum::BROKEN
+            && $place !== null
+        ) {
             $this->roomLogService->createLog(
                 $logKey,
-                $holder->getOtherRoom($event->getPlace()),
+                $holder->getOtherRoom($place),
                 $event->getVisibility(),
                 'event_log',
                 null,
@@ -75,13 +80,19 @@ class StatusSubscriber implements EventSubscriberInterface
     private function createEventLog(string $logKey, StatusEvent $event): void
     {
         $player = $event->getStatusHolder();
+        $place = $event->getPlace();
+
+        if ($place === null) {
+            return;
+        }
+
         if (!$player instanceof Player) {
             $player = null;
         }
 
         $this->roomLogService->createLog(
             $logKey,
-            $event->getPlace(),
+            $place,
             $event->getVisibility(),
             'event_log',
             $player,

@@ -8,7 +8,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -58,7 +58,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         return true;
     }
 
-    private function checkActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolder $holder): bool
+    private function checkActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolderInterface $holder): bool
     {
         switch ($activationRequirement->getActivationRequirementName()) {
             case ModifierRequirementEnum::RANDOM:
@@ -84,7 +84,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         }
     }
 
-    private function handlePlayerInRoomActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolder $holder): bool
+    private function handlePlayerInRoomActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolderInterface $holder): bool
     {
         if ($holder instanceof Place) {
             $room = $holder;
@@ -110,7 +110,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         }
     }
 
-    private function handleCycleActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolder $holder): bool
+    private function handleCycleActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolderInterface $holder): bool
     {
         if ($holder instanceof Place || $holder instanceof Player) {
             $daedalus = $holder->getDaedalus();
@@ -131,7 +131,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         }
     }
 
-    private function handlePlayerEquipmentActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolder $holder): bool
+    private function handlePlayerEquipmentActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolderInterface $holder): bool
     {
         if (!$holder instanceof Player) {
             throw new \LogicException('PLAYER_EQUIPMENT activationRequirement can only be applied on a player');
@@ -149,14 +149,14 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         return $player->hasEquipmentByName($expectedItem);
     }
 
-    private function handleItemInRoomActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolder $holder): bool
+    private function handleItemInRoomActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolderInterface $holder): bool
     {
         if ($holder instanceof Place) {
             $room = $holder;
         } elseif ($holder instanceof Player) {
             $room = $holder->getPlace();
         } else {
-            throw new \LogicException('invalid ModifierHolder for item_in_room activationRequirement');
+            throw new \LogicException('invalid ModifierHolderInterface for item_in_room activationRequirement');
         }
 
         return $room->getEquipments()->filter(function (GameEquipment $equipment) use ($activationRequirement) {
@@ -164,7 +164,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         })->count() > 0;
     }
 
-    private function handleStatusActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolder $holder): bool
+    private function handleStatusActivationRequirement(ModifierActivationRequirement $activationRequirement, ModifierHolderInterface $holder): bool
     {
         if (!$holder instanceof StatusHolderInterface) {
             throw new \LogicException('STATUS activationRequirement can only be applied on a statusHolder');

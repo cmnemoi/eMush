@@ -6,7 +6,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
@@ -98,21 +98,15 @@ class StatusSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function getModifierHolderFromConfig(StatusHolderInterface $statusHolder, AbstractModifierConfig $modifierConfig): ?ModifierHolder
+    private function getModifierHolderFromConfig(StatusHolderInterface $statusHolder, AbstractModifierConfig $modifierConfig): ?ModifierHolderInterface
     {
-        switch ($modifierConfig->getModifierRange()) {
-            case ModifierHolderClassEnum::DAEDALUS:
-                return $this->getDaedalus($statusHolder);
-            case ModifierHolderClassEnum::PLACE:
-                return $this->getPlace($statusHolder);
-            case ModifierHolderClassEnum::PLAYER:
-            case ModifierHolderClassEnum::TARGET_PLAYER:
-                return $this->getPlayer($statusHolder);
-            case ModifierHolderClassEnum::EQUIPMENT:
-                return $this->getEquipment($statusHolder);
-        }
-
-        return null;
+        return match ($modifierConfig->getModifierRange()) {
+            ModifierHolderClassEnum::DAEDALUS => $this->getDaedalus($statusHolder),
+            ModifierHolderClassEnum::PLACE => $this->getPlace($statusHolder),
+            ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER => $this->getPlayer($statusHolder),
+            ModifierHolderClassEnum::EQUIPMENT => $this->getEquipment($statusHolder),
+            default => null,
+        };
     }
 
     private function getDaedalus(StatusHolderInterface $statusHolder): Daedalus
@@ -120,18 +114,36 @@ class StatusSubscriber implements EventSubscriberInterface
         return $statusHolder->getDaedalus();
     }
 
-    private function getPlace(StatusHolderInterface $statusHolder): Place
+    private function getPlace(StatusHolderInterface $statusHolder): ?Place
     {
-        return $statusHolder->getPlace();
+        if ($statusHolder instanceof Place) {
+            return $statusHolder;
+        } elseif ($statusHolder instanceof Player) {
+            return $statusHolder->getPlace();
+        } elseif ($statusHolder instanceof GameEquipment) {
+            return $statusHolder->getPlace();
+        }
+
+        return null;
     }
 
     private function getPlayer(StatusHolderInterface $statusHolder): ?Player
     {
-        return $statusHolder->getPlayer();
+        if ($statusHolder instanceof Player) {
+            return $statusHolder;
+        } elseif ($statusHolder instanceof GameEquipment) {
+            return $statusHolder->getPlayer();
+        }
+
+        return null;
     }
 
     private function getEquipment(StatusHolderInterface $statusHolder): ?GameEquipment
     {
-        return $statusHolder->getGameEquipment();
+        if ($statusHolder instanceof GameEquipment) {
+            return $statusHolder;
+        }
+
+        return null;
     }
 }

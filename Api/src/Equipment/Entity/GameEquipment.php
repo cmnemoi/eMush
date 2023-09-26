@@ -11,7 +11,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
@@ -33,7 +33,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'door' => Door::class,
     'game_item' => GameItem::class,
 ])]
-class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolder, HunterTargetEntityInterface
+class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface
 {
     use TimestampableEntity;
     use TargetStatusTrait;

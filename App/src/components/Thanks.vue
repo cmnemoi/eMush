@@ -143,7 +143,7 @@ export default defineComponent({
             developers: developers,
             randomDev: [] as Array<string>,
             helpers: helpers,
-            randomHelpers: [] as Array<string>,
+            randomHelpers: "" as string,
             version: version as string,
             release: process.env.VUE_APP_API_RELEASE_COMMIT as string,
             channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string

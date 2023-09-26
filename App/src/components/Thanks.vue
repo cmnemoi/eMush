@@ -115,9 +115,7 @@
             </div>
             <div class="box small thanks">
                 <h3>{{ $t('footer.thanks') }} :</h3>
-                <ul>
-                    <li v-for="helper in randomHelpers" :key="helper">{{ helper }}</li>
-                </ul>
+                <p>{{ randomHelpers }}</p>
                 <i18n-t
                     keypath="footer.alpha-testers"
                     tag="div"
@@ -153,7 +151,7 @@ export default defineComponent({
     },
     mounted() {
         this.randomDev = this.developers.sort(() => 0.5 - Math.random());
-        this.randomHelpers = this.helpers.sort(() => 0.5 - Math.random());
+        this.randomHelpers = this.helpers.sort(() => 0.5 - Math.random()).join(", ");
     }
 });
 </script>
@@ -289,6 +287,11 @@ footer {
 
         &.small { max-width: 152px; }
     }
+}
+
+.devs, .thanks {
+    align-items: center;
+    text-align: center;
 }
 
 </style>

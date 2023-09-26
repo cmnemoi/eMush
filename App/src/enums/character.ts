@@ -160,7 +160,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     [CharacterEnum.NERON]: {
         'name': 'Neron',
         'completeName': 'Neron',
-        'head': require('@/assets/images/comms/neron_chat.png'),
+        'head': require('@/assets/images/comms/neron-mini.png'),
         'body': require('@/assets/images/comms/neron_chat.png')
     },
     [DEFAULT]: {

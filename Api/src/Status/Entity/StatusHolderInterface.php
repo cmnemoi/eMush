@@ -4,9 +4,6 @@ namespace Mush\Status\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Player;
 
 interface StatusHolderInterface
 {
@@ -30,13 +27,7 @@ interface StatusHolderInterface
 
     public function getDaedalus(): Daedalus;
 
-    public function getGameEquipment(): ?GameEquipment;
-
     public function getId(): int;
 
     public function getName(): string;
-
-    public function getPlace(): Place;
-
-    public function getPlayer(): ?Player;
 }

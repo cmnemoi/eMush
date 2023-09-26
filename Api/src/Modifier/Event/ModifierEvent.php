@@ -5,7 +5,7 @@ namespace Mush\Modifier\Event;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 
 class ModifierEvent extends AbstractGameEvent
 {
@@ -34,7 +34,7 @@ class ModifierEvent extends AbstractGameEvent
         return $this->modifier;
     }
 
-    public function getModifierHolder(): ModifierHolder
+    public function getModifierHolder(): ModifierHolderInterface
     {
         return $this->modifier->getModifierHolder();
     }

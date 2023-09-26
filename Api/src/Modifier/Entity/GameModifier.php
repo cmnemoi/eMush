@@ -42,7 +42,7 @@ class GameModifier
     #[ORM\ManyToOne(targetEntity: ChargeStatus::class)]
     private ?ChargeStatus $charge = null;
 
-    public function __construct(ModifierHolder $holder, EventModifierConfig $modifierConfig)
+    public function __construct(ModifierHolderInterface $holder, EventModifierConfig $modifierConfig)
     {
         $this->modifierConfig = $modifierConfig;
 
@@ -73,7 +73,7 @@ class GameModifier
         return $this->modifierConfig;
     }
 
-    public function getModifierHolder(): ModifierHolder
+    public function getModifierHolder(): ModifierHolderInterface
     {
         if ($this->player) {
             return $this->player;

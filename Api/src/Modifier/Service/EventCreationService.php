@@ -7,7 +7,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Entity\VariableEventConfig;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -17,7 +17,7 @@ class EventCreationService implements EventCreationServiceInterface
 {
     public function createEvents(
         AbstractEventConfig $eventConfig,
-        ModifierHolder $modifierRange,
+        ModifierHolderInterface $modifierRange,
         int $priority,
         array $tags,
         \DateTime $time,
@@ -40,7 +40,7 @@ class EventCreationService implements EventCreationServiceInterface
         int $priority,
         array $tags,
         \DateTime $time,
-        ModifierHolder $modifierRange,
+        ModifierHolderInterface $modifierRange,
     ): EventChain {
         $variableHolderClass = $eventConfig->getVariableHolderClass();
         switch ($variableHolderClass) {
@@ -63,7 +63,7 @@ class EventCreationService implements EventCreationServiceInterface
         }
     }
 
-    private function getDaedalusFromModifierHolder(ModifierHolder $modifierHolder): Daedalus
+    private function getDaedalusFromModifierHolder(ModifierHolderInterface $modifierHolder): Daedalus
     {
         if ($modifierHolder instanceof Player) {
             return $modifierHolder->getDaedalus();
@@ -82,7 +82,7 @@ class EventCreationService implements EventCreationServiceInterface
         throw new \Exception("This eventConfig ({$className}) class is not supported");
     }
 
-    private function getPlayersFromModifierHolder(ModifierHolder $modifierHolder): PlayerCollection
+    private function getPlayersFromModifierHolder(ModifierHolderInterface $modifierHolder): PlayerCollection
     {
         if ($modifierHolder instanceof Player) {
             return new PlayerCollection([$modifierHolder]);

@@ -4,7 +4,7 @@ namespace Mush\Status\Event;
 
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 
@@ -41,7 +41,7 @@ class StatusCycleEvent extends AbstractGameEvent
     {
         $holder = $this->getHolder();
 
-        if ($holder instanceof ModifierHolder) {
+        if ($holder instanceof ModifierHolderInterface) {
             return $holder->getAllModifiers()->getEventModifiers($this);
         }
 

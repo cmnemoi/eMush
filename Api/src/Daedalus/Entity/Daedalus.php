@@ -18,18 +18,23 @@ use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Entity\StatusTarget;
+use Mush\Status\Entity\TargetStatusTrait;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus')]
-class Daedalus implements ModifierHolder, GameVariableHolderInterface, HunterTargetEntityInterface
+class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, StatusHolderInterface
 {
     use TimestampableEntity;
+    use TargetStatusTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -50,6 +55,9 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface, HunterTar
 
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private DaedalusVariables $daedalusVariables;
+
+    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
+    private Collection $statuses;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $day = 1;
@@ -77,9 +85,10 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface, HunterTar
         $this->players = new ArrayCollection();
         $this->places = new ArrayCollection();
         $this->modifiers = new ModifierCollection();
+        $this->statuses = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -358,6 +367,20 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface, HunterTar
         return $this;
     }
 
+    public function addStatus(Status $status): static
+    {
+        if (!$this->getStatuses()->contains($status)) {
+            if (!$statusTarget = $status->getStatusTargetTarget()) {
+                $statusTarget = new StatusTarget();
+            }
+            $statusTarget->setOwner($status);
+            $statusTarget->setDaedalus($this);
+            $this->statuses->add($statusTarget);
+        }
+
+        return $this;
+    }
+
     public function getCycle(): int
     {
         return $this->cycle;
@@ -512,5 +535,10 @@ class Daedalus implements ModifierHolder, GameVariableHolderInterface, HunterTar
     public function isInSpaceBattle(): true
     {
         return true;
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        return $this;
     }
 }

@@ -4,7 +4,7 @@ namespace Mush\Action\Event;
 
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -67,7 +67,7 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
         $modifiers = $this->getAuthor()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false);
 
         $parameter = $this->parameter;
-        if ($parameter instanceof ModifierHolder) {
+        if ($parameter instanceof ModifierHolderInterface) {
             $modifiers = $modifiers->addModifiers($parameter->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true));
         }
 

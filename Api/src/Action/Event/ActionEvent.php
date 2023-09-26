@@ -6,7 +6,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 
@@ -72,7 +72,7 @@ class ActionEvent extends AbstractGameEvent
         $modifiers = $this->getAuthor()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false);
 
         $parameter = $this->actionParameter;
-        if ($parameter instanceof ModifierHolder) {
+        if ($parameter instanceof ModifierHolderInterface) {
             $modifiers = $modifiers->addModifiers($parameter->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true));
         }
 

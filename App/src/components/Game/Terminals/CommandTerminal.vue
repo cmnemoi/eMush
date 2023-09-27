@@ -5,32 +5,32 @@
             <div class="analysis">
                 <p class="daedalus-current-orientation">Le Daedalus pointe actuellement vers : <strong>Nord</strong>.</p>
                 <div class="orientation-choice">
-                    <label class="orientation-button-label">
-                        <input class="orientation-button"
+                    <label class="orientation-choice-box-label">
+                        <input class="orientation-choice-box"
                                type="radio"
                                name="orientation"
                                value="Nord"
                                v-model="chosenOrientation">
                         Nord
                     </label>
-                    <label class="orientation-button-label">
-                        <input class="orientation-button"
+                    <label class="orientation-choice-box-label">
+                        <input class="orientation-choice-box"
                                type="radio"
                                name="orientation"
                                value="Est"
                                v-model="chosenOrientation">
                         Est
                     </label>
-                    <label class="orientation-button-label">
-                        <input class="orientation-button"
+                    <label class="orientation-choice-box-label">
+                        <input class="orientation-choice-box"
                                type="radio"
                                name="orientation"
                                value="Sud"
                                v-model="chosenOrientation">
                         Sud
                     </label>
-                    <label class="orientation-button-label">
-                        <input class="orientation-button"
+                    <label class="orientation-choice-box-label">
+                        <input class="orientation-choice-box"
                                type="radio"
                                name="orientation"
                                value="Ouest"
@@ -38,7 +38,7 @@
                         Ouest
                     </label>
                 </div>
-                <div class="actions">
+                <div class="action">
                     <button>
                         <span class="cost">1<img src="@/assets/images/pa.png" alt="ap"></span>
                         <span>Changer l'orientation : {{ chosenOrientation }}</span>
@@ -50,8 +50,8 @@
         <section class="planet">
             <h3>Déplacer le Daedalus</h3>
             <div class="analysis">
-                <em>Il n'y a pas de fuel dans la Chambre de Combustion ! Le voyage infra-luminique est impossible.</em>
-                <div class="actions">
+                <p><em>Il n'y a pas de fuel dans la Chambre de Combustion ! Le voyage infra-luminique est impossible.</em></p>
+                <div class="action">
                     <button>
                         <span class="cost">1<img src="@/assets/images/pa.png" alt="ap"></span>
                         <span>Voyager</span>
@@ -91,25 +91,27 @@ export default defineComponent ({
     .analysis {
         flex-direction: column;
         margin: .2em 0;
-        padding: .9em;
-        // .daedalus-current-orientation {
-        //     margin-top: 1.5em;
-        // }
         .orientation-choice {
             flex-direction: row;
-            margin-bottom: .5em;
-            .orientation-button {
+            margin-left: 1.8em;
+            margin-bottom: .8em;
+            .orientation-choice-box {
                 margin: 0 .2em;
             }
 
-            .orientation-button-label {
+            .orientation-choice-box-label {
                 margin: 0 1em;
             }
         }
 
+        p {
+            padding-top: 0.8em;
+            padding-left: 0.5em;
+        }
+
     }
 
-    .actions {
+    .action {
         flex-direction: row;
         justify-content: space-evenly;
 

@@ -392,7 +392,7 @@ class HunterService implements HunterServiceInterface
             $this->persist([$hunter]);
 
             $statusEvent = new StatusEvent(
-                statusName: EquipmentStatusEnum::PATROL_SHIP_ARMOR,
+                status: $patrolShipArmor,
                 holder: $patrolShip,
                 tags: [AbstractHunterEvent::HUNTER_SHOT],
                 time: new \DateTime()

@@ -20,7 +20,7 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -39,12 +39,17 @@ class PublicBroadcast extends AbstractAction
     protected string $name = ActionEnum::PUBLIC_BROADCAST;
     protected const BASE_CONFORT = 3;
 
+    protected StatusServiceInterface $statusService;
+
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($eventService, $actionService, $validator);
+
+        $this->statusService = $statusService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -79,14 +84,12 @@ class PublicBroadcast extends AbstractAction
 
     private function addWatchedPublicBroadcastStatus(Player $player): void
     {
-        $statusEvent = new StatusEvent(
+        $this->statusService->createStatusFromName(
             PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST,
             $player,
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );
-
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     protected function checkResult(): ActionResult

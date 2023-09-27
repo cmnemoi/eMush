@@ -6,19 +6,35 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\PlantWaterable;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class WaterPlant extends AbstractAction
 {
     protected string $name = ActionEnum::WATER_PLANT;
+
+    protected StatusServiceInterface $statusService;
+
+    public function __construct(
+        EventServiceInterface $eventService,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        StatusServiceInterface $statusService
+    ) {
+        parent::__construct($eventService, $actionService, $validator);
+
+        $this->statusService = $statusService;
+    }
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -45,12 +61,11 @@ class WaterPlant extends AbstractAction
         $status = ($parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)
             ?? $parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRY));
 
-        $statusEvent = new StatusEvent(
+        $this->statusService->removeStatus(
             $status->getName(),
             $parameter,
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 }

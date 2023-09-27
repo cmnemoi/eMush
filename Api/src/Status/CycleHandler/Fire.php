@@ -18,7 +18,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 
 class Fire extends AbstractStatusCycleHandler
 {
@@ -28,17 +28,20 @@ class Fire extends AbstractStatusCycleHandler
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private DaedalusServiceInterface $daedalusService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         RandomServiceInterface $randomService,
         EventServiceInterface $eventService,
         GameEquipmentServiceInterface $gameEquipmentService,
-        DaedalusServiceInterface $daedalusService
+        DaedalusServiceInterface $daedalusService,
+        StatusServiceInterface $statusService
     ) {
         $this->randomService = $randomService;
         $this->eventService = $eventService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->daedalusService = $daedalusService;
+        $this->statusService = $statusService;
     }
 
     public function handleNewCycle(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime, array $context = []): void
@@ -69,13 +72,12 @@ class Fire extends AbstractStatusCycleHandler
             if (!$adjacentRoom->hasStatus(StatusEnum::FIRE)
                 && $this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())
             ) {
-                $statusEvent = new StatusEvent(
+                $this->statusService->createStatusFromName(
                     StatusEnum::FIRE,
                     $adjacentRoom,
                     [RoomEventEnum::PROPAGATING_FIRE],
                     $date
                 );
-                $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
 

@@ -14,8 +14,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -96,21 +96,16 @@ class Search extends AbstractAction
             throw new \LogicException('action should have an hidden item');
         }
 
+        /** @var Status $hiddenStatus */
         $hiddenStatus = $hiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN);
-
-        if ($hiddenStatus === null) {
-            throw new \LogicException('item should have an hidden status');
-        }
 
         $hiddenBy = $hiddenStatus->getTarget();
 
-        $statusEvent = new StatusEvent(
+        $this->statusService->removeStatus(
             EquipmentStatusEnum::HIDDEN,
             $hiddenItem,
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );
-        $statusEvent->setStatusTarget($hiddenBy);
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 }

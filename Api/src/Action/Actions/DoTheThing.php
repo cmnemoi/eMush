@@ -32,7 +32,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -48,6 +48,7 @@ class DoTheThing extends AbstractAction
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventServiceInterface $eventService,
@@ -57,6 +58,7 @@ class DoTheThing extends AbstractAction
         PlayerDiseaseServiceInterface $playerDiseaseService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
+        StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventService,
@@ -67,6 +69,7 @@ class DoTheThing extends AbstractAction
         $this->playerDiseaseService = $playerDiseaseService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
+        $this->statusService = $statusService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -205,14 +208,12 @@ class DoTheThing extends AbstractAction
 
     private function addDidTheThingStatus(Player $player): void
     {
-        $statusEvent = new StatusEvent(
+        $this->statusService->createStatusFromName(
             PlayerStatusEnum::DID_THE_THING,
             $player,
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );
-
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     private function addPregnantStatus(Player $player, Player $parameter): void
@@ -220,15 +221,14 @@ class DoTheThing extends AbstractAction
         $characterName = $player->getPlayerInfo()->getCharacterConfig()->getCharacterName();
         /** @var StatusHolderInterface $femalePlayer */
         $femalePlayer = CharacterEnum::isMale($characterName) ? $parameter : $player;
-        $pregnantStatus = new StatusEvent(
+        $this->statusService->createStatusFromName(
             PlayerStatusEnum::PREGNANT,
             $femalePlayer,
             $this->getAction()->getActionTags(),
             new \DateTime(),
+            null,
+            VisibilityEnum::PRIVATE
         );
-        $pregnantStatus->setVisibility(VisibilityEnum::PRIVATE);
-
-        $this->eventService->callEvent($pregnantStatus, StatusEvent::STATUS_APPLIED);
     }
 
     private function getPlayerStds(Player $player): PlayerDiseaseCollection

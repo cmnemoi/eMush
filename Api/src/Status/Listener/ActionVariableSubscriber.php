@@ -5,22 +5,21 @@ namespace Mush\Status\Listener;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionVariableSubscriber implements EventSubscriberInterface
 {
-    private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        StatusServiceInterface $statusService,
         RandomServiceInterface $randomService
     ) {
-        $this->eventService = $eventService;
+        $this->statusService = $statusService;
         $this->randomService = $randomService;
     }
 
@@ -38,15 +37,14 @@ class ActionVariableSubscriber implements EventSubscriberInterface
             $tags = $event->getTags();
 
             if ($isDirty) {
-                $statusEvent = new StatusEvent(
+                $this->statusService->createStatusFromName(
                     PlayerStatusEnum::DIRTY,
                     $event->getAuthor(),
                     $tags,
-                    $event->getTime()
+                    $event->getTime(),
+                    null,
+                    VisibilityEnum::PRIVATE
                 );
-                $statusEvent->setVisibility(VisibilityEnum::PRIVATE);
-
-                $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
     }

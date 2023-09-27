@@ -11,17 +11,20 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RoomSubscriber implements EventSubscriberInterface
 {
     private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
-        EventServiceInterface $eventService
+        EventServiceInterface $eventService,
+        StatusServiceInterface $statusService
     ) {
         $this->eventService = $eventService;
+        $this->statusService = $statusService;
     }
 
     public static function getSubscribedEvents(): array
@@ -45,15 +48,16 @@ class RoomSubscriber implements EventSubscriberInterface
             if (!$equipment->isBroken()
                 && !($equipment instanceof Door)
                 && !($equipment instanceof GameItem)
-                && $equipment->isBreakable()) {
-                $statusEvent = new StatusEvent(
+                && $equipment->isBreakable()
+            ) {
+                $this->statusService->createStatusFromName(
                     EquipmentStatusEnum::BROKEN,
                     $equipment,
                     $event->getTags(),
-                    $event->getTime()
+                    $event->getTime(),
+                    null,
+                    VisibilityEnum::PUBLIC
                 );
-                $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
-                $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
     }

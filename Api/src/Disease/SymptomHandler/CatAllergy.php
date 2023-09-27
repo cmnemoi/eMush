@@ -6,9 +6,9 @@ use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -18,11 +18,14 @@ class CatAllergy extends AbstractSymptomHandler
     protected string $name = SymptomEnum::CAT_ALLERGY;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         PlayerDiseaseServiceInterface $playerDiseaseService,
+        EventServiceInterface $eventService
     ) {
         $this->playerDiseaseService = $playerDiseaseService;
+        $this->eventService = $eventService;
     }
 
     public function applyEffects(
@@ -30,7 +33,7 @@ class CatAllergy extends AbstractSymptomHandler
         int $priority,
         array $tags,
         \DateTime $time
-    ): EventChain {
+    ): void {
         $damageEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::HEALTH_POINT,
@@ -38,10 +41,7 @@ class CatAllergy extends AbstractSymptomHandler
             [$this->name],
             $time
         );
-        $damageEvent
-            ->setPriority($priority)
-            ->setEventName(VariableEventInterface::CHANGE_VARIABLE)
-        ;
+        $this->eventService->callEvent($damageEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $this->playerDiseaseService->createDiseaseFromName(DiseaseEnum::QUINCKS_OEDEMA, $player, [$this->name]);
         $diseaseEvent = new ApplyEffectEvent(
@@ -51,11 +51,6 @@ class CatAllergy extends AbstractSymptomHandler
             [$this->name],
             $time
         );
-        $diseaseEvent
-            ->setPriority($priority)
-            ->setEventName(ApplyEffectEvent::PLAYER_GET_SICK)
-        ;
-
-        return new EventChain([$damageEvent, $diseaseEvent]);
+        $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
     }
 }

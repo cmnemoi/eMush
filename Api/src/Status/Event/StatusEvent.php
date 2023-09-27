@@ -12,6 +12,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 
 class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
@@ -20,8 +21,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
     public const STATUS_CHARGE_UPDATED = 'status.charge.updated';
     public const STATUS_REMOVED = 'status.removed';
 
-    protected string $statusName;
-    protected ?StatusConfig $statusConfig = null;
+    protected Status $status;
     protected StatusHolderInterface $holder;
     protected ?StatusHolderInterface $target = null;
     protected Daedalus $daedalus;
@@ -29,22 +29,24 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
     protected string $visibility = VisibilityEnum::HIDDEN;
 
     public function __construct(
-        string $statusName,
+        Status $status,
         StatusHolderInterface $holder,
         array $tags,
-        \DateTime $time
+        \DateTime $time,
+        StatusHolderInterface $target = null
     ) {
-        $this->statusName = $statusName;
+        $this->status = $status;
         $this->holder = $holder;
         $this->daedalus = $holder->getDaedalus();
+        $this->target = $target;
 
-        $tags[] = $statusName;
+        $tags[] = $status->getName();
         parent::__construct($tags, $time);
     }
 
     public function getStatusName(): string
     {
-        return $this->statusName;
+        return $this->status->getName();
     }
 
     public function getStatusHolder(): StatusHolderInterface
@@ -54,14 +56,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
 
     public function getStatusConfig(): ?StatusConfig
     {
-        return $this->statusConfig;
-    }
-
-    public function setStatusConfig(StatusConfig $statusConfig): self
-    {
-        $this->statusConfig = $statusConfig;
-
-        return $this;
+        return $this->status->getStatusConfig();
     }
 
     public function getStatusTarget(): ?StatusHolderInterface

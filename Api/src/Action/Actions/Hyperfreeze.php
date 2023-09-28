@@ -40,9 +40,9 @@ class Hyperfreeze extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $support instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -59,14 +59,14 @@ class Hyperfreeze extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $parameter */
-        $parameter = $this->parameter;
+        /** @var GameEquipment $support */
+        $support = $this->support;
         $time = new \DateTime();
 
-        if (in_array($parameter->getName(), [GameRationEnum::COOKED_RATION, GameRationEnum::ALIEN_STEAK])) {
+        if (in_array($support->getName(), [GameRationEnum::COOKED_RATION, GameRationEnum::ALIEN_STEAK])) {
             $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
                 GameRationEnum::STANDARD_RATION,
-                $parameter,
+                $support,
                 $this->player,
                 $this->getAction()->getActionTags(),
                 new \DateTime(),
@@ -75,7 +75,7 @@ class Hyperfreeze extends AbstractAction
         } else {
             $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::FROZEN,
-                $parameter,
+                $support,
                 $this->getAction()->getActionTags(),
                 $time
             );

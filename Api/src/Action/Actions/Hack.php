@@ -65,9 +65,9 @@ final class Hack extends AttemptAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $support instanceof GameEquipment;
     }
 
     protected function applyEffect(ActionResult $result): void
@@ -77,7 +77,7 @@ final class Hack extends AttemptAction
         }
 
         /** @var GameEquipment $terminalToHack */
-        $terminalToHack = $this->parameter;
+        $terminalToHack = $this->support;
 
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::FOCUSED,

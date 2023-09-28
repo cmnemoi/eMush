@@ -50,9 +50,9 @@ class RemoveCamera extends AbstractAction
         ]);
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $support instanceof GameEquipment;
     }
 
     protected function checkResult(): ActionResult
@@ -63,7 +63,7 @@ class RemoveCamera extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $equipmentCamera */
-        $equipmentCamera = $this->getParameter();
+        $equipmentCamera = $this->getSupport();
 
         $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
             ItemEnum::CAMERA_ITEM,

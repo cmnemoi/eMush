@@ -25,9 +25,9 @@ class StrengthenHull extends AttemptAction
 
     private const BASE_REPAIR = 5;
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameItem;
+        return $support instanceof GameItem;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -44,8 +44,8 @@ class StrengthenHull extends AttemptAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
-        $parameter = $this->parameter;
+        /** @var GameItem $support */
+        $support = $this->support;
         $time = new \DateTime();
 
         if ($result instanceof Success) {
@@ -63,7 +63,7 @@ class StrengthenHull extends AttemptAction
             $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);
 
             $equipmentEvent = new InteractWithEquipmentEvent(
-                $parameter,
+                $support,
                 $this->player,
                 VisibilityEnum::HIDDEN,
                 $this->getAction()->getActionTags(),

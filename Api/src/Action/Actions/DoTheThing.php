@@ -72,9 +72,9 @@ class DoTheThing extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof Player;
+        return $support instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -139,38 +139,38 @@ class DoTheThing extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $parameter */
-        $parameter = $this->parameter;
+        /** @var Player $support */
+        $support = $this->support;
         $player = $this->player;
 
         // @TODO add confirmation pop up
 
         // give two moral points, or max morale if it is their first time
         $this->addMoralPoints($player);
-        $this->addMoralPoints($parameter);
+        $this->addMoralPoints($support);
 
         // if one is mush and has a spore, infect other player
-        if ($player->isMush() && !$parameter->isMush()) {
-            $this->infect($player, $parameter);
+        if ($player->isMush() && !$support->isMush()) {
+            $this->infect($player, $support);
         }
-        if ($parameter->isMush() && !$player->isMush()) {
-            $this->infect($parameter, $player);
+        if ($support->isMush() && !$player->isMush()) {
+            $this->infect($support, $player);
         }
 
         // may become pregnant
         $becomePregnant = $this->randomService->isSuccessful(self::PREGNANCY_RATE);
         if ($becomePregnant) {
-            $this->addPregnantStatus($player, $parameter);
+            $this->addPregnantStatus($player, $support);
         }
 
         // may transmit an STD
         $transmitStd = $this->randomService->isSuccessful(self::STD_TRANSMISSION_RATE);
         if ($transmitStd) {
             $playerStds = $this->getPlayerStds($player);
-            $parameterStds = $this->getPlayerStds($parameter);
+            $parameterStds = $this->getPlayerStds($support);
 
             if ($playerStds->count() > 0) {
-                $this->transmitStd($playerStds, $parameter);
+                $this->transmitStd($playerStds, $support);
             } elseif ($parameterStds->count() > 0) {
                 $this->transmitStd($parameterStds, $player);
             }
@@ -178,7 +178,7 @@ class DoTheThing extends AbstractAction
 
         // add did_the_thing status until the end of the day
         $this->addDidTheThingStatus($player);
-        $this->addDidTheThingStatus($parameter);
+        $this->addDidTheThingStatus($support);
     }
 
     private function addMoralPoints(Player $player): void
@@ -216,11 +216,11 @@ class DoTheThing extends AbstractAction
         );
     }
 
-    private function addPregnantStatus(Player $player, Player $parameter): void
+    private function addPregnantStatus(Player $player, Player $support): void
     {
         $characterName = $player->getPlayerInfo()->getCharacterConfig()->getCharacterName();
         /** @var StatusHolderInterface $femalePlayer */
-        $femalePlayer = CharacterEnum::isMale($characterName) ? $parameter : $player;
+        $femalePlayer = CharacterEnum::isMale($characterName) ? $support : $player;
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::PREGNANT,
             $femalePlayer,

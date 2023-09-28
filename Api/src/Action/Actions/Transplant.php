@@ -48,9 +48,9 @@ class Transplant extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $support instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -66,13 +66,13 @@ class Transplant extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
-        $parameter = $this->parameter;
+        /** @var GameItem $support */
+        $support = $this->support;
         $time = new \DateTime();
 
         // @TODO fail transplant
         /** @var Fruit $fruitType */
-        $fruitType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
+        $fruitType = $support->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
 
         /** @var GameItem $hydropot */
         $hydropot = $this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->first();
@@ -87,7 +87,7 @@ class Transplant extends AbstractAction
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $equipmentEvent = new InteractWithEquipmentEvent(
-            $parameter,
+            $support,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getAction()->getActionTags(),

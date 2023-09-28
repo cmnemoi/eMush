@@ -44,9 +44,9 @@ class Sabotage extends AttemptAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $support instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -65,13 +65,13 @@ class Sabotage extends AttemptAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $parameter */
-        $parameter = $this->parameter;
+        /** @var GameEquipment $support */
+        $support = $this->support;
 
         if ($result instanceof Success) {
             $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::BROKEN,
-                $parameter,
+                $support,
                 $this->getAction()->getActionTags(),
                 new \DateTime()
             );

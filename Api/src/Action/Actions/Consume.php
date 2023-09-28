@@ -21,9 +21,9 @@ class Consume extends AbstractAction
 {
     protected string $name = ActionEnum::CONSUME;
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameItem;
+        return $support instanceof GameItem;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -40,9 +40,9 @@ class Consume extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        /** @var GameItem $parameter */
-        $parameter = $this->parameter;
-        $rationType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
+        /** @var GameItem $support */
+        $support = $this->support;
+        $rationType = $support->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (null === $rationType) {
             throw new \Exception('Cannot consume this equipment');
@@ -53,9 +53,9 @@ class Consume extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
-        $parameter = $this->parameter;
-        $rationType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
+        /** @var GameItem $support */
+        $support = $this->support;
+        $rationType = $support->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (null === $rationType) {
             throw new \Exception('Cannot consume this equipment');
@@ -63,7 +63,7 @@ class Consume extends AbstractAction
 
         $consumeEquipment = new ApplyEffectEvent(
             $this->player,
-            $parameter,
+            $support,
             VisibilityEnum::PRIVATE,
             $this->getAction()->getActionTags(),
             new \DateTime(),

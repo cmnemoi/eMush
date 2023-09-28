@@ -52,9 +52,9 @@ class PublicBroadcast extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameItem;
+        return $support instanceof GameItem;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

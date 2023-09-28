@@ -41,7 +41,7 @@ class FlirtedAlreadyValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getSupport' => $target,
                 'getPlayer' => $player,
             ])
         ;
@@ -66,7 +66,7 @@ class FlirtedAlreadyValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getSupport' => $target,
                 'getPlayer' => $player,
             ])
         ;
@@ -86,7 +86,7 @@ class FlirtedAlreadyValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getSupport' => $target,
                 'getPlayer' => $player,
             ])
         ;

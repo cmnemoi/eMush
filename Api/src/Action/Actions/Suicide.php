@@ -18,9 +18,9 @@ class Suicide extends AbstractAction
 {
     protected string $name = ActionEnum::SUICIDE;
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter === null;
+        return $support === null;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

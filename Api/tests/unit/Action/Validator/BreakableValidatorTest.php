@@ -45,7 +45,7 @@ class BreakableValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getSupport' => $target,
             ])
         ;
 
@@ -64,7 +64,7 @@ class BreakableValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getSupport' => $target,
             ])
         ;
 

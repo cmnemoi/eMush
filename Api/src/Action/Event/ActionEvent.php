@@ -18,18 +18,20 @@ class ActionEvent extends AbstractGameEvent
     public const EXECUTE_ACTION = 'execute.action';
 
     private Action $action;
-    private ?LogParameterInterface $actionParameter;
+    private ?LogParameterInterface $actionSupport;
     private ?ActionResult $actionResult = null;
+    private array $actionParameters = [];
 
-    public function __construct(Action $action, Player $player, ?LogParameterInterface $actionParameter)
+    public function __construct(Action $action, Player $player, LogParameterInterface $actionSupport = null, array $actionParameters = [])
     {
         $this->action = $action;
         $this->author = $player;
-        $this->actionParameter = $actionParameter;
+        $this->actionSupport = $actionSupport;
+        $this->actionParameters = $actionParameters;
 
         $tags = $action->getActionTags();
-        if ($actionParameter !== null) {
-            $tags[] = $actionParameter->getLogName();
+        if ($actionSupport !== null) {
+            $tags[] = $actionSupport->getLogName();
         }
 
         parent::__construct($tags, new \DateTime());
@@ -50,9 +52,14 @@ class ActionEvent extends AbstractGameEvent
         return $this->action;
     }
 
-    public function getActionParameter(): ?LogParameterInterface
+    public function getActionSupport(): ?LogParameterInterface
     {
-        return $this->actionParameter;
+        return $this->actionSupport;
+    }
+
+    public function getActionParameters(): array
+    {
+        return $this->actionParameters;
     }
 
     public function getActionResult(): ?ActionResult
@@ -71,9 +78,9 @@ class ActionEvent extends AbstractGameEvent
     {
         $modifiers = $this->getAuthor()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false);
 
-        $parameter = $this->actionParameter;
-        if ($parameter instanceof ModifierHolderInterface) {
-            $modifiers = $modifiers->addModifiers($parameter->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true));
+        $actionSupport = $this->actionSupport;
+        if ($actionSupport instanceof ModifierHolderInterface) {
+            $modifiers = $modifiers->addModifiers($actionSupport->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true));
         }
 
         return $modifiers;

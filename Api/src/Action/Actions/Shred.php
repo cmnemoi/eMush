@@ -21,9 +21,9 @@ class Shred extends AbstractAction
 {
     protected string $name = ActionEnum::SHRED;
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameItem;
+        return $support instanceof GameItem;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -40,11 +40,11 @@ class Shred extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
-        $parameter = $this->parameter;
+        /** @var GameItem $support */
+        $support = $this->support;
 
         $equipmentEvent = new InteractWithEquipmentEvent(
-            $parameter,
+            $support,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getAction()->getActionTags(),

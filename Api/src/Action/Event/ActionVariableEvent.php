@@ -33,7 +33,7 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
         string $variableName,
         float $quantity,
         Player $player,
-        ?LogParameterInterface $actionParameter
+        ?LogParameterInterface $actionSupport
     ) {
         $this->variableName = $variableName;
         $this->quantity = $quantity;
@@ -41,7 +41,7 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
         parent::__construct(
             $action,
             $player,
-            $actionParameter
+            $actionSupport
         );
     }
 

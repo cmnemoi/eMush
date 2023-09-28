@@ -89,7 +89,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             throw new \Exception("this action is not implemented ({$actionName})");
         }
 
-        $action->loadParameters($actionConfig, $player, $event->getActionParameter());
+        $action->loadParameters($actionConfig, $player, $event->getActionSupport(), $event->getActionParameters());
         $action->execute();
     }
 
@@ -116,17 +116,17 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         $action = $event->getAction();
         $player = $event->getAuthor();
-        $actionParameter = $event->getActionParameter();
+        $actionSupport = $event->getActionSupport();
 
-        $this->actionSideEffectsService->handleActionSideEffect($action, $player, $actionParameter);
+        $this->actionSideEffectsService->handleActionSideEffect($action, $player, $actionSupport);
         $this->gearToolService->applyChargeCost($player, $action->getActionName(), $action->getTypes());
         $player->getDaedalus()->addDailyActionPointsSpent($action->getActionCost());
 
-        if ($actionParameter instanceof Player
+        if ($actionSupport instanceof Player
             && in_array($action->getActionName(), ActionEnum::getForceGetUpActions())
-            && $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
+            && $lyingDownStatus = $actionSupport->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
-            $actionParameter->removeStatus($lyingDownStatus);
+            $actionSupport->removeStatus($lyingDownStatus);
         }
 
         $changingRoomPatrolshipActions = ActionEnum::getChangingRoomPatrolshipActions()->toArray();
@@ -138,7 +138,7 @@ final class ActionSubscriber implements EventSubscriberInterface
 
         if ($event->getAction()->getActionName() === ActionEnum::LAND) {
             /** @var GameEquipment $patrolShip */
-            $patrolShip = $event->getActionParameter();
+            $patrolShip = $event->getActionSupport();
 
             /** @var ?ChargeStatus $patrolShipArmor */
             $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
@@ -158,7 +158,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     private function inflictDamageToDaedalus(ActionEvent $event): void
     {
         /** @var GameEquipment $patrolShip */
-        $patrolShip = $event->getActionParameter();
+        $patrolShip = $event->getActionSupport();
         /** @var PatrolShip $patrolShipMechanic */
         $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
@@ -179,7 +179,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     private function inflictDamageToPatrolShip(ActionEvent $event): void
     {
         /** @var GameEquipment $patrolShip */
-        $patrolShip = $event->getActionParameter();
+        $patrolShip = $event->getActionSupport();
         /** @var PatrolShip $patrolShipMechanic */
         $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
         if ($patrolShipMechanic === null) {
@@ -221,7 +221,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     private function inflictDamageToPlayer(ActionEvent $event): void
     {
         /** @var GameEquipment $patrolShip */
-        $patrolShip = $event->getActionParameter();
+        $patrolShip = $event->getActionSupport();
         /** @var PatrolShip $patrolShipMechanic */
         $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
@@ -245,7 +245,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $player = $event->getAuthor();
         $daedalus = $player->getDaedalus();
         /** @var GameEquipment $patrolShip */
-        $patrolShip = $event->getActionParameter();
+        $patrolShip = $event->getActionSupport();
 
         /** @var PatrolShip $patrolShipMechanic */
         $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);

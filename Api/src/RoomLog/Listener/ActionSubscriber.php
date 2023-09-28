@@ -35,7 +35,7 @@ class ActionSubscriber implements EventSubscriberInterface
     {
         $actionResult = $event->getActionResult();
         $player = $event->getAuthor();
-        $actionParameter = $event->getActionParameter();
+        $actionSupport = $event->getActionSupport();
 
         if ($actionResult === null) {
             throw new \LogicException('$actionResult should not be null');
@@ -43,21 +43,21 @@ class ActionSubscriber implements EventSubscriberInterface
 
         $actionName = $event->getAction()->getActionName();
 
-        $this->roomLogService->createLogFromActionResult($actionName, $actionResult, $player, $actionParameter, $event->getTime());
+        $this->roomLogService->createLogFromActionResult($actionName, $actionResult, $player, $actionSupport, $event->getTime());
     }
 
     public function onPostAction(ActionEvent $event): void
     {
         $action = $event->getAction();
-        $actionParameter = $event->getActionParameter();
+        $actionSupport = $event->getActionSupport();
         $player = $event->getAuthor();
 
-        if ($actionParameter instanceof Player
+        if ($actionSupport instanceof Player
             && in_array($action->getActionName(), ActionEnum::getForceGetUpActions())
-            && $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
+            && $lyingDownStatus = $actionSupport->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
-            $actionParameter->removeStatus($lyingDownStatus);
-            $this->createForceGetUpLog($actionParameter);
+            $actionSupport->removeStatus($lyingDownStatus);
+            $this->createForceGetUpLog($actionSupport);
         }
 
         if ($action->getActionName() === ActionEnum::MOVE) {

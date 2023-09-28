@@ -42,9 +42,9 @@ class PlayDynarcade extends AttemptAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $support instanceof GameEquipment;
     }
 
     protected function applyEffect(ActionResult $result): void

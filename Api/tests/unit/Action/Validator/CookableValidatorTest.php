@@ -49,7 +49,7 @@ class CookableValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getSupport' => $target,
             ])
         ;
 
@@ -79,7 +79,7 @@ class CookableValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getSupport' => $target,
             ])
         ;
 

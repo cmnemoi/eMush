@@ -66,7 +66,7 @@ class ReachValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getParameter' => $target,
+                'getSupport' => $target,
             ])
         ;
 
@@ -93,7 +93,7 @@ class ReachValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getParameter' => $target,
+                'getSupport' => $target,
             ])
         ;
 
@@ -129,7 +129,7 @@ class ReachValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getParameter' => $target,
+                'getSupport' => $target,
             ])
         ;
 
@@ -155,7 +155,7 @@ class ReachValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getParameter' => $target,
+                'getSupport' => $target,
             ])
         ;
 
@@ -183,7 +183,7 @@ class ReachValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getParameter' => $gameItem,
+                'getSupport' => $gameItem,
             ])
         ;
 
@@ -205,7 +205,7 @@ class ReachValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getParameter' => $gameItem,
+                'getSupport' => $gameItem,
             ])
         ;
 
@@ -230,7 +230,7 @@ class ReachValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getParameter' => $gameItem,
+                'getSupport' => $gameItem,
             ])
         ;
 
@@ -255,7 +255,7 @@ class ReachValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getParameter' => $gameItem,
+                'getSupport' => $gameItem,
             ])
         ;
 

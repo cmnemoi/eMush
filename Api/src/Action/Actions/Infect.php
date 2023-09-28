@@ -46,9 +46,9 @@ class Infect extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof Player;
+        return $support instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -84,11 +84,11 @@ class Infect extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $parameter */
-        $parameter = $this->parameter;
+        /** @var Player $support */
+        $support = $this->support;
 
         $playerModifierEvent = new PlayerVariableEvent(
-            $parameter,
+            $support,
             PlayerVariableEnum::SPORE,
             1,
             $this->getAction()->getActionTags(),

@@ -8,14 +8,14 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 
 interface ActionServiceInterface
 {
-    public function applyCostToPlayer(Player $player, Action $action, ?LogParameterInterface $parameter): Player;
+    public function applyCostToPlayer(Player $player, Action $action, ?LogParameterInterface $actionSupport): Player;
 
     public function getActionModifiedActionVariable(
         Player $player,
         Action $action,
-        ?LogParameterInterface $parameter,
+        ?LogParameterInterface $actionSupport,
         string $variableName
     ): int;
 
-    public function playerCanAffordPoints(Player $player, Action $action, ?LogParameterInterface $parameter): bool;
+    public function playerCanAffordPoints(Player $player, Action $action, ?LogParameterInterface $actionSupport): bool;
 }

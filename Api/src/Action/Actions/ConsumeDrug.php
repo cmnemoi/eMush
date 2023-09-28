@@ -14,9 +14,9 @@ class ConsumeDrug extends Consume
 {
     protected string $name = ActionEnum::CONSUME_DRUG;
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameItem;
+        return $support instanceof GameItem;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

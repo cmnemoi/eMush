@@ -48,7 +48,7 @@ class ActionStrategyService implements ActionStrategyServiceInterface
         return $this->actions[$actionName];
     }
 
-    public function executeAction(Player $player, int $actionId, ?array $params): ActionResult
+    public function executeAction(Player $player, int $actionId, array $params): ActionResult
     {
         /** @var Action $action */
         $action = $this->entityManager->getRepository(Action::class)->find($actionId);
@@ -63,26 +63,27 @@ class ActionStrategyService implements ActionStrategyServiceInterface
             return new Error('Action do not exist');
         }
 
-        $actionService->loadParameters($action, $player, $this->loadParameter($params));
+        $actionSupport = $this->loadActionSupport($params['actionSupport']);
+        $actionService->loadParameters($action, $player, $actionSupport, $params);
 
         return $actionService->execute();
     }
 
-    private function loadParameter(?array $parameter): ?LogParameterInterface
+    private function loadActionSupport(?array $actionSupport): ?LogParameterInterface
     {
-        if ($parameter !== null) {
-            if (($equipmentId = $parameter['door'] ?? null)
-                || ($equipmentId = $parameter['item'] ?? null)
-                || ($equipmentId = $parameter['equipment'] ?? null)
+        if ($actionSupport !== null) {
+            if (($equipmentId = $actionSupport['door'] ?? null)
+                || ($equipmentId = $actionSupport['item'] ?? null)
+                || ($equipmentId = $actionSupport['equipment'] ?? null)
             ) {
                 return $this->equipmentService->findById($equipmentId);
             }
 
-            if ($playerId = $parameter['player'] ?? null) {
+            if ($playerId = $actionSupport['player'] ?? null) {
                 return $this->playerService->findById($playerId);
             }
 
-            if ($hunterId = $parameter['hunter'] ?? null) {
+            if ($hunterId = $actionSupport['hunter'] ?? null) {
                 return $this->hunterService->findById($hunterId);
             }
         }

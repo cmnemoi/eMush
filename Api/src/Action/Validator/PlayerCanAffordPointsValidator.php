@@ -27,7 +27,7 @@ class PlayerCanAffordPointsValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, PlayerCanAffordPoints::class);
         }
 
-        if (!$this->actionService->playerCanAffordPoints($value->getPlayer(), $value->getAction(), $value->getParameter())) {
+        if (!$this->actionService->playerCanAffordPoints($value->getPlayer(), $value->getAction(), $value->getSupport())) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

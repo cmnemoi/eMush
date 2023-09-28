@@ -57,9 +57,9 @@ class ScrewTalkie extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof Player;
+        return $support instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -91,11 +91,11 @@ class ScrewTalkie extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $parameter */
-        $parameter = $this->parameter;
+        /** @var Player $support */
+        $support = $this->support;
 
         /** @var GameItem $talkie */
-        $talkie = $parameter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::WALKIE_TALKIE
+        $talkie = $support->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::WALKIE_TALKIE
             || $item->getName() === ItemEnum::ITRACKIE
         )->first();
 
@@ -113,7 +113,7 @@ class ScrewTalkie extends AbstractAction
             $this->player,
             $this->getAction()->getActionTags(),
             new \DateTime(),
-            $parameter
+            $support
         );
     }
 }

@@ -20,12 +20,12 @@ class MechanicValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Mechanic::class);
         }
 
-        $parameter = $value->getParameter();
-        if (!$parameter instanceof GameEquipment) {
-            throw new UnexpectedTypeException($parameter, GameEquipment::class);
+        $actionSupport = $value->getSupport();
+        if (!$actionSupport instanceof GameEquipment) {
+            throw new UnexpectedTypeException($actionSupport, GameEquipment::class);
         }
 
-        if ($parameter->getEquipment()->getMechanicByName($constraint->mechanic) === null) {
+        if ($actionSupport->getEquipment()->getMechanicByName($constraint->mechanic) === null) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

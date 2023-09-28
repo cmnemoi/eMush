@@ -23,7 +23,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class Extinguish extends AttemptAction
 {
     protected string $name = ActionEnum::EXTINGUISH;
-
     private StatusServiceInterface $statusService;
 
     public function __construct(
@@ -43,9 +42,9 @@ class Extinguish extends AttemptAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $support instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

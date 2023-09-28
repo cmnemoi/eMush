@@ -30,7 +30,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class Gag extends AbstractAction
 {
     protected string $name = ActionEnum::GAG;
-
     protected StatusServiceInterface $statusService;
 
     public function __construct(
@@ -44,9 +43,9 @@ class Gag extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof Player;
+        return $support instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -75,12 +74,12 @@ class Gag extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $parameter */
-        $parameter = $this->parameter;
+        /** @var Player $support */
+        $support = $this->support;
 
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::GAGGED,
-            $parameter,
+            $support,
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );

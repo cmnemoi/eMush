@@ -52,9 +52,9 @@ class OpenCapsule extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $support instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -69,13 +69,13 @@ class OpenCapsule extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $parameter */
-        $parameter = $this->parameter;
+        /** @var GameEquipment $support */
+        $support = $this->support;
         $time = new \DateTime();
 
         // remove the space capsule
         $equipmentEvent = new InteractWithEquipmentEvent(
-            $parameter,
+            $support,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getAction()->getActionTags(),

@@ -25,9 +25,9 @@ class UseBandage extends AbstractAction
 
     protected string $name = ActionEnum::USE_BANDAGE;
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $support instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -52,8 +52,8 @@ class UseBandage extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $parameter */
-        $parameter = $this->parameter;
+        /** @var GameEquipment $support */
+        $support = $this->support;
         $time = new \DateTime();
 
         $playerModifierEvent = new PlayerVariableEvent(
@@ -68,7 +68,7 @@ class UseBandage extends AbstractAction
 
         // destroy the bandage
         $equipmentEvent = new InteractWithEquipmentEvent(
-            $parameter,
+            $support,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getAction()->getActionTags(),

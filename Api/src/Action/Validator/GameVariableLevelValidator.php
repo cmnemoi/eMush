@@ -41,7 +41,7 @@ class GameVariableLevelValidator extends ConstraintValidator
                 break;
             case GameVariableLevel::TARGET_PLAYER:
                 /** @var Player $targetPlayer */
-                $targetPlayer = $value->getParameter();
+                $targetPlayer = $value->getSupport();
                 $targetVariables = $targetPlayer->getGameVariables();
                 break;
             default:

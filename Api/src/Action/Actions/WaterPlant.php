@@ -36,9 +36,9 @@ class WaterPlant extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $support, array $parameters): bool
     {
-        return $parameter instanceof GameItem;
+        return $support instanceof GameItem;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -54,16 +54,16 @@ class WaterPlant extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
-        $parameter = $this->parameter;
+        /** @var GameItem $support */
+        $support = $this->support;
 
         /** @var Status $status */
-        $status = ($parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)
-            ?? $parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRY));
+        $status = ($support->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)
+            ?? $support->getStatusByName(EquipmentStatusEnum::PLANT_DRY));
 
         $this->statusService->removeStatus(
             $status->getName(),
-            $parameter,
+            $support,
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );

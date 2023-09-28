@@ -26,7 +26,7 @@ class HasDiseasesValidator extends ConstraintValidator
 
         /** @var Player $target */
         $target = match ($constraint->target) {
-            HasDiseases::PARAMETER => $value->getParameter(),
+            HasDiseases::PARAMETER => $value->getSupport(),
             HasDiseases::PLAYER => $value->getPlayer(),
             default => throw new LogicException('unsupported target'),
         };

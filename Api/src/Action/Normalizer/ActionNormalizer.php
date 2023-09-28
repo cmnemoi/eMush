@@ -57,17 +57,19 @@ class ActionNormalizer implements NormalizerInterface
 
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        $parameter = $this->loadParameters($context);
+        $parameters = $this->loadParameters($context);
+        /** @var ?LogParameterInterface $actionSupport */
+        $actionSupport = $parameters['actionSupport'];
 
-        $actionClass->loadParameters($object, $currentPlayer, $parameter);
+        $actionClass->loadParameters($object, $currentPlayer, $actionSupport, $parameters);
 
         // translation parameters
         $translationParameters = [$currentPlayer->getLogKey() => $currentPlayer->getLogName()];
         if ($actionName === ActionEnum::EXTRACT_SPORE) {
             $translationParameters['quantity'] = $currentPlayer->getDaedalus()->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();
         }
-        if ($parameter instanceof Player) {
-            $translationParameters['target.' . $parameter->getLogKey()] = $parameter->getLogName();
+        if ($actionSupport instanceof Player) {
+            $translationParameters['target.' . $actionSupport->getLogKey()] = $actionSupport->getLogName();
         }
 
         if ($actionClass->isVisible()) {
@@ -83,19 +85,19 @@ class ActionNormalizer implements NormalizerInterface
                 'actionPointCost' => $this->actionService->getActionModifiedActionVariable(
                     $currentPlayer,
                     $object,
-                    $parameter,
+                    $actionSupport,
                     PlayerVariableEnum::ACTION_POINT,
                 ),
                 'movementPointCost' => $this->actionService->getActionModifiedActionVariable(
                     $currentPlayer,
                     $object,
-                    $parameter,
+                    $actionSupport,
                     PlayerVariableEnum::MOVEMENT_POINT,
                 ),
                 'moralPointCost' => $this->actionService->getActionModifiedActionVariable(
                     $currentPlayer,
                     $object,
-                    $parameter,
+                    $actionSupport,
                     PlayerVariableEnum::MORAL_POINT,
                 ),
                 ];
@@ -132,26 +134,29 @@ class ActionNormalizer implements NormalizerInterface
         return [];
     }
 
-    private function loadParameters(array $context): ?LogParameterInterface
+    private function loadParameters(array $context): array
     {
-        $parameter = null;
+        $parameters = [];
+        $actionSupport = null;
         if (array_key_exists('player', $context)) {
-            $parameter = $context['player'];
+            $actionSupport = $context['player'];
         }
         if (array_key_exists('door', $context)) {
-            $parameter = $context['door'];
+            $actionSupport = $context['door'];
         }
         if (array_key_exists('item', $context)) {
-            $parameter = $context['item'];
+            $actionSupport = $context['item'];
         }
         if (array_key_exists('equipment', $context)) {
-            $parameter = $context['equipment'];
+            $actionSupport = $context['equipment'];
         }
         if (array_key_exists('hunter', $context)) {
-            $parameter = $context['hunter'];
+            $actionSupport = $context['hunter'];
         }
 
-        return $parameter;
+        $parameters['actionSupport'] = $actionSupport;
+
+        return $parameters;
     }
 
     private function getTypesDescriptions(string $description, array $types, string $language = null): string

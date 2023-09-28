@@ -48,7 +48,7 @@ class ParameterNameValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $gameItem,
+                'getSupport' => $gameItem,
             ])
         ;
 
@@ -71,7 +71,7 @@ class ParameterNameValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $gameItem,
+                'getSupport' => $gameItem,
             ])
         ;
 

@@ -55,7 +55,7 @@ class ChargedValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getSupport' => $target,
             ])
         ;
         $action
@@ -81,7 +81,7 @@ class ChargedValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getSupport' => $target,
             ])
         ;
         $action

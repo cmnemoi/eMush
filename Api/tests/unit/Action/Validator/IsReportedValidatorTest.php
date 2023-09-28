@@ -78,7 +78,7 @@ class IsReportedValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getParameter' => null,
+                'getSupport' => null,
             ])
         ;
 
@@ -124,7 +124,7 @@ class IsReportedValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getParameter' => null,
+                'getSupport' => null,
             ])
         ;
 
@@ -168,7 +168,7 @@ class IsReportedValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getParameter' => $gameEquipment,
+                'getSupport' => $gameEquipment,
             ])
         ;
 
@@ -215,7 +215,7 @@ class IsReportedValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getParameter' => $gameEquipment,
+                'getSupport' => $gameEquipment,
             ])
         ;
 

@@ -80,6 +80,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $dailyActionPointsSpent = 0;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $orientation = null;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -468,6 +471,18 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function addDailyActionPointsSpent(int $dailyActionPointsSpent): static
     {
         $this->dailyActionPointsSpent += $dailyActionPointsSpent;
+
+        return $this;
+    }
+
+    public function getOrientation(): ?string
+    {
+        return $this->orientation;
+    }
+
+    public function setOrientation(string $orientation): static
+    {
+        $this->orientation = $orientation;
 
         return $this;
     }

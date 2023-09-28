@@ -329,7 +329,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions([$repair12, $examineAction])
+            ->setActions([$examineAction])
             ->setMechanics([$patrolShipMechanic, $patrolShipWeapon])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -380,7 +380,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions([$repair12, $examineAction])
+            ->setActions([$examineAction])
             ->setMechanics([$pasiphaeMechanic])
             ->setInitStatuses([$pasiphaeArmor])
             ->buildName(GameConfigEnum::DEFAULT)

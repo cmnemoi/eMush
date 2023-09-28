@@ -2864,7 +2864,6 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
-                'repair_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2882,7 +2881,6 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
-                'repair_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2900,7 +2898,6 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
-                'repair_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2918,7 +2915,6 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
-                'repair_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2936,7 +2932,6 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
-                'repair_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2954,7 +2949,6 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
-                'repair_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2972,7 +2966,6 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
-                'repair_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2990,7 +2983,6 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
-                'repair_percent_12',
                 'examine',
                 'report_equipment',
                 ActionEnum::TAKEOFF,

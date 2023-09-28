@@ -35,22 +35,22 @@
         <target>{version, select,
             1 {**{character}** devoured their small meal, burp.}
             2 {**{character}** devoured their big meal.}
-            3 {**{character}** devoured their nice little meal.} 
+            3 {**{character}** devoured their nice little meal.}
             4 {**{character}** ate their nice little meal, hic.}
-            5 {**{character}** ate their big meal.} 
-            6 {**{character}** ate their little snack.} 
-            7 {**{character}** has filled their belly.} 
+            5 {**{character}** ate their big meal.}
+            6 {**{character}** ate their little snack.}
+            7 {**{character}** has filled their belly.}
             8 {**{character}** has filled their belly, burp.}
-            9 {**{character}** has filled their paunch.}  
-            10 {**{character}** has filled their paunch, burp.} 
+            9 {**{character}** has filled their paunch.}
+            10 {**{character}** has filled their paunch, burp.}
             11 {**{character}** has filled their stomach.}
             12 {**{character}** has filled their stomach, burp.}
             13 {**{character}** has filled their stomach, hic.}
-            14 {**{character}** has devoured their ration.} 
-            15 {**{character}** munched their little snack.} 
+            14 {**{character}** has devoured their ration.}
+            15 {**{character}** munched their little snack.}
             16 {**{character}** munched their little snack, burp.}
             17 {**{character}** munched their little snack, hic.}
-            18 {**{character}** munched their small meal, burp.} 
+            18 {**{character}** munched their small meal, burp.}
             other {**{character}** munched their small meal, hic.}
         }</target>
       </segment>
@@ -487,10 +487,10 @@
     <unit id="public_broadcast">
       <segment id="public_broadcast" state="final">
         <source>public_broadcast</source>
-        <target>Everyone looks focused on the small screen. 
-Blouzorg appears on the screen, he looks proud and you can't understand anything he says. 
-But it doesn't matter! [...] You applaud when Blouzorg beats his mother-in-law [...]. 
-Who would have thought that Blouzorg and his space dog could danse the jerk! [...] 
+        <target>Everyone looks focused on the small screen.
+Blouzorg appears on the screen, he looks proud and you can't understand anything he says.
+But it doesn't matter! [...] You applaud when Blouzorg beats his mother-in-law [...].
+Who would have thought that Blouzorg and his space dog could danse the jerk! [...]
 Will Blouzorg marry Blourka? [...] The lights go out. These alien series are really incredible...</target>
       </segment>
     </unit>
@@ -656,7 +656,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       <segment id="attack_critical_fail" state="translated">
         <source>attack_critical_fail</source>
         <target>{version, select,
-    1 {**{character}** missed their target by a good distance and the clash against a nearby wall made them bite their tongue...} 
+    1 {**{character}** missed their target by a good distance and the clash against a nearby wall made them bite their tongue...}
     2 {In their great impressive movement, **{character}** snaps a back muscle. Too bad.}
     other {In their great impressive movement, **{character}** snaps a back muscle. Too bad.}
 }</target>
@@ -812,6 +812,12 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     female {**{character}** ejected from one-seater.}
     other {**{character}** ejected from one-seater.}
 }</target>
+      </segment>
+    </unit>
+    <unit id="check_fuel_chamber_level_success">
+      <segment id="check_fuel_chamber_level_success" state="translated">
+        <source>check_fuel_chamber_level_success</source>
+        <target>You wipe the crap off the dial to read the contents of the chamber : {quantity}.</target>
       </segment>
     </unit>
   </file>

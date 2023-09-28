@@ -855,7 +855,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="final">
         <source>renovate.description</source>
-        <target>Remettre à neuf un patrouilleur peut changer le cours des batailles futures. 
+        <target>Remettre à neuf un patrouilleur peut changer le cours des batailles futures.
         //
         Nécessite un Débris Métallique.</target>
       </segment>
@@ -867,7 +867,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="final">
         <source>auto_eject.description</source>
-        <target>Vous avez perdu cette bataille, mais pas la guerre ! 
+        <target>Vous avez perdu cette bataille, mais pas la guerre !
         //
         Ou bien, vous avez simplement envie de prendre l'air... ou pas.</target>
       </segment>
@@ -890,6 +890,16 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="final">
         <source>retrieve_fuel_chamber.description</source>
         <target>Permet de récupérer une Capsule du moteur.</target>
+      </segment>
+    </unit>
+    <unit id="check_fuel_chamber_level">
+      <segment id="name" state="final">
+        <source>check_fuel_chamber_level.name</source>
+        <target>Vérifier</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>check_fuel_chamber_level.description</source>
+        <target>Vérifier quelle quantité de Fuel est disponible dans la chambre.</target>
       </segment>
     </unit>
     <unit id="hack">

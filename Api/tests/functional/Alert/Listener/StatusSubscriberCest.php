@@ -25,6 +25,8 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Tests\FunctionalTester;
@@ -78,8 +80,9 @@ class StatusSubscriberCest
 
         $I->haveInRepository($gravitySimulator);
 
+        $brokenConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
         $statusEvent = new StatusEvent(
-            EquipmentStatusEnum::BROKEN,
+            new Status($gravitySimulator, $brokenConfig),
             $gravitySimulator,
             [ActionEnum::SABOTAGE],
             new \DateTime()
@@ -147,8 +150,9 @@ class StatusSubscriberCest
 
         $I->haveInRepository($alertBroken);
 
+        $brokenConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
         $statusEvent = new StatusEvent(
-            EquipmentStatusEnum::BROKEN,
+            new Status($gravitySimulator, $brokenConfig),
             $gravitySimulator,
             [ActionEnum::REPAIR],
             new \DateTime()
@@ -198,8 +202,9 @@ class StatusSubscriberCest
 
         $I->haveInRepository($gameEquipment);
 
+        $brokenConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
         $statusEvent = new StatusEvent(
-            EquipmentStatusEnum::BROKEN,
+            new Status($gameEquipment, $brokenConfig),
             $gameEquipment,
             [RoomEventEnum::CYCLE_FIRE],
             new \DateTime()
@@ -252,8 +257,9 @@ class StatusSubscriberCest
 
         $I->haveInRepository($gameEquipment);
 
+        $brokenConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
         $statusEvent = new StatusEvent(
-            EquipmentStatusEnum::BROKEN,
+            new Status($gameEquipment, $brokenConfig),
             $gameEquipment,
             [EventEnum::NEW_CYCLE],
             new \DateTime()
@@ -319,8 +325,9 @@ class StatusSubscriberCest
 
         $I->haveInRepository($alertBroken);
 
+        $brokenConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
         $statusEvent = new StatusEvent(
-            EquipmentStatusEnum::BROKEN,
+            new Status($gravitySimulator, $brokenConfig),
             $gravitySimulator,
             [ActionEnum::REPAIR],
             new \DateTime()
@@ -370,8 +377,9 @@ class StatusSubscriberCest
 
         $I->haveInRepository($gameItem);
 
+        $brokenConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
         $statusEvent = new StatusEvent(
-            EquipmentStatusEnum::BROKEN,
+            new Status($gameItem, $brokenConfig),
             $gameItem,
             [RoomEventEnum::CYCLE_FIRE],
             new \DateTime()

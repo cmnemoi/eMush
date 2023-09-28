@@ -16,11 +16,15 @@ use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 
 class ExpressCookActionTest extends AbstractActionTest
 {
     /* @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+
+    /* @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
      * @before
@@ -30,6 +34,7 @@ class ExpressCookActionTest extends AbstractActionTest
         parent::before();
 
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::EXPRESS_COOK);
 
@@ -37,7 +42,8 @@ class ExpressCookActionTest extends AbstractActionTest
             $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService
+            $this->gameEquipmentService,
+            $this->statusService,
         );
     }
 
@@ -79,7 +85,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('removeStatus')->once();
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->never();
 
         $result = $this->action->execute();

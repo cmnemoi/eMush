@@ -3,6 +3,7 @@
 namespace Mush\Tests\unit\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mockery;
 use Mush\Action\Actions\WaterPlant;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -14,9 +15,13 @@ use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 
 class WaterPlantActionTest extends AbstractActionTest
 {
+    /* @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface|Mockery\Mock $statusService;
+
     /**
      * @before
      */
@@ -25,11 +30,13 @@ class WaterPlantActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::WATER_PLANT, 1);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new WaterPlant(
             $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->statusService
         );
     }
 
@@ -67,7 +74,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('removeStatus')->once();
 
         $result = $this->action->execute();
 
@@ -101,7 +108,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $thirsty = new Status($gameItem, $statusConfig);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('removeStatus')->once();
 
         $result = $this->action->execute();
 

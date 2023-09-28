@@ -78,8 +78,13 @@ class WashInSink extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        if ($dirty = $this->player->getStatusByName(PlayerStatusEnum::DIRTY)) {
-            $this->player->removeStatus($dirty);
+        if ($this->player->getStatusByName(PlayerStatusEnum::DIRTY)) {
+            $this->statusService->removeStatus(
+                PlayerStatusEnum::DIRTY,
+                $this->player,
+                $this->getAction()->getActionTags(),
+                new \DateTime(),
+            );
         }
 
         $this->statusService->createStatusFromName(

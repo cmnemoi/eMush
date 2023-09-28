@@ -32,14 +32,9 @@ use PHPUnit\Framework\TestCase;
 
 class StatusServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface|Mockery\Mock */
-    private EntityManagerInterface $entityManager;
-
-    /** @var EventServiceInterface|Mockery\Mock */
-    protected EventServiceInterface $eventService;
-
-    /** @var StatusRepository|Mockery\Mock */
-    private StatusRepository $repository;
+    private Mockery\Mock|EntityManagerInterface $entityManager;
+    protected Mockery\Mock|EventServiceInterface $eventService;
+    private Mockery\Mock|StatusRepository $repository;
 
     private StatusService $service;
 
@@ -130,6 +125,8 @@ class StatusServiceTest extends TestCase
         $place = new Place();
         $place->setDaedalus(new Daedalus());
         $gameEquipment = new GameItem($place);
+        $gameEquipment->setName('equipment');
+
         $chargeStatusConfig = new ChargeStatusConfig();
         $chargeStatusConfig
             ->setMaxCharge(6)
@@ -161,8 +158,8 @@ class StatusServiceTest extends TestCase
 
         $chargeStatusConfig->setAutoRemove(true);
 
-        $this->entityManager->shouldReceive('remove')->never();
-        $this->entityManager->shouldReceive('flush')->never();
+        $this->entityManager->shouldReceive('remove')->once();
+        $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->service->updateCharge($chargeStatus, -7, [], $time);
 

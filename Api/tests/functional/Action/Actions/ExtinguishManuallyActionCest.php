@@ -19,7 +19,6 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -28,20 +27,21 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class ExtinguishManuallyActionCest
 {
     private ExtinguishManually $extinguishManually;
-    private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
     private Action $action;
 
     public function _before(FunctionalTester $I)
     {
         $this->extinguishManually = $I->grabService(ExtinguishManually::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->action = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::EXTINGUISH_MANUALLY]);
         $this->action->setSuccessRate(101);
     }
@@ -78,9 +78,7 @@ class ExtinguishManuallyActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $statusEvent = new StatusEvent(StatusEnum::FIRE, $room, [EventEnum::NEW_CYCLE], new \DateTime());
-
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->statusService->createStatusFromName(StatusEnum::FIRE, $room, [EventEnum::NEW_CYCLE], new \DateTime());
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);

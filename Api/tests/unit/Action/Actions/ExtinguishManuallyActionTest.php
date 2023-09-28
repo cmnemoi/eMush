@@ -13,9 +13,14 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
+use Mush\Status\Service\StatusServiceInterface;
 
 class ExtinguishManuallyActionTest extends AbstractActionTest
 {
+    /* @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface|Mockery\Mock $statusService;
+
+    /* @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
 
     /**
@@ -28,12 +33,14 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPAIR, 1);
 
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new ExtinguishManually(
             $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
+            $this->statusService
         );
     }
 
@@ -99,7 +106,7 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
         ;
         $this->randomService->shouldReceive('isSuccessful')->with(10)->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->with(0)->andReturn(false)->once();
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('removeStatus')->once();
 
         // Success
         $result = $this->action->execute();

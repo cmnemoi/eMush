@@ -30,8 +30,7 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -44,8 +43,11 @@ class DaedalusIncidentServiceTest extends TestCase
     private EventServiceInterface $eventService;
     /** @var GameEquipmentRepository|Mockery\Mock */
     private GameEquipmentRepository $gameEquipmentRepository;
-    /** @var LoggerInterface|Mocker\Mock */
+    /** @var LoggerInterface|Mockery\Mock */
     private LoggerInterface $logger;
+
+    /** @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface $statusService;
 
     private DaedalusIncidentServiceInterface $service;
 
@@ -58,12 +60,14 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->gameEquipmentRepository = \Mockery::mock(GameEquipmentRepository::class);
         $this->logger = \Mockery::mock(LoggerInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new DaedalusIncidentService(
             $this->randomService,
             $this->eventService,
             $this->gameEquipmentRepository,
-            $this->logger
+            $this->logger,
+            $this->statusService,
         );
     }
 
@@ -95,15 +99,7 @@ class DaedalusIncidentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (StatusEvent $event) => (
-                $event->getStatusHolder() === $room1
-                && in_array(EventEnum::NEW_CYCLE, $event->getTags())
-                && $event->getStatusName() === StatusEnum::FIRE
-            ))
-            ->once()
-        ;
+        $this->statusService->shouldReceive('createStatusFromName')->once();
 
         $fires = $this->service->handleFireEvents(new Daedalus(), new \DateTime());
 
@@ -217,13 +213,7 @@ class DaedalusIncidentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (StatusEvent $event) => (
-                $event->getStatusHolder() === $equipment
-                && $event->getStatusName() === EquipmentStatusEnum::BROKEN))
-            ->once()
-        ;
+        $this->statusService->shouldReceive('createStatusFromName')->once();
 
         $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
@@ -265,13 +255,7 @@ class DaedalusIncidentServiceTest extends TestCase
             ->never()
         ;
 
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (StatusEvent $event) => (
-                $event->getStatusHolder() === $equipment
-                && $event->getStatusName() === EquipmentStatusEnum::BROKEN))
-            ->never()
-        ;
+        $this->statusService->shouldReceive('createStatusFromName')->never();
 
         $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
@@ -322,13 +306,7 @@ class DaedalusIncidentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (StatusEvent $event) => (
-                $event->getStatusHolder() === $equipment
-                && $event->getStatusName() === EquipmentStatusEnum::BROKEN))
-            ->once()
-        ;
+        $this->statusService->shouldReceive('createStatusFromName')->once();
 
         $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
@@ -364,13 +342,7 @@ class DaedalusIncidentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (StatusEvent $event) => (
-                $event->getStatusHolder() === $door
-                && $event->getStatusName() === EquipmentStatusEnum::BROKEN))
-            ->once()
-        ;
+        $this->statusService->shouldReceive('createStatusFromName')->once();
 
         $broken = $this->service->handleDoorBreak(new Daedalus(), new \DateTime());
 

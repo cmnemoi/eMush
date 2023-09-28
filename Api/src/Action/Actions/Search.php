@@ -99,8 +99,6 @@ class Search extends AbstractAction
         /** @var Status $hiddenStatus */
         $hiddenStatus = $hiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN);
 
-        $hiddenBy = $hiddenStatus->getTarget();
-
         $this->statusService->removeStatus(
             EquipmentStatusEnum::HIDDEN,
             $hiddenItem,

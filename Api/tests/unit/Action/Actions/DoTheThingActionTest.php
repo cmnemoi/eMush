@@ -15,6 +15,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 
 class DoTheThingActionTest extends AbstractActionTest
@@ -30,6 +31,9 @@ class DoTheThingActionTest extends AbstractActionTest
     /* @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface|Mockery\Mock $roomLogService;
 
+    /* @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface|Mockery\Mock $statusService;
+
     /**
      * @before
      */
@@ -43,6 +47,7 @@ class DoTheThingActionTest extends AbstractActionTest
         $this->playerDiseaseService = \Mockery::mock(PlayerDiseaseServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new DoTheThing(
             $this->eventService,
@@ -52,6 +57,7 @@ class DoTheThingActionTest extends AbstractActionTest
             $this->playerDiseaseService,
             $this->randomService,
             $this->roomLogService,
+            $this->statusService
         );
     }
 
@@ -79,7 +85,8 @@ class DoTheThingActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->times(4);
+        $this->eventService->shouldReceive('callEvent')->twice();
+        $this->statusService->shouldReceive('createStatusFromName')->twice();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false);
 
         $result = $this->action->execute();

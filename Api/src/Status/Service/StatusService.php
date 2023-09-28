@@ -89,7 +89,12 @@ class StatusService implements StatusServiceInterface
             $status->getTarget()
         );
         $statusEvent->setVisibility($visibility);
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
+        $events = $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
+
+        // If the event has been prevented, do not delete the event
+        if ($events->getInitialEvent() === null) {
+            return;
+        }
 
         // If a talkie or itrackie is repaired, check if it was screwed.
         $this->handleScrewedTalkie($statusName, $holder, $tags, $time);
@@ -159,6 +164,13 @@ class StatusService implements StatusServiceInterface
             $time,
             $target
         );
+        $statusEvent->setVisibility($visibility);
+
+        // Check if the event is prevented by a modifier
+        if ($this->eventService->computeEventModifications($statusEvent, StatusEvent::STATUS_APPLIED) === null) {
+            $this->delete($status);
+        }
+
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         // handle side effects

@@ -14,16 +14,15 @@ use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
 class ConsumeFrozenFoodCest extends AbstractFunctionalTest
 {
     private Consume $consumeAction;
-    private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
     private Action $action;
 
     public function _before(FunctionalTester $I)
@@ -36,7 +35,7 @@ class ConsumeFrozenFoodCest extends AbstractFunctionalTest
         $I->refreshEntities($this->action);
 
         $this->consumeAction = $I->grabService(Consume::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testHitSuccess(FunctionalTester $I)
@@ -83,13 +82,12 @@ class ConsumeFrozenFoodCest extends AbstractFunctionalTest
 
         $costWithoutFrozen = $this->consumeAction->getActionPointCost();
 
-        $statusEvent = new StatusEvent(
+        $this->statusService->createStatusFromName(
             EquipmentStatusEnum::FROZEN,
             $gameItem,
             [],
             new \DateTime()
         );
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertCount(1, $gameItem->getStatuses());
         $I->assertCount(1, $gameItem->getModifiers());

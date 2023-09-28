@@ -19,13 +19,14 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
 class CycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
@@ -34,12 +35,12 @@ class CycleEventCest extends AbstractFunctionalTest
         $this->createExtraPlace(RoomEnum::ALPHA_BAY, $I, $this->daedalus);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testLieDownStatus(FunctionalTester $I)
     {
-        $event = new StatusEvent(PlayerStatusEnum::LYING_DOWN, $this->player1, [], new \DateTime());
-        $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
+        $this->statusService->createStatusFromName(PlayerStatusEnum::LYING_DOWN, $this->player1, [], new \DateTime());
 
         $actionPointBefore = $this->player1->getActionPoint();
 
@@ -54,8 +55,7 @@ class CycleEventCest extends AbstractFunctionalTest
 
     public function testAntisocialStatusCycleSubscriber(FunctionalTester $I)
     {
-        $event = new StatusEvent(PlayerStatusEnum::ANTISOCIAL, $this->player1, [], new \DateTime());
-        $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
+        $this->statusService->createStatusFromName(PlayerStatusEnum::ANTISOCIAL, $this->player1, [], new \DateTime());
 
         $moralePointBefore1 = $this->player1->getMoralPoint();
         $moralePointBefore2 = $this->player2->getMoralPoint();
@@ -80,8 +80,7 @@ class CycleEventCest extends AbstractFunctionalTest
 
     public function testFitfullSleepCycleSubscriber(FunctionalTester $I)
     {
-        $event = new StatusEvent(PlayerStatusEnum::LYING_DOWN, $this->player1, [], new \DateTime());
-        $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
+        $this->statusService->createStatusFromName(PlayerStatusEnum::LYING_DOWN, $this->player1, [], new \DateTime());
 
         $actionPointBefore = $this->player1->getActionPoint();
 

@@ -15,6 +15,7 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class WashInSinkActionTest extends AbstractActionTest
 {
+    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -30,7 +31,8 @@ class WashInSinkActionTest extends AbstractActionTest
         $this->action = new WashInSink(
             $this->eventService,
             $this->actionService,
-            $this->validator
+            $this->validator,
+            $this->statusService
         );
     }
 
@@ -59,7 +61,7 @@ class WashInSinkActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $sinkEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('createStatusFromName')->once();
 
         $result = $this->action->execute();
 

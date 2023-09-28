@@ -85,11 +85,11 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         }
 
         if ($suicidalStatus && !$this->isPlayerSuicidal($playerMoralPoint)) {
-            $this->statusService->createStatusFromName(PlayerStatusEnum::SUICIDAL, $player, [EventEnum::NEW_CYCLE], $dateTime);
+            $this->statusService->removeStatus(PlayerStatusEnum::SUICIDAL, $player, [EventEnum::NEW_CYCLE], $dateTime);
         }
 
         if (!$demoralizedStatus && $this->isPlayerDemoralized($playerMoralPoint)) {
-            $this->statusService->removeStatus(PlayerStatusEnum::DEMORALIZED, $player, [EventEnum::NEW_CYCLE], $dateTime);
+            $this->statusService->createStatusFromName(PlayerStatusEnum::DEMORALIZED, $player, [EventEnum::NEW_CYCLE], $dateTime);
         }
 
         if ($demoralizedStatus && !$this->isPlayerDemoralized($playerMoralPoint)) {

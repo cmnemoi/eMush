@@ -3,6 +3,7 @@
 namespace Mush\Tests\unit\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mockery;
 use Mush\Action\Actions\Hide;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -16,11 +17,13 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
-use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 
 class HideActionTest extends AbstractActionTest
 {
+    /* @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface|Mockery\Mock $statusService;
+
     /**
      * @before
      */
@@ -30,10 +33,13 @@ class HideActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::HIDE, 1);
 
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+
         $this->action = new Hide(
             $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->statusService
         );
     }
 
@@ -71,15 +77,7 @@ class HideActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent
-                && $event->getStatusName() === EquipmentStatusEnum::HIDDEN
-                && $event->getStatusHolder() === $gameItem
-                && $event->getStatusTarget() === $player
-            )
-            ->once()
-        ;
+        $this->statusService->shouldReceive('createStatusFromName')->once();
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof InteractWithEquipmentEvent

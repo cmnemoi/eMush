@@ -119,6 +119,9 @@
             "@cs-fixer",
             "@psalm"
         ],
+        "load-data": [
+            "php bin/console mush:load-configs-data"
+        ],
         "load-fixtures": [
             "php bin/console doctrine:database:create --env=test --if-not-exists",
             "php bin/console doctrine:schema:drop --full-database --env=test -f",
@@ -128,6 +131,7 @@
         "psalm": "vendor/bin/psalm",
         "psalm:clear-cache": "vendor/bin/psalm --clear-cache",
         "reset": [
+            "@auto-scripts",
             "@load-fixtures",
             "php bin/console doctrine:database:create --if-not-exists",
             "@drop-database",
@@ -163,8 +167,14 @@
             "vendor/bin/codecept run tests/unit/Equipment",
             "vendor/bin/codecept run tests/functional/Equipment"
         ],
+        "test:fail-fast": [
+            "vendor/bin/codecept run --fail-fast"
+        ],
         "test:functional": [
             "vendor/bin/codecept run tests/functional"
+        ],
+        "test:functional:fail-fast": [
+            "vendor/bin/codecept run tests/functional --fail-fast"
         ],
         "test:game": [
             "vendor/bin/codecept run tests/unit/Game",
@@ -196,6 +206,9 @@
         ],
         "test:unit": [
             "vendor/bin/codecept run tests/unit"
+        ],
+        "test:unit:fail-fast": [
+            "vendor/bin/codecept run tests/unit --fail-fast"
         ],
         "test:user": [
             "vendor/bin/codecept run tests/unit/User",

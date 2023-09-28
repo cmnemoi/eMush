@@ -53,7 +53,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getTarget' => $target,
                 'getPlayer' => $player,
             ])
         ;
@@ -82,7 +82,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getTarget' => $target,
                 'getPlayer' => $player,
             ])
         ;
@@ -111,7 +111,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getTarget' => $target,
                 'getPlayer' => $player,
             ])
         ;
@@ -139,7 +139,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getTarget' => $target,
                 'getPlayer' => $player,
             ])
         ;

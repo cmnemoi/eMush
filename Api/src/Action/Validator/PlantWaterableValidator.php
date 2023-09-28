@@ -22,13 +22,13 @@ class PlantWaterableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, PlantWaterable::class);
         }
 
-        $parameter = $value->getParameter();
-        if (!$parameter instanceof GameItem) {
-            throw new UnexpectedTypeException($parameter, GameEquipment::class);
+        $actionTarget = $value->getTarget();
+        if (!$actionTarget instanceof GameItem) {
+            throw new UnexpectedTypeException($actionTarget, GameEquipment::class);
         }
 
-        if ($parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY) === null
-            && $parameter->getStatusByName(EquipmentStatusEnum::PLANT_DRY) === null
+        if ($actionTarget->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY) === null
+            && $actionTarget->getStatusByName(EquipmentStatusEnum::PLANT_DRY) === null
         ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();

@@ -41,9 +41,9 @@ class Hide extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof GameItem;
+        return $target instanceof GameItem;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -61,21 +61,21 @@ class Hide extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
-        $parameter = $this->parameter;
+        /** @var GameItem $target */
+        $target = $this->target;
         $time = new \DateTime();
 
         $this->statusService->createStatusFromName(
             EquipmentStatusEnum::HIDDEN,
-            $parameter,
+            $target,
             $this->getAction()->getActionTags(),
             $time,
             $this->player
         );
 
-        if ($parameter->getHolder() instanceof Player) {
+        if ($target->getHolder() instanceof Player) {
             $equipmentEvent = new MoveEquipmentEvent(
-                $parameter,
+                $target,
                 $this->player->getPlace(),
                 $this->player,
                 VisibilityEnum::HIDDEN,

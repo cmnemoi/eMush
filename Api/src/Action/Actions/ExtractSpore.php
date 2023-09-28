@@ -40,9 +40,9 @@ class ExtractSpore extends AbstractAction
         ]));
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter === null;
+        return $target === null;
     }
 
     protected function checkResult(): ActionResult

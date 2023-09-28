@@ -44,9 +44,9 @@ class MakeSick extends AbstractAction
         $this->diseaseCauseService = $diseaseCauseService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof Player;
+        return $target instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -67,12 +67,12 @@ class MakeSick extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $parameter */
-        $parameter = $this->parameter;
+        /** @var Player $target */
+        $target = $this->target;
 
         $this->diseaseCauseService->handleDiseaseForCause(
             $this->getActionName(),
-            $parameter,
+            $target,
             self::MAKE_SICK_DELAY_MIN,
             self::MAKE_SICK_DELAY_LENGTH
         );

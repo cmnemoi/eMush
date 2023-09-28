@@ -42,9 +42,9 @@ class Flirt extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof Player;
+        return $target instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -69,12 +69,12 @@ class Flirt extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $parameter */
-        $parameter = $this->parameter;
+        /** @var Player $target */
+        $target = $this->target;
 
         // @TODO add pop up to confirm flirt
 
-        $this->player->addFlirt($parameter);
+        $this->player->addFlirt($target);
 
         $this->playerService->persist($this->player);
     }

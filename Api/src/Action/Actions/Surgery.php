@@ -60,9 +60,9 @@ class Surgery extends AbstractAction
         $this->randomService = $randomService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof Player;
+        return $target instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -106,7 +106,7 @@ class Surgery extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         /** @var Player $targetPlayer */
-        $targetPlayer = $this->parameter;
+        $targetPlayer = $this->target;
         $date = new \DateTime();
 
         if ($result instanceof Fail) {
@@ -152,7 +152,7 @@ class Surgery extends AbstractAction
             $mode,
             $percentage,
             $this->player,
-            $this->parameter
+            $this->target
         );
 
         /** @var ActionVariableEvent $criticalRollEvent */

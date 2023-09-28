@@ -211,7 +211,7 @@ class HasEquipmentValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getParameter' => $player2,
+                'getTarget' => $player2,
             ])
         ;
 

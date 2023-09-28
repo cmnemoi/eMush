@@ -39,9 +39,9 @@ final class AutoEject extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

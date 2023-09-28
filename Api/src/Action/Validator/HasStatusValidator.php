@@ -26,7 +26,7 @@ class HasStatusValidator extends ConstraintValidator
         }
 
         $target = match ($constraint->target) {
-            HasStatus::PARAMETER => $value->getParameter(),
+            HasStatus::PARAMETER => $value->getTarget(),
             HasStatus::PLAYER => $value->getPlayer(),
             HasStatus::PLAYER_ROOM => $value->getPlayer()->getPlace(),
             default => throw new LogicException('unsupported target'),

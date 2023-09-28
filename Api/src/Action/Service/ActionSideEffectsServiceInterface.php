@@ -8,5 +8,5 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 
 interface ActionSideEffectsServiceInterface
 {
-    public function handleActionSideEffect(Action $action, Player $player, ?LogParameterInterface $parameter): Player;
+    public function handleActionSideEffect(Action $action, Player $player, ?LogParameterInterface $actionTarget): Player;
 }

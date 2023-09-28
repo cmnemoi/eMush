@@ -62,7 +62,7 @@ class FromSameFamilyValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getTarget' => $target,
                 'getPlayer' => $player,
             ])
         ;
@@ -96,7 +96,7 @@ class FromSameFamilyValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getTarget' => $target,
                 'getPlayer' => $player,
             ])
         ;

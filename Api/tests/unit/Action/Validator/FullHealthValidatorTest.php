@@ -62,7 +62,7 @@ class FullHealthValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $player,
+                'getTarget' => $player,
             ])
         ;
 
@@ -92,7 +92,7 @@ class FullHealthValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $player,
+                'getTarget' => $player,
             ]);
 
         $this->initValidator($this->constraint->message);

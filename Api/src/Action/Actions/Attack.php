@@ -62,9 +62,9 @@ class Attack extends AttemptAction
         $this->diseaseCauseService = $diseaseCauseService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof Player;
+        return $target instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -110,7 +110,7 @@ class Attack extends AttemptAction
     {
         $player = $this->player;
         /** @var Player $target */
-        $target = $this->parameter;
+        $target = $this->target;
 
         $knife = $this->getPlayerKnife();
 
@@ -172,7 +172,7 @@ class Attack extends AttemptAction
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             $percentage,
             $this->player,
-            $this->parameter
+            $this->target
         );
 
         /** @var ActionVariableEvent $criticalRollEvent */

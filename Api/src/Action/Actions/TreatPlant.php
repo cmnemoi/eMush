@@ -39,9 +39,9 @@ class TreatPlant extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof GameItem;
+        return $target instanceof GameItem;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -61,12 +61,12 @@ class TreatPlant extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
-        $parameter = $this->parameter;
+        /** @var GameItem $target */
+        $target = $this->target;
 
-        if ($diseasedStatus = $parameter->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED)) {
-            $parameter->removeStatus($diseasedStatus);
-            $this->gameEquipmentService->persist($parameter);
+        if ($diseasedStatus = $target->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED)) {
+            $target->removeStatus($diseasedStatus);
+            $this->gameEquipmentService->persist($target);
         }
     }
 }

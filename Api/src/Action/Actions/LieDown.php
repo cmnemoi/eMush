@@ -36,9 +36,9 @@ class LieDown extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -73,15 +73,15 @@ class LieDown extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $parameter */
-        $parameter = $this->parameter;
+        /** @var GameEquipment $target */
+        $target = $this->target;
 
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::LYING_DOWN,
             holder: $this->player,
             tags: $this->getAction()->getActionTags(),
             time: new \DateTime(),
-            target: $parameter
+            target: $target,
         );
     }
 }

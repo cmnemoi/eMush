@@ -34,7 +34,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
         $actionName = $event->getAction()->getActionName();
 
-        $target = $event->getActionParameter();
+        $target = $event->getActionTarget();
 
         switch ($actionName) {
             case ActionEnum::DROP:

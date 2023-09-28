@@ -34,9 +34,9 @@ class Heal extends AbstractAction
 
     protected string $name = ActionEnum::HEAL;
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof Player;
+        return $target instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -63,8 +63,8 @@ class Heal extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $parameter */
-        $parameter = $this->parameter;
+        /** @var Player $target */
+        $target = $this->target;
         $quantity = $result->getQuantity();
 
         if ($quantity === null) {
@@ -72,7 +72,7 @@ class Heal extends AbstractAction
         }
 
         $playerModifierEvent = new PlayerVariableEvent(
-            $parameter,
+            $target,
             PlayerVariableEnum::HEALTH_POINT,
             $quantity,
             $this->getAction()->getActionTags(),
@@ -82,7 +82,7 @@ class Heal extends AbstractAction
 
         $healEvent = new ApplyEffectEvent(
             $this->player,
-            $parameter,
+            $target,
             VisibilityEnum::PUBLIC,
             $this->getAction()->getActionTags(),
             new \DateTime(),

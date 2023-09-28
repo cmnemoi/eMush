@@ -20,12 +20,12 @@ class BreakableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Breakable::class);
         }
 
-        $parameter = $value->getParameter();
-        if (!$parameter instanceof GameEquipment) {
-            throw new UnexpectedTypeException($parameter, GameEquipment::class);
+        $actionTarget = $value->getTarget();
+        if (!$actionTarget instanceof GameEquipment) {
+            throw new UnexpectedTypeException($actionTarget, GameEquipment::class);
         }
 
-        if (!$parameter->isBreakable()) {
+        if (!$actionTarget->isBreakable()) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

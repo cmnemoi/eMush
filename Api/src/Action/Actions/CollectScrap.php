@@ -62,9 +62,9 @@ final class CollectScrap extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -132,7 +132,7 @@ final class CollectScrap extends AbstractAction
     private function damagePasiphae(PatrolShip $pasiphaeMechanic, Place $pasiphaePlace): void
     {
         /** @var GameEquipment $pasiphae */
-        $pasiphae = $this->parameter;
+        $pasiphae = $this->target;
 
         /** @var ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $pasiphae->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
@@ -180,7 +180,7 @@ final class CollectScrap extends AbstractAction
     private function getPasiphaePlace(): Place
     {
         /** @var GameEquipment $pasiphae */
-        $pasiphae = $this->parameter;
+        $pasiphae = $this->target;
         $pasiphaePlace = $this->placeService->findByNameAndDaedalus($pasiphae->getName(), $pasiphae->getDaedalus());
         if (!$pasiphaePlace) {
             throw new \RuntimeException('Daedalus should have a Pasiphae place');
@@ -192,7 +192,7 @@ final class CollectScrap extends AbstractAction
     private function getPasiphaeMechanic(): PatrolShip
     {
         /** @var GameEquipment $pasiphae */
-        $pasiphae = $this->parameter;
+        $pasiphae = $this->target;
         $pasiphaeMechanic = $pasiphae->getEquipment()->getMechanics()->filter(fn (PatrolShip $mechanic) => in_array(EquipmentMechanicEnum::PATROL_SHIP, $mechanic->getMechanics()))->first();
         if (!$pasiphaeMechanic instanceof PatrolShip) {
             throw new \RuntimeException('Pasiphae should have a PatrolShip mechanic');

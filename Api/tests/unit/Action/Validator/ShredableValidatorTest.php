@@ -50,7 +50,7 @@ class ShredableValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getTarget' => $target,
             ])
         ;
 
@@ -70,7 +70,7 @@ class ShredableValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getTarget' => $target,
             ])
         ;
 

@@ -50,7 +50,7 @@ class MechanicValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getTarget' => $target,
             ])
         ;
 
@@ -72,7 +72,7 @@ class MechanicValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
+                'getTarget' => $target,
             ])
         ;
 

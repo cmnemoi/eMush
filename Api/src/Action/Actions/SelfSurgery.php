@@ -59,9 +59,9 @@ class SelfSurgery extends AbstractAction
         $this->randomService = $randomService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -149,7 +149,7 @@ class SelfSurgery extends AbstractAction
             $mode,
             $percentage,
             $this->player,
-            $this->parameter
+            $this->target
         );
 
         /** @var ActionVariableEvent $criticalRollEvent */

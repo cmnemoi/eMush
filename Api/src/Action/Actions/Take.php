@@ -20,9 +20,9 @@ class Take extends AbstractAction
 {
     protected string $name = ActionEnum::TAKE;
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof GameItem;
+        return $target instanceof GameItem;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -38,14 +38,14 @@ class Take extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
-        $parameter = $this->parameter;
+        /** @var GameItem $target */
+        $target = $this->target;
 
         $tags = $this->getAction()->getActionTags();
-        $tags[] = $parameter->getName();
+        $tags[] = $target->getName();
 
         $equipmentEvent = new MoveEquipmentEvent(
-            $parameter,
+            $target,
             $this->player,
             $this->player,
             VisibilityEnum::HIDDEN,

@@ -10,5 +10,5 @@ interface ActionStrategyServiceInterface
 {
     public function getAction(string $actionName): ?AbstractAction;
 
-    public function executeAction(Player $player, int $actionId, ?array $params): ActionResult;
+    public function executeAction(Player $player, int $actionId, array $params): ActionResult;
 }

@@ -41,9 +41,9 @@ class Search extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter === null;
+        return $target === null;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

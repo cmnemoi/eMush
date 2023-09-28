@@ -15,14 +15,17 @@ const PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
 const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
 
 const ActionService = {
-    executeTargetAction(target: Item | Equipment | Player | Hunter | null, action: Action): Promise<AxiosResponse> {
+    executeTargetAction(target: Item | Equipment | Player | Hunter | null, action: Action, otherParams: object = {}): Promise<AxiosResponse> {
         const currentPlayer = store.getters["player/player"];
         return ApiService.post(urlJoin(PLAYER_ENDPOINT, String(currentPlayer.id),'action'), {
             action: action.id,
-            params: buildParams()
+            params: {
+                target: buildTarget(),
+                ...otherParams
+            }
         });
 
-        function buildParams(): Record<string, unknown> | undefined {
+        function buildTarget(): Record<string, unknown> | undefined | null {
             if (target instanceof Door) {
                 return { door: target.id };
             } else if (target instanceof Item) {
@@ -33,6 +36,8 @@ const ActionService = {
                 return { player: target.id };
             } else if (target instanceof Hunter) {
                 return { hunter: target.id };
+            } else {
+                return null;
             }
         }
     },

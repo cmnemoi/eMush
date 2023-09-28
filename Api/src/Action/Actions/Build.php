@@ -49,9 +49,9 @@ class Build extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment && !$parameter instanceof Door;
+        return $target instanceof GameEquipment && !$target instanceof Door;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -63,10 +63,10 @@ class Build extends AbstractAction
     public function cannotExecuteReason(): ?string
     {
         // @TODO use validator
-        /** @var GameEquipment $parameter */
-        $parameter = $this->parameter;
+        /** @var GameEquipment $target */
+        $target = $this->target;
         /** @var Blueprint $blueprintMechanic */
-        $blueprintMechanic = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
+        $blueprintMechanic = $target->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 
         // Check the availability of the ingredients
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
@@ -85,12 +85,12 @@ class Build extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $parameter */
-        $parameter = $this->parameter;
+        /** @var GameEquipment $target */
+        $target = $this->target;
         $time = new \DateTime();
 
         /** @var Blueprint $blueprintMechanic */
-        $blueprintMechanic = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
+        $blueprintMechanic = $target->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 
         // remove the used ingredients starting from the player inventory
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
@@ -118,7 +118,7 @@ class Build extends AbstractAction
         }
 
         $interactEvent = new InteractWithEquipmentEvent(
-            $parameter,
+            $target,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getAction()->getActionTags(),

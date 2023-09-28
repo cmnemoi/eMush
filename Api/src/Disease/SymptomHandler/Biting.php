@@ -3,8 +3,8 @@
 namespace Mush\Disease\SymptomHandler;
 
 use Mush\Disease\Enum\SymptomEnum;
-use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -14,11 +14,14 @@ class Biting extends AbstractSymptomHandler
 {
     protected string $name = SymptomEnum::BITING;
     private RandomServiceInterface $randomService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         RandomServiceInterface $randomService,
+        EventServiceInterface $eventService
     ) {
         $this->randomService = $randomService;
+        $this->eventService = $eventService;
     }
 
     public function applyEffects(
@@ -26,7 +29,7 @@ class Biting extends AbstractSymptomHandler
         int $priority,
         array $tags,
         \DateTime $time
-    ): EventChain {
+    ): void {
         $victims = $player->getPlace()->getPlayers()->getPlayerAlive();
         $victims->removeElement($player);
 
@@ -39,12 +42,6 @@ class Biting extends AbstractSymptomHandler
             [$this->name],
             $time
         );
-
-        $playerModifierEvent
-            ->setPriority($priority)
-            ->setEventName(VariableEventInterface::CHANGE_VARIABLE)
-        ;
-
-        return new EventChain([$playerModifierEvent]);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

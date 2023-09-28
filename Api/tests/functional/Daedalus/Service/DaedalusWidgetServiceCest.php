@@ -16,13 +16,14 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
 final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
 {
     private DaedalusWidgetService $daedalusService;
+    private StatusServiceInterface $statusService;
     private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
@@ -31,6 +32,7 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
 
         $this->daedalusService = $I->grabService(DaedalusWidgetService::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $this->daedalus->getGameConfig()]);
@@ -57,13 +59,12 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
         $I->assertEmpty($minimap[RoomEnum::LABORATORY]['broken_equipments']);
 
         // break simulator
-        $statusEvent = new StatusEvent(
+        $this->statusService->createStatusFromName(
             EquipmentStatusEnum::BROKEN,
             $gravitySimulator,
             ['test'],
             new \DateTime()
         );
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $minimap = $this->daedalusService->getMinimap($this->daedalus, $this->player1);
         $I->assertEmpty($minimap[RoomEnum::LABORATORY]['broken_equipments']);

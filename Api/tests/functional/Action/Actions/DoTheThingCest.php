@@ -25,7 +25,6 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -39,19 +38,19 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class DoTheThingCest
 {
     private DoTheThing $doTheThingAction;
-    private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testDoTheThing(FunctionalTester $I)
@@ -198,15 +197,14 @@ class DoTheThingCest
         ]);
 
         // Check if pregnancy log works
-        $pregnantStatusEvent = new StatusEvent(
+        $this->statusService->createStatusFromName(
             PlayerStatusEnum::PREGNANT,
             $player,
             $this->doTheThingAction->getAction()->getActionTags(),
-            new \DateTime()
+            new \DateTime(),
+            null,
+            VisibilityEnum::PRIVATE
         );
-        $pregnantStatusEvent->setVisibility(VisibilityEnum::PRIVATE);
-
-        $this->eventService->callEvent($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getName(),

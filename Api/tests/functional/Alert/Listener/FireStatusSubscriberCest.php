@@ -17,6 +17,8 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Tests\FunctionalTester;
@@ -59,8 +61,9 @@ class FireStatusSubscriberCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
+        $fireConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => StatusEnum::FIRE]);
         $statusEvent = new StatusEvent(
-            StatusEnum::FIRE,
+            new Status($room, $fireConfig),
             $room,
             [EventEnum::NEW_CYCLE],
             new \DateTime()
@@ -113,8 +116,9 @@ class FireStatusSubscriberCest
 
         $I->haveInRepository($alertFire);
 
+        $fireConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => StatusEnum::FIRE]);
         $statusEvent = new StatusEvent(
-            StatusEnum::FIRE,
+            new Status($room, $fireConfig),
             $room,
             [ActionEnum::EXTINGUISH],
             new \DateTime()

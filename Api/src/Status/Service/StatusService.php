@@ -9,6 +9,9 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
@@ -18,6 +21,8 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Repository\StatusRepository;
@@ -64,15 +69,62 @@ class StatusService implements StatusServiceInterface
         }
     }
 
-    public function removeStatus(string $statusName, StatusHolderInterface $holder, array $reasons, \DateTime $time): void
-    {
+    public function removeStatus(
+        string $statusName,
+        StatusHolderInterface $holder,
+        array $tags,
+        \DateTime $time,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): void {
+        $status = $holder->getStatusByName($statusName);
+        if ($status === null) {
+            return;
+        }
+
         $statusEvent = new StatusEvent(
-            $statusName,
+            $status,
             $holder,
-            $reasons,
-            $time
+            $tags,
+            $time,
+            $status->getTarget()
         );
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
+        $statusEvent->setVisibility($visibility);
+        $events = $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
+
+        // If the event has been prevented, do not delete the event
+        if ($events->getInitialEvent() === null) {
+            return;
+        }
+
+        // If a talkie or itrackie is repaired, check if it was screwed.
+        $this->handleScrewedTalkie($statusName, $holder, $tags, $time);
+
+        $this->delete($status);
+    }
+
+    private function handleScrewedTalkie(string $statusName, StatusHolderInterface $holder, array $tags, \DateTime $time): void
+    {
+        // If so, remove the screwed talkie status from the owner of the talkie and the pirate
+        if ($holder instanceof GameItem
+            && in_array($holder->getName(), [ItemEnum::ITRACKIE, ItemEnum::WALKIE_TALKIE])
+            && $statusName === EquipmentStatusEnum::BROKEN
+        ) {
+            /** @var Player $piratedPlayer */
+            $piratedPlayer = $holder->getOwner();
+
+            $screwedTalkieStatus = $this->getByTargetAndName($piratedPlayer, PlayerStatusEnum::TALKIE_SCREWED);
+            if ($screwedTalkieStatus !== null) {
+                $removeEvent = new StatusEvent(
+                    $screwedTalkieStatus,
+                    $screwedTalkieStatus->getOwner(),
+                    $tags,
+                    $time
+                );
+                $this->eventService->callEvent($removeEvent, StatusEvent::STATUS_REMOVED);
+
+                $this->delete($screwedTalkieStatus);
+            }
+        }
     }
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
@@ -89,10 +141,12 @@ class StatusService implements StatusServiceInterface
     public function createStatusFromConfig(
         StatusConfig $statusConfig,
         StatusHolderInterface $holder,
-        array $reasons,
+        array $tags,
         \DateTime $time,
-        StatusHolderInterface $target = null
+        StatusHolderInterface $target = null,
+        string $visibility = VisibilityEnum::HIDDEN
     ): Status {
+        // Create the entity
         if ($statusConfig instanceof ChargeStatusConfig) {
             $status = new ChargeStatus($holder, $statusConfig);
         } else {
@@ -102,35 +156,69 @@ class StatusService implements StatusServiceInterface
 
         $this->persist($status);
 
+        // Create and dispatch the event
         $statusEvent = new StatusEvent(
-            $statusConfig->getStatusName(),
+            $status,
             $holder,
-            $reasons,
-            $time
+            $tags,
+            $time,
+            $target
         );
-        $statusEvent->setStatusConfig($statusConfig);
+        $statusEvent->setVisibility($visibility);
+
+        // Check if the event is prevented by a modifier
+        if ($this->eventService->computeEventModifications($statusEvent, StatusEvent::STATUS_APPLIED) === null) {
+            $this->delete($status);
+        }
+
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+
+        // handle side effects
+        $this->resetElectricCharges($statusConfig->getStatusName(), $holder, $tags, $time);
 
         return $status;
     }
 
+    private function resetElectricCharges(
+        string $statusName,
+        StatusHolderInterface $statusHolder,
+        array $tags,
+        \DateTime $time
+    ): void {
+        if ($statusName === EquipmentStatusEnum::BROKEN
+            && $statusHolder instanceof GameEquipment
+            && $statusHolder->hasStatus(EquipmentStatusEnum::ELECTRIC_CHARGES)
+        ) {
+            /** @var ChargeStatus $electricCharges */
+            $electricCharges = $statusHolder->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+
+            $this->updateCharge(
+                chargeStatus: $electricCharges,
+                delta: -$electricCharges->getThreshold(),
+                tags: $tags,
+                time: $time
+            );
+        }
+    }
+
     public function createStatusFromName(
         string $statusName,
-        Daedalus $daedalus,
         StatusHolderInterface $holder,
+        array $tags,
         \DateTime $time,
-        StatusHolderInterface $target = null
+        StatusHolderInterface $target = null,
+        string $visibility = VisibilityEnum::HIDDEN
     ): Status {
-        $statusConfig = $this->getStatusConfigByNameAndDaedalus($statusName, $daedalus);
+        $statusConfig = $this->getStatusConfigByNameAndDaedalus($statusName, $holder->getDaedalus());
 
-        if ($statusConfig instanceof ChargeStatusConfig) {
-            $status = new ChargeStatus($holder, $statusConfig);
-        } else {
-            $status = new Status($holder, $statusConfig);
-        }
-        $status->setTarget($target);
-
-        return $this->persist($status);
+        return $this->createStatusFromConfig(
+            $statusConfig,
+            $holder,
+            $tags,
+            $time,
+            $target,
+            $visibility
+        );
     }
 
     private function createAttemptStatus(string $action, Player $player): Attempt

@@ -3,6 +3,7 @@
 namespace Mush\Tests\unit\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mockery;
 use Mush\Action\Actions\LieDown;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -11,13 +12,14 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 
 class LieDownActionTest extends AbstractActionTest
 {
+    /* @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface|Mockery\Mock $statusService;
+
     /**
      * @before
      */
@@ -27,10 +29,13 @@ class LieDownActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::LIE_DOWN);
 
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+
         $this->action = new LieDown(
             $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->statusService
         );
     }
 
@@ -64,15 +69,7 @@ class LieDownActionTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent
-                && $event->getStatusName() === PlayerStatusEnum::LYING_DOWN
-                && $event->getStatusHolder() === $player
-                && $event->getStatusTarget() === $gameEquipment
-            )
-            ->once()
-        ;
+        $this->statusService->shouldReceive('createStatusFromName')->once();
         $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 
         $result = $this->action->execute();

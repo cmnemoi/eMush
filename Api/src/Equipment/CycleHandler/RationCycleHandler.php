@@ -8,24 +8,23 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 
 class RationCycleHandler extends AbstractCycleHandler
 {
     protected string $name = EquipmentMechanicEnum::RATION;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
-        EventServiceInterface $eventService,
+        StatusServiceInterface $statusService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->eventService = $eventService;
+        $this->statusService = $statusService;
     }
 
     public function handleNewCycle($object, \DateTime $dateTime): void
@@ -65,28 +64,25 @@ class RationCycleHandler extends AbstractCycleHandler
         }
 
         if ($currentStatus = $gameRation->getStatusByName(EquipmentStatusEnum::UNSTABLE)) {
-            $removeStatusEvent = new StatusEvent(
+            $this->statusService->removeStatus(
                 statusName: $currentStatus->getName(),
                 holder: $gameRation,
                 tags: [EventEnum::NEW_DAY],
                 time: new \DateTime()
             );
-            $this->eventService->callEvent($removeStatusEvent, StatusEvent::STATUS_REMOVED);
             $nextStatus = EquipmentStatusEnum::HAZARDOUS;
         } elseif ($currentStatus = $gameRation->getStatusByName(EquipmentStatusEnum::HAZARDOUS)) {
-            $removeStatusEvent = new StatusEvent(
+            $this->statusService->removeStatus(
                 statusName: $currentStatus->getName(),
                 holder: $gameRation,
                 tags: [EventEnum::NEW_DAY],
                 time: new \DateTime()
             );
-            $this->eventService->callEvent($removeStatusEvent, StatusEvent::STATUS_REMOVED);
             $nextStatus = EquipmentStatusEnum::DECOMPOSING;
         } else {
             $nextStatus = EquipmentStatusEnum::UNSTABLE;
         }
 
-        $statusEvent = new StatusEvent($nextStatus, $gameRation, [EventEnum::NEW_DAY], new \DateTime());
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->statusService->createStatusFromName($nextStatus, $gameRation, [EventEnum::NEW_DAY], new \DateTime());
     }
 }

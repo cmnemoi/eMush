@@ -41,10 +41,12 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $drugMechanic = $drug->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG);
 
         if ($drugMechanic !== null && !$player->isMush()) {
-            $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::DRUG_EATEN, $player->getDaedalus());
-            $status = $this->statusService->createStatusFromConfig($statusConfig, $player, $event->getTags(), $event->getTime());
-
-            $this->statusService->persist($status);
+            $status = $this->statusService->createStatusFromName(
+                PlayerStatusEnum::DRUG_EATEN,
+                $player,
+                $event->getTags(),
+                $event->getTime()
+            );
         }
     }
 }

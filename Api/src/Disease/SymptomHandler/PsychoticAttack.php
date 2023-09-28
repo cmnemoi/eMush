@@ -10,7 +10,7 @@ use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Entity\Collection\EventChain;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 
@@ -18,11 +18,14 @@ class PsychoticAttack extends AbstractSymptomHandler
 {
     protected string $name = SymptomEnum::PSYCHOTIC_ATTACKS;
     private RandomServiceInterface $randomService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         RandomServiceInterface $randomService,
+        EventServiceInterface $eventService
     ) {
         $this->randomService = $randomService;
+        $this->eventService = $eventService;
     }
 
     public function applyEffects(
@@ -30,25 +33,21 @@ class PsychoticAttack extends AbstractSymptomHandler
         int $priority,
         array $tags,
         \DateTime $time
-    ): EventChain {
+    ): void {
         $attackEvent = $this->makePlayerRandomlyAttacking($player);
         $shootEvent = $this->makePlayerRandomlyShooting($player);
 
         // check if those events are possible. If both, randomly pick one
         if ($attackEvent === null && $shootEvent === null) {
-            return new EventChain([]);
+            return;
         } elseif (
             $attackEvent !== null
             && ($shootEvent === null || $this->randomService->isSuccessful(50))
         ) {
-            $event = $attackEvent;
+            $this->eventService->callEvent($attackEvent, $attackEvent->getEventName());
         } else {
-            $event = $shootEvent;
+            $this->eventService->callEvent($shootEvent, $shootEvent->getEventName());
         }
-
-        $event->setPriority($priority);
-
-        return new EventChain([$event]);
     }
 
     private function drawRandomPlayerInRoom(Player $player): ?Player

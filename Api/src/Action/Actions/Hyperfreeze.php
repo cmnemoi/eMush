@@ -17,7 +17,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -25,16 +25,19 @@ class Hyperfreeze extends AbstractAction
 {
     protected string $name = ActionEnum::HYPERFREEZE;
     protected GameEquipmentServiceInterface $gameEquipmentService;
+    protected StatusServiceInterface $statusService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService
+        GameEquipmentServiceInterface $gameEquipmentService,
+        StatusServiceInterface $statusService
     ) {
         parent::__construct($eventService, $actionService, $validator);
 
         $this->gameEquipmentService = $gameEquipmentService;
+        $this->statusService = $statusService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -70,13 +73,12 @@ class Hyperfreeze extends AbstractAction
                 VisibilityEnum::PUBLIC
             );
         } else {
-            $statusEvent = new StatusEvent(
+            $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::FROZEN,
                 $parameter,
                 $this->getAction()->getActionTags(),
                 $time
             );
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
         }
     }
 }

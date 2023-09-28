@@ -29,7 +29,7 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class PlantCycleHandlerTest extends TestCase
@@ -41,6 +41,7 @@ class PlantCycleHandlerTest extends TestCase
     private EventServiceInterface|Mockery\Mock $eventService;
 
     private EquipmentEffectServiceInterface|Mockery\Mock $equipmentEffectService;
+    private StatusServiceInterface|Mockery\Mock $statusService;
 
     private PlantCycleHandler $plantCycleHandler;
 
@@ -53,12 +54,14 @@ class PlantCycleHandlerTest extends TestCase
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->equipmentEffectService = \Mockery::mock(EquipmentEffectServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->plantCycleHandler = new PlantCycleHandler(
             $this->eventService,
             $this->gameEquipmentService,
             $this->randomService,
-            $this->equipmentEffectService
+            $this->equipmentEffectService,
+            $this->statusService,
         );
     }
 
@@ -155,19 +158,8 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::PLANT_DISEASED && $event->getStatusHolder() === $gamePlant)
-            ->once()
-        ;
-
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent
-                && $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG
-                && $event->getStatusHolder() === $gamePlant)
-            ->once()
-        ;
+        $this->statusService->shouldReceive('createStatusFromName')->once();
+        $this->statusService->shouldReceive('removeStatus')->once();
 
         $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 
@@ -253,19 +245,17 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->gameEquipmentService->shouldReceive('persist');
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent
-                && $event->getStatusName() === EquipmentStatusEnum::PLANT_THIRSTY
-                && $event->getStatusHolder() === $gamePlant)
-            ->once()
-        ;
+
+        $this->statusService->shouldReceive('createStatusFromName')->once();
+        $this->statusService->shouldReceive('removeStatus')->never();
 
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
                 && $event->getDaedalus() === $daedalus
-                && $event->getRoundedQuantity() === 10
-            )->once();
+                && $event->getRoundedQuantity() === 10)
+            ->once()
+        ;
+
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         // Mature Plant, no problem
@@ -314,18 +304,15 @@ class PlantCycleHandlerTest extends TestCase
         $thirstyConfig->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY);
         $status = new Status($gamePlant, $thirstyConfig);
 
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent
-                && $event->getStatusName() === EquipmentStatusEnum::PLANT_DRY
-                && $event->getStatusHolder() === $gamePlant)
-            ->once();
+        $this->statusService->shouldReceive('createStatusFromName')->once();
+        $this->statusService->shouldReceive('removeStatus')->once();
 
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
                 && $event->getDaedalus() === $daedalus
                 && $event->getRoundedQuantity() === 10)
-            ->once();
+            ->once()
+        ;
 
         // Thirsty plant
         $this->plantCycleHandler->handleNewDay($gamePlant, new \DateTime());

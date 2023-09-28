@@ -18,7 +18,7 @@ use Mush\Place\Event\RoomEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Psr\Log\LoggerInterface;
 
 class DaedalusIncidentService implements DaedalusIncidentServiceInterface
@@ -30,16 +30,20 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     private GameEquipmentRepository $gameEquipmentRepository;
     private LoggerInterface $logger;
 
+    private StatusServiceInterface $statusService;
+
     public function __construct(
         RandomServiceInterface $randomService,
         EventServiceInterface $eventService,
         GameEquipmentRepository $gameEquipmentRepository,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        StatusServiceInterface $statusService
     ) {
         $this->randomService = $randomService;
         $this->eventService = $eventService;
         $this->gameEquipmentRepository = $gameEquipmentRepository;
         $this->logger = $logger;
+        $this->statusService = $statusService;
     }
 
     public function handleFireEvents(Daedalus $daedalus, \DateTime $date): int
@@ -53,13 +57,12 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         /** @var Place $room */
         foreach ($newFireRooms as $room) {
             if (!$room->hasStatus(StatusEnum::FIRE)) {
-                $statusEvent = new StatusEvent(
+                $this->statusService->createStatusFromName(
                     StatusEnum::FIRE,
                     $room,
                     [EventEnum::NEW_CYCLE, StatusEnum::FIRE],
                     $date
                 );
-                $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
 
@@ -135,13 +138,12 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
             foreach ($brokenEquipments as $gameEquipment) {
                 if (!$gameEquipment->isBroken()) {
-                    $statusEvent = new StatusEvent(
+                    $this->statusService->createStatusFromName(
                         EquipmentStatusEnum::BROKEN,
                         $gameEquipment,
                         [EventEnum::NEW_CYCLE, EquipmentEvent::EQUIPMENT_BROKEN],
                         new \DateTime()
                     );
-                    $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
                 }
             }
         }
@@ -169,13 +171,12 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
             foreach ($brokenDoors as $door) {
                 if (!$door->isBroken()) {
-                    $statusEvent = new StatusEvent(
+                    $this->statusService->createStatusFromName(
                         EquipmentStatusEnum::BROKEN,
                         $door,
                         [EventEnum::NEW_CYCLE, EquipmentEvent::DOOR_BROKEN],
                         new \DateTime()
                     );
-                    $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
                 }
             }
         }

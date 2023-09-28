@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\ChargeStatus;
@@ -23,22 +24,30 @@ interface StatusServiceInterface
 
     public function removeAllStatuses(StatusHolderInterface $holder, array $reasons, \DateTime $time): void;
 
-    public function removeStatus(string $statusName, StatusHolderInterface $holder, array $reasons, \DateTime $time): void;
+    public function removeStatus(
+        string $statusName,
+        StatusHolderInterface $holder,
+        array $tags,
+        \DateTime $time,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): void;
 
     public function createStatusFromConfig(
         StatusConfig $statusConfig,
         StatusHolderInterface $holder,
-        array $reasons,
+        array $tags,
         \DateTime $time,
-        StatusHolderInterface $target = null
+        StatusHolderInterface $target = null,
+        string $visibility = VisibilityEnum::HIDDEN
     ): Status;
 
     public function createStatusFromName(
         string $statusName,
-        Daedalus $daedalus,
         StatusHolderInterface $holder,
+        array $tags,
         \DateTime $time,
-        StatusHolderInterface $target = null
+        StatusHolderInterface $target = null,
+        string $visibility = VisibilityEnum::HIDDEN
     ): Status;
 
     public function handleAttempt(Player $player, string $actionName, ActionResult $result): void;

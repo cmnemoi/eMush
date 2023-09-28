@@ -2,7 +2,6 @@
 
 namespace Mush\Disease\SymptomHandler;
 
-use Mush\Game\Entity\Collection\EventChain;
 use Mush\Player\Entity\Player;
 
 abstract class AbstractSymptomHandler
@@ -19,5 +18,5 @@ abstract class AbstractSymptomHandler
         int $priority,
         array $tags,
         \DateTime $time
-    ): EventChain;
+    ): void;
 }

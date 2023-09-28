@@ -4,10 +4,8 @@ namespace Mush\Status\Service;
 
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
 
 class PlayerStatusService implements PlayerStatusServiceInterface
 {
@@ -16,12 +14,12 @@ class PlayerStatusService implements PlayerStatusServiceInterface
     public const SUICIDAL_THRESHOLD = 1;
     public const DEMORALIZED_THRESHOLD = 3;
 
-    private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        StatusServiceInterface $statusService,
     ) {
-        $this->eventService = $eventService;
+        $this->statusService = $statusService;
     }
 
     public function handleSatietyStatus(Player $player, \DateTime $dateTime): void
@@ -32,37 +30,46 @@ class PlayerStatusService implements PlayerStatusServiceInterface
 
     private function handleFullBellyStatus(Player $player, \DateTime $dateTime): void
     {
-        $event = new StatusEvent(
-            PlayerStatusEnum::FULL_STOMACH,
-            $player,
-            [EventEnum::NEW_CYCLE],
-            $dateTime
-        );
         $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
 
         if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
-            $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
+            $this->statusService->createStatusFromName(
+                PlayerStatusEnum::FULL_STOMACH,
+                $player,
+                [EventEnum::NEW_CYCLE],
+                $dateTime
+            );
         } elseif ($player->getSatiety() < self::FULL_STOMACH_STATUS_THRESHOLD && $fullStatus) {
-            $this->eventService->callEvent($event, StatusEvent::STATUS_REMOVED);
+            $this->statusService->removeStatus(
+                PlayerStatusEnum::FULL_STOMACH,
+                $player,
+                [EventEnum::NEW_CYCLE],
+                $dateTime
+            );
         }
     }
 
     private function handleHungerStatus(Player $player, \DateTime $dateTime): void
     {
-        $event = new StatusEvent(
-            PlayerStatusEnum::STARVING,
-            $player,
-            [EventEnum::NEW_CYCLE],
-            $dateTime
-        );
         $starvingStatus = $player->getStatusByName(PlayerStatusEnum::STARVING);
 
         if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus && !$player->isMush()) {
-            $event->setVisibility(VisibilityEnum::PRIVATE);
-            $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
+            $this->statusService->createStatusFromName(
+                PlayerStatusEnum::STARVING,
+                $player,
+                [EventEnum::NEW_CYCLE],
+                $dateTime,
+                null,
+                VisibilityEnum::PRIVATE
+            );
         } elseif (($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD || $player->isMush()) && $starvingStatus) {
-            $event->setVisibility(VisibilityEnum::PRIVATE);
-            $this->eventService->callEvent($event, StatusEvent::STATUS_REMOVED);
+            $this->statusService->removeStatus(
+                PlayerStatusEnum::STARVING,
+                $player,
+                [EventEnum::NEW_CYCLE],
+                $dateTime,
+                VisibilityEnum::PRIVATE
+            );
         }
     }
 
@@ -74,23 +81,19 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         $playerMoralPoint = $player->getMoralPoint();
 
         if ($this->isPlayerSuicidal($playerMoralPoint) && !$suicidalStatus) {
-            $event = new StatusEvent(PlayerStatusEnum::SUICIDAL, $player, [EventEnum::NEW_CYCLE], $dateTime);
-            $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
+            $this->statusService->createStatusFromName(PlayerStatusEnum::SUICIDAL, $player, [EventEnum::NEW_CYCLE], $dateTime);
         }
 
         if ($suicidalStatus && !$this->isPlayerSuicidal($playerMoralPoint)) {
-            $event = new StatusEvent(PlayerStatusEnum::SUICIDAL, $player, [EventEnum::NEW_CYCLE], $dateTime);
-            $this->eventService->callEvent($event, StatusEvent::STATUS_REMOVED);
+            $this->statusService->removeStatus(PlayerStatusEnum::SUICIDAL, $player, [EventEnum::NEW_CYCLE], $dateTime);
         }
 
         if (!$demoralizedStatus && $this->isPlayerDemoralized($playerMoralPoint)) {
-            $event = new StatusEvent(PlayerStatusEnum::DEMORALIZED, $player, [EventEnum::NEW_CYCLE], $dateTime);
-            $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
+            $this->statusService->createStatusFromName(PlayerStatusEnum::DEMORALIZED, $player, [EventEnum::NEW_CYCLE], $dateTime);
         }
 
         if ($demoralizedStatus && !$this->isPlayerDemoralized($playerMoralPoint)) {
-            $event = new StatusEvent(PlayerStatusEnum::DEMORALIZED, $player, [EventEnum::NEW_CYCLE], $dateTime);
-            $this->eventService->callEvent($event, StatusEvent::STATUS_REMOVED);
+            $this->statusService->removeStatus(PlayerStatusEnum::DEMORALIZED, $player, [EventEnum::NEW_CYCLE], $dateTime);
         }
     }
 

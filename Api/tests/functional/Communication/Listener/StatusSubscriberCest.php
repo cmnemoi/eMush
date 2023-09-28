@@ -27,6 +27,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Tests\FunctionalTester;
@@ -149,7 +150,7 @@ class StatusSubscriberCest
         $time = new \DateTime();
 
         $statusEvent = new StatusEvent(
-            EquipmentStatusEnum::BROKEN,
+            new Status($communicationCenter, $statusConfig),
             $communicationCenter,
             [EventEnum::NEW_CYCLE],
             $time

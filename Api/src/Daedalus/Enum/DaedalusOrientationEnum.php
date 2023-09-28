@@ -20,4 +20,20 @@ final class DaedalusOrientationEnum
             self::WEST,
         ];
     }
+
+    public static function getOppositeOrientation(string $orientation): string
+    {
+        switch ($orientation) {
+            case self::NORTH:
+                return self::SOUTH;
+            case self::SOUTH:
+                return self::NORTH;
+            case self::EAST:
+                return self::WEST;
+            case self::WEST:
+                return self::EAST;
+            default:
+                throw new \Exception('Unknown orientation');
+        }
+    }
 }

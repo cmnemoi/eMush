@@ -11,9 +11,11 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -160,7 +162,9 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventService->shouldReceive('callEvent')->once();
+        $deleteEvent = new AbstractGameEvent([], new \DateTime());
+        $deleteEvent->setPriority(0);
+        $this->eventService->shouldReceive('callEvent')->once()->andReturn(new EventChain([$deleteEvent]));
         $result = $this->service->updateCharge($chargeStatus, -7, [], $time);
 
         $this->assertNull($result);
@@ -180,6 +184,7 @@ class StatusServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('computeEventModifications')->once()->andReturn(new AbstractGameEvent([], new \DateTime()));
 
         $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
 
@@ -207,6 +212,7 @@ class StatusServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('computeEventModifications')->once()->andReturn(new AbstractGameEvent([], new \DateTime()));
 
         $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
 

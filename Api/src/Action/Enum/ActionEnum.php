@@ -154,6 +154,9 @@ class ActionEnum
     public const MASS_MUSHIFICATION = 'mass_mushification';
     public const MASS_GGEDON = 'mass_ggeddon';
 
+    // Terminal-related actions
+    public const CHANGE_DAEDALUS_ORIENTATION = 'change_daedalus_orientation';
+
     public static function getPermanentItemActions(): array
     {
         return [

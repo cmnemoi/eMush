@@ -2673,6 +2673,7 @@ class EquipmentConfigData
                 'report_equipment',
                 'examine',
                 'hack',
+                'change_daedalus_orientation',
             ],
             'mechanics' => [],
             'initStatuses' => [],

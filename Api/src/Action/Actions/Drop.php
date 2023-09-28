@@ -20,9 +20,9 @@ class Drop extends AbstractAction
 {
     protected string $name = ActionEnum::DROP;
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof GameItem;
+        return $target instanceof GameItem;
     }
 
     public static function LoadValidatorMetadata(ClassMetadata $metadata): void
@@ -38,11 +38,11 @@ class Drop extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $support */
-        $support = $this->support;
+        /** @var GameItem $target */
+        $target = $this->target;
 
         $equipmentEvent = new MoveEquipmentEvent(
-            $support,
+            $target,
             $this->player->getPlace(),
             $this->player,
             VisibilityEnum::HIDDEN,

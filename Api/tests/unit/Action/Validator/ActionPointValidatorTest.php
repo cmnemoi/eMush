@@ -70,7 +70,7 @@ class ActionPointValidatorTest extends TestCase
         ;
         $action
             ->shouldReceive([
-                'getSupport' => null,
+                'getTarget' => null,
             ])
         ;
 
@@ -109,7 +109,7 @@ class ActionPointValidatorTest extends TestCase
         ;
         $action
             ->shouldReceive([
-                'getSupport' => null,
+                'getTarget' => null,
             ])
         ;
 

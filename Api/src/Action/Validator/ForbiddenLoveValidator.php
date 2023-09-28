@@ -21,12 +21,12 @@ class ForbiddenLoveValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, ForbiddenLove::class);
         }
 
-        $actionSupport = $value->getSupport();
-        if (!$actionSupport instanceof Player) {
-            throw new UnexpectedTypeException($actionSupport, Player::class);
+        $actionTarget = $value->getTarget();
+        if (!$actionTarget instanceof Player) {
+            throw new UnexpectedTypeException($actionTarget, Player::class);
         }
 
-        $targetPlayer = $actionSupport->getName();
+        $targetPlayer = $actionTarget->getName();
         $player = $value->getPlayer()->getName();
 
         if (CharacterEnum::isFromRinaldoFamily($player) && CharacterEnum::isFromRinaldoFamily($targetPlayer)) {

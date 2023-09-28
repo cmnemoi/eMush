@@ -12,8 +12,8 @@ class ShootRandomHunter extends ShootHunter
 {
     protected string $name = ActionEnum::SHOOT_RANDOM_HUNTER;
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof GameEquipment;
+        return $target instanceof GameEquipment;
     }
 }

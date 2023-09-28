@@ -35,7 +35,7 @@ abstract class AttemptAction extends AbstractAction
         return $this->actionService->getActionModifiedActionVariable(
             $this->player,
             $this->action,
-            $this->support,
+            $this->target,
             ActionVariableEnum::PERCENTAGE_CRITICAL
         );
     }
@@ -45,7 +45,7 @@ abstract class AttemptAction extends AbstractAction
         return $this->actionService->getActionModifiedActionVariable(
             $this->player,
             $this->action,
-            $this->support,
+            $this->target,
             ActionVariableEnum::PERCENTAGE_SUCCESS
         );
     }

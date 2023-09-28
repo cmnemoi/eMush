@@ -36,7 +36,7 @@ class IsReportedValidator extends ConstraintValidator
 
     private function isFireAlertReported(AbstractAction $value): bool
     {
-        $equipment = $value->getSupport();
+        $equipment = $value->getTarget();
         $place = $value->getPlayer()->getPlace();
 
         if ($equipment !== null) {
@@ -48,7 +48,7 @@ class IsReportedValidator extends ConstraintValidator
 
     private function isEquipmentAlertReported(AbstractAction $value): bool
     {
-        $equipment = $value->getSupport();
+        $equipment = $value->getTarget();
 
         if (!$equipment instanceof GameEquipment) {
             return false;

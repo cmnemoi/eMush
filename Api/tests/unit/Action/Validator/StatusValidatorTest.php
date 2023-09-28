@@ -47,7 +47,7 @@ class StatusValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getSupport' => $target,
+                'getTarget' => $target,
             ])
         ;
 
@@ -77,7 +77,7 @@ class StatusValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getSupport' => $target,
+                'getTarget' => $target,
             ])
         ;
 
@@ -240,7 +240,7 @@ class StatusValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getSupport' => $target,
+                'getTarget' => $target,
             ])
         ;
 

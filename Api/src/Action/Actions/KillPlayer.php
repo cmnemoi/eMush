@@ -44,9 +44,9 @@ class KillPlayer extends AbstractAction
         $this->randomService = $randomService;
     }
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof Player;
+        return $target instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -63,7 +63,7 @@ class KillPlayer extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         /** @var Player $playerToKill */
-        $playerToKill = $this->support;
+        $playerToKill = $this->target;
 
         $deathEvent = new PlayerEvent($playerToKill, [EndCauseEnum::QUARANTINE], new \DateTime());
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);

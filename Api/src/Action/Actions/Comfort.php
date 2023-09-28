@@ -23,9 +23,9 @@ class Comfort extends AbstractAction
 
     protected string $name = ActionEnum::COMFORT;
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof Player;
+        return $target instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -48,11 +48,11 @@ class Comfort extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $support */
-        $support = $this->support;
+        /** @var Player $target */
+        $target = $this->target;
 
         $playerModifierEvent = new PlayerVariableEvent(
-            $support,
+            $target,
             PlayerVariableEnum::MORAL_POINT,
             self::BASE_CONFORT,
             $this->getAction()->getActionTags(),

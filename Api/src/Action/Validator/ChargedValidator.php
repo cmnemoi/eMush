@@ -29,18 +29,18 @@ class ChargedValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Charged::class);
         }
 
-        $actionSupport = $value->getSupport();
-        if (!$actionSupport instanceof GameEquipment) {
+        $actionTarget = $value->getTarget();
+        if (!$actionTarget instanceof GameEquipment) {
             // hack for Shoot hunter action : the parameter is the hunter, but we want to check the turret / patrol ship charges
-            if ($actionSupport instanceof Hunter) {
-                $actionSupport = $this->getShootingEquipment($value->getPlayer());
+            if ($actionTarget instanceof Hunter) {
+                $actionTarget = $this->getShootingEquipment($value->getPlayer());
             } else {
-                throw new UnexpectedTypeException($actionSupport, GameEquipment::class);
+                throw new UnexpectedTypeException($actionTarget, GameEquipment::class);
             }
         }
 
         /** @var ChargeStatus $chargeStatus */
-        $chargeStatus = $this->getChargeStatus($value->getActionName(), $actionSupport);
+        $chargeStatus = $this->getChargeStatus($value->getActionName(), $actionTarget);
 
         if ($chargeStatus !== null && $chargeStatus->getCharge() <= 0) {
             $this->context->buildViolation($constraint->message)
@@ -48,9 +48,9 @@ class ChargedValidator extends ConstraintValidator
         }
     }
 
-    private function getChargeStatus(string $actionName, StatusHolderInterface $actionSupport): ?ChargeStatus
+    private function getChargeStatus(string $actionName, StatusHolderInterface $actionTarget): ?ChargeStatus
     {
-        $charges = $actionSupport->getStatuses()->filter(function (Status $status) use ($actionName) {
+        $charges = $actionTarget->getStatuses()->filter(function (Status $status) use ($actionName) {
             return $status instanceof ChargeStatus
                 && $status->hasDischargeStrategy($actionName);
         });

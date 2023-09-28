@@ -35,7 +35,7 @@ class ActionSubscriber implements EventSubscriberInterface
     {
         $actionResult = $event->getActionResult();
         $player = $event->getAuthor();
-        $actionSupport = $event->getActionSupport();
+        $actionSupport = $event->getActionTarget();
 
         if ($actionResult === null) {
             throw new \LogicException('$actionResult should not be null');
@@ -49,7 +49,7 @@ class ActionSubscriber implements EventSubscriberInterface
     public function onPostAction(ActionEvent $event): void
     {
         $action = $event->getAction();
-        $actionSupport = $event->getActionSupport();
+        $actionSupport = $event->getActionTarget();
         $player = $event->getAuthor();
 
         if ($actionSupport instanceof Player

@@ -24,7 +24,7 @@ abstract class AbstractAction
 {
     protected Action $action;
     protected Player $player;
-    protected ?LogParameterInterface $support = null;
+    protected ?LogParameterInterface $target = null;
     protected ?array $parameters = [];
 
     protected string $name;
@@ -43,17 +43,17 @@ abstract class AbstractAction
         $this->validator = $validator;
     }
 
-    abstract protected function support(?LogParameterInterface $support, array $parameters): bool;
+    abstract protected function support(?LogParameterInterface $target, array $parameters): bool;
 
-    public function loadParameters(Action $action, Player $player, LogParameterInterface $support = null, array $parameters = []): void
+    public function loadParameters(Action $action, Player $player, LogParameterInterface $target = null, array $parameters = []): void
     {
-        if (!$this->support($support, $parameters)) {
+        if (!$this->support($target, $parameters)) {
             throw new \InvalidArgumentException('Invalid action parameters : one of the passed parameters from ' . json_encode($parameters) . ' is not supported.');
         }
 
         $this->action = $action;
         $this->player = $player;
-        $this->support = $support;
+        $this->target = $target;
         $this->parameters = $parameters;
     }
 
@@ -97,22 +97,22 @@ abstract class AbstractAction
             return new Error('Cannot execute action');
         }
 
-        $preActionEvent = new ActionEvent($this->action, $this->player, $this->support);
+        $preActionEvent = new ActionEvent($this->action, $this->player, $this->target);
         $this->eventService->callEvent($preActionEvent, ActionEvent::PRE_ACTION);
 
-        $this->actionService->applyCostToPlayer($this->player, $this->action, $this->support);
+        $this->actionService->applyCostToPlayer($this->player, $this->action, $this->target);
 
         $result = $this->checkResult();
 
         $result->setVisibility($this->action->getVisibility($result->getName()));
 
-        $resultActionEvent = new ActionEvent($this->action, $this->player, $this->support);
+        $resultActionEvent = new ActionEvent($this->action, $this->player, $this->target);
         $resultActionEvent->setActionResult($result);
         $this->eventService->callEvent($resultActionEvent, ActionEvent::RESULT_ACTION);
 
         $this->applyEffect($result);
 
-        $postActionEvent = new ActionEvent($this->action, $this->player, $this->support);
+        $postActionEvent = new ActionEvent($this->action, $this->player, $this->target);
         $postActionEvent->setActionResult($result);
         $this->eventService->callEvent($postActionEvent, ActionEvent::POST_ACTION);
 
@@ -129,7 +129,7 @@ abstract class AbstractAction
         return $this->actionService->getActionModifiedActionVariable(
             $this->player,
             $this->action,
-            $this->support,
+            $this->target,
             PlayerVariableEnum::ACTION_POINT
         );
     }
@@ -139,7 +139,7 @@ abstract class AbstractAction
         return $this->actionService->getActionModifiedActionVariable(
             $this->player,
             $this->action,
-            $this->support,
+            $this->target,
             PlayerVariableEnum::MOVEMENT_POINT
         );
     }
@@ -149,7 +149,7 @@ abstract class AbstractAction
         return $this->actionService->getActionModifiedActionVariable(
             $this->player,
             $this->action,
-            $this->support,
+            $this->target,
             PlayerVariableEnum::MORAL_POINT
         );
     }
@@ -164,9 +164,9 @@ abstract class AbstractAction
         return $this->parameters;
     }
 
-    public function getSupport(): ?LogParameterInterface
+    public function getTarget(): ?LogParameterInterface
     {
-        return $this->support;
+        return $this->target;
     }
 
     public function getAction(): Action

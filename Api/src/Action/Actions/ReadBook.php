@@ -21,9 +21,9 @@ class ReadBook extends AbstractAction
 {
     protected string $name = ActionEnum::READ_BOOK;
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof GameItem;
+        return $target instanceof GameItem;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -39,15 +39,15 @@ class ReadBook extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $support */
-        $support = $this->support;
+        /** @var GameItem $target */
+        $target = $this->target;
 
         /** @var Book $bookType */
-        $bookType = $support->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
+        $bookType = $target->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
         $this->player->addSkill($bookType->getSkill());
 
         $equipmentEvent = new InteractWithEquipmentEvent(
-            $support,
+            $target,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getAction()->getActionTags(),

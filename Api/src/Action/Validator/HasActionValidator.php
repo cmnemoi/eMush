@@ -31,11 +31,11 @@ class HasActionValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, HasAction::class);
         }
 
-        $actionSupport = $value->getSupport();
+        $actionTarget = $value->getTarget();
         $action = $value->getAction();
         $player = $value->getPlayer();
 
-        if (($this->isPlayerAction($actionSupport, $player, $action) || $this->isActionSupportAction($actionSupport, $action))
+        if (($this->isPlayerAction($actionTarget, $player, $action) || $this->isActionSupportAction($actionTarget, $action))
             && $this->gearToolService->getUsedTool($player, $value->getActionName()) === null
         ) {
             $this->context->buildViolation($constraint->message)
@@ -46,19 +46,19 @@ class HasActionValidator extends ConstraintValidator
     /**
      * no action support and player do not have action.
      */
-    private function isPlayerAction(?LogParameterInterface $actionSupport, Player $player, Action $action): bool
+    private function isPlayerAction(?LogParameterInterface $actionTarget, Player $player, Action $action): bool
     {
-        return $actionSupport === null && !$player->getSelfActions()->contains($action);
+        return $actionTarget === null && !$player->getSelfActions()->contains($action);
     }
 
     /**
      * action support is player but does not have action or
      * action support is equipment and does not have action.
      */
-    private function isActionSupportAction(?LogParameterInterface $actionSupport, Action $action): bool
+    private function isActionSupportAction(?LogParameterInterface $actionTarget, Action $action): bool
     {
-        return ($actionSupport instanceof Player && !$actionSupport->getTargetActions()->contains($action))
-            || ($actionSupport instanceof GameEquipment && !$actionSupport->getActions()->contains($action))
+        return ($actionTarget instanceof Player && !$actionTarget->getTargetActions()->contains($action))
+            || ($actionTarget instanceof GameEquipment && !$actionTarget->getActions()->contains($action))
         ;
     }
 }

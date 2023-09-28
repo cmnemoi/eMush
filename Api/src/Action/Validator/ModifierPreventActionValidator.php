@@ -29,9 +29,9 @@ class ModifierPreventActionValidator extends ConstraintValidator
         }
 
         $actionParameters = $value->getParameters();
-        $actionSupport = $value->getSupport();
+        $actionTarget = $value->getTarget();
 
-        $preActionEvent = new ActionEvent($value->getAction(), $value->getPlayer(), $actionSupport);
+        $preActionEvent = new ActionEvent($value->getAction(), $value->getPlayer(), $actionTarget);
         $canTriggerAction = $this->eventService->eventCancelReason($preActionEvent, ActionEvent::PRE_ACTION);
 
         if ($canTriggerAction !== null) {

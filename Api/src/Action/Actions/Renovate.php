@@ -43,9 +43,9 @@ final class Renovate extends AttemptAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof GameEquipment;
+        return $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -103,7 +103,7 @@ final class Renovate extends AttemptAction
     private function setPatrolShipArmorToMaximum(): void
     {
         /** @var GameEquipment $patrolShip */
-        $patrolShip = $this->support;
+        $patrolShip = $this->target;
 
         /** @var ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);

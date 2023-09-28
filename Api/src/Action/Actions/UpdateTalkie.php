@@ -42,9 +42,9 @@ class UpdateTalkie extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof GameEquipment;
+        return $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -93,12 +93,12 @@ class UpdateTalkie extends AbstractAction
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        /** @var GameEquipment $support */
-        $support = $this->support;
+        /** @var GameEquipment $target */
+        $target = $this->target;
 
         $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
             ItemEnum::ITRACKIE,
-            $support,
+            $target,
             $this->player,
             $this->getAction()->getActionTags(),
             new \DateTime(),

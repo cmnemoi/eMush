@@ -36,9 +36,9 @@ class RejuvenateAlpha extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support === null;
+        return $target === null;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

@@ -17,9 +17,9 @@ class ReportFire extends AbstractAction
 {
     protected string $name = ActionEnum::REPORT_FIRE;
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support === null;
+        return $target === null;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -37,7 +37,7 @@ class ReportFire extends AbstractAction
     {
         $reportEvent = new ApplyEffectEvent(
             $this->player,
-            $this->support,
+            $this->target,
             VisibilityEnum::PRIVATE,
             $this->getAction()->getActionTags(),
             new \DateTime(),

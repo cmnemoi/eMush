@@ -53,9 +53,9 @@ final class Land extends AbstractAction
         $this->randomService = $randomService;
     }
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof GameEquipment;
+        return $target instanceof GameEquipment;
     }
 
     protected function checkResult(): ActionResult
@@ -77,7 +77,7 @@ final class Land extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $patrolShip */
-        $patrolShip = $this->support;
+        $patrolShip = $this->target;
         /** @var PatrolShip $patrolShipMechanic */
         $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
         if (!$patrolShipMechanic instanceof PatrolShip) {

@@ -48,9 +48,9 @@ class UltraHeal extends AbstractAction
         $this->playerVariableService = $playerVariableService;
     }
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof GameItem;
+        return $target instanceof GameItem;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -71,8 +71,8 @@ class UltraHeal extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $support */
-        $support = $this->support;
+        /** @var GameItem $target */
+        $target = $this->target;
         $time = new \DateTime();
 
         $healEvent = new ApplyEffectEvent(
@@ -99,7 +99,7 @@ class UltraHeal extends AbstractAction
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::SET_VALUE);
 
         $equipmentEvent = new InteractWithEquipmentEvent(
-            $support,
+            $target,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getAction()->getActionTags(),

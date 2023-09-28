@@ -21,9 +21,9 @@ abstract class AbstractSpeech extends AbstractAction
     protected string $playerVariable;
     protected int $gain;
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support === null;
+        return $target === null;
     }
 
     protected function addVariablePoints(Player $player, string $playerVariable, int $points): void

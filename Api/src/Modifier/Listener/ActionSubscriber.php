@@ -41,7 +41,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $actionName = $event->getAction()->getActionName();
 
         /** @var GameEquipment $actionEquipment */
-        $actionEquipment = $event->getActionSupport();
+        $actionEquipment = $event->getActionTarget();
 
         // move player and player equipment modifiers to their new place
         if (ActionEnum::getChangingRoomActions()->contains($actionName)) {
@@ -64,7 +64,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $actionName = $event->getAction()->getActionName();
 
         /** @var GameEquipment $actionEquipment */
-        $actionEquipment = $event->getActionSupport();
+        $actionEquipment = $event->getActionTarget();
 
         // delete player and player equipment modifiers from their old place
         if (ActionEnum::getChangingRoomActions()->contains($actionName)) {

@@ -63,27 +63,27 @@ class ActionStrategyService implements ActionStrategyServiceInterface
             return new Error('Action do not exist');
         }
 
-        $actionSupport = $this->loadActionSupport($params['actionSupport']);
-        $actionService->loadParameters($action, $player, $actionSupport, $params);
+        $target = $this->loadActionTarget($params['target']);
+        $actionService->loadParameters($action, $player, $target, $params);
 
         return $actionService->execute();
     }
 
-    private function loadActionSupport(?array $actionSupport): ?LogParameterInterface
+    private function loadActionTarget(?array $actionTarget): ?LogParameterInterface
     {
-        if ($actionSupport !== null) {
-            if (($equipmentId = $actionSupport['door'] ?? null)
-                || ($equipmentId = $actionSupport['item'] ?? null)
-                || ($equipmentId = $actionSupport['equipment'] ?? null)
+        if ($actionTarget !== null) {
+            if (($equipmentId = $actionTarget['door'] ?? null)
+                || ($equipmentId = $actionTarget['item'] ?? null)
+                || ($equipmentId = $actionTarget['equipment'] ?? null)
             ) {
                 return $this->equipmentService->findById($equipmentId);
             }
 
-            if ($playerId = $actionSupport['player'] ?? null) {
+            if ($playerId = $actionTarget['player'] ?? null) {
                 return $this->playerService->findById($playerId);
             }
 
-            if ($hunterId = $actionSupport['hunter'] ?? null) {
+            if ($hunterId = $actionTarget['hunter'] ?? null) {
                 return $this->hunterService->findById($hunterId);
             }
         }

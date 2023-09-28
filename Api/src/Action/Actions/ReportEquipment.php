@@ -20,9 +20,9 @@ class ReportEquipment extends AbstractAction
 {
     protected string $name = ActionEnum::REPORT_EQUIPMENT;
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof GameEquipment;
+        return $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -39,12 +39,12 @@ class ReportEquipment extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $support */
-        $support = $this->support;
+        /** @var GameEquipment $target */
+        $target = $this->target;
 
         $reportEvent = new ApplyEffectEvent(
             $this->player,
-            $support,
+            $target,
             VisibilityEnum::PRIVATE,
             $this->getAction()->getActionTags(),
             new \DateTime(),

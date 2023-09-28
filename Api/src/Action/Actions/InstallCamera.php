@@ -57,9 +57,9 @@ class InstallCamera extends AbstractAction
         ]);
     }
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof GameItem;
+        return $target instanceof GameItem;
     }
 
     protected function checkResult(): ActionResult
@@ -70,7 +70,7 @@ class InstallCamera extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         /** @var GameItem $itemCamera */
-        $itemCamera = $this->getSupport();
+        $itemCamera = $this->getTarget();
 
         $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
             EquipmentEnum::CAMERA_EQUIPMENT,

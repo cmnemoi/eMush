@@ -20,12 +20,12 @@ const ActionService = {
         return ApiService.post(urlJoin(PLAYER_ENDPOINT, String(currentPlayer.id),'action'), {
             action: action.id,
             params: {
-                actionSupport: buildActionSupport(),
+                target: buildTarget(),
                 ...otherParams
             }
         });
 
-        function buildActionSupport(): Record<string, unknown> | undefined | null {
+        function buildTarget(): Record<string, unknown> | undefined | null {
             if (target instanceof Door) {
                 return { door: target.id };
             } else if (target instanceof Item) {

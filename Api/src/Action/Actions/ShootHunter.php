@@ -53,9 +53,9 @@ class ShootHunter extends AttemptAction
         $this->roomLogService = $roomLogService;
     }
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof Hunter;
+        return $target instanceof Hunter;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -148,8 +148,8 @@ class ShootHunter extends AttemptAction
 
     private function selectHunterToShoot(): Hunter
     {
-        if ($this->support instanceof Hunter) {
-            return $this->support;
+        if ($this->target instanceof Hunter) {
+            return $this->target;
         }
 
         $hunters = $this->player->getDaedalus()->getAttackingHunters()->toArray();

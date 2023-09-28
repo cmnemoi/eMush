@@ -22,13 +22,13 @@ class ShredableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Shredable::class);
         }
 
-        $actionSupport = $value->getSupport();
-        if (!$actionSupport instanceof GameEquipment) {
-            throw new UnexpectedTypeException($actionSupport, GameEquipment::class);
+        $actionTarget = $value->getTarget();
+        if (!$actionTarget instanceof GameEquipment) {
+            throw new UnexpectedTypeException($actionTarget, GameEquipment::class);
         }
 
         /** @var Document $document */
-        $document = $actionSupport->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT);
+        $document = $actionTarget->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DOCUMENT);
 
         if (!$document || !$document->canShred()) {
             $this->context->buildViolation($constraint->message)

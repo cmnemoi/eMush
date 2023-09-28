@@ -26,7 +26,7 @@ class HasEquipmentValidator extends ConstraintValidator
 
         /** @var Player $player */
         $player = match ($constraint->target) {
-            HasEquipment::PARAMETER => $value->getSupport(),
+            HasEquipment::PARAMETER => $value->getTarget(),
             HasEquipment::PLAYER => $value->getPlayer(),
             default => throw new LogicException('unsupported target'),
         };

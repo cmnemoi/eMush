@@ -25,7 +25,7 @@ final class IsPatrolShipDamagedValidator extends ConstraintValidator
         }
 
         /** @var GameEquipment $patrolShip */
-        $patrolShip = $value->getSupport();
+        $patrolShip = $value->getTarget();
         /** @var ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 

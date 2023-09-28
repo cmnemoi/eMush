@@ -22,13 +22,13 @@ class CookableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Cookable::class);
         }
 
-        $actionSupport = $value->getSupport();
-        if (!$actionSupport instanceof GameEquipment) {
-            throw new UnexpectedTypeException($actionSupport, GameEquipment::class);
+        $actionTarget = $value->getTarget();
+        if (!$actionTarget instanceof GameEquipment) {
+            throw new UnexpectedTypeException($actionTarget, GameEquipment::class);
         }
 
-        if ($actionSupport->getEquipment()->getEquipmentName() !== GameRationEnum::STANDARD_RATION
-            && !$actionSupport->hasStatus(EquipmentStatusEnum::FROZEN)
+        if ($actionTarget->getEquipment()->getEquipmentName() !== GameRationEnum::STANDARD_RATION
+            && !$actionTarget->hasStatus(EquipmentStatusEnum::FROZEN)
         ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();

@@ -218,7 +218,7 @@ class HasDiseasesValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-                'getSupport' => $targetPlayer,
+                'getTarget' => $targetPlayer,
             ])
         ;
 

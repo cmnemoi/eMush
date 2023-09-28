@@ -20,9 +20,9 @@ class RetrieveOxygen extends RetrieveAction
 {
     protected string $name = ActionEnum::RETRIEVE_OXYGEN;
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof GameEquipment;
+        return $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

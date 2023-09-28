@@ -54,9 +54,9 @@ final class Takeoff extends AbstractAction
         $this->randomService = $randomService;
     }
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof GameEquipment;
+        return $target instanceof GameEquipment;
     }
 
     protected function checkResult(): ActionResult
@@ -78,7 +78,7 @@ final class Takeoff extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $patrolship */
-        $patrolship = $this->support;
+        $patrolship = $this->target;
 
         $patrolshipRoom = $this->placeService->findByNameAndDaedalus($patrolship->getName(), $this->player->getDaedalus());
         if ($patrolshipRoom === null) {

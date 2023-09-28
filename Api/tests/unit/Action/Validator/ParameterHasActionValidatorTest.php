@@ -59,7 +59,7 @@ class ParameterHasActionValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getAction' => $actionEntity,
-                'getSupport' => $gameItem,
+                'getTarget' => $gameItem,
                 'getPlayer' => new Player(),
             ])
         ;
@@ -82,7 +82,7 @@ class ParameterHasActionValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getAction' => new Action(),
-                'getSupport' => $gameItem,
+                'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
                 'getPlayer' => new Player(),
             ])
@@ -108,7 +108,7 @@ class ParameterHasActionValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getAction' => new Action(),
-                'getSupport' => $gameItem,
+                'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
                 'getPlayer' => new Player(),
             ])
@@ -134,7 +134,7 @@ class ParameterHasActionValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getAction' => new Action(),
-                'getSupport' => $gameItem,
+                'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
                 'getPlayer' => new Player(),
             ])

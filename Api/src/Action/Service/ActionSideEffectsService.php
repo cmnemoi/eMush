@@ -20,15 +20,15 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         $this->eventService = $eventService;
     }
 
-    public function handleActionSideEffect(Action $action, Player $player, ?LogParameterInterface $actionSupport): Player
+    public function handleActionSideEffect(Action $action, Player $player, ?LogParameterInterface $actionTarget): Player
     {
-        $this->handleDirty($action, $player, $actionSupport);
-        $this->handleInjury($action, $player, $actionSupport);
+        $this->handleDirty($action, $player, $actionTarget);
+        $this->handleInjury($action, $player, $actionTarget);
 
         return $player;
     }
 
-    private function handleDirty(Action $action, Player $player, ?LogParameterInterface $actionSupport): void
+    private function handleDirty(Action $action, Player $player, ?LogParameterInterface $actionTarget): void
     {
         if ($player->hasStatus(PlayerStatusEnum::DIRTY)) {
             return;
@@ -39,20 +39,20 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             ActionVariableEnum::PERCENTAGE_DIRTINESS,
             $action->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS),
             $player,
-            $actionSupport
+            $actionTarget
         );
 
         $this->eventService->callEvent($actionEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);
     }
 
-    private function handleInjury(Action $action, Player $player, ?LogParameterInterface $actionSupport): void
+    private function handleInjury(Action $action, Player $player, ?LogParameterInterface $actionTarget): void
     {
         $actionEvent = new ActionVariableEvent(
             $action,
             ActionVariableEnum::PERCENTAGE_INJURY,
             $action->getGameVariables()->getValueByName(ActionVariableEnum::PERCENTAGE_INJURY),
             $player,
-            $actionSupport
+            $actionTarget
         );
 
         $this->eventService->callEvent($actionEvent, ActionVariableEvent::ROLL_ACTION_PERCENTAGE);

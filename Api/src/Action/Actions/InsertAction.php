@@ -15,9 +15,9 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 
 abstract class InsertAction extends AbstractAction
 {
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support instanceof GameItem;
+        return $target instanceof GameItem;
     }
 
     protected function checkResult(): ActionResult
@@ -28,7 +28,7 @@ abstract class InsertAction extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         /** @var GameItem $toInsert */
-        $toInsert = $this->getSupport();
+        $toInsert = $this->getTarget();
         $time = new \DateTime();
 
         // Delete the fuel

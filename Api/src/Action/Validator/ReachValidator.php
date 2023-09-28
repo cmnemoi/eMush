@@ -25,14 +25,14 @@ class ReachValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Reach::class);
         }
 
-        $actionSupport = $value->getSupport();
+        $actionTarget = $value->getTarget();
         $player = $value->getPlayer();
 
-        if ($actionSupport instanceof GameEquipment) {
-            $canReach = $this->canReachGameEquipment($player, $actionSupport, $constraint->reach);
-        } elseif ($actionSupport instanceof Player) {
-            $canReach = $this->canReachPlayer($player, $actionSupport, $constraint->reach);
-        } elseif ($actionSupport instanceof Hunter) {
+        if ($actionTarget instanceof GameEquipment) {
+            $canReach = $this->canReachGameEquipment($player, $actionTarget, $constraint->reach);
+        } elseif ($actionTarget instanceof Player) {
+            $canReach = $this->canReachPlayer($player, $actionTarget, $constraint->reach);
+        } elseif ($actionTarget instanceof Hunter) {
             $canReach = $this->canReachHunter($player, $constraint->reach);
         } else {
             throw new LogicException('invalid parameter type');
@@ -44,15 +44,15 @@ class ReachValidator extends ConstraintValidator
         }
     }
 
-    private function canReachPlayer(Player $player, Player $actionSupport, string $reach): bool
+    private function canReachPlayer(Player $player, Player $actionTarget, string $reach): bool
     {
         if ($reach !== ReachEnum::ROOM) {
             throw new LogicException('invalid reach for player');
         }
 
-        if ($actionSupport === $player
-            || $actionSupport->getPlace() !== $player->getPlace()
-            || !$actionSupport->isAlive()
+        if ($actionTarget === $player
+            || $actionTarget->getPlace() !== $player->getPlace()
+            || !$actionTarget->isAlive()
         ) {
             return false;
         }
@@ -60,36 +60,36 @@ class ReachValidator extends ConstraintValidator
         return true;
     }
 
-    private function canReachGameEquipment(Player $player, GameEquipment $actionSupport, string $reach): bool
+    private function canReachGameEquipment(Player $player, GameEquipment $actionTarget, string $reach): bool
     {
         switch ($reach) {
             case ReachEnum::INVENTORY:
-                if (!$actionSupport instanceof GameItem) {
-                    throw new UnexpectedTypeException($actionSupport, GameItem::class);
+                if (!$actionTarget instanceof GameItem) {
+                    throw new UnexpectedTypeException($actionTarget, GameItem::class);
                 }
 
-                if (!$player->getEquipments()->contains($actionSupport)) {
+                if (!$player->getEquipments()->contains($actionTarget)) {
                     return false;
                 }
                 break;
             case ReachEnum::SHELVE:
-                if (!$actionSupport instanceof GameItem) {
-                    throw new UnexpectedTypeException($actionSupport, GameItem::class);
+                if (!$actionTarget instanceof GameItem) {
+                    throw new UnexpectedTypeException($actionTarget, GameItem::class);
                 }
 
-                if (!$player->getPlace()->getEquipments()->contains($actionSupport)) {
+                if (!$player->getPlace()->getEquipments()->contains($actionTarget)) {
                     return false;
                 }
                 break;
 
             case ReachEnum::ROOM:
-                if (!$player->canReachEquipment($actionSupport)) {
+                if (!$player->canReachEquipment($actionTarget)) {
                     return false;
                 }
                 break;
 
             case ReachEnum::SPACE_BATTLE:
-                if (!$player->canSeeSpaceBattle() || !$player->canReachEquipment($actionSupport)) {
+                if (!$player->canSeeSpaceBattle() || !$player->canReachEquipment($actionTarget)) {
                     return false;
                 }
                 break;

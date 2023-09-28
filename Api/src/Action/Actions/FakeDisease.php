@@ -37,9 +37,9 @@ class FakeDisease extends AbstractAction
         $this->diseaseCauseService = $diseaseCauseService;
     }
 
-    protected function support(?LogParameterInterface $support, array $parameters): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $support === null;
+        return $target === null;
     }
 
     /* This may be latter used

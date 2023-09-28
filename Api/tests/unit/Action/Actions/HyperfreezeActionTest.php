@@ -14,13 +14,14 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
-use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 
 class HyperfreezeActionTest extends AbstractActionTest
 {
+    /* @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface|Mockery\Mock $statusService;
+
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
@@ -32,12 +33,14 @@ class HyperfreezeActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::HYPERFREEZE, 1);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Hyperfreeze(
             $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService
+            $this->gameEquipmentService,
+            $this->statusService
         );
     }
 
@@ -84,13 +87,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent
-                && $event->getStatusName() === EquipmentStatusEnum::FROZEN
-                && $event->getStatusHolder() === $gameRation)
-            ->once()
-        ;
+        $this->statusService->shouldReceive('createStatusFromName')->once();
 
         $result = $this->action->execute();
 

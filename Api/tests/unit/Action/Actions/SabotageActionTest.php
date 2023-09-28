@@ -17,11 +17,15 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Service\StatusServiceInterface;
 
 class SabotageActionTest extends AbstractActionTest
 {
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
+
+    /* @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
      * @before
@@ -31,6 +35,7 @@ class SabotageActionTest extends AbstractActionTest
         parent::before();
 
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SABOTAGE, 2);
 
@@ -39,6 +44,7 @@ class SabotageActionTest extends AbstractActionTest
             $this->actionService,
             $this->validator,
             $this->randomService,
+            $this->statusService,
         );
     }
 
@@ -106,6 +112,7 @@ class SabotageActionTest extends AbstractActionTest
         ;
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
+        $this->statusService->shouldReceive('createStatusFromName')->once();
         $this->eventService->shouldReceive('callEvent');
 
         // Success

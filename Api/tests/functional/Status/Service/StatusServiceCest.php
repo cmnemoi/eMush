@@ -1,6 +1,8 @@
 <?php
 
-namespace Mush\Tests\functional\Status\Event;
+declare(strict_types=1);
+
+namespace Mush\Tests\functional\Status\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
@@ -10,27 +12,60 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class AddBrokenStatusEventCest
+final class StatusServiceCest extends AbstractFunctionalTest
 {
-    private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        parent::_before($I);
+        $this->createExtraPlace(RoomEnum::ALPHA_BAY, $I, $this->daedalus);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
+    }
+
+    public function testOnBrokenStatusAppliedOnEquipmentWithElectricCharges(FunctionalTester $I)
+    {
+        // given a patrol ship in alpha bay with electric charges charge status
+        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY));
+        $pasiphae
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig)
+        ;
+        $I->haveInRepository($pasiphae);
+
+        $electricChargesConfig = $I->grabEntityFromRepository(StatusConfig::class, ['name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_patrol_ship_default']);
+        $electricCharges = new ChargeStatus($pasiphae, $electricChargesConfig);
+        $I->haveInRepository($electricCharges);
+
+        // when status subscriber listens to broken status applied event
+        $this->statusService->createStatusFromName(
+            EquipmentStatusEnum::BROKEN,
+            $pasiphae,
+            ['test'],
+            new \DateTime(),
+        );
+
+        // then electric charges status charge value is 0
+        $I->assertEquals(0, $electricCharges->getCharge());
     }
 
     public function testDispatchEquipmentBroken(FunctionalTester $I)
@@ -78,15 +113,14 @@ class AddBrokenStatusEventCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $statusEvent = new StatusEvent(
+        $this->statusService->createStatusFromName(
             EquipmentStatusEnum::BROKEN,
             $gameEquipment,
             [EventEnum::NEW_CYCLE],
-            new \DateTime()
+            new \DateTime(),
+            null,
+            VisibilityEnum::PUBLIC
         );
-        $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
-
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());

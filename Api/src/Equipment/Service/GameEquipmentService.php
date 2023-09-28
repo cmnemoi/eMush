@@ -26,7 +26,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 
 class GameEquipmentService implements GameEquipmentServiceInterface
 {
@@ -35,19 +35,22 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private EquipmentServiceInterface $equipmentService;
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         GameEquipmentRepository $repository,
         EquipmentServiceInterface $equipmentService,
         RandomServiceInterface $randomService,
-        EventServiceInterface $eventService
+        EventServiceInterface $eventService,
+        StatusServiceInterface $statusService,
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->equipmentService = $equipmentService;
         $this->randomService = $randomService;
         $this->eventService = $eventService;
+        $this->statusService = $statusService;
     }
 
     public function persist(GameEquipment $equipment): GameEquipment
@@ -197,14 +200,14 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             && !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)
             && $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
-            $statusEvent = new StatusEvent(
+            $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::BROKEN,
                 $gameEquipment,
                 [EventEnum::FIRE],
-                $date
+                $date,
+                null,
+                VisibilityEnum::PUBLIC
             );
-            $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
             $this->persist($gameEquipment);
         }
@@ -270,14 +273,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a plant');
         }
 
-        $statusEvent = new StatusEvent(
+        $this->statusService->createStatusFromName(
             EquipmentStatusEnum::PLANT_YOUNG,
             $gameEquipment,
             [EquipmentEvent::EQUIPMENT_CREATED],
             new \DateTime()
         );
-
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
     }
@@ -288,14 +289,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a document');
         }
 
-        $statusEvent = new StatusEvent(
+        $this->statusService->createStatusFromName(
             EquipmentStatusEnum::DOCUMENT_CONTENT,
             $gameEquipment,
             [EquipmentEvent::EQUIPMENT_CREATED],
             new \DateTime()
         );
-
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
     }

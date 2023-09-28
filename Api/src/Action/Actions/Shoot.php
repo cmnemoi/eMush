@@ -43,7 +43,6 @@ class Shoot extends AttemptAction
     protected string $name = ActionEnum::SHOOT;
 
     private DiseaseCauseServiceInterface $diseaseCauseService;
-    protected RandomServiceInterface $randomService;
 
     public function __construct(
         EventServiceInterface $eventService,

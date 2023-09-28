@@ -6,6 +6,7 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\PreMush;
@@ -15,15 +16,30 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Hide extends AbstractAction
 {
     protected string $name = ActionEnum::HIDE;
+
+    protected StatusServiceInterface $statusService;
+
+    public function __construct(
+        EventServiceInterface $eventService,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        StatusServiceInterface $statusService
+    ) {
+        parent::__construct($eventService, $actionService, $validator);
+
+        $this->statusService = $statusService;
+    }
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -49,14 +65,13 @@ class Hide extends AbstractAction
         $parameter = $this->parameter;
         $time = new \DateTime();
 
-        $statusEvent = new StatusEvent(
+        $this->statusService->createStatusFromName(
             EquipmentStatusEnum::HIDDEN,
             $parameter,
             $this->getAction()->getActionTags(),
-            $time
+            $time,
+            $this->player
         );
-        $statusEvent->setStatusTarget($this->player);
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         if ($parameter->getHolder() instanceof Player) {
             $equipmentEvent = new MoveEquipmentEvent(

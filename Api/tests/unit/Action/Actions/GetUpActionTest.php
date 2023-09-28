@@ -2,6 +2,7 @@
 
 namespace Mush\Tests\unit\Action\Actions;
 
+use Mockery;
 use Mush\Action\Actions\GetUp;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -13,9 +14,13 @@ use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 
 class GetUpActionTest extends AbstractActionTest
 {
+    /* @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface|Mockery\Mock $statusService;
+
     /**
      * @before
      */
@@ -25,10 +30,13 @@ class GetUpActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::GET_UP);
 
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+
         $this->action = new GetUp(
             $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->statusService
         );
     }
 
@@ -66,7 +74,7 @@ class GetUpActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('removeStatus')->once();
 
         $result = $this->action->execute();
 

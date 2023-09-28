@@ -38,17 +38,19 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class RoomEventCest
 {
     private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testRoomEventOnNonRoomPlace(FunctionalTester $I)
@@ -115,8 +117,7 @@ class RoomEventCest
 
         $room->setDaedalus($daedalus);
 
-        $statusEvent = new StatusEvent(StatusEnum::FIRE, $room, [EventEnum::NEW_CYCLE, StatusEnum::FIRE], $time);
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->statusService->createStatusFromName(StatusEnum::FIRE, $room, [EventEnum::NEW_CYCLE, StatusEnum::FIRE], $time);
 
         $I->assertEquals(1, $room->getStatuses()->count());
 
@@ -386,14 +387,14 @@ class RoomEventCest
         $equipment = new ArrayCollection([$gameEquipment, $tabulatrix]);
 
         foreach ($equipment as $item) {
-            $statusEvent = new StatusEvent(
+            $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::BROKEN,
                 $item,
                 [EventEnum::NEW_CYCLE, EquipmentEvent::EQUIPMENT_BROKEN],
-                new \DateTime()
+                new \DateTime(),
+                null,
+                VisibilityEnum::PUBLIC
             );
-            $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
         }
 
         $I->assertTrue($gameEquipment->isBroken());
@@ -481,14 +482,14 @@ class RoomEventCest
 
         $I->refreshEntities($room, $room2, $gameEquipment);
 
-        $statusEvent = new StatusEvent(
+        $this->statusService->createStatusFromName(
             EquipmentStatusEnum::BROKEN,
             $gameEquipment,
             [EventEnum::NEW_CYCLE, EquipmentEvent::DOOR_BROKEN],
-            new \DateTime()
+            new \DateTime(),
+            null,
+            VisibilityEnum::HIDDEN
         );
-        $statusEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertTrue($gameEquipment->isBroken());
 

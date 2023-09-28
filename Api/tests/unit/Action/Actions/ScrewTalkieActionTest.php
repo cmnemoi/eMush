@@ -2,6 +2,7 @@
 
 namespace Mush\Tests\unit\Action\Actions;
 
+use Mockery;
 use Mush\Action\Actions\ScrewTalkie;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -17,10 +18,14 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 
 class ScrewTalkieActionTest extends AbstractActionTest
 {
+    /* @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface|Mockery\Mock $statusService;
+
     /**
      * @before
      */
@@ -29,11 +34,13 @@ class ScrewTalkieActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SCREW_TALKIE, 2);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new ScrewTalkie(
             $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->statusService,
         );
     }
 
@@ -69,7 +76,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventService->shouldReceive('callEvent')->twice();
+        $this->statusService->shouldReceive('createStatusFromName')->twice();
         // Success
         $result = $this->action->execute();
 
@@ -106,7 +113,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('createStatusFromName')->once();
         // Success
         $result = $this->action->execute();
 

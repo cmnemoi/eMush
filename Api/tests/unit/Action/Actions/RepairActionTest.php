@@ -14,11 +14,15 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Status\Service\StatusServiceInterface;
 
 class RepairActionTest extends AbstractActionTest
 {
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
+
+    /* @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
      * @before
@@ -30,12 +34,14 @@ class RepairActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPAIR, 1);
 
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Repair(
             $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
+            $this->statusService,
         );
     }
 
@@ -117,7 +123,7 @@ class RepairActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('removeStatus')->once();
 
         // Success
         $result = $this->action->execute();

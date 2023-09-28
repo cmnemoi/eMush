@@ -11,9 +11,11 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -32,14 +34,9 @@ use PHPUnit\Framework\TestCase;
 
 class StatusServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface|Mockery\Mock */
-    private EntityManagerInterface $entityManager;
-
-    /** @var EventServiceInterface|Mockery\Mock */
-    protected EventServiceInterface $eventService;
-
-    /** @var StatusRepository|Mockery\Mock */
-    private StatusRepository $repository;
+    private Mockery\Mock|EntityManagerInterface $entityManager;
+    protected Mockery\Mock|EventServiceInterface $eventService;
+    private Mockery\Mock|StatusRepository $repository;
 
     private StatusService $service;
 
@@ -130,6 +127,8 @@ class StatusServiceTest extends TestCase
         $place = new Place();
         $place->setDaedalus(new Daedalus());
         $gameEquipment = new GameItem($place);
+        $gameEquipment->setName('equipment');
+
         $chargeStatusConfig = new ChargeStatusConfig();
         $chargeStatusConfig
             ->setMaxCharge(6)
@@ -161,9 +160,11 @@ class StatusServiceTest extends TestCase
 
         $chargeStatusConfig->setAutoRemove(true);
 
-        $this->entityManager->shouldReceive('remove')->never();
-        $this->entityManager->shouldReceive('flush')->never();
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->entityManager->shouldReceive('remove')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+        $deleteEvent = new AbstractGameEvent([], new \DateTime());
+        $deleteEvent->setPriority(0);
+        $this->eventService->shouldReceive('callEvent')->once()->andReturn(new EventChain([$deleteEvent]));
         $result = $this->service->updateCharge($chargeStatus, -7, [], $time);
 
         $this->assertNull($result);
@@ -183,6 +184,7 @@ class StatusServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('computeEventModifications')->once()->andReturn(new AbstractGameEvent([], new \DateTime()));
 
         $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
 
@@ -210,6 +212,7 @@ class StatusServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('computeEventModifications')->once()->andReturn(new AbstractGameEvent([], new \DateTime()));
 
         $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
 

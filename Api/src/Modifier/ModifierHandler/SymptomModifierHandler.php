@@ -2,7 +2,7 @@
 
 namespace Mush\Modifier\ModifierHandler;
 
-use Mush\Disease\Service\SymptomHandlerServiceInterface;
+use Mush\Disease\Event\SymptomEvent;
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
@@ -11,14 +11,6 @@ use Mush\Player\Entity\Player;
 class SymptomModifierHandler extends AbstractModifierHandler
 {
     protected string $name = ModifierStrategyEnum::SYMPTOM_MODIFIER;
-
-    private SymptomHandlerServiceInterface $symptomHandlerService;
-
-    public function __construct(
-        SymptomHandlerServiceInterface $symptomHandlerService,
-    ) {
-        $this->symptomHandlerService = $symptomHandlerService;
-    }
 
     public function handleEventModifier(
         GameModifier $modifier,
@@ -38,28 +30,23 @@ class SymptomModifierHandler extends AbstractModifierHandler
             throw new \Exception('A modifier with a SymptomModifier strategy should have a ModifierName');
         }
 
-        $symptomHandler = $this->symptomHandlerService->getSymptomHandler(
-            $modifierName
-        );
-
-        // some symptoms are only a message, there is no handler for those
-        if ($symptomHandler === null) {
-            return $this->addModifierEvent($events, $modifier, $tags, $time);
-        }
-
         $player = $modifier->getModifierHolder();
         if (!($player instanceof Player)) {
             return $events;
         }
 
-        $symptomEvents = $symptomHandler->applyEffects(
+        $symptomEvent = new SymptomEvent(
             $player,
-            $modifier->getModifierConfig()->getPriorityAsInteger(),
+            $modifierName,
             $tags,
             $time
         );
+        $symptomEvent
+            ->setPriority($modifier->getModifierConfig()->getPriorityAsInteger())
+            ->setEventName(SymptomEvent::TRIGGER_SYMPTOM)
+        ;
 
-        $events = $events->addEvents($symptomEvents);
+        $events = $events->addEvent($symptomEvent);
 
         return $this->addModifierEvent($events, $modifier, $tags, $time);
     }

@@ -7,9 +7,13 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
+use Mush\Status\Service\StatusServiceInterface;
 
 class UngagActionTest extends AbstractActionTest
 {
+    /* @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface|Mockery\Mock $statusService;
+
     /**
      * @before
      */
@@ -19,10 +23,13 @@ class UngagActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::UNGAG, 1);
 
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+
         $this->action = new Ungag(
             $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->statusService
         );
     }
 
@@ -45,7 +52,7 @@ class UngagActionTest extends AbstractActionTest
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('removeStatus')->once();
 
         $result = $this->action->execute();
 

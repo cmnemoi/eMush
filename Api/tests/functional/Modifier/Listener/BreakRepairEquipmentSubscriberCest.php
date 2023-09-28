@@ -16,7 +16,6 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -27,16 +26,16 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 
 class BreakRepairEquipmentSubscriberCest
 {
-    private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testRepairGearPlaceReach(FunctionalTester $I)
@@ -110,15 +109,14 @@ class BreakRepairEquipmentSubscriberCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $statusEvent = new StatusEvent(
+        $this->statusService->createStatusFromName(
             EquipmentStatusEnum::BROKEN,
             $gameEquipment,
             [ActionEnum::COFFEE],
-            new \DateTime()
+            new \DateTime(),
+            null,
+            VisibilityEnum::PUBLIC
         );
-        $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
-
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -127,15 +125,13 @@ class BreakRepairEquipmentSubscriberCest
         $I->assertEquals($daedalus->getModifiers()->count(), 0);
 
         // now fix the equipment
-        $statusEvent = new StatusEvent(
+        $this->statusService->removeStatus(
             EquipmentStatusEnum::BROKEN,
             $gameEquipment,
             [ActionEnum::COFFEE],
-            new \DateTime()
+            new \DateTime(),
+            VisibilityEnum::PUBLIC
         );
-        $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
-
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);

@@ -26,6 +26,7 @@ use Mush\Status\CycleHandler\Fire;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -38,6 +39,7 @@ class FireTest extends TestCase
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     private DaedalusServiceInterface|Mockery\Mock $daedalusService;
+    private StatusServiceInterface|Mockery\Mock $statusService;
     private Fire $cycleHandler;
 
     /**
@@ -49,12 +51,14 @@ class FireTest extends TestCase
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->daedalusService = \Mockery::mock(DaedalusServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->cycleHandler = new Fire(
             $this->randomService,
             $this->eventService,
             $this->gameEquipmentService,
-            $this->daedalusService
+            $this->daedalusService,
+            $this->statusService,
         );
     }
 

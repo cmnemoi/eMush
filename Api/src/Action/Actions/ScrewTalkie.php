@@ -6,18 +6,21 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class implementing the "pirate radio" action.
@@ -40,6 +43,19 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 class ScrewTalkie extends AbstractAction
 {
     protected string $name = ActionEnum::SCREW_TALKIE;
+
+    protected StatusServiceInterface $statusService;
+
+    public function __construct(
+        EventServiceInterface $eventService,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        StatusServiceInterface $statusService
+    ) {
+        parent::__construct($eventService, $actionService, $validator);
+
+        $this->statusService = $statusService;
+    }
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -84,22 +100,20 @@ class ScrewTalkie extends AbstractAction
         )->first();
 
         if (!$talkie->isBroken()) {
-            $statusEvent = new StatusEvent(
+            $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::BROKEN,
                 $talkie,
                 $this->getAction()->getActionTags(),
                 new \DateTime()
             );
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
         }
 
-        $statusEvent = new StatusEvent(
+        $this->statusService->createStatusFromName(
             PlayerStatusEnum::TALKIE_SCREWED,
             $this->player,
             $this->getAction()->getActionTags(),
             new \DateTime(),
+            $parameter
         );
-        $statusEvent->setStatusTarget($parameter);
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 }

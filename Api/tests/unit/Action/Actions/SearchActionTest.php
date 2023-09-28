@@ -19,8 +19,10 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class SearchActionTest extends AbstractActionTest
 {
+    /* @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
+    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -117,8 +119,7 @@ class SearchActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
         $this->gameEquipmentService->shouldReceive('persist');
-        $this->statusService->shouldReceive('delete');
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('removeStatus')->once();
 
         $result = $this->action->execute();
 
@@ -166,7 +167,8 @@ class SearchActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('removeStatus')->once();
+
         $this->gameEquipmentService->shouldReceive('persist');
 
         $result = $this->action->execute();

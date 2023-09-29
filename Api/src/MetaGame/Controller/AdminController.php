@@ -4,6 +4,7 @@ namespace Mush\MetaGame\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -367,6 +368,38 @@ class AdminController extends AbstractFOSRestController
             'message' => "Announcement sent successfully to {$daedaluses->count()} Daedaluses",
             'announcement' => $announcement,
         ], Response::HTTP_CREATED);
+    }
+
+     /**
+     * Return a player data adapted for admin view.
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The player id",
+     *
+     *       @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Tag(name="Admin")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Get(path="/view-player/{id}")
+     *
+     * @Rest\View()
+     */
+    public function getAdminViewPlayer(Player $player): View
+    {
+        $this->denyAccessIfNotAdmin();
+
+        $context = new Context();
+        $context->setAttribute('groups', ['admin_view']);
+
+        $view = $this->view($player, Response::HTTP_OK);
+        $view->setContext($context);
+
+        return $view;
     }
 
     private function alertElementHaveSameEquipmentOrPlace(AlertElement $element1, AlertElement $element2): bool

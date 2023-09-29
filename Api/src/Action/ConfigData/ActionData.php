@@ -1523,7 +1523,7 @@ class ActionData
             'types' => [],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
-            'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => 'hidden'],
+            'visibilities' => ['success' => VisibilityEnum::PRIVATE, 'fail' => 'hidden'],
             'actionPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => null, 'max_value' => 0],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

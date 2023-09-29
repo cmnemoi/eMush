@@ -50,7 +50,7 @@ final class CheckFuelChamberLevelCest extends AbstractFunctionalTest
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player->getPlayerInfo(),
             'log' => ActionLogEnum::CHECK_FUEL_CHAMBER_LEVEL_SUCCESS,
-            'visibility' => VisibilityEnum::PUBLIC,
+            'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }
 

@@ -931,7 +931,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(5)
             ->setInjuryRate(0)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
         $manager->persist($checkFuelChamberLevel);
 

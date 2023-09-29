@@ -60,6 +60,17 @@
             </div>
         </section>
 
+        <!-- Pilgred section
+        <section>
+            <h3>Pilgred</h3>
+            <div class="action">
+                <button>
+                    <span class="cost">1<img src="@/assets/images/pa.png" alt="ap"></span>
+                    <span>Retourner sur Sol</span>
+                </button>
+            </div>
+        </section> -->
+
         <section>
             <h3>Informations générales</h3>
             <p>Nous voyageons actuellement dans l'<strong>Espace proche</strong>.</p>

@@ -24,12 +24,15 @@ final class ChangeDaedalusOrientationCest extends AbstractFunctionalTest
     private Action $changeDaedalusOrientationActionConfig;
     private ChangeDaedalusOrientation $changeDaedalusOrientationAction;
     private GameEquipment $commandTerminal;
+    private GameEquipment $alphaLateralReactor;
+    private GameEquipment $bravoLateralReactor;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
+        $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
 
         $commandTerminalConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::COMMAND_TERMINAL]);
         $this->commandTerminal = new GameEquipment($bridge);
@@ -38,6 +41,22 @@ final class ChangeDaedalusOrientationCest extends AbstractFunctionalTest
             ->setEquipment($commandTerminalConfig)
         ;
         $I->haveInRepository($this->commandTerminal);
+
+        $alphaLateralReactorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::REACTOR_LATERAL_ALPHA]);
+        $this->alphaLateralReactor = new GameEquipment($engineRoom);
+        $this->alphaLateralReactor
+            ->setName(EquipmentEnum::REACTOR_LATERAL_ALPHA)
+            ->setEquipment($alphaLateralReactorConfig)
+        ;
+        $I->haveInRepository($this->alphaLateralReactor);
+
+        $bravoLateralReactorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::REACTOR_LATERAL_BRAVO]);
+        $this->bravoLateralReactor = new GameEquipment($engineRoom);
+        $this->bravoLateralReactor
+            ->setName(EquipmentEnum::REACTOR_LATERAL_BRAVO)
+            ->setEquipment($bravoLateralReactorConfig)
+        ;
+        $I->haveInRepository($this->bravoLateralReactor);
 
         $this->player->changePlace($bridge);
 
@@ -115,6 +134,47 @@ final class ChangeDaedalusOrientationCest extends AbstractFunctionalTest
 
         // then action is not executable
         $I->assertEquals(ActionImpossibleCauseEnum::NEED_TO_CHANGE_ORIENTATION, $this->changeDaedalusOrientationAction->cannotExecuteReason());
+    }
+
+    public function testChangeDaedalusOrientationNotExecutableIfBothLateralReactorsAreBroken(FunctionalTester $I): void
+    {
+        // given player is focused on command terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->player,
+            tags: ['test'],
+            time: new \DateTime(),
+        );
+
+        // given Daedalus orientation is North
+        $this->daedalus->setOrientation(DaedalusOrientationEnum::NORTH);
+
+        // given bravo lateral reactor is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $this->bravoLateralReactor,
+            tags: ['test'],
+            time: new \DateTime(),
+        );
+
+        // given alpha lateral reactor is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $this->alphaLateralReactor,
+            tags: ['test'],
+            time: new \DateTime(),
+        );
+
+        // when player changes daedalus orientation to West
+        $this->changeDaedalusOrientationAction->loadParameters(
+            $this->changeDaedalusOrientationActionConfig,
+            $this->player,
+            target: $this->commandTerminal,
+            parameters: ['orientation' => DaedalusOrientationEnum::WEST]
+        );
+
+        // then action is not executable
+        $I->assertEquals(ActionImpossibleCauseEnum::LATERAL_REACTORS_ARE_BROKEN, $this->changeDaedalusOrientationAction->cannotExecuteReason());
     }
 
     public function testChangeDaedalusOrientationActuallyChangesOrientation(FunctionalTester $I): void
@@ -226,6 +286,86 @@ final class ChangeDaedalusOrientationCest extends AbstractFunctionalTest
             $this->player,
             target: $this->commandTerminal,
             parameters: ['orientation' => DaedalusOrientationEnum::SOUTH]
+        );
+        $this->changeDaedalusOrientationAction->execute();
+
+        // then the action costs 1 extra AP from base cost
+        $I->assertEquals(
+            expected: $this->player->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - ($baseCost + 1),
+            actual: $this->player->getActionPoint(),
+        );
+    }
+
+    public function testChangeDaedalusOrientationFromNorthToEastWithAlphaLateralReactorBrokenCostsOneExtraAP(FunctionalTester $I): void
+    {
+        // given player is focused on command terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->player,
+            tags: ['test'],
+            time: new \DateTime(),
+        );
+
+        // given Daedalus orientation is North
+        $this->daedalus->setOrientation(DaedalusOrientationEnum::NORTH);
+
+        // given action base cost
+        $baseCost = $this->changeDaedalusOrientationActionConfig->getActionCost();
+
+        // given alpha lateral reactor is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $this->alphaLateralReactor,
+            tags: ['test'],
+            time: new \DateTime(),
+        );
+
+        // when player changes daedalus orientation to West
+        $this->changeDaedalusOrientationAction->loadParameters(
+            $this->changeDaedalusOrientationActionConfig,
+            $this->player,
+            target: $this->commandTerminal,
+            parameters: ['orientation' => DaedalusOrientationEnum::EAST]
+        );
+        $this->changeDaedalusOrientationAction->execute();
+
+        // then the action costs 1 extra AP from base cost
+        $I->assertEquals(
+            expected: $this->player->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - ($baseCost + 1),
+            actual: $this->player->getActionPoint(),
+        );
+    }
+
+    public function testChangeDaedalusOrientationFromNorthToWestWithBravoLateralReactorBrokenCostsOneExtraAP(FunctionalTester $I): void
+    {
+        // given player is focused on command terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->player,
+            tags: ['test'],
+            time: new \DateTime(),
+        );
+
+        // given Daedalus orientation is North
+        $this->daedalus->setOrientation(DaedalusOrientationEnum::NORTH);
+
+        // given action base cost
+        $baseCost = $this->changeDaedalusOrientationActionConfig->getActionCost();
+
+        // given bravo lateral reactor is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $this->bravoLateralReactor,
+            tags: ['test'],
+            time: new \DateTime(),
+        );
+
+        // when player changes daedalus orientation to West
+        $this->changeDaedalusOrientationAction->loadParameters(
+            $this->changeDaedalusOrientationActionConfig,
+            $this->player,
+            target: $this->commandTerminal,
+            parameters: ['orientation' => DaedalusOrientationEnum::WEST]
         );
         $this->changeDaedalusOrientationAction->execute();
 

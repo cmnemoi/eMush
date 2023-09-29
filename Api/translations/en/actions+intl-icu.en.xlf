@@ -58,7 +58,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>consume.description</source>
-        <target>Devour something delicious.
+        <target>Devour something delicious. 
         //
         Eating and drinking generally restores :pa::pm:.
         *Cooked rations* do not affect your morale. Other foods might hold surprises.</target>
@@ -71,7 +71,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>consume_drug.description</source>
-        <target>Pop a tasty pill.
+        <target>Pop a tasty pill. 
         //
         Eating and drinking generally restores :pa::pm:.
         *Cooked rations* do not affect your morale. Other foods might hold surprises.</target>
@@ -264,9 +264,9 @@
       </segment>
       <segment id="description" state="translated">
         <source>rejuvenate.description</source>
-        <target>Allows you to recover all your :pa:, :pm:, :hp: and :pmo:.
+        <target>Allows you to recover all your :pa:, :pm:, :hp: and :pmo:. 
 //
-Available only during the alpha.
+Available only during the alpha. 
 //
 Thanks for your help!</target>
       </segment>
@@ -828,7 +828,7 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       <segment id="description" state="translated">
         <source>shoot_hunter_patrol_ship.description</source>
         <target>Fire a Teslatron charge at an enemy ship.
-//
+// 
 Upgradeable with Missiles.</target>
       </segment>
     </unit>
@@ -840,7 +840,7 @@ Upgradeable with Missiles.</target>
       <segment id="description" state="translated">
         <source>shoot_random_hunter_patrol_ship.description</source>
         <target>Fire a Teslatron charge at an enemy ship.
-//
+// 
 Upgradeable with Missiles.</target>
       </segment>
     </unit>
@@ -861,7 +861,7 @@ Upgradeable with Missiles.</target>
       </segment>
       <segment id="description" state="translated">
         <source>renovate.description</source>
-        <target>Renovating a patrol ship could change the course of future battles.
+        <target>Renovating a patrol ship could change the course of future battles. 
 //
 Requires *Scrap Metal*.</target>
       </segment>
@@ -876,16 +876,6 @@ Requires *Scrap Metal*.</target>
         <target>For when you have lost the battle, but not the war!
 //
 Or you simply need some fresh air.... or not.</target>
-      </segment>
-    </unit>
-    <unit id="check_fuel_chamber_level">
-      <segment id="name" state="final">
-        <source>check_fuel_chamber_level.name</source>
-        <target>Check Fuel</target>
-      </segment>
-      <segment id="description" state="final">
-        <source>check_fuel_chamber_level.description</source>
-        <target>Check Fuel level in the chamber.</target>
       </segment>
     </unit>
   </file>

@@ -97,7 +97,7 @@ section {
     @extend %terminal-section;
     flex-direction: column;
     padding: 1.5em .8em .8em;
-    background-image: url("~@/assets/images/nav_bg.png");
+    background-image: url("~@/assets/images/nav_bg.svg");
 
     & > p, & > div {
         margin: 0.8em 0 0;

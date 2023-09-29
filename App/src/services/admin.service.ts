@@ -59,6 +59,13 @@ const AdminService = {
 
         return response;
     },
+    getAdminViewPlayer: async(playerId: number): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.get(ADMIN_ENDPOINT + '/view-player/' + playerId);
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     quarantinePlayer: async(playerId: number): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(QUARANTINE_PLAYER_ENDPOINT + '/' + playerId);

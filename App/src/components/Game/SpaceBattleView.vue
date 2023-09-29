@@ -137,11 +137,7 @@ export default defineComponent({
 .allies-container, .hunters-container {
     position: absolute;
     top: 25px;
-    // width: 129px;
     max-height: 320px;
-    // display: flex;
-    // flex-direction: column;
-    // padding: 1px;
 }
 
 .allies-container {
@@ -150,15 +146,8 @@ export default defineComponent({
 }
 
 .hunters-container {
-    // position: absolute;
     right: 2px;
-    // width: 85px;
-    // max-height: 303px;
-    // display: flex;
-    // flex-direction: column;
     flex-wrap: wrap-reverse;
-    // align-content: end;
-    // padding: 1px;
 }
 
 .turret, .fighter, .hunter {
@@ -169,18 +158,12 @@ export default defineComponent({
     background-color: $slightlyDeepBlue;
     border: 1px solid $greyBlue;
     border-top-right-radius: 10px;
-    // display: flex;
     flex-direction: row;
-    // flex-wrap: wrap;
 
     &.green {
         background-color: $deepGreen;
         border-color: $green;
     }
-}
-
-.sub-fighter-container {
-    // flex: 1;
 }
 
 .operator {
@@ -197,23 +180,9 @@ export default defineComponent({
     font-size: .75em;
     letter-spacing: 0.05em;
     text-shadow: 0 0 5px $deepBlue;
-    // font-family: $font-pixel-square;
 
     p { margin: 0; }
 }
-
-.hunters-container .stats {
-    // height: 6px;
-}
-
-/*     .sub-fighter-container-inner {
-    width: calc(100% - 2px);
-    height: 40%;
-    margin: auto;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-} */
 
 .ship-img-container {
     width: 38px;
@@ -226,6 +195,7 @@ export default defineComponent({
         margin: auto;
     }
 
+    // lists all ships and setup their display parameters
     .patrol-ship-img {
         width: calc(103px / 1.5);
         transform: scaleX(-1);
@@ -266,27 +236,12 @@ export default defineComponent({
     }
 }
 
-.hunters-container .ship-img-container {
-    // width: 33px;
-    height: 26px;
-}
+.hunters-container .ship-img-container { height: 26px; }
 
 img {
     width: fit-content;
     height: fit-content;
 }
-
-.turret-img {
-    // margin-top: 7px;
-}
-
-/* .quantity {
-    margin: 0;
-    // padding: 1px;
-    font-weight: 700;
-    font-size: .75em;
-    text-shadow: 0 0 5px $deepBlue;
-} */
 
 .patrol-ship-stats {
     width: 100%;
@@ -298,16 +253,9 @@ img {
 .hunter {
     width: 42px;
     height: 42px;
-    // background-color: $slightlyDeepBlue;
-    // margin: 1px;
-    // border: solid;
-    // border-color: $greyBlue;
-    // padding: 2px;
-    // border-width: 1px;
     border-top-left-radius: 5px;
     border-top-right-radius: 0;
     cursor: pointer;
-    // display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -322,29 +270,5 @@ img {
         box-shadow: 0px 0px 8px 3px red;
     }
 }
-
-
-/////
-
-/* .hunter-img {
-    width: 30px;
-    height: 30px;
-    object-fit: none;
-    object-position: center;
-} */
-
-/* .sub-fighter-container-inner.ship {
-    margin: 0px;
-    height: 60%;
-    overflow: hidden;
-}
-.sub-fighter-container-inner.stats {
-    margin-left: 1px;
-}
- */
-/* div.tippy-tooltip {
-    margin-right: 5px;
-    margin-left: 5px;
-} */
 
 </style>

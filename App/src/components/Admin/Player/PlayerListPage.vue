@@ -42,6 +42,7 @@
                     @click="closePlayer(slotProps.id)">
                     {{ $t("admin.playerList.closePlayer") }}
                 </button>
+                <router-link :to="{ name: 'AdminViewPlayerDetail', params: {'playerId': slotProps.id} }">Voir les détails du joueur</router-link>
             </template>
 
         </Datatable>

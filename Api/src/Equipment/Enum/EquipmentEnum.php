@@ -77,8 +77,26 @@ class EquipmentEnum
         ]);
     }
 
+    public static function getTerminals(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::ASTRO_TERMINAL,
+            self::AUXILIARY_TERMINAL,
+            self::BIOS_TERMINAL,
+            self::COMMAND_TERMINAL,
+            self::COMMUNICATION_CENTER,
+            self::NERON_CORE,
+            self::PILGRED,
+            self::RESEARCH_LABORATORY,
+        ]);
+    }
+
     public static function equipmentToNormalizeAsItems(): ArrayCollection
     {
         return new ArrayCollection([self::TABULATRIX]);
     }
+
+    public static array $terminalActionParametersMap = [
+        self::COMMAND_TERMINAL => ['orientation'],
+    ];
 }

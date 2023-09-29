@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Normalizer\SpaceBattlePatrolShipNormalizer;
 use Mush\Equipment\Normalizer\SpaceBattleTurretNormalizer;
+use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -34,6 +35,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private PlayerVariableServiceInterface $playerVariableService;
     private SpaceBattlePatrolShipNormalizer $spaceBattlePatrolShipNormalizer;
     private SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer;
+    private TerminalNormalizer $terminalNormalizer;
     private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
 
@@ -43,6 +45,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         PlayerVariableServiceInterface $playerVariableService,
         SpaceBattlePatrolShipNormalizer $spaceBattlePatrolShipNormalizer,
         SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer,
+        TerminalNormalizer $terminalNormalizer,
         TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService
     ) {
@@ -51,6 +54,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $this->playerVariableService = $playerVariableService;
         $this->spaceBattlePatrolShipNormalizer = $spaceBattlePatrolShipNormalizer;
         $this->spaceBattleTurretNormalizer = $spaceBattleTurretNormalizer;
+        $this->terminalNormalizer = $terminalNormalizer;
         $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
     }
@@ -98,6 +102,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             ],
             'daedalus' => $this->normalizer->normalize($daedalus, $format, $context),
             'spaceBattle' => $this->normalizeSpaceBattle($player, $format, $context),
+            'terminal' => $this->terminalNormalizer->normalize($player->getCurrentlyFocusedTerminal(), $format, $context),
         ];
 
         $statuses = [];

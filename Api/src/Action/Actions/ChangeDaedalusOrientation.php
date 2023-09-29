@@ -76,7 +76,7 @@ final class ChangeDaedalusOrientation extends AbstractAction
     protected function support(?LogParameterInterface $target, array $parameters): bool
     {
         $targetIsValid = $target instanceof GameEquipment;
-        $orientationIsValid = in_array($parameters['orientation'], DaedalusOrientationEnum::getAll(), strict: true);
+        $orientationIsValid = in_array($parameters['orientation'], DaedalusOrientationEnum::getAll(), strict: true) || $parameters['orientation'] === null;
 
         return $targetIsValid && $orientationIsValid;
     }

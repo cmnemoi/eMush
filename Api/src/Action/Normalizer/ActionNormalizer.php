@@ -9,6 +9,8 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
@@ -153,10 +155,11 @@ class ActionNormalizer implements NormalizerInterface
         if (array_key_exists('hunter', $context)) {
             $actionTarget = $context['hunter'];
         }
+        if (array_key_exists('terminal', $context)) {
+            $actionTarget = $context['terminal'];
+        }
 
-        $parameters['actionTarget'] = $actionTarget;
-
-        return $parameters;
+        return $this->getActionParameters($actionTarget, $parameters);
     }
 
     private function getTypesDescriptions(string $description, array $types, string $language = null): string
@@ -169,5 +172,21 @@ class ActionNormalizer implements NormalizerInterface
         }
 
         return $description;
+    }
+
+    private function getActionParameters(mixed $actionTarget, array $parameters): array
+    {
+        $parameters['actionTarget'] = $actionTarget;
+
+        // add specific terminal action parameters to context
+        if ($actionTarget instanceof GameEquipment && EquipmentEnum::getTerminals()->contains($actionTarget->getName())) {
+            foreach (EquipmentEnum::$terminalActionParametersMap[$actionTarget->getName()] as $actionParameter) {
+                if (!array_key_exists($actionParameter, $parameters)) {
+                    $parameters[$actionParameter] = null;
+                }
+            }
+        }
+
+        return $parameters;
     }
 }

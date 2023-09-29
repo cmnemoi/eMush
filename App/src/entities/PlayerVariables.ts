@@ -1,10 +1,10 @@
 export class PlayerVariables {
-    public healthPoint!: integer
-    public moralPoint!: integer
-    public actionPoint!: integer
-    public movementPoint!: integer
-    public satiety!: integer
-    public spores!: integer
+    public healthPoint!: integer;
+    public moralPoint!: integer;
+    public actionPoint!: integer;
+    public movementPoint!: integer;
+    public satiety!: integer;
+    public spores!: integer;
 
     public load(object: any): PlayerVariables {
         if (object !== undefined && object !== null) {

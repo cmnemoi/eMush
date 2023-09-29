@@ -9,13 +9,16 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\AreLateralReactorsBroken;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\OrientationHasChanged;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Enum\DaedalusOrientationEnum;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -27,12 +30,14 @@ final class ChangeDaedalusOrientation extends AbstractAction
 {
     protected string $name = ActionEnum::CHANGE_DAEDALUS_ORIENTATION;
     private DaedalusServiceInterface $daedalusService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        DaedalusServiceInterface $daedalusService
+        DaedalusServiceInterface $daedalusService,
+        GameEquipmentServiceInterface $gameEquipmentService
     ) {
         parent::__construct(
             $eventService,
@@ -40,6 +45,7 @@ final class ChangeDaedalusOrientation extends AbstractAction
             $validator
         );
         $this->daedalusService = $daedalusService;
+        $this->gameEquipmentService = $gameEquipmentService;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -57,7 +63,14 @@ final class ChangeDaedalusOrientation extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
-        $metadata->addConstraint(new OrientationHasChanged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NEED_TO_CHANGE_ORIENTATION]));
+        $metadata->addConstraint(new OrientationHasChanged([
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::NEED_TO_CHANGE_ORIENTATION,
+        ]));
+        $metadata->addConstraint(new AreLateralReactorsBroken([
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::LATERAL_REACTORS_ARE_BROKEN,
+        ]));
     }
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
@@ -88,11 +101,41 @@ final class ChangeDaedalusOrientation extends AbstractAction
         $currentOrientation = $daedalus->getOrientation();
 
         if ($result instanceof Success) {
-            if ($currentOrientation && $chosenOrientation === DaedalusOrientationEnum::getOppositeOrientation($currentOrientation)) {
+            if (
+                $currentOrientation !== null
+                && $chosenOrientation === DaedalusOrientationEnum::getOppositeOrientation($currentOrientation)
+            ) {
                 $this->action->setActionCost($this->action->getActionCost() + 1);
             }
 
-            $daedalus->setOrientation($this->parameters['orientation']);
+            /** @var false|GameEquipment $alphaLateralReactor */
+            $alphaLateralReactor = $this->gameEquipmentService->findByNameAndDaedalus(
+                EquipmentEnum::REACTOR_LATERAL_ALPHA,
+                $daedalus
+            )->first();
+            /** @var false|GameEquipment $bravoLateralReactor */
+            $bravoLateralReactor = $this->gameEquipmentService->findByNameAndDaedalus(
+                EquipmentEnum::REACTOR_LATERAL_BRAVO,
+                $daedalus
+            )->first();
+
+            if (
+                $currentOrientation !== null
+                && $chosenOrientation === DaedalusOrientationEnum::getClockwiseOrientation($currentOrientation)
+                && $alphaLateralReactor instanceof GameEquipment && !$alphaLateralReactor->isOperational()
+            ) {
+                $this->action->setActionCost($this->action->getActionCost() + 1);
+            }
+
+            if (
+                $currentOrientation !== null
+                && $chosenOrientation === DaedalusOrientationEnum::getCounterClockwiseOrientation($currentOrientation)
+                && $bravoLateralReactor instanceof GameEquipment && !$bravoLateralReactor->isOperational()
+            ) {
+                $this->action->setActionCost($this->action->getActionCost() + 1);
+            }
+
+            $daedalus->setOrientation($chosenOrientation);
             $this->daedalusService->persist($daedalus);
         }
     }

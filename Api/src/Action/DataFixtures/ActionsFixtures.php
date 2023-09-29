@@ -94,6 +94,7 @@ class ActionsFixtures extends Fixture
     public const AUTO_EJECT = 'auto.eject';
     public const INSERT_FUEL_CHAMBER = 'insert.fuel.chamber';
     public const RETRIEVE_FUEL_CHAMBER = 'retrieve.fuel.chamber';
+    public const CHECK_FUEL_CHAMBER_LEVEL = 'check.fuel.chamber.level';
     public const HACK = 'hack';
 
     public function load(ObjectManager $manager): void
@@ -923,6 +924,17 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($retrieveFuelChamber);
 
+        $checkFuelChamberLevel = new Action();
+        $checkFuelChamberLevel
+            ->setName(ActionEnum::CHECK_FUEL_CHAMBER_LEVEL)
+            ->setActionName(ActionEnum::CHECK_FUEL_CHAMBER_LEVEL)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setDirtyRate(5)
+            ->setInjuryRate(0)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+        ;
+        $manager->persist($checkFuelChamberLevel);
+
         $hack = new Action();
         $hack
             ->setName(ActionEnum::HACK)
@@ -1012,6 +1024,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::AUTO_EJECT, $autoEject);
         $this->addReference(self::INSERT_FUEL_CHAMBER, $insertFuelChamber);
         $this->addReference(self::RETRIEVE_FUEL_CHAMBER, $retrieveFuelChamber);
+        $this->addReference(self::CHECK_FUEL_CHAMBER_LEVEL, $checkFuelChamberLevel);
         $this->addReference(self::HACK, $hack);
     }
 }

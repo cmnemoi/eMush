@@ -72,6 +72,7 @@ class ActionEnum
     public const RETRIEVE_FUEL = 'retrieve_fuel';
     public const RETRIEVE_FUEL_CHAMBER = 'retrieve_fuel_chamber';
     public const RETRIEVE_OXYGEN = 'retrieve_oxygen';
+    public const CHECK_FUEL_CHAMBER_LEVEL = 'check_fuel_chamber_level';
     public const COOK = 'cook';
     public const COFFEE = 'coffee';
     public const SELF_SURGERY = 'self_surgery';

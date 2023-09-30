@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Daedalus\Enum\DaedalusOrientationEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Game\Entity\Collection\GameVariableCollection;
@@ -80,8 +81,8 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $dailyActionPointsSpent = 0;
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $orientation = null;
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => DaedalusOrientationEnum::NORTH])]
+    private string $orientation = DaedalusOrientationEnum::NORTH;
 
     public function __construct()
     {
@@ -475,7 +476,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
-    public function getOrientation(): ?string
+    public function getOrientation(): string
     {
         return $this->orientation;
     }

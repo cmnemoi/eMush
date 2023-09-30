@@ -71,7 +71,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
                 $daedalus->getLanguage()
             ),
             'actions' => $this->getActions($currentPlayer, $terminal, $format, $context),
-            'availableDaedalusOrientations' => $this->normalizeDaedalusAvailableOrientations($daedalus, $format, $context),
+            'availableDaedalusOrientations' => $this->normalizeDaedalusAvailableOrientations($daedalus),
             'currentDaedalusOrientation' => $this->translationService->translate(
                 'daedalus_orientation',
                 ['orientation' => $this->translationService->translate(

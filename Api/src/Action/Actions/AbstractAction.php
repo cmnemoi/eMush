@@ -188,5 +188,4 @@ abstract class AbstractAction
         $this->action->setMovementCost($baseCosts[PlayerVariableEnum::MOVEMENT_POINT]);
         $this->action->setMoralCost($baseCosts[PlayerVariableEnum::MORAL_POINT]);
     }
-
 }

@@ -130,6 +130,8 @@ class ActionNormalizer implements NormalizerInterface
                 $normalizedAction['canExecute'] = true;
             }
 
+            $normalizedAction['parameters'] = $parameters;
+
             return $normalizedAction;
         }
 

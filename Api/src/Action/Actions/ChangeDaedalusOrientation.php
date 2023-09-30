@@ -101,10 +101,7 @@ final class ChangeDaedalusOrientation extends AbstractAction
         $currentOrientation = $daedalus->getOrientation();
 
         if ($result instanceof Success) {
-            if (
-                $currentOrientation !== null
-                && $chosenOrientation === DaedalusOrientationEnum::getOppositeOrientation($currentOrientation)
-            ) {
+            if ($chosenOrientation === DaedalusOrientationEnum::getOppositeOrientation($currentOrientation)) {
                 $this->action->setActionCost($this->action->getActionCost() + 1);
             }
 
@@ -119,17 +116,13 @@ final class ChangeDaedalusOrientation extends AbstractAction
                 $daedalus
             )->first();
 
-            if (
-                $currentOrientation !== null
-                && $chosenOrientation === DaedalusOrientationEnum::getClockwiseOrientation($currentOrientation)
+            if ($chosenOrientation === DaedalusOrientationEnum::getClockwiseOrientation($currentOrientation)
                 && $alphaLateralReactor instanceof GameEquipment && !$alphaLateralReactor->isOperational()
             ) {
                 $this->action->setActionCost($this->action->getActionCost() + 1);
             }
 
-            if (
-                $currentOrientation !== null
-                && $chosenOrientation === DaedalusOrientationEnum::getCounterClockwiseOrientation($currentOrientation)
+            if ($chosenOrientation === DaedalusOrientationEnum::getCounterClockwiseOrientation($currentOrientation)
                 && $bravoLateralReactor instanceof GameEquipment && !$bravoLateralReactor->isOperational()
             ) {
                 $this->action->setActionCost($this->action->getActionCost() + 1);

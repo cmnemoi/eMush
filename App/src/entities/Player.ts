@@ -8,6 +8,7 @@ import { QuantityPoint } from "@/entities/QuantityPoint";
 import { SpaceBattle } from "./SpaceBattle";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { TerminalEnum } from "@/enums/terminal.enum";
+import { Terminal } from "@/entities/Terminal";
 
 export class Player {
     public id!: number;
@@ -25,6 +26,7 @@ export class Player {
     public actions: Array<Action>;
     public room: Room|null;
     public spaceBattle: SpaceBattle|null;
+    public terminal: Terminal|null;
 
     public constructor() {
         this.gameStatus = null;
@@ -41,6 +43,7 @@ export class Player {
         this.actions = [];
         this.room = null;
         this.spaceBattle = null;
+        this.terminal = null;
     }
 
     public load(object: any): Player {
@@ -102,6 +105,9 @@ export class Player {
                     const status = (new Status()).load(statusObject);
                     this.diseases.push(status);
                 });
+            }
+            if (typeof object.terminal !== 'undefined') {
+                this.terminal = (new Terminal()).load(object.terminal);
             }
         }
 

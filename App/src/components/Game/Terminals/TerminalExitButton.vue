@@ -5,10 +5,19 @@
 </template>
 
 <script lang="ts">
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import { Terminal } from "@/entities/Terminal";
 import { defineComponent } from "vue";
 
 export default defineComponent ({
-    name: "TerminalExitButton"
+    name: "TerminalExitButton",
+    // components: { ActionButton },
+    props : {
+        terminal : {
+            type: Terminal,
+            required: true
+        }
+    }
 });
 </script>
 

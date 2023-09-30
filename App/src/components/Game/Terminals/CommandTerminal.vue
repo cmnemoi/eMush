@@ -1,47 +1,23 @@
 <template>
-    <div class="command-terminal-container">
+    <div class="command-terminal-container" v-if="player.terminal">
         <section>
             <h3>Orienter le Daedalus</h3>
-            <p class="daedalus-current-orientation">Le Daedalus pointe actuellement vers : <strong>Nord</strong>.</p>
+            <p class="daedalus-current-orientation" v-html="formatContent(player.terminal.currentDaedalusOrientation)"></p>
             <div class="orientation-choice">
-                <label class="orientation-choice-box-label">
+                <label class="orientation-choice-box-label" v-for="(availableOrientation, key) in player.terminal.availableDaedalusOrientations" :key="key">
                     <input class="orientation-choice-box"
                            type="radio"
                            name="orientation"
-                           value="Nord"
-                           v-model="chosenOrientation">
-                    Nord
-                </label>
-                <label class="orientation-choice-box-label">
-                    <input class="orientation-choice-box"
-                           type="radio"
-                           name="orientation"
-                           value="Est"
-                           v-model="chosenOrientation">
-                    Est
-                </label>
-                <label class="orientation-choice-box-label">
-                    <input class="orientation-choice-box"
-                           type="radio"
-                           name="orientation"
-                           value="Sud"
-                           v-model="chosenOrientation">
-                    Sud
-                </label>
-                <label class="orientation-choice-box-label">
-                    <input class="orientation-choice-box"
-                           type="radio"
-                           name="orientation"
-                           value="Ouest"
-                           v-model="chosenOrientation">
-                    Ouest
+                           :value="availableOrientation"
+                           v-model="chosenOrientation"
+                           @click="reloadStorePlayer(player)">
+                    {{ availableOrientation.name }}
                 </label>
             </div>
             <div class="action">
-                <button>
-                    <span class="cost">1<img src="@/assets/images/pa.png" alt="ap"></span>
-                    <span>Changer l'orientation : {{ chosenOrientation }}</span>
-                </button>
+                <ActionButton :action="orientateAction" 
+                              :params="{'chosenOrientation': chosenOrientation.name}" 
+                              @click="executeTargetAction(orientateAction, {'orientation': chosenOrientation.key})"/> 
             </div>
         </section>
 
@@ -79,13 +55,58 @@
 </template>
 
 <script lang="ts">
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import { Action } from "@/entities/Action";
+import { Terminal } from "@/entities/Terminal";
 import { defineComponent } from "vue";
+import { mapActions } from "vuex";
+import { formatText } from "@/utils/formatText";
+import { Player } from "@/entities/Player";
+
 
 export default defineComponent ({
     name: "CommandTerminal",
+    components: { ActionButton },
+    props: {
+        player : {
+            type: Player,
+            required: true
+        }
+    },
+    computed: {
+        orientateAction() : Action {
+            const action = this.player.terminal?.actions.find(action => action.key === 'change_daedalus_orientation');
+            if (action === undefined) {
+                throw new Error('Action not found');
+            }
+            return action;
+        }
+    },
+    methods: {
+        ...mapActions({
+            'executeAction': 'action/executeAction',
+            'reloadPlayer': 'player/reloadPlayer'
+        }),
+        async executeTargetAction(action: Action, params: any) {
+            if (!action.canExecute){
+                return;
+            }
+            await this.executeAction({ target: this.player.terminal, action, params });
+        },
+        async reloadStorePlayer(player: Player) {
+            await this.reloadPlayer(player);
+        },
+        formatContent(text: string|null) {
+            if (!text) return '';
+            return formatText(text);
+        }
+    },
     data() {
         return {
-            chosenOrientation: 'Nord'
+            chosenOrientation: {
+                key: 'north',
+                name: 'Nord'
+            }
         };
     },
 });

@@ -8,7 +8,7 @@
             <div class="game-content">
                 <CharPanel :player="player" />
                 <ShipPanel v-if="!player.isFocused()" :room="player.room" :player="player" />
-                <TerminalPanel v-else :terminalName="player.getFocusedTerminalName()" />
+                <TerminalPanel v-else :player="player" />
                 <CommsPanel :calendar="player.daedalus.calendar"/>
             </div>
             <ProjectsPanel />

@@ -7,6 +7,8 @@ namespace Mush\Equipment\Normalizer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Enum\DaedalusOrientationEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -69,6 +71,18 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
                 $daedalus->getLanguage()
             ),
             'actions' => $this->getActions($currentPlayer, $terminal, $format, $context),
+            'availableDaedalusOrientations' => $this->normalizeDaedalusAvailableOrientations($daedalus, $format, $context),
+            'currentDaedalusOrientation' => $this->translationService->translate(
+                'daedalus_orientation',
+                ['orientation' => $this->translationService->translate(
+                    'daedalus_orientation.' . $daedalus->getOrientation(),
+                    [],
+                    'daedalus',
+                    $daedalus->getLanguage()
+                )],
+                'terminal',
+                $daedalus->getLanguage()
+            ),
         ];
     }
 
@@ -104,5 +118,26 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         }
 
         return $context;
+    }
+
+    private function normalizeDaedalusAvailableOrientations(Daedalus $daedalus): array
+    {
+        $availableOrientations = [];
+        foreach (DaedalusOrientationEnum::getAll() as $orientation) {
+            $key = $orientation;
+            $name = $this->translationService->translate(
+                'daedalus_orientation.' . $orientation,
+                [],
+                'daedalus',
+                $daedalus->getLanguage()
+            );
+
+            $availableOrientations[] = [
+                'key' => $key,
+                'name' => $name,
+            ];
+        }
+
+        return $availableOrientations;
     }
 }

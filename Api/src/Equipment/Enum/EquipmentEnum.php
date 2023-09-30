@@ -54,6 +54,17 @@ class EquipmentEnum
     public const CAMERA_EQUIPMENT = 'camera_equipment';
     public const TABULATRIX = 'tabulatrix';
 
+    public static array $terminalActionParametersMap = [
+        self::ASTRO_TERMINAL => [],
+        self::AUXILIARY_TERMINAL => [],
+        self::BIOS_TERMINAL => [],
+        self::COMMAND_TERMINAL => ['orientation'],
+        self::COMMUNICATION_CENTER => [],
+        self::NERON_CORE => [],
+        self::PILGRED => [],
+        self::RESEARCH_LABORATORY => [],
+    ];
+
     public static function getBeds(): array
     {
         return [
@@ -95,15 +106,4 @@ class EquipmentEnum
     {
         return new ArrayCollection([self::TABULATRIX]);
     }
-
-    public static array $terminalActionParametersMap = [
-        self::ASTRO_TERMINAL => [],
-        self::AUXILIARY_TERMINAL => [],
-        self::BIOS_TERMINAL => [],
-        self::COMMAND_TERMINAL => ['orientation'],
-        self::COMMUNICATION_CENTER => [],
-        self::NERON_CORE => [],
-        self::PILGRED => [],
-        self::RESEARCH_LABORATORY => [],
-    ];
 }

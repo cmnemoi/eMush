@@ -9,12 +9,16 @@
       <segment id="tips" state="translated">
         <source>command_terminal.tips</source>
         <target>En tant que *Commandant* vous êtes le seul à avoir accès à ce terminal.
-//
+////
 Le déplacement du vaisseau est nécessaire pour **aller vers une planète** et peut être utile pour se débarrasser des hunters.
-//
+////
 Pour aller vers une planète il faut **connaître l'orientation et le nombre d'unités de fuel**. Ces deux informations sont fournies depuis le *Terminal Astro*. Avec ces informations, quelqu'un doit d'abord remplir la chambre de combustion avec la quantité correcte de Fuel. Ensuite, orientez le Daedalus dans la bonne direction et lancez le déplacement !
-//
+////
 Si le travail a été bien fait, le Daedalus se placera en orbite d'une planète qui pourra être explorée par l'équipage et ainsi obtenir des nouvelles ressources !</target>
+      </segment>
+      <segment id="daedalus_orientation" state="translated">
+        <source>daedalus_orientation</source>
+        <target>Le Daedalus pointe actuellement vers : **{orientation}**.</target>
       </segment>
     </unit>
   </file>

@@ -102,5 +102,23 @@ Un **Cycle dure 3 heures**. À chaque Cycle vous cumulez plus de :pa::pm:, indis
         <target>Jour</target>
       </segment>
     </unit>
+    <unit id="daedalus_orientation">
+      <segment id="north" state="translated">
+        <source>daedalus_orientation.north</source>
+        <target>Nord</target>
+      </segment>
+      <segment id="east" state="translated">
+        <source>daedalus_orientation.east</source>
+        <target>Est</target>
+      </segment>
+      <segment id="south" state="translated">
+        <source>daedalus_orientation.south</source>
+        <target>Sud</target>
+      </segment>
+      <segment id="west" state="translated">
+        <source>daedalus_orientation.west</source>
+        <target>Ouest</target>
+      </segment>
+      </unit>
   </file>
 </xliff>

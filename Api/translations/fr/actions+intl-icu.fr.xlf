@@ -912,5 +912,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de tenter de forcer l'accès à ce terminal grâce à votre Bidouilleur.</target>
       </segment>
     </unit>
+    <unit id="change_daedalus_orientation">
+      <segment id="name" state="final">
+        <source>change_daedalus_orientation.name</source>
+        <target>Changer l'orientation : </target>
+      </segment>
+      <segment id="description" state="final">
+        <source>change_daedalus_orientation.description</source>
+        <target>Permet de changer le cap du vaisseau.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

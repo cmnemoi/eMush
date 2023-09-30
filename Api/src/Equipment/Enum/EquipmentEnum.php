@@ -97,6 +97,13 @@ class EquipmentEnum
     }
 
     public static array $terminalActionParametersMap = [
+        self::ASTRO_TERMINAL => [],
+        self::AUXILIARY_TERMINAL => [],
+        self::BIOS_TERMINAL => [],
         self::COMMAND_TERMINAL => ['orientation'],
+        self::COMMUNICATION_CENTER => [],
+        self::NERON_CORE => [],
+        self::PILGRED => [],
+        self::RESEARCH_LABORATORY => [],
     ];
 }

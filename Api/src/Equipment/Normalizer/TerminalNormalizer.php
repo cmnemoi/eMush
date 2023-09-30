@@ -37,15 +37,19 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
-        /** @var GameEquipment $terminal */
+        /** @var ?GameEquipment $terminal */
         $terminal = $object;
+
+        if ($terminal === null) {
+            return [];
+        }
 
         if ($currentPlayer->getCurrentlyFocusedTerminal() !== $terminal) {
             return [];
         }
 
         $daedalus = $currentPlayer->getDaedalus();
-        $terminalKey = $object->getName();
+        $terminalKey = $terminal->getName();
 
         $context = $this->setupNormalizerContext($terminal, $context);
 

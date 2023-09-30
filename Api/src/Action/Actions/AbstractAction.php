@@ -97,6 +97,12 @@ abstract class AbstractAction
             return new Error('Cannot execute action');
         }
 
+        $baseCosts = [
+            PlayerVariableEnum::ACTION_POINT => $this->getActionPointCost(),
+            PlayerVariableEnum::MOVEMENT_POINT => $this->getMovementPointCost(),
+            PlayerVariableEnum::MORAL_POINT => $this->getMoralPointCost(),
+        ];
+
         $preActionEvent = new ActionEvent($this->action, $this->player, $this->target);
         $this->eventService->callEvent($preActionEvent, ActionEvent::PRE_ACTION);
 
@@ -115,6 +121,8 @@ abstract class AbstractAction
         $this->eventService->callEvent($postActionEvent, ActionEvent::POST_ACTION);
 
         $this->actionService->applyCostToPlayer($this->player, $this->action, $this->target);
+
+        $this->resetCosts($baseCosts);
 
         return $result;
     }
@@ -173,4 +181,12 @@ abstract class AbstractAction
     {
         return $this->action;
     }
+
+    protected function resetCosts(array $baseCosts): void
+    {
+        $this->action->setActionCost($baseCosts[PlayerVariableEnum::ACTION_POINT]);
+        $this->action->setMovementCost($baseCosts[PlayerVariableEnum::MOVEMENT_POINT]);
+        $this->action->setMoralCost($baseCosts[PlayerVariableEnum::MORAL_POINT]);
+    }
+
 }

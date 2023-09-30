@@ -8,7 +8,7 @@
             <div class="game-content">
                 <CharPanel :player="player" />
                 <ShipPanel v-if="!player.isFocused()" :room="player.room" :player="player" />
-                <CommandTerminal v-if="player.isFocusedOnTerminal(TerminalEnum.COMMAND_TERMINAL)"/>
+                <TerminalPanel v-else :terminalName="player.getFocusedTerminalName()" />
                 <CommsPanel :calendar="player.daedalus.calendar"/>
             </div>
             <ProjectsPanel />
@@ -26,12 +26,12 @@ import CharPanel from "@/components/Game/CharPanel.vue";
 import ShipPanel from "@/components/Game/Ship/ShipPanel.vue";
 import CommsPanel from "@/components/Game/Communications/CommsPanel.vue";
 import ProjectsPanel from "@/components/Game/ProjectsPanel.vue";
-import CommandTerminal from "@/components/Game/CommandTerminal.vue";
 import { mapActions, mapState } from "vuex";
 import Purgatory from "@/components/PurgatoryPage.vue";
 import InvitationPrivateChannelMenu from "@/components/Game/Communications/InvitationPrivateChannelMenu.vue";
 import { defineComponent } from "vue";
 import { TerminalEnum } from "@/enums/terminal.enum";
+import TerminalPanel from "./Terminals/TerminalPanel.vue";
 
 
 export default defineComponent ({
@@ -44,7 +44,7 @@ export default defineComponent ({
         ShipPanel,
         CommsPanel,
         ProjectsPanel,
-        CommandTerminal,
+        TerminalPanel
     },
     data() {
         return {

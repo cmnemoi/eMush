@@ -220,25 +220,6 @@ class HunterService implements HunterServiceInterface
         $this->entityManager->flush();
     }
 
-    private function dropScrap(Hunter $hunter): void
-    {
-        $scrapDropTable = $hunter->getHunterConfig()->getScrapDropTable();
-        $numberOfDroppedScrap = $hunter->getHunterConfig()->getNumberOfDroppedScrap();
-
-        $numberOfScrapToDrop = (int) $this->randomService->getSingleRandomElementFromProbaCollection($numberOfDroppedScrap);
-        $scrapToDrop = $this->randomService->getRandomElementsFromProbaCollection($scrapDropTable, $numberOfScrapToDrop);
-
-        foreach ($scrapToDrop as $scrap) {
-            $this->gameEquipmentService->createGameEquipmentFromName(
-                equipmentName: $scrap,
-                equipmentHolder: $hunter->getSpace(),
-                reasons: [HunterEvent::HUNTER_DEATH],
-                time: new \DateTime(),
-                visibility: VisibilityEnum::HIDDEN
-            );
-        }
-    }
-
     private function getHunterProbaCollection(Daedalus $daedalus, ArrayCollection $hunterTypes): ProbaCollection
     {
         $difficultyMode = $daedalus->getDifficultyMode();

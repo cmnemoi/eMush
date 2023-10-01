@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231001063819 extends AbstractMigration
+final class Version20231001165910 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -28,7 +28,6 @@ final class Version20231001063819 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE status DROP CONSTRAINT FK_7B00651C55284914');
         $this->addSql('DROP INDEX IDX_7B00651C55284914');
         $this->addSql('ALTER TABLE status RENAME COLUMN charge_id TO charge');

@@ -93,7 +93,7 @@ class SabotageActionTest extends AbstractActionTest
             ->andReturn(10)
             ->once()
         ;
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
+        $this->randomService->shouldReceive('isActionSuccessful')->andReturn(false)->once();
 
         // Fail try
         $result = $this->action->execute();
@@ -114,7 +114,7 @@ class SabotageActionTest extends AbstractActionTest
             ->andReturn(100)
             ->once()
         ;
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isActionSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
         $this->statusService->shouldReceive('createStatusFromName')->once();
         $this->eventService->shouldReceive('callEvent');

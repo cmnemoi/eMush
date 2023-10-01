@@ -73,7 +73,7 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
             ->with($player, $this->actionEntity, null, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->never()
         ;
-        $this->randomService->shouldReceive('isSuccessful')->with(10)->andReturn(false)->once();
+        $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(false)->once();
 
         // Fail try
         $result = $this->action->execute();
@@ -104,7 +104,7 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
             ->andReturn(0)
             ->once()
         ;
-        $this->randomService->shouldReceive('isSuccessful')->with(10)->andReturn(true)->once();
+        $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->with(0)->andReturn(false)->once();
         $this->statusService->shouldReceive('removeStatus')->once();
 

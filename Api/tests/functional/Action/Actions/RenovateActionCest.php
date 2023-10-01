@@ -74,6 +74,13 @@ final class RenovateActionCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $pasiphae,
+            tags: ['test'],
+            time: new \DateTime()
+        );
+
         $maxCharge = $pasiphaeArmorStatusConfig->getMaxCharge();
 
         /** @var EquipmentConfig $metalScrapConfig */
@@ -110,6 +117,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
             'log' => ActionLogEnum::RENOVATE_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+        $I->assertFalse($pasiphae->hasStatus(EquipmentStatusEnum::BROKEN));
     }
 
     public function testRenovateFail(FunctionalTester $I): void
@@ -174,7 +182,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testRenovateNotVisibleIfPatrolShipNotDamaged(FunctionalTester $I): void
+    public function testRenovateNotVisibleIfPatrolShipNotBrokenAndNotDamaged(FunctionalTester $I): void
     {
         /** @var EquipmentConfig $pasiphaeConfig */
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
@@ -206,6 +214,72 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         $this->renovateAction->loadParameters($this->action, $this->player1, $pasiphae);
         $I->assertFalse($this->renovateAction->isVisible());
+    }
+
+    public function testRenovateActionIsVisibleIfPatrolShipIsBroken(FunctionalTester $I): void
+    {
+        /** @var EquipmentConfig $pasiphaeConfig */
+        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new GameEquipment($this->alphaBay2);
+        $pasiphae
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig)
+        ;
+        $I->haveInRepository($pasiphae);
+
+        /** @var EquipmentConfig $metalScrapConfig */
+        $metalScrapConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
+        $metalScrap = new GameEquipment($this->alphaBay2);
+        $metalScrap
+            ->setName(ItemEnum::METAL_SCRAPS)
+            ->setEquipment($metalScrapConfig)
+        ;
+        $I->haveInRepository($metalScrap);
+
+        /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
+        $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+        $pasiphaeArmorStatus = new ChargeStatus($pasiphae, $pasiphaeArmorStatusConfig);
+
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $pasiphae,
+            tags: ['test'],
+            time: new \DateTime()
+        );
+
+        $this->renovateAction->loadParameters($this->action, $this->player1, $pasiphae);
+        $I->assertTrue($this->renovateAction->isVisible());
+    }
+
+    public function testRenovateActionIsVisibleIfPatrolShipIsDamaged(FunctionalTester $I): void
+    {
+        /** @var EquipmentConfig $pasiphaeConfig */
+        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new GameEquipment($this->alphaBay2);
+        $pasiphae
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig)
+        ;
+        $I->haveInRepository($pasiphae);
+
+        /** @var EquipmentConfig $metalScrapConfig */
+        $metalScrapConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
+        $metalScrap = new GameEquipment($this->alphaBay2);
+        $metalScrap
+            ->setName(ItemEnum::METAL_SCRAPS)
+            ->setEquipment($metalScrapConfig)
+        ;
+        $I->haveInRepository($metalScrap);
+
+        /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
+        $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+        $pasiphaeArmorStatus = new ChargeStatus($pasiphae, $pasiphaeArmorStatusConfig);
+
+        $maxCharge = $pasiphaeArmorStatusConfig->getMaxCharge();
+        $pasiphaeArmorStatus->setCharge($maxCharge - 1);
+
+        $this->renovateAction->loadParameters($this->action, $this->player1, $pasiphae);
+        $I->assertTrue($this->renovateAction->isVisible());
     }
 
     public function testRenovateNotVisibleIfNoScrapAvailable(FunctionalTester $I): void

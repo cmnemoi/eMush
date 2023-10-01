@@ -54,7 +54,7 @@ abstract class AttemptAction extends AbstractAction
     {
         $successChance = $this->getSuccessRate();
 
-        if ($this->randomService->isSuccessful($successChance)) {
+        if ($this->randomService->isActionSuccessful($successChance)) {
             return $this->drawCriticalSuccess();
         } else {
             return new Fail();

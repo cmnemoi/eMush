@@ -9,7 +9,13 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -57,6 +63,10 @@ class Repair extends AttemptAction
         /** @var GameEquipment $target */
         $target = $this->target;
 
+        if (EquipmentEnum::getPatrolShips()->contains($target->getName()) && $target->getPlace()->isARoom()) {
+            $this->destroyPieceOfScrapMetal();
+        }
+
         if ($result instanceof Success) {
             $this->statusService->removeStatus(
                 EquipmentStatusEnum::BROKEN,
@@ -65,5 +75,36 @@ class Repair extends AttemptAction
                 new \DateTime()
             );
         }
+    }
+
+    private function destroyPieceOfScrapMetal(): void
+    {
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $this->getPieceOfScrapMetal(),
+            $this->player,
+            VisibilityEnum::HIDDEN,
+            $this->getAction()->getActionTags(),
+            new \DateTime()
+        );
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+    }
+
+    private function getPieceOfScrapMetal(): GameEquipment
+    {
+        $playerScrapMetal = $this->player->getEquipments()->filter(function (GameItem $item) {
+            return $item->getName() === ItemEnum::METAL_SCRAPS;
+        });
+        if ($playerScrapMetal->count() >= 1) {
+            return $playerScrapMetal->first();
+        }
+
+        $roomScrapMetal = $this->player->getPlace()->getEquipments()->filter(function (GameEquipment $equipment) {
+            return $equipment->getName() === ItemEnum::METAL_SCRAPS;
+        });
+        if ($roomScrapMetal->isEmpty()) {
+            throw new \Exception('There should be a piece of scrap metal in the room or in the player inventory if this action is available on this equipment');
+        }
+
+        return $roomScrapMetal->first();
     }
 }

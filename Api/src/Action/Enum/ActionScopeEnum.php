@@ -12,6 +12,7 @@ namespace Mush\Action\Enum;
  * INVENTORY: the action is provided by a tool (tool effect only apply on hold item)
  * ROOM: the action is provided by a tool (either in inventory or in the room)
  * SHELVE: the action is provided by a tool (tool effect only apply on equipment on the shelf)
+ * TERMINAL: the action is provided if player is focused on a terminal
  */
 class ActionScopeEnum
 {
@@ -21,4 +22,5 @@ class ActionScopeEnum
     public const INVENTORY = 'inventory';
     public const ROOM = 'room';
     public const SHELVE = 'shelve';
+    public const TERMINAL = 'terminal';
 }

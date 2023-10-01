@@ -131,6 +131,18 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             }
         }
 
+        $terminalActions = $gameEquipment->getEquipment()->getActions()
+            ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::TERMINAL)
+        ;
+
+        /** @var Action $action */
+        foreach ($terminalActions as $action) {
+            $normedAction = $this->normalizer->normalize($action, $format, $context);
+            if (is_array($normedAction) && count($normedAction) > 0) {
+                $actions[] = $normedAction;
+            }
+        }
+
         return $actions;
     }
 

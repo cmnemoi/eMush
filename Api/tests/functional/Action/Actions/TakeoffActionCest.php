@@ -21,13 +21,14 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
 final class TakeoffActionCest extends AbstractFunctionalTest
 {
+    private StatusServiceInterface $statusService;
     private Takeoff $takeoffAction;
     private Action $action;
 
@@ -39,6 +40,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::TAKEOFF]);
 
         $this->takeoffAction = $I->grabService(Takeoff::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testTakeoffSuccess(FunctionalTester $I)
@@ -54,10 +56,12 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($pasiphae);
 
-        /** @var ChargeStatusConfig $pasiphaeArmorConfig */
-        $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
-        $I->haveInRepository($pasiphaeArmor);
+        $pasiphaeArmor = $this->statusService->createStatusFromName(
+            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
+            $pasiphae,
+            [],
+            new \DateTime()
+        );
         $I->haveInRepository($pasiphae);
 
         $this->takeoffAction->loadParameters($this->action, $this->player1, $pasiphae);
@@ -115,11 +119,13 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($pasiphae);
 
-        /** @var ChargeStatusConfig $pasiphaeArmorConfig */
-        $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
-        $I->haveInRepository($pasiphaeArmor);
-        $I->haveInRepository($pasiphae);
+        /** @var ChargeStatus $pasiphaeArmor */
+        $pasiphaeArmor = $this->statusService->createStatusFromName(
+            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
+            $pasiphae,
+            [],
+            new \DateTime()
+        );
 
         $this->takeoffAction->loadParameters($this->action, $this->player1, $pasiphae);
         $I->assertTrue($this->takeoffAction->isVisible());

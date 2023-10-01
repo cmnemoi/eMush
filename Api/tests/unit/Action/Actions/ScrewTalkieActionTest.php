@@ -70,7 +70,9 @@ class ScrewTalkieActionTest extends AbstractActionTest
             ->setEquipment($item)
         ;
 
-        $mushStatus = new ChargeStatus($player, new ChargeStatusConfig());
+        $mushConfig = new ChargeStatusConfig();
+        $mushConfig->setStatusName('mush');
+        $mushStatus = new ChargeStatus($player, $mushConfig);
 
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
@@ -107,7 +109,9 @@ class ScrewTalkieActionTest extends AbstractActionTest
         $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $brokenStatus = new Status($gameItem, $brokenConfig);
 
-        $mushStatus = new ChargeStatus($player, new ChargeStatusConfig());
+        $mushConfig = new ChargeStatusConfig();
+        $mushConfig->setStatusName('mush');
+        $mushStatus = new ChargeStatus($player, $mushConfig);
 
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 

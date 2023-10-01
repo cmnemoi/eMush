@@ -25,16 +25,19 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class NeronMessageCycleCest
 {
     private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testNewFire(FunctionalTester $I)
@@ -139,25 +142,32 @@ class NeronMessageCycleCest
             ->setName('otherFireStatus')
         ;
         $I->haveInRepository($statusConfig);
-        $status = new ChargeStatus($room, $statusConfig);
+
+        /** @var ChargeStatus $status */
+        $status = $this->statusService->createStatusFromConfig(
+            $statusConfig,
+            $room,
+            [],
+            new \DateTime()
+        );
         $status
             ->setCharge(1)
         ;
 
-        $room->addStatus($status);
+        $I->assertCount(2, $channel->getMessages());
 
         $cycleEvent = new StatusCycleEvent($status, $room, [EventEnum::NEW_CYCLE], $time);
 
-        $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);
 
         $this->eventService->callEvent($cycleEvent, StatusCycleEvent::STATUS_NEW_CYCLE);
 
         $message = $I->grabEntityFromRepository(Message::class, ['message' => NeronMessageEnum::CYCLE_FAILURES]);
-        $fireMessages = $channel->getMessages()->filter(fn (Message $message) => $message->getMessage() === NeronMessageEnum::NEW_FIRE);
 
-        $I->assertCount(4, $channel->getMessages());
-        $I->assertCount(3, $fireMessages);
+        $I->refreshEntities($channel);
+        $fireMessages = $channel->getMessages()->filter(fn (Message $message) => $message->getMessage() === NeronMessageEnum::NEW_FIRE);
+        $I->assertCount(5, $channel->getMessages());
+        $I->assertCount(4, $fireMessages);
         $I->assertEquals($fireMessages->first()->getParent(), $message);
     }
 }

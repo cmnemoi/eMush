@@ -66,6 +66,7 @@ class StatusTest extends TestCase
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setAutoRemove(false)
+            ->setStatusName('status')
         ;
         $status = new ChargeStatus($room, $statusConfig);
         $status

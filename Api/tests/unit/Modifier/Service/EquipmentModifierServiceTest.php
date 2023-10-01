@@ -103,6 +103,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         // with a charge
         $chargeConfig = new ChargeStatusConfig();
+        $chargeConfig->setStatusName('status');
         $chargeConfig->setDischargeStrategies(['modifierName']);
         $charge = new ChargeStatus($gameEquipment, $chargeConfig);
 
@@ -267,7 +268,7 @@ class EquipmentModifierServiceTest extends TestCase
         // GameModifier with a charge
         $chargeConfig = new ChargeStatusConfig();
         $chargeConfig
-            ->setStatusName(EquipmentStatusEnum::FUEL_CHARGE)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setDischargeStrategies([ModifierNameEnum::APRON_MODIFIER])
         ;
         $charge = new ChargeStatus($gameEquipment, $chargeConfig);

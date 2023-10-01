@@ -39,16 +39,19 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class PlantNewDayCest
 {
     private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testPlantHealthy(FunctionalTester $I)
@@ -56,6 +59,7 @@ class PlantNewDayCest
         $fireStatusConfig = new ChargeStatusConfig();
         $fireStatusConfig->setStatusName(StatusEnum::FIRE)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($fireStatusConfig);
+
         $plantYoung = new ChargeStatusConfig();
         $plantYoung
             ->setStatusName(EquipmentStatusEnum::PLANT_YOUNG)
@@ -701,9 +705,14 @@ class PlantNewDayCest
         $plant = $plantConfig->createGameEquipment($room);
         $I->haveInRepository($plant);
 
-        $status = new ChargeStatus($plant, $plantYoung);
-        $status->setCharge(0);
-        $I->haveInRepository($status);
+        $plantYoung->setStartCharge(0);
+        /** @var ChargeStatus $status */
+        $status = $this->statusService->createStatusFromConfig(
+            $plantYoung,
+            $plant,
+            [],
+            new \DateTime()
+        );
 
         $event = new DaedalusCycleEvent(
             $daedalus,
@@ -873,9 +882,14 @@ class PlantNewDayCest
         $plant = $plantConfig->createGameEquipment($room);
         $I->haveInRepository($plant);
 
-        $status = new ChargeStatus($plant, $plantYoung);
-        $status->setCharge(10);
-        $I->haveInRepository($status);
+        $plantYoung->setStartCharge(10);
+        /** @var ChargeStatus $status */
+        $status = $this->statusService->createStatusFromConfig(
+            $plantYoung,
+            $plant,
+            [],
+            new \DateTime()
+        );
 
         $event = new DaedalusCycleEvent(
             $daedalus,

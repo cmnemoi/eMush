@@ -39,6 +39,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
@@ -46,9 +47,12 @@ class ConsumeChargeOnActionCest
 {
     private Coffee $coffeeAction;
 
+    private StatusServiceInterface $statusService;
+
     public function _before(FunctionalTester $I)
     {
         $this->coffeeAction = $I->grabService(Coffee::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testToolCharge(FunctionalTester $I)
@@ -61,6 +65,7 @@ class ConsumeChargeOnActionCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategies([ActionEnum::COFFEE])
             ->buildName(GameConfigEnum::TEST)
+            ->setStartCharge(2)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -138,11 +143,13 @@ class ConsumeChargeOnActionCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $chargeStatus = new ChargeStatus($gameEquipment, $statusConfig);
-        $chargeStatus
-            ->setCharge(2)
-        ;
-        $I->haveInRepository($chargeStatus);
+        /** @var ChargeStatus $chargeStatus */
+        $chargeStatus = $this->statusService->createStatusFromConfig(
+            $statusConfig,
+            $gameEquipment,
+            [],
+            new \DateTime()
+        );
 
         $this->coffeeAction->loadParameters($actionEntity, $player, $gameEquipment);
 
@@ -268,13 +275,17 @@ class ConsumeChargeOnActionCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategies([ActionEnum::COFFEE])
             ->buildName(GameConfigEnum::TEST)
+            ->setStartCharge(1)
         ;
         $I->haveInRepository($statusConfig);
-        $chargeStatus = new ChargeStatus($gameGear, $statusConfig);
-        $chargeStatus
-            ->setCharge(1)
-        ;
-        $I->haveInRepository($chargeStatus);
+
+        /** @var ChargeStatus $chargeStatus */
+        $chargeStatus = $this->statusService->createStatusFromConfig(
+            $statusConfig,
+            $gameEquipment,
+            [],
+            new \DateTime()
+        );
 
         $modifier = new GameModifier($player, $modifierConfig);
         $modifier->setCharge($chargeStatus);
@@ -358,6 +369,7 @@ class ConsumeChargeOnActionCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategies([ActionEnum::COFFEE])
             ->buildName(GameConfigEnum::TEST)
+            ->setStartCharge(1)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -420,11 +432,13 @@ class ConsumeChargeOnActionCest
 
         $I->refreshEntities($player);
 
-        $chargeStatus = new ChargeStatus($gameGear, $statusConfig);
-        $chargeStatus
-            ->setCharge(1)
-        ;
-        $I->haveInRepository($chargeStatus);
+        /** @var ChargeStatus $chargeStatus */
+        $chargeStatus = $this->statusService->createStatusFromConfig(
+            $statusConfig,
+            $gameEquipment,
+            [],
+            new \DateTime()
+        );
 
         $modifier = new GameModifier($player, $modifierConfig);
         $modifier->setCharge($chargeStatus);

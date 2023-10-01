@@ -27,6 +27,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Uid\Uuid;
@@ -56,9 +57,18 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($this->pasiphae);
 
+        /** @var StatusServiceInterface $statusService */
+        $statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $this->pasiphaeArmorStatus = new ChargeStatus($this->pasiphae, $this->pasiphaeArmorStatusConfig);
-        $I->haveInRepository($this->pasiphaeArmorStatus);
+        /** @var ChargeStatus $pasiphaeArmorStatus */
+        $pasiphaeArmorStatus = $statusService->createStatusFromConfig(
+            $this->pasiphaeArmorStatusConfig,
+            $this->pasiphae,
+            [],
+            new \DateTime()
+        );
+        $this->pasiphaeArmorStatus = $pasiphaeArmorStatus;
 
         $this->player2->setPlace($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $I->haveInRepository($this->player2);
@@ -178,7 +188,6 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->haveInRepository($this->hunter);
 
         $this->pasiphaeArmorStatus->setCharge(1);
-        $I->haveInRepository($this->pasiphaeArmorStatus);
 
         // when hunter shoots
         $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());

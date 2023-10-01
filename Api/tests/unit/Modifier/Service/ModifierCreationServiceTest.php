@@ -132,7 +132,9 @@ class ModifierCreationServiceTest extends TestCase
     {
         // create a player GameModifier with charge
         $player = new Player();
-        $charge = new ChargeStatus($player, new ChargeStatusConfig());
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setStatusName('status');
+        $charge = new ChargeStatus($player, $statusConfig);
 
         $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER);

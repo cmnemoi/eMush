@@ -35,7 +35,13 @@ class ActionSubscriber implements EventSubscriberInterface
         $actionPaCost = $event->getAction()->getGameVariables()->getValueByName(PlayerVariableEnum::ACTION_POINT);
 
         if ($actionPaCost > 0) {
-            $this->statusService->handleAttempt($player, $event->getAction()->getActionName(), $actionResult);
+            $this->statusService->handleAttempt(
+                $player,
+                $event->getAction()->getActionName(),
+                $actionResult,
+                $event->getTags(),
+                $event->getTime()
+            );
         }
     }
 }

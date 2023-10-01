@@ -21,8 +21,8 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -48,11 +48,17 @@ final class LandActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($this->pasiphae);
 
-        /** @var ChargeStatusConfig $pasiphaeArmorConfig */
-        $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $this->pasiphaeArmor = new ChargeStatus($this->pasiphae, $pasiphaeArmorConfig);
-        $I->haveInRepository($this->pasiphaeArmor);
-        $I->haveInRepository($this->pasiphae);
+        /** @var StatusServiceInterface $statusService */
+        $statusService = $I->grabService(StatusServiceInterface::class);
+        /** @var ChargeStatus $pasiphaeArmor */
+        $pasiphaeArmor = $statusService->createStatusFromName(
+            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
+            $this->pasiphae,
+            [],
+            new \DateTime()
+        );
+
+        $this->pasiphaeArmor = $pasiphaeArmor;
 
         $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::LAND]);
 

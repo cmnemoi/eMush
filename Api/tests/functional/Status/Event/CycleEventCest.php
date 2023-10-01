@@ -28,16 +28,19 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class CycleEventCest
 {
     private StatusCycleSubscriber $cycleSubscriber;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         $this->cycleSubscriber = $I->grabService(StatusCycleSubscriber::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     // tests
@@ -52,6 +55,7 @@ class CycleEventCest
             ->setAutoRemove(true)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->buildName(GameConfigEnum::TEST)
+            ->setStartCharge(0)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -88,19 +92,21 @@ class CycleEventCest
 
         $time = new \DateTime();
 
-        $status = new ChargeStatus($player, $statusConfig);
-        $status
-            ->setCharge(0)
-        ;
+        /** @var ChargeStatus $status */
+        $status = $this->statusService->createStatusFromConfig(
+            $statusConfig,
+            $player,
+            [],
+            new \DateTime()
+        );
 
-        $I->haveInRepository($status);
         $id = $status->getId();
 
         $cycleEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_CYCLE], $time);
 
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
-        $I->dontSeeInRepository(ChargeStatus::class, ['id' => $id]);
+        $I->seeInRepository(ChargeStatus::class, ['id' => $id]);
     }
 
     public function testFireStatusCycleSubscriber(FunctionalTester $I)
@@ -110,6 +116,7 @@ class CycleEventCest
             ->setStatusName(StatusEnum::FIRE)
             ->setModifierConfigs(new ArrayCollection([]))
             ->buildName(GameConfigEnum::TEST)
+            ->setStartCharge(0)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -194,11 +201,14 @@ class CycleEventCest
 
         $time = new \DateTime();
 
-        $status = new ChargeStatus($room, $statusConfig);
-        $status
-            ->setCharge(1)
-        ;
-        $I->haveInRepository($status);
+        /** @var ChargeStatus $status */
+        $status = $this->statusService->createStatusFromConfig(
+            $statusConfig,
+            $room,
+            [],
+            new \DateTime()
+        );
+        $status->setCharge(1);
 
         $cycleEvent = new StatusCycleEvent($status, $room, [EventEnum::NEW_CYCLE], $time);
 

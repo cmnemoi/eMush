@@ -165,6 +165,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $hackAction */
         $hackAction = $this->getReference(ActionsFixtures::HACK);
+        /** @var Action $exitTerminalAction */
+        $exitTerminalAction = $this->getReference(ActionsFixtures::EXIT_TERMINAL);
 
         $commandTerminal = new EquipmentConfig();
         $commandTerminal
@@ -172,7 +174,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions([$repair12, $sabotage12, $reportAction, $examineAction, $hackAction])
+            ->setActions([$repair12, $sabotage12, $reportAction, $examineAction, $hackAction, $exitTerminalAction])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($commandTerminal);

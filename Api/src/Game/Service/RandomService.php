@@ -42,7 +42,7 @@ class RandomService implements RandomServiceInterface
 
     public function isActionSuccessful(int $successRate): bool
     {
-        return $this->averagedPercent() <= $successRate;
+        return $this->rollTwiceAndAverage(1, 100) <= $successRate;
     }
 
     public function outputCriticalChances(int $successRate, int $criticalFailRate = 0, int $criticalSuccessRate = 0): string
@@ -215,11 +215,6 @@ class RandomService implements RandomServiceInterface
         } while ($p > $L);
 
         return $k - 1;
-    }
-
-    private function averagedPercent(): int
-    {
-        return $this->rollTwiceAndAverage(1, 100);
     }
 
     private function rollTwiceAndAverage(int $min, int $max): int

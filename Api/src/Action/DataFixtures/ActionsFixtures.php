@@ -96,6 +96,7 @@ class ActionsFixtures extends Fixture
     public const RETRIEVE_FUEL_CHAMBER = 'retrieve.fuel.chamber';
     public const CHECK_FUEL_CHAMBER_LEVEL = 'check.fuel.chamber.level';
     public const HACK = 'hack';
+    public const EXIT_TERMINAL = 'exit.terminal';
 
     public function load(ObjectManager $manager): void
     {
@@ -945,6 +946,16 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($hack);
 
+        $exitTerminal = new Action();
+        $exitTerminal
+            ->setName(ActionEnum::EXIT_TERMINAL)
+            ->setActionName(ActionEnum::EXIT_TERMINAL)
+            ->setScope(ActionScopeEnum::TERMINAL)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
+        ;
+        $manager->persist($exitTerminal);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1026,5 +1037,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::RETRIEVE_FUEL_CHAMBER, $retrieveFuelChamber);
         $this->addReference(self::CHECK_FUEL_CHAMBER_LEVEL, $checkFuelChamberLevel);
         $this->addReference(self::HACK, $hack);
+        $this->addReference(self::EXIT_TERMINAL, $exitTerminal);
     }
 }

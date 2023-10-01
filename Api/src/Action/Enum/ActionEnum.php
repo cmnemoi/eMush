@@ -154,6 +154,9 @@ class ActionEnum
     public const MASS_MUSHIFICATION = 'mass_mushification';
     public const MASS_GGEDON = 'mass_ggeddon';
 
+    // Terminal related actions
+    public const EXIT_TERMINAL = 'exit_terminal';
+
     public static function getPermanentItemActions(): array
     {
         return [
@@ -211,6 +214,7 @@ class ActionEnum
             self::SUICIDE,
             self::AUTO_DESTROY,
             self::KILL_PLAYER,
+            self::EXIT_TERMINAL,
         ];
     }
 

@@ -2673,6 +2673,7 @@ class EquipmentConfigData
                 'report_equipment',
                 'examine',
                 'hack',
+                'exit_terminal',
             ],
             'mechanics' => [],
             'initStatuses' => [],

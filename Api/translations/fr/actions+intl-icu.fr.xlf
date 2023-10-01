@@ -912,5 +912,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de tenter de forcer l'accès à ce terminal grâce à votre Bidouilleur.</target>
       </segment>
     </unit>
+    <unit id="exit_terminal">
+      <segment id="name" state="final">
+        <source>exit_terminal.name</source>
+        <target>Quitter</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

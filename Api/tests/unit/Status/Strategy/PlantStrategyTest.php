@@ -53,11 +53,10 @@ class PlantStrategyTest extends TestCase
         $statusConfig
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->setMaxCharge(10)
+            ->setStatusName('status')
         ;
         $status = new ChargeStatus(new Player(), $statusConfig);
-        $status
-            ->setCharge(0)
-        ;
+        $status->getVariableByName($status->getName())->setValue(0);
 
         return $status;
     }

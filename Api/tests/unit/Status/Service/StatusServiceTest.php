@@ -140,28 +140,21 @@ class StatusServiceTest extends TestCase
             ->setCharge(4)
         ;
 
-        $this->entityManager->shouldReceive('persist')->once();
-        $this->entityManager->shouldReceive('flush')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->service->updateCharge($chargeStatus, -1, [], $time);
 
-        $this->assertEquals(3, $chargeStatus->getCharge());
-
-        $this->entityManager->shouldReceive('persist')->once();
-        $this->entityManager->shouldReceive('flush')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->service->updateCharge($chargeStatus, -4, [], $time);
 
-        $this->assertEquals(0, $chargeStatus->getCharge());
-
-        $this->entityManager->shouldReceive('persist')->once();
-        $this->entityManager->shouldReceive('flush')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->service->updateCharge($chargeStatus, 7, [], $time);
-
-        $this->assertEquals(6, $chargeStatus->getCharge());
 
         $chargeStatusConfig->setAutoRemove(true);
 
+        $chargeStatus->setCharge(0);
         $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $deleteEvent = new AbstractGameEvent([], new \DateTime());
         $deleteEvent->setPriority(0);
         $this->eventService->shouldReceive('callEvent')->once()->andReturn(new EventChain([$deleteEvent]));
@@ -226,7 +219,7 @@ class StatusServiceTest extends TestCase
         $this->assertTrue($result->isAutoRemove());
     }
 
-    public function testCreateAttemptStatus()
+    public function testHandleAttemptStatusOnFail()
     {
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
@@ -243,11 +236,12 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult);
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult, [], new \DateTime());
 
         $this->assertCount(1, $player->getStatuses());
         $this->assertEquals($player->getStatuses()->first()->getName(), StatusEnum::ATTEMPT);
-        $this->assertEquals($player->getStatuses()->first()->getCharge(), 1);
+        $this->assertEquals($player->getStatuses()->first()->getCharge(), 0);
         $this->assertEquals($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE);
     }
 
@@ -267,12 +261,13 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult);
+        $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult, [], new \DateTime());
 
         $this->assertCount(1, $player->getStatuses());
         $this->assertEquals($player->getStatuses()->first()->getName(), StatusEnum::ATTEMPT);
-        $this->assertEquals($player->getStatuses()->first()->getCharge(), 4);
+        $this->assertEquals($player->getStatuses()->first()->getCharge(), 3);
         $this->assertEquals($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE);
     }
 
@@ -292,12 +287,13 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->service->handleAttempt($player, ActionEnum::INSTALL_CAMERA, $actionResult);
+        $this->service->handleAttempt($player, ActionEnum::INSTALL_CAMERA, $actionResult, [], new \DateTime());
 
         $this->assertCount(1, $player->getStatuses());
         $this->assertEquals($player->getStatuses()->first()->getName(), StatusEnum::ATTEMPT);
-        $this->assertEquals($player->getStatuses()->first()->getCharge(), 1);
+        $this->assertEquals($player->getStatuses()->first()->getCharge(), 0);
         $this->assertEquals($player->getStatuses()->first()->getAction(), ActionEnum::INSTALL_CAMERA);
     }
 
@@ -318,7 +314,7 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('remove')->with($attempt)->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult);
+        $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult, [], new \DateTime());
 
         $this->assertCount(0, $player->getStatuses());
     }

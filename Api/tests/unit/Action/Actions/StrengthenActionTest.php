@@ -96,7 +96,9 @@ class StrengthenActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $attempt = new Attempt($player, new ChargeStatusConfig());
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig->setStatusName('attempt');
+        $attempt = new Attempt($player, $attemptConfig);
         $attempt
             ->setAction($this->action->getActionName())
         ;

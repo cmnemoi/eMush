@@ -30,7 +30,6 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusService;
 use Psr\Log\LoggerInterface;
 
@@ -385,22 +384,6 @@ class HunterService implements HunterServiceInterface
             tags: [AbstractHunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );
-
-        if ($patrolShipArmor->getCharge() <= 0) {
-            // reset hunter target so the patrol ship can be safely deleted
-            $hunter->setTarget(new HunterTarget($hunter));
-            $this->persist([$hunter]);
-
-            $statusEvent = new StatusEvent(
-                status: $patrolShipArmor,
-                holder: $patrolShip,
-                tags: [AbstractHunterEvent::HUNTER_SHOT],
-                time: new \DateTime()
-            );
-            $statusEvent->setAuthor($patrolShipPilot);
-
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_CHARGE_UPDATED);
-        }
     }
 
     private function shootAtPlayer(Player $player, int $damage): void

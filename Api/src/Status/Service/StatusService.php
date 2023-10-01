@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
@@ -24,6 +25,7 @@ use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Event\ChargeStatusEvent;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Repository\StatusRepository;
 
@@ -232,34 +234,45 @@ class StatusService implements StatusServiceInterface
         return $attempt;
     }
 
-    public function handleAttempt(Player $player, string $actionName, ActionResult $result): void
-    {
+    public function handleAttempt(
+        Player $player,
+        string $actionName,
+        ActionResult $result,
+        array $tags,
+        \DateTime $time
+    ): void {
         /** @var Attempt $attempt */
         $attempt = $player->getStatusByName(StatusEnum::ATTEMPT);
 
         if ($result instanceof Success) {
             $this->handleAttemptOnSuccess($attempt);
         } else {
-            $this->handleAttemptOnFailure($attempt, $player, $actionName);
+            $this->handleAttemptOnFailure($attempt, $player, $actionName, $tags, $time);
         }
     }
 
-    public function handleAttemptOnFailure(?Attempt $attempt, Player $player, string $actionName): void
-    {
+    public function handleAttemptOnFailure(
+        ?Attempt $attempt,
+        Player $player,
+        string $actionName,
+        array $tags,
+        \DateTime $time
+    ): void {
         if ($attempt && $attempt->getAction() !== $actionName) {
             // Re-initialize attempts with new action
             $attempt
                 ->setAction($actionName)
-                ->setCharge(0)
             ;
+            $attempt->getGameVariables()->setValueByName(0, $attempt->getName());
         } elseif ($attempt === null) { // Create Attempt
             $attempt = $this->createAttemptStatus(
                 $actionName,
                 $player
             );
         }
-        $attempt->addCharge(1);
         $this->persist($attempt);
+
+        $this->updateCharge($attempt, 1, $tags, $time);
     }
 
     public function handleAttemptOnSuccess(?Attempt $attempt): void
@@ -308,22 +321,22 @@ class StatusService implements StatusServiceInterface
 
     public function updateCharge(ChargeStatus $chargeStatus, int $delta, array $tags, \DateTime $time): ?ChargeStatus
     {
-        $newCharge = $chargeStatus->getCharge() + $delta;
-        $threshold = $chargeStatus->getThreshold();
+        $chargeVariable = $chargeStatus->getVariableByName($chargeStatus->getName());
 
-        if ($chargeStatus->isAutoRemove() && ($newCharge >= $threshold || $newCharge <= 0)) {
+        $playerModifierEvent = new ChargeStatusEvent(
+            $chargeStatus,
+            $chargeStatus->getOwner(),
+            $delta,
+            $tags,
+            $time,
+        );
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+
+        if ($chargeStatus->isAutoRemove() && $chargeVariable->isMin()) {
             $this->removeStatus($chargeStatus->getName(), $chargeStatus->getOwner(), $tags, $time);
 
             return null;
         }
-
-        if ($threshold) {
-            $chargeStatus->setCharge(max(min($newCharge, $threshold), 0));
-        } else {
-            $chargeStatus->setCharge(max($newCharge, 0));
-        }
-
-        $this->persist($chargeStatus);
 
         return $chargeStatus;
     }

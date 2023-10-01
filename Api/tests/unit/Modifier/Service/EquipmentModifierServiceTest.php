@@ -103,6 +103,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         // with a charge
         $chargeConfig = new ChargeStatusConfig();
+        $chargeConfig->setStatusName('status');
         $chargeConfig->setDischargeStrategies(['modifierName']);
         $charge = new ChargeStatus($gameEquipment, $chargeConfig);
 

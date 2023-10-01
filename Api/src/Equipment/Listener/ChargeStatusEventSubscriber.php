@@ -6,12 +6,13 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
+use Mush\Status\Event\ChargeStatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class StatusEventSubscriber implements EventSubscriberInterface
+class ChargeStatusEventSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
 
@@ -21,17 +22,21 @@ class StatusEventSubscriber implements EventSubscriberInterface
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
-            StatusEvent::STATUS_CHARGE_UPDATED => 'onStatusChargeUpdated',
+            VariableEventInterface::CHANGE_VARIABLE => 'onStatusChargeUpdated',
+            VariableEventInterface::SET_VALUE => 'onStatusChargeUpdated',
         ];
     }
 
-    public function onStatusChargeUpdated(StatusEvent $statusEvent)
+    public function onStatusChargeUpdated(VariableEventInterface $statusEvent): void
     {
         // only handle patrol ship armor status
-        if ($statusEvent->getStatusName() !== EquipmentStatusEnum::PATROL_SHIP_ARMOR) {
+        if (!($statusEvent instanceof ChargeStatusEvent)
+            || $statusEvent->getStatusName() !== EquipmentStatusEnum::PATROL_SHIP_ARMOR
+            || !$statusEvent->getVariable()->isMin()
+        ) {
             return;
         }
 

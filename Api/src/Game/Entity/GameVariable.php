@@ -144,6 +144,15 @@ class GameVariable
         return $this->maxValue === $this->value;
     }
 
+    public function isMin(): bool
+    {
+        if ($this->minValue === null) {
+            return false;
+        }
+
+        return $this->minValue === $this->value;
+    }
+
     public function getMaxValue(): ?int
     {
         return $this->maxValue;

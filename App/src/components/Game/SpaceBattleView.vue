@@ -1,31 +1,31 @@
 <template>
-    <div class="daedalus-fighters-container">
-        <div :class="['fighter-container', { 'green': isPlayerInRoom(turret.key) }]" v-for="(turret, key) in player?.spaceBattle?.turrets" :key="key">
-            <div class="sub-fighter-container image">
+    <div class="allies-container">
+        <div :class="['turret', { 'green': isPlayerInRoom(turret.key) }]" v-for="(turret, key) in player?.spaceBattle?.turrets" :key="key">
+            <div class="operator">
                 <img v-if="!turretIsEmpty(turret)"
                      class="player-body"
                      :src="getPlayerCharacterBodyByName(getTurretOccupier(turret))"
                      :alt="getTurretOccupier(turret)">
             </div>
-            <div class="sub-fighter-container stats">
-                <div class="sub-fighter-container-inner">
+            <div>
+                <div class="ship-img-container">
                     <img class="turret-img" :src="require('@/assets/images/spaceBattleTurret.png')" alt="turret">
                 </div>
-                <div class="sub-fighter-container-inner">
+                <div class="stats">
                     <p class="quantity">{{ turret.charges }}</p>
                     <img class="charges-img" :src="require('@/assets/images/status/charge.png')" alt="charges">
                 </div>
             </div>
         </div>
-        <div :class="['fighter-container', { 'green': isPlayerInRoom(patrolShip.key) }]" v-for="(patrolShip, key) in player?.spaceBattle?.patrolShips" :key="key">
-            <div class="sub-fighter-container image">
+        <div :class="['fighter', { 'green': isPlayerInRoom(patrolShip.key) }]" v-for="(patrolShip, key) in player?.spaceBattle?.patrolShips" :key="key">
+            <div class="operator">
                 <img
                     class="player-body"
                     :src="getPlayerCharacterBodyByName(patrolShip.pilot)"
                     :alt="patrolShip.pilot">
             </div>
-            <div class="sub-fighter-container stats ship">
-                <div class="sub-fighter-container-inner ship">
+            <div>
+                <div class="ship-img-container">
                     <img v-if="!patrolShip.isPasiphae()"
                          class="patrol-ship-img"
                          :src="require('@/assets/images/patrol_ship.png')"
@@ -35,7 +35,7 @@
                          :src="require('@/assets/images/pasiphae.png')"
                          alt="pasiphae">
                 </div>
-                <div class="sub-fighter-container-inner stats">
+                <div class="stats">
                     <p class="quantity">{{ patrolShip.armor }}</p>
                     <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
                     <p class="quantity" v-if="!patrolShip.isPasiphae()">{{ patrolShip.charges }}</p>
@@ -49,15 +49,15 @@
     </div>
     <div class="hunters-container">
         <Tippy tag="div"
-               class="hunter-container"
+               class="hunter"
                :class="isHunterSelected(hunter) ? 'highlight' : ''"
                @mousedown.stop="$emit('select', hunter)"
                v-for="(hunter, key) in player?.spaceBattle?.hunters"
                :key="key">
-            <div :class="'sub-fighter-container-inner ship' + ' ' + hunter.key">
-                <img class="hunter-img" :src="getHunterImage(hunter)" :alt="hunter.key">
+            <div class="ship-img-container">
+                <img :class="hunter.key + '-img'" :src="getHunterImage(hunter)" :alt="hunter.key">
             </div>
-            <div class="sub-fighter-container-inner stats">
+            <div class="stats">
                 <p class="quantity">{{ hunter.health }}</p>
                 <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
             </div>
@@ -134,157 +134,178 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
-    .daedalus-fighters-container {
-        position: absolute;
-        top: 25px;
-        left: 13px;
-        width: 129px;
-        height: 303px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        padding: 1px;
-    }
-    .fighter-container {
-        width: 60px;
-        height: 48px;
-        background-color: $slightlyDeepBlue;
-        margin: 1px;
-        border: solid;
-        border-color: $greyBlue;
-        padding: 2px;
-        border-width: 1px;
-        border-top-right-radius: 10px;
-        padding: 2px 2px 1px 1px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
+$hit-color: #fd1f07;
+.allies-container, .hunters-container {
+    position: absolute;
+    top: 25px;
+    max-height: 320px;
+}
 
-    .fighter-container.green {
-        background-color: $deepGreen !important;
-        border-color: $green !important;
-    }
+.allies-container {
+    left: 13px;
+    flex-wrap: wrap;
+}
 
-    .sub-fighter-container {
-        flex: 1;
-    }
+.hunters-container {
+    right: 2px;
+    flex-wrap: wrap-reverse;
+}
 
-    .sub-fighter-container.image {
-        width: 20px;
-    }
+.turret, .fighter, .hunter {
+    width: 68px;
+    height: 48px;
+    margin: 1px;
+    padding: 1px;
+    background-color: $slightlyDeepBlue;
+    border: 1px solid $greyBlue;
+    border-top-right-radius: 8px;
+    flex-direction: row;
 
-    .sub-fighter-container.stats {
-        width: calc(100% - 20px);
-        height: calc(100% - 0px);
-        flex: 2;
+    &.green {
+        background-color: $deepGreen;
+        border-color: $green;
     }
+}
 
-    .sub-fighter-container-inner {
-        width: calc(100% - 2px);
-        height: 40%;
+.operator {
+    flex-direction: row;
+    justify-content: center;
+    width: 20px;
+    overflow: visible;
+    z-index: 2;
+}
+
+.stats {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    font-weight: 700;
+    font-size: .75em;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 5px $deepBlue;
+
+    p { margin: 0; }
+}
+
+.ship-img-container {
+    width: 38px;
+    height: 30px;
+    margin: 0 3px;
+    overflow: hidden;
+    align-self: flex-end;
+
+    img {
+        position: relative;
         margin: auto;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
     }
 
-    .player-body {
-        width: fit-content;
-        height: fit-content;
-    }
-    .armor-img {
-        width: 10px;
-        height: 10px;
-    }
-    .charges-img {
-        width: 10px;
-        height: 10px;
-    }
-    .turret-img {
-        margin-top: 7px;
-    }
+    // lists all ships and setup their display parameters
     .patrol-ship-img {
-        width: 50px;
-        height: 50px;
-        clip-path: circle(50%);
+        width: calc(103px / 1.8);
         transform: scaleX(-1);
+        top: -5px;
+        left: -9px;
     }
 
     .pasiphae-img {
-        width: 50px;
-        height: 50px;
-        clip-path: circle(75%);
+        width: calc(85px / 1.8);
         transform: scaleX(-1);
-    }
-    .quantity {
-        width: fit-content;
-        height: fit-content;
-        margin: 0;
-        font-weight: 700;
-        font-size: 10px;
-        padding: 1px;
-    }
-    
-    .patrol-ship-stats {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: row;
-    }
-
-    .hunters-container {
-        position: absolute;
-        top: 25px;
-        right: 1px;
-        width: 85px;
-        height: 303px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap-reverse;
-        align-content: end;
-        padding: 1px;
-    }
-
-    .hunter-container {
-        width: 40px;
-        height: 40px;
-        background-color: $slightlyDeepBlue;
-        margin: 1px;
-        border: solid;
-        border-color: $greyBlue;
-        padding: 2px;
-        border-width: 1px;
-        border-top-left-radius: 5px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        top: -11px;
+        left: -8px;
     }
 
     .hunter-img {
-        width: 30px;
-        height: 30px;
-        object-fit: none;
-        object-position: center;
-    }
-    
-    .sub-fighter-container-inner.ship {
-        margin: 0px;
-        height: 60%;
-        overflow: hidden;
-    }
-    .sub-fighter-container-inner.stats {
-        margin-left: 1px;
+        top: -3px;
+        left: -7px;
     }
 
-    div.tippy-tooltip {
-        margin-right: 5px;
-        margin-left: 5px;
+    .spider-img {
+        top: -25px;
+        left: -14px;
     }
 
-    .highlight {
+    .asteroid-img {
+        top: -17px;
+        left: -25px;
+    }
+
+    .dice-img {
+        top: -11px;
+        left: 0;
+    }
+
+    .trax-img {
+        top: -12px;
+        left: -10px;
+    }
+}
+
+.hunters-container .ship-img-container {
+    height: 26px;
+    align-self: center;
+}
+
+img {
+    width: fit-content;
+    height: fit-content;
+}
+
+.patrol-ship-stats {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.hunter {
+    width: 42px;
+    height: 42px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 0;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &:hover, &:focus {
+        background-color: lighten($slightlyDeepBlue, 10%);
+        border-color: lighten($greyBlue, 15%);
+    }
+
+    &:active, &.highlight {
+        z-index: 5;
         box-shadow: 0px 0px 8px 3px red;
     }
-    
+
+    &.hit {
+        animation: hit-color 0.2s linear 8 alternate, hit-shake .5s ease-out 1 forwards;
+        z-index: 3;
+    }
+
+    &.kill {
+        opacity: 0;
+        background-color: $hit-color;
+        transition: opacity 1s ease-in 0.3s;
+        animation: hit-shake .5s ease-out 1 forwards;
+        z-index: 3;
+    }
+}
+
+@keyframes hit-color {
+    30% { background-color: #122270; }
+    70% { background-color: $hit-color; }
+    100% { background-color: $hit-color; }
+}
+
+@keyframes hit-shake {
+    0% { transform: translate(0, 0); }
+    15% { transform: translate(-15%, -15%); }
+    30% { transform: translate(10%, 10%); }
+    45% { transform: translate(-5%, -5%); }
+    60% { transform: translate(5%, 5%); }
+    80% { transform: translate(-5%, -5%); }
+    100% { transform: translate(0, 0); }
+}
+
 </style>

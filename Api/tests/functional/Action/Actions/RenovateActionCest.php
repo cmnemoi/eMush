@@ -160,6 +160,40 @@ final class RenovateActionCest extends AbstractFunctionalTest
         ]);
     }
 
+    public function testRenovateNotVisibleIfPlayerInsidePatrolShip(FunctionalTester $I): void
+    {   
+        $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
+
+        /** @var EquipmentConfig $pasiphaeConfig */
+        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
+        $pasiphae
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig)
+        ;
+        $I->haveInRepository($pasiphae);
+
+        /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
+        $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+        $pasiphaeArmorStatus = new ChargeStatus($pasiphae, $pasiphaeArmorStatusConfig);
+
+        $maxCharge = $pasiphaeArmorStatusConfig->getMaxCharge();
+        $pasiphaeArmorStatus->setCharge($maxCharge - 1);
+        $I->haveInRepository($pasiphaeArmorStatus);
+
+        /** @var EquipmentConfig $metalScrapConfig */
+        $metalScrapConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
+        $metalScrap = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
+        $metalScrap
+            ->setName(ItemEnum::METAL_SCRAPS)
+            ->setEquipment($metalScrapConfig)
+        ;
+        $I->haveInRepository($metalScrap);
+
+        $this->renovateAction->loadParameters($this->action, $this->player1, $pasiphae);
+        $I->assertFalse($this->renovateAction->isVisible());
+    }
+
     public function testRenovateNotVisibleIfPatrolShipNotDamaged(FunctionalTester $I): void
     {
         /** @var EquipmentConfig $pasiphaeConfig */
@@ -226,6 +260,16 @@ final class RenovateActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($alphaBay2);
 
-        $I->refreshEntities($daedalus);
+        $pasiphaeRoomConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::PASIPHAE]);
+        $pasiphaeRoom = new Place();
+        $pasiphaeRoom
+            ->setName(RoomEnum::PASIPHAE)
+            ->setType($pasiphaeRoomConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($pasiphaeRoom);
+
+
+        $I->haveInRepository($daedalus);
     }
 }

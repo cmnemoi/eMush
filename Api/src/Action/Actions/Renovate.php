@@ -9,7 +9,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
-use Mush\Action\Validator\IsPatrolShipDamaged;
+use Mush\Action\Validator\IsPatrolShipRenovable;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -50,7 +50,7 @@ final class Renovate extends AttemptAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new IsPatrolShipDamaged(['groups' => ['visibility']]));
+        $metadata->addConstraint(new IsPatrolShipRenovable(['groups' => ['visibility']]));
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::ROOM,
             'equipments' => [ItemEnum::METAL_SCRAPS],
@@ -61,11 +61,20 @@ final class Renovate extends AttemptAction
 
     protected function applyEffect(ActionResult $result): void
     {
+        /** @var GameEquipment $patrolShip */
+        $patrolShip = $this->target;
+
         // we want to do this whatever the action result is
         $this->destroyPieceOfScrapMetal();
 
         if ($result instanceof Success) {
             $this->setPatrolShipArmorToMaximum();
+            $this->statusService->removeStatus(
+                statusName: EquipmentStatusEnum::BROKEN,
+                holder: $patrolShip,
+                tags: $this->getAction()->getActionTags(),
+                time: new \DateTime()
+            );
         }
     }
 

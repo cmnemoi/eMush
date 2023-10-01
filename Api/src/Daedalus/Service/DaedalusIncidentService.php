@@ -134,7 +134,8 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                 ->getRandomDaedalusEquipmentFromProbaCollection(
                     $workingEquipmentBreakRateDistribution,
                     $numberOfEquipmentBroken,
-                    $daedalus);
+                    $daedalus
+                );
 
             foreach ($brokenEquipments as $gameEquipment) {
                 if (!$gameEquipment->isBroken()) {
@@ -295,7 +296,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             // and therefore can't be broken : we skip it.
             try {
                 $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
-                if ($equipment === null || $equipment->isBroken()) {
+                if ($equipment === null || $equipment->isBroken() || $equipment->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
                     $absentEquipments[] = $equipmentName;
                     continue;
                 }

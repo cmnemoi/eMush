@@ -219,11 +219,11 @@ class RandomService implements RandomServiceInterface
 
     private function averagedPercent(): int
     {
-        return $this->rollAndAverage(1, 100);
+        return $this->rollTwiceAndAverage(1, 100);
     }
 
-    private function rollAndAverage(int $min, int $max): int
+    private function rollTwiceAndAverage(int $min, int $max): int
     {
-        return ($this->random($min, $max) + $this->random($min, $max)) / 2;
+        return intval(($this->random($min, $max) + $this->random($min, $max)) / 2);
     }
 }

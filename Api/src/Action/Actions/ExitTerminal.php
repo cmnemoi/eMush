@@ -13,7 +13,6 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -30,14 +29,12 @@ final class ExitTerminal extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        RandomServiceInterface $randomService,
         StatusServiceInterface $statusService,
     ) {
         parent::__construct(
             $eventService,
             $actionService,
             $validator,
-            $randomService
         );
 
         $this->statusService = $statusService;

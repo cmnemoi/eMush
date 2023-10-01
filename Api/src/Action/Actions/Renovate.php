@@ -11,7 +11,6 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\IsPatrolShipDamaged;
-use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -22,7 +21,6 @@ use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -52,16 +50,15 @@ final class Renovate extends AttemptAction
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {   
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+    {
         $metadata->addConstraint(new IsPatrolShipDamaged(['groups' => ['visibility']]));
-        $metadata->addConstraint(new PlaceType(['type' => PlaceTypeEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::ROOM,
             'equipments' => [ItemEnum::METAL_SCRAPS],
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::RENOVATE_LACK_RESSOURCES,
         ]));
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
     }
 
     protected function applyEffect(ActionResult $result): void

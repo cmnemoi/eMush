@@ -345,19 +345,4 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     {
         return $this->getName();
     }
-
-    public function isARoom(): bool
-    {
-        return $this->getType() === PlaceTypeEnum::ROOM;
-    }
-
-    public function isAPatrolShip(): bool
-    {
-        return $this->getType() === PlaceTypeEnum::PATROL_SHIP;
-    }
-
-    public function isSpace(): bool
-    {
-        return $this->getType() === PlaceTypeEnum::SPACE;
-    }
 }

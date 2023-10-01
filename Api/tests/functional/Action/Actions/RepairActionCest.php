@@ -13,12 +13,9 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -30,37 +27,22 @@ use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
-use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class RepairActionCest extends AbstractFunctionalTest
-{   
-    private Action $repairActionConfig;
+class RepairActionCest
+{
     private Repair $repairAction;
-    private Place $alphaBay2;
-    private Place $pasiphae;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
-    {   
-        $this->repairActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::REPAIR . '_percent_12']);
+    {
         $this->repairAction = $I->grabService(Repair::class);
-
-        parent::_before($I);
-        $this->alphaBay2 = $this->createExtraPlace(RoomEnum::ALPHA_BAY_2, $I, $this->daedalus);
-        $this->pasiphae = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
-
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
-
     }
 
     public function testRepair(FunctionalTester $I)
@@ -162,91 +144,5 @@ class RepairActionCest extends AbstractFunctionalTest
         ;
 
         $I->assertEquals(37, $this->repairAction->getSuccessRate());
-    }
-
-    public function testRepairPatrolShipInARoomConsumesScrapMetal(FunctionalTester $I): void
-    {
-        // given player is in Pasiphae room
-        $player = $this->player->changePlace($this->alphaBay2);
-
-        // given there is a pasiphae in Pasiphae room
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->alphaBay2);
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
-        $I->haveInRepository($pasiphae);
-
-        // given a piece of scrap metal in Pasiphae room
-        $scrapMetalConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
-        $scrapMetal = new GameEquipment($this->alphaBay2);
-        $scrapMetal
-            ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($scrapMetalConfig)
-        ;
-        $I->haveInRepository($scrapMetal);
-
-        // given this pasiphae is broken
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $pasiphae,
-            tags: [],
-            time: new \DateTime()
-        );
-
-        // when player repairs pasiphae
-        $this->repairAction->loadParameters(
-            action: $this->repairActionConfig,
-            player: $player,
-            target: $pasiphae
-        );
-        $this->repairAction->execute();
-
-        // then a piece of scrap metal is consumed
-        $I->assertFalse($this->alphaBay2->getEquipments()->contains($scrapMetal));
-    }
-
-    public function testRepairPatrolShipInsidePatrolShipDoesNotConsumeScrapMetal(FunctionalTester $I): void
-    {
-        // given player is in Pasiphae room
-        $player = $this->player->changePlace($this->pasiphae);
-
-        // given there is a pasiphae in Pasiphae room
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->pasiphae);
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
-        $I->haveInRepository($pasiphae);
-
-        // given a piece of scrap metal in Pasiphae room
-        $scrapMetalConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
-        $scrapMetal = new GameEquipment($this->pasiphae);
-        $scrapMetal
-            ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($scrapMetalConfig)
-        ;
-        $I->haveInRepository($scrapMetal);
-
-        // given this pasiphae is broken
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $pasiphae,
-            tags: [],
-            time: new \DateTime()
-        );
-
-        // when player repairs pasiphae
-        $this->repairAction->loadParameters(
-            action: $this->repairActionConfig,
-            player: $player,
-            target: $pasiphae
-        );
-        $this->repairAction->execute();
-
-        // then a piece of scrap metal is not consumed
-        $I->assertTrue($this->pasiphae->getEquipments()->contains($scrapMetal));
     }
 }

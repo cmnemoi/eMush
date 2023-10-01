@@ -7,6 +7,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\IsPatrolShipDamaged;
@@ -54,7 +55,8 @@ final class Renovate extends AttemptAction
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::ROOM,
             'equipments' => [ItemEnum::METAL_SCRAPS],
-            'groups' => ['visibility'],
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::RENOVATE_LACK_RESSOURCES,
         ]));
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
     }

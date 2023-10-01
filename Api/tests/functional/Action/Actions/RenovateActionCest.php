@@ -9,6 +9,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -191,7 +192,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $I->assertFalse($this->renovateAction->isVisible());
     }
 
-    public function testRenovateNotVisibleIfNoScrapAvailable(FunctionalTester $I): void
+    public function testRenovateNotExecutableIfNoScrapAvailable(FunctionalTester $I): void
     {
         /** @var EquipmentConfig $pasiphaeConfig */
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
@@ -211,7 +212,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $I->haveInRepository($pasiphaeArmorStatus);
 
         $this->renovateAction->loadParameters($this->action, $this->player1, $pasiphae);
-        $I->assertFalse($this->renovateAction->isVisible());
+        $I->assertEquals(ActionImpossibleCauseEnum::RENOVATE_LACK_RESSOURCES, $this->renovateAction->cannotExecuteReason());
     }
 
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void

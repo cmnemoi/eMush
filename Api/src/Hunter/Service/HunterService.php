@@ -373,10 +373,6 @@ class HunterService implements HunterServiceInterface
         }
 
         /** @var ?Player|false $patrolShipPilot */
-        $patrolShipPilot = $patrolShip->getDaedalus()->getPlaceByName($patrolShip->getName())?->getPlayers()->getPlayerAlive()->first();
-        if (!$patrolShipPilot instanceof Player) {
-            throw new \LogicException("Patrol ship {$patrolShip->getName()} should have a pilot");
-        }
 
         // temporary reset the target in case patrolShip is destroyed
         /** @var HunterTarget $patrolShipTarget */

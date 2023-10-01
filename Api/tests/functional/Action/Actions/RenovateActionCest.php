@@ -22,7 +22,10 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -31,6 +34,8 @@ final class RenovateActionCest extends AbstractFunctionalTest
     private Renovate $renovateAction;
     private Action $action;
     private Place $alphaBay2;
+
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
@@ -43,6 +48,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::RENOVATE]);
         $this->renovateAction = $I->grabService(Renovate::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testRenovateSuccess(FunctionalTester $I): void
@@ -61,6 +67,13 @@ final class RenovateActionCest extends AbstractFunctionalTest
         /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
         $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $pasiphaeArmorStatus = new ChargeStatus($pasiphae, $pasiphaeArmorStatusConfig);
+
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $pasiphae,
+            tags: ['test'],
+            time: new \DateTime()
+        );
 
         $maxCharge = $pasiphaeArmorStatusConfig->getMaxCharge();
         $pasiphaeArmorStatus->setCharge($maxCharge - 1);
@@ -100,6 +113,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
             'log' => ActionLogEnum::RENOVATE_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+        $I->assertFalse($pasiphae->hasStatus(EquipmentStatusEnum::BROKEN));
     }
 
     public function testRenovateFail(FunctionalTester $I): void
@@ -189,6 +203,16 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         $this->renovateAction->loadParameters($this->action, $this->player1, $pasiphae);
         $I->assertFalse($this->renovateAction->isVisible());
+
+        $pasiphaeArmorStatus->setCharge($maxCharge - 1);
+        $I->haveInRepository($pasiphaeArmorStatus);
+        $I->assertTrue($this->renovateAction->isVisible());
+
+        $brokenStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
+        $brokenStatus = new Status($pasiphae, $brokenStatusConfig);
+        $I->haveInRepository($brokenStatus);
+
+        $I->assertTrue($this->renovateAction->isVisible());
     }
 
     public function testRenovateNotVisibleIfNoScrapAvailable(FunctionalTester $I): void

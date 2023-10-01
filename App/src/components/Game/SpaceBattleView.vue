@@ -157,7 +157,7 @@ export default defineComponent({
     padding: 1px;
     background-color: $slightlyDeepBlue;
     border: 1px solid $greyBlue;
-    border-top-right-radius: 10px;
+    border-top-right-radius: 8px;
     flex-direction: row;
 
     &.green {
@@ -167,15 +167,18 @@ export default defineComponent({
 }
 
 .operator {
+    flex-direction: row;
+    justify-content: center;
     width: 20px;
     overflow: visible;
+    z-index: 2;
 }
 
 .stats {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 3;
     font-weight: 700;
     font-size: .75em;
     letter-spacing: 0.05em;
@@ -187,8 +190,9 @@ export default defineComponent({
 .ship-img-container {
     width: 38px;
     height: 30px;
-    margin: 0 2px;
+    margin: 0 3px;
     overflow: hidden;
+    align-self: flex-end;
 
     img {
         position: relative;
@@ -197,17 +201,17 @@ export default defineComponent({
 
     // lists all ships and setup their display parameters
     .patrol-ship-img {
-        width: calc(103px / 1.5);
+        width: calc(103px / 1.8);
         transform: scaleX(-1);
-        top: -8px;
-        left: -16px;
+        top: -5px;
+        left: -9px;
     }
 
     .pasiphae-img {
-        width: calc(85px / 1.5);
+        width: calc(85px / 1.8);
         transform: scaleX(-1);
-        top: -15px;
-        left: -12px;
+        top: -11px;
+        left: -8px;
     }
 
     .hunter-img {
@@ -236,7 +240,10 @@ export default defineComponent({
     }
 }
 
-.hunters-container .ship-img-container { height: 26px; }
+.hunters-container .ship-img-container {
+    height: 26px;
+    align-self: center;
+}
 
 img {
     width: fit-content;

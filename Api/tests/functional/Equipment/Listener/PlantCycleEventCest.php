@@ -27,15 +27,18 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 
 class PlantCycleEventCest
 {
     private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testPlantGrowing(FunctionalTester $I)
@@ -98,11 +101,14 @@ class PlantCycleEventCest
 
         $I->haveInRepository($gameEquipment);
 
-        $youngStatus = new ChargeStatus($gameEquipment, $statusConfig);
-        $youngStatus
-            ->setCharge(6)
-        ;
-        $I->haveInRepository($youngStatus);
+        $statusConfig->setStartCharge(6);
+        /** @var ChargeStatus $youngStatus */
+        $youngStatus = $this->statusService->createStatusFromConfig(
+            $statusConfig,
+            $gameEquipment,
+            [],
+            new \DateTime()
+        );
 
         $time = new \DateTime();
 
@@ -213,11 +219,15 @@ class PlantCycleEventCest
             ->buildName(GameConfigENum::TEST)
         ;
         $I->haveInRepository($statusConfig);
-        $youngStatus = new ChargeStatus($gameEquipment, $statusConfig);
-        $youngStatus
-            ->setCharge(6)
-        ;
-        $I->haveInRepository($youngStatus);
+
+        $statusConfig->setStartCharge(6);
+        /** @var ChargeStatus $youngStatus */
+        $youngStatus = $this->statusService->createStatusFromConfig(
+            $statusConfig,
+            $gameEquipment,
+            [],
+            new \DateTime()
+        );
 
         // Plant is young : no fruit or oxygen
         $time = new \DateTime();

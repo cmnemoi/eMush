@@ -40,6 +40,7 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -48,10 +49,13 @@ class ActionSubscriberCest extends AbstractFunctionalTest
 {
     private ActionSubscriber $actionSubscriber;
 
+    private StatusServiceInterface $statusService;
+
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $this->actionSubscriber = $I->grabService(ActionSubscriber::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testOnPostActionSubscriberInjury(FunctionalTester $I)
@@ -324,9 +328,14 @@ class ActionSubscriberCest extends AbstractFunctionalTest
 
         /** @var ChargeStatusConfig $pasiphaeArmorConfig */
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
-        $pasiphaeArmor->setCharge(1);
-        $I->haveInRepository($pasiphaeArmor);
+        $pasiphaeArmorConfig->setStartCharge(1);
+        /** @var ChargeStatus $pasiphaeArmor */
+        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
+            $pasiphaeArmorConfig,
+            $pasiphae,
+            [],
+            new \DateTime()
+        );
 
         $action = new Action();
         $action
@@ -368,9 +377,14 @@ class ActionSubscriberCest extends AbstractFunctionalTest
 
         /** @var ChargeStatusConfig $pasiphaeArmorConfig */
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
-        $pasiphaeArmor->setCharge(1);
-        $I->haveInRepository($pasiphaeArmor);
+        $pasiphaeArmorConfig->setStartCharge(1);
+        /** @var ChargeStatus $pasiphaeArmor */
+        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
+            $pasiphaeArmorConfig,
+            $pasiphae,
+            [],
+            new \DateTime()
+        );
 
         $action = new Action();
         $action
@@ -420,9 +434,14 @@ class ActionSubscriberCest extends AbstractFunctionalTest
 
         /** @var ChargeStatusConfig $pasiphaeArmorConfig */
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmor = new ChargeStatus($pasiphae, $pasiphaeArmorConfig);
-        $pasiphaeArmor->setCharge(1);
-        $I->haveInRepository($pasiphaeArmor);
+        $pasiphaeArmorConfig->setStartCharge(1);
+        /** @var ChargeStatus $pasiphaeArmor */
+        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
+            $pasiphaeArmorConfig,
+            $pasiphae,
+            [],
+            new \DateTime()
+        );
 
         $action = new Action();
         $action

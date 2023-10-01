@@ -7,7 +7,6 @@ namespace Mush\Equipment\Listener;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\ChargeStatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -25,8 +24,8 @@ class ChargeStatusEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            VariableEventInterface::CHANGE_VARIABLE => 'onStatusChargeUpdated',
-            VariableEventInterface::SET_VALUE => 'onStatusChargeUpdated',
+            VariableEventInterface::CHANGE_VARIABLE => ['onStatusChargeUpdated', -100],
+            VariableEventInterface::SET_VALUE => ['onStatusChargeUpdated', -100],
         ];
     }
 
@@ -42,16 +41,10 @@ class ChargeStatusEventSubscriber implements EventSubscriberInterface
 
         /** @var GameEquipment $patrolShip */
         $patrolShip = $statusEvent->getStatusHolder();
-        /** @var Player $patrolShipPilot */
-        $patrolShipPilot = $statusEvent->getAuthor();
-
-        if (!$patrolShipPilot) {
-            throw new \RuntimeException('Event should have author');
-        }
 
         $this->gameEquipmentService->handlePatrolShipDestruction(
             $patrolShip,
-            $patrolShipPilot,
+            $statusEvent->getAuthor(),
             $statusEvent->getTags(),
         );
     }

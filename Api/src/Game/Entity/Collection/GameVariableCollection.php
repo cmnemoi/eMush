@@ -37,6 +37,11 @@ abstract class GameVariableCollection
         $this->gameVariables = new ArrayCollection($variables);
     }
 
+    public function count(): int
+    {
+        return $this->gameVariables->count();
+    }
+
     public function getId(): int
     {
         return $this->id;

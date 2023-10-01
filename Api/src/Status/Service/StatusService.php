@@ -196,9 +196,10 @@ class StatusService implements StatusServiceInterface
 
             $this->updateCharge(
                 chargeStatus: $electricCharges,
-                delta: -$electricCharges->getThreshold(),
+                delta: 0,
                 tags: $tags,
-                time: $time
+                time: $time,
+                mode: VariableEventInterface::SET_VALUE
             );
         }
     }
@@ -319,18 +320,23 @@ class StatusService implements StatusServiceInterface
         return $this->statusRepository->findByTargetAndName($target, $name);
     }
 
-    public function updateCharge(ChargeStatus $chargeStatus, int $delta, array $tags, \DateTime $time): ?ChargeStatus
-    {
+    public function updateCharge(
+        ChargeStatus $chargeStatus,
+        int $delta,
+        array $tags,
+        \DateTime $time,
+        string $mode = VariableEventInterface::CHANGE_VARIABLE
+    ): ?ChargeStatus {
         $chargeVariable = $chargeStatus->getVariableByName($chargeStatus->getName());
 
-        $playerModifierEvent = new ChargeStatusEvent(
+        $statusEvent = new ChargeStatusEvent(
             $chargeStatus,
             $chargeStatus->getOwner(),
             $delta,
             $tags,
             $time,
         );
-        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+        $events = $this->eventService->callEvent($statusEvent, $mode);
 
         if ($chargeStatus->isAutoRemove() && $chargeVariable->isMin()) {
             $this->removeStatus($chargeStatus->getName(), $chargeStatus->getOwner(), $tags, $time);

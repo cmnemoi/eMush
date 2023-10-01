@@ -22,6 +22,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -63,8 +64,14 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $I->haveInRepository($this->turret);
 
         $turretChargeStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => 'electric_charges_turret_command_default']);
-        $turretChargeStatus = new ChargeStatus($this->turret, $turretChargeStatusConfig);
-        $I->haveInRepository($turretChargeStatus);
+        /** @var StatusServiceInterface $statusService */
+        $statusService = $I->grabService(StatusServiceInterface::class);
+        $statusService->createStatusFromConfig(
+            $turretChargeStatusConfig,
+            $this->turret,
+            [],
+            new \DateTime()
+        );
 
         $this->shootHunterAction = $I->grabService(ShootHunter::class);
     }
@@ -74,8 +81,6 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         /** @var ChargeStatus $status */
         $status = $this->turret->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
         $status->setCharge(0);
-        $I->haveInRepository($status);
-        $I->haveInRepository($this->turret);
 
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getAttackingHunters()->first();

@@ -15,8 +15,8 @@ class ChargeStatusConfig extends StatusConfig
     #[ORM\Column(type: 'string', nullable: false)]
     private string $chargeStrategy = ChargeStrategyTypeEnum::NONE;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $maxCharge = 0;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $maxCharge = null;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $startCharge = 0;
@@ -72,7 +72,7 @@ class ChargeStatusConfig extends StatusConfig
         return $this;
     }
 
-    public function getMaxCharge(): int
+    public function getMaxCharge(): ?int
     {
         return $this->maxCharge;
     }
@@ -80,7 +80,7 @@ class ChargeStatusConfig extends StatusConfig
     /**
      * @return static
      */
-    public function setMaxCharge(int $maxCharge): self
+    public function setMaxCharge(?int $maxCharge): self
     {
         $this->maxCharge = $maxCharge;
 

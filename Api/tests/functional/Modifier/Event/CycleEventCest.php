@@ -127,9 +127,14 @@ class CycleEventCest extends AbstractFunctionalTest
         $electricChargesConfig = $I->grabEntityFromRepository(
             ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_patrol_ship_default']
         );
-        $electricCharges = new ChargeStatus($patrolShip, $electricChargesConfig);
-        $electricCharges->setCharge(9);
-        $I->haveInRepository($electricCharges);
+        $electricChargesConfig->setStartCharge(9);
+        /** @var ChargeStatus $electricCharges */
+        $electricCharges = $this->statusService->createStatusFromConfig(
+            $electricChargesConfig,
+            $patrolShip,
+            [],
+            new \DateTime()
+        );
 
         // when new cycle event is called
         $statusCycleEvent = new StatusCycleEvent($electricCharges, $patrolShip, [EventEnum::NEW_CYCLE], new \DateTime());
@@ -155,9 +160,15 @@ class CycleEventCest extends AbstractFunctionalTest
         $electricChargesConfig = $I->grabEntityFromRepository(
             ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_patrol_ship_default']
         );
-        $electricCharges = new ChargeStatus($patrolShip, $electricChargesConfig);
-        $electricCharges->setCharge(9);
-        $I->haveInRepository($electricCharges);
+
+        $electricChargesConfig->setStartCharge(9);
+        /** @var ChargeStatus $electricCharges */
+        $electricCharges = $this->statusService->createStatusFromConfig(
+            $electricChargesConfig,
+            $patrolShip,
+            [],
+            new \DateTime()
+        );
 
         // when new cycle event is called
         $statusCycleEvent = new StatusCycleEvent($electricCharges, $patrolShip, [EventEnum::NEW_CYCLE], new \DateTime());

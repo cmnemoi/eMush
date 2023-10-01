@@ -378,12 +378,26 @@ class HunterService implements HunterServiceInterface
             throw new \LogicException("Patrol ship {$patrolShip->getName()} should have a pilot");
         }
 
-        $this->statusService->updateCharge(
+        // temporary reset the target in case patrolShip is destroyed
+        /** @var HunterTarget $patrolShipTarget */
+        $patrolShipTarget = $hunter->getTarget();
+        $hunter->resetTarget();
+
+        $chargeStatus = $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,
             delta: -$damage,
             tags: [AbstractHunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );
+
+        if ($chargeStatus !== null
+            && !$chargeStatus->getVariableByName($chargeStatus->getName())->isMin()
+        ) {
+            // reset hunter target so the patrol ship can be safely deleted
+            $hunter->setTarget($patrolShipTarget);
+        }
+
+        $this->persist([$hunter]);
     }
 
     private function shootAtPlayer(Player $player, int $damage): void

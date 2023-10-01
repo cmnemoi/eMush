@@ -412,16 +412,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $retrieveFuelChamberAction = $this->getReference(ActionsFixtures::RETRIEVE_FUEL_CHAMBER);
 
         // Tools
-        /** @var ChargeStatusConfig $combustionChargeStatus */
-        $combustionChargeStatus = $this->getReference(ChargeStatusFixtures::COMBUSTION_CHAMBER);
-
         $combustionChamber = new EquipmentConfig();
         $combustionChamber
             ->setEquipmentName(EquipmentEnum::COMBUSTION_CHAMBER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setInitStatuses([$combustionChargeStatus])
             ->setActions([$repair12, $sabotage12, $reportAction, $examineAction, $retrieveFuelChamberAction])
             ->buildName(GameConfigEnum::DEFAULT)
         ;

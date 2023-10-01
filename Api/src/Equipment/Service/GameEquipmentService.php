@@ -213,7 +213,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         }
     }
 
-    public function handlePatrolShipDestruction(GameEquipment $patrolShip, Player $player, array $tags): void
+    public function handlePatrolShipDestruction(GameEquipment $patrolShip, ?Player $player, array $tags): void
     {
         $destroyPatrolShipEvent = new InteractWithEquipmentEvent(
             $patrolShip,
@@ -227,7 +227,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $this->movePatrolShipContentToSpace($patrolShip, $player, $tags);
     }
 
-    private function movePatrolShipContentToSpace(GameEquipment $patrolShip, Player $player, array $tags): void
+    private function movePatrolShipContentToSpace(GameEquipment $patrolShip, ?Player $player, array $tags): void
     {
         /** @var Daedalus $daedalus */
         $daedalus = $patrolShip->getDaedalus();

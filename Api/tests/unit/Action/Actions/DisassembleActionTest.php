@@ -85,7 +85,7 @@ class DisassembleActionTest extends AbstractActionTest
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->never()
         ;
-        $this->randomService->shouldReceive('isSuccessful')->with(10)->andReturn(false)->once();
+        $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(false)->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->never();
 
         // Fail try
@@ -126,7 +126,7 @@ class DisassembleActionTest extends AbstractActionTest
             ->andReturn(0)
             ->once()
         ;
-        $this->randomService->shouldReceive('isSuccessful')->with(10)->andReturn(true)->once();
+        $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->with(0)->andReturn(false)->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 

@@ -20,6 +20,8 @@ interface RandomServiceInterface
 
     public function isSuccessful(int $successRate): bool;
 
+    public function isActionSuccessful(int $successRate): bool;
+
     public function outputCriticalChances(int $successRate, int $criticalFailRate = 0, int $criticalSuccessRate = 0): string;
 
     public function getRandomPlayer(PlayerCollection $players): Player;

@@ -73,7 +73,7 @@ class StrengthenActionTest extends AbstractActionTest
             ->andReturn(10)
             ->once()
         ;
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
+        $this->randomService->shouldReceive('isActionSuccessful')->andReturn(false)->once();
 
         // Fail try
         $result = $this->action->execute();
@@ -115,7 +115,7 @@ class StrengthenActionTest extends AbstractActionTest
             ->andReturn(10)
             ->once()
         ;
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isActionSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         $this->eventService->shouldReceive('callEvent')->once();

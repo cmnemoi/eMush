@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-final class IsPatrolShipRenovableValidator extends ConstraintValidator
+final class IsPatrolShipDamagedValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
@@ -20,8 +20,8 @@ final class IsPatrolShipRenovableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
-        if (!$constraint instanceof IsPatrolShipRenovable) {
-            throw new UnexpectedTypeException($constraint, IsPatrolShipRenovable::class);
+        if (!$constraint instanceof IsPatrolShipDamaged) {
+            throw new UnexpectedTypeException($constraint, IsPatrolShipDamaged::class);
         }
 
         /** @var GameEquipment $patrolShip */
@@ -29,7 +29,7 @@ final class IsPatrolShipRenovableValidator extends ConstraintValidator
         /** @var ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
-        if ($patrolShipArmor->getCharge() === $patrolShipArmor->getThreshold() && !$patrolShip->hasStatus(EquipmentStatusEnum::BROKEN)) {
+        if ($patrolShipArmor->getCharge() === $patrolShipArmor->getThreshold()) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

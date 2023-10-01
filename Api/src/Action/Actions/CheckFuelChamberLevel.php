@@ -6,18 +6,17 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Validator\HasStatus as StatusValidator;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class CheckSporeLevel extends AbstractAction
+final class CheckFuelChamberLevel extends AbstractAction
 {
-    protected string $name = ActionEnum::CHECK_SPORE_LEVEL;
+    protected string $name = ActionEnum::CHECK_FUEL_CHAMBER_LEVEL;
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
     {
@@ -26,28 +25,24 @@ class CheckSporeLevel extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new StatusValidator([
-            'status' => EquipmentStatusEnum::BROKEN,
-            'contain' => false,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-        ]));
+        $metadata->addConstraints([
+            new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
+            new HasStatus([
+                'status' => EquipmentStatusEnum::BROKEN,
+                'contain' => false,
+                'groups' => ['execute'],
+                'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+            ]),
+        ]);
     }
 
     protected function checkResult(): ActionResult
     {
-        $player = $this->player;
+        // Send the current amount of fuel in the combustion chamber for it to be used in the success log
+        $result = new Success();
+        $result->setQuantity($this->player->getDaedalus()->getCombustionChamberFuel());
 
-        if ($player->isMush()) {
-            $nbSpores = 0;
-        } else {
-            $nbSpores = $player->getVariableValueByName(PlayerVariableEnum::SPORE);
-        }
-
-        $success = new Success();
-
-        return $success->setQuantity($nbSpores);
+        return $result;
     }
 
     protected function applyEffect(ActionResult $result): void

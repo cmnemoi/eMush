@@ -24,8 +24,8 @@ abstract class AbstractAction
 {
     protected Action $action;
     protected Player $player;
-
-    protected ?LogParameterInterface $parameter = null;
+    protected ?LogParameterInterface $target = null;
+    protected ?array $parameters = [];
 
     protected string $name;
 
@@ -43,18 +43,18 @@ abstract class AbstractAction
         $this->validator = $validator;
     }
 
-    abstract protected function support(?LogParameterInterface $parameter): bool;
+    abstract protected function support(?LogParameterInterface $target, array $parameters): bool;
 
-    public function loadParameters(Action $action, Player $player, LogParameterInterface $parameter = null): void
+    public function loadParameters(Action $action, Player $player, LogParameterInterface $target = null, array $parameters = []): void
     {
-        if (!$this->support($parameter)) {
-            $className = isset($parameter) ? $parameter->getClassName() : '$parameter is null';
-            throw new \InvalidArgumentException("Invalid action parameter, the parameter [{$className}] isn't supported.");
+        if (!$this->support($target, $parameters)) {
+            throw new \InvalidArgumentException('Invalid action parameters : one of the passed parameters from ' . json_encode($parameters) . ' is not supported.');
         }
 
         $this->action = $action;
         $this->player = $player;
-        $this->parameter = $parameter;
+        $this->target = $target;
+        $this->parameters = $parameters;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -97,24 +97,22 @@ abstract class AbstractAction
             return new Error('Cannot execute action');
         }
 
-        $parameter = $this->getParameter();
-
-        $preActionEvent = new ActionEvent($this->action, $this->player, $parameter);
+        $preActionEvent = new ActionEvent($this->action, $this->player, $this->target);
         $this->eventService->callEvent($preActionEvent, ActionEvent::PRE_ACTION);
 
-        $this->actionService->applyCostToPlayer($this->player, $this->action, $this->parameter);
+        $this->actionService->applyCostToPlayer($this->player, $this->action, $this->target);
 
         $result = $this->checkResult();
 
         $result->setVisibility($this->action->getVisibility($result->getName()));
 
-        $resultActionEvent = new ActionEvent($this->action, $this->player, $parameter);
+        $resultActionEvent = new ActionEvent($this->action, $this->player, $this->target);
         $resultActionEvent->setActionResult($result);
         $this->eventService->callEvent($resultActionEvent, ActionEvent::RESULT_ACTION);
 
         $this->applyEffect($result);
 
-        $postActionEvent = new ActionEvent($this->action, $this->player, $parameter);
+        $postActionEvent = new ActionEvent($this->action, $this->player, $this->target);
         $postActionEvent->setActionResult($result);
         $this->eventService->callEvent($postActionEvent, ActionEvent::POST_ACTION);
 
@@ -131,7 +129,7 @@ abstract class AbstractAction
         return $this->actionService->getActionModifiedActionVariable(
             $this->player,
             $this->action,
-            $this->parameter,
+            $this->target,
             PlayerVariableEnum::ACTION_POINT
         );
     }
@@ -141,7 +139,7 @@ abstract class AbstractAction
         return $this->actionService->getActionModifiedActionVariable(
             $this->player,
             $this->action,
-            $this->parameter,
+            $this->target,
             PlayerVariableEnum::MOVEMENT_POINT
         );
     }
@@ -151,7 +149,7 @@ abstract class AbstractAction
         return $this->actionService->getActionModifiedActionVariable(
             $this->player,
             $this->action,
-            $this->parameter,
+            $this->target,
             PlayerVariableEnum::MORAL_POINT
         );
     }
@@ -161,9 +159,14 @@ abstract class AbstractAction
         return $this->player;
     }
 
-    public function getParameter(): ?LogParameterInterface
+    public function getParameters(): ?array
     {
-        return $this->parameter;
+        return $this->parameters;
+    }
+
+    public function getTarget(): ?LogParameterInterface
+    {
+        return $this->target;
     }
 
     public function getAction(): Action

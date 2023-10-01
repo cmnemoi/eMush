@@ -41,9 +41,9 @@ class Repair extends AttemptAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -54,13 +54,13 @@ class Repair extends AttemptAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $parameter */
-        $parameter = $this->parameter;
+        /** @var GameEquipment $target */
+        $target = $this->target;
 
         if ($result instanceof Success) {
             $this->statusService->removeStatus(
                 EquipmentStatusEnum::BROKEN,
-                $parameter,
+                $target,
                 $this->getAction()->getActionTags(),
                 new \DateTime()
             );

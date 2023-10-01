@@ -34,12 +34,12 @@ class IsSameGenderValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, IsSameGender::class);
         }
 
-        $parameter = $value->getParameter();
-        if (!$parameter instanceof Player) {
-            throw new UnexpectedTypeException($parameter, Player::class);
+        $actionTarget = $value->getTarget();
+        if (!$actionTarget instanceof Player) {
+            throw new UnexpectedTypeException($actionTarget, Player::class);
         }
 
-        $targetPlayer = $parameter->getPlayerInfo()->getCharacterConfig()->getCharacterName();
+        $targetPlayer = $actionTarget->getPlayerInfo()->getCharacterConfig()->getCharacterName();
         $player = $value->getPlayer()->getPlayerInfo()->getCharacterConfig()->getCharacterName();
 
         if ($this->isSameGenderCouple($player, $targetPlayer) && !$this->isCoupleWithAndie($player, $targetPlayer)) {

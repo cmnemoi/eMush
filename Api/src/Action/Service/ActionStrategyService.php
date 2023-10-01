@@ -48,7 +48,7 @@ class ActionStrategyService implements ActionStrategyServiceInterface
         return $this->actions[$actionName];
     }
 
-    public function executeAction(Player $player, int $actionId, ?array $params): ActionResult
+    public function executeAction(Player $player, int $actionId, array $params): ActionResult
     {
         /** @var Action $action */
         $action = $this->entityManager->getRepository(Action::class)->find($actionId);
@@ -63,26 +63,27 @@ class ActionStrategyService implements ActionStrategyServiceInterface
             return new Error('Action do not exist');
         }
 
-        $actionService->loadParameters($action, $player, $this->loadParameter($params));
+        $target = $this->loadActionTarget($params['target']);
+        $actionService->loadParameters($action, $player, $target, $params);
 
         return $actionService->execute();
     }
 
-    private function loadParameter(?array $parameter): ?LogParameterInterface
+    private function loadActionTarget(?array $actionTarget): ?LogParameterInterface
     {
-        if ($parameter !== null) {
-            if (($equipmentId = $parameter['door'] ?? null)
-                || ($equipmentId = $parameter['item'] ?? null)
-                || ($equipmentId = $parameter['equipment'] ?? null)
+        if ($actionTarget !== null) {
+            if (($equipmentId = $actionTarget['door'] ?? null)
+                || ($equipmentId = $actionTarget['item'] ?? null)
+                || ($equipmentId = $actionTarget['equipment'] ?? null)
             ) {
                 return $this->equipmentService->findById($equipmentId);
             }
 
-            if ($playerId = $parameter['player'] ?? null) {
+            if ($playerId = $actionTarget['player'] ?? null) {
                 return $this->playerService->findById($playerId);
             }
 
-            if ($hunterId = $parameter['hunter'] ?? null) {
+            if ($hunterId = $actionTarget['hunter'] ?? null) {
                 return $this->hunterService->findById($hunterId);
             }
         }

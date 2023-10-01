@@ -22,13 +22,13 @@ class PerishableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Perishable::class);
         }
 
-        $parameter = $value->getParameter();
-        if (!$parameter instanceof GameEquipment) {
-            throw new UnexpectedTypeException($parameter, GameEquipment::class);
+        $actionTarget = $value->getTarget();
+        if (!$actionTarget instanceof GameEquipment) {
+            throw new UnexpectedTypeException($actionTarget, GameEquipment::class);
         }
 
         /** @var Ration $rationMechanic */
-        $rationMechanic = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
+        $rationMechanic = $actionTarget->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (!$rationMechanic || !$rationMechanic->getIsPerishable()) {
             $this->context->buildViolation($constraint->message)

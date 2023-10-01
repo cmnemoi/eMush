@@ -55,7 +55,7 @@ class AreShowersDismantledValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => null,
+                'getTarget' => null,
                 'getPlayer' => $player,
             ])
         ;
@@ -75,7 +75,7 @@ class AreShowersDismantledValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => null,
+                'getTarget' => null,
                 'getPlayer' => $player,
             ])
         ;

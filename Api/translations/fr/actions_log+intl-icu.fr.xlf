@@ -726,10 +726,10 @@
     <unit id="public_broadcast">
       <segment id="public_broadcast" state="translated">
         <source>public_broadcast</source>
-        <target>Tout le monde a l'air concentré sur le petit écran. 
-                Blouzorg apparaît sur l'écran, il est beau fier et vous ne comprenez rien de ce qu'il dit. 
-                Mais ce n'est pas grave ! [...] Vous applaudissez quand Blouzorg terrasse sa belle-mère [...] 
-                Qui eu cru que Blouzorg et son chien spatial savaient danser le jerk ! [...] 
+        <target>Tout le monde a l'air concentré sur le petit écran.
+                Blouzorg apparaît sur l'écran, il est beau fier et vous ne comprenez rien de ce qu'il dit.
+                Mais ce n'est pas grave ! [...] Vous applaudissez quand Blouzorg terrasse sa belle-mère [...]
+                Qui eu cru que Blouzorg et son chien spatial savaient danser le jerk ! [...]
                 Blouzorg épousera-t-il Blourka ? [...] Les lumières s'éteignent. Ces séries aliens sont vraiment incroyables...</target>
       </segment>
     </unit>
@@ -835,7 +835,7 @@
                     2 {**{character}** estoque **{target_character}** avec maestria.}
                     3 {**{character}** taillade un gros morceau de **{target_character}**, c'est dégoûtant...}
                     4 {La lame de **{character}**, habilement maniée, fait une énorme estafilade à **{target_character}**.}
-                    5 {{character_gender, select, 
+                    5 {{character_gender, select,
                         male {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'il vient de lui enfoncer.}
                         female {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'elle vient de lui enfoncer.}
                         other {invalid gender input}
@@ -869,7 +869,7 @@
                     2 {**{character}** estoque **{target_character}** avec maestria.}
                     3 {**{character}** taillade un gros morceau de **{target_character}**, c'est dégoûtant...}
                     4 {La lame de **{character}**, habilement maniée, fait une énorme estafilade à **{target_character}**.}
-                    5 {{character_gender, select, 
+                    5 {{character_gender, select,
                         male {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'il vient de lui enfoncer.}
                         female {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'elle vient de lui enfoncer.}
                         other {invalid gender input}
@@ -944,7 +944,7 @@
       <segment id="shoot_critical_fail" state="translated">
         <source>shoot_critical_fail</source>
         <target>{version, select,
-                    1 {{character_gender, select, 
+                    1 {{character_gender, select,
                         male {Le tour de magie de **{character}** est décidément raté, il retourne son arme contre lui par mégarde.}
                         female {Le tour de magie de **{character}** est décidément raté, elle retourne son arme contre elle par mégarde.}
                         other {invalid gender input}
@@ -1077,13 +1077,19 @@
     <unit id="insert_fuel_chamber_success">
       <segment id="insert_fuel_chamber_success" state="translated">
         <source>insert_fuel_chamber_success</source>
-        <target>Le niveau de la chambre de combustion est maintenant de : {quantity}</target>
+        <target>Le niveau de la chambre de combustion est maintenant de : {quantity}.</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel_chamber_success">
       <segment id="retrieve_fuel_chamber_success" state="translated">
         <source>retrieve_fuel_chamber_success</source>
-        <target>Le niveau de la chambre de combustion est maintenant de : {quantity}</target>
+        <target>Le niveau de la chambre de combustion est maintenant de : {quantity}.</target>
+      </segment>
+    </unit>
+    <unit id="check_fuel_chamber_level_success">
+      <segment id="check_fuel_chamber_level_success" state="translated">
+        <source>check_fuel_chamber_level_success</source>
+        <target>Vous essuyez la crasse du compteur et lisez le niveau de la chambre : {quantity}.</target>
       </segment>
     </unit>
     <unit id="hack_success">

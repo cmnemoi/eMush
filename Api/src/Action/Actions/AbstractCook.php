@@ -38,9 +38,9 @@ abstract class AbstractCook extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof GameEquipment && !$parameter instanceof Door;
+        return $target instanceof GameEquipment && !$target instanceof Door;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -56,23 +56,23 @@ abstract class AbstractCook extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $parameter */
-        $parameter = $this->parameter;
+        /** @var GameEquipment $target */
+        $target = $this->target;
         $time = new \DateTime();
 
-        if ($parameter->getEquipment()->getEquipmentName() === GameRationEnum::STANDARD_RATION) {
+        if ($target->getEquipment()->getEquipmentName() === GameRationEnum::STANDARD_RATION) {
             $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
                 GameRationEnum::COOKED_RATION,
-                $parameter,
+                $target,
                 $this->player,
                 $this->getAction()->getActionTags(),
                 new \DateTime(),
                 VisibilityEnum::PUBLIC
             );
-        } elseif ($parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) {
+        } elseif ($target->getStatusByName(EquipmentStatusEnum::FROZEN)) {
             $this->statusService->removeStatus(
                 EquipmentStatusEnum::FROZEN,
-                $parameter,
+                $target,
                 $this->getAction()->getActionTags(),
                 $time
             );

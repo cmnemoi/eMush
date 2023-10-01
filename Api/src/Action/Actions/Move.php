@@ -38,9 +38,9 @@ class Move extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof Door;
+        return $target instanceof Door;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -56,10 +56,10 @@ class Move extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Door $parameter */
-        $parameter = $this->parameter;
+        /** @var Door $target */
+        $target = $this->target;
 
-        $newRoom = $parameter->getOtherRoom($this->player->getPlace());
+        $newRoom = $target->getOtherRoom($this->player->getPlace());
 
         // @TODO: use PlayerService::changePlace instead.
         // /!\ You need to delete all treatments in Modifier::ActionSubscriber before! /!\

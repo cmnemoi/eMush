@@ -28,9 +28,9 @@ class Phagocyte extends AbstractAction
 {
     protected string $name = ActionEnum::PHAGOCYTE;
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter === null;
+        return $target === null;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

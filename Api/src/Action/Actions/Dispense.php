@@ -46,9 +46,9 @@ class Dispense extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter !== null && $parameter->getClassName() === GameEquipment::class;
+        return $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

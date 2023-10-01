@@ -1,9 +1,10 @@
 <template>
     <div class="terminal">
-        <h1><img src="@/assets/images/spot2.svg"> Terminal title</h1>
+        <h1><img src="@/assets/images/spot2.svg">{{ terminalName }}</h1>
         <div>
             <TerminalTips />
-            <AstroTerminal />
+            <AstroTerminal v-if="terminalName === TerminalEnum.ASTRO_TERMINAL"/>
+            <CommandTerminal v-else-if="terminalName === TerminalEnum.COMMAND_TERMINAL"/>
         </div>
         <TerminalExitButton />
     </div>
@@ -13,15 +14,26 @@
 import TerminalTips from "@/components/Game/Terminals/TerminalTips.vue";
 import TerminalExitButton from "@/components/Game/Terminals/TerminalExitButton.vue";
 import AstroTerminal from "@/components/Game/Terminals/AstroTerminal.vue";
+import CommandTerminal from "@/components/Game/Terminals/CommandTerminal.vue";
 import { defineComponent } from "vue";
+import { TerminalEnum } from "@/enums/terminal.enum";
 
 export default defineComponent ({
     name: "TerminalPanel",
     components: {
         TerminalTips,
         TerminalExitButton,
-        AstroTerminal
-    }
+        AstroTerminal,
+        CommandTerminal
+    },
+    props: {
+        terminalName: String
+    },
+    data() {
+        return {
+            TerminalEnum
+        };
+    },
 });
 </script>
 

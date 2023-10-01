@@ -24,9 +24,9 @@ class Hit extends AttemptAction
     private const MIN_DAMAGE = 1;
     private const MAX_DAMAGE = 3;
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $parameter instanceof Player;
+        return $target instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -38,7 +38,7 @@ class Hit extends AttemptAction
     protected function applyEffect(ActionResult $result): void
     {
         /** @var Player $target */
-        $target = $this->parameter;
+        $target = $this->target;
 
         $damage = $this->randomService->random(self::MIN_DAMAGE, self::MAX_DAMAGE);
 

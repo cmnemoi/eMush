@@ -7,6 +7,7 @@ import { Character } from "@/entities/Character";
 import { QuantityPoint } from "@/entities/QuantityPoint";
 import { SpaceBattle } from "./SpaceBattle";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
+import { TerminalEnum } from "@/enums/terminal.enum";
 
 export class Player {
     public id!: number;
@@ -153,5 +154,18 @@ export class Player {
         return this.statuses.filter((status: Status) => {
             return status.key === StatusPlayerNameEnum.FOCUSED && status.target?.key === terminal;
         }).length > 0;
+    }
+
+    // @TODO: in the future, translate and normalize directly terminal name from back end.
+    public getFocusedTerminalName(): string|undefined|null {
+        const status = this.statuses.filter((status: Status) => {
+            return status.key === StatusPlayerNameEnum.FOCUSED;
+        });
+
+        if (status.length > 0 && Object.values(TerminalEnum).includes(status[0].target?.key as TerminalEnum)) {
+            return status[0].target?.key;
+        }
+
+        return null;
     }
 }

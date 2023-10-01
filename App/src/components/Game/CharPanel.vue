@@ -3,10 +3,10 @@
         <div class="char-sheet">
             <img class="avatar" :src="characterPortrait" alt="avatar">
 
-            <div class="statuses">
+            <ul class="statuses">
                 <Statuses :statuses="player.statuses" type="player" />
                 <Statuses :statuses="player.diseases" type="disease" />
-            </div>
+            </ul>
 
             <div class="health-points">
                 <div class="life">
@@ -216,12 +216,10 @@ export default defineComponent ({
         .statuses {
             position: absolute;
             flex-flow: column wrap;
-            align-items: center;
+            align-items: flex-start;
             margin: 2px;
-
-            &::v-deep .status {
-                margin-bottom: 3px;
-            }
+            max-height: 215px;
+            gap: 3px;
         }
     }
 }

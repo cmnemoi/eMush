@@ -2864,6 +2864,7 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
+                'sabotage_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2881,6 +2882,7 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
+                'sabotage_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2898,6 +2900,7 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
+                'sabotage_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2915,6 +2918,7 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
+                'sabotage_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2932,6 +2936,7 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
+                'sabotage_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2949,6 +2954,7 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
+                'sabotage_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2966,6 +2972,7 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
+                'sabotage_percent_12',
                 'examine',
                 'report_equipment',
             ],
@@ -2983,6 +2990,7 @@ class EquipmentConfigData
             'type' => 'equipment_config',
             'isStackable' => null,
             'actions' => [
+                'sabotage_percent_12',
                 'examine',
                 'report_equipment',
                 ActionEnum::TAKEOFF,

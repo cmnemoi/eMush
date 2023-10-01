@@ -8,7 +8,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Action\Validator\ScrapMetalNeeded;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -19,7 +18,6 @@ use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -58,11 +56,6 @@ class Repair extends AttemptAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new ScrapMetalNeeded([
-            'roomTypes' => [PlaceTypeEnum::ROOM],
-            'targetNames' => EquipmentEnum::getPatrolShips()->toArray(),
-            'groups' => ['visibility'],
-        ]));
     }
 
     protected function applyEffect(ActionResult $result): void

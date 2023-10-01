@@ -161,7 +161,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
     }
 
     public function testRenovateNotVisibleIfPlayerInsidePatrolShip(FunctionalTester $I): void
-    {
+    {   
         $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
 
         /** @var EquipmentConfig $pasiphaeConfig */
@@ -268,6 +268,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
             ->setDaedalus($daedalus)
         ;
         $I->haveInRepository($pasiphaeRoom);
+
 
         $I->haveInRepository($daedalus);
     }

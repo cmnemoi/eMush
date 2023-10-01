@@ -43,7 +43,7 @@ use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class RepairActionCest extends AbstractFunctionalTest
-{
+{   
     private Action $repairActionConfig;
     private Repair $repairAction;
     private Place $alphaBay2;
@@ -51,7 +51,7 @@ class RepairActionCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
-    {
+    {   
         $this->repairActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::REPAIR . '_percent_12']);
         $this->repairAction = $I->grabService(Repair::class);
 
@@ -60,6 +60,7 @@ class RepairActionCest extends AbstractFunctionalTest
         $this->pasiphae = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
 
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
     }
 
     public function testRepair(FunctionalTester $I)
@@ -163,72 +164,6 @@ class RepairActionCest extends AbstractFunctionalTest
         $I->assertEquals(37, $this->repairAction->getSuccessRate());
     }
 
-    public function testRepairPatrolShipNotVisibleInARoomIfNoScrapMetal(FunctionalTester $I): void
-    {
-        // given player is in Pasiphae room
-        $player = $this->player->changePlace($this->alphaBay2);
-
-        // given there is a pasiphae in Pasiphae room
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->alphaBay2);
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
-        $I->haveInRepository($pasiphae);
-
-        // given this pasiphae is broken
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $pasiphae,
-            tags: [],
-            time: new \DateTime()
-        );
-
-        // when player wants to repair pasiphae
-        $this->repairAction->loadParameters(
-            action: $this->repairActionConfig,
-            player: $player,
-            target: $pasiphae
-        );
-
-        // then player cannot see the action
-        $I->assertFalse($this->repairAction->isVisible());
-    }
-
-    public function testRepairPatrolShipInsidePatrolShipVisibleIfNoScrapMetal(FunctionalTester $I): void
-    {
-        // given player is in Pasiphae room
-        $player = $this->player->changePlace($this->pasiphae);
-
-        // given there is a pasiphae in Pasiphae room
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->pasiphae);
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
-        $I->haveInRepository($pasiphae);
-
-        // given this pasiphae is broken
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $pasiphae,
-            tags: [],
-            time: new \DateTime()
-        );
-
-        // when player wants to repair pasiphae
-        $this->repairAction->loadParameters(
-            action: $this->repairActionConfig,
-            player: $player,
-            target: $pasiphae
-        );
-
-        // then player can see the action
-        $I->assertTrue($this->repairAction->isVisible());
-    }
-
     public function testRepairPatrolShipInARoomConsumesScrapMetal(FunctionalTester $I): void
     {
         // given player is in Pasiphae room
@@ -269,7 +204,7 @@ class RepairActionCest extends AbstractFunctionalTest
         $this->repairAction->execute();
 
         // then a piece of scrap metal is consumed
-        $I->assertFalse($this->alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
+        $I->assertFalse($this->alphaBay2->getEquipments()->contains($scrapMetal));
     }
 
     public function testRepairPatrolShipInsidePatrolShipDoesNotConsumeScrapMetal(FunctionalTester $I): void
@@ -312,6 +247,6 @@ class RepairActionCest extends AbstractFunctionalTest
         $this->repairAction->execute();
 
         // then a piece of scrap metal is not consumed
-        $I->assertTrue($this->pasiphae->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
+        $I->assertTrue($this->pasiphae->getEquipments()->contains($scrapMetal));
     }
 }

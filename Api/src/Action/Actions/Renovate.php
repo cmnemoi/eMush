@@ -52,7 +52,7 @@ final class Renovate extends AttemptAction
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {
+    {   
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new IsPatrolShipDamaged(['groups' => ['visibility']]));
         $metadata->addConstraint(new PlaceType(['type' => PlaceTypeEnum::ROOM, 'groups' => ['visibility']]));

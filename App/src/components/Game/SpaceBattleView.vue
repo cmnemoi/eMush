@@ -134,6 +134,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
+$hit-color: #fd1f07;
 .allies-container, .hunters-container {
     position: absolute;
     top: 25px;
@@ -276,6 +277,35 @@ img {
         z-index: 5;
         box-shadow: 0px 0px 8px 3px red;
     }
+
+    &.hit {
+        animation: hit-color 0.2s linear 8 alternate, hit-shake .5s ease-out 1 forwards;
+        z-index: 3;
+    }
+
+    &.kill {
+        opacity: 0;
+        background-color: $hit-color;
+        transition: opacity 1s ease-in 0.3s;
+        animation: hit-shake .5s ease-out 1 forwards;
+        z-index: 3;
+    }
+}
+
+@keyframes hit-color {
+    30% { background-color: #122270; }
+    70% { background-color: $hit-color; }
+    100% { background-color: $hit-color; }
+}
+
+@keyframes hit-shake {
+    0% { transform: translate(0, 0); }
+    15% { transform: translate(-15%, -15%); }
+    30% { transform: translate(10%, 10%); }
+    45% { transform: translate(-5%, -5%); }
+    60% { transform: translate(5%, 5%); }
+    80% { transform: translate(-5%, -5%); }
+    100% { transform: translate(0, 0); }
 }
 
 </style>

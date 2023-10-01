@@ -3038,9 +3038,7 @@ class EquipmentConfigData
                 'retrieve_fuel_chamber',
             ],
             'mechanics' => [],
-            'initStatuses' => [
-                'fuel_charge_default',
-            ],
+            'initStatuses' => [],
         ],
         [
             'name' => 'kitchen_default',

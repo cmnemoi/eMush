@@ -60,11 +60,11 @@ class DailyDecrementTest extends TestCase
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStatusName('status')
         ;
         $status = new ChargeStatus(new Player(), $statusConfig);
-        $status
-            ->setCharge(10)
-        ;
+
+        $status->getVariableByName($status->getName())->setValue(10);
 
         return $status;
     }

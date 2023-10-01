@@ -262,7 +262,7 @@ class GearToolServiceTest extends TestCase
 
         // Two tool with the same action but 1 with charges
         $chargeConfig = new ChargeStatusConfig();
-        $chargeConfig->setStatusName(EquipmentStatusEnum::FUEL_CHARGE)->setDischargeStrategies([ActionEnum::REPAIR]);
+        $chargeConfig->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)->setDischargeStrategies([ActionEnum::REPAIR]);
         $chargeStatus = new ChargeStatus($gameItem, $chargeConfig);
         $chargeStatus
             ->setCharge(3)
@@ -307,7 +307,7 @@ class GearToolServiceTest extends TestCase
         ;
 
         $chargeConfig = new ChargeStatusConfig();
-        $chargeConfig->setStatusName(EquipmentStatusEnum::FUEL_CHARGE)->setDischargeStrategies([ActionEnum::REPAIR]);
+        $chargeConfig->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)->setDischargeStrategies([ActionEnum::REPAIR]);
         $chargeStatus1 = new ChargeStatus($gameTool, $chargeConfig);
         $chargeStatus1
             ->setCharge(1)

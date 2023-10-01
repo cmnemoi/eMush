@@ -50,7 +50,13 @@ interface StatusServiceInterface
         string $visibility = VisibilityEnum::HIDDEN
     ): Status;
 
-    public function handleAttempt(Player $player, string $actionName, ActionResult $result): void;
+    public function handleAttempt(
+        Player $player,
+        string $actionName,
+        ActionResult $result,
+        array $tags,
+        \DateTime $time
+    ): void;
 
     public function getMostRecent(string $statusName, Collection $equipments): GameEquipment;
 

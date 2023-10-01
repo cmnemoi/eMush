@@ -18,7 +18,6 @@ use Mush\Status\Entity\StatusHolderInterface;
 class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
 {
     public const STATUS_APPLIED = 'status.applied';
-    public const STATUS_CHARGE_UPDATED = 'status.charge.updated';
     public const STATUS_REMOVED = 'status.removed';
 
     protected Status $status;

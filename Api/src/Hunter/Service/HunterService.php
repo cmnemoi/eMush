@@ -30,7 +30,6 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusService;
 use Psr\Log\LoggerInterface;
 
@@ -221,25 +220,6 @@ class HunterService implements HunterServiceInterface
         $this->entityManager->flush();
     }
 
-    private function dropScrap(Hunter $hunter): void
-    {
-        $scrapDropTable = $hunter->getHunterConfig()->getScrapDropTable();
-        $numberOfDroppedScrap = $hunter->getHunterConfig()->getNumberOfDroppedScrap();
-
-        $numberOfScrapToDrop = (int) $this->randomService->getSingleRandomElementFromProbaCollection($numberOfDroppedScrap);
-        $scrapToDrop = $this->randomService->getRandomElementsFromProbaCollection($scrapDropTable, $numberOfScrapToDrop);
-
-        foreach ($scrapToDrop as $scrap) {
-            $this->gameEquipmentService->createGameEquipmentFromName(
-                equipmentName: $scrap,
-                equipmentHolder: $hunter->getSpace(),
-                reasons: [HunterEvent::HUNTER_DEATH],
-                time: new \DateTime(),
-                visibility: VisibilityEnum::HIDDEN
-            );
-        }
-    }
-
     private function getHunterProbaCollection(Daedalus $daedalus, ArrayCollection $hunterTypes): ProbaCollection
     {
         $difficultyMode = $daedalus->getDifficultyMode();
@@ -374,33 +354,27 @@ class HunterService implements HunterServiceInterface
         }
 
         /** @var ?Player|false $patrolShipPilot */
-        $patrolShipPilot = $patrolShip->getDaedalus()->getPlaceByName($patrolShip->getName())?->getPlayers()->getPlayerAlive()->first();
-        if (!$patrolShipPilot instanceof Player) {
-            throw new \LogicException("Patrol ship {$patrolShip->getName()} should have a pilot");
-        }
 
-        $this->statusService->updateCharge(
+        // temporary reset the target in case patrolShip is destroyed
+        /** @var HunterTarget $patrolShipTarget */
+        $patrolShipTarget = $hunter->getTarget();
+        $hunter->resetTarget();
+
+        $chargeStatus = $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,
             delta: -$damage,
             tags: [AbstractHunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );
 
-        if ($patrolShipArmor->getCharge() <= 0) {
+        if ($chargeStatus !== null
+            && !$chargeStatus->getVariableByName($chargeStatus->getName())->isMin()
+        ) {
             // reset hunter target so the patrol ship can be safely deleted
-            $hunter->setTarget(new HunterTarget($hunter));
-            $this->persist([$hunter]);
-
-            $statusEvent = new StatusEvent(
-                status: $patrolShipArmor,
-                holder: $patrolShip,
-                tags: [AbstractHunterEvent::HUNTER_SHOT],
-                time: new \DateTime()
-            );
-            $statusEvent->setAuthor($patrolShipPilot);
-
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_CHARGE_UPDATED);
+            $hunter->setTarget($patrolShipTarget);
         }
+
+        $this->persist([$hunter]);
     }
 
     private function shootAtPlayer(Player $player, int $damage): void

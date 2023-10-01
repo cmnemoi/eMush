@@ -53,8 +53,13 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $I->haveInRepository($pasiphae);
 
         $electricChargesConfig = $I->grabEntityFromRepository(StatusConfig::class, ['name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_patrol_ship_default']);
-        $electricCharges = new ChargeStatus($pasiphae, $electricChargesConfig);
-        $I->haveInRepository($electricCharges);
+        /** @var ChargeStatus $electricCharges */
+        $electricCharges = $this->statusService->createStatusFromConfig(
+            $electricChargesConfig,
+            $pasiphae,
+            [],
+            new \DateTime()
+        );
 
         // when status subscriber listens to broken status applied event
         $this->statusService->createStatusFromName(

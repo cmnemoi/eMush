@@ -3,20 +3,50 @@
 namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Entity\Collection\GameVariableCollection;
+use Mush\Game\Entity\GameVariable;
+use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 #[ORM\Entity]
-class ChargeStatus extends Status
+class ChargeStatus extends Status implements GameVariableHolderInterface
 {
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $charge = 0;
+    #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
+    private ChargeVariable $charge;
 
     public function __construct(StatusHolderInterface $statusHolder, ChargeStatusConfig $statusConfig)
     {
         parent::__construct($statusHolder, $statusConfig);
 
-        $this->charge = $this->getStatusConfig()->getStartCharge();
+        $this->charge = new ChargeVariable($statusConfig);
+    }
+
+    public function getGameVariables(): GameVariableCollection
+    {
+        return $this->charge;
+    }
+
+    public function hasVariable(string $variableName): bool
+    {
+        return $this->charge->hasVariable($variableName);
+    }
+
+    public function getVariableByName(string $variableName): GameVariable
+    {
+        return $this->charge->getVariableByName($variableName);
+    }
+
+    public function getCharge(): int
+    {
+        return $this->getVariableByName($this->getName())->getValue();
+    }
+
+    public function setCharge(int $charge): static
+    {
+        $this->getVariableByName($this->getName())->setValue($charge);
+
+        return $this;
     }
 
     public function getStatusConfig(): ChargeStatusConfig
@@ -31,25 +61,6 @@ class ChargeStatus extends Status
     public function getChargeVisibility(): string
     {
         return $this->getStatusConfig()->getChargeVisibility();
-    }
-
-    public function getCharge(): int
-    {
-        return $this->charge;
-    }
-
-    public function addCharge(int $charge): static
-    {
-        $this->charge += $charge;
-
-        return $this;
-    }
-
-    public function setCharge(int $charge): static
-    {
-        $this->charge = $charge;
-
-        return $this;
     }
 
     public function getStrategy(): ?string

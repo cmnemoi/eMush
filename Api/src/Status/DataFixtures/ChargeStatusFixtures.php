@@ -43,7 +43,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const FIRST_TIME = 'first_time';
     public const MUSH_STATUS = 'mush_status';
     public const CONTAMINATED_FOOD = 'contaminated_food';
-    public const COMBUSTION_CHAMBER = 'combustion_chamber';
     public const DRUG_EATEN_STATUS = 'drug_eaten_status';
     public const DID_THE_THING_STATUS = 'did_the_thing_status';
     public const DID_BORING_SPEECH_STATUS = 'did_boring_speech_status';
@@ -263,15 +262,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($contaminated);
 
-        $combustionChamber = new ChargeStatusConfig();
-        $combustionChamber
-            ->setStatusName(EquipmentStatusEnum::FUEL_CHARGE)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
-        $manager->persist($combustionChamber);
-
         $drug_eaten = new ChargeStatusConfig();
         $drug_eaten
             ->setStatusName(PlayerStatusEnum::DRUG_EATEN)
@@ -396,7 +386,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($firstTime)
             ->addStatusConfig($mushStatus)
             ->addStatusConfig($contaminated)
-            ->addStatusConfig($combustionChamber)
             ->addStatusConfig($drug_eaten)
             ->addStatusConfig($did_the_thing)
             ->addStatusConfig($did_boring_speech)
@@ -427,7 +416,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::FIRST_TIME, $firstTime);
         $this->addReference(self::MUSH_STATUS, $mushStatus);
         $this->addReference(self::CONTAMINATED_FOOD, $contaminated);
-        $this->addReference(self::COMBUSTION_CHAMBER, $combustionChamber);
         $this->addReference(self::DRUG_EATEN_STATUS, $drug_eaten);
         $this->addReference(self::DID_THE_THING_STATUS, $did_the_thing);
         $this->addReference(self::DID_BORING_SPEECH_STATUS, $did_boring_speech);

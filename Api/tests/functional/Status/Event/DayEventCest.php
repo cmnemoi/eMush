@@ -19,15 +19,18 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 
 class DayEventCest
 {
     private StatusCycleSubscriber $cycleSubscriber;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         $this->cycleSubscriber = $I->grabService(StatusCycleSubscriber::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     // tests
@@ -66,14 +69,17 @@ class DayEventCest
             ->setAutoRemove(false)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
             ->buildName(GameConfigEnum::TEST)
+            ->setStartCharge(0)
         ;
         $I->haveInRepository($statusConfig);
-        $status = new ChargeStatus($player, $statusConfig);
-        $status
-            ->setCharge(0)
-        ;
 
-        $I->haveInRepository($status);
+        /** @var ChargeStatus $status */
+        $status = $this->statusService->createStatusFromConfig(
+            $statusConfig,
+            $player,
+            [],
+            new \DateTime()
+        );
 
         $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
 
@@ -90,14 +96,17 @@ class DayEventCest
             ->setAutoRemove(false)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->buildName(GameConfigEnum::TEST)
+            ->setStartCharge(1)
         ;
         $I->haveInRepository($statusConfig);
-        $status = new ChargeStatus($player, $statusConfig);
-        $status
-            ->setCharge(1)
-        ;
 
-        $I->haveInRepository($status);
+        /** @var ChargeStatus $status */
+        $status = $this->statusService->createStatusFromConfig(
+            $statusConfig,
+            $player,
+            [],
+            new \DateTime()
+        );
 
         $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
 
@@ -114,14 +123,17 @@ class DayEventCest
             ->setAutoRemove(false)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_RESET)
             ->buildName(GameConfigEnum::TEST)
+            ->setStartCharge(1)
         ;
         $I->haveInRepository($statusConfig);
-        $status = new ChargeStatus($player, $statusConfig);
-        $status
-            ->setCharge(1)
-        ;
 
-        $I->haveInRepository($status);
+        /** @var ChargeStatus $status */
+        $status = $this->statusService->createStatusFromConfig(
+            $statusConfig,
+            $player,
+            [],
+            new \DateTime()
+        );
 
         $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
 

@@ -64,7 +64,15 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
         $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmorStatus = new ChargeStatus($pasiphae, $pasiphaeArmorStatusConfig);
+
+        $pasiphaeArmorStatusConfig->setStartCharge($pasiphaeArmorStatusConfig->getMaxCharge() - 1);
+        /** @var ChargeStatus $pasiphaeArmor */
+        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
+            $pasiphaeArmorStatusConfig,
+            $pasiphae,
+            [],
+            new \DateTime()
+        );
 
         $this->statusService->createStatusFromName(
             statusName: EquipmentStatusEnum::BROKEN,
@@ -74,8 +82,6 @@ final class RenovateActionCest extends AbstractFunctionalTest
         );
 
         $maxCharge = $pasiphaeArmorStatusConfig->getMaxCharge();
-        $pasiphaeArmorStatus->setCharge($maxCharge - 1);
-        $I->haveInRepository($pasiphaeArmorStatus);
 
         /** @var EquipmentConfig $metalScrapConfig */
         $metalScrapConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
@@ -129,11 +135,16 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
         $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmorStatus = new ChargeStatus($pasiphae, $pasiphaeArmorStatusConfig);
+        $pasiphaeArmorStatusConfig->setStartCharge($pasiphaeArmorStatusConfig->getMaxCharge() - 1);
+        /** @var ChargeStatus $pasiphaeArmor */
+        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
+            $pasiphaeArmorStatusConfig,
+            $pasiphae,
+            [],
+            new \DateTime()
+        );
 
         $maxCharge = $pasiphaeArmorStatusConfig->getMaxCharge();
-        $pasiphaeArmorStatus->setCharge($maxCharge - 1);
-        $I->haveInRepository($pasiphaeArmorStatus);
 
         /** @var EquipmentConfig $metalScrapConfig */
         $metalScrapConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
@@ -184,11 +195,13 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
         $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmorStatus = new ChargeStatus($pasiphae, $pasiphaeArmorStatusConfig);
-
-        $maxCharge = $pasiphaeArmorStatusConfig->getMaxCharge();
-        $pasiphaeArmorStatus->setCharge($maxCharge);
-        $I->haveInRepository($pasiphaeArmorStatus);
+        /** @var ChargeStatus $pasiphaeArmor */
+        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
+            $pasiphaeArmorStatusConfig,
+            $pasiphae,
+            [],
+            new \DateTime()
+        );
 
         /** @var EquipmentConfig $metalScrapConfig */
         $metalScrapConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
@@ -282,11 +295,15 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
         $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmorStatus = new ChargeStatus($pasiphae, $pasiphaeArmorStatusConfig);
 
-        $maxCharge = $pasiphaeArmorStatusConfig->getMaxCharge();
-        $pasiphaeArmorStatus->setCharge($maxCharge - 1);
-        $I->haveInRepository($pasiphaeArmorStatus);
+        $pasiphaeArmorStatusConfig->setStartCharge($pasiphaeArmorStatusConfig->getMaxCharge() - 1);
+        /** @var ChargeStatus $pasiphaeArmorStatus */
+        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
+            $pasiphaeArmorStatusConfig,
+            $pasiphae,
+            [],
+            new \DateTime()
+        );
 
         $this->renovateAction->loadParameters($this->action, $this->player1, $pasiphae);
         $I->assertFalse($this->renovateAction->isVisible());

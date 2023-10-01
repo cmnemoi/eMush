@@ -10,6 +10,7 @@ use Mush\Daedalus\Entity\DaedalusVariables;
 use Mush\Game\Entity\GameVariable;
 use Mush\Hunter\Entity\HunterVariables;
 use Mush\Player\Entity\PlayerVariables;
+use Mush\Status\Entity\ChargeVariable;
 
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
@@ -19,6 +20,7 @@ use Mush\Player\Entity\PlayerVariables;
     'playerVariables' => PlayerVariables::class,
     'actionVariables' => ActionVariables::class,
     'hunterVariables' => HunterVariables::class,
+    'chargeVariable' => ChargeVariable::class,
 ])]
 abstract class GameVariableCollection
 {
@@ -33,6 +35,11 @@ abstract class GameVariableCollection
     public function __construct(array $variables)
     {
         $this->gameVariables = new ArrayCollection($variables);
+    }
+
+    public function count(): int
+    {
+        return $this->gameVariables->count();
     }
 
     public function getId(): int

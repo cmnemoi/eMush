@@ -22,6 +22,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -66,8 +67,16 @@ class ShootRandomHunterActionCest extends AbstractFunctionalTest
         $I->haveInRepository($this->turret);
 
         $turretChargeStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => 'electric_charges_turret_command_default']);
-        $this->turretChargeStatus = new ChargeStatus($this->turret, $turretChargeStatusConfig);
-        $I->haveInRepository($this->turretChargeStatus);
+        /** @var StatusServiceInterface $statusService */
+        $statusService = $I->grabService(StatusServiceInterface::class);
+        /** @var ChargeStatus $turretChargeStatus */
+        $turretChargeStatus = $statusService->createStatusFromConfig(
+            $turretChargeStatusConfig,
+            $this->turret,
+            [],
+            new \DateTime()
+        );
+        $this->turretChargeStatus = $turretChargeStatus;
 
         $this->shootRandomHunterAction = $I->grabService(ShootRandomHunter::class);
     }
@@ -77,7 +86,7 @@ class ShootRandomHunterActionCest extends AbstractFunctionalTest
         /** @var ChargeStatus $status */
         $status = $this->turret->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
         $status->setCharge(0);
-        $I->haveInRepository($status);
+
         $I->haveInRepository($this->turret);
 
         $this->shootRandomHunterAction->loadParameters($this->action, $this->player1, $this->turret);

@@ -63,8 +63,8 @@ interface GameEquipmentServiceInterface
      * - move patrol ship content to space
      *
      * @param GameEquipment $patrolShip patrol ship to be destroyed
-     * @param Player        $player     player inside the patrol ship
+     * @param ?Player       $player     player inside the patrol ship
      * @param array         $tags       tags of the event leading to the destruction
      */
-    public function handlePatrolShipDestruction(GameEquipment $patrolShip, Player $player, array $tags): void;
+    public function handlePatrolShipDestruction(GameEquipment $patrolShip, ?Player $player, array $tags): void;
 }

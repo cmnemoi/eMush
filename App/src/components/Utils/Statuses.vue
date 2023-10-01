@@ -1,18 +1,15 @@
 <template>
-    <span
-        v-for="(status, key) in statuses"
-        :key="key"
-        class="status"
-    >
-        <Tippy>
-            <img :src="statusIcon(status)">
-            <span v-if="status.charge !== null">{{ status.charge }}</span>
-            <template #content>
-                <h1 v-html="formatContent(status.name)" />
-                <p v-html="formatContent(status.description)" />
-            </template>
-        </Tippy>
-    </span>
+    <Tippy tag="li"
+           v-for="(status, key) in statuses"
+           :key="key"
+           class="status">
+        <img :src="statusIcon(status)">
+        <span v-if="status.charge !== null" class="charge">{{ status.charge }}</span>
+        <template #content>
+            <h1 v-html="formatContent(status.name)" />
+            <p v-html="formatContent(status.description)" />
+        </template>
+    </Tippy>
 </template>
 
 <script lang="ts">
@@ -55,3 +52,12 @@ export default defineComponent ({
     }
 });
 </script>
+
+<style lang="scss" scoped>
+
+.charge {
+    margin-left: 1px;
+    text-shadow: 0 0 4px black;
+}
+
+</style>

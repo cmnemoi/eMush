@@ -10,6 +10,7 @@ use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\NoFuel;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
@@ -62,6 +63,13 @@ final class AdvanceDaedalus extends AbstractAction
             'status' => PlayerStatusEnum::FOCUSED,
             'target' => HasStatus::PLAYER,
             'groups' => ['visibility'],
+        ]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => DaedalusStatusEnum::TRAVELING,
+            'target' => HasStatus::DAEDALUS,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::DAEDALUS_TRAVELING,
         ]));
     }
 

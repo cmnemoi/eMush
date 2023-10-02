@@ -8,6 +8,7 @@ use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Enum\DaedalusStatusEnum;
@@ -417,6 +418,28 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
             entity: Hunter::class,
             params: ['hunterConfig' => $dice->getHunterConfig()]
         );
+    }
+
+    public function testAdvanceDaedalusNotExecutableIfDaedalusIsTraveling(FunctionalTester $I): void
+    {      
+        // given daedalus is traveling
+        $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::TRAVELING,
+            holder: $this->daedalus,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters(
+            action: $this->advanceDaedalusConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->advanceDaedalusAction->execute();
+
+        // then the action is not executable
+        $I->assertEquals(ActionImpossibleCauseEnum::DAEDALUS_TRAVELING, $this->advanceDaedalusAction->cannotExecuteReason());
     }
 
     private function createHunterByName(string $hunterName, FunctionalTester $I): Hunter

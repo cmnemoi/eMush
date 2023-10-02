@@ -8,6 +8,7 @@ import { AxiosResponse } from "axios";
 import urlJoin from "url-join";
 import store from "@/store";
 import { Hunter } from "@/entities/Hunter";
+import { Terminal } from "@/entities/Terminal";
 
 // @ts-ignore
 const PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
@@ -15,7 +16,7 @@ const PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
 const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
 
 const ActionService = {
-    executeTargetAction(target: Item | Equipment | Player | Hunter | null, action: Action, otherParams: object = {}): Promise<AxiosResponse> {
+    executeTargetAction(target: Item | Equipment | Player | Hunter | Terminal | null, action: Action, otherParams: object = {}): Promise<AxiosResponse> {
         const currentPlayer = store.getters["player/player"];
         return ApiService.post(urlJoin(PLAYER_ENDPOINT, String(currentPlayer.id),'action'), {
             action: action.id,
@@ -26,6 +27,7 @@ const ActionService = {
         });
 
         function buildTarget(): Record<string, unknown> | undefined | null {
+            console.log(target);
             if (target instanceof Door) {
                 return { door: target.id };
             } else if (target instanceof Item) {
@@ -36,6 +38,8 @@ const ActionService = {
                 return { player: target.id };
             } else if (target instanceof Hunter) {
                 return { hunter: target.id };
+            } else if (target instanceof Terminal) {
+                return { terminal: target.id };
             } else {
                 return null;
             }

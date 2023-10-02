@@ -109,6 +109,8 @@ class ActionLogEnum
     public const CHECK_FUEL_CHAMBER_LEVEL_SUCCESS = 'check_fuel_chamber_level_success';
     public const HACK_SUCCESS = 'hack_success';
     public const HACK_FAIL = 'hack_fail';
+    public const ADVANCE_DAEDALUS_SUCCESS = 'advance_daedalus_success';
+    public const ADVANCE_DAEDALUS_NO_FUEL = 'advance_daedalus_no_fuel';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -385,6 +387,10 @@ class ActionLogEnum
         ActionEnum::HACK => [
             ActionOutputEnum::SUCCESS => self::HACK_SUCCESS,
             ActionOutputEnum::FAIL => self::HACK_FAIL,
+        ],
+        ActionEnum::ADVANCE_DAEDALUS => [
+            ActionOutputEnum::SUCCESS => self::ADVANCE_DAEDALUS_SUCCESS,
+            ActionOutputEnum::NO_FUEL => self::ADVANCE_DAEDALUS_NO_FUEL,
         ],
     ];
 }

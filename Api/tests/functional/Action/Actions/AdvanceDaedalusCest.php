@@ -7,6 +7,7 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\Fail;
+use Mush\Action\Entity\ActionResult\NoFuel;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
@@ -15,8 +16,11 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -211,7 +215,30 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         $result = $this->advanceDaedalusAction->execute();
 
         // then the action fails
-        $I->assertInstanceOf(Fail::class, $result);
+        $I->assertInstanceOf(NoFuel::class, $result);
     }
+
+    public function testAdvanceDaedalusNoFuelReturnsSpecificLog(FunctionalTester $I): void
+    {
+        // given there is no fuel in the combustion chamber
+        $this->daedalus->setCombustionChamberFuel(0);
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters($this->advanceDaedalusConfig, $this->player, $this->commandTerminal);
+        $this->advanceDaedalusAction->execute();
+
+        // then the action returns the correct log
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => RoomEnum::BRIDGE,
+                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'log' => ActionLogEnum::ADVANCE_DAEDALUS_NO_FUEL,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+    }
+
 
 }

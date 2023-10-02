@@ -9,4 +9,5 @@ class ActionOutputEnum
     public const FAIL = 'fail';
     public const SUCCESS = 'success';
     public const CRITICAL_SUCCESS = 'critical_success';
+    public const NO_FUEL = 'no_fuel';
 }

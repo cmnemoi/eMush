@@ -963,6 +963,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::ADVANCE_DAEDALUS)
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::NO_FUEL, VisibilityEnum::PUBLIC)
         ;
         $manager->persist($advanceDaedalus);
             

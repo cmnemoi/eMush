@@ -11,6 +11,7 @@ use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -156,6 +157,28 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         $I->seeInRepository(
             entity: GameEquipment::class, 
             params: ['name' => EquipmentEnum::PASIPHAE]
+        );
+    }
+
+    public function testAdvanceDaedalusSuccessDestroyAllItemsInSpace(FunctionalTester $I): void
+    {
+        // given there is some metal scrap in space
+        $metalScrapConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
+        $metalScrap = new GameEquipment($this->daedalus->getSpace());
+        $metalScrap
+            ->setName(ItemEnum::METAL_SCRAPS)
+            ->setEquipment($metalScrapConfig)
+        ;
+        $I->haveInRepository($metalScrap);
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters($this->advanceDaedalusConfig, $this->player, $this->commandTerminal);
+        $this->advanceDaedalusAction->execute();
+
+        // then the metal scrap is destroyed
+        $I->dontSeeInRepository(
+            entity: GameEquipment::class, 
+            params: ['name' => ItemEnum::METAL_SCRAPS]
         );
     }
 }

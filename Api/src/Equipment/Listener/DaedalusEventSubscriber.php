@@ -46,6 +46,12 @@ class DaedalusEventSubscriber implements EventSubscriberInterface
 
     public function onTravelLaunched(DaedalusEvent $event): void
     {   
+        $this->destroyPatrolShipsInBattle($event);
+        $this->destroyAllEquipmentInSpace($event);
+    }
+
+    private function destroyPatrolShipsInBattle(DaedalusEvent $event): void
+    {   
         $daedalus = $event->getDaedalus();
         $patrolShips = new ArrayCollection();
 
@@ -68,5 +74,20 @@ class DaedalusEventSubscriber implements EventSubscriberInterface
             );
             $this->eventService->callEvent($destroyEquipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }   
+    }
+
+    private function destroyAllEquipmentInSpace(DaedalusEvent $event): void
+    {
+        foreach ($event->getDaedalus()->getSpace()->getEquipments() as $gameEquipment) {
+            $destroyEquipmentEvent = new InteractWithEquipmentEvent(
+                equipment: $gameEquipment,
+                author: null,
+                visibility: VisibilityEnum::HIDDEN,
+                tags: $event->getTags(),
+                time: $event->getTime(),
+            );
+            $this->eventService->callEvent($destroyEquipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        }
+
     }
 }

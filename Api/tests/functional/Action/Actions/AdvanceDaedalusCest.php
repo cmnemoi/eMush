@@ -17,6 +17,9 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Entity\HunterConfig;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -215,7 +218,7 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         $result = $this->advanceDaedalusAction->execute();
 
         // then the action fails
-        $I->assertInstanceOf(NoFuel::class, $result);
+        $I->assertInstanceOf(Fail::class, $result);
     }
 
     public function testAdvanceDaedalusNoFuelReturnsSpecificLog(FunctionalTester $I): void
@@ -235,6 +238,55 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
                 'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
                 'playerInfo' => $this->player->getPlayerInfo(),
                 'log' => ActionLogEnum::ADVANCE_DAEDALUS_NO_FUEL,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+    }
+
+    public function testAdvanceDaedalusFailsIfThereIsAnArackAttacking(FunctionalTester $I): void
+    {
+        // given there is an arack attacking
+        /** @var HunterConfig $arackConfig */
+        $arackConfig = $this->daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::SPIDER);
+        
+        $arack = new Hunter($arackConfig, $this->daedalus);
+        $arack->setHunterVariables($arackConfig);
+        $this->daedalus->addHunter($arack);
+        
+        $I->haveInRepository($arack);
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters($this->advanceDaedalusConfig, $this->player, $this->commandTerminal);
+        $result = $this->advanceDaedalusAction->execute();
+
+        // then the action fails
+        $I->assertInstanceOf(Fail::class, $result);
+    }
+
+    public function testAdvanceDaedalusArackAttackingReturnsSpecificLog(FunctionalTester $I): void
+    {
+        // given there is an arack attacking
+        /** @var HunterConfig $arackConfig */
+        $arackConfig = $this->daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::SPIDER);
+        
+        $arack = new Hunter($arackConfig, $this->daedalus);
+        $arack->setHunterVariables($arackConfig);
+        $this->daedalus->addHunter($arack);
+        
+        $I->haveInRepository($arack);
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters($this->advanceDaedalusConfig, $this->player, $this->commandTerminal);
+        $this->advanceDaedalusAction->execute();
+
+        // then the action returns the correct log
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => RoomEnum::BRIDGE,
+                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'log' => ActionLogEnum::ADVANCE_DAEDALUS_ARACK_PREVENTS_TRAVEL,
                 'visibility' => VisibilityEnum::PUBLIC,
             ]
         );

@@ -15,6 +15,7 @@ use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -59,6 +60,9 @@ final class AdvanceDaedalus extends AbstractAction
     {   
         if ($this->player->getDaedalus()->getCombustionChamberFuel() <= 0) {
             return new NoFuel();
+        }
+        if ($this->player->getDaedalus()->getAttackingHunters()->getAllHuntersByType(HunterEnum::SPIDER)->count() > 0) {
+            return new Fail();
         }
 
         return new Success();

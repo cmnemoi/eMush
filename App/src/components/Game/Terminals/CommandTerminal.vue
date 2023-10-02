@@ -1,6 +1,6 @@
 <template>
     <div class="command-terminal-container">
-        <section>
+        <section style="display:none;">
             <h3>Orienter le Daedalus</h3>
             <p class="daedalus-current-orientation">Le Daedalus pointe actuellement vers : <strong>Nord</strong>.</p>
             <div class="orientation-choice">
@@ -79,10 +79,17 @@
 </template>
 
 <script lang="ts">
+import { Terminal } from "@/entities/Terminal";
 import { defineComponent } from "vue";
 
 export default defineComponent ({
     name: "CommandTerminal",
+    props: {
+        terminal: {
+            type: Terminal,
+            required: true
+        }
+    },
     data() {
         return {
             chosenOrientation: 'Nord'

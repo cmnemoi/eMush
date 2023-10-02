@@ -1,12 +1,12 @@
 <template>
-    <div class="terminal">
-        <h1><img src="@/assets/images/spot2.svg">{{ terminalName }}</h1>
+    <div class="terminal" v-if="player.terminal">
+        <h1><img src="@/assets/images/spot2.svg">{{ player.terminal.name }}</h1>
         <div>
-            <TerminalTips />
-            <AstroTerminal v-if="terminalName === TerminalEnum.ASTRO_TERMINAL"/>
-            <CommandTerminal v-else-if="terminalName === TerminalEnum.COMMAND_TERMINAL"/>
+            <TerminalTips :content="player.terminal.tips" />
+            <AstroTerminal v-if="player.isFocusedOnTerminal(TerminalEnum.ASTRO_TERMINAL)" :terminal="player.terminal" />
+            <CommandTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.COMMAND_TERMINAL)" :terminal="player.terminal" />
         </div>
-        <TerminalExitButton />
+        <TerminalExitButton :terminal="player.terminal" />
     </div>
 </template>
 
@@ -17,6 +17,7 @@ import AstroTerminal from "@/components/Game/Terminals/AstroTerminal.vue";
 import CommandTerminal from "@/components/Game/Terminals/CommandTerminal.vue";
 import { defineComponent } from "vue";
 import { TerminalEnum } from "@/enums/terminal.enum";
+import { Player } from "@/entities/Player";
 
 export default defineComponent ({
     name: "TerminalPanel",
@@ -27,7 +28,12 @@ export default defineComponent ({
         CommandTerminal
     },
     props: {
-        terminalName: String
+        player: {
+            type: Player,
+            required: true
+        },
+    },
+    methods: {
     },
     data() {
         return {

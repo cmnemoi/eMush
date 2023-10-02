@@ -7,8 +7,8 @@
             </div>
             <div class="game-content">
                 <CharPanel :player="player" />
-                <ShipPanel v-if="!player.isFocused()" :room="player.room" :player="player" />
-                <TerminalPanel v-else :terminalName="player.getFocusedTerminalName()" />
+                <TerminalPanel v-if="player.isFocused()" :player="player" />
+                <ShipPanel v-else :room="player.room" :player="player" />
                 <CommsPanel :calendar="player.daedalus.calendar"/>
             </div>
             <ProjectsPanel />
@@ -31,7 +31,7 @@ import Purgatory from "@/components/PurgatoryPage.vue";
 import InvitationPrivateChannelMenu from "@/components/Game/Communications/InvitationPrivateChannelMenu.vue";
 import { defineComponent } from "vue";
 import { TerminalEnum } from "@/enums/terminal.enum";
-import TerminalPanel from "./Terminals/TerminalPanel.vue";
+import TerminalPanel from "@/components/Game/Terminals/TerminalPanel.vue";
 
 
 export default defineComponent ({

@@ -53,10 +53,17 @@
 </template>
 
 <script lang="ts">
+import { Terminal } from "@/entities/Terminal";
 import { defineComponent } from "vue";
 
 export default defineComponent ({
-    name: "AstroTerminal"
+    name: "AstroTerminal",
+    props: {
+        terminal: {
+            type: Terminal,
+            required: true
+        }
+    },
 });
 </script>
 

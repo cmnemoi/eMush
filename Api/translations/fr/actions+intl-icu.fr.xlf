@@ -918,5 +918,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Quitter</target>
       </segment>
     </unit>
+    <unit id="advance_daedalus">
+      <segment id="name" state="final">
+        <source>advance_daedalus.name</source>
+        <target>Voyager</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>advance_daedalus.description</source>
+        <target>Lance l'allumage des moteurs pour un déplacement lié à la quantité de carburant prêt.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

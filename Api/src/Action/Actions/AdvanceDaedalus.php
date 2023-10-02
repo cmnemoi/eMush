@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -54,12 +55,20 @@ final class AdvanceDaedalus extends AbstractAction
     }
 
     protected function checkResult(): ActionResult
-    {
+    {   
+        if ($this->player->getDaedalus()->getCombustionChamberFuel() <= 0) {
+            return new Fail();
+        }
+
         return new Success();
     }
 
     protected function applyEffect(ActionResult $result): void
     {   
+        if ($result instanceof Fail) {
+            return;
+        }
+
         $actionTags = $this->action->getActionTags();
         $daedalus = $this->player->getDaedalus();
         $now = new \DateTime();

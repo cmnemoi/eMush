@@ -6,6 +6,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
@@ -52,6 +53,9 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
 
         // given the player is on the bridge
         $this->player->changePlace($this->bridge);
+
+        // given there is fuel in combustion chamber
+        $this->daedalus->setCombustionChamberFuel(1);
 
         // given the player is focused on the command terminal
         $this->statusService->createStatusFromName(
@@ -196,4 +200,18 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
             params: ['message' => NeronMessageEnum::TRAVEL_DEFAULT]
         );
     }
+
+    public function testAdvanceDaedalusFailsIfNoFuelInCombustionChamber(FunctionalTester $I): void
+    {
+        // given there is no fuel in the combustion chamber
+        $this->daedalus->setCombustionChamberFuel(0);
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters($this->advanceDaedalusConfig, $this->player, $this->commandTerminal);
+        $result = $this->advanceDaedalusAction->execute();
+
+        // then the action fails
+        $I->assertInstanceOf(Fail::class, $result);
+    }
+
 }

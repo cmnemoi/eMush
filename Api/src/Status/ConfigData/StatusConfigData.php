@@ -898,5 +898,12 @@ class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
         ],
+        [
+            'name' => 'traveling_default',
+            'statusName' => 'traveling',
+            'visibility' => 'hidden',
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+        ],
     ];
 }

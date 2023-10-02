@@ -2674,6 +2674,7 @@ class EquipmentConfigData
                 'examine',
                 'hack',
                 'exit_terminal',
+                'advance_daedalus'
             ],
             'mechanics' => [],
             'initStatuses' => [],

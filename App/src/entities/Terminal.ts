@@ -1,4 +1,6 @@
 import { Action } from "@/entities/Action";
+import { TerminalSectionTitles } from "@/entities/TerminalSectionTitles";
+import { TerminalInfos } from "@/entities/TerminalInfos";
 
 export class Terminal {
     public id!: number;
@@ -6,6 +8,8 @@ export class Terminal {
     public name!: string;
     public tips!: string;
     public actions: Action[] = [];
+    public sectionTitles!: TerminalSectionTitles;
+    public infos!: TerminalInfos;
 
     public load(object: any): Terminal {
         if (object) {
@@ -14,6 +18,8 @@ export class Terminal {
             this.name = object.name;
             this.tips = object.tips;
             this.actions = object.actions;
+            this.sectionTitles = new TerminalSectionTitles().load(object.sectionTitles);
+            this.infos = new TerminalInfos().load(object.infos);
         }
         return this;
     }

@@ -16,6 +16,30 @@ Pour aller vers une planète il faut **connaître l'orientation et le nombre d'u
 ////
 Si le travail a été bien fait, le Daedalus se placera en orbite d'une planète qui pourra être explorée par l'équipage et ainsi obtenir des nouvelles ressources !</target>
       </segment>
+      <segment id="orientate_daedalus" state="translated">
+        <source>command_terminal.orientate_daedalus</source>
+        <target>Orienter le Daedalus</target>
+      </segment>
+      <segment id="move_daedalus" state="translated">
+        <source>command_terminal.move_daedalus</source>
+        <target>Déplacer le Daedalus</target>
+      </segment>
+      <segment id="general_informations" state="translated">
+        <source>command_terminal.general_informations</source>
+        <target>Informations générales</target>
+      </segment>
+      <segment id="difficulty_normal" state="translated">
+        <source>command_terminal.difficulty_normal</source>
+        <target>Nous voyageons actuellement dans l'**Espace proche**.</target>
+      </segment>
+      <segment id="difficulty_hard" state="translated">
+        <source>command_terminal.difficulty_hard</source>
+        <target>Nous voyageons actuellement dans l'**Espace éloigné**.</target>
+      </segment>
+      <segment id="difficulty_very_hard" state="translated">
+        <source>command_terminal.difficulty_very_hard</source>
+        <target>Nous voyageons actuellement dans l'**Espace infini**.</target>
+      </segment>
     </unit>
   </file>
 </xliff>

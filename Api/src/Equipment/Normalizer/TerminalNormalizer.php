@@ -7,6 +7,8 @@ namespace Mush\Equipment\Normalizer;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -31,8 +33,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
     }
 
     public function normalize(mixed $object, string $format = null, array $context = [])
-    {   
-
+    {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
@@ -52,7 +53,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         $daedalus = $currentPlayer->getDaedalus();
         $terminalKey = $terminal->getName();
 
-        return [
+        $normalizedTerminal = [
             'id' => $terminal->getId(),
             'key' => $terminalKey,
             'name' => $this->translationService->translate(
@@ -67,11 +68,18 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
                 'terminal',
                 $daedalus->getLanguage()
             ),
-            'actions' => $this->getActions($terminal, $format, $context),
+            'actions' => $this->normalizeTerminalActions($terminal, $format, $context),
+            'sectionTitles' => $this->normalizeTerminalSectionTitles($terminal),
         ];
+
+        // @TODO : add other terminal infos
+        $commandTerminalInfos = $this->normalizeCommandTerminalInfos($terminal);
+        $normalizedTerminal['infos'] = $commandTerminalInfos;
+
+        return $normalizedTerminal;
     }
 
-    private function getActions(GameEquipment $terminal, ?string $format, array $context = []): array
+    private function normalizeTerminalActions(GameEquipment $terminal, ?string $format, array $context = []): array
     {
         $actions = $terminal->getActions()->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::TERMINAL);
 
@@ -85,5 +93,46 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         }
 
         return $normalizedActions;
+    }
+
+    private function normalizeTerminalSectionTitles(GameEquipment $terminal): array
+    {
+        $titles = [];
+        $terminalKey = $terminal->getName();
+        foreach (EquipmentEnum::$terminalSectionTitlesMap[$terminalKey] as $sectionKey) {
+            $titles[$sectionKey] = $this->translationService->translate(
+                $terminalKey . '.' . $sectionKey,
+                [],
+                'terminal',
+                $terminal->getDaedalus()->getLanguage(),
+            );
+        }
+
+        return $titles;
+    }
+
+    private function normalizeCommandTerminalInfos(GameEquipment $terminal): ?array
+    {
+        $terminalKey = $terminal->getName();
+        if ($terminalKey !== EquipmentEnum::COMMAND_TERMINAL) {
+            return null;
+        }
+
+        $difficulty = DifficultyEnum::NORMAL;
+        $daedalus = $terminal->getDaedalus();
+        if ($daedalus->isInHardMode()) {
+            $difficulty = DifficultyEnum::HARD;
+        } elseif ($daedalus->isInVeryHardMode()) {
+            $difficulty = DifficultyEnum::VERY_HARD;
+        }
+
+        return [
+            'difficulty' => $this->translationService->translate(
+                $terminalKey . '.difficulty_' . $difficulty,
+                [],
+                'terminal',
+                $daedalus->getLanguage()
+            ),
+        ];
     }
 }

@@ -1,7 +1,7 @@
 <template>
-    <div class="command-terminal-container">
+    <div class="command-terminal-container" v-if="terminal">
         <section style="display:none;">
-            <h3>Orienter le Daedalus</h3>
+            <h3>{{ terminal.sectionTitles?.orientateDaedalus }}</h3>
             <p class="daedalus-current-orientation">Le Daedalus pointe actuellement vers : <strong>Nord</strong>.</p>
             <div class="orientation-choice">
                 <label class="orientation-choice-box-label">
@@ -46,7 +46,7 @@
         </section>
 
         <section>
-            <h3>Déplacer le Daedalus</h3>
+            <h3>{{ terminal.sectionTitles?.moveDaedalus }}</h3>
             <div class="move-status">
                 <!-- FOR WARNING ICON: <img src="@/assets/images/att.png" alt="warning"> -->
                 <img src="@/assets/images/info.png" alt="info">
@@ -72,8 +72,8 @@
         </section> -->
 
         <section>
-            <h3>Informations générales</h3>
-            <p>Nous voyageons actuellement dans l'<strong>Espace proche</strong>.</p>
+            <h3>{{ terminal.sectionTitles?.generalInformations }}</h3>
+            <p v-html="formatText(terminal.infos?.difficulty)"></p>
         </section>
     </div>
 </template>
@@ -81,6 +81,7 @@
 <script lang="ts">
 import { Terminal } from "@/entities/Terminal";
 import { defineComponent } from "vue";
+import { formatText } from "@/utils/formatText";
 
 export default defineComponent ({
     name: "CommandTerminal",
@@ -88,6 +89,12 @@ export default defineComponent ({
         terminal: {
             type: Terminal,
             required: true
+        }
+    },
+    methods: {
+        formatText(text: string|null): string {
+            if (!text) return '';
+            return formatText(text);
         }
     },
     data() {

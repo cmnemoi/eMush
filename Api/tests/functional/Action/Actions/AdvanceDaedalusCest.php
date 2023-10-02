@@ -421,7 +421,7 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
     }
 
     public function testAdvanceDaedalusNotExecutableIfDaedalusIsTraveling(FunctionalTester $I): void
-    {      
+    {
         // given daedalus is traveling
         $this->statusService->createStatusFromName(
             statusName: DaedalusStatusEnum::TRAVELING,

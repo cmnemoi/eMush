@@ -170,7 +170,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
     }
 
     public function testTakeOffNotExecutableIfDaedalusIsTraveling(FunctionalTester $I): void
-    {   
+    {
         // given a pasiphae
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));

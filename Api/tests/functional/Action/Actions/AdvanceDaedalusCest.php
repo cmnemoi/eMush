@@ -278,14 +278,7 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
     public function testAdvanceDaedalusArackAttackingReturnsSpecificLog(FunctionalTester $I): void
     {
         // given there is an arack attacking
-        /** @var HunterConfig $arackConfig */
-        $arackConfig = $this->daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::SPIDER);
-        
-        $arack = new Hunter($arackConfig, $this->daedalus);
-        $arack->setHunterVariables($arackConfig);
-        $this->daedalus->addHunter($arack);
-        
-        $I->haveInRepository($arack);
+        $arack = $this->createHunterByName(HunterEnum::SPIDER, $I);
 
         // when player advances daedalus
         $this->advanceDaedalusAction->loadParameters($this->advanceDaedalusConfig, $this->player, $this->commandTerminal);
@@ -351,6 +344,94 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
                 'visibility' => VisibilityEnum::PUBLIC,
             ]
         );
+    }
+
+    public function testAdvanceSuccessPutAllSimpleHuntersInPool(FunctionalTester $I): void
+    {
+        // given there are 2 simple hunters attacking
+        for ($i = 0; $i < 2; $i++) {
+            $this->createHunterByName(HunterEnum::HUNTER, $I);
+        }
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters(
+            action: $this->advanceDaedalusConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->advanceDaedalusAction->execute();
+
+        // then the 2 simple hunters are in the pool
+        $I->assertEquals(2, $this->daedalus->getHunterPool()->getAllHuntersByType(HunterEnum::HUNTER)->count());
+    }
+
+    public function testAdvanceSuccessDoNotPutTraxsInPool(FunctionalTester $I): void
+    {
+        // given there are 2 traxs attacking
+        for ($i = 0; $i < 2; $i++) {
+            $this->createHunterByName(HunterEnum::TRAX, $I);
+        }
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters(
+            action: $this->advanceDaedalusConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->advanceDaedalusAction->execute();
+
+        // then the 2 traxs are not in the pool
+        $I->assertEquals(0, $this->daedalus->getHunterPool()->getAllHuntersByType(HunterEnum::TRAX)->count());
+        $I->assertEquals(2, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::TRAX)->count());
+    }
+
+    public function testAdvanceSuccessDeletesAllAttackingHuntersExceptHuntersAndTraxes(FunctionalTester $I): void
+    {
+        // given there are 1 simple hunters attacking
+        $hunter = $this->createHunterByName(HunterEnum::HUNTER, $I);
+        // given there are traxs attacking
+        $trax = $this->createHunterByName(HunterEnum::TRAX, $I);
+
+        // given there is 2 dices attacking
+        for ($i = 0; $i < 2; $i++) {
+            $dice = $this->createHunterByName(HunterEnum::DICE, $I);
+        }
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters(
+            action: $this->advanceDaedalusConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->advanceDaedalusAction->execute();
+
+        // then I can see 1 hunter and 1 trax in the repository. I can't see any dice
+        $I->seeInRepository(
+            entity: Hunter::class,
+            params: ['hunterConfig' => $hunter->getHunterConfig()]
+        );
+        $I->seeInRepository(
+            entity: Hunter::class,
+            params: ['hunterConfig' => $trax->getHunterConfig()]
+        );
+        $I->dontSeeInRepository(
+            entity: Hunter::class,
+            params: ['hunterConfig' => $dice->getHunterConfig()]
+        );
+    }
+
+    private function createHunterByName(string $hunterName, FunctionalTester $I): Hunter
+    {
+        /** @var HunterConfig $hunterConfig */
+        $hunterConfig = $this->daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterName);
+        
+        $hunter = new Hunter($hunterConfig, $this->daedalus);
+        $hunter->setHunterVariables($hunterConfig);
+        $this->daedalus->addHunter($hunter);
+        
+        $I->haveInRepository($hunter);
+
+        return $hunter;
     }
 
 }

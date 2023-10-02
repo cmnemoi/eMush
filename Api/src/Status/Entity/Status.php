@@ -103,8 +103,6 @@ class Status
             $statusOwner->setHunter($owner);
         } elseif ($owner instanceof Daedalus) {
             $statusOwner->setDaedalus($owner);
-        } else {
-            $statusOwner = null;
         }
 
         $this->owner = $statusOwner;

@@ -13,7 +13,7 @@ class ChargeVariable extends GameVariableCollection
     public function __construct(ChargeStatusConfig $statusConfig)
     {
         $charge = new GameVariable(
-            null,
+            $this,
             $statusConfig->getStatusName(),
             $statusConfig->getStartCharge(),
             $statusConfig->getMaxCharge(),

@@ -113,4 +113,49 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         // then player2 is alive
         $I->assertTrue($this->player2->isAlive());
     }
+
+    public function testAdvanceDaedalusSuccessDestroyAllPatrolShipsInSpaceBattle(FunctionalTester $I): void
+    {
+        // given a patrol ship is in space battle
+        $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
+        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new GameEquipment($pasiphaePlace);
+        $pasiphae
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig)
+        ;
+        $I->haveInRepository($pasiphae);
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters($this->advanceDaedalusConfig, $this->player, $this->commandTerminal);
+        $this->advanceDaedalusAction->execute();
+
+        // then the patrol ship is destroyed
+        $I->dontSeeInRepository(
+            entity: GameEquipment::class, 
+            params: ['name' => EquipmentEnum::PASIPHAE]
+        );
+    }
+
+    public function testAdvanceDaedalusSuccessDoesNotDestroyPatrolShipsNotInSpaceBattle(FunctionalTester $I): void
+    {
+        // given a patrol ship is not in space battle, let's say on the bridge
+        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new GameEquipment($this->bridge);
+        $pasiphae
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig)
+        ;
+        $I->haveInRepository($pasiphae);
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters($this->advanceDaedalusConfig, $this->player, $this->commandTerminal);
+        $this->advanceDaedalusAction->execute();
+
+        // then the patrol ship is not destroyed
+        $I->seeInRepository(
+            entity: GameEquipment::class, 
+            params: ['name' => EquipmentEnum::PASIPHAE]
+        );
+    }
 }

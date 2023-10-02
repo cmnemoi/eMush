@@ -967,7 +967,7 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::ARACK_PREVENTS_TRAVEL, VisibilityEnum::PUBLIC)
         ;
         $manager->persist($advanceDaedalus);
-            
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);

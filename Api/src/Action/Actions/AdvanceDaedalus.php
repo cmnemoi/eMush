@@ -13,7 +13,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
@@ -41,7 +40,7 @@ final class AdvanceDaedalus extends AbstractAction
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         StatusServiceInterface $statusService,
-    ) { 
+    ) {
         parent::__construct(
             $eventService,
             $actionService,
@@ -57,7 +56,7 @@ final class AdvanceDaedalus extends AbstractAction
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {   
+    {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::FOCUSED,
@@ -67,7 +66,7 @@ final class AdvanceDaedalus extends AbstractAction
     }
 
     protected function checkResult(): ActionResult
-    {   
+    {
         $daedalus = $this->player->getDaedalus();
         if ($daedalus->getCombustionChamberFuel() <= 0) {
             return new NoFuel();
@@ -90,7 +89,7 @@ final class AdvanceDaedalus extends AbstractAction
     }
 
     protected function applyEffect(ActionResult $result): void
-    {   
+    {
         if ($result instanceof Fail) {
             return;
         }

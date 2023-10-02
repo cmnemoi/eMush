@@ -1569,10 +1569,10 @@ class ActionData
             'target' => null,
             'scope' => ActionScopeEnum::TERMINAL,
             'visibilities' => [
-                'success' => VisibilityEnum::PUBLIC, 
-                'fail' => VisibilityEnum::PUBLIC, 
-                ActionOutputEnum::NO_FUEL => VisibilityEnum::PUBLIC, 
-                ActionOutputEnum::ARACK_PREVENTS_TRAVEL => VisibilityEnum::PUBLIC
+                'success' => VisibilityEnum::PUBLIC,
+                'fail' => VisibilityEnum::PUBLIC,
+                ActionOutputEnum::NO_FUEL => VisibilityEnum::PUBLIC,
+                ActionOutputEnum::ARACK_PREVENTS_TRAVEL => VisibilityEnum::PUBLIC,
             ],
             'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => null, 'max_value' => 0],

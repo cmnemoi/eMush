@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Mush\Hunter\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Service\HunterServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusEventSubscriber implements EventSubscriberInterface
-{   
+{
     private HunterServiceInterface $hunterService;
 
     public function __construct(HunterServiceInterface $hunterService)
@@ -28,7 +27,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     }
 
     public function onTravelLaunched(DaedalusEvent $event): void
-    {   
+    {
         $huntersToPutInPool = $event->getDaedalus()->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER);
 
         /** @var Hunter $hunter */

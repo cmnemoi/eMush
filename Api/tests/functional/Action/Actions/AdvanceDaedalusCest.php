@@ -7,7 +7,6 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\Fail;
-use Mush\Action\Entity\ActionResult\NoFuel;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
@@ -158,7 +157,7 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
 
         // then the patrol ship is destroyed
         $I->dontSeeInRepository(
-            entity: GameEquipment::class, 
+            entity: GameEquipment::class,
             params: ['name' => EquipmentEnum::PASIPHAE]
         );
     }
@@ -180,7 +179,7 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
 
         // then the patrol ship is not destroyed
         $I->seeInRepository(
-            entity: GameEquipment::class, 
+            entity: GameEquipment::class,
             params: ['name' => EquipmentEnum::PASIPHAE]
         );
     }
@@ -202,7 +201,7 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
 
         // then the metal scrap is destroyed
         $I->dontSeeInRepository(
-            entity: GameEquipment::class, 
+            entity: GameEquipment::class,
             params: ['name' => ItemEnum::METAL_SCRAPS]
         );
     }
@@ -260,11 +259,11 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         // given there is an arack attacking
         /** @var HunterConfig $arackConfig */
         $arackConfig = $this->daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::SPIDER);
-        
+
         $arack = new Hunter($arackConfig, $this->daedalus);
         $arack->setHunterVariables($arackConfig);
         $this->daedalus->addHunter($arack);
-        
+
         $I->haveInRepository($arack);
 
         // when player advances daedalus
@@ -349,7 +348,7 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
     public function testAdvanceSuccessPutAllSimpleHuntersInPool(FunctionalTester $I): void
     {
         // given there are 2 simple hunters attacking
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             $this->createHunterByName(HunterEnum::HUNTER, $I);
         }
 
@@ -368,7 +367,7 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
     public function testAdvanceSuccessDoNotPutTraxsInPool(FunctionalTester $I): void
     {
         // given there are 2 traxs attacking
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             $this->createHunterByName(HunterEnum::TRAX, $I);
         }
 
@@ -393,7 +392,7 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         $trax = $this->createHunterByName(HunterEnum::TRAX, $I);
 
         // given there is 2 dices attacking
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             $dice = $this->createHunterByName(HunterEnum::DICE, $I);
         }
 
@@ -424,14 +423,13 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
     {
         /** @var HunterConfig $hunterConfig */
         $hunterConfig = $this->daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterName);
-        
+
         $hunter = new Hunter($hunterConfig, $this->daedalus);
         $hunter->setHunterVariables($hunterConfig);
         $this->daedalus->addHunter($hunter);
-        
+
         $I->haveInRepository($hunter);
 
         return $hunter;
     }
-
 }

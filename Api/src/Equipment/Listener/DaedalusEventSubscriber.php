@@ -12,7 +12,6 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Place\Entity\Place;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusEventSubscriber implements EventSubscriberInterface
@@ -45,18 +44,19 @@ class DaedalusEventSubscriber implements EventSubscriberInterface
     }
 
     public function onTravelLaunched(DaedalusEvent $event): void
-    {   
+    {
         $this->destroyPatrolShipsInBattle($event);
         $this->destroyAllEquipmentInSpace($event);
     }
 
     private function destroyPatrolShipsInBattle(DaedalusEvent $event): void
-    {   
+    {
         $daedalus = $event->getDaedalus();
+        /** @var ArrayCollection<int, GameEquipment> $patrolShips */
         $patrolShips = new ArrayCollection();
 
-        foreach (EquipmentEnum::getPatrolShips() as $patrolShip) {
-            $patrolShip = $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $daedalus)->first();
+        foreach (EquipmentEnum::getPatrolShips() as $patrolShipName) {
+            $patrolShip = $this->gameEquipmentService->findByNameAndDaedalus($patrolShipName, $daedalus)->first();
             if ($patrolShip instanceof GameEquipment) {
                 $patrolShips->add($patrolShip);
             }
@@ -73,7 +73,7 @@ class DaedalusEventSubscriber implements EventSubscriberInterface
                 time: $event->getTime(),
             );
             $this->eventService->callEvent($destroyEquipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-        }   
+        }
     }
 
     private function destroyAllEquipmentInSpace(DaedalusEvent $event): void
@@ -88,6 +88,5 @@ class DaedalusEventSubscriber implements EventSubscriberInterface
             );
             $this->eventService->callEvent($destroyEquipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
-
     }
 }

@@ -11,7 +11,7 @@ use Mush\Player\Event\PlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusEventSubscriber implements EventSubscriberInterface
-{   
+{
     private EventServiceInterface $eventService;
 
     public function __construct(EventServiceInterface $eventService)

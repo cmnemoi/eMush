@@ -80,11 +80,37 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
 
     public function testAdvanceDaedalusSuccessCreatesADaedalusTravelingStatus(FunctionalTester $I): void
     {
-        // when player tries to advance daedalus
+        // when player advances daedalus
         $this->advanceDaedalusAction->loadParameters($this->advanceDaedalusConfig, $this->player, $this->commandTerminal);
         $this->advanceDaedalusAction->execute();
 
         // then the player has a daedalus traveling status
         $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::TRAVELING));
+    }
+
+    public function testAdvanceDaedalusSuccessKillAllPlayersInSpaceBattle(FunctionalTester $I): void
+    {
+        // given player2 is in space battle : in space for example
+        $this->player2->changePlace($this->daedalus->getSpace());
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters($this->advanceDaedalusConfig, $this->player, $this->commandTerminal);
+        $this->advanceDaedalusAction->execute();
+
+        // then player2 is dead
+        $I->assertFalse($this->player2->isAlive());
+    }
+
+    public function testAdvanceDaedalusSuccessDoesNotKillPlayersNotInSpaceBattle(FunctionalTester $I): void
+    {
+        // given player2 is not in space battle : in laboratory for example
+        $this->player2->changePlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters($this->advanceDaedalusConfig, $this->player, $this->commandTerminal);
+        $this->advanceDaedalusAction->execute();
+
+        // then player2 is alive
+        $I->assertTrue($this->player2->isAlive());
     }
 }

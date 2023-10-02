@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Daedalus\Enum\DaedalusStatusEnum;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -58,12 +59,23 @@ final class AdvanceDaedalus extends AbstractAction
     }
 
     protected function applyEffect(ActionResult $result): void
-    {
+    {   
+        $actionTags = $this->action->getActionTags();
+        $daedalus = $this->player->getDaedalus();
+        $now = new \DateTime();
+
         $this->statusService->createStatusFromName(
             statusName: DaedalusStatusEnum::TRAVELING,
-            holder: $this->player->getDaedalus(),
-            tags: $this->action->getActionTags(),
-            time: new \DateTime(),
+            holder: $daedalus,
+            tags: $actionTags,
+            time: $now,
         );
+
+        $travelLaunchedEvent = new DaedalusEvent(
+            daedalus: $daedalus,
+            tags: $actionTags,
+            time: $now,
+        );
+        $this->eventService->callEvent($travelLaunchedEvent, DaedalusEvent::TRAVEL_LAUNCHED);
     }
 }

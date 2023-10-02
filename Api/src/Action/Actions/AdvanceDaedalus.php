@@ -5,15 +5,21 @@ declare(strict_types=1);
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\ArackPreventsTravel;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\NoFuel;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\Reach;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -26,12 +32,14 @@ final class AdvanceDaedalus extends AbstractAction
 {
     protected string $name = ActionEnum::ADVANCE_DAEDALUS;
 
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        GameEquipmentServiceInterface $gameEquipmentService,
         StatusServiceInterface $statusService,
     ) { 
         parent::__construct(
@@ -39,6 +47,7 @@ final class AdvanceDaedalus extends AbstractAction
             $actionService,
             $validator,
         );
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->statusService = $statusService;
     }
 
@@ -48,7 +57,8 @@ final class AdvanceDaedalus extends AbstractAction
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {
+    {   
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::FOCUSED,
             'target' => HasStatus::PLAYER,
@@ -58,10 +68,21 @@ final class AdvanceDaedalus extends AbstractAction
 
     protected function checkResult(): ActionResult
     {   
-        if ($this->player->getDaedalus()->getCombustionChamberFuel() <= 0) {
+        $daedalus = $this->player->getDaedalus();
+        if ($daedalus->getCombustionChamberFuel() <= 0) {
             return new NoFuel();
         }
-        if ($this->player->getDaedalus()->getAttackingHunters()->getAllHuntersByType(HunterEnum::SPIDER)->count() > 0) {
+        if ($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::SPIDER)->count() > 0) {
+            return new ArackPreventsTravel();
+        }
+
+        /** @var false|GameEquipment $emergencyReactor */
+        $emergencyReactor = $this->gameEquipmentService->findByNameAndDaedalus(
+            name: EquipmentEnum::EMERGENCY_REACTOR,
+            daedalus: $daedalus,
+        )->first();
+
+        if ($emergencyReactor && $emergencyReactor->isBroken()) {
             return new Fail();
         }
 

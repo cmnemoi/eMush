@@ -25,6 +25,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -35,6 +36,7 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
     private Action $advanceDaedalusConfig;
     private AdvanceDaedalus $advanceDaedalusAction;
     private GameEquipment $commandTerminal;
+    private GameEquipment $emergencyReactor;
     private Place $bridge;
     private StatusServiceInterface $statusService;
 
@@ -57,6 +59,16 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
             ->setEquipment($commandTerminalConfig)
         ;
         $I->haveInRepository($this->commandTerminal);
+
+        // given there is an emergency reactor in the engine room
+        $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
+        $emergencyReactorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::EMERGENCY_REACTOR]);
+        $this->emergencyReactor = new GameEquipment($engineRoom);
+        $this->emergencyReactor
+            ->setName(EquipmentEnum::EMERGENCY_REACTOR)
+            ->setEquipment($emergencyReactorConfig)
+        ;
+        $I->haveInRepository($this->emergencyReactor);
 
         // given the player is on the bridge
         $this->player->changePlace($this->bridge);
@@ -292,5 +304,53 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         );
     }
 
+    public function testAdvanceDaedalusFailsIfEmergencyReactorIsBroken(FunctionalTester $I): void
+    {
+        // given the emergency reactor is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $this->emergencyReactor,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters($this->advanceDaedalusConfig, $this->player, $this->commandTerminal);
+        $result = $this->advanceDaedalusAction->execute();
+
+        // then the action fails
+        $I->assertInstanceOf(Fail::class, $result);
+    }
+
+    public function testAdvanceDaedalusEmergencyReactorBrokenReturnsSpecificLog(FunctionalTester $I): void
+    {
+        // given the emergency reactor is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $this->emergencyReactor,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters(
+            action: $this->advanceDaedalusConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->advanceDaedalusAction->execute();
+
+        // then the action returns the correct log
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => RoomEnum::BRIDGE,
+                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'log' => ActionLogEnum::ADVANCE_DAEDALUS_EMERGENCY_REACTOR_BROKEN,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+    }
 
 }

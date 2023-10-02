@@ -7,6 +7,8 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -179,6 +181,19 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(
             entity: GameEquipment::class, 
             params: ['name' => ItemEnum::METAL_SCRAPS]
+        );
+    }
+
+    public function testAdvanceDaedalusSuccessCreatesANeronAnnouncement(FunctionalTester $I): void
+    {
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters($this->advanceDaedalusConfig, $this->player, $this->commandTerminal);
+        $this->advanceDaedalusAction->execute();
+
+        // then there is a neron announcement
+        $I->seeInRepository(
+            entity: Message::class,
+            params: ['message' => NeronMessageEnum::TRAVEL_DEFAULT]
         );
     }
 }

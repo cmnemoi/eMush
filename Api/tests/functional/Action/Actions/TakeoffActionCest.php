@@ -9,7 +9,9 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -165,6 +167,41 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             $this->player1->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getInitHull(),
             $this->player1->getDaedalus()->getHull()
         );
+    }
+
+    public function testTakeOffNotExecutableIfDaedalusIsTraveling(FunctionalTester $I): void
+    {   
+        // given a pasiphae
+        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $pasiphae
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig)
+        ;
+        $I->haveInRepository($pasiphae);
+
+        $pasiphaeArmor = $this->statusService->createStatusFromName(
+            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
+            $pasiphae,
+            [],
+            new \DateTime()
+        );
+        $I->haveInRepository($pasiphae);
+
+        // given daedalus is traveling
+        $this->statusService->createStatusFromName(
+            DaedalusStatusEnum::TRAVELING,
+            $this->daedalus,
+            [],
+            new \DateTime()
+        );
+
+        // when player tries to take off
+        $this->takeoffAction->loadParameters($this->action, $this->player1, $pasiphae);
+        $this->takeoffAction->execute();
+
+        // then the action is not executable
+        $I->assertEquals(ActionImpossibleCauseEnum::DAEDALUS_TRAVELING, $this->takeoffAction->cannotExecuteReason());
     }
 
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void

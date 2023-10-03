@@ -442,7 +442,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::TRUCE_CYCLES, $asteroidCharge);
         $this->addReference(self::HAS_REJUVENATED, $rejuvenationCharge);
         $this->addReference(self::TRAVELING_STATUS, $traveling);
-
     }
 
     public function getDependencies(): array

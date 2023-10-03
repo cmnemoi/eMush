@@ -24,7 +24,6 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -33,14 +32,12 @@ final class AdvanceDaedalus extends AbstractAction
     protected string $name = ActionEnum::ADVANCE_DAEDALUS;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
-        StatusServiceInterface $statusService,
     ) {
         parent::__construct(
             $eventService,
@@ -48,7 +45,6 @@ final class AdvanceDaedalus extends AbstractAction
             $validator,
         );
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->statusService = $statusService;
     }
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
@@ -102,21 +98,10 @@ final class AdvanceDaedalus extends AbstractAction
             return;
         }
 
-        $actionTags = $this->action->getActionTags();
-        $daedalus = $this->player->getDaedalus();
-        $now = new \DateTime();
-
-        $this->statusService->createStatusFromName(
-            statusName: DaedalusStatusEnum::TRAVELING,
-            holder: $daedalus,
-            tags: $actionTags,
-            time: $now,
-        );
-
         $travelLaunchedEvent = new DaedalusEvent(
-            daedalus: $daedalus,
-            tags: $actionTags,
-            time: $now,
+            daedalus: $this->player->getDaedalus(),
+            tags: $this->action->getActionTags(),
+            time: new \DateTime(),
         );
         $this->eventService->callEvent($travelLaunchedEvent, DaedalusEvent::TRAVEL_LAUNCHED);
     }

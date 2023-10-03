@@ -5,7 +5,6 @@ namespace Mush\Status\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -59,7 +58,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
     public const SUICIDAL_STATUS = 'suicidal_status';
     public const WATCHED_PUBLIC_BROADCAST_STATUS = 'watched_public_broadcast_status';
     public const TALKIE_SCREWED_STATUS = 'talkie_screwed_status';
-    public const TRAVELING_STATUS = 'traveling_status';
 
     public function load(ObjectManager $manager): void
     {
@@ -428,14 +426,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($screwedTalkie);
 
-        $traveling = new StatusConfig();
-        $traveling
-            ->setStatusName(DaedalusStatusEnum::TRAVELING)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
-        $manager->persist($traveling);
-
         $gameConfig
             ->addStatusConfig($alienArtefact)
             ->addStatusConfig($heavy)
@@ -478,7 +468,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($suicidal)
             ->addStatusConfig($watched_public_broadcast)
             ->addStatusConfig($screwedTalkie)
-            ->addStatusConfig($traveling)
         ;
         $manager->persist($gameConfig);
 
@@ -523,7 +512,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::SUICIDAL_STATUS, $suicidal);
         $this->addReference(self::WATCHED_PUBLIC_BROADCAST_STATUS, $watched_public_broadcast);
         $this->addReference(self::TALKIE_SCREWED_STATUS, $screwedTalkie);
-        $this->addReference(self::TRAVELING_STATUS, $traveling);
 
         $manager->flush();
     }

@@ -19,14 +19,33 @@ class DaedalusVariableEvent extends DaedalusEvent implements VariableEventInterf
         \DateTime $time
     ) {
         $this->variableName = $variableName;
-        $this->quantity = $quantity;
 
         parent::__construct($daedalus, $tags, $time);
+
+        $this->setQuantity($quantity);
     }
 
     public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
+
+        if ($quantity < 0) {
+            $key = array_search(VariableEventInterface::GAIN, $this->tags);
+
+            if ($key === false) {
+                $this->tags[] = VariableEventInterface::LOSS;
+            } elseif (!in_array(VariableEventInterface::LOSS, $this->tags)) {
+                $this->tags[$key] = VariableEventInterface::LOSS;
+            }
+        } elseif ($quantity > 0) {
+            $key = array_search(VariableEventInterface::LOSS, $this->tags);
+
+            if ($key === false) {
+                $this->tags[] = VariableEventInterface::GAIN;
+            } elseif (!in_array(VariableEventInterface::GAIN, $this->tags)) {
+                $this->tags[$key] = VariableEventInterface::GAIN;
+            }
+        }
 
         return $this;
     }

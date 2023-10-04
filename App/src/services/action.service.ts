@@ -27,7 +27,6 @@ const ActionService = {
         });
 
         function buildTarget(): Record<string, unknown> | undefined | null {
-            console.log(target);
             if (target instanceof Door) {
                 return { door: target.id };
             } else if (target instanceof Item) {

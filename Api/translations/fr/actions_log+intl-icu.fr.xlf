@@ -1104,5 +1104,29 @@
         <target>Impossible de craquer ce système...</target>
       </segment>
     </unit>
+    <unit id="advance_daedalus_success">
+      <segment id="advance_daedalus_success" state="translated">
+        <source>advance_daedalus_success</source>
+        <target>**{character}** lance la manœuvre de voyage. Son air exalté irradie et sa rage fait frémir jusqu'à l'air ambiant. C'est parti !</target>
+      </segment>
+    </unit>
+    <unit id="advance_daedalus_fail">
+      <segment id="advance_daedalus_fail" state="translated">
+        <source>advance_daedalus_fail</source>
+        <target>**{character}** lance la manœuvre de voyage. Son air exalté irradie et sa rage fait frémir jusqu'à l'air ambiant. Mais... Mais... Aucun ronflement, aucun fracas, pas de bruit... Les moteurs sont en panne !</target>
+      </segment>
+    </unit>
+    <unit id="advance_daedalus_no_fuel">
+      <segment id="advance_daedalus_no_fuel" state="translated">
+        <source>advance_daedalus_no_fuel</source>
+        <target>**{character}** lance la manœuvre de voyage. Son air exalté irradie et sa rage fait frémir jusqu'à l'air ambiant. Mais les moteurs s'éteignent immédiatement. Le vaisseau n'a pas bougé. Il n'y avait pas de fuel.</target>
+      </segment>
+    </unit>
+    <unit id="advance_daedalus_arack_prevents_travel">
+      <segment id="advance_daedalus_arack_prevents_travel" state="translated">
+        <source>advance_daedalus_arack_prevents_travel</source>
+        <target>**{character}** lance la manœuvre de voyage. Son air exalté irradie et sa rage fait frémir jusqu'à l'air ambiant. Mais... Mais... Les moteurs poussent mais rien ne se passe... Un Arack empêche le départ avec son champ gravitationnel !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -97,6 +97,7 @@ class ActionsFixtures extends Fixture
     public const CHECK_FUEL_CHAMBER_LEVEL = 'check.fuel.chamber.level';
     public const HACK = 'hack';
     public const EXIT_TERMINAL = 'exit.terminal';
+    public const ADVANCE_DAEDALUS = 'advance.daedalus';
 
     public function load(ObjectManager $manager): void
     {
@@ -956,6 +957,17 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($exitTerminal);
 
+        $advanceDaedalus = new Action();
+        $advanceDaedalus
+            ->setName(ActionEnum::ADVANCE_DAEDALUS)
+            ->setActionName(ActionEnum::ADVANCE_DAEDALUS)
+            ->setScope(ActionScopeEnum::TERMINAL)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::NO_FUEL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::ARACK_PREVENTS_TRAVEL, VisibilityEnum::PUBLIC)
+        ;
+        $manager->persist($advanceDaedalus);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1038,5 +1050,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::CHECK_FUEL_CHAMBER_LEVEL, $checkFuelChamberLevel);
         $this->addReference(self::HACK, $hack);
         $this->addReference(self::EXIT_TERMINAL, $exitTerminal);
+        $this->addReference(self::ADVANCE_DAEDALUS, $advanceDaedalus);
     }
 }

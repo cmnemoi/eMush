@@ -7,6 +7,7 @@ class HasStatus extends ClassConstraint
     public const PLAYER = 'player';
     public const PARAMETER = 'parameter';
     public const PLAYER_ROOM = 'player_room';
+    public const DAEDALUS = 'daedalus';
 
     public string $message = 'parameter do not match expected status';
 

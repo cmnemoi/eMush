@@ -8,10 +8,12 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
+use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -73,6 +75,13 @@ final class Takeoff extends AbstractAction
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
         $metadata->addConstraint(new PlaceType(['groups' => ['visibility'], 'type' => PlaceTypeEnum::ROOM]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => DaedalusStatusEnum::TRAVELING,
+            'contain' => false,
+            'target' => HasStatus::DAEDALUS,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::DAEDALUS_TRAVELING,
+        ]));
     }
 
     protected function applyEffect(ActionResult $result): void

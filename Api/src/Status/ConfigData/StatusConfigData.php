@@ -898,5 +898,18 @@ class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
         ],
+        [
+            'name' => 'traveling_default',
+            'statusName' => 'traveling',
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+            'maxCharge' => 1,
+            'startCharge' => 1,
+            'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
+            'autoRemove' => true,
+            'modifierConfigs' => [],
+        ],
     ];
 }

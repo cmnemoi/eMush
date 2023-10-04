@@ -467,6 +467,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($stuckInTheShip)
             ->addStatusConfig($suicidal)
             ->addStatusConfig($watched_public_broadcast)
+            ->addStatusConfig($screwedTalkie)
         ;
         $manager->persist($gameConfig);
 
@@ -510,6 +511,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::STUCK_IN_THE_SHIP_STATUS, $stuckInTheShip);
         $this->addReference(self::SUICIDAL_STATUS, $suicidal);
         $this->addReference(self::WATCHED_PUBLIC_BROADCAST_STATUS, $watched_public_broadcast);
+        $this->addReference(self::TALKIE_SCREWED_STATUS, $screwedTalkie);
 
         $manager->flush();
     }

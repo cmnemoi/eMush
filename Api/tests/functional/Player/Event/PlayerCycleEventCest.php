@@ -43,7 +43,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
             visibility: VisibilityEnum::HIDDEN
         );
 
-        $I->assertCount(2, $this->daedalus->getModifiers());
+        $I->assertCount(0, $this->daedalus->getModifiers());
 
         $event = new DaedalusCycleEvent(
             $this->daedalus,

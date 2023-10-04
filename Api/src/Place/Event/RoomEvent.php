@@ -11,7 +11,6 @@ class RoomEvent extends PlaceCycleEvent implements LoggableEventInterface
     public const ELECTRIC_ARC = 'electric.arc';
     public const DELETE_PLACE = 'delete.place';
 
-    private bool $isGravity = true;
     private string $visibility = VisibilityEnum::PUBLIC;
 
     public function getVisibility(): string
@@ -22,18 +21,6 @@ class RoomEvent extends PlaceCycleEvent implements LoggableEventInterface
     public function setVisibility(string $visibility): self
     {
         $this->visibility = $visibility;
-
-        return $this;
-    }
-
-    public function isGravity(): bool
-    {
-        return $this->isGravity;
-    }
-
-    public function setIsGravity(bool $isGravity): self
-    {
-        $this->isGravity = $isGravity;
 
         return $this;
     }

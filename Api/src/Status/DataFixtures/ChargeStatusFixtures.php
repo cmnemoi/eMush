@@ -6,7 +6,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -16,11 +15,13 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -383,7 +384,28 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($traveling);
 
+        /** @var VariableEventModifierConfig $gravityConversionModifier */
+        $gravityConversionModifier = $this->getReference(GearModifierConfigFixtures::GRAVITY_CONVERSION_MODIFIER);
+        /** @var VariableEventModifierConfig $gravityCycleModifier */
+        $gravityCycleModifier = $this->getReference(GearModifierConfigFixtures::GRAVITY_CYCLE_MODIFIER);
+        $noGravityRepaired = new ChargeStatusConfig();
+        $noGravityRepaired
+            ->setStatusName(DaedalusStatusEnum::NO_GRAVITY_REPAIRED)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setStartCharge(1)
+            ->setMaxCharge(1)
+            ->setAutoRemove(true)
+            ->setModifierConfigs([
+                $gravityConversionModifier,
+                $gravityCycleModifier,
+            ])
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $manager->persist($noGravityRepaired);
+
         $gameConfig
+            ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
             ->addStatusConfig($scooterCharge)
             ->addStatusConfig($oldFaithfulCharge)
@@ -449,6 +471,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         return [
             GameConfigFixtures::class,
             StatusModifierConfigFixtures::class,
+            GearModifierConfigFixtures::class,
         ];
     }
 }

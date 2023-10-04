@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Status\Listener;
 
-use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

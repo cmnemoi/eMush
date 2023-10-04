@@ -11,6 +11,9 @@ interface VariableEventInterface
     public const SET_VALUE = 'set.value';
     public const ROLL_PERCENTAGE = 'roll.percentage';
 
+    public const GAIN = 'variable.gain';
+    public const LOSS = 'variable.loss';
+
     public function getVariableName(): string;
 
     public function getVariable(): GameVariable;

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Normalizer;
 
+use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
@@ -19,11 +21,14 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
 {
     use NormalizerAwareTrait;
 
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private TranslationServiceInterface $translationService;
 
     public function __construct(
+        GameEquipmentServiceInterface $gameEquipmentService,
         TranslationServiceInterface $translationService
     ) {
+        $this->gameEquipmentService = $gameEquipmentService;
         $this->translationService = $translationService;
     }
 
@@ -57,16 +62,16 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             'id' => $terminal->getId(),
             'key' => $terminalKey,
             'name' => $this->translationService->translate(
-                $terminalKey . '.name',
-                [],
-                'terminal',
-                $daedalus->getLanguage()
+                key: $terminalKey . '.name',
+                parameters: [],
+                domain: 'terminal',
+                language: $daedalus->getLanguage()
             ),
             'tips' => $this->translationService->translate(
-                $terminalKey . '.tips',
-                [],
-                'terminal',
-                $daedalus->getLanguage()
+                key: $terminalKey . '.tips',
+                parameters: [],
+                domain: 'terminal',
+                language: $daedalus->getLanguage()
             ),
             'actions' => $this->normalizeTerminalActions($terminal, $format, $context),
             'sectionTitles' => $this->normalizeTerminalSectionTitles($terminal),
@@ -126,13 +131,28 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             $difficulty = DifficultyEnum::VERY_HARD;
         }
 
+        $advanceDaedalusStatus = AdvanceDaedalus::getActionStatus($daedalus, $this->gameEquipmentService);
+        // we don't want to tell player that arack prevents travel
+        if ($advanceDaedalusStatus === AdvanceDaedalus::ARACK_PREVENTS_TRAVEL) {
+            $advanceDaedalusStatus = AdvanceDaedalus::OK;
+        }
+
         return [
             'difficulty' => $this->translationService->translate(
-                $terminalKey . '.difficulty_' . $difficulty,
-                [],
-                'terminal',
-                $daedalus->getLanguage()
+                key: $terminalKey . '.difficulty_' . $difficulty,
+                parameters: [],
+                domain: 'terminal',
+                language: $daedalus->getLanguage()
             ),
+            'advanceDaedalusStatus' => [
+                'key' => $advanceDaedalusStatus,
+                'text' => $this->translationService->translate(
+                    key: $terminalKey . '.advance_daedalus_status_' . $advanceDaedalusStatus,
+                    parameters: [],
+                    domain: 'terminal',
+                    language: $daedalus->getLanguage()
+                ),
+            ],
         ];
     }
 }

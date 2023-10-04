@@ -75,6 +75,11 @@ export default defineComponent ({
 
         @extend %game-scrollbar;
     }
+
+    &::v-deep em {
+        color: $red;
+    }
+
 }
 
 </style>

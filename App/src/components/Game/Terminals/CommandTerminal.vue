@@ -47,12 +47,12 @@
 
         <section v-if="advanceDaedalusAction">
             <h3>{{ terminal.sectionTitles?.moveDaedalus }}</h3>
-            <div class="move-status">
-                <!-- FOR WARNING ICON: <img src="@/assets/images/att.png" alt="warning"> -->
-                <img src="@/assets/images/info.png" alt="info">
-                <p>Il n'y a pas de fuel dans la Chambre de Combustion ! Le voyage infra-luminique est impossible.</p>
+            <div class="move-status" v-if="terminal.infos.advanceDaedalusStatus">
+                <img src="@/assets/images/att.png" alt="warning" v-if="terminal.infos.advanceDaedalusStatus.isWarning()">
+                <img src="@/assets/images/info.png" alt="info" v-else> 
+                <p v-html="formatText(terminal.infos.advanceDaedalusStatus.text)"></p>
             </div>
-            <div class="action" >
+            <div class="action">
                 <ActionButton
                     :cssClass="'wide'"
                     :key="advanceDaedalusAction.key"

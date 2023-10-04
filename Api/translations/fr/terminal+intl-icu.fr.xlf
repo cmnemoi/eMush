@@ -18,11 +18,11 @@ Si le travail a été bien fait, le Daedalus se placera en orbite d'une planète
       </segment>
       <segment id="orientate_daedalus" state="translated">
         <source>command_terminal.orientate_daedalus</source>
-        <target>Orienter le Daedalus</target>
+        <target>Orientation du Daedalus</target>
       </segment>
       <segment id="move_daedalus" state="translated">
         <source>command_terminal.move_daedalus</source>
-        <target>Déplacer le Daedalus</target>
+        <target>Déplacement du Daedalus</target>
       </segment>
       <segment id="general_informations" state="translated">
         <source>command_terminal.general_informations</source>
@@ -39,6 +39,18 @@ Si le travail a été bien fait, le Daedalus se placera en orbite d'une planète
       <segment id="difficulty_very_hard" state="translated">
         <source>command_terminal.difficulty_very_hard</source>
         <target>Nous voyageons actuellement dans l'**Espace infini**.</target>
+      </segment>
+      <segment id="advance_daedalus_status_ok" state="translated">
+        <source>command_terminal.advance_daedalus_status_ok</source>
+        <target>Les systèmes sont fonctionnels.</target>
+      </segment>
+      <segment id="advance_daedalus_status_no_fuel" state="translated">
+        <source>command_terminal.advance_daedalus_status_no_fuel</source>
+        <target>Il n'y a pas de fuel dans la *Chambre de Combustion* ! Le voyage infra-luminique est impossible.</target>
+      </segment>
+      <segment id="advance_daedalus_status_emergency_reactor_broken" state="translated">
+        <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
+        <target>Le *Réacteur d'urgence* est en rade ! Le voyage infra-luminique est impossible.</target>
       </segment>
     </unit>
   </file>

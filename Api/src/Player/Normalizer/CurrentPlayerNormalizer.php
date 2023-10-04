@@ -132,7 +132,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         }
 
         return array_merge($playerData, [
-            'room' => $this->normalizer->normalize($object->getPlace(), $format, $context),
+            'room' => $this->normalizer->normalize($player->getPlace(), $format, $context),
             'skills' => $player->getSkills(),
             'actions' => $this->getActions($object, $format, $context),
             'items' => $items,

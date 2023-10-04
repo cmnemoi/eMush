@@ -24,6 +24,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
             DaedalusEvent::START_DAEDALUS => 'onDaedalusStart',
             DaedalusEvent::FULL_DAEDALUS => 'onDaedalusFull',
             DaedalusEvent::FINISH_DAEDALUS => 'onDaedalusFinish',
+            DaedalusEvent::TRAVEL_LAUNCHED => 'onTravelLaunched',
         ];
     }
 
@@ -59,5 +60,13 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
 
         $this->daedalusService->startDaedalus($daedalus);
+    }
+
+    public function onTravelLaunched(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $daedalus->setCombustionChamberFuel(0);
+
+        $this->daedalusService->persist($daedalus);
     }
 }

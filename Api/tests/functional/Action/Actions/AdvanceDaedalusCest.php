@@ -442,6 +442,20 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         $I->assertEquals(ActionImpossibleCauseEnum::DAEDALUS_TRAVELING, $this->advanceDaedalusAction->cannotExecuteReason());
     }
 
+    public function testAdvanceDaedalusRemoveFuelInCombustionChamber(FunctionalTester $I): void
+    {
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters(
+            action: $this->advanceDaedalusConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->advanceDaedalusAction->execute();
+
+        // then there is no fuel in the combustion chamber
+        $I->assertEquals(0, $this->daedalus->getCombustionChamberFuel());
+    }
+
     private function createHunterByName(string $hunterName, FunctionalTester $I): Hunter
     {
         /** @var HunterConfig $hunterConfig */

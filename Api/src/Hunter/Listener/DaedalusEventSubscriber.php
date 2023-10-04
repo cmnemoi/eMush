@@ -34,6 +34,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         foreach ($huntersToPutInPool as $hunter) {
             $hunter->putInPool();
         }
+        $this->hunterService->persist($huntersToPutInPool->toArray());
 
         $huntersToDelete = $event->getDaedalus()->getAttackingHunters()->filter(
             fn (Hunter $hunter) => $hunter->getName() !== HunterEnum::TRAX

@@ -9,6 +9,8 @@ use Mush\Player\Entity\Player;
 
 interface HunterServiceInterface
 {
+    public function delete(array $entities): void;
+
     public function findById(int $id): ?Hunter;
 
     public function makeHuntersShoot(HunterCollection $attackingHunters): void;

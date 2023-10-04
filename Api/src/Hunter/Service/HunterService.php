@@ -58,6 +58,14 @@ class HunterService implements HunterServiceInterface
         $this->statusService = $statusService;
     }
 
+    public function delete(array $entities): void
+    {
+        foreach ($entities as $entity) {
+            $this->entityManager->remove($entity);
+        }
+        $this->entityManager->flush();
+    }
+
     public function findById(int $id): ?Hunter
     {
         return $this->entityManager->getRepository(Hunter::class)->find($id);
@@ -210,14 +218,6 @@ class HunterService implements HunterServiceInterface
                 $time
             );
         }
-    }
-
-    private function delete(array $entities): void
-    {
-        foreach ($entities as $entity) {
-            $this->entityManager->remove($entity);
-        }
-        $this->entityManager->flush();
     }
 
     private function getHunterProbaCollection(Daedalus $daedalus, ArrayCollection $hunterTypes): ProbaCollection

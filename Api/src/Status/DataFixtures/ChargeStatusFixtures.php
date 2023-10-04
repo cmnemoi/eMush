@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -52,6 +53,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const HAS_REJUVENATED = 'has_rejuvenated';
     public const PATROL_SHIP_ARMOR = 'patrol_ship_armor';
     public const PASIPHAE_ARMOR = 'pasiphae_armor';
+    public const TRAVELING_STATUS = 'traveling_status';
 
     public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
 
@@ -369,6 +371,18 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($pasiphaeArmor);
 
+        $traveling = new ChargeStatusConfig();
+        $traveling
+            ->setStatusName(DaedalusStatusEnum::TRAVELING)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setStartCharge(1)
+            ->setMaxCharge(1)
+            ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($traveling);
+
         $gameConfig
             ->addStatusConfig($attemptConfig)
             ->addStatusConfig($scooterCharge)
@@ -395,6 +409,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($rejuvenationCharge)
             ->addStatusConfig($patrolShipArmor)
             ->addStatusConfig($pasiphaeArmor)
+            ->addStatusConfig($traveling)
         ;
         $manager->persist($gameConfig);
 
@@ -424,6 +439,9 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::ASTEROID_CHARGE, $asteroidCharge);
         $this->addReference(self::PATROL_SHIP_ARMOR, $patrolShipArmor);
         $this->addReference(self::PASIPHAE_ARMOR, $pasiphaeArmor);
+        $this->addReference(self::TRUCE_CYCLES, $asteroidCharge);
+        $this->addReference(self::HAS_REJUVENATED, $rejuvenationCharge);
+        $this->addReference(self::TRAVELING_STATUS, $traveling);
     }
 
     public function getDependencies(): array

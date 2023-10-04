@@ -21,6 +21,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
     {
         return [
             DaedalusEvent::DELETE_DAEDALUS => ['onDeleteDaedalus', 1000],
+            DaedalusEvent::TRAVEL_LAUNCHED => ['onTravelLaunched', -1], // do this slightly after putting hunters in pool
         ];
     }
 
@@ -35,5 +36,10 @@ class DaedalusSubscriber implements EventSubscriberInterface
             }
             $this->alertService->delete($alert);
         }
+    }
+
+    public function onTravelLaunched(DaedalusEvent $event): void
+    {
+        $this->alertService->handleHunterDeath($event->getDaedalus());
     }
 }

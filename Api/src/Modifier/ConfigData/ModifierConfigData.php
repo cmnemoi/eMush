@@ -1657,6 +1657,7 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 PlayerVariableEnum::MORAL_POINT => ModifierRequirementEnum::ANY_TAGS,
+                VariableEventInterface::LOSS => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
     ];

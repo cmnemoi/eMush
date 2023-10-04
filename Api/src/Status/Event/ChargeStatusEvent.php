@@ -20,7 +20,7 @@ class ChargeStatusEvent extends StatusEvent implements VariableEventInterface
         \DateTime $time
     ) {
         parent::__construct($status, $holder, $tags, $time);
-        $this->quantity = $quantity;
+        $this->setQuantity($quantity);
     }
 
     public function getStatus(): ChargeStatus
@@ -44,6 +44,24 @@ class ChargeStatusEvent extends StatusEvent implements VariableEventInterface
     public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
+
+        if ($quantity < 0) {
+            $key = array_search(VariableEventInterface::GAIN, $this->tags);
+
+            if ($key === false) {
+                $this->tags[] = VariableEventInterface::LOSS;
+            } elseif (!in_array(VariableEventInterface::LOSS, $this->tags)) {
+                $this->tags[$key] = VariableEventInterface::LOSS;
+            }
+        } elseif ($quantity > 0) {
+            $key = array_search(VariableEventInterface::LOSS, $this->tags);
+
+            if ($key === false) {
+                $this->tags[] = VariableEventInterface::GAIN;
+            } elseif (!in_array(VariableEventInterface::GAIN, $this->tags)) {
+                $this->tags[$key] = VariableEventInterface::GAIN;
+            }
+        }
 
         return $this;
     }

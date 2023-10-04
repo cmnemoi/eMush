@@ -15,7 +15,7 @@ use Mush\Tests\FunctionalTester;
 final class TravelEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
-    
+
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);

@@ -1,8 +1,7 @@
 <template>
     <Tippy tag="div">
         <a 
-            :class="isDisabled"
-            class="action-button"
+            :class="['action-button', cssClass, isDisabled].join(' ')"
             href="#">
             <span v-if="action.movementPointCost > 0 && !action.actionPointCost" class="cost">{{ action.movementPointCost }}<img src="@/assets/images/pm.png" alt="mp"></span>
             <span v-else-if="action.actionPointCost > 0 && !action.movementPointCost" class="cost">{{ action.actionPointCost }}<img src="@/assets/images/pa.png" alt="ap"></span>
@@ -24,7 +23,8 @@ import { defineComponent } from "vue";
 
 export default defineComponent ({
     props: {
-        action: Object
+        action: Object,
+        cssClass: String
     },
     computed:
         {
@@ -41,5 +41,8 @@ export default defineComponent ({
     @include button-style();
     display: block;
     margin: 0.2rem;
+}
+.wide {
+    min-width: 10em;
 }
 </style>

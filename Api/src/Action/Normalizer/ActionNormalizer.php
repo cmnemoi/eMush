@@ -153,6 +153,9 @@ class ActionNormalizer implements NormalizerInterface
         if (array_key_exists('hunter', $context)) {
             $actionTarget = $context['hunter'];
         }
+        if (array_key_exists('terminal', $context)) {
+            $actionTarget = $context['terminal'];
+        }
 
         $parameters['actionTarget'] = $actionTarget;
 

@@ -45,7 +45,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         /** @var Place $room */
         $room = $object;
 
-        if (!($currentPlayer = $context['currentPlayer'] ?? null)) {
+        if (!($currentPlayer = $context['currentPlayer'] ?? [])) {
             throw new \LogicException('Current player is missing from context');
         }
 
@@ -89,15 +89,17 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
 
         $language = $room->getDaedalus()->getLanguage();
 
+        $currentPlayerIsFocused = $currentPlayer->getFocusedTerminal() !== null;
+
         return [
             'id' => $room->getId(),
             'key' => $room->getName(),
             'name' => $this->translationService->translate($room->getName() . '.name', [], 'rooms', $language),
-            'statuses' => $statuses,
-            'doors' => $doors,
-            'players' => $players,
-            'items' => $normalizedItems,
-            'equipments' => $normalizedEquipments,
+            'statuses' => !$currentPlayerIsFocused ? $statuses : [],
+            'doors' => !$currentPlayerIsFocused ? $doors : [],
+            'players' => !$currentPlayerIsFocused ? $players : [],
+            'items' => !$currentPlayerIsFocused ? $normalizedItems : [],
+            'equipments' => !$currentPlayerIsFocused ? $normalizedEquipments : [],
             'type' => $room->getType(),
         ];
     }

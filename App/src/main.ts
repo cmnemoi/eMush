@@ -34,12 +34,15 @@ const vueTippyProps = {
     component: 'Tippy',
     defaultProps: {
         placement: 'bottom-start',
+        arrow: false,
         followCursor: true,
         allowHTML: true,
         inlinePositioning: true,
-        duration: [50, 50],
+        animation: 'fade',
+        delay: [400, 0],
+        duration: [150, 100],
         hideOnClick: false,
-        theme:"mush"
+        theme:'mush'
     }
 };
 

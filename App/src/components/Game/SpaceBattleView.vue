@@ -285,6 +285,7 @@ img {
         z-index: 3;
     }
 
+    //Not needed? To confirm
     &.kill {
         opacity: 0;
         background-color: $hit-color;
@@ -293,6 +294,22 @@ img {
         z-index: 3;
     }
 }
+
+
+// "Kill" TransitionGroup Vue prop
+.kill-leave-active {
+    background-color: $hit-color;
+    transition: opacity 1s ease-in 0.3s;
+    animation: hit-shake .5s ease-out 1 forwards;
+}
+
+.kill-leave-to {
+  opacity: 0;
+  z-index: 3;
+}
+
+
+
 
 @keyframes hit-color {
     30% { background-color: #122270; }

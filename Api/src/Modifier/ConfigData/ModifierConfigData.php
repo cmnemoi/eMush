@@ -22,6 +22,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 
@@ -1111,7 +1112,10 @@ class ModifierConfigData
             'targetVariable' => 'movementPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [
+                ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS,
+                DaedalusStatusEnum::NO_GRAVITY => ModifierRequirementEnum::NONE_TAGS,
+            ],
         ],
         [
             'name' => 'antisocial_modifier_for_player_-1moralPoint_on_new_cycle_if_player_in_room_not_alone',

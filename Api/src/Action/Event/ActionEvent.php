@@ -9,6 +9,7 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
 
 class ActionEvent extends AbstractGameEvent
 {
@@ -32,6 +33,11 @@ class ActionEvent extends AbstractGameEvent
         $tags = $action->getActionTags();
         if ($actionTarget !== null) {
             $tags[] = $actionTarget->getLogName();
+        }
+
+        $daedalus = $this->author->getDaedalus();
+        if ($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY) || $daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY_REPAIRED)) {
+            $tags[] = DaedalusStatusEnum::NO_GRAVITY;
         }
 
         parent::__construct($tags, new \DateTime());

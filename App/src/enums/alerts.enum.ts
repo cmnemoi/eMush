@@ -1,4 +1,5 @@
 export const NO_ALERT = 'no_alert';
+const GRAVITY_REBOOT = 'gravity_reboot';
 const LOW_OXYGEN = 'low_oxygen';
 const LOW_HULL = 'low_hull';
 const FIRES = 'fires';
@@ -16,6 +17,7 @@ export const AlertsIcons: {[index: string]: string} = {
     [BROKEN_DOORS]: require('@/assets/images/alerts/door.png'),
     [BROKEN_EQUIPMENTS]: require('@/assets/images/alerts/broken.png'),
     [NO_GRAVITY]: require('@/assets/images/alerts/simulator.png'),
+    [GRAVITY_REBOOT]: require('@/assets/images/alerts/simulatorReboot.png'),
     [HUNGER]: require('@/assets/images/alerts/hunger.png'),
     [HUNTER]: require('@/assets/images/alerts/hunter.png')
 }

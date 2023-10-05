@@ -177,7 +177,7 @@ class StatusSubscriberCest
             new \DateTime()
         );
 
-        $I->SeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
+        $I->SeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::GRAVITY_REBOOT]);
         $I->assertCount(1, $daedalus->getStatuses());
         $I->assertTrue($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY_REPAIRED));
         $I->assertFalse($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY));

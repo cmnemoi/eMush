@@ -181,7 +181,7 @@ class AlertServiceTest extends TestCase
         $this->entityManager->shouldReceive('remove')->never();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->alertService->gravityAlert($daedalus, true);
+        $this->alertService->gravityAlert($daedalus, AlertEnum::BREAK);
     }
 
     public function testRepairGravityAlert()
@@ -197,11 +197,31 @@ class AlertServiceTest extends TestCase
             ->once()
         ;
 
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('remove')->never();
+        $this->entityManager->shouldReceive('flush')->once();
+
+        $this->alertService->gravityAlert($daedalus, AlertEnum::REPAIR);
+    }
+
+    public function testRebootGravityAlert()
+    {
+        $daedalus = new Daedalus();
+
+        $alert = new Alert();
+        $alert->setDaedalus($daedalus)->setName(AlertEnum::GRAVITY_REBOOT);
+
+        $this->repository->shouldReceive('findOneBy')
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::GRAVITY_REBOOT])
+            ->andReturn($alert)
+            ->once()
+        ;
+
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->with($alert)->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->alertService->gravityAlert($daedalus, false);
+        $this->alertService->gravityAlert($daedalus, AlertEnum::REBOOT);
     }
 
     public function testBrokenEquipmentAlert()

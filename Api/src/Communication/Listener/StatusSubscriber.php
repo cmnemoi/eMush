@@ -2,12 +2,14 @@
 
 namespace Mush\Communication\Listener;
 
+use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Enum\EventEnum;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -31,6 +33,7 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         return [
             StatusEvent::STATUS_APPLIED => 'onStatusApplied',
+            StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
         ];
     }
 
@@ -70,6 +73,25 @@ class StatusSubscriber implements EventSubscriberInterface
             case StatusEnum::FIRE:
                 $daedalus = $event->getDaedalus();
                 $this->neronMessageService->createNewFireMessage($daedalus, $event->getTime());
+
+                return;
+        }
+    }
+
+    public function onStatusRemoved(StatusEvent $event): void
+    {
+        $holder = $event->getStatusHolder();
+
+        switch ($event->getStatusName()) {
+            case DaedalusStatusEnum::NO_GRAVITY_REPAIRED:
+                $daedalus = $event->getDaedalus();
+
+                $this->neronMessageService->createNeronMessage(
+                    NeronMessageEnum::RESTART_GRAVITY,
+                    $daedalus,
+                    [],
+                    $event->getTime()
+                );
 
                 return;
         }

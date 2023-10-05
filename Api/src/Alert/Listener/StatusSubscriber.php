@@ -2,6 +2,7 @@
 
 namespace Mush\Alert\Listener;
 
+use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -55,7 +56,12 @@ class StatusSubscriber implements EventSubscriberInterface
                 return;
 
             case DaedalusStatusEnum::NO_GRAVITY:
-                $this->alertService->gravityAlert($holder->getDaedalus(), true);
+                $this->alertService->gravityAlert($holder->getDaedalus(), AlertEnum::BREAK);
+
+                return;
+
+            case DaedalusStatusEnum::NO_GRAVITY_REPAIRED:
+                $this->alertService->gravityAlert($holder->getDaedalus(), AlertEnum::REPAIR);
 
                 return;
         }
@@ -81,8 +87,8 @@ class StatusSubscriber implements EventSubscriberInterface
 
                 return;
 
-            case DaedalusStatusEnum::NO_GRAVITY:
-                $this->alertService->gravityAlert($holder->getDaedalus(), true);
+            case DaedalusStatusEnum::NO_GRAVITY_REPAIRED:
+                $this->alertService->gravityAlert($holder->getDaedalus(), AlertEnum::GRAVITY_REBOOT);
 
                 return;
         }

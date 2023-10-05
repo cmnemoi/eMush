@@ -10,6 +10,7 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Action\Repository\ActionRepository;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -576,9 +577,11 @@ class ActionServiceTest extends TestCase
             ->setMaxMovementPoint(12)
             ->setInitMovementPoint($movementPoint)
         ;
+        $daedalus = new Daedalus();
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
+            ->setDaedalus($daedalus)
         ;
 
         return $player;

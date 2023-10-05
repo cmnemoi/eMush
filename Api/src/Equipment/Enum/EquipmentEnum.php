@@ -54,6 +54,10 @@ class EquipmentEnum
     public const CAMERA_EQUIPMENT = 'camera_equipment';
     public const TABULATRIX = 'tabulatrix';
 
+    public static array $terminalSectionTitlesMap = [
+        self::COMMAND_TERMINAL => ['orientate_daedalus', 'move_daedalus', 'general_informations'],
+    ];
+
     public static function getBeds(): array
     {
         return [

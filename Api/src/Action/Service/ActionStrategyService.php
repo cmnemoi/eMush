@@ -75,6 +75,7 @@ class ActionStrategyService implements ActionStrategyServiceInterface
             if (($equipmentId = $actionTarget['door'] ?? null)
                 || ($equipmentId = $actionTarget['item'] ?? null)
                 || ($equipmentId = $actionTarget['equipment'] ?? null)
+                || ($equipmentId = $actionTarget['terminal'] ?? null)
             ) {
                 return $this->equipmentService->findById($equipmentId);
             }

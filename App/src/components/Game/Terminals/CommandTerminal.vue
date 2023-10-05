@@ -1,7 +1,7 @@
 <template>
-    <div class="command-terminal-container">
-        <section>
-            <h3>Orienter le Daedalus</h3>
+    <div class="command-terminal-container" v-if="terminal">
+        <section style="display:none;">
+            <h3>{{ terminal.sectionTitles?.orientateDaedalus }}</h3>
             <p class="daedalus-current-orientation">Le Daedalus pointe actuellement vers : <strong>Nord</strong>.</p>
             <div class="orientation-choice">
                 <label class="orientation-choice-box-label">
@@ -45,18 +45,20 @@
             </div>
         </section>
 
-        <section>
-            <h3>Déplacer le Daedalus</h3>
-            <div class="move-status">
-                <!-- FOR WARNING ICON: <img src="@/assets/images/att.png" alt="warning"> -->
-                <img src="@/assets/images/info.png" alt="info">
-                <p>Il n'y a pas de fuel dans la Chambre de Combustion ! Le voyage infra-luminique est impossible.</p>
+        <section v-if="advanceDaedalusAction">
+            <h3>{{ terminal.sectionTitles?.moveDaedalus }}</h3>
+            <div class="move-status" v-if="terminal.infos.advanceDaedalusStatus">
+                <img src="@/assets/images/att.png" alt="warning" v-if="terminal.infos.advanceDaedalusStatus.isWarning()">
+                <img src="@/assets/images/info.png" alt="info" v-else> 
+                <p v-html="formatText(terminal.infos.advanceDaedalusStatus.text)"></p>
             </div>
             <div class="action">
-                <button>
-                    <span class="cost">1<img src="@/assets/images/pa.png" alt="ap"></span>
-                    <span>Voyager</span>
-                </button>
+                <ActionButton
+                    :cssClass="'wide'"
+                    :key="advanceDaedalusAction.key"
+                    :action="advanceDaedalusAction"
+                    @click="executeTargetAction(target, advanceDaedalusAction)"
+                />
             </div>
         </section>
 
@@ -72,22 +74,63 @@
         </section> -->
 
         <section>
-            <h3>Informations générales</h3>
-            <p>Nous voyageons actuellement dans l'<strong>Espace proche</strong>.</p>
+            <h3>{{ terminal.sectionTitles?.generalInformations }}</h3>
+            <p v-html="formatText(terminal.infos?.difficulty)"></p>
         </section>
     </div>
 </template>
 
 <script lang="ts">
+import { Terminal } from "@/entities/Terminal";
 import { defineComponent } from "vue";
+import { formatText } from "@/utils/formatText";
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import { Action } from "@/entities/Action";
+import { ActionEnum } from "@/enums/action.enum";
+import { mapActions } from "vuex";
+
 
 export default defineComponent ({
     name: "CommandTerminal",
+    computed: {
+        advanceDaedalusAction(): Action {
+            const action = this.terminal?.actions.find(action => action.key === ActionEnum.ADVANCE_DAEDALUS);
+            if (!action) throw new Error(`No advance_daedalus action found for terminal ${this.terminal?.key}`);
+
+            return action;
+        },
+        target(): Terminal {
+            return this.terminal;
+        }
+    },
+    props: {
+        terminal: {
+            type: Terminal,
+            required: true
+        }
+    },
+    methods: {
+        ...mapActions({
+            'executeAction': 'action/executeAction',
+        }),
+        async executeTargetAction(target: Terminal, action: Action): Promise<void> {
+            if(action.canExecute) {
+                await this.executeAction({ target, action });
+            }
+        },
+        formatText(text: string | null): string {
+            if (!text)
+                return '';
+            return formatText(text);
+        }
+    },
     data() {
         return {
+            ActionEnum,
             chosenOrientation: 'Nord'
         };
     },
+    components: { ActionButton }
 });
 </script>
 
@@ -150,11 +193,6 @@ section {
     flex-direction: row;
     justify-content: space-evenly;
     margin-top: 0.6em;
-
-    button {
-        @include button-style;
-        min-width: 10em;
-    }
 }
 
 </style>

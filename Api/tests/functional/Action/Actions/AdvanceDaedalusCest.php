@@ -9,6 +9,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -39,6 +40,7 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
     private GameEquipment $emergencyReactor;
     private Place $bridge;
     private StatusServiceInterface $statusService;
+    private AlertServiceInterface $alertService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -48,6 +50,7 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         $this->advanceDaedalusAction = $I->grabService(AdvanceDaedalus::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
+        $this->alertService = $I->grabService(AlertServiceInterface::class);
 
         $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => DaedalusStatusEnum::TRAVELING]);
 
@@ -466,6 +469,8 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         $this->daedalus->addHunter($hunter);
 
         $I->haveInRepository($hunter);
+
+        $this->alertService->handleHunterArrival($this->daedalus);
 
         return $hunter;
     }

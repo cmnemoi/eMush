@@ -7,7 +7,7 @@ import { Character } from "@/entities/Character";
 import { QuantityPoint } from "@/entities/QuantityPoint";
 import { SpaceBattle } from "./SpaceBattle";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
-import { TerminalEnum } from "@/enums/terminal.enum";
+import { Terminal } from "@/entities/Terminal";
 
 export class Player {
     public id!: number;
@@ -25,6 +25,7 @@ export class Player {
     public actions: Array<Action>;
     public room: Room|null;
     public spaceBattle: SpaceBattle|null;
+    public terminal: Terminal|null;
 
     public constructor() {
         this.gameStatus = null;
@@ -41,6 +42,7 @@ export class Player {
         this.actions = [];
         this.room = null;
         this.spaceBattle = null;
+        this.terminal = null;
     }
 
     public load(object: any): Player {
@@ -78,6 +80,9 @@ export class Player {
             }
             if (object.spaceBattle !== null && typeof object.spaceBattle !== 'undefined') {
                 this.spaceBattle = (new SpaceBattle()).load(object.spaceBattle);
+            }
+            if (object.terminal) {
+                this.terminal = (new Terminal()).load(object.terminal);
             }
             if (typeof object.items !== 'undefined') {
                 object.items.forEach((itemObject: any) => {
@@ -154,18 +159,5 @@ export class Player {
         return this.statuses.filter((status: Status) => {
             return status.key === StatusPlayerNameEnum.FOCUSED && status.target?.key === terminal;
         }).length > 0;
-    }
-
-    // @TODO: in the future, translate and normalize directly terminal name from back end.
-    public getFocusedTerminalName(): string|undefined|null {
-        const status = this.statuses.filter((status: Status) => {
-            return status.key === StatusPlayerNameEnum.FOCUSED;
-        });
-
-        if (status.length > 0 && Object.values(TerminalEnum).includes(status[0].target?.key as TerminalEnum)) {
-            return status[0].target?.key;
-        }
-
-        return null;
     }
 }

@@ -4,7 +4,6 @@ namespace Mush\Hunter\Listener;
 
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Hunter\Service\HunterServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -15,7 +14,6 @@ class HunterSubscriber implements EventSubscriberInterface
     private NeronMessageServiceInterface $neronMessageService;
 
     public function __construct(
-        EventServiceInterface $eventService,
         HunterServiceInterface $hunterService,
         NeronMessageServiceInterface $neronMessageService,
     ) {

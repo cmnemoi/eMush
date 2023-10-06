@@ -146,13 +146,9 @@ class HunterService implements HunterServiceInterface
         $hunterTypes = HunterEnum::getAll();
         $wave = new HunterCollection();
 
-        while ($hunterPoints > 0) {
+        while ($hunterPoints >= $this->getMinCost($daedalus, $hunterTypes)) {
             $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, $hunterTypes);
 
-            // do not create a hunter if not enough points
-            if ($hunterPoints < $hunterProbaCollection->minElement()) {
-                break;
-            }
             $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaCollection(
                 $hunterProbaCollection
             );
@@ -160,7 +156,10 @@ class HunterService implements HunterServiceInterface
                 break;
             }
 
-            $hunter = $this->createHunterFromName($daedalus, $hunterNameToCreate);
+            $hunter = $this->drawHunterFromPoolByName($daedalus, $hunterNameToCreate);
+            if (!$hunter) {
+                $hunter = $this->createHunterFromName($daedalus, $hunterNameToCreate);
+            }
 
             // do not create a hunter if max per wave is reached
             $maxPerWave = $hunter->getHunterConfig()->getMaxPerWave();
@@ -220,6 +219,22 @@ class HunterService implements HunterServiceInterface
         }
     }
 
+    private function drawHunterFromPoolByName(Daedalus $daedalus, string $hunterName): ?Hunter
+    {
+        $hunterPool = $daedalus->getHunterPool()->getAllHuntersByType($hunterName);
+
+        if ($hunterPool->isEmpty()) {
+            return null;
+        }
+
+        $draw = $this->randomService->getRandomElements($hunterPool->toArray(), number: 1);
+        $hunter = reset($draw);
+
+        $hunter->unpool();
+
+        return $hunter;
+    }
+
     private function getHunterProbaCollection(Daedalus $daedalus, ArrayCollection $hunterTypes): ProbaCollection
     {
         $difficultyMode = $daedalus->getDifficultyMode();
@@ -242,6 +257,26 @@ class HunterService implements HunterServiceInterface
         }
 
         return $probaCollection;
+    }
+
+    private function getMinCost(Daedalus $daedalus, ArrayCollection $hunterTypes): int
+    {
+        $minCost = 0;
+        foreach ($hunterTypes as $hunterType) {
+            $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterType);
+            if (!$hunterConfig) {
+                $this->logger->error("Hunter config not found for hunter name $hunterType", [
+                    'daedalus' => $daedalus->getId(),
+                ]);
+                continue;
+            }
+
+            if ($minCost === 0 || $minCost > $hunterConfig->getDrawCost()) {
+                $minCost = $hunterConfig->getDrawCost();
+            }
+        }
+
+        return $minCost;
     }
 
     private function getHunterDamage(Hunter $hunter): ?int

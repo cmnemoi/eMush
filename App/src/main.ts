@@ -41,7 +41,7 @@ const vueTippyProps = {
         animation: 'fade',
         delay: [600, 80],
         duration: [150, 300],
-        hideOnClick: false,
+        hideOnClick: true,
         theme:'mush'
     }
 };

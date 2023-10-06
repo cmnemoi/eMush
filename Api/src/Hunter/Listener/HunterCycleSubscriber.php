@@ -3,9 +3,7 @@
 namespace Mush\Hunter\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Service\CycleServiceInterface;
-use Mush\Game\Service\DifficultyServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Hunter\Event\HunterCycleEvent;
@@ -16,20 +14,17 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class HunterCycleSubscriber implements EventSubscriberInterface
 {
     private CycleServiceInterface $cycleService;
-    private DifficultyServiceInterface $difficultyService;
     private EventServiceInterface $eventService;
     private HunterServiceInterface $hunterService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         CycleServiceInterface $cycleService,
-        DifficultyServiceInterface $difficultyService,
         EventServiceInterface $eventService,
         HunterServiceInterface $hunterService,
         RandomServiceInterface $randomService
     ) {
         $this->cycleService = $cycleService;
-        $this->difficultyService = $difficultyService;
         $this->eventService = $eventService;
         $this->hunterService = $hunterService;
         $this->randomService = $randomService;
@@ -47,8 +42,6 @@ class HunterCycleSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
         $attackingHunters = $daedalus->getAttackingHunters();
         $this->hunterService->makeHuntersShoot($attackingHunters);
-
-        $this->difficultyService->updateDaedalusDifficultyPoints($daedalus, DaedalusVariableEnum::HUNTER_POINTS);
 
         $currentTime = $event->getTime();
         if (!$this->canHuntersSpawn($daedalus, $currentTime)) {

@@ -18,34 +18,36 @@
 
             <div class="daedalus-info">
                 <ul>
-                    <Tippy tag="div">
-                        <li>{{ daedalus.oxygen.quantity }} <img src="@/assets/images/o2.png"></li>
-                        <template #content>
-                            <h1 v-html="formatContent(daedalus.oxygen.name)" />
-                            <p v-html="formatContent(daedalus.oxygen.description)" />
-                        </template>
-                    </Tippy>
-                    <Tippy tag="div">
-                        <li>{{ daedalus.fuel.quantity }} <img src="@/assets/images/fuel.png"></li>
-                        <template #content>
-                            <h1 v-html="formatContent(daedalus.fuel.name)" />
-                            <p v-html="formatContent(daedalus.fuel.description)" />
-                        </template>
-                    </Tippy>
-                    <Tippy tag="div">
-                        <li>{{ daedalus.hull.quantity }} <img src="@/assets/images/shield.png"></li>
-                        <template #content>
-                            <h1 v-html="formatContent(daedalus.hull.name)" />
-                            <p v-html="formatContent(daedalus.hull.description)" />
-                        </template>
-                    </Tippy>
-                    <Tippy tag="div">
-                        <li>{{ player.triumph?.quantity }} <img src="@/assets/images/triumph.png"></li>
-                        <template #content>
-                            <h1 v-html="player?.triumph?.name" />
-                            <p v-html="player?.triumph?.description" />
-                        </template>
-                    </Tippy>
+                    <tippy-singleton>
+                        <Tippy tag="li">
+                            <span>{{ daedalus.oxygen.quantity }} <img src="@/assets/images/o2.png"></span>
+                            <template #content>
+                                <h1 v-html="formatContent(daedalus.oxygen.name)" />
+                                <p v-html="formatContent(daedalus.oxygen.description)" />
+                            </template>
+                        </Tippy>
+                        <Tippy tag="li">
+                            <span>{{ daedalus.fuel.quantity }} <img src="@/assets/images/fuel.png"></span>
+                            <template #content>
+                                <h1 v-html="formatContent(daedalus.fuel.name)" />
+                                <p v-html="formatContent(daedalus.fuel.description)" />
+                            </template>
+                        </Tippy>
+                        <Tippy tag="li">
+                            <span>{{ daedalus.hull.quantity }} <img src="@/assets/images/shield.png"></span>
+                            <template #content>
+                                <h1 v-html="formatContent(daedalus.hull.name)" />
+                                <p v-html="formatContent(daedalus.hull.description)" />
+                            </template>
+                        </Tippy>
+                        <Tippy tag="li">
+                            <span>{{ player.triumph?.quantity }} <img src="@/assets/images/triumph.png"></span>
+                            <template #content>
+                                <h1 v-html="player?.triumph?.name" />
+                                <p v-html="player?.triumph?.description" />
+                            </template>
+                        </Tippy>
+                    </tippy-singleton>
                 </ul>
             </div>
             <div class="daedalus-crew">

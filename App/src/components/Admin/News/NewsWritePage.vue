@@ -3,35 +3,35 @@
         <table>
             <tbody>
                 <tr>
-                    <td>{{ $t('admin.newsWrite.frenchTitle') }}</td>
+                    <th>{{ $t('admin.newsWrite.frenchTitle') }}</th>
                     <td><Input v-model="news.frenchTitle" :errors="errors.frenchTitle" /></td>
                 </tr>
                 <tr>
-                    <td>{{ $t('admin.newsWrite.englishTitle') }}</td>
+                    <th>{{ $t('admin.newsWrite.englishTitle') }}</th>
                     <td><Input v-model="news.englishTitle" :errors="errors.englishTitle"/></td>
                 </tr>
                 <tr>
-                    <td>{{ $t('admin.newsWrite.spanishTitle') }}</td>
+                    <th>{{ $t('admin.newsWrite.spanishTitle') }}</th>
                     <td><Input v-model="news.spanishTitle" :errors="errors.spanishTitle"/></td>
                 </tr>
                 <tr>
-                    <td>{{ $t('admin.newsWrite.frenchContent') }}</td>
+                    <th>{{ $t('admin.newsWrite.frenchContent') }}</th>
                     <td><textarea v-model="news.frenchContent" /></td>
                 </tr>
                 <tr>
-                    <td>{{ $t('admin.newsWrite.englishContent') }}</td>
+                    <th>{{ $t('admin.newsWrite.englishContent') }}</th>
                     <td><textarea v-model="news.englishContent" /></td>
                 </tr>
                 <tr>
-                    <td>{{ $t('admin.newsWrite.spanishContent') }}</td>
+                    <th>{{ $t('admin.newsWrite.spanishContent') }}</th>
                     <td><textarea v-model="news.spanishContent" /></td>
                 </tr>
             </tbody>
         </table>
         <button class="action-button"
+                :disabled="!news.frenchTitle || !news.frenchContent"
                 type="submit"
-                @click="update"
-                v-if="news.frenchTitle && news.frenchContent">
+                @click="update">
             {{ $t('admin.save') }}
         </button>
     </div>
@@ -113,29 +113,27 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-    table {
+
+table {
     background: #222b6b;
-    border-radius: 5px;
+    // border-radius: 5px;
     border-collapse: collapse;
     border: thin solid #1B2256;
     margin-bottom: 1%;
 
     tbody tr {
         border-top: 1px solid rgba(0,0,0,0.2);
+    }
 
-        &:hover,
-        &:active { background: rgba(255, 255, 255, .03); }
-
-        textarea {
-            background: transparent;
-            border: thin solid rgba(255, 255, 255, .25);
-            color: #fff;
-            font-size: 1.2em;
-            font-weight: 300;
-            letter-spacing: .05em;
-            padding: 0.5em 0.5em 0.5em 0;
-            width: 100%;
-        }
+    textarea {
+        background: transparent;
+        border: thin solid rgba(255, 255, 255, .25);
+        color: #fff;
+        line-height: 1.4em;
+        padding: 0.4em;
+        width: 100%;
+        height: 16em;
+        resize: vertical;
     }
 
     th, td {
@@ -149,12 +147,11 @@ export default defineComponent({
     }
 
     th {
-        position: relative;
-        opacity: .75;
+        // opacity: .75;
         letter-spacing: .05em;
         text-align: left;
         font-weight: bold;
-        border-bottom: 1px solid rgba(255, 255, 255, .75);
+        width: 20%;
     }
 
 }

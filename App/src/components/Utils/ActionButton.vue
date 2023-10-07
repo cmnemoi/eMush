@@ -11,7 +11,7 @@
             <span v-if="action.successRate < 100" class="success-rate"> ({{ action.successRate }}%)</span>
         </a>
         <template #content>
-            <h1 v-html="formatContent(action.name)" /><br />
+            <h1 v-html="formatContent(action.name)" />
             <p v-html="formatContent(action.description)" />
             <!--<p v-else v-html="formatContent(action_fail.description)"> </p>-->
         </template>

@@ -39,7 +39,7 @@ const vueTippyProps = {
         allowHTML: true,
         inlinePositioning: true,
         animation: 'fade',
-        delay: [600, 80],
+        delay: [300, 80],
         duration: [150, 300],
         hideOnClick: true,
         theme:'mush'

@@ -9,7 +9,6 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Communication\Event\MessageEvent;
-use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -23,6 +22,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 
@@ -646,7 +646,7 @@ class ModifierConfigData
             'tagConstraints' => [ActionEnum::CONTACT_SOL => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
-            'name' => 'modifier_for_daedalus_+1movementPoint_on_event_action_movement_conversion',
+            'name' => 'modifier_for_daedalus_-1movementPoint_on_event_action_movement_conversion',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
@@ -656,25 +656,26 @@ class ModifierConfigData
             'type' => 'variable_event_modifier',
             'triggeredEvent' => null,
             'visibility' => null,
-            'delta' => -1.0,
+            'delta' => 1.0,
             'targetVariable' => 'movementPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
-            'name' => 'modifier_for_daedalus_+1movementPoint_on_change.variable_if_reason_new_cycle',
+            'name' => 'modifier_for_daedalus_-1movementPoint_on_change.variable_if_reason_new_cycle',
             'modifierName' => null,
-            'targetEvent' => DaedalusCycleEvent::DAEDALUS_NEW_CYCLE,
-            'strategy' => ModifierStrategyEnum::ADD_EVENT,
-            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
-            'applyOnTarget' => true,
+            'targetEvent' => 'change.variable',
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
             'modifierRange' => 'daedalus',
-            'type' => 'trigger_event_modifier',
-            'replaceEvent' => false,
-            'triggeredEvent' => 'change.variable_player_1_movementPoint',
+            'type' => 'variable_event_modifier',
+            'delta' => -1.0,
+            'targetVariable' => 'oxygen',
+            'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [],
+            'tagConstraints' => ['base_player_cycle_change' => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'modifier_for_daedalus_+1oxygen_on_change.variable_if_reason_new_cycle',
@@ -1111,7 +1112,10 @@ class ModifierConfigData
             'targetVariable' => 'movementPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [
+                ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS,
+                DaedalusStatusEnum::NO_GRAVITY => ModifierRequirementEnum::NONE_TAGS,
+            ],
         ],
         [
             'name' => 'antisocial_modifier_for_player_-1moralPoint_on_new_cycle_if_player_in_room_not_alone',

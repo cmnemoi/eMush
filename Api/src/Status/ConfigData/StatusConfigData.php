@@ -911,5 +911,31 @@ class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
         ],
+        [
+            'name' => 'no_gravity_repaired_default',
+            'statusName' => 'no_gravity_repaired',
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+            'maxCharge' => 1,
+            'startCharge' => 1,
+            'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
+            'autoRemove' => true,
+            'modifierConfigs' => [
+                'modifier_for_daedalus_-1movementPoint_on_change.variable_if_reason_new_cycle',
+                'modifier_for_daedalus_-1movementPoint_on_event_action_movement_conversion',
+            ],
+        ],
+        [
+            'name' => 'no_gravity_default',
+            'statusName' => 'no_gravity',
+            'visibility' => 'hidden',
+            'type' => 'status_config',
+            'modifierConfigs' => [
+                'modifier_for_daedalus_-1movementPoint_on_change.variable_if_reason_new_cycle',
+                'modifier_for_daedalus_-1movementPoint_on_event_action_movement_conversion',
+            ],
+        ],
     ];
 }

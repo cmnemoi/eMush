@@ -2,6 +2,7 @@
 
 namespace Mush\Tests\functional\Alert\Listener;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
@@ -27,23 +28,33 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 
 class StatusSubscriberCest
 {
     private StatusSubscriber $statusSubscriber;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         $this->statusSubscriber = $I->grabService(StatusSubscriber::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testBreakGravitySimulator(FunctionalTester $I)
     {
+        $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
+        $noGravityConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => DaedalusStatusEnum::NO_GRAVITY]);
+        $noGravityRepairedConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => DaedalusStatusEnum::NO_GRAVITY_REPAIRED]);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'statusConfigs' => new ArrayCollection([$statusConfig, $noGravityConfig, $noGravityRepairedConfig]),
+        ]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -80,22 +91,29 @@ class StatusSubscriberCest
 
         $I->haveInRepository($gravitySimulator);
 
-        $brokenConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
-        $statusEvent = new StatusEvent(
-            new Status($gravitySimulator, $brokenConfig),
+        $this->statusService->createStatusFromName(
+            EquipmentStatusEnum::BROKEN,
             $gravitySimulator,
             [ActionEnum::SABOTAGE],
             new \DateTime()
         );
-        $this->statusSubscriber->onStatusApplied($statusEvent);
 
         $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
+        $I->assertCount(1, $daedalus->getStatuses());
+        $I->assertFalse($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY_REPAIRED));
+        $I->assertTrue($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY));
     }
 
     public function testFixGravitySimulator(FunctionalTester $I)
     {
+        $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
+        $noGravityConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => DaedalusStatusEnum::NO_GRAVITY]);
+        $noGravityRepairedConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => DaedalusStatusEnum::NO_GRAVITY_REPAIRED]);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'statusConfigs' => new ArrayCollection([$statusConfig, $noGravityConfig, $noGravityRepairedConfig]),
+        ]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -129,8 +147,10 @@ class StatusSubscriberCest
             ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
             ->setEquipment($gravitySimulatorConfig)
         ;
-
         $I->haveInRepository($gravitySimulator);
+
+        $broken = new Status($gravitySimulator, $statusConfig);
+        $I->haveInRepository($broken);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::NO_GRAVITY);
@@ -150,16 +170,17 @@ class StatusSubscriberCest
 
         $I->haveInRepository($alertBroken);
 
-        $brokenConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
-        $statusEvent = new StatusEvent(
-            new Status($gravitySimulator, $brokenConfig),
+        $this->statusService->removeStatus(
+            EquipmentStatusEnum::BROKEN,
             $gravitySimulator,
-            [ActionEnum::REPAIR],
+            [ActionEnum::SABOTAGE],
             new \DateTime()
         );
-        $this->statusSubscriber->onStatusRemoved($statusEvent);
 
-        $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
+        $I->SeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::GRAVITY_REBOOT]);
+        $I->assertCount(1, $daedalus->getStatuses());
+        $I->assertTrue($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY_REPAIRED));
+        $I->assertFalse($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY));
     }
 
     public function testBreakEquipment(FunctionalTester $I)

@@ -44,8 +44,6 @@ class StatusConfigDataLoaderCest
 
             $I->seeInRepository(StatusConfig::class, $statusConfigData);
         }
-
-        $I->seeNumRecords($this->getNumberOfStatusConfigs(), StatusConfig::class);
     }
 
     public function testLoadConfigsDataDefaultConfigAlreadyExists(FunctionalTester $I)

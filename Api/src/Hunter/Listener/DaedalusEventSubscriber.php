@@ -48,17 +48,13 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             fn (Hunter $hunter) => $hunter->getName() !== HunterEnum::TRAX
         );
         $this->hunterService->delete($huntersToDelete->toArray());
-
-        $pooledHunter = $huntersToPutInPool->first();
-        if ($pooledHunter) {
-            $daedalus->setHunterPoints(intval($huntersToPutInPool->count() * $pooledHunter->getHunterConfig()->getDrawCost() / 2));
-            $this->hunterService->persist([$daedalus]);
-        }
     }
 
     public function onTravelFinished(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
+
+        $daedalus->setHunterPoints(intval($daedalus->getHunterPoints() / 2));
 
         $hunterPoolEvent = new HunterPoolEvent(
             $daedalus,

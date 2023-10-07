@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Status\Listener;
 
-use Mush\Daedalus\Enum\DaedalusStatusEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

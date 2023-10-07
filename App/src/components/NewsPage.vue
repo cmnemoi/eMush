@@ -3,33 +3,37 @@
         <div class="janice">
             <img src="@/assets/images/janice.png" alt="Janice">
         </div>
-        <div :class="item.hidden ? 'news hidden' : 'news'"
-             v-for="item in news" 
-             :key="item.id"
-        >
-            <div class="news-french-title" v-if="localeIsFrench()" @click="toggleNews(item)">
-                <h2>{{ item.frenchTitle }}</h2>
-                <p>{{ $t('newsPage.updatedAt') }} {{ formatDate(item.updatedAt) }}</p>
+        <div class="news-feed">
+            <section :class="item.hidden ? 'news hidden' : 'news'"
+                     v-for="item in news" 
+                     :key="item.id"
+            >
+                <div class="news-french title" v-if="localeIsFrench()" @click="toggleNews(item)">
+                    <img class="news-cover" src="@/assets/images/mush-cover.png">
+                    <h2>{{ item.frenchTitle }}</h2>
+                    <p><img class="flag" src="@/assets/images/lang_fr.png" alt="🇫🇷"> {{ $t('newsPage.updatedAt') }} {{ formatDate(item.updatedAt) }}</p>
+                </div>
+                <div class="news-french content" v-if="localeIsFrench()">
+                    <p v-html="item.frenchContent" />
+                </div>
+                <div class="news-english title" v-if="localeIsEnglish()" @click="toggleNews(item)">
+                    <img class="news-cover" src="@/assets/images/mush-cover.png">
+                    <h2>{{ item.englishTitle }}</h2>
+                    <p><img class="flag" src="@/assets/images/lang_en.png" alt="🇬🇧"> {{ $t('newsPage.updatedAt') }} {{ formatDate(item.updatedAt) }}</p>
+                </div>
+                <div class="news-english content" v-if="localeIsEnglish()">
+                    <p v-html="item.englishContent" />
+                </div>
+            </section>
+            <div class="pagination-container">
+                <Pagination
+                    :page-count="Math.ceil(pagination.totalPage)"
+                    :click-handler="paginationClick"
+                    :prev-text="$t('util.prev')"
+                    :next-text="$t('util.next')"
+                    :container-class="'className'"
+                ></Pagination>
             </div>
-            <div class="news-french-content" v-if="localeIsFrench()">
-                <p v-html="item.frenchContent" />
-            </div>
-            <div class="news-english-title" v-if="localeIsEnglish()" @click="toggleNews(item)">
-                <h2>{{ item.englishTitle }}</h2>
-                <p>{{ $t('newsPage.updatedAt') }} {{ formatDate(item.updatedAt) }}</p>
-            </div>
-            <div class="news-english-content" v-if="localeIsEnglish()">
-                <p v-html="item.englishContent" />
-            </div>
-        </div>
-        <div class="pagination-container">
-            <Pagination
-                :page-count="Math.ceil(pagination.totalPage)"
-                :click-handler="paginationClick"
-                :prev-text="$t('util.prev')"
-                :next-text="$t('util.next')"
-                :container-class="'className'"
-            ></Pagination>
         </div>
     </div>
 </template>
@@ -148,7 +152,7 @@ export default defineComponent ({
 <style lang="scss">
 
 .news-container {
-    display: grid;
+    flex-direction: row;
     position: relative;
     max-width: 1080px;
     width: 100%;
@@ -162,42 +166,65 @@ export default defineComponent ({
 }
 
 .janice {
-    grid-column: 1;
-    grid-row: 1 / 2;
-    width: 250px;
+    width: fit-content;
 }
 
+.news-feed { padding: 0.6em; }
+
 .news {
-    grid-column: 2 / 200;
     border: 1px solid #576077;
     background-color: #222b6b;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
-    padding: 10px;
-    margin: 10px;
+    padding: 1.2em;
+    margin: .4em;
+
+    img {
+        width: fit-content;
+        height: fit-content;
+    }
+
+    p { line-height: 1.4em; }
+
+    &:not(:first-child) .title { cursor: pointer; } // for hidden news interaction cue
+}
+
+.title {
+    display: block;
+
+    img.news-cover {
+        float:left;
+        width: 48px;
+        margin-right: 1.2em;
+    }
+
+    h2, p {
+        margin: 0.1em;
+    }
 
     h2 {
+        font-size: 2.2rem;
         color: #D24781;
-        margin-bottom: 0;
+    }
+
+    p {
+        opacity: 0.85;
+        font-size: 0.8em;
+        letter-spacing: 0.03em;
+    }
+
+    .flag {
+        vertical-align: baseline;
+        padding-right: 0.4em;
     }
 }
 
 .hidden {
-    max-height: 100px;
-    
-    p {
-        display: none;
-    }
+    opacity: 0.75;
 
-    h2 {
-        color: #D24781;
-        margin-bottom: 13.6px;
-    }
+    .content p { display: none; }
 }
 
 .pagination-container {
-    grid-column: 2 / 200;
-    display: flex;
-    flex-grow: 1;
     flex-direction: row;
     justify-content: center;
     padding: 10px;

@@ -165,11 +165,12 @@ export default defineComponent ({
     background-color: rgba(34, 38, 102, 0.5);
 }
 
-.janice {
-    width: fit-content;
-}
+.janice { width: fit-content; }
 
-.news-feed { padding: 0.6em; }
+.news-feed {
+    flex: 1;
+    padding: 0.6em;
+}
 
 .news {
     border: 1px solid #576077;

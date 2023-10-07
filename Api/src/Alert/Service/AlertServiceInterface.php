@@ -27,7 +27,7 @@ interface AlertServiceInterface
 
     public function oxygenAlert(Daedalus $daedalus): void;
 
-    public function gravityAlert(Daedalus $daedalus, bool $activate): void;
+    public function gravityAlert(Daedalus $daedalus, string $activate): void;
 
     public function handleEquipmentBreak(GameEquipment $equipment): void;
 

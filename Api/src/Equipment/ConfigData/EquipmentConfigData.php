@@ -2830,9 +2830,7 @@ class EquipmentConfigData
                 'report_equipment',
                 'examine',
             ],
-            'mechanics' => [
-                'gear_gravity_simulator_default',
-            ],
+            'mechanics' => [],
             'initStatuses' => [],
         ],
         [

@@ -139,23 +139,43 @@ class AlertService implements AlertServiceInterface
         }
     }
 
-    public function gravityAlert(Daedalus $daedalus, bool $activate): void
+    public function gravityAlert(Daedalus $daedalus, string $activate): void
     {
-        if ($activate) {
-            $gravityAlert = new Alert();
-            $gravityAlert
-                ->setDaedalus($daedalus)
-                ->setName(AlertEnum::NO_GRAVITY)
-            ;
+        switch ($activate) {
+            case AlertEnum::BREAK:
+                $gravityAlert = new Alert();
+                $gravityAlert
+                    ->setDaedalus($daedalus)
+                    ->setName(AlertEnum::NO_GRAVITY)
+                ;
 
-            $this->persist($gravityAlert);
-        } else {
-            $gravityAlert = $this->findByNameAndDaedalus(AlertEnum::NO_GRAVITY, $daedalus);
+                $this->persist($gravityAlert);
 
-            if ($gravityAlert === null) {
-                throw new \LogicException('there should be a gravity alert on this Daedalus');
-            }
-            $this->delete($gravityAlert);
+                return;
+            case AlertEnum::REPAIR:
+                $gravityAlert = $this->findByNameAndDaedalus(AlertEnum::NO_GRAVITY, $daedalus);
+
+                if ($gravityAlert === null) {
+                    throw new \LogicException('there should be a gravity alert on this Daedalus');
+                }
+
+                // create a temporary alert that will last until the end of cycle
+                $gravityAlert
+                    ->setName(AlertEnum::GRAVITY_REBOOT)
+                ;
+                $this->persist($gravityAlert);
+
+                return;
+
+            case AlertEnum::REBOOT:
+                $gravityAlert = $this->findByNameAndDaedalus(AlertEnum::GRAVITY_REBOOT, $daedalus);
+
+                if ($gravityAlert === null) {
+                    throw new \LogicException('there should be a gravity alert on this Daedalus');
+                }
+                $this->delete($gravityAlert);
+
+                return;
         }
     }
 

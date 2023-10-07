@@ -6,6 +6,7 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RoomSubscriber implements EventSubscriberInterface
@@ -34,10 +35,14 @@ class RoomSubscriber implements EventSubscriberInterface
             throw new \LogicException('place should be a room');
         }
 
-        if ($event->isGravity()) {
-            $logKey = LogEnum::TREMOR_GRAVITY;
-        } else {
+        $daedalus = $room->getDaedalus();
+        if (
+            $daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY)
+            || $daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY_REPAIRED)
+        ) {
             $logKey = LogEnum::TREMOR_NO_GRAVITY;
+        } else {
+            $logKey = LogEnum::TREMOR_GRAVITY;
         }
 
         $this->roomLogService->createLog(

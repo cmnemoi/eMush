@@ -287,6 +287,6 @@ class PlayerServiceCest extends AbstractFunctionalTest
         $this->playerService->handleNewCycle($this->player1, new \DateTime());
 
         $I->assertEquals(11, $this->player1->getActionPoint());
-        $I->assertEquals(10, $this->player1->getMovementPoint());
+        $I->assertEquals(11, $this->player1->getMovementPoint());
     }
 }

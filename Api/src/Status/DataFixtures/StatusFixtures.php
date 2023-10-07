@@ -9,9 +9,11 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -426,7 +428,20 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($screwedTalkie);
 
+        /** @var VariableEventModifierConfig $gravityConversionModifier */
+        $gravityConversionModifier = $this->getReference(GearModifierConfigFixtures::GRAVITY_CONVERSION_MODIFIER);
+        /** @var VariableEventModifierConfig $gravityCycleModifier */
+        $gravityCycleModifier = $this->getReference(GearModifierConfigFixtures::GRAVITY_CYCLE_MODIFIER);
+        $noGravity = new StatusConfig();
+        $noGravity
+            ->setStatusName(DaedalusStatusEnum::NO_GRAVITY)
+            ->setModifierConfigs([$gravityConversionModifier, $gravityCycleModifier])
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($noGravity);
+
         $gameConfig
+            ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
             ->addStatusConfig($heavy)
             ->addStatusConfig($moduleAccess)
@@ -521,6 +536,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         return [
             GameConfigFixtures::class,
             StatusModifierConfigFixtures::class,
+            GearModifierConfigFixtures::class,
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace Mush\Tests\unit\Modifier\Entity\Config;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
@@ -64,6 +65,8 @@ class EventModifierConfigTest extends TestCase
         ;
         $action = new Action();
         $action->setActionName('test');
+        $player = new Player();
+        $player->setDaedalus(new Daedalus());
 
         $event = new AbstractGameEvent([], new \DateTime());
 
@@ -73,11 +76,11 @@ class EventModifierConfigTest extends TestCase
         $event->setEventName(ActionVariableEvent::APPLY_COST);
         $this->assertFalse($modifier->doModifierApplies($event));
 
-        $event = new ActionVariableEvent($action, PlayerVariableEnum::ACTION_POINT, 2, new Player(), null);
+        $event = new ActionVariableEvent($action, PlayerVariableEnum::ACTION_POINT, 2, $player, null);
         $event->setEventName(ActionVariableEvent::APPLY_COST);
         $this->assertFalse($modifier->doModifierApplies($event));
 
-        $event = new ActionVariableEvent($action, DaedalusVariableEnum::FUEL, 2, new Player(), null);
+        $event = new ActionVariableEvent($action, DaedalusVariableEnum::FUEL, 2, $player, null);
         $event->setEventName(ActionVariableEvent::APPLY_COST);
         $this->assertTrue($modifier->doModifierApplies($event));
     }

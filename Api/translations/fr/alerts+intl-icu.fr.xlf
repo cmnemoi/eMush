@@ -53,6 +53,16 @@
         <target>Le Simulateur de gravité n'est pas démarré. Chaque gain de Points de mouvement est réduit de 1 :pm: ! Réparez-le pour que NERON puisse rétablir la gravité au cycle d'après.</target>
       </segment>
     </unit>
+    <unit id="gravity_reboot">
+      <segment id="name" state="translated">
+        <source>gravity_reboot.name</source>
+        <target>Pas de simulateur de gravité</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>gravity_reboot.description</source>
+        <target>Le Simulateur de gravité est en train de redémarrer. Chaque gain de Points de mouvement est réduit de 1 :pm: !</target>
+      </segment>
+    </unit>
     <unit id="low_oxygen">
       <segment id="name" state="translated">
         <source>low_oxygen.name</source>

@@ -3,7 +3,6 @@
 namespace Mush\Alert\Listener;
 
 use Mush\Alert\Service\AlertServiceInterface;
-use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -22,7 +21,7 @@ class HunterSubscriber implements EventSubscriberInterface
     {
         return [
             HunterEvent::HUNTER_DEATH => 'onHunterDeath',
-            HunterPoolEvent::UNPOOL_HUNTERS => ['onUnpoolHunters', EventPriorityEnum::LOW], // do this after spawning hunters
+            HunterPoolEvent::UNPOOL_HUNTERS => 'onUnpoolHunters',
         ];
     }
 

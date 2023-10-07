@@ -2,6 +2,7 @@
 
 namespace Mush\Hunter\Listener;
 
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Hunter\Service\HunterServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -19,7 +20,7 @@ class HunterSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            HunterPoolEvent::UNPOOL_HUNTERS => 'onUnpoolHunters',
+            HunterPoolEvent::UNPOOL_HUNTERS => ['onUnpoolHunters', EventPriorityEnum::HIGH], // spawn hunters before any related events
         ];
     }
 

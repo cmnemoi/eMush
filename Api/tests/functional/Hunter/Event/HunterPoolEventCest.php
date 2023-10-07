@@ -2,6 +2,7 @@
 
 namespace Mush\Tests\functional\Hunter\Listener;
 
+use Mush\Alert\Entity\Alert;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;

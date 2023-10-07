@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Hunter\Listener;
+namespace Mush\Communication\Listener;
 
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;

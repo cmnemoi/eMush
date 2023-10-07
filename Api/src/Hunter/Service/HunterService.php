@@ -402,10 +402,10 @@ class HunterService implements HunterServiceInterface
             time: new \DateTime()
         );
 
+        // if patrol ship is not destroyed, put it back as hunter target
         if ($chargeStatus !== null
             && !$chargeStatus->getVariableByName($chargeStatus->getName())->isMin()
         ) {
-            // reset hunter target so the patrol ship can be safely deleted
             $hunter->setTarget($patrolShipTarget);
         }
 

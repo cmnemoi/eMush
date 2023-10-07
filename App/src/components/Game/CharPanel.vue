@@ -4,8 +4,10 @@
             <img class="avatar" :src="characterPortrait" alt="avatar">
 
             <ul class="statuses">
-                <Statuses :statuses="player.statuses" type="player" />
-                <Statuses :statuses="player.diseases" type="disease" />
+                <tippy-singleton>
+                    <Statuses :statuses="player.statuses" type="player" />
+                    <Statuses :statuses="player.diseases" type="disease" />
+                </tippy-singleton>
             </ul>
 
             <div class="health-points">

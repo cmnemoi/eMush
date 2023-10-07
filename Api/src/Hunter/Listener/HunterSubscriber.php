@@ -26,6 +26,6 @@ class HunterSubscriber implements EventSubscriberInterface
     public function onUnpoolHunters(HunterPoolEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $this->hunterService->unpoolHunters($daedalus, $event->getTime());
+        $this->hunterService->unpoolHunters($daedalus, $event->getTags(), $event->getTime());
     }
 }

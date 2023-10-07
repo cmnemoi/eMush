@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -140,13 +141,17 @@ class HunterService implements HunterServiceInterface
         $this->entityManager->flush();
     }
 
-    public function unpoolHunters(Daedalus $daedalus, \DateTime $time): void
+    public function unpoolHunters(Daedalus $daedalus, array $tags, \DateTime $time): void
     {
-        $hunterPoints = $daedalus->getHunterPoints();
+        $hunterPointsToSpend = $daedalus->getHunterPoints();
+        if (in_array(DaedalusEvent::TRAVEL_FINISHED, $tags)) {
+            $hunterPointsToSpend /= 2;
+        }
+
         $hunterTypes = HunterEnum::getAll();
         $wave = new HunterCollection();
 
-        while ($hunterPoints >= $this->getMinCost($daedalus, $hunterTypes)) {
+        while ($hunterPointsToSpend >= $this->getMinCost($daedalus, $hunterTypes)) {
             $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, $hunterTypes);
 
             $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaCollection(
@@ -171,8 +176,9 @@ class HunterService implements HunterServiceInterface
 
             $wave->add($hunter);
 
-            $hunterPoints -= $hunter->getHunterConfig()->getDrawCost();
-            $daedalus->setHunterPoints($hunterPoints);
+            $pointsToRemove = $hunter->getHunterConfig()->getDrawCost();
+            $hunterPointsToSpend -= $pointsToRemove;
+            $daedalus->removeHunterPoints($pointsToRemove);
         }
 
         $wave->map(fn ($hunter) => $this->createHunterStatuses($hunter, $time));

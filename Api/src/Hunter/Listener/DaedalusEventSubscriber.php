@@ -54,13 +54,13 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
 
-        $daedalus->setHunterPoints(intval($daedalus->getHunterPoints() / 2));
-
         $hunterPoolEvent = new HunterPoolEvent(
             $daedalus,
             $event->getTags(),
             $event->getTime()
         );
+        $hunterPoolEvent->addTag($event->getEventName());
+
         $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
     }
 }

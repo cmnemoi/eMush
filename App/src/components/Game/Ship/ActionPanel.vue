@@ -1,12 +1,13 @@
 <template>
     <div class="action-panel">
-        <ActionButton
-            v-for="(action, key) in getActions"
-            :key="key"
-            class="action-buttons"
-            :action="action"
-            @mousedown="executeTargetAction(action)"
-        />
+        <tippy-singleton>
+            <ActionButton
+                v-for="(action, key) in getActions"
+                :key="key"
+                :action="action"
+                @mousedown="executeTargetAction(action)"
+            />
+        </tippy-singleton>
     </div>
 </template>
 
@@ -86,11 +87,11 @@ export default defineComponent ({
         border-right: 8px solid transparent;
     }
 
-    .action-buttons {
-        flex-basis: 48%;
+    & > div { //targets tippy-generated divs
+        flex-basis: 50%;
         margin: 0;
         display: inline-block;
-        padding: 0px 0px;
+        padding: 0px 3px;
         border: none;
     }
 }

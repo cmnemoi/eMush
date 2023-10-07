@@ -4,8 +4,10 @@
             <img class="avatar" :src="characterPortrait" alt="avatar">
 
             <ul class="statuses">
-                <Statuses :statuses="player.statuses" type="player" />
-                <Statuses :statuses="player.diseases" type="disease" />
+                <tippy-singleton>
+                    <Statuses :statuses="player.statuses" type="player" />
+                    <Statuses :statuses="player.diseases" type="disease" />
+                </tippy-singleton>
             </ul>
 
             <div class="health-points">
@@ -55,24 +57,28 @@
                 />
             </div>
             <div v-if="! loading && target" class="interactions">
-                <p v-if="selectedItem" class="item-name">
+                <div v-if="selectedItem" class="item-name">
                     {{ selectedItem.name }}
                     <Statuses :statuses="selectedItem.statuses" type="item" />
-                    <ActionButton
-                        v-for="(action, key) in target.actions"
-                        :key="key"
-                        :action="action"
-                        @click="executeTargetAction(target, action)"
-                    />
-                </p>
-                <p v-else>
-                    <ActionButton
-                        v-for="(action, key) in target.actions"
-                        :key="key"
-                        :action="action"
-                        @click="executeTargetAction(null, action)"
-                    />
-                </p>
+                    <tippy-singleton>
+                        <ActionButton
+                            v-for="(action, key) in target.actions"
+                            :key="key"
+                            :action="action"
+                            @click="executeTargetAction(target, action)"
+                        />
+                    </tippy-singleton>
+                </div>
+                <div v-else>
+                    <tippy-singleton>
+                        <ActionButton
+                            v-for="(action, key) in target.actions"
+                            :key="key"
+                            :action="action"
+                            @click="executeTargetAction(null, action)"
+                        />
+                    </tippy-singleton>
+                </div>
             </div>
         </div>
 

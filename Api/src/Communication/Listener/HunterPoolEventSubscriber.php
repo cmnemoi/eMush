@@ -10,7 +10,7 @@ use Mush\Hunter\Event\HunterPoolEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class HunterPoolEventSubscriber implements EventSubscriberInterface
-{   
+{
     private NeronMessageServiceInterface $neronMessageService;
 
     public function __construct(
@@ -27,7 +27,7 @@ final class HunterPoolEventSubscriber implements EventSubscriberInterface
     }
 
     public function onUnpoolHunters(HunterPoolEvent $event): void
-    {      
+    {
         $daedalus = $event->getDaedalus();
         if ($daedalus->getAttackingHunters()->isEmpty()) {
             return;
@@ -40,5 +40,4 @@ final class HunterPoolEventSubscriber implements EventSubscriberInterface
             dateTime: $event->getTime(),
         );
     }
-
 }

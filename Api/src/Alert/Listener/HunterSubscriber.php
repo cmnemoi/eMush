@@ -32,11 +32,11 @@ class HunterSubscriber implements EventSubscriberInterface
     }
 
     public function onUnpoolHunters(HunterPoolEvent $event): void
-    {   
+    {
         if ($event->getDaedalus()->getAttackingHunters()->isEmpty()) {
             return;
         }
-        
+
         $this->alertService->handleHunterArrival($event->getDaedalus());
     }
 }

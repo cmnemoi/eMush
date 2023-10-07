@@ -2,7 +2,6 @@
 
 namespace Mush\Hunter\Listener;
 
-use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Hunter\Service\HunterServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -10,14 +9,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class HunterSubscriber implements EventSubscriberInterface
 {
     private HunterServiceInterface $hunterService;
-    private NeronMessageServiceInterface $neronMessageService;
 
     public function __construct(
         HunterServiceInterface $hunterService,
-        NeronMessageServiceInterface $neronMessageService,
     ) {
         $this->hunterService = $hunterService;
-        $this->neronMessageService = $neronMessageService;
     }
 
     public static function getSubscribedEvents()

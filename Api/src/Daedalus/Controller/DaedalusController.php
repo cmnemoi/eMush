@@ -15,6 +15,7 @@ use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Repository\PlayerInfoRepository;
@@ -40,6 +41,7 @@ class DaedalusController extends AbstractFOSRestController
 {
     private const MAX_CHARACTERS_TO_RETURN = 4;
 
+    private AdminServiceInterface $adminService;
     private DaedalusServiceInterface $daedalusService;
     private DaedalusWidgetServiceInterface $daedalusWidgetService;
     private TranslationServiceInterface $translationService;
@@ -50,6 +52,7 @@ class DaedalusController extends AbstractFOSRestController
     private CycleServiceInterface $cycleService;
 
     public function __construct(
+        AdminServiceInterface $adminService,
         DaedalusServiceInterface $daedalusService,
         DaedalusWidgetServiceInterface $daedalusWidgetService,
         TranslationServiceInterface $translationService,
@@ -57,8 +60,9 @@ class DaedalusController extends AbstractFOSRestController
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
         GameConfigServiceInterface $gameConfigService,
-        CycleServiceInterface $cycleService
+        CycleServiceInterface $cycleService,
     ) {
+        $this->adminService = $adminService;
         $this->daedalusService = $daedalusService;
         $this->daedalusWidgetService = $daedalusWidgetService;
         $this->translationService = $translationService;
@@ -80,8 +84,11 @@ class DaedalusController extends AbstractFOSRestController
      */
     public function getAvailableCharacter(Request $request): View
     {
-        $language = $request->get('language', '');
+        if ($this->adminService->isGameInMaintenance()) {
+            return $this->view(['detail' => 'gameIsInMaintenance'], Response::HTTP_SERVICE_UNAVAILABLE);
+        } 
 
+        $language = $request->get('language', '');
         $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($language, $this->getUser());
 
         if ($daedalus === null) {

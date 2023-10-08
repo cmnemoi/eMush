@@ -13,6 +13,12 @@ const actions: ActionTree<any, any> = {
     }
 };
 
+const getters = {
+    getError: (state: any): any => {
+        return state.error;
+    }
+}
+
 const mutations: MutationTree<any> = {
     setError(state:any, error: any): void {
         state.error = {
@@ -38,7 +44,7 @@ const mutations: MutationTree<any> = {
 export const error = {
     namespaced: true,
     state,
-    getters: {},
+    getters,
     actions,
     mutations
 };

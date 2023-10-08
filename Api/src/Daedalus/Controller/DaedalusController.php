@@ -25,6 +25,7 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Uid\Uuid;
@@ -235,6 +236,9 @@ class DaedalusController extends AbstractFOSRestController
         }
         if ($daedalus->getDaedalusInfo()->isDaedalusFinished()) {
             return $this->view(['error' => 'Daedalus is already finished'], 400);
+        }
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 

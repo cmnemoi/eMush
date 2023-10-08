@@ -186,6 +186,8 @@ export default defineComponent ({
 
     p { line-height: 1.4em; }
 
+    a { color: #D24781; }
+
     &:not(:first-child) .title { cursor: pointer; } // for hidden news interaction cue
 }
 

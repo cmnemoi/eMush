@@ -45,6 +45,20 @@ const AdminService = {
 
         return response;
     },
+    getMaintenanceStatus: async(): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.get(ADMIN_ENDPOINT + '/maintenance');
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
+    putGameInMaintenance: async(): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(ADMIN_ENDPOINT + '/maintenance');
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     quarantinePlayer: async(playerId: number): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(QUARANTINE_PLAYER_ENDPOINT + '/' + playerId);
@@ -52,6 +66,13 @@ const AdminService = {
 
         return response;
     },
+    removeGameFromMaintenance: async(): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.delete(ADMIN_ENDPOINT + '/maintenance');
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    }
 
 };
 export default AdminService;

@@ -26,6 +26,16 @@
             <button class = "action-button" type="button" @click="destroyAllDaedaluses">
                 {{$t("admin.daedalus.destroyAllDaedaluses")}}
             </button>
+            <button class="action-button"
+                    type="button"
+                    @click="removeGameFromMaintenance" v-if="gameInMaintenance">
+                {{$t("admin.daedalus.maintenanceOff")}}
+            </button>
+            <button class="action-button"
+                    type="button"
+                    @click="putGameInMaintenance" v-else>
+                {{$t("admin.daedalus.maintenanceOn")}}
+            </button>
         </div>
         <Datatable
             :headers='fields'
@@ -141,7 +151,8 @@ export default defineComponent({
                 { text: 5, value: 5 },
                 { text: 10, value: 10 },
                 { text: 20, value: 20 }
-            ]
+            ],
+            gameInMaintenance: false
         };
     },
     methods: {
@@ -226,6 +237,18 @@ export default defineComponent({
         destroyAllDaedaluses() {
             DaedalusService.destroyAllDaedaluses().then(() => {
                 this.loadData();
+            });
+        },
+        putGameInMaintenance() {
+            AdminService.putGameInMaintenance().then(() => {
+                this.loadData();
+                this.gameInMaintenance = true;
+            });
+        },
+        removeGameFromMaintenance() {
+            AdminService.removeGameFromMaintenance().then(() => {
+                this.loadData();
+                this.gameInMaintenance = false;
             });
         },
         unlockDaedalus(id: number) {

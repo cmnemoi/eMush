@@ -22,6 +22,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
         return [
             DaedalusEvent::FULL_DAEDALUS => 'onDaedalusFull',
             DaedalusEvent::TRAVEL_LAUNCHED => 'onTravelLaunched',
+            DaedalusEvent::TRAVEL_FINISHED => 'onTravelFinished',
         ];
     }
 
@@ -35,5 +36,11 @@ class DaedalusSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
         $this->neronMessageService->createNeronMessage(NeronMessageEnum::TRAVEL_DEFAULT, $daedalus, [], $event->getTime());
+    }
+
+    public function onTravelFinished(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $this->neronMessageService->createNeronMessage(NeronMessageEnum::TRAVEL_ARRIVAL, $daedalus, [], $event->getTime());
     }
 }

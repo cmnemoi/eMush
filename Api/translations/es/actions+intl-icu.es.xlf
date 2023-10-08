@@ -851,5 +851,61 @@
         <target>auto_eject.description</target>
       </segment>
     </unit>
+    <unit id="insert_fuel_chamber">
+      <segment id="name" state="initial">
+        <source>insert_fuel_chamber.name</source>
+        <target>insert_fuel_chamber.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>insert_fuel_chamber.description</source>
+        <target>insert_fuel_chamber.description</target>
+      </segment>
+    </unit>
+    <unit id="retrieve_fuel_chamber">
+      <segment id="name" state="initial">
+        <source>retrieve_fuel_chamber.name</source>
+        <target>retrieve_fuel_chamber.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>retrieve_fuel_chamber.description</source>
+        <target>retrieve_fuel_chamber.description</target>
+      </segment>
+    </unit>
+    <unit id="check_fuel_chamber_level">
+      <segment id="name" state="initial">
+        <source>check_fuel_chamber_level.name</source>
+        <target>check_fuel_chamber_level.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>check_fuel_chamber_level.description</source>
+        <target>check_fuel_chamber_level.description</target>
+      </segment>
+    </unit>
+    <unit id="hack">
+      <segment id="name" state="initial">
+        <source>hack.name</source>
+        <target>hack.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>hack.description</source>
+        <target>hack.description</target>
+      </segment>
+    </unit>
+    <unit id="exit_terminal">
+      <segment id="name" state="initial">
+        <source>exit_terminal.name</source>
+        <target>exit_terminal.name</target>
+      </segment>
+    </unit>
+    <unit id="advance_daedalus">
+      <segment id="name" state="initial">
+        <source>advance_daedalus.name</source>
+        <target>advance_daedalus.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>advance_daedalus.description</source>
+        <target>advance_daedalus.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -885,11 +885,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="retrieve_fuel_chamber">
       <segment id="name" state="final">
         <source>retrieve_fuel_chamber.name</source>
-        <target>Récupérer Capsule de Fuel</target>
+        <target>Récupérer une capsule</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>retrieve_fuel_chamber.description</source>
-        <target>Permet de récupérer une Capsule du moteur.</target>
+        <target>Permet de récupérer une capsule de fuel qui peut servir à remplir les réservoirs auxiliaires.</target>
       </segment>
     </unit>
     <unit id="check_fuel_chamber_level">

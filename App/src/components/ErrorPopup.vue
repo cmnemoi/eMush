@@ -1,5 +1,5 @@
 <template>
-    <PopUp :is-open="error && (parseInt(error.status) >= 500 && parseInt(error.status) <= 599)" @close="clearError">
+    <PopUp :is-open="isWorkingServerError()" @close="clearError">
         <h1 class="title">
             {{ title }}
         </h1>
@@ -37,7 +37,10 @@ export default defineComponent ({
     methods: {
         ...mapActions('error', [
             'clearError'
-        ])
+        ]),
+        isWorkingServerError() {
+            return this.error && (parseInt(this.error.status) >= 500 && parseInt(this.error.status) <= 599) && this.error.status != 503;
+        }
     }
 });
 </script>

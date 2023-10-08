@@ -2580,6 +2580,7 @@ class EquipmentConfigData
                 'sabotage_percent_12',
                 'report_equipment',
                 'examine',
+                ActionEnum::ACCESS_TERMINAL,
                 'scan',
             ],
             'mechanics' => [],

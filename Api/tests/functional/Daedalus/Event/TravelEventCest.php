@@ -6,6 +6,8 @@ namespace Mush\Tests\Functional\Daedalus\Event;
 
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Enum\AlertEnum;
+use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;
@@ -46,5 +48,36 @@ final class TravelEventCest extends AbstractFunctionalTest
             'name' => AlertEnum::HUNTER,
             'daedalus' => $this->daedalus,
         ]);
+    }
+
+    public function testTravelFinishedEventCreatesANeronAnnouncement(FunctionalTester $I): void
+    {
+        // when travel is finished
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+
+        // then a neron announcement is created
+        $I->seeInRepository(Message::class, [
+            'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
+            'message' => NeronMessageEnum::TRAVEL_ARRIVAL,
+        ]);
+    }
+
+    public function testTravelFinishedSpawnsNewHunters(FunctionalTester $I): void
+    {
+        // when travel is finished
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+
+        // then new hunters are spawn
+        $I->assertNotEmpty($this->daedalus->getAttackingHunters());
     }
 }

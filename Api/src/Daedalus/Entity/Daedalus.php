@@ -348,6 +348,13 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
+    public function removeHunterPoints(int $hunterPoints): static
+    {
+        $this->setHunterPoints($this->getHunterPoints() - $hunterPoints);
+
+        return $this;
+    }
+
     public function getCombustionChamberFuel(): int
     {
         return $this->getVariableValueByName(DaedalusVariableEnum::COMBUSTION_CHAMBER_FUEL);

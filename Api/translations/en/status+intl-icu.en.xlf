@@ -1532,9 +1532,9 @@
         <source>updating.name</source>
         <target>Update in progress</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>updating.description</source>
-        <target>updating.description</target>
+        <target>NERON is installing updates. DO NOT TURN OFF THE device!!! 30%</target>
       </segment>
     </unit>
     <unit id="fire.name">

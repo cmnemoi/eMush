@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+  <file id="terminal.ext">
+    <unit id="command_terminal">
+      <segment id="name" state="initial">
+        <source>command_terminal.name</source>
+        <target>command_terminal.name</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>command_terminal.tips</source>
+        <target>command_terminal.tips</target>
+      </segment>
+      <segment id="orientate_daedalus" state="initial">
+        <source>command_terminal.orientate_daedalus</source>
+        <target>command_terminal.orientate_daedalus</target>
+      </segment>
+      <segment id="move_daedalus" state="initial">
+        <source>command_terminal.move_daedalus</source>
+        <target>command_terminal.move_daedalus</target>
+      </segment>
+      <segment id="general_informations" state="initial">
+        <source>command_terminal.general_informations</source>
+        <target>command_terminal.general_informations</target>
+      </segment>
+      <segment id="difficulty_normal" state="initial">
+        <source>command_terminal.difficulty_normal</source>
+        <target>command_terminal.difficulty_normal</target>
+      </segment>
+      <segment id="difficulty_hard" state="initial">
+        <source>command_terminal.difficulty_hard</source>
+        <target>command_terminal.difficulty_hard</target>
+      </segment>
+      <segment id="difficulty_very_hard" state="initial">
+        <source>command_terminal.difficulty_very_hard</source>
+        <target>command_terminal.difficulty_very_hard</target>
+      </segment>
+      <segment id="advance_daedalus_status_ok" state="initial">
+        <source>command_terminal.advance_daedalus_status_ok</source>
+        <target>command_terminal.advance_daedalus_status_ok</target>
+      </segment>
+      <segment id="advance_daedalus_status_no_fuel" state="initial">
+        <source>command_terminal.advance_daedalus_status_no_fuel</source>
+        <target>command_terminal.advance_daedalus_status_no_fuel</target>
+      </segment>
+      <segment id="advance_daedalus_status_emergency_reactor_broken" state="initial">
+        <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
+        <target>command_terminal.advance_daedalus_status_emergency_reactor_broken</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

@@ -53,6 +53,16 @@
         <target>The Gravity Simulator hasn't been started up. Every Movement Point gains are reduced by 1 :pm:! Fix it so that NERON can re-establish gravity for the next cycle.</target>
       </segment>
     </unit>
+    <unit id="gravity_reboot">
+      <segment id="name" state="translated">
+        <source>gravity_reboot.name</source>
+        <target>No gravity simulator</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>gravity_reboot.description</source>
+        <target>The gravity simulator is restarting. Each gain of movement points is reduced by 1 :pm: !</target>
+      </segment>
+    </unit>
     <unit id="low_oxygen">
       <segment id="name" state="translated">
         <source>low_oxygen.name</source>

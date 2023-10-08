@@ -54,6 +54,16 @@
 Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</target>
       </segment>
     </unit>
+    <unit id="gravity_reboot">
+      <segment id="name" state="initial">
+        <source>gravity_reboot.name</source>
+        <target>gravity_reboot.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>gravity_reboot.description</source>
+        <target>gravity_reboot.description</target>
+      </segment>
+    </unit>
     <unit id="low_oxygen">
       <segment id="name" state="translated">
         <source>low_oxygen.name</source>

@@ -814,5 +814,59 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
 }</target>
       </segment>
     </unit>
+    <unit id="insert_fuel_chamber_success">
+      <segment id="insert_fuel_chamber_success" state="translated">
+        <source>insert_fuel_chamber_success</source>
+        <target>The combustion chamber is currently at level: {quantity}</target>
+      </segment>
+    </unit>
+    <unit id="retrieve_fuel_chamber_success">
+      <segment id="retrieve_fuel_chamber_success" state="translated">
+        <source>retrieve_fuel_chamber_success</source>
+        <target>The combustion chamber is currently at level: {quantity}</target>
+      </segment>
+    </unit>
+    <unit id="check_fuel_chamber_level_success">
+      <segment id="check_fuel_chamber_level_success" state="translated">
+        <source>check_fuel_chamber_level_success</source>
+        <target>You wipe the crap off the dial to read the contents of the chamber: {quantity}.</target>
+      </segment>
+    </unit>
+    <unit id="hack_success">
+      <segment id="hack_success" state="translated">
+        <source>hack_success</source>
+        <target>You have made it into the system!</target>
+      </segment>
+    </unit>
+    <unit id="hack_fail">
+      <segment id="hack_fail" state="translated">
+        <source>hack_fail</source>
+        <target>It's impossible to crack this system...</target>
+      </segment>
+    </unit>
+    <unit id="advance_daedalus_success">
+      <segment id="advance_daedalus_success" state="translated">
+        <source>advance_daedalus_success</source>
+        <target>**{character}** is getting the voyage underway. Their excitement is visible, and their zeal is palpable. The game is afoot!</target>
+      </segment>
+    </unit>
+    <unit id="advance_daedalus_fail">
+      <segment id="advance_daedalus_fail" state="translated">
+        <source>advance_daedalus_fail</source>
+        <target>**{character}** is getting the voyage underway. Their excitement is visible and their zeal palpable. But... but... no rumbling, no crashing or banging, in fact, no noise at all... The engines have broken down!</target>
+      </segment>
+    </unit>
+    <unit id="advance_daedalus_no_fuel">
+      <segment id="advance_daedalus_no_fuel" state="translated">
+        <source>advance_daedalus_no_fuel</source>
+        <target>**{character}** is getting the voyage underway. Their excitement is visible, and their zeal is palpable. But the engines die immediately. This ship has not moved. There was no fuel.</target>
+      </segment>
+    </unit>
+    <unit id="advance_daedalus_arack_prevents_travel">
+      <segment id="advance_daedalus_arack_prevents_travel" state="translated">
+        <source>advance_daedalus_arack_prevents_travel</source>
+        <target>**{character}** is getting the voyage underway. Their excitement is visible, and their zeal is palpable. But... But... The engines push, but nothing happens... An Arack prevents departure with its gravitational field!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

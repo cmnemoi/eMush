@@ -13,6 +13,7 @@ use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Service\DifficultyServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -29,6 +30,8 @@ class DaedalusCycleEventTest extends TestCase
     private DaedalusServiceInterface $daedalusService;
     /** @var DaedalusIncidentServiceInterface|Mockery\Mock */
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
+    /** @var DifficultyServiceInterface|Mockery\Mock */
+    private DifficultyServiceInterface $difficultyService;
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
 
@@ -41,11 +44,13 @@ class DaedalusCycleEventTest extends TestCase
     {
         $this->daedalusService = \Mockery::mock(DaedalusServiceInterface::class);
         $this->daedalusIncidentService = \Mockery::mock(DaedalusIncidentServiceInterface::class);
+        $this->difficultyService = \Mockery::Mock(DifficultyServiceInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
 
         $this->daedalusCycleSubscriber = new DaedalusCycleSubscriber(
             $this->daedalusService,
             $this->daedalusIncidentService,
+            $this->difficultyService,
             $this->eventService
         );
     }

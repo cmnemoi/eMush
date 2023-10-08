@@ -10,8 +10,10 @@ use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\DifficultyServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,15 +26,18 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
     private DaedalusServiceInterface $daedalusService;
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
+    private DifficultyServiceInterface $difficultyService;
     private EventServiceInterface $eventService;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         DaedalusIncidentServiceInterface $daedalusIncidentService,
+        DifficultyServiceInterface $difficultyService,
         EventServiceInterface $eventService
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusIncidentService = $daedalusIncidentService;
+        $this->difficultyService = $difficultyService;
         $this->eventService = $eventService;
     }
 
@@ -41,6 +46,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         return [
             DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => [
                 ['updateDaedalusCycle', 1000],
+                ['updateDaedalusDifficulty', EventPriorityEnum::HIGHEST],
                 ['triggerEvents', 0],
             ],
         ];
@@ -64,6 +70,11 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $this->daedalusService->persist($daedalus);
 
         $event->setTags($tags);
+    }
+
+    public function updateDaedalusDifficulty(DaedalusCycleEvent $event): void
+    {
+        $this->difficultyService->updateDaedalusDifficultyPoints($event->getDaedalus(), DaedalusVariableEnum::HUNTER_POINTS);
     }
 
     public function triggerEvents(DaedalusCycleEvent $event): void

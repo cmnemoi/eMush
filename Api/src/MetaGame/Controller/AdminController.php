@@ -12,6 +12,7 @@ use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
+use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Service\PlaceServiceInterface;
@@ -35,18 +36,22 @@ class AdminController extends AbstractFOSRestController
 {
     use ErrorHandlerTrait;
 
+    private AdminServiceInterface $adminService;
     private AlertServiceInterface $alertService;
     private DaedalusServiceInterface $daedalusService;
     private PlaceServiceInterface $placeService;
     private PlayerServiceInterface $playerService;
     private UserServiceInterface $userService;
 
-    public function __construct(AlertServiceInterface $alertService,
+    public function __construct(
+        AdminServiceInterface $adminService,
+        AlertServiceInterface $alertService,
         DaedalusServiceInterface $daedalusService,
         PlaceServiceInterface $placeService,
         PlayerServiceInterface $playerService,
         UserServiceInterface $userService
     ) {
+        $this->adminService = $adminService;
         $this->alertService = $alertService;
         $this->daedalusService = $daedalusService;
         $this->placeService = $placeService;
@@ -247,6 +252,68 @@ class AdminController extends AbstractFOSRestController
         return $this->view('All players closed successfully', Response::HTTP_OK);
     }
 
+    /**
+     * Get maintenance status.
+     * 
+     * @OA\Tag(name="Admin")
+     * 
+     * @Security(name="Bearer")
+     * 
+     * @Rest\Get(path="/maintenance")
+     */
+    public function getMaintenanceStatus(): View
+    {   
+        $this->denyUnlessAdmin();
+
+        $isGameInMaintenance = $this->adminService->isGameInMaintenance();
+
+        return $this->view(['gameInMaintenance' => $isGameInMaintenance], Response::HTTP_OK);
+    }
+
+    /**
+     * Put the game in maintenance mode.
+     * 
+     * @OA\Tag(name="Admin")
+     * 
+     * @Security(name="Bearer")
+     * 
+     * @Rest\Post(path="/maintenance")
+     */
+    public function putGameInMaintenance(): View
+    {   
+        $this->denyUnlessAdmin();
+
+        if ($this->adminService->isGameInMaintenance()) {
+            return $this->view('Game is already in maintenance', Response::HTTP_BAD_REQUEST);
+        }
+
+        $this->adminService->putGameInMaintenance();
+
+        return $this->view('Game put in maintenance successfully', Response::HTTP_OK);
+    }
+
+    /**
+     * Remove the game from maintenance mode.
+     * 
+     * @OA\Tag(name="Admin")
+     * 
+     * @Security(name="Bearer")
+     * 
+     * @Rest\Delete(path="/maintenance")
+     */
+    public function removeGameFromMaintenance(): View
+    {   
+        $this->denyUnlessAdmin();
+
+        if (!$this->adminService->isGameInMaintenance()) {
+            return $this->view('Game is not in maintenance', Response::HTTP_BAD_REQUEST);
+        }
+
+        $this->adminService->removeGameFromMaintenance();
+
+        return $this->view('Game removed from maintenance successfully', Response::HTTP_OK);
+    }
+
     private function alertElementHaveSameEquipmentOrPlace(AlertElement $element1, AlertElement $element2): bool
     {
         if ($element1->getEquipment() && $element2->getEquipment()) {
@@ -288,6 +355,18 @@ class AdminController extends AbstractFOSRestController
         }
         if (!$admin->isAdmin()) {
             throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can use this endpoint!');
+        }
+    }
+
+    private function denyUnlessAdmin(): void
+    {   
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
+        }
+
+        if (!$user->isAdmin()) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can do this!');
         }
     }
 }

@@ -48,26 +48,24 @@
         </div>
     </div>
     <div class="hunters-container">
-        <TransitionGroup name="kill">
-            <Tippy tag="div"
-                   class="hunter"
-                   :class="isHunterSelected(hunter) ? 'highlight' : ''"
-                   @mousedown.stop="$emit('select', hunter)"
-                   v-for="(hunter, key) in player?.spaceBattle?.hunters"
-                   :key="key">
-                <div class="ship-img-container">
-                    <img :class="hunter.key + '-img'" :src="getHunterImage(hunter)" :alt="hunter.key">
-                </div>
-                <div class="stats">
-                    <p class="quantity">{{ hunter.health }}</p>
-                    <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
-                </div>
-                <template #content>
-                    <h1 v-html="formatContent(hunter.name)" /><br />
-                    <p v-html="formatContent(hunter.description)" />
-                </template>
-            </Tippy>
-        </TransitionGroup>
+        <Tippy tag="div"
+               class="hunter"
+               :class="isHunterSelected(hunter) ? 'highlight' : ''"
+               @mousedown.stop="$emit('select', hunter)"
+               v-for="(hunter, key) in player?.spaceBattle?.hunters"
+               :key="key">
+            <div class="ship-img-container">
+                <img :class="hunter.key + '-img'" :src="getHunterImage(hunter)" :alt="hunter.key">
+            </div>
+            <div class="stats">
+                <p class="quantity">{{ hunter.health }}</p>
+                <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
+            </div>
+            <template #content>
+                <h1 v-html="formatContent(hunter.name)" /><br />
+                <p v-html="formatContent(hunter.description)" />
+            </template>
+        </Tippy>
     </div>
     
 </template>
@@ -285,7 +283,6 @@ img {
         z-index: 3;
     }
 
-    //Not needed? To confirm
     &.kill {
         opacity: 0;
         background-color: $hit-color;
@@ -294,22 +291,6 @@ img {
         z-index: 3;
     }
 }
-
-
-// "Kill" TransitionGroup Vue prop
-.kill-leave-active {
-    background-color: $hit-color;
-    transition: opacity 1s ease-in 0.3s;
-    animation: hit-shake .5s ease-out 1 forwards;
-}
-
-.kill-leave-to {
-  opacity: 0;
-  z-index: 3;
-}
-
-
-
 
 @keyframes hit-color {
     30% { background-color: #122270; }

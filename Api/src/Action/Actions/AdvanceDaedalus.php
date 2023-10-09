@@ -20,6 +20,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -34,6 +35,25 @@ final class AdvanceDaedalus extends AbstractAction
     public const EMERGENCY_REACTOR_BROKEN = 'emergency_reactor_broken';
     public const NO_FUEL = 'no_fuel';
     public const OK = 'ok';
+
+    public static array $statusMap = [
+        self::ARACK_PREVENTS_TRAVEL => [
+            'key' => self::ARACK_PREVENTS_TRAVEL,
+            'type' => ActionOutputEnum::FAIL,
+        ],
+        self::EMERGENCY_REACTOR_BROKEN => [
+            'key' => self::EMERGENCY_REACTOR_BROKEN,
+            'type' => ActionOutputEnum::FAIL,
+        ],
+        self::NO_FUEL => [
+            'key' => self::NO_FUEL,
+            'type' => ActionOutputEnum::FAIL,
+        ],
+        self::OK => [
+            'key' => self::OK,
+            'type' => ActionOutputEnum::SUCCESS,
+        ],
+    ];
 
     protected string $name = ActionEnum::ADVANCE_DAEDALUS;
 

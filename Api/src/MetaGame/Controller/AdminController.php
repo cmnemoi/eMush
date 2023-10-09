@@ -80,13 +80,7 @@ class AdminController extends AbstractFOSRestController
      */
     public function addNewRoomsToDaedalus(Request $request): View
     {
-        $admin = $this->getUser();
-        if (!$admin instanceof User) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
-        }
-        if (!$admin->isAdmin()) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can add rooms to Daedalus');
-        }
+        $this->denyAccessIfNotAdmin();
 
         $daedalusId = intval($request->get('id'));
         $daedalus = $this->daedalusService->findById($daedalusId);
@@ -134,13 +128,7 @@ class AdminController extends AbstractFOSRestController
      */
     public function closePlayer(Request $request): View
     {
-        $admin = $this->getUser();
-        if (!$admin instanceof User) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
-        }
-        if (!$admin->isAdmin()) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can close players this way');
-        }
+        $this->denyAccessIfNotAdmin();
 
         $playerId = intval($request->get('id'));
         $playerToClose = $this->playerService->findById($playerId);
@@ -179,13 +167,7 @@ class AdminController extends AbstractFOSRestController
      */
     public function deleteDaedalusDuplicatedAlertElements(Request $request): View
     {
-        $admin = $this->getUser();
-        if (!$admin instanceof User) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
-        }
-        if (!$admin->isAdmin()) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can delete alert elements!');
-        }
+        $this->denyAccessIfNotAdmin();
 
         $daedalusId = intval($request->get('id'));
         $daedalus = $this->daedalusService->findById($daedalusId);
@@ -254,36 +236,34 @@ class AdminController extends AbstractFOSRestController
 
     /**
      * Get maintenance status.
-     * 
+     *
      * @OA\Tag(name="Admin")
-     * 
+     *
      * @Security(name="Bearer")
-     * 
+     *
      * @Rest\Get(path="/maintenance")
      */
     public function getMaintenanceStatus(): View
-    {   
-        $this->denyUnlessAdmin();
-
-        $isGameInMaintenance = $this->adminService->isGameInMaintenance();
+    {
+        $isGameInMaintenance = $this->adminService->isGameInMaintenance($this->getUser());
 
         return $this->view(['gameInMaintenance' => $isGameInMaintenance], Response::HTTP_OK);
     }
 
     /**
      * Put the game in maintenance mode.
-     * 
+     *
      * @OA\Tag(name="Admin")
-     * 
+     *
      * @Security(name="Bearer")
-     * 
+     *
      * @Rest\Post(path="/maintenance")
      */
     public function putGameInMaintenance(): View
-    {   
-        $this->denyUnlessAdmin();
+    {
+        $this->denyAccessIfNotAdmin();
 
-        if ($this->adminService->isGameInMaintenance()) {
+        if ($this->adminService->isGameInMaintenance($this->getUser())) {
             return $this->view('Game is already in maintenance', Response::HTTP_BAD_REQUEST);
         }
 
@@ -294,18 +274,18 @@ class AdminController extends AbstractFOSRestController
 
     /**
      * Remove the game from maintenance mode.
-     * 
+     *
      * @OA\Tag(name="Admin")
-     * 
+     *
      * @Security(name="Bearer")
-     * 
+     *
      * @Rest\Delete(path="/maintenance")
      */
     public function removeGameFromMaintenance(): View
-    {   
-        $this->denyUnlessAdmin();
+    {
+        $this->denyAccessIfNotAdmin();
 
-        if (!$this->adminService->isGameInMaintenance()) {
+        if (!$this->adminService->isGameInMaintenance($this->getUser())) {
             return $this->view('Game is not in maintenance', Response::HTTP_BAD_REQUEST);
         }
 
@@ -355,18 +335,6 @@ class AdminController extends AbstractFOSRestController
         }
         if (!$admin->isAdmin()) {
             throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can use this endpoint!');
-        }
-    }
-
-    private function denyUnlessAdmin(): void
-    {   
-        $user = $this->getUser();
-        if (!$user instanceof User) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
-        }
-
-        if (!$user->isAdmin()) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can do this!');
         }
     }
 }

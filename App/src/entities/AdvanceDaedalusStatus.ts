@@ -1,8 +1,6 @@
 export class AdvanceDaedalusStatus {
 
-    static readonly EMERGENCY_REACTOR_BROKEN = "emergency_reactor_broken";
-    static readonly INFO = "info";
-    static readonly WARNING = "warning";
+    static readonly FAIL = "fail";
 
     public key!: string;
     public text!: string;
@@ -12,7 +10,7 @@ export class AdvanceDaedalusStatus {
         if (object) {
             this.key = object.key;
             this.text = object.text;
-            this.type = this.key === AdvanceDaedalusStatus.EMERGENCY_REACTOR_BROKEN ? AdvanceDaedalusStatus.WARNING : AdvanceDaedalusStatus.INFO;
+            this.type = object.type;
         }
         return this;
     }
@@ -31,6 +29,6 @@ export class AdvanceDaedalusStatus {
     }
 
     public isWarning(): boolean {
-        return this.type === AdvanceDaedalusStatus.WARNING;
+        return this.type === AdvanceDaedalusStatus.FAIL;
     }
 }

@@ -225,11 +225,11 @@ class AdminController extends AbstractFOSRestController
 
     /**
      * Close all players after a Super Nova.
-     * 
+     *
      * @OA\Tag(name="Admin")
-     * 
+     *
      * @Security(name="Bearer")
-     * 
+     *
      * @Rest\Post(path="/close-all-players")
      */
     public function closeAllPlayers(): View

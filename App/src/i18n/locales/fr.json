@@ -563,13 +563,13 @@
 		"play": "Jouer !",
 		"synopsis": "Vous allez vous réveiller avec 15 autres joueurs dans le Daedalus. Comme vous, ils fuient le <em>Mush</em>, un champignon qui ravage la planète Terre et menace l'Humanité."
 	},
-	"errorPage": {
+	"maintenancePage": {
 		"title": "ERREUR",
 		"neronMessage": "<strong>NERON</strong> : Toutes mes excuses. Mon concepteur m'a programmé avec amour mais je ne suis pas parfait. Une <strong>erreur s'est produite</strong> lors de l'accès à la page demandée... Si le site est indisponible, merci de revenir dans quelques minutes.",
 		"consultCommunity": "En cas d'erreurs répétées, consultez la communauté sur <a href='https://discord.gg/Jb8Nwjck6r'>Discord</a> ou le <a href='https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1'>forum</a>."
 	},
 	"errors": {
 		"errorTitle": "Erreur",
-		"gameIsInMaintenance": "Le jeu est en maintenance, merci de revenir plus tard !"
+		"gameInMaintenance": "Le jeu est en maintenance, merci de revenir plus tard !"
 	}
 }

@@ -3,14 +3,15 @@
 namespace Mush\Player\Controller;
 
 use FOS\RestBundle\Context\Context;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Game\Controller\AbstractGameController;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
+use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Dto\PlayerCreateRequest;
 use Mush\Player\Entity\Dto\PlayerEndRequest;
 use Mush\Player\Entity\Player;
@@ -34,7 +35,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  *
  * @Route(path="/player")
  */
-class PlayerController extends AbstractFOSRestController
+class PlayerController extends AbstractGameController
 {
     use ErrorHandlerTrait;
 
@@ -47,6 +48,7 @@ class PlayerController extends AbstractFOSRestController
     private LoggerInterface $logger;
 
     public function __construct(
+        AdminServiceInterface $adminService,
         EventServiceInterface $eventService,
         PlayerServiceInterface $playerService,
         DaedalusServiceInterface $daedalusService,
@@ -54,6 +56,7 @@ class PlayerController extends AbstractFOSRestController
         ValidatorInterface $validator,
         LoggerInterface $loggerInterface
     ) {
+        parent::__construct($adminService);
         $this->eventService = $eventService;
         $this->playerService = $playerService;
         $this->daedalusService = $daedalusService;

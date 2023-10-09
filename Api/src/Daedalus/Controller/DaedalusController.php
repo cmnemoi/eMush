@@ -2,13 +2,13 @@
 
 namespace Mush\Daedalus\Controller;
 
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Dto\DaedalusCreateRequest;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
+use Mush\Game\Controller\AbstractGameController;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Service\CycleServiceInterface;
@@ -37,11 +37,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  *
  * @Route(path="/daedaluses")
  */
-class DaedalusController extends AbstractFOSRestController
+class DaedalusController extends AbstractGameController
 {
     private const MAX_CHARACTERS_TO_RETURN = 4;
 
-    private AdminServiceInterface $adminService;
     private DaedalusServiceInterface $daedalusService;
     private DaedalusWidgetServiceInterface $daedalusWidgetService;
     private TranslationServiceInterface $translationService;
@@ -62,7 +61,7 @@ class DaedalusController extends AbstractFOSRestController
         GameConfigServiceInterface $gameConfigService,
         CycleServiceInterface $cycleService,
     ) {
-        $this->adminService = $adminService;
+        parent::__construct($adminService);
         $this->daedalusService = $daedalusService;
         $this->daedalusWidgetService = $daedalusWidgetService;
         $this->translationService = $translationService;
@@ -84,10 +83,6 @@ class DaedalusController extends AbstractFOSRestController
      */
     public function getAvailableCharacter(Request $request): View
     {
-        if ($this->adminService->isGameInMaintenance()) {
-            return $this->view(['detail' => 'gameIsInMaintenance'], Response::HTTP_SERVICE_UNAVAILABLE);
-        } 
-
         $language = $request->get('language', '');
         $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($language, $this->getUser());
 

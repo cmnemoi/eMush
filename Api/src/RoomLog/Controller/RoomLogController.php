@@ -3,12 +3,13 @@
 namespace Mush\RoomLog\Controller;
 
 use FOS\RestBundle\Context\Context;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Game\Controller\AbstractGameController;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\User\Entity\User;
@@ -25,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route(path="/room-log")
  */
-class RoomLogController extends AbstractFOSRestController
+class RoomLogController extends AbstractGameController
 {
     private RoomLogServiceInterface $roomLogService;
     private CycleServiceInterface $cycleService;
@@ -33,11 +34,13 @@ class RoomLogController extends AbstractFOSRestController
     private PlayerInfoRepository $playerInfoRepository;
 
     public function __construct(
+        AdminServiceInterface $adminService,
         RoomLogServiceInterface $roomLogService,
         CycleServiceInterface $cycleService,
         TranslationServiceInterface $translationService,
         PlayerInfoRepository $playerInfoRepository
     ) {
+        parent::__construct($adminService);
         $this->roomLogService = $roomLogService;
         $this->cycleService = $cycleService;
         $this->translationService = $translationService;

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Service;
 
-use Mush\User\Entity\User;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 final class AdminService implements AdminServiceInterface

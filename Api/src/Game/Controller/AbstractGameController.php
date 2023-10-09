@@ -20,7 +20,7 @@ abstract class AbstractGameController extends AbstractFOSRestController
 
     protected function denyAccessIfGameInMaintenance(): ?View
     {
-        if ($this->adminService->isGameInMaintenance($this->getUser())) {
+        if ($this->adminService->isGameInMaintenance()) {
             return View::create(['detail' => 'gameInMaintenance'], Response::HTTP_SERVICE_UNAVAILABLE);
         }
 

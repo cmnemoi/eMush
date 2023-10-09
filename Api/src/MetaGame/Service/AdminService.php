@@ -20,12 +20,8 @@ final class AdminService implements AdminServiceInterface
         $this->maintenanceFile = $this->kernel->getProjectDir() . self::MAINTENANCE_FILE;
     }
 
-    public function isGameInMaintenance(?User $user): bool
+    public function isGameInMaintenance(): bool
     {
-        if ($user && $user->isAdmin()) {
-            return false;
-        }
-
         return file_exists($this->maintenanceFile);
     }
 

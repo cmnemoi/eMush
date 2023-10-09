@@ -245,7 +245,7 @@ class AdminController extends AbstractFOSRestController
      */
     public function getMaintenanceStatus(): View
     {
-        $isGameInMaintenance = $this->adminService->isGameInMaintenance($this->getUser());
+        $isGameInMaintenance = $this->adminService->isGameInMaintenance();
 
         return $this->view(['gameInMaintenance' => $isGameInMaintenance], Response::HTTP_OK);
     }
@@ -263,7 +263,7 @@ class AdminController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotAdmin();
 
-        if ($this->adminService->isGameInMaintenance($this->getUser())) {
+        if ($this->adminService->isGameInMaintenance()) {
             return $this->view('Game is already in maintenance', Response::HTTP_BAD_REQUEST);
         }
 
@@ -285,7 +285,7 @@ class AdminController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotAdmin();
 
-        if (!$this->adminService->isGameInMaintenance($this->getUser())) {
+        if (!$this->adminService->$this->adminService->isGameInMaintenance()) {
             return $this->view('Game is not in maintenance', Response::HTTP_BAD_REQUEST);
         }
 

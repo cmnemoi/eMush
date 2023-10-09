@@ -3,7 +3,7 @@
         <Title :title="$t('title')" />
         <Spinner :loading="userLoading || playerLoading || configLoading" />
         <Banner />
-        <MaintenancePage v-if="gameInMaintenance"/>
+        <MaintenancePage v-if="gameInMaintenance && !userIsAdmin"/>
         <router-view v-else/>
         <ErrorPopup />
         <Thanks />
@@ -39,6 +39,7 @@ export default {
             userLoading: 'auth/isLoading',
             playerLoading: 'player/isLoading',
             configLoading: 'gameConfig/isLoading',
+            userIsAdmin: 'auth/isAdmin',
         }),
     },
     methods: {

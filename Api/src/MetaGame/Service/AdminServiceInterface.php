@@ -8,7 +8,7 @@ use Mush\User\Entity\User;
 
 interface AdminServiceInterface
 {
-    public function isGameInMaintenance(?User $user): bool;
+    public function isGameInMaintenance(): bool;
 
     public function putGameInMaintenance(): void;
 

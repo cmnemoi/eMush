@@ -256,7 +256,6 @@ export default defineComponent({
         },
         removeGameFromMaintenance() {
             AdminService.removeGameFromMaintenance().then(() => {
-                console.log(this.loadGameMaintenanceStatus());
                 this.loadData();
             });
         },

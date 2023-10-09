@@ -5,7 +5,7 @@
             <div class="chatbox">
                 <slot />
             </div>
-            <span v-if="loading" class="loading">Loading...</span>
+            <span v-if="loading" class="loading">{{ $t('loading') }}</span>
         </div>
     </div>
 </template>

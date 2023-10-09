@@ -17,7 +17,7 @@ const getters = {
     getError: (state: any): any => {
         return state.error;
     }
-}
+};
 
 const mutations: MutationTree<any> = {
     setError(state:any, error: any): void {

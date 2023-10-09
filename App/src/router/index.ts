@@ -20,7 +20,6 @@ import NewsListPage from "@/components/Admin/News/NewsListPage.vue";
 import NewsWritePage from "@/components/Admin/News/NewsWritePage.vue";
 import NewsPage from "@/components/NewsPage.vue";
 import PlayerListPage from "@/components/Admin/Player/PlayerListPage.vue";
-import ErrorPage from "@/components/ErrorPage.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 
 const routes = [
@@ -160,32 +159,9 @@ const routes = [
         component: NewsPage
     },
     {
-        path: "/error",
-        name: "ErrorPage",
-        component: ErrorPage,
-        // @ts-ignore
-        beforeEnter: (to, from, next) => {
-            const unavailable = parseInt(store.getters["error/getError"]?.status) === 503;
-            if (unavailable) {
-                next();
-            } else {
-                next({ name: 'HomePage' });
-            }
-        }
-    },
-    {
         path: "/token",
         name: "Token",
         component: Token,
-        // @ts-ignore
-        beforeEnter: (to, from, next) => {
-            const unavailable = parseInt(store.getters["error/getError"]?.status) === 503;
-            if (!unavailable) {
-                next();
-            } else {
-                next({ name: 'ErrorPage' });
-            }
-        }
     }
 ];
 
@@ -196,11 +172,6 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const unavailable = parseInt(store.getters["error/getError"]?.status) === 503;
-    if (unavailable) {
-        return next({ path: '/' });
-    }
-
     // redirect to login page if not logged in and trying to access a restricted page
     const { authorize }: any = to.meta;
     const currentUser = store.getters["auth/getUserInfo"];

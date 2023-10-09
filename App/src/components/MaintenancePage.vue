@@ -4,7 +4,7 @@
         <div class="error-container">
             <img class="neron-img" src="@/assets/images/neron_eye.gif" alt="Neron">
             <span class="neron-message" v-html="$t('maintenancePage.neronMessage')"></span>
-            <p class="error">Le jeu est en maintenance, réessayez plus tard.</p>
+            <p class="error">{{ $t('maintenancePage.error') }}</p>
             <p class="community" v-html="$t('maintenancePage.consultCommunity')"></p>
         </div>  
     </div>

@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import router from "@/router";
 import { defineComponent } from "vue";
 
@@ -22,6 +22,10 @@ export default defineComponent ({
         if (typeof this.$route.query.code !== 'undefined') {
             const logginSuccess = await this.login({ code: this.$route.query.code });
             if (logginSuccess) {
+                this.loadGameMaintenanceStatus();
+                if (this.gameInMaintenance()) {
+                    router.push({ name: 'MaintenancePage' });
+                }
                 router.push({ name: 'GamePage' });
             }
         }
@@ -31,9 +35,13 @@ export default defineComponent ({
         }
     },
     methods: {
-        ...mapActions('auth', [
-            'login'
-        ])
-    }
+        ...mapGetters({
+            gameInMaintenance: 'admin/gameInMaintenance'
+        }),
+        ...mapActions({
+            loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus',
+            login: 'auth/login'
+        })
+    },
 });
 </script>

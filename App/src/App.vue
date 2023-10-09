@@ -3,8 +3,8 @@
         <Title :title="$t('title')" />
         <Spinner :loading="userLoading || playerLoading || configLoading" />
         <Banner />
-        <ErrorPage v-if="error && parseInt(error.status) == 503" :error="error"/>
-        <router-view v-else />
+        <MaintenancePage v-if="gameInMaintenance"/>
+        <router-view v-else/>
         <ErrorPopup />
         <Thanks />
         <LocaleChange />
@@ -16,11 +16,11 @@
 import Banner from "@/components/Banner";
 import ErrorPopup from "@/components/ErrorPopup";
 import Spinner from "@/components/Utils/Spinner";
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import LocaleChange from "@/components/Utils/LocaleChange.vue";
 import Title from "@/components/Utils/Title.vue";
 import Thanks from "@/components/Thanks.vue";
-import ErrorPage from "@/components/ErrorPage.vue";
+import MaintenancePage from "@/components/MaintenancePage.vue";
 
 export default {
     name: 'App',
@@ -31,18 +31,24 @@ export default {
         LocaleChange,
         Title,
         Thanks,
-        ErrorPage
+        MaintenancePage
     },
     computed: {
-        ...mapState('error', [
-            'error'
-        ]),
         ...mapGetters({
+            gameInMaintenance: 'admin/gameInMaintenance',
             userLoading: 'auth/isLoading',
             playerLoading: 'player/isLoading',
-            configLoading: 'gameConfig/isLoading'
-        })
-    }
+            configLoading: 'gameConfig/isLoading',
+        }),
+    },
+    methods: {
+        ...mapActions({
+            loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus'
+        }),
+    },
+    beforeMount() {
+        this.loadGameMaintenanceStatus();
+    },
 };
 </script>
 

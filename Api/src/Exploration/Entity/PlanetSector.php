@@ -72,6 +72,11 @@ final class PlanetSector
         return $this;
     }
 
+    public function getName(): string
+    {
+        return $this->planetSectorConfig->getName();
+    }
+
     public function getWeightAtPlanetAnalysis(): int
     {
         return $this->planetSectorConfig->getWeightAtPlanetAnalysis();

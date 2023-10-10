@@ -37,6 +37,8 @@ final class ScanCest extends AbstractFunctionalTest
 
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
+        $this->scanActionConfig->setSuccessRate(100);
+
         // given there is an astro terminal on the bridge
         $this->bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
         $astroTerminalConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::ASTRO_TERMINAL]);
@@ -86,5 +88,19 @@ final class ScanCest extends AbstractFunctionalTest
 
         // then a planet is created
         $I->seeInRepository(Planet::class);
+    }
+
+    public function testScanSuccessPlanetHasADistanceBetweenTwoAndNine(FunctionalTester $I): void
+    {
+        // when player scans
+        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->execute();
+
+        // then a planet is created
+        /** @var Planet $planet */
+        $planet = $I->grabEntityFromRepository(Planet::class);
+
+        $I->assertGreaterThanOrEqual(2, $planet->getDistance());
+        $I->assertLessThanOrEqual(9, $planet->getDistance());
     }
 }

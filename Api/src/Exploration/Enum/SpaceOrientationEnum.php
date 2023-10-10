@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Enum;
 
+/** @codeCoverageIgnore */
 final class SpaceOrientationEnum
 {
     public const NORTH = 'north';

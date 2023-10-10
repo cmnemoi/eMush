@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Enum;
 
+/** @codeCoverageIgnore */
 final class PlanetSyllablesEnum
 {
     public static array $first = ['Fugu', 'Pilu', 'Mage', 'Frome', 'Grune', 'Brate', 'Milo', 'Komo', 'Date', 'Sigu', 'Crame', 'Fari', 'Mushe', 'Dago', 'Cari', 'Sopi', 'Nato', 'Sube', 'Ludi', 'Miche', 'Pample', 'Noce', 'Gouli', 'Kafto', 'Suppo', 'Bani', 'Grumo', 'Cele', 'Mura', 'Fanto', 'Epso', ' Uri', 'Yoga', 'Yami', 'Doro', 'Pila', 'Manche', 'Atlan', 'Biro', 'Popo', 'Papu', 'Pogo', 'Pyro', 'Pouli', 'Pale', 'Manti', 'Fulme'];

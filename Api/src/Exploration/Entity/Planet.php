@@ -7,12 +7,14 @@ namespace Mush\Exploration\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\Player;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'planet')]
-#[ORM\UniqueConstraint(name: 'unique_planet_space_coordinates', columns: ['orientation', 'distance'])]
-#[UniqueEntity(['orientation', 'distance'])]
+#[ORM\UniqueConstraint(name: 'unique_planet_for_daedalus', columns: ['name', 'orientation', 'distance', 'daedalus_id'])]
+#[UniqueEntity(['name', 'orientation', 'distance', 'daedalus'])]
 final class Planet
 {
     #[ORM\Id]
@@ -35,8 +37,16 @@ final class Planet
     #[ORM\OneToMany(mappedBy: 'planet', targetEntity: PlanetSector::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $sectors;
 
-    public function __construct()
+    #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'planets')]
+    private Player $player;
+
+    #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'planets')]
+    private Daedalus $daedalus;
+
+    public function __construct(Player $player)
     {
+        $this->player = $player;
+        $this->daedalus = $player->getDaedalus();
         $this->sectors = new ArrayCollection();
     }
 
@@ -109,5 +119,15 @@ final class Planet
         }
 
         return $this;
+    }
+
+    public function getPlayer(): Player
+    {
+        return $this->player;
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        return $this->daedalus;
     }
 }

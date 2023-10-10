@@ -38,10 +38,6 @@ metagame:
     resource: ../../src/MetaGame/Controller/
     type: annotation
     prefix: /api/v1
-exploration:
-    resource: ../../src/Exploration/Controller/
-    type: annotation
-    prefix: /api/v1
 
 api_login_check:
     path: /api/login_check

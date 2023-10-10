@@ -111,12 +111,10 @@ final class Planet
         return $this->sectors;
     }
 
-    public function addSector(PlanetSector $sector): self
+    /** @param Collection<int, PlanetSector> $sectors */
+    public function setSectors(Collection $sectors): self
     {
-        if (!$this->sectors->contains($sector)) {
-            $this->sectors->add($sector);
-            $sector->setPlanet($this);
-        }
+        $this->sectors = $sectors;
 
         return $this;
     }

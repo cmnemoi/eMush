@@ -11,6 +11,7 @@ use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Game\Entity\Collection\TriumphConfigCollection;
 use Mush\Game\Repository\GameConfigRepository;
 use Mush\Hunter\Entity\HunterConfig;
@@ -60,6 +61,9 @@ class GameConfig
     #[ORM\ManyToMany(targetEntity: HunterConfig::class)]
     private Collection $hunterConfigs;
 
+    #[ORM\ManyToMany(targetEntity: PlanetSectorConfig::class)]
+    private Collection $planetSectorConfigs;
+
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
 
@@ -72,6 +76,8 @@ class GameConfig
         $this->diseaseConfig = new ArrayCollection();
         $this->consumableDiseaseConfig = new ArrayCollection();
         $this->statusConfigs = new ArrayCollection();
+        $this->hunterConfigs = new ArrayCollection();
+        $this->planetSectorConfigs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -307,6 +313,32 @@ class GameConfig
     public function addHunterConfig(HunterConfig $hunterConfig): static
     {
         $this->hunterConfigs->add($hunterConfig);
+
+        return $this;
+    }
+
+    public function getPlanetSectorConfigs(): Collection
+    {
+        return $this->planetSectorConfigs;
+    }
+
+    /**
+     * @psalm-param ArrayCollection<int, PlanetSectorConfig> $planetSectorConfigs
+     */
+    public function setPlanetSectorConfigs(ArrayCollection|array $planetSectorConfigs): static
+    {
+        if (is_array($planetSectorConfigs)) {
+            $planetSectorConfigs = new ArrayCollection($planetSectorConfigs);
+        }
+
+        $this->planetSectorConfigs = $planetSectorConfigs;
+
+        return $this;
+    }
+
+    public function addPlanetSectorConfig(PlanetSectorConfig $planetSectorConfig): static
+    {
+        $this->planetSectorConfigs->add($planetSectorConfig);
 
         return $this;
     }

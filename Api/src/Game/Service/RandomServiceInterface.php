@@ -38,6 +38,8 @@ interface RandomServiceInterface
 
     public function getRandomElements(array $array, int $number = 1): array;
 
+    public function getRandomElement(array $array): mixed;
+
     public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): int|string|null;
 
     public function getRandomElementsFromProbaCollection(ProbaCollection $array, int $number): array;

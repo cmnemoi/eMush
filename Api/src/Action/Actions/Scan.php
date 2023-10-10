@@ -64,6 +64,6 @@ final class Scan extends AttemptAction
             return;
         }
 
-        $this->planetService->createPlanet();
+        $this->planetService->createPlanet($this->player);
     }
 }

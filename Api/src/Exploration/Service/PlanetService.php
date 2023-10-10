@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Exploration\Entity\Planet;
 
 final class PlanetService implements PlanetServiceInterface
-{   
+{
     private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)

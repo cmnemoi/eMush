@@ -143,6 +143,18 @@ class RandomService implements RandomServiceInterface
         return $result;
     }
 
+    public function getRandomElement(array $array): mixed
+    {
+        $draw = $this->getRandomElements($array, 1);
+        $element = current($draw);
+
+        if (!$element) {
+            throw new \Exception('getRandomElement: array is empty');
+        }
+
+        return $element;
+    }
+
     // This function takes an array [element => proba%] as input and send back an array
     // Instead of proba relative weight also work
     public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): int|string|null

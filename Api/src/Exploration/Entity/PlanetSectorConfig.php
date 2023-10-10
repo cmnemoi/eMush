@@ -16,6 +16,9 @@ final class PlanetSectorConfig
     #[ORM\Column(type: 'integer')]
     private int $id;
 
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $name = '';
+
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $weightAtPlanetGeneration = 0;
 
@@ -34,6 +37,18 @@ final class PlanetSectorConfig
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): PlanetSectorConfig
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getWeightAtPlanetGeneration(): int
@@ -94,6 +109,8 @@ final class PlanetSectorConfig
         if ($explorationEvents instanceof ProbaCollection) {
             $explorationEvents = $explorationEvents->toArray();
         }
+
+        $this->explorationEvents = $explorationEvents;
 
         return $this;
     }

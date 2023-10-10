@@ -10,7 +10,7 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 #[ORM\Entity]
 #[ORM\Table(name: 'planet_sector_config')]
 final class PlanetSectorConfig
-{   
+{
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -90,12 +90,11 @@ final class PlanetSectorConfig
     }
 
     public function setExplorationEvents(ProbaCollection|array $explorationEvents): self
-    {   
+    {
         if ($explorationEvents instanceof ProbaCollection) {
             $explorationEvents = $explorationEvents->toArray();
         }
 
         return $this;
     }
-
 }

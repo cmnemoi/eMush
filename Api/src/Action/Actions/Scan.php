@@ -56,7 +56,7 @@ final class Scan extends AttemptAction
             'contain' => false,
             'groups' => ['visibility'],
         ]));
-    } 
+    }
 
     protected function applyEffect(ActionResult $result): void
     {

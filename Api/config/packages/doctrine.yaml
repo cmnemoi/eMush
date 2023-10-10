@@ -106,3 +106,10 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Hunter/Entity'
                 prefix: 'Mush\Hunter\Entity'
                 alias: Hunter
+            Exploration:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Exploration/Entity'
+                prefix: 'Mush\Exploration\Entity'
+                alias: Exploration
+

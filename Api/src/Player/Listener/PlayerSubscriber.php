@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -40,6 +41,8 @@ class PlayerSubscriber implements EventSubscriberInterface
             PlayerEvent::METAL_PLATE => 'onMetalPlate',
             PlayerEvent::PANIC_CRISIS => 'onPanicCrisis',
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
+            PlayerEvent::GAIN_TITLE => 'onGainTitle',
+            PlayerEvent::REMOVE_TITLE => 'onRemoveTitle',
         ];
     }
 
@@ -128,5 +131,31 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $sporeVariable->setValue(0)->setMaxValue(2);
         $this->playerService->persist($player);
+    }
+
+    public function onGainTitle(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+
+        $title = $event->mapLog(TitleEnum::TITLES_MAP);
+
+        if ($title === null) {
+            throw new \LogicException('Player needs a specific title to gain');
+        }
+
+        $player->addTitle($title);
+    }
+
+    public function onRemoveTitle(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+
+        $title = $event->mapLog(TitleEnum::TITLES_MAP);
+
+        if ($title === null) {
+            throw new \LogicException('Player needs a specific title to remove');
+        }
+
+        $player->removeTitle($title);
     }
 }

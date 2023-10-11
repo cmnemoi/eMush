@@ -472,4 +472,51 @@ class DaedalusService implements DaedalusServiceInterface
 
         return $value;
     }
+
+    public function assignTitles(Daedalus $daedalus, \DateTime $date): Daedalus
+    {
+        $gameConfig = $daedalus->getGameConfig();
+
+        $titleConfigs = $gameConfig->getTitleConfigs();
+
+        // Get the names of all alive players
+        // @TODO: get active players instead
+        $players = $daedalus->getPlayers()->getPlayerAlive();
+
+        /** @var TitleConfig $titleConfig */
+        foreach ($titleConfigs as $titleConfig) {
+            $titleAssigned = false;
+            foreach ($titleConfig->getPriority() as $priorityPlayer) {
+                $title = $titleConfig->getName();
+                if (
+                    $players
+                        ->map(fn(Player $player) => $player->getPlayerInfo()->getName())
+                        ->contains($priorityPlayer)
+                ) {
+                    $player = $players->filter(fn(Player $player) => $player->getPlayerInfo()->getName() === $priorityPlayer)->first();
+                    if (!in_array($title, $player->getTitles()) && !$titleAssigned) {
+                        // If first person in order of priority does not have title, assign it
+                        $playerEvent = new PlayerEvent(
+                            $player,
+                            [$title],
+                            $date
+                        );
+                        $this->eventService->callEvent($playerEvent, PlayerEvent::GAIN_TITLE);
+                        $titleAssigned = true;
+                    } elseif(in_array($title, $player->getTitles()) && $titleAssigned) {
+                        // If someone has a title when they are not the player alive with the biggest priority, remove it
+                        // For when an inactive player wakes up
+                        $playerEvent = new PlayerEvent(
+                            $player,
+                            [$title],
+                            $date
+                        );
+                        $this->eventService->callEvent($playerEvent, PlayerEvent::REMOVE_TITLE);
+                    }
+                }
+            }
+        }
+
+        return $daedalus;
+    }
 }

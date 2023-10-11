@@ -2,6 +2,7 @@
 
 namespace Mush\Communication\Listener;
 
+use Mush\Game\Enum\TitleEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\MushMessageEnum;
 use Mush\Communication\Services\ChannelServiceInterface;

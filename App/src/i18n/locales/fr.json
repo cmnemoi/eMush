@@ -533,6 +533,7 @@
 			"numberOfActionsPerCycle": "Nombre d'actions par cycle"
 		},
 		"playerList": {
+			"closeAllPlayers": "Fermer (archiver) tous les joueurs",
 			"closePlayer": "Fermer (archiver) ce joueur",
 			"quarantine": "Mettre en quarantaine"
 		}

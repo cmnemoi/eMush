@@ -223,6 +223,30 @@ class AdminController extends AbstractFOSRestController
         return $this->view("{$numberOfElementsDeleted} alert elements deleted successfully", Response::HTTP_OK);
     }
 
+    /**
+     * Close all players after a Super Nova.
+     *
+     * @OA\Tag(name="Admin")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post(path="/close-all-players")
+     */
+    public function closeAllPlayers(): View
+    {
+        $this->denyAccessIfNotAdmin();
+
+        $players = $this->playerService->findAll();
+        foreach ($players as $player) {
+            if ($player->isAlive()) {
+                return $this->view('Some players are still alive', Response::HTTP_BAD_REQUEST);
+            }
+            $this->playerService->endPlayer($player, '');
+        }
+
+        return $this->view('All players closed successfully', Response::HTTP_OK);
+    }
+
     private function alertElementHaveSameEquipmentOrPlace(AlertElement $element1, AlertElement $element2): bool
     {
         if ($element1->getEquipment() && $element2->getEquipment()) {
@@ -254,5 +278,16 @@ class AdminController extends AbstractFOSRestController
         $collection->removeElement($element);
 
         return $collection;
+    }
+
+    private function denyAccessIfNotAdmin(): void
+    {
+        $admin = $this->getUser();
+        if (!$admin instanceof User) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
+        }
+        if (!$admin->isAdmin()) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can use this endpoint!');
+        }
     }
 }

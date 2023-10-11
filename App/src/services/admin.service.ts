@@ -17,6 +17,13 @@ const AdminService = {
 
         return response;
     },
+    closeAllPlayers: async(): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(ADMIN_ENDPOINT + '/close-all-players');
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     closePlayer: async(playerId: string): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(ADMIN_ENDPOINT + '/close-player/' + playerId);

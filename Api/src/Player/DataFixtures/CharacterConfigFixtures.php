@@ -470,6 +470,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setInitMovementPoint(10)
             ->setMaxMovementPoint(12)
             ->setMaxItemInInventory(3)
+            ->setMaxDiscoverablePlanets(2)
             ->setActions($defaultActions)
         ;
 

@@ -19,6 +19,9 @@ class PlanetSectorConfig
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name = '';
 
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $sectorName = '';
+
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $weightAtPlanetGeneration = 0;
 
@@ -47,6 +50,18 @@ class PlanetSectorConfig
     public function setName(string $name): PlanetSectorConfig
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSectorName(): string
+    {
+        return $this->sectorName;
+    }
+
+    public function setSectorName(string $sectorName): self
+    {
+        $this->sectorName = $sectorName;
 
         return $this;
     }

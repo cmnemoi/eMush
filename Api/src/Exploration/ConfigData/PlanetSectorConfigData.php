@@ -12,7 +12,8 @@ final class PlanetSectorConfigData
 {
     public static array $dataArray = [
         [
-            'name' => PlanetSectorEnum::LANDING,
+            'name' => PlanetSectorEnum::LANDING . '_default',
+            'sectorName' => PlanetSectorEnum::LANDING,
             'weightAtPlanetGeneration' => 0,
             'weightAtPlanetAnalysis' => 0,
             'weightAtPlanetExploration' => 0,
@@ -25,7 +26,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::FOREST,
+            'name' => PlanetSectorEnum::FOREST . '_default',
+            'sectorName' => PlanetSectorEnum::FOREST,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 12,
             'weightAtPlanetExploration' => 8,
@@ -38,7 +40,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::MOUNTAIN,
+            'name' => PlanetSectorEnum::MOUNTAIN . '_default',
+            'sectorName' => PlanetSectorEnum::MOUNTAIN,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
@@ -51,7 +54,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::SWAMP,
+            'name' => PlanetSectorEnum::SWAMP . '_default',
+            'sectorName' => PlanetSectorEnum::SWAMP,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
@@ -64,7 +68,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::DESERT,
+            'name' => PlanetSectorEnum::DESERT . '_default',
+            'sectorName' => PlanetSectorEnum::DESERT,
             'weightAtPlanetGeneration' => 12,
             'weightAtPlanetAnalysis' => 12,
             'weightAtPlanetExploration' => 8,
@@ -76,7 +81,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::OCEAN,
+            'name' => PlanetSectorEnum::OCEAN . '_default',
+            'sectorName' => PlanetSectorEnum::OCEAN,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 12,
             'weightAtPlanetExploration' => 8,
@@ -88,7 +94,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::CAVE,
+            'name' => PlanetSectorEnum::CAVE . '_default',
+            'sectorName' => PlanetSectorEnum::CAVE,
             'weightAtPlanetGeneration' => 4,
             'weightAtPlanetAnalysis' => 2,
             'weightAtPlanetExploration' => 8,
@@ -101,7 +108,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::RUMINANT,
+            'name' => PlanetSectorEnum::RUMINANT . '_default',
+            'sectorName' => PlanetSectorEnum::RUMINANT,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 4,
             'weightAtPlanetExploration' => 8,
@@ -114,7 +122,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::PREDATOR,
+            'name' => PlanetSectorEnum::PREDATOR . '_default',
+            'sectorName' => PlanetSectorEnum::PREDATOR,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 2,
             'weightAtPlanetExploration' => 6,
@@ -127,7 +136,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::INTELLIGENT,
+            'name' => PlanetSectorEnum::INTELLIGENT . '_default',
+            'sectorName' => PlanetSectorEnum::INTELLIGENT,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 4,
             'weightAtPlanetExploration' => 8,
@@ -140,7 +150,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::INSECT,
+            'name' => PlanetSectorEnum::INSECT . '_default',
+            'sectorName' => PlanetSectorEnum::INSECT,
             'weightAtPlanetGeneration' => 10,
             'weightAtPlanetAnalysis' => 2,
             'weightAtPlanetExploration' => 8,
@@ -153,7 +164,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::MANKAROG,
+            'name' => PlanetSectorEnum::MANKAROG . '_default',
+            'sectorName' => PlanetSectorEnum::MANKAROG,
             'weightAtPlanetGeneration' => 2,
             'weightAtPlanetAnalysis' => 4,
             'weightAtPlanetExploration' => 6,
@@ -166,7 +178,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::HYDROCARBON,
+            'name' => PlanetSectorEnum::HYDROCARBON . '_default',
+            'sectorName' => PlanetSectorEnum::HYDROCARBON,
             'weightAtPlanetGeneration' => 5,
             'weightAtPlanetAnalysis' => 2,
             'weightAtPlanetExploration' => 8,
@@ -179,7 +192,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::OXYGEN,
+            'name' => PlanetSectorEnum::OXYGEN . '_default',
+            'sectorName' => PlanetSectorEnum::OXYGEN,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 12,
             'weightAtPlanetExploration' => 8,
@@ -192,7 +206,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::COLD,
+            'name' => PlanetSectorEnum::COLD . '_default',
+            'sectorName' => PlanetSectorEnum::COLD,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
@@ -205,7 +220,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::HOT,
+            'name' => PlanetSectorEnum::HOT . '_default',
+            'sectorName' => PlanetSectorEnum::HOT,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
@@ -218,7 +234,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::STRONG_WIND,
+            'name' => PlanetSectorEnum::STRONG_WIND . '_default',
+            'sectorName' => PlanetSectorEnum::STRONG_WIND,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
@@ -230,7 +247,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::SISMIC_ACTIVITY,
+            'name' => PlanetSectorEnum::SISMIC_ACTIVITY . '_default',
+            'sectorName' => PlanetSectorEnum::SISMIC_ACTIVITY,
             'weightAtPlanetGeneration' => 3,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
@@ -243,7 +261,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::VOLCANIC_ACTIVITY,
+            'name' => PlanetSectorEnum::VOLCANIC_ACTIVITY . '_default',
+            'sectorName' => PlanetSectorEnum::VOLCANIC_ACTIVITY,
             'weightAtPlanetGeneration' => 3,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 6,
@@ -255,7 +274,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::RUINS,
+            'name' => PlanetSectorEnum::RUINS . '_default',
+            'sectorName' => PlanetSectorEnum::RUINS,
             'weightAtPlanetGeneration' => 2,
             'weightAtPlanetAnalysis' => 2,
             'weightAtPlanetExploration' => 8,
@@ -268,7 +288,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::WRECK,
+            'name' => PlanetSectorEnum::WRECK . '_default',
+            'sectorName' => PlanetSectorEnum::WRECK,
             'weightAtPlanetGeneration' => 2,
             'weightAtPlanetAnalysis' => 1,
             'weightAtPlanetExploration' => 8,
@@ -281,7 +302,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::FRUIT_TREES,
+            'name' => PlanetSectorEnum::FRUIT_TREES . '_default',
+            'sectorName' => PlanetSectorEnum::FRUIT_TREES,
             'weightAtPlanetGeneration' => 3,
             'weightAtPlanetAnalysis' => 1,
             'weightAtPlanetExploration' => 8,
@@ -293,7 +315,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::LOST,
+            'name' => PlanetSectorEnum::LOST . '_default',
+            'sectorName' => PlanetSectorEnum::LOST,
             'weightAtPlanetGeneration' => 0,
             'weightAtPlanetAnalysis' => 0,
             'weightAtPlanetExploration' => 8,
@@ -305,7 +328,8 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::CRISTAL_FIELD,
+            'name' => PlanetSectorEnum::CRISTAL_FIELD . '_default',
+            'sectorName' => PlanetSectorEnum::CRISTAL_FIELD,
             'weightAtPlanetGeneration' => 2,
             'weightAtPlanetAnalysis' => 4,
             'weightAtPlanetExploration' => 10,

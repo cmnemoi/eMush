@@ -48,33 +48,14 @@ final class PlanetSector
         return $this;
     }
 
-    public function getPlanetSectorConfig(): PlanetSectorConfig
-    {
-        return $this->planetSectorConfig;
-    }
-
-    public function setPlanetSectorConfig(PlanetSectorConfig $planetSectorConfig): self
-    {
-        $this->planetSectorConfig = $planetSectorConfig;
-
-        return $this;
-    }
-
     public function getPlanet(): Planet
     {
         return $this->planet;
     }
 
-    public function setPlanet(Planet $planet): self
-    {
-        $this->planet = $planet;
-
-        return $this;
-    }
-
     public function getName(): string
     {
-        return $this->planetSectorConfig->getName();
+        return $this->planetSectorConfig->getSectorName();
     }
 
     public function getWeightAtPlanetAnalysis(): int

@@ -23,6 +23,7 @@ class PlanetSectorConfigDataLoader extends ConfigDataLoader
 
             $planetSectorConfig
                 ->setName($data['name'])
+                ->setSectorName($data['sectorName'])
                 ->setWeightAtPlanetGeneration($data['weightAtPlanetGeneration'])
                 ->setWeightAtPlanetAnalysis($data['weightAtPlanetAnalysis'])
                 ->setWeightAtPlanetExploration($data['weightAtPlanetExploration'])

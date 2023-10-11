@@ -18,6 +18,8 @@ interface RandomServiceInterface
 
     public function randomPercent(): int;
 
+    public function rollTwiceAndAverage(int $min, int $max): int;
+
     public function isSuccessful(int $successRate): bool;
 
     public function isActionSuccessful(int $successRate): bool;

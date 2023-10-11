@@ -45,7 +45,7 @@ final class PlanetService implements PlanetServiceInterface
         // create unique planet
         do {
             $planet->setOrientation($this->randomService->getRandomElement(SpaceOrientationEnum::getAll()));
-            $planet->setDistance($this->randomService->random(2, 9));
+            $planet->setDistance($this->randomService->rollTwiceAndAverage(2, 9));
         } while (
             $this->findOneBy(['orientation' => $planet->getOrientation(), 'distance' => $planet->getDistance(), 'daedalus' => $daedalus]) !== null
         );

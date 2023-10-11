@@ -10,15 +10,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 final class PlanetSectorEnum
 {
     public const CAVE = 'cave';
-    public const COLD_TEMPERATURES = 'cold_temperatures';
+    public const COLD = 'cold';
     public const CRISTAL_FIELD = 'cristal_field';
     public const DESERT = 'desert';
     public const FOREST = 'forest';
     public const FRUIT_TREES = 'fruit_trees';
-    public const HOT_TEMPERATURES = 'hot_temperatures';
+    public const HOT = 'hot';
     public const HYDROCARBON = 'hydrocarbon';
-    public const INSECTS = 'insects';
-    public const INTELLIGENT_LIFE = 'intelligent_life';
+    public const INSECT = 'insect';
+    public const INTELLIGENT = 'intelligent';
     public const LANDING = 'landing';
     public const LOST = 'lost';
     public const MANKAROG = 'mankarog';
@@ -27,9 +27,9 @@ final class PlanetSectorEnum
     public const OXYGEN = 'oxygen';
     public const PREDATOR = 'predator';
     public const RUINS = 'ruins';
-    public const RUMINANTS = 'ruminants';
+    public const RUMINANT = 'ruminant';
     public const SISMIC_ACTIVITY = 'sismic_activity';
-    public const STRONG_WINDS = 'strong_winds';
+    public const STRONG_WIND = 'strong_wind';
     public const SWAMP = 'swamp';
     public const UNKNOWN = 'unknown';
     public const VOLCANIC_ACTIVITY = 'volcanic_activity';
@@ -39,24 +39,24 @@ final class PlanetSectorEnum
     {
         return new ArrayCollection([
             self::CAVE,
-            self::COLD_TEMPERATURES,
+            self::COLD,
             self::CRISTAL_FIELD,
             self::DESERT,
             self::FOREST,
             self::FRUIT_TREES,
-            self::HOT_TEMPERATURES,
+            self::HOT,
             self::HYDROCARBON,
-            self::INSECTS,
-            self::INTELLIGENT_LIFE,
+            self::INSECT,
+            self::INTELLIGENT,
             self::MANKAROG,
             self::MOUNTAIN,
             self::OCEAN,
             self::OXYGEN,
             self::PREDATOR,
             self::RUINS,
-            self::RUMINANTS,
+            self::RUMINANT,
             self::SISMIC_ACTIVITY,
-            self::STRONG_WINDS,
+            self::STRONG_WIND,
             self::SWAMP,
             self::VOLCANIC_ACTIVITY,
             self::WRECK,

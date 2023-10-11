@@ -101,7 +101,7 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::RUMINANTS,
+            'name' => PlanetSectorEnum::RUMINANT,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 4,
             'weightAtPlanetExploration' => 8,
@@ -127,7 +127,7 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::INTELLIGENT_LIFE,
+            'name' => PlanetSectorEnum::INTELLIGENT,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 4,
             'weightAtPlanetExploration' => 8,
@@ -140,7 +140,7 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::INSECTS,
+            'name' => PlanetSectorEnum::INSECT,
             'weightAtPlanetGeneration' => 10,
             'weightAtPlanetAnalysis' => 2,
             'weightAtPlanetExploration' => 8,
@@ -192,7 +192,7 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::COLD_TEMPERATURES,
+            'name' => PlanetSectorEnum::COLD,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
@@ -205,7 +205,7 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::HOT_TEMPERATURES,
+            'name' => PlanetSectorEnum::HOT,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
@@ -218,7 +218,7 @@ final class PlanetSectorConfigData
             ],
         ],
         [
-            'name' => PlanetSectorEnum::STRONG_WINDS,
+            'name' => PlanetSectorEnum::STRONG_WIND,
             'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,

@@ -20,15 +20,17 @@ class PlanetRepository extends ServiceEntityRepository
         parent::__construct($registry, Planet::class);
     }
 
-    public function findOneByDaedalusOrienationAndDistance(Daedalus $daedalus, string $orientation, int $distance): ?Planet
+    public function findOneByDaedalusNameOrienationAndDistance(Daedalus $daedalus, string $name, string $orientation, int $distance): ?Planet
     {   
         $queryBuilder = $this->createQueryBuilder('planet');
         $queryBuilder
             ->innerJoin('planet.player', 'player')
             ->where('player.daedalus = :daedalus')
+            ->andWhere('planet.name = :name')
             ->andWhere('planet.orientation = :orientation')
             ->andWhere('planet.distance = :distance')
             ->setParameter('daedalus', $daedalus)
+            ->setParameter('name', $name)
             ->setParameter('orientation', $orientation)
             ->setParameter('distance', $distance)
         ;

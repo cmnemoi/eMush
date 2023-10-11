@@ -13,7 +13,6 @@ use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSyllablesEnum;
 use Mush\Exploration\Enum\SpaceOrientationEnum;
 use Mush\Exploration\Repository\PlanetRepository;
-use Mush\Exploration\Repository\PlanetSectorConfigRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -39,18 +38,17 @@ final class PlanetService implements PlanetServiceInterface
         $daedalus = $player->getDaedalus();
 
         $planet = new Planet($player);
-        $planet
-            ->setName($this->getPlanetName())
-            ->setSize($this->getPlanetSize($daedalus))
-        ;
+        $planet->setSize($this->getPlanetSize($daedalus));
 
         // create unique planet
         do {
+            $planet->setName($this->getPlanetName());
             $planet->setOrientation($this->randomService->getRandomElement(SpaceOrientationEnum::getAll()));
             $planet->setDistance($this->randomService->rollTwiceAndAverage(2, 9));
         } while (
-            $this->planetRepository->findOneByDaedalusOrienationAndDistance(
+            $this->planetRepository->findOneByDaedalusNameOrienationAndDistance(
                 $daedalus,
+                $planet->getName(),
                 $planet->getOrientation(),
                 $planet->getDistance()
             ) !== null

@@ -35,6 +35,11 @@ class RandomService implements RandomServiceInterface
         return $this->random(1, 100);
     }
 
+    public function rollTwiceAndAverage(int $min, int $max): int
+    {
+        return intval(($this->random($min, $max) + $this->random($min, $max)) / 2);
+    }
+
     public function isSuccessful(int $successRate): bool
     {
         return $this->randomPercent() <= $successRate;
@@ -227,10 +232,5 @@ class RandomService implements RandomServiceInterface
         } while ($p > $L);
 
         return $k - 1;
-    }
-
-    private function rollTwiceAndAverage(int $min, int $max): int
-    {
-        return intval(($this->random($min, $max) + $this->random($min, $max)) / 2);
     }
 }

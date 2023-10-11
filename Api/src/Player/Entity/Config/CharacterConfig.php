@@ -58,6 +58,9 @@ class CharacterConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $maxItemInInventory = 0;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $maxDiscoverablePlanets = 0;
+
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $initHealthPoint = 0;
 
@@ -334,6 +337,18 @@ class CharacterConfig
     public function setMaxItemInInventory(int $maxItemInInventory): static
     {
         $this->maxItemInInventory = $maxItemInInventory;
+
+        return $this;
+    }
+
+    public function getMaxDiscoverablePlanets(): int
+    {
+        return $this->maxDiscoverablePlanets;
+    }
+
+    public function setMaxDiscoverablePlanets(int $maxDiscoverablePlanets): static
+    {
+        $this->maxDiscoverablePlanets = $maxDiscoverablePlanets;
 
         return $this;
     }

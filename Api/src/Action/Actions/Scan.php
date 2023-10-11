@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\NumberOfDiscoverablePlanets;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
@@ -56,6 +57,7 @@ final class Scan extends AttemptAction
             'contain' => false,
             'groups' => ['visibility'],
         ]));
+        $metadata->addConstraint(new NumberOfDiscoverablePlanets(['groups' => ['visibility']]));
     }
 
     protected function applyEffect(ActionResult $result): void

@@ -12,23 +12,25 @@ use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSyllablesEnum;
 use Mush\Exploration\Enum\SpaceOrientationEnum;
+use Mush\Exploration\Repository\PlanetRepository;
 use Mush\Exploration\Repository\PlanetSectorConfigRepository;
+use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 
 final class PlanetService implements PlanetServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private PlanetSectorConfigRepository $planetSectorConfigRepository;
+    private PlanetRepository $planetRepository;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        PlanetSectorConfigRepository $planetSectorConfigRepository,
+        PlanetRepository $planetRepository,
         RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
-        $this->planetSectorConfigRepository = $planetSectorConfigRepository;
+        $this->planetRepository = $planetRepository;
         $this->randomService = $randomService;
     }
 
@@ -47,7 +49,11 @@ final class PlanetService implements PlanetServiceInterface
             $planet->setOrientation($this->randomService->getRandomElement(SpaceOrientationEnum::getAll()));
             $planet->setDistance($this->randomService->rollTwiceAndAverage(2, 9));
         } while (
-            $this->findOneBy(['orientation' => $planet->getOrientation(), 'distance' => $planet->getDistance(), 'daedalus' => $daedalus]) !== null
+            $this->planetRepository->findOneByDaedalusOrienationAndDistance(
+                $daedalus,
+                $planet->getOrientation(),
+                $planet->getDistance()
+            ) !== null
         );
 
         $planet = $this->generatePlanetSectors($planet);
@@ -98,8 +104,9 @@ final class PlanetService implements PlanetServiceInterface
         /** @var ArrayCollection<int, PlanetSector> $sectors */
         $sectors = new ArrayCollection();
 
-        $allSectorConfigs = $this->findAllPlanetSectorConfigs();
-        $total = $this->findTotalWeightsAtPlanetGeneration();
+        $gameConfig = $planet->getDaedalus()->getGameConfig();
+        $allSectorConfigs = $gameConfig->getPlanetSectorConfigs();
+        $total = $this->getGameConfigTotalWeightAtPlanetGeneration($gameConfig);
 
         for ($i = 0; $i < $planet->getSize(); ++$i) {
             $random = $this->randomService->random(0, $total);
@@ -126,19 +133,14 @@ final class PlanetService implements PlanetServiceInterface
         return $planet;
     }
 
-    private function findOneBy(array $criteria): ?Planet
+    private function getGameConfigTotalWeightAtPlanetGeneration(GameConfig $gameConfig): int
     {
-        return $this->entityManager->getRepository(Planet::class)->findOneBy($criteria);
-    }
+        $total = 0;
+        foreach ($gameConfig->getPlanetSectorConfigs() as $sectorConfig) {
+            $total += $sectorConfig->getWeightAtPlanetGeneration();
+        }
 
-    private function findAllPlanetSectorConfigs(): ArrayCollection
-    {
-        return new ArrayCollection($this->planetSectorConfigRepository->findAll());
-    }
-
-    private function findTotalWeightsAtPlanetGeneration(): int
-    {
-        return $this->planetSectorConfigRepository->findTotalWeightsAtPlanetGeneration();
+        return $total;
     }
 
     private function persist(array $entities): void

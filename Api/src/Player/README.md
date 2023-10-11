@@ -3,7 +3,7 @@ This module handle the player entities
 Player entities represent the crew of the Daedalus.
 They store the state of the character (health, morale, action...)
 
-# Architecture 
+# Architecture
 
 ## Directory Tree:
     |-- config
@@ -39,6 +39,7 @@ They store the state of the character (health, morale, action...)
   - items: collection of items present in player inventory
   - Collection of status, modifier, medicalConditions
   - flirts: collection of player this player flirted with
+  - Titles of the character
 - DeadPlayerInfo: add information on death
   - cause
   - time

@@ -1,0 +1,19 @@
+Mush\Game\Entity\TitleConfig:
+  shortName: 'TitleConfig'
+  description: 'eMush Title Config'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'title_config_read' ]
+    denormalization_context:
+      groups: [ 'title_config_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_ADMIN")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'

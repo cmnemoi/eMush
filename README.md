@@ -14,6 +14,7 @@ A front-end developed using VueJs
 If you don't want to go through the installation process, you can try using the project's Gitpod workspace (in alpha): 
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://gitlab.com/eternaltwin/mush/mush)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fcmnemoi%2FeMush.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fcmnemoi%2FeMush?ref=badge_shield)
 
 This will create a new workspace in the cloud with all the dependencies installed and the project ready to run. You will need  a Gitpod account to use this feature.
 
@@ -236,3 +237,6 @@ Please read [APP.md](./App/README.md) for details on the APP architecture
 The source code of this project is licensed under [AGPL-3.0-or-later](LICENSE) License.
 
 All Motion Twin assets in `App/src/assets` are licensed under [CC-BY-NC-SA-4.0](App/src/assets/LICENSE) License.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fcmnemoi%2FeMush.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fcmnemoi%2FeMush?ref=badge_large)

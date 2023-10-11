@@ -50,8 +50,6 @@ final class PlanetService implements PlanetServiceInterface
             $this->findOneBy(['orientation' => $planet->getOrientation(), 'distance' => $planet->getDistance(), 'daedalus' => $daedalus]) !== null
         );
 
-        $this->persist([$planet]);
-
         $planet = $this->generatePlanetSectors($planet);
 
         $this->persist([$planet]);
@@ -123,8 +121,6 @@ final class PlanetService implements PlanetServiceInterface
                 }
             }
         }
-
-        $this->persist($sectors->toArray());
         $planet->setSectors($sectors);
 
         return $planet;

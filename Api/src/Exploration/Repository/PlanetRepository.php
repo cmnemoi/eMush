@@ -8,6 +8,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Exploration\Entity\Planet;
+use Mush\Exploration\Entity\PlanetName;
 
 /**
  * @template-extends ServiceEntityRepository<Planet>
@@ -19,13 +20,14 @@ class PlanetRepository extends ServiceEntityRepository
         parent::__construct($registry, Planet::class);
     }
 
-    public function findOneByDaedalusNameOrienationAndDistance(Daedalus $daedalus, string $name, string $orientation, int $distance): ?Planet
+    public function findOneByDaedalusNameOrientationAndDistance(Daedalus $daedalus, PlanetName $name, string $orientation, int $distance): ?Planet
     {
         $queryBuilder = $this->createQueryBuilder('planet');
         $queryBuilder
             ->innerJoin('planet.player', 'player')
+            ->innerJoin('planet.name', 'name')
             ->where('player.daedalus = :daedalus')
-            ->andWhere('planet.name = :name')
+            ->andwhere('planet.name = :name')
             ->andWhere('planet.orientation = :orientation')
             ->andWhere('planet.distance = :distance')
             ->setParameter('daedalus', $daedalus)

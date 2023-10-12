@@ -76,19 +76,15 @@ export default defineComponent ({
 <style lang="scss" scoped>
 
 .homepage-container {
+    align-items: center;
 
-    .daedalus-container {
-        display: none;
-    }
-
-    .award-container {
-        display: none;
+    & > section {
+        flex-direction: row;
+        max-width: 80%;
+        align-items: center;
     }
 
     .trailer-container {
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
         margin-top: 1em;
 
         video {
@@ -99,28 +95,68 @@ export default defineComponent ({
 
     p {
         text-align: center;
-        font-size: 1.1em;
+        font-size: 1.2em;
         line-height: 1.4;
+        margin-top: 0;
     }
 
     #play-container {
-        width: 80%;
         margin-bottom: 0;
+        padding: 1.6em;
+        align-items: center;
     }
 
     &::v-deep(em) {
         color: #01c3df;
-        font-size: 1.2em;
+        font-size: 1.3em;
         font-style: normal;
         font-weight: bold;
     }
+}
 
-    .action-button {
-        @include button-style();
-        padding: 2px 15px 4px;
+.decorative {
+    align-items: center;
+    justify-content: space-evenly;
+
+    img {
+        width: fit-content;
+        height: fit-content;
     }
 
+    .daedalus { margin-bottom: -7em; }
+}
 
+button.start {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.3em 0;
+    height: 40px;
+    color: white;
+    font-size: 2.2em;
+    font-weight: 700;
+    letter-spacing: .03em;
+    text-decoration: none;
+    font-variant: small-caps;
+    text-align: center;
+    background: transparent url('~@/assets/images/big-button-center.png') center repeat-x;
+    text-shadow: 0 0 5px black, 0 1px 2px black;
+
+    transition: all .15s;
+
+    span { margin-bottom: 5px; }
+
+    &::before, &::after {
+        content:"";
+        width: 35px;
+        height: 100%;
+        background: transparent url('~@/assets/images/big-button-side.png') center no-repeat;
+    }
+
+    &::before { transform: translateX(-35px) }
+    &::after { transform: translateX(35px) scaleX(-1) }
+
+    &:hover, &:focus, &:active { filter: brightness(1.2) saturate(80%); }
 }
 
 @media screen and (min-width: 950px) {

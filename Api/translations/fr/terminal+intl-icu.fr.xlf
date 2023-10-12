@@ -53,5 +53,29 @@ Si le travail a été bien fait, le Daedalus se placera en orbite d'une planète
         <target>Le *Réacteur d'urgence* est en carafe ! Le voyage infra-luminique est impossible.</target>
       </segment>
     </unit>
+    <unit id="astro_terminal">
+      <segment id="name" state="translated">
+        <source>astro_terminal.name</source>
+        <target>Terminal Astro</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>astro_terminal.tips</source>
+        <target>Afin de trouver une planète à explorer, il faut d'abord *réaliser un scan* pour en trouver jusqu'à un maximum de {max_planets}. Les résultats des planètes trouvées sont personnels et exclusifs à chaque personne.
+////
+Une fois une planète trouvée et choisie, vous devez communiquer à l'équipage l'*orientation et le fuel nécessaire* pour s'y rendre. Ceci permettra au *Commandant* de déplacer le Daedalus vers la planète choisie.
+////
+Lorsque le Daedalus est arrivé et en orbite, il est impossible de scanner pour rechercher d'autres planètes. Par contre, vous pouvez *sonder la planète* en orbite pour obtenir des GéoDonnées supplementaires. Ces données serviront au corps expéditionnaire, qui pourra préparer à l'avance l'exploration.
+////
+Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis le Terminal de Commandement.</target>
+      </segment>
+      <segment id="orientation" state="translated">
+        <source>astro_terminal.orientation</source>
+        <target>Direction</target>
+      </segment>
+      <segment id="distance" state="translated">
+        <source>astro_terminal.distance</source>
+        <target>Fuel requis</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

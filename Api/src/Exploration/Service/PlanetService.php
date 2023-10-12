@@ -11,7 +11,7 @@ use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
-use Mush\Exploration\Enum\SpaceOrientationEnum;
+use Mush\Exploration\Entity\SpaceCoordinates;
 use Mush\Exploration\Repository\PlanetRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
@@ -42,27 +42,38 @@ final class PlanetService implements PlanetServiceInterface
         $daedalus = $player->getDaedalus();
 
         $planet = new Planet($player);
-        $planet->setSize($this->getPlanetSize($daedalus));
+        $planet
+            ->setName($this->getPlanetName())
+            ->setSize($this->getPlanetSize($daedalus))
+        ;
 
-        // create unique planet
-        do {
-            $planet->setName($this->getPlanetName());
-            $planet->setOrientation($this->randomService->getRandomElement(SpaceOrientationEnum::getAll()));
-            $planet->setDistance($this->randomService->rollTwiceAndAverage(2, 9));
-        } while (
-            $this->planetRepository->findOneByDaedalusNameOrientationAndDistance(
-                $daedalus,
-                $planet->getName(),
-                $planet->getOrientation(),
-                $planet->getDistance()
-            ) !== null
-        );
+        $availableCoordinates = $this->getAvailaibleCoordinatesForPlanet($planet);
+
+        // get a random coordinates pair from the available ones and set it to the planet
+        $drawnCoordinates = $this->randomService->getRandomElement($availableCoordinates);
+        $planet->setCoordinates($drawnCoordinates);
 
         $planet = $this->generatePlanetSectors($planet);
 
         $this->persist([$planet]);
 
         return $planet;
+    }
+
+    private function getAvailaibleCoordinatesForPlanet(Planet $planet): array
+    {
+        $availableCoordinates = SpaceCoordinates::getAll();
+
+        $existingPlanets = $this->planetRepository->findAllByDaedalus($planet->getDaedalus());
+        foreach ($existingPlanets as $existingPlanet) {
+            foreach ($availableCoordinates as $coordinates) {
+                if ($existingPlanet->getCoordinates()->equals($coordinates)) {
+                    $availableCoordinates->removeElement($coordinates);
+                }
+            }
+        }
+
+        return $availableCoordinates->toArray();
     }
 
     private function getPlanetName(): PlanetName

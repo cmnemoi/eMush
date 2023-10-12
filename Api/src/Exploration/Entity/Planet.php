@@ -19,8 +19,8 @@ final class Planet
     #[ORM\Column(type: 'integer')]
     private int $id;
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $name = '';
+    #[ORM\ManyToOne(targetEntity: PlanetName::class, cascade: ['ALL'])]
+    private PlanetName $name;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $size = 0;
@@ -48,12 +48,12 @@ final class Planet
         return $this->id;
     }
 
-    public function getName(): string
+    public function getName(): PlanetName
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(PlanetName $name): self
     {
         $this->name = $name;
 

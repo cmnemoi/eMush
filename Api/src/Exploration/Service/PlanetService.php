@@ -8,9 +8,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Exploration\Entity\Planet;
+use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
-use Mush\Exploration\Enum\PlanetSyllablesEnum;
 use Mush\Exploration\Enum\SpaceOrientationEnum;
 use Mush\Exploration\Repository\PlanetRepository;
 use Mush\Game\Entity\GameConfig;
@@ -34,7 +34,7 @@ final class PlanetService implements PlanetServiceInterface
     }
 
     public function createPlanet(Player $player): Planet
-    {   
+    {
         if ($player->getPlanets()->count() === $player->getPlayerInfo()->getCharacterConfig()->getMaxDiscoverablePlanets()) {
             throw new \Exception('Player already discovered the maximum number of planets');
         }
@@ -50,7 +50,7 @@ final class PlanetService implements PlanetServiceInterface
             $planet->setOrientation($this->randomService->getRandomElement(SpaceOrientationEnum::getAll()));
             $planet->setDistance($this->randomService->rollTwiceAndAverage(2, 9));
         } while (
-            $this->planetRepository->findOneByDaedalusNameOrienationAndDistance(
+            $this->planetRepository->findOneByDaedalusNameOrientationAndDistance(
                 $daedalus,
                 $planet->getName(),
                 $planet->getOrientation(),
@@ -65,25 +65,27 @@ final class PlanetService implements PlanetServiceInterface
         return $planet;
     }
 
-    private function getPlanetName(): string
+    private function getPlanetName(): PlanetName
     {
-        $planetName = $this->randomService->getRandomElement(PlanetSyllablesEnum::$first);
+        $planetName = new PlanetName();
+        $planetName->setFirstSyllable($this->randomService->random(1, PlanetName::NUMBER_OF_FIRST_SYLLABLES));
+        $planetName->setFourthSyllable($this->randomService->random(1, PlanetName::NUMBER_OF_FOURTH_SYLLABLES));
 
         if ($this->randomService->isSuccessful(10)) {
-            $planetName .= $this->randomService->getRandomElement(PlanetSyllablesEnum::$second);
+            $planetName->setSecondSyllable($this->randomService->random(1, PlanetName::NUMBER_OF_SECOND_SYLLABLES));
         }
 
         if ($this->randomService->isSuccessful(40)) {
-            $planetName .= $this->randomService->getRandomElement(PlanetSyllablesEnum::$second);
+            $planetName->setThirdSyllable($this->randomService->random(1, PlanetName::NUMBER_OF_THIRD_SYLLABLES));
         }
-
-        $planetName .= $this->randomService->getRandomElement(PlanetSyllablesEnum::$third);
 
         if ($this->randomService->isSuccessful(3)) {
-            $planetName .= ' ' . $this->randomService->getRandomElement(PlanetSyllablesEnum::$fourth);
+            $planetName->setFifthSyllable($this->randomService->random(1, PlanetName::NUMBER_OF_FIFTH_SYLLABLES));
         } elseif ($this->randomService->isSuccessful(30)) {
-            $planetName = $this->randomService->getRandomElement(PlanetSyllablesEnum::$fourth) . ' ' . $planetName;
+            $planetName->setPrefix($this->randomService->random(1, PlanetName::NUMBER_OF_PREFIXES));
         }
+
+        $this->persist([$planetName]);
 
         return $planetName;
     }

@@ -119,7 +119,7 @@ class PlanetName
         return $this;
     }
 
-    public function getNameParts(): array
+    public function getNameAsArray(): array
     {
         return [
             'prefix' => $this->prefix,

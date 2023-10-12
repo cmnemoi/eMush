@@ -19,6 +19,9 @@ final class PlanetSector
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $isRevealed = false;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $isVisited = false;
+
     #[ORM\ManyToOne(targetEntity: PlanetSectorConfig::class)]
     private PlanetSectorConfig $planetSectorConfig;
 
@@ -44,6 +47,18 @@ final class PlanetSector
     public function reveal(): self
     {
         $this->isRevealed = true;
+
+        return $this;
+    }
+
+    public function isVisited(): bool
+    {
+        return $this->isVisited;
+    }
+
+    public function visit(): self
+    {
+        $this->isVisited = true;
 
         return $this;
     }

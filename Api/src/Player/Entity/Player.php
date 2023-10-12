@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Exploration\Entity\Planet;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
@@ -85,6 +86,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $triumph = 0;
 
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: Planet::class, cascade: ['ALL'], orphanRemoval: true)]
+    private Collection $planets;
+
     #[ORM\Column(type: 'array', nullable: false)]
     private array $titles = [];
 
@@ -95,6 +99,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->medicalConditions = new PlayerDiseaseCollection();
         $this->flirts = new PlayerCollection();
         $this->modifiers = new ModifierCollection();
+        $this->planets = new ArrayCollection();
     }
 
     public function getId(): int
@@ -460,6 +465,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->triumph += $triumph;
 
         return $this;
+    }
+
+    public function getPlanets(): Collection
+    {
+        return $this->planets;
     }
 
     public function getVariableByName(string $variableName): GameVariable

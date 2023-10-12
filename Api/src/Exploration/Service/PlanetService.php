@@ -34,7 +34,11 @@ final class PlanetService implements PlanetServiceInterface
     }
 
     public function createPlanet(Player $player): Planet
-    {
+    {   
+        if ($player->getPlanets()->count() === $player->getPlayerInfo()->getCharacterConfig()->getMaxDiscoverablePlanets()) {
+            throw new \Exception('Player already discovered the maximum number of planets');
+        }
+
         $daedalus = $player->getDaedalus();
 
         $planet = new Planet($player);

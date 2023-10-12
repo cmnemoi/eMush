@@ -1128,5 +1128,17 @@
         <target>**{character}** lance la manœuvre de voyage. Son air exalté irradie et sa rage fait frémir jusqu'à l'air ambiant. Mais... Mais... Les moteurs poussent mais rien ne se passe... Un Arack empêche le départ avec son champ gravitationnel !</target>
       </segment>
     </unit>
+    <unit id="scan_success">
+      <segment id="scan_success" state="translated">
+        <source>scan_success</source>
+        <target>Vous avez exécuté le scan thermique et déniché une planète.</target>
+      </segment>
+    </unit>
+    <unit id="scan_fail">
+      <segment id="scan_fail" state="translated">
+        <source>scan_fail</source>
+        <target>Votre tentative de scan a échoué.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

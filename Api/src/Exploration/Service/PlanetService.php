@@ -33,7 +33,6 @@ final class PlanetService implements PlanetServiceInterface
         $this->randomService = $randomService;
     }
 
-    /** @psalm-suppress ArgumentTypeCoercion */
     public function createPlanet(Player $player): Planet
     {
         if ($player->getPlanets()->count() === $player->getPlayerInfo()->getCharacterConfig()->getMaxDiscoverablePlanets()) {
@@ -49,15 +48,10 @@ final class PlanetService implements PlanetServiceInterface
         ;
 
         $availableCoordinates = $this->getAvailaibleCoordinatesForPlanet($planet);
-        $availableDistances = $availableCoordinates->map(fn (SpaceCoordinates $coordinates) => $coordinates->getDistance())->toArray();
-        $availableOrientations = $availableCoordinates->map(fn (SpaceCoordinates $coordinates) => $coordinates->getOrientation())->toArray();
 
-        $selectedCoordinates = new SpaceCoordinates(
-            orientation: $this->randomService->getRandomElement($availableOrientations),
-            distance: $this->randomService->rollTwiceAndAverage(min($availableDistances), max($availableDistances))
-        );
-
-        $planet->setCoordinates($selectedCoordinates);
+        // get a random coordinates pair from the available ones and set it to the planet
+        $drawnCoordinates = $this->randomService->getRandomElement($availableCoordinates);
+        $planet->setCoordinates($drawnCoordinates);
 
         $planet = $this->generatePlanetSectors($planet);
 
@@ -66,7 +60,7 @@ final class PlanetService implements PlanetServiceInterface
         return $planet;
     }
 
-    private function getAvailaibleCoordinatesForPlanet(Planet $planet): ArrayCollection
+    private function getAvailaibleCoordinatesForPlanet(Planet $planet): array
     {
         $availableCoordinates = SpaceCoordinates::getAll();
 
@@ -79,7 +73,7 @@ final class PlanetService implements PlanetServiceInterface
             }
         }
 
-        return $availableCoordinates;
+        return $availableCoordinates->toArray();
     }
 
     private function getPlanetName(): PlanetName

@@ -496,6 +496,7 @@ class DaedalusService implements DaedalusServiceInterface
                     $player = $players->filter(fn (Player $player) => $player->getPlayerInfo()->getName() === $priorityPlayer)->first();
                     if (!in_array($title, $player->getTitles()) && !$titleAssigned) {
                         // If first person in order of priority does not have title, assign it
+                    $player->addTitle($title);
                         $playerEvent = new PlayerEvent(
                             $player,
                             [$title],
@@ -506,6 +507,7 @@ class DaedalusService implements DaedalusServiceInterface
                     } elseif (in_array($title, $player->getTitles()) && $titleAssigned) {
                         // If someone has a title when they are not the player alive with the biggest priority, remove it
                         // For when an inactive player wakes up
+                    $player->removeTitle($title);
                         $playerEvent = new PlayerEvent(
                             $player,
                             [$title],

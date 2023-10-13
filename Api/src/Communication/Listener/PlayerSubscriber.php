@@ -34,7 +34,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
             PlayerEvent::INFECTION_PLAYER => 'onInfectionPlayer',
-            PlayerEvent::GAIN_TITLE => 'onPlayerGainTitle',
+            PlayerEvent::TITLE_ATTRIBUTED => 'onPlayerTitleAttributed',
         ];
     }
 
@@ -87,7 +87,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->channelService->addPlayerToMushChannel($event->getPlayer());
     }
 
-    public function onPlayerGainTitle(PlayerEvent $event): void
+    public function onPlayerTitleAttributed(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
         $time = $event->getTime();

@@ -563,8 +563,8 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function removeTitle(string $title): static
     {
-        if ($this->titles->contains($title)) {
-            $this->titles->removeElement($title);
+        if (in_array($title, $this->titles)) {
+            $this->titles = array_diff($this->titles, [$title]);
         }
 
         return $this;
@@ -580,5 +580,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->titles = $titles;
 
         return $this;
+    }
+
+    public function hasTitle(string $title): bool
+    {
+        return in_array($title, $this->getTitles());
     }
 }

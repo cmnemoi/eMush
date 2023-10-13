@@ -53,9 +53,9 @@ final class PlanetNameNormalizer implements NormalizerInterface, NormalizerAware
             );
 
             if ($key == PlanetName::PREFIX) {
-                $translatedPlanetName .= $translatedNamePart . ' ';
-            } elseif ($key == PlanetName::FIFTH_SYLLABLE) {
                 $translatedPlanetName .= ' ' . $translatedNamePart;
+            } elseif ($key == PlanetName::FIFTH_SYLLABLE) {
+                $translatedPlanetName .= $translatedNamePart . ' ';
             } else {
                 $translatedPlanetName .= $translatedNamePart;
             }

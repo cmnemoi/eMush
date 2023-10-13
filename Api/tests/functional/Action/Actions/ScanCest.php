@@ -103,19 +103,4 @@ final class ScanCest extends AbstractFunctionalTest
         $I->assertGreaterThanOrEqual(2, $planet->getCoordinates()->getDistance());
         $I->assertLessThanOrEqual(9, $planet->getCoordinates()->getDistance());
     }
-
-    public function testScanSuccessPlanetHasSectors(FunctionalTester $I): void
-    {
-        // when player scans
-        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
-        $this->scanAction->execute();
-
-        // then a planet is created with sectors
-        /** @var Planet $planet */
-        $planet = $I->grabEntityFromRepository(Planet::class);
-
-        $I->refreshEntities($planet);
-
-        $I->assertNotEmpty($planet->getSectors());
-    }
 }

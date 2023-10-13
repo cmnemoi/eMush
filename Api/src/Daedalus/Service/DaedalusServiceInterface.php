@@ -59,5 +59,5 @@ interface DaedalusServiceInterface
 
     public function skipCycleChange(Daedalus $daedalus): Daedalus;
 
-    public function assignTitles(Daedalus $daedalus, \DateTime $date): Daedalus;
+    public function attributeTitles(Daedalus $daedalus, \DateTime $date): Daedalus;
 }

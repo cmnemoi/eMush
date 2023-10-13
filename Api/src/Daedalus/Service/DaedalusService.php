@@ -21,6 +21,7 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\TitleConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -473,7 +474,7 @@ class DaedalusService implements DaedalusServiceInterface
         return $value;
     }
 
-    public function assignTitles(Daedalus $daedalus, \DateTime $date): Daedalus
+    public function attributeTitles(Daedalus $daedalus, \DateTime $date): Daedalus
     {
         $gameConfig = $daedalus->getGameConfig();
 
@@ -486,35 +487,32 @@ class DaedalusService implements DaedalusServiceInterface
         /** @var TitleConfig $titleConfig */
         foreach ($titleConfigs as $titleConfig) {
             $titleAssigned = false;
-            foreach ($titleConfig->getPriority() as $priorityPlayer) {
-                $title = $titleConfig->getName();
-                if (
-                    $players
-                        ->map(fn (Player $player) => $player->getPlayerInfo()->getName())
-                        ->contains($priorityPlayer)
-                ) {
-                    $player = $players->filter(fn (Player $player) => $player->getPlayerInfo()->getName() === $priorityPlayer)->first();
-                    if (!in_array($title, $player->getTitles()) && !$titleAssigned) {
-                        // If first person in order of priority does not have title, assign it
+            $title = $titleConfig->getName();
+
+            foreach ($titleConfig->getPriority() as $priorityCharacter) {
+                // This will return the player if it is alive, and null if not
+                $player = $players->getPlayerByName($priorityCharacter);
+
+                if ($player && !$player->hasTitle($title) && !$titleAssigned) {
+                    // If first person in order of priority does not have title, assign it
                     $player->addTitle($title);
-                        $playerEvent = new PlayerEvent(
-                            $player,
-                            [$title],
-                            $date
-                        );
-                        $this->eventService->callEvent($playerEvent, PlayerEvent::GAIN_TITLE);
-                        $titleAssigned = true;
-                    } elseif (in_array($title, $player->getTitles()) && $titleAssigned) {
-                        // If someone has a title when they are not the player alive with the biggest priority, remove it
-                        // For when an inactive player wakes up
+                    $playerEvent = new PlayerEvent(
+                        $player,
+                        [$title],
+                        $date
+                    );
+                    $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_ATTRIBUTED);
+                    $titleAssigned = true;
+                } elseif ($player && $player->hasTitle($title) && $titleAssigned) {
+                    // If someone has a title when they are not the player alive with the biggest priority, remove it
+                    // For when an inactive player wakes up
                     $player->removeTitle($title);
-                        $playerEvent = new PlayerEvent(
-                            $player,
-                            [$title],
-                            $date
-                        );
-                        $this->eventService->callEvent($playerEvent, PlayerEvent::REMOVE_TITLE);
-                    }
+                    $playerEvent = new PlayerEvent(
+                        $player,
+                        [$title],
+                        $date
+                    );
+                    $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_REMOVED);
                 }
             }
         }

@@ -18,36 +18,28 @@
                 <source src="@/assets/videos/trailer_en.mp4#t=1" type="video/mp4"/>
                 Sorry, your browser doesn't support embedded videos.
             </video>
-        </div>
-        <img
-            class="award-container"
-            v-if="localeIsFrench()"
-            src="@/assets/images/eigd_fr.png"
-            alt="Award" />
-        <img
-            class="award-container"
-            v-else
-            src="@/assets/images/eigd_en.png"
-            alt="Award" />
-        <div class="box-container" id="play-container">
-            <p v-html="$t('homePage.synopsis')" />
-            <router-link v-if="loggedIn" class="action-button" :to="{ name: 'GamePage' }">
-                {{ $t('homePage.play') }}
-            </router-link>
-            <button v-else class="action-button" @click="redirectToLogin">
-                {{ $t('homePage.joinUs') }}
-            </button>
-        </div>
-        <div class="box-container" id="character-animation-container" style="display:none">
-            <h2>18 personnages, prêts à chasser le Mush avec vous !</h2>
-            <div class="character-image">
-                <img src="@/assets/images/char/portrait/Eleesha_williams_portrait.jpg" alt="Eleesha Williams" />
+        </section>
+        <section>
+            <div class="box-container" id="play-container">
+                <p v-html="$t('homePage.synopsis')" />
+                <router-link v-if="loggedIn" class="start" :to="{ name: 'GamePage' }">
+                    {{ $t('homePage.play') }}
+                </router-link>
+                <button v-else class="start" @click="redirectToLogin">
+                    {{ $t('homePage.joinUs') }}
+                </button>
             </div>
-            <div class="character-description">
-                <h3>Eleesha Williams</h3>
-                <p>Investigatrice déchûe de premier plan.</p>
+            <div class="box-container" id="character-animation-container" style="display:none">
+                <h2>18 personnages, prêts à chasser le Mush avec vous !</h2>
+                <div class="character-image">
+                    <img src="@/assets/images/char/portrait/Eleesha_williams_portrait.jpg" alt="Eleesha Williams" />
+                </div>
+                <div class="character-description">
+                    <h3>Eleesha Williams</h3>
+                    <p>Investigatrice déchûe de premier plan.</p>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
 </template>
 
@@ -68,7 +60,61 @@ export default defineComponent ({
         ]),
         localeIsFrench() {
             return this.$i18n.locale.split('-')[0] === 'fr';
+        },
+        move(amount: any) {
+            let newActive = this.slide + amount;
+            if (newActive >= this.chars.length) newActive = 0;
+            if (newActive < 0) newActive = this.chars.length-1;
+            this.slide = newActive;
+        },
+        autoPlay() {
+            setInterval(() => {
+                if(this.toggleTimer) this.move(1);
+            }, this.timerDelay);
         }
+    },
+    data: function() {
+        return {
+            slide: 0,
+            timerDelay: 3000,
+            toggleTimer: true,
+            chars: [
+                {
+                    id: 'andie',
+                    name: 'Andie Graham',
+                    descr: 'Fayot de la fédération.',
+                    portrait: require('@/assets/images/char/portrait/andie_graham_portrait.jpg')
+                },
+                {
+                    id: 'chao',
+                    name: 'Wang Chao',
+                    descr: 'Chef de la sécurité du Daedalus.',
+                    portrait: require('@/assets/images/char/portrait/Wang_chao_portrait.jpg')
+                },
+                {
+                    id: 'chun',
+                    name: 'Zhong Chun',
+                    descr: 'Dernier espoir de l\'Humanité',
+                    portrait: require('@/assets/images/char/portrait/Zhong_chun_portrait.jpg')
+                },
+                {
+                    id: 'derek',
+                    name: 'Derek Hogan',
+                    descr: 'Héros malgré lui.',
+                    portrait: require('@/assets/images/char/portrait/derek_hogan_portrait.jpg')
+                },
+                {
+                    id: 'eleesha',
+                    name: 'Eleesha Williams',
+                    descr: 'Investigatrice déchue de premier plan.',
+                    portrait: require('@/assets/images/char/portrait/Eleesha_williams_portrait.jpg')
+                }
+            ]
+        };
+    },
+    mounted: function() {
+        console.log(`the component is now mounted.`);
+        this.autoPlay();
     }
 });
 </script>
@@ -80,8 +126,12 @@ export default defineComponent ({
 
     & > section {
         flex-direction: row;
-        max-width: 80%;
-        align-items: center;
+        gap: 1.6em;
+    }
+
+    .box-container {
+        margin-bottom: 0;
+        padding: 1.6em;
     }
 
     .trailer-container {
@@ -95,14 +145,12 @@ export default defineComponent ({
 
     p {
         text-align: center;
-        font-size: 1.2em;
+        font-size: 1.15em;
         line-height: 1.4;
         margin-top: 0;
     }
 
     #play-container {
-        margin-bottom: 0;
-        padding: 1.6em;
         align-items: center;
     }
 
@@ -115,6 +163,7 @@ export default defineComponent ({
 }
 
 .decorative {
+    align-self: stretch;
     align-items: center;
     justify-content: space-evenly;
 
@@ -126,7 +175,7 @@ export default defineComponent ({
     .daedalus { margin-bottom: -7em; }
 }
 
-button.start {
+.start {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -159,16 +208,107 @@ button.start {
     &:hover, &:focus, &:active { filter: brightness(1.2) saturate(80%); }
 }
 
+@each $crewmate, $face-position-x, $face-position-y in $face-position { // adjust the image position in the crewmate avatar div
+    $translate-x : (50% - $face-position-x);
+    $translate-y : (50% - $face-position-y);
+    .#{$crewmate} img {
+        transform: translate($translate-x, $translate-y);
+    }
+}
+
+#carrousel-container {
+
+    h3 {
+        font-size: 1.15em;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+    }
+
+    img  {
+        width: fit-content;
+        height: fit-content;
+    }
+
+    .carrousel {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+}
+
+    .slide {
+        flex-direction: row;
+    }
+
+    .avatar {
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        width: 160px;
+        height: 100px;
+        margin-right: 1.2em;
+        border: 1px solid #26378c;
+        box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.5);
+    }
+
+    .character-description {
+        width: 40%;
+        min-width: 180px;
+    }
+
+    h4 {
+        width: 100%;
+        font-size: 1.6em;
+        font-style: italic;
+        border-bottom: 2px solid #26378C;
+        padding-bottom: 2px;
+        margin: 0 0 0.3em;
+    }
+
+    p {
+        margin-left: 1em;
+        text-align: left;
+    }
+
+    .arrows {
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 1.2em 0 0;
+
+        img {
+            width: fit-content;
+            cursor: pointer;
+
+            &.previous { transform: scaleX(-1); }
+
+            &:hover, &:focus, &:active { filter: brightness(10) contrast(10) grayscale(1); }
+        }
+    }
+}
+
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+
+
+
 @media screen and (min-width: 950px) {
 
 
-    .homepage-container {
-        max-width: 1080px;
-        margin: 0 auto
-    }
+  .homepage-container {
+      max-width: 1080px;
+      margin: 0 auto
+  }
 
-    // TODO : display .daedalus-container and .award-container on desktop
-
+  // TODO : display .daedalus-container and .award-container on desktop
 }
 
 </style>

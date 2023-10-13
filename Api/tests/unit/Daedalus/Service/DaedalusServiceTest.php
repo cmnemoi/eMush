@@ -21,6 +21,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Entity\TitleConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Repository\LocalizationConfigRepository;
@@ -370,6 +371,31 @@ class DaedalusServiceTest extends TestCase
         $this->service->changeVariable(DaedalusVariableEnum::HULL, $daedalus, 100, $time);
 
         $this->assertEquals(20, $daedalus->getHull());
+    }
+
+    public function testAttributeTitles()
+    {
+        $daedalus = new Daedalus();
+        $gameConfig = new GameConfig();
+        $daedalusConfig = new DaedalusConfig();
+
+        $titleConfigCollection = new ArrayCollection();
+        $titleConfig = new TitleConfig();
+        $titleConfig->setName('name')->setPriority(['player1', 'player2']);
+        $titleConfigCollection->add($titleConfig);
+
+        $gameConfig->setDaedalusConfig($daedalusConfig);
+        $gameConfig->setTitleConfigs($titleConfigCollection);
+
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+
+        $player1 = $this->createPlayer($daedalus, 'player1');
+
+        $player2 = $this->createPlayer($daedalus, 'player2');
+
+        $this->eventService->shouldReceive('callEvent')->once();
+
+        $result = $this->service->attributeTitles($daedalus, new \DateTime());
     }
 
     protected function createPlayer(Daedalus $daedalus, string $name): Player

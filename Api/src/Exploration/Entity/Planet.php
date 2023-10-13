@@ -40,6 +40,7 @@ final class Planet
     public function __construct(Player $player)
     {
         $this->player = $player;
+        $this->player->addPlanet($this);
         $this->sectors = new ArrayCollection();
     }
 

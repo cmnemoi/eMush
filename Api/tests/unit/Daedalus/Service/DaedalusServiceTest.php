@@ -31,6 +31,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -373,15 +374,51 @@ class DaedalusServiceTest extends TestCase
         $this->assertEquals(20, $daedalus->getHull());
     }
 
-    public function testAttributeTitles()
+    public function testAttributeTitlesGivesTitle()
     {
         $daedalus = new Daedalus();
+
+        $this->setupTestAttributeTitles($daedalus);
+
+        $this->eventService->shouldReceive('callEvent')->once();
+
+        $this->service->attributeTitles($daedalus, new \DateTime());
+    }
+
+    public function testAttributeTitlesDoesNotReassignTitle()
+    {
+        $daedalus = new Daedalus();
+
+        $players = $this->setupTestAttributeTitles($daedalus);
+        $players->first()->addTitle('title');
+
+        $this->eventService->shouldReceive('callEvent')->never();
+
+        $this->service->attributeTitles($daedalus, new \DateTime());
+    }
+
+    public function testAttributeTitlesChangedTitleAttributionWhenIncorrect()
+    {
+        $daedalus = new Daedalus();
+
+        $players = $this->setupTestAttributeTitles($daedalus);
+        $players->last()->addTitle('title');
+
+        $this->eventService->shouldReceive('callEvent')->twice();
+
+        $this->service->attributeTitles($daedalus, new \DateTime());
+    }
+
+    protected function setupTestAttributeTitles(Daedalus $daedalus): PlayerCollection
+    {
+        $players = new PlayerCollection();
+
         $gameConfig = new GameConfig();
         $daedalusConfig = new DaedalusConfig();
 
         $titleConfigCollection = new ArrayCollection();
         $titleConfig = new TitleConfig();
-        $titleConfig->setName('name')->setPriority(['player1', 'player2']);
+        $titleConfig->setName('title')->setPriority(['player1', 'player2']);
         $titleConfigCollection->add($titleConfig);
 
         $gameConfig->setDaedalusConfig($daedalusConfig);
@@ -390,12 +427,11 @@ class DaedalusServiceTest extends TestCase
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $player1 = $this->createPlayer($daedalus, 'player1');
-
         $player2 = $this->createPlayer($daedalus, 'player2');
+        $players->add($player1);
+        $players->add($player2);
 
-        $this->eventService->shouldReceive('callEvent')->once();
-
-        $result = $this->service->attributeTitles($daedalus, new \DateTime());
+        return $players;
     }
 
     protected function createPlayer(Daedalus $daedalus, string $name): Player

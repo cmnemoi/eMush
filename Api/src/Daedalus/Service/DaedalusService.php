@@ -503,6 +503,8 @@ class DaedalusService implements DaedalusServiceInterface
                     );
                     $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_ATTRIBUTED);
                     $titleAssigned = true;
+                } elseif ($player && $player->hasTitle($title) && !$titleAssigned) {
+                    $titleAssigned = true;
                 } elseif ($player && $player->hasTitle($title) && $titleAssigned) {
                     // If someone has a title when they are not the player alive with the biggest priority, remove it
                     // For when an inactive player wakes up

@@ -147,8 +147,8 @@ export default defineComponent({
             helpers: helpers,
             randomHelpers: [] as Array<string>,
             version: version as string,
-            release: process.env.VUE_APP_API_RELEASE_COMMIT as string,
-            channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string
+            release: import.meta.env.VITE_API_RELEASE_COMMIT as string,
+            channel: import.meta.env.VITE_API_RELEASE_CHANNEL as string
         };
     },
     mounted() {

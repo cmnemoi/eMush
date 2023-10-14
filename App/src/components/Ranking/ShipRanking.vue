@@ -106,7 +106,7 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'closed_daedaluses'), params)
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL+'closed_daedaluses'), params)
                 .then((result) => {
                     for (const closedDaedalus of result.data['hydra:member']) {
                         closedDaedalus.endCause = this.$t('ranking.endCause.' + closedDaedalus.endCause);

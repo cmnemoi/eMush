@@ -80,7 +80,7 @@ export default defineComponent ({
                 params.params['itemsPerPage'] = this.pagination.pageSize;
             }
             qs.stringify(params.params['order'] = { 'id': 'DESC' });
-            await ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'news'), params)
+            await ApiService.get(urlJoin(import.meta.env.VITE_API_URL+'news'), params)
                 .then((result) => {
                     this.news = new Array<News>();
                     for (const newsData of result.data['hydra:member']) {

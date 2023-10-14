@@ -78,7 +78,7 @@ export default defineComponent({
 
             GameConfigService.createEventConfig(newEventConfig)
                 .then((res: EventConfig | null) => {
-                    const newEventConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/event-config', String(res?.id));
+                    const newEventConfigUrl = urlJoin(import.meta.env.VITE_URL + '/config/event-config', String(res?.id));
                     window.location.href = newEventConfigUrl;
                 })
                 .catch((error) => {

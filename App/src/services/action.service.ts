@@ -11,9 +11,9 @@ import { Hunter } from "@/entities/Hunter";
 import { Terminal } from "@/entities/Terminal";
 
 // @ts-ignore
-const PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
+const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "player");
 // @ts-ignore
-const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
+const ACTION_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "actions");
 
 const ActionService = {
     executeTargetAction(target: Item | Equipment | Player | Hunter | Terminal | null, action: Action, otherParams: object = {}): Promise<AxiosResponse> {

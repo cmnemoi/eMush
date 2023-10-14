@@ -121,7 +121,7 @@ export default defineComponent({
                 .then((res: GameConfig | null) => {
                     this.gameConfig = res;
                     if (this.gameConfig !== null){
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'daedalus_config'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(this.gameConfig.id), 'daedalus_config'))
                             .then((result) => {
                                 const daedalusConfig: DaedalusConfig = new DaedalusConfig();
                                 daedalusConfig.load(result.data);
@@ -130,7 +130,7 @@ export default defineComponent({
                                     this.gameConfig.daedalusConfig = daedalusConfig;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'difficulty_config'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(this.gameConfig.id), 'difficulty_config'))
                             .then((result) => {
                                 const difficultyConfig: DifficultyConfig = new DifficultyConfig();
                                 difficultyConfig.load(result.data);
@@ -139,7 +139,7 @@ export default defineComponent({
                                     this.gameConfig.difficultyConfig = difficultyConfig;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'characters_configs'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(this.gameConfig.id), 'characters_configs'))
                             .then((result) => {
                                 const charactersConfig: CharacterConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -150,7 +150,7 @@ export default defineComponent({
                                     this.gameConfig.charactersConfig = charactersConfig;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'equipments_configs?pagination=false'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(this.gameConfig.id), 'equipments_configs?pagination=false'))
                             .then((result) => {
                                 const equipmentsConfig: EquipmentConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -161,7 +161,7 @@ export default defineComponent({
                                     this.gameConfig.equipmentsConfig = equipmentsConfig;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'status_configs?pagination=false'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(this.gameConfig.id), 'status_configs?pagination=false'))
                             .then((result) => {
                                 const statusConfigs: StatusConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -172,7 +172,7 @@ export default defineComponent({
                                     this.gameConfig.statusConfigs = statusConfigs;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'triumph_configs?pagination=false'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(this.gameConfig.id), 'triumph_configs?pagination=false'))
                             .then((result) => {
                                 const triumphConfigs: TriumphConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -183,7 +183,7 @@ export default defineComponent({
                                     this.gameConfig.triumphConfig = triumphConfigs;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'disease_cause_configs?pagination=false'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(this.gameConfig.id), 'disease_cause_configs?pagination=false'))
                             .then((result) => {
                                 const diseaseCauseConfigs: DiseaseCauseConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -194,7 +194,7 @@ export default defineComponent({
                                     this.gameConfig.diseaseCauseConfig = diseaseCauseConfigs;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'disease_configs?pagination=false'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(this.gameConfig.id), 'disease_configs?pagination=false'))
                             .then((result) => {
                                 const diseaseConfigs: DiseaseConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -205,7 +205,7 @@ export default defineComponent({
                                     this.gameConfig.diseaseConfig = diseaseConfigs;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'consumable_disease_configs?pagination=false'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(this.gameConfig.id), 'consumable_disease_configs?pagination=false'))
                             .then((result) => {
                                 const consumableDiseaseConfigs: ConsumableDiseaseConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -335,7 +335,7 @@ export default defineComponent({
         const gameConfigId = Number(this.$route.params.gameConfigId);
         GameConfigService.loadGameConfig(gameConfigId).then((res: GameConfig | null) => {
             this.gameConfig = res;
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs', String(gameConfigId), 'daedalus_config'))
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL+'game_configs', String(gameConfigId), 'daedalus_config'))
                 .then((result) => {
                     const daedalusConfig: DaedalusConfig = new DaedalusConfig();
                     daedalusConfig.load(result.data);
@@ -344,7 +344,7 @@ export default defineComponent({
                         this.gameConfig.daedalusConfig = daedalusConfig;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs', String(gameConfigId), 'difficulty_config'))
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL+'game_configs', String(gameConfigId), 'difficulty_config'))
                 .then((result) => {
                     const difficultyConfig: DifficultyConfig = new DifficultyConfig();
                     difficultyConfig.load(result.data);
@@ -353,7 +353,7 @@ export default defineComponent({
                         this.gameConfig.difficultyConfig = difficultyConfig;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs', String(gameConfigId), 'characters_configs'))
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL+'game_configs', String(gameConfigId), 'characters_configs'))
                 .then((result) => {
                     const charactersConfig: CharacterConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
@@ -364,7 +364,7 @@ export default defineComponent({
                         this.gameConfig.charactersConfig = charactersConfig;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'equipments_configs?pagination=false'))
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(gameConfigId), 'equipments_configs?pagination=false'))
                 .then((result) => {
                     const equipmentsConfig: EquipmentConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
@@ -375,7 +375,7 @@ export default defineComponent({
                         this.gameConfig.equipmentsConfig = equipmentsConfig;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'status_configs?pagination=false'))
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(gameConfigId), 'status_configs?pagination=false'))
                 .then((result) => {
                     const statusConfigs: StatusConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
@@ -386,7 +386,7 @@ export default defineComponent({
                         this.gameConfig.statusConfigs = statusConfigs;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'triumph_configs?pagination=false'))
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(gameConfigId), 'triumph_configs?pagination=false'))
                 .then((result) => {
                     const triumphConfigs: TriumphConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
@@ -397,7 +397,7 @@ export default defineComponent({
                         this.gameConfig.triumphConfig = triumphConfigs;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'disease_cause_configs?pagination=false'))
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(gameConfigId), 'disease_cause_configs?pagination=false'))
                 .then((result) => {
                     const diseaseCauseConfigs: DiseaseCauseConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
@@ -408,7 +408,7 @@ export default defineComponent({
                         this.gameConfig.diseaseCauseConfig = diseaseCauseConfigs;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'disease_configs?pagination=false'))
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(gameConfigId), 'disease_configs?pagination=false'))
                 .then((result) => {
                     const diseaseConfigs: DiseaseConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
@@ -419,7 +419,7 @@ export default defineComponent({
                         this.gameConfig.diseaseConfig = diseaseConfigs;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'consumable_disease_configs?pagination=false'))
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'game_configs', String(gameConfigId), 'consumable_disease_configs?pagination=false'))
                 .then((result) => {
                     const consumableDiseaseConfigs: ConsumableDiseaseConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {

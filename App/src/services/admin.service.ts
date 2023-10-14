@@ -3,11 +3,11 @@ import urlJoin from "url-join";
 import store from "@/store";
 
 // @ts-ignore
-const ADMIN_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "admin");
+const ADMIN_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "admin");
 // @ts-ignore
-const PLAYER_INFO_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player_infos");
+const PLAYER_INFO_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "player_infos");
 // @ts-ignore
-const QUARANTINE_PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player/quarantine");
+const QUARANTINE_PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "player/quarantine");
 
 const AdminService = {
     addNewRoomsToDaedalus: async(daedalusId: integer): Promise<any> => {

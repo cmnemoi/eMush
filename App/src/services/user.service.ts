@@ -6,13 +6,13 @@ import store from "@/store";
 import axios from "axios";
 
 // @ts-ignore
-const authorizationUrl = urlJoin(process.env.VUE_APP_OAUTH_URL, "authorize");
+const authorizationUrl = urlJoin(import.meta.env.VITE_OAUTH_URL, "authorize");
 // @ts-ignore
-const tokenUrl = urlJoin(process.env.VUE_APP_OAUTH_URL, "token");
+const tokenUrl = urlJoin(import.meta.env.VITE_OAUTH_URL, "token");
 // @ts-ignore
-const callBackUrl = urlJoin(process.env.VUE_APP_URL, "token");
+const callBackUrl = urlJoin(import.meta.env.VITE_URL, "token");
 // @ts-ignore
-const userEndPoint = urlJoin(process.env.VUE_APP_API_URL+'users');
+const userEndPoint = urlJoin(import.meta.env.VITE_API_URL+'users');
 
 class AuthenticationError extends Error {
     public errorCode: number;

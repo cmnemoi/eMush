@@ -361,7 +361,7 @@ export default defineComponent ({
         DaedalusService.loadClosedDaedalus(Number(closedDaedalusId))
             .then((response: ClosedDaedalus | null) => {
                 this.closedDaedalus = response;
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'closed_daedaluses', closedDaedalusId, 'players'))
+                ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'closed_daedaluses', closedDaedalusId, 'players'))
                     .then((result) => {
                         console.log(result);
                         const closedPlayers : ClosedPlayer[] = [];

@@ -76,14 +76,14 @@ export default defineComponent({
                 paramsSerializer: qs.stringify
             };
 
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+ 'game_configs'))
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL+ 'game_configs'))
                 .then((result) => {
                     return result.data;
                 })
                 .then((remoteRowData: any) => {
                     this.configs = remoteRowData['hydra:member'];
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+ 'localization_configs'))
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL+ 'localization_configs'))
                 .then((result) => {
                     return result.data;
                 })

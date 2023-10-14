@@ -8,15 +8,15 @@ import { AxiosResponse } from "axios";
 import urlJoin from "url-join";
 
 // @ts-ignore
-const CAN_CREATE_CHANNEL_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel/canCreatePrivate");
+const CAN_CREATE_CHANNEL_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "channel/canCreatePrivate");
 // @ts-ignore
-const CHANNELS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel");
+const CHANNELS_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "channel");
 // @ts-ignore
-const PIRATED_CHANNELS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel/pirated");
+const PIRATED_CHANNELS_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "channel/pirated");
 // @ts-ignore
-const ROOM_LOGS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "room-log");
+const ROOM_LOGS_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "room-log");
 // @ts-ignore
-const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "room-log/channel");
+const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "room-log/channel");
 
 const CommunicationService = {
 

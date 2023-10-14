@@ -111,7 +111,7 @@ export default defineComponent({
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
             params.params['playerInfo.user.userId'] = this.$route.params.userId;
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'closed_players'), params)
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL+'closed_players'), params)
                 .then((result) => {
                     for (const closedPlayer of result.data['hydra:member']) {
                         closedPlayer.endCause = 'userShips.endCause.' + closedPlayer.endCause; // translation key

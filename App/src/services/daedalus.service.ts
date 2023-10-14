@@ -7,17 +7,17 @@ import { ClosedDaedalus } from "@/entities/ClosedDaedalus";
 import store from "@/store";
 
 // @ts-ignore
-const DAEDALUS_ALERTS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "alert");
+const DAEDALUS_ALERTS_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "alert");
 // @ts-ignore
-const DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedaluses");
+const DAEDALUS_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "daedaluses");
 // @ts-ignore
-const CREATE_DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedaluses/create-daedalus");
+const CREATE_DAEDALUS_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "daedaluses/create-daedalus");
 // @ts-ignore
-const CLOSED_DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "closed_daedaluses");
+const CLOSED_DAEDALUS_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "closed_daedaluses");
 // @ts-ignore
-const DESTROY_DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedaluses/destroy-daedalus");
+const DESTROY_DAEDALUS_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "daedaluses/destroy-daedalus");
 // @ts-ignore
-const DESTROY_ALL_DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedaluses/destroy-all-daedaluses");
+const DESTROY_ALL_DAEDALUS_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "daedaluses/destroy-all-daedaluses");
 
 const DaedalusService = {
     loadAlerts: async (daedalus: Daedalus): Promise<Alert[]> => {

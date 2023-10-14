@@ -108,7 +108,7 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'news'), params)
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL+'news'), params)
                 .then((result) => {
                     return result.data;
                 })

@@ -123,7 +123,7 @@ export default defineComponent({
 
             GameConfigService.createStatusConfig(newStatusConfig)
                 .then((res: StatusConfig | null) => {
-                    const newStatusConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/status-config', String(res?.id));
+                    const newStatusConfigUrl = urlJoin(import.meta.env.VITE_URL + '/config/status-config', String(res?.id));
                     window.location.href = newStatusConfigUrl;
                 })
                 .catch((error) => {
@@ -149,7 +149,7 @@ export default defineComponent({
                 .then((res: StatusConfig | null) => {
                     this.statusConfig = res;
                     if (this.statusConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'status_configs', String(this.statusConfig.id), 'modifier_configs'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_API_URL + 'status_configs', String(this.statusConfig.id), 'modifier_configs'))
                             .then((result) => {
                                 const modifierConfigs: ModifierConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -193,7 +193,7 @@ export default defineComponent({
         const statusConfigId = String(this.$route.params.statusConfigId);
         GameConfigService.loadStatusConfig(Number(statusConfigId)).then((res: StatusConfig | null) => {
             this.statusConfig = res;
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'status_configs', statusConfigId, 'modifier_configs'))
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL+'status_configs', statusConfigId, 'modifier_configs'))
                 .then((result) => {
                     const modifierConfigs : ModifierConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {

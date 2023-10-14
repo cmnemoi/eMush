@@ -21,67 +21,67 @@ import { TriumphConfig } from "@/entities/Config/TriumphConfig";
 import { EventConfig } from "@/entities/Config/EventConfig";
 
 // @ts-ignore
-const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
+const GAME_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "game_configs");
 // @ts-ignore
-const MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_configs");
+const MODIFIER_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "modifier_configs");
 // @ts-ignore
-const VARIABLE_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "variable_event_modifier_configs");
+const VARIABLE_MODIFIER_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "variable_event_modifier_configs");
 // @ts-ignore
-const TRIGGER_EVENT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "trigger_event_modifier_configs");
+const TRIGGER_EVENT_MODIFIER_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "trigger_event_modifier_configs");
 // @ts-ignore
-const DIRECT_MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "direct_modifier_configs");
+const DIRECT_MODIFIER_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "direct_modifier_configs");
 // @ts-ignore
-const EVENT_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "event_configs");
+const EVENT_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "event_configs");
 // @ts-ignore
-const VARIABLE_EVENT_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "variable_event_configs");
+const VARIABLE_EVENT_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "variable_event_configs");
 // @ts-ignore
-const MODIFIER_REQUIREMENT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_activation_requirements");
+const MODIFIER_REQUIREMENT_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "modifier_activation_requirements");
 // @ts-ignore
-const CONFIG_STATUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "status_configs");
+const CONFIG_STATUS_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "status_configs");
 // @ts-ignore
-const ACTION_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
+const ACTION_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "actions");
 // @ts-ignore
-const CONFIG_DAEDALUS_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedalus_configs");
+const CONFIG_DAEDALUS_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "daedalus_configs");
 // @ts-ignore
-const DIFFICULTY_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "difficulty_configs");
+const DIFFICULTY_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "difficulty_configs");
 // @ts-ignore
-const CHARACTER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "character_configs");
+const CHARACTER_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "character_configs");
 // @ts-ignore
-const EQUIPMENT_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "equipment_configs");
+const EQUIPMENT_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "equipment_configs");
 // @ts-ignore
-const DISEASE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "disease_configs");
+const DISEASE_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "disease_configs");
 // @ts-ignore
-const MECHANICS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "mechanics");
+const MECHANICS_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "mechanics");
 // @ts-ignore
-const PLACE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "place_configs");
+const PLACE_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "place_configs");
 // @ts-ignore
-const RANDOM_ITEM_PLACES_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "random_item_places");
+const RANDOM_ITEM_PLACES_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "random_item_places");
 // @ts-ignore
-const CONSUMABLE_DISEASE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "consumable_disease_configs");
+const CONSUMABLE_DISEASE_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "consumable_disease_configs");
 // @ts-ignore
-const CONSUMABLE_DISEASE_ATTRIBUTE_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "consumable_disease_attributes");
+const CONSUMABLE_DISEASE_ATTRIBUTE_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "consumable_disease_attributes");
 // @ts-ignore
-const DISEASE_CAUSE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "disease_cause_configs");
+const DISEASE_CAUSE_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "disease_cause_configs");
 // @ts-ignore
-const TRIUMPH_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "triumph_configs");
+const TRIUMPH_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "triumph_configs");
 // @ts-ignore
-const BLUEPRINT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "blueprints");
+const BLUEPRINT_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "blueprints");
 // @ts-ignore
-const BOOK_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "books");
+const BOOK_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "books");
 // @ts-ignore
-const DOCUMENT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "documents");
+const DOCUMENT_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "documents");
 // @ts-ignore
-const DRUG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "drugs");
+const DRUG_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "drugs");
 // @ts-ignore
-const FRUIT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "fruits");
+const FRUIT_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "fruits");
 // @ts-ignore
-const GEAR_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "gears");
+const GEAR_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "gears");
 // @ts-ignore
-const PLANT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "plants");
+const PLANT_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "plants");
 // @ts-ignore
-const RATION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "rations");
+const RATION_ENDPOINT = urlJoin(import.meta.env.VITE_API_URL, "rations");
 // @ts-ignore
-const WEAPON_ENDPOINTS = urlJoin(process.env.VUE_APP_API_URL, "weapons");
+const WEAPON_ENDPOINTS = urlJoin(import.meta.env.VITE_API_URL, "weapons");
 
 const MECHANICS_ENDPOINTS: Map<string, string> = new Map([
     ['blueprint', BLUEPRINT_ENDPOINT],

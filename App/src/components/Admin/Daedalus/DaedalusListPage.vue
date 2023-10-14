@@ -167,7 +167,7 @@ export default defineComponent({
             if (this.filter) {
                 params.params['name'] = this.filter;
             }
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'daedaluses?XDEBUG_SESSION_START=PHPSTORM'), params)
+            ApiService.get(urlJoin(import.meta.env.VITE_API_URL+'daedaluses?XDEBUG_SESSION_START=PHPSTORM'), params)
                 .then((result) => {
                     return result.data;
                 })

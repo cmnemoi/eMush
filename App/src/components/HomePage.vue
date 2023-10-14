@@ -40,6 +40,60 @@
                 </div>
             </div>
         </section>
+        <section class="medias">
+            <h3>Ils n'ont pas trouvé ça mush :</h3>
+            <div class="reviews">
+                <div>
+                    <a href="#">
+                        <img src="@/assets/images/medias/jeuxvideo.png">
+                    </a>
+                    <p>"Avec un bon groupe, le jeu procure une expérience jouissive où la suspicion, les mensonges et la paranoïa règnent en maîtres. "</p>
+                    <span class="score">15/20</span>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="@/assets/images/medias/gamesphere.png">
+                    </a>
+                    <p>"Un vrai jeu communautaire où l’on partage une partie de son quotidien avec quinze personnes pour quelques jours"</p>
+                    <span class="score">91%</span>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="@/assets/images/medias/gaminfo.png">
+                    </a>
+                    <p>"N’oubliez pas que le Mush est toujours là, à rôder dans les couloirs du Daedalus pour contaminer tout l’équipage !"</p>
+                </div>
+                <div>
+                    <img src="@/assets/images/medias/jeuxcapt.png">
+                    <p>[...] même si nous avons terminé une partie, nous aurons toujours envie d'en recommencer une nouvelle, car rien ne se déroulera comme la précédente."</p>
+                </div>
+                <div>
+                    <img src="@/assets/images/medias/logo_cpc.png">
+                    <p>"Mush est l’enfant contre-nature qu’aurait pu avoir un Cylon s’il s’était tapé un des loups-garous de Thiercelieux."</p>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="@/assets/images/medias/gamalive.png">
+                    </a>
+                    <p>"Un mélange subtil de social, stratégie, gestion et bien d'autres encore. Très addictif une fois qu'on est lancé."</p>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="@/assets/images/medias/gamer-news.png">
+                    </a>
+                    <p>"Si vous êtes adepte de jeux de rôles, si vous aimez jouer en équipe et vous marrer en groupe, Mush est fait pour vous."</p>
+                    <span class="score">7.2/10</span>
+                </div>
+            </div>
+            <div class="weblinks">
+                <h3>Suivez-nous:</h3>
+                <a href="#">Discord</a>
+                <a href="#">Forum</a>
+                <a href="#">Gitlab</a>
+                <a href="#">etc</a>
+                <img src="@/assets/images/medias/pegi.png">
+            </div>
+        </section>
     </div>
 </template>
 
@@ -121,13 +175,14 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 
+section {
+    flex-direction: row;
+    gap: 1.6em;
+    max-width: 80%;
+}
+
 .homepage-container {
     align-items: center;
-
-    & > section {
-        flex-direction: row;
-        gap: 1.6em;
-    }
 
     .box-container {
         margin-bottom: 0;
@@ -163,9 +218,9 @@ export default defineComponent ({
 }
 
 .decorative {
-    align-self: stretch;
     align-items: center;
     justify-content: space-evenly;
+    gap: 30%;
 
     img {
         width: fit-content;
@@ -286,16 +341,74 @@ export default defineComponent ({
     }
 }
 
+.medias {
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-top: 2em;
 
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.3s ease;
+    .reviews {
+        columns: 4 auto;
+        display: block;
+        gap: 1.5em 2.2em;
+
+        div {
+            display: inline-block;
+            margin-bottom: 1.6em;
+            padding: 1.1em;
+            flex-direction: column;
+            background-color: rgba(23,68,142,0.4);
+            border-radius: 5px;
+        }
+
+        a, img {
+            display: block;
+            width: fit-content;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        p, span {
+            font-size: 0.92em;
+            letter-spacing: 0.02em;
+            color: #b1c5f9;
+            text-align: left;
+            margin-top: 1.2em;
+        }
+
+        span {
+            float: right;
+            font-weight: bold;
+            margin-top: 0.25em;
+        }
+    }
+
+    h3 {
+        font-weight: normal;
+        font-style: italic;
+        color:#88a6fe;
+        text-shadow: 0 0 4px $deepBlue;
+        margin: 0.2em 0;
+    }
+
+    p { margin: 0; }
 }
 
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
+.weblinks {
+    align-self: center;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.4em;
+
+    a {
+        color: white;
+        text-decoration: none;
+    }
 }
+
+.v-enter-active, .v-leave-active { transition: opacity 0.3s ease; }
+
+
+.v-enter-from, .v-leave-to { opacity: 0; }
 
 
 

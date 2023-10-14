@@ -85,6 +85,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $triumph = 0;
 
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $titles = [];
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -549,5 +552,38 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $terminal = $this->getStatusByName(PlayerStatusEnum::FOCUSED)?->getTarget();
 
         return $terminal;
+    }
+
+    public function addTitle(string $title): static
+    {
+        $this->titles[] = $title;
+
+        return $this;
+    }
+
+    public function removeTitle(string $title): static
+    {
+        if (in_array($title, $this->titles)) {
+            $this->titles = array_diff($this->titles, [$title]);
+        }
+
+        return $this;
+    }
+
+    public function getTitles(): array
+    {
+        return $this->titles;
+    }
+
+    public function setTitles(array $titles): static
+    {
+        $this->titles = $titles;
+
+        return $this;
+    }
+
+    public function hasTitle(string $title): bool
+    {
+        return in_array($title, $this->getTitles());
     }
 }

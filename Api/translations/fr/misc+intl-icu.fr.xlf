@@ -43,5 +43,19 @@
         <target>Guérit la maladie {diseaseName}</target>
       </segment>
     </unit>
+    <unit id="title_names">
+      <segment id="commander" state="translated">
+        <source>commander</source>
+        <target>Commandant</target>
+      </segment>
+            <segment id="neron_manager" state="translated">
+        <source>neron_manager</source>
+        <target>Resp. Communications</target>
+      </segment>
+            <segment id="com_manager" state="translated">
+        <source>com_manager</source>
+        <target>Admin. NERON</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

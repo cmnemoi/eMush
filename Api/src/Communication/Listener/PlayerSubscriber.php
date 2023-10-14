@@ -7,6 +7,7 @@ use Mush\Communication\Enum\MushMessageEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Services\NeronMessageServiceInterface;
+use Mush\Game\Enum\TitleEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -33,6 +34,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
             PlayerEvent::INFECTION_PLAYER => 'onInfectionPlayer',
+            PlayerEvent::TITLE_ATTRIBUTED => 'onPlayerTitleAttributed',
         ];
     }
 
@@ -83,5 +85,18 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->messageService->createSystemMessage(MushMessageEnum::MUSH_CONVERT_EVENT, $mushChannel, $params, $time);
 
         $this->channelService->addPlayerToMushChannel($event->getPlayer());
+    }
+
+    public function onPlayerTitleAttributed(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+        $time = $event->getTime();
+
+        $title = $event->mapLog(TitleEnum::TITLES_MAP);
+
+        if ($title === null) {
+            throw new \LogicException('Player needs a specific title to gain');
+        }
+        $this->neronMessageService->createTitleAttributionMessage($player, $title, $time);
     }
 }

@@ -174,6 +174,9 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 $time
             );
             $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
+        } elseif ($daedalus->getGameStatus() === GameStatusEnum::CURRENT) {
+            // Assign Titles every cycle in case of new deaths or inactive players
+            $this->daedalusService->attributeTitles($daedalus, $time);
         }
     }
 }

@@ -523,18 +523,18 @@
       <segment id="title_attribution" state="translated">
         <source>title_attribution</source>
         <target>{neronMood, select,
-                    neutral {Ajustement A-True : *titre réattribué*. Nouveau « **{titre}** » : **{character}**.}
-                    crazy {[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « **{titre}** » pour **{character}**. Être {character} !!}
+                    neutral {Ajustement A-True : *titre réattribué*. Nouveau « **{title}** » : **{character}**.}
+                    crazy {[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « **{title}** » pour **{character}**. Être {character} !!}
                     uninhibited {{version, select,
-                        1 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**.}
-                        2 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**...}
-                        3 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**. Pas que je lui prête un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face.}
-                        4 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**. Et si ça ne vous plaît pas, eh bien... vous n'avez qu'à l'assassiner.}
-                        5 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ?}
-                        6 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**. Ne prenez pas le melon $hero, je ne vous fais pas confiance... Mais les autres sont pires.}
-                        7 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**. Oui, sachez $hero que je vous apprécie. ... Hahah ... Just kidding !}
-                        8 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de *réattribuer le titre* de « **{titre}** » au moins consternant d'entre vous. *Félicitations* **{character}**, vous êtes nul, mais moins que les autres !}
-                        9 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de *réattribuer le titre* de « **{titre}** » au moins consternant d'entre vous : **{character}**.}
+                        1 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{title}** » à **{character}**.}
+                        2 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{title}** » à **{character}**...}
+                        3 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{title}** » à **{character}**. Pas que je lui prête un quelconque mérite... Au point où on en est, j'ai tiré à pile ou face.}
+                        4 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{title}** » à **{character}**. Et si ça ne vous plaît pas, eh bien... vous n'avez qu'à l'assassiner.}
+                        5 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{title}** » à **{character}**. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ?}
+                        6 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{title}** » à **{character}**. Ne prenez pas le melon $hero, je ne vous fais pas confiance... Mais les autres sont pires.}
+                        7 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{title}** » à **{character}**. Oui, sachez $hero que je vous apprécie. ... Hahah ... Just kidding !}
+                        8 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de *réattribuer le titre* de « **{title}** » au moins consternant d'entre vous. *Félicitations* **{character}**, vous êtes nul, mais moins que les autres !}
+                        9 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de *réattribuer le titre* de « **{title}** » au moins consternant d'entre vous : **{character}**.}
                         other {invalid version number}
                     }}
                     other {invalid mood input}

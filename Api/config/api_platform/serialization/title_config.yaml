@@ -1,0 +1,8 @@
+Mush\Game\Entity\TitleConfig:
+  attributes:
+    id:
+      groups: [ 'title_config_read' ]
+    name:
+      groups: [ 'title_config_read', 'title_config_write' ]
+    priority:
+      groups: [ 'title_config_read', 'title_config_write' ]

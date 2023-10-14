@@ -89,6 +89,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
             $titles = [];
             foreach ($player->getTitles() as $title) {
                 $normedTitle = [
+                    'id' => $title,
                     'name' => $this->translationService->translate($title . '.name', [], 'player', $language),
                     'description' => $this->translationService->translate($title . '.desc', [], 'player', $language),
                 ];

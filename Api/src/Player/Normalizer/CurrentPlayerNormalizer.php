@@ -134,6 +134,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $titles = [];
         foreach ($player->getTitles() as $title) {
             $normedTitle = [
+                'id' => $title,
                 'name' => $this->translationService->translate($title . '.name', [], 'player', $language),
                 'description' => $this->translationService->translate($title . '.desc', [], 'player', $language),
             ];

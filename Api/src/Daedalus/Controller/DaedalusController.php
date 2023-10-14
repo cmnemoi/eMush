@@ -83,6 +83,10 @@ class DaedalusController extends AbstractGameController
      */
     public function getAvailableCharacter(Request $request): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         $language = $request->get('language', '');
         $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($language, $this->getUser());
 
@@ -131,6 +135,10 @@ class DaedalusController extends AbstractGameController
      */
     public function getDaedalusMinimapsAction(Daedalus $daedalus): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -184,6 +192,10 @@ class DaedalusController extends AbstractGameController
      */
     public function createDaedalus(DaedalusCreateRequest $daedalusCreateRequest): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         if (count($violations = $this->validator->validate($daedalusCreateRequest))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }

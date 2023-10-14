@@ -83,6 +83,10 @@ class ActionController extends AbstractGameController
      */
     public function executeActionAction(Player $player, ActionRequest $actionRequest): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
 

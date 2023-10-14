@@ -40,6 +40,10 @@ class AlertController extends AbstractGameController
      */
     public function getDaedalusAlertsAction(Daedalus $daedalus): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         return $this->view($this->alertService->getAlerts($daedalus), 200);
     }
 }

@@ -82,6 +82,10 @@ class ChannelController extends AbstractGameController
      */
     public function createChannelAction(): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -129,6 +133,10 @@ class ChannelController extends AbstractGameController
      */
     public function canCreateChannelAction(): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -175,6 +183,10 @@ class ChannelController extends AbstractGameController
      */
     public function getChannelsActions(): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -212,6 +224,10 @@ class ChannelController extends AbstractGameController
      */
     public function getPiratedChannelsActions(): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -277,6 +293,10 @@ class ChannelController extends AbstractGameController
      */
     public function inviteAction(Request $request, Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -330,6 +350,10 @@ class ChannelController extends AbstractGameController
      */
     public function getInvitablePlayerAction(Request $request, Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -364,6 +388,9 @@ class ChannelController extends AbstractGameController
      */
     public function exitAction(Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
         /** @var User $user */
@@ -432,6 +459,10 @@ class ChannelController extends AbstractGameController
      */
     public function createMessageAction(CreateMessage $messageCreate, Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
@@ -503,6 +534,9 @@ class ChannelController extends AbstractGameController
      */
     public function getMessages(Request $request, Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
         /** @var Daedalus $daedalus */

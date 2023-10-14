@@ -84,6 +84,9 @@ class PlayerController extends AbstractGameController
      */
     public function getPlayerAction(Player $player): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
 
         $context = new Context();
@@ -139,6 +142,10 @@ class PlayerController extends AbstractGameController
      */
     public function createPlayerAction(PlayerCreateRequest $playerCreateRequest): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         if (count($violations = $this->validator->validate($playerCreateRequest))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -209,6 +216,10 @@ class PlayerController extends AbstractGameController
      */
     public function endPlayerAction(PlayerEndRequest $request, Player $player): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         if (count($violations = $this->validator->validate($request))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -276,6 +287,9 @@ class PlayerController extends AbstractGameController
      */
     public function triggerCycleChange(Player $player): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
 
         $this->cycleService->handleCycleChange(new \DateTime(), $player->getDaedalus());

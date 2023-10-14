@@ -26,13 +26,4 @@ abstract class AbstractGameController extends AbstractFOSRestController
 
         return null;
     }
-
-    protected function view($data = null, int $statusCode = null, array $headers = [])
-    {
-        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
-            return $maintenanceView;
-        }
-
-        return View::create($data, $statusCode, $headers);
-    }
 }

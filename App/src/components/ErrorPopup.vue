@@ -51,18 +51,17 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-
 ::v-deep a {
     color: $green;
 }
 
-.title {
-    margin-top: 0;
-}
+p { font-size: 1.2em; }
 
 .details {
-    margin-top: 16px;
-    font-size: .65em;
+    padding-left: 0.6em;
+    border-left: 2px solid $green;
+    color: $green;
+    font-style: italic;
 }
 
 </style>

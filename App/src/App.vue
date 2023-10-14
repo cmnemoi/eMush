@@ -6,6 +6,7 @@
         <MaintenancePage v-if="gameInMaintenance && !userIsAdmin"/>
         <router-view v-else/>
         <ErrorPopup />
+        <ConfirmPopup />
         <Thanks />
         <LocaleChange />
     </div>
@@ -15,6 +16,7 @@
 
 import Banner from "@/components/Banner";
 import ErrorPopup from "@/components/ErrorPopup";
+import ConfirmPopup from "@/components/ConfirmPopup";
 import Spinner from "@/components/Utils/Spinner";
 import { mapGetters, mapActions } from "vuex";
 import LocaleChange from "@/components/Utils/LocaleChange.vue";
@@ -28,6 +30,7 @@ export default {
         Spinner,
         Banner,
         ErrorPopup,
+        ConfirmPopup,
         LocaleChange,
         Title,
         Thanks,

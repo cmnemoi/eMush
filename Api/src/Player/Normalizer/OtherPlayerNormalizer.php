@@ -88,6 +88,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
 
             $playerData['statuses'] = $statuses;
             $playerData['skills'] = $player->getSkills();
+            $playerData['titles'] = $player->getTitles();
             $playerData['actions'] = $this->getActions($player, $format, $context);
         }
 

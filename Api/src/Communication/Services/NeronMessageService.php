@@ -162,4 +162,16 @@ class NeronMessageService implements NeronMessageServiceInterface
 
         $this->createNeronMessage(NeronMessageEnum::NEW_FIRE, $daedalus, ['quantity' => 1], $time, $parentMessage);
     }
+
+    public function createTitleAttributionMessage(Player $player, string $title, \DateTime $time): void
+    {
+        $title = $this->translationService->translate(
+            $title,
+            [],
+            'misc',
+            $player->getDaedalus()->getLanguage()
+        );
+        $parameters = ['character' => $player->getName(), 'title' => $title];
+        $this->createNeronMessage(NeronMessageEnum::TITLE_ATTRIBUTION, $player->getDaedalus(), $parameters, $time);
+    }
 }

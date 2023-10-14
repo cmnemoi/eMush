@@ -21,6 +21,7 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\TitleConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -471,5 +472,53 @@ class DaedalusService implements DaedalusServiceInterface
         }
 
         return $value;
+    }
+
+    public function attributeTitles(Daedalus $daedalus, \DateTime $date): Daedalus
+    {
+        $gameConfig = $daedalus->getGameConfig();
+
+        $titleConfigs = $gameConfig->getTitleConfigs();
+
+        // Get the names of all alive players
+        // @TODO: get active players instead
+        $players = $daedalus->getPlayers()->getPlayerAlive();
+
+        /** @var TitleConfig $titleConfig */
+        foreach ($titleConfigs as $titleConfig) {
+            $titleAssigned = false;
+            $title = $titleConfig->getName();
+
+            foreach ($titleConfig->getPriority() as $priorityCharacter) {
+                // This will return the player if it is alive, and null if not
+                $player = $players->getPlayerByName($priorityCharacter);
+
+                if ($player && !$player->hasTitle($title) && !$titleAssigned) {
+                    // If first person in order of priority does not have title, assign it
+                    $player->addTitle($title);
+                    $playerEvent = new PlayerEvent(
+                        $player,
+                        [$title],
+                        $date
+                    );
+                    $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_ATTRIBUTED);
+                    $titleAssigned = true;
+                } elseif ($player && $player->hasTitle($title) && !$titleAssigned) {
+                    $titleAssigned = true;
+                } elseif ($player && $player->hasTitle($title) && $titleAssigned) {
+                    // If someone has a title when they are not the player alive with the biggest priority, remove it
+                    // For when an inactive player wakes up
+                    $player->removeTitle($title);
+                    $playerEvent = new PlayerEvent(
+                        $player,
+                        [$title],
+                        $date
+                    );
+                    $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_REMOVED);
+                }
+            }
+        }
+
+        return $daedalus;
     }
 }

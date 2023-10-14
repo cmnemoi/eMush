@@ -2,6 +2,7 @@
 
 namespace Mush\Game\ConfigData;
 
+use Mush\Game\Enum\TitleEnum;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
@@ -23,6 +24,7 @@ class GameConfigData
             'statusConfigs' => ['alien_artefact_default', 'heavy_default', 'module_access_default', 'hidden_default', 'broken_default', 'unstable_default', 'hazardous_default', 'decomposing_default', 'frozen_default', 'plant_thirsty_default', 'plant_dry_default', 'plant_diseased_default', 'document_content_default', 'reinforced_default', 'antisocial_default', 'berzerk_default', 'brainsync_default', 'burdened_default', 'demoralized_default', 'dirty_default', 'disabled_default', 'focused_default', 'full_stomach_default', 'gagged_default', 'germaphobe_default', 'guardian_default', 'highly_inactive_default', 'hyperactive_default', 'immunized_default', 'inactive_default', 'lost_default', 'lying_down_default', 'multi_teamster_default', 'outcast_default', 'pacifist_default', 'pregnant_default', 'starving_default', 'stuck_in_the_ship_default', 'suicidal_default', 'WATCHED_PUBLIC_BROADCAST_default', 'attempt_default', 'electric_charges_antigrav_scooter_default', 'electric_charges_old_faithful_default', 'electric_charges_rocket_launcher_default', 'electric_charges_turret_command_default', 'electric_charges_microwave_default', 'electric_charges_coffee_machine_default', 'electric_charges_narcotic_distiller_default', 'electric_charges_blaster_default', 'fire_default', 'plant_young_default', 'eureka_moment_default', 'first_time_default', 'mush_default', 'contaminated_default', 'drug_eaten_default', 'did_the_thing_default', 'did_boring_speech_default', 'updating_default', 'already_washed_in_the_sink_default', 'talkie_screwed_default', HunterStatusEnum::TRUCE_CYCLES . '_asteroid_default', PlayerStatusEnum::HAS_REJUVENATED . '_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default', EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default', 'electric_charges_patrol_ship_default', 'traveling_default', 'no_gravity_default', 'no_gravity_repaired_default'],
             'triumphConfigs' => ['alien_science', 'expedition', 'super_nova', 'first_starmap', 'next_starmap', 'cycle_mush', 'starting_mush', 'cycle_mush_late', 'conversion', 'infection', 'humanocide', 'chun_dead', 'sol_return_mush', 'eden_mush', 'cycle_human', 'cycle_inactive', 'new_planet_orbit', 'sol_contact', 'small_research', 'standard_research', 'brilliant_research', 'sol_return', 'sol_mush_intruder', 'hunter_killed', 'mushicide', 'rebel_wolf', 'nice_surgery', 'eden_crew_alive', 'eden_alien_plant', 'eden_gender', 'eden', 'eden_cat', 'eden_cat_dead', 'eden_cat_mush', 'eden_disease', 'eden_engineers', 'eden_biologist', 'eden_mush_intruder', 'eden_by_pregnant', 'eden_computed', 'anathema', 'pregnancy', 'all_pregnant'],
             'hunterConfigs' => [HunterEnum::ASTEROID . '_default', HunterEnum::DICE . '_default', HunterEnum::HUNTER . '_default', HunterEnum::SPIDER . '_default', HunterEnum::TRAX . '_default'],
+            'titleConfigs' => [TitleEnum::COMMANDER, TitleEnum::NERON_MANAGER, TitleEnum::COM_MANAGER],
         ],
     ];
 }

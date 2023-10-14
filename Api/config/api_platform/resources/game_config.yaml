@@ -14,7 +14,7 @@ Mush\Game\Entity\GameConfig:
     post:
       security: 'is_granted("ROLE_ADMIN")'
   itemOperations:
-    get: 
+    get:
       security: 'is_granted("ROLE_USER")'
     put:
       security: 'is_granted("ROLE_ADMIN")'
@@ -56,4 +56,8 @@ Mush\Game\Entity\GameConfig:
     hunterConfigs:
       subresource:
         resourceClass: 'Mush\Hunter\Entity\HunterConfig'
+        collection: true
+    titleConfigs:
+      subresource:
+        resourceClass: 'Mush\Hunter\Entity\TitleConfig'
         collection: true

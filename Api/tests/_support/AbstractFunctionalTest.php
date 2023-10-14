@@ -102,27 +102,10 @@ class AbstractFunctionalTest
         $chunCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => CharacterEnum::CHUN]);
         $kuanTiCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => CharacterEnum::KUAN_TI]);
 
-        $characterConfigs = [$chunCharacterConfig, $kuanTiCharacterConfig];
+        $characterNames = [CharacterEnum::CHUN, CharacterEnum::KUAN_TI];
 
-        foreach ($characterConfigs as $characterConfig) {
-            $player = new Player();
-
-            $user = new User();
-            $user
-                ->setUserId('user' . Uuid::v4()->toRfc4122())
-                ->setUserName('user' . Uuid::v4()->toRfc4122())
-            ;
-            $I->haveInRepository($user);
-
-            $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-            $I->haveInRepository($playerInfo);
-
-            $player->setDaedalus($this->daedalus);
-            $player->setPlace($daedalus->getPlaceByName(RoomEnum::LABORATORY));
-            $player->setPlayerVariables($characterConfig);
-
-            $I->haveInRepository($player);
-
+        foreach ($characterNames as $characterName) {
+            $player = $this->addPlayerByCharacter($I, $daedalus, $characterName);
             $players->add($player);
         }
 
@@ -169,5 +152,30 @@ class AbstractFunctionalTest
         $I->haveInRepository($daedalus);
 
         return $extraRoom;
+    }
+
+    protected function addPlayerByCharacter(FunctionalTester $I, Daedalus $daedalus, string $characterName): Player
+    {
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => $characterName]);
+
+        $player = new Player();
+
+        $user = new User();
+        $user
+            ->setUserId('user' . Uuid::v4()->toRfc4122())
+            ->setUserName('user' . Uuid::v4()->toRfc4122())
+        ;
+        $I->haveInRepository($user);
+
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $I->haveInRepository($playerInfo);
+
+        $player->setDaedalus($this->daedalus);
+        $player->setPlace($daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $player->setPlayerVariables($characterConfig);
+
+        $I->haveInRepository($player);
+
+        return $player;
     }
 }

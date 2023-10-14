@@ -7,9 +7,11 @@
             </div>
             <div class="character-info">
                 <span class="character-name">{{ player.character.name }}</span>
-                <!--        <div class="titles">-->
-                <!--          <div class="title"><img class="title-img" src="@/assets/images/title_01.png"><span class="title-name">Commandant</span></div>-->
-                <!--        </div>-->
+                <div class="titles">
+                    <ul v-for="(key) in player.titles" :key="key">
+                        <div class="title"><img class="title-img" src="@/assets/images/title_01.png"><span class="title-name">{{ key.name }}</span></div>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -136,8 +138,6 @@ export default defineComponent({
 </script>
 
 <style  lang="scss" scoped>
-.titles,
-.title,
 .game-banner,
 .daedalus-banner,
 .character-banner,
@@ -152,6 +152,7 @@ export default defineComponent({
 p,
 a,
 li,
+ul,
 span {
     letter-spacing: 0.03em;
     font-variant: small-caps;
@@ -231,20 +232,26 @@ span.tippy-tooltip {
         text-transform: uppercase;
     }
 
-    .title {
+    .titles {
         display: flex;
         flex-direction: row;
-        align-items: center;
 
-        .title-name {
-            margin-left: 4px;
-            font-size: 0.8em;
-            font-weight: bold;
-            font-variant: small-caps;
-            white-space: nowrap;
-            color: rgba(255, 255, 255, 0.75);
+        .title {
+            flex-direction: row;
+            align-items: center;
+            margin-right: 6px;
+
+            .title-name {
+                margin-left: 4px;
+                font-size: 0.8em;
+                font-weight: bold;
+                font-variant: small-caps;
+                white-space: nowrap;
+                color: rgba(255, 255, 255, 0.75);
+            }
         }
     }
+
 }
 
 .daedalus-banner {

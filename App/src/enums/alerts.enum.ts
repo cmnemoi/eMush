@@ -10,15 +10,15 @@ const HUNGER = 'hunger';
 const HUNTER = 'hunter';
 
 export const AlertsIcons: {[index: string]: string} = {
-    [NO_ALERT]: require('@/assets/images/alerts/infoalert.png'),
-    [LOW_OXYGEN]: require('@/assets/images/alerts/o2alert.png'),
-    [LOW_HULL]: require('@/assets/images/shield.png'),
-    [FIRES]: require('@/assets/images/alerts/fire.png'),
-    [BROKEN_DOORS]: require('@/assets/images/alerts/door.png'),
-    [BROKEN_EQUIPMENTS]: require('@/assets/images/alerts/broken.png'),
-    [NO_GRAVITY]: require('@/assets/images/alerts/simulator.png'),
-    [GRAVITY_REBOOT]: require('@/assets/images/alerts/simulatorReboot.png'),
-    [HUNGER]: require('@/assets/images/alerts/hunger.png'),
-    [HUNTER]: require('@/assets/images/alerts/hunter.png')
+    [NO_ALERT]: 'src/assets/images/alerts/infoalert.png',
+    [LOW_OXYGEN]: 'src/assets/images/alerts/o2alert.png',
+    [LOW_HULL]: 'src/assets/images/shield.png',
+    [FIRES]: 'src/assets/images/alerts/fire.png',
+    [BROKEN_DOORS]: 'src/assets/images/alerts/door.png',
+    [BROKEN_EQUIPMENTS]: 'src/assets/images/alerts/broken.png',
+    [NO_GRAVITY]: 'src/assets/images/alerts/simulator.png',
+    [GRAVITY_REBOOT]: 'src/assets/images/alerts/simulatorReboot.png',
+    [HUNGER]: 'src/assets/images/alerts/hunger.png',
+    [HUNTER]: 'src/assets/images/alerts/hunter.png'
 }
 ;

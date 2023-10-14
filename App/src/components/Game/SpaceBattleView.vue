@@ -9,11 +9,11 @@
             </div>
             <div>
                 <div class="ship-img-container">
-                    <img class="turret-img" :src="require('@/assets/images/spaceBattleTurret.png')" alt="turret">
+                    <img class="turret-img" :src="'src/assets/images/spaceBattleTurret.png'" alt="turret">
                 </div>
                 <div class="stats">
                     <p class="quantity">{{ turret.charges }}</p>
-                    <img class="charges-img" :src="require('@/assets/images/status/charge.png')" alt="charges">
+                    <img class="charges-img" :src="'src/assets/images/status/charge.png'" alt="charges">
                 </div>
             </div>
         </div>
@@ -28,20 +28,20 @@
                 <div class="ship-img-container">
                     <img v-if="!patrolShip.isPasiphae()"
                          class="patrol-ship-img"
-                         :src="require('@/assets/images/patrol_ship.png')"
+                         :src="'src/assets/images/patrol_ship.png'"
                          alt="patrol ship">
                     <img v-else
                          class="pasiphae-img"
-                         :src="require('@/assets/images/pasiphae.png')"
+                         :src="'src/assets/images/pasiphae.png'"
                          alt="pasiphae">
                 </div>
                 <div class="stats">
                     <p class="quantity">{{ patrolShip.armor }}</p>
-                    <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
+                    <img class="armor-img" :src="'src/assets/images/shield.png'" alt="armor">
                     <p class="quantity" v-if="!patrolShip.isPasiphae()">{{ patrolShip.charges }}</p>
                     <img class="charges-img"
                          v-if="!patrolShip.isPasiphae()"
-                         :src="require('@/assets/images/status/charge.png')"
+                         :src="'src/assets/images/status/charge.png'"
                          alt="charges">
                 </div>
             </div>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="stats">
                     <p class="quantity">{{ hunter.health }}</p>
-                    <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
+                    <img class="armor-img" :src="'src/assets/images/shield.png'" alt="armor">
                 </div>
                 <template #content>
                     <h1 v-html="formatContent(hunter.name)" /><br />

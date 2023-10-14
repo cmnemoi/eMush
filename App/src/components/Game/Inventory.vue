@@ -68,7 +68,7 @@ export default defineComponent ({
     },
     methods: {
         itemImage: function(item: Item): string {
-            return itemEnum[item.key] ? itemEnum[item.key].image : require('@/assets/images/items/todo.jpg');
+            return itemEnum[item.key] ? itemEnum[item.key].image : 'src/assets/images/items/todo.jpg';
         },
         formatDescription(value: string): string {
             if (! value) return '';

@@ -96,7 +96,7 @@ export default defineComponent ({
             }
         },
         skillImage(skill: string): string {
-            return require(`@/assets/images/skills/human/${skill}.png`) ? require(`@/assets/images/skills/human/${skill}.png`) : require('@/assets/images/items/todo.jpg');
+            return require(`@/assets/images/skills/human/${skill}.png`) ? require(`@/assets/images/skills/human/${skill}.png`) : 'src/assets/images/items/todo.jpg';
         }
     }
 });

@@ -125,10 +125,10 @@ export default defineComponent ({
             
         },
         characterPortrait: function(character: Character) {
-            return characterEnum[character.key] ? characterEnum[character.key].portrait : require('@/assets/images/items/todo.jpg');
+            return characterEnum[character.key] ? characterEnum[character.key].portrait : 'src/assets/images/items/todo.jpg';
         },
         characterBody: function(character: Character) {
-            return characterEnum[character.key] ? characterEnum[character.key].body : require('@/assets/images/items/todo.jpg');
+            return characterEnum[character.key] ? characterEnum[character.key].body : 'src/assets/images/items/todo.jpg';
         },
         characterCompleteName: function(character: Character) {
             return characterEnum[character.key] ? characterEnum[character.key].completeName : 'Unknown';

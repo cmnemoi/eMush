@@ -14,42 +14,42 @@ const DECOMPOSING = "decomposing";
 
 export const statusItemEnum: {[index: string]: any} = {
     [HEAVY]: {
-        'icon': require('@/assets/images/status/heavy.png')
+        'icon': 'src/assets/images/status/heavy.png'
     },
     [HIDDEN]: {
-        'icon': require('@/assets/images/status/hidden.png')
+        'icon': 'src/assets/images/status/hidden.png'
     },
     [PLANT_YOUNG]: {
-        'icon': require('@/assets/images/status/plant_youngling.png')
+        'icon': 'src/assets/images/status/plant_youngling.png'
     },
     [PLANT_THIRSTY]: {
-        'icon': require('@/assets/images/status/plant_thirsty.png')
+        'icon': 'src/assets/images/status/plant_thirsty.png'
     },
     [PLANT_DRY]: {
-        'icon': require('@/assets/images/status/plant_dry.png')
+        'icon': 'src/assets/images/status/plant_dry.png'
     },
     [PLANT_DISEASED]: {
-        'icon': require('@/assets/images/status/plant_diseased.png')
+        'icon': 'src/assets/images/status/plant_diseased.png'
     },
     [ELECTRIC_CHARGE]: {
-        'icon': require('@/assets/images/status/charge.png')
+        'icon': 'src/assets/images/status/charge.png'
     },
     [BROKEN]: {
-        'icon': require('@/assets/images/status/broken.png')
+        'icon': 'src/assets/images/status/broken.png'
     },
     [FROZEN]: {
-        'icon': require('@/assets/images/status/food_frozen.png')
+        'icon': 'src/assets/images/status/food_frozen.png'
     },
     [UPDATING]: {
-        'icon': require('@/assets/images/status/update.png')
+        'icon': 'src/assets/images/status/update.png'
     },
     [UNSTABLE]: {
-        'icon': require('@/assets/images/status/food_unstable.png')
+        'icon': 'src/assets/images/status/food_unstable.png'
     },
     [HASARDOUS]: {
-        'icon': require('@/assets/images/status/food_hazardous.png')
+        'icon': 'src/assets/images/status/food_hazardous.png'
     },
     [DECOMPOSING]: {
-        'icon': require('@/assets/images/status/food_decaying.png')
+        'icon': 'src/assets/images/status/food_decaying.png'
     }
 };

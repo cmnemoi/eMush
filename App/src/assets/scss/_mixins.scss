@@ -1,3 +1,44 @@
+/* VARIABLES */
+
+$brightCyan: #c2f3fc;
+$lightCyan: #a6eefb;
+$blue: #2081e2;
+$slightlyDeepBlue: #122270;
+$deepBlue: #090a61;
+$greyBlue: #3a6aab;
+
+$red: #cf1830;
+$deepGreen: #48A209;
+$green: #84e100;
+
+$font-default: "eKanit", "Segoe UI", "Lucida Grande", "Trebuchet MS", Arial, "lucida sans unicode", sans-serif;
+$font-days-one: "Days-One", $font-default;
+$font-pixel-square: "Pixel-Square", $font-default;
+
+$breakpoint-mobile-l: 425px;
+
+
+$face-position: //for the chars portraits, defines the position of the face in reference to the top left corner
+    "andie"    56% 37%,
+    "chao"     63% 28%,
+    "chun"     52% 24%,
+    "derek"    39% 24%,
+    "eleesha"  47% 32%,
+    "finola"   50% 30%,
+    "frieda"   46% 35%,
+    "gioele"   47% 26%,
+    "hua"      50% 28%,
+    "ian"      49% 26%,
+    "janice"   55% 35%,
+    "jin_su"      50% 25%,
+    "kuan_ti"     52% 20%,
+    "paola"    70% 37%,
+    "raluca"   40% 22%,
+    "roland"   43% 28%,
+    "stephen"  51% 29%,
+    "terrence" 67% 30%,
+;
+
 /* MIXINS */
 
 
@@ -154,3 +195,129 @@ Inventory slots with .empty class will have no interactive styling. */
         }
     }
 }
+
+/* PLACEHOLDERS */
+
+// Tips for Terminals, retracted by default and extend on click
+%retracted-tips {
+    position: relative;
+    margin: .35em 0;
+    padding: .25em;
+    cursor: pointer;
+    background: $lightCyan;
+    border: 1px solid $green;
+    border-radius: 3px;
+
+    & * { cursor: pointer; }
+
+    input {
+        position: absolute;
+        z-index: 2;
+        right: .8em;
+        top: .5em;
+        opacity: 0;
+    }
+
+    & > label {
+        display: block;
+        overflow: hidden;
+        opacity: .5;
+        height: 1.55em;
+        padding-bottom: .5em;
+        line-height: 1.35em;
+        font-style: italic;
+
+        em.red {
+            font-style: normal;
+            color: $red;
+        }
+
+        &::before {
+            content: "";
+            float: right;
+            width: 21px;
+            height: 21px;
+            background: url("~@/assets/images/comms/more.png") no-repeat center;
+        }
+    }
+
+    input:checked ~ label {
+        opacity: 1;
+        height: auto;
+
+        &::before {
+            background-image: url("~@/assets/images/comms/less.png");
+        }
+    }
+
+    .expand {
+        display: none;
+        position: absolute;
+        top: -1.5em;
+        right: .8em;
+        padding: .2em .5em;
+        border-radius: 5px 5px 0 0;
+        background: $green;
+        font-size: .75em;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+    }
+}
+
+// Terminal sections style with left-side border and small h3
+%terminal-section {
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: .8em;
+    background-color: $lightCyan;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    border-top: 3px solid #89e8fa;
+    border-left: 3px solid $green;
+
+    h3 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: .25em 2.5em .25em .5em;
+        background: #89e8fa;
+        text-align: center;
+        font-size: 1em;
+        letter-spacing: 0.03em;
+        font-weight: normal;
+        text-transform: uppercase;
+        line-height: 1em;
+
+        // @include corner-bezel(0, 0, 1.5em, 0);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 100% calc(100% - 1.5em), calc(100% - 1.5em) 100%, 0 100%, 0 100%, 0 0);
+    }
+}
+
+
+//in-game scrollbar styling, 8px thick only with emush colors
+%game-scrollbar {
+    --scrollbarBG: white;
+    --thumbBG: rgba(0, 116, 223, 1);
+    --border-radius: 6px;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        border-radius: var(--border-radius);
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--scrollbarBG);
+        border-radius: var(--border-radius);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--thumbBG);
+        border-radius: var(--border-radius);
+    }
+}
+

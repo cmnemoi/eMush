@@ -32,18 +32,18 @@ export default defineComponent ({
                 case "disease":
                     switch (status.diseaseType) {
                     case "disease":
-                        return require('@/assets/images/status/disease.png');
+                        return 'src/assets/images/status/disease.png';
                     case "disorder":
-                        return require('@/assets/images/status/disorder.png');
+                        return 'src/assets/images/status/disorder.png';
                     case "injury":
-                        return require('@/assets/images/status/injury.png');
+                        return 'src/assets/images/status/injury.png';
                     }
                     return null;
                 case "item":
                 case "equipment":
                     return statusItemEnum[status.key]?.icon || null;
                 case "room":
-                    return require('@/assets/images/status/fire.png');
+                    return 'src/assets/images/status/fire.png';
                 default:
                     return null;
                 }

@@ -2,11 +2,12 @@
 
 namespace Mush\Alert\Controller;
 
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Controller\AbstractGameController;
+use Mush\MetaGame\Service\AdminServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,13 +17,15 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route(path="/alert")
  */
-class AlertController extends AbstractFOSRestController
+class AlertController extends AbstractGameController
 {
     private AlertServiceInterface $alertService;
 
     public function __construct(
+        AdminServiceInterface $adminService,
         AlertServiceInterface $alertService,
     ) {
+        parent::__construct($adminService);
         $this->alertService = $alertService;
     }
 
@@ -37,6 +40,10 @@ class AlertController extends AbstractFOSRestController
      */
     public function getDaedalusAlertsAction(Daedalus $daedalus): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         return $this->view($this->alertService->getAlerts($daedalus), 200);
     }
 }

@@ -26,6 +26,18 @@
             <button class = "action-button" type="button" @click="destroyAllDaedaluses">
                 {{$t("admin.daedalus.destroyAllDaedaluses")}}
             </button>
+            <button class="action-button"
+                    type="button"
+                    @click="removeGameFromMaintenance"
+                    v-if="gameInMaintenance()">
+                {{$t("admin.daedalus.maintenanceOff")}}
+            </button>
+            <button class="action-button"
+                    type="button"
+                    @click="putGameInMaintenance"
+                    v-else>
+                {{$t("admin.daedalus.maintenanceOn")}}
+            </button>
         </div>
         <Datatable
             :headers='fields'
@@ -89,6 +101,8 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import AdminService from "@/services/admin.service";
 import DaedalusService from "@/services/daedalus.service";
+import { mapGetters, mapActions } from "vuex";
+
 
 export default defineComponent({
     name: "DeadalusListPage",
@@ -141,10 +155,16 @@ export default defineComponent({
                 { text: 5, value: 5 },
                 { text: 10, value: 10 },
                 { text: 20, value: 20 }
-            ]
+            ],
         };
     },
     methods: {
+        ...mapGetters({
+            gameInMaintenance: 'admin/gameInMaintenance',
+        }),
+        ...mapActions({
+            loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus',
+        }),
         formatDate: (date: string): string => {
             const dateObject = new Date(date);
             return format(dateObject, 'PPPPpp', { locale: fr });  
@@ -228,6 +248,18 @@ export default defineComponent({
                 this.loadData();
             });
         },
+        putGameInMaintenance() {
+            AdminService.putGameInMaintenance().then(() => {
+                this.loadGameMaintenanceStatus();
+                this.loadData();
+            });
+        },
+        removeGameFromMaintenance() {
+            AdminService.removeGameFromMaintenance().then(() => {
+                this.loadGameMaintenanceStatus();
+                this.loadData();
+            });
+        },
         unlockDaedalus(id: number) {
             DaedalusService.unlockDaedalus(id).then(() => {
                 this.loadData();
@@ -235,6 +267,7 @@ export default defineComponent({
         }
     },
     beforeMount() {
+        this.loadGameMaintenanceStatus();
         this.loadData();
     }
 });

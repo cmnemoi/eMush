@@ -3,7 +3,8 @@
         <Title :title="$t('title')" />
         <Spinner :loading="userLoading || playerLoading || configLoading" />
         <Banner />
-        <router-view />
+        <MaintenancePage v-if="gameInMaintenance && !userIsAdmin"/>
+        <router-view v-else/>
         <ErrorPopup />
         <Thanks />
         <LocaleChange />
@@ -15,10 +16,11 @@
 import Banner from "@/components/Banner";
 import ErrorPopup from "@/components/ErrorPopup";
 import Spinner from "@/components/Utils/Spinner";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import LocaleChange from "@/components/Utils/LocaleChange.vue";
 import Title from "@/components/Utils/Title.vue";
 import Thanks from "@/components/Thanks.vue";
+import MaintenancePage from "@/components/MaintenancePage.vue";
 
 export default {
     name: 'App',
@@ -29,15 +31,25 @@ export default {
         LocaleChange,
         Title,
         Thanks,
+        MaintenancePage
     },
     computed: {
         ...mapGetters({
+            gameInMaintenance: 'admin/gameInMaintenance',
             userLoading: 'auth/isLoading',
             playerLoading: 'player/isLoading',
-            configLoading: 'gameConfig/isLoading'
-        }
-        )
-    }
+            configLoading: 'gameConfig/isLoading',
+            userIsAdmin: 'auth/isAdmin',
+        }),
+    },
+    methods: {
+        ...mapActions({
+            loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus'
+        }),
+    },
+    beforeMount() {
+        this.loadGameMaintenanceStatus();
+    },
 };
 </script>
 

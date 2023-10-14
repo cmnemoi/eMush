@@ -2,19 +2,20 @@
 
 namespace Mush\Daedalus\Controller;
 
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Dto\DaedalusCreateRequest;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
+use Mush\Game\Controller\AbstractGameController;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Repository\PlayerInfoRepository;
@@ -35,7 +36,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  *
  * @Route(path="/daedaluses")
  */
-class DaedalusController extends AbstractFOSRestController
+class DaedalusController extends AbstractGameController
 {
     private const MAX_CHARACTERS_TO_RETURN = 4;
 
@@ -49,6 +50,7 @@ class DaedalusController extends AbstractFOSRestController
     private CycleServiceInterface $cycleService;
 
     public function __construct(
+        AdminServiceInterface $adminService,
         DaedalusServiceInterface $daedalusService,
         DaedalusWidgetServiceInterface $daedalusWidgetService,
         TranslationServiceInterface $translationService,
@@ -56,8 +58,9 @@ class DaedalusController extends AbstractFOSRestController
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
         GameConfigServiceInterface $gameConfigService,
-        CycleServiceInterface $cycleService
+        CycleServiceInterface $cycleService,
     ) {
+        parent::__construct($adminService);
         $this->daedalusService = $daedalusService;
         $this->daedalusWidgetService = $daedalusWidgetService;
         $this->translationService = $translationService;
@@ -79,8 +82,11 @@ class DaedalusController extends AbstractFOSRestController
      */
     public function getAvailableCharacter(Request $request): View
     {
-        $language = $request->get('language', '');
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
 
+        $language = $request->get('language', '');
         $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($language, $this->getUser());
 
         if ($daedalus === null) {
@@ -128,6 +134,10 @@ class DaedalusController extends AbstractFOSRestController
      */
     public function getDaedalusMinimapsAction(Daedalus $daedalus): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -181,6 +191,10 @@ class DaedalusController extends AbstractFOSRestController
      */
     public function createDaedalus(DaedalusCreateRequest $daedalusCreateRequest): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         if (count($violations = $this->validator->validate($daedalusCreateRequest))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }

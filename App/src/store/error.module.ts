@@ -13,8 +13,16 @@ const actions: ActionTree<any, any> = {
     }
 };
 
+const getters = {
+    getError: (state: any): any => {
+        return state.error;
+    }
+};
+
 const mutations: MutationTree<any> = {
     setError(state:any, error: any): void {
+        const isHydraError = error.response?.data['@type'] === 'hydra:Error';
+
         state.error = {
             message: error.message,
             status: error.request?.status,
@@ -25,7 +33,7 @@ const mutations: MutationTree<any> = {
                 method: error.config?.method
             },
             response: {
-                details: error.response?.data?.detail,
+                details: isHydraError ? error.response?.data['hydra:description'] : error.response?.data?.detail,
                 class: error.response?.data?.class
             }
         };
@@ -38,7 +46,7 @@ const mutations: MutationTree<any> = {
 export const error = {
     namespaced: true,
     state,
-    getters: {},
+    getters,
     actions,
     mutations
 };

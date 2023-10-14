@@ -274,7 +274,9 @@
 			"name": "Nom du Daedalus :",
 			"create": "Créer un Daedalus",
 			"config": "Configuration du Daedalus",
-			"language": "Langue du Daedalus"
+			"language": "Langue du Daedalus",
+			"maintenanceOn": "Mettre le jeu en maintenance",
+			"maintenanceOff": "Retirer le jeu de la maintenance"
 		},
 		"save": "Sauvegarder",
 		"show": "Montrer",
@@ -556,5 +558,23 @@
 		"joinUs": "Inscrivez-vous !",
 		"play": "Jouer !",
 		"synopsis": "Vous allez vous réveiller avec 15 autres joueurs dans le Daedalus. Comme vous, ils fuient le <em>Mush</em>, un champignon qui ravage la planète Terre et menace l'Humanité."
+	},
+	"errors": {
+		"status": {
+			"401": "401 Non autorisé",
+			"403": "403 Interdit",
+			"404": "404 Ressource non trouvée",
+			"409": "409 Conflit",
+			"500": "500 Erreur interne du serveur",
+			"503": "503 Service indisponible"
+		},
+		"consultCommunity": "En cas d'erreurs répétées, consultez la communauté sur <a href='https://discord.gg/Jb8Nwjck6r'>Discord</a> ou le <a href='https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1'>forum</a>.",
+		"Daedalus changing cycle": "Le Daedalus est en train de changer de cycle.",
+		"gameInMaintenance": "Le jeu est en maintenance, merci de revenir plus tard !",
+		"neronMessage": "<strong>NERON</strong> : Toutes mes excuses. Mon concepteur m'a programmé avec amour mais je ne suis pas parfait. Une <strong>erreur s'est produite</strong> lors de l'accès à la page demandée... Si le site est indisponible, merci de revenir dans quelques minutes.",
+		"Not Found": "La ressource demandée n'a pas été trouvée.",
+		"problem": "Il y a eu un problème lors du traitement de votre requête.",
+		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
+		"title": "ERREUR"
 	}
 }

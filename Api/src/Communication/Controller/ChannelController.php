@@ -3,7 +3,6 @@
 namespace Mush\Communication\Controller;
 
 use FOS\RestBundle\Context\Context;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\View\View;
@@ -14,9 +13,11 @@ use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Specification\SpecificationInterface;
 use Mush\Communication\Voter\ChannelVoter;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Controller\AbstractGameController;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\PlayerInfoRepository;
@@ -36,7 +37,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  *
  * @Route(path="/channel")
  */
-class ChannelController extends AbstractFOSRestController
+class ChannelController extends AbstractGameController
 {
     private SpecificationInterface $canCreateChannel;
     private ChannelServiceInterface $channelService;
@@ -48,6 +49,7 @@ class ChannelController extends AbstractFOSRestController
     private PlayerInfoRepository $playerInfoRepository;
 
     public function __construct(
+        AdminServiceInterface $adminService,
         SpecificationInterface $canCreateChannel,
         ChannelServiceInterface $channelService,
         MessageServiceInterface $messageService,
@@ -57,6 +59,7 @@ class ChannelController extends AbstractFOSRestController
         TranslationServiceInterface $translationService,
         PlayerInfoRepository $playerInfoRepository
     ) {
+        parent::__construct($adminService);
         $this->canCreateChannel = $canCreateChannel;
         $this->channelService = $channelService;
         $this->messageService = $messageService;
@@ -78,6 +81,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function createChannelAction(): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -122,6 +129,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function canCreateChannelAction(): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -165,6 +176,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function getChannelsActions(): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -199,6 +214,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function getPiratedChannelsActions(): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -261,6 +280,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function inviteAction(Request $request, Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -311,6 +334,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function getInvitablePlayerAction(Request $request, Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -342,6 +369,9 @@ class ChannelController extends AbstractFOSRestController
      */
     public function exitAction(Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
         /** @var User $user */
@@ -407,6 +437,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function createMessageAction(CreateMessage $messageCreate, Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
@@ -475,6 +509,9 @@ class ChannelController extends AbstractFOSRestController
      */
     public function getMessages(Request $request, Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
         /** @var Daedalus $daedalus */

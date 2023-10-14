@@ -86,9 +86,19 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
                 $statuses[] = $normedSpores;
             }
 
+            $titles = [];
+            foreach ($player->getTitles() as $title) {
+                $normedTitle = [
+                    'id' => $title,
+                    'name' => $this->translationService->translate($title . '.name', [], 'player', $language),
+                    'description' => $this->translationService->translate($title . '.desc', [], 'player', $language),
+                ];
+                $titles[] = $normedTitle;
+            }
+
             $playerData['statuses'] = $statuses;
             $playerData['skills'] = $player->getSkills();
-            $playerData['titles'] = $player->getTitles();
+            $playerData['titles'] = $titles;
             $playerData['actions'] = $this->getActions($player, $format, $context);
         }
 

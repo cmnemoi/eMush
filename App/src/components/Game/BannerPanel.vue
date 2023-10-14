@@ -7,9 +7,15 @@
             </div>
             <div class="character-info">
                 <span class="character-name">{{ player.character.name }}</span>
-                <!--        <div class="titles">-->
-                <!--          <div class="title"><img class="title-img" src="@/assets/images/title_01.png"><span class="title-name">Commandant</span></div>-->
-                <!--        </div>-->
+                <div class="titles">
+                    <Tippy tag="ul" v-for="(key) in player.titles" :key="key">
+                        <div class="title"><TitleImage :title="key" /><span class="title-name">{{ key.name }}</span></div>
+                        <template #content>
+                            <h1 v-html="formatContent(key.name)" />
+                            <p v-html="formatContent(key.description)" />
+                        </template>
+                    </Tippy>
+                </div>
             </div>
         </div>
 
@@ -109,6 +115,7 @@
 import { Daedalus } from "@/entities/Daedalus";
 import { Player } from "@/entities/Player";
 import CountdownTimer from "@/components/Utils/CountdownTimer.vue";
+import TitleImage from "@/components/Utils/TitleImage.vue";
 import Alerts from "@/components/Game/Ship/Alerts.vue";
 import { defineComponent } from "vue";
 import PlayerService from "@/services/player.service";
@@ -116,7 +123,7 @@ import PlayerService from "@/services/player.service";
 
 export default defineComponent({
     name: "BannerPanel",
-    components: { Alerts, CountdownTimer },
+    components: { Alerts, CountdownTimer, TitleImage },
     props: {
         player: Player,
         daedalus: Daedalus
@@ -136,8 +143,6 @@ export default defineComponent({
 </script>
 
 <style  lang="scss" scoped>
-.titles,
-.title,
 .game-banner,
 .daedalus-banner,
 .character-banner,
@@ -152,6 +157,7 @@ export default defineComponent({
 p,
 a,
 li,
+ul,
 span {
     letter-spacing: 0.03em;
     font-variant: small-caps;
@@ -231,20 +237,26 @@ span.tippy-tooltip {
         text-transform: uppercase;
     }
 
-    .title {
+    .titles {
         display: flex;
         flex-direction: row;
-        align-items: center;
 
-        .title-name {
-            margin-left: 4px;
-            font-size: 0.8em;
-            font-weight: bold;
-            font-variant: small-caps;
-            white-space: nowrap;
-            color: rgba(255, 255, 255, 0.75);
+        .title {
+            flex-direction: row;
+            align-items: center;
+            margin-right: 6px;
+
+            .title-name {
+                margin-left: 4px;
+                font-size: 0.8em;
+                font-weight: bold;
+                font-variant: small-caps;
+                white-space: nowrap;
+                color: rgba(255, 255, 255, 0.75);
+            }
         }
     }
+
 }
 
 .daedalus-banner {

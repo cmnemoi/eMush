@@ -486,9 +486,9 @@ class GameConfigData
                 PlanetSectorEnum::CRISTAL_FIELD . '_default',
             ],
             'titleConfigs' => [
-                TitleEnum::COMMANDER, 
-                TitleEnum::NERON_MANAGER, 
-                TitleEnum::COM_MANAGER
+                TitleEnum::COMMANDER,
+                TitleEnum::NERON_MANAGER,
+                TitleEnum::COM_MANAGER,
             ],
         ],
     ];

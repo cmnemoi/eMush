@@ -2,7 +2,8 @@ module.exports = {
     "root": true,
     "env": {
         "node": true,
-        "mocha": true
+        "mocha": truncateSync,
+        es2022: true
     },
 
     extends: [

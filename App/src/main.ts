@@ -12,7 +12,7 @@ import { plugin as VueTippy } from 'vue-tippy';
 import UUID from "vue3-uuid";
 
 // Set the base URL of the API
-ApiService.init(process.env.VUE_APP_API_URL!);
+ApiService.init(import.meta.env.VITE_API_URL!);
 
 // If token exists set header
 if (TokenService.getToken()) {

@@ -111,7 +111,7 @@ export class Player {
                     this.diseases.push(status);
                 });
             }
-            if (typeof object.titles !== 'undefined') {
+            if (object.titles) {
                 object.titles.forEach((titleObject:any) => {
                     const title = (new NameDescObject()).load(titleObject);
                     this.titles.push(title);

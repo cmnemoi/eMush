@@ -8,9 +8,13 @@
             <div class="character-info">
                 <span class="character-name">{{ player.character.name }}</span>
                 <div class="titles">
-                    <ul v-for="(key) in player.titles" :key="key">
+                    <Tippy tag="ul" v-for="(key) in player.titles" :key="key">
                         <div class="title"><TitleImage :title="key" /><span class="title-name">{{ key.name }}</span></div>
-                    </ul>
+                        <template #content>
+                            <h1 v-html="formatContent(key.name)" />
+                            <p v-html="formatContent(key.description)" />
+                        </template>
+                    </Tippy>
                 </div>
             </div>
         </div>

@@ -14,8 +14,7 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "types": [
-      "webpack-env",
-      "Phaser",
+      // "Phaser",
       "node",
       "mocha"
     ],
@@ -24,8 +23,8 @@
     ],
     "paths": {
       "@/*": [
-        "/src/*",
-        "/dist/*"
+        "src/*",
+        "dist/*"
       ]
     },
     "lib": [

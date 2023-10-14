@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vue-tsc --noEmit --allowJs && vite build",
     "serve": "vite --host",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
     "test": "./node_modules/mocha/bin/_mocha -r ts-node/register 'src/**/*.test.ts'"

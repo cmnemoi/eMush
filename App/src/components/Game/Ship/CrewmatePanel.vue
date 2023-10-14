@@ -16,7 +16,7 @@
                                 v-for="(key) in getSelectedPlayer.titles"
                                 :key="key"
                                 class="title">
-                                <img class="title-img" src="@/assets/images/title_01.png">
+                                <TitleImage :title="key" />
                                 <template #content>
                                     <h1 v-html="formatContent(key.name)" />
                                     <p v-html="formatContent(key.description)" />
@@ -54,6 +54,7 @@
 <script lang="ts">
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import Statuses from "@/components/Utils/Statuses.vue";
+import TitleImage from "@/components/Utils/TitleImage.vue";
 import { Player } from "@/entities/Player";
 import { characterEnum } from '@/enums/character';
 import { defineComponent } from "vue";
@@ -65,7 +66,8 @@ export default defineComponent ({
     name: "CrewmatePanel",
     components: {
         ActionButton,
-        Statuses
+        Statuses,
+        TitleImage
     },
     props: {
         target: {

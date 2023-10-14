@@ -9,7 +9,7 @@
                 <span class="character-name">{{ player.character.name }}</span>
                 <div class="titles">
                     <ul v-for="(key) in player.titles" :key="key">
-                        <div class="title"><img class="title-img" src="@/assets/images/title_01.png"><span class="title-name">{{ key.name }}</span></div>
+                        <div class="title"><TitleImage :title="key" /><span class="title-name">{{ key.name }}</span></div>
                     </ul>
                 </div>
             </div>
@@ -111,6 +111,7 @@
 import { Daedalus } from "@/entities/Daedalus";
 import { Player } from "@/entities/Player";
 import CountdownTimer from "@/components/Utils/CountdownTimer.vue";
+import TitleImage from "@/components/Utils/TitleImage.vue";
 import Alerts from "@/components/Game/Ship/Alerts.vue";
 import { defineComponent } from "vue";
 import PlayerService from "@/services/player.service";
@@ -118,7 +119,7 @@ import PlayerService from "@/services/player.service";
 
 export default defineComponent({
     name: "BannerPanel",
-    components: { Alerts, CountdownTimer },
+    components: { Alerts, CountdownTimer, TitleImage },
     props: {
         player: Player,
         daedalus: Daedalus

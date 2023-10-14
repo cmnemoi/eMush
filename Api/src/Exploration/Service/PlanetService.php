@@ -115,52 +115,53 @@ final class PlanetService implements PlanetServiceInterface
     }
 
     private function generatePlanetSectors(Planet $planet): Planet
-{
-    /** @var ArrayCollection<int, PlanetSector> $sectors */
-    $sectors = new ArrayCollection();
+    {
+        /** @var ArrayCollection<int, PlanetSector> $sectors */
+        $sectors = new ArrayCollection();
 
-    $gameConfig = $planet->getDaedalus()->getGameConfig();
-    $allSectorConfigs = $gameConfig->getPlanetSectorConfigs();
-    $total = $this->getGameConfigTotalWeightAtPlanetGeneration($gameConfig);
+        $gameConfig = $planet->getDaedalus()->getGameConfig();
+        $allSectorConfigs = $gameConfig->getPlanetSectorConfigs();
+        $total = $this->getGameConfigTotalWeightAtPlanetGeneration($gameConfig);
 
-    // Generate a sector for each available slot on the planet
-    for ($i = 0; $i < $planet->getSize(); ++$i) {
-        $random = $this->randomService->random(0, $total);
-        $sum = 0;
+        // Generate a sector for each available slot on the planet
+        for ($i = 0; $i < $planet->getSize(); ++$i) {
+            $random = $this->randomService->random(0, $total);
+            $sum = 0;
 
-        // Iterate over all possible sectors
-        /** @var PlanetSectorConfig $sectorConfig */
-        foreach ($allSectorConfigs as $sectorConfig) {
-            // Get the maximum number of times this sector can appear on a planet
-            $maxPerPlanet = $sectorConfig->getMaxPerPlanet();
+            // Iterate over all possible sectors
+            /** @var PlanetSectorConfig $sectorConfig */
+            foreach ($allSectorConfigs as $sectorConfig) {
+                // Get the maximum number of times this sector can appear on a planet
+                $maxPerPlanet = $sectorConfig->getMaxPerPlanet();
 
-            // Add the weight of this sector  to the running sum
-            $sum += $sectorConfig->getWeightAtPlanetGeneration();
+                // Add the weight of this sector  to the running sum
+                $sum += $sectorConfig->getWeightAtPlanetGeneration();
 
-            // If the running sum is greater than the random number, add the sector to the planet
-            if ($sum > $random) {
-                $sectors->add(new PlanetSector($sectorConfig, $planet));
+                // If the running sum is greater than the random number, add the sector to the planet
+                if ($sum > $random) {
+                    $sectors->add(new PlanetSector($sectorConfig, $planet));
 
-                // Decrement the maximum number of times this sector can appear on a planet
-                --$maxPerPlanet;
+                    // Decrement the maximum number of times this sector can appear on a planet
+                    --$maxPerPlanet;
 
-                // If the maximum number of times this sector can appear on a planet has been reached, remove it from the list of available sectors
-                if ($maxPerPlanet === 0) {
-                    $allSectorConfigs->removeElement($sectorConfig);
+                    // If the maximum number of times this sector can appear on a planet has been reached, remove it from the list of available sectors
+                    if ($maxPerPlanet === 0) {
+                        $allSectorConfigs->removeElement($sectorConfig);
 
-                    // Subtract the weight of this sector configuration from the total weight of all the sector since it can no longer be generated
-                    $total -= $sectorConfig->getWeightAtPlanetGeneration();
+                        // Subtract the weight of this sector configuration from the total weight of all the sector since it can no longer be generated
+                        $total -= $sectorConfig->getWeightAtPlanetGeneration();
+                    }
+
+                    // Break out of the loop since we've generated a sector for this slot on the planet
+                    break;
                 }
-
-                // Break out of the loop since we've generated a sector for this slot on the planet
-                break;
             }
         }
-    }
 
-    $planet->setSectors($sectors);
-    return $planet;
-}
+        $planet->setSectors($sectors);
+
+        return $planet;
+    }
 
     private function getGameConfigTotalWeightAtPlanetGeneration(GameConfig $gameConfig): int
     {

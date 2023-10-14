@@ -131,10 +131,19 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             }
         }
 
+        $titles = [];
+        foreach ($player->getTitles() as $title) {
+            $normedTitle = [
+                'name' => $this->translationService->translate($title . '.name', [], 'player', $language),
+                'description' => $this->translationService->translate($title . '.desc', [], 'player', $language),
+            ];
+            $titles[] = $normedTitle;
+        }
+
         return array_merge($playerData, [
             'room' => $this->normalizer->normalize($player->getPlace(), $format, $context),
             'skills' => $player->getSkills(),
-            'titles' => $player->getTitles(),
+            'titles' => $titles,
             'actions' => $this->getActions($object, $format, $context),
             'items' => $items,
             'statuses' => $statuses,

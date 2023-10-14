@@ -1,17 +1,16 @@
 <template>
     <PopUp :is-open="isError()" @close="clearError">
         <h1 class="title">{{ $t(['errors.status', errorStatus].join('.')) }}</h1>
-        <span v-if="isWorkingServerError()">{{ $t('errors.reportToDevs') }}</span>
-        <span v-else>{{ $t('errors.problem') }}</span>
+        <p v-if="isWorkingServerError()">{{ $t('errors.reportToDevs') }}</p>
+        <p v-else>{{ $t('errors.problem') }}</p>
         <div class="details">
             <span v-if="error.request.method">method: {{ error.request.method.toUpperCase() }}</span>
             <span v-if="error.request.url">url: {{ error.request.url }}</span>
             <span v-if="error.request.params">params: {{ error.request.params }}</span>
             <span v-if="error.response.details">details: {{ $t(['errors', error.response.details].join('.')) }}</span>
             <span v-if="error.response.class">class: {{ error.response.class }}</span>
-            <span><br></span>
-            <span v-html="$t('errors.consultCommunity')"></span>
         </div>
+        <p v-html="$t('errors.consultCommunity')"></p>
     </PopUp>
 </template>
 
@@ -54,6 +53,11 @@ export default defineComponent ({
 
 ::v-deep a {
     color: $green;
+}
+
+.title {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
 }
 
 p { font-size: 1.2em; }

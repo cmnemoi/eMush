@@ -1,11 +1,11 @@
 <template>
     <div class="box-container">
-        <h1 class="title">{{ $t("maintenancePage.title") }}</h1>
+        <h1 class="title">{{ $t("errors.title") }}</h1>
         <div class="error-container">
             <img class="neron-img" src="@/assets/images/neron_eye.gif" alt="Neron">
-            <span class="neron-message" v-html="$t('maintenancePage.neronMessage')"></span>
-            <p class="error">{{ $t('maintenancePage.error') }}</p>
-            <p class="community" v-html="$t('maintenancePage.consultCommunity')"></p>
+            <span class="neron-message" v-html="$t('errors.neronMessage')"></span>
+            <p class="error">{{ $t('errors.gameInMaintenance') }}</p>
+            <p class="community" v-html="$t('errors.consultCommunity')"></p>
         </div>  
     </div>
 </template>

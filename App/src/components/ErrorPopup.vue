@@ -1,15 +1,16 @@
 <template>
-    <PopUp :is-open="isWorkingServerError()" @close="clearError">
-        <h1 class="title">
-            {{ title }}
-        </h1>
-        Please report this error to the devs, with details on how it happened.
+    <PopUp :is-open="isError()" @close="clearError">
+        <h1 class="title">{{ $t(['errors.status', errorStatus].join('.')) }}</h1>
+        <span v-if="isWorkingServerError()">{{ $t('errors.reportToDevs') }}</span>
+        <span v-else>{{ $t('errors.problem') }}</span>
         <div class="details">
             <span v-if="error.request.method">method: {{ error.request.method.toUpperCase() }}</span>
             <span v-if="error.request.url">url: {{ error.request.url }}</span>
             <span v-if="error.request.params">params: {{ error.request.params }}</span>
-            <span v-if="error.response.details">details: {{ error.response.details }}</span>
+            <span v-if="error.response.details">details: {{ $t(['errors', error.response.details].join('.')) }}</span>
             <span v-if="error.response.class">class: {{ error.response.class }}</span>
+            <span><br></span>
+            <span v-html="$t('errors.consultCommunity')"></span>
         </div>
     </PopUp>
 </template>
@@ -27,25 +28,33 @@ export default defineComponent ({
         ...mapState('error', [
             'error'
         ]),
-        title(): string {
-            console.error(this.error);
+        errorStatus(): string {
             return (! this.error.status || ! this.error.statusText)
                 ? this.error.message
-                : `${this.error.status} ${this.error.statusText}`;
+                : this.error.status;
         }
     },
     methods: {
         ...mapActions('error', [
             'clearError'
         ]),
+        isError() {
+            return this.error !== null;
+        },
         isWorkingServerError() {
-            return this.error && (parseInt(this.error.status) >= 500 && parseInt(this.error.status) <= 599) && this.error.status != 503;
+            const isServerError = this.isError() && (parseInt(this.error.status) >= 500 && parseInt(this.error.status) < 600);
+            const isNot503Error = this.isError() && parseInt(this.error.status) !== 503;
+            return isServerError && isNot503Error;
         }
     }
 });
 </script>
 
 <style lang="scss" scoped>
+
+::v-deep a {
+    color: $green;
+}
 
 .title {
     margin-top: 0;

@@ -44,5 +44,31 @@ Currently, you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
         <target>Glory earned during the voyage. (work in progress)</target>
       </segment>
     </unit>
+    <unit id="titles">
+      <segment id="commander.name" state="translated">
+        <source>commander.name</source>
+        <target>Commander</target>
+      </segment>
+      <segment id="commander.desc" state="translated">
+        <source>commander.desc</source>
+        <target>Chooses the destination of the Daedalus. They are also the only person capable of setting the ship in motion.</target>
+      </segment>
+      <segment id="neron_manager.name" state="translated">
+        <source>neron_manager.name</source>
+        <target>NERON Administrator</target>
+      </segment>
+      <segment id="neron_manager.desc" state="translated">
+        <source>neron_manager.desc</source>
+        <target>The NERON Administrator can access NERON's BIOS. They also have privileged access to the daily operations systems.</target>
+      </segment>
+      <segment id="com_manager.name" state="translated">
+        <source>com_manager.name</source>
+        <target>Communications Officer</target>
+      </segment>
+      <segment id="com_manager.desc" state="translated">
+        <source>com_manager.desc</source>
+        <target>The Communications officer can start to contact others once contact with Sol has been re-established.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

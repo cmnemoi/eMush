@@ -25,4 +25,5 @@ docker/docker-compose.dev.yml
 .php_cs.cache
 
 .phpunit.result.cache
-*/.vscode/*
+.vscode/
+*.sql

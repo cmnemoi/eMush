@@ -277,7 +277,9 @@
 			"name": "Daedalus name :",
 			"create": "Create a Daedalus",
 			"config": "Configuration of the daedalus",
-			"language": "Daedalus language"
+			"language": "Daedalus language",
+			"maintenanceOn": "Put the game into maintenance",
+			"maintenanceOff": "Remove game from maintenance"
 		},
 		"save": "Save",
 		"show": "Show",
@@ -533,8 +535,9 @@
 			"numberOfActionsPerCycle": "Nombre d'actions par cycle"
 		},
 		"playerList": {
-			"closePlayer": "Fermer (archiver) ce joueur",
-			"quarantine": "Mettre en quarantaine"
+			"closeAllPlayers": "Close (archive) all players",
+			"closePlayer": "Close (archive) this player",
+			"quarantine": "Put in quarantine"
 		}
 	},
 	"charSelection": {
@@ -547,7 +550,7 @@
 		"communications": {
 			"day": "Day",
 			"cycle": "Cycle",
-			"showMessageChildren": "Afficher {count} réponse | Afficher {count} réponses",
+			"showMessageChildren": "Display {count} answer | Display {count} answers",
 			"hideMessageChildren": "Hide {count} answer | Hide {count} answers",
 			"newCycle": "New cycle"
 		}
@@ -559,5 +562,23 @@
 		"joinUs": "Join us !",
 		"play": "Play now !",
 		"synopsis": "You're about to wake up aboard the Daedalus with 15 other rebels. Like you, they are fleeing the <em>Mush</em>, a parasitic fungus which is ravaging Earth and threatens Humanity."
+	},
+	"errors": {
+		"status": {
+			"401": "401 Unauthorized",
+			"403": "403 Forbidden",
+			"404": "404 Resource not found",
+			"409": "409 Conflict",
+			"500": "500 Internal server error",
+			"503": "503 Service unavailable"
+		},
+		"consultCommunity": "If the problem persists, please check with the community on <a href='https://discord.gg/Jb8Nwjck6r'>Discord</a> or the <a href='https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1'>forum</a>.",
+		"Daedalus changing cycle": "Daedalus is changing cycle.",
+		"gameInMaintenance": "The game is under maintenance, please come back later!",
+		"neronMessage": "<strong>NERON</strong>: A thousand apologies. My designer programmed me with love, but nobody's perfect. An error occurred while trying to load the requested page... If the site is unavailable, please try again in a few minutes. ",
+		"Not Found": "The requested resource has not been found.",
+		"problem": "There was a problem processing your request.",
+		"reportToDevs": "Please report this error to the developers, with details of how it occurred.",
+		"title": "ERROR"
 	}
 }

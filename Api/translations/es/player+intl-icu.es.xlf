@@ -43,5 +43,31 @@ Actualmente tienes {quantityaction}  :pa: y {quantitymovement} :pm:</target>
         <target>triumph.description</target>
       </segment>
     </unit>
+    <unit id="titles">
+      <segment id="commander.name" state="initial">
+        <source>commander.name</source>
+        <target>commander.name</target>
+      </segment>
+      <segment id="commander.desc" state="initial">
+        <source>commander.desc</source>
+        <target>commander.desc</target>
+      </segment>
+      <segment id="neron_manager.name" state="initial">
+        <source>neron_manager.name</source>
+        <target>neron_manager.name</target>
+      </segment>
+      <segment id="neron_manager.desc" state="initial">
+        <source>neron_manager.desc</source>
+        <target>neron_manager.desc</target>
+      </segment>
+      <segment id="com_manager.name" state="initial">
+        <source>com_manager.name</source>
+        <target>com_manager.name</target>
+      </segment>
+      <segment id="com_manager.desc" state="initial">
+        <source>com_manager.desc</source>
+        <target>com_manager.desc</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -166,9 +166,9 @@ class NeronMessageService implements NeronMessageServiceInterface
     public function createTitleAttributionMessage(Player $player, string $title, \DateTime $time): void
     {
         $title = $this->translationService->translate(
-            $title,
+            $title . '.name',
             [],
-            'misc',
+            'player',
             $player->getDaedalus()->getLanguage()
         );
         $parameters = ['character' => $player->getName(), 'title' => $title];

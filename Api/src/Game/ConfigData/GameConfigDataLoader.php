@@ -9,6 +9,7 @@ use Mush\Disease\Repository\ConsumableDiseaseConfigRepository;
 use Mush\Disease\Repository\DiseaseCauseConfigRepository;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Equipment\Repository\EquipmentConfigRepository;
+use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Repository\DifficultyConfigRepository;
 use Mush\Game\Repository\GameConfigRepository;
@@ -83,6 +84,7 @@ class GameConfigDataLoader extends ConfigDataLoader
             $this->setGameConfigDiseaseConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigConsumableDiseaseConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigHunterConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigPlanetSectorConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigTitleConfigs($gameConfig, $gameConfigData);
 
             $this->entityManager->persist($gameConfig);
@@ -238,6 +240,24 @@ class GameConfigDataLoader extends ConfigDataLoader
         }
 
         $gameConfig->setHunterConfigs(new ArrayCollection($hunterConfigs));
+    }
+
+    private function setGameConfigPlanetSectorConfigs(GameConfig $gameConfig, array $gameConfigData): void
+    {
+        /** @var ArrayCollection<int, PlanetSectorConfig> $planetSectorConfigs */
+        $planetSectorConfigs = new ArrayCollection();
+        $planetSectorConfigRepository = $this->entityManager->getRepository(PlanetSectorConfig::class);
+        foreach ($gameConfigData['planetSectorConfigs'] as $planetSectorConfigName) {
+            $planetSectorConfig = $planetSectorConfigRepository->findOneBy(['name' => $planetSectorConfigName]);
+
+            if ($planetSectorConfig === null) {
+                throw new \Exception("Planet sector config {$planetSectorConfigName} not found");
+            }
+
+            $planetSectorConfigs->add($planetSectorConfig);
+        }
+
+        $gameConfig->setPlanetSectorConfigs($planetSectorConfigs);
     }
 
     private function setGameConfigTitleConfigs(GameConfig $gameConfig, array $gameConfigData): void

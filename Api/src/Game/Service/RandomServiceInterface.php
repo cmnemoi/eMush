@@ -18,6 +18,8 @@ interface RandomServiceInterface
 
     public function randomPercent(): int;
 
+    public function rollTwiceAndAverage(int $min, int $max): int;
+
     public function isSuccessful(int $successRate): bool;
 
     public function isActionSuccessful(int $successRate): bool;
@@ -37,6 +39,8 @@ interface RandomServiceInterface
     public function getItemInRoom(Place $place): GameItem;
 
     public function getRandomElements(array $array, int $number = 1): array;
+
+    public function getRandomElement(array $array): mixed;
 
     public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): int|string|null;
 

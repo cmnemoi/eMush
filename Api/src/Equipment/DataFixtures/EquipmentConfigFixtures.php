@@ -109,13 +109,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($neronCore);
 
+        /** @var Action $scanAction */
+        $scanAction = $this->getReference(ActionsFixtures::SCAN);
+
         $astroTerminal = new EquipmentConfig();
         $astroTerminal
             ->setEquipmentName(EquipmentEnum::ASTRO_TERMINAL)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions([$repair12, $sabotage12, $reportAction, $examineAction])
+            ->setActions([$repair12, $sabotage12, $reportAction, $examineAction, $scanAction])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($astroTerminal);

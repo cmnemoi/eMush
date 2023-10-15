@@ -928,5 +928,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Lance l'allumage des moteurs pour un déplacement lié à la quantité de carburant prêt.</target>
       </segment>
     </unit>
+    <unit id="scan">
+      <segment id="name" state="final">
+        <source>scan.name</source>
+        <target>Scanner</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>scan.description</source>
+        <target>Permet de changer les planètes disponibles comme choix pour le prochain voyage.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

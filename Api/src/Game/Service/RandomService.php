@@ -35,6 +35,11 @@ class RandomService implements RandomServiceInterface
         return $this->random(1, 100);
     }
 
+    public function rollTwiceAndAverage(int $min, int $max): int
+    {
+        return intval(($this->random($min, $max) + $this->random($min, $max)) / 2);
+    }
+
     public function isSuccessful(int $successRate): bool
     {
         return $this->randomPercent() <= $successRate;
@@ -143,6 +148,18 @@ class RandomService implements RandomServiceInterface
         return $result;
     }
 
+    public function getRandomElement(array $array): mixed
+    {
+        $draw = $this->getRandomElements($array, 1);
+        $element = current($draw);
+
+        if (!$element) {
+            throw new \Exception('getRandomElement: array is empty');
+        }
+
+        return $element;
+    }
+
     // This function takes an array [element => proba%] as input and send back an array
     // Instead of proba relative weight also work
     public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): int|string|null
@@ -215,10 +232,5 @@ class RandomService implements RandomServiceInterface
         } while ($p > $L);
 
         return $k - 1;
-    }
-
-    private function rollTwiceAndAverage(int $min, int $max): int
-    {
-        return intval(($this->random($min, $max) + $this->random($min, $max)) / 2);
     }
 }

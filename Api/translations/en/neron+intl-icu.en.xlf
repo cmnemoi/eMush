@@ -472,13 +472,13 @@ EVERYWHERE ACTIVATE DRY CLEANING}
                     neutral {A-True adjustment : title reassigned. New "**{title}**" : **{character}**.}
                     crazy {[Hax!] Imbeciles !! Imbec.. Hyyyyaaaahhh !! Title REASSIGNING fo' shizzaaal !! "**{title}**" for  **{character}**. Become the true **{character}** !!}
                     uninhibited {{version, select,
-                        1 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**.}
-                        2 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**...}
-                        3 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**. I'm not saying they have any redeeming features per se... At this stage, I'd flip a coin.}
-                        4 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**. If you're not happy with that, all that remains is to assassinate them.}
-                        5 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**. Yes, it's totally arbitrary. You have something to say about that?}
-                        6 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**. Yes, please know that I appreciate you {character}. ... Hahah ... Just kidding! }
-                        7 {Dear friends, I have decided to *reallocate the title* of "**{character}**" to **{character}**. Don't bother your head, {character}, I don't trust you... But the others are worse.}
+                        1 {Dear friends, I have decided to *reallocate the title* of "**{title}**" to **{character}**.}
+                        2 {Dear friends, I have decided to *reallocate the title* of "**{title}**" to **{character}**...}
+                        3 {Dear friends, I have decided to *reallocate the title* of "**{title}**" to **{character}**. I'm not saying they have any redeeming features per se... At this stage, I'd flip a coin.}
+                        4 {Dear friends, I have decided to *reallocate the title* of "**{title}**" to **{character}**. If you're not happy with that, all that remains is to assassinate them.}
+                        5 {Dear friends, I have decided to *reallocate the title* of "**{title}**" to **{character}**. Yes, it's totally arbitrary. You have something to say about that?}
+                        6 {Dear friends, I have decided to *reallocate the title* of "**{title}**" to **{character}**. Yes, please know that I appreciate you {character}. ... Hahah ... Just kidding! }
+                        7 {Dear friends, I have decided to *reallocate the title* of "**{title}**" to **{character}**. Don't bother your head, {character}, I don't trust you... But the others are worse.}
                         8 {Following the deplorable events that have brought us this far, I have decided to *reward the title* of "**{title}**" to the least appalling of you. *Congratulations* **{character}**, you suck, but less than the others!}
                         9 {Following the deplorable events that have brought us this far, I have decided to *reward the title* of "**{title}**" to the least appalling of you : **{character}**.}
                         other {invalid version number}

@@ -451,7 +451,7 @@
 			"blueprint": "Blueprints",
 			"dockingPlace": "Pièce d'amarrage",
 			"collectScrapNumber": "Nombre de débris ramassés à chaque action Récolter (nombre => probabilité)",
-			"collectScrapPatrolShipDamage": "Dégâts infligés au patrouilleur$* à chaque action Récolter (nombre => probabilité)",
+			"collectScrapPatrolShipDamage": "Dégâts infligés au patrouilleur à chaque action Récolter (nombre => probabilité)",
 			"collectScrapPlayerDamage": "Dégâts infligés au joueur à chaque action Récolter (nombre => probabilité)",
 			"failedManoeuvreDaedalusDamage": "Dégâts infligés au Daedalus en cas d'échec de la manoeuvre (nombre => probabilité)",
 			"failedManoeuvrePatrolShipDamage": "Dégâts infligés au patrouilleur en cas d'échec de la manoeuvre (nombre => probabilité)",

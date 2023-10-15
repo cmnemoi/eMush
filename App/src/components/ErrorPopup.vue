@@ -1,16 +1,21 @@
 <template>
     <PopUp :is-open="isError()" @close="clearError">
         <h1 class="title">{{ $t(['errors.status', errorStatus].join('.')) }}</h1>
-        <p v-if="isWorkingServerError()">{{ $t('errors.reportToDevs') }}</p>
-        <p v-else>{{ $t('errors.problem') }}</p>
-        <div class="details">
-            <span v-if="error.request.method">method: {{ error.request.method.toUpperCase() }}</span>
-            <span v-if="error.request.url">url: {{ error.request.url }}</span>
-            <span v-if="error.request.params">params: {{ error.request.params }}</span>
-            <span v-if="error.response.details">details: {{ $t(['errors', error.response.details].join('.')) }}</span>
-            <span v-if="error.response.class">class: {{ error.response.class }}</span>
+        <div class="message">
+            <img class="neron-img" src="@/assets/images/neron_eye.gif" alt="Neron">
+            <div>
+                <p v-if="isWorkingServerError()">{{ $t('errors.reportToDevs') }}</p>
+                <p v-else>{{ $t('errors.problem') }}</p>
+                <div class="code">
+                    <span v-if="error.request.method">method: {{ error.request.method.toUpperCase() }}</span>
+                    <span v-if="error.request.url">url: {{ error.request.url }}</span>
+                    <span class="details" v-if="error.request.params">params: <strong>{{ error.request.params }}</strong></span>
+                    <span class="details" v-if="error.response.details">details: <strong>{{ $t(['errors', error.response.details].join('.')) }}</strong></span>
+                    <span class="details" v-if="error.response.class">class: <strong>{{ error.response.class }}</strong></span>
+                </div>
+                <p v-html="$t('errors.consultCommunity')"></p>
+            </div>
         </div>
-        <p v-html="$t('errors.consultCommunity')"></p>
     </PopUp>
 </template>
 
@@ -62,11 +67,24 @@ export default defineComponent ({
 
 p { font-size: 1.2em; }
 
-.details {
-    padding-left: 0.6em;
-    border-left: 2px solid $green;
-    color: $green;
-    font-style: italic;
+.message {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.8em;
+
+    img { margin: 1em 0; }
+}
+
+.code {
+    padding: 0.8em 1.4em;
+    border: 1px solid $red;
+    border-radius: 4px;
+    background-color: #222b6b;
+    line-height: 1.4em;
+
+    .details { margin-top: 0.4em; }
+
+    strong { letter-spacing: 0.03em; }
 }
 
 </style>

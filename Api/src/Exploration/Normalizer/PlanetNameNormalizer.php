@@ -52,9 +52,9 @@ final class PlanetNameNormalizer implements NormalizerInterface, NormalizerAware
                 language: $currentPlayer->getDaedalus()->getLanguage()
             );
 
-            if ($key == PlanetName::PREFIX) {
+            if ($key == PlanetName::FIFTH_SYLLABLE) {
                 $translatedPlanetName .= ' ' . $translatedNamePart;
-            } elseif ($key == PlanetName::FIFTH_SYLLABLE) {
+            } elseif ($key == PlanetName::PREFIX) {
                 $translatedPlanetName .= $translatedNamePart . ' ';
             } else {
                 $translatedPlanetName .= $translatedNamePart;

@@ -23,6 +23,7 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
         ActionVariableEnum::PERCENTAGE_CRITICAL => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
         ActionVariableEnum::PERCENTAGE_DIRTINESS => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
         ActionVariableEnum::PERCENTAGE_INJURY => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+        ActionVariableEnum::OUTPUT_VARIABLE => self::APPLY_COST,
     ];
 
     private float $quantity;

@@ -6,6 +6,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Error;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasAction;
@@ -151,6 +152,16 @@ abstract class AbstractAction
             $this->action,
             $this->target,
             PlayerVariableEnum::MORAL_POINT
+        );
+    }
+
+    public function getOutputVariable(): int
+    {
+        return $this->actionService->getActionModifiedActionVariable(
+            $this->player,
+            $this->action,
+            $this->target,
+            ActionVariableEnum::OUTPUT_VARIABLE,
         );
     }
 

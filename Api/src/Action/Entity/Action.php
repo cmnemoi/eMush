@@ -282,4 +282,16 @@ class Action implements GameVariableHolderInterface
     {
         return $this->actionVariables->getValueByName(ActionVariableEnum::PERCENTAGE_CRITICAL);
     }
+
+    public function getOutputVariable(): int
+    {
+        return $this->actionVariables->getValueByName(ActionVariableEnum::OUTPUT_VARIABLE);
+    }
+
+    public function setOutputVariable(int $outputVariable): self
+    {
+        $this->actionVariables->setValueByName($outputVariable, ActionVariableEnum::OUTPUT_VARIABLE);
+
+        return $this;
+    }
 }

@@ -158,6 +158,7 @@ class ActionEnum
     public const EXIT_TERMINAL = 'exit_terminal';
     public const ADVANCE_DAEDALUS = 'advance_daedalus';
     public const SCAN = 'scan';
+    public const ANALYZE_PLANET = 'analyze_planet';
 
     public static function getPermanentItemActions(): array
     {

@@ -2581,6 +2581,7 @@ class EquipmentConfigData
                 'report_equipment',
                 'examine',
                 'scan',
+                'analyze_planet',
             ],
             'mechanics' => [],
             'initStatuses' => [],

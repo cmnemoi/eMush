@@ -10,6 +10,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\AllPlanetSectorsRevealed;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
@@ -68,6 +69,7 @@ final class AnalyzePlanet extends AbstractAction
             'target' => HasStatus::PLAYER,
             'groups' => ['visibility'],
         ]));
+        $metadata->addConstraint(new AllPlanetSectorsRevealed(['groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::DIRTY,
             'target' => HasStatus::PLAYER,

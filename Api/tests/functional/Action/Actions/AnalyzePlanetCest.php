@@ -70,6 +70,19 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->planet = $this->planetService->createPlanet($this->player);
     }
 
+    public function testAnalyzePlanetNotVisibleIfPlayerIsNotOnTheBridge(FunctionalTester $I): void
+    {
+        // given player is not on the bridge
+        $this->player->changePlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+
+        // when player tries to scan
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->astroTerminal, ['planet' => $this->planet->getId()]);
+        $this->analyzePlanetAction->execute();
+
+        // the action is not visible
+        $I->assertFalse($this->analyzePlanetAction->isVisible());
+    }
+
     public function testAnalyzePlanetIsVisibleIfPlayerIsNotFocusedOnAstroTerminal(FunctionalTester $I): void
     {
         // given player is not focused on the astro terminal
@@ -109,7 +122,20 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         );
     }
 
-    public function testAnalyzeActionSuccessRevealsSectionsOfThePlanet(FunctionalTester $I): void
+    public function testAnalyzePlanetIsNotVisibleIfPlanetHasAllTheirSectionsRevealed(FunctionalTester $I): void
+    {
+        // given all sections of the planet are revealed
+        $this->planet->getSectors()->map(fn (PlanetSector $sector) => $sector->reveal());
+
+        // when player tries to scan
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->astroTerminal, ['planet' => $this->planet->getId()]);
+        $this->analyzePlanetAction->execute();
+
+        // the action is not visible
+        $I->assertFalse($this->analyzePlanetAction->isVisible());
+    }
+
+    public function testAnalyzePlanetSuccessRevealsSectionsOfThePlanet(FunctionalTester $I): void
     {
         // given no sections of the planet are revealed
         $I->assertEquals(0, $this->planet->getRevealedSectors()->count());
@@ -120,19 +146,5 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
 
         // then expected sections of the planet are revealed
         $I->assertEquals($this->analyzePlanetConfig->getOutputVariable(), $this->planet->getRevealedSectors()->count());
-    }
-
-    public function testAnalyzeActionSuccessRevelsLastUnrevealedSectionOfThePlanet(FunctionalTester $I): void
-    {
-        // given all but one sections of the planet are revealed
-        $this->planet->getSectors()->map(fn (PlanetSector $sector) => $sector->reveal());
-        $I->assertEquals(1, $this->planet->getUnrevealedSectors()->count());
-
-        // when player scans
-        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->astroTerminal, ['planet' => $this->planet->getId()]);
-        $this->analyzePlanetAction->execute();
-
-        // then the last section of the planet is revealed
-        $I->assertEquals(0, $this->planet->getUnrevealedSectors()->count());
     }
 }

@@ -60,6 +60,11 @@ final class PlanetService implements PlanetServiceInterface
         return $planet;
     }
 
+    public function findById(int $id): ?Planet
+    {
+        return $this->planetRepository->find($id);
+    }
+
     private function getAvailaibleCoordinatesForPlanet(Planet $planet): array
     {
         $availableCoordinates = SpaceCoordinates::getAll();

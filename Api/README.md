@@ -137,7 +137,17 @@ Obvious example:
 - [Status](./src/Status/README.md)
 - [User](./src/User/README.md)
 
+## Useful commands
 
+- `composer reset` : clear PHP cache, drop database, run migrations, load data and fixtures, and create a new Daedalus. Use this for a fresh start
+- `composer load-data` : load config data. Use this for example if you added a new action.
+- `composer fill-daedalus` : fill an available Daedalus with all 16 characters.
+- `composer lint` : run the linters CSFixer and Psalm
+- `composer test` : run all the tests (unit, functional, API)
+- `composer diff` : create a migration from the difference between the database and the entities
+- `composer update-schema` : update the database schema using the migrations
+
+Please consult the [composer.json](./composer.json) for more commands.
 
 ## Tests Codeception
 The test folder is a mirror of the src directory

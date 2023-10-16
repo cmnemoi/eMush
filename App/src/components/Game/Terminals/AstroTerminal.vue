@@ -23,10 +23,11 @@
                     </li>
                 </ul>
                 <div class="actions">
-                    <button>
-                        <span class="cost">2<img src="@/assets/images/pa.png" alt="ap"></span>
-                        <span>Analyse</span>
-                    </button>
+                    <ActionButton
+                        :key="getPlanetTargetAnalyzeAction(planet).key"
+                        :action="getPlanetTargetAnalyzeAction(planet)"
+                        @click="executeTargetAction(planet, getPlanetTargetAnalyzeAction(planet))"
+                    />
                     <button class="delete">
                         <img src="@/assets/images/bin.png">
                     </button>
@@ -49,7 +50,7 @@
                     <ActionButton
                         :key="scanAction.key"
                         :action="scanAction"
-                        @click="executeTargetAction(target, scanAction)"
+                        @click="executeTargetAction(terminalTarget, scanAction)"
                     />
                 </div>
             </div>
@@ -85,7 +86,7 @@ export default defineComponent ({
 
             return action;
         },
-        target(): Terminal {
+        terminalTarget() : Terminal {
             return this.terminal;
         },
         planets(): Planet[] {
@@ -107,10 +108,23 @@ export default defineComponent ({
         ...mapActions({
             'executeAction': 'action/executeAction',
         }),
-        async executeTargetAction(target: Terminal, action: Action): Promise<void> {
+        async executeTargetAction(target: Terminal | Planet, action: Action): Promise<void> {
+            if (!target) throw new Error(`No target found for action ${action.key}`);
             if (action.canExecute) {
                 await this.executeAction({ target, action });
             }
+        },
+        getPlanetTargetById(id: number): Planet {
+            const planet = this.planets.find(planet => planet.id === id);
+            if (!planet) throw new Error(`No planet found for id ${id}`);
+
+            return planet;
+        },
+        getPlanetTargetAnalyzeAction(planet: Planet): Action {
+            const action = this.getPlanetTargetById(planet.id).actions.find(action => action.key === ActionEnum.ANALYZE_PLANET);
+            if (!action) throw new Error(`No ${ActionEnum.ANALYZE_PLANET} action found for planet ${planet.id}`);
+
+            return action;
         },
         getPlanetSeedFromName(name: string): number {
             return name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);

@@ -990,7 +990,7 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
             ->setActionCost(2)
             ->setSuccessRate(100)
-            ->setCriticalRate(1)
+            ->setOutputVariable(1) // number of sectors revealed
         ;
         $manager->persist($analyzePlanet);
 

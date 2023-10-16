@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Action\Actions;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -14,8 +15,11 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Entity\Planet;
+use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -25,15 +29,19 @@ final class AnalyzePlanet extends AbstractAction
 {
     protected string $name = ActionEnum::ANALYZE_PLANET;
     private PlanetServiceInterface $planetService;
+    private RandomServiceInterface $randomService;
+    private Planet $planet;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        PlanetServiceInterface $planetService
+        PlanetServiceInterface $planetService,
+        RandomServiceInterface $randomService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
         $this->planetService = $planetService;
+        $this->randomService = $randomService;
     }
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
@@ -41,9 +49,15 @@ final class AnalyzePlanet extends AbstractAction
         if (!isset($parameters['planet'])) {
             return false;
         }
-        $planet = $this->planetService->findById($parameters['planet']);
 
-        return $target instanceof GameEquipment && $planet instanceof Planet;
+        $planet = $this->planetService->findById($parameters['planet']);
+        if (!$planet) {
+            return false;
+        }
+
+        $this->planet = $planet;
+
+        return $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -56,6 +70,8 @@ final class AnalyzePlanet extends AbstractAction
         ]));
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::DIRTY,
+            'target' => HasStatus::PLAYER,
+            'contain' => false,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DIRTY_RESTRICTION,
         ]));
@@ -68,6 +84,40 @@ final class AnalyzePlanet extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        // TODO
+        $sectorsToReveal = $this->getSectorsToReveal();
+
+        $sectorsToReveal->map(fn (PlanetSector $sector) => $sector->reveal());
+
+        $this->planetService->persist($sectorsToReveal->toArray());
+    }
+
+    private function getSectorsToRevealProbaCollection(Planet $planet): ProbaCollection
+    {
+        $probaCollection = new ProbaCollection();
+        foreach ($planet->getUnrevealedSectors() as $sector) {
+            $probaCollection->setElementProbability($sector->getId(), $sector->getWeightAtPlanetAnalysis());
+        }
+
+        return $probaCollection;
+    }
+
+    private function getSectorsToReveal(): ArrayCollection
+    {
+        $sectorIdsToReveal = $this->randomService->getRandomElementsFromProbaCollection(
+            array: $this->getSectorsToRevealProbaCollection($this->planet),
+            number: $this->getOutputVariable(),
+        );
+
+        /** @var ArrayCollection<int, PlanetSector> $sectorsToReveal */
+        $sectorsToReveal = new ArrayCollection();
+        foreach ($sectorIdsToReveal as $sectorId) {
+            $sector = $this->planetService->findPlanetSectorById($sectorId);
+            if (!$sector) {
+                throw new \RuntimeException("Sector $sectorId not found on planet {$this->planet->getId()}");
+            }
+            $sectorsToReveal->add($sector);
+        }
+
+        return $sectorsToReveal;
     }
 }

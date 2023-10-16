@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Entity\Planet;
+use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -106,5 +107,32 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
             expected: ActionImpossibleCauseEnum::DIRTY_RESTRICTION,
             actual: $this->analyzePlanetAction->cannotExecuteReason()
         );
+    }
+
+    public function testAnalyzeActionSuccessRevealsSectionsOfThePlanet(FunctionalTester $I): void
+    {
+        // given no sections of the planet are revealed
+        $I->assertEquals(0, $this->planet->getRevealedSectors()->count());
+
+        // when player scans
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->astroTerminal, ['planet' => $this->planet->getId()]);
+        $this->analyzePlanetAction->execute();
+
+        // then expected sections of the planet are revealed
+        $I->assertEquals($this->analyzePlanetConfig->getOutputVariable(), $this->planet->getRevealedSectors()->count());
+    }
+
+    public function testAnalyzeActionSuccessRevelsLastUnrevealedSectionOfThePlanet(FunctionalTester $I): void
+    {
+        // given all but one sections of the planet are revealed
+        $this->planet->getSectors()->map(fn (PlanetSector $sector) => $sector->reveal());
+        $I->assertEquals(1, $this->planet->getUnrevealedSectors()->count());
+
+        // when player scans
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->astroTerminal, ['planet' => $this->planet->getId()]);
+        $this->analyzePlanetAction->execute();
+
+        // then the last section of the planet is revealed
+        $I->assertEquals(0, $this->planet->getUnrevealedSectors()->count());
     }
 }

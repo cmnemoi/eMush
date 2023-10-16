@@ -65,6 +65,19 @@ final class PlanetService implements PlanetServiceInterface
         return $this->planetRepository->find($id);
     }
 
+    public function findPlanetSectorById(int $id): ?PlanetSector
+    {
+        return $this->entityManager->find(PlanetSector::class, $id);
+    }
+
+    public function persist(array $entities): void
+    {
+        foreach ($entities as $entity) {
+            $this->entityManager->persist($entity);
+        }
+        $this->entityManager->flush();
+    }
+
     private function getAvailaibleCoordinatesForPlanet(Planet $planet): array
     {
         $availableCoordinates = SpaceCoordinates::getAll();
@@ -176,13 +189,5 @@ final class PlanetService implements PlanetServiceInterface
         }
 
         return $total;
-    }
-
-    private function persist(array $entities): void
-    {
-        foreach ($entities as $entity) {
-            $this->entityManager->persist($entity);
-        }
-        $this->entityManager->flush();
     }
 }

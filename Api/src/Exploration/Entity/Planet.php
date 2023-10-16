@@ -96,9 +96,7 @@ final class Planet
         return $this;
     }
 
-    /**
-     * @return Collection<int, PlanetSector>
-     */
+    /** @return Collection<int, PlanetSector> */
     public function getSectors(): Collection
     {
         return $this->sectors;
@@ -110,6 +108,18 @@ final class Planet
         $this->sectors = $sectors;
 
         return $this;
+    }
+
+    /** @return Collection<int, PlanetSector> */
+    public function getRevealedSectors(): Collection
+    {
+        return $this->sectors->filter(fn (PlanetSector $sector) => $sector->isRevealed());
+    }
+
+    /** @return Collection<int, PlanetSector> */
+    public function getUnrevealedSectors(): Collection
+    {
+        return $this->sectors->filter(fn (PlanetSector $sector) => !$sector->isRevealed());
     }
 
     public function getPlayer(): Player

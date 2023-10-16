@@ -10,4 +10,6 @@ use Mush\Player\Entity\Player;
 interface PlanetServiceInterface
 {
     public function createPlanet(Player $player): Planet;
+
+    public function findById(int $id): ?Planet;
 }

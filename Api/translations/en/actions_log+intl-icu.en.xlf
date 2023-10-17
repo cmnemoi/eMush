@@ -768,6 +768,12 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
 }</target>
       </segment>
     </unit>
+    <unit id="access_terminal_success">
+      <segment id="name" state="final">
+        <source>access_terminal_success</source>
+        <target>**{character}** has accessed the **{target_equipment}**.</target>
+      </segment>
+    </unit>
     <unit id="takeoff_success">
       <segment state="translated">
         <source>takeoff_success</source>

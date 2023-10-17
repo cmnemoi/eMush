@@ -1,5 +1,5 @@
 <template>
-    <Tippy tag="li"
+    <Tippy tag="ul"
            v-for="(status, key) in statuses"
            :key="key"
            class="status">

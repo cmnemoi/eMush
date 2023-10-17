@@ -2,9 +2,7 @@
 
 namespace Mush\Hunter\Listener;
 
-use Mush\Communication\Enum\NeronMessageEnum;
-use Mush\Communication\Services\NeronMessageServiceInterface;
-use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Hunter\Service\HunterServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -12,34 +10,23 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class HunterSubscriber implements EventSubscriberInterface
 {
     private HunterServiceInterface $hunterService;
-    private NeronMessageServiceInterface $neronMessageService;
 
     public function __construct(
-        EventServiceInterface $eventService,
         HunterServiceInterface $hunterService,
-        NeronMessageServiceInterface $neronMessageService,
     ) {
         $this->hunterService = $hunterService;
-        $this->neronMessageService = $neronMessageService;
     }
 
     public static function getSubscribedEvents()
     {
         return [
-            HunterPoolEvent::UNPOOL_HUNTERS => 'onUnpoolHunters',
+            HunterPoolEvent::UNPOOL_HUNTERS => ['onUnpoolHunters', EventPriorityEnum::HIGH], // spawn hunters before any related events
         ];
     }
 
     public function onUnpoolHunters(HunterPoolEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $this->hunterService->unpoolHunters($daedalus, $event->getTime());
-
-        $this->neronMessageService->createNeronMessage(
-            NeronMessageEnum::HUNTER_ARRIVAL,
-            $daedalus,
-            [],
-            $event->getTime(),
-        );
+        $this->hunterService->unpoolHunters($daedalus, $event->getTags(), $event->getTime());
     }
 }

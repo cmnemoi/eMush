@@ -24,3 +24,5 @@ services:
     public: true
   Mush\Game\ConfigData\TriumphConfigDataLoader:
     public: true
+  Mush\Game\ConfigData\TitleConfigDataLoader:
+    public: true

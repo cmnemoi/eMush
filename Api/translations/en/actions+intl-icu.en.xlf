@@ -888,5 +888,61 @@ Requires *Scrap Metal*.</target>
 Or you simply need some fresh air.... or not.</target>
       </segment>
     </unit>
+    <unit id="insert_fuel_chamber">
+      <segment id="name" state="translated">
+        <source>insert_fuel_chamber.name</source>
+        <target>Inject fuel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>insert_fuel_chamber.description</source>
+        <target>Inject fuel in the combustion chamber of the engine.</target>
+      </segment>
+    </unit>
+    <unit id="retrieve_fuel_chamber">
+      <segment id="name" state="translated">
+        <source>retrieve_fuel_chamber.name</source>
+        <target>Retrieve fuel capsule</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>retrieve_fuel_chamber.description</source>
+        <target>Allows the retrieval of a fuel capsule, which could be used for filling Auxiliary Reservoirs.</target>
+      </segment>
+    </unit>
+    <unit id="check_fuel_chamber_level">
+      <segment id="name" state="translated">
+        <source>check_fuel_chamber_level.name</source>
+        <target>Check fuel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>check_fuel_chamber_level.description</source>
+        <target>Check fuel level in the chamber.</target>
+      </segment>
+    </unit>
+    <unit id="hack">
+      <segment id="name" state="translated">
+        <source>hack.name</source>
+        <target>Hack</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>hack.description</source>
+        <target>Try to force access to the terminal using a workaround.</target>
+      </segment>
+    </unit>
+    <unit id="exit_terminal">
+      <segment id="name" state="translated">
+        <source>exit_terminal.name</source>
+        <target>Exit</target>
+      </segment>
+    </unit>
+    <unit id="advance_daedalus">
+      <segment id="name" state="translated">
+        <source>advance_daedalus.name</source>
+        <target>Advance</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>advance_daedalus.description</source>
+        <target>Start the engine to set the ship moving in accordance with the fuel ready.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

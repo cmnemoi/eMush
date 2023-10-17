@@ -103,6 +103,7 @@
             "@auto-scripts"
         ],
         "apply-migrations": "php bin/console doctrine:migrations:migrate -n",
+        "cache:clear": "php bin/console cache:clear",
         "create-daedalus": "php bin/console mush:create-daedalus",
         "codecept:run": "vendor/bin/codecept run",
         "codecept:clean": "vendor/bin/codecept clean",
@@ -166,6 +167,9 @@
         "test:equipment": [
             "vendor/bin/codecept run tests/unit/Equipment",
             "vendor/bin/codecept run tests/functional/Equipment"
+        ],
+        "test:exploration": [
+            "vendor/bin/codecept run tests/functional/Exploration"
         ],
         "test:fail-fast": [
             "vendor/bin/codecept run --fail-fast"

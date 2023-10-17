@@ -26,7 +26,7 @@ const routes = [
     {
         path: "/",
         name: "HomePage",
-        component: HomePage
+        component: HomePage,
     },
     {
         path: "/game",
@@ -161,7 +161,7 @@ const routes = [
     {
         path: "/token",
         name: "Token",
-        component: Token
+        component: Token,
     }
 ];
 

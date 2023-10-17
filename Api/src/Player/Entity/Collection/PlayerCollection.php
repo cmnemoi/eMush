@@ -29,4 +29,14 @@ class PlayerCollection extends ArrayCollection
     {
         return $this->filter(fn (Player $player) => !$player->isMush());
     }
+
+    public function getPlayerByName(string $name): ?Player
+    {
+        $player = $this->filter(fn (Player $player) => $player->getName() === $name)->first();
+        if (!$player) {
+            return null;
+        }
+
+        return $player;
+    }
 }

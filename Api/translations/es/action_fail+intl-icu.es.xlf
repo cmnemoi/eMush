@@ -559,5 +559,11 @@
         <target>El casco de la nave no necesita reparación.</target>
       </segment>
     </unit>
+    <unit id="combustion_chambre_full">
+      <segment state="initial">
+        <source>combustion_chamber_full.description</source>
+        <target>combustion_chamber_full.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -24,3 +24,5 @@ Mush\Game\Entity\GameConfig:
       groups: [ 'game_config_write' ]
     hunterConfigs:
       groups: [ 'game_config_write' ]
+    titleConfigs:
+      groups: [ 'game_config_write' ]

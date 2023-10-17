@@ -4,6 +4,7 @@ namespace Mush\Tests\functional\Daedalus\Service;
 
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\TitleEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -53,7 +54,7 @@ class DaedalusServiceCest extends AbstractFunctionalTest
             $this->daedalus = $this->daedalusService->selectAlphaMush($this->daedalus, new \DateTime());
 
             /** @var Player $chun */
-            $chun = $this->daedalus->getPlayers()->filter(fn (Player $player) => $player->getName() === CharacterEnum::CHUN)->first();
+            $chun = $this->daedalus->getPlayers()->getPlayerByName(CharacterEnum::CHUN);
             $I->assertNull($chun->getStatusByName(PlayerStatusEnum::MUSH));
         }
     }
@@ -70,5 +71,21 @@ class DaedalusServiceCest extends AbstractFunctionalTest
         $lockedUpDaedaluses = $this->daedalusService->findAllDaedalusesOnCycleChange();
 
         $I->assertEmpty($lockedUpDaedaluses);
+    }
+
+    public function testAttributeTitles(FunctionalTester $I)
+    {
+        /** @var Player $chun */
+        $chun = $this->daedalus->getPlayers()->getPlayerByName(CharacterEnum::CHUN);
+        /** @var Player $kuanTi */
+        $kuanTi = $this->daedalus->getPlayers()->getPlayerByName(CharacterEnum::KUAN_TI);
+        /** @var Player $gioele */
+        $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
+
+        $this->daedalus = $this->daedalusService->attributeTitles($this->daedalus, new \DateTime());
+
+        $I->assertEmpty($chun->getTitles());
+        $I->assertEquals($kuanTi->getTitles(), [TitleEnum::NERON_MANAGER, TitleEnum::COM_MANAGER]);
+        $I->assertEquals($gioele->getTitles(), [TitleEnum::COMMANDER]);
     }
 }

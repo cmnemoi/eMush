@@ -13,6 +13,8 @@ interface PlayerServiceInterface
 
     public function delete(Player $player): bool;
 
+    public function findAll(): array;
+
     public function findById(int $id): ?Player;
 
     public function findOneByCharacter(string $character, Daedalus $daedalus): ?Player;

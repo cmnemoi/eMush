@@ -3,7 +3,6 @@
 namespace Mush\Communication\Controller;
 
 use FOS\RestBundle\Context\Context;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\View\View;
@@ -14,9 +13,11 @@ use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Specification\SpecificationInterface;
 use Mush\Communication\Voter\ChannelVoter;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Controller\AbstractGameController;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\PlayerInfoRepository;
@@ -27,6 +28,7 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -36,7 +38,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  *
  * @Route(path="/channel")
  */
-class ChannelController extends AbstractFOSRestController
+class ChannelController extends AbstractGameController
 {
     private SpecificationInterface $canCreateChannel;
     private ChannelServiceInterface $channelService;
@@ -48,6 +50,7 @@ class ChannelController extends AbstractFOSRestController
     private PlayerInfoRepository $playerInfoRepository;
 
     public function __construct(
+        AdminServiceInterface $adminService,
         SpecificationInterface $canCreateChannel,
         ChannelServiceInterface $channelService,
         MessageServiceInterface $messageService,
@@ -57,6 +60,7 @@ class ChannelController extends AbstractFOSRestController
         TranslationServiceInterface $translationService,
         PlayerInfoRepository $playerInfoRepository
     ) {
+        parent::__construct($adminService);
         $this->canCreateChannel = $canCreateChannel;
         $this->channelService = $channelService;
         $this->messageService = $messageService;
@@ -78,6 +82,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function createChannelAction(): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -92,6 +100,9 @@ class ChannelController extends AbstractFOSRestController
         }
 
         $daedalus = $player->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         if (!$this->canCreateChannel->isSatisfied($player)) {
@@ -122,6 +133,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function canCreateChannelAction(): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -137,6 +152,9 @@ class ChannelController extends AbstractFOSRestController
         }
 
         $daedalus = $player->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         if (!$this->canCreateChannel->isSatisfied($player)) {
@@ -165,6 +183,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function getChannelsActions(): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -176,6 +198,9 @@ class ChannelController extends AbstractFOSRestController
         }
 
         $daedalus = $player->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $channels = $this->channelService->getPlayerChannels($player);
@@ -199,6 +224,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function getPiratedChannelsActions(): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -210,6 +239,9 @@ class ChannelController extends AbstractFOSRestController
         }
 
         $daedalus = $player->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
@@ -261,6 +293,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function inviteAction(Request $request, Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -271,6 +307,9 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         if (!($invitedPlayer = $this->playerService->findById($invited))) {
@@ -311,6 +350,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function getInvitablePlayerAction(Request $request, Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
@@ -323,6 +366,9 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         return $this->view(
@@ -342,6 +388,9 @@ class ChannelController extends AbstractFOSRestController
      */
     public function exitAction(Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
         /** @var User $user */
@@ -359,6 +408,9 @@ class ChannelController extends AbstractFOSRestController
         }
 
         $daedalus = $player->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $this->channelService->exitChannel($player, $channel);
@@ -407,8 +459,15 @@ class ChannelController extends AbstractFOSRestController
      */
     public function createMessageAction(CreateMessage $messageCreate, Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         $messageCreate->setChannel($channel);
@@ -475,10 +534,16 @@ class ChannelController extends AbstractFOSRestController
      */
     public function getMessages(Request $request, Channel $channel): View
     {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         /** @var User $user */

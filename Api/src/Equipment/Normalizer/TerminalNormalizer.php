@@ -131,11 +131,19 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             $difficulty = DifficultyEnum::VERY_HARD;
         }
 
-        $advanceDaedalusStatus = AdvanceDaedalus::getActionStatus($daedalus, $this->gameEquipmentService);
+        $advanceDaedalusStatusKey = AdvanceDaedalus::getActionStatus($daedalus, $this->gameEquipmentService);
         // we don't want to tell player that arack prevents travel
-        if ($advanceDaedalusStatus === AdvanceDaedalus::ARACK_PREVENTS_TRAVEL) {
-            $advanceDaedalusStatus = AdvanceDaedalus::OK;
+        if ($advanceDaedalusStatusKey === AdvanceDaedalus::ARACK_PREVENTS_TRAVEL) {
+            $advanceDaedalusStatusKey = AdvanceDaedalus::OK;
         }
+
+        $advanceDaedalusStatus = AdvanceDaedalus::$statusMap[$advanceDaedalusStatusKey];
+        $advanceDaedalusStatus['text'] = $this->translationService->translate(
+            key: $terminalKey . '.advance_daedalus_status_' . $advanceDaedalusStatusKey,
+            parameters: [],
+            domain: 'terminal',
+            language: $daedalus->getLanguage()
+        );
 
         return [
             'difficulty' => $this->translationService->translate(
@@ -144,15 +152,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
                 domain: 'terminal',
                 language: $daedalus->getLanguage()
             ),
-            'advanceDaedalusStatus' => [
-                'key' => $advanceDaedalusStatus,
-                'text' => $this->translationService->translate(
-                    key: $terminalKey . '.advance_daedalus_status_' . $advanceDaedalusStatus,
-                    parameters: [],
-                    domain: 'terminal',
-                    language: $daedalus->getLanguage()
-                ),
-            ],
+            'advanceDaedalusStatus' => $advanceDaedalusStatus,
         ];
     }
 }

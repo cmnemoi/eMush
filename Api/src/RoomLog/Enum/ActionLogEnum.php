@@ -114,6 +114,8 @@ class ActionLogEnum
     public const ADVANCE_DAEDALUS_EMERGENCY_REACTOR_BROKEN = 'advance_daedalus_emergency_reactor_broken';
     public const ADVANCE_DAEDALUS_NO_FUEL = 'advance_daedalus_no_fuel';
     public const ADVANCE_DAEDALUS_ARACK_PREVENTS_TRAVEL = 'advance_daedalus_arack_prevents_travel';
+    public const SCAN_SUCCESS = 'scan_success';
+    public const SCAN_FAIL = 'scan_fail';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -399,6 +401,10 @@ class ActionLogEnum
             ActionOutputEnum::FAIL => self::ADVANCE_DAEDALUS_EMERGENCY_REACTOR_BROKEN,
             ActionOutputEnum::ARACK_PREVENTS_TRAVEL => self::ADVANCE_DAEDALUS_ARACK_PREVENTS_TRAVEL,
             ActionOutputEnum::NO_FUEL => self::ADVANCE_DAEDALUS_NO_FUEL,
+        ],
+        ActionEnum::SCAN => [
+            ActionOutputEnum::SUCCESS => self::SCAN_SUCCESS,
+            ActionOutputEnum::FAIL => self::SCAN_FAIL,
         ],
     ];
 }

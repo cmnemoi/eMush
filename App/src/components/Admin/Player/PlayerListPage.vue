@@ -12,6 +12,7 @@
                     </option>
                 </select>
             </label>
+            <button class="action-button" @click="closeAllPlayers">{{ $t('admin.playerList.closeAllPlayers') }}</button>
         </div>
         <Datatable
             :headers='fields'
@@ -134,6 +135,11 @@ export default defineComponent({
             this.pagination.currentPage = page;
             this.loadData();
         },
+        closeAllPlayers() {
+            AdminService.closeAllPlayers().then(() => {
+                this.loadData();
+            });
+        },
         closePlayer(playerId: string) {
             AdminService.closePlayer(playerId)
                 .then((result) => {
@@ -191,6 +197,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
+.player_filter_options {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
 
 button {
     @include button-style();

@@ -589,5 +589,59 @@
         <target>auto_eject_success</target>
       </segment>
     </unit>
+    <unit id="insert_fuel_chamber_success">
+      <segment id="insert_fuel_chamber_success" state="initial">
+        <source>insert_fuel_chamber_success</source>
+        <target>insert_fuel_chamber_success</target>
+      </segment>
+    </unit>
+    <unit id="retrieve_fuel_chamber_success">
+      <segment id="retrieve_fuel_chamber_success" state="initial">
+        <source>retrieve_fuel_chamber_success</source>
+        <target>retrieve_fuel_chamber_success</target>
+      </segment>
+    </unit>
+    <unit id="check_fuel_chamber_level_success">
+      <segment id="check_fuel_chamber_level_success" state="initial">
+        <source>check_fuel_chamber_level_success</source>
+        <target>check_fuel_chamber_level_success</target>
+      </segment>
+    </unit>
+    <unit id="hack_success">
+      <segment id="hack_success" state="initial">
+        <source>hack_success</source>
+        <target>hack_success</target>
+      </segment>
+    </unit>
+    <unit id="hack_fail">
+      <segment id="hack_fail" state="initial">
+        <source>hack_fail</source>
+        <target>hack_fail</target>
+      </segment>
+    </unit>
+    <unit id="advance_daedalus_success">
+      <segment id="advance_daedalus_success" state="initial">
+        <source>advance_daedalus_success</source>
+        <target>advance_daedalus_success</target>
+      </segment>
+    </unit>
+    <unit id="advance_daedalus_fail">
+      <segment id="advance_daedalus_fail" state="initial">
+        <source>advance_daedalus_fail</source>
+        <target>advance_daedalus_fail</target>
+      </segment>
+    </unit>
+    <unit id="advance_daedalus_no_fuel">
+      <segment id="advance_daedalus_no_fuel" state="initial">
+        <source>advance_daedalus_no_fuel</source>
+        <target>advance_daedalus_no_fuel</target>
+      </segment>
+    </unit>
+    <unit id="advance_daedalus_arack_prevents_travel">
+      <segment id="advance_daedalus_arack_prevents_travel" state="initial">
+        <source>advance_daedalus_arack_prevents_travel</source>
+        <target>advance_daedalus_arack_prevents_travel</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

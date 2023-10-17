@@ -18,4 +18,6 @@ interface NeronMessageServiceInterface
     public function createNewFireMessage(Daedalus $daedalus, \DateTime $time): void;
 
     public function getMessageNeronCycleFailures(Daedalus $daedalus, \DateTime $time): Message;
+
+    public function createTitleAttributionMessage(Player $player, string $title, \DateTime $time): void;
 }

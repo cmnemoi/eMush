@@ -9,8 +9,23 @@
                     <p class="name">
                         {{ getSelectedPlayer.character.name }}
                     </p>
-                    <div class="statuses">
-                        <Statuses :statuses="getSelectedPlayer.statuses" type="player" />
+                    <div class="crewmate-attributes">
+                        <div class="titles">
+                            <Tippy
+                                tag="ul"
+                                v-for="(key) in getSelectedPlayer.titles"
+                                :key="key"
+                                class="title">
+                                <TitleImage :title="key" />
+                                <template #content>
+                                    <h1 v-html="formatContent(key.name)" />
+                                    <p v-html="formatContent(key.description)" />
+                                </template>
+                            </Tippy>
+                        </div>
+                        <div class="statuses">
+                            <Statuses :statuses="getSelectedPlayer.statuses" type="player" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -39,6 +54,7 @@
 <script lang="ts">
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import Statuses from "@/components/Utils/Statuses.vue";
+import TitleImage from "@/components/Utils/TitleImage.vue";
 import { Player } from "@/entities/Player";
 import { characterEnum } from '@/enums/character';
 import { defineComponent } from "vue";
@@ -50,7 +66,8 @@ export default defineComponent ({
     name: "CrewmatePanel",
     components: {
         ActionButton,
-        Statuses
+        Statuses,
+        TitleImage
     },
     props: {
         target: {
@@ -139,13 +156,22 @@ export default defineComponent ({
         }
     }
 
-    .statuses {
-        flex-direction: row;
-        flex-wrap: wrap;
-        font-size: 0.9em;
+    .crewmate-attributes {
+        flex-direction:row;
 
-        &::v-deep .status {
-            padding: 1px;
+        .titles,
+        .statuses {
+            flex-direction:row;
+            font-size: 0.9em;
+            flex-wrap: wrap;
+
+            &::v-deep .status {
+                padding: 1px;
+            }
+
+            &::v-deep .title {
+                padding: 1px;
+            }
         }
     }
 

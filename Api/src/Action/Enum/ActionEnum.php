@@ -157,6 +157,7 @@ class ActionEnum
     // Terminal related actions
     public const EXIT_TERMINAL = 'exit_terminal';
     public const ADVANCE_DAEDALUS = 'advance_daedalus';
+    public const SCAN = 'scan';
 
     public static function getPermanentItemActions(): array
     {

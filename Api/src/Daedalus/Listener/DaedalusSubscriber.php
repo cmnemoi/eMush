@@ -45,7 +45,8 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
         $daedalusInfo = $daedalus->getDaedalusInfo();
 
-        // @TODO give titles
+        // Assign Titles
+        $this->daedalusService->attributeTitles($daedalus, $event->getTime());
 
         // Chose alpha Mushs
         $this->daedalusService->selectAlphaMush($daedalus, $event->getTime());

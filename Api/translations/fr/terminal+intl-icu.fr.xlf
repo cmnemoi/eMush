@@ -50,9 +50,8 @@ Si le travail a été bien fait, le Daedalus se placera en orbite d'une planète
       </segment>
       <segment id="advance_daedalus_status_emergency_reactor_broken" state="translated">
         <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
-        <target>Le *Réacteur d'urgence* est en rade ! Le voyage infra-luminique est impossible.</target>
+        <target>Le *Réacteur d'urgence* est en carafe ! Le voyage infra-luminique est impossible.</target>
       </segment>
     </unit>
   </file>
 </xliff>
-   

@@ -99,6 +99,7 @@ class ActionsFixtures extends Fixture
     public const HACK = 'hack';
     public const EXIT_TERMINAL = 'exit.terminal';
     public const ADVANCE_DAEDALUS = 'advance.daedalus';
+    public const SCAN = 'scan';
 
     public function load(ObjectManager $manager): void
     {
@@ -977,6 +978,17 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($advanceDaedalus);
 
+        $scan = new Action();
+        $scan
+            ->setName(ActionEnum::SCAN)
+            ->setActionName(ActionEnum::SCAN)
+            ->setScope(ActionScopeEnum::TERMINAL)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->setActionCost(3)
+            ->setSuccessRate(50)
+        ;
+        $manager->persist($scan);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1061,5 +1073,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::HACK, $hack);
         $this->addReference(self::EXIT_TERMINAL, $exitTerminal);
         $this->addReference(self::ADVANCE_DAEDALUS, $advanceDaedalus);
+        $this->addReference(self::SCAN, $scan);
     }
 }

@@ -15,7 +15,7 @@
                     />
                 </ol>
             </div>
-            <span v-if="error" class="error">{{ $t('charSelection.shipNotFound') }}</span>
+            <span v-if="error" class="error">{{ $t(['errors', error].join('.')) }}</span>
         </form>
         <div class="char-selection" v-if="!error">
             <section
@@ -78,7 +78,6 @@ import Spinner from "@/components/Utils/Spinner.vue";
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import { gameLocales } from "@/i18n";
-import { daedalus } from "@/store/daedalus.module";
 
 export default defineComponent ({
     name: 'CharSelection',
@@ -98,7 +97,7 @@ export default defineComponent ({
             hoveredCharacter: null,
             characterSelected: false,
             selectedCharacter: null,
-            error: false,
+            error: null as any,
             languages: gameLocales,
         };
     },
@@ -114,12 +113,11 @@ export default defineComponent ({
                 .then((response) => {
                     this.daedalusId = response.data.daedalus;
                     this.characters = response.data.characters;
-                    this.error = false;
                     this.loading = false;
                 })
                 .catch((error) => {
                     this.clearError();
-                    this.error = true;
+                    this.error = error.response?.data?.detail;
                     this.loading = false;
                 });
             
@@ -145,7 +143,7 @@ export default defineComponent ({
                     this.loading = false;
                 })
                 .catch((error) => {
-                    console.error(error);
+                    this.error = error.response?.data?.detail;
                     this.loading = false;
                 });
         },

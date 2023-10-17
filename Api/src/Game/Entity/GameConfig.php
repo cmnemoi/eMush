@@ -11,6 +11,8 @@ use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Exploration\Entity\PlanetSectorConfig;
+use Mush\Game\Entity\Collection\TitleConfigCollection;
 use Mush\Game\Entity\Collection\TriumphConfigCollection;
 use Mush\Game\Repository\GameConfigRepository;
 use Mush\Hunter\Entity\HunterConfig;
@@ -60,6 +62,12 @@ class GameConfig
     #[ORM\ManyToMany(targetEntity: HunterConfig::class)]
     private Collection $hunterConfigs;
 
+    #[ORM\ManyToMany(targetEntity: PlanetSectorConfig::class)]
+    private Collection $planetSectorConfigs;
+
+    #[ORM\ManyToMany(targetEntity: TitleConfig::class)]
+    private Collection $titleConfigs;
+
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
 
@@ -72,6 +80,9 @@ class GameConfig
         $this->diseaseConfig = new ArrayCollection();
         $this->consumableDiseaseConfig = new ArrayCollection();
         $this->statusConfigs = new ArrayCollection();
+        $this->hunterConfigs = new ArrayCollection();
+        $this->planetSectorConfigs = new ArrayCollection();
+        $this->titleConfigs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -307,6 +318,58 @@ class GameConfig
     public function addHunterConfig(HunterConfig $hunterConfig): static
     {
         $this->hunterConfigs->add($hunterConfig);
+
+        return $this;
+    }
+
+    public function getPlanetSectorConfigs(): Collection
+    {
+        return $this->planetSectorConfigs;
+    }
+
+    /**
+     * @psalm-param ArrayCollection<int, PlanetSectorConfig> $planetSectorConfigs
+     */
+    public function setPlanetSectorConfigs(ArrayCollection|array $planetSectorConfigs): static
+    {
+        if (is_array($planetSectorConfigs)) {
+            $planetSectorConfigs = new ArrayCollection($planetSectorConfigs);
+        }
+
+        $this->planetSectorConfigs = $planetSectorConfigs;
+
+        return $this;
+    }
+
+    public function addPlanetSectorConfig(PlanetSectorConfig $planetSectorConfig): static
+    {
+        $this->planetSectorConfigs->add($planetSectorConfig);
+
+        return $this;
+    }
+
+    public function getTitleConfigs(): TitleConfigCollection
+    {
+        return new TitleConfigCollection($this->titleConfigs->toArray());
+    }
+
+    /**
+     * @psalm-param ArrayCollection<int<0, max>, TitleConfig> $titleConfigs
+     */
+    public function setTitleConfigs(ArrayCollection|array $titleConfigs): self
+    {
+        if (is_array($titleConfigs)) {
+            $titleConfigs = new ArrayCollection($titleConfigs);
+        }
+
+        $this->titleConfigs = $titleConfigs;
+
+        return $this;
+    }
+
+    public function addTitleConfig(TitleConfig $titleConfig): self
+    {
+        $this->titleConfigs->add($titleConfig);
 
         return $this;
     }

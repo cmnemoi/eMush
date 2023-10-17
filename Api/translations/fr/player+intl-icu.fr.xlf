@@ -30,7 +30,7 @@ C'est un capital précieux : pour le remonter rapidement, vous pouvez manger des
       </segment>
       <segment id="description" state="translated">
         <source>actionPoint.description</source>
-        <target>Vous gagnez des *Points d'Action* (:pa:) et des *Points de Mouvement* (:pm:) à chaque **nouveau cycle** et en **mangeant**. 
+        <target>Vous gagnez des *Points d'Action* (:pa:) et des *Points de Mouvement* (:pm:) à chaque **nouveau cycle** et en **mangeant**.
 //
 Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target>
       </segment>
@@ -43,6 +43,32 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
       <segment id="description" state="translated">
         <source>triumph.description</source>
         <target>Triomphe accumulé pendant ce voyage. (en chantier)</target>
+      </segment>
+    </unit>
+    <unit id="titles">
+      <segment id="commander.name" state="translated">
+        <source>commander.name</source>
+        <target>Commandant</target>
+      </segment>
+      <segment id="commander.desc" state="translated">
+        <source>commander.desc</source>
+        <target>Décide de l'orientation du Daedalus. Il est aussi le seul à pouvoir enclencher la séquence de voyage.</target>
+      </segment>
+      <segment id="neron_manager.name" state="translated">
+        <source>neron_manager.name</source>
+        <target>Admin. NERON</target>
+      </segment>
+      <segment id="neron_manager.desc" state="translated">
+        <source>neron_manager.desc</source>
+        <target>L'Administrateur NERON peut accéder au BIOS de NERON. Il a également des accès privilégiés aux programmes de gestion du quotidien.</target>
+      </segment>
+      <segment id="com_manager.name" state="translated">
+        <source>com_manager.name</source>
+        <target>Resp. Communications</target>
+      </segment>
+      <segment id="com_manager.desc" state="translated">
+        <source>com_manager.desc</source>
+        <target>Le Responsable de Communications peut engager des opérations de prise de contact une fois que le contact avec Sol est rétabli.</target>
       </segment>
     </unit>
   </file>

@@ -19,5 +19,5 @@ interface HunterServiceInterface
 
     public function persist(array $entities): void;
 
-    public function unpoolHunters(Daedalus $daedalus, \DateTime $time): void;
+    public function unpoolHunters(Daedalus $daedalus, array $tags, \DateTime $time): void;
 }

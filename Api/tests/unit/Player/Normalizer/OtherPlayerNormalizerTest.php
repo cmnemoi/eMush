@@ -90,6 +90,7 @@ class OtherPlayerNormalizerTest extends TestCase
             'skills' => [],
             'statuses' => [],
             'actions' => [],
+            'titles' => [],
         ];
 
         $this->assertIsArray($data);

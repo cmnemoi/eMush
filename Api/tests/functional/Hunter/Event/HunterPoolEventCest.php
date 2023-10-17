@@ -2,6 +2,8 @@
 
 namespace Mush\Tests\functional\Hunter\Listener;
 
+use Mush\Alert\Entity\Alert;
+use Mush\Alert\Enum\AlertEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Tests\AbstractFunctionalTest;
@@ -36,5 +38,15 @@ class HunterSubscriberCest extends AbstractFunctionalTest
         $this->eventService->callEvent($unpoolEvent2, HunterPoolEvent::UNPOOL_HUNTERS);
         $I->assertCount(8, $this->daedalus->getAttackingHunters());
         $I->assertCount(0, $this->daedalus->getHunterPool());
+    }
+
+    public function testUnpoolHuntersCreatesAHunterAlert(FunctionalTester $I): void
+    {
+        // when we spawn hunters
+        $unpoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
+        $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+
+        // then we should have a hunter alert
+        $I->seeInRepository(Alert::class, ['daedalus' => $this->daedalus, 'name' => AlertEnum::HUNTER]);
     }
 }

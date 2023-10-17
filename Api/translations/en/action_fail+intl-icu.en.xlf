@@ -559,5 +559,11 @@
         <target>The hull is not in need of repair.</target>
       </segment>
     </unit>
+    <unit id="combustion_chambre_full">
+      <segment state="translated">
+        <source>combustion_chamber_full.description</source>
+        <target>The combustion chamber is full.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

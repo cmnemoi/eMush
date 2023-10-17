@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -140,19 +141,19 @@ class HunterService implements HunterServiceInterface
         $this->entityManager->flush();
     }
 
-    public function unpoolHunters(Daedalus $daedalus, \DateTime $time): void
+    public function unpoolHunters(Daedalus $daedalus, array $tags, \DateTime $time): void
     {
-        $hunterPoints = $daedalus->getHunterPoints();
+        $hunterPointsToSpend = $daedalus->getHunterPoints();
+        if (in_array(DaedalusEvent::TRAVEL_FINISHED, $tags)) {
+            $hunterPointsToSpend /= 2;
+        }
+
         $hunterTypes = HunterEnum::getAll();
         $wave = new HunterCollection();
 
-        while ($hunterPoints > 0) {
+        while ($hunterPointsToSpend >= $this->getMinCost($daedalus, $hunterTypes)) {
             $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, $hunterTypes);
 
-            // do not create a hunter if not enough points
-            if ($hunterPoints < $hunterProbaCollection->minElement()) {
-                break;
-            }
             $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaCollection(
                 $hunterProbaCollection
             );
@@ -160,7 +161,10 @@ class HunterService implements HunterServiceInterface
                 break;
             }
 
-            $hunter = $this->createHunterFromName($daedalus, $hunterNameToCreate);
+            $hunter = $this->drawHunterFromPoolByName($daedalus, $hunterNameToCreate);
+            if (!$hunter) {
+                $hunter = $this->createHunterFromName($daedalus, $hunterNameToCreate);
+            }
 
             // do not create a hunter if max per wave is reached
             $maxPerWave = $hunter->getHunterConfig()->getMaxPerWave();
@@ -172,8 +176,9 @@ class HunterService implements HunterServiceInterface
 
             $wave->add($hunter);
 
-            $hunterPoints -= $hunter->getHunterConfig()->getDrawCost();
-            $daedalus->setHunterPoints($hunterPoints);
+            $pointsToRemove = $hunter->getHunterConfig()->getDrawCost();
+            $hunterPointsToSpend -= $pointsToRemove;
+            $daedalus->removeHunterPoints($pointsToRemove);
         }
 
         $wave->map(fn ($hunter) => $this->createHunterStatuses($hunter, $time));
@@ -220,6 +225,22 @@ class HunterService implements HunterServiceInterface
         }
     }
 
+    private function drawHunterFromPoolByName(Daedalus $daedalus, string $hunterName): ?Hunter
+    {
+        $hunterPool = $daedalus->getHunterPool()->getAllHuntersByType($hunterName);
+
+        if ($hunterPool->isEmpty()) {
+            return null;
+        }
+
+        $draw = $this->randomService->getRandomElements($hunterPool->toArray(), number: 1);
+        $hunter = reset($draw);
+
+        $hunter->unpool();
+
+        return $hunter;
+    }
+
     private function getHunterProbaCollection(Daedalus $daedalus, ArrayCollection $hunterTypes): ProbaCollection
     {
         $difficultyMode = $daedalus->getDifficultyMode();
@@ -242,6 +263,26 @@ class HunterService implements HunterServiceInterface
         }
 
         return $probaCollection;
+    }
+
+    private function getMinCost(Daedalus $daedalus, ArrayCollection $hunterTypes): int
+    {
+        $minCost = 0;
+        foreach ($hunterTypes as $hunterType) {
+            $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterType);
+            if (!$hunterConfig) {
+                $this->logger->error("Hunter config not found for hunter name $hunterType", [
+                    'daedalus' => $daedalus->getId(),
+                ]);
+                continue;
+            }
+
+            if ($minCost === 0 || $minCost > $hunterConfig->getDrawCost()) {
+                $minCost = $hunterConfig->getDrawCost();
+            }
+        }
+
+        return $minCost;
     }
 
     private function getHunterDamage(Hunter $hunter): ?int
@@ -367,10 +408,10 @@ class HunterService implements HunterServiceInterface
             time: new \DateTime()
         );
 
+        // if patrol ship is not destroyed, put it back as hunter target
         if ($chargeStatus !== null
             && !$chargeStatus->getVariableByName($chargeStatus->getName())->isMin()
         ) {
-            // reset hunter target so the patrol ship can be safely deleted
             $hunter->setTarget($patrolShipTarget);
         }
 

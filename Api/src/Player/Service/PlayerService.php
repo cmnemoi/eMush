@@ -113,6 +113,11 @@ class PlayerService implements PlayerServiceInterface
         return true;
     }
 
+    public function findAll(): array
+    {
+        return $this->repository->findAll();
+    }
+
     public function findById(int $id): ?Player
     {
         $player = $this->repository->find($id);

@@ -1,7 +1,7 @@
 <template>
     <div v-show="loading" class="spinner_overlay">
         <div class="spinner-container">
-            <span>Loading...</span>
+            <span>{{ $t('loading') }}</span>
             <div class="spinner">
                 <img src="@/assets/images/floor-tile.gif">
                 <img src="@/assets/images/floor-tile.gif">

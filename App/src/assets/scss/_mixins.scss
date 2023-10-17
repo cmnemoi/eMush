@@ -32,7 +32,7 @@ Corners values stand clockwise starting from top left. Missing values in @includ
 
 /* Style an element to make it a button, including hover effect.
 Editable values stand for font-size, font-weight, and font-variant. Keep empty for default styles.
-Adding the class ".crossed" to the element will strike-through it.
+Disabling the button (or adding the class ".disabled" to the element) will strike-through it.
 Adding the class ".flashing" to the element will will animate its border to increase visibility. */
 @mixin button-style ($font-size: 1rem, $font-weight: 700, $font-variant: small-caps) {
     $color: rgb(0, 116, 223);
@@ -91,7 +91,7 @@ Adding the class ".flashing" to the element will will animate its border to incr
 
     s { text-decoration: inherit; }
     
-    &.disabled { opacity: 0.5; text-decoration: line-through; cursor: not-allowed;}
+    &.disabled, &:disabled { opacity: 0.5; text-decoration: line-through; cursor: not-allowed;}
 
     &.flashing {
         @keyframes flashing-effect {

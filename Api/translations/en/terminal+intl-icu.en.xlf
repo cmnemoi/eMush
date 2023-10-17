@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="terminal.ext">
+    <unit id="command_terminal">
+      <segment id="name" state="translated">
+        <source>command_terminal.name</source>
+        <target>Command terminal</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>command_terminal.tips</source>
+        <target>As *Commander* you are the only person who can access this terminal.
+////
+Moving the ship is essential for **travelling to other planets** and could be useful for getting rid of hunters.
+////
+To go to a planet you need to **know the heading and the quantity of fuel required**. These two pieces of information can be obtained from the *Astro Terminal**. With this information, someone must first fill the combustion chamber with the appropriate amount of fuel. Then, set the Daedalus on the correct path and start the journey!
+////
+If the job has been done properly, the Daedalus will put itself into a planet's orbit, which can then be explored by the crew and new resources obtained!</target>
+      </segment>
+      <segment id="orientate_daedalus" state="translated">
+        <source>command_terminal.orientate_daedalus</source>
+        <target>Steering the Daedalus</target>
+      </segment>
+      <segment id="move_daedalus" state="translated">
+        <source>command_terminal.move_daedalus</source>
+        <target>Moving the Daedalus</target>
+      </segment>
+      <segment id="general_informations" state="translated">
+        <source>command_terminal.general_informations</source>
+        <target>General Information</target>
+      </segment>
+      <segment id="difficulty_normal" state="translated">
+        <source>command_terminal.difficulty_normal</source>
+        <target>We are currently traveling in **Close Space**.</target>
+      </segment>
+      <segment id="difficulty_hard" state="translated">
+        <source>command_terminal.difficulty_hard</source>
+        <target>We are now traveling through **Deep space**.</target>
+      </segment>
+      <segment id="difficulty_very_hard" state="translated">
+        <source>command_terminal.difficulty_very_hard</source>
+        <target>We are now traveling through **Infinite space**.</target>
+      </segment>
+      <segment id="advance_daedalus_status_ok" state="translated">
+        <source>command_terminal.advance_daedalus_status_ok</source>
+        <target>Systems are functional.</target>
+      </segment>
+      <segment id="advance_daedalus_status_no_fuel" state="translated">
+        <source>command_terminal.advance_daedalus_status_no_fuel</source>
+        <target>There is no fuel in the *Combustion Chamber*! The infra-luminal travel is impossible.</target>
+      </segment>
+      <segment id="advance_daedalus_status_emergency_reactor_broken" state="translated">
+        <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
+        <target>The *Emergency Reactor* is down! The infra-luminal travel is impossible.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

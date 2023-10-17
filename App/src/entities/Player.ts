@@ -5,6 +5,7 @@ import { Status } from "@/entities/Status";
 import { Action } from "@/entities/Action";
 import { Character } from "@/entities/Character";
 import { QuantityPoint } from "@/entities/QuantityPoint";
+import { NameDescObject } from "@/entities/NameDescObject";
 import { SpaceBattle } from "./SpaceBattle";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { Terminal } from "@/entities/Terminal";
@@ -26,6 +27,7 @@ export class Player {
     public room: Room|null;
     public spaceBattle: SpaceBattle|null;
     public terminal: Terminal|null;
+    public titles: Array<NameDescObject>;
 
     public constructor() {
         this.gameStatus = null;
@@ -43,6 +45,7 @@ export class Player {
         this.room = null;
         this.spaceBattle = null;
         this.terminal = null;
+        this.titles = [];
     }
 
     public load(object: any): Player {
@@ -108,11 +111,17 @@ export class Player {
                     this.diseases.push(status);
                 });
             }
+            if (object.titles) {
+                object.titles.forEach((titleObject:any) => {
+                    const title = (new NameDescObject()).load(titleObject);
+                    this.titles.push(title);
+                });
+            }
         }
 
         return this;
     }
-    
+
     public jsonEncode(): string {
         return JSON.stringify(this);
     }

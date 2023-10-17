@@ -2582,6 +2582,7 @@ class EquipmentConfigData
                 ActionEnum::ACCESS_TERMINAL,
                 ActionEnum::EXIT_TERMINAL,
                 'examine',
+                'scan',
             ],
             'mechanics' => [],
             'initStatuses' => [],

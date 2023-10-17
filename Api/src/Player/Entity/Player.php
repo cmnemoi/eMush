@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Exploration\Entity\Planet;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
@@ -85,6 +86,12 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $triumph = 0;
 
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: Planet::class, cascade: ['ALL'], orphanRemoval: true)]
+    private Collection $planets;
+
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $titles = [];
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -92,6 +99,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->medicalConditions = new PlayerDiseaseCollection();
         $this->flirts = new PlayerCollection();
         $this->modifiers = new ModifierCollection();
+        $this->planets = new ArrayCollection();
     }
 
     public function getId(): int
@@ -459,6 +467,18 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
+    public function getPlanets(): Collection
+    {
+        return $this->planets;
+    }
+
+    public function addPlanet(Planet $planet): static
+    {
+        $this->planets->add($planet);
+
+        return $this;
+    }
+
     public function getVariableByName(string $variableName): GameVariable
     {
         return $this->playerVariables->getVariableByName($variableName);
@@ -549,5 +569,38 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $terminal = $this->getStatusByName(PlayerStatusEnum::FOCUSED)?->getTarget();
 
         return $terminal;
+    }
+
+    public function addTitle(string $title): static
+    {
+        $this->titles[] = $title;
+
+        return $this;
+    }
+
+    public function removeTitle(string $title): static
+    {
+        if (in_array($title, $this->titles)) {
+            $this->titles = array_diff($this->titles, [$title]);
+        }
+
+        return $this;
+    }
+
+    public function getTitles(): array
+    {
+        return $this->titles;
+    }
+
+    public function setTitles(array $titles): static
+    {
+        $this->titles = $titles;
+
+        return $this;
+    }
+
+    public function hasTitle(string $title): bool
+    {
+        return in_array($title, $this->getTitles());
     }
 }

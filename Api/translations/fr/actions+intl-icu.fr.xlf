@@ -895,11 +895,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="retrieve_fuel_chamber">
       <segment id="name" state="final">
         <source>retrieve_fuel_chamber.name</source>
-        <target>Récupérer Capsule de Fuel</target>
+        <target>Récupérer une capsule</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>retrieve_fuel_chamber.description</source>
-        <target>Permet de récupérer une Capsule du moteur.</target>
+        <target>Permet de récupérer une capsule de fuel qui peut servir à remplir les réservoirs auxiliaires.</target>
       </segment>
     </unit>
     <unit id="check_fuel_chamber_level">
@@ -936,6 +936,16 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="final">
         <source>advance_daedalus.description</source>
         <target>Lance l'allumage des moteurs pour un déplacement lié à la quantité de carburant prêt.</target>
+      </segment>
+    </unit>
+    <unit id="scan">
+      <segment id="name" state="final">
+        <source>scan.name</source>
+        <target>Scanner</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>scan.description</source>
+        <target>Permet de changer les planètes disponibles comme choix pour le prochain voyage.</target>
       </segment>
     </unit>
   </file>

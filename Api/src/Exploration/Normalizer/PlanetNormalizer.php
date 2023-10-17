@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Normalizer;
 
+use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Exploration\Entity\Planet;
 use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -14,10 +16,14 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
 {
     use NormalizerAwareTrait;
 
+    private GearToolServiceInterface $gearToolService;
     private TranslationServiceInterface $translationService;
 
-    public function __construct(TranslationServiceInterface $translationService)
-    {
+    public function __construct(
+        GearToolServiceInterface $gearToolService,
+        TranslationServiceInterface $translationService
+    ) {
+        $this->gearToolService = $gearToolService;
         $this->translationService = $translationService;
     }
 
@@ -42,6 +48,29 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
             ),
             'distance' => $planet->getDistance(),
             'sectors' => $this->normalizer->normalize($planet->getSectors()->toArray(), $format, $context),
+            'actions' => $this->normalizePlanetActions($planet, $format, $context),
         ];
+    }
+
+    private function normalizePlanetActions(Planet $planet, string $format = null, array $context = []): array
+    {
+        $actions = [];
+        $currentPlayer = $context['currentPlayer'];
+        $context['planet'] = $planet;
+
+        $toolsActions = $this->gearToolService->getActionsTools(
+            player: $currentPlayer,
+            scopes: [ActionScopeEnum::TERMINAL],
+            target: Planet::class,
+        );
+
+        foreach ($toolsActions as $action) {
+            $normedAction = $this->normalizer->normalize($action, $format, $context);
+            if (is_array($normedAction) && count($normedAction) > 0) {
+                $actions[] = $normedAction;
+            }
+        }
+
+        return $actions;
     }
 }

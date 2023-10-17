@@ -89,7 +89,10 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
 
     private function normalizeTerminalActions(GameEquipment $terminal, ?string $format, array $context = []): array
     {
-        $actions = $terminal->getActions()->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::TERMINAL);
+        $actions = $terminal->getActions()
+            ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::TERMINAL)
+            ->filter(fn (Action $action) => $action->getTarget() === null)
+        ;
 
         $normalizedActions = [];
         /** @var Action $action */

@@ -233,9 +233,4 @@ class RandomService implements RandomServiceInterface
 
         return $k - 1;
     }
-
-    private function rollTwiceAndAverage(int $min, int $max): int
-    {
-        return intval(($this->random($min, $max) + $this->random($min, $max)) / 2);
-    }
 }

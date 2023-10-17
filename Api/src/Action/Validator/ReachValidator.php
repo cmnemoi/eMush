@@ -5,7 +5,10 @@ namespace Mush\Action\Validator;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Exploration\Entity\Planet;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraint;
@@ -15,6 +18,13 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ReachValidator extends ConstraintValidator
 {
+    private GameEquipmentServiceInterface $gameEquipmentService;
+
+    public function __construct(GameEquipmentServiceInterface $gameEquipmentService)
+    {
+        $this->gameEquipmentService = $gameEquipmentService;
+    }
+
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
@@ -34,6 +44,12 @@ class ReachValidator extends ConstraintValidator
             $canReach = $this->canReachPlayer($player, $actionTarget, $constraint->reach);
         } elseif ($actionTarget instanceof Hunter) {
             $canReach = $this->canReachHunter($player, $constraint->reach);
+        } elseif ($actionTarget instanceof Planet) {
+            $astroTerminal = $this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::ASTRO_TERMINAL, $player->getDaedalus())->first();
+            if (!$astroTerminal) {
+                throw new LogicException('astro terminal not found');
+            }
+            $canReach = $this->canReachGameEquipment($player, $astroTerminal, $constraint->reach);
         } else {
             throw new LogicException('invalid parameter type');
         }

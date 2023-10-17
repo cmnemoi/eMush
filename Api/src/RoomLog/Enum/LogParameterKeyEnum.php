@@ -10,4 +10,5 @@ class LogParameterKeyEnum
     public const HUNTER = 'hunter';
     public const ITEM = 'item';
     public const PLACE = 'place';
+    public const PLANET = 'planet';
 }

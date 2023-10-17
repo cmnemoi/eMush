@@ -76,7 +76,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->player->changePlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
 
         // when player tries to scan
-        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->astroTerminal, ['planet' => $this->planet->getId()]);
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
         $this->analyzePlanetAction->execute();
 
         // the action is not visible
@@ -94,7 +94,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         );
 
         // when player tries to scan
-        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->astroTerminal, ['planet' => $this->planet->getId()]);
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
         $this->analyzePlanetAction->execute();
 
         // the action is not visible
@@ -112,7 +112,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         );
 
         // when player tries to scan
-        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->astroTerminal, ['planet' => $this->planet->getId()]);
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
         $this->analyzePlanetAction->execute();
 
         // the action is not executable
@@ -128,7 +128,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->planet->getSectors()->map(fn (PlanetSector $sector) => $sector->reveal());
 
         // when player tries to scan
-        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->astroTerminal, ['planet' => $this->planet->getId()]);
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
         $this->analyzePlanetAction->execute();
 
         // the action is not visible
@@ -141,7 +141,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->planet->getRevealedSectors()->count());
 
         // when player scans
-        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->astroTerminal, ['planet' => $this->planet->getId()]);
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
         $this->analyzePlanetAction->execute();
 
         // then expected sections of the planet are revealed

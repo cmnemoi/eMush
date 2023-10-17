@@ -130,4 +130,27 @@ class PlanetName
             'fifth_syllable' => $this->fifthSyllable,
         ];
     }
+
+    public function getNameAsString(): string
+    {
+        $name = '';
+
+        if ($this->prefix !== null) {
+            $name .= $this->prefix . ' ';
+        }
+
+        $name .= $this->firstSyllable . ' ';
+        if ($this->secondSyllable !== null) {
+            $name .= $this->secondSyllable . ' ';
+        }
+        if ($this->thirdSyllable !== null) {
+            $name .= $this->thirdSyllable . ' ';
+        }
+        $name .= $this->fourthSyllable . ' ';
+        if ($this->fifthSyllable !== null) {
+            $name .= $this->fifthSyllable . ' ';
+        }
+
+        return trim($name);
+    }
 }

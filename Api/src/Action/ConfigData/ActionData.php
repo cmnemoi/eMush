@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Exploration\Entity\Planet;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Entity\Hunter;
@@ -1706,7 +1707,7 @@ class ActionData
             'name' => ActionEnum::ANALYZE_PLANET,
             'action_name' => ActionEnum::ANALYZE_PLANET,
             'types' => [],
-            'target' => null,
+            'target' => Planet::class,
             'scope' => ActionScopeEnum::TERMINAL,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => VisibilityEnum::HIDDEN],
             'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],

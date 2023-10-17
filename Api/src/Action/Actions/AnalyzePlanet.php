@@ -13,7 +13,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AllPlanetSectorsRevealed;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
@@ -47,18 +46,7 @@ final class AnalyzePlanet extends AbstractAction
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        if (!isset($parameters['planet'])) {
-            return false;
-        }
-
-        $planet = $this->planetService->findById($parameters['planet']);
-        if (!$planet) {
-            return false;
-        }
-
-        $this->planet = $planet;
-
-        return $target instanceof GameEquipment;
+        return $target instanceof Planet;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -77,6 +65,7 @@ final class AnalyzePlanet extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DIRTY_RESTRICTION,
         ]));
+        // TODO : check that astro terminal is not broken
     }
 
     protected function checkResult(): ActionResult
@@ -105,8 +94,11 @@ final class AnalyzePlanet extends AbstractAction
 
     private function getSectorsToReveal(): ArrayCollection
     {
+        /** @var Planet $planet */
+        $planet = $this->target;
+
         $sectorIdsToReveal = $this->randomService->getRandomElementsFromProbaCollection(
-            array: $this->getSectorsToRevealProbaCollection($this->planet),
+            array: $this->getSectorsToRevealProbaCollection($planet),
             number: $this->getOutputVariable(),
         );
 

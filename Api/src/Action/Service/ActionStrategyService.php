@@ -8,6 +8,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Error;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Hunter\Service\HunterServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -20,17 +21,20 @@ class ActionStrategyService implements ActionStrategyServiceInterface
     private PlayerServiceInterface $playerService;
     private GameEquipmentServiceInterface $equipmentService;
     private HunterServiceInterface $hunterService;
+    private PlanetServiceInterface $planetService;
     private EntityManagerInterface $entityManager;
 
     public function __construct(
         PlayerServiceInterface $playerService,
         GameEquipmentServiceInterface $equipmentService,
         HunterServiceInterface $hunterService,
+        PlanetServiceInterface $planetService,
         EntityManagerInterface $entityManager
     ) {
         $this->playerService = $playerService;
         $this->equipmentService = $equipmentService;
         $this->hunterService = $hunterService;
+        $this->planetService = $planetService;
         $this->entityManager = $entityManager;
     }
 
@@ -86,6 +90,10 @@ class ActionStrategyService implements ActionStrategyServiceInterface
 
             if ($hunterId = $actionTarget['hunter'] ?? null) {
                 return $this->hunterService->findById($hunterId);
+            }
+
+            if ($planetId = $actionTarget['planet'] ?? null) {
+                return $this->planetService->findById($planetId);
             }
         }
 

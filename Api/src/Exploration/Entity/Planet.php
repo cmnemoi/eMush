@@ -9,10 +9,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'planet')]
-final class Planet
+final class Planet implements LogParameterInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -73,6 +75,16 @@ final class Planet
         return $this;
     }
 
+    public function getOrientation(): string
+    {
+        return $this->orientation;
+    }
+
+    public function getDistance(): int
+    {
+        return $this->distance;
+    }
+
     public function getCoordinates(): SpaceCoordinates
     {
         return new SpaceCoordinates($this->orientation, $this->distance);
@@ -120,5 +132,20 @@ final class Planet
     public function getDaedalus(): Daedalus
     {
         return $this->player->getDaedalus();
+    }
+
+    public function getClassName(): string
+    {
+        return self::class;
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::PLANET;
+    }
+
+    public function getLogName(): string
+    {
+        return $this->name->getNameAsString();
     }
 }

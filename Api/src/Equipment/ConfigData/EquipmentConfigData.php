@@ -2582,8 +2582,11 @@ class EquipmentConfigData
                 'examine',
                 'scan',
                 'analyze_planet',
+                'exit_terminal',
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                'tool_astro_terminal_default',
+            ],
             'initStatuses' => [],
         ],
         [

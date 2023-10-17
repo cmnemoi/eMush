@@ -810,6 +810,16 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         <target>Climb aboard a patrol ship and appear in the appropriate quadrant.</target>
       </segment>
     </unit>
+    <unit id="access_terminal">
+      <segment id="name" state="final">
+        <source>access_terminal.name</source>
+        <target>Access Terminal</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>access_terminal.description</source>
+        <target>Allow you to access services available on this terminal.</target>
+      </segment>
+    </unit>
     <unit id="land">
       <segment id="name" state="translated">
         <source>land.name</source>

@@ -64,6 +64,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $dismantle25 */
         $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
 
+        /** @var Action $exitTerminalAction */
+        $exitTerminalAction = $this->getReference(ActionsFixtures::EXIT_TERMINAL);
+
         // @TODO terminals
         $icarus = new EquipmentConfig();
         $icarus
@@ -118,7 +121,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions([$repair12, $sabotage12, $reportAction, $examineAction, $accessTerminalAction])
+            ->setActions([$repair12, $sabotage12, $reportAction, $examineAction, $exitTerminalAction, $accessTerminalAction])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($astroTerminal);
@@ -168,8 +171,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $hackAction */
         $hackAction = $this->getReference(ActionsFixtures::HACK);
-        /** @var Action $exitTerminalAction */
-        $exitTerminalAction = $this->getReference(ActionsFixtures::EXIT_TERMINAL);
         /** @var Action $advanceDaedalusAction */
         $advanceDaedalusAction = $this->getReference(ActionsFixtures::ADVANCE_DAEDALUS);
 

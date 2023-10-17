@@ -791,6 +791,16 @@
         <target>takeoff.description</target>
       </segment>
     </unit>
+    <unit id="access_terminal">
+      <segment id="name" state="final">
+        <source>access_terminal.name</source>
+        <target>access_terminal.name</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>access_terminal.description</source>
+        <target>access_terminal.description</target>
+      </segment>
+    </unit>
     <unit id="land">
       <segment id="name" state="initial">
         <source>land.name</source>

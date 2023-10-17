@@ -226,6 +226,7 @@ class ActionEnum
             self::MOVE,
             self::LAND,
             self::TAKEOFF,
+            self::ACCESS_TERMINAL,
         ]);
     }
 

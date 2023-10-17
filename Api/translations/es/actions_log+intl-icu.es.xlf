@@ -541,6 +541,12 @@
         <target>land_no_pilot</target>
       </segment>
     </unit>
+    <unit id="access_terminal_success">
+      <segment id="name" state="final">
+        <source>access_terminal_success</source>
+        <target>access_terminal_success</target>
+      </segment>
+    </unit>
     <unit id="takeoff_success">
       <segment state="initial">
         <source>takeoff_success</source>

@@ -804,6 +804,16 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Monter dans un patrouilleur et apparaître dans le cadran correspondant.</target>
       </segment>
     </unit>
+    <unit id="access_terminal">
+      <segment id="name" state="final">
+        <source>access_terminal.name</source>
+        <target>Accéder</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>access_terminal.description</source>
+        <target>Vous permet d'accéder aux services proposés par ce terminal.</target>
+      </segment>
+    </unit>
     <unit id="land">
       <segment id="name" state="final">
         <source>land.name</source>

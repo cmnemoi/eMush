@@ -30,7 +30,7 @@ class ReachValidatorTest extends TestCase
      * @before
      */
     public function before()
-    {   
+    {
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->validator = new ReachValidator($this->gameEquipmentService);
         $this->constraint = new Reach();

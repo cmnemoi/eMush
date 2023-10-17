@@ -11,8 +11,10 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AllPlanetSectorsRevealed;
+use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
@@ -30,7 +32,6 @@ final class AnalyzePlanet extends AbstractAction
     protected string $name = ActionEnum::ANALYZE_PLANET;
     private PlanetServiceInterface $planetService;
     private RandomServiceInterface $randomService;
-    private Planet $planet;
 
     public function __construct(
         EventServiceInterface $eventService,
@@ -65,7 +66,13 @@ final class AnalyzePlanet extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DIRTY_RESTRICTION,
         ]));
-        // TODO : check that astro terminal is not broken
+        $metadata->addConstraint(new HasEquipment([
+            'reach' => ReachEnum::ROOM,
+            'equipments' => [EquipmentEnum::ASTRO_TERMINAL],
+            'checkIfOperational' => true,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+        ]));
     }
 
     protected function checkResult(): ActionResult
@@ -107,7 +114,7 @@ final class AnalyzePlanet extends AbstractAction
         foreach ($sectorIdsToReveal as $sectorId) {
             $sector = $this->planetService->findPlanetSectorById($sectorId);
             if (!$sector) {
-                throw new \RuntimeException("Sector $sectorId not found on planet {$this->planet->getId()}");
+                throw new \RuntimeException("Sector $sectorId not found on planet {$planet->getId()}");
             }
             $sectorsToReveal->add($sector);
         }

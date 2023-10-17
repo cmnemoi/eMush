@@ -8,5 +8,5 @@ class ActionVariableEnum
     public const PERCENTAGE_CRITICAL = 'percentageCritical';
     public const PERCENTAGE_INJURY = 'percentageInjury';
     public const PERCENTAGE_DIRTINESS = 'percentageDirtiness';
-    public const OUTPUT_VARIABLE = 'outputVariable';
+    public const OUTPUT_QUANTITY = 'outputQuantity';
 }

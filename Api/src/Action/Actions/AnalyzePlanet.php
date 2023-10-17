@@ -99,7 +99,7 @@ final class AnalyzePlanet extends AbstractAction
 
         $sectorIdsToReveal = $this->randomService->getRandomElementsFromProbaCollection(
             array: $this->getSectorsToRevealProbaCollection($planet),
-            number: $this->getOutputVariable(),
+            number: $this->getOutputQuantity(),
         );
 
         /** @var ArrayCollection<int, PlanetSector> $sectorsToReveal */

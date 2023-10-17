@@ -69,9 +69,9 @@ class ActionVariables extends GameVariableCollection
             0
         );
 
-        $outputVariable = new GameVariable(
+        $outputQuantity = new GameVariable(
             $this,
-            ActionVariableEnum::OUTPUT_VARIABLE,
+            ActionVariableEnum::OUTPUT_QUANTITY,
             0,
             null,
             0
@@ -85,7 +85,7 @@ class ActionVariables extends GameVariableCollection
             $dirtinessVariable,
             $successVariable,
             $criticalVariable,
-            $outputVariable,
+            $outputQuantity,
         ]);
     }
 

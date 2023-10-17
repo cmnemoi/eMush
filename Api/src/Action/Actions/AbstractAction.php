@@ -155,13 +155,13 @@ abstract class AbstractAction
         );
     }
 
-    public function getOutputVariable(): int
+    public function getOutputQuantity(): int
     {
         return $this->actionService->getActionModifiedActionVariable(
             $this->player,
             $this->action,
             $this->target,
-            ActionVariableEnum::OUTPUT_VARIABLE,
+            ActionVariableEnum::OUTPUT_QUANTITY,
         );
     }
 

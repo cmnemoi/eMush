@@ -53,7 +53,7 @@ class ActionDataLoader extends ConfigDataLoader
         $gameVariables->setValuesByName($actionData['percentageInjury'], ActionVariableEnum::PERCENTAGE_INJURY);
         $gameVariables->setValuesByName($actionData['percentageSuccess'], ActionVariableEnum::PERCENTAGE_SUCCESS);
         $gameVariables->setValuesByName($actionData['percentageCritical'], ActionVariableEnum::PERCENTAGE_CRITICAL);
-        $gameVariables->setValuesByName($actionData['outputVariable'], ActionVariableEnum::OUTPUT_VARIABLE);
+        $gameVariables->setValuesByName($actionData['outputQuantity'], ActionVariableEnum::OUTPUT_QUANTITY);
 
         $gameVariables->setValuesByName($actionData['actionPoint'], PlayerVariableEnum::ACTION_POINT);
         $gameVariables->setValuesByName($actionData['moralPoint'], PlayerVariableEnum::MORAL_POINT);

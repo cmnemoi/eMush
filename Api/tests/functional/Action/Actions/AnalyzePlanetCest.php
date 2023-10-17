@@ -145,6 +145,6 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->analyzePlanetAction->execute();
 
         // then expected sections of the planet are revealed
-        $I->assertEquals($this->analyzePlanetConfig->getOutputVariable(), $this->planet->getRevealedSectors()->count());
+        $I->assertEquals($this->analyzePlanetConfig->getOutputQuantity(), $this->planet->getRevealedSectors()->count());
     }
 }

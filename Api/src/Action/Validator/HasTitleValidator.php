@@ -21,13 +21,10 @@ class HasTitleValidator extends ConstraintValidator
         }
 
         $actionTarget = $value->getTarget();
-        $nameTarget = $actionTarget->getLogName();
 
         if ($actionTarget instanceof GameEquipment) {
-            if ($nameTarget === $constraint->terminal) {
-                $player = $value->getPlayer();
-
-                if (!$player->hasTitle($constraint->title)) {
+            if ($actionTarget->getName() === $constraint->terminal) {
+                if (!$value->getPlayer()->hasTitle($constraint->title)) {
                     $this->context->buildViolation($constraint->message)->addViolation();
                 }
             }

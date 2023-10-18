@@ -146,6 +146,6 @@ final class Planet implements LogParameterInterface
 
     public function getLogName(): string
     {
-        return $this->name->getNameAsString();
+        return $this->name->toString();
     }
 }

@@ -119,9 +119,10 @@ class PlanetName
         return $this;
     }
 
-    public function getNameAsArray(): array
+    public function toArray(): array
     {
         return [
+            'type' => self::class,
             'prefix' => $this->prefix,
             'first_syllable' => $this->firstSyllable,
             'second_syllable' => $this->secondSyllable,
@@ -131,26 +132,8 @@ class PlanetName
         ];
     }
 
-    public function getNameAsString(): string
+    public function toString(): string
     {
-        $name = '';
-
-        if ($this->prefix !== null) {
-            $name .= $this->prefix . ' ';
-        }
-
-        $name .= $this->firstSyllable . ' ';
-        if ($this->secondSyllable !== null) {
-            $name .= $this->secondSyllable . ' ';
-        }
-        if ($this->thirdSyllable !== null) {
-            $name .= $this->thirdSyllable . ' ';
-        }
-        $name .= $this->fourthSyllable . ' ';
-        if ($this->fifthSyllable !== null) {
-            $name .= $this->fifthSyllable . ' ';
-        }
-
-        return trim($name);
+        return json_encode($this->toArray());
     }
 }

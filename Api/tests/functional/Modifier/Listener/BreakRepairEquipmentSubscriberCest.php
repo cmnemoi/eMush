@@ -77,13 +77,12 @@ class BreakRepairEquipmentSubscriberCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
-
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
         $user = new User();
         $user
-            ->setUserId("blabla")
-            ->setUsername("blabla")
+            ->setUserId('blabla')
+            ->setUsername('blabla')
         ;
         $I->haveInRepository($user);
 

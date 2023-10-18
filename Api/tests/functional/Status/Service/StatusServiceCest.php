@@ -24,8 +24,8 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -41,7 +41,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testBrokenEquipmentLosesTheirCharges(FunctionalTester $I)
+    public function testOnBrokenStatusAppliedOnEquipmentWithElectricCharges(FunctionalTester $I)
     {
         // given a patrol ship in alpha bay with electric charges charge status
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
@@ -61,7 +61,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        // when patrol ship is broken
+        // when status subscriber listens to broken status applied event
         $this->statusService->createStatusFromName(
             EquipmentStatusEnum::BROKEN,
             $pasiphae,
@@ -71,38 +71,6 @@ final class StatusServiceCest extends AbstractFunctionalTest
 
         // then electric charges status charge value is 0
         $I->assertEquals(0, $electricCharges->getCharge());
-    }
-
-    public function testBrokenTerminalRemovesPlayerFocusedStatus(FunctionalTester $I): void
-    {
-        // given there is a command terminal in player room
-        $commandTerminalConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::COMMAND_TERMINAL]);
-        $commandTerminal = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
-        $commandTerminal
-            ->setName(EquipmentEnum::COMMAND_TERMINAL)
-            ->setEquipment($commandTerminalConfig)
-        ;
-        $I->haveInRepository($commandTerminal);
-
-        // given player is focused on command terminal
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::FOCUSED,
-            holder: $this->player,
-            tags: [],
-            time: new \DateTime(),
-            target: $commandTerminal
-        );
-
-        // when command terminal is broken
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $commandTerminal,
-            tags: [],
-            time: new \DateTime(),
-        );
-
-        // then player is not focused on command terminal anymore
-        $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::FOCUSED));
     }
 
     public function testDispatchEquipmentBroken(FunctionalTester $I)

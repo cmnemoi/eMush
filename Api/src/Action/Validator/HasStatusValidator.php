@@ -45,5 +45,9 @@ class HasStatusValidator extends ConstraintValidator
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
+        if ($constraint->statusTargetName !== null && $target->getStatusByName($constraint->status)?->getTarget()?->getName() !== $constraint->statusTargetName) {
+            $this->context->buildViolation($constraint->message)
+                ->addViolation();
+        }
     }
 }

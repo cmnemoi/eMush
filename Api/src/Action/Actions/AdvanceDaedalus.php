@@ -84,6 +84,7 @@ final class AdvanceDaedalus extends AbstractAction
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::FOCUSED,
             'target' => HasStatus::PLAYER,
+            'statusTargetName' => EquipmentEnum::COMMAND_TERMINAL,
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new HasStatus([

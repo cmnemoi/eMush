@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Exploration\Normalizer\PlanetNameNormalizer;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -26,15 +27,18 @@ class RoomLogService implements RoomLogServiceInterface
     private EntityManagerInterface $entityManager;
     private RandomServiceInterface $randomService;
     private RoomLogRepository $repository;
+    private PlanetNameNormalizer $planetNameNormalizer;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         RandomServiceInterface $randomService,
         RoomLogRepository $repository,
+        PlanetNameNormalizer $planetNameNormalizer
     ) {
         $this->entityManager = $entityManager;
         $this->randomService = $randomService;
         $this->repository = $repository;
+        $this->planetNameNormalizer = $planetNameNormalizer;
     }
 
     public function persist(RoomLog $roomLog): RoomLog
@@ -109,6 +113,11 @@ class RoomLogService implements RoomLogServiceInterface
         if ($actionParameter !== null) {
             $key = 'target_' . $actionParameter->getLogKey();
             $parameters[$key] = $actionParameter->getLogName();
+            
+            // we need to normalize planet name before logging it, as it is saved in database as an array of numbers (basically)
+            if (str_contains($key, 'planet')) {
+                $parameters[$key] = $this->normalizePlanetName($actionParameter, $player);
+            }
         }
         if (($equipment = $actionResult->getEquipment()) !== null) {
             $parameters[$equipment->getLogKey()] = $equipment->getLogName();
@@ -235,5 +244,14 @@ class RoomLogService implements RoomLogServiceInterface
             'charges' => $electricCharges ? $electricCharges->getCharge() : 0,
             'armor' => $patrolShipArmor ? $patrolShipArmor->getCharge() : 0,
         ];
+    }
+
+    private function normalizePlanetName(LogParameterInterface $actionParameter, Player $player): string 
+    {
+        return $this->planetNameNormalizer->normalize(
+            object: json_decode($actionParameter->getLogName(), true),
+            format: null,
+            context: ['currentPlayer' => $player]
+        );
     }
 }

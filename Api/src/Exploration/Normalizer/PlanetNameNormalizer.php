@@ -23,25 +23,33 @@ final class PlanetNameNormalizer implements NormalizerInterface, NormalizerAware
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
-    {
-        return $data instanceof PlanetName;
+    {   
+        // we normalize planet name directly in the PlanetNameNormalizer as a PlanetName entity or indirectly as an array in RoomLogService
+        // so we need to check if the data is an instance of PlanetName or an array with the right type field for normalization
+        
+        $dataIsPlanetNameEntity = $data instanceof PlanetName;
+
+        $dataHasTypeField = is_array($data) && array_key_exists('type', $data);
+        $dataTypeFieldIsPlanetName = $dataHasTypeField && $data['type'] === PlanetName::class;
+        
+        return $dataIsPlanetNameEntity || $dataTypeFieldIsPlanetName;
     }
 
     public function normalize(mixed $object, string $format = null, array $context = []): string
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
-        /** @var PlanetName $planetName */
-        $planetName = $object;
+        /** @var array $planetNameArray */
+        $planetNameArray = $object instanceof PlanetName ? $object->toArray() : $object;
 
-        return $this->getTranslatedPlanetName($planetName, $currentPlayer);
+        return $this->getTranslatedPlanetName($planetNameArray, $currentPlayer);
     }
 
-    private function getTranslatedPlanetName(PlanetName $planetName, Player $currentPlayer): string
+    private function getTranslatedPlanetName(array $planetNameArray, Player $currentPlayer): string
     {
         $translatedPlanetName = '';
-        foreach ($planetName->getNameAsArray() as $key => $namePart) {
-            if ($namePart === null) {
+        foreach ($planetNameArray as $key => $namePart) {
+            if ($namePart === null || $key === 'type') {
                 continue;
             }
 

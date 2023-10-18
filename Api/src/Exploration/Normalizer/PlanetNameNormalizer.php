@@ -33,7 +33,7 @@ class PlanetNameNormalizer implements NormalizerInterface
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
         /** @var array $planetNameArray */
-        $planetNameArray = $object instanceof PlanetName ? $object->toArray() : $object;
+        $planetNameArray = $object;
 
         return $this->translationService->translate(
             key: 'planet_name',

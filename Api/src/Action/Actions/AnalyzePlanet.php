@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -17,9 +16,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Entity\Planet;
-use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Service\PlanetServiceInterface;
-use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -82,43 +79,9 @@ final class AnalyzePlanet extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $sectorsToReveal = $this->getSectorsToReveal();
-
-        $sectorsToReveal->map(fn (PlanetSector $sector) => $sector->reveal());
-
-        $this->planetService->persist($sectorsToReveal->toArray());
-    }
-
-    private function getSectorsToRevealProbaCollection(Planet $planet): ProbaCollection
-    {
-        $probaCollection = new ProbaCollection();
-        foreach ($planet->getUnrevealedSectors() as $sector) {
-            $probaCollection->setElementProbability($sector->getId(), $sector->getWeightAtPlanetAnalysis());
-        }
-
-        return $probaCollection;
-    }
-
-    private function getSectorsToReveal(): ArrayCollection
-    {
         /** @var Planet $planet */
         $planet = $this->target;
 
-        $sectorIdsToReveal = $this->randomService->getRandomElementsFromProbaCollection(
-            array: $this->getSectorsToRevealProbaCollection($planet),
-            number: $this->getOutputQuantity(),
-        );
-
-        /** @var ArrayCollection<int, PlanetSector> $sectorsToReveal */
-        $sectorsToReveal = new ArrayCollection();
-        foreach ($sectorIdsToReveal as $sectorId) {
-            $sector = $this->planetService->findPlanetSectorById($sectorId);
-            if (!$sector) {
-                throw new \RuntimeException("Sector $sectorId not found on planet {$planet->getId()}");
-            }
-            $sectorsToReveal->add($sector);
-        }
-
-        return $sectorsToReveal;
+        $this->planetService->revealPlanetSectors($planet, number: $this->getOutputQuantity());
     }
 }

@@ -41,12 +41,11 @@ export default defineComponent ({
 
         @include corner-bezel(14px, 14px, 0);
 
-        opacity: .8;
+        opacity: .75;
 
         &:hover,
-        &:active {
-            opacity: 1;
-        }
+        &:active,
+        &.router-link-active { opacity: 1; }
     }
 }
 

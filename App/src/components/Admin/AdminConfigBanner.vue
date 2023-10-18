@@ -9,14 +9,12 @@
             <router-link :to="{ name: 'AdminRandomItemPlacesList' }">Random Item Places</router-link>
             <router-link :to="{ name: 'AdminEquipmentConfigList' }">Equipment Config</router-link>
             <router-link :to="{ name: 'AdminMechanicsList' }">Mechanics</router-link>
-        </div>
-        <div class="admin-menu">
+
             <router-link :to="{ name: 'AdminDiseaseCauseConfigList' }">Disease Cause Config</router-link>
             <router-link :to="{ name: 'AdminDiseaseConfigList' }">Disease Config</router-link>
             <router-link :to="{ name: 'AdminConsumableDiseaseConfigList' }">Consumable Disease Config</router-link>
             <router-link :to="{ name: 'AdminModifierConfigList' }">Modifier Config</router-link>
-        </div>
-        <div class="admin-menu">
+
             <router-link :to="{ name: 'AdminStatusConfigList' }">Status Config</router-link>
             <router-link :to="{ name: 'AdminActionConfigList' }">Action Config</router-link>
             <router-link :to="{ name: 'AdminTriumphConfigList' }">Triumph Config</router-link>
@@ -38,22 +36,11 @@ export default defineComponent ({
 <style lang="scss" scoped>
 
 .admin-menu {
-    display: flex;
-    flex-direction: row;
+    margin-top: 1.4em;
+    min-width: 255px;
 
-    span {
-        margin: 0 1.4em;
-        padding: .3em .6em;
-        color: white;
-        font-size: 1.1rem;
-        font-weight: normal;
-        letter-spacing: .06em;
-        text-decoration: none;
-    }
-
-    a {
-        margin: 0 1.4em;
-        padding: .3em .6em;
+    span, a {
+        padding: 0.5em 0.8em;
         color: white;
         font-size: 1.1rem;
         font-weight: normal;
@@ -65,6 +52,8 @@ export default defineComponent ({
             color: #dffaff;
             text-shadow: 0 0 1px white, 0 0 1px white;
         }
+
+        &.router-link-active { font-weight: bold; }
 
         .unavailable {
             text-decoration: line-through;

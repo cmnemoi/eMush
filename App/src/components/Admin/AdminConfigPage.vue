@@ -23,5 +23,8 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 
+.admin-config-container { flex-direction: row; }
+
+.admin-container { flex: 1; }
 
 </style>

@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Exploration\Normalizer\PlanetNameNormalizer;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
@@ -40,6 +41,8 @@ class RoomLogServiceTest extends TestCase
 
     private RoomLogRepository|Mockery\Mock $repository;
 
+    private PlanetNameNormalizer|Mockery\Mock $planetNameNormalizer;
+
     private RoomLogService $service;
 
     /**
@@ -50,11 +53,13 @@ class RoomLogServiceTest extends TestCase
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->repository = \Mockery::mock(RoomLogRepository::class);
+        $this->planetNameNormalizer = \Mockery::mock(PlanetNameNormalizer::class);
 
         $this->service = new RoomLogService(
             $this->entityManager,
             $this->randomService,
             $this->repository,
+            $this->planetNameNormalizer
         );
     }
 

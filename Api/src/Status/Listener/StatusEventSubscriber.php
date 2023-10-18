@@ -45,8 +45,8 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         }
 
         if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
-            /** @var Player $player */
-            foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
+            // /** @var Player $player */
+            foreach ($statusHolder->getPlace()->getPlayers()->getPlayerAlive() as $player) {
                 if ($player->getStatusByName(PlayerStatusEnum::FOCUSED)?->getTarget()?->getName() === $statusHolder->getName()) {
                     $this->statusService->removeStatus(
                         PlayerStatusEnum::FOCUSED,

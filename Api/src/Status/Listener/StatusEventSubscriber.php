@@ -36,7 +36,6 @@ final class StatusEventSubscriber implements EventSubscriberInterface
 
     public function onStatusApplied(StatusEvent $event): void
     {
-        $daedalus = $event->getDaedalus();
         $statusHolder = $event->getStatusHolder();
 
         // if a terminal is broken, player should not be focused on it anymore

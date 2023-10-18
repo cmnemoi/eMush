@@ -76,7 +76,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         // given player is not in the astro terminal room
         $this->player->changePlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
 
-        // when player tries to scan
+        // when player tries to analyze planet
         $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
         $this->analyzePlanetAction->execute();
 
@@ -94,7 +94,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // when player tries to scan
+        // when player tries to analyze planet
         $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
         $this->analyzePlanetAction->execute();
 
@@ -107,7 +107,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         // given all sections of the planet are revealed
         $this->planet->getSectors()->map(fn (PlanetSector $sector) => $sector->reveal());
 
-        // when player tries to scan
+        // when player tries to analyze planet
         $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
         $this->analyzePlanetAction->execute();
 
@@ -125,7 +125,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // when player tries to scan
+        // when player tries to analyze planet
         $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
         $this->analyzePlanetAction->execute();
 
@@ -146,7 +146,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // when player tries to scan
+        // when player tries to analyze planet
         $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
         $this->analyzePlanetAction->execute();
 

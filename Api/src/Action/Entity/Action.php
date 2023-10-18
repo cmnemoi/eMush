@@ -288,7 +288,7 @@ class Action implements GameVariableHolderInterface
         return $this->actionVariables->getValueByName(ActionVariableEnum::OUTPUT_QUANTITY);
     }
 
-    public function setoutputQuantity(int $outputQuantity): self
+    public function setOutputQuantity(int $outputQuantity): self
     {
         $this->actionVariables->setValueByName($outputQuantity, ActionVariableEnum::OUTPUT_QUANTITY);
 

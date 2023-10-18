@@ -113,7 +113,7 @@ class RoomLogService implements RoomLogServiceInterface
         if ($actionParameter !== null) {
             $key = 'target_' . $actionParameter->getLogKey();
             $parameters[$key] = $actionParameter->getLogName();
-            
+
             // we need to normalize planet name before logging it, as it is saved in database as an array of numbers (basically)
             if (str_contains($key, 'planet')) {
                 $parameters[$key] = $this->normalizePlanetName($actionParameter, $player);
@@ -246,7 +246,7 @@ class RoomLogService implements RoomLogServiceInterface
         ];
     }
 
-    private function normalizePlanetName(LogParameterInterface $actionParameter, Player $player): string 
+    private function normalizePlanetName(LogParameterInterface $actionParameter, Player $player): string
     {
         return $this->planetNameNormalizer->normalize(
             object: json_decode($actionParameter->getLogName(), true),

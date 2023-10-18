@@ -21,19 +21,20 @@ use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class RoomLogService implements RoomLogServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private RandomServiceInterface $randomService;
     private RoomLogRepository $repository;
-    private PlanetNameNormalizer $planetNameNormalizer;
+    private NormalizerInterface $planetNameNormalizer;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         RandomServiceInterface $randomService,
         RoomLogRepository $repository,
-        PlanetNameNormalizer $planetNameNormalizer
+        NormalizerInterface $planetNameNormalizer
     ) {
         $this->entityManager = $entityManager;
         $this->randomService = $randomService;

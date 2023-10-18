@@ -246,10 +246,10 @@ class RoomLogService implements RoomLogServiceInterface
         ];
     }
 
-    private function normalizePlanetName(LogParameterInterface $actionParameter, Player $player): string
+    private function normalizePlanetName(LogParameterInterface $planet, Player $player): string
     {
         return $this->planetNameNormalizer->normalize(
-            object: json_decode($actionParameter->getLogName(), true),
+            object: json_decode($planet->getLogName(), true), // transform json string into array for normalization
             format: null,
             context: ['currentPlayer' => $player]
         );

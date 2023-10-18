@@ -24,8 +24,9 @@
                 </ul>
                 <div class="actions">
                     <ActionButton
+                        v-if="getPlanetTargetAnalyzeAction(planet)"
                         :css-class="'wide'"
-                        :key="getPlanetTargetAnalyzeAction(planet).key"
+                        :key="getPlanetTargetAnalyzeAction(planet)?.key"
                         :action="getPlanetTargetAnalyzeAction(planet)"
                         @click="executeTargetAction(planet, getPlanetTargetAnalyzeAction(planet))"
                     />
@@ -121,11 +122,9 @@ export default defineComponent ({
 
             return planet;
         },
-        getPlanetTargetAnalyzeAction(planet: Planet): Action {
+        getPlanetTargetAnalyzeAction(planet: Planet): Action | null {
             const action = this.getPlanetTargetById(planet.id).actions.find(action => action.key === ActionEnum.ANALYZE_PLANET);
-            if (!action) throw new Error(`No ${ActionEnum.ANALYZE_PLANET} action found for planet ${planet.id}`);
-
-            return action;
+            return action ? action : null;
         },
         getPlanetSeedFromName(name: string): number {
             return name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);

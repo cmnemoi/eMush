@@ -144,7 +144,7 @@
     <unit id="cold">
         <segment id="name" state="translated">
             <source>cold.name</source>
-            <target>Températures basses</target>
+            <target>Température basse</target>
         </segment>
         <segment id="description" state="translated">
             <source>cold.description</source>
@@ -154,7 +154,7 @@
     <unit id="hot">
         <segment id="name" state="translated">
             <source>hot.name</source>
-            <target>Températures élevées</target>
+            <target>Température élevée</target>
         </segment>
         <segment id="description" state="translated">
             <source>hot.description</source>
@@ -168,7 +168,7 @@
         </segment>
         <segment id="description" state="translated">
             <source>strong_wind.description</source>
-            <target>Des vents puisstants balayent la planète.</target>
+            <target>Des vents puissants balayent la planète.</target>
         </segment>
     </unit>
     <unit id="sismic_activity">

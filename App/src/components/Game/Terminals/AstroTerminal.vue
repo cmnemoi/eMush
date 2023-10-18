@@ -24,6 +24,7 @@
                 </ul>
                 <div class="actions">
                     <ActionButton
+                        :css-class="'wide'"
                         :key="getPlanetTargetAnalyzeAction(planet).key"
                         :action="getPlanetTargetAnalyzeAction(planet)"
                         @click="executeTargetAction(planet, getPlanetTargetAnalyzeAction(planet))"

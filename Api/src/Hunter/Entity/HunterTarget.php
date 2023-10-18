@@ -92,4 +92,11 @@ class HunterTarget
     {
         return $this->getTargetEntity()->isInSpaceBattle();
     }
+
+    public function reset(): void
+    {
+        $this->daedalus = null;
+        $this->patrolShip = null;
+        $this->player = null;
+    }
 }

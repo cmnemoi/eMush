@@ -5,6 +5,10 @@ namespace Mush\Tests\functional\Daedalus\Service;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\TitleEnum;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Entity\HunterTarget;
+use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -13,12 +17,14 @@ use Mush\Tests\FunctionalTester;
 class DaedalusServiceCest extends AbstractFunctionalTest
 {
     private DaedalusService $daedalusService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
 
         $this->daedalusService = $I->grabService(DaedalusService::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testFindAllFinishedDaedaluses(FunctionalTester $I)
@@ -87,5 +93,48 @@ class DaedalusServiceCest extends AbstractFunctionalTest
         $I->assertEmpty($chun->getTitles());
         $I->assertEquals($kuanTi->getTitles(), [TitleEnum::NERON_MANAGER, TitleEnum::COM_MANAGER]);
         $I->assertEquals($gioele->getTitles(), [TitleEnum::COMMANDER]);
+    }
+
+    public function testDeleteDaedalusCorrectlyDeletesHunterTargets(FunctionalTester $I)
+    {
+        // given there are some attacking hunters
+        $this->daedalus->setHunterPoints(40);
+        $hunterPoolEvent = new HunterPoolEvent(
+            $this->daedalus,
+            [],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+
+        // given some hunters are targeting a player
+        /** @var Hunter $hunter */
+        $hunter1 = $this->daedalus->getAttackingHunters()->first();
+        $hunterTarget = new HunterTarget($hunter1);
+        $hunterTarget->setTargetEntity($this->player);
+        $hunter1->setTarget($hunterTarget);
+
+        $I->haveInRepository($hunterTarget);
+        $I->haveInRepository($hunter1);
+
+        // given other hunters are targeting the Daedalus
+        /** @var Hunter $hunter */
+        foreach ($this->daedalus->getAttackingHunters() as $hunter) {
+            if ($hunter === $hunter1) {
+                continue;
+            }
+            $hunterTarget = new HunterTarget($hunter);
+            $hunterTarget->setTargetEntity($this->daedalus);
+            $hunter->setTarget($hunterTarget);
+
+            $I->haveInRepository($hunterTarget);
+            $I->haveInRepository($hunter);
+        }
+
+        // when daedalus is deleted
+        $this->daedalusService->closeDaedalus($this->daedalus, ['test'], new \DateTime());
+
+        // then hunter targets are deleted
+        $I->dontSeeInRepository(HunterTarget::class);
+        $I->dontSeeInRepository(Hunter::class);
     }
 }

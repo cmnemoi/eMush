@@ -43,12 +43,17 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
 
         /** @var Hunter $hunter */
         foreach ($attackingHunters as $hunter) {
+            $hunter->getTarget()?->reset();
             $hunter->resetTarget();
         }
         /** @var Hunter $hunter */
         foreach ($pooledHunters as $hunter) {
+            $hunter->getTarget()?->reset();
             $hunter->resetTarget();
         }
+
+        $this->hunterService->persist($attackingHunters->toArray());
+        $this->hunterService->persist($pooledHunters->toArray());
     }
 
     public function onTravelLaunched(DaedalusEvent $event): void

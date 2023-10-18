@@ -114,13 +114,17 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $analyzePlanetAction */
         $analyzePlanetAction = $this->getReference(ActionsFixtures::ANALYZE_PLANET);
 
+        $astroTerminalTool = $this->createTool([$analyzePlanetAction], EquipmentEnum::ASTRO_TERMINAL);
+        $manager->persist($astroTerminalTool);
+
         $astroTerminal = new EquipmentConfig();
         $astroTerminal
             ->setEquipmentName(EquipmentEnum::ASTRO_TERMINAL)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions([$repair12, $sabotage12, $reportAction, $examineAction, $scanAction, $analyzePlanetAction])
+            ->setActions([$repair12, $sabotage12, $reportAction, $examineAction, $scanAction])
+            ->setMechanics([$astroTerminalTool])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($astroTerminal);

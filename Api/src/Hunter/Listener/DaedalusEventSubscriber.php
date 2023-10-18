@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Hunter\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
@@ -28,9 +29,26 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
+            DaedalusEvent::DELETE_DAEDALUS => ['onDeleteDaedalus', EventPriorityEnum::HIGHEST],
             DaedalusEvent::TRAVEL_LAUNCHED => 'onTravelLaunched',
             DaedalusEvent::TRAVEL_FINISHED => 'onTravelFinished',
         ];
+    }
+
+    public function onDeleteDaedalus(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $attackingHunters = $daedalus->getAttackingHunters();
+        $pooledHunters = $daedalus->getHunterPool();
+
+        /** @var Hunter $hunter */
+        foreach ($attackingHunters as $hunter) {
+            $hunter->resetTarget();
+        }
+        /** @var Hunter $hunter */
+        foreach ($pooledHunters as $hunter) {
+            $hunter->resetTarget();
+        }
     }
 
     public function onTravelLaunched(DaedalusEvent $event): void

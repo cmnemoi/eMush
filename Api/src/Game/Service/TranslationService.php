@@ -33,6 +33,10 @@ class TranslationService implements TranslationServiceInterface
             $parameterTranslationMaps = $translationMap[$language];
 
             foreach ($parameters as $paramKey => $element) {
+                // We may sometimes have null log parameters (exemple : PlanetName parts) : we can just skip their translations
+                if ($element === null) {
+                    continue;
+                }
                 $convertedKey = LanguageEnum::convertParameterKeyToTranslationKey($paramKey);
 
                 if (array_key_exists($convertedKey, $parameterTranslationMaps)) {

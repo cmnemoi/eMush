@@ -35,33 +35,11 @@ class PlanetNameNormalizer implements NormalizerInterface
         /** @var array $planetNameArray */
         $planetNameArray = $object instanceof PlanetName ? $object->toArray() : $object;
 
-        return $this->getTranslatedPlanetName($planetNameArray, $currentPlayer);
-    }
-
-    private function getTranslatedPlanetName(array $planetNameArray, Player $currentPlayer): string
-    {
-        $translatedPlanetName = '';
-        foreach ($planetNameArray as $key => $namePart) {
-            if ($namePart === null || $key === 'type') {
-                continue;
-            }
-
-            $translatedNamePart = $this->translationService->translate(
-                key: 'planet_name.' . $key,
-                parameters: ['version' => $namePart],
-                domain: 'planet',
-                language: $currentPlayer->getDaedalus()->getLanguage()
-            );
-
-            if ($key == PlanetName::FIFTH_SYLLABLE) {
-                $translatedPlanetName .= ' ' . $translatedNamePart;
-            } elseif ($key == PlanetName::PREFIX) {
-                $translatedPlanetName .= $translatedNamePart . ' ';
-            } else {
-                $translatedPlanetName .= $translatedNamePart;
-            }
-        }
-
-        return $translatedPlanetName;
+        return $this->translationService->translate(
+            key: 'planet_name',
+            parameters: $planetNameArray,
+            domain: 'planet',
+            language: $currentPlayer->getDaedalus()->getLanguage()
+        );
     }
 }

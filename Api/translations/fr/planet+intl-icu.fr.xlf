@@ -270,9 +270,9 @@
         </segment>
     </unit>
     <unit id="planet_name">
-        <segment id="prefix">
-            <source>planet_name.prefix</source>
-            <target>{version, select,
+        <segment id="planet_name">
+            <source>planet_name</source>
+            <target>{prefix, select,
                 1 {Primus}
                 2 {Secondus} 
                 3 {Tertius}
@@ -307,12 +307,7 @@
                 32 {Theta}
                 33 {Tau}
                 34 {Psi}
-                other {Sigma}
-            }</target>
-        </segment>
-        <segment id="first_syllable">
-            <source>planet_name.first_syllable</source>
-            <target>{version, select,
+                other {}} {first_syllable, select,
                 1 {Fugu}
                 2 {Pilu}
                 3 {Mage}
@@ -360,12 +355,7 @@
                 45 {Pale}
                 46 {Manti}
                 47 {Fulme}
-                other {Fugu}
-            }</target>
-        </segment>
-        <segment id="second_syllable">
-            <source>planet_name.second_syllable</source>
-            <target>{version, select,
+                other {}}{second_syllable, select,
                 1 {ba} 
                 2 {si}
                 3 {sho}
@@ -391,12 +381,7 @@
                 23 {va}
                 24 {vo}
                 25 {v}
-                other {ba}
-            }</target>
-        </segment>
-        <segment id="third_syllable">
-            <source>planet_name.third_syllable</source>
-            <target>{version, select,
+                other {}}{third_syllable, select,
                 1 {ba} 
                 2 {si}
                 3 {sho}
@@ -422,12 +407,7 @@
                 23 {va}
                 24 {vo}
                 25 {v}
-                other {ba}
-            }</target>
-        </segment>
-        <segment id="fourth_syllable">
-            <source>planet_name.fourth_syllable</source>
-            <target>{version, select,
+                other {}}{fourth_syllable, select,
                 1 {nys}
                 2 {nède}
                 3 {lune}
@@ -461,12 +441,7 @@
                 31 {los}
                 32 {bos}
                 33 {ros}
-                other {nys}
-            }</target>
-        </segment>
-        <segment id="fifth_syllable">
-            <source>planet_name.fifth_syllable</source>
-            <target>{version, select,
+                other {}} {fifth_syllable, select,
                 1 {Primus}
                 2 {Secondus} 
                 3 {Tertius}
@@ -501,8 +476,9 @@
                 32 {Theta}
                 33 {Tau}
                 34 {Psi}
-                other {Sigma}
-            }</target>
+                other {}
+            }
+        </target>
         </segment>
     </unit>
   </file>

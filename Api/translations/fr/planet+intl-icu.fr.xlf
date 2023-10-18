@@ -273,41 +273,41 @@
         <segment id="planet_name">
             <source>planet_name</source>
             <target>{prefix, select,
-                1 {Primus}
-                2 {Secondus} 
-                3 {Tertius}
-                4 {Quartus}
-                5 {First}
-                6 {Second}
-                7 {II}
-                8 {III}
-                9 {IV}
-                10 {V}
-                11 {VI}
-                12 {VII}
-                13 {VIII}
-                14 {IX}
-                15 {X}
-                16 {Lumis}
-                17 {Alpha}
-                18 {Beta}
-                19 {Ceta}
-                20 {Delta}
-                21 {Epsilon}
-                22 {Gamma}
-                23 {Zeta}
-                24 {Eta}
-                25 {Sigma}
-                26 {Omicron}
-                27 {Upsilon}
-                28 {Lambda}
-                29 {Omega}
-                30 {Kappa}
-                31 {Iota}
-                32 {Theta}
-                33 {Tau}
-                34 {Psi}
-                other {}} {first_syllable, select,
+                1 {Primus }
+                2 {Secondus } 
+                3 {Tertius }
+                4 {Quartus }
+                5 {First }
+                6 {Second }
+                7 {II }
+                8 {III }
+                9 {IV }
+                10 {V }
+                11 {VI }
+                12 {VII }
+                13 {VIII }
+                14 {IX }
+                15 {X }
+                16 {Lumis }
+                17 {Alpha }
+                18 {Beta }
+                19 {Ceta }
+                20 {Delta }
+                21 {Epsilon }
+                22 {Gamma }
+                23 {Zeta }
+                24 {Eta }
+                25 {Sigma }
+                26 {Omicron }
+                27 {Upsilon }
+                28 {Lambda }
+                29 {Omega }
+                30 {Kappa }
+                31 {Iota }
+                32 {Theta }
+                33 {Tau }
+                34 {Psi }
+                other {}}{first_syllable, select,
                 1 {Fugu}
                 2 {Pilu}
                 3 {Mage}
@@ -441,44 +441,42 @@
                 31 {los}
                 32 {bos}
                 33 {ros}
-                other {}} {fifth_syllable, select,
-                1 {Primus}
-                2 {Secondus} 
-                3 {Tertius}
-                4 {Quartus}
-                5 {First}
-                6 {Second}
-                7 {II}
-                8 {III}
-                9 {IV}
-                10 {V}
-                11 {VI}
-                12 {VII}
-                13 {VIII}
-                14 {IX}
-                15 {X}
-                16 {Lumis}
-                17 {Alpha}
-                18 {Beta}
-                19 {Ceta}
-                20 {Delta}
-                21 {Epsilon}
-                22 {Gamma}
-                23 {Zeta}
-                24 {Eta}
-                25 {Sigma}
-                26 {Omicron}
-                27 {Upsilon}
-                28 {Lambda}
-                29 {Omega}
-                30 {Kappa}
-                31 {Iota}
-                32 {Theta}
-                33 {Tau}
-                34 {Psi}
-                other {}
-            }
-        </target>
+                other {}}{fifth_syllable, select,
+                1 { Primus}
+                2 { Secondus} 
+                3 { Tertius}
+                4 { Quartus}
+                5 { First}
+                6 { Second}
+                7 { II}
+                8 { III}
+                9 { IV}
+                10 { V}
+                11 { VI}
+                12 { VII}
+                13 { VIII}
+                14 { IX}
+                15 { X}
+                16 { Lumis}
+                17 { Alpha}
+                18 { Beta}
+                19 { Ceta}
+                20 { Delta}
+                21 { Epsilon}
+                22 { Gamma}
+                23 { Zeta}
+                24 { Eta}
+                25 { Sigma}
+                26 { Omicron}
+                27 { Upsilon}
+                28 { Lambda}
+                29 { Omega}
+                30 { Kappa}
+                31 { Iota}
+                32 { Theta}
+                33 { Tau}
+                34 { Psi}
+                other {}}</target>
         </segment>
     </unit>
   </file>

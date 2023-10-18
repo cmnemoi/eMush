@@ -17,13 +17,16 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
     use NormalizerAwareTrait;
 
     private GearToolServiceInterface $gearToolService;
+    private PlanetNameNormalizer $planetNameNormalizer;
     private TranslationServiceInterface $translationService;
 
     public function __construct(
         GearToolServiceInterface $gearToolService,
+        PlanetNameNormalizer $planetNameNormalizer,
         TranslationServiceInterface $translationService
     ) {
         $this->gearToolService = $gearToolService;
+        $this->planetNameNormalizer = $planetNameNormalizer;
         $this->translationService = $translationService;
     }
 
@@ -39,7 +42,7 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
 
         return [
             'id' => $planet->getId(),
-            'name' => $this->normalizer->normalize($planet->getName(), $format, $context),
+            'name' => $this->planetNameNormalizer->normalize($planet->getName()->toArray(), $format, $context),
             'orientation' => $this->translationService->translate(
                 key: $planet->getOrientation(),
                 parameters: [],

@@ -20,15 +20,12 @@ class PlanetNameNormalizer implements NormalizerInterface
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        // we normalize planet name directly in the PlanetNameNormalizer as a PlanetName entity or indirectly as an array in RoomLogService
-        // so we need to check if the data is an instance of PlanetName or an array with the right type field for normalization
-
-        $dataIsPlanetNameEntity = $data instanceof PlanetName;
+        // PlanetName entity is sent to normalizer as an array with a 'type' field
 
         $dataHasTypeField = is_array($data) && array_key_exists('type', $data);
         $dataTypeFieldIsPlanetName = $dataHasTypeField && $data['type'] === PlanetName::class;
 
-        return $dataIsPlanetNameEntity || $dataTypeFieldIsPlanetName;
+        return $dataTypeFieldIsPlanetName;
     }
 
     public function normalize(mixed $object, string $format = null, array $context = []): string

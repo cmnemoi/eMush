@@ -115,6 +115,7 @@ class ActionLogEnum
     public const ADVANCE_DAEDALUS_ARACK_PREVENTS_TRAVEL = 'advance_daedalus_arack_prevents_travel';
     public const SCAN_SUCCESS = 'scan_success';
     public const SCAN_FAIL = 'scan_fail';
+    public const ANALYZE_PLANET_SUCCESS = 'analyze_planet_success';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -401,6 +402,9 @@ class ActionLogEnum
         ActionEnum::SCAN => [
             ActionOutputEnum::SUCCESS => self::SCAN_SUCCESS,
             ActionOutputEnum::FAIL => self::SCAN_FAIL,
+        ],
+        ActionEnum::ANALYZE_PLANET => [
+            ActionOutputEnum::SUCCESS => self::ANALYZE_PLANET_SUCCESS,
         ],
     ];
 }

@@ -7,14 +7,10 @@ namespace Mush\Exploration\Normalizer;
 use Mush\Exploration\Entity\PlanetName;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
-use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class PlanetNameNormalizer implements NormalizerInterface, NormalizerAwareInterface
+class PlanetNameNormalizer implements NormalizerInterface
 {
-    use NormalizerAwareTrait;
-
     private TranslationServiceInterface $translationService;
 
     public function __construct(TranslationServiceInterface $translationService)

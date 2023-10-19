@@ -30,6 +30,8 @@ use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Entity\PlaceConfig;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -79,6 +81,16 @@ class LastPlayerCloseGameCest
             'cycleStartedAt' => new \DateTime(),
         ]);
 
+        /** @var PlaceConfig $spaceConfig */
+        $spaceConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::SPACE]);
+        $space = new Place();
+        $space
+            ->setName(RoomEnum::SPACE)
+            ->setType($spaceConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($space);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
@@ -111,7 +123,7 @@ class LastPlayerCloseGameCest
         $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
@@ -156,6 +168,16 @@ class LastPlayerCloseGameCest
             'cycleStartedAt' => new \DateTime(),
         ]);
 
+        /** @var PlaceConfig $spaceConfig */
+        $spaceConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::SPACE]);
+        $space = new Place();
+        $space
+            ->setName(RoomEnum::SPACE)
+            ->setType($spaceConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($space);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
@@ -188,7 +210,7 @@ class LastPlayerCloseGameCest
         $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, [
@@ -207,7 +229,7 @@ class LastPlayerCloseGameCest
         $playerInfo2->setGameStatus(GameStatusEnum::CLOSED);
         $I->haveInRepository($playerInfo2);
         $player2->setPlayerInfo($playerInfo2);
-        $I->refreshEntities($player2);
+        $I->haveInRepository($player2);
 
         $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
@@ -264,6 +286,16 @@ class LastPlayerCloseGameCest
             'cycleStartedAt' => new \DateTime(),
         ]);
 
+        /** @var PlaceConfig $spaceConfig */
+        $spaceConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::SPACE]);
+        $space = new Place();
+        $space
+            ->setName(RoomEnum::SPACE)
+            ->setType($spaceConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($space);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
@@ -303,7 +335,7 @@ class LastPlayerCloseGameCest
         $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         $status = new Status($player, $mushConfig);
         $I->haveInRepository($status);
@@ -361,6 +393,16 @@ class LastPlayerCloseGameCest
             'cycleStartedAt' => new \DateTime(),
         ]);
 
+        /** @var PlaceConfig $spaceConfig */
+        $spaceConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::SPACE]);
+        $space = new Place();
+        $space
+            ->setName(RoomEnum::SPACE)
+            ->setType($spaceConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($space);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
@@ -400,7 +442,7 @@ class LastPlayerCloseGameCest
         $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
@@ -449,6 +491,16 @@ class LastPlayerCloseGameCest
             'cycleStartedAt' => new \DateTime(),
         ]);
 
+        /** @var PlaceConfig $spaceConfig */
+        $spaceConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::SPACE]);
+        $space = new Place();
+        $space
+            ->setName(RoomEnum::SPACE)
+            ->setType($spaceConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($space);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
@@ -483,7 +535,7 @@ class LastPlayerCloseGameCest
         $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         $gameEquipment = new GameEquipment($room2);
         $gameEquipment
@@ -537,6 +589,16 @@ class LastPlayerCloseGameCest
             'cycleStartedAt' => new \DateTime(),
         ]);
 
+        /** @var PlaceConfig $spaceConfig */
+        $spaceConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::SPACE]);
+        $space = new Place();
+        $space
+            ->setName(RoomEnum::SPACE)
+            ->setType($spaceConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($space);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
@@ -569,7 +631,7 @@ class LastPlayerCloseGameCest
         $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         $reportedAlert = new AlertElement();
         $reportedAlert->setPlace($room);
@@ -629,6 +691,16 @@ class LastPlayerCloseGameCest
             'cycleStartedAt' => new \DateTime(),
         ]);
 
+        /** @var PlaceConfig $spaceConfig */
+        $spaceConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::SPACE]);
+        $space = new Place();
+        $space
+            ->setName(RoomEnum::SPACE)
+            ->setType($spaceConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($space);
+
         $effect = new ConsumableEffect();
         $effect
             ->setSatiety(1)
@@ -685,7 +757,7 @@ class LastPlayerCloseGameCest
         $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
@@ -745,6 +817,16 @@ class LastPlayerCloseGameCest
             'cycleStartedAt' => new \DateTime(),
         ]);
 
+        /** @var PlaceConfig $spaceConfig */
+        $spaceConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::SPACE]);
+        $space = new Place();
+        $space
+            ->setName(RoomEnum::SPACE)
+            ->setType($spaceConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($space);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
@@ -784,7 +866,7 @@ class LastPlayerCloseGameCest
         $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         $modifierPlayer = new GameModifier($player, $modifierConfig);
         $I->haveInRepository($modifierPlayer);

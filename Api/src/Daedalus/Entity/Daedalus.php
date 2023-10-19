@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
+use Mush\Exploration\Entity\SpaceCoordinates;
 use Mush\Exploration\Enum\SpaceOrientationEnum;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameConfig;
@@ -493,6 +494,14 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         $this->orientation = $orientation;
 
         return $this;
+    }
+
+    public function getDestination(): SpaceCoordinates
+    {
+        return new SpaceCoordinates(
+            orientation: $this->orientation,
+            distance: $this->getCombustionChamberFuel(),
+        );
     }
 
     public function getClassName(): string

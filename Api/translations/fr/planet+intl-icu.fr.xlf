@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+  <file id="planet.ext">
+    <unit id="landing">
+        <segment id="name" state="translated">
+            <source>landing.name</source>
+            <target>Atterrissage</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>landing.description</source>
+            <target>NA</target>
+        </segment>
+    </unit>
+    <unit id="forest">
+        <segment id="name" state="translated">
+            <source>forest.name</source>
+            <target>Forêt</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>forest.description</source>
+            <target>Cette planète est en partie couverte de forêt.</target>
+        </segment>
+    </unit>
+    <unit id="mountain">
+        <segment id="name" state="translated">
+            <source>mountain.name</source>
+            <target>Montagne</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>mountain.description</source>
+            <target>Des étendues rocheuses couvrent cette planète.</target>
+        </segment>
+    </unit>
+    <unit id="swamp">
+        <segment id="name" state="translated">
+            <source>swamp.name</source>
+            <target>Marais</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>swamp.description</source>
+            <target>Cette planète comporte des terrains marécageux, boueux et malodorants.</target>
+        </segment>
+    </unit>
+    <unit id="desert">
+        <segment id="name" state="translated">
+            <source>desert.name</source>
+            <target>Désert</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>desert.description</source>
+            <target>Cette planète comporte des terrains désertiques, arides, secs et hostiles.</target>
+        </segment>
+    </unit>
+    <unit id="ocean">
+        <segment id="name" state="translated">
+            <source>ocean.name</source>
+            <target>Océan</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>ocean.description</source>
+            <target>L'espace quasi-infini mais en mouillé.</target>
+        </segment>
+    </unit>
+    <unit id="cave">
+        <segment id="name" state="translated">
+            <source>cave.name</source>
+            <target>Grotte</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>cave.description</source>
+            <target>Cette planète est truffée de cavernes sombres et humides.</target>
+        </segment>
+    </unit>
+    <unit id="ruminant">
+        <segment id="name" state="translated">
+            <source>ruminant.name</source>
+            <target>Ruminants</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>ruminant.description</source>
+            <target>Troupeau de ruminants ou autre forme de nourriture animale.</target>
+        </segment>
+    </unit>
+    <unit id="predator">
+        <segment id="name" state="translated">
+            <source>predator.name</source>
+            <target>Prédateurs</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>predator.description</source>
+            <target>Forme de vies animales carnivores.</target>
+        </segment>
+    </unit>
+    <unit id="intelligent">
+        <segment id="name" state="translated">
+            <source>intelligent.name</source>
+            <target>Vie intelligente</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>intelligent.description</source>
+            <target>Forme avancée d'êtres intelligents.</target>
+        </segment>
+    </unit>
+    <unit id="insect">
+        <segment id="name" state="translated">
+            <source>insect.name</source>
+            <target>Insectes</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>insect.description</source>
+            <target>Présence d'insectes divers.</target>
+        </segment>
+    </unit>
+    <unit id="mankarog">
+        <segment id="name" state="translated">
+            <source>mankarog.name</source>
+            <target>Mankarog</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>mankarog.description</source>
+            <target>Truc énorme qui bouffe les joueurs un par un.</target>
+        </segment>
+    </unit>
+    <unit id="hydrocarbon">
+        <segment id="name" state="translated">
+            <source>hydrocarbon.name</source>
+            <target>Hydrocarbures</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>hydrocarbon.description</source>
+            <target>Présence d'hydrocarbures en sous-sol.</target>
+        </segment>
+    </unit>
+    <unit id="oxygen">
+        <segment id="name" state="translated">
+            <source>oxygen.name</source>
+            <target>Oxygène</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>oxygen.description</source>
+            <target>Présence d'oxygène dans l'atmosphère.</target>
+        </segment>
+    </unit>
+    <unit id="cold">
+        <segment id="name" state="translated">
+            <source>cold.name</source>
+            <target>Température basse</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>cold.description</source>
+            <target>La température est relativement basse et peut gêner l'expédition.</target>
+        </segment>
+    </unit>
+    <unit id="hot">
+        <segment id="name" state="translated">
+            <source>hot.name</source>
+            <target>Température élevée</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>hot.description</source>
+            <target>La température est relativement élevée, ce qui peut gêner l'expédition.</target>
+        </segment>
+    </unit>
+    <unit id="strong_wind">
+        <segment id="name" state="translated">
+            <source>strong_wind.name</source>
+            <target>Vents forts</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>strong_wind.description</source>
+            <target>Des vents puissants balayent la planète.</target>
+        </segment>
+    </unit>
+    <unit id="sismic_activity">
+        <segment id="name" state="translated">
+            <source>sismic_activity.name</source>
+            <target>Sismique</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>sismic_activity.description</source>
+            <target>Forte activité sismique.</target>
+        </segment>
+    </unit>
+    <unit id="volcanic_activity">
+        <segment id="name" state="translated">
+            <source>volcanic_activity.name</source>
+            <target>Volcan</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>volcanic_activity.description</source>
+            <target>Activité volcanique.</target>
+        </segment>
+    </unit>
+    <unit id="ruins">
+        <segment id="name" state="translated">
+            <source>ruins.name</source>
+            <target>Ruines</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>ruins.description</source>
+            <target>Présence de ruines d'une ancienne civilisation.</target>
+        </segment>
+    </unit>
+    <unit id="wreck">
+        <segment id="name" state="translated">
+            <source>wreck.name</source>
+            <target>Épave</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>wreck.description</source>
+            <target>Présence d'une épave inconnue.</target>
+        </segment>
+    </unit>
+    <unit id="fruit_trees">
+        <segment id="name" state="translated">
+            <source>fruit_trees.name</source>
+            <target>Vergers</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>fruit_trees.description</source>
+            <target>Présence d'arbres fruitiers.</target>
+        </segment>
+    </unit>
+    <unit id="lost">
+        <segment id="name" state="translated">
+            <source>lost.name</source>
+            <target>Perdu</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>lost.description</source>
+            <target>Présence de membres de l'équipage du Daedalus</target>
+        </segment>
+    </unit>
+    <unit id="cristal_field">
+        <segment id="name" state="translated">
+            <source>cristal_field.name</source>
+            <target>Cristalite</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>cristal_field.description</source>
+            <target>Zone à concentration élevée de cristalites.</target>
+        </segment>
+    </unit>
+    <unit id="unknown">
+        <segment id="name" state="translated">
+            <source>unknown.name</source>
+            <target>???</target>
+        </segment>
+        <segment id="description" state="translated">
+            <source>unknown.description</source>
+            <target>Caractéristique inconnue.</target>
+        </segment>
+    </unit>
+    <unit id="orientation">
+        <segment id="north" state="translated">
+            <source>north</source>
+            <target>Nord</target>
+        </segment>
+        <segment id="south" state="translated">
+            <source>south</source>
+            <target>Sud</target>
+        </segment>
+        <segment id="east" state="translated">
+            <source>east</source>
+            <target>Est</target>
+        </segment>
+        <segment id="west" state="translated">
+            <source>west</source>
+            <target>Ouest</target>
+        </segment>
+    </unit>
+    <unit id="planet_name">
+        <segment id="planet_name">
+            <source>planet_name</source>
+            <target>{prefix, select,
+                1 {Primus }
+                2 {Secondus } 
+                3 {Tertius }
+                4 {Quartus }
+                5 {First }
+                6 {Second }
+                7 {II }
+                8 {III }
+                9 {IV }
+                10 {V }
+                11 {VI }
+                12 {VII }
+                13 {VIII }
+                14 {IX }
+                15 {X }
+                16 {Lumis }
+                17 {Alpha }
+                18 {Beta }
+                19 {Ceta }
+                20 {Delta }
+                21 {Epsilon }
+                22 {Gamma }
+                23 {Zeta }
+                24 {Eta }
+                25 {Sigma }
+                26 {Omicron }
+                27 {Upsilon }
+                28 {Lambda }
+                29 {Omega }
+                30 {Kappa }
+                31 {Iota }
+                32 {Theta }
+                33 {Tau }
+                34 {Psi }
+                other {}}{first_syllable, select,
+                1 {Fugu}
+                2 {Pilu}
+                3 {Mage}
+                4 {Frome}
+                5 {Grune}
+                6 {Brate}
+                7 {Milo}
+                8 {Komo}
+                9 {Date}
+                10 {Sigu}
+                11 {Crame}
+                12 {Fari}
+                13 {Mushe}
+                14 {Dago}
+                15 {Cari}
+                16 {Sopi}
+                17 {Nato}
+                18 {Sube}
+                19 {Ludi}
+                20 {Miche}
+                21 {Pample}
+                22 {Noce}
+                23 {Gouli}
+                24 {Kafto}
+                25 {Suppo}
+                26 {Bani}
+                27 {Grumo}
+                28 {Cele}
+                29 {Mura}
+                30 {Fanto}
+                31 {Epso}
+                32 {Uri}
+                33 {Yoga}
+                34 {Yami}
+                35 {Doro}
+                36 {Pila}
+                37 {Manche}
+                38 {Atlan}
+                39 {Biro}
+                40 {Popo}
+                41 {Papu}
+                42 {Pogo}
+                43 {Pyro}
+                44 {Pouli}
+                45 {Pale}
+                46 {Manti}
+                47 {Fulme}
+                other {}}{second_syllable, select,
+                1 {ba} 
+                2 {si}
+                3 {sho}
+                4 {go}
+                5 {ga}
+                6 {be}
+                7 {re}
+                8 {ra}
+                9 {mou}
+                10 {nou}
+                11 {bu}
+                12 {cha}
+                13 {bi}
+                14 {do}
+                15 {pu}
+                16 {pa}
+                17 {pe}
+                18 {lo}
+                19 {la}
+                20 {li}
+                21 {ja}
+                22 {je}
+                23 {va}
+                24 {vo}
+                25 {v}
+                other {}}{third_syllable, select,
+                1 {ba} 
+                2 {si}
+                3 {sho}
+                4 {go}
+                5 {ga}
+                6 {be}
+                7 {re}
+                8 {ra}
+                9 {mou}
+                10 {nou}
+                11 {bu}
+                12 {cha}
+                13 {bi}
+                14 {do}
+                15 {pu}
+                16 {pa}
+                17 {pe}
+                18 {lo}
+                19 {la}
+                20 {li}
+                21 {ja}
+                22 {je}
+                23 {va}
+                24 {vo}
+                25 {v}
+                other {}}{fourth_syllable, select,
+                1 {nys}
+                2 {nède}
+                3 {lune}
+                4 {gone}
+                5 {gon}
+                6 {bon}
+                7 {don}
+                8 {rys}
+                9 {ride}
+                10 {ïde}
+                11 {oïne}
+                12 {gonde}
+                13 {laise}
+                14 {ter}
+                15 {tune}
+                16 {cure}
+                17 {nous}
+                18 {node}
+                19 {lode}
+                20 {ide}
+                21 {leïde}
+                22 {ta}
+                23 {na}
+                24 {pia}
+                25 {nia}
+                26 {tia}
+                27 {bia}
+                28 {ba}
+                29 {ma}
+                30 {meha}
+                31 {los}
+                32 {bos}
+                33 {ros}
+                other {}}{fifth_syllable, select,
+                1 { Primus}
+                2 { Secondus} 
+                3 { Tertius}
+                4 { Quartus}
+                5 { First}
+                6 { Second}
+                7 { II}
+                8 { III}
+                9 { IV}
+                10 { V}
+                11 { VI}
+                12 { VII}
+                13 { VIII}
+                14 { IX}
+                15 { X}
+                16 { Lumis}
+                17 { Alpha}
+                18 { Beta}
+                19 { Ceta}
+                20 { Delta}
+                21 { Epsilon}
+                22 { Gamma}
+                23 { Zeta}
+                24 { Eta}
+                25 { Sigma}
+                26 { Omicron}
+                27 { Upsilon}
+                28 { Lambda}
+                29 { Omega}
+                30 { Kappa}
+                31 { Iota}
+                32 { Theta}
+                33 { Tau}
+                34 { Psi}
+                other {}}</target>
+        </segment>
+    </unit>
+  </file>
+</xliff>

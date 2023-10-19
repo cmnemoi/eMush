@@ -16,9 +16,6 @@ class PlanetName
     public const NUMBER_OF_FOURTH_SYLLABLES = 33;
     public const NUMBER_OF_FIFTH_SYLLABLES = 34;
 
-    public const PREFIX = 'prefix';
-    public const FIFTH_SYLLABLE = 'fifth_syllable';
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -119,9 +116,10 @@ class PlanetName
         return $this;
     }
 
-    public function getNameAsArray(): array
+    public function toArray(): array
     {
         return [
+            'type' => self::class,
             'prefix' => $this->prefix,
             'first_syllable' => $this->firstSyllable,
             'second_syllable' => $this->secondSyllable,

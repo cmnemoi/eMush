@@ -1,51 +1,59 @@
 <template>
     <div class="planet-container">
-        <section class="planet">
-            <h3>Goulidon</h3>
+        <section
+            v-for="planet in planets"
+            :key="planet.id"
+            class="planet" 
+        >
+            <h3>{{ planet.name }}</h3>
             <div class="card">
-                <img src="@/assets/images/astro/planet_0_small.png">
-                <p><span>Direction</span> East</p>
-                <p><span>Fuel required</span> 3</p>
+                <img :src="getPlanetImage(planet)">
+                <p><span>{{ terminal.sectionTitles.orientation }}</span> {{ planet.orientation }}</p>
+                <p><span>{{ terminal.sectionTitles.distance }}</span> {{ planet.distance }}</p>
             </div>
             <div class="analysis">
                 <ul>
-                    <li><img src="@/assets/images/astro/cold.png"></li>
-                    <li><img src="@/assets/images/astro/ocean.png"></li>
-                    <li><img src="@/assets/images/astro/forest.png"></li>
-                    <li><img src="@/assets/images/astro/cold.png"></li>
-                    <li><img src="@/assets/images/astro/ocean.png"></li>
-                    <li><img src="@/assets/images/astro/unknown.png"></li>
-                    <li><img src="@/assets/images/astro/unknown.png"></li>
-                    <li><img src="@/assets/images/astro/unknown.png"></li>
-                    <li><img src="@/assets/images/astro/forest.png"></li>
-                    <li><img src="@/assets/images/astro/cold.png"></li>
-                    <li><img src="@/assets/images/astro/cold.png"></li>
+                    <li v-for="sector in planet.sectors" :key="sector.id">
+                        <Tippy tag="img" :src="getSectorImage(sector.key)">
+                            <template #content>
+                                <h1 v-html="formatText(sector.name)" />
+                                <p v-html="formatText(sector.description)" />
+                            </template>
+                        </Tippy>
+                    </li>
                 </ul>
                 <div class="actions">
-                    <button>
-                        <span class="cost">2<img src="@/assets/images/pa.png" alt="ap"></span>
-                        <span>Analysis</span>
-                    </button>
+                    <ActionButton
+                        v-if="getPlanetTargetAnalyzeAction(planet)"
+                        :css-class="'wide'"
+                        :key="getPlanetTargetAnalyzeAction(planet)?.key"
+                        :action="getPlanetTargetAnalyzeAction(planet)"
+                        @click="executeTargetAction(planet, getPlanetTargetAnalyzeAction(planet))"
+                    />
                     <button class="delete">
                         <img src="@/assets/images/bin.png">
                     </button>
                 </div>
             </div>
         </section>
-
-        <section class="planet unknown">
+        <section
+            v-for="i in numberOfUnknownPlanets"
+            :key="i"
+            class="planet unknown"
+        >
             <h3>???</h3>
             <div class="card">
                 <img src="@/assets/images/astro/planet_unknown.png">
             </div>
             <div class="analysis">
                 <!-- <p>Scanning impossible...</p> -->
-                <p>80% <img src="@/assets/images/astro/thermosensors.png"></p>
+                <p>{{ scanAction.successRate }}% <img src="@/assets/images/astro/thermosensors.png"></p>
                 <div class="actions">
-                    <button>
-                        <span class="cost">2<img src="@/assets/images/pa.png" alt="ap"></span>
-                        <span>Scan (80%)</span>
-                    </button>
+                    <ActionButton
+                        :key="scanAction.key"
+                        :action="scanAction"
+                        @click="executeTargetAction(terminalTarget, scanAction)"
+                    />
                 </div>
             </div>
         </section>
@@ -53,16 +61,92 @@
 </template>
 
 <script lang="ts">
+import { Planet } from "@/entities/Planet";
 import { Terminal } from "@/entities/Terminal";
 import { defineComponent } from "vue";
+import { ActionEnum } from "@/enums/action.enum";
+import { Action } from "@/entities/Action";
+import { formatText } from "@/utils/formatText";
+import { mapActions } from "vuex";
+import ActionButton from "@/components/Utils/ActionButton.vue";
 
 export default defineComponent ({
     name: "AstroTerminal",
+    components : {
+        ActionButton
+    },
     props: {
         terminal: {
             type: Terminal,
             required: true
+        },
+    },
+    computed: {
+        scanAction(): Action {
+            const action = this.terminal?.actions.find(action => action.key === ActionEnum.SCAN);
+            if (!action) throw new Error(`No ${ActionEnum.SCAN} action found for terminal ${this.terminal?.key}`);
+
+            return action;
+        },
+        terminalTarget() : Terminal {
+            return this.terminal;
+        },
+        planets(): Planet[] {
+            const planets = this.terminal?.infos.planets;
+            if (!planets) throw new Error(`No planets found for terminal ${this.terminal?.key}`);
+
+            return planets;
+        },
+        numberOfUnknownPlanets(): number {
+            const maxDiscoverablePlanets = this.terminal.infos?.maxDiscoverablePlanets;
+            if (!maxDiscoverablePlanets) {
+                throw new Error(`No maxDiscoverablePlanets found for terminal ${this.terminal?.key}`);
+            }
+
+            return maxDiscoverablePlanets - this.planets.length;
         }
+    },
+    methods: {
+        ...mapActions({
+            'executeAction': 'action/executeAction',
+        }),
+        async executeTargetAction(target: Terminal | Planet, action: Action): Promise<void> {
+            if (!target) throw new Error(`No target found for action ${action.key}`);
+            if (action.canExecute) {
+                await this.executeAction({ target, action });
+            }
+        },
+        getPlanetTargetById(id: number): Planet {
+            const planet = this.planets.find(planet => planet.id === id);
+            if (!planet) throw new Error(`No planet found for id ${id}`);
+
+            return planet;
+        },
+        getPlanetTargetAnalyzeAction(planet: Planet): Action | null {
+            const action = this.getPlanetTargetById(planet.id).actions.find(action => action.key === ActionEnum.ANALYZE_PLANET);
+            return action ? action : null;
+        },
+        getPlanetSeedFromName(name: string): number {
+            return name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        },
+        getPlanetImage(planet: Planet): string {
+            const id = this.getPlanetSeedFromName(planet.name) % this.numberOfPlanetImages;
+            return require(`@/assets/images/astro/planet_${id}_small.png`);
+        },
+        getSectorImage(sector: string): string {
+            return require(`@/assets/images/astro/${sector}.png`);
+        },
+        formatText(text: string | null): string {
+            if (!text)
+                return '';
+            return formatText(text);
+        }
+    },
+    data() {
+        return {
+            ActionEnum,
+            numberOfPlanetImages: 5,
+        };
     },
 });
 </script>

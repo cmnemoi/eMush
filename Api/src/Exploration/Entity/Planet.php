@@ -73,6 +73,16 @@ final class Planet
         return $this;
     }
 
+    public function getOrientation(): string
+    {
+        return $this->orientation;
+    }
+
+    public function getDistance(): int
+    {
+        return $this->distance;
+    }
+
     public function getCoordinates(): SpaceCoordinates
     {
         return new SpaceCoordinates($this->orientation, $this->distance);

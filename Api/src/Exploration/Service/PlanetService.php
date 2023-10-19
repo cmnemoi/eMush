@@ -134,7 +134,7 @@ final class PlanetService implements PlanetServiceInterface
                 // Get the maximum number of times this sector can appear on a planet
                 $maxPerPlanet = $sectorConfig->getMaxPerPlanet();
 
-                // Add the weight of this sector  to the running sum
+                // Add the weight of this sector to the running sum
                 $sum += $sectorConfig->getWeightAtPlanetGeneration();
 
                 // If the running sum is greater than the random number, add the sector to the planet

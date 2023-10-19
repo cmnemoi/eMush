@@ -8,8 +8,10 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Exploration\Entity\Planet;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
@@ -26,15 +28,18 @@ class RoomLogService implements RoomLogServiceInterface
     private EntityManagerInterface $entityManager;
     private RandomServiceInterface $randomService;
     private RoomLogRepository $repository;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         RandomServiceInterface $randomService,
         RoomLogRepository $repository,
+        TranslationServiceInterface $translationService
     ) {
         $this->entityManager = $entityManager;
         $this->randomService = $randomService;
         $this->repository = $repository;
+        $this->translationService = $translationService;
     }
 
     public function persist(RoomLog $roomLog): RoomLog
@@ -109,6 +114,19 @@ class RoomLogService implements RoomLogServiceInterface
         if ($actionParameter !== null) {
             $key = 'target_' . $actionParameter->getLogKey();
             $parameters[$key] = $actionParameter->getLogName();
+
+            // we need to translate planet name before logging it, as it is saved in database as an array of numbers (basically)
+            if (str_contains($key, 'planet')) {
+                /** @var Planet $planet */
+                $planet = $actionParameter;
+
+                $parameters[$key] = $this->translationService->translate(
+                    key: 'planet_name',
+                    parameters: $planet->getName()->toArray(),
+                    domain: 'planet',
+                    language: $player->getDaedalus()->getLanguage()
+                );
+            }
         }
         if (($equipment = $actionResult->getEquipment()) !== null) {
             $parameters[$equipment->getLogKey()] = $equipment->getLogName();

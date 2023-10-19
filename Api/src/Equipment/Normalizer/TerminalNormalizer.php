@@ -37,7 +37,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         return $data instanceof GameEquipment;
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = [])
+    public function normalize(mixed $object, string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
@@ -69,7 +69,9 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             ),
             'tips' => $this->translationService->translate(
                 key: $terminalKey . '.tips',
-                parameters: [],
+                parameters: [
+                    'max_planets' => $currentPlayer->getPlayerInfo()->getCharacterConfig()->getMaxDiscoverablePlanets(),
+                ],
                 domain: 'terminal',
                 language: $daedalus->getLanguage()
             ),
@@ -77,16 +79,20 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             'sectionTitles' => $this->normalizeTerminalSectionTitles($terminal),
         ];
 
-        // @TODO : add other terminal infos
+        $astroTerminalInfos = $this->normalizeAstroTerminalInfos($format, $context);
         $commandTerminalInfos = $this->normalizeCommandTerminalInfos($terminal);
-        $normalizedTerminal['infos'] = $commandTerminalInfos;
+
+        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos);
 
         return $normalizedTerminal;
     }
 
     private function normalizeTerminalActions(GameEquipment $terminal, ?string $format, array $context = []): array
     {
-        $actions = $terminal->getActions()->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::TERMINAL);
+        $actions = $terminal->getActions()
+            ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::TERMINAL)
+            ->filter(fn (Action $action) => $action->getTarget() === null)
+        ;
 
         $normalizedActions = [];
         /** @var Action $action */
@@ -116,11 +122,11 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         return $titles;
     }
 
-    private function normalizeCommandTerminalInfos(GameEquipment $terminal): ?array
+    private function normalizeCommandTerminalInfos(GameEquipment $terminal): array
     {
         $terminalKey = $terminal->getName();
         if ($terminalKey !== EquipmentEnum::COMMAND_TERMINAL) {
-            return null;
+            return [];
         }
 
         $difficulty = DifficultyEnum::NORMAL;
@@ -153,6 +159,27 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
                 language: $daedalus->getLanguage()
             ),
             'advanceDaedalusStatus' => $advanceDaedalusStatus,
+        ];
+    }
+
+    private function normalizeAstroTerminalInfos(?string $format, array $context): array
+    {
+        /** @var Player $currentPlayer */
+        $currentPlayer = $context['currentPlayer'];
+        /** @var GameEquipment $terminal */
+        $terminal = $context['terminal'];
+
+        $terminalKey = $terminal->getName();
+        if ($terminalKey !== EquipmentEnum::ASTRO_TERMINAL) {
+            return [];
+        }
+
+        // TODO : handle case if we are in orbit
+        $playerPlanets = $currentPlayer->getPlanets();
+
+        return [
+            'planets' => $this->normalizer->normalize($playerPlanets, $format, $context),
+            'maxDiscoverablePlanets' => $currentPlayer->getPlayerInfo()->getCharacterConfig()->getMaxDiscoverablePlanets(),
         ];
     }
 }

@@ -101,6 +101,7 @@ class ActionsFixtures extends Fixture
     public const SCAN = 'scan';
     public const ANALYZE_PLANET = 'analyze.planet';
     public const TURN_DAEDALUS_LEFT = 'turn.daedalus.left';
+    public const TURN_DAEDALUS_RIGHT = 'turn.daedalus.right';
 
     public function load(ObjectManager $manager): void
     {
@@ -1005,6 +1006,16 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($turnDaedalusLeft);
 
+        $turnDaedalusRight = new Action();
+        $turnDaedalusRight
+            ->setName(ActionEnum::TURN_DAEDALUS_RIGHT)
+            ->setActionName(ActionEnum::TURN_DAEDALUS_RIGHT)
+            ->setScope(ActionScopeEnum::TERMINAL)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
+        ;
+        $manager->persist($turnDaedalusRight);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1091,5 +1102,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::SCAN, $scan);
         $this->addReference(self::ANALYZE_PLANET, $analyzePlanet);
         $this->addReference(self::TURN_DAEDALUS_LEFT, $turnDaedalusLeft);
+        $this->addReference(self::TURN_DAEDALUS_RIGHT, $turnDaedalusRight);
     }
 }

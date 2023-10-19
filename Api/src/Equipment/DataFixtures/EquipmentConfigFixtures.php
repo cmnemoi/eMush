@@ -180,6 +180,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $advanceDaedalusAction = $this->getReference(ActionsFixtures::ADVANCE_DAEDALUS);
         /** @var Action $turnDaedalusLeftAction */
         $turnDaedalusLeftAction = $this->getReference(ActionsFixtures::TURN_DAEDALUS_LEFT);
+        /** @var Action $turnDaedalusRightAction */
+        $turnDaedalusRightAction = $this->getReference(ActionsFixtures::TURN_DAEDALUS_RIGHT);
 
         $commandTerminal = new EquipmentConfig();
         $commandTerminal
@@ -196,6 +198,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $exitTerminalAction, 
                 $advanceDaedalusAction,
                 $turnDaedalusLeftAction,
+                $turnDaedalusRightAction,
             ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;

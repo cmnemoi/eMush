@@ -8,5 +8,5 @@ use Mush\Daedalus\Entity\Daedalus;
 
 interface DaedalusTravelServiceInterface
 {
-    public function turnDaedalusLeft(Daedalus $daedalus): Daedalus;
+    public function turnDaedalusLeft(Daedalus $daedalus, array $reasons): Daedalus;
 }

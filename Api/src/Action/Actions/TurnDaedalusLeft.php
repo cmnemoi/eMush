@@ -83,6 +83,9 @@ final class TurnDaedalusLeft extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $this->daedalusTravelService->turnDaedalusLeft($this->player->getDaedalus());
+        $this->daedalusTravelService->turnDaedalusLeft(
+            $this->player->getDaedalus(), 
+            reasons: $this->action->getActionTags()
+        );
     }
 }

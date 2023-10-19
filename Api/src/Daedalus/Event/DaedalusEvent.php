@@ -10,4 +10,5 @@ class DaedalusEvent extends DaedalusCycleEvent
     public const DELETE_DAEDALUS = 'delete.daedalus';
     public const TRAVEL_LAUNCHED = 'travel.launched';
     public const TRAVEL_FINISHED = 'travel.finished';
+    public const CHANGED_ORIENTATION = 'changed.orientation';
 }

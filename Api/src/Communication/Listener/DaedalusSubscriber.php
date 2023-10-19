@@ -23,6 +23,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
             DaedalusEvent::FULL_DAEDALUS => 'onDaedalusFull',
             DaedalusEvent::TRAVEL_LAUNCHED => 'onTravelLaunched',
             DaedalusEvent::TRAVEL_FINISHED => 'onTravelFinished',
+            DaedalusEvent::CHANGED_ORIENTATION => 'onChangedOrientation',
         ];
     }
 
@@ -42,5 +43,16 @@ class DaedalusSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
         $this->neronMessageService->createNeronMessage(NeronMessageEnum::TRAVEL_ARRIVAL, $daedalus, [], $event->getTime());
+    }
+
+    public function onChangedOrientation(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $this->neronMessageService->createNeronMessage(
+            NeronMessageEnum::CHANGE_HEADING, 
+            $daedalus, 
+            ['direction' => $daedalus->getOrientation()],
+            $event->getTime()
+        );
     }
 }

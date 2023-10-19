@@ -8,6 +8,8 @@ use Mush\Action\Actions\TurnDaedalusLeft;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -176,6 +178,26 @@ final class TurnDaedalusLeftCest extends AbstractFunctionalTest
 
         // then daedalus is facing south
         $I->assertEquals(expected: SpaceOrientationEnum::SOUTH, actual: $this->daedalus->getOrientation());
+    }
+
+    public function testTurnDaedalusLeftSuccessTriggersANeronAnnouncement(FunctionalTester $I): void
+    {
+        // when player turns daedalus left
+        $this->turnDaedalusLeftAction->loadParameters(
+            action: $this->turnDaedalusLeftConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->turnDaedalusLeftAction->execute();
+
+        // then a neron announcement is triggered
+        $I->seeInRepository(
+            Message::class, 
+            [
+                'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
+                'message' => NeronMessageEnum::CHANGE_HEADING,
+            ]
+        );
     }
 
 }

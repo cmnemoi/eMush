@@ -5,16 +5,20 @@ namespace Mush\Communication\Listener;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusSubscriber implements EventSubscriberInterface
 {
     private NeronMessageServiceInterface $neronMessageService;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
-        NeronMessageServiceInterface $neronMessageService
+        NeronMessageServiceInterface $neronMessageService,
+        TranslationServiceInterface $translationService
     ) {
         $this->neronMessageService = $neronMessageService;
+        $this->translationService = $translationService;
     }
 
     public static function getSubscribedEvents(): array
@@ -48,10 +52,17 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public function onChangedOrientation(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
+        $translatedOrientation = $this->translationService->translate(
+            key: $daedalus->getOrientation(),
+            parameters: [],
+            domain: 'misc',
+            language: $daedalus->getDaedalus()->getLanguage()
+        );
+
         $this->neronMessageService->createNeronMessage(
             NeronMessageEnum::CHANGE_HEADING, 
             $daedalus, 
-            ['direction' => $daedalus->getOrientation()],
+            ['direction' => $translatedOrientation],
             $event->getTime()
         );
     }

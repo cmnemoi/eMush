@@ -151,10 +151,17 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             language: $daedalus->getLanguage()
         );
 
+        $translatedDaedalusOrientation = $this->translationService->translate(
+            key: $daedalus->getOrientation(),
+            parameters: [],
+            domain: 'misc',
+            language: $daedalus->getDaedalus()->getLanguage()
+        );
+
         return [
             'orientation' => $this->translationService->translate(
-                key: $terminalKey . '.orientation_' . $daedalus->getOrientation(),
-                parameters: [],
+                key: $terminalKey . '.orientation',
+                parameters: ['orientation' => $translatedDaedalusOrientation],
                 domain: 'terminal',
                 language: $daedalus->getLanguage()
             ),

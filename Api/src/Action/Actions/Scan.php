@@ -12,6 +12,7 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NumberOfDiscoverablePlanets;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -49,6 +50,7 @@ final class Scan extends AttemptAction
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::FOCUSED,
             'target' => HasStatus::PLAYER,
+            'statusTargetName' => EquipmentEnum::ASTRO_TERMINAL,
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new HasStatus([

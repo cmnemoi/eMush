@@ -53,6 +53,7 @@ final class AnalyzePlanet extends AbstractAction
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::FOCUSED,
             'target' => HasStatus::PLAYER,
+            'statusTargetName' => EquipmentEnum::ASTRO_TERMINAL,
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new AllPlanetSectorsRevealed(['groups' => ['visibility']]));

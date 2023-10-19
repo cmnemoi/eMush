@@ -512,6 +512,33 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         );
     }
 
+    public function testAdvanceDaedalusDeletesAllOtherPlanetsIfGoingToAPlanet(FunctionalTester $I): void
+    {
+        // given player found two planets
+        $planet = $this->planetService->createPlanet($this->player);
+        $planet2 = $this->planetService->createPlanet($this->player);
+        $I->haveInRepository($planet);
+        $I->haveInRepository($planet2);
+
+        // given Daedalus coordinates matches on of the planet coordinates
+        $this->daedalus->setCombustionChamberFuel($planet->getDistance());
+        $this->daedalus->setOrientation($planet->getOrientation());
+        $I->haveInRepository($this->daedalus);
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters(
+            action: $this->advanceDaedalusConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->advanceDaedalusAction->execute();
+
+        // then planet2 is deleted, but not planet
+        $remainingPlanets = $this->planetService->findAllByDaedalus($this->daedalus);
+        $I->assertContains($planet, $remainingPlanets);
+        $I->assertNotContains($planet2, $remainingPlanets);
+    }
+
     private function createHunterByName(string $hunterName, FunctionalTester $I): Hunter
     {
         /** @var HunterConfig $hunterConfig */

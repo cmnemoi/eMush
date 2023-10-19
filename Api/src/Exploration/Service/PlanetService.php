@@ -81,6 +81,11 @@ final class PlanetService implements PlanetServiceInterface
         return $this->planetRepository->findOneByDaedalusDestination($daedalus);
     }
 
+    public function findAllByDaedalus(Daedalus $daedalus): ArrayCollection
+    {
+        return new ArrayCollection($this->planetRepository->findAllByDaedalus($daedalus));
+    }
+
     public function delete(array $entities): void
     {
         foreach ($entities as $entity) {

@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,7 +25,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
             DaedalusEvent::START_DAEDALUS => 'onDaedalusStart',
             DaedalusEvent::FULL_DAEDALUS => 'onDaedalusFull',
             DaedalusEvent::FINISH_DAEDALUS => 'onDaedalusFinish',
-            DaedalusEvent::TRAVEL_LAUNCHED => 'onTravelLaunched',
+            DaedalusEvent::TRAVEL_LAUNCHED => ['onTravelLaunched', EventPriorityEnum::LOW],
         ];
     }
 

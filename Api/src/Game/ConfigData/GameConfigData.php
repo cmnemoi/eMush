@@ -406,6 +406,7 @@ class GameConfigData
                 'traveling_default',
                 'no_gravity_default',
                 'no_gravity_repaired_default',
+                'in_orbit_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

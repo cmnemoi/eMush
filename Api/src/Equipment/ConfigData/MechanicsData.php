@@ -3444,5 +3444,13 @@ class MechanicsData
                 ActionEnum::ANALYZE_PLANET,
             ],
         ],
+        [
+            'name' => 'gear_planet_scanner_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                'modifier_for_daedalus_+30percentage_on_action_scan',
+            ],
+        ],
     ];
 }

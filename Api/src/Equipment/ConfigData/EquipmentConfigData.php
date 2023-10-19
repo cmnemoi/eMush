@@ -2700,7 +2700,9 @@ class EquipmentConfigData
                 'report_equipment',
                 'examine',
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                'gear_planet_scanner_default',
+            ],
             'initStatuses' => [],
         ],
         [

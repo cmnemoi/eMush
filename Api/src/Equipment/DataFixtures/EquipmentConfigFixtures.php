@@ -190,6 +190,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($commandTerminal);
 
+        $planetScannerGear = $this->createGear([GearModifierConfigFixtures::PLANET_SCANNER_MODIFIER], EquipmentEnum::PLANET_SCANNER);
+        $manager->persist($planetScannerGear);
+
         // @TODO gears
         $planetScanner = new EquipmentConfig();
         $planetScanner
@@ -198,6 +201,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActions([$repair12, $sabotage12, $reportAction, $examineAction])
+            ->setMechanics([$planetScannerGear])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($planetScanner);

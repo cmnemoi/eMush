@@ -48,6 +48,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
     public const GRAVITY_CONVERSION_MODIFIER = 'gravity_conversion_modifier';
     public const GRAVITY_CYCLE_MODIFIER = 'gravity_cycle_modifier';
     public const OXYGEN_TANK_MODIFIER = 'oxygen_tank_modifier';
+    public const PLANET_SCANNER_MODIFIER = 'planet_scanner_modifier';
 
     public function load(ObjectManager $manager): void
     {
@@ -267,6 +268,18 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($oxygenTankModifier);
 
+        $planetScannerModifier = new VariableEventModifierConfig('modifier_for_daedalus_+30percentage_on_action_scan');
+        $planetScannerModifier
+            ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->setDelta(30)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+        ;
+        $manager->persist($planetScannerModifier);
+
         $manager->flush();
 
         $this->addReference(self::APRON_MODIFIER, $apronModifier);
@@ -285,6 +298,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(self::GRAVITY_CONVERSION_MODIFIER, $gravityConversionModifier);
         $this->addReference(self::GRAVITY_CYCLE_MODIFIER, $gravityCycleModifier);
         $this->addReference(self::OXYGEN_TANK_MODIFIER, $oxygenTankModifier);
+        $this->addReference(self::PLANET_SCANNER_MODIFIER, $planetScannerModifier);
     }
 
     public function getDependencies(): array

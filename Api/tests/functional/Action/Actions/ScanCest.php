@@ -11,6 +11,8 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Entity\Planet;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -102,5 +104,36 @@ final class ScanCest extends AbstractFunctionalTest
 
         $I->assertGreaterThanOrEqual(2, $planet->getCoordinates()->getDistance());
         $I->assertLessThanOrEqual(9, $planet->getCoordinates()->getDistance());
+    }
+
+    public function testScanSuccessRateIsImprovedByWorkingPlanetScanner(FunctionalTester $I): void
+    {
+        // given success rate of the action is 50%
+        $this->scanActionConfig->setSuccessRate(50);
+
+        // given there is a planet scanner on the Daedalus
+        $planetScannerConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PLANET_SCANNER]);
+        $planetScanner = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $planetScanner
+            ->setName(EquipmentEnum::PLANET_SCANNER)
+            ->setEquipment($planetScannerConfig)
+        ;
+        $I->haveInRepository($planetScanner);
+
+        // given this planet scanner has the right modifier
+        /** @var VariableEventModifierConfig $planetScannerModifierConfig */
+        $planetScannerModifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'modifier_for_daedalus_+30percentage_on_action_scan']);
+        $planetScannerModifier = new GameModifier($this->daedalus, $planetScannerModifierConfig);
+        $I->haveInRepository($planetScannerModifier);
+
+        // when player scans
+        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->execute();
+
+        // then success rate is improved by the right amount
+        $I->assertEquals(
+            expected: $this->scanActionConfig->getSuccessRate() + $planetScannerModifierConfig->getDelta(),
+            actual: $this->scanAction->getSuccessRate()
+        );
     }
 }

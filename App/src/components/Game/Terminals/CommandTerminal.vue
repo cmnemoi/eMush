@@ -10,6 +10,12 @@
                     :action="turnDaedalusLeftAction"
                     @click="executeTargetAction(target, turnDaedalusLeftAction)"
                 />
+                <ActionButton
+                    :cssClass="'wide'"
+                    :key="turnDaedalusRightAction.key"
+                    :action="turnDaedalusRightAction"
+                    @click="executeTargetAction(target, turnDaedalusRightAction)"
+                />
             </div>
         </section>
 
@@ -70,6 +76,12 @@ export default defineComponent ({
         turnDaedalusLeftAction(): Action {
             const action = this.terminal?.actions.find(action => action.key === ActionEnum.TURN_DAEDALUS_LEFT);
             if (!action) throw new Error(`No turn_daedalus_left action found for terminal ${this.terminal?.key}`);
+
+            return action;
+        },
+        turnDaedalusRightAction(): Action {
+            const action = this.terminal?.actions.find(action => action.key === ActionEnum.TURN_DAEDALUS_RIGHT);
+            if (!action) throw new Error(`No turn_daedalus_right action found for terminal ${this.terminal?.key}`);
 
             return action;
         },

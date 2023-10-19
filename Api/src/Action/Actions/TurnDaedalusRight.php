@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class TurnDaedalusRight extends AbstractTurnDaedalusAction
 {
-    protected string $name = ActionEnum::TURN_DAEDALUS_LEFT;
+    protected string $name = ActionEnum::TURN_DAEDALUS_RIGHT;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

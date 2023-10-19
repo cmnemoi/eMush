@@ -12,6 +12,7 @@ use Mush\Game\Service\EventServiceInterface;
 
 final class DaedalusTravelService implements DaedalusTravelServiceInterface
 {   
+
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
 
@@ -26,14 +27,21 @@ final class DaedalusTravelService implements DaedalusTravelServiceInterface
     public function turnDaedalusLeft(Daedalus $daedalus, array $reasons): Daedalus
     {   
         $daedalus->setOrientation(SpaceOrientationEnum::getCounterClockwiseOrientation($daedalus->getOrientation()));
+
         $this->persist([$daedalus]);
 
-        $daedalusEvent = new DaedalusEvent(
-            $daedalus,
-            tags: $reasons,
-            time: new \DateTime(),
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::CHANGED_ORIENTATION);
+        $this->sendChangedOrientationEvent($daedalus, $reasons);
+        
+        return $daedalus;
+    }
+
+    public function turnDaedalusRight(Daedalus $daedalus, array $reasons): Daedalus
+    {
+        $daedalus->setOrientation(SpaceOrientationEnum::getClockwiseOrientation($daedalus->getOrientation()));
+
+        $this->persist([$daedalus]);
+
+        $this->sendChangedOrientationEvent($daedalus, $reasons);
         
         return $daedalus;
     }
@@ -44,5 +52,15 @@ final class DaedalusTravelService implements DaedalusTravelServiceInterface
             $this->entityManager->persist($entity);
         }
         $this->entityManager->flush();
+    }
+
+    private function sendChangedOrientationEvent(Daedalus $daedalus, array $reasons): void
+    {
+        $daedalusEvent = new DaedalusEvent(
+            $daedalus,
+            tags: $reasons,
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::CHANGED_ORIENTATION);
     }
 }

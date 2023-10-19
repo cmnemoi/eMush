@@ -21,6 +21,22 @@ final class SpaceOrientationEnum
             self::WEST,
         ];
     }
+
+    public static function getClockwiseOrientation(string $orientation): string
+    {
+        switch ($orientation) {
+            case self::NORTH:
+                return self::EAST;
+            case self::SOUTH:
+                return self::WEST;
+            case self::EAST:
+                return self::SOUTH;
+            case self::WEST:
+                return self::NORTH;
+            default:
+                throw new \Exception('Unknown orientation');
+        }
+    }
     
     public static function getCounterClockwiseOrientation(string $orientation): string
     {

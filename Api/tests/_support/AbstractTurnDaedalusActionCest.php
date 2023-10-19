@@ -86,7 +86,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // when player turns daedalus left
+        // when player turns daedalus
         $this->turnDaedalusAction->loadParameters($this->turnDaedalusConfig, $this->player, $this->commandTerminal);
         $this->turnDaedalusAction->execute();
 
@@ -104,7 +104,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // when player turns daedalus left
+        // when player turns daedalus
         $this->turnDaedalusAction->loadParameters(
             action: $this->turnDaedalusConfig,
             player: $this->player,
@@ -126,7 +126,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // when player turns daedalus left
+        // when player turns daedalus
         $this->turnDaedalusAction->loadParameters(
             action: $this->turnDaedalusConfig,
             player: $this->player,
@@ -140,7 +140,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
 
     public function testTurnDaedalusActionSuccessTriggersANeronAnnouncement(FunctionalTester $I): void
     {
-        // when player turns daedalus left
+        // when player turns daedalus
         $this->turnDaedalusAction->loadParameters(
             action: $this->turnDaedalusConfig,
             player: $this->player,

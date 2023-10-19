@@ -1,4 +1,5 @@
 import ApiService from "@/services/api.service";
+import { RoomLog } from "@/entities/RoomLog";
 import urlJoin from "url-join";
 import store from "@/store";
 
@@ -65,6 +66,32 @@ const AdminService = {
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
+    },
+    getPlayerLogs: async(playerId: number): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(ADMIN_ENDPOINT + '/player-logs/' + playerId);
+
+        const logs: Record<string, unknown>[] = [];
+        if (response.data) {
+            const days = response.data;
+            Object.keys(days).map((day) => {
+                Object.keys(days[day]).map((cycle) => {
+                    const roomLogs: RoomLog[] = [];
+                    days[day][cycle].forEach((value: any) => {
+                        const roomLog = (new RoomLog()).load(value);
+                        roomLogs.push(roomLog);
+                    });
+                    logs.push({
+                        "day": day,
+                        "cycle": cycle,
+                        roomLogs
+                    });
+                });
+            });
+        }
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return { "data": logs };
     },
     quarantinePlayer: async(playerId: number): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });

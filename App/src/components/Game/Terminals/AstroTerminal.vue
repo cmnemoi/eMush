@@ -202,7 +202,7 @@ export default defineComponent ({
             align-items: center;
             justify-content: center;
             gap: 0.4em;
-            margin-bottom: 0.8em;
+            margin: 0;
 
             img {
                 margin: 0

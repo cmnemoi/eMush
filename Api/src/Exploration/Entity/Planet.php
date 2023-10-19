@@ -9,10 +9,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'planet')]
-final class Planet
+final class Planet implements LogParameterInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -96,9 +98,7 @@ final class Planet
         return $this;
     }
 
-    /**
-     * @return Collection<int, PlanetSector>
-     */
+    /** @return Collection<int, PlanetSector> */
     public function getSectors(): Collection
     {
         return $this->sectors;
@@ -112,6 +112,18 @@ final class Planet
         return $this;
     }
 
+    /** @return Collection<int, PlanetSector> */
+    public function getRevealedSectors(): Collection
+    {
+        return $this->sectors->filter(fn (PlanetSector $sector) => $sector->isRevealed());
+    }
+
+    /** @return Collection<int, PlanetSector> */
+    public function getUnrevealedSectors(): Collection
+    {
+        return $this->sectors->filter(fn (PlanetSector $sector) => !$sector->isRevealed());
+    }
+
     public function getPlayer(): Player
     {
         return $this->player;
@@ -120,5 +132,20 @@ final class Planet
     public function getDaedalus(): Daedalus
     {
         return $this->player->getDaedalus();
+    }
+
+    public function getClassName(): string
+    {
+        return self::class;
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::PLANET;
+    }
+
+    public function getLogName(): string
+    {
+        return $this->name->toString();
     }
 }

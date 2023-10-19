@@ -3437,5 +3437,12 @@ class MechanicsData
                 ActionEnum::AUTO_EJECT,
             ],
         ],
+        [
+            'name' => 'tool_astro_terminal_default',
+            'type' => 'tool',
+            'actions' => [
+                ActionEnum::ANALYZE_PLANET,
+            ],
+        ],
     ];
 }

@@ -13,6 +13,7 @@ use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Entity\SpaceCoordinates;
 use Mush\Exploration\Repository\PlanetRepository;
+use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -48,9 +49,8 @@ final class PlanetService implements PlanetServiceInterface
         ;
 
         $availableCoordinates = $this->getAvailaibleCoordinatesForPlanet($planet);
-
-        // get a random coordinates pair from the available ones and set it to the planet
         $drawnCoordinates = $this->randomService->getRandomElement($availableCoordinates);
+
         $planet->setCoordinates($drawnCoordinates);
 
         $planet = $this->generatePlanetSectors($planet);
@@ -58,6 +58,22 @@ final class PlanetService implements PlanetServiceInterface
         $this->persist([$planet]);
 
         return $planet;
+    }
+
+    public function revealPlanetSectors(Planet $planet, int $number): Planet
+    {
+        $sectorsToReveal = $this->getPlanetSectorsToReveal($planet, $number);
+
+        $revealedSectors = $sectorsToReveal->map(fn (PlanetSector $sector) => $sector->reveal());
+
+        $this->persist($revealedSectors->toArray());
+
+        return $planet;
+    }
+
+    public function findById(int $id): ?Planet
+    {
+        return $this->planetRepository->find($id);
     }
 
     private function getAvailaibleCoordinatesForPlanet(Planet $planet): array
@@ -171,6 +187,41 @@ final class PlanetService implements PlanetServiceInterface
         }
 
         return $total;
+    }
+
+    private function getPlanetSectorsToReveal(Planet $planet, int $number): ArrayCollection
+    {
+        $sectorIdsToReveal = $this->randomService->getRandomElementsFromProbaCollection(
+            array: $this->getPlanetSectorsToRevealProbaCollection($planet),
+            number: $number,
+        );
+
+        /** @var ArrayCollection<int, PlanetSector> $sectorsToReveal */
+        $sectorsToReveal = new ArrayCollection();
+        foreach ($sectorIdsToReveal as $sectorId) {
+            $sector = $this->findPlanetSectorById($sectorId);
+            if (!$sector) {
+                throw new \RuntimeException("Sector $sectorId not found on planet {$planet->getId()}");
+            }
+            $sectorsToReveal->add($sector);
+        }
+
+        return $sectorsToReveal;
+    }
+
+    private function getPlanetSectorsToRevealProbaCollection(Planet $planet): ProbaCollection
+    {
+        $probaCollection = new ProbaCollection();
+        foreach ($planet->getUnrevealedSectors() as $sector) {
+            $probaCollection->setElementProbability($sector->getId(), $sector->getWeightAtPlanetAnalysis());
+        }
+
+        return $probaCollection;
+    }
+
+    private function findPlanetSectorById(int $id): ?PlanetSector
+    {
+        return $this->entityManager->find(PlanetSector::class, $id);
     }
 
     private function persist(array $entities): void

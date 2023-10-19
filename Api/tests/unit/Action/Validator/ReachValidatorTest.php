@@ -8,6 +8,7 @@ use Mush\Action\Validator\ReachValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -22,12 +23,16 @@ class ReachValidatorTest extends TestCase
     private ReachValidator $validator;
     private Reach $constraint;
 
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface $gameEquipmentService;
+
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new ReachValidator();
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->validator = new ReachValidator($this->gameEquipmentService);
         $this->constraint = new Reach();
     }
 

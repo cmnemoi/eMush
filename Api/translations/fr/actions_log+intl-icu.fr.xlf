@@ -1140,5 +1140,11 @@
         <target>Votre tentative de scan a échoué.</target>
       </segment>
     </unit>
+    <unit id="analyze_planet_success">
+      <segment id="analyze_planet_success" state="translated">
+        <source>analyze_planet_success</source>
+        <target>**{character}** a effectué une analyse de {target_planet}.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

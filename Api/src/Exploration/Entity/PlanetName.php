@@ -128,4 +128,9 @@ class PlanetName
             'fifth_syllable' => $this->fifthSyllable,
         ];
     }
+
+    public function toString(): string
+    {
+        return json_encode($this->toArray());
+    }
 }

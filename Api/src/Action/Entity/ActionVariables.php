@@ -69,6 +69,14 @@ class ActionVariables extends GameVariableCollection
             0
         );
 
+        $outputQuantity = new GameVariable(
+            $this,
+            ActionVariableEnum::OUTPUT_QUANTITY,
+            0,
+            null,
+            0
+        );
+
         parent::__construct([
             $actionVariable,
             $movementVariable,
@@ -77,6 +85,7 @@ class ActionVariables extends GameVariableCollection
             $dirtinessVariable,
             $successVariable,
             $criticalVariable,
+            $outputQuantity,
         ]);
     }
 

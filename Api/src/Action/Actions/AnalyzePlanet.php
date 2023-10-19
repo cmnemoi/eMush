@@ -1,0 +1,87 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Mush\Action\Actions;
+
+use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Success;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\AllPlanetSectorsRevealed;
+use Mush\Action\Validator\HasEquipment;
+use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\Reach;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ReachEnum;
+use Mush\Exploration\Entity\Planet;
+use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+
+final class AnalyzePlanet extends AbstractAction
+{
+    protected string $name = ActionEnum::ANALYZE_PLANET;
+    private PlanetServiceInterface $planetService;
+    private RandomServiceInterface $randomService;
+
+    public function __construct(
+        EventServiceInterface $eventService,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        PlanetServiceInterface $planetService,
+        RandomServiceInterface $randomService,
+    ) {
+        parent::__construct($eventService, $actionService, $validator);
+        $this->planetService = $planetService;
+        $this->randomService = $randomService;
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof Planet;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => PlayerStatusEnum::FOCUSED,
+            'target' => HasStatus::PLAYER,
+            'groups' => ['visibility'],
+        ]));
+        $metadata->addConstraint(new AllPlanetSectorsRevealed(['groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => PlayerStatusEnum::DIRTY,
+            'target' => HasStatus::PLAYER,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::DIRTY_RESTRICTION,
+        ]));
+        $metadata->addConstraint(new HasEquipment([
+            'reach' => ReachEnum::ROOM,
+            'equipments' => [EquipmentEnum::ASTRO_TERMINAL],
+            'checkIfOperational' => true,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+        ]));
+    }
+
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
+    {
+        /** @var Planet $planet */
+        $planet = $this->target;
+
+        $this->planetService->revealPlanetSectors($planet, number: $this->getOutputQuantity());
+    }
+}

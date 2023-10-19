@@ -8,9 +8,10 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Exploration\Normalizer\PlanetNameNormalizer;
+use Mush\Exploration\Entity\Planet;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
@@ -27,18 +28,18 @@ class RoomLogService implements RoomLogServiceInterface
     private EntityManagerInterface $entityManager;
     private RandomServiceInterface $randomService;
     private RoomLogRepository $repository;
-    private PlanetNameNormalizer $planetNameNormalizer;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         RandomServiceInterface $randomService,
         RoomLogRepository $repository,
-        PlanetNameNormalizer $planetNameNormalizer
+        TranslationServiceInterface $translationService
     ) {
         $this->entityManager = $entityManager;
         $this->randomService = $randomService;
         $this->repository = $repository;
-        $this->planetNameNormalizer = $planetNameNormalizer;
+        $this->translationService = $translationService;
     }
 
     public function persist(RoomLog $roomLog): RoomLog
@@ -114,9 +115,17 @@ class RoomLogService implements RoomLogServiceInterface
             $key = 'target_' . $actionParameter->getLogKey();
             $parameters[$key] = $actionParameter->getLogName();
 
-            // we need to normalize planet name before logging it, as it is saved in database as an array of numbers (basically)
+            // we need to translate planet name before logging it, as it is saved in database as an array of numbers (basically)
             if (str_contains($key, 'planet')) {
-                $parameters[$key] = $this->normalizePlanetName($actionParameter, $player);
+                /** @var Planet $planet */
+                $planet = $actionParameter;
+
+                $parameters[$key] = $this->translationService->translate(
+                    key: 'planet_name',
+                    parameters: $planet->getName()->toArray(),
+                    domain: 'planet',
+                    language: $player->getDaedalus()->getLanguage()
+                );
             }
         }
         if (($equipment = $actionResult->getEquipment()) !== null) {
@@ -244,14 +253,5 @@ class RoomLogService implements RoomLogServiceInterface
             'charges' => $electricCharges ? $electricCharges->getCharge() : 0,
             'armor' => $patrolShipArmor ? $patrolShipArmor->getCharge() : 0,
         ];
-    }
-
-    private function normalizePlanetName(LogParameterInterface $planet, Player $player): string
-    {
-        return $this->planetNameNormalizer->normalize(
-            object: json_decode($planet->getLogName(), true), // transform json string into array for normalization
-            format: null,
-            context: ['currentPlayer' => $player]
-        );
     }
 }

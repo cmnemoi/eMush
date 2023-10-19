@@ -159,6 +159,7 @@ class ActionEnum
     public const ADVANCE_DAEDALUS = 'advance_daedalus';
     public const SCAN = 'scan';
     public const ANALYZE_PLANET = 'analyze_planet';
+    public const TURN_DAEDALUS_LEFT = 'turn_daedalus_left';
 
     public static function getPermanentItemActions(): array
     {

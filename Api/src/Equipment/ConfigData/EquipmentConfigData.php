@@ -2680,6 +2680,7 @@ class EquipmentConfigData
                 'hack',
                 'exit_terminal',
                 'advance_daedalus',
+                'turn_daedalus_left',
             ],
             'mechanics' => [],
             'initStatuses' => [],

@@ -948,5 +948,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Analyser la planète en profondeur pour aider les missions d'exploration.</target>
       </segment>
     </unit>
+    <unit id="turn_daedalus_left">
+      <segment id="name" state="final">
+        <source>turn_daedalus_left.name</source>
+        <target>Orienter vers la gauche</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>turn_daedalus_left.description</source>
+        <target>Permet de changer le cap du vaisseau.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

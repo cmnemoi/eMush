@@ -32,14 +32,16 @@ class RoomLogNormalizer implements NormalizerInterface
 
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        return $this->normalizeLogs($roomLogCollection, $language);
+        $adminView = isset($context['groups']) && in_array('admin_view', $context['groups'], true);
+
+        return $this->normalizeLogs($roomLogCollection, $language, $adminView);
     }
 
-    public function normalizeLogs(RoomLogCollection $logCollection, string $language): array
+    public function normalizeLogs(RoomLogCollection $logCollection, string $language, bool $adminView): array
     {
         $logs = [];
         foreach ($logCollection as $roomLog) {
-            $logs[$roomLog->getDay()][$roomLog->getCycle()][] = [
+            $log = [
                 'log' => $this->translationService->translate(
                     $roomLog->getLog(),
                     $roomLog->getParameters(),
@@ -49,6 +51,12 @@ class RoomLogNormalizer implements NormalizerInterface
                 'visibility' => $roomLog->getVisibility(),
                 'date' => $this->getLogDate($roomLog->getDate(), $language),
             ];
+
+            if ($adminView) {
+                $log['parameters'][] = $roomLog->getParameters();
+            }
+
+            $logs[$roomLog->getDay()][$roomLog->getCycle()][] = $log;
         }
 
         return $logs;

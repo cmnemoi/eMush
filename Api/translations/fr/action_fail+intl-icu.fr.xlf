@@ -612,5 +612,11 @@
         <target>La chambre de combustion est pleine.</target>
       </segment>
     </unit>
+    <unit id="lateral_reactor_broken">
+      <segment state="final">
+        <source>lateral_reactor_broken.description</source>
+        <target>Le *Réacteur latéral* permettant de tourner dans cette direction est en panne. Il faut le réparer si on veut pouvoir orienter cette épave.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

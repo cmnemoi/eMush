@@ -8,9 +8,11 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -48,6 +50,13 @@ final class TurnDaedalusLeft extends AbstractAction
             'contain' => false,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DAEDALUS_TRAVELING,
+        ]));
+        $metadata->addConstraint(new HasEquipment([
+            'reach' => ReachEnum::DAEDALUS,
+            'equipments' => [EquipmentEnum::REACTOR_LATERAL_BRAVO],
+            'checkIfOperational' => true,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::LATERAL_REACTOR_BROKEN,
         ]));
     }
 

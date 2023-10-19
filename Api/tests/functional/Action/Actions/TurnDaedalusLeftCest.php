@@ -24,6 +24,7 @@ final class TurnDaedalusLeftCest extends AbstractFunctionalTest
     private Action $turnDaedalusLeftConfig;
     private TurnDaedalusLeft $turnDaedalusLeftAction;
     private GameEquipment $commandTerminal;
+    private GameEquipment $bravoLateralReactor;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
@@ -32,6 +33,7 @@ final class TurnDaedalusLeftCest extends AbstractFunctionalTest
 
         $this->turnDaedalusLeftConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::TURN_DAEDALUS_LEFT]);
         $this->turnDaedalusLeftAction = $I->grabService(TurnDaedalusLeft::class);
+        $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
         
         // given there is a command terminal in player's room
         $commandTerminalConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::COMMAND_TERMINAL]);
@@ -41,6 +43,15 @@ final class TurnDaedalusLeftCest extends AbstractFunctionalTest
             ->setEquipment($commandTerminalConfig)
         ;
         $I->haveInRepository($this->commandTerminal);
+
+        // given there is bravo lateral reactor in engine room
+        $leftLateralReactorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::REACTOR_LATERAL_BRAVO]);
+        $this->bravoLateralReactor = new GameEquipment($engineRoom);
+        $this->bravoLateralReactor
+            ->setName(EquipmentEnum::REACTOR_LATERAL_BRAVO)
+            ->setEquipment($leftLateralReactorConfig)
+        ;
+        $I->haveInRepository($this->bravoLateralReactor);
 
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -114,6 +125,28 @@ final class TurnDaedalusLeftCest extends AbstractFunctionalTest
 
         // then the action is not executable
         $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->turnDaedalusLeftAction->cannotExecuteReason());
+    }
+
+    public function testTurnDaedalusLeftNotExecutableIfBravoLateralReactorIsBroken(FunctionalTester $I): void
+    {
+        // given daedalus is traveling
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $this->bravoLateralReactor,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when player turns daedalus left
+        $this->turnDaedalusLeftAction->loadParameters(
+            action: $this->turnDaedalusLeftConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->turnDaedalusLeftAction->execute();
+
+        // then the action is not executable
+        $I->assertEquals(ActionImpossibleCauseEnum::LATERAL_REACTOR_BROKEN, $this->turnDaedalusLeftAction->cannotExecuteReason());
     }
 
 }

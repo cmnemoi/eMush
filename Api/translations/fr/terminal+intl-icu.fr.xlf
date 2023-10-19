@@ -80,6 +80,10 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <source>astro_terminal.distance</source>
         <target>Fuel requis</target>
       </segment>
+      <segment id="in_orbit" state="translated">
+        <source>astro_terminal.in_orbit</source>
+        <target>*En orbite !*</target>
+      </segment>
     </unit>
   </file>
 </xliff>

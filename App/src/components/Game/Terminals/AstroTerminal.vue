@@ -8,6 +8,10 @@
             <h3>{{ planet.name }}</h3>
             <div class="card">
                 <img :src="getPlanetImage(planet)">
+                <p class="planet-infos">
+                    <img src="@/assets/images/infoalert.png">
+                    <span v-html="formatText(terminal.infos?.inOrbit)"/>
+                </p>
                 <p><span>{{ terminal.sectionTitles.orientation }}</span> {{ planet.orientation }}</p>
                 <p><span>{{ terminal.sectionTitles.distance }}</span> {{ planet.distance }}</p>
             </div>
@@ -43,27 +47,29 @@
                 </div>
             </div>
         </section>
-        <section
-            v-for="i in numberOfUnknownPlanets"
-            :key="i"
-            class="planet unknown"
-        >
-            <h3>???</h3>
-            <div class="card">
-                <img src="@/assets/images/astro/planet_unknown.png">
-            </div>
-            <div class="analysis">
-                <!-- <p>Scanning impossible...</p> -->
-                <p>{{ scanAction.successRate }}% <img src="@/assets/images/astro/thermosensors.png"></p>
-                <div class="actions">
-                    <ActionButton
-                        :key="scanAction.key"
-                        :action="scanAction"
-                        @click="executeTargetAction(terminalTarget, scanAction)"
-                    />
+        <div v-if="scanAction || !terminal.infos?.inOrbit">
+            <section
+                v-for="i in numberOfUnknownPlanets"
+                :key="i"
+                class="planet unknown"
+            >
+                <h3>???</h3>
+                <div class="card">
+                    <img src="@/assets/images/astro/planet_unknown.png">
                 </div>
-            </div>
-        </section>
+                <div class="analysis" >
+                    <!-- <p>Scanning impossible...</p> -->
+                    <p>{{ scanAction.successRate }}% <img src="@/assets/images/astro/thermosensors.png"></p>
+                    <div class="actions">
+                        <ActionButton
+                            :key="scanAction.key"
+                            :action="scanAction"
+                            @click="executeTargetAction(terminalTarget, scanAction)"
+                        />
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 </template>
 
@@ -89,11 +95,10 @@ export default defineComponent ({
         },
     },
     computed: {
-        scanAction(): Action {
+        scanAction(): Action | null {
             const action = this.terminal?.actions.find(action => action.key === ActionEnum.SCAN);
-            if (!action) throw new Error(`No ${ActionEnum.SCAN} action found for terminal ${this.terminal?.key}`);
 
-            return action;
+            return action ? action : null;
         },
         terminalTarget() : Terminal {
             return this.terminal;
@@ -190,6 +195,22 @@ export default defineComponent ({
         span {
             color: #2c74d1;
             margin-right: 0.6em;;
+        }
+
+        .planet-infos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4em;
+            margin-bottom: 0.8em;
+
+            img {
+                margin: 0
+            }
+
+            span {
+                margin: 0;
+            }   
         }
     }
 

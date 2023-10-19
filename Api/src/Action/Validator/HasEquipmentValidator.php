@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class HasEquipmentValidator extends ConstraintValidator
-{   
+{
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(GameEquipmentServiceInterface $gameEquipmentService)
@@ -107,7 +107,7 @@ class HasEquipmentValidator extends ConstraintValidator
                 }
 
                 return !($shelfEquipments->isEmpty() && $playerEquipments->isEmpty());
-            
+
             case ReachEnum::DAEDALUS:
                 $equipments = $this->gameEquipmentService->findByNameAndDaedalus($equipmentName, $player->getDaedalus());
                 if ($checkIfOperational) {

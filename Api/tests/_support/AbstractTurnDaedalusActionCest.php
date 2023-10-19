@@ -18,8 +18,6 @@ use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\Tests\AbstractFunctionalTest;
-use Mush\Tests\FunctionalTester;
 
 abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
 {
@@ -36,7 +34,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
 
         $this->turnDaedalusConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::TURN_DAEDALUS_LEFT]);
         $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
-        
+
         // given there is a command terminal in player's room
         $commandTerminalConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::COMMAND_TERMINAL]);
         $this->commandTerminal = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
@@ -150,7 +148,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
 
         // then a neron announcement is triggered
         $I->seeInRepository(
-            Message::class, 
+            Message::class,
             [
                 'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
                 'message' => NeronMessageEnum::CHANGE_HEADING,
@@ -161,5 +159,4 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
     abstract public function testTurnDaedalusActionNotExecutableIfLateralReactorIsBroken(FunctionalTester $I): void;
 
     abstract public function testTurnDaedalusActionSuccessChangesCorrectlyDaedalusOrientation(FunctionalTester $I): void;
-
 }

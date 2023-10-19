@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractTurnDaedalusAction extends AbstractAction
-{   
+{
     protected string $name;
 
     protected DaedalusTravelServiceInterface $daedalusTravelService;
@@ -32,7 +32,7 @@ abstract class AbstractTurnDaedalusAction extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         DaedalusTravelServiceInterface $daedalusTravelService
-    ) { 
+    ) {
         parent::__construct($eventService, $actionService, $validator);
         $this->daedalusTravelService = $daedalusTravelService;
     }

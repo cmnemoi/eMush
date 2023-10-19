@@ -190,12 +190,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActions([
-                $repair12, 
-                $sabotage12, 
-                $reportAction, 
-                $examineAction, 
-                $hackAction, 
-                $exitTerminalAction, 
+                $repair12,
+                $sabotage12,
+                $reportAction,
+                $examineAction,
+                $hackAction,
+                $exitTerminalAction,
                 $advanceDaedalusAction,
                 $turnDaedalusLeftAction,
                 $turnDaedalusRightAction,

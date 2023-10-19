@@ -37,7 +37,7 @@ final class SpaceOrientationEnum
                 throw new \Exception('Unknown orientation');
         }
     }
-    
+
     public static function getCounterClockwiseOrientation(string $orientation): string
     {
         switch ($orientation) {

@@ -60,8 +60,8 @@ class DaedalusSubscriber implements EventSubscriberInterface
         );
 
         $this->neronMessageService->createNeronMessage(
-            NeronMessageEnum::CHANGE_HEADING, 
-            $daedalus, 
+            NeronMessageEnum::CHANGE_HEADING,
+            $daedalus,
             ['direction' => $translatedOrientation],
             $event->getTime()
         );

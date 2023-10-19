@@ -11,8 +11,7 @@ use Mush\Exploration\Enum\SpaceOrientationEnum;
 use Mush\Game\Service\EventServiceInterface;
 
 final class DaedalusTravelService implements DaedalusTravelServiceInterface
-{   
-
+{
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
 
@@ -25,13 +24,13 @@ final class DaedalusTravelService implements DaedalusTravelServiceInterface
     }
 
     public function turnDaedalusLeft(Daedalus $daedalus, array $reasons): Daedalus
-    {   
+    {
         $daedalus->setOrientation(SpaceOrientationEnum::getCounterClockwiseOrientation($daedalus->getOrientation()));
 
         $this->persist([$daedalus]);
 
         $this->sendChangedOrientationEvent($daedalus, $reasons);
-        
+
         return $daedalus;
     }
 
@@ -42,7 +41,7 @@ final class DaedalusTravelService implements DaedalusTravelServiceInterface
         $this->persist([$daedalus]);
 
         $this->sendChangedOrientationEvent($daedalus, $reasons);
-        
+
         return $daedalus;
     }
 

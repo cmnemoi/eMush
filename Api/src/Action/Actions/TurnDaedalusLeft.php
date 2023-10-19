@@ -9,10 +9,8 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\HasEquipment;
-
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
-
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class TurnDaedalusLeft extends AbstractTurnDaedalusAction
@@ -38,7 +36,7 @@ final class TurnDaedalusLeft extends AbstractTurnDaedalusAction
     protected function applyEffect(ActionResult $result): void
     {
         $this->daedalusTravelService->turnDaedalusLeft(
-            daedalus: $this->player->getDaedalus(), 
+            daedalus: $this->player->getDaedalus(),
             reasons: $this->action->getActionTags()
         );
     }

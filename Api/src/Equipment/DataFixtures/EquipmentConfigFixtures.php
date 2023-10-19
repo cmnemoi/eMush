@@ -178,6 +178,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $exitTerminalAction = $this->getReference(ActionsFixtures::EXIT_TERMINAL);
         /** @var Action $advanceDaedalusAction */
         $advanceDaedalusAction = $this->getReference(ActionsFixtures::ADVANCE_DAEDALUS);
+        /** @var Action $turnDaedalusLeftAction */
+        $turnDaedalusLeftAction = $this->getReference(ActionsFixtures::TURN_DAEDALUS_LEFT);
+        /** @var Action $turnDaedalusRightAction */
+        $turnDaedalusRightAction = $this->getReference(ActionsFixtures::TURN_DAEDALUS_RIGHT);
 
         $commandTerminal = new EquipmentConfig();
         $commandTerminal
@@ -185,7 +189,17 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions([$repair12, $sabotage12, $reportAction, $examineAction, $hackAction, $exitTerminalAction, $advanceDaedalusAction])
+            ->setActions([
+                $repair12,
+                $sabotage12,
+                $reportAction,
+                $examineAction,
+                $hackAction,
+                $exitTerminalAction,
+                $advanceDaedalusAction,
+                $turnDaedalusLeftAction,
+                $turnDaedalusRightAction,
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($commandTerminal);

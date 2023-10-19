@@ -6,6 +6,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -14,6 +15,13 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class HasEquipmentValidator extends ConstraintValidator
 {
+    private GameEquipmentServiceInterface $gameEquipmentService;
+
+    public function __construct(GameEquipmentServiceInterface $gameEquipmentService)
+    {
+        $this->gameEquipmentService = $gameEquipmentService;
+    }
+
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
@@ -99,6 +107,14 @@ class HasEquipmentValidator extends ConstraintValidator
                 }
 
                 return !($shelfEquipments->isEmpty() && $playerEquipments->isEmpty());
+
+            case ReachEnum::DAEDALUS:
+                $equipments = $this->gameEquipmentService->findByNameAndDaedalus($equipmentName, $player->getDaedalus());
+                if ($checkIfOperational) {
+                    return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+                }
+
+                return !$equipments->isEmpty();
         }
 
         return true;

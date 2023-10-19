@@ -43,5 +43,23 @@
         <target>Guérit la maladie {diseaseName}</target>
       </segment>
     </unit>
+    <unit id="orientation">
+      <segment id="north" state="final">
+        <source>north</source>
+        <target>Nord</target>
+      </segment>
+      <segment id="south" state="final">
+        <source>south</source>
+        <target>Sud</target>
+      </segment>
+      <segment id="east" state="final">
+        <source>east</source>
+        <target>Est</target>
+      </segment>
+      <segment id="west" state="final">
+        <source>west</source>
+        <target>Ouest</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

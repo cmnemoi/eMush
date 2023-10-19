@@ -1,47 +1,21 @@
 <template>
     <div class="command-terminal-container" v-if="terminal">
-        <section style="display:none;">
+        <section>
             <h3>{{ terminal.sectionTitles?.orientateDaedalus }}</h3>
-            <p class="daedalus-current-orientation">Le Daedalus pointe actuellement vers : <strong>Nord</strong>.</p>
-            <div class="orientation-choice">
-                <label class="orientation-choice-box-label">
-                    <input class="orientation-choice-box"
-                           type="radio"
-                           name="orientation"
-                           value="Nord"
-                           v-model="chosenOrientation">
-                    Nord
-                </label>
-                <label class="orientation-choice-box-label">
-                    <input class="orientation-choice-box"
-                           type="radio"
-                           name="orientation"
-                           value="Est"
-                           v-model="chosenOrientation">
-                    Est
-                </label>
-                <label class="orientation-choice-box-label">
-                    <input class="orientation-choice-box"
-                           type="radio"
-                           name="orientation"
-                           value="Sud"
-                           v-model="chosenOrientation">
-                    Sud
-                </label>
-                <label class="orientation-choice-box-label">
-                    <input class="orientation-choice-box"
-                           type="radio"
-                           name="orientation"
-                           value="Ouest"
-                           v-model="chosenOrientation">
-                    Ouest
-                </label>
-            </div>
+            <p class="daedalus-current-orientation" v-html="formatText(terminal.infos?.daedalusOrientation)"></p>
             <div class="action">
-                <button>
-                    <span class="cost">1<img src="@/assets/images/pa.png" alt="ap"></span>
-                    <span>Changer l'orientation : {{ chosenOrientation }}</span>
-                </button>
+                <ActionButton
+                    :cssClass="'wide'"
+                    :key="turnDaedalusLeftAction.key"
+                    :action="turnDaedalusLeftAction"
+                    @click="executeTargetAction(target, turnDaedalusLeftAction)"
+                />
+                <ActionButton
+                    :cssClass="'wide'"
+                    :key="turnDaedalusRightAction.key"
+                    :action="turnDaedalusRightAction"
+                    @click="executeTargetAction(target, turnDaedalusRightAction)"
+                />
             </div>
         </section>
 
@@ -96,6 +70,18 @@ export default defineComponent ({
         advanceDaedalusAction(): Action {
             const action = this.terminal?.actions.find(action => action.key === ActionEnum.ADVANCE_DAEDALUS);
             if (!action) throw new Error(`No advance_daedalus action found for terminal ${this.terminal?.key}`);
+
+            return action;
+        },
+        turnDaedalusLeftAction(): Action {
+            const action = this.terminal?.actions.find(action => action.key === ActionEnum.TURN_DAEDALUS_LEFT);
+            if (!action) throw new Error(`No turn_daedalus_left action found for terminal ${this.terminal?.key}`);
+
+            return action;
+        },
+        turnDaedalusRightAction(): Action {
+            const action = this.terminal?.actions.find(action => action.key === ActionEnum.TURN_DAEDALUS_RIGHT);
+            if (!action) throw new Error(`No turn_daedalus_right action found for terminal ${this.terminal?.key}`);
 
             return action;
         },

@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +26,7 @@ class HasEquipmentValidatorTest extends TestCase
      */
     public function before()
     {
-        $this->validator = new HasEquipmentValidator();
+        $this->validator = new HasEquipmentValidator($this->createMock(GameEquipmentServiceInterface::class));
         $this->constraint = new HasEquipment();
     }
 

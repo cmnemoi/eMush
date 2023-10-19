@@ -52,6 +52,10 @@ Si le travail a été bien fait, le Daedalus se placera en orbite d'une planète
         <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
         <target>Le *Réacteur d'urgence* est en carafe ! Le voyage infra-luminique est impossible.</target>
       </segment>
+      <segment id="orientation" state="translated">
+        <source>command_terminal.orientation</source>
+        <target>Le Daedalus pointe actuellement vers : **{orientation}**.</target>
+      </segment>
     </unit>
     <unit id="astro_terminal">
       <segment id="name" state="translated">

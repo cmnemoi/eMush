@@ -6,6 +6,7 @@ namespace Mush\Status\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -26,7 +27,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            DaedalusEvent::TRAVEL_LAUNCHED => 'onTravelLaunched',
+            DaedalusEvent::TRAVEL_LAUNCHED => ['onTravelLaunched', EventPriorityEnum::HIGH],
         ];
     }
 

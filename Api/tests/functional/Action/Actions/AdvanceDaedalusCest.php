@@ -486,6 +486,32 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT));
     }
 
+    public function testAdvanceDaedalusTriggersNeronAnnouncementIfGoingToAPlanet(FunctionalTester $I): void
+    {
+        // given player found a planet
+        $planet = $this->planetService->createPlanet($this->player);
+        $I->haveInRepository($planet);
+
+        // given Daedalus coordinates matches the planet coordinates
+        $this->daedalus->setCombustionChamberFuel($planet->getDistance());
+        $this->daedalus->setOrientation($planet->getOrientation());
+        $I->haveInRepository($this->daedalus);
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters(
+            action: $this->advanceDaedalusConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->advanceDaedalusAction->execute();
+
+        // then daedalus has an in orbit status
+        $I->seeInRepository(
+            entity: Message::class,
+            params: ['message' => NeronMessageEnum::TRAVEL_PLANET]
+        );
+    }
+
     private function createHunterByName(string $hunterName, FunctionalTester $I): Hunter
     {
         /** @var HunterConfig $hunterConfig */

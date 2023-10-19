@@ -8,9 +8,9 @@
             <h3>{{ planet.name }}</h3>
             <div class="card">
                 <img :src="getPlanetImage(planet)">
-                <p class="planet-infos">
+                <p class="in-orbit" v-if="terminal.infos.inOrbit">
                     <img src="@/assets/images/infoalert.png">
-                    <span v-html="formatText(terminal.infos?.inOrbit)"/>
+                    <span v-html="formatText(terminal.infos.inOrbit)"/>
                 </p>
                 <p><span>{{ terminal.sectionTitles.orientation }}</span> {{ planet.orientation }}</p>
                 <p><span>{{ terminal.sectionTitles.distance }}</span> {{ planet.distance }}</p>
@@ -197,7 +197,7 @@ export default defineComponent ({
             margin-right: 0.6em;;
         }
 
-        .planet-infos {
+        .in-orbit {
             display: flex;
             align-items: center;
             justify-content: center;

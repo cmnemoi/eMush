@@ -28,7 +28,7 @@
         <h3>{{ $t('admin.mechanics.actions') }}</h3>
         <ChildCollectionManager :children="mechanics.actions" @addId="selectNewAction" @remove="removeAction">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         
@@ -143,7 +143,7 @@
             <h3>{{ $t('admin.mechanics.modifierConfigs') }}</h3>
             <ChildCollectionManager :children="mechanics.modifierConfigs" @addId="selectNewModifierConfig" @remove="removeModifierConfig">
                 <template #header="child">
-                    <span>{{ child.id }} - {{ child.name }}</span>
+                    <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
                 </template>
             </ChildCollectionManager>
         </div>

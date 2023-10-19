@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-row">
+    <div class="flex-row actions">
         <button class="action-button" type="submit" @click="$emit('update')">
             {{ $t('admin.buttons.updateConfig') }}
         </button>
@@ -17,3 +17,17 @@ export default {
 };
 
 </script>
+
+<style lang="scss" scoped>
+
+.actions {
+    justify-content: center;
+    flex-flow: wrap;
+    margin-top: 4em;
+
+    button {
+        padding: .4em .8em;
+    }
+}
+
+</style>

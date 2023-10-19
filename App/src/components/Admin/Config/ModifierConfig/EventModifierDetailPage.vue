@@ -99,7 +99,7 @@
         <h3>Modifier Requirement</h3>
         <ChildCollectionManager :children="modifierConfig.modifierActivationRequirements" @addId="selectNewChild" @remove="removeChild">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.modifierName }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.modifierName }}</span>
             </template>
             <template #body="child">
                 <span>name: {{ child.modifierName }}</span>

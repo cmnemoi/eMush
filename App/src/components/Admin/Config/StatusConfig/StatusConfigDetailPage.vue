@@ -64,7 +64,7 @@
         <h3>Modifier Configs</h3>
         <ChildCollectionManager :children="statusConfig.modifierConfigs" @addId="selectNewChild" @remove="removeChild">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
             <template #body="child">
                 <span>name: {{ child.name }}</span>

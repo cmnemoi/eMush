@@ -5,19 +5,13 @@
     <div class="children-container">
         <Pannel>
             <template #header>
-                <div class="header-container">
-                    <slot name="header" v-bind="child"/>
-                </div>
+                <slot name="header" v-bind="child"/>
             </template>
             <template #body>
-                <div class="body-container">
-                    <slot name="body" v-bind="child"/>
-                </div>
+                <slot name="body" v-bind="child"/>
             </template>
             <template #footer>
-                <div class="footer-container">
-                    <slot name="footer" v-bind="child"/>
-                </div>
+                <slot name="footer" v-bind="child"/>
             </template>
         </Pannel>
     </div>
@@ -47,6 +41,8 @@ export default {
 .children-add {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    gap: 0.4em;
     padding: 10px;
 }
 .children-container {
@@ -59,7 +55,8 @@ export default {
     flex-direction: row;
     justify-content: space-between;
 }
-.body-container {
-    flex-direction: column;
-}
+.body-container { flex-direction: column; }
+
+button, .action-button { min-width: 140px; }
+
 </style>

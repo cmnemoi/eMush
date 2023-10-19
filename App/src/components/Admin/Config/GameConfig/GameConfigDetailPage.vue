@@ -12,58 +12,58 @@
         <h3>{{ $t("admin.gameConfig.daedalusConfig") }}</h3>
         <ChildManager :child="gameConfig.daedalusConfig" @addId="selectNewDaedalusConfig">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildManager>
         <h3>{{ $t("admin.gameConfig.difficultyConfig") }}</h3>
         <ChildManager :child="gameConfig.difficultyConfig" @addID="selectNewDifficultyConfig">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildManager>
         <h3>{{ $t("admin.gameConfig.characterConfigs") }}</h3>
         <ChildCollectionManager :children="gameConfig.charactersConfig" @addId="addNewCharacterConfig" @remove="removeCharacterConfig">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.statusConfigs") }}</h3>
         <ChildCollectionManager :children="gameConfig.statusConfigs" @addId="addNewStatusConfig" @remove="removeStatusConfig">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.equipmentConfigs") }}</h3>
         <ChildCollectionManager :children="gameConfig.equipmentsConfig" @addId="addNewEquipmentConfig" @remove="removeEquipmentConfig">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.triumphConfigs") }}</h3>
         <ChildCollectionManager :children="gameConfig.triumphConfig" @addId="addNewTriumphConfig" @remove="removeTriumphConfig">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.diseaseCauseConfigs") }}</h3>
         <ChildCollectionManager :children="gameConfig.diseaseCauseConfig" @addId="addNewDiseaseCauseConfig" @remove="removeDiseaseCauseConfig">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.diseaseConfigs") }}</h3>
         <ChildCollectionManager :children="gameConfig.diseaseConfig" @addId="addNewDiseaseConfig" @remove="removeDiseaseConfig">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.consumableDiseaseConfigs") }}</h3>
         <ChildCollectionManager :children="gameConfig.consumableDiseaseConfig" @addId="addNewConsumableDiseaseConfig" @remove="removeConsumableDiseaseConfig">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
-        <button class="action-button" type="submit" @click="update">
+        <button class="action-button submit" type="submit" @click="update">
             {{ $t('admin.save') }}
         </button>
     </div>

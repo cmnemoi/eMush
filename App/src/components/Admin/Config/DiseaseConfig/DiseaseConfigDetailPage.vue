@@ -74,7 +74,7 @@
         <h3>{{ $t('admin.diseaseConfig.modifierConfigs') }}</h3>
         <ChildCollectionManager :children="diseaseConfig.modifierConfigs" @addId="selectNewModifierConfig" @remove="removeModifierConfig">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span><strong><strong>{{ child.id }}</strong></strong> - {{ child.name }}</span>
             </template>
             <template #body="child">
                 <span>{{ $t('admin.modifierConfig.target') }}: {{ child.target }}</span>

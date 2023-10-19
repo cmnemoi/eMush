@@ -102,7 +102,7 @@
         <h3>{{ $t('admin.daedalusConfig.placeConfigs') }}</h3>
         <ChildCollectionManager :children="daedalusConfig.placeConfigs" @addId="selectNewPlaceConfigs" @remove="removePlaceConfig">
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <UpdateConfigButtons @create="create" @update="update"/>

@@ -120,7 +120,7 @@ final class ScanCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($planetScanner);
 
-        // given this planet scanner has the rigt modifier
+        // given this planet scanner has the right modifier
         /** @var VariableEventModifierConfig $planetScannerModifierConfig */
         $planetScannerModifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'modifier_for_daedalus_+30percentage_on_action_scan']);
         $planetScannerModifier = new GameModifier($this->daedalus, $planetScannerModifierConfig);

@@ -1,7 +1,7 @@
 <template>
     <h3>{{ label }}</h3>
     <pre> {{ map }} </pre>
-    <div class="flex-row">
+    <div class="flex-row index-deletion">
         <label for="select">{{ $t("admin.mapManager.indexToDelete") }}</label>
         <select v-model="indexToDelete" id="select">
             <option v-for="[index,] in map" :value="index" v-bind:key="index">
@@ -10,7 +10,7 @@
         </select>
         <button class="action-button" @click="$emit('removeIndex', indexToDelete)">{{ $t("admin.buttons.delete") }}</button>
     </div>
-    <div class="flex-row">
+    <div class="flex-row index-addition">
         <Input
             :label="$t('admin.mapManager.mapIndexToAdd')"
             id="mapIndex"
@@ -56,9 +56,21 @@ export default {
 
 <style lang="scss" scoped>
 
-.action-button {
-    margin: 0 10px;
+pre {
+    padding: 0.8em 1.4em;
+    line-height: 1.5em;
+    background-color: transparentize(black, 0.8);
+    border: 1px solid transparentize(white, 0.8);
+    border-radius: 5px;
 }
+
+.index-deletion, .index-addition {
+    align-items: center;
+    gap: 0.4em;
+}
+
+button, .action-button { min-width: 140px; }
+
 #select {
     margin-left: 10px;
 }

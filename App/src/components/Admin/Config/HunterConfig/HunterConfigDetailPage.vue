@@ -1,6 +1,6 @@
 <template>
     <div v-if="hunterConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.hunterConfig.name')"
                 id="hunterConfig_name"
@@ -15,8 +15,8 @@
                 type="text"
                 :errors="errors.hunterName"
             />
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.hunterConfig.initialHealth')"
                 id="hunterConfig_initialHealth"
@@ -45,8 +45,8 @@
                 type="number"
                 :errors="errors.drawCost"
             />
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.hunterConfig.maxPerWave')"
                 id="hunterConfig_maxPerWave"

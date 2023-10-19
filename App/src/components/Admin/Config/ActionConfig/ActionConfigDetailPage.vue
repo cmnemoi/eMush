@@ -1,6 +1,6 @@
 <template>
     <div v-if="actionConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.actionConfig.name')"
                 id="actionConfig_name"
@@ -36,8 +36,8 @@
                 type="text"
                 :errors="errors.scope"
             ></Input>
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.actionConfig.actionPoint')"
                 id="actionConfig_actionPoint"
@@ -59,8 +59,8 @@
                 type="number"
                 :errors="errors.moralPoint"
             ></Input>
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.actionConfig.percentageSuccess')"
                 id="actionConfig_percentageSuccess"
@@ -75,8 +75,8 @@
                 type="number"
                 :errors="errors.percentageCritical"
             ></Input>
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.actionConfig.percentageInjury')"
                 id="actionConfig_percentageInjury"

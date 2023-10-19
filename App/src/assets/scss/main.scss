@@ -103,7 +103,10 @@ button {
 
 .flex-row {
     flex-direction: row;
+    gap: 1.2em;
 }
+
+.wrap { flex-wrap: wrap; }
 
 .tippy-box[data-theme~='mush'] {
     display: block;

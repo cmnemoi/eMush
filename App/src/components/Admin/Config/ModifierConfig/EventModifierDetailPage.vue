@@ -1,6 +1,6 @@
 <template>
     <div v-if="modifierConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.modifierConfig.name')"
                 id="modifierConfig_name"
@@ -43,8 +43,8 @@
                 id="modifierConfig_applyOnActionParameter"
                 v-model="modifierConfig.applyOnActionParameter"
             />
-        </div>
-        <div class="flex-row">
+
+
             <div v-if="modifierConfig.type === 'VariableEventModifierConfig'">
                 <div class="flex-row">
                     <Input

@@ -1,6 +1,6 @@
 <template>
     <div v-if="characterConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.characterConfig.name')"
                 id="characterConfig_name"
@@ -8,8 +8,8 @@
                 type="text"
                 :errors="errors.name"
             ></Input>
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.characterConfig.characterName')"
                 id="characterConfig_characterName"
@@ -41,8 +41,8 @@
                 type="number"
                 :errors="errors.maxHealthPoint"
             />
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.characterConfig.initMoralPoint')"
                 id="characterConfig_initMoralPoint"
@@ -74,8 +74,8 @@
                 type="number"
                 :errors="errors.initActionPoint"
             />
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.characterConfig.maxActionPoint')"
                 id="characterConfig_maxActionPoint"

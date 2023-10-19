@@ -1,7 +1,7 @@
 <template>
     <div v-if="diseaseCauseConfig" class="center">
         <h2>{{ $t('admin.diseaseCauseConfig.pageTitle') }} {{ diseaseCauseConfig.causeName }}</h2>
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.diseaseCauseConfig.name')"
                 id="diseaseCauseConfig_name"

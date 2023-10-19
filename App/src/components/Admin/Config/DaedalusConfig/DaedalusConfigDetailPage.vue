@@ -1,6 +1,6 @@
 <template>
     <div v-if="daedalusConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.daedalusConfig.name')"
                 id="daedalusConfig_name"
@@ -8,8 +8,8 @@
                 type="text"
                 :errors="errors.name"
             ></Input>
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.daedalusConfig.initOxygen')"
                 id="daedalusConfig_initOxygen"
@@ -38,8 +38,8 @@
                 type="number"
                 :errors="errors.initShield"
             ></Input>
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.daedalusConfig.dailySporeNb')"
                 id="daedalusConfig_dailySporeNb"
@@ -68,8 +68,8 @@
                 type="number"
                 :errors="errors.maxHull"
             ></Input>
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.daedalusConfig.maxShield')"
                 id="daedalusConfig_maxShield"

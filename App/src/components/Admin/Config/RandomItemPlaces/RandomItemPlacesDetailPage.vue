@@ -1,7 +1,7 @@
 <template>
     <div v-if="randomItemPlaces" class="center">
         <h2>{{ $t('admin.randomItemPlaces.pageTitle') }} {{ randomItemPlaces.name }}</h2>
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.randomItemPlaces.name')"
                 id="randomItemPlaces_name"

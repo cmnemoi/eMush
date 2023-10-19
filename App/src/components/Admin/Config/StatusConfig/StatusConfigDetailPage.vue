@@ -1,6 +1,6 @@
 <template>
     <div v-if="statusConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.statusConfig.name')"
                 id="statusConfig_name"

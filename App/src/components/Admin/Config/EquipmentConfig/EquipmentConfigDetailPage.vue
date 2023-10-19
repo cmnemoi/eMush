@@ -1,7 +1,7 @@
 <template>
     <div v-if="equipmentConfig" class="center">
         <h2>{{ $t('admin.equipmentConfig.pageTitle') }} {{ equipmentConfig.equipmentName }}</h2>
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.equipmentConfig.name')"
                 id="equipmentConfig_name"
@@ -19,8 +19,8 @@
             ></Input>
         </div>
 
-        <div class="flex-row">
-            <input 
+        <div class="flex-row wrap">
+            <Input 
                 type="checkbox" 
                 class="equipmentConfigCheckbox" 
                 id="equipmentConfig_isBreakable" 

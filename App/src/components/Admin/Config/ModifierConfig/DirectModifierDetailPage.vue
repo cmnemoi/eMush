@@ -1,6 +1,6 @@
 <template>
     <div v-if="modifierConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.modifierConfig.name')"
                 id="modifierConfig_name"

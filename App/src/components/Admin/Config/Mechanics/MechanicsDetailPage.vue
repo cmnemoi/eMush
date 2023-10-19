@@ -1,7 +1,7 @@
 <template>
     <div v-if="mechanics" class="center">
         <h2>{{ $t('admin.mechanics.pageTitle') }} {{ mechanics.name }}</h2>
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.mechanics.name')"
                 id="mechanics_name"

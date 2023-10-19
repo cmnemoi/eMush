@@ -1,6 +1,6 @@
 <template>
     <div v-if="eventConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.eventConfig.name')"
                 id="eventConfig_name"
@@ -22,8 +22,8 @@
                 type="text"
                 :errors="errors.quantity"
             />
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.eventConfig.targetVariable')"
                 id="eventConfig_targetVariable"

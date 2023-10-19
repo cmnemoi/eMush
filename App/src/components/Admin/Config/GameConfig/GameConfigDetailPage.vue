@@ -1,6 +1,6 @@
 <template>
     <div v-if="gameConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.gameConfig.name')"
                 id="gameConfig_name"

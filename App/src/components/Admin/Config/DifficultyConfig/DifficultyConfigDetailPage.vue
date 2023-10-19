@@ -1,6 +1,6 @@
 <template>
     <div v-if="difficultyConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.difficultyConfig.name')"
                 id="difficultyConfig_name"
@@ -9,7 +9,7 @@
                 :errors="errors.name"
             />
         </div>
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.difficultyConfig.electricArcRate')"
                 id="difficultyConfig_attribute"
@@ -47,8 +47,7 @@
                 type="number"
                 :errors="errors.startingFireRate"
             />
-        </div>
-        <div class="flex-row">
+
             <Input
                 :label="$t('admin.difficultyConfig.equipmentBreakRate')"
                 id="difficultyConfig_attribute"
@@ -87,9 +86,7 @@
                 type="number"
                 :errors="errors.cycleDiseaseRate"
             />
-            
-        </div>
-        <div class="flex-row">
+
             <Input
                 :label="$t('admin.difficultyConfig.hullFireDamageRate')"
                 id="difficultyConfig_attribute"
@@ -104,8 +101,7 @@
                 type="number"
                 :errors="errors.plantDiseaseRate"
             />
-        </div>
-        <div class="flex-row">
+
             <Input
                 :label="$t('admin.difficultyConfig.hunterSpawnRate')"
                 id="difficultyConfig_attribute"

@@ -1,7 +1,7 @@
 <template>
     <div v-if="placeConfig" class="center">
         <h2>{{ $t('admin.placeConfig.pageTitle') }} {{ placeConfig.placeName }}</h2>
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.placeConfig.name')"
                 id="placeConfig_name"

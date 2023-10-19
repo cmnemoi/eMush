@@ -55,23 +55,25 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .input-default {
-    padding: 5px 5px;
+    width: 30%;
+    align-self: flex-end;
+}
+
+label {
+    padding: 0 0.8em;
+    transform: translateY(0.45em);
 }
 
 input {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
-    margin-bottom: 5px;
-    border: none;
-    border-bottom: 1px solid #fff;
+    color: white;
+    padding: 0.6em 0.8em;
+    background: #222b6b;
+    border: 1px solid transparentize(white, 0.8);
     outline: none;
-    background: transparent;
+    font-size: 1.3em;
 }
-
 
 </style>

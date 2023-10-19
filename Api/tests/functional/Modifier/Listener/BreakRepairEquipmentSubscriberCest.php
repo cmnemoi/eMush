@@ -23,11 +23,13 @@ use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
+use Mush\User\Entity\User;
 
 class BreakRepairEquipmentSubscriberCest
 {
@@ -74,8 +76,18 @@ class BreakRepairEquipmentSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $user = new User();
+        $user
+            ->setUserId('blabla')
+            ->setUsername('blabla')
+        ;
+        $I->haveInRepository($user);
+
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $I->haveInRepository($playerInfo);
 
         $modifierConfig = new VariableEventModifierConfig('modifierShowerActionTest');
         $modifierConfig

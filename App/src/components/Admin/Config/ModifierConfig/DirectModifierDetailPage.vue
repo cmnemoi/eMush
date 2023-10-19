@@ -33,7 +33,7 @@
         <h3>{{ $t("admin.modifierConfig.triggeredEvent") }}</h3>
         <ChildManager :child="modifierConfig.triggeredEvent" @addId="selectNewEventConfig">
             <template #header="child">
-                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildManager>
         <h3>{{ $t("admin.modifierConfig.modifierRequirement") }}</h3>

@@ -111,7 +111,7 @@
         <h3> {{$t('admin.characterConfig.initStatuses')}} </h3>
         <ChildCollectionManager :children="characterConfig.initStatuses" @addId="selectNewInitStatus" @remove="removeInitStatus">
             <template #header="child">
-                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
             <template #body="child">
                 <span>{{ $t('admin.characterConfig.name') }} {{ child.name }}</span>
@@ -120,7 +120,7 @@
         <h3> {{$t('admin.characterConfig.actions')}} </h3>
         <ChildCollectionManager :children="characterConfig.actions" @addId="selectNewAction" @remove="removeAction">
             <template #header="child">
-                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
             <template #body="child">
                 <span>{{ $t('admin.characterConfig.name') }} {{ child.name }}</span>
@@ -135,7 +135,7 @@
         <h3> {{$t('admin.characterConfig.startingItems')}} </h3>
         <ChildCollectionManager :children="characterConfig.startingItems" @addId="selectNewStartingItem" @remove="removeStartingItem">
             <template #header="child">
-                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
             <template #body="child">
                 <span>{{ $t('admin.characterConfig.name') }} {{ child.name }}</span>
@@ -144,7 +144,7 @@
         <h3> {{$t('admin.characterConfig.initDiseases')}} </h3>
         <ChildCollectionManager :children="characterConfig.initDiseases" @addId="selectNewInitDisease" @remove="removeInitDisease">
             <template #header="child">
-                <span><strong>{{ child.id }}</strong> - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
             <template #body="child">
                 <span>{{ $t('admin.characterConfig.name') }} {{ child.name }}</span>

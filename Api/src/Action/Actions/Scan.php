@@ -59,6 +59,12 @@ final class Scan extends AttemptAction
             'contain' => false,
             'groups' => ['visibility'],
         ]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => DaedalusStatusEnum::IN_ORBIT,
+            'target' => HasStatus::DAEDALUS,
+            'contain' => false,
+            'groups' => ['visibility'],
+        ]));
         $metadata->addConstraint(new NumberOfDiscoverablePlanets(['groups' => ['visibility']]));
     }
 

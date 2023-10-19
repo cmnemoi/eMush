@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterConfig;
@@ -41,6 +42,7 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
     private Place $bridge;
     private StatusServiceInterface $statusService;
     private AlertServiceInterface $alertService;
+    private PlanetServiceInterface $planetService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -51,8 +53,10 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
         $this->alertService = $I->grabService(AlertServiceInterface::class);
+        $this->planetService = $I->grabService(PlanetServiceInterface::class);
 
         $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => DaedalusStatusEnum::TRAVELING]);
+        $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => DaedalusStatusEnum::IN_ORBIT]);
 
         // given there is a command terminal in the bridge
         $commandTerminalConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::COMMAND_TERMINAL]);
@@ -457,6 +461,29 @@ final class AdvanceDaedalusCest extends AbstractFunctionalTest
 
         // then there is no fuel in the combustion chamber
         $I->assertEquals(0, $this->daedalus->getCombustionChamberFuel());
+    }
+
+    public function testAdvanceDaedalusCreatesInOrbitStatusIfGoingToAPlanet(FunctionalTester $I): void
+    {
+        // given player found a planet
+        $planet = $this->planetService->createPlanet($this->player);
+        $I->haveInRepository($planet);
+
+        // given Daedalus coordinates matches the planet coordinates
+        $this->daedalus->setCombustionChamberFuel($planet->getDistance());
+        $this->daedalus->setOrientation($planet->getOrientation());
+        $I->haveInRepository($this->daedalus);
+
+        // when player advances daedalus
+        $this->advanceDaedalusAction->loadParameters(
+            action: $this->advanceDaedalusConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->advanceDaedalusAction->execute();
+
+        // then daedalus has an in orbit status
+        $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT));
     }
 
     private function createHunterByName(string $hunterName, FunctionalTester $I): Hunter

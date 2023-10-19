@@ -142,6 +142,8 @@ table {
 
         &:hover,
         &:active { background: rgba(255, 255, 255, .03); }
+
+        td:last-child { width: 0; }
     }
 
     th, td {
@@ -151,27 +153,29 @@ table {
         &::v-deep a, &::v-deep button {
             @include button-style();
             width: fit-content;
+            flex: 1;
             padding: 2px 15px 4px;
+            white-space: nowrap;
         }
     }
 
     th {
         position: relative;
-        opacity: .75;
         letter-spacing: .05em;
         text-align: left;
         font-weight: bold;
         border-bottom: 1px solid rgba(255, 255, 255, .75);
+
+        &.sorting { cursor: pointer; }
     }
 
-    .sorting_asc:after, .sorting_desc:before {
-        opacity: .6;
-    }
+    .sorting_asc:before, .sorting_desc:after { opacity: 1 !important; }
 
     .sorting:before, .sorting:after {
         position: absolute;
         display: block;
-        right: 10px;
+        opacity: 0.6;
+        left: 0.4em;
         line-height: 9px;
         font-size: .9em;
         cursor: pointer;

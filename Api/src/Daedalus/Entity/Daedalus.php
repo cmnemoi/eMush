@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
+use Mush\Exploration\Enum\SpaceOrientationEnum;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\GameVariable;
@@ -79,6 +80,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $dailyActionPointsSpent = 0;
+
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => SpaceOrientationEnum::NORTH])]
+    private string $orientation = SpaceOrientationEnum::NORTH;
 
     public function __construct()
     {
@@ -475,6 +479,18 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function addDailyActionPointsSpent(int $dailyActionPointsSpent): static
     {
         $this->dailyActionPointsSpent += $dailyActionPointsSpent;
+
+        return $this;
+    }
+
+    public function getOrientation(): string
+    {
+        return $this->orientation;
+    }
+
+    public function setOrientation(string $orientation): static
+    {
+        $this->orientation = $orientation;
 
         return $this;
     }

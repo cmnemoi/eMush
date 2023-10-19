@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Exploration\Enum\SpaceOrientationEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -147,6 +148,34 @@ final class TurnDaedalusLeftCest extends AbstractFunctionalTest
 
         // then the action is not executable
         $I->assertEquals(ActionImpossibleCauseEnum::LATERAL_REACTOR_BROKEN, $this->turnDaedalusLeftAction->cannotExecuteReason());
+    }
+
+    public function testTurnDaedalusLeftSuccessChangesCorrectlyDaedalusOrientation(FunctionalTester $I): void
+    {
+        // given daedalus is facing north
+        $I->assertEquals(expected: SpaceOrientationEnum::NORTH, actual: $this->daedalus->getOrientation());
+
+        // when player turns daedalus left
+        $this->turnDaedalusLeftAction->loadParameters(
+            action: $this->turnDaedalusLeftConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->turnDaedalusLeftAction->execute();
+
+        // then daedalus is facing west
+        $I->assertEquals(expected: SpaceOrientationEnum::WEST, actual: $this->daedalus->getOrientation());
+
+        // when player turns daedalus left again
+        $this->turnDaedalusLeftAction->loadParameters(
+            action: $this->turnDaedalusLeftConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->turnDaedalusLeftAction->execute();
+
+        // then daedalus is facing south
+        $I->assertEquals(expected: SpaceOrientationEnum::SOUTH, actual: $this->daedalus->getOrientation());
     }
 
 }

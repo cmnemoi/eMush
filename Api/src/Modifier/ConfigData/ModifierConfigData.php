@@ -1664,5 +1664,24 @@ class ModifierConfigData
                 VariableEventInterface::LOSS => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_daedalus_+30percentage_on_action_scan',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'daedalus',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 30,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
+            'mode' => 'additive',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 }

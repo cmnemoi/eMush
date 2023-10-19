@@ -942,7 +942,10 @@ class StatusConfigData
             'statusName' => 'in_orbit',
             'visibility' => 'public',
             'type' => 'status_config',
-            'modifierConfigs' => [],
+            'modifierConfigs' => [
+                'modifier_for_daedalus_-1actionPoint_on_action_analyze_planet',
+                'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
+            ],
         ],
     ];
 }

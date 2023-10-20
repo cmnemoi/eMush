@@ -978,5 +978,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet d'effacer une planète scannée de votre espace de travail.</target>
       </segment>
     </unit>
+    <unit id="leave_orbit">
+      <segment id="name" state="final">
+        <source>leave_orbit.name</source>
+        <target>Quitter l'orbite</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>leave_orbit.description</source>
+        <target>Lance l'allumage des moteurs pour un déplacement lié à la quantité de carburant prêt.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

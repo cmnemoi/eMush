@@ -195,7 +195,6 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             return [];
         }
 
-        // TODO : handle case if we are in orbit
         $planets = $daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT)
             ? $this->planetService->findAllByDaedalus($daedalus)
             : $currentPlayer->getPlanets();

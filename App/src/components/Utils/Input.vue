@@ -58,7 +58,8 @@ export default {
 <style lang="scss" scoped>
 
 .input-default {
-    width: 30%;
+    width: 31%;
+    min-width: 200px;
     align-self: flex-end;
 }
 
@@ -69,7 +70,7 @@ label {
 
 input {
     color: white;
-    padding: 0.6em 0.8em;
+    padding: 0.5em 0.8em;
     background: #222b6b;
     border: 1px solid transparentize(white, 0.8);
     outline: none;

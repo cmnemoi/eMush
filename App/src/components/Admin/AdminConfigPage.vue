@@ -25,6 +25,17 @@ export default defineComponent ({
 
 .admin-config-container { flex-direction: row; }
 
-.admin-container { flex: 1; }
+.admin-container {
+    flex: 1;
+    margin-right: 1.6em;
+
+    &::v-deep {
+        h3 {
+            font-size: 1.3em;
+            margin: 2.8em 0 0.6em;
+        }
+    }
+
+}
 
 </style>

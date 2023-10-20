@@ -71,9 +71,12 @@ pre {
 
 button, .action-button { min-width: 140px; }
 
-#select {
-    margin-left: 10px;
+select {
+    min-width: 5em;
+    color: white;
+    padding: 0.3em 0.6em;
+    background: #222b6b;
+    border: 1px solid transparentize(white, 0.8);
 }
-
 
 </style>

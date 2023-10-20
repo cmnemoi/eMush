@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 .pannel-default {
-    width: 30%;
+    width: 31%;
     min-width: 200px;
     position: relative;
     background: #222b6b;

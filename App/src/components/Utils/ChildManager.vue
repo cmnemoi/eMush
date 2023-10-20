@@ -1,6 +1,12 @@
 <template>
     <div class="children-add">
-        <label>{{$t('admin.childManager.idToAdd')}}</label><input v-model="selectId"><button class="action-button" @click="$emit('addId', selectId)">{{$t('admin.buttons.add')}}</button>
+        <Input
+            :label="$t('admin.childManager.idToAdd')"
+            id="idToAdd"
+            v-model="selectId"
+            :type="mapIndexesType"
+        ></Input>
+        <button class="action-button" @click="$emit('addId', selectId)">{{$t('admin.buttons.add')}}</button>
     </div>
     <div class="children-container">
         <Pannel>
@@ -19,14 +25,17 @@
 
 <script>
 import Pannel from "@/components/Utils/Pannel";
+import Input from "@/components/Utils/Input.vue";
 
 export default {
     name: "ChildManager",
     components: {
-        Pannel
+        Pannel,
+        Input
     },
     props: {
         child: Object,
+        mapIndexesType: String
     },
     emits: ['addId', 'remove'],
     data: function () {

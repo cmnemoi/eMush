@@ -7,7 +7,7 @@
         >
             <h3>{{ planet.name }}</h3>
             <div class="card">
-                <img :src="getPlanetImage(planet)">
+                <img :src="planet.getSmallPlanetImage()">
                 <p class="in-orbit" v-if="terminal.infos.inOrbit">
                     <img src="@/assets/images/infoalert.png">
                     <span v-html="formatText(terminal.infos.inOrbit)"/>
@@ -141,13 +141,6 @@ export default defineComponent ({
             if (!planet) throw new Error(`No planet found for id ${id}`);
 
             return planet;
-        },
-        getPlanetSeedFromName(name: string): number {
-            return name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        },
-        getPlanetImage(planet: Planet): string {
-            const id = this.getPlanetSeedFromName(planet.name) % this.numberOfPlanetImages;
-            return require(`@/assets/images/astro/planet_${id}_small.png`);
         },
         getSectorImage(sector: string): string {
             return require(`@/assets/images/astro/${sector}.png`);

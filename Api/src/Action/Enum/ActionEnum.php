@@ -162,6 +162,7 @@ class ActionEnum
     public const TURN_DAEDALUS_LEFT = 'turn_daedalus_left';
     public const TURN_DAEDALUS_RIGHT = 'turn_daedalus_right';
     public const DELETE_PLANET = 'delete_planet';
+    public const LEAVE_ORBIT = 'leave_orbit';
 
     public static function getPermanentItemActions(): array
     {

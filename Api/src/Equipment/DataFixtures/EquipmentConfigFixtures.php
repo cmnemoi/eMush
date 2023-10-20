@@ -113,8 +113,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $scanAction = $this->getReference(ActionsFixtures::SCAN);
         /** @var Action $analyzePlanetAction */
         $analyzePlanetAction = $this->getReference(ActionsFixtures::ANALYZE_PLANET);
+        /** @var Action $deletePlanetAction */
+        $deletePlanetAction = $this->getReference(ActionsFixtures::DELETE_PLANET);
 
-        $astroTerminalTool = $this->createTool([$analyzePlanetAction], EquipmentEnum::ASTRO_TERMINAL);
+        $astroTerminalTool = $this->createTool([$analyzePlanetAction, $deletePlanetAction], EquipmentEnum::ASTRO_TERMINAL);
         $manager->persist($astroTerminalTool);
 
         $astroTerminal = new EquipmentConfig();

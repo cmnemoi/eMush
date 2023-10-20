@@ -3442,6 +3442,7 @@ class MechanicsData
             'type' => 'tool',
             'actions' => [
                 ActionEnum::ANALYZE_PLANET,
+                ActionEnum::DELETE_PLANET,
             ],
         ],
         [

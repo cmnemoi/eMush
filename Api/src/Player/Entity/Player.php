@@ -479,6 +479,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
+    public function removePlanet(Planet $planet): static
+    {
+        $this->planets->removeElement($planet);
+
+        return $this;
+    }
+
     public function getVariableByName(string $variableName): GameVariable
     {
         return $this->playerVariables->getVariableByName($variableName);

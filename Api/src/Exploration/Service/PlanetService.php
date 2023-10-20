@@ -59,6 +59,14 @@ final class PlanetService implements PlanetServiceInterface
 
         return $planet;
     }
+    
+    public function deletePlanet(Planet $planet): void
+    {   
+        $player = $planet->getPlayer();
+        $player->removePlanet($planet);
+
+        $this->delete([$planet]);
+    }
 
     public function revealPlanetSectors(Planet $planet, int $number): Planet
     {
@@ -187,6 +195,13 @@ final class PlanetService implements PlanetServiceInterface
         }
 
         return $total;
+    }
+    private function delete(array $entities): void 
+    {
+        foreach ($entities as $entity) {
+            $this->entityManager->remove($entity);
+        }
+        $this->entityManager->flush();
     }
 
     private function getPlanetSectorsToReveal(Planet $planet, int $number): ArrayCollection

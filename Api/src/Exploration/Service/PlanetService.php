@@ -60,14 +60,6 @@ final class PlanetService implements PlanetServiceInterface
         return $planet;
     }
 
-    public function deletePlanet(Planet $planet): void
-    {
-        $player = $planet->getPlayer();
-        $player->removePlanet($planet);
-
-        $this->delete([$planet]);
-    }
-
     public function revealPlanetSectors(Planet $planet, int $number): Planet
     {
         $sectorsToReveal = $this->getPlanetSectorsToReveal($planet, $number);

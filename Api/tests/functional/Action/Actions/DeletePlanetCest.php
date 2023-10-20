@@ -14,7 +14,10 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -120,5 +123,30 @@ final class DeletePlanetCest extends AbstractFunctionalTest
 
         // then planet is deleted
         $I->dontSeeInRepository(Planet::class);
+    }
+
+    public function testDeletePlanetSuccessPrintsLog(FunctionalTester $I): void
+    {
+        // given player is focused on the astro terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->astroTerminal,
+        );
+
+        // when player tries to delete the planet
+        $this->deletePlanetAction->loadParameters($this->deletePlanetConfig, $this->player, $this->planet);
+        $this->deletePlanetAction->execute();
+
+        // then log is printed
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $this->player->getPlace()->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player->getPlayerInfo(),
+            'log' => ActionLogEnum::DELETE_PLANET_SUCCESS,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
     }
 }

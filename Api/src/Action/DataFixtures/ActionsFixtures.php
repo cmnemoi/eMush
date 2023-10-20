@@ -1023,7 +1023,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::DELETE_PLANET)
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setTarget(Planet::class)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
         ;
         $manager->persist($deletePlanet);

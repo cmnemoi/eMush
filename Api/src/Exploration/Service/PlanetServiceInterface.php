@@ -22,5 +22,8 @@ interface PlanetServiceInterface
 
     public function findAllByDaedalus(Daedalus $daedalus): ArrayCollection;
 
+    /** Returns a `Planet` if Daedalus is in orbit around it. Else, returns `null`. */
+    public function findPlanetInDaedalusOrbit(Daedalus $daedalus): ?Planet;
+
     public function delete(array $entities): void;
 }

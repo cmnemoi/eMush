@@ -17,6 +17,7 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\DaedalusStatusEnum;
 
 final class PlanetService implements PlanetServiceInterface
 {
@@ -79,6 +80,15 @@ final class PlanetService implements PlanetServiceInterface
     public function findOneByDaedalusDestination(Daedalus $daedalus): ?Planet
     {
         return $this->planetRepository->findOneByDaedalusDestination($daedalus);
+    }
+
+    public function findPlanetInDaedalusOrbit(Daedalus $daedalus): ?Planet
+    {
+        if (!$daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT)) {
+            return null;
+        }
+
+        return $this->findAllByDaedalus($daedalus)->first();
     }
 
     public function findAllByDaedalus(Daedalus $daedalus): ArrayCollection

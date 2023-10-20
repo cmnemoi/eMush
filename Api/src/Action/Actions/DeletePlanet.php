@@ -79,7 +79,7 @@ final class DeletePlanet extends AbstractAction
         /** @var Planet $planet */
         $planet = $this->target;
         
-        $this->planetService->deletePlanet($planet);
+        $this->planetService->delete([$planet]);
     }
 
 }

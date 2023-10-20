@@ -1,6 +1,6 @@
 <template>
     <div v-if="consumableDiseaseConfig" class="center">
-        <h2>{{ $t('admin.consumableDiseaseConfig.pageTitle') }} {{ consumableDiseaseConfig.name }}</h2>
+        <h2>{{ $t('admin.consumableDiseaseConfig.pageTitle') }} <em>{{ consumableDiseaseConfig.name }}</em></h2>
         <div class="flex-row wrap">
             <Input
                 :label="$t('admin.consumableDiseaseConfig.name')"
@@ -19,6 +19,7 @@
         </div>
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.curesName')"
+            id="consumableDiseaseConfig_curesName"
             :map="consumableDiseaseConfig.curesName"
             mapIndexesType="string"
             mapValuesType="number"

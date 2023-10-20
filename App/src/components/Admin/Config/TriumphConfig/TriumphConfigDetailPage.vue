@@ -1,6 +1,6 @@
 <template>
     <div v-if="triumphConfig" class="center">
-        <h2>{{ $t('admin.triumphConfig.pageTitle') }} {{ triumphConfig.name }}</h2>
+        <h2>{{ $t('admin.triumphConfig.pageTitle') }} <em>{{ triumphConfig.name }}</em></h2>
         <div class="flex-row wrap">
             <Input
                 :label="$t('admin.triumphConfig.name')"
@@ -23,8 +23,14 @@
                 type="string"
                 :errors="errors.team"
             />
-            <input type="checkbox" id="triumphConfig_isAllCrew" v-model="triumphConfig.isAllCrew" />
-            <label for="triumphConfig_isAllCrew">{{ triumphConfig.isAllCrew ? $t('admin.triumphConfig.isAllCrew') : $t('admin.triumphConfig.isNotAllCrew') }}</label>
+            <div class="checkbox-container">
+                <input
+                    type="checkbox"
+                    id="triumphConfig_isAllCrew"
+                    v-model="triumphConfig.isAllCrew"
+                />
+                <label for="triumphConfig_isAllCrew">{{ triumphConfig.isAllCrew ? $t('admin.triumphConfig.isAllCrew') : $t('admin.triumphConfig.isNotAllCrew') }}</label>
+            </div>
         </div>
         <UpdateConfigButtons
             @create="create"

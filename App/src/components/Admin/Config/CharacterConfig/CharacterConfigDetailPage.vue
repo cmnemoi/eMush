@@ -8,8 +8,6 @@
                 type="text"
                 :errors="errors.name"
             ></Input>
-
-
             <Input
                 :label="$t('admin.characterConfig.characterName')"
                 id="characterConfig_characterName"
@@ -17,7 +15,8 @@
                 type="text"
                 :errors="errors.characterName"
             />
-
+        </div>
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.characterConfig.maxNumberPrivateChannel')"
                 id="characterConfig_maxNumberPrivateChannel"

@@ -66,6 +66,7 @@ export default {
 label {
     padding: 0 0.8em;
     transform: translateY(0.45em);
+    word-break: break-word;
 }
 
 input {

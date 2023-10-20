@@ -1,6 +1,6 @@
 <template>
     <div v-if="equipmentConfig" class="center">
-        <h2>{{ $t('admin.equipmentConfig.pageTitle') }} {{ equipmentConfig.equipmentName }}</h2>
+        <h2>{{ $t('admin.equipmentConfig.pageTitle') }} <em>{{ equipmentConfig.equipmentName }}</em></h2>
         <div class="flex-row wrap">
             <Input
                 :label="$t('admin.equipmentConfig.name')"
@@ -9,7 +9,6 @@
                 type="text"
                 :errors="errors.name"
             ></Input>
-
             <Input
                 :label="$t('admin.equipmentConfig.equipmentName')"
                 id="equipmentConfig_equipmentName"
@@ -18,47 +17,47 @@
                 :errors="errors.equipmentName"
             ></Input>
         </div>
-
         <div class="flex-row wrap">
-            <Input 
-                type="checkbox" 
-                class="equipmentConfigCheckbox" 
-                id="equipmentConfig_isBreakable" 
-                v-model="equipmentConfig.isBreakable" 
-            />
-            <label for="equipmentConfig_isBreakable">{{ equipmentConfig.isBreakable ? $t('admin.equipmentConfig.isBreakable') : $t('admin.equipmentConfig.isNotBreakable') }}</label>
-
-            <input 
-                type="checkbox" 
-                class="equipmentConfigCheckbox" 
-                id="equipmentConfig_isFireBreakable" 
-                v-model="equipmentConfig.isFireBreakable" 
-            />
-            <label for="equipmentConfig_isFireBreakable">{{ equipmentConfig.isFireBreakable ? $t('admin.equipmentConfig.isFireBreakable') : $t('admin.equipmentConfig.isNotFireBreakable') }}</label>
-
-            <input 
-                type="checkbox" 
-                class="equipmentConfigCheckbox" 
-                id="equipmentConfig_isFireDestroyable" 
-                v-model="equipmentConfig.isFireDestroyable" 
-            />
-            <label for="equipmentConfig_isFireDestroyable">{{ equipmentConfig.isFireDestroyable ? $t('admin.equipmentConfig.isFireDestroyable') : $t('admin.equipmentConfig.isNotFireDestroyable') }}</label>
-
-            <input v-if="equipmentConfig.equipmentType === 'ItemConfig'" 
-                   type="checkbox" 
-                   class="equipmentConfigCheckbox" 
-                   id="equipmentConfig_isPersonal" 
-                   v-model="equipmentConfig.isPersonal" 
-            />
-            <label v-if="equipmentConfig.equipmentType === 'ItemConfig'" for="equipmentConfig_isPersonal">{{ equipmentConfig.isPersonal ? $t('admin.equipmentConfig.isPersonal') : $t('admin.equipmentConfig.isNotPersonal') }}</label>
-
-            <input v-if="equipmentConfig.equipmentType === 'ItemConfig'" 
-                   type="checkbox" 
-                   class="equipmentConfigCheckbox" 
-                   id="equipmentConfig_isStackable" 
-                   v-model="equipmentConfig.isStackable" 
-            />
-            <label v-if="equipmentConfig.equipmentType === 'ItemConfig'" for="equipmentConfig_isStackable">{{ equipmentConfig.isStackable ? $t('admin.equipmentConfig.isStackable') : $t('admin.equipmentConfig.isNotStackable') }}</label>
+            <div class="checkbox-container">
+                <input 
+                    type="checkbox" 
+                    id="equipmentConfig_isBreakable"
+                    v-model="equipmentConfig.isBreakable"
+                />
+                <label for="equipmentConfig_isBreakable">{{ equipmentConfig.isBreakable ? $t('admin.equipmentConfig.isBreakable') : $t('admin.equipmentConfig.isNotBreakable') }}</label>
+            </div>
+            <div class="checkbox-container">
+                <input 
+                    type="checkbox" 
+                    id="equipmentConfig_isFireBreakable"
+                    v-model="equipmentConfig.isFireBreakable"
+                />
+                <label for="equipmentConfig_isFireBreakable">{{ equipmentConfig.isFireBreakable ? $t('admin.equipmentConfig.isFireBreakable') : $t('admin.equipmentConfig.isNotFireBreakable') }}</label>
+            </div>
+            <div class="checkbox-container">
+                <input 
+                    type="checkbox" 
+                    id="equipmentConfig_isFireDestroyable"
+                    v-model="equipmentConfig.isFireDestroyable"
+                />
+                <label for="equipmentConfig_isFireDestroyable">{{ equipmentConfig.isFireDestroyable ? $t('admin.equipmentConfig.isFireDestroyable') : $t('admin.equipmentConfig.isNotFireDestroyable') }}</label>
+            </div>
+            <div class="checkbox-container" v-if="equipmentConfig.equipmentType === 'ItemConfig'">
+                <input 
+                    type="checkbox" 
+                    id="equipmentConfig_isPersonal"
+                    v-model="equipmentConfig.isPersonal"
+                />
+                <label for="equipmentConfig_isPersonal">{{ equipmentConfig.isPersonal ? $t('admin.equipmentConfig.isPersonal') : $t('admin.equipmentConfig.isNotPersonal') }}</label>
+            </div>
+            <div class="checkbox-container" v-if="equipmentConfig.equipmentType === 'ItemConfig'">
+                <input 
+                    type="checkbox" 
+                    id="equipmentConfig_isStackable"
+                    v-model="equipmentConfig.isStackable"
+                />
+                <label for="equipmentConfig_isStackable">{{ equipmentConfig.isStackable ? $t('admin.equipmentConfig.isStackable') : $t('admin.equipmentConfig.isNotStackable') }}</label>
+            </div>
         </div>
 
         <h3>{{ $t('admin.equipmentConfig.dismountedProducts') }}</h3>

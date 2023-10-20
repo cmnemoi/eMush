@@ -8,8 +8,8 @@
                 type="text"
                 :errors="errors.name"
             ></Input>
-
-
+        </div>
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.daedalusConfig.initOxygen')"
                 id="daedalusConfig_initOxygen"

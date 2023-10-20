@@ -91,14 +91,14 @@
                 type="number"
                 :errors="errors.percentageDirtiness"
             ></Input>
-            <input
-                type="checkbox"
-                class="actionConfigCheckbox"
-                id="actionConfig_isSuperDirty"
-                v-model="actionConfig.actionVariablesArray.isSuperDirty"
-            />
-            <label for="actionConfig_isSuperDirty">{{ actionConfig.actionVariablesArray.isSuperDirty ? $t('admin.actionConfig.isSuperDirty') : $t('admin.actionConfig.isNotSuperDirty') }}</label>
-
+            <div class="checkbox-container">
+                <input
+                    type="checkbox"
+                    id="actionConfig_isSuperDirty"
+                    v-model="actionConfig.actionVariablesArray.isSuperDirty"
+                />
+                <label for="actionConfig_isSuperDirty">{{ actionConfig.actionVariablesArray.isSuperDirty ? $t('admin.actionConfig.isSuperDirty') : $t('admin.actionConfig.isNotSuperDirty') }}</label>
+            </div>
         </div>
         <UpdateConfigButtons @create="create" @update="update"/>
     </div>

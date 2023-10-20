@@ -23,7 +23,7 @@
                 :errors="errors.visibility"
             />
         </div>
-        <div v-if="statusConfig.configType === 'ChargeStatusConfig'">
+        <template v-if="statusConfig.configType === 'ChargeStatusConfig'">
             <h3>Charge Status Config</h3>
             <div class="flex-row">
                 <Input
@@ -56,10 +56,16 @@
                     type="number"
                     :errors="errors.startCharge"
                 />
-                <input type="checkbox" id="statusConfig_autoRemove" v-model="statusConfig.autoRemove" />
-                <label for="statusConfig_autoRemove">{{ statusConfig.autoRemove ? 'Auto-remove' : 'No Auto-remove' }}</label>
+                <div class="checkbox-container">
+                    <input
+                        type="checkbox"
+                        id="statusConfig_autoRemove"
+                        v-model="statusConfig.autoRemove"
+                    />
+                    <label for="statusConfig_autoRemove">{{ statusConfig.autoRemove ? 'Auto-remove' : 'No Auto-remove' }}</label>
+                </div>
             </div>
-        </div>
+        </template>
 
         <h3>Modifier Configs</h3>
         <ChildCollectionManager :children="statusConfig.modifierConfigs" @addId="selectNewChild" @remove="removeChild">

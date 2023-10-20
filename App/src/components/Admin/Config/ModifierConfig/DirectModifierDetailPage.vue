@@ -22,13 +22,14 @@
                 type="text"
                 :errors="errors.modifierRange"
             />
-            <Input
-                :label="$t('admin.modifierConfig.reverseOnRemove')"
-                type="checkbox"
-                class="configCheckbox"
-                id="modifierConfig_reverseOnRemove"
-                v-model="modifierConfig.reverseOnRemove"
-            />
+            <div class="checkbox-container">
+                <input 
+                    type="checkbox" 
+                    id="modifierConfig_reverseOnRemove"
+                    v-model="modifierConfig.reverseOnRemove"
+                />
+                <label for="modifierConfig_reverseOnRemove">{{ $t('admin.modifierConfig.reverseOnRemove') }}</label>
+            </div>
         </div>
         <h3>{{ $t("admin.modifierConfig.triggeredEvent") }}</h3>
         <ChildManager :child="modifierConfig.triggeredEvent" @addId="selectNewEventConfig">

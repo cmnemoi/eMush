@@ -48,17 +48,15 @@ export default {
 
 <style lang="scss" scoped>
 .children-add {
-    display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0.4em;
-    padding: 10px;
+    padding: 0.6em 0;
 }
 .children-container {
-    padding: 10px;
-    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding: 0.6em 0;
 }
 .header-container {
     flex-direction: row;

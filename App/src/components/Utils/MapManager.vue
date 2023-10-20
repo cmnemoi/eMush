@@ -1,6 +1,5 @@
 <template>
     <h3>{{ label }}</h3>
-    <pre> {{ map }} </pre>
     <div class="flex-row index-deletion">
         <label for="select">{{ $t("admin.mapManager.indexToDelete") }}</label>
         <select v-model="indexToDelete" id="select">
@@ -13,13 +12,13 @@
     <div class="flex-row index-addition">
         <Input
             :label="$t('admin.mapManager.mapIndexToAdd')"
-            id="mapIndex"
+            :id="id + '_index'"
             v-model="mapIndexToAdd"
             :type="mapIndexesType"
         ></Input>
         <Input
             :label="$t('admin.mapManager.mapValueToAdd')"
-            id="mapValue"
+            :id="id + '_value'"
             v-model="mapValueToAdd"
             :type="mapValuesType"
         ></Input>
@@ -27,6 +26,7 @@
             {{ $t("admin.buttons.add") }}
         </button>
     </div>
+    <pre> {{ map }} </pre>
 </template>
 
 <script lang="ts">
@@ -38,6 +38,10 @@ export default {
         Input
     },
     props: {
+        id: {
+            type: String,
+            required: true
+        },
         label: String,
         map: Map,
         mapIndexesType: String,

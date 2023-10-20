@@ -1,6 +1,6 @@
 <template>
     <div v-if="placeConfig" class="center">
-        <h2>{{ $t('admin.placeConfig.pageTitle') }} {{ placeConfig.placeName }}</h2>
+        <h2>{{ $t('admin.placeConfig.pageTitle') }} <em>{{ placeConfig.placeName }}</em></h2>
         <div class="flex-row wrap">
             <Input
                 :label="$t('admin.placeConfig.name')"
@@ -27,18 +27,21 @@
         <h3>{{ $t('admin.placeConfig.equipments') }}</h3>
         <StringArrayManager
             :array="placeConfig.equipments"
+            id="placeConfig_equipments"
             @addElement="placeConfig.equipments.push($event)"
             @removeElement="placeConfig?.equipments.splice(placeConfig?.equipments.indexOf($event), 1)"
         ></StringArrayManager>
         <h3>{{ $t('admin.placeConfig.items') }}</h3>
         <StringArrayManager
             :array="placeConfig.items"
+            id="placeConfig_items"
             @addElement="placeConfig.items.push($event)"
             @removeElement="placeConfig.items.splice(placeConfig.items.indexOf($event), 1)"
         ></StringArrayManager>
         <h3>{{ $t('admin.placeConfig.doors') }}</h3>
         <StringArrayManager
             :array="placeConfig.doors"
+            id="placeConfig_doors"
             @addElement="placeConfig.doors.push($event)"
             @removeElement="placeConfig.doors.splice(placeConfig.doors.indexOf($event), 1)"
         ></StringArrayManager>

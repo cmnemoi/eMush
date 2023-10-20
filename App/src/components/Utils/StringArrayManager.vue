@@ -1,15 +1,15 @@
 <template>
-    <pre>{{ array }}</pre>
     <div class="flex-row index-addition">
         <Input
             :label="$t('admin.stringArrayManager.elementToAdd')"
-            id="mapIndex"
+            :id="id"
             v-model="element"
             :type="mapIndexesType"
         ></Input>
         <button class="action-button" @click="$emit('addElement', element)">{{$t('admin.buttons.add')}}</button>
         <button class="action-button" @click="$emit('removeElement', element)">{{$t('admin.buttons.delete')}}</button>
     </div>
+    <pre>{{ array }}</pre>
 </template>
 
 <script lang="ts">
@@ -21,6 +21,10 @@ export default {
         Input
     },
     props: {
+        id: {
+            type: String,
+            required: true
+        },
         array: Array<string>,
         mapIndexesType: String,
     },

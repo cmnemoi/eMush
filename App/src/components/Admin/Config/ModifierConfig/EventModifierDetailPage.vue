@@ -36,41 +36,39 @@
                 type="text"
                 :errors="errors.priority"
             />
-            <Input
-                :label="$t('admin.modifierConfig.applyOnActionParameter')"
-                type="checkbox"
-                class="configCheckbox"
-                id="modifierConfig_applyOnActionParameter"
-                v-model="modifierConfig.applyOnActionParameter"
-            />
-
-
-            <div v-if="modifierConfig.type === 'VariableEventModifierConfig'">
-                <div class="flex-row">
-                    <Input
-                        :label="$t('admin.modifierConfig.targetVariable')"
-                        id="modifierConfig_targetVariable"
-                        v-model="modifierConfig.targetVariable"
-                        type="text"
-                        :errors="errors.targetVariable"
-                    />
-                    <Input
-                        :label="$t('admin.modifierConfig.delta')"
-                        id="modifierConfig_delta"
-                        v-model="modifierConfig.delta"
-                        type="number"
-                        :errors="errors.delta"
-                    />
-                    <Input
-                        :label="$t('admin.modifierConfig.mode')"
-                        id="modifierConfig_mode"
-                        v-model="modifierConfig.mode"
-                        type="text"
-                        :errors="errors.mode"
-                    />
-                </div>
+            <div class="checkbox-container">
+                <input 
+                    type="checkbox" 
+                    id="modifierConfig_applyOnActionParameter"
+                    v-model="modifierConfig.applyOnActionParameter"
+                />
+                <label for="modifierConfig_applyOnActionParameter">{{ $t('admin.modifierConfig.applyOnActionParameter') }}</label>
             </div>
-            <div v-if="modifierConfig.type === 'TriggerEventModifierConfig'">
+
+            <template v-if="modifierConfig.type === 'VariableEventModifierConfig'">
+                <Input
+                    :label="$t('admin.modifierConfig.targetVariable')"
+                    id="modifierConfig_targetVariable"
+                    v-model="modifierConfig.targetVariable"
+                    type="text"
+                    :errors="errors.targetVariable"
+                />
+                <Input
+                    :label="$t('admin.modifierConfig.delta')"
+                    id="modifierConfig_delta"
+                    v-model="modifierConfig.delta"
+                    type="number"
+                    :errors="errors.delta"
+                />
+                <Input
+                    :label="$t('admin.modifierConfig.mode')"
+                    id="modifierConfig_mode"
+                    v-model="modifierConfig.mode"
+                    type="text"
+                    :errors="errors.mode"
+                />
+            </template>
+            <template v-if="modifierConfig.type === 'TriggerEventModifierConfig'">
                 <Input
                     :label="$t('admin.modifierConfig.triggeredEvent')"
                     id="triggeredEvent"
@@ -78,8 +76,8 @@
                     type="text"
                     :errors="errors.triggeredEvent"
                 />
-            </div>
-            <div v-if="modifierConfig.type === 'EventModifierConfig'">
+            </template>
+            <template v-if="modifierConfig.type === 'EventModifierConfig'">
                 <Input
                     :label="$t('admin.modifierConfig.modifierStrategy')"
                     id="triggeredEvent"
@@ -87,7 +85,7 @@
                     type="text"
                     :errors="errors.modifierStrategy"
                 />
-            </div>
+            </template>
         </div>
         <h3>{{ $t('admin.modifierConfig.tagConstraints') }}</h3>
         <MapManager

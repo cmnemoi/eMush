@@ -1,6 +1,6 @@
 <template>
     <div v-if="diseaseConfig" class="center">
-        <h2>{{ $t("admin.diseaseConfig.pageTitle") }} {{ diseaseConfig.diseaseName }}</h2>
+        <h2>{{ $t("admin.diseaseConfig.pageTitle") }} <em>{{ diseaseConfig.diseaseName }}</em></h2>
         <div class="flex-row wrap">
             <Input
                 :label="$t('admin.diseaseConfig.diseaseName')"
@@ -39,8 +39,7 @@
                 type="number"
                 :errors="errors.delayMin"
             ></Input>
-        </div> 
-        <div class="flex-row wrap">
+
             <Input
                 :label="$t('admin.diseaseConfig.delayLength')"
                 id="diseaseConfig_delayLength"

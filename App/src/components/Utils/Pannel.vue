@@ -45,6 +45,7 @@ export default {
     position: relative;
     background: #222b6b;
     border: 1px solid transparentize(white, 0.8);
+    border-left-width: 4px;
 
     .header {
         flex-direction: row;

@@ -1,6 +1,6 @@
 <template>
     <div v-if="diseaseCauseConfig" class="center">
-        <h2>{{ $t('admin.diseaseCauseConfig.pageTitle') }} {{ diseaseCauseConfig.causeName }}</h2>
+        <h2>{{ $t('admin.diseaseCauseConfig.pageTitle') }} <em>{{ diseaseCauseConfig.causeName }}</em></h2>
         <div class="flex-row wrap">
             <Input
                 :label="$t('admin.diseaseCauseConfig.name')"

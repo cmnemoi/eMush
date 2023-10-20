@@ -1,6 +1,6 @@
 <template>
     <div v-if="mechanics" class="center">
-        <h2>{{ $t('admin.mechanics.pageTitle') }} {{ mechanics.name }}</h2>
+        <h2>{{ $t('admin.mechanics.pageTitle') }} <em>{{ mechanics.name }}</em></h2>
         <div class="flex-row wrap">
             <Input
                 :label="$t('admin.mechanics.name')"
@@ -31,8 +31,9 @@
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
-        
-        <div v-if="mechanics.mechanicsType == 'Blueprint'">
+
+        <template v-if="mechanics.mechanicsType == 'Blueprint'">
+            <h3>{{ $t('admin.mechanics.equipment') }}</h3>
             <div class="flex-row">
                 <Input
                     :label="$t('admin.mechanics.equipment')"
@@ -52,39 +53,46 @@
                 <button class="action-button" @click="addIngredient(ingredientToAdd)">{{ $t("admin.buttons.add") }}</button>
                 <button class="action-button" @click="removeIngredient(ingredientToAdd)">{{ $t("admin.buttons.delete") }}</button>
             </div>
-        </div>
+        </template>
 
-        <div class="flex-row" v-if="mechanics.mechanicsType == 'Book'">
-            <Input :label="$t('admin.mechanics.skill')"
-                   id="mechanics_skill"
-                   v-model="mechanics.skill"
-                   type="text"
-                   :errors="errors.skill"
-            />
-        </div>
+        <template v-if="mechanics.mechanicsType == 'Book'">
+            <h3>{{ $t('admin.mechanics.skill') }}</h3>
+            <div class="flex-row">
+                <Input
+                    :label="$t('admin.mechanics.skill')"
+                    id="mechanics_skill"
+                    v-model="mechanics.skill"
+                    type="text"
+                    :errors="errors.skill"
+                />
+            </div>
+        </template>
 
-        <div v-if="mechanics.mechanicsType == 'Document'">
+        <template v-if="mechanics.mechanicsType == 'Document'">
             <h3> {{ $t('admin.mechanics.content') }}</h3>
             <textarea v-model="mechanics.content"></textarea>
             
-            <div class="flex-row">
-                <span id="booleans">
-                    <input type="checkbox"
-                           class="mechanicsCheckbox"
-                           id="isTranslated"
-                           v-model="mechanics.isTranslated" />
+            <div class="flex-row wrap">
+                <div class="checkbox-container">
+                    <input
+                        type="checkbox"
+                        id="isTranslated"
+                        v-model="mechanics.isTranslated" 
+                    />
                     <label for="isTranslated">{{ mechanics.isTranslated ? $t('admin.mechanics.isTranslated') : $t('admin.mechanics.isNotTranslated') }}</label>
-                    
-                    <input type="checkbox"
-                           class="mechanicsCheckbox"
-                           id="canShred"
-                           v-model="mechanics.canShred" />
+                </div>
+                <div class="checkbox-container">
+                    <input
+                        type="checkbox"
+                        id="canShred"
+                        v-model="mechanics.canShred" 
+                    />
                     <label for="canShred">{{ mechanics.canShred ? $t('admin.mechanics.canShred') : $t('admin.mechanics.cannotShred') }}</label>
-                </span>
+                </div>
             </div>
-        </div>
+        </template>
 
-        <div v-if="mechanics.mechanics?.includes('ration')">
+        <template v-if="mechanics.mechanics?.includes('ration')">
             <div class="flex-row">
                 <Input
                     v-if="mechanics.mechanicsType == 'Fruit'"
@@ -137,7 +145,7 @@
                         mapValuesType="number"
                         @addTuple="addExtraEffects" 
                         @removeIndex="removeExtraEffects"></MapManager>
-        </div>
+        </template>
 
         <div v-if="mechanics.mechanicsType == 'Gear'">
             <h3>{{ $t('admin.mechanics.modifierConfigs') }}</h3>
@@ -630,11 +638,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
-#booleans {
-    margin: 15px;
-}
-.mechanicsCheckbox {
-    margin: 0 5px;
+textarea {
+    height: 12em;
+    min-height: 4em;
+    line-height: 1.5em;
+    resize: vertical;
 }
 
 </style>

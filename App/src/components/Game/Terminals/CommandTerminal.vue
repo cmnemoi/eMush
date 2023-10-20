@@ -112,8 +112,7 @@ export default defineComponent ({
     },
     data() {
         return {
-            ActionEnum,
-            chosenOrientation: 'Nord'
+            ActionEnum
         };
     },
     components: { ActionButton }

@@ -1146,5 +1146,11 @@
         <target>**{character}** a effectué une analyse de {target_planet}.</target>
       </segment>
     </unit>
+    <unit id="delete_planet_success">
+      <segment id="delete_planet_success" state="translated">
+        <source>delete_planet_success</source>
+        <target>Vous avez effacé une planète de votre espace de travail.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

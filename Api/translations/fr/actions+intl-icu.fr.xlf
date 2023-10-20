@@ -968,5 +968,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de changer le cap du vaisseau.</target>
       </segment>
     </unit>
+    <unit id="delete_planet">
+      <segment id="name" state="final">
+        <source>delete_planet.name</source>
+        <target>Effacer ce scan</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>delete_planet.description</source>
+        <target>Permet d'effacer une planète scannée de votre espace de travail.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

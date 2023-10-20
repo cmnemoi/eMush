@@ -19,7 +19,7 @@
             </div>
         </section>
 
-        <section v-if="advanceDaedalusAction">
+        <section v-if="advanceDaedalusAction || leaveOrbitAction">
             <h3>{{ terminal.sectionTitles?.moveDaedalus }}</h3>
             <div class="move-status" v-if="terminal.infos.advanceDaedalusStatus">
                 <img src="@/assets/images/att.png" alt="warning" v-if="terminal.infos.advanceDaedalusStatus.isWarning()">
@@ -27,11 +27,17 @@
                 <p v-html="formatText(terminal.infos.advanceDaedalusStatus.text)"></p>
             </div>
             <div class="action">
-                <ActionButton
-                    :cssClass="'wide'"
-                    :key="advanceDaedalusAction.key"
-                    :action="advanceDaedalusAction"
-                    @click="executeTargetAction(target, advanceDaedalusAction)"
+                <ActionButton v-if="advanceDaedalusAction"
+                              :cssClass="'wide'"
+                              :key="advanceDaedalusAction.key"
+                              :action="advanceDaedalusAction"
+                              @click="executeTargetAction(target, advanceDaedalusAction)"
+                />
+                <ActionButton v-else-if="leaveOrbitAction"
+                              :cssClass="'wide'"
+                              :key="leaveOrbitAction.key"
+                              :action="leaveOrbitAction"
+                              @click="executeTargetAction(target, leaveOrbitAction)"
                 />
             </div>
         </section>
@@ -67,11 +73,15 @@ import { mapActions } from "vuex";
 export default defineComponent ({
     name: "CommandTerminal",
     computed: {
-        advanceDaedalusAction(): Action {
+        advanceDaedalusAction(): Action | null {
             const action = this.terminal?.actions.find(action => action.key === ActionEnum.ADVANCE_DAEDALUS);
-            if (!action) throw new Error(`No advance_daedalus action found for terminal ${this.terminal?.key}`);
 
-            return action;
+            return action || null;
+        },
+        leaveOrbitAction(): Action | null {
+            const action = this.terminal?.actions.find(action => action.key === ActionEnum.LEAVE_ORBIT);
+
+            return action || null;
         },
         turnDaedalusLeftAction(): Action {
             const action = this.terminal?.actions.find(action => action.key === ActionEnum.TURN_DAEDALUS_LEFT);

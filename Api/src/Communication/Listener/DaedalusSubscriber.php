@@ -2,6 +2,7 @@
 
 namespace Mush\Communication\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Daedalus\Event\DaedalusEvent;
@@ -46,7 +47,11 @@ class DaedalusSubscriber implements EventSubscriberInterface
             $this->neronMessageService->createNeronMessage(NeronMessageEnum::TRAVEL_PLANET, $daedalus, [], $event->getTime());
         }
 
-        $this->neronMessageService->createNeronMessage(NeronMessageEnum::TRAVEL_DEFAULT, $daedalus, [], $event->getTime());
+        if (in_array(ActionEnum::LEAVE_ORBIT, $event->getTags())) {
+            $this->neronMessageService->createNeronMessage(NeronMessageEnum::LEAVE_ORBIT, $daedalus, [], $event->getTime());
+        } else {
+            $this->neronMessageService->createNeronMessage(NeronMessageEnum::TRAVEL_DEFAULT, $daedalus, [], $event->getTime());
+        }
     }
 
     public function onTravelFinished(DaedalusEvent $event): void

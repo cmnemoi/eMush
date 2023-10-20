@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Status\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\EventPriorityEnum;
@@ -42,8 +43,19 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             time: new \DateTime(),
         );
 
+        // if going to a planet, create in_orbit status
         if ($this->planetService->findOneByDaedalusDestination($daedalus) !== null) {
             $this->statusService->createStatusFromName(
+                statusName: DaedalusStatusEnum::IN_ORBIT,
+                holder: $daedalus,
+                tags: $event->getTags(),
+                time: new \DateTime(),
+            );
+        }
+
+        // if leaving a planet, remove in_orbit status
+        if (in_array(ActionEnum::LEAVE_ORBIT, $event->getTags())) {
+            $this->statusService->removeStatus(
                 statusName: DaedalusStatusEnum::IN_ORBIT,
                 holder: $daedalus,
                 tags: $event->getTags(),

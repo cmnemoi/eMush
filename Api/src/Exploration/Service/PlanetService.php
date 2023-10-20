@@ -59,9 +59,9 @@ final class PlanetService implements PlanetServiceInterface
 
         return $planet;
     }
-    
+
     public function deletePlanet(Planet $planet): void
-    {   
+    {
         $player = $planet->getPlayer();
         $player->removePlanet($planet);
 

@@ -9,6 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Exploration\Entity\Planet;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;

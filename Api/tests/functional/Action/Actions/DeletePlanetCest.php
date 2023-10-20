@@ -6,7 +6,6 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\DeletePlanet;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -33,7 +32,7 @@ final class DeletePlanetCest extends AbstractFunctionalTest
     private GameEquipment $astroTerminal;
     private PlanetServiceInterface $planetService;
     private StatusServiceInterface $statusService;
-    
+
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);

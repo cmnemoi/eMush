@@ -19,7 +19,6 @@ use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -27,7 +26,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class DeletePlanet extends AbstractAction
 {
     protected string $name = ActionEnum::DELETE_PLANET;
-    
+
     private PlanetServiceInterface $planetService;
 
     public function __construct(
@@ -75,11 +74,10 @@ final class DeletePlanet extends AbstractAction
     }
 
     protected function applyEffect(ActionResult $result): void
-    {   
+    {
         /** @var Planet $planet */
         $planet = $this->target;
-        
+
         $this->planetService->delete([$planet]);
     }
-
 }

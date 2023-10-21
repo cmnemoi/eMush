@@ -95,6 +95,7 @@ class ActionEnum
     public const TAKEOFF = 'takeoff';
     public const LAND = 'land';
     public const COLLECT_SCRAP = 'collect_scrap';
+    public const TAKEOFF_TO_PLANET = 'takeoff_to_planet';
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';
@@ -163,6 +164,7 @@ class ActionEnum
     public const DELETE_PLANET = 'delete_planet';
     public const LEAVE_ORBIT = 'leave_orbit';
     public const WRITE = 'write';
+
 
     public static function getPermanentItemActions(): array
     {

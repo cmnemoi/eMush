@@ -76,7 +76,6 @@ final class PlanetService implements PlanetServiceInterface
     {
         return $this->planetRepository->find($id);
     }
-
     public function findOneByDaedalusDestination(Daedalus $daedalus): ?Planet
     {
         return $this->planetRepository->findOneByDaedalusDestination($daedalus);

@@ -125,6 +125,7 @@ class DoTheThing extends AbstractAction
         ]));
 
         $metadata->addConstraint(new NumberPlayersAliveInRoom([
+            'mode' => NumberPlayersAliveInRoom::GREATER_THAN,
             'number' => 2,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_WITNESS,

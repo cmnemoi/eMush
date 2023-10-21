@@ -38,7 +38,8 @@ class NumberPlayersInRoomValidatorTest extends TestCase
     }
 
     public function testValid()
-    {
+    {   
+        $this->constraint->mode = 'greater_than';
         $this->constraint->number = 3;
 
         $room = new Place();
@@ -73,7 +74,8 @@ class NumberPlayersInRoomValidatorTest extends TestCase
     }
 
     public function testTooFewPeople()
-    {
+    {   
+        $this->constraint->mode = 'less_than';
         $this->constraint->number = 3;
 
         $room = new Place();
@@ -96,7 +98,8 @@ class NumberPlayersInRoomValidatorTest extends TestCase
     }
 
     public function testTooManyPeople()
-    {
+    {   
+        $this->constraint->mode = 'greater_than';
         $this->constraint->number = 1;
 
         $room = new Place();

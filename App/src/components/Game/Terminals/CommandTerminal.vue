@@ -74,23 +74,19 @@ export default defineComponent ({
     name: "CommandTerminal",
     computed: {
         advanceDaedalusAction(): Action | null {
-            const action = this.terminal?.actions.find(action => action.key === ActionEnum.ADVANCE_DAEDALUS);
-
-            return action || null;
+            return this.terminal.getActionByKey(ActionEnum.ADVANCE_DAEDALUS);
         },
         leaveOrbitAction(): Action | null {
-            const action = this.terminal?.actions.find(action => action.key === ActionEnum.LEAVE_ORBIT);
-
-            return action || null;
+            return this.terminal.getActionByKey(ActionEnum.LEAVE_ORBIT);
         },
         turnDaedalusLeftAction(): Action {
-            const action = this.terminal?.actions.find(action => action.key === ActionEnum.TURN_DAEDALUS_LEFT);
+            const action = this.terminal.getActionByKey(ActionEnum.TURN_DAEDALUS_LEFT);
             if (!action) throw new Error(`No turn_daedalus_left action found for terminal ${this.terminal?.key}`);
 
             return action;
         },
         turnDaedalusRightAction(): Action {
-            const action = this.terminal?.actions.find(action => action.key === ActionEnum.TURN_DAEDALUS_RIGHT);
+            const action = this.terminal.getActionByKey(ActionEnum.TURN_DAEDALUS_RIGHT);
             if (!action) throw new Error(`No turn_daedalus_right action found for terminal ${this.terminal?.key}`);
 
             return action;

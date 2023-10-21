@@ -2684,6 +2684,7 @@ class EquipmentConfigData
                 'turn_daedalus_left',
                 'turn_daedalus_right',
                 'leave_orbit',
+                'access_terminal',
             ],
             'mechanics' => [],
             'initStatuses' => [],

@@ -86,6 +86,7 @@ class ActionsFixtures extends Fixture
     public const SHOOT_HUNTER_TURRET = 'shoot.hunter.turret';
     public const SHOOT_RANDOM_HUNTER_TURRET = 'shoot.random.hunter.turret';
     public const TAKEOFF = 'takeoff';
+    public const ACCESS_TERMINAL = 'access.terminal';
     public const LAND = 'land';
     public const SHOOT_HUNTER_PATROL_SHIP = 'shoot.hunter.patrol_ship';
     public const SHOOT_RANDOM_HUNTER_PATROL_SHIP = 'shoot.random.hunter.patrol_ship';
@@ -827,6 +828,14 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($takeoff);
 
+        $accessTerminal = new Action();
+        $accessTerminal
+            ->setName(ActionEnum::ACCESS_TERMINAL)
+            ->setActionName(ActionEnum::ACCESS_TERMINAL)
+            ->setScope(ActionScopeEnum::CURRENT)
+        ;
+        $manager->persist($accessTerminal);
+
         $land = new Action();
         $land
             ->setName(ActionEnum::LAND)
@@ -1111,6 +1120,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::SHOOT_HUNTER_TURRET, $shootHunterTurret);
         $this->addReference(self::SHOOT_RANDOM_HUNTER_TURRET, $shootRandomHunterTurret);
         $this->addReference(self::TAKEOFF, $takeoff);
+        $this->addReference(self::ACCESS_TERMINAL, $accessTerminal);
         $this->addReference(self::LAND, $land);
         $this->addReference(self::SHOOT_HUNTER_PATROL_SHIP, $shootHunterPatrolShip);
         $this->addReference(self::SHOOT_RANDOM_HUNTER_PATROL_SHIP, $shootRandomHunterTurret);

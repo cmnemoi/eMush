@@ -38,6 +38,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
+        /** @var Action $accessTerminalAction */
+        $accessTerminalAction = $this->getReference(ActionsFixtures::ACCESS_TERMINAL);
+
         /** @var Action $reportAction */
         $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
         /** @var Action $repair3 */
@@ -60,6 +63,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $dismantle25 */
         $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
+
+        /** @var Action $exitTerminalAction */
+        $exitTerminalAction = $this->getReference(ActionsFixtures::EXIT_TERMINAL);
 
         // @TODO terminals
         $icarus = new EquipmentConfig();
@@ -125,7 +131,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions([$repair12, $sabotage12, $reportAction, $examineAction, $scanAction])
+            ->setActions([$repair12, $sabotage12, $reportAction, $examineAction, $exitTerminalAction, $scanAction, $accessTerminalAction])
             ->setMechanics([$astroTerminalTool])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -176,8 +182,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $hackAction */
         $hackAction = $this->getReference(ActionsFixtures::HACK);
-        /** @var Action $exitTerminalAction */
-        $exitTerminalAction = $this->getReference(ActionsFixtures::EXIT_TERMINAL);
         /** @var Action $advanceDaedalusAction */
         $advanceDaedalusAction = $this->getReference(ActionsFixtures::ADVANCE_DAEDALUS);
         /** @var Action $turnDaedalusLeftAction */
@@ -204,6 +208,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $turnDaedalusLeftAction,
                 $turnDaedalusRightAction,
                 $leaveOrbitAction,
+                $accessTerminalAction,
             ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;

@@ -1519,6 +1519,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => ActionEnum::LAND,

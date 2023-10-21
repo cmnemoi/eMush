@@ -22,12 +22,15 @@ class HasTitleValidator extends ConstraintValidator
 
         $actionTarget = $value->getTarget();
 
-        if ($actionTarget instanceof GameEquipment) {
-            if ($actionTarget->getName() === $constraint->terminal) {
-                if (!$value->getPlayer()->hasTitle($constraint->title)) {
-                    $this->context->buildViolation($constraint->message)->addViolation();
-                }
-            }
+        if (!$actionTarget instanceof GameEquipment) {
+            throw new UnexpectedTypeException($actionTarget, GameEquipment::class);
+        }
+
+        $playerIsFocusedOnTheRightTerminal = $actionTarget->getName() === $constraint->terminal;
+        $playerHasTheRightTitle = $value->getPlayer()->hasTitle($constraint->title);
+
+        if ($playerIsFocusedOnTheRightTerminal && !$playerHasTheRightTitle) {
+            $this->context->buildViolation($constraint->message)->addViolation();
         }
     }
 }

@@ -39,9 +39,7 @@ export class Planet {
     }
 
     public getSmallImage(): string {
-        const id = this.imageId % this.numberOfPlanetImages;
-        
-        return require(`@/assets/images/astro/planet_${id}_small.png`);
+        return require(`@/assets/images/astro/planet_${this.imageId}_small.png`);
     }
 
     public getActionByKey(key: string): Action | null {

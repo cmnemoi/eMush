@@ -1754,7 +1754,7 @@ class ActionData
         [
             'name' => ActionEnum::DELETE_PLANET,
             'action_name' => ActionEnum::DELETE_PLANET,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => Planet::class,
             'scope' => ActionScopeEnum::TERMINAL,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],

@@ -2,12 +2,14 @@ import PlayerService from "@/services/player.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { Player } from "@/entities/Player";
 import { Item } from "@/entities/Item";
+import { ConfirmPopup } from "@/entities/ConfirmPopup";
 
 
 const state =  {
     loading: false,
     player: null,
-    selectedItem: null
+    selectedItem: null,
+    confirmPopup: new ConfirmPopup(),
 };
 
 const getters: GetterTree<any, any> = {
@@ -19,6 +21,9 @@ const getters: GetterTree<any, any> = {
     },
     selectedItem: (state: any): Item|null => {
         return state.selectedItem;
+    },
+    confirmPopup: (state: any): ConfirmPopup => {
+        return state.confirmPopup;
     }
 };
 
@@ -61,6 +66,18 @@ const actions: ActionTree<any, any> = {
     selectTarget({ commit }, { target }) {
         commit('setSelectedItem', target);
     },
+    async openConfirmPopup({ commit }) {
+        commit('openConfirmPopup');
+    },
+    closeConfirmPopup({ commit }) {
+        commit('closeConfirmPopup');
+    },
+    acceptConfirmPopup({ commit }) {
+        commit('acceptConfirmPopup');
+    },
+    refuseConfirmPopup({ commit }) {
+        commit('refuseConfirmPopup');
+    },
 };
 
 const mutations : MutationTree<any> = {
@@ -94,6 +111,27 @@ const mutations : MutationTree<any> = {
             }
             return state.selectedItem = null;
         }
+    },
+    acceptConfirmPopup(state) {
+        state.confirmPopup.accepted = true;
+        state.confirmPopup.isOpen = false;
+
+        return state.confirmPopup.accepted;
+    },
+    refuseConfirmPopup(state) {
+        state.confirmPopup.accepted = false;
+        state.confirmPopup.isOpen = false;
+
+        return state.confirmPopup.accepted;
+    },
+    openConfirmPopup(state) {
+        state.confirmPopup.isOpen = true;
+    },
+    closeConfirmPopup(state) {
+        state.confirmPopup.isOpen = false;
+    },
+    clearConfirmPopup(state) {
+        state.confirmPopup = new ConfirmPopup();
     }
 };
 

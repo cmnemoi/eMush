@@ -21,7 +21,7 @@ export class TerminalInfos {
             this.difficulty = object.difficulty;
             this.advanceDaedalusStatus = new AdvanceDaedalusStatus().load(object.advanceDaedalusStatus);
             this.daedalusOrientation = object.orientation;
-            this.planets = object.planets.map((planet: any) => new Planet().load(planet));
+            this.planets = object.planets?.map((planet: any) => new Planet().load(planet));
             this.maxDiscoverablePlanets = object.maxDiscoverablePlanets;
         }
         return this;

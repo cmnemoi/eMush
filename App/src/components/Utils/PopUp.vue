@@ -17,7 +17,7 @@ export default defineComponent ({
         isOpen: Boolean
     },
     emits: [
-        "close"
+        "close",
     ],
     methods: {
         close() {

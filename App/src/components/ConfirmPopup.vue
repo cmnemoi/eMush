@@ -1,11 +1,11 @@
 <template>
-    <PopUp :is-open=false @close="clearError">
+    <PopUp :is-open=confirmPopup.isOpen @close="closeConfirmPopup">
         <h1 class="title">
             Attention
         </h1>
         <p>Vous êtes sur le point d'effectuer une action importante ou irrémédiable. Continuer ?</p>
         <div class="actions">
-            <button class="action-button">OK</button>
+            <button class="action-button" @click="acceptConfirmPopup()">OK</button>
         </div>
     </PopUp>
 </template>
@@ -20,14 +20,15 @@ export default defineComponent ({
         PopUp
     },
     computed: {
-        ...mapState('error', [
-            'error'
+        ...mapState('player', [
+            'confirmPopup'
         ])
     },
     methods: {
-        ...mapActions('error', [
-            'clearError'
-        ])
+        ...mapActions('player', [
+            'closeConfirmPopup',
+            'acceptConfirmPopup'
+        ]),
     }
 });
 </script>

@@ -74,7 +74,7 @@ import { defineComponent } from "vue";
 import { ActionEnum } from "@/enums/action.enum";
 import { Action } from "@/entities/Action";
 import { formatText } from "@/utils/formatText";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 
 export default defineComponent ({
@@ -89,6 +89,9 @@ export default defineComponent ({
         },
     },
     computed: {
+        ...mapGetters({
+            'confirmPopup': 'player/confirmPopup',
+        }),
         scanAction(): Action {
             const action = this.terminal?.actions.find(action => action.key === ActionEnum.SCAN);
             if (!action) throw new Error(`No ${ActionEnum.SCAN} action found for terminal ${this.terminal?.key}`);
@@ -116,6 +119,8 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             'executeAction': 'action/executeAction',
+            'confirmAction': 'player/openConfirmPopup',
+            'clearConfirmPopup': 'player/clearConfirmPopup',
         }),
         analyzeAction(planet: Planet): Action | null {
             const action = this.getPlanetTargetById(planet.id).actions.find(action => action.key === ActionEnum.ANALYZE_PLANET);
@@ -128,7 +133,16 @@ export default defineComponent ({
         async executeTargetAction(target: Terminal | Planet, action: Action): Promise<void> {
             if (!target) throw new Error(`No target found for action ${action.key}`);
             if (action.canExecute) {
-                await this.executeAction({ target, action });
+                if(action.toConfirm) {
+                    this.confirmAction();
+                }
+
+                console.log(this.confirmPopup);
+
+                if (this.confirmPopup.accepted) {
+                    this.clearConfirmPopup();
+                    await this.executeAction({ target, action });
+                }
             }
         },
         getPlanetTargetById(id: number): Planet {

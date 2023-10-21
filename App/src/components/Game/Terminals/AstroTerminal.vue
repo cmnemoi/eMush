@@ -47,7 +47,7 @@
                 </div>
             </div>
         </section>
-        <div v-if="scanAction || !terminal.infos?.inOrbit">
+        <div v-if="scanAction">
             <section
                 v-for="i in numberOfUnknownPlanets"
                 :key="i"

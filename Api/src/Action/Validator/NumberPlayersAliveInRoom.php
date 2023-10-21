@@ -2,12 +2,12 @@
 
 namespace Mush\Action\Validator;
 
-/**
+/** 
  * Raises a violation if the number of players alive in the room does not match the expected one.
- *
- * @param string  $mode      The mode to use to compare the number of players alive in the room (less_than, greater_than, equal). Default: equal
- * @param int     $number    the number of players alive in the room to compare to
- * @param ?string $placeName if not null, the place to check instead of the player's current place
+ * 
+ * @param string $mode The mode to use to compare the number of players alive in the room (less_than, greater_than, equal). Default: equal
+ * @param int $number The number of players alive in the room to compare to.
+ * @param ?string $placeName If not null, the place to check instead of the player's current place.
  */
 class NumberPlayersAliveInRoom extends ClassConstraint
 {

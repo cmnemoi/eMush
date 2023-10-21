@@ -26,9 +26,6 @@ class NumberPlayersAliveInRoomValidator extends ConstraintValidator
         $place = $player->getPlace();
         if ($constraint->placeName) {
             $place = $player->getDaedalus()->getPlaceByName($constraint->placeName);
-            if (!$place) {
-                throw new \Exception('Place not found');
-            }
         }
 
         $playersInRoom = $place->getPlayers()->getPlayerAlive()->count();

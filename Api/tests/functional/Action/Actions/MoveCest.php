@@ -9,6 +9,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
@@ -41,7 +42,7 @@ final class MoveCest extends AbstractFunctionalTest
     }
 
     public function testMoveActionNotExecutableIfIcarusBayHasTooMuchPeopleInside(FunctionalTester $I): void
-    {
+    {   
         // given there is a door leading to Icarus Bay
         $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
         $door = new Door($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
@@ -73,4 +74,5 @@ final class MoveCest extends AbstractFunctionalTest
             actual: $this->moveAction->cannotExecuteReason(),
         );
     }
+
 }

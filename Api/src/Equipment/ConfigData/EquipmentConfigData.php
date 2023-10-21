@@ -2583,6 +2583,7 @@ class EquipmentConfigData
                 'scan',
                 'analyze_planet',
                 'exit_terminal',
+                'access_terminal',
             ],
             'mechanics' => [
                 'tool_astro_terminal_default',
@@ -2682,6 +2683,7 @@ class EquipmentConfigData
                 'advance_daedalus',
                 'turn_daedalus_left',
                 'turn_daedalus_right',
+                'leave_orbit',
             ],
             'mechanics' => [],
             'initStatuses' => [],

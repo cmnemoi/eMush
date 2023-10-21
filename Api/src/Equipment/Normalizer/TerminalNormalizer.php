@@ -7,12 +7,15 @@ namespace Mush\Equipment\Normalizer;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -22,13 +25,16 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
     use NormalizerAwareTrait;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private PlanetServiceInterface $planetService;
     private TranslationServiceInterface $translationService;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
+        PlanetServiceInterface $planetService,
         TranslationServiceInterface $translationService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
+        $this->planetService = $planetService;
         $this->translationService = $translationService;
     }
 
@@ -181,18 +187,27 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         $currentPlayer = $context['currentPlayer'];
         /** @var GameEquipment $terminal */
         $terminal = $context['terminal'];
+        /** @var Daedalus $daedalus */
+        $daedalus = $terminal->getDaedalus();
 
         $terminalKey = $terminal->getName();
         if ($terminalKey !== EquipmentEnum::ASTRO_TERMINAL) {
             return [];
         }
 
-        // TODO : handle case if we are in orbit
-        $playerPlanets = $currentPlayer->getPlanets();
+        $planets = $daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT)
+            ? $this->planetService->findAllByDaedalus($daedalus)
+            : $currentPlayer->getPlanets();
 
         return [
-            'planets' => $this->normalizer->normalize($playerPlanets, $format, $context),
+            'planets' => $this->normalizer->normalize($planets, $format, $context),
             'maxDiscoverablePlanets' => $currentPlayer->getPlayerInfo()->getCharacterConfig()->getMaxDiscoverablePlanets(),
+            'inOrbit' => $daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT) ? $this->translationService->translate(
+                key: $terminalKey . '.in_orbit',
+                parameters: [],
+                domain: 'terminal',
+                language: $daedalus->getLanguage()
+            ) : null,
         ];
     }
 }

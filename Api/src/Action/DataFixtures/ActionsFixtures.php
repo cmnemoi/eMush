@@ -104,6 +104,7 @@ class ActionsFixtures extends Fixture
     public const TURN_DAEDALUS_LEFT = 'turn.daedalus.left';
     public const TURN_DAEDALUS_RIGHT = 'turn.daedalus.right';
     public const DELETE_PLANET = 'delete.planet';
+    public const LEAVE_ORBIT = 'leave.orbit';
 
     public function load(ObjectManager $manager): void
     {
@@ -1029,6 +1030,17 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($deletePlanet);
 
+        $leaveOrbit = new Action();
+        $leaveOrbit
+            ->setName(ActionEnum::LEAVE_ORBIT)
+            ->setActionName(ActionEnum::LEAVE_ORBIT)
+            ->setScope(ActionScopeEnum::TERMINAL)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::NO_FUEL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::ARACK_PREVENTS_TRAVEL, VisibilityEnum::PUBLIC)
+        ;
+        $manager->persist($leaveOrbit);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1117,5 +1129,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::TURN_DAEDALUS_LEFT, $turnDaedalusLeft);
         $this->addReference(self::TURN_DAEDALUS_RIGHT, $turnDaedalusRight);
         $this->addReference(self::DELETE_PLANET, $deletePlanet);
+        $this->addReference(self::LEAVE_ORBIT, $leaveOrbit);
     }
 }

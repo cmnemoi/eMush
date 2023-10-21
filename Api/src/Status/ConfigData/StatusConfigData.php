@@ -901,7 +901,7 @@ class StatusConfigData
         [
             'name' => 'traveling_default',
             'statusName' => 'traveling',
-            'visibility' => 'hidden',
+            'visibility' => 'public',
             'type' => 'charge_status_config',
             'chargeVisibility' => VisibilityEnum::HIDDEN,
             'chargeStrategy' => ChargeStrategyTypeEnum::CYCLE_DECREMENT,
@@ -935,6 +935,16 @@ class StatusConfigData
             'modifierConfigs' => [
                 'modifier_for_daedalus_-1movementPoint_on_change.variable_if_reason_new_cycle',
                 'modifier_for_daedalus_-1movementPoint_on_event_action_movement_conversion',
+            ],
+        ],
+        [
+            'name' => 'in_orbit_default',
+            'statusName' => 'in_orbit',
+            'visibility' => 'public',
+            'type' => 'status_config',
+            'modifierConfigs' => [
+                'modifier_for_daedalus_-1actionPoint_on_action_analyze_planet',
+                'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
             ],
         ],
     ];

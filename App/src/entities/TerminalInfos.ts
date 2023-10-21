@@ -7,6 +7,7 @@ export class TerminalInfos {
     public daedalusOrientation: string|null;
     public planets: Planet[]|null;
     public maxDiscoverablePlanets: number|null;
+    public inOrbit: string|null;
 
     constructor() {
         this.difficulty = null;
@@ -14,6 +15,7 @@ export class TerminalInfos {
         this.daedalusOrientation = null;
         this.planets = null;
         this.maxDiscoverablePlanets = null;
+        this.inOrbit = null;
     }
 
     public load(object: any): TerminalInfos {
@@ -21,8 +23,9 @@ export class TerminalInfos {
             this.difficulty = object.difficulty;
             this.advanceDaedalusStatus = new AdvanceDaedalusStatus().load(object.advanceDaedalusStatus);
             this.daedalusOrientation = object.orientation;
-            this.planets = object.planets.map((planet: any) => new Planet().load(planet));
+            this.planets = object.planets?.map((planet: any) => new Planet().load(planet));
             this.maxDiscoverablePlanets = object.maxDiscoverablePlanets;
+            this.inOrbit = object.inOrbit;
         }
         return this;
     }

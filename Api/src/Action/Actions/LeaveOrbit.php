@@ -9,9 +9,9 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-final class AdvanceDaedalus extends AbstractMoveDaedalusAction
+final class LeaveOrbit extends AbstractMoveDaedalusAction
 {
-    protected string $name = ActionEnum::ADVANCE_DAEDALUS;
+    protected string $name = ActionEnum::LEAVE_ORBIT;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -19,7 +19,7 @@ final class AdvanceDaedalus extends AbstractMoveDaedalusAction
         $metadata->addConstraint(new HasStatus([
             'status' => DaedalusStatusEnum::IN_ORBIT,
             'target' => HasStatus::DAEDALUS,
-            'contain' => false,
+            'contain' => true,
             'groups' => ['visibility'],
         ]));
     }

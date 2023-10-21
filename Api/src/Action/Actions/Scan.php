@@ -54,7 +54,7 @@ final class Scan extends AttemptAction
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new HasStatus([
-            'status' => DaedalusStatusEnum::TRAVELING,
+            'status' => DaedalusStatusEnum::IN_ORBIT,
             'target' => HasStatus::DAEDALUS,
             'contain' => false,
             'groups' => ['visibility'],

@@ -7,14 +7,18 @@
         >
             <h3>{{ planet.name }}</h3>
             <div class="card">
-                <img :src="getPlanetImage(planet)">
+                <img :src="planet.getSmallImage()" :alt="`planet_${planet.imageId}`">
+                <p class="in-orbit" v-if="terminal.infos.inOrbit">
+                    <img src="@/assets/images/infoalert.png" alt="info">
+                    <span v-html="formatText(terminal.infos.inOrbit)"/>
+                </p>
                 <p><span>{{ terminal.sectionTitles.orientation }}</span> {{ planet.orientation }}</p>
                 <p><span>{{ terminal.sectionTitles.distance }}</span> {{ planet.distance }}</p>
             </div>
             <div class="analysis">
                 <ul>
                     <li v-for="sector in planet.sectors" :key="sector.id">
-                        <Tippy tag="img" :src="getSectorImage(sector.key)">
+                        <Tippy tag="img" :src="getSectorImage(sector)" :alt="sector.name">
                             <template #content>
                                 <h1 v-html="formatText(sector.name)" />
                                 <p v-html="formatText(sector.description)" />
@@ -43,32 +47,35 @@
                 </div>
             </div>
         </section>
-        <section
-            v-for="i in numberOfUnknownPlanets"
-            :key="i"
-            class="planet unknown"
-        >
-            <h3>???</h3>
-            <div class="card">
-                <img src="@/assets/images/astro/planet_unknown.png">
-            </div>
-            <div class="analysis">
-                <!-- <p>Scanning impossible...</p> -->
-                <p>{{ scanAction.successRate }}% <img src="@/assets/images/astro/thermosensors.png"></p>
-                <div class="actions">
-                    <ActionButton
-                        :key="scanAction.key"
-                        :action="scanAction"
-                        @click="executeTargetAction(terminalTarget, scanAction)"
-                    />
+        <div v-if="scanAction">
+            <section
+                v-for="i in numberOfUnknownPlanets"
+                :key="i"
+                class="planet unknown"
+            >
+                <h3>???</h3>
+                <div class="card">
+                    <img src="@/assets/images/astro/planet_unknown.png" alt="unknown planet">
                 </div>
-            </div>
-        </section>
+                <div class="analysis" >
+                    <!-- <p>Scanning impossible...</p> -->
+                    <p>{{ scanAction.successRate }}% <img src="@/assets/images/astro/thermosensors.png" alt="thermosensors"></p>
+                    <div class="actions">
+                        <ActionButton
+                            :key="scanAction.key"
+                            :action="scanAction"
+                            @click="executeTargetAction(terminalTarget, scanAction)"
+                        />
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import { Planet } from "@/entities/Planet";
+import { PlanetSector } from "@/entities/PlanetSector";
 import { Terminal } from "@/entities/Terminal";
 import { defineComponent } from "vue";
 import { ActionEnum } from "@/enums/action.enum";
@@ -89,11 +96,8 @@ export default defineComponent ({
         },
     },
     computed: {
-        scanAction(): Action {
-            const action = this.terminal?.actions.find(action => action.key === ActionEnum.SCAN);
-            if (!action) throw new Error(`No ${ActionEnum.SCAN} action found for terminal ${this.terminal?.key}`);
-
-            return action;
+        scanAction(): Action | null {
+            return this.terminal.getActionByKey(ActionEnum.SCAN);
         },
         terminalTarget() : Terminal {
             return this.terminal;
@@ -118,12 +122,10 @@ export default defineComponent ({
             'executeAction': 'action/executeAction',
         }),
         analyzeAction(planet: Planet): Action | null {
-            const action = this.getPlanetTargetById(planet.id).actions.find(action => action.key === ActionEnum.ANALYZE_PLANET);
-            return action ? action : null;
+            return this.getPlanetTargetById(planet.id).getActionByKey(ActionEnum.ANALYZE_PLANET);
         },
         deleteAction(planet: Planet): Action | null {
-            const action = this.getPlanetTargetById(planet.id).actions.find(action => action.key === ActionEnum.DELETE_PLANET);
-            return action ? action : null;
+            return this.getPlanetTargetById(planet.id).getActionByKey(ActionEnum.DELETE_PLANET);
         },
         async executeTargetAction(target: Terminal | Planet, action: Action): Promise<void> {
             if (!target) throw new Error(`No target found for action ${action.key}`);
@@ -137,15 +139,8 @@ export default defineComponent ({
 
             return planet;
         },
-        getPlanetSeedFromName(name: string): number {
-            return name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        },
-        getPlanetImage(planet: Planet): string {
-            const id = this.getPlanetSeedFromName(planet.name) % this.numberOfPlanetImages;
-            return require(`@/assets/images/astro/planet_${id}_small.png`);
-        },
-        getSectorImage(sector: string): string {
-            return require(`@/assets/images/astro/${sector}.png`);
+        getSectorImage(sector: PlanetSector): string {
+            return require(`@/assets/images/astro/${sector.key}.png`);
         },
         formatText(text: string | null): string {
             if (!text)
@@ -156,7 +151,6 @@ export default defineComponent ({
     data() {
         return {
             ActionEnum,
-            numberOfPlanetImages: 5,
         };
     },
 });
@@ -190,6 +184,22 @@ export default defineComponent ({
         span {
             color: #2c74d1;
             margin-right: 0.6em;;
+        }
+
+        .in-orbit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4em;
+            margin: 0;
+
+            img {
+                margin: 0
+            }
+
+            span {
+                margin: 0;
+            }   
         }
     }
 

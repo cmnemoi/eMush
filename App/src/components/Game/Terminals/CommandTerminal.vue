@@ -19,7 +19,7 @@
             </div>
         </section>
 
-        <section v-if="advanceDaedalusAction">
+        <section v-if="advanceDaedalusAction || leaveOrbitAction">
             <h3>{{ terminal.sectionTitles?.moveDaedalus }}</h3>
             <div class="move-status" v-if="terminal.infos.advanceDaedalusStatus">
                 <img src="@/assets/images/att.png" alt="warning" v-if="terminal.infos.advanceDaedalusStatus.isWarning()">
@@ -27,11 +27,17 @@
                 <p v-html="formatText(terminal.infos.advanceDaedalusStatus.text)"></p>
             </div>
             <div class="action">
-                <ActionButton
-                    :cssClass="'wide'"
-                    :key="advanceDaedalusAction.key"
-                    :action="advanceDaedalusAction"
-                    @click="executeTargetAction(target, advanceDaedalusAction)"
+                <ActionButton v-if="advanceDaedalusAction"
+                              :cssClass="'wide'"
+                              :key="advanceDaedalusAction.key"
+                              :action="advanceDaedalusAction"
+                              @click="executeTargetAction(target, advanceDaedalusAction)"
+                />
+                <ActionButton v-else-if="leaveOrbitAction"
+                              :cssClass="'wide'"
+                              :key="leaveOrbitAction.key"
+                              :action="leaveOrbitAction"
+                              @click="executeTargetAction(target, leaveOrbitAction)"
                 />
             </div>
         </section>
@@ -67,20 +73,20 @@ import { mapActions } from "vuex";
 export default defineComponent ({
     name: "CommandTerminal",
     computed: {
-        advanceDaedalusAction(): Action {
-            const action = this.terminal?.actions.find(action => action.key === ActionEnum.ADVANCE_DAEDALUS);
-            if (!action) throw new Error(`No advance_daedalus action found for terminal ${this.terminal?.key}`);
-
-            return action;
+        advanceDaedalusAction(): Action | null {
+            return this.terminal.getActionByKey(ActionEnum.ADVANCE_DAEDALUS);
+        },
+        leaveOrbitAction(): Action | null {
+            return this.terminal.getActionByKey(ActionEnum.LEAVE_ORBIT);
         },
         turnDaedalusLeftAction(): Action {
-            const action = this.terminal?.actions.find(action => action.key === ActionEnum.TURN_DAEDALUS_LEFT);
+            const action = this.terminal.getActionByKey(ActionEnum.TURN_DAEDALUS_LEFT);
             if (!action) throw new Error(`No turn_daedalus_left action found for terminal ${this.terminal?.key}`);
 
             return action;
         },
         turnDaedalusRightAction(): Action {
-            const action = this.terminal?.actions.find(action => action.key === ActionEnum.TURN_DAEDALUS_RIGHT);
+            const action = this.terminal.getActionByKey(ActionEnum.TURN_DAEDALUS_RIGHT);
             if (!action) throw new Error(`No turn_daedalus_right action found for terminal ${this.terminal?.key}`);
 
             return action;
@@ -112,8 +118,7 @@ export default defineComponent ({
     },
     data() {
         return {
-            ActionEnum,
-            chosenOrientation: 'Nord'
+            ActionEnum
         };
     },
     components: { ActionButton }

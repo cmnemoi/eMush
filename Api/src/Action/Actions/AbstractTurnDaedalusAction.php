@@ -64,6 +64,13 @@ abstract class AbstractTurnDaedalusAction extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DAEDALUS_TRAVELING,
         ]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => DaedalusStatusEnum::IN_ORBIT,
+            'target' => HasStatus::DAEDALUS,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::DAEDALUS_IN_ORBIT,
+        ]));
     }
 
     protected function checkResult(): ActionResult

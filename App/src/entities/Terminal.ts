@@ -36,4 +36,8 @@ export class Terminal {
 
         return this;
     }
+
+    public getActionByKey(key: string): Action | null {
+        return this.actions.find(action => action.key === key) || null;
+    }
 }

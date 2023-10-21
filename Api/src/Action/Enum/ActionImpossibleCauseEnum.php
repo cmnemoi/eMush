@@ -98,6 +98,7 @@ class ActionImpossibleCauseEnum
     public const DAEDALUS_ALREADY_FULL_HULL = 'daedalus_already_full_hull';
     public const COMBUSTION_CHAMBER_FULL = 'combustion_chamber_full';
     public const LATERAL_REACTOR_BROKEN = 'lateral_reactor_broken';
+    public const DAEDALUS_IN_ORBIT = 'daedalus_in_orbit';
 
     public const UPDATE_TALKIE_REQUIRE_NERON = 'update_talkie_require_neron';
     public const UPDATE_TALKIE_REQUIRE_TRACKER = 'update_talkie_require_tracker';

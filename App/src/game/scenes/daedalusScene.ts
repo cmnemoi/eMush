@@ -2,6 +2,11 @@ import Phaser from 'phaser';
 import { Room } from "@/entities/Room";
 
 import background from '@/game/assets/tilemaps/background.png';
+import planet_0 from '@/game/assets/tilemaps/planet_0.png';
+import planet_1 from '@/game/assets/tilemaps/planet_1.png';
+import planet_2 from '@/game/assets/tilemaps/planet_2.png';
+import planet_3 from '@/game/assets/tilemaps/planet_3.png';
+import planet_4 from '@/game/assets/tilemaps/planet_4.png';
 import door_ground_tileset from "@/game/assets/tilemaps/door_ground_tileset.png";
 import ground_tileset from "@/game/assets/tilemaps/ground_tileset.png";
 import wall_tileset from "@/game/assets/tilemaps/wall_tileset.png";
@@ -261,6 +266,11 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.load.image('ground_tileset', ground_tileset);
         this.load.image('wall_tileset', wall_tileset);
+        this.load.image('planet_0', planet_0);
+        this.load.image('planet_1', planet_1);
+        this.load.image('planet_2', planet_2);
+        this.load.image('planet_3', planet_3);
+        this.load.image('planet_4', planet_4);
         this.load.image('background', background);
 
         this.load.atlas('character', character, characterFrame);
@@ -638,9 +648,14 @@ export default class DaedalusScene extends Phaser.Scene
             this.cameras.main.setBounds(-this.sceneIsoSize.y, -72, sceneCartesianSize.x, sceneCartesianSize.y + 72);
         }
 
-        const background = this.add.tileSprite(0, 0, 848, 920, 'background');
+        const background = this.add.tileSprite(this.game.scale.gameSize.width/2, this.game.scale.gameSize.height/2, 425, 470, 'background');
         background.setScrollFactor(0, 0);
 
+        if (this.player.inOrbitPlanet !== null) {
+            const planetSprite = this.add.tileSprite(this.game.scale.gameSize.width-(268/2), this.game.scale.gameSize.height-(191/2), 268, 191, `planet_${this.player.inOrbitPlanet.imageId}`);
+            planetSprite.setScrollFactor(0, 0);
+        }
+        
         return map;
     }
 

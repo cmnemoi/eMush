@@ -30,4 +30,20 @@ class PlanetRepository extends ServiceEntityRepository
 
         return $queryBuilder->getQuery()->getResult();
     }
+
+    public function findOneByDaedalusDestination(Daedalus $daedalus): ?Planet
+    {
+        $queryBuilder = $this->createQueryBuilder('planet');
+        $queryBuilder
+            ->innerJoin('planet.player', 'player')
+            ->where('player.daedalus = :daedalus')
+            ->andWhere('planet.distance = :distance')
+            ->andWhere('planet.orientation = :orientation')
+            ->setParameter('daedalus', $daedalus)
+            ->setParameter('distance', $daedalus->getDestination()->getDistance())
+            ->setParameter('orientation', $daedalus->getDestination()->getOrientation())
+        ;
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
 }

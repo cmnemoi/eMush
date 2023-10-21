@@ -99,6 +99,7 @@ class EndCauseEnum
         ActionEnum::TAKEOFF => self::PATROL_SHIP_EXPLOSION,
         AbstractHunterEvent::HUNTER_SHOT => self::SPACE_BATTLE,
         ActionEnum::ADVANCE_DAEDALUS => self::ABANDONED,
+        ActionEnum::LEAVE_ORBIT => self::ABANDONED,
     ];
 
     public static function getAll(): array

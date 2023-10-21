@@ -410,5 +410,11 @@ class ActionLogEnum
         ActionEnum::DELETE_PLANET => [
             ActionOutputEnum::SUCCESS => self::DELETE_PLANET_SUCCESS,
         ],
+        ActionEnum::LEAVE_ORBIT => [
+            ActionOutputEnum::SUCCESS => self::ADVANCE_DAEDALUS_SUCCESS,
+            ActionOutputEnum::FAIL => self::ADVANCE_DAEDALUS_EMERGENCY_REACTOR_BROKEN,
+            ActionOutputEnum::ARACK_PREVENTS_TRAVEL => self::ADVANCE_DAEDALUS_ARACK_PREVENTS_TRAVEL,
+            ActionOutputEnum::NO_FUEL => self::ADVANCE_DAEDALUS_NO_FUEL,
+        ],
     ];
 }

@@ -208,6 +208,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $turnDaedalusLeftAction,
                 $turnDaedalusRightAction,
                 $leaveOrbitAction,
+                $accessTerminalAction,
             ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;

@@ -32,8 +32,6 @@
             </template>
         </ChildCollectionManager>
 
-        <hr>
-
         <template v-if="mechanics.mechanicsType == 'Blueprint'">
             <h3>{{ $t('admin.mechanics.equipment') }}</h3>
             <div class="flex-row">
@@ -173,6 +171,7 @@
         </template>
 
         <template v-if="mechanics.mechanicsType == 'Weapon'">
+            <h3>Weapon stats</h3>
             <div class="flex-row wrap">
                 <Input
                     :label="$t('admin.mechanics.baseAccuracy')"
@@ -217,8 +216,8 @@
                         @addTuple="addBaseDamageRange"
                         @removeIndex="removeBaseDamageRange"></MapManager>
         </template>
-
-        <div v-if="mechanics.mechanicsType == 'PatrolShip'">
+        <template v-if="mechanics.mechanicsType == 'PatrolShip'">
+            <h3>{{ $t('admin.mechanics.dockingPlace') }}</h3>
             <div class="flex-row">
                 <Input 
                     :label="$t('admin.mechanics.dockingPlace')"
@@ -264,7 +263,7 @@
                         mapValuesType="number"
                         @addTuple="addFailedManoeuvrePlayerDamage"
                         @removeIndex="removeFailedManoeuvrePlayerDamage"/>
-        </div>
+        </template>
         <UpdateConfigButtons @create="create" @update="update"/>
     </div>
 </template>
@@ -650,10 +649,6 @@ textarea {
     background: #222b6b;
     border: 1px solid transparentize(white, 0.8);
     outline: none;
-}
-
-hr {
-    margin: 2.8em 0;
 }
 
 </style>

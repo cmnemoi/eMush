@@ -9,6 +9,11 @@
         <button class="action-button" @click="$emit('addId', selectId)">{{$t('admin.buttons.add')}}</button>
     </div>
     <div class="children-container">
+        <Pannel v-if="children == ''" class="empty">
+            <template #header>
+                <span><em>No item to display</em></span>
+            </template>
+        </Pannel>
         <Pannel v-for="child in children" :key="child.id">
             <template #header>
                 <slot name="header" v-bind="child"/>
@@ -81,6 +86,15 @@ button:not(.icon), .action-button { min-width: 140px; }
     &:hover, &:focus, &:active { background-color: $red; }
 
     img { margin: auto; }
+}
+
+.empty {
+    flex: 1;
+    text-align: center;
+    border: 0;
+    opacity: 0.7;
+    
+    span { cursor: default !important; }
 }
 
 </style>

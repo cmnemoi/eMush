@@ -1,6 +1,6 @@
 <template>
     <div class="flex-row index-addition">
-        <label v-if="label" :for="id">{{ label }}</label>
+        <label v-if="selection && label" :for="id">{{ label }}</label>
         <select v-if="selection" :id="id" v-model="element">
             <option
                 v-for="i in selection"

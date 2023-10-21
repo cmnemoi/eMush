@@ -298,12 +298,20 @@ class PlaceConfigData
             'equipments' => [],
         ],
         [
+            'name' => RoomEnum::PATROL_SHIP_ALPHA_2_WALLIS . '_default',
+            'placeName' => RoomEnum::PATROL_SHIP_ALPHA_2_WALLIS,
+            'type' => PlaceTypeEnum::PATROL_SHIP,
+            'doors' => [],
+            'items' => [],
+            'equipments' => [],
+        ],
+        [
             'name' => RoomEnum::PLANET . '_default',
             'placeName' => RoomEnum::PLANET,
             'type' => PlaceTypeEnum::PLANET,
             'doors' => [],
             'items' => [],
             'equipments' => [],
-        ],
+        ]
     ];
 }

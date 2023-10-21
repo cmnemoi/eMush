@@ -15,7 +15,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Service\PlanetServiceInterface;
-use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -124,6 +123,25 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: ActionImpossibleCauseEnum::EXPLORE_NOTHING_LEFT,
             actual: $this->takeoffToPlanetAction->cannotExecuteReason(),
+        );
+    }
+
+    public function testTakeoffToPlanetMoveIcarusBayPlayersToPlanetPlace(FunctionalTester $I): void
+    {
+        // given player1 and player2 are in Icarus Bay
+
+        // when player tries to takeoff to planet
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->execute();
+
+        // then player1 and player2 are in the planet place
+        $I->assertEquals(
+            expected: $this->daedalus->getPlaceByName(RoomEnum::PLANET),
+            actual: $this->player1->getPlace(),
+        );
+        $I->assertEquals(
+            expected: $this->daedalus->getPlaceByName(RoomEnum::PLANET),
+            actual: $this->player2->getPlace(),
         );
     }
 }

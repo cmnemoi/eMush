@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Exploration\Event;
 
 /** @codeCoverageIgnore */
-class PlanetSectorEvent
+class ExplorationSectorEvent
 {
     public const ACCIDENT = 'accident';
     public const AGAIN = 'again';

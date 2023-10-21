@@ -116,6 +116,7 @@ class ActionLogEnum
     public const SCAN_SUCCESS = 'scan_success';
     public const SCAN_FAIL = 'scan_fail';
     public const ANALYZE_PLANET_SUCCESS = 'analyze_planet_success';
+    public const DELETE_PLANET_SUCCESS = 'delete_planet_success';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -405,6 +406,9 @@ class ActionLogEnum
         ],
         ActionEnum::ANALYZE_PLANET => [
             ActionOutputEnum::SUCCESS => self::ANALYZE_PLANET_SUCCESS,
+        ],
+        ActionEnum::DELETE_PLANET => [
+            ActionOutputEnum::SUCCESS => self::DELETE_PLANET_SUCCESS,
         ],
     ];
 }

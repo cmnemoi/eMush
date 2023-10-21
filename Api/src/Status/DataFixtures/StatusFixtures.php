@@ -60,6 +60,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
     public const SUICIDAL_STATUS = 'suicidal_status';
     public const WATCHED_PUBLIC_BROADCAST_STATUS = 'watched_public_broadcast_status';
     public const TALKIE_SCREWED_STATUS = 'talkie_screwed_status';
+    public const IN_ORBIT_STATUS = 'in_orbit_status';
 
     public function load(ObjectManager $manager): void
     {
@@ -440,6 +441,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($noGravity);
 
+        $inOrbit = new StatusConfig();
+        $inOrbit
+            ->setStatusName(DaedalusStatusEnum::IN_ORBIT)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($inOrbit);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -483,6 +492,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($suicidal)
             ->addStatusConfig($watched_public_broadcast)
             ->addStatusConfig($screwedTalkie)
+            ->addStatusConfig($inOrbit)
         ;
         $manager->persist($gameConfig);
 
@@ -527,6 +537,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::SUICIDAL_STATUS, $suicidal);
         $this->addReference(self::WATCHED_PUBLIC_BROADCAST_STATUS, $watched_public_broadcast);
         $this->addReference(self::TALKIE_SCREWED_STATUS, $screwedTalkie);
+        $this->addReference(self::IN_ORBIT_STATUS, $inOrbit);
 
         $manager->flush();
     }

@@ -24,15 +24,22 @@
                 </ul>
                 <div class="actions">
                     <ActionButton
-                        v-if="getPlanetTargetAnalyzeAction(planet)"
+                        v-if="analyzeAction(planet)"
                         :css-class="'wide'"
-                        :key="getPlanetTargetAnalyzeAction(planet)?.key"
-                        :action="getPlanetTargetAnalyzeAction(planet)"
-                        @click="executeTargetAction(planet, getPlanetTargetAnalyzeAction(planet))"
+                        :key="analyzeAction(planet)?.key"
+                        :action="analyzeAction(planet)"
+                        @click="executeTargetAction(planet, analyzeAction(planet))"
                     />
-                    <button class="delete">
+                    <Tippy v-if="deleteAction(planet)" 
+                           tag="button" 
+                           class="delete" 
+                           @click="executeTargetAction(planet, deleteAction(planet))">
+                        <template #content>
+                            <h1 v-html="formatText(deleteAction(planet)?.name)" />
+                            <p v-html="formatText(deleteAction(planet)?.description)" />
+                        </template>
                         <img src="@/assets/images/bin.png">
-                    </button>
+                    </Tippy>
                 </div>
             </div>
         </section>
@@ -110,6 +117,14 @@ export default defineComponent ({
         ...mapActions({
             'executeAction': 'action/executeAction',
         }),
+        analyzeAction(planet: Planet): Action | null {
+            const action = this.getPlanetTargetById(planet.id).actions.find(action => action.key === ActionEnum.ANALYZE_PLANET);
+            return action ? action : null;
+        },
+        deleteAction(planet: Planet): Action | null {
+            const action = this.getPlanetTargetById(planet.id).actions.find(action => action.key === ActionEnum.DELETE_PLANET);
+            return action ? action : null;
+        },
         async executeTargetAction(target: Terminal | Planet, action: Action): Promise<void> {
             if (!target) throw new Error(`No target found for action ${action.key}`);
             if (action.canExecute) {
@@ -121,10 +136,6 @@ export default defineComponent ({
             if (!planet) throw new Error(`No planet found for id ${id}`);
 
             return planet;
-        },
-        getPlanetTargetAnalyzeAction(planet: Planet): Action | null {
-            const action = this.getPlanetTargetById(planet.id).actions.find(action => action.key === ActionEnum.ANALYZE_PLANET);
-            return action ? action : null;
         },
         getPlanetSeedFromName(name: string): number {
             return name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);

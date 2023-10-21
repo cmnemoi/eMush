@@ -14,4 +14,6 @@ interface PlanetServiceInterface
     public function revealPlanetSectors(Planet $planet, int $number): Planet;
 
     public function findById(int $id): ?Planet;
+
+    public function delete(array $entities): void;
 }

@@ -76,6 +76,17 @@ final class PlanetService implements PlanetServiceInterface
         return $this->planetRepository->find($id);
     }
 
+    public function delete(array $entities): void
+    {
+        foreach ($entities as $entity) {
+            if ($entity instanceof Planet) {
+                $entity->getPlayer()->removePlanet($entity);
+            }
+            $this->entityManager->remove($entity);
+        }
+        $this->entityManager->flush();
+    }
+
     private function getAvailaibleCoordinatesForPlanet(Planet $planet): array
     {
         $availableCoordinates = SpaceCoordinates::getAll();

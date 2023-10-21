@@ -1,7 +1,7 @@
 <template>
     <div class="flex-row index-addition">
         <Input
-            :label="$t('admin.stringArrayManager.elementToAdd')"
+            :label="label == null ? $t('admin.stringArrayManager.elementToAdd') : label"
             :id="id"
             v-model="element"
             :type="mapIndexesType"
@@ -24,6 +24,10 @@ export default {
         id: {
             type: String,
             required: true
+        },
+        label: {
+            type: String,
+            required: false,
         },
         array: Array<string>,
         mapIndexesType: String,

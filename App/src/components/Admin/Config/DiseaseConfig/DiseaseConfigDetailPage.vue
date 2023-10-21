@@ -63,13 +63,12 @@
             ></Input>
         </div>
         <h3>{{ $t('admin.diseaseConfig.override') }}</h3>
-        <pre>{{ diseaseConfig.override }}</pre>
-        <div class="flex-row">
-            <label>{{ $t('admin.diseaseConfig.overrideDiseaseToAdd') }}</label>
-            <input v-model="disease" />
-            <button class="action-button" @click="addNewOverrideDisease(disease)">{{$t('admin.buttons.add')}}</button>
-            <button class="action-button" @click="removeNewOverrideDisease(disease)">{{$t('admin.buttons.delete')}}</button>
-        </div>
+        <StringArrayManager
+            :label="$t('admin.diseaseConfig.overrideDiseaseToAdd')"
+            :array="diseaseConfig.override"
+            @addElement="diseaseConfig.override?.push($event)"
+            @removeElement="diseaseConfig.override?.splice(diseaseConfig.override.indexOf($event), 1)"
+        />
         <h3>{{ $t('admin.diseaseConfig.modifierConfigs') }}</h3>
         <ChildCollectionManager :children="diseaseConfig.modifierConfigs" @addId="selectNewModifierConfig" @remove="removeModifierConfig">
             <template #header="child">
@@ -99,6 +98,7 @@ import Input from "@/components/Utils/Input.vue";
 import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
 
 interface DiseaseConfigState {
     diseaseConfig: null|DiseaseConfig
@@ -112,6 +112,7 @@ export default defineComponent({
         ChildCollectionManager,
         Input,
         UpdateConfigButtons,
+        StringArrayManager,
     },
     data: function (): DiseaseConfigState {
         return {

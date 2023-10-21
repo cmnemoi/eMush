@@ -16,7 +16,6 @@ interface PlanetServiceInterface
     public function revealPlanetSectors(Planet $planet, int $number): Planet;
 
     public function findById(int $id): ?Planet;
-
     /** Returns a `Daedalus`' `Planet` if it matches `Daedalus` destination. Else, returns `null`. */
     public function findOneByDaedalusDestination(Daedalus $daedalus): ?Planet;
 

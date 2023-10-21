@@ -76,6 +76,7 @@ button:not(.icon), .action-button { min-width: 140px; }
     padding: 0.2em;
     z-index: 2;
     background-color: transparentize(white, 0.8);
+    border-radius: 0 3px 3px 0;
 
     &:hover, &:focus, &:active { background-color: $red; }
 

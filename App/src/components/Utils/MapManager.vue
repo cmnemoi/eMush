@@ -1,5 +1,5 @@
 <template>
-    <h3>{{ label }}</h3>
+    <h3 v-if="label">{{ label }}</h3>
     <div class="flex-row index-deletion">
         <label for="select">{{ $t("admin.mapManager.indexToDelete") }}</label>
         <select v-model="indexToDelete" id="select">

@@ -32,6 +32,8 @@
             </template>
         </ChildCollectionManager>
 
+        <hr>
+
         <template v-if="mechanics.mechanicsType == 'Blueprint'">
             <h3>{{ $t('admin.mechanics.equipment') }}</h3>
             <div class="flex-row">
@@ -44,15 +46,13 @@
                 />
             </div>
             <h3>{{ $t('admin.mechanics.ingredients') }}</h3>
-            <pre>{{ mechanics.ingredients }}</pre>
-            <label for="ingredients">{{ $t('admin.mechanics.addIngredients') }}</label>
-            <div class="flex-row">
-                <select v-model="ingredientToAdd">
-                    <option v-for="ingredient in ingredients" :value="ingredient" v-bind:key="ingredient">{{ ingredient }}</option>
-                </select>
-                <button class="action-button" @click="addIngredient(ingredientToAdd)">{{ $t("admin.buttons.add") }}</button>
-                <button class="action-button" @click="removeIngredient(ingredientToAdd)">{{ $t("admin.buttons.delete") }}</button>
-            </div>
+            <StringArrayManager
+                :label="$t('admin.mechanics.addIngredients')"
+                :array="mechanics.ingredients"
+                :selection="ingredients"
+                @addElement="addIngredient"
+                @removeElement="removeIngredient"
+            />
         </template>
 
         <template v-if="mechanics.mechanicsType == 'Book'">
@@ -92,7 +92,7 @@
             </div>
         </template>
 
-        <template v-if="mechanics.mechanics?.includes('ration')">
+        <template v-if="mechanics.mechanics?.includes('ration')"> <!-- When is this selected ??-->
             <div class="flex-row">
                 <Input
                     v-if="mechanics.mechanicsType == 'Fruit'"
@@ -147,16 +147,16 @@
                         @removeIndex="removeExtraEffects"></MapManager>
         </template>
 
-        <div v-if="mechanics.mechanicsType == 'Gear'">
+        <template v-if="mechanics.mechanicsType == 'Gear'">
             <h3>{{ $t('admin.mechanics.modifierConfigs') }}</h3>
             <ChildCollectionManager :children="mechanics.modifierConfigs" @addId="selectNewModifierConfig" @remove="removeModifierConfig">
                 <template #header="child">
                     <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
                 </template>
             </ChildCollectionManager>
-        </div>
+        </template>
 
-        <div v-if="mechanics.mechanicsType == 'Plant'">
+        <template v-if="mechanics.mechanicsType == 'Plant'">
             <h3>{{ $t('admin.mechanics.maturationTime') }}</h3>
             <MapManager :map="mechanics.maturationTime" 
                         mapIndexesType="number"
@@ -170,10 +170,10 @@
                         mapValuesType="number"
                         @addTuple="addOxygen"
                         @removeIndex="removeOxygen"></MapManager>
-        </div>
+        </template>
 
-        <div v-if="mechanics.mechanicsType == 'Weapon'">
-            <div class="flex-row">
+        <template v-if="mechanics.mechanicsType == 'Weapon'">
+            <div class="flex-row wrap">
                 <Input
                     :label="$t('admin.mechanics.baseAccuracy')"
                     id="mechanics_baseAccuracy"
@@ -216,10 +216,11 @@
                         mapValuesType="number"
                         @addTuple="addBaseDamageRange"
                         @removeIndex="removeBaseDamageRange"></MapManager>
-        </div>
+        </template>
+
         <div v-if="mechanics.mechanicsType == 'PatrolShip'">
             <div class="flex-row">
-                <Input  
+                <Input 
                     :label="$t('admin.mechanics.dockingPlace')"
                     id="mechanics_dockingPlace"
                     v-model="mechanics.dockingPlace"
@@ -641,8 +642,18 @@ export default defineComponent({
 textarea {
     height: 12em;
     min-height: 4em;
-    line-height: 1.5em;
+    padding: 0.5em 0.8em;
     resize: vertical;
+    color: white;
+    font-size: 1.15em;
+    line-height: 1.5em;
+    background: #222b6b;
+    border: 1px solid transparentize(white, 0.8);
+    outline: none;
+}
+
+hr {
+    margin: 2.8em 0;
 }
 
 </style>

@@ -61,15 +61,13 @@
         </div>
 
         <h3>{{ $t('admin.equipmentConfig.dismountedProducts') }}</h3>
-        <pre v-if="hasDismountedProducts()">{{ equipmentConfig.dismountedProducts }}</pre>
-        <label for="dismountedProducts">{{ $t('admin.equipmentConfig.addDismountedProducts') }}</label>
-        <div class="flex-row">
-            <select v-model="productToAdd">
-                <option v-for="product in products" :value="product" v-bind:key="product">{{ product }}</option>
-            </select>
-            <button class="action-button" @click="addDismountedProduct(productToAdd)">{{ $t("admin.buttons.add") }}</button>
-            <button class="action-button" @click="removeDismountedProduct(productToAdd)">{{ $t("admin.buttons.delete") }}</button>
-        </div>
+        <StringArrayManager
+            :label="$t('admin.equipmentConfig.addDismountedProducts')"
+            :array="equipmentConfig.dismountedProducts"
+            :selection="products"
+            @addElement="addDismountedProduct"
+            @removeElement="removeDismountedProduct"
+        />
 
         <h3>{{ $t('admin.equipmentConfig.actions') }}</h3>
         <ChildCollectionManager :children="equipmentConfig.actions" @addId="selectNewAction" @remove="removeAction">
@@ -111,6 +109,7 @@ import { Action } from "@/entities/Action";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
 import { Mechanics } from "@/entities/Config/Mechanics";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
 
 interface EquipmentConfigState {
     equipmentConfig: null|EquipmentConfig
@@ -124,6 +123,7 @@ export default defineComponent({
     components: {
         ChildCollectionManager,
         Input,
+        StringArrayManager,
         UpdateConfigButtons
     },
     data: function (): EquipmentConfigState {

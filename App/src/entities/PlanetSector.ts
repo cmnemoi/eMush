@@ -26,4 +26,8 @@ export class PlanetSector {
 
         return this;
     }
+
+    public getImage(): string {
+        return require(`@/assets/images/astro/${this.key}.png`);
+    }
 }

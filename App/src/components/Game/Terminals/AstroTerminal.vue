@@ -7,7 +7,7 @@
         >
             <h3>{{ planet.name }}</h3>
             <div class="card">
-                <img :src="planet.getSmallPlanetImage()">
+                <img :src="planet.getSmallImage()">
                 <p class="in-orbit" v-if="terminal.infos.inOrbit">
                     <img src="@/assets/images/infoalert.png">
                     <span v-html="formatText(terminal.infos.inOrbit)"/>
@@ -18,7 +18,7 @@
             <div class="analysis">
                 <ul>
                     <li v-for="sector in planet.sectors" :key="sector.id">
-                        <Tippy tag="img" :src="getSectorImage(sector.key)">
+                        <Tippy tag="img" :src="sector.getImage()">
                             <template #content>
                                 <h1 v-html="formatText(sector.name)" />
                                 <p v-html="formatText(sector.description)" />
@@ -96,9 +96,7 @@ export default defineComponent ({
     },
     computed: {
         scanAction(): Action | null {
-            const action = this.terminal?.actions.find(action => action.key === ActionEnum.SCAN);
-
-            return action ? action : null;
+            return this.terminal.getActionByKey(ActionEnum.SCAN);
         },
         terminalTarget() : Terminal {
             return this.terminal;
@@ -123,12 +121,10 @@ export default defineComponent ({
             'executeAction': 'action/executeAction',
         }),
         analyzeAction(planet: Planet): Action | null {
-            const action = this.getPlanetTargetById(planet.id).actions.find(action => action.key === ActionEnum.ANALYZE_PLANET);
-            return action ? action : null;
+            return this.getPlanetTargetById(planet.id).getActionByKey(ActionEnum.ANALYZE_PLANET);
         },
         deleteAction(planet: Planet): Action | null {
-            const action = this.getPlanetTargetById(planet.id).actions.find(action => action.key === ActionEnum.DELETE_PLANET);
-            return action ? action : null;
+            return this.getPlanetTargetById(planet.id).getActionByKey(ActionEnum.DELETE_PLANET);
         },
         async executeTargetAction(target: Terminal | Planet, action: Action): Promise<void> {
             if (!target) throw new Error(`No target found for action ${action.key}`);
@@ -142,9 +138,6 @@ export default defineComponent ({
 
             return planet;
         },
-        getSectorImage(sector: string): string {
-            return require(`@/assets/images/astro/${sector}.png`);
-        },
         formatText(text: string | null): string {
             if (!text)
                 return '';
@@ -154,7 +147,6 @@ export default defineComponent ({
     data() {
         return {
             ActionEnum,
-            numberOfPlanetImages: 5,
         };
     },
 });

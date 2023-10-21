@@ -618,5 +618,11 @@
         <target>Le *Réacteur latéral* permettant de tourner dans cette direction est en panne. Il faut le réparer si on veut pouvoir orienter cette épave.</target>
       </segment>
     </unit>
+    <unit id="daedalus_in_orbit">
+      <segment state="final">
+        <source>daedalus_in_orbit.description</source>
+        <target>Cette action est impossible lorsque le Daedalus est en orbite.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

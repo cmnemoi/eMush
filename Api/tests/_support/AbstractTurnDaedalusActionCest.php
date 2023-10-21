@@ -114,6 +114,28 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
         $I->assertEquals(ActionImpossibleCauseEnum::DAEDALUS_TRAVELING, $this->turnDaedalusAction->cannotExecuteReason());
     }
 
+    public function testTurnDaedalusActionNotExecutableIfDaedalusIsInOrbit(FunctionalTester $I): void
+    {
+        // given daedalus is traveling
+        $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::IN_ORBIT,
+            holder: $this->daedalus,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when player turns daedalus
+        $this->turnDaedalusAction->loadParameters(
+            action: $this->turnDaedalusConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->turnDaedalusAction->execute();
+
+        // then the action is not executable
+        $I->assertEquals(ActionImpossibleCauseEnum::DAEDALUS_IN_ORBIT, $this->turnDaedalusAction->cannotExecuteReason());
+    }
+
     public function testTurnDaedalusActionNotExecutableIfCommandTerminalIsBroken(FunctionalTester $I): void
     {
         // given daedalus is traveling

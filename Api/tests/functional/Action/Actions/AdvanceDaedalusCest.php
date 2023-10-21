@@ -68,6 +68,26 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
         $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT));
     }
 
+    public function testAdvanceDaedalusDoesNotCreatesInOrbitStatusIfNotGoingToAPlanet(FunctionalTester $I): void
+    {
+        // given player found a planet
+        $planet = $this->planetService->createPlanet($this->player);
+        $I->haveInRepository($planet);
+
+        // given Daedalus coordinates does not match the planet coordinates
+
+        // when player advances daedalus
+        $this->moveDaedalusAction->loadParameters(
+            action: $this->moveDaedalusActionConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->moveDaedalusAction->execute();
+
+        // then daedalus does not have an in orbit status
+        $I->assertFalse($this->daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT));
+    }
+
     public function testAdvanceDaedalusTriggersNeronAnnouncementIfGoingToAPlanet(FunctionalTester $I): void
     {
         // given player found a planet
@@ -94,18 +114,13 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
         );
     }
 
-    public function testAdvanceDaedalusDeletesAllOtherPlanetsIfGoingToAPlanet(FunctionalTester $I): void
+    public function testAdvanceDaedalusTriggersNeronAnnouncementIfNotGoingToAPlanet(FunctionalTester $I): void
     {
-        // given player found two planets
+        // given player found a planet
         $planet = $this->planetService->createPlanet($this->player);
-        $planet2 = $this->planetService->createPlanet($this->player);
         $I->haveInRepository($planet);
-        $I->haveInRepository($planet2);
 
-        // given Daedalus coordinates matches on of the planet coordinates
-        $this->daedalus->setCombustionChamberFuel($planet->getDistance());
-        $this->daedalus->setOrientation($planet->getOrientation());
-        $I->haveInRepository($this->daedalus);
+        // given Daedalus coordinates does not match the planet coordinates
 
         // when player advances daedalus
         $this->moveDaedalusAction->loadParameters(
@@ -115,9 +130,37 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
         );
         $this->moveDaedalusAction->execute();
 
-        // then planet2 is deleted, but not planet
+        // then neron announces the travel
+        $I->seeInRepository(
+            entity: Message::class,
+            params: ['message' => NeronMessageEnum::TRAVEL_DEFAULT]
+        );
+        $I->dontSeeInRepository(
+            entity: Message::class,
+            params: ['message' => NeronMessageEnum::TRAVEL_PLANET]
+        );
+    }
+
+    public function testAdvanceDaedalusDeletesAllPlanetsIfGoingToAPlanet(FunctionalTester $I): void
+    {
+        // given player found two planets
+        $planet = $this->planetService->createPlanet($this->player);
+        $planet2 = $this->planetService->createPlanet($this->player);
+        $I->haveInRepository($planet);
+        $I->haveInRepository($planet2);
+
+        // given Daedalus coordinates does not match the planet coordinates
+
+        // when player advances daedalus
+        $this->moveDaedalusAction->loadParameters(
+            action: $this->moveDaedalusActionConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->moveDaedalusAction->execute();
+
+        // then all planets are deleted
         $remainingPlanets = $this->planetService->findAllByDaedalus($this->daedalus);
-        $I->assertContains($planet, $remainingPlanets);
-        $I->assertNotContains($planet2, $remainingPlanets);
+        $I->assertEmpty($remainingPlanets);
     }
 }

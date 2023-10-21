@@ -106,7 +106,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
     public function testMoveDaedalusActionSuccessCreatesADaedalusTravelingStatus(FunctionalTester $I): void
     {
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
         $this->moveDaedalusAction->execute();
 
@@ -119,7 +119,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         // given player2 is in space battle : in space for example
         $this->player2->changePlace($this->daedalus->getSpace());
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
         $this->moveDaedalusAction->execute();
 
@@ -132,7 +132,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         // given player2 is not in space battle : in laboratory for example
         $this->player2->changePlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
         $this->moveDaedalusAction->execute();
 
@@ -152,7 +152,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($pasiphae);
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
         $this->moveDaedalusAction->execute();
 
@@ -174,7 +174,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($pasiphae);
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
         $this->moveDaedalusAction->execute();
 
@@ -196,7 +196,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($metalScrap);
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
         $this->moveDaedalusAction->execute();
 
@@ -212,7 +212,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         // given there is no fuel in the combustion chamber
         $this->daedalus->setCombustionChamberFuel(0);
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
         $result = $this->moveDaedalusAction->execute();
 
@@ -225,7 +225,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         // given there is no fuel in the combustion chamber
         $this->daedalus->setCombustionChamberFuel(0);
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
         $this->moveDaedalusAction->execute();
 
@@ -254,7 +254,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         $I->haveInRepository($arack);
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
         $result = $this->moveDaedalusAction->execute();
 
@@ -267,7 +267,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         // given there is an arack attacking
         $arack = $this->createHunterByName(HunterEnum::SPIDER, $I);
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
         $this->moveDaedalusAction->execute();
 
@@ -294,7 +294,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters($this->moveDaedalusActionConfig, $this->player, $this->commandTerminal);
         $result = $this->moveDaedalusAction->execute();
 
@@ -312,7 +312,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
             action: $this->moveDaedalusActionConfig,
             player: $this->player,
@@ -340,7 +340,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
             $this->createHunterByName(HunterEnum::HUNTER, $I);
         }
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
             action: $this->moveDaedalusActionConfig,
             player: $this->player,
@@ -359,7 +359,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
             $this->createHunterByName(HunterEnum::TRAX, $I);
         }
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
             action: $this->moveDaedalusActionConfig,
             player: $this->player,
@@ -384,7 +384,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
             $dice = $this->createHunterByName(HunterEnum::DICE, $I);
         }
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
             action: $this->moveDaedalusActionConfig,
             player: $this->player,
@@ -417,7 +417,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
             action: $this->moveDaedalusActionConfig,
             player: $this->player,
@@ -431,7 +431,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
     public function testMoveDaedalusActionRemoveFuelInCombustionChamber(FunctionalTester $I): void
     {
-        // when player movess daedalus
+        // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
             action: $this->moveDaedalusActionConfig,
             player: $this->player,

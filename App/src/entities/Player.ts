@@ -169,4 +169,8 @@ export class Player {
             return status.key === StatusPlayerNameEnum.FOCUSED && status.target?.key === terminal;
         }).length > 0;
     }
+
+    public isInExploration(): boolean {
+        return this.room?.type === 'planet';
+    }
 }

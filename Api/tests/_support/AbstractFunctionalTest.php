@@ -134,7 +134,27 @@ class AbstractFunctionalTest
         ;
         $I->haveInRepository($space);
 
-        return new ArrayCollection([$laboratory, $space]);
+        /** @var PlaceConfig $spaceConfig */
+        $spaceConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::SPACE]);
+        $space = new Place();
+        $space
+            ->setName(RoomEnum::SPACE)
+            ->setType($spaceConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($space);
+
+        /** @var PlaceConfig $planetConfig */
+        $planetConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::PLANET]);
+        $planet = new Place();
+        $planet
+            ->setName(RoomEnum::PLANET)
+            ->setType($planetConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($planet);
+
+        return new ArrayCollection([$laboratory, $space, $planet]);
     }
 
     protected function createExtraPlace(string $placeName, FunctionalTester $I, Daedalus $daedalus): Place

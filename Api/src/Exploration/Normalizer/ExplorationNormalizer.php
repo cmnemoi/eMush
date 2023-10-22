@@ -29,8 +29,8 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
         return $data instanceof Exploration;
     }
 
-    public function normalize(mixed $object, ?string $format = null, array $context = []): ?array
-    {   
+    public function normalize(mixed $object, string $format = null, array $context = []): ?array
+    {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
         /** @var Exploration $exploration */

@@ -64,7 +64,7 @@ class Exploration
     }
 
     public function addExplorator(Player $explorator): void
-    {   
+    {
         $explorator->setExploration($this);
         $this->explorators->add($explorator);
     }

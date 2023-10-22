@@ -61,7 +61,7 @@ final class ExplorationService implements ExplorationServiceInterface
     }
 
     public function closeExploration(Exploration $exploration): void
-    {   
+    {
         foreach ($exploration->getExplorators() as $explorator) {
             $explorator->setExploration(null);
         }
@@ -74,7 +74,7 @@ final class ExplorationService implements ExplorationServiceInterface
     }
 
     public function computeExplorationEvents(Exploration $exploration): Exploration
-    {   
+    {
         $eventLogs = [];
         $planet = $exploration->getPlanet();
         $sectors = $planet->getSectors();
@@ -84,19 +84,22 @@ final class ExplorationService implements ExplorationServiceInterface
         // @TODO : add Landing planet sector at the beginning of the exploration
         foreach ($sectors as $sector) {
             $sector->visit();
-            
+
             $eventName = $this->randomService->getSingleRandomElementFromProbaCollection($sector->getExplorationEvents());
-            
+            if (!is_string($eventName)) {
+                throw new \RuntimeException('Exploration event name should be a string');
+            }
+
             $explorationLog = new ExplorationLog($exploration);
             $explorationLog->setPlanetSectorName($sector->getName());
             $explorationLog->setEventName($eventName);
-            
-            // @TODO : add the log to the ClosedExploration entity too. 
+
+            // @TODO : add the log to the ClosedExploration entity too.
             $exploration->addLog($explorationLog);
 
             $eventLogs[] = $explorationLog;
         }
-     
+
         $this->persist(array_merge($eventLogs, [$planet, $exploration]));
 
         return $exploration;

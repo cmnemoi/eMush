@@ -29,5 +29,4 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     {
         $this->explorationService->computeExplorationEvents($event->getExploration());
     }
-
 }

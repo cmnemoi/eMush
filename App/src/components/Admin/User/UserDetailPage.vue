@@ -11,7 +11,7 @@
                 type="text"
             />
         </div>
-        <div class="flex wrap selection">
+        <div class="select-default">
             <label for="user_roles">{{ $t('admin.user.roles') }}</label>
             <select v-model="user.roles" :size="rolesOption.length" multiple>
                 <option v-for="option in rolesOption" :value="option.key" :key="option.key">
@@ -108,32 +108,57 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
-.flex {
-    gap: 1.2em;
-    padding: 0.6em 0;
+h2 { font-size: 1.6em; }
+
+h3 { font-size: 1.3em; }
+
+h2, h3 {
+    margin: 2.8em 0 0.6em;
+    
+    &:first-child { margin-top: 0.6em; }
 }
 
-.selection > * {
+.select-default {
+    padding: 1.8em 0;
+
+    label {
+        padding: 0 0.8em;
+        transform: translateY(0.45em);
+        word-break: break-word;
+    }
+
+    select {
+        padding-top: 0.2em;
+        font-size: 1.3em;
+        color: white;
+        background: #222b6b;
+        border: 1px solid transparentize(white, 0.8);
+        border-radius: 1px;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px transparentize(white, 0.85);
+        }
+
+        & option:checked {
+            background: transparentize($blue, 0.7);
+            font-weight: bold;
+        }
+    }
+
+    option {
+        color: white;
+        padding: 0.5em 0.8em;
+        background: #222b6b;
+    }
+}
+
+.select-default > * {
     width: 31%;
     min-width: 200px;
     height: fit-content;
 }
 
-select {
-    color: white;
-    background: #222b6b;
-    border: 1px solid transparentize(white, 0.8);
 
-    & option:checked {
-        background: transparentize($blue, 0.7);
-        font-weight: bold;
-    }
-}
-
-option {
-    color: white;
-    padding: 0.5em 0.8em;
-    background: #222b6b;
-}
 
 </style>

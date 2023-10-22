@@ -1,12 +1,14 @@
 <template>
     <h3 v-if="label">{{ label }}</h3>
     <div class="flex-row index-deletion">
-        <label for="select">{{ $t("admin.mapManager.indexToDelete") }}</label>
-        <select v-model="indexToDelete" id="select">
-            <option v-for="[index,] in map" :value="index" v-bind:key="index">
-                {{ index }}
-            </option>
-        </select>
+        <div class="select-default">
+            <label for="select">{{ $t("admin.mapManager.indexToDelete") }}</label>
+            <select v-model="indexToDelete" id="select">
+                <option v-for="[index,] in map" :value="index" v-bind:key="index">
+                    {{ index }}
+                </option>
+            </select>
+        </div>
         <button class="action-button" @click="$emit('removeIndex', indexToDelete)">{{ $t("admin.buttons.delete") }}</button>
     </div>
     <div class="flex-row index-addition">
@@ -70,17 +72,36 @@ pre {
 
 .index-deletion, .index-addition {
     align-items: center;
-    gap: 0.4em;
+    gap: 1.2em;
 }
 
 button, .action-button { min-width: 140px; }
 
-select {
-    min-width: 5em;
-    color: white;
-    padding: 0.3em 0.6em;
-    background: #222b6b;
-    border: 1px solid transparentize(white, 0.8);
+.select-default {
+    width: 31%;
+    min-width: 200px;
+    align-self: flex-end;
+
+    label {
+        padding: 0 0.8em;
+        transform: translateY(0.45em);
+        word-break: break-word;
+    }
+
+    select {
+        min-width: 5em;
+        padding: 0.3em 0.6em;
+        font-size: 1.3em;
+        color: white;
+        background: #222b6b;
+        border: 1px solid transparentize(white, 0.8);
+        border-radius: 1px;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px transparentize(white, 0.85);
+        }
+    }
 }
 
 </style>

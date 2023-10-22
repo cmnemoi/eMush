@@ -74,8 +74,14 @@ input {
     padding: 0.5em 0.8em;
     background: #222b6b;
     border: 1px solid transparentize(white, 0.8);
+    border-radius: 1px;
     outline: none;
     font-size: 1.3em;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px transparentize(white, 0.85);
+    }
 }
 
 </style>

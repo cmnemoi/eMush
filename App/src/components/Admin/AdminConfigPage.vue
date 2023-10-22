@@ -48,8 +48,14 @@ export default defineComponent ({
             padding-left: 0.6em;
             margin-top: 1.15em;
             border: 1px solid transparentize(white, 0.8);
+            border-radius: 1px;
             align-self: stretch;
             align-items: center;
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px transparentize(white, 0.85);
+            }
         
             label { 
                 padding: 0.6em;

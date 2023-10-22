@@ -1,15 +1,17 @@
 <template>
     <div class="flex-row index-addition">
-        <label v-if="selection && label" :for="id">{{ label }}</label>
-        <select v-if="selection" :id="id" v-model="element">
-            <option
-                v-for="i in selection"
-                :value="i"
-                v-bind:key="i"
-            >
-                {{ i }}
-            </option>
-        </select>
+        <div v-if="selection" class="select-default">
+            <label v-if="label" :for="id">{{ label }}</label>
+            <select :id="id" v-model="element">
+                <option
+                    v-for="i in selection"
+                    :value="i"
+                    v-bind:key="i"
+                >
+                    {{ i }}
+                </option>
+            </select>
+        </div>
         <Input
             v-else
             :label="label == null ? $t('admin.stringArrayManager.elementToAdd') : label"
@@ -71,12 +73,31 @@ pre {
     gap: 0.4em;
 }
 
-select {
-    min-width: 5em;
-    color: white;
-    padding: 0.3em 0.6em;
-    background: #222b6b;
-    border: 1px solid transparentize(white, 0.8);
+.select-default {
+    width: 31%;
+    min-width: 200px;
+    align-self: flex-end;
+
+    label {
+        padding: 0 0.8em;
+        transform: translateY(0.45em);
+        word-break: break-word;
+    }
+
+    select {
+        min-width: 5em;
+        padding: 0.3em 0.6em;
+        font-size: 1.3em;
+        color: white;
+        background: #222b6b;
+        border: 1px solid transparentize(white, 0.8);
+        border-radius: 1px;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px transparentize(white, 0.85);
+        }
+    }
 }
 
 button, .action-button { min-width: 140px; }

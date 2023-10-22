@@ -8,7 +8,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
+use Mush\Exploration\Entity\ExplorationPlanetSectorEventConfig;
+use Mush\Exploration\Entity\PlanetSector;
+use Mush\Exploration\Entity\PlanetSectorConfig;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
+use Mush\Exploration\Event\ExplorationPlanetSectorEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -69,6 +74,9 @@ final class ExplorationService implements ExplorationServiceInterface
         }
         $exploration->getPlanet()->setExploration(null);
 
+        // @TODO remove this debug line
+        $exploration->getPlanet()->getSectors()->map(fn (PlanetSector $sector) => $sector->unvisit());
+
         $this->delete([$exploration]);
 
         $explorationEvent = new ExplorationEvent(
@@ -83,30 +91,47 @@ final class ExplorationService implements ExplorationServiceInterface
 
     public function computeExplorationEvents(Exploration $exploration): Exploration
     {
-        $closedExploration = $exploration->getClosedExploration();
         $planet = $exploration->getPlanet();
-        $sectors = $planet->getSectors();
+        $sectorsToVisit = $planet->getUnvisitedSectors();
 
         $eventLogs = [];
 
+        // add Landing planet sector at the beginning of the exploration
+        $landingSectorConfig = $this->findPlanetSectorConfigBySectorName(PlanetSectorEnum::LANDING);
+        $landingSector = new PlanetSector($landingSectorConfig, $planet);
+
+        $eventName = $this->drawPlanetSectorEvent($landingSector);
+        $config = $this->findPlanetSectorEventConfigByName($eventName);
+        if (!$config) {
+            throw new \RuntimeException('Exploration event config not found for event name ' . $eventName);
+        }
+
+        $planetSectorEvent = new ExplorationPlanetSectorEvent(
+            planetSector: $landingSector,
+            config: $config,
+        );
+        $this->eventService->callEvent($planetSectorEvent, $eventName);
+
         // @TODO : select randomly a sector to visit given their `weightAtExploration` property
         // @TODO : add a limit to the number of sectors to visit per exploration
-        // @TODO : add Landing planet sector at the beginning of the exploration
-        foreach ($sectors as $sector) {
+        foreach ($sectorsToVisit as $sector) {
             $sector->visit();
 
-            $eventName = $this->randomService->getSingleRandomElementFromProbaCollection($sector->getExplorationEvents());
-            if (!is_string($eventName)) {
-                throw new \RuntimeException('Exploration event name should be a string');
+            $eventName = $this->drawPlanetSectorEvent($sector);
+            $config = $this->findPlanetSectorEventConfigByName($eventName);
+            // @TODO : remove this debug condition when all events are implemented
+            if ($config === null) {
+                $config = $this->findPlanetSectorEventConfigByName(ExplorationPlanetSectorEvent::NOTHING_TO_REPORT);
+                if ($config === null) {
+                    throw new \RuntimeException('Exploration event config not found for event name ' . $eventName);
+                }
             }
 
-            $explorationLog = new ExplorationLog($closedExploration);
-            $explorationLog->setPlanetSectorName($sector->getName());
-            $explorationLog->setEventName($eventName);
-
-            $closedExploration->addLog($explorationLog);
-
-            $eventLogs[] = $explorationLog;
+            $event = new ExplorationPlanetSectorEvent(
+                planetSector: $sector,
+                config: $config,
+            );
+            $this->eventService->callEvent($event, $eventName);
         }
 
         $this->persist(array_merge($eventLogs, [$exploration]));
@@ -114,19 +139,66 @@ final class ExplorationService implements ExplorationServiceInterface
         return $exploration;
     }
 
-    private function delete(array $entities): void
+    public function createExplorationLog(ExplorationPlanetSectorEvent $event, array $parameters = []): ExplorationLog
+    {
+        $exploration = $event->getExploration();
+        $eventName = $event->getEventName();
+        $sector = $event->getPlanetSector();
+
+        $closedExploration = $exploration->getClosedExploration();
+
+        $explorationLog = new ExplorationLog($closedExploration);
+        $explorationLog->setPlanetSectorName($sector->getName());
+        $explorationLog->setEventName($eventName);
+        $explorationLog->setEventDescription($eventName);
+        $explorationLog->setParameters($parameters);
+        $explorationLog->addParameter('planet', $exploration->getPlanet()->getName()->toArray());
+
+        $closedExploration->addLog($explorationLog);
+
+        $this->persist([$explorationLog]);
+
+        return $explorationLog;
+    }
+
+    public function persist(array $entities): void
     {
         foreach ($entities as $entity) {
-            $this->entityManager->remove($entity);
+            $this->entityManager->persist($entity);
         }
 
         $this->entityManager->flush();
     }
 
-    private function persist(array $entities): void
+    private function drawPlanetSectorEvent(PlanetSector $sector): string
+    {
+        $eventName = $this->randomService->getSingleRandomElementFromProbaCollection($sector->getExplorationEvents());
+        if (!is_string($eventName)) {
+            throw new \RuntimeException('Exploration event name should be a string');
+        }
+
+        return $eventName;
+    }
+
+    private function findPlanetSectorConfigBySectorName(string $sectorName): PlanetSectorConfig
+    {
+        $planetSector = $this->entityManager->getRepository(PlanetSectorConfig::class)->findOneBySectorName($sectorName);
+        if ($planetSector === null) {
+            throw new \RuntimeException('PlanetSectorConfig not found for sector name ' . $sectorName);
+        }
+
+        return $planetSector;
+    }
+
+    private function findPlanetSectorEventConfigByName(string $eventName): ?ExplorationPlanetSectorEventConfig
+    {
+        return $this->entityManager->getRepository(ExplorationPlanetSectorEventConfig::class)->findOneByEventName($eventName);
+    }
+
+    private function delete(array $entities): void
     {
         foreach ($entities as $entity) {
-            $this->entityManager->persist($entity);
+            $this->entityManager->remove($entity);
         }
 
         $this->entityManager->flush();

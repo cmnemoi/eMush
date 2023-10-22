@@ -32,6 +32,9 @@ final class ExplorationLog
     #[ORM\Column(type: 'string', nullable: false)]
     private string $eventOutcome = '';
 
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $parameters = [];
+
     public function __construct(ClosedExploration $closedExploration)
     {
         $this->closedExploration = $closedExploration;
@@ -85,5 +88,20 @@ final class ExplorationLog
     public function setEventOutcome(string $eventOutcome): void
     {
         $this->eventOutcome = $eventOutcome;
+    }
+
+    public function getParameters(): array
+    {
+        return $this->parameters;
+    }
+
+    public function setParameters(array $parameters): void
+    {
+        $this->parameters = $parameters;
+    }
+
+    public function addParameter(string $key, $value): void
+    {
+        $this->parameters[$key] = $value;
     }
 }

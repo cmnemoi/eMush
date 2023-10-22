@@ -133,6 +133,12 @@ class Planet implements LogParameterInterface
         return $this->sectors->filter(fn (PlanetSector $sector) => $sector->isVisited());
     }
 
+    /** @return Collection<int, PlanetSector> */
+    public function getUnvisitedSectors(): Collection
+    {
+        return $this->sectors->filter(fn (PlanetSector $sector) => !$sector->isVisited());
+    }
+
     public function getPlayer(): Player
     {
         return $this->player;

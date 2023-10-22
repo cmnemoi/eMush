@@ -15,7 +15,10 @@
             </div>
             <span class="info-trigger" @click="show = !show"><img src="@/assets/images/down.png" :class="{ revert: show }"> Infos recoltées...</span>
             <ul class="analysis" v-if="show">
-                <Tippy tag="li" v-for="(sector, i) in exploration.planet.sectors" :key="i" :class="sector.isVisited ? '' : 'unexplored'">
+                <Tippy tag="li"
+                       v-for="(sector, i) in exploration.planet.sectors"
+                       :key="i"
+                       :class="sector.isVisited ? '' : 'unexplored'">
                     <img :src="getSectorImage(sector.key)" :alt="sector.name">
                     <template #content>
                         <h1 v-html="formatText(sector.name)" />

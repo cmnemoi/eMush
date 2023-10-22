@@ -39,6 +39,9 @@ class Planet implements LogParameterInterface
     #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'planets')]
     private Player $player;
 
+    #[ORM\OneToOne(targetEntity: Exploration::class, mappedBy: 'planet', cascade: ['remove'], orphanRemoval: true)]
+    private ?Exploration $exploration = null;
+
     public function __construct(Player $player)
     {
         $this->player = $player;
@@ -133,6 +136,18 @@ class Planet implements LogParameterInterface
     public function getPlayer(): Player
     {
         return $this->player;
+    }
+
+    public function getExploration(): ?Exploration
+    {
+        return $this->exploration;
+    }
+
+    public function setExploration(?Exploration $exploration): self
+    {
+        $this->exploration = $exploration;
+
+        return $this;
     }
 
     public function getDaedalus(): Daedalus

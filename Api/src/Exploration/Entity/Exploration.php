@@ -13,7 +13,7 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 
 #[ORM\Entity]
-final class Exploration
+class Exploration
 {
     use TimestampableEntity;
 
@@ -34,6 +34,7 @@ final class Exploration
     public function __construct(Planet $planet)
     {
         $this->planet = $planet;
+        $planet->setExploration($this);
         $this->explorators = new ArrayCollection();
         $this->logs = new ArrayCollection();
     }
@@ -55,11 +56,16 @@ final class Exploration
 
     public function setExplorators(PlayerCollection $explorators): void
     {
+        foreach ($explorators as $explorator) {
+            $explorator->setExploration($this);
+        }
+
         $this->explorators = $explorators;
     }
 
     public function addExplorator(Player $explorator): void
-    {
+    {   
+        $explorator->setExploration($this);
         $this->explorators->add($explorator);
     }
 

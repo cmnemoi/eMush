@@ -48,14 +48,14 @@ final class TakeoffToPlanet extends AbstractAction
         $metadata->addConstraint(new HasStatus([
             'status' => DaedalusStatusEnum::TRAVELING,
             'target' => HasStatus::DAEDALUS,
-            'contain' => false, 
+            'contain' => false,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DAEDALUS_TRAVELING,
         ]));
         $metadata->addConstraint(new HasStatus([
             'status' => DaedalusStatusEnum::IN_ORBIT,
             'target' => HasStatus::DAEDALUS,
-            'contain' => true, 
+            'contain' => true,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::EXPLORE_NOT_IN_ORBIT,
         ]));
@@ -71,7 +71,7 @@ final class TakeoffToPlanet extends AbstractAction
     }
 
     protected function applyEffect(ActionResult $result): void
-    {   
+    {
         /** @var GameEquipment $icarus */
         $icarus = $this->target;
         $icarusPlace = $icarus->getPlace();

@@ -312,6 +312,6 @@ class PlaceConfigData
             'doors' => [],
             'items' => [],
             'equipments' => [],
-        ]
+        ],
     ];
 }

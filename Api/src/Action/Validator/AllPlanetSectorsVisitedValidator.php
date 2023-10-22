@@ -11,7 +11,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class AllPlanetSectorsVisitedValidator extends ConstraintValidator
-{   
+{
     private PlanetServiceInterface $planetService;
 
     public function __construct(PlanetServiceInterface $planetService)
@@ -28,7 +28,7 @@ final class AllPlanetSectorsVisitedValidator extends ConstraintValidator
         if (!$constraint instanceof AllPlanetSectorsVisited) {
             throw new UnexpectedTypeException($constraint, AllPlanetSectorsVisited::class);
         }
-        
+
         $daedalus = $value->getPlayer()->getDaedalus();
         if (!$daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT)) {
             $this->context->buildViolation($constraint->message)

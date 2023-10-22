@@ -132,7 +132,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             $titles[] = $normedTitle;
         }
 
-        return array_merge($playerData, [
+        $playerData = array_merge($playerData, [
             'room' => $this->normalizer->normalize($player->getPlace(), $format, $context),
             'skills' => $player->getSkills(),
             'titles' => $titles,
@@ -145,6 +145,12 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
         ]);
+
+        if ($player->isExploring()) {
+            $playerData['exploration'] = $this->normalizer->normalize($player->getExploration(), $format, $context);
+        }
+
+        return $playerData;
     }
 
     private function normalizeMushPlayerSpores(Player $player, array $normalizedStatuses): array

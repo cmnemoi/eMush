@@ -9,6 +9,8 @@ import { NameDescObject } from "@/entities/NameDescObject";
 import { SpaceBattle } from "./SpaceBattle";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { Terminal } from "@/entities/Terminal";
+import { Planet } from "@/entities/Planet";
+import { Exploration } from "./Exploration";
 
 export class Player {
     public id!: number;
@@ -28,6 +30,8 @@ export class Player {
     public spaceBattle: SpaceBattle|null;
     public terminal: Terminal|null;
     public titles: Array<NameDescObject>;
+    public inOrbitPlanet: Planet|null;
+    public exploration: Exploration|null;
 
     public constructor() {
         this.gameStatus = null;
@@ -46,6 +50,8 @@ export class Player {
         this.spaceBattle = null;
         this.terminal = null;
         this.titles = [];
+        this.inOrbitPlanet = null;
+        this.exploration = null;
     }
 
     public load(object: any): Player {
@@ -117,6 +123,12 @@ export class Player {
                     this.titles.push(title);
                 });
             }
+            if (object.inOrbitPlanet) {
+                this.inOrbitPlanet = (new Planet()).load(object.inOrbitPlanet);
+            }
+            if (object.exploration) {
+                this.exploration = (new Exploration()).load(object.exploration);
+            }
         }
 
         return this;
@@ -170,7 +182,7 @@ export class Player {
         }).length > 0;
     }
 
-    public isInExploration(): boolean {
-        return this.room?.type === 'planet';
+    public isExploring(): boolean {
+        return this.exploration !== null;
     }
 }

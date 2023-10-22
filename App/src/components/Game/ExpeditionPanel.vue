@@ -1,39 +1,27 @@
 <template>
-    <div class="panel">
+    <div class="panel" v-if="exploration">
         <TerminalTips content="Hello, World!"/>
         <section class="planet">
-            <h3>Goulidon</h3>
-            <span class="estimate">Retour estimé dans: 40 min.</span>
+            <h3>{{ exploration.planet.name }}</h3>
+            <!-- <span class="estimate">Retour estimé dans: 40 min.</span> -->
             <div class="card">
                 <img class="planet-img" src="@/assets/images/astro/planet_unknown.png">
                 <ul class="crew">
-                    <li>
-                        <img src="@/assets/images/char/body/finola.png" alt="Finola">
-                        <p><img src="@/assets/images/lp.png"> 12</p>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/char/body/terrence.png" alt="Terrence">
-                        <p><img src="@/assets/images/lp.png"> 4</p>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/char/body/chun.png" alt="Chun">
-                        <p><img src="@/assets/images/dead.png"></p>
+                    <li v-for="(explorator, i) in exploration.explorators" :key="i">
+                        <img :src="explorator.getExploratorBody()" :alt="explorator.name">
+                        <p><img src="@/assets/images/lp.png"> {{ explorator.healthPoints }}</p>
                     </li>
                 </ul>
             </div>
-            <span class="info-trigger" @click="show = !show"><img src="@/assets/images/down.png" :class="{ revert: show }"> informations collectées...</span>
+            <span class="info-trigger" @click="show = !show"><img src="@/assets/images/down.png" :class="{ revert: show }"> Infos recoltées...</span>
             <ul class="analysis" v-if="show">
-                <li><img src="@/assets/images/astro/cold.png"></li>
-                <li class="unexplored"><img src="@/assets/images/astro/ocean.png"></li>
-                <li><img src="@/assets/images/astro/forest.png"></li>
-                <li class="unexplored"><img src="@/assets/images/astro/cold.png"></li>
-                <li><img src="@/assets/images/astro/ocean.png"></li>
-                <li><img src="@/assets/images/astro/unknown.png"></li>
-                <li class="unexplored"><img src="@/assets/images/astro/unknown.png"></li>
-                <li><img src="@/assets/images/astro/unknown.png"></li>
-                <li class="unexplored"><img src="@/assets/images/astro/forest.png"></li>
-                <li class="unexplored"><img src="@/assets/images/astro/cold.png"></li>
-                <li class="unexplored"><img src="@/assets/images/astro/cold.png"></li>
+                <Tippy tag="li" v-for="(sector, i) in exploration.planet.sectors" :key="i" :class="sector.isVisited ? '' : 'unexplored'">
+                    <img :src="getSectorImage(sector)" :alt="sector.name">
+                    <template #content>
+                        <h1 v-html="formatText(sector.name)" />
+                        <p v-html="formatText(sector.description)" />
+                    </template>
+                </Tippy>
             </ul>
             <div v-if="lost" class="lost">
                 <img src="@/assets/images/att.png" alt="warning">
@@ -41,17 +29,8 @@
             </div>
         </section>
         <section class="logs">
-            <div class="event">
-                <span class="estimate"><img src="@/assets/images/casio.png"> 09m03s</span>
-                <img src="@/assets/images/astro/forest.png">
-                <div>
-                    <h3>Ruminant - Provision</h3>
-                    <p class="flavor">Vous rencontrez une myriade de petits rongeurs. Dans la panique générale vous parvenez à attraper l'un d'entre eux.</p>
-                    <p class="details">Vous gagnez 3 Steacks Aliens.</p>
-                </div>
-                <p class="details">+1 car l'expédition dispose de la compétence : Survie</p>
-            </div>
-            <div class="event">
+            <div v-for="(log, i) in exploration.logs" :key=i class="event">
+                <!-- <span class="estimate"><img src="@/assets/images/casio.png"> 09m03s</span> -->
                 <img src="@/assets/images/astro/forest.png">
                 <div>
                     <h3>Ruminant - Provision</h3>
@@ -66,18 +45,40 @@
 
 <script lang="ts">
 import TerminalTips from "@/components/Game/Terminals/TerminalTips.vue";
+import { Exploration } from "@/entities/Exploration";
+import { PlanetSector } from "@/entities/PlanetSector";
 import { Player } from "@/entities/Player";
 import { defineComponent } from "vue";
+import { formatText } from "@/utils/formatText";
 
 export default defineComponent ({
     name: "ExpeditionPanel",
     components: {
         TerminalTips
     },
+    computed: {
+        exploration(): Exploration {
+            if (!this.player.exploration) {
+                throw new Error("No exploration found");
+            }
+
+            return this.player.exploration;
+        }
+    },
     props: {
         player: {
             type: Player,
             required: true
+        }
+    },
+    methods: {
+        getSectorImage(sector: PlanetSector): string {
+            return require(`@/assets/images/astro/${sector.key}.png`);
+        },
+        formatText(text: string | null): string {
+            if (!text)
+                return '';
+            return formatText(text);
         }
     },
     data() {

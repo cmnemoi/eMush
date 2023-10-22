@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+// @TODO: probably normalize ClosedExploration instead of Exploration
 final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
@@ -45,7 +46,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
             'updatedAt' => $exploration->getUpdatedAt(),
             'planet' => $this->normalizer->normalize($exploration->getPlanet(), $format, $context),
             'explorators' => $this->normalizeExplorators($exploration->getExplorators()),
-            'logs' => [],
+            'logs' => $this->normalizer->normalize($exploration->getLogs(), $format, $context),
         ];
     }
 

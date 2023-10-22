@@ -28,7 +28,7 @@ class Exploration
     #[ORM\OneToMany(targetEntity: Player::class, mappedBy: 'exploration')]
     private Collection $explorators;
 
-    #[ORM\OneToMany(targetEntity: ExplorationLog::class, mappedBy: 'exploration')]
+    #[ORM\OneToMany(targetEntity: ExplorationLog::class, mappedBy: 'exploration', cascade: ['remove'])]
     private Collection $logs;
 
     public function __construct(Planet $planet)

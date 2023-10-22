@@ -57,7 +57,8 @@ class PlanetSector
     }
 
     public function visit(): self
-    {
+    {   
+        $this->isRevealed = true;
         $this->isVisited = true;
 
         return $this;

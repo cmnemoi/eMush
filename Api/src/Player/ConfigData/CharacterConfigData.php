@@ -53,6 +53,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -109,6 +110,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -164,6 +166,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -221,6 +224,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -279,6 +283,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [
                 'chronic_vertigo_default',
@@ -336,6 +341,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [],
@@ -392,6 +398,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -448,6 +455,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -504,6 +512,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -560,6 +569,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -618,6 +628,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -674,6 +685,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -730,6 +742,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -786,6 +799,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -841,6 +855,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -899,6 +914,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -955,6 +971,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -1011,6 +1028,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'teleport',
             ],
             'initDiseases' => [],
             'startingItems' => [

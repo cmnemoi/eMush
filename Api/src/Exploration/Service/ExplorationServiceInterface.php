@@ -12,4 +12,6 @@ interface ExplorationServiceInterface
     public function createExploration(PlayerCollection $players, array $reasons): Exploration;
 
     public function closeExploration(Exploration $exploration): void;
+
+    public function computeExplorationEvents(Exploration $exploration): Exploration;
 }

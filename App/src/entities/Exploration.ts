@@ -1,5 +1,6 @@
 import { Planet } from "@/entities/Planet";
-import { Explorator } from "./Explorator";
+import { Explorator } from "@/entities/Explorator";
+import { ExplorationLogs } from "@/entities/ExplorationLogs";
 
 export class Exploration {
     public id!: number;
@@ -7,7 +8,7 @@ export class Exploration {
     public updatedAt!: Date;
     public planet!: Planet;
     public explorators!: Explorator[];
-    public logs!: string[];
+    public logs!: ExplorationLogs[];
 
     public load(object: any): Exploration {
         if (object) {

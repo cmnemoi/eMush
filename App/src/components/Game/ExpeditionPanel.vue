@@ -16,7 +16,7 @@
             <span class="info-trigger" @click="show = !show"><img src="@/assets/images/down.png" :class="{ revert: show }"> Infos recoltées...</span>
             <ul class="analysis" v-if="show">
                 <Tippy tag="li" v-for="(sector, i) in exploration.planet.sectors" :key="i" :class="sector.isVisited ? '' : 'unexplored'">
-                    <img :src="getSectorImage(sector)" :alt="sector.name">
+                    <img :src="getSectorImage(sector.key)" :alt="sector.name">
                     <template #content>
                         <h1 v-html="formatText(sector.name)" />
                         <p v-html="formatText(sector.description)" />
@@ -31,13 +31,12 @@
         <section class="logs">
             <div v-for="(log, i) in exploration.logs" :key=i class="event">
                 <!-- <span class="estimate"><img src="@/assets/images/casio.png"> 09m03s</span> -->
-                <img src="@/assets/images/astro/forest.png">
+                <img :src="getSectorImage(log.planetSectorKey)">
                 <div>
-                    <h3>Ruminant - Provision</h3>
-                    <p class="flavor">Vous rencontrez une myriade de petits rongeurs. Dans la panique générale vous parvenez à attraper l'un d'entre eux.</p>
-                    <p class="details">Vous gagnez 3 Steacks Aliens.</p>
+                    <h3>{{ log.planetSectorName }} - {{ log.eventName }}</h3>
+                    <p class="flavor">{{ log.eventDescription }}</p>
                 </div>
-                <p class="details">+1 car l'expédition dispose de la compétence : Survie</p>
+                <p class="details">{{ log.eventOutcome }}</p>
             </div>
         </section>
     </div>
@@ -46,7 +45,6 @@
 <script lang="ts">
 import TerminalTips from "@/components/Game/Terminals/TerminalTips.vue";
 import { Exploration } from "@/entities/Exploration";
-import { PlanetSector } from "@/entities/PlanetSector";
 import { Player } from "@/entities/Player";
 import { defineComponent } from "vue";
 import { formatText } from "@/utils/formatText";
@@ -72,8 +70,8 @@ export default defineComponent ({
         }
     },
     methods: {
-        getSectorImage(sector: PlanetSector): string {
-            return require(`@/assets/images/astro/${sector.key}.png`);
+        getSectorImage(sectorKey: string): string {
+            return require(`@/assets/images/astro/${sectorKey}.png`);
         },
         formatText(text: string | null): string {
             if (!text)

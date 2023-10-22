@@ -6,8 +6,11 @@ namespace Mush\Exploration\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Exploration\Entity\Exploration;
+use Mush\Exploration\Entity\ExplorationLog;
+use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 
 final class ExplorationService implements ExplorationServiceInterface
@@ -15,15 +18,18 @@ final class ExplorationService implements ExplorationServiceInterface
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
     private PlanetServiceInterface $planetService;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
-        PlanetServiceInterface $planetService
+        PlanetServiceInterface $planetService,
+        RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
         $this->planetService = $planetService;
+        $this->randomService = $randomService;
     }
 
     public function createExploration(PlayerCollection $players, array $reasons): Exploration
@@ -65,6 +71,35 @@ final class ExplorationService implements ExplorationServiceInterface
         // @TODO : create a ClosedExploration entity here to archive exploration results
 
         $this->delete([$exploration]);
+    }
+
+    public function computeExplorationEvents(Exploration $exploration): Exploration
+    {   
+        $eventLogs = [];
+        $planet = $exploration->getPlanet();
+        $sectors = $planet->getSectors();
+
+        // @TODO : select randomly a sector to visit given their `weightAtExploration` property
+        // @TODO : add a limit to the number of sectors to visit per exploration
+        // @TODO : add Landing planet sector at the beginning of the exploration
+        foreach ($sectors as $sector) {
+            $sector->visit();
+            
+            $eventName = $this->randomService->getSingleRandomElementFromProbaCollection($sector->getExplorationEvents());
+            
+            $explorationLog = new ExplorationLog($exploration);
+            $explorationLog->setPlanetSectorName($sector->getName());
+            $explorationLog->setEventName($eventName);
+            
+            // @TODO : add the log to the ClosedExploration entity too. 
+            $exploration->addLog($explorationLog);
+
+            $eventLogs[] = $explorationLog;
+        }
+     
+        $this->persist(array_merge($eventLogs, [$planet, $exploration]));
+
+        return $exploration;
     }
 
     private function delete(array $entities): void

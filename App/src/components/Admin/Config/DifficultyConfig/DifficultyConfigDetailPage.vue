@@ -180,9 +180,7 @@
             @addTuple="addNewDifficultyModes"
             @removeIndex="removeDifficultyModes"
         />
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons :create="false" @update="update"/>
     </div>
 </template>
 
@@ -193,6 +191,7 @@ import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import Input from "@/components/Utils/Input.vue";
 import MapManager from "@/components/Utils/MapManager.vue";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface DifficultyConfigState {
     difficultyConfig: null|DifficultyConfig
@@ -203,7 +202,8 @@ export default defineComponent({
     name: "DifficultyConfigDetailPage",
     components: {
         Input,
-        MapManager
+        MapManager,
+        UpdateConfigButtons
     },
     data: function (): DifficultyConfigState {
         return {

@@ -1,9 +1,19 @@
 <template>
     <div class="flex-row actions">
-        <button class="action-button" type="submit" @click="$emit('update')">
+        <button
+            v-if="update"
+            class="action-button"
+            type="submit"
+            @click="$emit('update')"
+        >
             {{ $t('admin.buttons.updateConfig') }}
         </button>
-        <button class="action-button" type="submit" @click="$emit('create')">
+        <button
+            v-if="create"
+            class="action-button"
+            type="submit"
+            @click="$emit('create')"
+        >
             {{ $t('admin.buttons.createNewConfig') }}
         </button>
     </div>
@@ -13,7 +23,17 @@
 
 export default {
     name: "UpdateConfigButtons",
-    emits: ['update', 'create']
+    emits: ['update', 'create'],
+    props: {
+        update: {
+            type: Boolean,
+            default: true
+        },
+        create: {
+            type: Boolean,
+            default: true
+        }
+    }
 };
 
 </script>

@@ -58,14 +58,12 @@
             </template>
         </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.consumableDiseaseConfigs") }}</h3>
-        <ChildCollectionManager :children="gameConfig.consumableDiseaseConfig" @addId="addNewConsumableDiseaseConfig" @remove="removeConsumableDiseaseConfig">
+        <ChildCollectionManager :children="gameConfig.consumableDiseaseConfig" @addId="addConsumableDiseaseConfig" @remove="removeConsumableDiseaseConfig">
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
-        <button class="action-button submit" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons :create="false" @update="update"/>
     </div>
 </template>
 
@@ -91,6 +89,8 @@ import urlJoin from "url-join";
 import { removeItem } from "@/utils/misc";
 import { resourceLimits } from "worker_threads";
 import { gameConfig } from "@/store/game_config.module";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+
 
 interface GameConfigState {
     gameConfig: null|GameConfig
@@ -103,6 +103,7 @@ export default defineComponent({
         ChildCollectionManager,
         ChildManager,
         Input,
+        UpdateConfigButtons
     },
     data: function (): GameConfigState {
         return {

@@ -14,9 +14,8 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -25,16 +24,16 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class TakeoffToPlanet extends AbstractAction
 {
     protected string $name = ActionEnum::TAKEOFF_TO_PLANET;
-    private PlayerServiceInterface $playerService;
+    private ExplorationServiceInterface $explorationService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        PlayerServiceInterface $playerService,
+        ExplorationServiceInterface $explorationService
     ) {
         parent::__construct($eventService, $actionService, $validator);
-        $this->playerService = $playerService;
+        $this->explorationService = $explorationService;
     }
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
@@ -74,14 +73,10 @@ final class TakeoffToPlanet extends AbstractAction
     {
         /** @var GameEquipment $icarus */
         $icarus = $this->target;
-        $icarusPlace = $icarus->getPlace();
-        $planetPlace = $icarus->getDaedalus()->getPlaceByName(RoomEnum::PLANET);
-        if (!$planetPlace) {
-            throw new \RuntimeException('Planet place not found');
-        }
 
-        foreach ($icarusPlace->getPlayers() as $player) {
-            $this->playerService->changePlace($player, $planetPlace);
-        }
+        $this->explorationService->createExploration(
+            players: $icarus->getPlace()->getPlayers()->getPlayerAlive(),
+            reasons: $this->action->getActionTags(),
+        );
     }
 }

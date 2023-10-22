@@ -1,0 +1,89 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Mush\Exploration\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+
+#[ORM\Entity]
+final class ExplorationLog
+{
+    use TimestampableEntity;
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private int $id;
+
+    #[ORM\ManyToOne(targetEntity: Exploration::class, inversedBy: 'logs')]
+    private Exploration $exploration;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $planetSectorName = '';
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $eventName = '';
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $eventDescription = '';
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $eventOutcome = '';
+
+    public function __construct(Exploration $exploration)
+    {
+        $this->exploration = $exploration;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getExploration(): Exploration
+    {
+        return $this->exploration;
+    }
+
+    public function getPlanetSectorName(): string
+    {
+        return $this->planetSectorName;
+    }
+
+    public function setPlanetSectorName(string $planetSectorName): void
+    {
+        $this->planetSectorName = $planetSectorName;
+    }
+
+    public function getEventName(): string
+    {
+        return $this->eventName;
+    }
+
+    public function setEventName(string $eventName): void
+    {
+        $this->eventName = $eventName;
+    }
+
+    public function getEventDescription(): string
+    {
+        return $this->eventDescription;
+    }
+
+    public function setEventDescription(string $eventDescription): void
+    {
+        $this->eventDescription = $eventDescription;
+    }
+
+    public function getEventOutcome(): string
+    {
+        return $this->eventOutcome;
+    }
+
+    public function setEventOutcome(string $eventOutcome): void
+    {
+        $this->eventOutcome = $eventOutcome;
+    }
+}

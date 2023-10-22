@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Tests\Functional\Action\Actions;
 
-use Mush\Action\Actions\Takeoff;
 use Mush\Action\Actions\TakeoffToPlanet;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
@@ -12,6 +11,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Service\PlanetServiceInterface;
@@ -126,9 +126,30 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         );
     }
 
+    public function testTakeoffToPlanetSuccessCreatesExplorationEntity(FunctionalTester $I): void
+    {
+        // given there is no exploration entity
+        $I->dontSeeInRepository(Exploration::class, ['planet' => $this->planet]);
+
+        // when player tries to takeoff to planet
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->execute();
+
+        // then an exploration entity is created
+        $I->seeInRepository(Exploration::class, ['planet' => $this->planet]);
+    }
+
     public function testTakeoffToPlanetMoveIcarusBayPlayersToPlanetPlace(FunctionalTester $I): void
     {
         // given player1 and player2 are in Icarus Bay
+        $I->assertEquals(
+            expected: $this->icarus->getPlace(),
+            actual: $this->player1->getPlace(),
+        );
+        $I->assertEquals(
+            expected: $this->icarus->getPlace(),
+            actual: $this->player2->getPlace(),
+        );
 
         // when player tries to takeoff to planet
         $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
@@ -136,12 +157,31 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
         // then player1 and player2 are in the planet place
         $I->assertEquals(
-            expected: $this->daedalus->getPlaceByName(RoomEnum::PLANET),
+            expected: $this->daedalus->getPlanetPlace(),
             actual: $this->player1->getPlace(),
         );
         $I->assertEquals(
-            expected: $this->daedalus->getPlaceByName(RoomEnum::PLANET),
+            expected: $this->daedalus->getPlanetPlace(),
             actual: $this->player2->getPlace(),
+        );
+    }
+
+    public function testTakeoffToPlanetMoveIcarusToPlanetPlace(FunctionalTester $I): void
+    {
+        // given icarus ship is in Icarus Bay
+        $I->assertEquals(
+            expected: $this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY),
+            actual: $this->icarus->getPlace(),
+        );
+
+        // when player tries to takeoff to planet
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->execute();
+
+        // then icarus ship is in the planet place
+        $I->assertEquals(
+            expected: $this->daedalus->getPlanetPlace(),
+            actual: $this->icarus->getPlace(),
         );
     }
 }

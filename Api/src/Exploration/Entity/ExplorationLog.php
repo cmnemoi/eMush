@@ -17,8 +17,8 @@ final class ExplorationLog
     #[ORM\Column(type: 'integer')]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Exploration::class, inversedBy: 'logs')]
-    private Exploration $exploration;
+    #[ORM\ManyToOne(targetEntity: ClosedExploration::class, inversedBy: 'logs')]
+    private ClosedExploration $closedExploration;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $planetSectorName = '';
@@ -32,9 +32,9 @@ final class ExplorationLog
     #[ORM\Column(type: 'string', nullable: false)]
     private string $eventOutcome = '';
 
-    public function __construct(Exploration $exploration)
+    public function __construct(ClosedExploration $closedExploration)
     {
-        $this->exploration = $exploration;
+        $this->closedExploration = $closedExploration;
     }
 
     public function getId(): int
@@ -42,9 +42,9 @@ final class ExplorationLog
         return $this->id;
     }
 
-    public function getExploration(): Exploration
+    public function getClosedExploration(): ClosedExploration
     {
-        return $this->exploration;
+        return $this->closedExploration;
     }
 
     public function getPlanetSectorName(): string

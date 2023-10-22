@@ -46,7 +46,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
             'updatedAt' => $exploration->getUpdatedAt(),
             'planet' => $this->normalizer->normalize($exploration->getPlanet(), $format, $context),
             'explorators' => $this->normalizeExplorators($exploration->getExplorators()),
-            'logs' => $this->normalizer->normalize($exploration->getLogs(), $format, $context),
+            'logs' => $this->normalizer->normalize($exploration->getClosedExploration()->getLogs(), $format, $context),
         ];
     }
 

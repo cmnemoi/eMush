@@ -22,21 +22,23 @@ class Exploration
     #[ORM\Column(type: 'integer')]
     private int $id;
 
+    #[ORM\OneToOne(targetEntity: ClosedExploration::class, inversedBy: 'exploration', cascade: ['persist'])]
+    private ClosedExploration $closedExploration;
+
     #[ORM\OneToOne(targetEntity: Planet::class)]
     private Planet $planet;
 
     #[ORM\OneToMany(targetEntity: Player::class, mappedBy: 'exploration')]
     private Collection $explorators;
 
-    #[ORM\OneToMany(targetEntity: ExplorationLog::class, mappedBy: 'exploration', cascade: ['remove'])]
-    private Collection $logs;
-
     public function __construct(Planet $planet)
     {
         $this->planet = $planet;
         $planet->setExploration($this);
+
         $this->explorators = new ArrayCollection();
-        $this->logs = new ArrayCollection();
+
+        $this->closedExploration = new ClosedExploration($this);
     }
 
     public function getId(): int
@@ -69,14 +71,9 @@ class Exploration
         $this->explorators->add($explorator);
     }
 
-    public function getLogs(): ExplorationLogCollection
+    public function getClosedExploration(): ClosedExploration
     {
-        return new ExplorationLogCollection($this->logs->toArray());
-    }
-
-    public function addLog(ExplorationLog $log): void
-    {
-        $this->logs->add($log);
+        return $this->closedExploration;
     }
 
     public function getDaedalus(): Daedalus

@@ -2,8 +2,11 @@
 
 namespace Mush\Daedalus\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
@@ -40,6 +43,9 @@ class DaedalusInfo
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name = 'default';
 
+    #[ORM\OneToMany(mappedBy: 'daedalusInfo', targetEntity: ClosedExploration::class)]
+    private Collection $closedExplorations;
+
     public function __construct(Daedalus $daedalus, GameConfig $gameConfig, LocalizationConfig $localizationConfig)
     {
         $this->daedalus = $daedalus;
@@ -50,6 +56,8 @@ class DaedalusInfo
 
         $this->closedDaedalus = new ClosedDaedalus();
         $this->closedDaedalus->setDaedalusInfo($this);
+
+        $this->closedExplorations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,5 +153,19 @@ class DaedalusInfo
     public function getLocalizationConfig(): LocalizationConfig
     {
         return $this->localizationConfig;
+    }
+
+    public function getClosedExplorations(): Collection
+    {
+        return $this->closedExplorations;
+    }
+
+    public function addClosedExploration(ClosedExploration $closedExploration): self
+    {
+        if (!$this->closedExplorations->contains($closedExploration)) {
+            $this->closedExplorations->add($closedExploration);
+        }
+
+        return $this;
     }
 }

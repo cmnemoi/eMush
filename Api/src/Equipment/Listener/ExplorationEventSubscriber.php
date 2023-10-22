@@ -91,5 +91,4 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
     }
-
 }

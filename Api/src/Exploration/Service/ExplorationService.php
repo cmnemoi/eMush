@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Mush\Exploration\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
-use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -60,14 +60,14 @@ final class ExplorationService implements ExplorationServiceInterface
         return $exploration;
     }
 
-    public function closeExploration(Exploration $exploration, array $reasons): void
+    public function closeExploration(Exploration $exploration, array $reasons): ClosedExploration
     {
+        $closedExploration = $exploration->getClosedExploration();
+
         foreach ($exploration->getExplorators() as $explorator) {
             $explorator->setExploration(null);
         }
         $exploration->getPlanet()->setExploration(null);
-
-        // @TODO : create a ClosedExploration entity here to archive exploration results
 
         $this->delete([$exploration]);
 
@@ -78,13 +78,16 @@ final class ExplorationService implements ExplorationServiceInterface
         );
         $this->eventService->callEvent($explorationEvent, ExplorationEvent::EXPLORATION_FINISHED);
 
+        return $closedExploration;
     }
 
     public function computeExplorationEvents(Exploration $exploration): Exploration
     {
-        $eventLogs = [];
+        $closedExploration = $exploration->getClosedExploration();
         $planet = $exploration->getPlanet();
         $sectors = $planet->getSectors();
+
+        $eventLogs = [];
 
         // @TODO : select randomly a sector to visit given their `weightAtExploration` property
         // @TODO : add a limit to the number of sectors to visit per exploration
@@ -97,17 +100,16 @@ final class ExplorationService implements ExplorationServiceInterface
                 throw new \RuntimeException('Exploration event name should be a string');
             }
 
-            $explorationLog = new ExplorationLog($exploration);
+            $explorationLog = new ExplorationLog($closedExploration);
             $explorationLog->setPlanetSectorName($sector->getName());
             $explorationLog->setEventName($eventName);
 
-            // @TODO : add the log to the ClosedExploration entity too.
-            $exploration->addLog($explorationLog);
+            $closedExploration->addLog($explorationLog);
 
             $eventLogs[] = $explorationLog;
         }
 
-        $this->persist(array_merge($eventLogs, [$planet, $exploration]));
+        $this->persist(array_merge($eventLogs, [$exploration]));
 
         return $exploration;
     }

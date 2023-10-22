@@ -60,17 +60,24 @@ final class ExplorationService implements ExplorationServiceInterface
         return $exploration;
     }
 
-    public function closeExploration(Exploration $exploration): void
+    public function closeExploration(Exploration $exploration, array $reasons): void
     {
         foreach ($exploration->getExplorators() as $explorator) {
             $explorator->setExploration(null);
         }
         $exploration->getPlanet()->setExploration(null);
 
-        // @TODO : send an event to handle exploration closing side effects (icarus, players and loot teleporting to Icarus Bay)
         // @TODO : create a ClosedExploration entity here to archive exploration results
 
         $this->delete([$exploration]);
+
+        $explorationEvent = new ExplorationEvent(
+            exploration: $exploration,
+            tags: $reasons,
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($explorationEvent, ExplorationEvent::EXPLORATION_FINISHED);
+
     }
 
     public function computeExplorationEvents(Exploration $exploration): Exploration

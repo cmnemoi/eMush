@@ -10,6 +10,7 @@ use Mush\Game\Event\AbstractGameEvent;
 final class ExplorationEvent extends AbstractGameEvent
 {
     public const EXPLORATION_STARTED = 'exploration.started';
+    public const EXPLORATION_FINISHED = 'exploration.finished';
 
     private Exploration $exploration;
 

@@ -11,6 +11,7 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -27,6 +28,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     {
         return [
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::HIGH],
+            ExplorationEvent::EXPLORATION_FINISHED => ['onExplorationFinished', EventPriorityEnum::HIGH],
         ];
     }
 
@@ -55,4 +57,39 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
     }
+
+    public function onExplorationFinished(ExplorationEvent $event): void
+    {
+        $exploration = $event->getExploration();
+        /** @var Player $explorator */
+        $explorator = $exploration->getExplorators()->getPlayerAlive()->first();
+
+        // All explorators are dead, no Icarus return!
+        // @TODO : Magnetic return project should prevent this
+        if (!$explorator) {
+            return;
+        }
+
+        $icarus = $explorator->getPlace()->getEquipmentByName(EquipmentEnum::ICARUS);
+        if (!$icarus) {
+            throw new \RuntimeException('There should be one Icarus ship in explorator place');
+        }
+
+        // @TODO: some explorations do not start in Icarus Bay, we need to handle that.
+        $icarusBay = $exploration->getDaedalus()->getPlaceByName(RoomEnum::ICARUS_BAY);
+        if (!$icarusBay) {
+            throw new \RuntimeException('There should be one Icarus bay in Daedalus');
+        }
+
+        $equipmentEvent = new MoveEquipmentEvent(
+            equipment: $icarus,
+            newHolder: $icarusBay,
+            author: null,
+            visibility: VisibilityEnum::HIDDEN,
+            tags: $event->getTags(),
+            time: $event->getTime(),
+        );
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+    }
+
 }

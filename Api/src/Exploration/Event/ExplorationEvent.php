@@ -7,12 +7,12 @@ namespace Mush\Exploration\Event;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Game\Event\AbstractGameEvent;
 
-final class ExplorationEvent extends AbstractGameEvent
+class ExplorationEvent extends AbstractGameEvent
 {
     public const EXPLORATION_STARTED = 'exploration.started';
     public const EXPLORATION_FINISHED = 'exploration.finished';
 
-    private Exploration $exploration;
+    protected Exploration $exploration;
 
     public function __construct(
         Exploration $exploration,

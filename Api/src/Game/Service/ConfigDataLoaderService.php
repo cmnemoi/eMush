@@ -22,6 +22,7 @@ use Mush\Equipment\ConfigData\PlantDataLoader;
 use Mush\Equipment\ConfigData\RationDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
+use Mush\Exploration\ConfigData\ExplorationPlanetSectorEventConfigDataLoader;
 use Mush\Exploration\ConfigData\PlanetSectorConfigDataLoader;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Game\ConfigData\DifficultyConfigDataLoader;
@@ -52,6 +53,7 @@ class ConfigDataLoaderService
         TriggerEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader,
         DirectModifierConfigDataLoader $directModifierConfigDataLoader,
         VariableEventConfigDataLoader $variableEventConfigDataLoader,
+        ExplorationPlanetSectorEventConfigDataLoader $explorationPlanetSectorEventConfigDataLoader,
         ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader,
         ContentStatusConfigDataLoader $contentStatusConfigDataLoader,
         StatusConfigDataLoader $statusConfigDataLoader,
@@ -92,6 +94,7 @@ class ConfigDataLoaderService
                 $modifierActivationRequirementDataLoader,
                 $eventModifierConfigDataLoader,
                 $variableEventModifierConfigDataLoader,
+                $explorationPlanetSectorEventConfigDataLoader,
                 $triggerEventModifierConfigDataLoader,
                 $directModifierConfigDataLoader,
                 $chargeStatusConfigDataLoader,

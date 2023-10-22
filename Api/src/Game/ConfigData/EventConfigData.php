@@ -2,6 +2,7 @@
 
 namespace Mush\Game\ConfigData;
 
+use Mush\Exploration\Event\ExplorationPlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -217,6 +218,42 @@ class EventConfigData
             'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
             'eventName' => VariableEventInterface::CHANGE_VARIABLE,
             'name' => 'change.variable_player_1_satiety',
+        ],
+        [
+            'type' => 'exploration_planet_sector_event_config',
+            'name' => ExplorationPlanetSectorEvent::ACCIDENT . '_3_5',
+            'eventName' => ExplorationPlanetSectorEvent::ACCIDENT,
+            'outputQuantityTable' => [
+                // 3 => 1,
+                // 4 => 1,
+                // 5 => 1,
+                1 => 1,
+            ],
+        ],
+        [
+            'type' => 'exploration_planet_sector_event_config',
+            'name' => ExplorationPlanetSectorEvent::DISASTER . '_3_5',
+            'eventName' => ExplorationPlanetSectorEvent::DISASTER,
+            'outputQuantityTable' => [
+                // 3 => 1,
+                // 4 => 1,
+                // 5 => 1,
+                1 => 1,
+            ],
+        ],
+        [
+            'type' => 'exploration_planet_sector_event_config',
+            'name' => ExplorationPlanetSectorEvent::NOTHING_TO_REPORT,
+            'eventName' => ExplorationPlanetSectorEvent::NOTHING_TO_REPORT,
+        ],
+        [
+            'type' => 'exploration_planet_sector_event_config',
+            'name' => ExplorationPlanetSectorEvent::TIRED . '_2',
+            'eventName' => ExplorationPlanetSectorEvent::TIRED,
+            'outputQuantityTable' => [
+                // 2 => 1,
+                1 => 1,
+            ],
         ],
     ];
 }

@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Listener;
 
+use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
@@ -51,6 +52,8 @@ class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getAction();
         $actionSupport = $event->getActionTarget();
         $player = $event->getAuthor();
+        /** @var ActionResult $actionResult */
+        $actionResult = $event->getActionResult();
 
         if ($actionSupport instanceof Player
             && in_array($action->getActionName(), ActionEnum::getForceGetUpActions())
@@ -68,7 +71,7 @@ class ActionSubscriber implements EventSubscriberInterface
             $this->createLandActionLog($event);
         }
 
-        if ($content = $event->getActionResult()->getContent()) {
+        if ($content = $actionResult->getContent()) {
             $this->createContentLog($event, $content);
         }
     }

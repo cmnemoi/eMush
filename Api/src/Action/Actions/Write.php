@@ -5,26 +5,23 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\Mechanic;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Enum\VisibilityEnum;
-use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Equipment\Enum\ItemEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\Status\Entity\ContentStatus;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
 
 class Write extends AbstractAction
 {
@@ -79,7 +76,7 @@ class Write extends AbstractAction
         );
 
         $params = $this->getParameters();
-        $content = array_key_exists('content', $params) ? $params['content'] : null;
+        $content = ($params && array_key_exists('content', $params)) ? $params['content'] : null;
 
         /** @var ContentStatus $contentStatus */
         $contentStatus = $this->statusService->createStatusFromName(

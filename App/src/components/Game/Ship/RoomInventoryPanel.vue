@@ -82,6 +82,10 @@ export default defineComponent ({
             font-variant: small-caps;
             margin: 0;
             padding: 8px 0;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            display: flex;
 
             &::v-deep .status {
                 vertical-align: middle;

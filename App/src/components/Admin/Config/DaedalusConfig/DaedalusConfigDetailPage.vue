@@ -100,7 +100,12 @@
             ></Input>
         </div>
         <h3>{{ $t('admin.daedalusConfig.placeConfigs') }}</h3>
-        <ChildCollectionManager :children="daedalusConfig.placeConfigs" @addId="selectNewPlaceConfigs" @remove="removePlaceConfig">
+        <ChildCollectionManager
+            :children="daedalusConfig.placeConfigs"
+            id="daedalusConfig_placeConfigs"
+            @addId="selectNewPlaceConfigs"
+            @remove="removePlaceConfig"
+        >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>

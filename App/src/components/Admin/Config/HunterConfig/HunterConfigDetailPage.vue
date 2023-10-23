@@ -86,6 +86,7 @@
         <MapManager
             :label="$t('admin.hunterConfig.damageRange')"
             :map="hunterConfig.damageRange"
+            id="hunterConfig_damageRange"
             mapIndexesType="number"
             mapValuesType="number"
             @addTuple="addDamage"
@@ -94,6 +95,7 @@
         <MapManager
             :label="$t('admin.hunterConfig.scrapDropTable')"
             :map="hunterConfig.scrapDropTable"
+            id="hunterConfig_scrapDropTable"
             mapIndexesType="string"
             mapValuesType="number"
             @addTuple="addScrapDrop"
@@ -102,22 +104,25 @@
         <MapManager
             :label="$t('admin.hunterConfig.numberOfDroppedScrap')"
             :map="hunterConfig.numberOfDroppedScrap"
+            id="hunterConfig_numberOfDroppedScrap"
             mapIndexesType="string"
             mapValuesType="number"
             @addTuple="addNumberDrop"
             @removeIndex="removeNumberDrop"
         />
         <h3>{{ $t("admin.hunterConfig.initialStatuses") }}</h3>
-        <ChildCollectionManager :children="hunterConfig.initialStatuses" @addId="addNewStatusConfig" @remove="removeStatusConfig">
+        <ChildCollectionManager
+            :children="hunterConfig.initialStatuses"
+            id="hunterConfig_initialStatuses"
+            @addId="addNewStatusConfig"
+            @remove="removeStatusConfig"
+        >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
     </div>
-    <UpdateConfigButtons
-        @create="create"
-        @update="update"
-    />
+    <UpdateConfigButtons @create="create" @update="update" />
 </template>
 
 <script lang="ts">

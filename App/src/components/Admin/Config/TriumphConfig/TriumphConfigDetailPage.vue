@@ -32,10 +32,7 @@
                 <label for="triumphConfig_isAllCrew">{{ triumphConfig.isAllCrew ? $t('admin.triumphConfig.isAllCrew') : $t('admin.triumphConfig.isNotAllCrew') }}</label>
             </div>
         </div>
-        <UpdateConfigButtons
-            @create="create"
-            @update="update"
-        />
+        <UpdateConfigButtons @create="create" @update="update" />
     </div>
 </template>
 

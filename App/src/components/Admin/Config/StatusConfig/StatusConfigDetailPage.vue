@@ -68,7 +68,12 @@
         </template>
 
         <h3>Modifier Configs</h3>
-        <ChildCollectionManager :children="statusConfig.modifierConfigs" @addId="selectNewChild" @remove="removeChild">
+        <ChildCollectionManager
+            :children="statusConfig.modifierConfigs"
+            id="statusConfig_modifierConfigs"
+            @addId="selectNewChild"
+            @remove="removeChild"
+        >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
@@ -80,6 +85,7 @@
         <h3>{{ $t('admin.statusConfig.dischargeStrategies') }}</h3>
         <StringArrayManager
             :array="statusConfig.dischargeStrategies"
+            id="statusConfig_dischargeStrategies"
             @addElement="statusConfig.dischargeStrategies?.push($event)"
             @removeElement="statusConfig.dischargeStrategies?.splice(statusConfig.dischargeStrategies.indexOf($event), 1)"
         />

@@ -11,7 +11,7 @@
             />
             <Input
                 :label="$t('admin.diseaseCauseConfig.causeName')"
-                id="diseaseCauseConfig_name"
+                id="diseaseCauseConfig_causeName"
                 v-model="diseaseCauseConfig.causeName"
                 type="text"
                 :errors="errors.causeName"
@@ -20,15 +20,13 @@
         <MapManager
             :label="$t('admin.diseaseCauseConfig.diseases')"
             :map="diseaseCauseConfig.diseases"
+            id="diseaseCauseConfig_diseases"
             mapIndexesType="string"
             mapValuesType="number"
             @addTuple="addDisease"
             @removeIndex="removeDisease"
         />
-        <UpdateConfigButtons
-            @create="create"
-            @update="update"
-        />
+        <UpdateConfigButtons @create="create" @update="update" />
     </div>
 </template>
 

@@ -2,7 +2,7 @@
     <div class="children-add">
         <Input
             :label="$t('admin.childCollectionManager.idToAdd')"
-            id="idToAdd"
+            :id="id"
             v-model="selectId"
             :type="mapIndexesType"
         ></Input>
@@ -41,7 +41,11 @@ export default {
     },
     props: {
         children: Array,
-        mapIndexesType: String
+        mapIndexesType: String,
+        id: {
+            type: String,
+            required: true
+        },
     },
     emits: ['addId', 'remove'],
     data: function () {

@@ -2,8 +2,8 @@
     <h3 v-if="label">{{ label }}</h3>
     <div class="flex-row index-deletion">
         <div class="select-default">
-            <label for="select">{{ $t("admin.mapManager.indexToDelete") }}</label>
-            <select v-model="indexToDelete" id="select">
+            <label :for="id">{{ $t("admin.mapManager.indexToDelete") }}</label>
+            <select v-model="indexToDelete" :id="id">
                 <option v-for="[index,] in map" :value="index" v-bind:key="index">
                     {{ index }}
                 </option>

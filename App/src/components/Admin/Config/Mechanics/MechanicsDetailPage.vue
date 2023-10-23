@@ -21,12 +21,18 @@
         <h3>{{ $t('admin.mechanics.mechanics') }}</h3>
         <StringArrayManager
             :array="mechanics.mechanics"
+            id="mechanics_mechanics"
             @addElement="mechanics.mechanics.push($event)"
             @removeElement="mechanics.mechanics.splice(mechanics.mechanics.indexOf($event), 1)"
         />
         
         <h3>{{ $t('admin.mechanics.actions') }}</h3>
-        <ChildCollectionManager :children="mechanics.actions" @addId="selectNewAction" @remove="removeAction">
+        <ChildCollectionManager
+            :children="mechanics.actions"
+            id="mechanics_actions"
+            @addId="selectNewAction"
+            @remove="removeAction"
+        >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
@@ -48,6 +54,7 @@
                 :label="$t('admin.mechanics.addIngredients')"
                 :array="mechanics.ingredients"
                 :selection="ingredients"
+                id="mechanics_addIngredients"
                 @addElement="addIngredient"
                 @removeElement="removeIngredient"
             />
@@ -107,47 +114,70 @@
                     type="number"
                     :errors="errors.satiety"
                 ></Input>
-                <input type="checkbox"
-                       class="mechanicsCheckbox"
-                       id="isPerishable"
-                       v-model="mechanics.isPerishable" />
-                <label for="isPerishable">{{ mechanics.isPerishable ? $t('admin.mechanics.isPerishable') : $t('admin.mechanics.isNotPerishable') }}</label>
+                <div class="checkbox-container">
+                    <input
+                        type="checkbox"
+                        id="isPerishable"
+                        v-model="mechanics.isPerishable" 
+                    />
+                    <label for="isPerishable">{{ mechanics.isPerishable ? $t('admin.mechanics.isPerishable') : $t('admin.mechanics.isNotPerishable') }}</label>
+                </div>
             </div>
-            <MapManager :label="$t('admin.mechanics.actionPoints')"
-                        :map="mechanics.actionPoints" 
-                        mapIndexesType="number"
-                        mapValuesType="number"
-                        @addTuple="addActionPoints"
-                        @removeIndex="removeActionPoints"></MapManager>
-            <MapManager :map="mechanics.moralPoints"
-                        :label="$t('admin.mechanics.moralPoints')"
-                        mapIndexesType="number"
-                        mapValuesType="number"
-                        @addTuple="addMoralPoints" 
-                        @removeIndex="removeMoralPoints"></MapManager>
-            <MapManager :map="mechanics.healthPoints" 
-                        :label="$t('admin.mechanics.healthPoints')"
-                        mapIndexesType="number"
-                        mapValuesType="number"
-                        @addTuple="addHealthPoints" 
-                        @removeIndex="removeHealthPoints"></MapManager>
-            <MapManager :map="mechanics.movementPoints" 
-                        :label="$t('admin.mechanics.movementPoints')"
-                        mapIndexesType="number"
-                        mapValuesType="number"
-                        @addTuple="addMovementPoints" 
-                        @removeIndex="removeMovementPoints"></MapManager>
-            <MapManager :map="mechanics.extraEffects" 
-                        :label="$t('admin.mechanics.extraEffects')"
-                        mapIndexesType="string"
-                        mapValuesType="number"
-                        @addTuple="addExtraEffects" 
-                        @removeIndex="removeExtraEffects"></MapManager>
+            <MapManager
+                :label="$t('admin.mechanics.actionPoints')"
+                :map="mechanics.actionPoints" 
+                id="mechanics_actionPoints"
+                mapIndexesType="number"
+                mapValuesType="number"
+                @addTuple="addActionPoints"
+                @removeIndex="removeActionPoints"
+            />
+            <MapManager
+                :label="$t('admin.mechanics.moralPoints')"
+                :map="mechanics.moralPoints"
+                id="mechanics_moralPoints"
+                mapIndexesType="number"
+                mapValuesType="number"
+                @addTuple="addMoralPoints" 
+                @removeIndex="removeMoralPoints"
+            />
+            <MapManager
+                :label="$t('admin.mechanics.healthPoints')"
+                :map="mechanics.healthPoints" 
+                id="mechanics_healthPoints"
+                mapIndexesType="number"
+                mapValuesType="number"
+                @addTuple="addHealthPoints" 
+                @removeIndex="removeHealthPoints"
+            />
+            <MapManager
+                :label="$t('admin.mechanics.movementPoints')"
+                :map="mechanics.movementPoints" 
+                id="mechanics_movementPoints"
+                mapIndexesType="number"
+                mapValuesType="number"
+                @addTuple="addMovementPoints" 
+                @removeIndex="removeMovementPoints"
+            />
+            <MapManager
+                :label="$t('admin.mechanics.extraEffects')"
+                :map="mechanics.extraEffects" 
+                id="mechanics_extraEffects"
+                mapIndexesType="string"
+                mapValuesType="number"
+                @addTuple="addExtraEffects" 
+                @removeIndex="removeExtraEffects"
+            />
         </template>
 
         <template v-if="mechanics.mechanicsType == 'Gear'">
             <h3>{{ $t('admin.mechanics.modifierConfigs') }}</h3>
-            <ChildCollectionManager :children="mechanics.modifierConfigs" @addId="selectNewModifierConfig" @remove="removeModifierConfig">
+            <ChildCollectionManager
+                :children="mechanics.modifierConfigs"
+                id="mechanics_modifierConfigs"
+                @addId="selectNewModifierConfig"
+                @remove="removeModifierConfig"
+            >
                 <template #header="child">
                     <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
                 </template>
@@ -156,18 +186,24 @@
 
         <template v-if="mechanics.mechanicsType == 'Plant'">
             <h3>{{ $t('admin.mechanics.maturationTime') }}</h3>
-            <MapManager :map="mechanics.maturationTime" 
-                        mapIndexesType="number"
-                        mapValuesType="number"
-                        @addTuple="addMaturationTime"
-                        @removeIndex="removeMaturationTime"></MapManager>
+            <MapManager
+                :map="mechanics.maturationTime"
+                id="mechanics_maturationTime"
+                mapIndexesType="number"
+                mapValuesType="number"
+                @addTuple="addMaturationTime"
+                @removeIndex="removeMaturationTime"
+            />
             
             <h3>{{ $t('admin.mechanics.oxygen') }}</h3>
-            <MapManager :map="mechanics.oxygen" 
-                        mapIndexesType="number"
-                        mapValuesType="number"
-                        @addTuple="addOxygen"
-                        @removeIndex="removeOxygen"></MapManager>
+            <MapManager
+                :map="mechanics.oxygen"
+                id="mechanics_oxygen"
+                mapIndexesType="number"
+                mapValuesType="number"
+                @addTuple="addOxygen"
+                @removeIndex="removeOxygen"
+            />
         </template>
 
         <template v-if="mechanics.mechanicsType == 'Weapon'">
@@ -210,11 +246,14 @@
                 ></Input>
             </div>
             <h3>{{ $t('admin.mechanics.baseDamageRange') }}</h3>
-            <MapManager :map="mechanics.baseDamageRange" 
-                        mapIndexesType="number"
-                        mapValuesType="number"
-                        @addTuple="addBaseDamageRange"
-                        @removeIndex="removeBaseDamageRange"></MapManager>
+            <MapManager
+                :map="mechanics.baseDamageRange"
+                id="mechanics_baseDamageRange"
+                mapIndexesType="number"
+                mapValuesType="number"
+                @addTuple="addBaseDamageRange"
+                @removeIndex="removeBaseDamageRange"
+            />
         </template>
         <template v-if="mechanics.mechanicsType == 'PatrolShip'">
             <h3>{{ $t('admin.mechanics.dockingPlace') }}</h3>
@@ -228,41 +267,59 @@
                 />
             </div>
             <h3>{{ $t('admin.mechanics.collectScrapNumber') }}</h3>
-            <MapManager :map="mechanics.collectScrapNumber"
-                        mapIndexesType="number"
-                        mapValuesType="number"
-                        @addTuple="addCollectScrapNumber"
-                        @removeIndex="removeCollectScrapNumber"/>
+            <MapManager
+                :map="mechanics.collectScrapNumber"
+                id="mechanics_collectScrapNumber"
+                mapIndexesType="number"
+                mapValuesType="number"
+                @addTuple="addCollectScrapNumber"
+                @removeIndex="removeCollectScrapNumber"
+            />
             <h3>{{ $t('admin.mechanics.collectScrapPatrolShipDamage') }}</h3>
-            <MapManager :map="mechanics.collectScrapPatrolShipDamage"
-                        mapIndexesType="number"
-                        mapValuesType="number"
-                        @addTuple="addCollectScrapPatrolShipDamage"
-                        @removeIndex="removeCollectScrapPatrolShipDamage"/>
+            <MapManager
+                :map="mechanics.collectScrapPatrolShipDamage"
+                id="mechanics_collectScrapPatrolShipDamage"
+                mapIndexesType="number"
+                mapValuesType="number"
+                @addTuple="addCollectScrapPatrolShipDamage"
+                @removeIndex="removeCollectScrapPatrolShipDamage"
+            />
             <h3>{{ $t('admin.mechanics.collectScrapPlayerDamage') }}</h3>
-            <MapManager :map="mechanics.collectScrapPlayerDamage"
-                        mapIndexesType="number"
-                        mapValuesType="number"
-                        @addTuple="addCollectScrapPlayerDamage"
-                        @removeIndex="removeCollectScrapPlayerDamage"/>
+            <MapManager
+                :map="mechanics.collectScrapPlayerDamage"
+                id="mechanics_collectScrapPlayerDamage"
+                mapIndexesType="number"
+                mapValuesType="number"
+                @addTuple="addCollectScrapPlayerDamage"
+                @removeIndex="removeCollectScrapPlayerDamage"
+            />
             <h3>{{ $t('admin.mechanics.failedManoeuvreDaedalusDamage') }}</h3>
-            <MapManager :map="mechanics.failedManoeuvreDaedalusDamage"
-                        mapIndexesType="number"
-                        mapValuesType="number"
-                        @addTuple="addFailedManoeuvreDaedalusDamage"
-                        @removeIndex="removeFailedManoeuvreDaedalusDamage"/>
+            <MapManager
+                :map="mechanics.failedManoeuvreDaedalusDamage"
+                id="mechanics_failedManoeuvreDaedalusDamage"
+                mapIndexesType="number"
+                mapValuesType="number"
+                @addTuple="addFailedManoeuvreDaedalusDamage"
+                @removeIndex="removeFailedManoeuvreDaedalusDamage"
+            />
             <h3>{{ $t('admin.mechanics.failedManoeuvrePatrolShipDamage') }}</h3>
-            <MapManager :map="mechanics.failedManoeuvrePatrolShipDamage"
-                        mapIndexesType="number"
-                        mapValuesType="number"
-                        @addTuple="addFailedManoeuvrePatrolShipDamage"
-                        @removeIndex="removeFailedManoeuvrePatrolShipDamage"/>
+            <MapManager
+                :map="mechanics.failedManoeuvrePatrolShipDamage"
+                id="mechanics_failedManoeuvrePatrolShipDamage"
+                mapIndexesType="number"
+                mapValuesType="number"
+                @addTuple="addFailedManoeuvrePatrolShipDamage"
+                @removeIndex="removeFailedManoeuvrePatrolShipDamage"
+            />
             <h3>{{ $t('admin.mechanics.failedManoeuvrePlayerDamage') }}</h3>
-            <MapManager :map="mechanics.failedManoeuvrePlayerDamage"
-                        mapIndexesType="number"
-                        mapValuesType="number"
-                        @addTuple="addFailedManoeuvrePlayerDamage"
-                        @removeIndex="removeFailedManoeuvrePlayerDamage"/>
+            <MapManager
+                :map="mechanics.failedManoeuvrePlayerDamage"
+                id="mechanics_failedManoeuvrePlayerDamage"
+                mapIndexesType="number"
+                mapValuesType="number"
+                @addTuple="addFailedManoeuvrePlayerDamage"
+                @removeIndex="removeFailedManoeuvrePlayerDamage"
+            />
         </template>
         <UpdateConfigButtons @create="create" @update="update"/>
     </div>

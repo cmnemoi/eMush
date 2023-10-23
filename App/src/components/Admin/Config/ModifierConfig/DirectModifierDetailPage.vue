@@ -32,13 +32,22 @@
             </div>
         </div>
         <h3>{{ $t("admin.modifierConfig.triggeredEvent") }}</h3>
-        <ChildManager :child="modifierConfig.triggeredEvent" @addId="selectNewEventConfig">
+        <ChildManager
+            :child="modifierConfig.triggeredEvent"
+            id="modifierConfig.triggeredEvent"
+            @addId="selectNewEventConfig"
+        >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildManager>
         <h3>{{ $t("admin.modifierConfig.modifierRequirement") }}</h3>
-        <ChildCollectionManager :children="modifierConfig.modifierActivationRequirements" @addId="selectNewChild" @remove="removeChild">
+        <ChildCollectionManager
+            :children="modifierConfig.modifierActivationRequirements"
+            id="modifierConfig_modifierActivationRequirements"
+            @addId="selectNewChild"
+            @remove="removeChild"
+        >
             <template #header="child">
                 <span><strong>{{ child.id }}</strong> - {{ child.modifierName }}</span>
             </template>

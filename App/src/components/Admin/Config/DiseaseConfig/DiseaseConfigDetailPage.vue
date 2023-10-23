@@ -66,11 +66,17 @@
         <StringArrayManager
             :label="$t('admin.diseaseConfig.overrideDiseaseToAdd')"
             :array="diseaseConfig.override"
+            id="diseaseConfig_overrideDiseaseToAdd"
             @addElement="diseaseConfig.override?.push($event)"
             @removeElement="diseaseConfig.override?.splice(diseaseConfig.override.indexOf($event), 1)"
         />
         <h3>{{ $t('admin.diseaseConfig.modifierConfigs') }}</h3>
-        <ChildCollectionManager :children="diseaseConfig.modifierConfigs" @addId="selectNewModifierConfig" @remove="removeModifierConfig">
+        <ChildCollectionManager
+            :children="diseaseConfig.modifierConfigs"
+            id="diseaseConfig_modifierConfigs"
+            @addId="selectNewModifierConfig"
+            @remove="removeModifierConfig"
+        >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>

@@ -19,8 +19,8 @@
         </div>
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.curesName')"
-            id="consumableDiseaseConfig_curesName"
             :map="consumableDiseaseConfig.curesName"
+            id="consumableDiseaseConfig_curesName"
             mapIndexesType="string"
             mapValuesType="number"
             @addTuple="addCuresName"
@@ -29,6 +29,7 @@
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.diseasesName')"
             :map="consumableDiseaseConfig.diseasesName"
+            id="consumableDiseaseConfig_diseasesName"
             mapIndexesType="string"
             mapValuesType="number"
             @addTuple="addDiseasesName"
@@ -37,6 +38,7 @@
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.diseasesChances')"
             :map="consumableDiseaseConfig.diseasesChances"
+            id="consumableDiseaseConfig_diseasesChances"
             mapIndexesType="number"
             mapValuesType="number"
             @addTuple="addDiseasesChances"
@@ -45,6 +47,7 @@
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.curesChances')"
             :map="consumableDiseaseConfig.curesChances"
+            id="consumableDiseaseConfig_curesChances"
             mapIndexesType="number"
             mapValuesType="number"
             @addTuple="addCuresChances"
@@ -53,6 +56,7 @@
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.diseasesDelayMin')"
             :map="consumableDiseaseConfig.diseasesDelayMin"
+            id="consumableDiseaseConfig_diseasesDelayMin"
             mapIndexesType="number"
             mapValuesType="number"
             @addTuple="addDiseasesDelayMin"
@@ -61,6 +65,7 @@
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.diseasesDelayLength')"
             :map="consumableDiseaseConfig.diseasesDelayLength"
+            id="consumableDiseaseConfig_diseasesDelayLength"
             mapIndexesType="number"
             mapValuesType="number"
             @addTuple="addDiseasesDelayLength"
@@ -69,6 +74,7 @@
         <MapManager
             :label="$t('admin.consumableDiseaseConfig.effectNumber')"
             :map="consumableDiseaseConfig.effectNumber"
+            id="consumableDiseaseConfig_effectNumber"
             mapIndexesType="number"
             mapValuesType="number"
             @addTuple="addEffectNumber"

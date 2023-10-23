@@ -108,7 +108,12 @@
             />
         </div>
         <h3> {{$t('admin.characterConfig.initStatuses')}} </h3>
-        <ChildCollectionManager :children="characterConfig.initStatuses" @addId="selectNewInitStatus" @remove="removeInitStatus">
+        <ChildCollectionManager
+            :children="characterConfig.initStatuses"
+            id="characterConfig_initStatuses"
+            @addId="selectNewInitStatus"
+            @remove="removeInitStatus"
+        >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
@@ -117,7 +122,12 @@
             </template>
         </ChildCollectionManager>
         <h3> {{$t('admin.characterConfig.actions')}} </h3>
-        <ChildCollectionManager :children="characterConfig.actions" @addId="selectNewAction" @remove="removeAction">
+        <ChildCollectionManager
+            :children="characterConfig.actions"
+            id="characterConfig_actions"
+            @addId="selectNewAction"
+            @remove="removeAction"
+        >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
@@ -128,11 +138,17 @@
         <h3> {{$t('admin.characterConfig.skills')}} </h3>
         <StringArrayManager
             :array="characterConfig.skills"
+            id="characterConfig_skills"
             @addElement="characterConfig.skills?.push($event)"
             @removeElement="characterConfig.skills?.splice($event, 1)"
         />
         <h3> {{$t('admin.characterConfig.startingItems')}} </h3>
-        <ChildCollectionManager :children="characterConfig.startingItems" @addId="selectNewStartingItem" @remove="removeStartingItem">
+        <ChildCollectionManager
+            :children="characterConfig.startingItems"
+            id="characterConfig_startingItems"
+            @addId="selectNewStartingItem"
+            @remove="removeStartingItem"
+        >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
@@ -141,7 +157,12 @@
             </template>
         </ChildCollectionManager>
         <h3> {{$t('admin.characterConfig.initDiseases')}} </h3>
-        <ChildCollectionManager :children="characterConfig.initDiseases" @addId="selectNewInitDisease" @remove="removeInitDisease">
+        <ChildCollectionManager
+            :children="characterConfig.initDiseases"
+            id="characterConfig_initDiseases"
+            @addId="selectNewInitDisease"
+            @remove="removeInitDisease"
+        >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>

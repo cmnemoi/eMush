@@ -13,12 +13,14 @@
         <h3>{{ $t('admin.randomItemPlaces.items') }}</h3>
         <StringArrayManager
             :array="randomItemPlaces.items"
+            id="randomItemPlaces_items"
             @addElement="randomItemPlaces.items.push($event)"
             @removeElement="randomItemPlaces?.items.splice(randomItemPlaces?.items.indexOf($event), 1)"
         ></StringArrayManager>
         <h3>{{ $t('admin.randomItemPlaces.places') }}</h3>
         <StringArrayManager
             :array="randomItemPlaces.places"
+            id="randomItemPlaces_places"
             @addElement="randomItemPlaces.places.push($event)"
             @removeElement="randomItemPlaces.places.splice(randomItemPlaces.places.indexOf($event), 1)"
         ></StringArrayManager>

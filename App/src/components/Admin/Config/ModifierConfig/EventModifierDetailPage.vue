@@ -71,7 +71,7 @@
             <template v-if="modifierConfig.type === 'TriggerEventModifierConfig'">
                 <Input
                     :label="$t('admin.modifierConfig.triggeredEvent')"
-                    id="triggeredEvent"
+                    id="modifierConfig_triggeredEvent"
                     v-model="modifierConfig.triggeredEvent"
                     type="text"
                     :errors="errors.triggeredEvent"
@@ -80,7 +80,7 @@
             <template v-if="modifierConfig.type === 'EventModifierConfig'">
                 <Input
                     :label="$t('admin.modifierConfig.modifierStrategy')"
-                    id="triggeredEvent"
+                    id="modifierConfig_modifierStrategy"
                     v-model="modifierConfig.modifierStrategy"
                     type="text"
                     :errors="errors.modifierStrategy"
@@ -90,12 +90,18 @@
         <h3>{{ $t('admin.modifierConfig.tagConstraints') }}</h3>
         <MapManager
             :map="modifierConfig.tagConstraints"
+            id="modifierConfig.tagConstraints"
             mapIndexesType="string"
             mapValuesType="string"
         >
         </MapManager>
         <h3>Modifier Requirement</h3>
-        <ChildCollectionManager :children="modifierConfig.modifierActivationRequirements" @addId="selectNewChild" @remove="removeChild">
+        <ChildCollectionManager
+            :children="modifierConfig.modifierActivationRequirements"
+            id="modifierConfig_modifierActivationRequirements"
+            @addId="selectNewChild"
+            @remove="removeChild"
+        >
             <template #header="child">
                 <span><strong>{{ child.id }}</strong> - {{ child.modifierName }}</span>
             </template>

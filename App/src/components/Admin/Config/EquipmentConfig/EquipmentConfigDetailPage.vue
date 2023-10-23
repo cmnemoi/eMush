@@ -65,26 +65,42 @@
             :label="$t('admin.equipmentConfig.addDismountedProducts')"
             :array="equipmentConfig.dismountedProducts"
             :selection="products"
+            id="equipmentConfig_addDismountedProducts"
             @addElement="addDismountedProduct"
             @removeElement="removeDismountedProduct"
         />
 
         <h3>{{ $t('admin.equipmentConfig.actions') }}</h3>
-        <ChildCollectionManager :children="equipmentConfig.actions" @addId="selectNewAction" @remove="removeAction">
+        <ChildCollectionManager
+            :children="equipmentConfig.actions"
+            id="equipmentConfig_actions"
+            @addId="selectNewAction"
+            @remove="removeAction"
+        >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
 
         <h3>{{ $t('admin.equipmentConfig.initStatuses') }}</h3>
-        <ChildCollectionManager :children="equipmentConfig.initStatuses" @addId="selectNewInitStatuses" @remove="removeInitStatuses">
+        <ChildCollectionManager
+            :children="equipmentConfig.initStatuses"
+            id="equipmentConfig_initStatuses"
+            @addId="selectNewInitStatuses"
+            @remove="removeInitStatuses"
+        >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
 
         <h3>{{ $t('admin.equipmentConfig.mechanics') }}</h3>
-        <ChildCollectionManager :children="equipmentConfig.mechanics" @addId="selectNewMechanics" @remove="removeMechanics">
+        <ChildCollectionManager
+            :children="equipmentConfig.mechanics"
+            id="equipmentConfig_mechanics"
+            @addId="selectNewMechanics"
+            @remove="removeMechanics"
+        >
             <template #header="child">
                 <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>

@@ -97,7 +97,9 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($hackerKitMechanic);
 
         /** @var Action $writeAction */
-        $writeAction = $this->getReference(ActionsFixtures::WRITE_DEFAULT);
+        $writeAction = $this->getReference(ActionsFixtures::WRITE);
+        /** @var Action $exitTerminalAction */
+        $exitTerminalAction = $this->getReference(ActionsFixtures::EXIT_TERMINAL);
 
         $blockOfPostIt = new ItemConfig();
         $blockOfPostIt
@@ -105,7 +107,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setActions([$takeAction, $dropAction, $hideAction, $examineAction, $writeAction])
+            ->setActions([$takeAction, $dropAction, $hideAction, $examineAction, $writeAction, $exitTerminalAction])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($blockOfPostIt);

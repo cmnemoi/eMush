@@ -1659,6 +1659,8 @@ class EquipmentConfigData
                 'hide',
                 'examine',
                 'write',
+                'exit_terminal',
+                'access_terminal',
             ],
             'mechanics' => [],
             'initStatuses' => [],

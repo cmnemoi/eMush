@@ -71,6 +71,7 @@ const QUADRIMETRIC_COMPASS = "quadrimetric_compass";
 const ADJUSTABLE_WRENCH = "adjustable_wrench";
 const APRON = "stainproof_apron";
 const BLOCK_POST_IT = "block_of_post_it";
+const POST_IT = "post_it";
 const ROPE = "rope";
 const DRILL = "drill";
 const KNIFE = "knife";
@@ -309,6 +310,9 @@ export const itemEnum: {[index: string]: any} = {
     },
     [BLOCK_POST_IT]: {
         'image': require('@/assets/images/items/postit_bloc.jpg')
+    },
+    [POST_IT]: {
+        'image': require('@/assets/images/items/postit.jpg')
     },
     [ROPE]: {
         'image': require('@/assets/images/items/rope.jpg')

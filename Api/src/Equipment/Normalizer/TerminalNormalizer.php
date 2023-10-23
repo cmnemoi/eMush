@@ -9,6 +9,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
@@ -116,13 +117,15 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
     {
         $titles = [];
         $terminalKey = $terminal->getName();
-        foreach (EquipmentEnum::$terminalSectionTitlesMap[$terminalKey] as $sectionKey) {
-            $titles[$sectionKey] = $this->translationService->translate(
-                $terminalKey . '.' . $sectionKey,
-                [],
-                'terminal',
-                $terminal->getDaedalus()->getLanguage(),
-            );
+        if (array_key_exists($terminalKey, EquipmentEnum::$terminalSectionTitlesMap)) {
+            foreach (EquipmentEnum::$terminalSectionTitlesMap[$terminalKey] as $sectionKey) {
+                $titles[$sectionKey] = $this->translationService->translate(
+                    $terminalKey . '.' . $sectionKey,
+                    [],
+                    'terminal',
+                    $terminal->getDaedalus()->getLanguage(),
+                );
+            }
         }
 
         return $titles;

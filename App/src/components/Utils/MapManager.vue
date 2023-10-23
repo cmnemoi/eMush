@@ -71,6 +71,7 @@ pre {
 }
 
 .index-deletion, .index-addition {
+    flex-wrap: wrap;
     align-items: center;
     gap: 1.2em;
 }

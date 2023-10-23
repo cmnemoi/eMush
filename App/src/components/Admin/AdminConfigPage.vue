@@ -68,4 +68,12 @@ export default defineComponent ({
 
 }
 
+@media only screen and (max-width: $breakpoint-mobile-l) {
+
+    .admin-config-container {
+        flex-direction: column;
+    }
+
+}
+
 </style>

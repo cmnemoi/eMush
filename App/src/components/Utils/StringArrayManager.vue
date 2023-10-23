@@ -69,8 +69,9 @@ pre {
 }
 
 .index-addition {
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.4em;
+    gap: 1.2em;
 }
 
 .select-default {

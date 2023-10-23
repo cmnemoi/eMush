@@ -67,6 +67,10 @@ class ActionSubscriber implements EventSubscriberInterface
         if ($action->getActionName() === ActionEnum::LAND) {
             $this->createLandActionLog($event);
         }
+
+        if ($content = $event->getActionResult()->getContent()) {
+            $this->createContentLog($event, $content);
+        }
     }
 
     private function createForceGetUpLog(Player $player): void
@@ -106,6 +110,21 @@ class ActionSubscriber implements EventSubscriberInterface
             'actions_log',
             $player,
             [$player->getLogKey() => $player->getLogName()],
+            new \DateTime('now')
+        );
+    }
+
+    private function createContentLog(ActionEvent $event, string $content): void
+    {
+        $player = $event->getAuthor();
+
+        $this->roomLogService->createLog(
+            ActionLogEnum::READ_CONTENT,
+            $player->getPlace(),
+            VisibilityEnum::PRIVATE,
+            'actions_log',
+            $player,
+            [$player->getLogKey() => $player->getLogName(), 'content' => $content],
             new \DateTime('now')
         );
     }

@@ -289,12 +289,14 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a document');
         }
 
-        $this->statusService->createStatusFromName(
+        $status = $this->statusService->createStatusFromName(
             EquipmentStatusEnum::DOCUMENT_CONTENT,
             $gameEquipment,
             [EquipmentEvent::EQUIPMENT_CREATED],
             new \DateTime()
         );
+
+        $status->setContent($document->getContent());
 
         return $gameEquipment;
     }

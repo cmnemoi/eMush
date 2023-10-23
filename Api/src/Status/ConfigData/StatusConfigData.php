@@ -176,7 +176,7 @@ class StatusConfigData
             'name' => 'document_content_default',
             'statusName' => 'document_content',
             'visibility' => 'hidden',
-            'type' => 'status_config',
+            'type' => 'content_status_config',
             'chargeVisibility' => null,
             'chargeStrategy' => 'none',
             'maxCharge' => null,

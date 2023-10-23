@@ -131,6 +131,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'read_document',
+                'shred',
             ],
             'modifierConfigs' => [],
         ],

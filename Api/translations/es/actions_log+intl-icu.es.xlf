@@ -247,12 +247,6 @@
         <target>water_plant_success</target>
       </segment>
     </unit>
-    <unit id="write_success">
-      <segment id="write_success" state="initial">
-        <source>write_success</source>
-        <target>write_success</target>
-      </segment>
-    </unit>
     <unit id="insert_oxygen">
       <segment id="insert_oxygen" state="initial">
         <source>insert_oxygen</source>

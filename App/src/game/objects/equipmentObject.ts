@@ -11,6 +11,7 @@ import IsometricGeom from "@/game/scenes/isometricGeom";
 export default class EquipmentObject extends InteractObject {
     public equipment: Equipment;
     private particles: Phaser.GameObjects.Particles.ParticleEmitterManager | null = null;
+    private initCoordinates: CartesianCoordinates;
 
     constructor(
         scene: DaedalusScene,
@@ -28,6 +29,7 @@ export default class EquipmentObject extends InteractObject {
     {
         super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, isFlipped, collides, isAnimationYoyo, group, interactionInformation);
 
+        this.initCoordinates = new CartesianCoordinates(this.x, this.y);
         this.equipment = equipment;
 
         //If this is clicked then:
@@ -79,6 +81,39 @@ export default class EquipmentObject extends InteractObject {
 
         if (this.particles !== null) {
             this.particles.setDepth(this.depth + 1);
+        }
+    }
+
+    update(time: number, delta: number):void
+    {
+        this.flyAnimation();
+    }
+
+    flyAnimation(): void
+    {
+        const displacement =  Math.round(Math.sin(Math.random() * 2 * Math.PI) * 2);
+        // const displacement =  Math.floor(Math.random()* 10);
+
+        const orientation = Math.random();
+        if (orientation > 0.5) {
+            this.x = (this.x + displacement);
+
+            if (this.x > this.initCoordinates.x + 10) {
+                this.x = this.initCoordinates.x + 10
+            }
+            if (this.x < this.initCoordinates.x - 10) {
+                this.x = this.initCoordinates.x - 10
+            }
+
+        } else if (orientation > 0.3) {
+            this.y = (this.y + displacement);
+
+            if (this.y > this.initCoordinates.y + 40) {
+                this.y = this.initCoordinates.y + 40
+            }
+            if (this.y < this.initCoordinates.y - 20) {
+                this.y = this.initCoordinates.y - 20
+            }
         }
     }
 

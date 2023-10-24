@@ -12,6 +12,7 @@ export default class EquipmentObject extends InteractObject {
     public equipment: Equipment;
     private particles: Phaser.GameObjects.Particles.ParticleEmitterManager | null = null;
     private initCoordinates: CartesianCoordinates;
+    private isShaking: boolean;
 
     constructor(
         scene: DaedalusScene,
@@ -30,6 +31,7 @@ export default class EquipmentObject extends InteractObject {
         super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, isFlipped, collides, isAnimationYoyo, group, interactionInformation);
 
         this.initCoordinates = new CartesianCoordinates(this.x, this.y);
+        this.isShaking = false;
         this.equipment = equipment;
 
         //If this is clicked then:
@@ -91,11 +93,21 @@ export default class EquipmentObject extends InteractObject {
 
     flyAnimation(): void
     {
-        const displacement =  Math.round(Math.sin(Math.random() * 2 * Math.PI) * 2);
-        // const displacement =  Math.floor(Math.random()* 10);
+        var displacement =  Math.sin(Math.random() * 2 * Math.PI);
+
+        if (this.isShaking) {
+            displacement =  Math.round(Math.sin(Math.random() * 2 * Math.PI) * 2);
+        }
+
+        if (
+            Math.random() > 0.97 && !this.isShaking ||
+            Math.random() > 0.95 && this.isShaking
+        ) {
+            this.isShaking =  !(this.isShaking);
+        }
 
         const orientation = Math.random();
-        if (orientation > 0.5) {
+        if (orientation > 0.3) {
             this.x = (this.x + displacement);
 
             if (this.x > this.initCoordinates.x + 10) {
@@ -105,7 +117,7 @@ export default class EquipmentObject extends InteractObject {
                 this.x = this.initCoordinates.x - 10
             }
 
-        } else if (orientation > 0.3) {
+        } else {
             this.y = (this.y + displacement);
 
             if (this.y > this.initCoordinates.y + 40) {

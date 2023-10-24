@@ -12,6 +12,10 @@ function launch(containerId: any, player: Player): Phaser.Game {
         backgroundColor: '#2d2d2d',
         parent: containerId,
         pixelArt: true,
+        fps: {
+            target: 60,
+            forceSetTimeOut: true
+        },
         plugins: {
             scene: [
                 {

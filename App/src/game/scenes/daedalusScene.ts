@@ -503,7 +503,7 @@ export default class DaedalusScene extends Phaser.Scene
 
                 gameObject.updateEquipment(updatedEquipment);
                 
-                this.displayPatrolShipActions(updatedEquipment, room);
+                this.displayPatrolShipActions(updatedEquipment, room, gameObject);
 
             } else if (gameObject instanceof DoorObject || gameObject instanceof DoorGroundObject) {
                 const updatedDoor = room.doors.filter((door: Door) => (door.key === gameObject.door.key))[0];
@@ -513,7 +513,7 @@ export default class DaedalusScene extends Phaser.Scene
         }
     }
 
-    private displayPatrolShipActions(updatedEquipment: Equipment, playerRoom: Room) {
+    private displayPatrolShipActions(updatedEquipment: Equipment, playerRoom: Room, gameObject: EquipmentObject) {
         const equipmentIsAPatrolShip = updatedEquipment.key?.substring(0, 11) === 'patrol_ship' || updatedEquipment.key?.substring(0, 8) === 'pasiphae';
         const playerIsInAPatrolShip = playerRoom?.type === 'patrol_ship';
 
@@ -806,9 +806,28 @@ export default class DaedalusScene extends Phaser.Scene
         this.fireParticles.push(particles);
     }
 
+    handleSpaceBattle(time: number, delta: number): void
+    {
+        if (this.room?.type === 'patrol_ship') {
+            const sceneGameObjects = this.children.list;
+
+            for (let i=0; i < sceneGameObjects.length; i++) {
+                const gameObject = sceneGameObjects[i];
+
+                if (gameObject instanceof EquipmentObject &&
+                    (gameObject.equipment.key?.substring(0, 11) === 'patrol_ship' ||
+                        gameObject.equipment.key?.substring(0, 8) === 'pasiphae')
+                ) {
+                   gameObject.update(time, 2000);
+                }
+            }
+        }
+    }
     update(time: number, delta: number): void
     {
         this.playerSprite.update();
+
+        this.handleSpaceBattle(time, delta);
 
         if (this.targetHighlightObject !== undefined) {
             const worldPointer = this.input.mousePointer.updateWorldPoint(this.cameras.main);

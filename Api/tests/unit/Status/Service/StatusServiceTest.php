@@ -22,6 +22,7 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\ContentStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -317,5 +318,30 @@ class StatusServiceTest extends TestCase
         $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult, [], new \DateTime());
 
         $this->assertCount(0, $player->getStatuses());
+    }
+
+    public function testCreateContentStatusFromConfig()
+    {
+        $place = new Place();
+        $place->setDaedalus(new Daedalus());
+        $gameEquipment = new GameItem($place);
+        $statusConfig = new ContentStatusConfig();
+        $statusConfig
+            ->setStatusName(PlayerStatusEnum::GUARDIAN)
+            ->setVisibility(VisibilityEnum::MUSH)
+        ;
+
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('computeEventModifications')->once()->andReturn(new AbstractGameEvent([], new \DateTime()));
+
+        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
+        $result->setContent('test content');
+
+        $this->assertEquals($result->getOwner(), $gameEquipment);
+        $this->assertEquals($result->getName(), PlayerStatusEnum::GUARDIAN);
+        $this->assertEquals($result->getVisibility(), VisibilityEnum::MUSH);
+        $this->assertEquals($result->getContent(), 'test content');
     }
 }

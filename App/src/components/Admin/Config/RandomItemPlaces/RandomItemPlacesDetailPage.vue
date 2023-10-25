@@ -1,7 +1,7 @@
 <template>
     <div v-if="randomItemPlaces" class="center">
-        <h2>{{ $t('admin.randomItemPlaces.pageTitle') }} {{ randomItemPlaces.name }}</h2>
-        <div class="flex-row">
+        <h2>{{ $t('admin.randomItemPlaces.pageTitle') }} <em>{{ randomItemPlaces.name }}</em></h2>
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.randomItemPlaces.name')"
                 id="randomItemPlaces_name"
@@ -13,12 +13,14 @@
         <h3>{{ $t('admin.randomItemPlaces.items') }}</h3>
         <StringArrayManager
             :array="randomItemPlaces.items"
+            id="randomItemPlaces_items"
             @addElement="randomItemPlaces.items.push($event)"
             @removeElement="randomItemPlaces?.items.splice(randomItemPlaces?.items.indexOf($event), 1)"
         ></StringArrayManager>
         <h3>{{ $t('admin.randomItemPlaces.places') }}</h3>
         <StringArrayManager
             :array="randomItemPlaces.places"
+            id="randomItemPlaces_places"
             @addElement="randomItemPlaces.places.push($event)"
             @removeElement="randomItemPlaces.places.splice(randomItemPlaces.places.indexOf($event), 1)"
         ></StringArrayManager>

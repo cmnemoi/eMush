@@ -1,23 +1,23 @@
 <template>
     <div class="children-add">
-        <label>{{$t('admin.childManager.idToAdd')}}</label><input v-model="selectId"><button class="action-button" @click="$emit('addId', selectId)">{{$t('admin.buttons.add')}}</button>
+        <Input
+            :label="$t('admin.childManager.idToAdd')"
+            id="idToAdd"
+            v-model="selectId"
+            :type="mapIndexesType"
+        ></Input>
+        <button class="action-button" @click="$emit('addId', selectId)">{{$t('admin.buttons.add')}}</button>
     </div>
     <div class="children-container">
         <Pannel>
             <template #header>
-                <div class="header-container">
-                    <slot name="header" v-bind="child"/>
-                </div>
+                <slot name="header" v-bind="child"/>
             </template>
             <template #body>
-                <div class="body-container">
-                    <slot name="body" v-bind="child"/>
-                </div>
+                <slot name="body" v-bind="child"/>
             </template>
             <template #footer>
-                <div class="footer-container">
-                    <slot name="footer" v-bind="child"/>
-                </div>
+                <slot name="footer" v-bind="child"/>
             </template>
         </Pannel>
     </div>
@@ -25,14 +25,17 @@
 
 <script>
 import Pannel from "@/components/Utils/Pannel";
+import Input from "@/components/Utils/Input.vue";
 
 export default {
     name: "ChildManager",
     components: {
-        Pannel
+        Pannel,
+        Input
     },
     props: {
         child: Object,
+        mapIndexesType: String
     },
     emits: ['addId', 'remove'],
     data: function () {
@@ -45,21 +48,22 @@ export default {
 
 <style lang="scss" scoped>
 .children-add {
-    display: flex;
     flex-direction: row;
-    padding: 10px;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.6em 0;
 }
 .children-container {
-    padding: 10px;
-    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding: 0.6em 0;
 }
 .header-container {
     flex-direction: row;
     justify-content: space-between;
 }
-.body-container {
-    flex-direction: column;
-}
+.body-container { flex-direction: column; }
+
+button, .action-button { min-width: 140px; }
+
 </style>

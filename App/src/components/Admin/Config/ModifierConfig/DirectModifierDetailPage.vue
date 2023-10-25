@@ -1,6 +1,6 @@
 <template>
     <div v-if="modifierConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.modifierConfig.name')"
                 id="modifierConfig_name"
@@ -22,24 +22,34 @@
                 type="text"
                 :errors="errors.modifierRange"
             />
-            <Input
-                :label="$t('admin.modifierConfig.reverseOnRemove')"
-                type="checkbox"
-                class="configCheckbox"
-                id="modifierConfig_reverseOnRemove"
-                v-model="modifierConfig.reverseOnRemove"
-            />
+            <div class="checkbox-container">
+                <input 
+                    type="checkbox" 
+                    id="modifierConfig_reverseOnRemove"
+                    v-model="modifierConfig.reverseOnRemove"
+                />
+                <label for="modifierConfig_reverseOnRemove">{{ $t('admin.modifierConfig.reverseOnRemove') }}</label>
+            </div>
         </div>
         <h3>{{ $t("admin.modifierConfig.triggeredEvent") }}</h3>
-        <ChildManager :child="modifierConfig.triggeredEvent" @addId="selectNewEventConfig">
+        <ChildManager
+            :child="modifierConfig.triggeredEvent"
+            id="modifierConfig.triggeredEvent"
+            @addId="selectNewEventConfig"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildManager>
         <h3>{{ $t("admin.modifierConfig.modifierRequirement") }}</h3>
-        <ChildCollectionManager :children="modifierConfig.modifierActivationRequirements" @addId="selectNewChild" @remove="removeChild">
+        <ChildCollectionManager
+            :children="modifierConfig.modifierActivationRequirements"
+            id="modifierConfig_modifierActivationRequirements"
+            @addId="selectNewChild"
+            @remove="removeChild"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.modifierName }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.modifierName }}</span>
             </template>
             <template #body="child">
                 <span>name: {{ child.modifierName }}</span>

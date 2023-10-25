@@ -1,6 +1,6 @@
 <template>
     <div v-if="daedalusConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.daedalusConfig.name')"
                 id="daedalusConfig_name"
@@ -9,7 +9,7 @@
                 :errors="errors.name"
             ></Input>
         </div>
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.daedalusConfig.initOxygen')"
                 id="daedalusConfig_initOxygen"
@@ -38,8 +38,8 @@
                 type="number"
                 :errors="errors.initShield"
             ></Input>
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.daedalusConfig.dailySporeNb')"
                 id="daedalusConfig_dailySporeNb"
@@ -68,8 +68,8 @@
                 type="number"
                 :errors="errors.maxHull"
             ></Input>
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.daedalusConfig.maxShield')"
                 id="daedalusConfig_maxShield"
@@ -100,9 +100,14 @@
             ></Input>
         </div>
         <h3>{{ $t('admin.daedalusConfig.placeConfigs') }}</h3>
-        <ChildCollectionManager :children="daedalusConfig.placeConfigs" @addId="selectNewPlaceConfigs" @remove="removePlaceConfig">
+        <ChildCollectionManager
+            :children="daedalusConfig.placeConfigs"
+            id="daedalusConfig_placeConfigs"
+            @addId="selectNewPlaceConfigs"
+            @remove="removePlaceConfig"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <UpdateConfigButtons @create="create" @update="update"/>

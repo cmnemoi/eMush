@@ -1,6 +1,6 @@
 <template>
     <div v-if="difficultyConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.difficultyConfig.name')"
                 id="difficultyConfig_name"
@@ -9,10 +9,10 @@
                 :errors="errors.name"
             />
         </div>
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.difficultyConfig.electricArcRate')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_electricArcRate"
                 v-model="difficultyConfig.electricArcRate"
                 type="number"
                 :errors="errors.electricArcRate"
@@ -20,7 +20,7 @@
             
             <Input
                 :label="$t('admin.difficultyConfig.metalPlateRate')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_metalPlateRate"
                 v-model="difficultyConfig.metalPlateRate"
                 type="number"
                 :errors="errors.metalPlateRate"
@@ -28,30 +28,29 @@
             
             <Input
                 :label="$t('admin.difficultyConfig.panicCrisisRate')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_panicCrisisRate"
                 v-model="difficultyConfig.panicCrisisRate"
                 type="number"
                 :errors="errors.panicCrisisRate"
             />
             <Input
                 :label="$t('admin.difficultyConfig.tremorRate')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_tremorRate"
                 v-model="difficultyConfig.tremorRate"
                 type="number"
                 :errors="errors.tremorRate"
             />
             <Input
                 :label="$t('admin.difficultyConfig.startingFireRate')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_startingFireRate"
                 v-model="difficultyConfig.startingFireRate"
                 type="number"
                 :errors="errors.startingFireRate"
             />
-        </div>
-        <div class="flex-row">
+
             <Input
                 :label="$t('admin.difficultyConfig.equipmentBreakRate')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_equipmentBreakRate"
                 v-model="difficultyConfig.equipmentBreakRate"
                 type="number"
                 :errors="errors.equipmentBreakRate"
@@ -59,7 +58,7 @@
             
             <Input
                 :label="$t('admin.difficultyConfig.doorBreakRate')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_doorBreakRate"
                 v-model="difficultyConfig.doorBreakRate"
                 type="number"
                 :errors="errors.doorBreakRate"
@@ -67,7 +66,7 @@
             
             <Input
                 :label="$t('admin.difficultyConfig.equipmentFireBreakRate')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_equipmentFireBreakRate"
                 v-model="difficultyConfig.equipmentFireBreakRate"
                 type="number"
                 :errors="errors.equipmentFireBreakRate"
@@ -75,54 +74,51 @@
             
             <Input
                 :label="$t('admin.difficultyConfig.propagatingFireRate')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_propagatingFireRate"
                 v-model="difficultyConfig.propagatingFireRate"
                 type="number"
                 :errors="errors.propagatingFireRate"
             />
             <Input
                 :label="$t('admin.difficultyConfig.cycleDiseaseRate')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_cycleDiseaseRate"
                 v-model="difficultyConfig.cycleDiseaseRate"
                 type="number"
                 :errors="errors.cycleDiseaseRate"
             />
-            
-        </div>
-        <div class="flex-row">
+
             <Input
                 :label="$t('admin.difficultyConfig.hullFireDamageRate')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_hullFireDamageRate"
                 v-model="difficultyConfig.hullFireDamageRate"
                 type="number"
                 :errors="errors.hullFireDamageRate"
             />
             <Input
                 :label="$t('admin.difficultyConfig.plantDiseaseRate')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_plantDiseaseRate"
                 v-model="difficultyConfig.plantDiseaseRate"
                 type="number"
                 :errors="errors.plantDiseaseRate"
             />
-        </div>
-        <div class="flex-row">
+
             <Input
                 :label="$t('admin.difficultyConfig.hunterSpawnRate')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_hunterSpawnRate"
                 v-model="difficultyConfig.hunterSpawnRate"
                 type="number"
                 :errors="errors.hunterSpawnRate"
             />
             <Input
                 :label="$t('admin.difficultyConfig.hunterSafeCycles')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_hunterSafeCycles"
                 v-model="difficultyConfig.hunterSafeCycles"
                 type="text"
                 :errors="errors.hunterSafeCycles"
             />
             <Input
                 :label="$t('admin.difficultyConfig.startingHuntersTruceCycles')"
-                id="difficultyConfig_attribute"
+                id="difficultyConfig_startingHuntersTruceCycles"
                 v-model="difficultyConfig.startingHuntersTruceCycles"
                 type="number"
                 :errors="errors.startingHuntersTruceCycles"
@@ -131,6 +127,7 @@
         <MapManager
             :label="$t('admin.difficultyConfig.firePlayerDamage')"
             :map="difficultyConfig.firePlayerDamage"
+            id="difficultyConfig_firePlayerDamage"
             mapIndexesType="number"
             mapValuesType="number"
             @addTuple="addNewFirePlayerDamage"
@@ -139,6 +136,7 @@
         <MapManager
             :label="$t('admin.difficultyConfig.fireHullDamage')"
             :map="difficultyConfig.fireHullDamage"
+            id="difficultyConfig_fireHullDamage"
             mapIndexesType="number"
             mapValuesType="number"
             @addTuple="addNewFireHullDamage"
@@ -147,6 +145,7 @@
         <MapManager
             :label="$t('admin.difficultyConfig.electricArcPlayerDamage')"
             :map="difficultyConfig.electricArcPlayerDamage"
+            id="difficultyConfig_electricArcPlayerDamage"
             mapIndexesType="number"
             mapValuesType="number"
             @addTuple="addNewElectricArcPlayerDamage"
@@ -155,6 +154,7 @@
         <MapManager
             :label="$t('admin.difficultyConfig.tremorPlayerDamage')"
             :map="difficultyConfig.tremorPlayerDamage"
+            id="difficultyConfig_tremorPlayerDamage"
             mapIndexesType="number"
             mapValuesType="number"
             @addTuple="addNewTremorPlayerDamage"
@@ -163,6 +163,7 @@
         <MapManager
             :label="$t('admin.difficultyConfig.metalPlatePlayerDamage')"
             :map="difficultyConfig.metalPlatePlayerDamage"
+            id="difficultyConfig_metalPlatePlayerDamage"
             mapIndexesType="number"
             mapValuesType="number"
             @addTuple="addNewMetalPlatePlayerDamage"
@@ -171,6 +172,7 @@
         <MapManager
             :label="$t('admin.difficultyConfig.panicCrisisPlayerDamage')"
             :map="difficultyConfig.panicCrisisPlayerDamage"
+            id="difficultyConfig_panicCrisisPlayerDamage"
             mapIndexesType="number"
             mapValuesType="number"
             @addTuple="addNewPanicCrisisPlayerDamage"
@@ -179,14 +181,13 @@
         <MapManager
             :label="$t('admin.difficultyConfig.difficultyModes')"
             :map="difficultyConfig.difficultyModes"
+            id="difficultyConfig_difficultyModes"
             mapIndexesType="string"
             mapValuesType="number"
             @addTuple="addNewDifficultyModes"
             @removeIndex="removeDifficultyModes"
         />
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons :create="false" @update="update"/>
     </div>
 </template>
 
@@ -197,6 +198,7 @@ import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import Input from "@/components/Utils/Input.vue";
 import MapManager from "@/components/Utils/MapManager.vue";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface DifficultyConfigState {
     difficultyConfig: null|DifficultyConfig
@@ -207,7 +209,8 @@ export default defineComponent({
     name: "DifficultyConfigDetailPage",
     components: {
         Input,
-        MapManager
+        MapManager,
+        UpdateConfigButtons
     },
     data: function (): DifficultyConfigState {
         return {

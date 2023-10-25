@@ -1,24 +1,29 @@
 <template>
     <div class="children-add">
-        <label>{{$t('admin.childCollectionManager.idToAdd')}}</label><input v-model="selectId"><button class="action-button" @click="$emit('addId', selectId)">{{$t('admin.buttons.add')}}</button>
+        <Input
+            :label="$t('admin.childCollectionManager.idToAdd')"
+            :id="id"
+            v-model="selectId"
+            :type="mapIndexesType"
+        ></Input>
+        <button class="action-button" @click="$emit('addId', selectId)">{{$t('admin.buttons.add')}}</button>
     </div>
     <div class="children-container">
+        <Pannel v-if="children == ''" class="empty">
+            <template #header>
+                <span><em>No item to display</em></span>
+            </template>
+        </Pannel>
         <Pannel v-for="child in children" :key="child.id">
             <template #header>
-                <div class="header-container">
-                    <slot name="header" v-bind="child"/>
-                    <button @click="$emit('remove', child)">{{$t('admin.buttons.delete')}}</button>
-                </div>
+                <slot name="header" v-bind="child"/>
+                <button class="icon" @click="$emit('remove', child)"><img src="@/assets/images/bin.png" :alt="$t('admin.buttons.delete')" :title="$t('admin.buttons.delete')"></button>
             </template>
             <template #body>
-                <div class="body-container">
-                    <slot name="body" v-bind="child"/>
-                </div>
+                <slot name="body" v-bind="child"/>
             </template>
             <template #footer>
-                <div class="footer-container">
-                    <slot name="footer" v-bind="child"/>
-                </div>
+                <slot name="footer" v-bind="child"/>
             </template>
         </Pannel>
     </div>
@@ -26,14 +31,21 @@
 
 <script>
 import Pannel from "@/components/Utils/Pannel";
+import Input from "@/components/Utils/Input.vue";
 
 export default {
     name: "ChildCollectionManager",
     components: {
-        Pannel
+        Pannel,
+        Input
     },
     props: {
-        children: Array
+        children: Array,
+        mapIndexesType: String,
+        id: {
+            type: String,
+            required: true
+        },
     },
     emits: ['addId', 'remove'],
     data: function () {
@@ -45,22 +57,48 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.children-add {
-    display: flex;
+
+.children-add, .children-container {
     flex-direction: row;
-    padding: 10px;
+    margin: 0.6em 0;
+}
+
+.children-add {
+    align-items: center;
+    gap: 0.4em;
 }
 .children-container {
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
+    gap: 1.2em;
 }
+
 .header-container {
     flex-direction: row;
     justify-content: space-between;
 }
-.body-container {
-    flex-direction: column;
+
+.body-container { flex-direction: column; }
+
+button:not(.icon), .action-button { min-width: 140px; }
+
+.icon {
+    padding: 0.2em;
+    z-index: 2;
+    background-color: transparentize(white, 0.8);
+    border-radius: 0 3px 3px 0;
+
+    &:hover, &:focus, &:active { background-color: $red; }
+
+    img { margin: auto; }
 }
+
+.empty {
+    flex: 1;
+    text-align: center;
+    border: 0;
+    opacity: 0.7;
+    
+    span { cursor: default !important; }
+}
+
 </style>

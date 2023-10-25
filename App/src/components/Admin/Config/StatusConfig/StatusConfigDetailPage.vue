@@ -1,6 +1,6 @@
 <template>
     <div v-if="statusConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.statusConfig.name')"
                 id="statusConfig_name"
@@ -23,7 +23,7 @@
                 :errors="errors.visibility"
             />
         </div>
-        <div v-if="statusConfig.configType === 'ChargeStatusConfig'">
+        <template v-if="statusConfig.configType === 'ChargeStatusConfig'">
             <h3>Charge Status Config</h3>
             <div class="flex-row">
                 <Input
@@ -56,15 +56,26 @@
                     type="number"
                     :errors="errors.startCharge"
                 />
-                <input type="checkbox" id="statusConfig_autoRemove" v-model="statusConfig.autoRemove" />
-                <label for="statusConfig_autoRemove">{{ statusConfig.autoRemove ? 'Auto-remove' : 'No Auto-remove' }}</label>
+                <div class="checkbox-container">
+                    <input
+                        type="checkbox"
+                        id="statusConfig_autoRemove"
+                        v-model="statusConfig.autoRemove"
+                    />
+                    <label for="statusConfig_autoRemove">{{ statusConfig.autoRemove ? 'Auto-remove' : 'No Auto-remove' }}</label>
+                </div>
             </div>
-        </div>
+        </template>
 
         <h3>Modifier Configs</h3>
-        <ChildCollectionManager :children="statusConfig.modifierConfigs" @addId="selectNewChild" @remove="removeChild">
+        <ChildCollectionManager
+            :children="statusConfig.modifierConfigs"
+            id="statusConfig_modifierConfigs"
+            @addId="selectNewChild"
+            @remove="removeChild"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
             <template #body="child">
                 <span>name: {{ child.name }}</span>
@@ -74,6 +85,7 @@
         <h3>{{ $t('admin.statusConfig.dischargeStrategies') }}</h3>
         <StringArrayManager
             :array="statusConfig.dischargeStrategies"
+            id="statusConfig_dischargeStrategies"
             @addElement="statusConfig.dischargeStrategies?.push($event)"
             @removeElement="statusConfig.dischargeStrategies?.splice(statusConfig.dischargeStrategies.indexOf($event), 1)"
         />

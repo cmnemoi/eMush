@@ -1,7 +1,7 @@
 <template>
     <div v-if="diseaseCauseConfig" class="center">
-        <h2>{{ $t('admin.diseaseCauseConfig.pageTitle') }} {{ diseaseCauseConfig.causeName }}</h2>
-        <div class="flex-row">
+        <h2>{{ $t('admin.diseaseCauseConfig.pageTitle') }} <em>{{ diseaseCauseConfig.causeName }}</em></h2>
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.diseaseCauseConfig.name')"
                 id="diseaseCauseConfig_name"
@@ -11,7 +11,7 @@
             />
             <Input
                 :label="$t('admin.diseaseCauseConfig.causeName')"
-                id="diseaseCauseConfig_name"
+                id="diseaseCauseConfig_causeName"
                 v-model="diseaseCauseConfig.causeName"
                 type="text"
                 :errors="errors.causeName"
@@ -20,15 +20,13 @@
         <MapManager
             :label="$t('admin.diseaseCauseConfig.diseases')"
             :map="diseaseCauseConfig.diseases"
+            id="diseaseCauseConfig_diseases"
             mapIndexesType="string"
             mapValuesType="number"
             @addTuple="addDisease"
             @removeIndex="removeDisease"
         />
-        <UpdateConfigButtons
-            @create="create"
-            @update="update"
-        />
+        <UpdateConfigButtons @create="create" @update="update" />
     </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
     <div v-if="gameConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.gameConfig.name')"
                 id="gameConfig_name"
@@ -10,62 +10,103 @@
             />
         </div>
         <h3>{{ $t("admin.gameConfig.daedalusConfig") }}</h3>
-        <ChildManager :child="gameConfig.daedalusConfig" @addId="selectNewDaedalusConfig">
+        <ChildManager
+            :child="gameConfig.daedalusConfig"
+            id="gameConfig_daedalusConfig"
+            @addId="selectNewDaedalusConfig"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildManager>
         <h3>{{ $t("admin.gameConfig.difficultyConfig") }}</h3>
-        <ChildManager :child="gameConfig.difficultyConfig" @addID="selectNewDifficultyConfig">
+        <ChildManager
+            :child="gameConfig.difficultyConfig"
+            id="gameConfig_difficultyConfig"
+            @addID="selectNewDifficultyConfig"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildManager>
         <h3>{{ $t("admin.gameConfig.characterConfigs") }}</h3>
-        <ChildCollectionManager :children="gameConfig.charactersConfig" @addId="addNewCharacterConfig" @remove="removeCharacterConfig">
+        <ChildCollectionManager
+            :children="gameConfig.charactersConfig"
+            id="gameConfig_characterConfigs"
+            @addId="addNewCharacterConfig"
+            @remove="removeCharacterConfig"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.statusConfigs") }}</h3>
-        <ChildCollectionManager :children="gameConfig.statusConfigs" @addId="addNewStatusConfig" @remove="removeStatusConfig">
+        <ChildCollectionManager
+            :children="gameConfig.statusConfigs"
+            id="gameConfig_statusConfigs"
+            @addId="addNewStatusConfig"
+            @remove="removeStatusConfig"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.equipmentConfigs") }}</h3>
-        <ChildCollectionManager :children="gameConfig.equipmentsConfig" @addId="addNewEquipmentConfig" @remove="removeEquipmentConfig">
+        <ChildCollectionManager
+            :children="gameConfig.equipmentsConfig"
+            id="gameConfig_equipmentConfigs"
+            @addId="addNewEquipmentConfig"
+            @remove="removeEquipmentConfig"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.triumphConfigs") }}</h3>
-        <ChildCollectionManager :children="gameConfig.triumphConfig" @addId="addNewTriumphConfig" @remove="removeTriumphConfig">
+        <ChildCollectionManager
+            :children="gameConfig.triumphConfig"
+            id="gameConfig_triumphConfigs"
+            @addId="addNewTriumphConfig"
+            @remove="removeTriumphConfig"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.diseaseCauseConfigs") }}</h3>
-        <ChildCollectionManager :children="gameConfig.diseaseCauseConfig" @addId="addNewDiseaseCauseConfig" @remove="removeDiseaseCauseConfig">
+        <ChildCollectionManager
+            :children="gameConfig.diseaseCauseConfig"
+            id="gameConfig_diseaseCauseConfigs"
+            @addId="addNewDiseaseCauseConfig"
+            @remove="removeDiseaseCauseConfig"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.diseaseConfigs") }}</h3>
-        <ChildCollectionManager :children="gameConfig.diseaseConfig" @addId="addNewDiseaseConfig" @remove="removeDiseaseConfig">
+        <ChildCollectionManager
+            :children="gameConfig.diseaseConfig"
+            id="gameConfig_diseaseConfigs"
+            @addId="addNewDiseaseConfig"
+            @remove="removeDiseaseConfig"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.consumableDiseaseConfigs") }}</h3>
-        <ChildCollectionManager :children="gameConfig.consumableDiseaseConfig" @addId="addNewConsumableDiseaseConfig" @remove="removeConsumableDiseaseConfig">
+        <ChildCollectionManager
+            :children="gameConfig.consumableDiseaseConfig"
+            id="gameConfig_consumableDiseaseConfigs"
+            @addId="addConsumableDiseaseConfig"
+            @remove="removeConsumableDiseaseConfig"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons :create="false" @update="update"/>
     </div>
 </template>
 
@@ -91,6 +132,8 @@ import urlJoin from "url-join";
 import { removeItem } from "@/utils/misc";
 import { resourceLimits } from "worker_threads";
 import { gameConfig } from "@/store/game_config.module";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+
 
 interface GameConfigState {
     gameConfig: null|GameConfig
@@ -103,6 +146,7 @@ export default defineComponent({
         ChildCollectionManager,
         ChildManager,
         Input,
+        UpdateConfigButtons
     },
     data: function (): GameConfigState {
         return {

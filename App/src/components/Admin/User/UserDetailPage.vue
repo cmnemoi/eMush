@@ -1,30 +1,26 @@
 <template>
     <div v-if="user" class="user_detail">
-        <div class="user_detail_title">
-            User: {{ user.userId }}
+        <h2 class="user_detail_title">
+            User: <em>{{ user.userId }}</em>
+        </h2>
+        <div class="flex-row wrap">
+            <Input
+                :label="$t('admin.user.username')"
+                id="user_username"
+                v-model="user.username"
+                type="text"
+            />
         </div>
-        <div class="user_detail_content">
-            <div class="flex-row">
-                <Input
-                    :label="$t('admin.user.username')"
-                    id="user_username"
-                    v-model="user.username"
-                    type="text"
-                />
-                <div class="flex-grow-1">
-                    <label for="user_roles">{{ $t('admin.user.roles') }}</label>
-                    <select v-model="user.roles" multiple>
-                        <option v-for="option in rolesOption" :value="option.key" :key="option.key">
-                            {{ option.text }}
-                        </option>
-                    </select>
-                    <ErrorList v-if="errors.roles" :errors="errors.roles"></ErrorList>
-                </div>
-            </div>
+        <div class="select-default">
+            <label for="user_roles">{{ $t('admin.user.roles') }}</label>
+            <select v-model="user.roles" :size="rolesOption.length" multiple>
+                <option v-for="option in rolesOption" :value="option.key" :key="option.key">
+                    {{ option.text }}
+                </option>
+            </select>
+            <ErrorList v-if="errors.roles" :errors="errors.roles"></ErrorList>
         </div>
-        <button class="action-button" type="submit" @click="update">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons :create="false" @update="update"/>
     </div>
 </template>
 
@@ -36,6 +32,7 @@ import { UserRole } from "@/enums/user_role.enum";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import ErrorList from "@/components/Utils/ErrorList.vue";
 import Input from "@/components/Utils/Input.vue";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface UserDetailData {
     user: User | null,
@@ -47,7 +44,8 @@ export default defineComponent({
     name: "UserDetailPage",
     components: {
         Input,
-        ErrorList
+        ErrorList,
+        UpdateConfigButtons
     },
     data() : UserDetailData {
         return {
@@ -109,5 +107,58 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
+h2 { font-size: 1.6em; }
+
+h3 { font-size: 1.3em; }
+
+h2, h3 {
+    margin: 2.8em 0 0.6em;
+    
+    &:first-child { margin-top: 0.6em; }
+}
+
+.select-default {
+    padding: 1.8em 0;
+
+    label {
+        padding: 0 0.8em;
+        transform: translateY(0.45em);
+        word-break: break-word;
+    }
+
+    select {
+        padding-top: 0.2em;
+        font-size: 1.3em;
+        color: white;
+        background: #222b6b;
+        border: 1px solid transparentize(white, 0.8);
+        border-radius: 1px;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px transparentize(white, 0.85);
+        }
+
+        & option:checked {
+            background: transparentize($blue, 0.7);
+            font-weight: bold;
+        }
+    }
+
+    option {
+        color: white;
+        padding: 0.5em 0.8em;
+        background: #222b6b;
+    }
+}
+
+.select-default > * {
+    width: 31%;
+    min-width: 200px;
+    height: fit-content;
+}
+
+
 
 </style>

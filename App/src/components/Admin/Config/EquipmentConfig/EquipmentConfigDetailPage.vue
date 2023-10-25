@@ -1,7 +1,7 @@
 <template>
     <div v-if="equipmentConfig" class="center">
-        <h2>{{ $t('admin.equipmentConfig.pageTitle') }} {{ equipmentConfig.equipmentName }}</h2>
-        <div class="flex-row">
+        <h2>{{ $t('admin.equipmentConfig.pageTitle') }} <em>{{ equipmentConfig.equipmentName }}</em></h2>
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.equipmentConfig.name')"
                 id="equipmentConfig_name"
@@ -9,7 +9,6 @@
                 type="text"
                 :errors="errors.name"
             ></Input>
-
             <Input
                 :label="$t('admin.equipmentConfig.equipmentName')"
                 id="equipmentConfig_equipmentName"
@@ -18,78 +17,92 @@
                 :errors="errors.equipmentName"
             ></Input>
         </div>
-
-        <div class="flex-row">
-            <input 
-                type="checkbox" 
-                class="equipmentConfigCheckbox" 
-                id="equipmentConfig_isBreakable" 
-                v-model="equipmentConfig.isBreakable" 
-            />
-            <label for="equipmentConfig_isBreakable">{{ equipmentConfig.isBreakable ? $t('admin.equipmentConfig.isBreakable') : $t('admin.equipmentConfig.isNotBreakable') }}</label>
-
-            <input 
-                type="checkbox" 
-                class="equipmentConfigCheckbox" 
-                id="equipmentConfig_isFireBreakable" 
-                v-model="equipmentConfig.isFireBreakable" 
-            />
-            <label for="equipmentConfig_isFireBreakable">{{ equipmentConfig.isFireBreakable ? $t('admin.equipmentConfig.isFireBreakable') : $t('admin.equipmentConfig.isNotFireBreakable') }}</label>
-
-            <input 
-                type="checkbox" 
-                class="equipmentConfigCheckbox" 
-                id="equipmentConfig_isFireDestroyable" 
-                v-model="equipmentConfig.isFireDestroyable" 
-            />
-            <label for="equipmentConfig_isFireDestroyable">{{ equipmentConfig.isFireDestroyable ? $t('admin.equipmentConfig.isFireDestroyable') : $t('admin.equipmentConfig.isNotFireDestroyable') }}</label>
-
-            <input v-if="equipmentConfig.equipmentType === 'ItemConfig'" 
-                   type="checkbox" 
-                   class="equipmentConfigCheckbox" 
-                   id="equipmentConfig_isPersonal" 
-                   v-model="equipmentConfig.isPersonal" 
-            />
-            <label v-if="equipmentConfig.equipmentType === 'ItemConfig'" for="equipmentConfig_isPersonal">{{ equipmentConfig.isPersonal ? $t('admin.equipmentConfig.isPersonal') : $t('admin.equipmentConfig.isNotPersonal') }}</label>
-
-            <input v-if="equipmentConfig.equipmentType === 'ItemConfig'" 
-                   type="checkbox" 
-                   class="equipmentConfigCheckbox" 
-                   id="equipmentConfig_isStackable" 
-                   v-model="equipmentConfig.isStackable" 
-            />
-            <label v-if="equipmentConfig.equipmentType === 'ItemConfig'" for="equipmentConfig_isStackable">{{ equipmentConfig.isStackable ? $t('admin.equipmentConfig.isStackable') : $t('admin.equipmentConfig.isNotStackable') }}</label>
+        <div class="flex-row wrap">
+            <div class="checkbox-container">
+                <input 
+                    type="checkbox" 
+                    id="equipmentConfig_isBreakable"
+                    v-model="equipmentConfig.isBreakable"
+                />
+                <label for="equipmentConfig_isBreakable">{{ equipmentConfig.isBreakable ? $t('admin.equipmentConfig.isBreakable') : $t('admin.equipmentConfig.isNotBreakable') }}</label>
+            </div>
+            <div class="checkbox-container">
+                <input 
+                    type="checkbox" 
+                    id="equipmentConfig_isFireBreakable"
+                    v-model="equipmentConfig.isFireBreakable"
+                />
+                <label for="equipmentConfig_isFireBreakable">{{ equipmentConfig.isFireBreakable ? $t('admin.equipmentConfig.isFireBreakable') : $t('admin.equipmentConfig.isNotFireBreakable') }}</label>
+            </div>
+            <div class="checkbox-container">
+                <input 
+                    type="checkbox" 
+                    id="equipmentConfig_isFireDestroyable"
+                    v-model="equipmentConfig.isFireDestroyable"
+                />
+                <label for="equipmentConfig_isFireDestroyable">{{ equipmentConfig.isFireDestroyable ? $t('admin.equipmentConfig.isFireDestroyable') : $t('admin.equipmentConfig.isNotFireDestroyable') }}</label>
+            </div>
+            <div class="checkbox-container" v-if="equipmentConfig.equipmentType === 'ItemConfig'">
+                <input 
+                    type="checkbox" 
+                    id="equipmentConfig_isPersonal"
+                    v-model="equipmentConfig.isPersonal"
+                />
+                <label for="equipmentConfig_isPersonal">{{ equipmentConfig.isPersonal ? $t('admin.equipmentConfig.isPersonal') : $t('admin.equipmentConfig.isNotPersonal') }}</label>
+            </div>
+            <div class="checkbox-container" v-if="equipmentConfig.equipmentType === 'ItemConfig'">
+                <input 
+                    type="checkbox" 
+                    id="equipmentConfig_isStackable"
+                    v-model="equipmentConfig.isStackable"
+                />
+                <label for="equipmentConfig_isStackable">{{ equipmentConfig.isStackable ? $t('admin.equipmentConfig.isStackable') : $t('admin.equipmentConfig.isNotStackable') }}</label>
+            </div>
         </div>
 
         <h3>{{ $t('admin.equipmentConfig.dismountedProducts') }}</h3>
-        <pre v-if="hasDismountedProducts()">{{ equipmentConfig.dismountedProducts }}</pre>
-        <label for="dismountedProducts">{{ $t('admin.equipmentConfig.addDismountedProducts') }}</label>
-        <div class="flex-row">
-            <select v-model="productToAdd">
-                <option v-for="product in products" :value="product" v-bind:key="product">{{ product }}</option>
-            </select>
-            <button class="action-button" @click="addDismountedProduct(productToAdd)">{{ $t("admin.buttons.add") }}</button>
-            <button class="action-button" @click="removeDismountedProduct(productToAdd)">{{ $t("admin.buttons.delete") }}</button>
-        </div>
+        <StringArrayManager
+            :label="$t('admin.equipmentConfig.addDismountedProducts')"
+            :array="equipmentConfig.dismountedProducts"
+            :selection="products"
+            id="equipmentConfig_addDismountedProducts"
+            @addElement="addDismountedProduct"
+            @removeElement="removeDismountedProduct"
+        />
 
         <h3>{{ $t('admin.equipmentConfig.actions') }}</h3>
-        <ChildCollectionManager :children="equipmentConfig.actions" @addId="selectNewAction" @remove="removeAction">
+        <ChildCollectionManager
+            :children="equipmentConfig.actions"
+            id="equipmentConfig_actions"
+            @addId="selectNewAction"
+            @remove="removeAction"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
 
         <h3>{{ $t('admin.equipmentConfig.initStatuses') }}</h3>
-        <ChildCollectionManager :children="equipmentConfig.initStatuses" @addId="selectNewInitStatuses" @remove="removeInitStatuses">
+        <ChildCollectionManager
+            :children="equipmentConfig.initStatuses"
+            id="equipmentConfig_initStatuses"
+            @addId="selectNewInitStatuses"
+            @remove="removeInitStatuses"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
 
         <h3>{{ $t('admin.equipmentConfig.mechanics') }}</h3>
-        <ChildCollectionManager :children="equipmentConfig.mechanics" @addId="selectNewMechanics" @remove="removeMechanics">
+        <ChildCollectionManager
+            :children="equipmentConfig.mechanics"
+            id="equipmentConfig_mechanics"
+            @addId="selectNewMechanics"
+            @remove="removeMechanics"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
 
@@ -112,6 +125,7 @@ import { Action } from "@/entities/Action";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
 import { Mechanics } from "@/entities/Config/Mechanics";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
 
 interface EquipmentConfigState {
     equipmentConfig: null|EquipmentConfig
@@ -125,6 +139,7 @@ export default defineComponent({
     components: {
         ChildCollectionManager,
         Input,
+        StringArrayManager,
         UpdateConfigButtons
     },
     data: function (): EquipmentConfigState {

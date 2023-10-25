@@ -1,6 +1,6 @@
 <template>
     <div v-if="modifierConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.modifierConfig.name')"
                 id="modifierConfig_name"
@@ -36,70 +36,74 @@
                 type="text"
                 :errors="errors.priority"
             />
-            <Input
-                :label="$t('admin.modifierConfig.applyOnActionParameter')"
-                type="checkbox"
-                class="configCheckbox"
-                id="modifierConfig_applyOnActionParameter"
-                v-model="modifierConfig.applyOnActionParameter"
-            />
-        </div>
-        <div class="flex-row">
-            <div v-if="modifierConfig.type === 'VariableEventModifierConfig'">
-                <div class="flex-row">
-                    <Input
-                        :label="$t('admin.modifierConfig.targetVariable')"
-                        id="modifierConfig_targetVariable"
-                        v-model="modifierConfig.targetVariable"
-                        type="text"
-                        :errors="errors.targetVariable"
-                    />
-                    <Input
-                        :label="$t('admin.modifierConfig.delta')"
-                        id="modifierConfig_delta"
-                        v-model="modifierConfig.delta"
-                        type="number"
-                        :errors="errors.delta"
-                    />
-                    <Input
-                        :label="$t('admin.modifierConfig.mode')"
-                        id="modifierConfig_mode"
-                        v-model="modifierConfig.mode"
-                        type="text"
-                        :errors="errors.mode"
-                    />
-                </div>
+            <div class="checkbox-container">
+                <input 
+                    type="checkbox" 
+                    id="modifierConfig_applyOnActionParameter"
+                    v-model="modifierConfig.applyOnActionParameter"
+                />
+                <label for="modifierConfig_applyOnActionParameter">{{ $t('admin.modifierConfig.applyOnActionParameter') }}</label>
             </div>
-            <div v-if="modifierConfig.type === 'TriggerEventModifierConfig'">
+
+            <template v-if="modifierConfig.type === 'VariableEventModifierConfig'">
+                <Input
+                    :label="$t('admin.modifierConfig.targetVariable')"
+                    id="modifierConfig_targetVariable"
+                    v-model="modifierConfig.targetVariable"
+                    type="text"
+                    :errors="errors.targetVariable"
+                />
+                <Input
+                    :label="$t('admin.modifierConfig.delta')"
+                    id="modifierConfig_delta"
+                    v-model="modifierConfig.delta"
+                    type="number"
+                    :errors="errors.delta"
+                />
+                <Input
+                    :label="$t('admin.modifierConfig.mode')"
+                    id="modifierConfig_mode"
+                    v-model="modifierConfig.mode"
+                    type="text"
+                    :errors="errors.mode"
+                />
+            </template>
+            <template v-if="modifierConfig.type === 'TriggerEventModifierConfig'">
                 <Input
                     :label="$t('admin.modifierConfig.triggeredEvent')"
-                    id="triggeredEvent"
+                    id="modifierConfig_triggeredEvent"
                     v-model="modifierConfig.triggeredEvent"
                     type="text"
                     :errors="errors.triggeredEvent"
                 />
-            </div>
-            <div v-if="modifierConfig.type === 'EventModifierConfig'">
+            </template>
+            <template v-if="modifierConfig.type === 'EventModifierConfig'">
                 <Input
                     :label="$t('admin.modifierConfig.modifierStrategy')"
-                    id="triggeredEvent"
+                    id="modifierConfig_modifierStrategy"
                     v-model="modifierConfig.modifierStrategy"
                     type="text"
                     :errors="errors.modifierStrategy"
                 />
-            </div>
+            </template>
         </div>
         <h3>{{ $t('admin.modifierConfig.tagConstraints') }}</h3>
         <MapManager
             :map="modifierConfig.tagConstraints"
+            id="modifierConfig.tagConstraints"
             mapIndexesType="string"
             mapValuesType="string"
         >
         </MapManager>
         <h3>Modifier Requirement</h3>
-        <ChildCollectionManager :children="modifierConfig.modifierActivationRequirements" @addId="selectNewChild" @remove="removeChild">
+        <ChildCollectionManager
+            :children="modifierConfig.modifierActivationRequirements"
+            id="modifierConfig_modifierActivationRequirements"
+            @addId="selectNewChild"
+            @remove="removeChild"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.modifierName }}</span>
+                <span><strong>{{ child.id }}</strong> - {{ child.modifierName }}</span>
             </template>
             <template #body="child">
                 <span>name: {{ child.modifierName }}</span>

@@ -1,6 +1,6 @@
 <template>
     <div v-if="actionConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.actionConfig.name')"
                 id="actionConfig_name"
@@ -36,8 +36,8 @@
                 type="text"
                 :errors="errors.scope"
             ></Input>
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.actionConfig.actionPoint')"
                 id="actionConfig_actionPoint"
@@ -59,8 +59,8 @@
                 type="number"
                 :errors="errors.moralPoint"
             ></Input>
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.actionConfig.percentageSuccess')"
                 id="actionConfig_percentageSuccess"
@@ -75,8 +75,8 @@
                 type="number"
                 :errors="errors.percentageCritical"
             ></Input>
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.actionConfig.percentageInjury')"
                 id="actionConfig_percentageInjury"
@@ -91,14 +91,14 @@
                 type="number"
                 :errors="errors.percentageDirtiness"
             ></Input>
-            <input
-                type="checkbox"
-                class="actionConfigCheckbox"
-                id="actionConfig_isSuperDirty"
-                v-model="actionConfig.actionVariablesArray.isSuperDirty"
-            />
-            <label for="actionConfig_isSuperDirty">{{ actionConfig.actionVariablesArray.isSuperDirty ? $t('admin.actionConfig.isSuperDirty') : $t('admin.actionConfig.isNotSuperDirty') }}</label>
-
+            <div class="checkbox-container">
+                <input
+                    type="checkbox"
+                    id="actionConfig_isSuperDirty"
+                    v-model="actionConfig.actionVariablesArray.isSuperDirty"
+                />
+                <label for="actionConfig_isSuperDirty">{{ actionConfig.actionVariablesArray.isSuperDirty ? $t('admin.actionConfig.isSuperDirty') : $t('admin.actionConfig.isNotSuperDirty') }}</label>
+            </div>
         </div>
         <UpdateConfigButtons @create="create" @update="update"/>
     </div>

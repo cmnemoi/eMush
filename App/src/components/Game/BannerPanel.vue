@@ -88,7 +88,7 @@
                         <li>
                             <countdown-timer :end-date="daedalus?.timer?.timerCycle">
                                 <template #default="slotProps">
-                                    <div v-if="!isCycleChangeAvailable(daedalus)"  class="flex-row">
+                                    <div v-if="!isCycleChangeAvailable(daedalus)"  class="timer">
                                         <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour
                                         }}h</span>
                                         <span class="cycle-time-left">{{ slotProps.min }}m</span>
@@ -153,6 +153,8 @@ export default defineComponent({
     justify-content: flex-end;
     min-width: 7em;
 }
+
+.timer { flex-direction: row; }
 
 p,
 a,

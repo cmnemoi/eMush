@@ -1,6 +1,6 @@
 <template>
     <div v-if="characterConfig" class="center">
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.characterConfig.name')"
                 id="characterConfig_name"
@@ -8,8 +8,6 @@
                 type="text"
                 :errors="errors.name"
             ></Input>
-        </div>
-        <div class="flex-row">
             <Input
                 :label="$t('admin.characterConfig.characterName')"
                 id="characterConfig_characterName"
@@ -17,7 +15,8 @@
                 type="text"
                 :errors="errors.characterName"
             />
-
+        </div>
+        <div class="flex-row wrap">
             <Input
                 :label="$t('admin.characterConfig.maxNumberPrivateChannel')"
                 id="characterConfig_maxNumberPrivateChannel"
@@ -41,8 +40,8 @@
                 type="number"
                 :errors="errors.maxHealthPoint"
             />
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.characterConfig.initMoralPoint')"
                 id="characterConfig_initMoralPoint"
@@ -74,8 +73,8 @@
                 type="number"
                 :errors="errors.initActionPoint"
             />
-        </div>
-        <div class="flex-row">
+
+
             <Input
                 :label="$t('admin.characterConfig.maxActionPoint')"
                 id="characterConfig_maxActionPoint"
@@ -109,18 +108,28 @@
             />
         </div>
         <h3> {{$t('admin.characterConfig.initStatuses')}} </h3>
-        <ChildCollectionManager :children="characterConfig.initStatuses" @addId="selectNewInitStatus" @remove="removeInitStatus">
+        <ChildCollectionManager
+            :children="characterConfig.initStatuses"
+            id="characterConfig_initStatuses"
+            @addId="selectNewInitStatus"
+            @remove="removeInitStatus"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
             <template #body="child">
                 <span>{{ $t('admin.characterConfig.name') }} {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3> {{$t('admin.characterConfig.actions')}} </h3>
-        <ChildCollectionManager :children="characterConfig.actions" @addId="selectNewAction" @remove="removeAction">
+        <ChildCollectionManager
+            :children="characterConfig.actions"
+            id="characterConfig_actions"
+            @addId="selectNewAction"
+            @remove="removeAction"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
             <template #body="child">
                 <span>{{ $t('admin.characterConfig.name') }} {{ child.name }}</span>
@@ -129,22 +138,33 @@
         <h3> {{$t('admin.characterConfig.skills')}} </h3>
         <StringArrayManager
             :array="characterConfig.skills"
+            id="characterConfig_skills"
             @addElement="characterConfig.skills?.push($event)"
             @removeElement="characterConfig.skills?.splice($event, 1)"
         />
         <h3> {{$t('admin.characterConfig.startingItems')}} </h3>
-        <ChildCollectionManager :children="characterConfig.startingItems" @addId="selectNewStartingItem" @remove="removeStartingItem">
+        <ChildCollectionManager
+            :children="characterConfig.startingItems"
+            id="characterConfig_startingItems"
+            @addId="selectNewStartingItem"
+            @remove="removeStartingItem"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
             <template #body="child">
                 <span>{{ $t('admin.characterConfig.name') }} {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <h3> {{$t('admin.characterConfig.initDiseases')}} </h3>
-        <ChildCollectionManager :children="characterConfig.initDiseases" @addId="selectNewInitDisease" @remove="removeInitDisease">
+        <ChildCollectionManager
+            :children="characterConfig.initDiseases"
+            id="characterConfig_initDiseases"
+            @addId="selectNewInitDisease"
+            @remove="removeInitDisease"
+        >
             <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
             </template>
             <template #body="child">
                 <span>{{ $t('admin.characterConfig.name') }} {{ child.name }}</span>

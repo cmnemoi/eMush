@@ -1,39 +1,36 @@
 <template>
     <div class="daedalus_detail">
-        <h1 class="daedalus_detail_title">
+        <h2 class="daedalus_detail_title">
             {{$t('admin.daedalus.createDaedalus')}}
-        </h1>
-        <div class="daedalus_detail_content">
-            <label for="daedalus_name">{{ $t('admin.daedalus.name') }}</label>
-            <input
+        </h2>
+        <div class="daedalus_detail_content flex-row wrap">
+            <Input
+                :label="$t('admin.daedalus.name')"
                 id="daedalus_name"
-                ref="daedalus_name"
                 v-model="name"
                 type="text"
-            >
-            <ErrorList v-if="errors.name" :errors="errors.name"></ErrorList>
+                :errors="errors.name"
+            />
+            <div class="select-default">
+                <label for="daedalus_config">{{ $t('admin.daedalus.config') }}</label>
+                <select id="daedalus_config" v-model="config">
+                    <option v-for="option in configs" :value="option.id" :key="option.id">
+                        {{ option.name }}
+                    </option>
+                </select>
+                <ErrorList v-if="errors.gameConfig" :errors="errors.gameConfig"></ErrorList>
+            </div>
+            <div class="select-default">
+                <label for="daedalus_language">{{ $t('admin.daedalus.language') }}</label>
+                <select id="daedalus_language" v-model="language">
+                    <option v-for="option in languages" :value="option.language" :key="option.id">
+                        {{ option.name }}
+                    </option>
+                </select>
+                <ErrorList v-if="errors.language" :errors="errors.language"></ErrorList>
+            </div>
         </div>
-        <div class="flex-grow-1">
-            <label for="daedalus_config">{{ $t('admin.daedalus.config') }}</label>
-            <select v-model="config">
-                <option v-for="option in configs" :value="option.id" :key="option.id">
-                    {{ option.name }}
-                </option>
-            </select>
-            <ErrorList v-if="errors.gameConfig" :errors="errors.gameConfig"></ErrorList>
-        </div>
-        <div class="flex-grow-2">
-            <label for="daedalus_language">{{ $t('admin.daedalus.language') }}</label>
-            <select v-model="language">
-                <option v-for="option in languages" :value="option.language" :key="option.id">
-                    {{ option.name }}
-                </option>
-            </select>
-            <ErrorList v-if="errors.language" :errors="errors.language"></ErrorList>
-        </div>
-        <button class="action-button" type="submit" @click="save">
-            {{ $t('admin.save') }}
-        </button>
+        <UpdateConfigButtons :update="false" @create="save"/>
     </div>
 </template>
 
@@ -48,11 +45,15 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import { LocalizationConfig } from "@/entities/Config/LocalizationConfig";
+import Input from "@/components/Utils/Input.vue";
+import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 export default defineComponent({
     name: "DaedalusDetailPage",
     components: {
-        ErrorList
+        ErrorList,
+        Input,
+        UpdateConfigButtons
     },
     data() {
         return {
@@ -121,18 +122,46 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
-.daedalus_detail {
-    width: 35%;
-    min-width: 338px;
-}
+h2 { font-size: 1.6em; }
 
-.daedalus_detail_content {
-    margin-bottom: 1.6em;
+h3 { font-size: 1.3em; }
+
+h2, h3 {
+    margin: 2.8em 0 0.6em;
+    
+    &:first-child { margin-top: 0.6em; }
 }
 
 button {
     @include button-style();
     padding: 2px 15px 4px;
+}
+
+.select-default {
+    width: 31%;
+    min-width: 200px;
+    align-self: flex-end;
+
+    label {
+        padding: 0 0.8em;
+        transform: translateY(0.45em);
+        word-break: break-word;
+    }
+
+    select {
+        min-width: 5em;
+        padding: 0.3em 0.6em;
+        font-size: 1.3em;
+        color: white;
+        background: #222b6b;
+        border: 1px solid transparentize(white, 0.8);
+        border-radius: 1px;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px transparentize(white, 0.85);
+        }
+    }
 }
 
 </style>

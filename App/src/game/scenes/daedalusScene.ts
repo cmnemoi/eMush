@@ -173,6 +173,9 @@ import DecorationObject from "@/game/objects/decorationObject";
 import DoorObject from "@/game/objects/doorObject";
 import DoorGroundObject from "@/game/objects/doorGroundObject";
 import { Door } from "@/entities/Door";
+import {te} from "date-fns/locale";
+import DeathZone = Phaser.GameObjects.Particles.Zones.DeathZone;
+import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
 
 
 export default class DaedalusScene extends Phaser.Scene
@@ -201,6 +204,8 @@ export default class DaedalusScene extends Phaser.Scene
 
     public selectedGameObject : Phaser.GameObjects.GameObject | null;
     private fireParticles: Array<Phaser.GameObjects.Particles.ParticleEmitterManager> = [];
+    private background: Phaser.GameObjects.TileSprite | undefined;
+    private isTravelling= false;
 
     constructor(player: Player) {
         super('game-scene');
@@ -424,13 +429,21 @@ export default class DaedalusScene extends Phaser.Scene
         this.input.setGlobalTopOnly(true);
 
         this.createPlayers();
- 
+
+        this.createBackground();
     }
+
 
     reloadScene(): void
     {
         this.player = store.getters["player/player"];
         this.navMeshGrid = new NavMeshGrid(this);
+
+        // update stars particles if Daedalus is travelling
+        if (this.isTravelling !== this.player.daedalus?.isDaedalusTravelling) {
+            this.isTravelling = !this.isTravelling;
+            this.createStarParticles();
+        }
 
         const newRoom = this.player.room;
         if (newRoom === null) { throw new Error("player room should be defined");}
@@ -647,16 +660,73 @@ export default class DaedalusScene extends Phaser.Scene
             this.isScreenSliding.y = true;
             this.cameras.main.setBounds(-this.sceneIsoSize.y, -72, sceneCartesianSize.x, sceneCartesianSize.y + 72);
         }
-
-        const background = this.add.tileSprite(this.game.scale.gameSize.width/2, this.game.scale.gameSize.height/2, 425, 470, 'background');
-        background.setScrollFactor(0, 0);
-
-        if (this.player.inOrbitPlanet !== null) {
-            const planetSprite = this.add.tileSprite(this.game.scale.gameSize.width-(268/2), this.game.scale.gameSize.height-(191/2), 268, 191, `planet_${this.player.inOrbitPlanet.imageId}`);
-            planetSprite.setScrollFactor(0, 0);
-        }
         
         return map;
+    }
+
+    createBackground(): void
+    {
+        this.background = this.add.tileSprite(this.game.scale.gameSize.width/2, this.game.scale.gameSize.height/2, 425, 470, 'background');
+        this.background.setScrollFactor(0, 0);
+        this.background.setDepth(0);
+
+        const daedalus = this.player.daedalus;
+
+        // add a planet in background if necessary
+        if (daedalus?.inOrbitPlanet !== null) {
+            const planetSprite = this.add.tileSprite(this.game.scale.gameSize.width-(268/2), this.game.scale.gameSize.height-(191/2), 268, 191, `planet_${daedalus.inOrbitPlanet.imageId}`);
+            planetSprite.setScrollFactor(0, 0);
+            planetSprite.setDepth(3);
+        }
+
+
+        // add stars in the background with a particle emitter
+        this.isTravelling = daedalus.isDaedalusTravelling;
+        this.createStarParticles();
+    }
+
+    createStarParticles(): void
+    {
+        let starSpeed = 10;
+        let starFrequency = 5000;
+
+        if (this.isTravelling) {
+            starSpeed = 1000;
+            starFrequency = 100;
+        }
+        this.textures.generate('star_particles', {data: ['2']});
+        const particles = this.add.particles('star_particles');
+        particles.setDepth(1)
+
+        const gameLimits = new Phaser.Geom.Rectangle(
+            -10, -10,
+            this.game.scale.gameSize.width + 20, this.game.scale.gameSize.height + 20,
+        );
+
+        const leftEmitter = particles.createEmitter({
+            x: 0, y: {min:0, max: this.game.scale.gameSize.height},
+            lifespan: 200000,
+            speed: starSpeed,
+            angle: 30,
+            scale: { min: 1, max: 3 },
+            quantity: 1,
+            frequency: starFrequency,
+            maxParticles: 25,
+        });
+        const topEmitter = particles.createEmitter({
+            x: {min:0, max: this.game.scale.gameSize.width}, y: 0,
+            lifespan: 200000,
+            speed: starSpeed,
+            angle: 30,
+            scale: { min: 1, max: 3 },
+            quantity: 1,
+            frequency: starFrequency,
+            maxParticles: 25,
+        });
+        leftEmitter.deathZone = new DeathZone(gameLimits, false);
+        leftEmitter.setScrollFactor(0,0);
+        topEmitter.deathZone = new DeathZone(gameLimits, false);
+        topEmitter.setScrollFactor(0,0);
     }
 
     createEquipments(map: MushTiledMap): void
@@ -669,20 +739,20 @@ export default class DaedalusScene extends Phaser.Scene
 
     deleteEquipmentsAndDecoration(): void
     {
-        const sceneGameObjects = this.children.list;
-        const room = this.player.room;
-        if (room === null) { throw new Error("player room should be defined");}
+            const sceneGameObjects = this.children.list;
+            const room = this.player.room;
+            if (room === null) { throw new Error("player room should be defined");}
 
-        for (let i=0; i < sceneGameObjects.length; i++) {
-            const gameObject = sceneGameObjects[i];
+            for (let i=0; i < sceneGameObjects.length; i++) {
+                const gameObject = sceneGameObjects[i];
 
-            if (gameObject instanceof DecorationObject &&
-                !(gameObject instanceof CharacterObject))
-            {
-                gameObject.delete();
-                i = i-1;
+                if (gameObject instanceof DecorationObject &&
+                    !(gameObject instanceof CharacterObject))
+                {
+                    gameObject.delete();
+                    i = i-1;
+                }
             }
-        }
     }
 
     deleteWallAndFloor(): void
@@ -694,8 +764,11 @@ export default class DaedalusScene extends Phaser.Scene
         for (let i=0; i < sceneGameObjects.length; i++) {
             const gameObject = sceneGameObjects[i];
 
-            if (!(gameObject instanceof DecorationObject))
-            {
+            // do not remove backgroud and star particles
+            if (!(gameObject instanceof DecorationObject) &&
+                gameObject !== this.background &&
+                !(gameObject instanceof  Phaser.GameObjects.Particles.ParticleEmitterManager)
+            ){
                 gameObject.destroy();
                 i = i-1;
             }
@@ -818,7 +891,7 @@ export default class DaedalusScene extends Phaser.Scene
                     (gameObject.equipment.key?.substring(0, 11) === 'patrol_ship' ||
                         gameObject.equipment.key?.substring(0, 8) === 'pasiphae')
                 ) {
-                   gameObject.update(time, 2000);
+                   gameObject.update(time, delta);
                 }
             }
         }

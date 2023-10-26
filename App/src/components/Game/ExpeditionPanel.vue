@@ -35,6 +35,10 @@
                 <li class="unexplored"><img src="@/assets/images/astro/cold.png"></li>
                 <li class="unexplored"><img src="@/assets/images/astro/cold.png"></li>
             </ul>
+            <div v-if="lost" class="lost">
+                <img src="@/assets/images/att.png" alt="warning">
+                <p> Vous êtes perdu sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher. </p>
+            </div>
         </section>
         <section class="logs">
             <div class="event">
@@ -74,6 +78,7 @@ export default defineComponent ({
     data() {
         return {
             show: false,
+            lost: true, //only for preview purpose//
         };
     }
 });
@@ -162,6 +167,26 @@ export default defineComponent ({
     cursor: pointer;
 
     img.revert { transform: scale(1, -1); }
+}
+
+.lost {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.8em 0.6em;
+    background: lighten($brightCyan, 6.5);
+    border: solid #aad4e5;
+    border-width: 1px 0;
+
+    img {
+        width: fit-content;
+        height: fit-content;
+    }
+
+    p {
+        margin: 0;
+        font-size: 0.91em;
+    }
 }
 
 .analysis {

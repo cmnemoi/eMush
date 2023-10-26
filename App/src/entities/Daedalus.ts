@@ -1,6 +1,7 @@
 import { QuantityPoint } from "@/entities/QuantityPoint";
 import { TimerCycle } from "@/entities/TimerCycle";
 import { GameCalendar } from "@/entities/GameCalendar";
+import { Planet } from "@/entities/Planet";
 
 export class Daedalus {
     public id: number|null;
@@ -17,6 +18,8 @@ export class Daedalus {
     public mushPlayerDead: number;
     public crewPlayer: QuantityPoint | null;
     public minimap: any;
+    public inOrbitPlanet: Planet|null;
+    public isDaedalusTravelling: boolean;
 
     constructor() {
         this.id = null;
@@ -33,6 +36,8 @@ export class Daedalus {
         this.mushPlayerDead = 0;
         this.crewPlayer = null;
         this.minimap = null;
+        this.inOrbitPlanet = null;
+        this.isDaedalusTravelling = false;
     }
     load(object :any): Daedalus {
         if (typeof object !== "undefined") {
@@ -62,7 +67,11 @@ export class Daedalus {
             this.mushPlayerDead = object.mushPlayerDead;
             if (typeof object.crewPlayer !== 'undefined') {
                 this.crewPlayer = (new QuantityPoint()).load(object.crewPlayer);
-            };
+            }
+            if (object.inOrbitPlanet) {
+                this.inOrbitPlanet = (new Planet()).load(object.inOrbitPlanet);
+            }
+            this.isDaedalusTravelling = object.isDaedalusTravelling;
         }
         return this;
     }

@@ -123,8 +123,8 @@ export default class EquipmentObject extends InteractObject {
             if (this.y > this.initCoordinates.y + 40) {
                 this.y = this.initCoordinates.y + 40
             }
-            if (this.y < this.initCoordinates.y - 20) {
-                this.y = this.initCoordinates.y - 20
+            if (this.y < this.initCoordinates.y - 5) {
+                this.y = this.initCoordinates.y - 5
             }
         }
     }

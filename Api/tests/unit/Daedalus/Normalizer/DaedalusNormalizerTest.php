@@ -8,7 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
-use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
@@ -24,8 +24,8 @@ class DaedalusNormalizerTest extends TestCase
     private CycleServiceInterface $cycleService;
     /** @var TranslationServiceInterface|Mockery\Mock */
     private TranslationServiceInterface $translationService;
-    /** @var DaedalusWidgetServiceInterface|Mockery\Mock */
-    private DaedalusWidgetServiceInterface $daedalusWidgetService;
+    /** @var PlanetServiceInterface|Mockery\Mock */
+    private PlanetServiceInterface $planetService;
 
     /**
      * @before
@@ -34,9 +34,9 @@ class DaedalusNormalizerTest extends TestCase
     {
         $this->cycleService = \Mockery::mock(CycleServiceInterface::class);
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
-        $this->daedalusWidgetService = \Mockery::mock(DaedalusWidgetServiceInterface::class);
+        $this->planetService = \Mockery::mock(PlanetServiceInterface::class);
 
-        $this->normalizer = new DaedalusNormalizer($this->cycleService, $this->translationService, $this->daedalusWidgetService);
+        $this->normalizer = new DaedalusNormalizer($this->cycleService, $this->translationService, $this->planetService);
     }
 
     /**
@@ -53,6 +53,7 @@ class DaedalusNormalizerTest extends TestCase
         $this->cycleService->shouldReceive('getDateStartNextCycle')->andReturn($nextCycle);
         $daedalus = \Mockery::mock(Daedalus::class);
         $daedalus->shouldReceive('getId')->andReturn(2);
+        $daedalus->shouldReceive('hasStatus')->andReturn(false)->once();
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());
         $daedalus->setPlaces(new ArrayCollection());
@@ -185,6 +186,12 @@ class DaedalusNormalizerTest extends TestCase
             ->andReturn('translated two')
             ->once()
         ;
+        $this->planetService
+            ->shouldReceive('findPlanetInDaedalusOrbit')
+            ->with($daedalus)
+            ->andReturn(null)
+            ->once()
+        ;
 
         $data = $this->normalizer->normalize($daedalus);
 
@@ -227,6 +234,8 @@ class DaedalusNormalizerTest extends TestCase
             'crewPlayer' => [
                 'name' => 'translated one',
                 'description' => 'translated two', ],
+            'inOrbitPlanet' => null,
+            'isDaedalusTravelling' => false,
         ];
 
         $this->assertIsArray($data);

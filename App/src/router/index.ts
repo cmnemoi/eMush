@@ -194,6 +194,7 @@ const routes = [
     {
         path: "/import",
         name: "ImportPage",
+        meta: { authorize: [UserRole.USER] },
         component: () => import("@/components/ImportPage.vue"),
     },
     {

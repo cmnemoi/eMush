@@ -32,6 +32,8 @@ import { LegacyUser } from "@/entities/LegacyUser";
 import { mapGetters, mapActions } from "vuex";
 
 interface LegacyUserState {
+    channel: string;
+    errors: any,
     legacyUser: LegacyUser | null;
     sid: string;
 }
@@ -55,17 +57,26 @@ export default defineComponent ({
         },
         async importMyUser(sid: string, code: string, serverLanguage: string) {
             if (!sid || !code) {
-                return;
+                this.errors = {
+                    sid: [this.$t('import.sidRequired')],
+                    code: [this.$t('import.codeRequired')],
+                };
+                console.error(this.errors);
             }
 
             await ImportService.importMyProfile(sid, code, serverLanguage).then((response) => {
                 this.legacyUser = (new LegacyUser()).load(response.data);
+            }).catch((error) => {
+                this.errors = {
+                    error: [error],
+                };
+                console.error(error);
             });
         },
         getTwinoidOauthCode() {
             const responseType = "code";
-            const clientId = 407;
-            const redirectUri = 'http://localhost/import';
+            const clientId = this.getClientId();
+            const redirectUri = this.getRedirectUri();
             const scope = "mush.twinoid.com+mush.twinoid.es+mush_ship_data+mush.vg+groups";
             const state = "auth";
 
@@ -73,9 +84,36 @@ export default defineComponent ({
 
             window.open(url, '_self');
         },
+        getClientId() {
+            console.log(this.channel);
+            switch (this.channel) {
+            case 'dev':
+                return 407;
+            case 'emush.staging':
+                return 429;
+            case 'emush.production':
+                return 409;
+            default:
+                throw new Error('Unknown release channel');
+            }
+        },
+        getRedirectUri() {
+            switch (this.channel) {
+            case 'dev':
+                return 'http://localhost/import';
+            case 'emush.staging':
+                return 'https://staging.emush.eternaltwin.org/import';
+            case 'emush.production':
+                return 'https://emush.eternaltwin.org/import';
+            default:
+                throw new Error('Unknown release channel');
+            }
+        },
     },
     data: function (): LegacyUserState {
         return {
+            channel: process.env.VUE_APP_API_RELEASE_CHANNEL,
+            errors: null as any,
             legacyUser: null,
             sid : "",
         };

@@ -49,7 +49,7 @@ final class ImportProfileService
         $legacyUser->setHistoryShips($mushProfileResponse->historyShips);
 
         // mush data from scraping
-        $htmlContent = $this->get($serverUrl . 'me', new Cookie('sid', $sid));
+        $htmlContent = $this->get($serverUrl . 'me', $this->getCookieFromServerAndSid($serverUrl, $sid));
         $crawler = new Crawler($htmlContent);
         $legacyUser->setCharacterLevels($this->getUserCharacterLevels($crawler));
 
@@ -79,6 +79,18 @@ final class ImportProfileService
         $twinoidProfile->setAchievements($mushSite->first()->achievements);
 
         return $twinoidProfile;
+    }
+
+    private function getCookieFromServerAndSid(string $serverUrl, string $sid): Cookie
+    {
+        match ($serverUrl) {
+            TwinoidURLEnum::MUSH_VG => $cookie = new Cookie('sid', $sid),
+            TwinoidURLEnum::MUSH_TWINOID_COM => $cookie = new Cookie('mush_sid', $sid),
+            TwinoidURLEnum::MUSH_TWINOID_ES => $cookie = new Cookie('sid', $sid),
+            default => throw new \Exception('This Mush server doesn\'t exist'),
+        };
+
+        return $cookie;
     }
 
     private function getUserCharacterLevels(Crawler $crawler): array

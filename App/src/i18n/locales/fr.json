@@ -31,7 +31,8 @@
 		"ranking": "Classements",
 		"user": "Mon Compte",
 		"news": "News",
-		"forum": "Forum"
+		"forum": "Forum",
+		"import": "Importer mon profil"
 	},
 	"ranking": {
 		"ship_end_cause": "Cause de la destruction",
@@ -98,7 +99,8 @@
 		}
 	},
 	"userBanner": {
-		"userShips": "Fiche"
+		"userShips": "Fiche",
+		"legacyProfile": "Archives"
 	},
 	"userShips": {
 		"pageTitle": "Fiche de ",
@@ -590,7 +592,9 @@
 		"encookie": "Cookie Mush EN",
 		"importFrenchData": "Importer mon profil français",
 		"importEnglishData": "Importer mon profil anglais",
+		"importMyProfile": "Importer mon profil",
 		"importedProfile": "Profil importé ({username} - {id})",
+		"noImportedProfile": "Vous n'avez pas encore importé de profil Mush.",
 		"smallInfos": "Vous pouvez sauvegarder votre compte Mush original sur eMush. Connectez vous à Twinoid à l'aide du bouton ci-dessous pour commencer.",
 		"infos": "Vous pouvez sauvegarder votre compte Mush original sur eMush.////Voici la liste des éléments sauvegardés ://- Votre pseudo Twinoid// - Vos succès et vos titres - L'expérience de vos personnages//- Votre expérience disponible//- Vos vaisseaux//- Vos skins (TODO)//- Vos vanités (TODO)//- Vos klix (TODO)////Vous ne pouvez sauvegarder le profil d'**un seul serveur**. Choisissez bien !////Pour lancer la sauvegarde, enregistrez le lien cookie correspondant au serveur que vous souhaitez importer comme un nouveau marque-page, allez sur le site Mush corespondant puis cliquez sur ce nouveau marque-page. //Il vous faut ensuite coller le cookie dans le champ dédié à cela puis cliquer sur le bouton du serveur que vous souhaitez importer. //// Ensuite, ne quittez surtout pas la page lors de l'import!//Il vous est possible de relancer l'import une seconde fois: cela effacera la sauvegarde mais vous pourrez en refaire de nouvelles par la suite.////En cas de questions ou autres problèmes n'hésitez pas à nous contacter sur le <a href='https://discord.gg/Kd8DUkWy4N'>Discord Eternaltwin</a>.",
 		"success": "Félicitations, le compte {username} ({id}) a été importé avec succès ! {nbShips} vaisseaux ont été importés.",

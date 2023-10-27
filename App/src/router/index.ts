@@ -45,6 +45,11 @@ const routes = [
                 name: "UserShips",
                 path: '',
                 component: UserShips
+            },
+            {
+                name: "UserLegacyProfile",
+                path: '',
+                component: () => import("@/components/User/UserLegacyProfile.vue"),
             }
         ]
     },

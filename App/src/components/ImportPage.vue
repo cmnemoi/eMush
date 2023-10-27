@@ -26,8 +26,8 @@
             <p>{{ $t("import.success", {id: legacyUser.twinoidId, username: legacyUser.twinoidUsername, nbShips: legacyUser.historyShips.length}) }}</p>
             <p>{{ $t("import.successInfo") }}</p>
         </div>
-        <div v-if="legacyUser" :class="legacyUser.hidden ? 'infos hidden' : 'infos'" @click="legacyUser.toggle()">
-            <h3>{{ $t('import.importedProfile', {username: legacyUser.twinoidUsername, id: legacyUser.twinoidId}) }}</h3>
+        <div v-if="legacyUser" :class="legacyUser.hidden ? 'infos hidden' : 'infos'">
+            <h3 @click="legacyUser.toggle()">{{ $t('import.importedProfile', {username: legacyUser.twinoidUsername, id: legacyUser.twinoidId}) }}</h3>
             <pre v-html="legacyUser.jsonEncode()"></pre>
         </div>
     </div>
@@ -49,7 +49,7 @@ interface LegacyUserState {
 }
 
 export default defineComponent ({
-    name: "UserImport",
+    name: "ImportPage",
     components: {
         Input
     },

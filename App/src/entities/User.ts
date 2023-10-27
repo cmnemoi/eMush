@@ -24,7 +24,9 @@ export class User {
             this.username = object.username;
             this.playerInfo = object.playerInfo ? object.playerInfo : null;
             this.roles = object.roles;
-            this.legacyUser = new LegacyUser().load(object.legacyUser);
+            if (object.legacyUser) {
+                this.legacyUser = (new LegacyUser()).load(object.legacyUser);
+            }
         }
         return this;
     }

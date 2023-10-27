@@ -15,17 +15,17 @@ use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpClient\HttpClient;
 
 final class ImportProfileService
-{
-    private string $twinoidImportClientId;
-    private string $twinoidImportClientSecret;
+{   
+    private string $appEnv;
+    private AdminServiceInterface $adminService;
     private HttpBrowser $client;
 
     public function __construct(
-        string $twinoidImportClientId,
-        string $twinoidImportClientSecret,
+        string $appEnv,
+        AdminServiceInterface $adminService,
     ) {
-        $this->twinoidImportClientId = $twinoidImportClientId;
-        $this->twinoidImportClientSecret = $twinoidImportClientSecret;
+        $this->appEnv = $appEnv;
+        $this->adminService = $adminService;
         $this->client = new HttpBrowser(HttpClient::create());
     }
 
@@ -129,9 +129,9 @@ final class ImportProfileService
         $uri = TwinoidURLEnum::TWINOID_TOKEN . '?' . http_build_query([
             'grant_type' => 'authorization_code',
             'code' => $code,
-            'redirect_uri' => 'http://localhost/import',
-            'client_id' => $this->twinoidImportClientId,
-            'client_secret' => $this->twinoidImportClientSecret,
+            'redirect_uri' => $this->getRedirectUri(),
+            'client_id' => $this->getClientId(),
+            'client_secret' => $this->adminService->findSecretByName('TWINOID_IMPORT_CLIENT_SECRET')->getValue(),
         ]);
 
         return $uri;
@@ -166,5 +166,25 @@ final class ImportProfileService
         );
 
         return $this->client->getResponse()->getContent();
+    }
+
+    private function getRedirectUri(): string
+    {
+        return match ($this->appEnv) {
+            'dev' => 'http://localhost/import',
+            'emush.staging' => 'https://staging.emush.eternaltwin.org/import',
+            'emush.production' => 'https://emush.eternaltwin.org/import',
+            default => throw new \Exception('This environment doesn\'t exist'),
+        };
+    }
+
+    private function getClientId(): int
+    {
+        return match ($this->appEnv) {
+            'dev' => 407,
+            'emush.staging' => 429,
+            'emush.production' => 430,
+            default => throw new \Exception('This environment doesn\'t exist'),
+        };
     }
 }

@@ -23,6 +23,5 @@ services:
 
   Mush\MetaGame\Service\ImportProfileService:
     arguments: [
-      '%env(TWINOID_IMPORT_CLIENT_ID)%',
-      '%env(TWINOID_IMPORT_CLIENT_SECRET)%',
+      '%env(APP_ENV)%',
     ]

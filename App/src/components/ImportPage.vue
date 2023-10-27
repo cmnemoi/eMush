@@ -17,6 +17,8 @@
             <button v-if="sid && code && !legacyUser" class="button" @click="importMyUser(sid, code, 'en')" >{{ $t("import.importEnglishData") }}</button>
         </div>
         <div v-if="legacyUser" class="flew-row" >
+            <p>{{ $t("import.success", {id: legacyUser.twinoidId, username: legacyUser.twinoidUsername, nbShips: legacyUser.historyShips.length}) }}</p>
+            <p>{{ $t("import.successInfo") }}</p>
             <pre v-html="legacyUser.jsonEncode()"></pre>
         </div>
     </div>
@@ -89,11 +91,6 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-
-.box-container {
-    margin-top: 0;
-}
-
 .button  {
     @include button-style();
 }

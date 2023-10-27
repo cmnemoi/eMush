@@ -586,6 +586,8 @@
 		"frcookie": "Cookie Mush FR",
 		"encookie": "Cookie Mush EN",
 		"importFrenchData": "Importer mon profil français",
-		"importEnglishData": "Importer mon profil anglais"
+		"importEnglishData": "Importer mon profil anglais",
+		"success": "Félicitations, le compte {username} ({id}) a été importé avec succès ! {nbShips} vaisseaux ont été importés.",
+		"successInfo": "Un aperçu des données collectées est disponible ci-dessous. Tout nouvel import supprimera le précédent."
 	}
 }

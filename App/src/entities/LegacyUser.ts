@@ -11,8 +11,8 @@ export class LegacyUser {
     public load(object: any): LegacyUser {
         if (object) {
             this.id = object.id;
-            this.twinoidId = object.twinoidId;
-            this.twinoidUsername = object.twinoidUsername;
+            this.twinoidId = object.twinoidProfile.twinoidId;
+            this.twinoidUsername = object.twinoidProfile.twinoidUsername;
             this.characterLevels = object.characterLevels;
             this.historyHeroes = object.historyHeroes;
             this.historyShips = object.historyShips;

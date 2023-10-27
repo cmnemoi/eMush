@@ -22,6 +22,9 @@
                     @change="updateFilter"
                 >
             </label>
+            <button class="action-button" type="button" @click="downloadUsersAsJson">
+                {{ $t("admin.user.downloadUsersAsJson") }}
+            </button>
         </div>
         <Datatable
             :headers='fields'
@@ -157,6 +160,15 @@ export default defineComponent({
         paginationClick(page: number) {
             this.pagination.currentPage = page;
             this.loadData();
+        },
+        downloadUsersAsJson() {
+            const dataStr = JSON.stringify(this.rowData, null, 4);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            const exportFileDefaultName = 'users.json';
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
         }
     },
     beforeMount() {

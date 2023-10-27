@@ -139,7 +139,7 @@ final class ImportProfileService
 
     private function buildMushApiMeUrl(string $token, string $server, string $fields): string
     {
-        $uri = $server . '/tid/graph/me?' . http_build_query([
+        $uri = $server . 'tid/graph/me?' . http_build_query([
             'access_token' => $token,
             'fields' => $fields,
         ]);

@@ -30,6 +30,7 @@ final class LegacyUserNormalizer implements NormalizerInterface
             'achievements' => $legacyUser->getTwinoidProfile()->getAchievements(),
             'historyHeroes' => $legacyUser->getHistoryHeroes(),
             'historyShips' => $legacyUser->getHistoryShips(),
+            'availableExperience' => $legacyUser->getAvailableExperience(),
             'characterLevels' => $legacyUser->getCharacterLevels(),
         ];
     }

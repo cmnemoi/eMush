@@ -144,9 +144,7 @@ final class TwinoidAPIFieldsEnum
 
     public static function buildMushUserFields(): string
     {
-        $fields = self::ME_CREATION_DATE . ',';
-        self::ME_ID . ',';
-        self::ME_XP;
+        $fields = self::ME_CREATION_DATE . ',' . self::ME_ID . ',' . self::ME_XP . ',';
 
         $fields .= self::ME_HISTORY_HEROES . '.fields(';
         foreach (self::$historyHeroFields as $field) {

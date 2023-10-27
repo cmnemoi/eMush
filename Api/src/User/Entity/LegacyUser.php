@@ -23,6 +23,9 @@ class LegacyUser
     #[ORM\OneToOne(targetEntity: LegacyUserTwinoidProfile::class, inversedBy: 'legacyUser')]
     private LegacyUserTwinoidProfile $twinoidProfile;
 
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $availableExperience = 0;
+
     #[ORM\Column(type: 'array', nullable: false)]
     private array $characterLevels = [];
 
@@ -59,6 +62,16 @@ class LegacyUser
         $twinoidProfile->setLegacyUser($this);
     }
 
+    public function getAvailableExperience(): int
+    {
+        return $this->availableExperience;
+    }
+
+    public function setAvailableExperience(int $availableExperience): void
+    {
+        $this->availableExperience = $availableExperience;
+    }
+
     public function getCharacterLevels(): array
     {
         return $this->characterLevels;
@@ -87,16 +100,5 @@ class LegacyUser
     public function setHistoryShips(array $historyShips): void
     {
         $this->historyShips = $historyShips;
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'characterLevels' => $this->characterLevels,
-            'twinoidProfile' => $this->twinoidProfile->toArray(),
-            'historyHeroes' => $this->historyHeroes,
-            'historyShips' => $this->historyShips,
-        ];
     }
 }

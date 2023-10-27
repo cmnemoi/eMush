@@ -61,6 +61,7 @@ final class ImportProfileService
                 TwinoidAPIFieldsEnum::buildMushUserFields()
             ),
         ));
+        $legacyUser->setAvailableExperience($mushProfileResponse->xp);
         $legacyUser->setHistoryHeroes($mushProfileResponse->historyHeroes);
         $legacyUser->setHistoryShips($mushProfileResponse->historyShips);
 
@@ -150,13 +151,18 @@ final class ImportProfileService
     }
 
     private function buildTwinoidApiTokenUrl(string $code): string
-    {
+    {   
+        $clientSecret = $this->adminService->findSecretByName('TWINOID_IMPORT_CLIENT_SECRET')?->getValue();
+        if (!$clientSecret) {
+            throw new \Exception('TWINOID_IMPORT_CLIENT_SECRET secret is missing');
+        }
+
         $uri = TwinoidURLEnum::TWINOID_TOKEN . '?' . http_build_query([
             'grant_type' => 'authorization_code',
             'code' => $code,
             'redirect_uri' => $this->getRedirectUri(),
             'client_id' => $this->getClientId(),
-            'client_secret' => $this->adminService->findSecretByName('TWINOID_IMPORT_CLIENT_SECRET')?->getValue(),
+            'client_secret' => $clientSecret,
         ]);
 
         return $uri;

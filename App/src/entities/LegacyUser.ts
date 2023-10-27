@@ -7,6 +7,10 @@ export class LegacyUser {
     public twinoidUsername!: string;
     public availableExperience!: number;
     public characterLevels!: Map<string, number>;
+    public skins!: Array<string>;
+    public flairs!: Array<string>;
+    public klix!: number;
+    public experienceResetKlixCost!: number;
     public stats!: any;
     public achievements!: any;
     public historyHeroes: any;
@@ -27,6 +31,10 @@ export class LegacyUser {
             this.achievements = object.achievements;
             this.availableExperience = object.availableExperience;
             this.characterLevels = object.characterLevels;
+            this.skins = object.skins;
+            this.flairs = object.flairs;
+            this.klix = object.klix;
+            this.experienceResetKlixCost = object.experienceResetKlixCost;
         }
 
         return this;

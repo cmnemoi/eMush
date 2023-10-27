@@ -32,6 +32,10 @@ final class LegacyUserNormalizer implements NormalizerInterface
             'historyShips' => $legacyUser->getHistoryShips(),
             'availableExperience' => $legacyUser->getAvailableExperience(),
             'characterLevels' => $legacyUser->getCharacterLevels(),
+            'skins' => $legacyUser->getSkins(),
+            'flairs' => $legacyUser->getFlairs(),
+            'klix' => $legacyUser->getKlix(),
+            'experienceResetKlixCost' => $legacyUser->getExperienceResetKlixCost(),
         ];
     }
 }

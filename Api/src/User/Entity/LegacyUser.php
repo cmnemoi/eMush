@@ -27,6 +27,18 @@ class LegacyUser
     private int $availableExperience = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    private array $skins = [];
+
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $flairs = [];
+
+    #[ORM\Column(type: 'array', nullable: false)]
+    private int $klix = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $experienceResetKlixCost = 0;
+
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $characterLevels = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
@@ -80,6 +92,46 @@ class LegacyUser
     public function setCharacterLevels(array $characterLevels): void
     {
         $this->characterLevels = $characterLevels;
+    }
+
+    public function getSkins(): array
+    {
+        return $this->skins;
+    }
+
+    public function setSkins(array $skins): void
+    {
+        $this->skins = $skins;
+    }
+
+    public function getFlairs(): array
+    {
+        return $this->flairs;
+    }
+
+    public function setFlairs(array $flairs): void
+    {
+        $this->flairs = $flairs;
+    }
+
+    public function getKlix(): int
+    {
+        return $this->klix;
+    }
+
+    public function setKlix(int $klix): void
+    {
+        $this->klix = $klix;
+    }
+
+    public function getExperienceResetKlixCost(): int
+    {
+        return $this->experienceResetKlixCost;
+    }
+
+    public function setExperienceResetKlixCost(int $experienceResetKlixCost): void
+    {
+        $this->experienceResetKlixCost = $experienceResetKlixCost;
     }
 
     public function getHistoryHeroes(): array

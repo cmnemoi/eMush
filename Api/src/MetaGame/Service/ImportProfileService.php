@@ -66,9 +66,12 @@ final class ImportProfileService
         $legacyUser->setHistoryShips($mushProfileResponse->historyShips);
 
         // mush data from scraping
-        $htmlContent = $this->get($serverUrl . 'me', $this->getCookieFromServerAndSid($serverUrl, $sid));
-        $crawler = new Crawler($htmlContent);
-        $legacyUser->setCharacterLevels($this->getUserCharacterLevels($crawler));
+        $mushProfile = $this->scrapMushProfile($serverUrl, $sid);
+        $legacyUser->setCharacterLevels($mushProfile['characterLevels']);
+        $legacyUser->setSkins($mushProfile['skins']);
+        $legacyUser->setFlairs($mushProfile['flairs']);
+        $legacyUser->setKlix($mushProfile['klix']);
+        $legacyUser->setExperienceResetKlixCost($mushProfile['experienceResetKlixCost']);
 
         $this->entityManager->persist($legacyUser);
         $this->entityManager->flush();
@@ -107,27 +110,31 @@ final class ImportProfileService
         return $twinoidProfile;
     }
 
-    private function getCookieFromServerAndSid(string $serverUrl, string $sid): Cookie
+    private function scrapMushProfile(string $serverUrl, string $sid): array
     {
-        return match ($serverUrl) {
-            TwinoidURLEnum::MUSH_VG => new Cookie('sid', $sid),
-            TwinoidURLEnum::MUSH_TWINOID_COM => new Cookie('mush_sid', $sid),
-            TwinoidURLEnum::MUSH_TWINOID_ES => new Cookie('sid', $sid),
-            default => throw new \Exception('This Mush server doesn\'t exist'),
-        };
+        $htmlContent = $this->get($serverUrl . 'me', $this->getCookieFromServerAndSid($serverUrl, $sid));
+        $crawler = new Crawler($htmlContent);
+
+        return [
+            'characterLevels' => $this->getUserCharacterLevels($crawler),
+            'skins' => $this->getUserSkins($crawler),
+            'flairs' => $this->getUserFlairs($crawler),
+            'klix' => $this->getUserKlix($crawler),
+            'experienceResetKlixCost' => $this->getUserExperienceResetKlixCost($crawler),
+        ];
     }
 
     private function getUserCharacterLevels(Crawler $crawler): array
     {
         $characters = [];
-        $characterDivs = $crawler->filter('.level');
-        if ($characterDivs->count() === 0) {
+        $skinDivs = $crawler->filter('.level');
+        if ($skinDivs->count() === 0) {
             throw new \Exception('Impossible to find your Mush character levels');
         }
-        $characterNames = $characterDivs->each(function (Crawler $node, $i) {
+        $characterNames = $skinDivs->each(function (Crawler $node, $i) {
             return explode(' ', $node->ancestors()->first()->text())[1];
         });
-        $characterLevels = $characterDivs->each(function (Crawler $node, $i) {
+        $characterLevels = $skinDivs->each(function (Crawler $node, $i) {
             return intval($node->text());
         });
 
@@ -136,6 +143,100 @@ final class ImportProfileService
         }
 
         return $characters;
+    }
+
+    private function getUserSkins(Crawler $crawler): array
+    {
+        $skinsStyleMap = [
+            'background-position : 0px 	-1512px !important;' => 'jin_su_gangnam_style',
+            'background-position : 0px 	-1604px !important;' => 'jin_su_vampire',
+            'background-position : 0px 	-2063px !important;' => 'frieda',
+            'background-position : 0px 	-1875px !important;' => 'kuan_ti',
+            'background-position : 0px 	-1185px !important;' => 'janice',
+            'background-position : 0px 	-1056px !important;' => 'roland',
+            'background-position : 0px 	-1554px !important;' => 'hua',
+            'background-position : 0px 	-1728px !important;' => 'paola',
+            'background-position : 0px 	-1282px !important;' => 'chao',
+            'background-position : 0px 	-1921px !important;' => 'finola',
+            'background-position : 0px 	-1681px !important;' => 'stephen',
+            'background-position : 0px 	-1233px !important;' => 'ian',
+            'background-position : 0px 	-2017px !important;' => 'chun',
+            'background-position : 0px 	-1391px !important;' => 'raluca',
+            'background-position : 0px 	-1970px !important;' => 'gioele',
+            'background-position : 0px 	-1335px !important;' => 'eleesha',
+            'background-position : 0px 	-1444px !important;' => 'terrence',
+        ];
+
+        $skins = [];
+        $skinDivs = $crawler->filter('div > .inl-blck');
+        if ($skinDivs->count() === 0) {
+            return $skins;
+        }
+
+        $skinDivs->each(function (Crawler $node, $i) use (&$skins, $skinsStyleMap) {
+            $skinStyle = $node->attr('style');
+            if ($skinStyle && array_key_exists($skinStyle, $skinsStyleMap)) {
+                $skins[] = $skinsStyleMap[$skinStyle];
+            }
+        });
+
+        return $skins;
+    }
+
+    private function getUserFlairs(Crawler $crawler): array
+    {
+        $flairs = [];
+        $flairInputs = $crawler->filter("input[onclick=' return Main.onClickVanity( $(this) ); ']");
+        if ($flairInputs->count() === 0) {
+            return $flairs;
+        }
+
+        $flairInputs->each(function (Crawler $node, $i) use (&$flairs) {
+            // get flair from strings like "Activer : Innocence Incarnée"
+            $flairs[] = trim(explode(':', $node->ancestors()->first()->text())[1]);
+        });
+
+        return $flairs;
+    }
+
+    private function getUserKlix(Crawler $crawler): int
+    {
+        $klixImg = $crawler->filter('.klix');
+        if ($klixImg->count() === 0) {
+            throw new \Exception('Impossible to find your klix');
+        }
+
+        // looks like "I have 15 klix"
+        $klixSentence = $klixImg->ancestors()->first()->text();
+        // get only integers from the string
+        $klixAmount = preg_replace('/[^0-9]/', '', $klixSentence);
+
+        return intval($klixAmount);
+    }
+
+    private function getUserExperienceResetKlixCost(Crawler $crawler): int
+    {
+        $experienceResetKlixCost = $crawler->filter("a[href='/u/resetProgression/0']");
+        if ($experienceResetKlixCost->count() === 0) {
+            return 0;
+        }
+
+        // looks like "Redémarrer 30"
+        $experienceResetKlixCostSentence = $experienceResetKlixCost->first()->text();
+        // get only integers from the string
+        $experienceResetKlixCostAmount = preg_replace('/[^0-9]/', '', $experienceResetKlixCostSentence);
+
+        return intval($experienceResetKlixCostAmount);
+    }
+
+    private function getCookieFromServerAndSid(string $serverUrl, string $sid): Cookie
+    {
+        return match ($serverUrl) {
+            TwinoidURLEnum::MUSH_VG => new Cookie('sid', $sid),
+            TwinoidURLEnum::MUSH_TWINOID_COM => new Cookie('mush_sid', $sid),
+            TwinoidURLEnum::MUSH_TWINOID_ES => new Cookie('sid', $sid),
+            default => throw new \Exception('This Mush server doesn\'t exist'),
+        };
     }
 
     private function getTwinoidAPIToken(string $code): string

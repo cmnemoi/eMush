@@ -28,7 +28,7 @@ final class TwinoidURLEnum
     public static function getMushServerSiteIDFromName(string $name): int
     {
         return match ($name) {
-            self::MUSH_VG => 71,
+            self::MUSH_VG => 41,
             self::MUSH_TWINOID_COM => 77,
             self::MUSH_TWINOID_ES => 76,
             default => throw new \Exception('Unknown server name'),

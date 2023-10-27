@@ -8,6 +8,7 @@ import { room } from "@/store/room.module";
 import { communication } from "@/store/communication.module";
 import { daedalus } from "@/store/daedalus.module";
 import { admin } from "@/store/admin.module";
+import { twinoidImport } from "./twinoid_import.module";
 
 export default createStore({
     modules: {
@@ -19,7 +20,8 @@ export default createStore({
         room,
         communication,
         daedalus,
-        admin
+        admin,
+        twinoidImport
     }
 })
 ;

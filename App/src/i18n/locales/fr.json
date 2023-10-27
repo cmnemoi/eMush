@@ -580,5 +580,12 @@
 		"problem": "Il y a eu un problème lors du traitement de votre requête.",
 		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
 		"title": "ERREUR"
+	},
+	"import": {
+		"connectToTwinoid": "Se connecter à Twinoid",
+		"frcookie": "Cookie Mush FR",
+		"encookie": "Cookie Mush EN",
+		"importFrenchData": "Importer mon profil français",
+		"importEnglishData": "Importer mon profil anglais"
 	}
 }

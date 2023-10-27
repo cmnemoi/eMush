@@ -159,6 +159,11 @@ const routes = [
         component: NewsPage
     },
     {
+        path: "/import",
+        name: "ImportPage",
+        component: () => import("@/components/ImportPage.vue"),
+    },
+    {
         path: "/token",
         name: "Token",
         component: Token,

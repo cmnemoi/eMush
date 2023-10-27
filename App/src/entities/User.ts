@@ -1,4 +1,5 @@
 import { is_granted, UserRole } from "@/enums/user_role.enum";
+import { LegacyUser } from "./LegacyUser";
 
 export class User {
     public id : number|null;
@@ -6,6 +7,7 @@ export class User {
     public username : string|null;
     public playerInfo : number|null;
     public roles : UserRole[];
+    public legacyUser : LegacyUser|null;
 
     constructor() {
         this.id = null;
@@ -13,6 +15,7 @@ export class User {
         this.username = null;
         this.playerInfo = null;
         this.roles = [];
+        this.legacyUser = null;
     }
     load(object: any): User {
         if (typeof object !== "undefined") {
@@ -21,6 +24,7 @@ export class User {
             this.username = object.username;
             this.playerInfo = object.playerInfo ? object.playerInfo : null;
             this.roles = object.roles;
+            this.legacyUser = new LegacyUser().load(object.legacyUser);
         }
         return this;
     }
@@ -35,6 +39,7 @@ export class User {
             this.username = object.username;
             this.playerInfo = object.playerInfo ?? null;
             this.roles = object.roles;
+            this.legacyUser = object.legacyUser;
         }
 
         return this;

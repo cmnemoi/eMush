@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace Mush\MetaGame\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\MetaGame\Enum\TwinoidAPIFieldsEnum;
 use Mush\MetaGame\Enum\TwinoidURLEnum;
 use Mush\User\Entity\LegacyUser;
 use Mush\User\Entity\LegacyUserTwinoidProfile;
+use Mush\User\Entity\User;
+use Mush\User\Service\LegacyUserServiceInterface;
+use Mush\User\Service\LegacyUserTwinoidProfileServiceInterface;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\DomCrawler\Crawler;
@@ -18,24 +22,36 @@ final class ImportProfileService
 {   
     private string $appEnv;
     private AdminServiceInterface $adminService;
+    private EntityManagerInterface $entityManager;
+    private LegacyUserServiceInterface $legacyUserService;
+    private LegacyUserTwinoidProfileServiceInterface $legacyUserTwinoidProfileService;
     private HttpBrowser $client;
 
     public function __construct(
         string $appEnv,
         AdminServiceInterface $adminService,
+        EntityManagerInterface $entityManager,
+        LegacyUserServiceInterface $legacyUserService,
+        LegacyUserTwinoidProfileServiceInterface $legacyUserTwinoidProfileService
     ) {
         $this->appEnv = $appEnv;
         $this->adminService = $adminService;
+        $this->entityManager = $entityManager;
+        $this->legacyUserService = $legacyUserService;
+        $this->legacyUserTwinoidProfileService = $legacyUserTwinoidProfileService;
         $this->client = new HttpBrowser(HttpClient::create());
     }
 
-    public function getLegacyUser(string $serverUrl, string $sid, string $code): array
+    public function saveLegacyUser(User $user, string $serverUrl, string $sid, string $code): LegacyUser
     {
-        $legacyUser = new LegacyUser();
+        $legacyUser = $this->legacyUserService->findByUser($user);
+        if (!$legacyUser instanceof LegacyUser) {
+            $legacyUser = new LegacyUser($user);
+        }
 
         // twinoid data from API
         $twinoidToken = $this->getTwinoidAPIToken($code);
-        $legacyUser->setTwinoidProfile($this->getTwinoidProfile($serverUrl, $twinoidToken));
+        $legacyUser->setTwinoidProfile($this->getTwinoidProfile($legacyUser, $serverUrl, $twinoidToken));
 
         // mush data from API
         $mushProfileResponse = json_decode($this->get(
@@ -53,12 +69,19 @@ final class ImportProfileService
         $crawler = new Crawler($htmlContent);
         $legacyUser->setCharacterLevels($this->getUserCharacterLevels($crawler));
 
-        return $legacyUser->toArray();
+        $this->entityManager->persist($legacyUser);
+        $this->entityManager->flush();
+
+        return $legacyUser;
     }
 
-    private function getTwinoidProfile(string $serverUrl, string $token): LegacyUserTwinoidProfile
-    {
-        $twinoidProfile = new LegacyUserTwinoidProfile();
+    private function getTwinoidProfile(LegacyUser $user, string $serverUrl, string $token): LegacyUserTwinoidProfile
+    {   
+        $twinoidProfile = $this->legacyUserTwinoidProfileService->findByLegacyUser($user);
+        if (!$twinoidProfile instanceof LegacyUserTwinoidProfile) {
+            $twinoidProfile = new LegacyUserTwinoidProfile();
+        }
+
         $twinoidProfileResponse = json_decode($this->get(
             url: $this->buildTwinoidApiUserUri(
                 $token,
@@ -77,6 +100,8 @@ final class ImportProfileService
 
         $twinoidProfile->setStats($mushSite->first()->stats);
         $twinoidProfile->setAchievements($mushSite->first()->achievements);
+
+        $this->entityManager->persist($twinoidProfile);
 
         return $twinoidProfile;
     }

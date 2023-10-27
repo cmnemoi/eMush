@@ -56,9 +56,16 @@ class ImportProfileController extends AbstractFOSRestController
      *
      * @Rest\View()
      */
-    public function legacyUser(string $serverLanguage, string $sid, string $code): View
-    {
-        $legacyUser = $this->importProfileService->getLegacyUser(TwinoidURLEnum::getMushServerFromLanguage($serverLanguage), $sid, $code);
+    public function savelegacyUser(string $serverLanguage, string $sid, string $code): View
+    {   
+        $user = $this->getUser();
+
+        $legacyUser = $this->importProfileService->saveLegacyUser(
+            user: $user,
+            serverUrl: TwinoidURLEnum::getMushServerFromLanguage($serverLanguage), 
+            sid: $sid, 
+            code: $code,
+        );
 
         return $this->view($legacyUser, Response::HTTP_OK);
     }

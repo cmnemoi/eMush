@@ -20,17 +20,23 @@ class LegacyUser
     #[ORM\OneToOne(targetEntity: User::class, mappedBy: 'legacyUser')]
     private User $user;
 
-    #[ORM\OneToOne(targetEntity: User::class, inversedBy: 'legacyUser')]
+    #[ORM\OneToOne(targetEntity: LegacyUserTwinoidProfile::class, inversedBy: 'legacyUser')]
     private LegacyUserTwinoidProfile $twinoidProfile;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $characterLevels = [];
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $historyHeroes = [];
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $historyShips = [];
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+        $user->setLegacyUser($this);
+    }
 
     public function getId(): int
     {
@@ -40,12 +46,6 @@ class LegacyUser
     public function getUser(): User
     {
         return $this->user;
-    }
-
-    public function setUser(User $user): void
-    {
-        $this->user = $user;
-        $user->setLegacyUser($this);
     }
 
     public function getTwinoidProfile(): LegacyUserTwinoidProfile

@@ -1,5 +1,6 @@
 export class LegacyUser {
     public id!: number;
+    public userId!: number;
     public twinoidId!: number;
     public twinoidUsername!: string;
     public characterLevels!: Map<string, number>;
@@ -11,13 +12,14 @@ export class LegacyUser {
     public load(object: any): LegacyUser {
         if (object) {
             this.id = object.id;
-            this.twinoidId = object.twinoidProfile.twinoidId;
-            this.twinoidUsername = object.twinoidProfile.twinoidUsername;
+            this.userId = object.userId;
+            this.twinoidId = object.twinoidId;
+            this.twinoidUsername = object.twinoidUsername;
             this.characterLevels = object.characterLevels;
             this.historyHeroes = object.historyHeroes;
             this.historyShips = object.historyShips;
-            this.stats = object.twinoidProfile.stats;
-            this.achievements = object.twinoidProfile.achievements;
+            this.stats = object.stats;
+            this.achievements = object.achievements;
         }
 
         return this;

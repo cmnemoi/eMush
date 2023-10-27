@@ -151,7 +151,7 @@ final class ImportProfileService
     }
 
     private function buildTwinoidApiTokenUrl(string $code): string
-    {   
+    {
         $clientSecret = $this->adminService->findSecretByName('TWINOID_IMPORT_CLIENT_SECRET')?->getValue();
         if (!$clientSecret) {
             throw new \Exception('TWINOID_IMPORT_CLIENT_SECRET secret is missing');

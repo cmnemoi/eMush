@@ -1,8 +1,8 @@
 export class LegacyUser {
     public id!: number;
+    public userId!: number;
     public createdAt!: string;
     public updatedAt!: string;
-    public userId!: number;
     public twinoidId!: number;
     public twinoidUsername!: string;
     public availableExperience!: number;
@@ -11,7 +11,7 @@ export class LegacyUser {
     public achievements!: any;
     public historyHeroes: any;
     public historyShips: any;
-    public hidden: boolean = true;
+    public hidden = true;
 
     public load(object: any): LegacyUser {
         if (object) {

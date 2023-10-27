@@ -35,7 +35,7 @@ final class ImportProfileService
 
         // twinoid data from API
         $twinoidToken = $this->getTwinoidAPIToken($code);
-        $legacyUser->setTwinoidProfile($this->getTwinoidProfile($twinoidToken));
+        $legacyUser->setTwinoidProfile($this->getTwinoidProfile($serverUrl, $twinoidToken));
 
         // mush data from API
         $mushProfileResponse = json_decode($this->get(
@@ -56,7 +56,7 @@ final class ImportProfileService
         return $legacyUser->toArray();
     }
 
-    private function getTwinoidProfile(string $token): LegacyUserTwinoidProfile
+    private function getTwinoidProfile(string $serverUrl, string $token): LegacyUserTwinoidProfile
     {
         $twinoidProfile = new LegacyUserTwinoidProfile();
         $twinoidProfileResponse = json_decode($this->get(
@@ -70,9 +70,9 @@ final class ImportProfileService
         $twinoidProfile->setTwinoidUsername($twinoidProfileResponse->name);
 
         $sites = new ArrayCollection($twinoidProfileResponse->sites);
-        $mushSite = $sites->filter(fn ($site) => $site->site->id === 41);
+        $mushSite = $sites->filter(fn ($site) => $site->site->id === TwinoidURLEnum::getMushServerSiteIDFromName($serverUrl));
         if ($mushSite->isEmpty()) {
-            throw new \Exception('Impossible to find your Mush achievements');
+            throw new \Exception('Impossible to find your Mush achievements. Have you played Mush?');
         }
 
         $twinoidProfile->setStats($mushSite->first()->stats);
@@ -83,14 +83,12 @@ final class ImportProfileService
 
     private function getCookieFromServerAndSid(string $serverUrl, string $sid): Cookie
     {
-        match ($serverUrl) {
-            TwinoidURLEnum::MUSH_VG => $cookie = new Cookie('sid', $sid),
-            TwinoidURLEnum::MUSH_TWINOID_COM => $cookie = new Cookie('mush_sid', $sid),
-            TwinoidURLEnum::MUSH_TWINOID_ES => $cookie = new Cookie('sid', $sid),
+        return match ($serverUrl) {
+            TwinoidURLEnum::MUSH_VG => new Cookie('sid', $sid),
+            TwinoidURLEnum::MUSH_TWINOID_COM => new Cookie('mush_sid', $sid),
+            TwinoidURLEnum::MUSH_TWINOID_ES => new Cookie('sid', $sid),
             default => throw new \Exception('This Mush server doesn\'t exist'),
         };
-
-        return $cookie;
     }
 
     private function getUserCharacterLevels(Crawler $crawler): array

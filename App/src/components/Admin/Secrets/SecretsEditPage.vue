@@ -39,7 +39,7 @@ export default defineComponent({
                 this.secret.name = secretName;
             }
             console.log(this.secret);
-            return await AdminService.editSecret({'name': this.secret.name, 'value': this.secret.value}).then((response) => {
+            return await AdminService.editSecret({ 'name': this.secret.name, 'value': this.secret.value }).then((response) => {
                 this.$router.push({ name: 'AdminSecretsList' });
             });
         }

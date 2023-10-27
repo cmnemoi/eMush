@@ -22,16 +22,12 @@
 import { defineComponent } from "vue";
 import AdminService from "@/services/admin.service";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
-import Input from "@/components/Utils/Input.vue";
-import router from "@/router";
 
 export default defineComponent ({
     name: 'AdminSecretsList',
     components: {
-    Datatable,
-    Input,
-    router
-},
+        Datatable,
+    },
     methods: {
         async getSecrets() {
             return await AdminService.getSecrets().then((response) => {
@@ -39,7 +35,7 @@ export default defineComponent ({
             });
         },
         async updateSecret(name: string, value: string) {
-            return await AdminService.editSecret({'name': name, 'value': value}).then((response) => {
+            return await AdminService.editSecret({ 'name': name, 'value': value }).then((response) => {
                 this.getSecrets();
             });
         }
@@ -70,7 +66,7 @@ export default defineComponent ({
                 name: '',
                 value: '',
             },
-        }
+        };
     },
     beforeMount() {
         this.getSecrets();

@@ -172,7 +172,7 @@ const routes = [
                 path: 'create-secret',
                 meta: { authorize: [UserRole.ADMIN] },
                 component: () => import("@/components/Admin/Secrets/SecretsEditPage.vue"),
-            }
+            },
             {
                 name: "AdminSecretsEdit",
                 path: 'edit-secret/:secret',

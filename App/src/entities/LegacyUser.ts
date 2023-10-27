@@ -1,5 +1,7 @@
 export class LegacyUser {
     public id!: number;
+    public createdAt!: string;
+    public updatedAt!: string;
     public userId!: number;
     public twinoidId!: number;
     public twinoidUsername!: string;
@@ -12,6 +14,8 @@ export class LegacyUser {
     public load(object: any): LegacyUser {
         if (object) {
             this.id = object.id;
+            this.createdAt = object.createdAt;
+            this.updatedAt = object.updatedAt;
             this.userId = object.userId;
             this.twinoidId = object.twinoidId;
             this.twinoidUsername = object.twinoidUsername;

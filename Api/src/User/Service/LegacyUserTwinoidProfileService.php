@@ -16,7 +16,7 @@ final class LegacyUserTwinoidProfileService implements LegacyUserTwinoidProfileS
     {
         $this->legacyUserTwinoidProfileRepository = $legacyUserTwinoidProfileRepository;
     }
-   
+
     public function findByLegacyUser(LegacyUser $legacyUser): ?LegacyUserTwinoidProfile
     {
         return $this->legacyUserTwinoidProfileRepository->findOneByLegacyUser($legacyUser);

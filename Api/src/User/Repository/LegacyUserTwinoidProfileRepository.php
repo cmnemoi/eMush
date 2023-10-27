@@ -8,7 +8,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\User\Entity\LegacyUser;
 use Mush\User\Entity\LegacyUserTwinoidProfile;
-use Mush\User\Entity\User;
 
 /**
  * @template-extends ServiceEntityRepository<LegacyUserTwinoidProfile>
@@ -31,7 +30,5 @@ class LegacyUserTwinoidProfileRepository extends ServiceEntityRepository
         ;
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
-
     }
-
 }

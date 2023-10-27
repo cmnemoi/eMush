@@ -38,7 +38,7 @@ class User implements UserInterface
     private array $roles = [RoleEnum::USER];
 
     #[ORM\OneToOne(targetEntity: LegacyUser::class, inversedBy: 'user')]
-    private ?LegacyUser $legacyUser;
+    private ?LegacyUser $legacyUser = null;
 
     public function getId(): int
     {

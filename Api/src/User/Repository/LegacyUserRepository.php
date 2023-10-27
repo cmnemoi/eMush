@@ -30,7 +30,5 @@ class LegacyUserRepository extends ServiceEntityRepository
         ;
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
-
     }
-
 }

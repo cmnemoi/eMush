@@ -7,12 +7,12 @@ use Doctrine\Common\Collections\Collection;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
-use Mush\MetaGame\Entity\AdminSecret;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
+use Mush\MetaGame\Entity\AdminSecret;
 use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
@@ -297,11 +297,11 @@ class AdminController extends AbstractFOSRestController
 
     /**
      * Get all secrets.
-     * 
+     *
      * @OA\Tag(name="Admin")
-     * 
+     *
      * @Security(name="Bearer")
-     * 
+     *
      * @Rest\Get(path="/secrets")
      */
     public function getSecrets(): View
@@ -319,11 +319,11 @@ class AdminController extends AbstractFOSRestController
 
     /**
      * Edit a secret.
-     * 
+     *
      * @OA\Tag(name="Admin")
-     * 
+     *
      * @Security(name="Bearer")
-     * 
+     *
      * @Rest\Post(path="/secrets")
      */
     public function editSecret(Request $request): View

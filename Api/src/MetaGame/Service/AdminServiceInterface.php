@@ -7,7 +7,7 @@ namespace Mush\MetaGame\Service;
 use Mush\MetaGame\Entity\AdminSecret;
 
 interface AdminServiceInterface
-{   
+{
     public function editSecret(string $name, string $value): void;
 
     public function findAllSecrets(): array;

@@ -19,7 +19,7 @@ use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpClient\HttpClient;
 
 final class ImportProfileService
-{   
+{
     private string $appEnv;
     private AdminServiceInterface $adminService;
     private EntityManagerInterface $entityManager;
@@ -76,7 +76,7 @@ final class ImportProfileService
     }
 
     private function getTwinoidProfile(LegacyUser $user, string $serverUrl, string $token): LegacyUserTwinoidProfile
-    {   
+    {
         $twinoidProfile = $this->legacyUserTwinoidProfileService->findByLegacyUser($user);
         if (!$twinoidProfile instanceof LegacyUserTwinoidProfile) {
             $twinoidProfile = new LegacyUserTwinoidProfile();
@@ -156,7 +156,7 @@ final class ImportProfileService
             'code' => $code,
             'redirect_uri' => $this->getRedirectUri(),
             'client_id' => $this->getClientId(),
-            'client_secret' => $this->adminService->findSecretByName('TWINOID_IMPORT_CLIENT_SECRET')->getValue(),
+            'client_secret' => $this->adminService->findSecretByName('TWINOID_IMPORT_CLIENT_SECRET')?->getValue(),
         ]);
 
         return $uri;

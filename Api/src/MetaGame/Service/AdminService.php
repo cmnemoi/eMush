@@ -29,7 +29,7 @@ final class AdminService implements AdminServiceInterface
         if (!$secret instanceof AdminSecret) {
             $secret = new AdminSecret($name, $value);
         }
-        
+
         $this->entityManager->persist($secret);
         $this->entityManager->flush();
     }

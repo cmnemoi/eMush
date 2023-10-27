@@ -92,7 +92,7 @@ export default defineComponent ({
             case 'emush.staging':
                 return 429;
             case 'emush.production':
-                return 409;
+                return 430;
             default:
                 throw new Error('Unknown release channel');
             }

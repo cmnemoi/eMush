@@ -112,7 +112,7 @@ export default defineComponent ({
     },
     data: function (): LegacyUserState {
         return {
-            channel: process.env.VUE_APP_API_RELEASE_CHANNEL,
+            channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string,
             errors: null as any,
             legacyUser: null,
             sid : "",

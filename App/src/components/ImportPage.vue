@@ -1,5 +1,11 @@
 <template>
     <div class="box-container">
+        <div v-if="code" class="infos">
+            <span v-html="formatText($t('import.infos'))" />
+        </div>
+        <div v-if="!code" class="infos">
+            <span v-html="formatText($t('import.smallInfos'))" />
+        </div>
         <div v-if="code" class="flex-row wrap">
             <a class="cookie-link" href="javascript:(function(){let e=function e(i){let t=`; ${document.cookie}`,o=t.split('; sid=');if(2===o.length)return o.pop().split(';').shift()}('sid');if(e){let i=document.createElement('input');document.body.appendChild(i),i.value=e,i.focus(),i.select(),document.execCommand('copy'),i.remove(),alert('SID copied to clipboard')}})();">{{ $t('import.frcookie') }}</a>
             <a class="cookie-link" href="javascript:(function(){let e=function e(i){let t=`; ${document.cookie}`,o=t.split('; mush_sid=');if(2===o.length)return o.pop().split(';').shift()}('mush_sid');if(e){let i=document.createElement('input');document.body.appendChild(i),i.value=e,i.focus(),i.select(),document.execCommand('copy'),i.remove(),alert('SID copied to clipboard')}})();">{{ $t('import.encookie') }}</a>
@@ -7,7 +13,7 @@
         <div class="flex-row wrap">
             <Input
                 v-if="code"
-                :label="$t('sid')"
+                label="Cookie"
                 id="sid"
                 v-model="sid"
                 type="text"
@@ -16,9 +22,12 @@
             <button v-if="sid && code && !legacyUser" class="button" @click="importMyUser(sid, code, 'fr')" >{{ $t("import.importFrenchData") }}</button>
             <button v-if="sid && code && !legacyUser" class="button" @click="importMyUser(sid, code, 'en')" >{{ $t("import.importEnglishData") }}</button>
         </div>
-        <div v-if="legacyUser" class="flew-row" >
+        <div v-if="legacyUser" class="infos" >
             <p>{{ $t("import.success", {id: legacyUser.twinoidId, username: legacyUser.twinoidUsername, nbShips: legacyUser.historyShips.length}) }}</p>
             <p>{{ $t("import.successInfo") }}</p>
+        </div>
+        <div v-if="legacyUser" :class="legacyUser.hidden ? 'infos hidden' : 'infos'" @click="legacyUser.toggle()">
+            <h3>{{ $t('import.importedProfile', {username: legacyUser.twinoidUsername, id: legacyUser.twinoidId}) }}</h3>
             <pre v-html="legacyUser.jsonEncode()"></pre>
         </div>
     </div>
@@ -30,6 +39,7 @@ import ImportService from "@/services/import.service";
 import Input from "@/components/Utils/Input.vue";
 import { LegacyUser } from "@/entities/LegacyUser";
 import { mapGetters, mapActions } from "vuex";
+import { formatText } from "@/utils/formatText";
 
 interface LegacyUserState {
     channel: string;
@@ -72,6 +82,12 @@ export default defineComponent ({
                 };
                 console.error(error);
             });
+        },
+        formatText(text: string) {
+            if (!text) {
+                return '';
+            }
+            return formatText(text);
         },
         getTwinoidOauthCode() {
             const responseType = "code";
@@ -135,6 +151,37 @@ export default defineComponent ({
 
 .cookie-link {
     color: $green;
+}
+
+.infos {
+    border: 1px solid #576077;
+    background-color: #222b6b;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
+    padding: 1.2em;
+    margin: .4em;
+
+    img {
+        width: fit-content;
+        height: fit-content;
+    }
+
+    p { line-height: 1.4em; }
+
+    span {
+        ::v-deep a {
+            color: $green;
+        }
+    }
+
+    h3 {
+        cursor: pointer;
+    }
+}
+
+.hidden {
+    opacity: 0.75;
+
+    pre { display: none; }
 }
 
 </style>

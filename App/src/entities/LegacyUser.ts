@@ -5,11 +5,13 @@ export class LegacyUser {
     public userId!: number;
     public twinoidId!: number;
     public twinoidUsername!: string;
+    public availableExperience!: number;
     public characterLevels!: Map<string, number>;
     public stats!: any;
     public achievements!: any;
     public historyHeroes: any;
     public historyShips: any;
+    public hidden: boolean = true;
 
     public load(object: any): LegacyUser {
         if (object) {
@@ -19,11 +21,12 @@ export class LegacyUser {
             this.userId = object.userId;
             this.twinoidId = object.twinoidId;
             this.twinoidUsername = object.twinoidUsername;
-            this.characterLevels = object.characterLevels;
             this.historyHeroes = object.historyHeroes;
             this.historyShips = object.historyShips;
             this.stats = object.stats;
             this.achievements = object.achievements;
+            this.availableExperience = object.availableExperience;
+            this.characterLevels = object.characterLevels;
         }
 
         return this;
@@ -40,5 +43,9 @@ export class LegacyUser {
         }
 
         return this;
+    }
+
+    public toggle(): void {
+        this.hidden = !this.hidden;
     }
 }

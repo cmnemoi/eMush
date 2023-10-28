@@ -162,13 +162,16 @@ export default defineComponent({
             this.loadData();
         },
         downloadUsersAsJson() {
-            const dataStr = JSON.stringify(this.rowData, null, 4);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            const exportFileDefaultName = 'users.json';
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'users')).then((result) => {
+                const dataStr = JSON.stringify(result.data["hydra:member"], null, 4);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                const exportFileDefaultName = 'users.json';
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+            });
+            
         }
     },
     beforeMount() {

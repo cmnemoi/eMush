@@ -191,7 +191,8 @@
 	"admin": {
 		"user": {
 			"username": "Pseudonyme",
-			"roles": "Rôles"
+			"roles": "Rôles",
+			"downloadUsersAsJson": "Télécharger les données des utilisateurs"
 		},
 		"gameConfig": {
 			"name": "Nom",

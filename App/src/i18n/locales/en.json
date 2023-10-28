@@ -190,7 +190,8 @@
 	"admin": {
 		"user": {
 			"username": "Username",
-			"roles": "Roles"
+			"roles": "Roles",
+			"downloadAllUsersAsJson": "Download user data"
 		},
 		"gameConfig": {
 			"name": "Name",

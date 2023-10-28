@@ -31,7 +31,8 @@
 		"ranking": "Rankings",
 		"user": "My account",
 		"news": "News",
-		"forum": "Forum"
+		"forum": "Forum",
+		"import": "Importer my profile"
 	},
 	"ranking": {
 		"ship_end_cause": "End cause",
@@ -580,5 +581,19 @@
 		"problem": "There was a problem processing your request.",
 		"reportToDevs": "Please report this error to the developers, with details of how it occurred.",
 		"title": "ERROR"
+	},
+	"import": {
+		"connectToTwinoid": "Connect to Twinoid",
+		"frcookie": "FR Mush cookie",
+		"encookie": "EN Mush cookie",
+		"importFrenchData": "Importer my french profile",
+		"importEnglishData": "Import my english profile",
+		"importMyProfile": "Importe my profile",
+		"importedProfile": "Imported profile ({username} - {id})",
+		"noImportedProfile": "You have not yet imported a Mush profile",
+		"smallInfos": "You can save your original Mush account on eMush. Connect to Twinoid using the button below to get started.",
+		"infos": "You can save your original Mush account on eMush.////Here is the list of saved items ://- Your Twinoid nickname// - Your achievements and titles// - Your characters' experience//- Your available experience //- Your ships//- Your skins //- Your vanities //- Your klix ////You can only save the profile of **one server**. Choose carefully!////To start the backup, save the cookie link corresponding to the server you wish to import as a new bookmark, go to the corresponding Mush site then click on this new bookmark. //You must then paste the cookie in the field dedicated to this and then click on the button of the server you wish to import. //// Then, do not leave the page during the import!//You can restart the import a second time: this will erase the backup but you can make new ones later.// //If you have any questions or other issues, please feel free to contact us at <a href='https://discord.gg/Kd8DUkWy4N'>Discord Eternaltwin</a>.",
+		"success": "Congratulations, the {username} ({id}) account has been successfully imported! {nbShips} ships have been imported.",
+		"successInfo": "A preview of the collected data is available below. Any new import will delete the previous one."
 	}
 }

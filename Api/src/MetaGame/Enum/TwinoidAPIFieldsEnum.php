@@ -155,7 +155,24 @@ final class TwinoidAPIFieldsEnum
 
         $fields .= self::ME_HISTORY_SHIPS . '.fields(';
         foreach (self::$historyShipFields as $field) {
-            $fields .= $field . ',';
+            if ($field === self::HISTORY_SHIP_GROUP) {
+                $fields .= self::HISTORY_SHIP_GROUP . '.fields(';
+                foreach (self::$groupFields as $groupField) {
+                    $fields .= $groupField . ',';
+                }
+                $fields = substr($fields, 0, -1);
+                $fields .= '),';
+            } else if ($field === self::HISTORY_SHIP_SEASON) {
+                $fields .= self::HISTORY_SHIP_SEASON . '.fields(';
+                foreach (self::$seasonFields as $seasonField) {
+                    $fields .= $seasonField . ',';
+                }
+                $fields = substr($fields, 0, -1);
+                $fields .= '),';
+            }
+            else {
+                $fields .= $field . ',';
+            }
         }
         $fields = substr($fields, 0, -1);
         $fields .= ')';

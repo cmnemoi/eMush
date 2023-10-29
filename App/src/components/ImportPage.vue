@@ -92,7 +92,7 @@ export default defineComponent ({
         getTwinoidOauthCode() {
             const responseType = "code";
             const clientId = this.getClientId();
-            const redirectUri = this.getRedirectUri();
+            const redirectUri = process.env.VUE_APP_URL + '/import';
             const scope = "mush.twinoid.com+mush.twinoid.es+mush_ship_data+mush.vg+groups";
             const state = "auth";
 
@@ -101,7 +101,6 @@ export default defineComponent ({
             window.open(url, '_self');
         },
         getClientId() {
-            console.log(this.channel);
             switch (this.channel) {
             case 'dev':
                 return 407;
@@ -109,18 +108,6 @@ export default defineComponent ({
                 return 429;
             case 'emush.production':
                 return 430;
-            default:
-                throw new Error('Unknown release channel');
-            }
-        },
-        getRedirectUri() {
-            switch (this.channel) {
-            case 'dev':
-                return 'http://localhost/import';
-            case 'emush.staging':
-                return 'https://staging.emush.eternaltwin.org/import';
-            case 'emush.production':
-                return 'https://emush.eternaltwin.org/import';
             default:
                 throw new Error('Unknown release channel');
             }

@@ -191,7 +191,7 @@
 		"user": {
 			"username": "Username",
 			"roles": "Roles",
-			"downloadAllUsersAsJson": "Download user data"
+			"downloadUsersAsJson": "Download user data"
 		},
 		"gameConfig": {
 			"name": "Name",

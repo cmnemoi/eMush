@@ -43,5 +43,23 @@
         <target>cure_info</target>
       </segment>
     </unit>
+    <unit id="orientation">
+      <segment id="north" state="initial">
+        <source>north</source>
+        <target>north</target>
+      </segment>
+      <segment id="south" state="initial">
+        <source>south</source>
+        <target>south</target>
+      </segment>
+      <segment id="east" state="initial">
+        <source>east</source>
+        <target>east</target>
+      </segment>
+      <segment id="west" state="initial">
+        <source>west</source>
+        <target>west</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -811,11 +811,11 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
     </unit>
     <unit id="access_terminal">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>access_terminal.name</source>
         <target>Access Terminal</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>access_terminal.description</source>
         <target>Allow you to access services available on this terminal.</target>
       </segment>
@@ -941,6 +941,66 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="description" state="translated">
         <source>advance_daedalus.description</source>
+        <target>Start the engine to set the ship moving in accordance with the fuel ready.</target>
+      </segment>
+    </unit>
+    <unit id="scan">
+      <segment id="name" state="translated">
+        <source>scan.name</source>
+        <target>Scan</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>scan.description</source>
+        <target>Let you change the choice of available planets for the next travel.</target>
+      </segment>
+    </unit>
+    <unit id="analyze_planet">
+      <segment id="name" state="translated">
+        <source>analyze_planet.name</source>
+        <target>Analyse</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>analyze_planet.description</source>
+        <target>Perform an in-depth analysis of a planet to help with exploration missions.</target>
+      </segment>
+    </unit>
+    <unit id="turn_daedalus_left">
+      <segment id="name" state="translated">
+        <source>turn_daedalus_left.name</source>
+        <target>Turn left</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>turn_daedalus_left.description</source>
+        <target>Allows you to change the heading of the ship.</target>
+      </segment>
+    </unit>
+    <unit id="turn_daedalus_right">
+      <segment id="name" state="translated">
+        <source>turn_daedalus_right.name</source>
+        <target>Turn right</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>turn_daedalus_right.description</source>
+        <target>Allows you to change the heading of the ship.</target>
+      </segment>
+    </unit>
+    <unit id="delete_planet">
+      <segment id="name" state="translated">
+        <source>delete_planet.name</source>
+        <target>Delete scan</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>delete_planet.description</source>
+        <target>Let you delete a planet scanned from your workspace.</target>
+      </segment>
+    </unit>
+    <unit id="leave_orbit">
+      <segment id="name" state="translated">
+        <source>leave_orbit.name</source>
+        <target>Leave orbit</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>leave_orbit.description</source>
         <target>Start the engine to set the ship moving in accordance with the fuel ready.</target>
       </segment>
     </unit>

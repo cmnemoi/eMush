@@ -769,7 +769,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       </segment>
     </unit>
     <unit id="access_terminal_success">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>access_terminal_success</source>
         <target>**{character}** has accessed the **{target_equipment}**.</target>
       </segment>
@@ -872,6 +872,30 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       <segment id="advance_daedalus_arack_prevents_travel" state="translated">
         <source>advance_daedalus_arack_prevents_travel</source>
         <target>**{character}** is getting the voyage underway. Their excitement is visible, and their zeal is palpable. But... But... The engines push, but nothing happens... An Arack prevents departure with its gravitational field!</target>
+      </segment>
+    </unit>
+    <unit id="scan_success">
+      <segment id="scan_success" state="translated">
+        <source>scan_success</source>
+        <target>You carried out a thermal scan and discovered a planet.</target>
+      </segment>
+    </unit>
+    <unit id="scan_fail">
+      <segment id="scan_fail" state="translated">
+        <source>scan_fail</source>
+        <target>Your scan attempt failed.</target>
+      </segment>
+    </unit>
+    <unit id="analyze_planet_success">
+      <segment id="analyze_planet_success" state="translated">
+        <source>analyze_planet_success</source>
+        <target>**{character}** has carried out an analysis of {target_planet}.</target>
+      </segment>
+    </unit>
+    <unit id="delete_planet_success">
+      <segment id="delete_planet_success" state="translated">
+        <source>delete_planet_success</source>
+        <target>You have removed a planet from your workspace.</target>
       </segment>
     </unit>
   </file>

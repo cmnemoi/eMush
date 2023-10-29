@@ -46,6 +46,32 @@
         <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
         <target>command_terminal.advance_daedalus_status_emergency_reactor_broken</target>
       </segment>
+      <segment id="orientation" state="initial">
+        <source>command_terminal.orientation</source>
+        <target>command_terminal.orientation</target>
+      </segment>
+    </unit>
+    <unit id="astro_terminal">
+      <segment id="name" state="initial">
+        <source>astro_terminal.name</source>
+        <target>astro_terminal.name</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>astro_terminal.tips</source>
+        <target>astro_terminal.tips</target>
+      </segment>
+      <segment id="orientation" state="initial">
+        <source>astro_terminal.orientation</source>
+        <target>astro_terminal.orientation</target>
+      </segment>
+      <segment id="distance" state="initial">
+        <source>astro_terminal.distance</source>
+        <target>astro_terminal.distance</target>
+      </segment>
+      <segment id="in_orbit" state="initial">
+        <source>astro_terminal.in_orbit</source>
+        <target>astro_terminal.in_orbit</target>
+      </segment>
     </unit>
   </file>
 </xliff>

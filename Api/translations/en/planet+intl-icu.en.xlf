@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
   <file id="planet.ext">
     <unit id="landing">
       <segment id="name" state="translated">
         <source>landing.name</source>
-        <target>Atterrissage</target>
+        <target>Landing</target>
       </segment>
       <segment id="description" state="translated">
         <source>landing.description</source>
@@ -14,61 +14,61 @@
     <unit id="forest">
       <segment id="name" state="translated">
         <source>forest.name</source>
-        <target>Forêt</target>
+        <target>Forest</target>
       </segment>
       <segment id="description" state="translated">
         <source>forest.description</source>
-        <target>Cette planète est en partie couverte de forêt.</target>
+        <target>This planet is partially covered in forest.</target>
       </segment>
     </unit>
     <unit id="mountain">
       <segment id="name" state="translated">
         <source>mountain.name</source>
-        <target>Montagnes</target>
+        <target>Mountains</target>
       </segment>
       <segment id="description" state="translated">
         <source>mountain.description</source>
-        <target>Des étendues rocheuses couvrent cette planète.</target>
+        <target>Rocky outcrops cover this planet.</target>
       </segment>
     </unit>
     <unit id="swamp">
       <segment id="name" state="translated">
         <source>swamp.name</source>
-        <target>Marais</target>
+        <target>Swamps</target>
       </segment>
       <segment id="description" state="translated">
         <source>swamp.description</source>
-        <target>Cette planète comporte des terrains marécageux, boueux et malodorants.</target>
+        <target>This planet is made up of swamps and foul-smelling mud pits.</target>
       </segment>
     </unit>
     <unit id="desert">
       <segment id="name" state="translated">
         <source>desert.name</source>
-        <target>Désert</target>
+        <target>Desert</target>
       </segment>
       <segment id="description" state="translated">
         <source>desert.description</source>
-        <target>Cette planète comporte des terrains désertiques, arides, secs et hostiles.</target>
+        <target>This planet is made up of desert plains. Arid, dry and hostile.</target>
       </segment>
     </unit>
     <unit id="ocean">
       <segment id="name" state="translated">
         <source>ocean.name</source>
-        <target>Océan</target>
+        <target>Ocean</target>
       </segment>
       <segment id="description" state="translated">
         <source>ocean.description</source>
-        <target>L'espace quasi-infini mais en mouillé.</target>
+        <target>An almost infinite expanse of wetness.</target>
       </segment>
     </unit>
     <unit id="cave">
       <segment id="name" state="translated">
         <source>cave.name</source>
-        <target>Grottes</target>
+        <target>Caverns</target>
       </segment>
       <segment id="description" state="translated">
         <source>cave.description</source>
-        <target>Cette planète est truffée de cavernes sombres et humides.</target>
+        <target>This planet is riddled with dark, humid caves.</target>
       </segment>
     </unit>
     <unit id="ruminant">
@@ -78,37 +78,37 @@
       </segment>
       <segment id="description" state="translated">
         <source>ruminant.description</source>
-        <target>Troupeau de ruminants ou autre forme de nourriture animale.</target>
+        <target>A herd of ruminants detected (or some other form of animal to snack on...).</target>
       </segment>
     </unit>
     <unit id="predator">
       <segment id="name" state="translated">
         <source>predator.name</source>
-        <target>Prédateurs</target>
+        <target>Predators</target>
       </segment>
       <segment id="description" state="translated">
         <source>predator.description</source>
-        <target>Forme de vies animales carnivores.</target>
+        <target>Carnivorous animal life-form detected.</target>
       </segment>
     </unit>
     <unit id="intelligent">
       <segment id="name" state="translated">
         <source>intelligent.name</source>
-        <target>Vie intelligente</target>
+        <target>Intelligent Life</target>
       </segment>
       <segment id="description" state="translated">
         <source>intelligent.description</source>
-        <target>Forme avancée d'êtres intelligents.</target>
+        <target>Advanced form of intelligent life detected.</target>
       </segment>
     </unit>
     <unit id="insect">
       <segment id="name" state="translated">
         <source>insect.name</source>
-        <target>Insectes</target>
+        <target>Insects</target>
       </segment>
       <segment id="description" state="translated">
         <source>insect.description</source>
-        <target>Présence d'insectes divers.</target>
+        <target>Presence of various insects detected.</target>
       </segment>
     </unit>
     <unit id="mankarog">
@@ -118,127 +118,127 @@
       </segment>
       <segment id="description" state="translated">
         <source>mankarog.description</source>
-        <target>Truc énorme qui bouffe les joueurs un par un.</target>
+        <target>Warning: An enormous beast (known for devouring players one by one) has been detected.</target>
       </segment>
     </unit>
     <unit id="hydrocarbon">
       <segment id="name" state="translated">
         <source>hydrocarbon.name</source>
-        <target>Hydrocarbures</target>
+        <target>Hydrocarbon deposits</target>
       </segment>
       <segment id="description" state="translated">
         <source>hydrocarbon.description</source>
-        <target>Présence d'hydrocarbures en sous-sol.</target>
+        <target>Underground Hydrocarbons detected.</target>
       </segment>
     </unit>
     <unit id="oxygen">
       <segment id="name" state="translated">
         <source>oxygen.name</source>
-        <target>Oxygène</target>
+        <target>Oxygen</target>
       </segment>
       <segment id="description" state="translated">
         <source>oxygen.description</source>
-        <target>Présence d'oxygène dans l'atmosphère.</target>
+        <target>Presence of oxygen detected in the atmosphere.</target>
       </segment>
     </unit>
     <unit id="cold">
       <segment id="name" state="translated">
         <source>cold.name</source>
-        <target>Température basse</target>
+        <target>Low temperature</target>
       </segment>
       <segment id="description" state="translated">
         <source>cold.description</source>
-        <target>La température est relativement basse et peut gêner l'expédition.</target>
+        <target>The temperature is relatively low, and could have a negative effect on the expedition.</target>
       </segment>
     </unit>
     <unit id="hot">
       <segment id="name" state="translated">
         <source>hot.name</source>
-        <target>Température élevée</target>
+        <target>High temperature</target>
       </segment>
       <segment id="description" state="translated">
         <source>hot.description</source>
-        <target>La température est relativement élevée, ce qui peut gêner l'expédition.</target>
+        <target>The temperature is relatively high, which could have a negative effect on the expedition.</target>
       </segment>
     </unit>
     <unit id="strong_wind">
       <segment id="name" state="translated">
         <source>strong_wind.name</source>
-        <target>Vents forts</target>
+        <target>Strong winds</target>
       </segment>
       <segment id="description" state="translated">
         <source>strong_wind.description</source>
-        <target>Des vents puissants balayent la planète.</target>
+        <target>Strong winds are sweeping the planet.</target>
       </segment>
     </unit>
     <unit id="sismic_activity">
       <segment id="name" state="translated">
         <source>sismic_activity.name</source>
-        <target>Sismique</target>
+        <target>Seismic activity</target>
       </segment>
       <segment id="description" state="translated">
         <source>sismic_activity.description</source>
-        <target>Forte activité sismique.</target>
+        <target>Significant seismic activity detected.</target>
       </segment>
     </unit>
     <unit id="volcanic_activity">
       <segment id="name" state="translated">
         <source>volcanic_activity.name</source>
-        <target>Volcan</target>
+        <target>Volcanoes</target>
       </segment>
       <segment id="description" state="translated">
         <source>volcanic_activity.description</source>
-        <target>Activité volcanique.</target>
+        <target>Volcanic activity detected.</target>
       </segment>
     </unit>
     <unit id="ruins">
       <segment id="name" state="translated">
         <source>ruins.name</source>
-        <target>Ruines</target>
+        <target>Ruins</target>
       </segment>
       <segment id="description" state="translated">
         <source>ruins.description</source>
-        <target>Présence de ruines d'une ancienne civilisation.</target>
+        <target>Presence of ruins from an ancient civilization detected.</target>
       </segment>
     </unit>
     <unit id="wreck">
       <segment id="name" state="translated">
         <source>wreck.name</source>
-        <target>Épave</target>
+        <target>Shipwreck</target>
       </segment>
       <segment id="description" state="translated">
         <source>wreck.description</source>
-        <target>Présence d'une épave inconnue.</target>
+        <target>Presence of an unknown wreck detected.</target>
       </segment>
     </unit>
     <unit id="fruit_trees">
       <segment id="name" state="translated">
         <source>fruit_trees.name</source>
-        <target>Vergers</target>
+        <target>Orchards</target>
       </segment>
       <segment id="description" state="translated">
         <source>fruit_trees.description</source>
-        <target>Présence d'arbres fruitiers.</target>
+        <target>Presence of fruit trees detected.</target>
       </segment>
     </unit>
     <unit id="lost">
       <segment id="name" state="translated">
         <source>lost.name</source>
-        <target>Perdu</target>
+        <target>MIA</target>
       </segment>
       <segment id="description" state="translated">
         <source>lost.description</source>
-        <target>Présence de membres de l'équipage du Daedalus.</target>
+        <target>Presence of other Daedalus crewmates detected.</target>
       </segment>
     </unit>
     <unit id="cristal_field">
       <segment id="name" state="translated">
         <source>cristal_field.name</source>
-        <target>Cristalite</target>
+        <target>Crystalite</target>
       </segment>
       <segment id="description" state="translated">
         <source>cristal_field.description</source>
-        <target>Zone à concentration élevée de cristalites.</target>
+        <target>Zone with elevated crystalite concentration detected.</target>
       </segment>
     </unit>
     <unit id="unknown">
@@ -248,25 +248,25 @@
       </segment>
       <segment id="description" state="translated">
         <source>unknown.description</source>
-        <target>Caractéristique inconnue.</target>
+        <target>Properties unknown.</target>
       </segment>
     </unit>
     <unit id="orientation">
       <segment id="north" state="translated">
         <source>north</source>
-        <target>Nord</target>
+        <target>North</target>
       </segment>
       <segment id="south" state="translated">
         <source>south</source>
-        <target>Sud</target>
+        <target>South</target>
       </segment>
       <segment id="east" state="translated">
         <source>east</source>
-        <target>Est</target>
+        <target>East</target>
       </segment>
       <segment id="west" state="translated">
         <source>west</source>
-        <target>Ouest</target>
+        <target>West</target>
       </segment>
     </unit>
     <unit id="planet_name">

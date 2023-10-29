@@ -542,7 +542,7 @@
       </segment>
     </unit>
     <unit id="access_terminal_success">
-      <segment id="name" state="final">
+      <segment id="name" state="initial">
         <source>access_terminal_success</source>
         <target>access_terminal_success</target>
       </segment>
@@ -641,6 +641,30 @@
       <segment id="advance_daedalus_arack_prevents_travel" state="initial">
         <source>advance_daedalus_arack_prevents_travel</source>
         <target>advance_daedalus_arack_prevents_travel</target>
+      </segment>
+    </unit>
+    <unit id="scan_success">
+      <segment id="scan_success" state="initial">
+        <source>scan_success</source>
+        <target>scan_success</target>
+      </segment>
+    </unit>
+    <unit id="scan_fail">
+      <segment id="scan_fail" state="initial">
+        <source>scan_fail</source>
+        <target>scan_fail</target>
+      </segment>
+    </unit>
+    <unit id="analyze_planet_success">
+      <segment id="analyze_planet_success" state="initial">
+        <source>analyze_planet_success</source>
+        <target>analyze_planet_success</target>
+      </segment>
+    </unit>
+    <unit id="delete_planet_success">
+      <segment id="delete_planet_success" state="initial">
+        <source>delete_planet_success</source>
+        <target>delete_planet_success</target>
       </segment>
     </unit>
   </file>

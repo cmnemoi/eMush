@@ -565,5 +565,17 @@
         <target>combustion_chamber_full.description</target>
       </segment>
     </unit>
+    <unit id="lateral_reactor_broken">
+      <segment state="initial">
+        <source>lateral_reactor_broken.description</source>
+        <target>lateral_reactor_broken.description</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_in_orbit">
+      <segment state="initial">
+        <source>daedalus_in_orbit.description</source>
+        <target>daedalus_in_orbit.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

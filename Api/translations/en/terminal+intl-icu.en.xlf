@@ -52,6 +52,38 @@ If the job has been done properly, the Daedalus will put itself into a planet's 
         <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
         <target>The *Emergency Reactor* is down! The infra-luminal travel is impossible.</target>
       </segment>
+      <segment id="orientation" state="translated">
+        <source>command_terminal.orientation</source>
+        <target>The Daedalus is currently heading to : **{orientation}**.</target>
+      </segment>
+    </unit>
+    <unit id="astro_terminal">
+      <segment id="name" state="translated">
+        <source>astro_terminal.name</source>
+        <target>Astro Terminal</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>astro_terminal.tips</source>
+        <target>In order to find a planet to explore, you must firstly *run a scan* which will find a maximum of {max_planets} planets. The details of the planet scan are private and unique to every character.
+////
+Once a planet has been found and chosen, you should then communicate the *bearing and fuel requirement* for the journey to the crew. This allows the *Commander* to pilot the Daedalus towards the chosen planet.
+////
+When the Daedalus has arrived and is in orbit, it is impossible to scan to search for other planets. However, you can *scan the planet* you are orbiting to obtain additional GeoInfo. This information will be useful for the expedition team, who will be able to better prepare their exploration.
+////
+To leave orbit, the Commander in charge must give this order from the Command Terminal.</target>
+      </segment>
+      <segment id="orientation" state="translated">
+        <source>astro_terminal.orientation</source>
+        <target>Direction</target>
+      </segment>
+      <segment id="distance" state="translated">
+        <source>astro_terminal.distance</source>
+        <target>Required fuel</target>
+      </segment>
+      <segment id="in_orbit" state="translated">
+        <source>astro_terminal.in_orbit</source>
+        <target>*In orbit!*</target>
+      </segment>
     </unit>
   </file>
 </xliff>

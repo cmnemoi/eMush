@@ -565,5 +565,17 @@
         <target>The combustion chamber is full.</target>
       </segment>
     </unit>
+    <unit id="lateral_reactor_broken">
+      <segment state="translated">
+        <source>lateral_reactor_broken.description</source>
+        <target>The *Lateral Reactor* that allows us to turn in this direction has broken down. It has to be repaired if we're to steer this wreck.</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_in_orbit">
+      <segment state="translated">
+        <source>daedalus_in_orbit.description</source>
+        <target>This action is impossible when the Daedalus is in orbit.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

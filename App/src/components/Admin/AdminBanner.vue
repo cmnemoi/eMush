@@ -5,6 +5,7 @@
         <router-link :to="{ name: 'AdminPlayerList' }">Players</router-link>
         <router-link :to="{ name: 'AdminUser' }">Users</router-link>
         <router-link :to="{ name: 'AdminNewsList' }">News</router-link>
+        <router-link :to="{ name: 'AdminSecretsList' }">Secrets</router-link>
     </div>
 </template>
 

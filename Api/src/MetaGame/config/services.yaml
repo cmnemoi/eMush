@@ -20,3 +20,8 @@ services:
   Mush\MetaGame\Controller\:
     resource: '../Controller/'
     tags: ['controller.service_arguments']
+
+  Mush\MetaGame\Service\ImportProfileService:
+    arguments: [
+      '%env(APP_ENV)%',
+    ]

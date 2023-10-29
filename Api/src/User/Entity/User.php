@@ -37,6 +37,9 @@ class User implements UserInterface
     #[ORM\Column(type: 'array', nullable: false)]
     private array $roles = [RoleEnum::USER];
 
+    #[ORM\OneToOne(targetEntity: LegacyUser::class, inversedBy: 'user')]
+    private ?LegacyUser $legacyUser = null;
+
     public function getId(): int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class User implements UserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getLegacyUser(): ?LegacyUser
+    {
+        return $this->legacyUser;
+    }
+
+    public function setLegacyUser(LegacyUser $legacyUser): self
+    {
+        $this->legacyUser = $legacyUser;
 
         return $this;
     }

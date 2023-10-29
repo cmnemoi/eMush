@@ -163,8 +163,8 @@ export default defineComponent({
 }
 
 a {
-        @include button-style();
-        padding: 2px 15px 4px;
+    @include button-style();
+    padding: 2px 15px 4px;
 
-    }
+}
 </style>

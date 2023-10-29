@@ -88,7 +88,7 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
     <unit id="block_of_post_it">
       <segment id="name" state="translated">
         <source>block_of_post_it.name</source>
-        <target>Bloc de pense-bête</target>
+        <target>Bloc de pense-bêtes</target>
       </segment>
       <segment id="tips" state="translated">
         <source>block_of_post_it.tips</source>

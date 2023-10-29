@@ -1377,11 +1377,11 @@ Unique : Permet de donner +3 :pmo: à chaque téléspectateur.</target>
     <unit id="block_of_post_it">
       <segment id="name" state="translated">
         <source>block_of_post_it.name</source>
-        <target>Bloc de pense-bête(s)</target>
+        <target>Bloc de pense-bêtes</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>block_of_post_it.short_name</source>
-        <target>Bloc de pense-bête(s)</target>
+        <target>Bloc de pense-bêtes</target>
       </segment>
       <segment id="genre" state="translated">
         <source>block_of_post_it.gender</source>
@@ -1393,7 +1393,7 @@ Unique : Permet de donner +3 :pmo: à chaque téléspectateur.</target>
       </segment>
       <segment id="description" state="translated">
         <source>block_of_post_it.description</source>
-        <target>Un bloc de ces affreux petit papiers...</target>
+        <target>Un bloc de ces affreux petits papiers...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>block_of_post_it.examine</source>

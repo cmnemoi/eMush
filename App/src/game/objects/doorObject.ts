@@ -13,7 +13,7 @@ export default class DoorObject extends InteractObject {
     private openFrames: Phaser.Types.Animations.AnimationFrame[];
     private closeFrames: Phaser.Types.Animations.AnimationFrame[];
     public door : DoorEntity;
-    private particles: Phaser.GameObjects.Particles.ParticleEmitterManager | null = null;
+    private particles: Phaser.GameObjects.Particles.ParticleEmitter | null = null;
 
     constructor(
         scene: DaedalusScene,
@@ -88,7 +88,7 @@ export default class DoorObject extends InteractObject {
         const objectX = pointer.worldX - (this.x - this.width/2);
         const objectY = pointer.worldY - (this.y - this.height/2);
 
-        if (this.input.hitArea.contains(objectX, objectY)){
+        if (this.input && this.input.hitArea.contains(objectX, objectY)){
             if(
                 String(this.frame.name) === String(this.tiledFrame)  &&
                 !this.door.isBroken
@@ -118,9 +118,7 @@ export default class DoorObject extends InteractObject {
     handleBroken(): void
     {
         if (this.door.isBroken && this.particles === null) {
-            this.particles = this.scene.add.particles('smoke_particle');
-
-            this.particles.createEmitter({
+            this.particles = this.scene.add.particles(0, 0, 'smoke_particle', {
                 x: 0,
                 y: 0,
                 lifespan: { min: 1000, max: 1200 },

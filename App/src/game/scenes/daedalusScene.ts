@@ -175,7 +175,7 @@ import DoorObject from "@/game/objects/doorObject";
 import DoorGroundObject from "@/game/objects/doorGroundObject";
 import { Door } from "@/entities/Door";
 import DeathZone = Phaser.GameObjects.Particles.Zones.DeathZone;
-import {Planet} from "@/entities/Planet";
+import { Planet } from "@/entities/Planet";
 
 
 export default class DaedalusScene extends Phaser.Scene
@@ -205,7 +205,7 @@ export default class DaedalusScene extends Phaser.Scene
     public selectedGameObject : Phaser.GameObjects.GameObject | null;
     private fireParticles: Array<Phaser.GameObjects.Particles.ParticleEmitter> = [];
     private starParticles: Array<Phaser.GameObjects.Particles.ParticleEmitter> = [];
-    private hunterParticle: Phaser.GameObjects.Particles.ParticleEmitter | null;
+    private hunterParticle: Phaser.GameObjects.Particles.ParticleEmitter | null = null;
     private background: Phaser.GameObjects.TileSprite | undefined;
     private isTravelling= false;
     private attackingHunters = 0;
@@ -763,7 +763,7 @@ export default class DaedalusScene extends Phaser.Scene
         );
 
 
-        const grpY = [];
+        const grpY: any[] = [];
         const getNextY = () => {
             if(!grpY.length){
                 const center = minSpawnY + Math.random() * (maxSpawnY- minSpawnY);
@@ -772,7 +772,7 @@ export default class DaedalusScene extends Phaser.Scene
             return grpY.pop();
         };
 
-        const grpX = [];
+        const grpX: any[] = [];
         const getNextX = () => {
             if(!grpX.length){
                 const formation = Math.random();
@@ -843,6 +843,7 @@ export default class DaedalusScene extends Phaser.Scene
             scale: { min: 1, max: 3 },
             quantity: 1,
             frequency: starFrequency,
+            //@ts-ignore
             emitZone: { type: 'random', source: verticalEmitArea },
         });
         topStarEmitter.setDepth(1);
@@ -856,6 +857,7 @@ export default class DaedalusScene extends Phaser.Scene
             scale: { min: 1, max: 3 },
             quantity: 1,
             frequency: starFrequency,
+            //@ts-ignore
             emitZone: { type: 'random', source: horizontalEmitArea },
         });
         leftStarEmitter.setDepth(1);

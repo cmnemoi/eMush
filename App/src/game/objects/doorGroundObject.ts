@@ -11,7 +11,7 @@ import IsometricGeom from "@/game/scenes/isometricGeom";
 /*eslint no-unused-vars: "off"*/
 export default class DoorGroundObject extends InteractObject {
     public door: DoorEntity;
-    private particles: Phaser.GameObjects.Particles.ParticleEmitterManager | null = null;
+    private particles: Phaser.GameObjects.Particles.ParticleEmitter | null = null;
 
     constructor(
         scene: DaedalusScene,
@@ -57,9 +57,7 @@ export default class DoorGroundObject extends InteractObject {
             this.particles === null &&
             (this.tiledFrame === 0 || this.tiledFrame === 10)
         ) {
-            this.particles = this.scene.add.particles('smoke_particle');
-
-            this.particles.createEmitter({
+            this.particles = this.scene.add.particles(0,0, 'smoke_particle', {
                 x: 0,
                 y: 0,
                 lifespan: { min: 1000, max: 1200 },

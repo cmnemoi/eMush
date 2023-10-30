@@ -36,3 +36,11 @@ If you want to add a new sector, you need to do it here.
 
 ## Service
 - [PlanetService](./Service/PlanetService.php) contains the logic to generate a new planet and its sectors, and to delete a planet.
+
+### Planet generation
+
+- Loop through the number of slots available on the planet
+- For each slot, generate a random number within a range that is determined by the total weight of all sector configurations.
+- Iterate over all possible sector configurations and accumulate the weights of these sectors until it surpasses the random number generated.
+- Once the accumulated weight exceeds the random number, select and add the corresponding PlanetSector to the planet and break the loop.
+- If a sector reaches its maximum limit allowed on the planet , remove it from the available sector configurations, and substract its weight from the total weight.

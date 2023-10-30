@@ -159,7 +159,7 @@ export default defineComponent({
     },
 
     methods: {
-        getRoleImage(role) {
+        getRoleImage(role: string) {
             if (role === 'developer') {
                 return require('@/assets/images/developerPicto.png');
             } else if (role === 'admin') {

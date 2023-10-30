@@ -450,7 +450,6 @@ export default class DaedalusScene extends Phaser.Scene
         // update background
         this.updateBackground(newRoom);
 
-
         if (this.room.key !== newRoom.key) {
             this.room = newRoom;
 

@@ -2,7 +2,7 @@
     <div class="ship-panel">
         <div v-if="! loading" class="ship-panel-content">
             <p class="room">
-                {{ room.name }}
+                <span class="room-name">{{ room.name }}</span>
                 <Statuses :statuses="room.statuses" type="room" />
             </p>
             <PhaserShip
@@ -39,13 +39,12 @@ import MiniMap from "@/components/Game/Ship/MiniMap.vue";
 import RoomInventoryPanel from "@/components/Game/Ship/RoomInventoryPanel.vue";
 import Statuses from "@/components/Utils/Statuses.vue";
 import TextualInterface from "@/components/Game/Ship/TextualInterface.vue";
-import { PhaserRooms, Room } from "@/entities/Room";
+import { Room } from "@/entities/Room";
 import { Player } from "@/entities/Player";
 import { mapActions, mapState, mapGetters } from "vuex";
 import PhaserShip from "@/components/Game/Ship/PhaserShip.vue";
 import { defineComponent } from "vue";
 import { Action } from "@/entities/Action";
-import { Equipment } from "@/entities/Equipment";
 import SpaceBattleView from "@/components/Game/SpaceBattleView.vue";
 import { player } from "@/store/player.module";
 import { Hunter } from "@/entities/Hunter";
@@ -129,6 +128,15 @@ export default defineComponent ({
         font-family: $font-pixel-square;
         font-size: 10px;
         font-weight: 700;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        display: flex;
+
+        .room-name {
+            padding-right: 2px;
+        }
+
     }
 }
 

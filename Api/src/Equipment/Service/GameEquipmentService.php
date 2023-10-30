@@ -25,6 +25,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -289,12 +290,15 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a document');
         }
 
-        $this->statusService->createStatusFromName(
+        /** @var ContentStatus $status */
+        $status = $this->statusService->createStatusFromName(
             EquipmentStatusEnum::DOCUMENT_CONTENT,
             $gameEquipment,
             [EquipmentEvent::EQUIPMENT_CREATED],
             new \DateTime()
         );
+
+        $status->setContent($document->getContent());
 
         return $gameEquipment;
     }

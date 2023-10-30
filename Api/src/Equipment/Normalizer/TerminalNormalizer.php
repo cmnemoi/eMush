@@ -116,13 +116,15 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
     {
         $titles = [];
         $terminalKey = $terminal->getName();
-        foreach (EquipmentEnum::$terminalSectionTitlesMap[$terminalKey] as $sectionKey) {
-            $titles[$sectionKey] = $this->translationService->translate(
-                $terminalKey . '.' . $sectionKey,
-                [],
-                'terminal',
-                $terminal->getDaedalus()->getLanguage(),
-            );
+        if (array_key_exists($terminalKey, EquipmentEnum::$terminalSectionTitlesMap)) {
+            foreach (EquipmentEnum::$terminalSectionTitlesMap[$terminalKey] as $sectionKey) {
+                $titles[$sectionKey] = $this->translationService->translate(
+                    $terminalKey . '.' . $sectionKey,
+                    [],
+                    'terminal',
+                    $terminal->getDaedalus()->getLanguage(),
+                );
+            }
         }
 
         return $titles;

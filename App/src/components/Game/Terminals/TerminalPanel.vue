@@ -5,6 +5,7 @@
             <TerminalTips :content="player.terminal.tips" />
             <AstroTerminal v-if="player.isFocusedOnTerminal(TerminalEnum.ASTRO_TERMINAL)" :terminal="player.terminal" />
             <CommandTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.COMMAND_TERMINAL)" :terminal="player.terminal" />
+            <BlockOfPostItTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.BLOCK_OF_POST_IT)" :terminal="player.terminal" />
         </div>
         <TerminalExitButton :terminal="player.terminal" />
     </div>
@@ -15,6 +16,7 @@ import TerminalTips from "@/components/Game/Terminals/TerminalTips.vue";
 import TerminalExitButton from "@/components/Game/Terminals/TerminalExitButton.vue";
 import AstroTerminal from "@/components/Game/Terminals/AstroTerminal.vue";
 import CommandTerminal from "@/components/Game/Terminals/CommandTerminal.vue";
+import BlockOfPostItTerminal from "@/components/Game/Terminals/BlockOfPostItTerminal.vue";
 import { defineComponent } from "vue";
 import { TerminalEnum } from "@/enums/terminal.enum";
 import { Player } from "@/entities/Player";
@@ -25,7 +27,8 @@ export default defineComponent ({
         TerminalTips,
         TerminalExitButton,
         AstroTerminal,
-        CommandTerminal
+        CommandTerminal,
+        BlockOfPostItTerminal
     },
     props: {
         player: {

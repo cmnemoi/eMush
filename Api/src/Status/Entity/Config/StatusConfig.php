@@ -14,6 +14,7 @@ use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 #[ORM\DiscriminatorMap([
     'status_config' => StatusConfig::class,
     'charge_status_config' => ChargeStatusConfig::class,
+    'content_status_config' => ContentStatusConfig::class,
 ])]
 class StatusConfig
 {

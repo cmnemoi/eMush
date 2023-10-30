@@ -20,7 +20,9 @@ use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\ContentStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -154,6 +156,8 @@ class StatusService implements StatusServiceInterface
         // Create the entity
         if ($statusConfig instanceof ChargeStatusConfig) {
             $status = new ChargeStatus($holder, $statusConfig);
+        } elseif ($statusConfig instanceof ContentStatusConfig) {
+            $status = new ContentStatus($holder, $statusConfig);
         } else {
             $status = new Status($holder, $statusConfig);
         }

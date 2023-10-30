@@ -12,6 +12,7 @@ abstract class ActionResult
     private ?GameEquipment $equipment = null;
     private ?int $quantity = null;
     private string $visibility = VisibilityEnum::HIDDEN;
+    private ?string $content = null;
 
     public function setEquipment(GameEquipment $equipment): self
     {
@@ -52,5 +53,17 @@ abstract class ActionResult
     public function getVisibility(): string
     {
         return $this->visibility;
+    }
+
+    public function setContent(string|null $content): self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
     }
 }

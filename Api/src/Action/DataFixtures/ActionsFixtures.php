@@ -49,7 +49,8 @@ class ActionsFixtures extends Fixture
     public const SELF_HEAL = 'self.heal';
     public const HEAL_ULTRA = 'heal.ultra';
     public const COMFORT_DEFAULT = 'comfort.default';
-    public const WRITE_DEFAULT = 'write.default';
+    public const WRITE = 'write';
+    public const SHRED = 'shred';
     public const GAG_DEFAULT = 'gag.default';
     public const UNGAG_DEFAULT = 'ungag.default';
     public const HYPERFREEZE_DEFAULT = 'hyperfreeze.default';
@@ -412,10 +413,19 @@ class ActionsFixtures extends Fixture
         $writeAction
             ->setName(ActionEnum::WRITE)
             ->setActionName(ActionEnum::WRITE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setScope(ActionScopeEnum::TERMINAL)
         ;
 
         $manager->persist($writeAction);
+
+        $shredAction = new Action();
+        $shredAction
+            ->setName(ActionEnum::SHRED)
+            ->setActionName(ActionEnum::SHRED)
+            ->setScope(ActionScopeEnum::CURRENT)
+        ;
+
+        $manager->persist($shredAction);
 
         $hyperfreezeAction = new Action();
         $hyperfreezeAction
@@ -1082,7 +1092,8 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::SELF_HEAL, $selfHealAction);
         $this->addReference(self::HEAL_ULTRA, $ultraHealAction);
         $this->addReference(self::COMFORT_DEFAULT, $comfortAction);
-        $this->addReference(self::WRITE_DEFAULT, $writeAction);
+        $this->addReference(self::WRITE, $writeAction);
+        $this->addReference(self::SHRED, $shredAction);
         $this->addReference(self::HYPERFREEZE_DEFAULT, $hyperfreezeAction);
         $this->addReference(self::GAG_DEFAULT, $gagAction);
         $this->addReference(self::UNGAG_DEFAULT, $ungagAction);

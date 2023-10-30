@@ -52,7 +52,6 @@ class ActionEnum
     public const HYPERFREEZE = 'hyperfreeze';
     public const EXPRESS_COOK = 'express_cook';
     public const STRENGTHEN_HULL = 'strengthen_hull';
-    public const WRITE = 'write';
     public const PUBLIC_BROADCAST = 'public_broadcast';
     public const ULTRAHEAL = 'ultraheal';
     public const CURE = 'cure';
@@ -163,6 +162,7 @@ class ActionEnum
     public const TURN_DAEDALUS_RIGHT = 'turn_daedalus_right';
     public const DELETE_PLANET = 'delete_planet';
     public const LEAVE_ORBIT = 'leave_orbit';
+    public const WRITE = 'write';
 
     public static function getPermanentItemActions(): array
     {

@@ -46,6 +46,7 @@ class ActionLogEnum
     public const ENTER_ROOM = 'enter_room';
     public const READ_BOOK = 'read_book';
     public const READ_DOCUMENT = 'read_document';
+    public const READ_CONTENT = 'read_content';
     public const REPAIR_SUCCESS = 'repair_success';
     public const REPAIR_FAIL = 'repair_fail';
     public const SABOTAGE_SUCCESS = 'sabotage_success';
@@ -67,7 +68,6 @@ class ActionLogEnum
     public const UNGAG_SUCCESS = 'ungag_success';
     public const SELF_HEAL = 'self_heal';
     public const WATER_PLANT_SUCCESS = 'water_plant_success';
-    public const WRITE_SUCCESS = 'write_success';
     public const OPEN_SUCCESS = 'open_success';
     public const INSTALL_CAMERA = 'install_camera';
     public const REMOVE_CAMERA = 'remove_camera';
@@ -199,9 +199,6 @@ class ActionLogEnum
         ],
         ActionEnum::EXPRESS_COOK => [
             ActionOutputEnum::SUCCESS => self::COOK_SUCCESS,
-        ],
-        ActionEnum::WRITE => [
-            ActionOutputEnum::SUCCESS => self::WRITE_SUCCESS,
         ],
         ActionEnum::INSERT_OXYGEN => [
             ActionOutputEnum::SUCCESS => self::INSERT_OXYGEN,

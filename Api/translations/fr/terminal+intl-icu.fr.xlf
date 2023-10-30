@@ -85,5 +85,15 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <target>*En orbite !*</target>
       </segment>
     </unit>
+    <unit id="block_of_post_it">
+      <segment id="name" state="translated">
+        <source>block_of_post_it.name</source>
+        <target>Bloc de pense-bêtes</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>block_of_post_it.tips</source>
+        <target></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

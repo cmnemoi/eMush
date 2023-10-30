@@ -11,6 +11,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Entity\ContentStatus;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class ReadDocument extends AbstractAction
@@ -30,7 +32,18 @@ class ReadDocument extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        return new Success();
+        $success = new Success();
+
+        /** @var GameItem $target */
+        $target = $this->target;
+
+        if ($target->hasStatus(EquipmentStatusEnum::DOCUMENT_CONTENT)) {
+            /** @var ContentStatus $status */
+            $status = $target->getStatusByName(EquipmentStatusEnum::DOCUMENT_CONTENT);
+            $success->setContent($status->getContent());
+        }
+
+        return $success;
     }
 
     protected function applyEffect(ActionResult $result): void

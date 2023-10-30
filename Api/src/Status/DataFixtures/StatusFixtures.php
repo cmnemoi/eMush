@@ -12,6 +12,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Status\Entity\Config\ContentStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -170,7 +171,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($plantDiseased);
 
-        $documentContent = new StatusConfig();
+        $documentContent = new ContentStatusConfig();
         $documentContent
             ->setStatusName(EquipmentStatusEnum::DOCUMENT_CONTENT)
             ->setVisibility(VisibilityEnum::HIDDEN)

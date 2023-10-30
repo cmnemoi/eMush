@@ -257,6 +257,12 @@
         <target>**{character}** se plonge dans un document avec un air intrigué...</target>
       </segment>
     </unit>
+    <unit id="read_content">
+      <segment id="read_content" state="translated">
+        <source>read_content</source>
+        <target>{content}</target>
+      </segment>
+    </unit>
     <unit id="repair_fail">
       <segment id="repair_fail" state="translated">
         <source>repair_fail</source>
@@ -559,12 +565,6 @@
       <segment id="water_plant_success" state="translated">
         <source>water_plant_success</source>
         <target>Vous arrosez les plantes avec amour.</target>
-      </segment>
-    </unit>
-    <unit id="write_success">
-      <segment id="write_success" state="translated">
-        <source>write_success</source>
-        <target>TODO: write success.</target>
       </segment>
     </unit>
     <unit id="insert_oxygen">

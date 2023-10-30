@@ -39,6 +39,7 @@ use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Place\ConfigData\PlaceConfigDataLoader;
 use Mush\Player\ConfigData\CharacterConfigDataLoader;
 use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
+use Mush\Status\ConfigData\ContentStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigDataLoader;
 
 class ConfigDataLoaderService
@@ -52,6 +53,7 @@ class ConfigDataLoaderService
         DirectModifierConfigDataLoader $directModifierConfigDataLoader,
         VariableEventConfigDataLoader $variableEventConfigDataLoader,
         ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader,
+        ContentStatusConfigDataLoader $contentStatusConfigDataLoader,
         StatusConfigDataLoader $statusConfigDataLoader,
         DiseaseConfigDataLoader $diseaseConfigDataLoader,
         ActionDataLoader $actionDataLoader,
@@ -93,6 +95,7 @@ class ConfigDataLoaderService
                 $triggerEventModifierConfigDataLoader,
                 $directModifierConfigDataLoader,
                 $chargeStatusConfigDataLoader,
+                $contentStatusConfigDataLoader,
                 $statusConfigDataLoader,
                 $diseaseConfigDataLoader,
                 $actionDataLoader,

@@ -19,6 +19,9 @@ use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Status\Entity\Config\ContentStatusConfig;
+use Mush\Status\Entity\ContentStatus;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -188,6 +191,20 @@ class GameEquipmentServiceTest extends TestCase
             ->setMechanics(new ArrayCollection([$documentMechanic]))
         ;
 
+        $gameEquipment = new GameItem($place);
+        $gameEquipment
+            ->setName('some document')
+            ->setEquipment($itemConfig)
+        ;
+
+        $statusConfig = new ContentStatusConfig();
+        $statusConfig
+            ->setStatusName(EquipmentStatusEnum::DOCUMENT_CONTENT)
+        ;
+
+        $status = new ContentStatus($gameEquipment, $statusConfig);
+        $status->setContent($documentMechanic->getContent());
+
         $this->entityManager
             ->shouldReceive('persist')
             ->once()
@@ -196,11 +213,11 @@ class GameEquipmentServiceTest extends TestCase
             ->shouldReceive('flush')
             ->once()
         ;
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->statusService
-            ->shouldReceive('createStatusFromName')->once()
+            ->shouldReceive('createStatusFromName')->andReturn($status)->once()
         ;
-        $this->eventService->shouldReceive('callEvent')->once();
 
         $gameItem = $this->service->createGameEquipment(
             $itemConfig,

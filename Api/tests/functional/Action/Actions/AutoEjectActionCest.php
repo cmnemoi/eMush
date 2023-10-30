@@ -23,6 +23,8 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -31,6 +33,7 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
     private AutoEject $autoEjectAction;
     private Action $actionConfig;
     private GameEquipment $pasiphae;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
@@ -46,6 +49,15 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $I->haveInRepository($this->pasiphae);
 
         $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
+
+        // given player is Mush
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::MUSH,
+            $this->player1,
+            [],
+            new \DateTime()
+        );
 
         $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::AUTO_EJECT]);
 
@@ -97,6 +109,32 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $brokenStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
         $brokenStatus = new Status($spaceSuit, $brokenStatusConfig);
         $I->haveInRepository($brokenStatus);
+
+        // when we load the auto eject action
+        $this->autoEjectAction->loadParameters($this->actionConfig, $this->player1, $this->pasiphae);
+
+        // then player should not see the action
+        $I->assertFalse($this->autoEjectAction->isVisible());
+    }
+
+    public function testAutoEjectNotAvailableIfPlayerIsNotMush(FunctionalTester $I): void
+    {
+        // given player is not Mush
+        $this->statusService->removeStatus(
+            PlayerStatusEnum::MUSH,
+            $this->player1,
+            [],
+            new \DateTime()
+        );
+
+        // given a player having a space suit in their inventory
+        $spaceSuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
+        $spaceSuit = new GameItem($this->player1);
+        $spaceSuit
+            ->setName(GearItemEnum::SPACESUIT)
+            ->setEquipment($spaceSuitConfig)
+        ;
+        $I->haveInRepository($spaceSuit);
 
         // when we load the auto eject action
         $this->autoEjectAction->loadParameters($this->actionConfig, $this->player1, $this->pasiphae);

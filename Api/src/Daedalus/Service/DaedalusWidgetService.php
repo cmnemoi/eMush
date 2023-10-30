@@ -7,6 +7,7 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
@@ -15,11 +16,14 @@ use Mush\Status\Enum\StatusEnum;
 class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 {
     private AlertServiceInterface $alertService;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
         AlertServiceInterface $alertService,
+        TranslationServiceInterface $translationService
     ) {
         $this->alertService = $alertService;
+        $this->translationService = $translationService;
     }
 
     public function getMinimap(Daedalus $daedalus, Player $player): array
@@ -36,6 +40,8 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
             return $minimap;
         }
 
+        $language = $daedalus->getLanguage();
+
         foreach ($daedalus->getRooms() as $room) {
             $roomName = $room->getName();
 
@@ -51,13 +57,15 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
             }
 
             $minimap[$roomName] = [
+                'id' => $room->getId(),
+                'key' => $roomName,
                 'players_count' => $room->getPlayers()->getPlayerAlive()->count(),
                 'actopi' => [],
                 'fire' => $this->isFireDisplayed($room),
                 'broken_count' => count($brokenEquipmentsList) + count($brokenDoorsList),
                 'broken_doors' => $brokenDoorsList,
                 'broken_equipments' => $brokenEquipmentsList,
-                'name' => $roomName,
+                'name' => $this->translationService->translate($roomName . '.name', [], 'rooms', $language),
                 // 'broken_doors' => $doorsProject ? $brokenDoorsList : [],
                 // 'broken_equipments' => $equipmentsProject ? $brokenEquipmentsList : [],
             ];

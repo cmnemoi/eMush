@@ -5,13 +5,17 @@ export class Minimap {
     public broken_equipments: Array<string> = [];
     public fire = false;
     public players_count = 0;
-    public name: string;
+    public name?: string;
+    public id?: number;
+    public key: string;
 
     constructor() {
-        this.name = 'undefined';
+        this.key = 'undefined';
     }
     load(object : any) : Minimap {
         if (typeof object !== "undefined") {
+            this.id = object.id;
+            this.key = object.key;
             this.name = object.name;
             this.actopi = object.actopi;
             this.broken_count = object.broken_count;
@@ -28,6 +32,8 @@ export class Minimap {
     decode(jsonString: string): Minimap {
         if (jsonString) {
             const object = JSON.parse(jsonString);
+            this.id = object.id;
+            this.key = object.key;
             this.name = object.name;
             this.actopi = object.actopi;
             this.broken_count = object.broken_count;

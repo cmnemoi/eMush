@@ -7,7 +7,7 @@ import { Door as DoorEntity } from "@/entities/Door";
 import InteractObject from "@/game/objects/interactObject";
 
 
-//this shape is a polygon (in cartesian coordinates) that fit an rectangle in isometric frame
+//this shape is a polygon (in cartesian coordinates) that fit a rectangle in isometric frame
 //it takes isometric coordinates of the center of the rectangle and its shape {width, height} in isometric coordinates
 export default class IsometricGeom extends Phaser.Geom.Polygon implements Phaser.Types.GameObjects.Particles.RandomZoneSource {
     private iso_size : IsometricCoordinates;
@@ -40,7 +40,6 @@ export default class IsometricGeom extends Phaser.Geom.Polygon implements Phaser
         });
     }
 
-    //@ts-ignore
     getRandomPoint(point: Phaser.Geom.Point): Phaser.Geom.Point
     {
         const rand_Iso = new IsometricCoordinates(

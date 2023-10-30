@@ -7,6 +7,7 @@ use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -59,6 +60,8 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             $planet = $this->normalizer->normalize($planet);
         }
 
+        $attackingHunters = $daedalus->getAttackingHunters()->count();
+
         return [
                 'id' => $object->getId(),
                 'game_config' => $object->getGameConfig()->getId(),
@@ -102,6 +105,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
                     ), ],
                 'inOrbitPlanet' => $planet,
                 'isDaedalusTravelling' => $daedalus->hasStatus(DaedalusStatusEnum::TRAVELING),
+                'attackingHunters' => $attackingHunters
             ];
     }
 

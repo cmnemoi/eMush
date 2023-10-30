@@ -9,7 +9,7 @@
                         <p v-html="formatAlert(alerts[0].description)"/>
                     </template>
                 </Tippy>
-                <span v-else>{{ $t('alerts') }}</span>
+                <span v-else>{{ alerts[0].prefix }}</span>
                 <Tippy v-for="(alert, key) in alertsDisplayed" :key="key">
                     <img
                         :src="alertIcon(alert)"

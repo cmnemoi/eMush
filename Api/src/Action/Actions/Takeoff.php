@@ -22,7 +22,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -35,7 +34,6 @@ final class Takeoff extends AbstractAction
     protected string $name = ActionEnum::TAKEOFF;
 
     private PlayerServiceInterface $playerService;
-    private PlaceServiceInterface $placeService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
@@ -43,7 +41,6 @@ final class Takeoff extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        PlaceServiceInterface $placeService,
         RandomServiceInterface $randomService,
     ) {
         parent::__construct(
@@ -53,7 +50,6 @@ final class Takeoff extends AbstractAction
         );
 
         $this->playerService = $playerService;
-        $this->placeService = $placeService;
         $this->randomService = $randomService;
     }
 

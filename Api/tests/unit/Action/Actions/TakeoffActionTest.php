@@ -13,15 +13,12 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 
 class TakeoffActionTest extends AbstractActionTest
 {
     /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var PlaceServiceInterface|Mockery\Mock */
-    private PlaceServiceInterface $placeService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
@@ -36,7 +33,6 @@ class TakeoffActionTest extends AbstractActionTest
         $this->actionEntity->setCriticalRate(20);
 
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
-        $this->placeService = \Mockery::mock(PlaceServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->action = new Takeoff(
@@ -44,7 +40,6 @@ class TakeoffActionTest extends AbstractActionTest
             $this->actionService,
             $this->validator,
             $this->playerService,
-            $this->placeService,
             $this->randomService
         );
     }

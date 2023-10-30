@@ -554,7 +554,7 @@
                         </g>
                     </g>
                     <g id="Alpha-Bay1" serif:id="Alpha Bay">
-                        <g id="Patrol-Ship-3" serif:id="Patrol Ship 3" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_longane')}">
+                        <g id="Patrol-Ship-3" serif:id="Patrol Ship 3" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_tamarin')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -565,7 +565,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M102.958,1l10,0" />
                         </g>
-                        <g id="Patrol-Ship-2" serif:id="Patrol Ship 2" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_tamarin')}">
+                        <g id="Patrol-Ship-2" serif:id="Patrol Ship 2" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_longane')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"

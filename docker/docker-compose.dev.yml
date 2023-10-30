@@ -18,8 +18,8 @@ services:
 
   mush_front:
     ports:
-      - "80:8080"
-      - "8000:8000"  # only needed if using vue-cli UI
+      - 80:8080
+      - 8000:8000  # only needed if using vue-cli UI
     build:
       args:
         - UID=1000
@@ -27,7 +27,7 @@ services:
 
   eternal_twin:
     ports:
-      - "50320:50320"
+      - 50320:50320
     build:
       args:
         - UID=1000

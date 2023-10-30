@@ -1593,7 +1593,7 @@ class ActionData
             'scope' => 'self',
             'visibilities' => ['success' => 'hidden', 'fail' => 'hidden'],
             'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
-            'movementPoint' => ['value' => -2, 'min_value' => null, 'max_value' => 0],
+            'movementPoint' => ['value' => -3, 'min_value' => null, 'max_value' => 0],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],

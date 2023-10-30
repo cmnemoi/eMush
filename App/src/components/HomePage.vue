@@ -19,7 +19,7 @@
                 Sorry, your browser doesn't support embedded videos.
             </video>
         </section>
-        <section>
+        <section class="incentive">
             <div class="box-container" id="play-container">
                 <p v-html="$t('homePage.synopsis')" />
                 <router-link v-if="loggedIn" class="start" :to="{ name: 'GamePage' }">
@@ -29,7 +29,6 @@
                     {{ $t('homePage.joinUs') }}
                 </button>
             </div>
-            <!-- CARROUSEL TEMPLATE
             <div 
                 class="box-container"
                 id="carrousel-container"
@@ -53,12 +52,10 @@
                     <img class="previous" src="@/assets/images/blue-arrow.png" @click="move(1)">
                 </div>
             </div>
-            -->
         </section>
         <section>
             <NewsPage />
         </section>
-        <!-- MEDIAs TEMPLATE
         <section class="medias">
             <h3>Ils n'ont pas trouvé ça mush :</h3>
             <div class="reviews">
@@ -112,7 +109,6 @@
                 <img class="pegi" src="@/assets/images/medias/pegi.png">
             </div>
         </section>
-        -->
     </div>
 </template>
 
@@ -206,6 +202,8 @@ section {
 
 .homepage-container {
     align-items: center;
+    max-width: 1080px;
+    margin: 0 auto;
 
     .box-container {
         margin-bottom: 0;
@@ -218,6 +216,7 @@ section {
         video {
             border: 1px solid #26378c;
             box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.5);
+            width: 100%;
         }
     }
 
@@ -331,7 +330,7 @@ section {
 
     .character-description {
         width: 40%;
-        min-width: 180px;
+        flex: 1;
     }
 
     h4 {
@@ -370,7 +369,7 @@ section {
     margin-top: 2em;
 
     .reviews {
-        columns: 4 auto;
+        columns: 180px auto;
         display: block;
         gap: 1.5em 2.2em;
 
@@ -449,15 +448,38 @@ section {
 
 
 
-@media screen and (min-width: 950px) {
+@media screen and (max-width: $breakpoint-desktop-m) {
+  
 
-
-  .homepage-container {
-      max-width: 1080px;
-      margin: 0 auto
+  section {
+    max-width: 92%;
   }
 
-  // TODO : display .daedalus-container and .award-container on desktop
+  .decorative { gap: 8%; }
+
+  .incentive {
+    flex-direction: column;
+    gap: 0;
+    }
+
+    .medias .reviews {
+        gap: 1.2em 1.4em;
+    }
+    .weblinks {
+        flex-direction: column;
+        gap: 0.8em;
+
+        .pegi { margin-top: 0.8em; }
+    }
+
+    // TODO : adjust pagination on mobile
+}
+
+@media screen and (max-width: $breakpoint-mobile-l) {
+
+    .decorative { flex-direction: column-reverse; }
+
+    .medias .reviews { column-count: 1; }
 }
 
 </style>

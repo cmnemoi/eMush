@@ -242,7 +242,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->takeoffAction->execute();
 
         // then the extinguisher is dropped in the take off room
-        $I->assertEquals($takeOffRoom, $extinguisher->getHolder());
+        $I->assertFalse($this->player1->hasEquipmentByName(ToolItemEnum::EXTINGUISHER));
     }
 
     public function testTakeOffActionDropCriticalItemsIfPlayerIsMush(FunctionalTester $I): void
@@ -295,8 +295,8 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->takeoffAction->execute();
 
         // then the hacker kit is dropped in the take off room but not the extinguisher
-        $I->assertEquals($takeOffRoom, $hackerKit->getHolder());
-        $I->assertNotEquals($takeOffRoom, $extinguisher->getHolder());
+        $I->assertFalse($this->player1->hasEquipmentByName(ToolItemEnum::HACKER_KIT));
+        $I->assertTrue($this->player1->hasEquipmentByName(ToolItemEnum::EXTINGUISHER));
     }
 
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void

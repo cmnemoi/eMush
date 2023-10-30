@@ -107,6 +107,7 @@ class EquipmentEnum
             ToolItemEnum::MEDIKIT,
             GearItemEnum::SOAP,
             GearItemEnum::SUPER_SOAPER,
+            ItemEnum::STARMAP_FRAGMENT,
         ]);
 
         return new ArrayCollection($criticalItems);

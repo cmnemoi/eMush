@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AvailableScrapToCollect;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\IsPasiphaeDestroyed;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
@@ -73,6 +74,7 @@ final class CollectScrap extends AbstractAction
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
         $metadata->addConstraint(new AvailableScrapToCollect(['groups' => ['visibility']]));
         $metadata->addConstraint(new PlaceType(['type' => PlaceTypeEnum::PATROL_SHIP, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new IsPasiphaeDestroyed(['groups' => ['visibility']]));
     }
 
     protected function checkResult(): ActionResult

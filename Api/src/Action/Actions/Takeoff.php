@@ -14,6 +14,7 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
@@ -21,7 +22,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -34,7 +34,6 @@ final class Takeoff extends AbstractAction
     protected string $name = ActionEnum::TAKEOFF;
 
     private PlayerServiceInterface $playerService;
-    private PlaceServiceInterface $placeService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
@@ -42,7 +41,6 @@ final class Takeoff extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService,
-        PlaceServiceInterface $placeService,
         RandomServiceInterface $randomService,
     ) {
         parent::__construct(
@@ -52,7 +50,6 @@ final class Takeoff extends AbstractAction
         );
 
         $this->playerService = $playerService;
-        $this->placeService = $placeService;
         $this->randomService = $randomService;
     }
 
@@ -89,10 +86,12 @@ final class Takeoff extends AbstractAction
         /** @var GameEquipment $patrolship */
         $patrolship = $this->target;
 
-        $patrolshipRoom = $this->placeService->findByNameAndDaedalus($patrolship->getName(), $this->player->getDaedalus());
+        $patrolshipRoom = $this->player->getDaedalus()->getPlaceByName($patrolship->getName());
         if ($patrolshipRoom === null) {
             throw new \RuntimeException('Patrol ship room not found');
         }
+
+        $this->dropCriticalItems();
 
         // @TODO: use PlayerService::changePlace instead.
         // /!\ You need to delete all treatments in Modifier::ActionSubscriber before! /!\
@@ -108,5 +107,23 @@ final class Takeoff extends AbstractAction
             time: new \DateTime(),
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+    }
+
+    private function dropCriticalItems(): void
+    {
+        /** @var GameEquipment $equipment */
+        foreach ($this->player->getEquipments() as $equipment) {
+            if (EquipmentEnum::getCriticalItemsGivenPlayer($this->player)->contains($equipment->getName())) {
+                $equipmentEvent = new MoveEquipmentEvent(
+                    equipment: $equipment,
+                    newHolder: $this->player->getPlace(),
+                    author: $this->player,
+                    visibility: VisibilityEnum::HIDDEN,
+                    tags: $this->getAction()->getActionTags(),
+                    time: new \DateTime(),
+                );
+                $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+            }
+        }
     }
 }

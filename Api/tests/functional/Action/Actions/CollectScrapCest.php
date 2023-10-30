@@ -14,6 +14,8 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -37,6 +39,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipment $pasiphae;
     private ChargeStatus $pasiphaeArmor;
+    private GameEquipment $patrolShip;
+    private ChargeStatus $patrolShipArmor;
     private Land $landAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
@@ -66,6 +70,19 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $this->pasiphaeArmor = new ChargeStatus($this->pasiphae, $pasiphaeArmorConfig);
 
+        /** @var EquipmentConfig $patrolShipConfig */
+        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN]);
+        $this->patrolShip = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
+        $this->patrolShip
+            ->setName(EquipmentEnum::PATROL_SHIP)
+            ->setEquipment($patrolShipConfig)
+        ;
+        $I->haveInRepository($this->patrolShip);
+
+        /** @var ChargeStatusConfig $patrolShipArmorConfig */
+        $patrolShipArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default']);
+        $this->patrolShipArmor = new ChargeStatus($this->patrolShip, $patrolShipArmorConfig);
+
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
@@ -75,6 +92,59 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $this->collectScrapAction->loadParameters($this->collectScrapActionConfig, $this->player1, $this->pasiphae);
 
         $I->assertFalse($this->collectScrapAction->isVisible());
+    }
+
+    public function testCollectScrapActionNotVisibleInPatrolShipIfPasiphaeIsStillLiving(FunctionalTester $I): void
+    {
+        // given there is some scrap in space
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::METAL_SCRAPS,
+            equipmentHolder: $this->daedalus->getSpace(),
+            reasons: ['test'],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::HIDDEN
+        );
+
+        // given player is in a patrol ship
+        $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
+
+        // when player tries to collect scrap
+        $this->collectScrapAction->loadParameters($this->collectScrapActionConfig, $this->player1, $this->patrolShip);
+
+        // then collect scrap action should not be visible
+        $I->assertFalse($this->collectScrapAction->isVisible());
+    }
+
+    public function testCollectScrapActionVisibleInPatrolShipIfPasiphaeDestroyed(FunctionalTester $I): void
+    {
+        // given there is some scrap in space
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::METAL_SCRAPS,
+            equipmentHolder: $this->daedalus->getSpace(),
+            reasons: ['test'],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::HIDDEN
+        );
+
+        // given player is in a patrol ship
+        $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
+
+        // given Pasiphae is destroyed
+        $interactEvent = new InteractWithEquipmentEvent(
+            $this->pasiphae,
+            null,
+            VisibilityEnum::HIDDEN,
+            ['test'],
+            new \DateTime()
+        );
+
+        $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+
+        // when player tries to collect scrap
+        $this->collectScrapAction->loadParameters($this->collectScrapActionConfig, $this->player1, $this->patrolShip);
+
+        // then collect scrap action should be visible
+        $I->assertTrue($this->collectScrapAction->isVisible());
     }
 
     public function testCollectScrapActionSuccess(FunctionalTester $I): void
@@ -297,6 +367,15 @@ final class CollectScrapCest extends AbstractFunctionalTest
             ->setDaedalus($daedalus)
         ;
         $I->haveInRepository($alphaBay2);
+
+        $patrolShipRoomConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::PATROL_SHIP_ALPHA_TAMARIN]);
+        $patrolShipRoom = new Place();
+        $patrolShipRoom
+            ->setName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN)
+            ->setType($patrolShipRoomConfig->getType())
+            ->setDaedalus($daedalus)
+        ;
+        $I->haveInRepository($patrolShipRoom);
 
         $I->refreshEntities($daedalus);
     }

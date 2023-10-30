@@ -1,5 +1,6 @@
 export class Alert {
     public key!: string;
+    public prefix!: string;
     public name: string|null;
     public description: string|null;
     public reports: Array<string>;
@@ -12,6 +13,7 @@ export class Alert {
     load(object : any) : Alert {
         if (typeof object !== "undefined") {
             this.key = object.key;
+            this.prefix = object.prefix;
             this.name = object.name;
             this.description = object.description;
             if (typeof object.reports !== 'undefined') {
@@ -27,6 +29,7 @@ export class Alert {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.key = object.key;
+            this.prefix = object.prefix;
             this.name = object.name;
             this.description = object.description;
         }

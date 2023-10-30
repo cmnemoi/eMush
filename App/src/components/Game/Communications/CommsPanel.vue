@@ -19,7 +19,7 @@
                 <p v-html="formatContent(calendar.description)" />
             </template>
         </Tippy>
-        <component :is="currentTabComponent" :channel="currentChannel" />
+        <component :is="currentTabComponent" :channel="currentChannel" :calendar="calendar" />
     </div>
 </template>
 

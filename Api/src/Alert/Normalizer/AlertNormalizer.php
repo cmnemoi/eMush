@@ -34,6 +34,12 @@ class AlertNormalizer implements NormalizerInterface
         $key = $alert->getName();
 
         $normalizedAlert = [
+            'prefix' => $this->translationService->translate(
+                'alerts',
+                [],
+                'alerts',
+                $language
+            ),
             'key' => $key,
         ];
 

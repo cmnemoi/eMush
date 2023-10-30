@@ -145,5 +145,11 @@
         <target>Pas d'alertes en cours : l'équipage peut être tranquille.</target>
       </segment>
     </unit>
+    <unit id="alerts">
+      <segment id="alerts" state="final">
+        <source>alerts</source>
+        <target>Alertes :</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

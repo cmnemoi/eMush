@@ -134,7 +134,7 @@ export default defineComponent ({
         display: flex;
 
         .room-name {
-            padding-right: 2px;
+            padding-right: 0.3em;
         }
 
     }

@@ -89,7 +89,7 @@ export default class EquipmentObject extends InteractObject {
 
     flyAnimation(): void
     {
-        var displacement =  Math.sin(Math.random() * 2 * Math.PI);
+        let displacement =  Math.sin(Math.random() * 2 * Math.PI);
 
         if (this.isShaking) {
             displacement =  Math.round(Math.sin(Math.random() * 2 * Math.PI) * 2);
@@ -107,20 +107,20 @@ export default class EquipmentObject extends InteractObject {
             this.x = (this.x + displacement);
 
             if (this.x > this.initCoordinates.x + 10) {
-                this.x = this.initCoordinates.x + 10
+                this.x = this.initCoordinates.x + 10;
             }
             if (this.x < this.initCoordinates.x - 10) {
-                this.x = this.initCoordinates.x - 10
+                this.x = this.initCoordinates.x - 10;
             }
 
         } else {
             this.y = (this.y + displacement);
 
             if (this.y > this.initCoordinates.y + 40) {
-                this.y = this.initCoordinates.y + 40
+                this.y = this.initCoordinates.y + 40;
             }
             if (this.y < this.initCoordinates.y - 5) {
-                this.y = this.initCoordinates.y - 5
+                this.y = this.initCoordinates.y - 5;
             }
         }
     }

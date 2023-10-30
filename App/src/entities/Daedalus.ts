@@ -39,7 +39,7 @@ export class Daedalus {
         this.minimap = null;
         this.inOrbitPlanet = null;
         this.isDaedalusTravelling = false;
-        this.attackingHunters = 0
+        this.attackingHunters = 0;
     }
     load(object :any): Daedalus {
         if (typeof object !== "undefined") {

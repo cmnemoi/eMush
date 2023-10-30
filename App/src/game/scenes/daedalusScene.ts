@@ -174,18 +174,16 @@ import DecorationObject from "@/game/objects/decorationObject";
 import DoorObject from "@/game/objects/doorObject";
 import DoorGroundObject from "@/game/objects/doorGroundObject";
 import { Door } from "@/entities/Door";
-import {da, hu, te} from "date-fns/locale";
 import DeathZone = Phaser.GameObjects.Particles.Zones.DeathZone;
-import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
-import {room} from "@/store/room.module";
+import {Planet} from "@/entities/Planet";
 
 
 export default class DaedalusScene extends Phaser.Scene
 {
     private characterSize = 6;
-    private isoTileSize: number;
+    private readonly isoTileSize: number;
     private sceneIsoSize: IsometricCoordinates;
-    private playerIsoSize: IsometricCoordinates;
+    private readonly playerIsoSize: IsometricCoordinates;
 
     public playerSprite! : PlayableCharacterObject;
 
@@ -454,8 +452,6 @@ export default class DaedalusScene extends Phaser.Scene
 
 
         if (this.room.key !== newRoom.key) {
-            console.log('coucou');
-
             this.room = newRoom;
 
             this.selectedGameObject = null;
@@ -523,7 +519,7 @@ export default class DaedalusScene extends Phaser.Scene
 
                 gameObject.updateEquipment(updatedEquipment);
                 
-                this.displayPatrolShipActions(updatedEquipment, room, gameObject);
+                this.displayPatrolShipActions(updatedEquipment, room);
 
             } else if (gameObject instanceof DoorObject || gameObject instanceof DoorGroundObject) {
                 const updatedDoor = room.doors.filter((door: Door) => (door.key === gameObject.door.key))[0];
@@ -533,7 +529,7 @@ export default class DaedalusScene extends Phaser.Scene
         }
     }
 
-    private displayPatrolShipActions(updatedEquipment: Equipment, playerRoom: Room, gameObject: EquipmentObject) {
+    private displayPatrolShipActions(updatedEquipment: Equipment, playerRoom: Room) {
         const equipmentIsAPatrolShip = updatedEquipment.key?.substring(0, 11) === 'patrol_ship' || updatedEquipment.key?.substring(0, 8) === 'pasiphae';
         const playerIsInAPatrolShip = playerRoom?.type === 'patrol_ship';
 
@@ -588,8 +584,7 @@ export default class DaedalusScene extends Phaser.Scene
 
             if (!addedPlayer.includes(player.character.key)) {
                 const otherPlayerCoordinates = this.navMeshGrid.getRandomPoint();
-
-                const newCharacter = new CharacterObject(
+                new CharacterObject(
                     this,
                     otherPlayerCoordinates,
                     new IsometricGeom(otherPlayerCoordinates.toIsometricCoordinates(), this.playerIsoSize),
@@ -624,11 +619,7 @@ export default class DaedalusScene extends Phaser.Scene
             }
         }
 
-
-        if (equipmentsToUpdate.length === updatedEquipment.length) {
-            return false;
-        }
-        return true;
+        return equipmentsToUpdate.length !== updatedEquipment.length;
     }
 
     createRoom(): MushTiledMap
@@ -689,8 +680,9 @@ export default class DaedalusScene extends Phaser.Scene
         }
 
         // add a planet in background if necessary
-        if (daedalus.inOrbitPlanet !== null) {
-            this.displayPlanet();
+        const planet = daedalus.inOrbitPlanet;
+        if (planet !== null) {
+            this.displayPlanet(planet);
         }
 
         // add stars in the background with a particle emitter
@@ -727,14 +719,15 @@ export default class DaedalusScene extends Phaser.Scene
         }
 
         //check if there is a planet in orbit
-        if (daedalus.inOrbitPlanet !== null) {
-            this.displayPlanet();
+        const planet = daedalus.inOrbitPlanet;
+        if (planet !== null) {
+            this.displayPlanet(planet);
         }
     }
 
-    displayPlanet(): void
+    displayPlanet(inOrbitPlanet: Planet): void
     {
-        const planetSprite = this.add.tileSprite(this.game.scale.gameSize.width-(268/2), this.game.scale.gameSize.height-(191/2), 268, 191, `planet_${daedalus.inOrbitPlanet.imageId}`);
+        const planetSprite = this.add.tileSprite(this.game.scale.gameSize.width-(268/2), this.game.scale.gameSize.height-(191/2), 268, 191, `planet_${inOrbitPlanet.imageId}`);
         planetSprite.setScrollFactor(0, 0);
         planetSprite.setDepth(3);
     }
@@ -742,7 +735,9 @@ export default class DaedalusScene extends Phaser.Scene
     createHunterParticles(): void
     {
         let displayedHunter = 0;
-        let hunterFrequency = 10000
+        let hunterFrequency = 10000;
+
+        this.hunterParticle?.destroy();
 
         if (this.attackingHunters === 0) {
             return;
@@ -768,29 +763,29 @@ export default class DaedalusScene extends Phaser.Scene
         );
 
 
-        let grpY = [];
-        let getNextY = () => {
+        const grpY = [];
+        const getNextY = () => {
             if(!grpY.length){
-                let center = minSpawnY + Math.random() * (maxSpawnY- minSpawnY);
-                grpY.push(center - 30, center, center + 30)
+                const center = minSpawnY + Math.random() * (maxSpawnY- minSpawnY);
+                grpY.push(center - 30, center, center + 30);
             }
-            return grpY.pop()
-        }
+            return grpY.pop();
+        };
 
-        let grpX = [];
-        let getNextX = () => {
+        const grpX = [];
+        const getNextX = () => {
             if(!grpX.length){
                 const formation = Math.random();
                 if (formation < 0.4) {
-                    grpX.push(gameSize.width + 10, gameSize.width + 40, gameSize.width + 70)
+                    grpX.push(gameSize.width + 10, gameSize.width + 40, gameSize.width + 70);
                 } else if (formation < 0.8) {
-                    grpX.push(gameSize.width + 60, gameSize.width + 110, gameSize.width + 10)
+                    grpX.push(gameSize.width + 60, gameSize.width + 110, gameSize.width + 10);
                 } else {
-                    grpX.push(gameSize.width + 10, gameSize.width + 10, gameSize.width + 10)
+                    grpX.push(gameSize.width + 10, gameSize.width + 10, gameSize.width + 10);
                 }
             }
-            return grpX.pop()
-        }
+            return grpX.pop();
+        };
 
         const hunterEmitter = this.add.particles(0,0, 'hunter', {
             x: getNextX,
@@ -798,16 +793,15 @@ export default class DaedalusScene extends Phaser.Scene
             lifespan: 2000,
             speed: 700,
             angle: hunterAngle,
-            quantity: {min: 1, max: displayedHunter},
+            quantity: { min: 1, max: displayedHunter },
             frequency: hunterFrequency,
             accelerationY: 2,
             accelerationX: 2,
         });
-        hunterEmitter.setDepth(3)
+        hunterEmitter.setDepth(3);
         hunterEmitter.addDeathZone(new DeathZone(gameLimits, false));
         hunterEmitter.setScrollFactor(0,0);
 
-        this.hunterParticle?.destroy();
         this.hunterParticle = hunterEmitter;
     }
 
@@ -821,7 +815,7 @@ export default class DaedalusScene extends Phaser.Scene
         let starFrequency = 2000;
         let starAngle = 30;
         let horizontalEmitArea = new Phaser.Geom.Line(0,0,gameSize.width, 0);
-        let verticalEmitArea = new Phaser.Geom.Line(0,0,0, gameSize.height);
+        const verticalEmitArea = new Phaser.Geom.Line(0,0,0, gameSize.height);
 
         if (this.player.room?.type === 'patrol_ship') {
             starAngle = -30;
@@ -835,7 +829,7 @@ export default class DaedalusScene extends Phaser.Scene
             starSpeed = 1000;
             starFrequency = 50;
         }
-        this.textures.generate('star_particles', {data: ['2']});
+        this.textures.generate('star_particles', { data: ['2'] });
 
         const gameLimits = new Phaser.Geom.Rectangle(
             -10, -10,
@@ -849,7 +843,7 @@ export default class DaedalusScene extends Phaser.Scene
             scale: { min: 1, max: 3 },
             quantity: 1,
             frequency: starFrequency,
-            emitZone: { type: 'random', source: verticalEmitArea},
+            emitZone: { type: 'random', source: verticalEmitArea },
         });
         topStarEmitter.setDepth(1);
         topStarEmitter.setScrollFactor(0, 0);
@@ -862,7 +856,7 @@ export default class DaedalusScene extends Phaser.Scene
             scale: { min: 1, max: 3 },
             quantity: 1,
             frequency: starFrequency,
-            emitZone: { type: 'random', source: horizontalEmitArea},
+            emitZone: { type: 'random', source: horizontalEmitArea },
         });
         leftStarEmitter.setDepth(1);
         leftStarEmitter.setScrollFactor(0,0);
@@ -890,20 +884,20 @@ export default class DaedalusScene extends Phaser.Scene
 
     deleteEquipmentsAndDecoration(): void
     {
-            const sceneGameObjects = this.children.list;
-            const room = this.player.room;
-            if (room === null) { throw new Error("player room should be defined");}
+        const sceneGameObjects = this.children.list;
+        const room = this.player.room;
+        if (room === null) { throw new Error("player room should be defined");}
 
-            for (let i=0; i < sceneGameObjects.length; i++) {
-                const gameObject = sceneGameObjects[i];
+        for (let i=0; i < sceneGameObjects.length; i++) {
+            const gameObject = sceneGameObjects[i];
 
-                if (gameObject instanceof DecorationObject &&
-                    !(gameObject instanceof CharacterObject))
-                {
-                    gameObject.delete();
-                    i = i-1;
-                }
+            if (gameObject instanceof DecorationObject &&
+                !(gameObject instanceof CharacterObject))
+            {
+                gameObject.delete();
+                i = i-1;
             }
+        }
     }
 
     deleteWallAndFloor(): void
@@ -1040,11 +1034,11 @@ export default class DaedalusScene extends Phaser.Scene
             for (let i=0; i < sceneGameObjects.length; i++) {
                 const gameObject = sceneGameObjects[i];
 
-                if (gameObject instanceof EquipmentObject &&
-                    (gameObject.equipment.key?.substring(0, 11) === 'patrol_ship' ||
-                        gameObject.equipment.key?.substring(0, 8) === 'pasiphae')
+                if (gameObject instanceof EquipmentObject && (
+                    gameObject.equipment.key?.substring(0, 11) === 'patrol_ship' ||
+                    gameObject.equipment.key?.substring(0, 8) === 'pasiphae')
                 ) {
-                   gameObject.update(time, delta);
+                    gameObject.update(time, delta);
                 }
             }
         }
@@ -1114,8 +1108,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.room.players.forEach((roomPlayer: Player) => {
             if (roomPlayer.id !== this.player.id) {
                 const otherPlayerCoordinates = this.navMeshGrid.getRandomPoint();
-
-                const newCharacter = new CharacterObject(
+                new CharacterObject(
                     this,
                     otherPlayerCoordinates,
                     new IsometricGeom(otherPlayerCoordinates.toIsometricCoordinates(), this.playerIsoSize),

@@ -20,7 +20,7 @@
                         y="73"
                         width="12"
                         height="12"
-                        @mouseenter="displayName($t('room.rearBravoTurret'))"
+                        @mouseenter="displayName('rear_bravo_turret')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('rear_bravo_turret')}"
                     />
@@ -28,7 +28,7 @@
                         id="Engine-Room"
                         serif:id="Engine Room"
                         d="M183,28.005l-2,1.241l0,5.553l2,1.242l0,7.941l-2,1.241l0,5.554l2,1.241l0,7.941l-2,1.242l0,5.553l2,1.241l0,5.005l-34,0l0,-50l34,0l0,5.005Z"
-                        @mouseenter="displayName($t('room.engineRoom'))"
+                        @mouseenter="displayName('engine_room')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('engine_room')}"
                     />
@@ -39,7 +39,7 @@
                         y="11"
                         width="12"
                         height="12"
-                        @mouseenter="displayName($t('room.rearAlphaTurret'))"
+                        @mouseenter="displayName('rear_alpha_turret')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('rear_alpha_turret')}"
                     />
@@ -50,7 +50,7 @@
                         y="73"
                         width="34"
                         height="22"
-                        @mouseenter="displayName($t('room.icarusBay'))"
+                        @mouseenter="displayName('icarus_bay')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('icarus_bay')}"
                     />
@@ -61,7 +61,7 @@
                         y="61"
                         width="24"
                         height="12"
-                        @mouseenter="displayName($t('room.rearBravoStorage'))"
+                        @mouseenter="displayName('rear_bravo_storage')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('rear_bravo_storage')}"
                     />
@@ -72,7 +72,7 @@
                         y="23"
                         width="24"
                         height="12"
-                        @mouseenter="displayName($t('room.rearAlphaStorage'))"
+                        @mouseenter="displayName('rear_alpha_storage')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('rear_alpha_storage')}"
                     />
@@ -83,7 +83,7 @@
                         y="23"
                         width="6"
                         height="60"
-                        @mouseenter="displayName($t('room.rearCorridor'))"
+                        @mouseenter="displayName('rear_corridor')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('rear_corridor')}"
                     />
@@ -94,7 +94,7 @@
                         y="1"
                         width="42"
                         height="22"
-                        @mouseenter="displayName($t('room.alphaBay2'))"
+                        @mouseenter="displayName('alpha_bay_2')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('alpha_bay_2')}"
                     />
@@ -102,7 +102,7 @@
                         id="Bravo-Dorm"
                         serif:id="Bravo Dorm"
                         d="M119,73l-20,0l0,-14l6,0l0,-4l14,0l0,18Z"
-                        @mouseenter="displayName($t('room.bravoDorm'))"
+                        @mouseenter="displayName('bravo_dorm')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('bravo_dorm')}"
                     />
@@ -112,7 +112,7 @@
                         y="41"
                         width="14"
                         height="14"
-                        @mouseenter="displayName($t('room.nexus'))"
+                        @mouseenter="displayName('nexus')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('nexus')}"
                     />
@@ -120,7 +120,7 @@
                         id="Alpha-Dorm"
                         serif:id="Alpha Dorm"
                         d="M119,23l-20,0l0,14l6,0l0,4l14,0l0,-18Z"
-                        @mouseenter="displayName($t('room.alphaDorm'))"
+                        @mouseenter="displayName('alpha_dorm')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('alpha_dorm')}"
                     />
@@ -131,7 +131,7 @@
                         y="59"
                         width="16"
                         height="14"
-                        @mouseenter="displayName($t('room.centerBravoStorage'))"
+                        @mouseenter="displayName('center_bravo_storage')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('center_bravo_storage')}"
                     />
@@ -141,7 +141,7 @@
                         y="37"
                         width="22"
                         height="22"
-                        @mouseenter="displayName($t('room.refectory'))"
+                        @mouseenter="displayName('refectory')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('refectory')}"
                     />
@@ -152,7 +152,7 @@
                         y="23"
                         width="16"
                         height="14"
-                        @mouseenter="displayName($t('room.centerAlphaStorage'))"
+                        @mouseenter="displayName('center_alpha_storage')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('center_alpha_storage')}"
                     />
@@ -163,7 +163,7 @@
                         y="73"
                         width="44"
                         height="22"
-                        @mouseenter="displayName($t('room.bravoBay'))"
+                        @mouseenter="displayName('bravo_bay')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('bravo_bay')}"
                     />
@@ -174,7 +174,7 @@
                         y="23"
                         width="6"
                         height="50"
-                        @mouseenter="displayName($t('room.centralCorridor'))"
+                        @mouseenter="displayName('central_corridor')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('central_corridor')}"
                     />
@@ -185,7 +185,7 @@
                         y="1"
                         width="42"
                         height="22"
-                        @mouseenter="displayName($t('room.alphaBay'))"
+                        @mouseenter="displayName('alpha_bay')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('alpha_bay')}"
                     />
@@ -196,7 +196,7 @@
                         y="73"
                         width="12"
                         height="12"
-                        @mouseenter="displayName($t('room.centreBravoTurret'))"
+                        @mouseenter="displayName('centre_bravo_turret')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('centre_bravo_turret')}"
                     />
@@ -206,7 +206,7 @@
                         y="51"
                         width="22"
                         height="22"
-                        @mouseenter="displayName($t('room.medlab'))"
+                        @mouseenter="displayName('medlab')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('medlab')}"
                     />
@@ -217,7 +217,7 @@
                         y="23"
                         width="22"
                         height="22"
-                        @mouseenter="displayName($t('room.frontStorage'))"
+                        @mouseenter="displayName('front_storage')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('front_storage')}"
                     />
@@ -228,7 +228,7 @@
                         y="11"
                         width="12"
                         height="12"
-                        @mouseenter="displayName($t('room.centreAlphaTurret'))"
+                        @mouseenter="displayName('centre_alpha_turret')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('centre_alpha_turret')}"
                     />
@@ -238,7 +238,7 @@
                         y="51"
                         width="22"
                         height="22"
-                        @mouseenter="displayName($t('room.laboratory'))"
+                        @mouseenter="displayName('laboratory')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('laboratory')}"
                     />
@@ -249,7 +249,7 @@
                         y="23"
                         width="22"
                         height="22"
-                        @mouseenter="displayName($t('room.hydroponicGarden'))"
+                        @mouseenter="displayName('hydroponic_garden')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('hydroponic_garden')}"
                     />
@@ -257,7 +257,7 @@
                         id="Front-Corridor"
                         serif:id="Front Corridor"
                         d="M33,71l-6,0l0,-46l6,0l0,20l44,0l0,6l-44,0l0,20Z"
-                        @mouseenter="displayName($t('room.frontCorridor'))"
+                        @mouseenter="displayName('front_corridor')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('front_corridor')}"
                     />
@@ -268,14 +268,14 @@
                         y="61"
                         width="12"
                         height="12"
-                        @mouseenter="displayName($t('room.frontBravoTurret'))"
+                        @mouseenter="displayName('front_bravo_turret')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('front_bravo_turret')}"
                     />
                     <path
                         id="Bridge"
                         d="M6,42.121l0,-7.121l21,0l0,26l-21,0l0,-7.121l-5,-3.102l0,-5.554l5,-3.102Z"
-                        @mouseenter="displayName($t('room.bridge'))"
+                        @mouseenter="displayName('bridge')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('bridge')}"
                     />
@@ -286,7 +286,7 @@
                         y="23"
                         width="12"
                         height="12"
-                        @mouseenter="displayName($t('room.frontAlphaTurret'))"
+                        @mouseenter="displayName('front_alpha_turret')"
                         @mouseleave="displayName('')"
                         :class="{fire: isFire('front_alpha_turret')}"
                     />
@@ -907,9 +907,6 @@ export default defineComponent ({
         };
     },
     methods: {
-        displayName(room: string): void {
-            this.roomName = room;
-        },
         displayMe(): void {
             const myCoord = RoomsEnum[this.myPosition?.key];
             this.me.left = myCoord.A.x + Math.round(Math.random() * (myCoord.B.x - 6 - myCoord.A.x) );
@@ -921,9 +918,9 @@ export default defineComponent ({
                 this.playersPoints = [];
                 const roomsWithPlayers = this.minimap.filter((room: Minimap) => room.players_count > 0);
                 roomsWithPlayers.forEach((room: Minimap) => {
-                    const roomCoord = RoomsEnum[room.name];
+                    const roomCoord = RoomsEnum[room.key];
                     let i = 0;
-                    if (room.name === this.myPosition?.key) {
+                    if (room.key === this.myPosition?.key) {
                         i++;
                     }
                     while ( i < room.players_count ){
@@ -937,18 +934,27 @@ export default defineComponent ({
             }
         },
         isFire(room: string): boolean {
-            return this.minimap.find((rooms: Minimap) => rooms.name === room)!.fire;
+            if (this.minimap){
+                return this.minimap.find((rooms: Minimap) => rooms.key === room)?.fire;
+            }
         },
         isBroken(type: string, room: string, object: string): boolean {
-            switch (type) {
-            case 'door':
-                return this.minimap.find((rooms: Minimap) => rooms.name === room.split(' ')[0])!.broken_doors.includes(object) || this.minimap.find((rooms: Minimap) => rooms.name === room.split(' ')[1])!.broken_doors.includes(object);
-            case 'equipment':
-                return this.minimap.find((rooms: Minimap) => rooms.name === room)!.broken_equipments.includes(object);
-            default:
-                return false;
+            if (this.minimap){
+                switch (type) {
+                case 'door':
+                    return this.minimap.find((rooms: Minimap) => rooms.key === room.split(' ')[0])?.broken_doors.includes(object) || this.minimap.find((rooms: Minimap) => rooms.key === room.split(' ')[1])?.broken_doors.includes(object);
+                case 'equipment':
+                    return this.minimap.find((rooms: Minimap) => rooms.key === room)?.broken_equipments.includes(object);
+                default:
+                    return false;
+                }
             }
-        }
+        },
+        displayName(room: string): void {
+            if (this.minimap){
+                this.roomName = this.minimap.find((rooms: Minimap) => rooms.key === room)?.name;
+            }
+        },
     },
     mounted(): void {
         this.displayMe();

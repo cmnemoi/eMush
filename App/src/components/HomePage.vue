@@ -29,17 +29,33 @@
                     {{ $t('homePage.joinUs') }}
                 </button>
             </div>
-            <div class="box-container" id="character-animation-container" style="display:none">
-                <h2>18 personnages, prêts à chasser le Mush avec vous !</h2>
-                <div class="character-image">
-                    <img src="@/assets/images/char/portrait/Eleesha_williams_portrait.jpg" alt="Eleesha Williams" />
-                </div>
-                <div class="character-description">
-                    <h3>Eleesha Williams</h3>
-                    <p>Investigatrice déchûe de premier plan.</p>
+            <!--- CARROUSEL TEMPLATE
+            <div 
+                class="box-container"
+                id="carrousel-container"
+                @mouseenter.stop="toggleTimer = false"
+                @mouseleave.stop="toggleTimer = true"
+            >
+                <h3>18 personnages, prêts à chasser le Mush avec vous !</h3>
+                <transition mode="out-in">
+                    <div class="slide" :key="slide">
+                        <div class="avatar" :class="chars[slide].id">
+                            <img :src="chars[slide].portrait" :alt="chars[slide].name" />
+                        </div>
+                        <div class="character-description">
+                            <h4>{{ chars[slide].name }}</h4>
+                            <p>{{ chars[slide].descr }}</p>
+                        </div>
+                    </div>
+                </transition>
+                <div class="arrows">
+                    <img class="next" src="@/assets/images/blue-arrow.png" @click="move(-1)">
+                    <img class="previous" src="@/assets/images/blue-arrow.png" @click="move(1)">
                 </div>
             </div>
+            --->
         </section>
+        <!-- MEDIA REVIEWS TEMPLATE
         <section class="medias">
             <h3>Ils n'ont pas trouvé ça mush :</h3>
             <div class="reviews">
@@ -94,6 +110,7 @@
                 <img src="@/assets/images/medias/pegi.png">
             </div>
         </section>
+        -->
     </div>
 </template>
 

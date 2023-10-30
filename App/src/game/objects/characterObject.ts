@@ -195,6 +195,17 @@ export default class CharacterObject extends InteractObject {
             }),
             frameRate: 1
         });
+
+        this.anims.create({
+            key: 'space_giggle',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: 'space_suit',
+                start: 1,
+                end: 5
+            }),
+            frameRate: 7,
+            repeat: -1
+        });
     }
 
     getFeetCartCoords(): CartesianCoordinates

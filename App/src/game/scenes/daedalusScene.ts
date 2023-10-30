@@ -649,8 +649,11 @@ export default class DaedalusScene extends Phaser.Scene
             this.player
         );
 
-        if (this.room.type !== 'room') {
+        if (this.room.type === 'patrol_ship') {
             this.playerSprite.setVisible(false);
+        } else if (this.room.type === 'space') {
+            this.playerSprite.play('space_giggle');
+            this.playerSprite.setDepth(15);
         }
 
         //place the starting camera.

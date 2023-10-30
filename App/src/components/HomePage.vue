@@ -29,7 +29,7 @@
                     {{ $t('homePage.joinUs') }}
                 </button>
             </div>
-            <!--- CARROUSEL TEMPLATE
+            <!-- CARROUSEL TEMPLATE
             <div 
                 class="box-container"
                 id="carrousel-container"
@@ -53,9 +53,12 @@
                     <img class="previous" src="@/assets/images/blue-arrow.png" @click="move(1)">
                 </div>
             </div>
-            --->
+            -->
         </section>
-        <!-- MEDIA REVIEWS TEMPLATE
+        <section>
+            <NewsPage />
+        </section>
+        <!-- MEDIAs TEMPLATE
         <section class="medias">
             <h3>Ils n'ont pas trouvé ça mush :</h3>
             <div class="reviews">
@@ -103,11 +106,10 @@
             </div>
             <div class="weblinks">
                 <h3>Suivez-nous:</h3>
-                <a href="#">Discord</a>
-                <a href="#">Forum</a>
-                <a href="#">Gitlab</a>
-                <a href="#">etc</a>
-                <img src="@/assets/images/medias/pegi.png">
+                <a href="https://discord.gg/ERc3svy"><img src="@/assets/images/medias/discord.png"> Discord</a>
+                <a href="https://eternaltwin.org/"><img src="@/assets/images/medias/etwin.png"> EternalTwin</a>
+                <a href="https://gitlab.com/eternaltwin/mush/mush"><img src="@/assets/images/medias/gitlab.png"> Gitlab</a>
+                <img class="pegi" src="@/assets/images/medias/pegi.png">
             </div>
         </section>
         -->
@@ -117,9 +119,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
+import NewsPage from "@/components/NewsPage.vue";
 
 export default defineComponent ({
     name: "HomePage",
+    components: {
+        NewsPage
+    },
     computed: {
         ...mapGetters('auth', [
             'loggedIn'
@@ -414,12 +420,25 @@ section {
     align-self: center;
     flex-direction: row;
     align-items: center;
-    gap: 1.4em;
+    gap: 0.5em;
+    font-size: 1.1em;
 
     a {
-        color: white;
+        padding: 0.1em 0.3em;
+        color: $deepBlue;
         text-decoration: none;
+        background-color: #eeeeee;
+        border: 1px solid #eeeeee;
+        border-radius: 4px;
+
+        transition: background-color 0.3s;
+
+        img { vertical-align: middle; }
+
+        &:hover, &:focus { background-color: lighten($greyBlue, 35%); }
     }
+
+    .pegi { margin: -0.2em 0.6em 0; }
 }
 
 .v-enter-active, .v-leave-active { transition: opacity 0.3s ease; }

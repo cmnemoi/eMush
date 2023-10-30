@@ -137,11 +137,8 @@ export default class MushTiledMap {
         if ( !obj.isCustomPropertyByName('grouped') ) {
             return null;
         } else {
-            let filteredGroups: Array<Phaser.GameObjects.Group>;
             const groupName = obj.getGroupName();
-
-
-            filteredGroups = this.groups.filter((group: Phaser.GameObjects.Group) => {
+            const filteredGroups: Array<Phaser.GameObjects.Group> = this.groups.filter((group: Phaser.GameObjects.Group) => {
                 return group.name === groupName;
             });
 

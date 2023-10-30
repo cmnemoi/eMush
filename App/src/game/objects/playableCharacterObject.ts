@@ -202,6 +202,7 @@ export default class PlayableCharacterObject extends CharacterObject {
     applyEquipmentInteraction(): void
     {
         const targetBed = this.player.isLyingDown();
+        const room = this.player.room;
 
         if (targetBed !== null) {
             const bed = (<DaedalusScene>this.scene).findObjectByNameAndId(targetBed.key, targetBed.id);
@@ -212,6 +213,8 @@ export default class PlayableCharacterObject extends CharacterObject {
 
             //reset any ongoing movement
             this.resetMove();
+        } else if (room && room.type === 'space') {
+            this.play('space_giggle');
         } else {
             if (this.interactedEquipment !== null) {
                 const interactCoordinates = this.interactedEquipment.getInteractCoordinates(this.navMesh);

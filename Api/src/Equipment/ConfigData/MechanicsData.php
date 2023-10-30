@@ -3407,8 +3407,6 @@ class MechanicsData
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [
                 1 => 1,
-                2 => 1,
-                3 => 1,
             ],
             'collectScrapPatrolShipDamage' => [
                 2 => 1,
@@ -3446,8 +3444,6 @@ class MechanicsData
             'type' => EquipmentMechanicEnum::PATROL_SHIP,
             'collectScrapNumber' => [
                 1 => 1,
-                2 => 1,
-                3 => 1,
             ],
             'collectScrapPatrolShipDamage' => [
                 2 => 1,

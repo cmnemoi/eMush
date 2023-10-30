@@ -309,7 +309,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions([$repair25, $dismantle25, $examineAction, $showerAction])
+            ->setActions([$repair25, $dismantle25, $examineAction, $reportAction, $showerAction])
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
             ->buildName(GameConfigEnum::DEFAULT)
         ;

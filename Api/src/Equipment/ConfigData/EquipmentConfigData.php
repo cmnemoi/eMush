@@ -2862,6 +2862,7 @@ class EquipmentConfigData
                 'disassemble_percent_25_cost_3',
                 'sabotage_percent_25',
                 'examine',
+                'report_equipment',
                 'shower',
             ],
             'mechanics' => [],

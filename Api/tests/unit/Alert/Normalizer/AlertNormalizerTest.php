@@ -60,6 +60,13 @@ class AlertNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
+            ->with('alerts', [], 'alerts', 'fr')
+            ->andReturn('translated prefix')
+            ->once()
+        ;
+
+        $this->translationService
+            ->shouldReceive('translate')
             ->with('outcast.name', [], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
@@ -75,6 +82,7 @@ class AlertNormalizerTest extends TestCase
         $normalized = $this->normalizer->normalize($alert);
 
         $this->assertEquals([
+            'prefix' => 'translated prefix',
             'key' => 'outcast',
             'name' => 'translated one',
             'description' => 'translated two',
@@ -102,6 +110,13 @@ class AlertNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
+            ->with('alerts', [], 'alerts', 'fr')
+            ->andReturn('translated prefix')
+            ->once()
+        ;
+
+        $this->translationService
+            ->shouldReceive('translate')
             ->with('low_hull.name', ['quantity' => 5], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
@@ -117,6 +132,7 @@ class AlertNormalizerTest extends TestCase
         $normalized = $this->normalizer->normalize($alert);
 
         $this->assertEquals([
+            'prefix' => 'translated prefix',
             'key' => 'low_hull',
             'name' => 'translated one',
             'description' => 'translated two',
@@ -167,6 +183,13 @@ class AlertNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
+            ->with('alerts', [], 'alerts', 'fr')
+            ->andReturn('translated prefix')
+            ->once()
+        ;
+
+        $this->translationService
+            ->shouldReceive('translate')
             ->with('fire.name', ['quantity' => 2], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
@@ -203,6 +226,7 @@ class AlertNormalizerTest extends TestCase
         $normalized = $this->normalizer->normalize($alert);
 
         $this->assertEquals([
+            'prefix' => 'translated prefix',
             'key' => 'fire',
             'name' => 'translated one',
             'description' => 'translated two',

@@ -3,10 +3,14 @@
         <div class="waves">
         </div>
         <div class="wrapper">
-            <div class="box small devs">
-                <h3>{{ $t('footer.developers') }} :</h3>
+            <div class="box small active">
+                <h3>{{ $t('footer.active') }} :</h3>
                 <ul>
-                    <li v-for="dev in randomDev" :key="dev">{{ dev }}</li>
+                    <li v-for="member in team" :key="member.name">
+                        <template v-if="member.active">
+                            <img :src="getRoleImage(member.role)" :alt="member.role">{{ member.name }}
+                        </template>
+                    </li>
                 </ul>
             </div>
             <div class="box description" id="eternaltwin">
@@ -114,8 +118,15 @@
                 </div>
             </div>
             <div class="box small thanks">
+                <h3>{{ $t('footer.inactive') }} :</h3>
+                <ul>
+                    <li v-for="member in team" :key="member.name">
+                        <template v-if="!member.active">
+                            <img :src="getRoleImage(member.role)" :alt="member.role">{{ member.name }}
+                        </template>
+                    </li>
+                </ul>
                 <h3>{{ $t('footer.thanks') }} :</h3>
-                <p>{{ randomHelpers }}</p>
                 <i18n-t
                     keypath="footer.alpha-testers"
                     tag="div"
@@ -132,7 +143,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { crowdin, developers, helpers } from '@/enums/footer';
+import { crowdin, team } from '@/enums/footer';
 import { version } from '../../package.json';
 
 export default defineComponent({
@@ -140,18 +151,25 @@ export default defineComponent({
     data() {
         return {
             crowdin: crowdin,
-            developers: developers,
-            randomDev: [] as Array<string>,
-            helpers: helpers,
-            randomHelpers: "" as string,
+            team: team,
             version: version as string,
             release: process.env.VUE_APP_API_RELEASE_COMMIT as string,
             channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string
         };
     },
-    mounted() {
-        this.randomDev = this.developers.sort(() => 0.5 - Math.random());
-        this.randomHelpers = this.helpers.sort(() => 0.5 - Math.random()).join(", ");
+
+    methods: {
+        getRoleImage(role) {
+            if (role === 'developer') {
+                return require('@/assets/images/developerPicto.png');
+            } else if (role === 'admin') {
+                return require('@/assets/images/adminPicto.png');
+            } else if (role === 'helper') {
+                return require('@/assets/images/helperPicto.png');
+            } else {
+                return '';
+            }
+        }
     }
 });
 </script>

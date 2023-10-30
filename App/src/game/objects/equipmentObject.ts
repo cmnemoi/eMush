@@ -10,7 +10,7 @@ import IsometricGeom from "@/game/scenes/isometricGeom";
 /*eslint no-unused-vars: "off"*/
 export default class EquipmentObject extends InteractObject {
     public equipment: Equipment;
-    private particles: Phaser.GameObjects.Particles.ParticleEmitterManager | null = null;
+    private particles: Phaser.GameObjects.Particles.ParticleEmitter | null = null;
     private initCoordinates: CartesianCoordinates;
     private isShaking: boolean;
 
@@ -59,11 +59,7 @@ export default class EquipmentObject extends InteractObject {
     handleBroken(): void
     {
         if (this.equipment.isBroken && this.particles === null) {
-            this.particles = this.scene.add.particles('smoke_particle');
-
-            this.particles.createEmitter({
-                x: 0,
-                y: 0,
+            this.particles = this.scene.add.particles(0,0, 'smoke_particle', {
                 lifespan: { min: 1000, max: 1200 },
                 speed: { min: 10, max: 30 },
                 angle: { min: 260, max: 280 },

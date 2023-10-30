@@ -20,6 +20,7 @@ export class Daedalus {
     public minimap: any;
     public inOrbitPlanet: Planet|null;
     public isDaedalusTravelling: boolean;
+    public attackingHunters: number;
 
     constructor() {
         this.id = null;
@@ -38,6 +39,7 @@ export class Daedalus {
         this.minimap = null;
         this.inOrbitPlanet = null;
         this.isDaedalusTravelling = false;
+        this.attackingHunters = 0
     }
     load(object :any): Daedalus {
         if (typeof object !== "undefined") {
@@ -72,6 +74,7 @@ export class Daedalus {
                 this.inOrbitPlanet = (new Planet()).load(object.inOrbitPlanet);
             }
             this.isDaedalusTravelling = object.isDaedalusTravelling;
+            this.attackingHunters = object.attackingHunters;
         }
         return this;
     }

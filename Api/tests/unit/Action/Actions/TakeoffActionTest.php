@@ -71,7 +71,6 @@ class TakeoffActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $patroller);
 
-        $this->placeService->shouldReceive('findByNameAndDaedalus')->andReturn($roomEnd);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('randomPercent')->andReturn(100);
         $this->eventService->shouldReceive('callEvent')->times(1);

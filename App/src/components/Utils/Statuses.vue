@@ -43,7 +43,7 @@ export default defineComponent ({
                 case "equipment":
                     return statusItemEnum[status.key]?.icon || null;
                 case "room":
-                    return require('@/assets/images/status/fire.png');
+                    return require('@/assets/images/alerts/fire.png');
                 default:
                     return null;
                 }

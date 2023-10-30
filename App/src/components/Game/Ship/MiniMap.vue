@@ -453,6 +453,10 @@
                             <path class="floor" serif:id="floor" d="M100,64l0,4l4,0l0,-4l-4,0Z" />
                             <path class="wall" serif:id="wall" d="M99,68l0,-4" />
                         </g>
+                        <g id="Thalasso" serif:id="Thalasso" :class="{visible : isBroken('equipment', 'bravo_dorm' , 'thalasso')}">
+                            <path class="floor" serif:id="floor" d="M100,64l0,4l4,0l0,-4l-4,0Z" />
+                            <path class="wall" serif:id="wall" d="M99,68l0,-4" />
+                        </g>
                     </g>
                     <g id="Nexus1" serif:id="Nexus">
                         <g id="BIOS-Terminal" serif:id="BIOS Terminal" :class="{visible : isBroken('equipment', 'nexus' , 'bios_terminal')}">
@@ -485,6 +489,10 @@
                     </g>
                     <g id="Alpha-Dorm1" serif:id="Alpha Dorm">
                         <g id="Shower1" serif:id="Shower" :class="{visible : isBroken('equipment', 'alpha_dorm' , 'shower')}">
+                            <path class="floor" serif:id="floor" d="M100,28l0,4l4,0l0,-4l-4,0Z" />
+                            <path class="wall" serif:id="wall" d="M99,32l0,-4" />
+                        </g>
+                        <g id="Thalasso1" serif:id="Thalasso" :class="{visible : isBroken('equipment', 'alpha_dorm' , 'thalasso')}">
                             <path class="floor" serif:id="floor" d="M100,28l0,4l4,0l0,-4l-4,0Z" />
                             <path class="wall" serif:id="wall" d="M99,32l0,-4" />
                         </g>

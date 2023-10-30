@@ -3,6 +3,7 @@
 namespace Mush\Equipment\Enum;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Player\Entity\Player;
 
 class EquipmentEnum
 {
@@ -85,5 +86,29 @@ class EquipmentEnum
     public static function equipmentToNormalizeAsItems(): ArrayCollection
     {
         return new ArrayCollection([self::TABULATRIX]);
+    }
+
+    public static function getCriticalItemsGivenPlayer(Player $player): ArrayCollection
+    {
+        $criticalItems = [ToolItemEnum::HACKER_KIT];
+
+        if ($player->isMush()) {
+            return new ArrayCollection($criticalItems);
+        }
+
+        $criticalItems = array_merge($criticalItems, [
+            ToolItemEnum::EXTINGUISHER,
+            GearItemEnum::ANTIGRAV_SCOOTER,
+            GearItemEnum::ROLLING_BOULDER,
+            GearItemEnum::ADJUSTABLE_WRENCH,
+            GearItemEnum::ALIEN_BOTTLE_OPENER,
+            GearItemEnum::STAINPROOF_APRON,
+            ItemEnum::MUSH_GENOME_DISK,
+            ToolItemEnum::MEDIKIT,
+            GearItemEnum::SOAP,
+            GearItemEnum::SUPER_SOAPER,
+        ]);
+
+        return new ArrayCollection($criticalItems);
     }
 }

@@ -324,12 +324,27 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $shootHunterPatrolShipAction = $this->getReference(ActionsFixtures::SHOOT_HUNTER_PATROL_SHIP);
         /** @var Action $renovateAction */
         $renovateAction = $this->getReference(ActionsFixtures::RENOVATE);
+        /** @var Action $collectScrap */
+        $collectScrap = $this->getReference(ActionsFixtures::COLLECT_SCRAP);
 
         $patrolShipMechanic = $this->createPatrolShip(
-            [$takeoffAction, $landAction, $renovateAction],
+            [$takeoffAction, $landAction, $renovateAction, $collectScrap],
             EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN
         );
         $patrolShipMechanic
+            ->setCollectScrapNumber([
+                1 => 1,
+            ])
+            ->setCollectScrapPatrolShipDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
+            ->setCollectScrapPlayerDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
             ->setFailedManoeuvreDaedalusDamage([
                 2 => 1,
                 3 => 1,
@@ -372,8 +387,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($patrolShipWeapon);
         $manager->persist($patrolShip);
 
-        /** @var Action $collectScrap */
-        $collectScrap = $this->getReference(ActionsFixtures::COLLECT_SCRAP);
         $pasiphaeMechanic = $this->createPatrolShip(
             [$takeoffAction, $landAction, $collectScrap, $renovateAction],
             EquipmentEnum::PASIPHAE

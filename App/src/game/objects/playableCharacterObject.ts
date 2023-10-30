@@ -146,7 +146,7 @@ export default class PlayableCharacterObject extends CharacterObject {
             this.body.setVelocityX(-cartSpeed.x);
             // @ts-ignore
             this.body.setVelocityY(-cartSpeed.y);
-            if (this.anims.currentAnim.key !== 'move_left') {
+            if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_left') {
                 this.anims.play('move_left');
             }
 
@@ -157,7 +157,7 @@ export default class PlayableCharacterObject extends CharacterObject {
             this.body.setVelocityX(cartSpeed.x);
             // @ts-ignore
             this.body.setVelocityY(cartSpeed.y);
-            if (this.anims.currentAnim.key !== 'move_right') {
+            if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_right') {
                 this.anims.play('move_right');
             }
 
@@ -168,7 +168,7 @@ export default class PlayableCharacterObject extends CharacterObject {
             this.body.setVelocityX(-cartSpeed.x);
             // @ts-ignore
             this.body.setVelocityY(cartSpeed.y);
-            if (this.anims.currentAnim.key !== 'move_right') {
+            if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_right') {
                 this.anims.play('move_right');
             }
 
@@ -179,7 +179,7 @@ export default class PlayableCharacterObject extends CharacterObject {
             this.body.setVelocityX(cartSpeed.x);
             // @ts-ignore
             this.body.setVelocityY(-cartSpeed.y);
-            if (this.anims.currentAnim.key !== 'move_left') {
+            if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_left') {
                 this.anims.play('move_left');
             }
 

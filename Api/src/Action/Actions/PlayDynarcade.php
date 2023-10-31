@@ -53,7 +53,7 @@ class PlayDynarcade extends AttemptAction
             $playerModifierEvent = new PlayerVariableEvent(
                 $this->player,
                 PlayerVariableEnum::MORAL_POINT,
-                2,
+                $this->getOutputQuantity(),
                 $this->getAction()->getActionTags(),
                 new \DateTime()
             );

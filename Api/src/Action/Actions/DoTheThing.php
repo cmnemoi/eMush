@@ -38,7 +38,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class DoTheThing extends AbstractAction
 {
-    public const BASE_CONFORT = 2;
     public const PREGNANCY_RATE = 8;
     public const STD_TRANSMISSION_RATE = 5;
 
@@ -189,8 +188,7 @@ class DoTheThing extends AbstractAction
             throw new \Exception('moralPoints should have a maximum value');
         }
 
-        $firstTimeStatus = $player->getStatusByName(PlayerStatusEnum::FIRST_TIME);
-        $moralePoints = $firstTimeStatus ? $maxMoralePoint : self::BASE_CONFORT;
+        $moralePoints = $this->getOutputQuantity();
 
         $playerModifierEvent = new PlayerVariableEvent(
             $player,
@@ -200,10 +198,6 @@ class DoTheThing extends AbstractAction
             new \DateTime(),
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
-
-        if ($firstTimeStatus) {
-            $player->removeStatus($firstTimeStatus);
-        }
     }
 
     private function addDidTheThingStatus(Player $player): void

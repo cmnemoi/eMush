@@ -19,7 +19,6 @@ abstract class AbstractSpeech extends AbstractAction
 {
     protected string $name;
     protected string $playerVariable;
-    protected int $gain;
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
     {
@@ -54,7 +53,7 @@ abstract class AbstractSpeech extends AbstractAction
                     });
 
         foreach ($listeners as $player) {
-            $this->addVariablePoints($player, $this->playerVariable, $this->gain);
+            $this->addVariablePoints($player, $this->playerVariable, $this->getOutputQuantity());
         }
     }
 }

@@ -21,8 +21,6 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class UseBandage extends AbstractAction
 {
-    public const BANDAGE_HEAL = 2;
-
     protected string $name = ActionEnum::USE_BANDAGE;
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
@@ -44,7 +42,7 @@ class UseBandage extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        $healedQuantity = self::BANDAGE_HEAL;
+        $healedQuantity = $this->getOutputQuantity();
         $success = new Success();
 
         return $success->setQuantity($healedQuantity);
@@ -56,15 +54,15 @@ class UseBandage extends AbstractAction
         $target = $this->target;
         $time = new \DateTime();
 
-        $playerModifierEvent = new PlayerVariableEvent(
+        $playerVariableEvent = new PlayerVariableEvent(
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
-            self::BANDAGE_HEAL,
+            $this->getOutputQuantity(),
             $this->getAction()->getActionTags(),
             $time
         );
-        $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+        $playerVariableEvent->setVisibility(VisibilityEnum::HIDDEN);
+        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         // destroy the bandage
         $equipmentEvent = new InteractWithEquipmentEvent(

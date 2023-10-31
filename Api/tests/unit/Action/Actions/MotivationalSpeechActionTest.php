@@ -5,6 +5,7 @@ namespace Mush\Tests\unit\Action\Actions;
 use Mush\Action\Actions\MotivationalSpeech;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 
@@ -18,6 +19,7 @@ class MotivationalSpeechActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::MOTIVATIONAL_SPEECH);
+        $this->actionEntity->setOutputQuantity(2);
 
         $this->action = new MotivationalSpeech(
             $this->eventService,
@@ -47,6 +49,11 @@ class MotivationalSpeechActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($listener);
         $this->eventService->shouldReceive('callEvent')->once();
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($speaker, $this->actionEntity, null, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->andReturn(2)
+            ->once()
+        ;
 
         $result = $this->action->execute();
 

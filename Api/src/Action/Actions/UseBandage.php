@@ -53,11 +53,12 @@ class UseBandage extends AbstractAction
         /** @var GameEquipment $target */
         $target = $this->target;
         $time = new \DateTime();
+        $quantity = $this->getAction()->getOutputQuantity();
 
         $playerVariableEvent = new PlayerVariableEvent(
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
-            $this->getOutputQuantity(),
+            $quantity,
             $this->getAction()->getActionTags(),
             $time
         );

@@ -55,6 +55,7 @@ class SelfHealCest
             ->setActionCost(3)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST)
+            ->setOutputQuantity(3)
         ;
         $I->haveInRepository($action);
 

@@ -7,6 +7,7 @@ use Mockery;
 use Mush\Action\Actions\PublicBroadcast;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
@@ -29,6 +30,7 @@ class PublicBroadcastActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::PUBLIC_BROADCAST);
+        $this->actionEntity->setOutputQuantity(3);
 
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
@@ -98,6 +100,11 @@ class PublicBroadcastActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('createStatusFromName')->once();
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->andReturn(2)
+            ->once()
+        ;
         $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();

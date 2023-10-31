@@ -31,6 +31,7 @@ class StrengthenActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPAIR, 1);
+        $this->actionEntity->setOutputQuantity(5);
 
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
@@ -119,6 +120,12 @@ class StrengthenActionTest extends AbstractActionTest
         ;
         $this->randomService->shouldReceive('isActionSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
+
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->andReturn(5)
+            ->once()
+        ;
 
         $this->eventService->shouldReceive('callEvent')->once();
         $this->eventService->shouldReceive('callEvent')->once();

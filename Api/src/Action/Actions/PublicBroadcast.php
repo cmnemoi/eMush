@@ -99,8 +99,9 @@ class PublicBroadcast extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $playersInTheRoom = $this->player
-                                    ->getPlace()
-                                    ->getPlayers();
+            ->getPlace()
+            ->getPlayers()
+        ;
 
         foreach ($playersInTheRoom as $player) {
             $alreadyWatchedPublicBroadcast = $player->getStatusbyName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST);

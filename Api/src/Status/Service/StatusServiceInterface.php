@@ -7,6 +7,7 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\ChargeStatus;
@@ -64,5 +65,11 @@ interface StatusServiceInterface
 
     public function getByTargetAndName(StatusHolderInterface $target, string $name): ?Status;
 
-    public function updateCharge(ChargeStatus $chargeStatus, int $delta, array $tags, \DateTime $time): ?ChargeStatus;
+    public function updateCharge(
+        ChargeStatus $chargeStatus,
+        int $delta,
+        array $tags,
+        \DateTime $time,
+        string $mode = VariableEventInterface::CHANGE_VARIABLE
+    ): ?ChargeStatus;
 }

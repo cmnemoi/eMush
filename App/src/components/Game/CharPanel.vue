@@ -52,7 +52,7 @@
                 <inventory
                     :items="player.items"
                     :min-slot="3"
-                    :selectedItem="getTargetItem"
+                    :selected-item="getTargetItem"
                     @select="toggleItemSelection"
                 />
             </div>
@@ -193,7 +193,7 @@ export default defineComponent ({
                     this.selectedItem = null;
                 }
             }
-        },
+        }
     }
 });
 </script>
@@ -314,7 +314,7 @@ export default defineComponent ({
         letter-spacing: 0.03em;
         font-variant: small-caps;
 
-        &::v-deep .status {
+        &::v-deep(.status) {
             vertical-align: middle;
             margin-left: 2px;
         }

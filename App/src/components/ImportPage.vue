@@ -55,12 +55,12 @@ export default defineComponent ({
     },
     computed: {
         ...mapGetters('twinoidImport', [
-            'code',
+            'code'
         ])
     },
     methods: {
         ...mapActions('twinoidImport', [
-            'updateCode',
+            'updateCode'
         ]),
         connectToTwinoid() {
             this.getTwinoidOauthCode();
@@ -69,7 +69,7 @@ export default defineComponent ({
             if (!sid || !code) {
                 this.errors = {
                     sid: [this.$t('import.sidRequired')],
-                    code: [this.$t('import.codeRequired')],
+                    code: [this.$t('import.codeRequired')]
                 };
                 console.error(this.errors);
             }
@@ -78,7 +78,7 @@ export default defineComponent ({
                 this.legacyUser = (new LegacyUser()).load(response.data);
             }).catch((error) => {
                 this.errors = {
-                    error: [error],
+                    error: [error]
                 };
                 console.error(error);
             });
@@ -111,14 +111,14 @@ export default defineComponent ({
             default:
                 throw new Error('Unknown release channel');
             }
-        },
+        }
     },
     data: function (): LegacyUserState {
         return {
             channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string,
             errors: null as any,
             legacyUser: null,
-            sid : "",
+            sid : ""
         };
     },
     beforeMount() {
@@ -155,7 +155,7 @@ export default defineComponent ({
     p { line-height: 1.4em; }
 
     span {
-        ::v-deep a {
+        ::v-deep(a) {
             color: $green;
         }
     }

@@ -19,7 +19,7 @@ export class SpaceBattlePatrolShip {
             this.charges = object.charges;
             this.pilot = object.pilot;
         }
-        
+
         return this;
     }
 
@@ -30,7 +30,7 @@ export class SpaceBattlePatrolShip {
             'name': this.name,
             'armor': this.armor,
             'charges': this.charges,
-            'pilot': this.pilot,
+            'pilot': this.pilot
         };
 
         return data;

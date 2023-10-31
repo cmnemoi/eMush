@@ -26,7 +26,7 @@ const routes = [
     {
         path: "/",
         name: "HomePage",
-        component: HomePage,
+        component: HomePage
     },
     {
         path: "/game",
@@ -49,7 +49,7 @@ const routes = [
             {
                 name: "UserLegacyProfile",
                 path: '',
-                component: () => import("@/components/User/UserLegacyProfile.vue"),
+                component: () => import("@/components/User/UserLegacyProfile.vue")
             }
         ]
     },
@@ -67,7 +67,7 @@ const routes = [
                 next({ name: 'HomePage' });
             }
         }
-        
+
     },
     {
         path: "/ranking",
@@ -79,7 +79,7 @@ const routes = [
             {
                 name: "ShipRanking",
                 path: '',
-                component: ShipRanking,
+                component: ShipRanking
             },
             {
                 name: "TheEnd",
@@ -90,7 +90,7 @@ const routes = [
                         name: "TheEndUserPage",
                         path: '/user/:userId',
                         component: UserPage,
-                        redirect: { name: 'UserPage' },
+                        redirect: { name: 'UserPage' }
                     }
                 ]
 
@@ -170,19 +170,19 @@ const routes = [
                 name: "AdminSecretsList",
                 path: 'secrets-list',
                 meta: { authorize: [UserRole.ADMIN] },
-                component: () => import("@/components/Admin/Secrets/SecretsListPage.vue"),
+                component: () => import("@/components/Admin/Secrets/SecretsListPage.vue")
             },
             {
                 name: "AdminSecretsCreate",
                 path: 'create-secret',
                 meta: { authorize: [UserRole.ADMIN] },
-                component: () => import("@/components/Admin/Secrets/SecretsEditPage.vue"),
+                component: () => import("@/components/Admin/Secrets/SecretsEditPage.vue")
             },
             {
                 name: "AdminSecretsEdit",
                 path: 'edit-secret/:secret',
                 meta: { authorize: [UserRole.ADMIN] },
-                component: () => import("@/components/Admin/Secrets/SecretsEditPage.vue"),
+                component: () => import("@/components/Admin/Secrets/SecretsEditPage.vue")
             }
         ]
     },
@@ -195,12 +195,12 @@ const routes = [
         path: "/import",
         name: "ImportPage",
         meta: { authorize: [UserRole.USER] },
-        component: () => import("@/components/ImportPage.vue"),
+        component: () => import("@/components/ImportPage.vue")
     },
     {
         path: "/token",
         name: "Token",
-        component: Token,
+        component: Token
     }
 ];
 

@@ -53,6 +53,6 @@ const HunterConfigService = {
         }
 
         return hunterConfig;
-    },
+    }
 };
 export default HunterConfigService;

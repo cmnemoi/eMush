@@ -26,7 +26,7 @@ export class Hunter {
                 this.actions.push((new Action).load(actionObject));
             });
         }
-        
+
         return this;
     }
 

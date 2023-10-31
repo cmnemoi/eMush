@@ -57,7 +57,7 @@ export default defineComponent ({
     computed: {
         ...mapState('player', [
             'player'
-        ]),
+        ])
     },
     beforeMount(): void {
         if (this.playerId) {
@@ -67,7 +67,7 @@ export default defineComponent ({
     methods: {
         ...mapActions('player', [
             'loadPlayer'
-        ]),
+        ])
     }
 });
 </script>

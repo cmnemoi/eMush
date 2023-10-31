@@ -47,7 +47,7 @@ export default defineComponent ({
         transform: translate(-50%, -50%);
         padding: 1.6em 2em;
         background-color: rgba(35, 37, 100, .9);
-        box-shadow: 
+        box-shadow:
             inset 0 0 12px 3px #3965fb, inset 0 0 0 2px #3965fb;
 
             &::after { // angle blue triangles decoration
@@ -64,7 +64,7 @@ export default defineComponent ({
         };
     }
 
-    &::v-deep h1 {
+    &::v-deep(h1) {
         font-size: 1.5em;
         text-transform: uppercase;
         text-align: center;

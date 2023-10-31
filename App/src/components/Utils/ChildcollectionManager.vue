@@ -45,7 +45,7 @@ export default {
         id: {
             type: String,
             required: true
-        },
+        }
     },
     emits: ['addId', 'remove'],
     data: function () {
@@ -97,7 +97,7 @@ button:not(.icon), .action-button { min-width: 140px; }
     text-align: center;
     border: 0;
     opacity: 0.7;
-    
+
     span { cursor: default !important; }
 }
 

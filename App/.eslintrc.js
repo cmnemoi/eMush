@@ -30,7 +30,8 @@ module.exports = {
         "object-curly-spacing": ["error", "always"],
         "semi": ["error", "always"],
         'vue/no-deprecated-slot-attribute': 'off',
-        'vue/no-deprecated-slot-attribute': 'off'
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": "off"
     },
 
     parserOptions: {

@@ -364,6 +364,6 @@ export const itemEnum: {[index: string]: any} = {
     },
     [SPACESUIT]: {
         'image': require('@/assets/images/items/space_suit.jpg')
-    },
+    }
 }
 ;

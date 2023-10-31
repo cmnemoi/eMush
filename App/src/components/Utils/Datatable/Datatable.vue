@@ -19,10 +19,11 @@
                 <tr v-for="row in rowData" :key='row'>
                     <td v-for="field in headers" :key='field'>
                         <slot v-if="field.slot" :name="[`row-${field.key}`]" v-bind="row" />
-                        <span v-else> <img :src="row[field.image]"
-                                           v-if="row[field.image]"
-                                           :alt="row[field.name]"
-                                           id="row-image"/> {{ $t(String(row[field.key]))  }}</span>
+                        <span v-else> <img
+                            :src="row[field.image]"
+                            v-if="row[field.image]"
+                            :alt="row[field.name]"
+                            id="row-image"/> {{ $t(String(row[field.key]))  }}</span>
                     </td>
                 </tr>
             </tbody>
@@ -150,7 +151,7 @@ table {
         padding: 1em 0.5em 1em 1.2em;
         vertical-align: middle;
 
-        &::v-deep a, &::v-deep button {
+        &::v-deep(a), &::v-deep(button) {
             @include button-style();
             width: fit-content;
             flex: 1;

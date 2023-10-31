@@ -215,5 +215,5 @@ export const adminConfigRoutes = [
         name: "AdminHunterConfigDetail",
         path: 'hunter-config/:hunterConfigId',
         component: HunterConfigDetailPage
-    },
+    }
 ];

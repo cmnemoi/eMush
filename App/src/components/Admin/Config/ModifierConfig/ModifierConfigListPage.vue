@@ -89,7 +89,7 @@ export default defineComponent({
                 { key: 'admin.modifierConfig.modifierRequirement', value: {
                     endpoint: 'modifier_activation_requirements',
                     detailPage: 'AdminModifierActivationRequirementDetail'
-                } },
+                } }
             ],
             fields: [
                 {

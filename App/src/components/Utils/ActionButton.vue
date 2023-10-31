@@ -1,6 +1,6 @@
 <template>
     <Tippy tag="div">
-        <a 
+        <a
             :class="['action-button', cssClass, isDisabled].join(' ')"
             href="#">
             <span v-if="action.movementPointCost > 0 && !action.actionPointCost" class="cost">{{ action.movementPointCost }}<img src="@/assets/images/pm.png" alt="mp"></span>
@@ -31,7 +31,7 @@ export default defineComponent ({
             isDisabled(): string
             {
                 return !this.action?.canExecute ? "disabled" : "";
-            },
+            }
         }
 });
 </script>

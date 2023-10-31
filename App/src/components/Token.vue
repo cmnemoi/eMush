@@ -42,6 +42,6 @@ export default defineComponent ({
             loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus',
             login: 'auth/login'
         })
-    },
+    }
 });
 </script>

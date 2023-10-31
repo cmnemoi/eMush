@@ -4,9 +4,10 @@
             <img src="@/assets/images/janice.png" alt="Janice">
         </div>
         <div class="news-feed">
-            <section :class="item.hidden ? 'news hidden' : 'news'"
-                     v-for="item in news" 
-                     :key="item.id"
+            <section
+                :class="item.hidden ? 'news hidden' : 'news'"
+                v-for="item in news"
+                :key="item.id"
             >
                 <div class="news-french title" v-if="localeIsFrench()" @click="toggleNews(item)">
                     <img class="news-cover" src="@/assets/images/mush-cover.png">
@@ -60,8 +61,8 @@ export default defineComponent ({
                 pageSize: 10,
                 totalItem: 1,
                 totalPage: 1
-            },
-            
+            }
+
         };
     },
     methods: {
@@ -140,11 +141,11 @@ export default defineComponent ({
             {
                 news.hidden = !news.hidden;
             }
-        },
+        }
     },
     async mounted() {
         await this.getNews();
-    },
+    }
 });
 
 </script>

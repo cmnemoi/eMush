@@ -17,7 +17,7 @@
                 type="number"
                 :errors="errors.electricArcRate"
             />
-            
+
             <Input
                 :label="$t('admin.difficultyConfig.metalPlateRate')"
                 id="difficultyConfig_metalPlateRate"
@@ -25,7 +25,7 @@
                 type="number"
                 :errors="errors.metalPlateRate"
             />
-            
+
             <Input
                 :label="$t('admin.difficultyConfig.panicCrisisRate')"
                 id="difficultyConfig_panicCrisisRate"
@@ -55,7 +55,7 @@
                 type="number"
                 :errors="errors.equipmentBreakRate"
             />
-            
+
             <Input
                 :label="$t('admin.difficultyConfig.doorBreakRate')"
                 id="difficultyConfig_doorBreakRate"
@@ -63,7 +63,7 @@
                 type="number"
                 :errors="errors.doorBreakRate"
             />
-            
+
             <Input
                 :label="$t('admin.difficultyConfig.equipmentFireBreakRate')"
                 id="difficultyConfig_equipmentFireBreakRate"
@@ -71,7 +71,7 @@
                 type="number"
                 :errors="errors.equipmentFireBreakRate"
             />
-            
+
             <Input
                 :label="$t('admin.difficultyConfig.propagatingFireRate')"
                 id="difficultyConfig_propagatingFireRate"
@@ -128,8 +128,8 @@
             :label="$t('admin.difficultyConfig.firePlayerDamage')"
             :map="difficultyConfig.firePlayerDamage"
             id="difficultyConfig_firePlayerDamage"
-            mapIndexesType="number"
-            mapValuesType="number"
+            map-indexes-type="number"
+            map-values-type="number"
             @addTuple="addNewFirePlayerDamage"
             @removeIndex="removeFirePlayerDamage"
         />
@@ -137,8 +137,8 @@
             :label="$t('admin.difficultyConfig.fireHullDamage')"
             :map="difficultyConfig.fireHullDamage"
             id="difficultyConfig_fireHullDamage"
-            mapIndexesType="number"
-            mapValuesType="number"
+            map-indexes-type="number"
+            map-values-type="number"
             @addTuple="addNewFireHullDamage"
             @removeIndex="removeFireHullDamage"
         />
@@ -146,8 +146,8 @@
             :label="$t('admin.difficultyConfig.electricArcPlayerDamage')"
             :map="difficultyConfig.electricArcPlayerDamage"
             id="difficultyConfig_electricArcPlayerDamage"
-            mapIndexesType="number"
-            mapValuesType="number"
+            map-indexes-type="number"
+            map-values-type="number"
             @addTuple="addNewElectricArcPlayerDamage"
             @removeIndex="removeElectricArcPlayerDamage"
         />
@@ -155,8 +155,8 @@
             :label="$t('admin.difficultyConfig.tremorPlayerDamage')"
             :map="difficultyConfig.tremorPlayerDamage"
             id="difficultyConfig_tremorPlayerDamage"
-            mapIndexesType="number"
-            mapValuesType="number"
+            map-indexes-type="number"
+            map-values-type="number"
             @addTuple="addNewTremorPlayerDamage"
             @removeIndex="removeTremorPlayerDamage"
         />
@@ -164,8 +164,8 @@
             :label="$t('admin.difficultyConfig.metalPlatePlayerDamage')"
             :map="difficultyConfig.metalPlatePlayerDamage"
             id="difficultyConfig_metalPlatePlayerDamage"
-            mapIndexesType="number"
-            mapValuesType="number"
+            map-indexes-type="number"
+            map-values-type="number"
             @addTuple="addNewMetalPlatePlayerDamage"
             @removeIndex="removeMetalPlatePlayerDamage"
         />
@@ -173,8 +173,8 @@
             :label="$t('admin.difficultyConfig.panicCrisisPlayerDamage')"
             :map="difficultyConfig.panicCrisisPlayerDamage"
             id="difficultyConfig_panicCrisisPlayerDamage"
-            mapIndexesType="number"
-            mapValuesType="number"
+            map-indexes-type="number"
+            map-values-type="number"
             @addTuple="addNewPanicCrisisPlayerDamage"
             @removeIndex="removePanicCrisisPlayerDamage"
         />
@@ -182,8 +182,8 @@
             :label="$t('admin.difficultyConfig.difficultyModes')"
             :map="difficultyConfig.difficultyModes"
             id="difficultyConfig_difficultyModes"
-            mapIndexesType="string"
-            mapValuesType="number"
+            map-indexes-type="string"
+            map-values-type="number"
             @addTuple="addNewDifficultyModes"
             @removeIndex="removeDifficultyModes"
         />

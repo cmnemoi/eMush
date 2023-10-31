@@ -2,7 +2,7 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 
 const state = {
     code: '',
-    sid: '',
+    sid: ''
 };
 
 const getters: GetterTree<any, any> = {

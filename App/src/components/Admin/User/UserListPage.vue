@@ -171,7 +171,7 @@ export default defineComponent({
                 linkElement.setAttribute('download', exportFileDefaultName);
                 linkElement.click();
             });
-            
+
         }
     },
     beforeMount() {

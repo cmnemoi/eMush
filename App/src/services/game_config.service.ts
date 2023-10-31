@@ -98,13 +98,13 @@ const MECHANICS_ENDPOINTS: Map<string, string> = new Map([
 const MODIFIER_CONFIG_ENDPOINTS: Map<string, string> = new Map([
     ['variableeventmodifierconfig', VARIABLE_MODIFIER_CONFIG_ENDPOINT],
     ['triggereventmodifierconfig', TRIGGER_EVENT_MODIFIER_CONFIG_ENDPOINT],
-    ['directmodifierconfig', DIRECT_MODIFIER_CONFIG_ENDPOINT],
+    ['directmodifierconfig', DIRECT_MODIFIER_CONFIG_ENDPOINT]
 ]);
 
 const EVENT_CONFIG_ENDPOINTS: Map<string, string> = new Map([
-    ['variableeventconfig', VARIABLE_EVENT_CONFIG_ENDPOINT],
+    ['variableeventconfig', VARIABLE_EVENT_CONFIG_ENDPOINT]
 ]);
-    
+
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -283,7 +283,7 @@ const GameConfigService = {
 
         return statusConfig;
     },
-    
+
     createActionConfig: async(actionConfig: ActionConfig): Promise<ActionConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const actionConfigRecord : Record<string, any> = actionConfig.jsonEncode();
@@ -894,6 +894,6 @@ const GameConfigService = {
         }
 
         return eventConfig;
-    },
+    }
 };
 export default GameConfigService;

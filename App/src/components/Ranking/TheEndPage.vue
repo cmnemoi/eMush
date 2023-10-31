@@ -51,12 +51,13 @@
                 </div>
             </div>
         </div>
-        
+
         <h2 v-if="mainRolesPlayers?.length > 0">{{ $t('theEnd.mainRoles') }}</h2>
         <div class="guests" v-if="mainRolesPlayers?.length > 0">
-            <div v-for="(player, key) in mainRolesPlayers"
-                 :key="key"
-                 class="card guest-card">
+            <div
+                v-for="(player, key) in mainRolesPlayers"
+                :key="key"
+                class="card guest-card">
                 <div>
                     <img class="avatar" :src="getPlayerCharacterPortrait(player)" :alt="getPlayerCharacterCompleteName(player)">
                     <div class="dude">
@@ -103,7 +104,7 @@
                         </p>
                         <!-- <ul>
                             <li>Vous avez éteint un incendie !</li>
-                        </ul> 
+                        </ul>
                         <button>
                             <img src="@/assets/images/notes.gif" alt="Historique et Triomphe">
                         </button> -->
@@ -114,10 +115,11 @@
 
         <h2 v-if="figurantPlayers?.length > 0">{{ $t('theEnd.figurantPlayers')}}</h2>
         <div class="extras" v-if="figurantPlayers?.length > 0">
-            <div v-for="(player, key) in
-                     figurantPlayers"
-                 :key="key"
-                 class="card extra-card">
+            <div
+                v-for="(player, key) in
+                    figurantPlayers"
+                :key="key"
+                class="card extra-card">
                 <div>
                     <!-- <img class="avatar" :src="getPlayerCharacterPortrait(player)" :alt="getPlayerCharacterCompleteName(player)"> -->
                     <div class="dude">
@@ -155,7 +157,7 @@
                         </p>
                         <!-- <ul>
                             <li>Vous avez éteint un incendie !</li>
-                        </ul> 
+                        </ul>
                         <button>
                             <img src="@/assets/images/notes.gif" alt="Historique et Triomphe">
                         </button> -->
@@ -183,7 +185,7 @@
                     <p>{{ $t("theEnd.numberOfHuntersKilled")  }}</p>
                     <p>{{ closedDaedalus.numberOfHuntersKilled }}</p>
                 </div>
-                <div> 
+                <div>
                     <p>{{ $t("theEnd.amountOfMushPlayers") }}</p>
                     <p>{{ getAmountOfMushPlayers() }}</p>
                 </div>
@@ -274,7 +276,7 @@
                 </div>
             </div> -->
         </div>
-        <router-link class="back" :to="{}"> 
+        <router-link class="back" :to="{}">
             <span @click="$router.go(-1)">{{ $t('theEnd.goBack') }}</span>
         </router-link>
     </div>
@@ -354,7 +356,7 @@ export default defineComponent ({
                 }
                 return a.cyclesSurvived - b.cyclesSurvived;
             });
-        },
+        }
     },
     beforeMount() {
         const closedDaedalusId = String(this.$route.params.closedDaedalusId);
@@ -390,8 +392,8 @@ export default defineComponent ({
                     console.error('Error', error.message);
                 }
             });
-        
-    },
+
+    }
 });
 </script>
 

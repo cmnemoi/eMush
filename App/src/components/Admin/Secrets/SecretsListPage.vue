@@ -26,7 +26,7 @@ import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 export default defineComponent ({
     name: 'AdminSecretsList',
     components: {
-        Datatable,
+        Datatable
     },
     methods: {
         async getSecrets() {
@@ -64,8 +64,8 @@ export default defineComponent ({
             rowData: [],
             envVar: {
                 name: '',
-                value: '',
-            },
+                value: ''
+            }
         };
     },
     beforeMount() {

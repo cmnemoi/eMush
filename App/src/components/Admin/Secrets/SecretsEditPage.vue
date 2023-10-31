@@ -5,10 +5,11 @@
             <Input label="Secret name" v-model="secret.name" />
             <Input label="Secret value" v-model="secret.value" />
         </div>
-        <button class="action-button"
-                :disabled="secret.value === ''"
-                type="submit"
-                @click="updateSecret()">
+        <button
+            class="action-button"
+            :disabled="secret.value === ''"
+            type="submit"
+            @click="updateSecret()">
             {{ $t('admin.save') }}
         </button>
     </div>
@@ -28,8 +29,8 @@ export default defineComponent({
         return {
             secret: {
                 name: '',
-                value: '',
-            },
+                value: ''
+            }
         };
     },
     methods: {
@@ -43,7 +44,7 @@ export default defineComponent({
                 this.$router.push({ name: 'AdminSecretsList' });
             });
         }
-    },
+    }
 });
 </script>
 

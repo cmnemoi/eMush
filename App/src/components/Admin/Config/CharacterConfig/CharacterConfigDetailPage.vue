@@ -246,8 +246,8 @@ export default defineComponent({
             }
             this.errors = {};
             //@ts-ignore
-            GameConfigService.updateCharacterConfig(this.characterConfig) 
-                .then((res: CharacterConfig | null) => { 
+            GameConfigService.updateCharacterConfig(this.characterConfig)
+                .then((res: CharacterConfig | null) => {
                     this.characterConfig = res;
                     if (this.characterConfig !== null) {
                         ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'init_statuses'))
@@ -357,7 +357,7 @@ export default defineComponent({
             if (this.characterConfig && this.characterConfig.initDiseases) {
                 this.characterConfig.initDiseases = removeItem(this.characterConfig.initDiseases, child);
             }
-        },
+        }
     },
     beforeMount() {
         const characterConfigId = String(this.$route.params.characterConfigId);

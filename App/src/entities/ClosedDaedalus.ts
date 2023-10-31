@@ -46,7 +46,7 @@ export class ClosedDaedalus {
             'endDay': this.endDay,
             'endCycle': this.endCycle,
             'players': players,
-            'numberOfHuntersKilled': this.numberOfHuntersKilled,
+            'numberOfHuntersKilled': this.numberOfHuntersKilled
         };
 
         return data;

@@ -9,7 +9,7 @@
         "ext-openssl": "*",
         "api-platform/core": "^2.7",
         "composer/package-versions-deprecated": "^1.11",
-        "doctrine/annotations": "^1.0",
+        "doctrine/annotations": "^2.0",
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.8",

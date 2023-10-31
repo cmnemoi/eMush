@@ -1,6 +1,6 @@
 const ARACK = 'spider';
 const ASTEROID = 'asteroid';
-const D1000 = 'dice';  
+const D1000 = 'dice';
 const HUNTER = 'hunter';
 const TRAX = 'trax';
 
@@ -19,5 +19,5 @@ export const hunterEnum: {[index: string]: any} = {
     },
     [TRAX]: {
         'image': require('@/assets/images/hunters/trax.png')
-    },
+    }
 };

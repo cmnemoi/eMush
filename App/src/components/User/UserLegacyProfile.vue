@@ -27,11 +27,11 @@ export default defineComponent ({
             }).catch((error) => {
                 console.error(error);
             });
-        },
+        }
     },
     data() : UserData {
         return {
-            user: null,
+            user: null
         };
     },
     beforeMount() {
@@ -64,7 +64,7 @@ export default defineComponent ({
     p { line-height: 1.4em; }
 
     span {
-        ::v-deep a {
+        ::v-deep(a) {
             color: $green;
         }
     }

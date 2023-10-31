@@ -53,7 +53,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
             $this->createNoGravityStatus($statusHolder, $event->getTags(), $event->getTime());
             $this->resetElectricCharges($statusHolder, $event->getTags(), $event->getTime());
-            $this->ejectFocussedPlayers($statusHolder, $event->getTags(), $event->getTime());
+            $this->ejectFocusedPlayers($statusHolder, $event->getTags(), $event->getTime());
         }
     }
 

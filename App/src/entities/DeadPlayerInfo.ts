@@ -1,26 +1,25 @@
 import { Character } from "@/entities/Character";
 
 export class DeadPlayerInfo {
-    public id: number|null;
+    public id!: number;
     public character!: Character;
     public deathDay: integer|null;
     public deathCycle: integer|null;
     public endCauseKey: string|null;
     public endCauseValue: string|null;
     public endCauseDescription: string|null;
-    public likes: integer|null;
+    public likes: integer;
     public players: Array<DeadPlayerInfo>;
 
 
     constructor() {
-        this.id = null;
         this.character = new Character();
         this.deathDay = null;
         this.deathCycle = null;
         this.endCauseKey = null;
         this.endCauseValue = null;
         this.endCauseDescription= null;
-        this.likes = null;
+        this.likes = 0;
         this.players = [];
     }
 
@@ -29,7 +28,7 @@ export class DeadPlayerInfo {
             this.id = object.id;
             this.deathDay = object.deathDay;
             this.deathCycle = object.deathCycle;
-            this.likes = object.likes;
+            this.likes = object.likes ?? 0;
 
             if (typeof object.endCause !== "undefined") {
                 this.endCauseKey = object.endCause['key'];

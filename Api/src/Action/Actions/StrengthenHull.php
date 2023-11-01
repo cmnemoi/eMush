@@ -23,8 +23,6 @@ class StrengthenHull extends AttemptAction
 {
     protected string $name = ActionEnum::STRENGTHEN_HULL;
 
-    private const BASE_REPAIR = 5;
-
     protected function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameItem;
@@ -49,7 +47,7 @@ class StrengthenHull extends AttemptAction
         $time = new \DateTime();
 
         if ($result instanceof Success) {
-            $quantity = self::BASE_REPAIR;
+            $quantity = $this->getOutputQuantity();
 
             $daedalusEvent = new DaedalusVariableEvent(
                 $this->player->getDaedalus(),

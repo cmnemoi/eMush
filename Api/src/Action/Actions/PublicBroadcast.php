@@ -37,7 +37,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class PublicBroadcast extends AbstractAction
 {
     protected string $name = ActionEnum::PUBLIC_BROADCAST;
-    protected const BASE_CONFORT = 3;
 
     protected StatusServiceInterface $statusService;
 
@@ -100,8 +99,9 @@ class PublicBroadcast extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $playersInTheRoom = $this->player
-                                    ->getPlace()
-                                    ->getPlayers();
+            ->getPlace()
+            ->getPlayers()
+        ;
 
         foreach ($playersInTheRoom as $player) {
             $alreadyWatchedPublicBroadcast = $player->getStatusbyName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST);
@@ -110,7 +110,7 @@ class PublicBroadcast extends AbstractAction
                 continue;
             }
 
-            $this->addMoralPoints($player, self::BASE_CONFORT);
+            $this->addMoralPoints($player, $this->getOutputQuantity());
             $this->addWatchedPublicBroadcastStatus($player);
         }
     }

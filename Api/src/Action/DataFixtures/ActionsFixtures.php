@@ -339,6 +339,7 @@ class ActionsFixtures extends Fixture
             ->setActionCost(1)
             ->setDirtyRate(5)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->setOutputQuantity(2)
         ;
 
         $manager->persist($bandageAction);
@@ -374,6 +375,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost(3)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->setOutputQuantity(3)
         ;
 
         $manager->persist($selfHealAction);
@@ -385,6 +387,7 @@ class ActionsFixtures extends Fixture
             // ->setTypes([ActionTypeEnum::ACTION_HEAL])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(2)
+            ->setOutputQuantity(3)
         ;
 
         $manager->persist($healAction);
@@ -396,6 +399,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setTypes([ActionTypeEnum::ACTION_SPOKEN])
             ->setActionCost(1)
+            ->setOutputQuantity(2)
         ;
 
         $manager->persist($comfortAction);
@@ -540,6 +544,7 @@ class ActionsFixtures extends Fixture
             ->setDirtyRate(50)
             ->setInjuryRate(5)
             ->setSuccessRate(25)
+            ->setOutputQuantity(5)
         ;
 
         $manager->persist($strengthenHullAction);
@@ -692,6 +697,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::DO_THE_THING)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
+            ->setOutputQuantity(2)
         ;
 
         $manager->persist($doTheThingAction);
@@ -713,6 +719,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::PUBLIC_BROADCAST)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(2)
+            ->setOutputQuantity(3)
         ;
 
         $manager->persist($publicBroadcastAction);
@@ -737,6 +744,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::SELF)
             ->setTypes([ActionTypeEnum::ACTION_SPOKEN])
             ->setActionCost(2)
+            ->setOutputQuantity(2)
         ;
 
         $manager->persist($motivationalSpeechAction);
@@ -748,6 +756,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::SELF)
             ->setTypes([ActionTypeEnum::ACTION_SPOKEN])
             ->setActionCost(2)
+            ->setOutputQuantity(3)
         ;
 
         $manager->persist($boringSpeechAction);
@@ -798,6 +807,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
             ->setSuccessRate(33)
+            ->setOutputQuantity(2)
         ;
         $manager->persist($playArcade);
 

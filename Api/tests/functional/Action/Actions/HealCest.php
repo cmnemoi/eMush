@@ -56,7 +56,8 @@ class HealCest
             ->setActionName(ActionEnum::HEAL)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(2)
-           ->buildName(GameConfigEnum::TEST)
+            ->buildName(GameConfigEnum::TEST)
+            ->setOutputQuantity(3)
         ;
         $I->haveInRepository($action);
 

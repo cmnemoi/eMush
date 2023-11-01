@@ -25,7 +25,6 @@ class MotivationalSpeech extends AbstractSpeech
 {
     protected string $name = ActionEnum::MOTIVATIONAL_SPEECH;
     protected string $playerVariable = PlayerVariableEnum::MORAL_POINT;
-    protected int $gain = 2;
 
     public function __construct(
         EventServiceInterface $eventService,

@@ -367,7 +367,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 5, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => 'express_cook',
@@ -415,7 +415,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 3, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => 'heal',
@@ -431,7 +431,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 3, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => 'comfort',
@@ -447,7 +447,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => 'ultraheal',
@@ -655,7 +655,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 50, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 25, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 5, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => 'lie_down',
@@ -895,7 +895,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => 'remove_spore',
@@ -927,7 +927,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 3, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => 'extinguish_manually',
@@ -959,7 +959,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => 'boring_speech',
@@ -975,7 +975,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 3, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => 'surgery',
@@ -1439,7 +1439,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 33, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => ActionEnum::SHOOT_HUNTER . '_turret',

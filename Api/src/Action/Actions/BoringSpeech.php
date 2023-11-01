@@ -28,7 +28,6 @@ class BoringSpeech extends AbstractSpeech
 {
     protected string $name = ActionEnum::BORING_SPEECH;
     protected string $playerVariable = PlayerVariableEnum::MOVEMENT_POINT;
-    protected int $gain = 3;
 
     protected StatusServiceInterface $statusService;
 

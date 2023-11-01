@@ -27,8 +27,6 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  */
 class SelfHeal extends AbstractAction
 {
-    public const BASE_HEAL = 3;
-
     protected string $name = ActionEnum::SELF_HEAL;
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
@@ -51,7 +49,7 @@ class SelfHeal extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        $healedQuantity = self::BASE_HEAL;
+        $healedQuantity = $this->getOutputQuantity();
         $success = new Success();
 
         return $success->setQuantity($healedQuantity);

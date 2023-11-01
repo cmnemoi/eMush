@@ -14,6 +14,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Hunter\Entity\HunterCollection;
 use PHPUnit\Framework\TestCase;
 
 class DaedalusNormalizerTest extends TestCase
@@ -54,6 +55,7 @@ class DaedalusNormalizerTest extends TestCase
         $daedalus = \Mockery::mock(Daedalus::class);
         $daedalus->shouldReceive('getId')->andReturn(2);
         $daedalus->shouldReceive('hasStatus')->andReturn(false)->once();
+        $daedalus->shouldReceive('getAttackingHunters')->andReturn(new HunterCollection());
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());
         $daedalus->setPlaces(new ArrayCollection());
@@ -236,6 +238,7 @@ class DaedalusNormalizerTest extends TestCase
                 'description' => 'translated two', ],
             'inOrbitPlanet' => null,
             'isDaedalusTravelling' => false,
+            'attackingHunters' => 0,
         ];
 
         $this->assertIsArray($data);

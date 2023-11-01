@@ -128,7 +128,6 @@ final class ScanCest extends AbstractFunctionalTest
 
         // when player scans
         $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
-        $this->scanAction->execute();
 
         // then success rate is improved by the right amount
         $I->assertEquals(

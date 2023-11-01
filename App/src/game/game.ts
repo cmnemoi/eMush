@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import daedalusScene from "@/game/scenes/daedalusScene";
-import { PhaserNavMeshPlugin } from "phaser-navmesh/src";
 import { Player } from "@/entities/Player";
+//@ts-ignore
+import PhaserNavMeshPlugin from "phaser-navmesh";
 
 
 function launch(containerId: any, player: Player): Phaser.Game {

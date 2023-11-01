@@ -2792,7 +2792,12 @@ core-js-compat@^3.25.1, core-js-compat@^3.8.3:
   dependencies:
     browserslist "^4.21.4"
 
-core-js@3, core-js@^3.23.1, core-js@^3.25.3, core-js@^3.8.3:
+core-js@3:
+  version "3.33.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.33.2.tgz#312bbf6996a3a517c04c99b9909cdd27138d1ceb"
+  integrity sha512-XeBzWI6QL3nJQiHmdzbAOiMYqjrb7hwU7A39Qhvd/POSa/t9E1AeZyEZx3fNvp/vtM8zXwhoL0FsiS0hD0pruQ==
+
+core-js@^3.23.1, core-js@^3.25.3, core-js@^3.8.3:
   version "3.26.1"
   resolved "https://registry.npmjs.org/core-js/-/core-js-3.26.1.tgz"
   integrity sha512-21491RRQVzUn0GGM9Z1Jrpr6PNPxPi+Za8OM9q4tksTSnlbXXGKK1nXNg/QvwFYettXvSX6zWKCtHHfjN4puyA==
@@ -4930,7 +4935,7 @@ natural-compare@^1.4.0:
 
 navmesh@^2.3.1:
   version "2.3.1"
-  resolved "https://registry.npmjs.org/navmesh/-/navmesh-2.3.1.tgz"
+  resolved "https://registry.yarnpkg.com/navmesh/-/navmesh-2.3.1.tgz#056ad258b3070878248f49ddcaadad0f77799ae4"
   integrity sha512-psNjH0lNJbprtlTNo4gmhqIgNhZxQgxiGtnGAOmtL7I/tByoGfAfDX+/LD/5b26XuLZw3XXTr0+tHScnm5MBWw==
   dependencies:
     core-js "3"
@@ -5307,7 +5312,7 @@ pathval@^1.1.1:
 
 phaser-navmesh@^2.3.1:
   version "2.3.1"
-  resolved "https://registry.npmjs.org/phaser-navmesh/-/phaser-navmesh-2.3.1.tgz"
+  resolved "https://registry.yarnpkg.com/phaser-navmesh/-/phaser-navmesh-2.3.1.tgz#ccf271ed6649c0d1ba74cfe01170efd8d9160530"
   integrity sha512-804eKhaa0cyVBFBQ1TA1M6QclclbFiPoBYyLInw7GKO8EITQbNWrBHkmS3jlbVOor89oTUALbwZDd74pVdMP3w==
   dependencies:
     core-js "3"

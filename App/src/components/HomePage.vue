@@ -29,6 +29,7 @@
                     {{ $t('homePage.joinUs') }}
                 </button>
             </div>
+            <!-- CARROUSEL TEMPLATE
             <div 
                 class="box-container"
                 id="carrousel-container"
@@ -52,11 +53,13 @@
                     <img class="previous" src="@/assets/images/blue-arrow.png" @click="move(1)">
                 </div>
             </div>
+            -->
         </section>
         <section>
             <NewsPage />
         </section>
         <section class="medias">
+            <!-- REVIEWS TEMPLATE
             <h3>Ils n'ont pas trouvé ça mush :</h3>
             <div class="reviews">
                 <div>
@@ -101,6 +104,7 @@
                     <span class="score">7.2/10</span>
                 </div>
             </div>
+            -->
             <div class="weblinks">
                 <h3>Suivez-nous:</h3>
                 <a href="https://discord.gg/ERc3svy"><img src="@/assets/images/medias/discord.png"> Discord</a>

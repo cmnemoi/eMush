@@ -118,23 +118,13 @@ class EventModifierConfig extends AbstractModifierConfig
         foreach ($this->tagConstraints as $tag => $constraint) {
             switch ($constraint) {
                 case ModifierRequirementEnum::ANY_TAGS:
-                    if ($anyConstraint === null) {
-                        $anyConstraint = false;
-                    }
-
-                    if (in_array($tag, $event->getTags())) {
-                        $anyConstraint = true;
-                    }
+                    $anyConstraint = $anyConstraint || $event->hasTag($tag);
                     break;
                 case ModifierRequirementEnum::ALL_TAGS:
-                    if (!in_array($tag, $event->getTags())) {
-                        return false;
-                    }
+                    $anyConstraint = $event->hasTag($tag);
                     break;
                 case ModifierRequirementEnum::NONE_TAGS:
-                    if (in_array($tag, $event->getTags())) {
-                        return false;
-                    }
+                    $anyConstraint = !$event->hasTag($tag);
                     break;
                 default:
                     throw new \LogicException('unexpected constraint type');

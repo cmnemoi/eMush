@@ -117,16 +117,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
                 $statuses[] = $normedStatus;
             }
         }
-        // if current player is mush add spores info
-        if ($player->isMush()) {
-            $normedSpores = [
-                'key' => PlayerStatusEnum::SPORES,
-                'name' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.name', [], 'status', $language),
-                'description' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.description', [], 'status', $language),
-                'charge' => $player->getSpores(),
-            ];
-            $statuses[] = $normedSpores;
-        }
+
+        $statuses = $this->normalizeMushPlayerSpores($player, $statuses);
 
         $diseases = [];
         foreach ($player->getMedicalConditions()->getActiveDiseases() as $disease) {
@@ -159,6 +151,21 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
         ]);
+    }
+
+    private function normalizeMushPlayerSpores(Player $player, array $normalizedStatuses): array
+    {
+        if ($player->isMush()) {
+            $normalizedSpores = [
+                'key' => PlayerStatusEnum::SPORES,
+                'name' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.name', [], 'status', $player->getDaedalus()->getLanguage()),
+                'description' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.description', [], 'status', $player->getDaedalus()->getLanguage()),
+                'charge' => $player->getSpores(),
+            ];
+            $normalizedStatuses[] = $normalizedSpores;
+        }
+
+        return $normalizedStatuses;
     }
 
     private function normalizePlayerGameVariable(Player $player, string $variable, string $language): array

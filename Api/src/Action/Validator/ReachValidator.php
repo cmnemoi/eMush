@@ -80,35 +80,54 @@ class ReachValidator extends ConstraintValidator
     {
         switch ($reach) {
             case ReachEnum::INVENTORY:
-                if (!$actionTarget instanceof GameItem) {
-                    throw new UnexpectedTypeException($actionTarget, GameItem::class);
-                }
-
-                if (!$player->getEquipments()->contains($actionTarget)) {
-                    return false;
-                }
+                return $this->canReachItemInInventory($player, $actionTarget);
                 break;
             case ReachEnum::SHELVE:
-                if (!$actionTarget instanceof GameItem) {
-                    throw new UnexpectedTypeException($actionTarget, GameItem::class);
-                }
-
-                if (!$player->getPlace()->getEquipments()->contains($actionTarget)) {
-                    return false;
-                }
+                return $this->canReachItemInShelf($player, $actionTarget);
                 break;
-
             case ReachEnum::ROOM:
                 if (!$player->canReachEquipment($actionTarget)) {
                     return false;
                 }
                 break;
-
             case ReachEnum::SPACE_BATTLE:
-                if (!$player->canSeeSpaceBattle() || !$player->canReachEquipment($actionTarget)) {
-                    return false;
-                }
+                return $this->canReachSpaceBattle($player, $actionTarget);
                 break;
+        }
+
+        return true;
+    }
+
+    private function canReachItemInInventory(Player $player, GameEquipment $actionTarget): bool
+    {
+        if (!$actionTarget instanceof GameItem) {
+            throw new UnexpectedTypeException($actionTarget, GameItem::class);
+        }
+
+        if (!$player->getEquipments()->contains($actionTarget)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function canReachItemInShelf(Player $player, GameEquipment $actionTarget): bool
+    {
+        if (!$actionTarget instanceof GameItem) {
+            throw new UnexpectedTypeException($actionTarget, GameItem::class);
+        }
+
+        if (!$player->getPlace()->getEquipments()->contains($actionTarget)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function canReachSpaceBattle(Player $player, GameEquipment $gameEquipment): bool
+    {
+        if (!$player->canSeeSpaceBattle() || !$player->canReachEquipment($gameEquipment)) {
+            return false;
         }
 
         return true;

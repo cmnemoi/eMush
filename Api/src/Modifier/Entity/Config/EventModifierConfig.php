@@ -107,6 +107,9 @@ class EventModifierConfig extends AbstractModifierConfig
         return $this->tagConstraints;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function doModifierApplies(AbstractGameEvent $event): bool
     {
         if ($event->getEventName() !== $this->getTargetEvent()) {
@@ -121,10 +124,14 @@ class EventModifierConfig extends AbstractModifierConfig
                     $anyConstraint = $anyConstraint || $event->hasTag($tag);
                     break;
                 case ModifierRequirementEnum::ALL_TAGS:
-                    $anyConstraint = $event->hasTag($tag);
+                    if (!$event->hasTag($tag)) {
+                        return false;
+                    }
                     break;
                 case ModifierRequirementEnum::NONE_TAGS:
-                    $anyConstraint = !$event->hasTag($tag);
+                    if ($event->hasTag($tag)) {
+                        return false;
+                    }
                     break;
                 default:
                     throw new \LogicException('unexpected constraint type');

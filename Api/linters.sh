@@ -12,10 +12,10 @@ then
   echo -e "\e[01;31m Please fix psalm errors : vendor/bin/psalm \e[0m"
   exit 1;
 fi
-vendor/bin/phpmd src text phpmd.xml --exclude "*src/*/DataFixtures/*, *src/*/*/ConfigData/*" --ignore-errors-on-exit
+vendor/bin/phpmd src text phpmd.xml --exclude src/*/DataFixtures/*,src/*/ConfigData/* --ignore-errors-on-exit
 if [ $? -ne 0 ];
 then
-  echo -e "\e[01;31m Please fix phpmd errors : vendor/bin/phpmd src text phpmd.xml --exclude "*src/*/DataFixtures/*", "*src/*/*/ConfigData/*" --ignore-errors-on-exit \e[0m"
+  echo -e "\e[01;31m Please fix phpmd errors : vendor/bin/phpmd src text phpmd.xml --exclude src/*/DataFixtures/*,*src/*/*/ConfigData/* --ignore-errors-on-exit \e[0m"
   exit 1;
 fi
 

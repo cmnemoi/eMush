@@ -121,7 +121,8 @@
         ],
         "lint": [
             "@cs-fixer",
-            "@psalm"
+            "@psalm",
+            "@phpmd"
         ],
         "load-data": [
             "php bin/console mush:load-configs-data"
@@ -132,6 +133,7 @@
             "php bin/console doctrine:schema:update --env=test -f",
             "php bin/console doctrine:fixtures:load --env=test -n --verbose"
         ],
+        "phpmd": "vendor/bin/phpmd src text phpmd.xml --exclude src/*/DataFixtures/*,src/*/ConfigData/* --ignore-errors-on-exit",
         "psalm": "vendor/bin/psalm",
         "psalm:clear-cache": "vendor/bin/psalm --clear-cache",
         "reset": [

@@ -91,7 +91,7 @@ class ChannelController extends AbstractGameController
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         $player = $playerInfo->getPlayer();
 
-        $this->denyIfPlayerNotInGame($playerInfo);
+        $this->denyIfPlayerNotInGame($player);
 
         if ($playerInfo->getGameStatus() !== GameStatusEnum::CURRENT) {
             throw new AccessDeniedException('Player is dead');
@@ -140,7 +140,7 @@ class ChannelController extends AbstractGameController
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         $player = $playerInfo->getPlayer();
 
-        $this->denyIfPlayerNotInGame($playerInfo);
+        $this->denyIfPlayerNotInGame($player);
 
         if ($playerInfo->getGameStatus() === GameStatusEnum::CLOSED) {
             throw new AccessDeniedException('Player is dead');
@@ -187,7 +187,7 @@ class ChannelController extends AbstractGameController
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         $player = $playerInfo->getPlayer();
 
-        $this->denyIfPlayerNotInGame($playerInfo);
+        $this->denyIfPlayerNotInGame($player);
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
@@ -225,7 +225,7 @@ class ChannelController extends AbstractGameController
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         $player = $playerInfo->getPlayer();
 
-        $this->denyIfPlayerNotInGame($playerInfo);
+        $this->denyIfPlayerNotInGame($player);
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
@@ -387,7 +387,7 @@ class ChannelController extends AbstractGameController
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         $player = $playerInfo->getPlayer();
 
-        $this->denyIfPlayerNotInGame($playerInfo);
+        $this->denyIfPlayerNotInGame($player);
 
         if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
             return $this->view(['error' => 'player is not from this daedalus'], 422);
@@ -535,7 +535,7 @@ class ChannelController extends AbstractGameController
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         $player = $playerInfo->getPlayer();
 
-        $this->denyIfPlayerNotInGame($playerInfo);
+        $this->denyIfPlayerNotInGame($player);
 
         if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
             return $this->view(['error' => 'player is not from this daedalus'], 422);

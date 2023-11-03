@@ -52,7 +52,7 @@ export default defineComponent ({
     },
     props: {
         room: Room,
-        calendar: GameCalendar,
+        calendar: GameCalendar
     },
     computed: {
         ...mapState('communication', [
@@ -88,7 +88,7 @@ export default defineComponent ({
     methods: {
         ...mapActions('communication', [
             'loadChannels',
-            'changeChannel',
+            'changeChannel'
         ]),
         isChannelPirated(channel: Channel): boolean
         {

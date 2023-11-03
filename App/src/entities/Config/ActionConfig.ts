@@ -42,7 +42,7 @@ export class ActionConfig {
             'types': this.types,
             'target': this.target,
             'scope': this.scope,
-            'actionVariablesArray': this.actionVariablesArray,
+            'actionVariablesArray': this.actionVariablesArray
         };
     }
     decode(jsonString : string): ActionConfig {

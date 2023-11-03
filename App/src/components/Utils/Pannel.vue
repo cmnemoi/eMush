@@ -51,7 +51,7 @@ export default {
     .header {
         flex-direction: row;
 
-        &::v-deep span {
+        &::v-deep(span) {
             padding: .6em .8em;
             // background: #222b6b;
             white-space: nowrap;
@@ -60,7 +60,7 @@ export default {
             cursor: help;
         }
     }
-    
+
     &::v-deep {
         span {
             flex: 1;

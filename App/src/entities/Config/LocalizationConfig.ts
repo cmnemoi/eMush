@@ -20,7 +20,7 @@ export class LocalizationConfig {
         return {
             'name': this.name,
             'timeZone': this.timeZone,
-            'language': this.language,
+            'language': this.language
         };
     }
     decode(jsonString : string): LocalizationConfig {

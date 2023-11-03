@@ -4,7 +4,7 @@
         <div class="select-default">
             <label :for="id">{{ $t("admin.mapManager.indexToDelete") }}</label>
             <select v-model="indexToDelete" :id="id">
-                <option v-for="[index,] in map" :value="index" v-bind:key="index">
+                <option v-for="[index,] in map" :value="index" :key="index">
                     {{ index }}
                 </option>
             </select>

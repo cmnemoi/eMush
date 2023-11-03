@@ -73,7 +73,7 @@ export default defineComponent({
                 { key: 'admin.eventConfig.variableEvent', value: {
                     endpoint: 'variable_event_configs',
                     detailPage: 'AdminVariableEventConfigDetail'
-                } },
+                } }
             ],
             fields: [
                 {

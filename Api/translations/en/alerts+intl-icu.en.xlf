@@ -143,5 +143,11 @@
         <target>No alerts in progress: the crew can relax.</target>
       </segment>
     </unit>
+    <unit id="alerts">
+      <segment id="alerts" state="translated">
+        <source>alerts</source>
+        <target>Alerts:</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

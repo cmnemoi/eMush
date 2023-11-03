@@ -70,7 +70,7 @@ export default defineComponent ({
         background: white;
         word-break: break-word;
 
-        &::v-deep em { color: $red; } //Makes italic text red
+        &::v-deep(em) { color: $red; } //Makes italic text red
 
         .author {
             color: $blue;

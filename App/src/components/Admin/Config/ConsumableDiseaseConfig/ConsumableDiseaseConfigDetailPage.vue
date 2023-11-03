@@ -21,8 +21,8 @@
             :label="$t('admin.consumableDiseaseConfig.curesName')"
             :map="consumableDiseaseConfig.curesName"
             id="consumableDiseaseConfig_curesName"
-            mapIndexesType="string"
-            mapValuesType="number"
+            map-indexes-type="string"
+            map-values-type="number"
             @addTuple="addCuresName"
             @removeIndex="removeCuresName"
         />
@@ -30,8 +30,8 @@
             :label="$t('admin.consumableDiseaseConfig.diseasesName')"
             :map="consumableDiseaseConfig.diseasesName"
             id="consumableDiseaseConfig_diseasesName"
-            mapIndexesType="string"
-            mapValuesType="number"
+            map-indexes-type="string"
+            map-values-type="number"
             @addTuple="addDiseasesName"
             @removeIndex="removeDiseasesName"
         />
@@ -39,8 +39,8 @@
             :label="$t('admin.consumableDiseaseConfig.diseasesChances')"
             :map="consumableDiseaseConfig.diseasesChances"
             id="consumableDiseaseConfig_diseasesChances"
-            mapIndexesType="number"
-            mapValuesType="number"
+            map-indexes-type="number"
+            map-values-type="number"
             @addTuple="addDiseasesChances"
             @removeIndex="removeDiseasesChances"
         />
@@ -48,8 +48,8 @@
             :label="$t('admin.consumableDiseaseConfig.curesChances')"
             :map="consumableDiseaseConfig.curesChances"
             id="consumableDiseaseConfig_curesChances"
-            mapIndexesType="number"
-            mapValuesType="number"
+            map-indexes-type="number"
+            map-values-type="number"
             @addTuple="addCuresChances"
             @removeIndex="removeCuresChances"
         />
@@ -57,8 +57,8 @@
             :label="$t('admin.consumableDiseaseConfig.diseasesDelayMin')"
             :map="consumableDiseaseConfig.diseasesDelayMin"
             id="consumableDiseaseConfig_diseasesDelayMin"
-            mapIndexesType="number"
-            mapValuesType="number"
+            map-indexes-type="number"
+            map-values-type="number"
             @addTuple="addDiseasesDelayMin"
             @removeIndex="removeDiseasesDelayMin"
         />
@@ -66,8 +66,8 @@
             :label="$t('admin.consumableDiseaseConfig.diseasesDelayLength')"
             :map="consumableDiseaseConfig.diseasesDelayLength"
             id="consumableDiseaseConfig_diseasesDelayLength"
-            mapIndexesType="number"
-            mapValuesType="number"
+            map-indexes-type="number"
+            map-values-type="number"
             @addTuple="addDiseasesDelayLength"
             @removeIndex="removeDiseasesDelayLength"
         />
@@ -75,8 +75,8 @@
             :label="$t('admin.consumableDiseaseConfig.effectNumber')"
             :map="consumableDiseaseConfig.effectNumber"
             id="consumableDiseaseConfig_effectNumber"
-            mapIndexesType="number"
-            mapValuesType="number"
+            map-indexes-type="number"
+            map-values-type="number"
             @addTuple="addEffectNumber"
             @removeIndex="removeEffectNumber"
         />
@@ -103,11 +103,11 @@ interface ConsumableDiseaseConfigState {
 }
 
 export default defineComponent({
-    name: "consumableDiseaseConfigDetailPage",
+    name: "ConsumableDiseaseConfigDetailPage",
     components: {
         Input,
         MapManager,
-        UpdateConfigButtons,
+        UpdateConfigButtons
     },
     data: function (): ConsumableDiseaseConfigState {
         return {
@@ -118,10 +118,10 @@ export default defineComponent({
     methods: {
         create(): void {
             if (!this.consumableDiseaseConfig) return;
-            
+
             const newConsumableDiseaseConfig = this.consumableDiseaseConfig;
             newConsumableDiseaseConfig.id = null;
-            
+
             // @ts-ignore
             GameConfigService.createConsumableDiseaseConfig(newConsumableDiseaseConfig)
                 .then((res: ConsumableDiseaseConfig | null) => {
@@ -249,7 +249,7 @@ export default defineComponent({
             if (this.consumableDiseaseConfig && this.consumableDiseaseConfig.effectNumber) {
                 this.consumableDiseaseConfig.effectNumber.delete(index);
             }
-        },
+        }
     },
     beforeMount() {
         const consumableDiseaseConfigId = String(this.$route.params.consumableDiseaseConfigId);

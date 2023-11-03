@@ -38,7 +38,7 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions('communication', [
-            'loadMessages',
+            'loadMessages'
         ])
     }
 });
@@ -126,7 +126,7 @@ export default defineComponent ({
     p {
         margin: 0;
         font-size: 0.95em;
-        &::v-deep img { vertical-align: middle; }
+        &::v-deep(img) { vertical-align: middle; }
     }
 }
 
@@ -137,7 +137,7 @@ export default defineComponent ({
         padding: 5px 0;
     }
 
-    &::v-deep .chat-input .submit { //change the submit button color
+    &::v-deep(.chat-input .submit) { //change the submit button color
         $color: #ff3867;
         $hover-color: #fa6480;
 

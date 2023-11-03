@@ -133,10 +133,10 @@ class PlantCycleHandler extends AbstractCycleHandler
             $this->statusService->removeStatus(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant, [EventEnum::NEW_CYCLE], new \DateTime());
             $this->statusService->createStatusFromName(EquipmentStatusEnum::PLANT_DRY, $gamePlant, [EventEnum::NEW_CYCLE], new \DateTime());
 
-            // If plant was dried, become hydropot
+        // If plant was dried, become hydropot
         } elseif ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRY) !== null) {
             $this->handleDriedPlant($gamePlant, $dateTime);
-            // If plant was not thirsty or dried become thirsty
+        // If plant was not thirsty or dried become thirsty
         } else {
             $this->statusService->createStatusFromName(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant, [EventEnum::NEW_CYCLE], new \DateTime());
         }

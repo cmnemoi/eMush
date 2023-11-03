@@ -21,8 +21,8 @@
             :label="$t('admin.diseaseCauseConfig.diseases')"
             :map="diseaseCauseConfig.diseases"
             id="diseaseCauseConfig_diseases"
-            mapIndexesType="string"
-            mapValuesType="number"
+            map-indexes-type="string"
+            map-values-type="number"
             @addTuple="addDisease"
             @removeIndex="removeDisease"
         />
@@ -61,11 +61,11 @@ export default defineComponent({
     methods: {
         create(): void {
             if (this.diseaseCauseConfig === null) return;
-        
+
             // @ts-ignore
             const newDiseaseCauseConfig = this.diseaseCauseConfig;
             newDiseaseCauseConfig.id = null;
-            
+
             GameConfigService.createDiseaseCauseConfig(newDiseaseCauseConfig).then((res: DiseaseCauseConfig | null) => {
                 const newDiseaseCauseConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/disease-cause-config', String(res?.id));
                 window.location.href = newDiseaseCauseConfigUrl;

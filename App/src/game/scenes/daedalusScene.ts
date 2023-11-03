@@ -426,7 +426,6 @@ export default class DaedalusScene extends Phaser.Scene
             return;
         }
 
-
         // add target tile highlight
         this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
         this.add.existing(this.targetHighlightObject);
@@ -437,7 +436,6 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.createPlayers();
     }
-
 
     reloadScene(): void
     {
@@ -470,7 +468,7 @@ export default class DaedalusScene extends Phaser.Scene
             }
             this.updateStatuses();
             this.createPlayers();
-            
+
 
         } else if (this.areEquipmentsModified()) {
             this.room = newRoom;
@@ -517,7 +515,7 @@ export default class DaedalusScene extends Phaser.Scene
                 const updatedEquipment = room.equipments.filter((equipment: Equipment) => (equipment.id === gameObject.equipment.id))[0];
 
                 gameObject.updateEquipment(updatedEquipment);
-                
+
                 this.displayPatrolShipActions(updatedEquipment, room);
 
             } else if (gameObject instanceof DoorObject || gameObject instanceof DoorGroundObject) {
@@ -663,7 +661,7 @@ export default class DaedalusScene extends Phaser.Scene
             this.isScreenSliding.y = true;
             this.cameras.main.setBounds(-this.sceneIsoSize.y, -72, sceneCartesianSize.x, sceneCartesianSize.y + 72);
         }
-        
+
         return map;
     }
 

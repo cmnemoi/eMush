@@ -33,7 +33,7 @@ export default defineComponent ({
     name: 'AdminConfigBanner',
     data() {
         return {
-            show: false,
+            show: false
         };
     },
     mounted() {

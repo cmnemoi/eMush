@@ -94,7 +94,7 @@ export class ModifierConfig {
             'triggeredEvent': this.triggeredEvent?.iri,
             'tagConstraints': tagsConstraints,
             'modifierStrategy': this.modifierStrategy,
-            'priority': this.priority,
+            'priority': this.priority
         };
     }
     decode(jsonString : string): ModifierConfig {

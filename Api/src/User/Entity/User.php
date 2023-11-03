@@ -37,9 +37,6 @@ class User implements UserInterface
     #[ORM\Column(type: 'array', nullable: false)]
     private array $roles = [RoleEnum::USER];
 
-    #[ORM\OneToOne(targetEntity: LegacyUser::class, inversedBy: 'user')]
-    private ?LegacyUser $legacyUser = null;
-
     public function getId(): int
     {
         return $this->id;
@@ -81,18 +78,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getLegacyUser(): ?LegacyUser
-    {
-        return $this->legacyUser;
-    }
-
-    public function setLegacyUser(LegacyUser $legacyUser): self
-    {
-        $this->legacyUser = $legacyUser;
-
-        return $this;
-    }
-
     public function isAdmin(): bool
     {
         return in_array(RoleEnum::ADMIN, $this->roles) || in_array(RoleEnum::SUPER_ADMIN, $this->roles);
@@ -108,14 +93,8 @@ class User implements UserInterface
         return null;
     }
 
-    public function getSalt()
+    public function eraseCredentials(): void
     {
-        return null;
-    }
-
-    public function eraseCredentials()
-    {
-        return null;
     }
 
     public function isInGame(): bool

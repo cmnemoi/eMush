@@ -22,7 +22,7 @@ const actions: ActionTree<any, any> = {
         } catch (e) {
             return false;
         }
-    },
+    }
 };
 
 const mutations: MutationTree<any> = {

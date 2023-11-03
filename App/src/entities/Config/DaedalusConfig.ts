@@ -89,7 +89,7 @@ export class DaedalusConfig {
             'cyclePerGameDay': this.cyclePerGameDay,
             'cycleLength': this.cycleLength,
             'randomItemPlaces': randomItemPlaces,
-            'placeConfigs': placeConfigs,
+            'placeConfigs': placeConfigs
         };
     }
     decode(jsonString : string): DaedalusConfig {

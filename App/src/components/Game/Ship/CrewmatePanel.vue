@@ -39,14 +39,12 @@
             </div> -->
         </div>
         <div class="interactions">
-            <tippy-singleton>
-                <ActionButton
-                    v-for="(action, key) in getActions"
-                    :key="key"
-                    :action="action"
-                    @click="executeTargetAction(action)"
-                />
-            </tippy-singleton>
+            <ActionButton
+                v-for="(action, key) in getActions"
+                :key="key"
+                :action="action"
+                @click="executeTargetAction(action)"
+            />
         </div>
     </div>
 </template>
@@ -165,11 +163,11 @@ export default defineComponent ({
             font-size: 0.9em;
             flex-wrap: wrap;
 
-            &::v-deep .status {
+            &::v-deep(.status) {
                 padding: 1px;
             }
 
-            &::v-deep .title {
+            &::v-deep(.title) {
                 padding: 1px;
             }
         }

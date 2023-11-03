@@ -28,16 +28,18 @@
                 Actions
             </template>
             <template #row-actions="slotProps">
-                <button v-if="slotProps.gameStatus != 'finished' && slotProps.gameStatus != 'closed'"
-                        class="action-button"
-                        type="button"
-                        @click="quarantinePlayer(slotProps.id)">
+                <button
+                    v-if="slotProps.gameStatus != 'finished' && slotProps.gameStatus != 'closed'"
+                    class="action-button"
+                    type="button"
+                    @click="quarantinePlayer(slotProps.id)">
                     {{ $t("admin.playerList.quarantine") }}
                 </button>
-                <button v-if="slotProps.gameStatus === 'finished'"
-                        class="action-button"
-                        type="button"
-                        @click="closePlayer(slotProps.id)">
+                <button
+                    v-if="slotProps.gameStatus === 'finished'"
+                    class="action-button"
+                    type="button"
+                    @click="closePlayer(slotProps.id)">
                     {{ $t("admin.playerList.closePlayer") }}
                 </button>
             </template>
@@ -100,7 +102,7 @@ export default defineComponent({
     methods: {
         formatDate: (date: string): string => {
             const dateObject = new Date(date);
-            return format(dateObject, 'PPPPpp', { locale: fr });  
+            return format(dateObject, 'PPPPpp', { locale: fr });
         },
         loadData() {
             this.loading = true;

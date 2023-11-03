@@ -41,7 +41,7 @@ export const PhaserRooms = [
     'patrol_ship_alpha_tamarin',
     'patrol_ship_alpha_longane',
     'patrol_ship_alpha_2_wallis',
-    'pasiphae',
+    'pasiphae'
 ];
 
 export class Room {

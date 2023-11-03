@@ -118,20 +118,20 @@ export default defineComponent({
         ChildCollectionManager,
         Input,
         UpdateConfigButtons,
-        StringArrayManager,
+        StringArrayManager
     },
     data: function (): DiseaseConfigState {
         return {
             diseaseConfig: null,
             errors: {},
-            disease: '',
+            disease: ''
         };
     },
     methods: {
         create(): void {
             // @ts-ignore
             const newDiseaseConfig = (new DiseaseConfig()).load(this.diseaseConfig?.jsonEncode());
-            
+
             newDiseaseConfig.id = null;
             if (this.diseaseConfig?.modifierConfigs !== undefined){
                 newDiseaseConfig.modifierConfigs = this.diseaseConfig?.modifierConfigs;
@@ -212,7 +212,7 @@ export default defineComponent({
             if (this.diseaseConfig && this.diseaseConfig.modifierConfigs) {
                 this.diseaseConfig.modifierConfigs = removeItem(this.diseaseConfig.modifierConfigs, child);
             }
-        },
+        }
     },
     beforeMount() {
         const diseaseConfigId = String(this.$route.params.diseaseConfigId);

@@ -4,10 +4,8 @@
             <img class="avatar" :src="characterPortrait" alt="avatar">
 
             <ul class="statuses">
-                <tippy-singleton>
-                    <Statuses :statuses="player.statuses" type="player" />
-                    <Statuses :statuses="player.diseases" type="disease" />
-                </tippy-singleton>
+                <Statuses :statuses="player.statuses" type="player" />
+                <Statuses :statuses="player.diseases" type="disease" />
             </ul>
 
             <div class="health-points">
@@ -52,7 +50,7 @@
                 <inventory
                     :items="player.items"
                     :min-slot="3"
-                    :selectedItem="getTargetItem"
+                    :selected-item="getTargetItem"
                     @select="toggleItemSelection"
                 />
             </div>
@@ -60,24 +58,20 @@
                 <div v-if="selectedItem" class="item-name">
                     {{ selectedItem.name }}
                     <Statuses :statuses="selectedItem.statuses" type="item" />
-                    <tippy-singleton>
-                        <ActionButton
-                            v-for="(action, key) in target.actions"
-                            :key="key"
-                            :action="action"
-                            @click="executeTargetAction(target, action)"
-                        />
-                    </tippy-singleton>
+                    <ActionButton
+                        v-for="(action, key) in target.actions"
+                        :key="key"
+                        :action="action"
+                        @click="executeTargetAction(target, action)"
+                    />
                 </div>
                 <div v-else>
-                    <tippy-singleton>
-                        <ActionButton
-                            v-for="(action, key) in target.actions"
-                            :key="key"
-                            :action="action"
-                            @click="executeTargetAction(null, action)"
-                        />
-                    </tippy-singleton>
+                    <ActionButton
+                        v-for="(action, key) in target.actions"
+                        :key="key"
+                        :action="action"
+                        @click="executeTargetAction(null, action)"
+                    />
                 </div>
             </div>
         </div>
@@ -193,7 +187,7 @@ export default defineComponent ({
                     this.selectedItem = null;
                 }
             }
-        },
+        }
     }
 });
 </script>
@@ -314,7 +308,7 @@ export default defineComponent ({
         letter-spacing: 0.03em;
         font-variant: small-caps;
 
-        &::v-deep .status {
+        &::v-deep(.status) {
             vertical-align: middle;
             margin-left: 2px;
         }

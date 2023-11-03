@@ -41,7 +41,7 @@ class ProbaCollection extends ArrayCollection
                 throw new \Exception('Probability weight should be provided as integers');
             }
 
-            $cumuProba = $cumuProba + $probability;
+            $cumuProba += $probability;
         }
 
         return $cumuProba;
@@ -54,7 +54,7 @@ class ProbaCollection extends ArrayCollection
     {
         $cumuProba = 0;
         foreach ($this as $element => $probability) {
-            $cumuProba = $cumuProba + $probability;
+            $cumuProba += $probability;
             if ($cumuProba >= $value) {
                 return $element;
             }

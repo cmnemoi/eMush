@@ -1,6 +1,6 @@
 <template>
     <button class="exit" v-if="terminal" @click="executeTargetAction(target, exitTerminalAction)">
-        {{ exitTerminalAction.name }}            
+        {{ exitTerminalAction.name }}
     </button>
 </template>
 
@@ -32,19 +32,19 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions({
-            'executeAction': 'action/executeAction',
+            'executeAction': 'action/executeAction'
         }),
         async executeTargetAction(target: Terminal, action: Action): Promise<void> {
             if(action.canExecute) {
                 await this.executeAction({ target, action });
             }
-        },
+        }
     },
     data() {
         return {
             ActionEnum
         };
-    },
+    }
 });
 </script>
 

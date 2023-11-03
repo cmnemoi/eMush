@@ -56,7 +56,7 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 
-::v-deep a {
+::v-deep(a) {
     color: $green;
 }
 

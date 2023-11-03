@@ -50,7 +50,7 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions({
-            'executeAction': 'action/executeAction',
+            'executeAction': 'action/executeAction'
         }),
         breakLine (): void {
             this.text += "\n//\n";

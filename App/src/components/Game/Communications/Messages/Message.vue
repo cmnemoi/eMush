@@ -23,9 +23,10 @@
         </p>
         <span class="timestamp" style="position: absolute">{{ message.date }}</span>
     </div>
-    <div v-else-if="!isRoot" 
-         :class="isHidden ? 'message child-message hidden' : 'message child-message'"
-         @click="$emit('click')"
+    <div
+        v-else-if="!isRoot"
+        :class="isHidden ? 'message child-message hidden' : 'message child-message'"
+        @click="$emit('click')"
     >
         <p class="text">
             <img class="character-head" :src="characterPortrait">
@@ -89,7 +90,7 @@ export default defineComponent ({
         formatMessage(value: string): string {
             if (! value) return '';
             return formatText(value.toString());
-        },
+        }
     }
 });
 </script>
@@ -138,7 +139,7 @@ export default defineComponent ({
     background: white;
     word-break: break-word;
 
-    &::v-deep em {
+    &::v-deep(em) {
         color: $red; // Makes italic text red
     }
 
@@ -254,7 +255,7 @@ export default defineComponent ({
     }
 }
 
-.hidden {    
+.hidden {
     display: none;
 }
 

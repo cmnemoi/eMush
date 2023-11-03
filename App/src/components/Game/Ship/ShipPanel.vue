@@ -11,7 +11,7 @@
             <SpaceBattleView
                 v-if="player.canSeeSpaceBattle()"
                 :player="player"
-                :selectedHunter="getTargetHunter"
+                :selected-hunter="getTargetHunter"
                 @select="selectHunter"
             />
             <MiniMap
@@ -63,7 +63,7 @@ export default defineComponent ({
     },
     props: {
         room: Room,
-        player: Player,
+        player: Player
     },
     computed: {
         ...mapGetters('room', [
@@ -95,7 +95,7 @@ export default defineComponent ({
             if (action.canExecute) {
                 await this.executeAction({ target, action });
             }
-        },
+        }
     }
 });
 </script>

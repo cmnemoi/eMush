@@ -3,7 +3,7 @@
         <section
             v-for="planet in planets"
             :key="planet.id"
-            class="planet" 
+            class="planet"
         >
             <h3>{{ planet.name }}</h3>
             <div class="card">
@@ -34,10 +34,11 @@
                         :action="analyzeAction(planet)"
                         @click="executeTargetAction(planet, analyzeAction(planet))"
                     />
-                    <Tippy v-if="deleteAction(planet)" 
-                           tag="button" 
-                           class="delete" 
-                           @click="executeTargetAction(planet, deleteAction(planet))">
+                    <Tippy
+                        v-if="deleteAction(planet)"
+                        tag="button"
+                        class="delete"
+                        @click="executeTargetAction(planet, deleteAction(planet))">
                         <template #content>
                             <h1 v-html="formatText(deleteAction(planet)?.name)" />
                             <p v-html="formatText(deleteAction(planet)?.description)" />
@@ -93,7 +94,7 @@ export default defineComponent ({
         terminal: {
             type: Terminal,
             required: true
-        },
+        }
     },
     computed: {
         scanAction(): Action | null {
@@ -119,7 +120,7 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions({
-            'executeAction': 'action/executeAction',
+            'executeAction': 'action/executeAction'
         }),
         analyzeAction(planet: Planet): Action | null {
             return this.getPlanetTargetById(planet.id).getActionByKey(ActionEnum.ANALYZE_PLANET);
@@ -150,9 +151,9 @@ export default defineComponent ({
     },
     data() {
         return {
-            ActionEnum,
+            ActionEnum
         };
-    },
+    }
 });
 </script>
 
@@ -199,7 +200,7 @@ export default defineComponent ({
 
             span {
                 margin: 0;
-            }   
+            }
         }
     }
 

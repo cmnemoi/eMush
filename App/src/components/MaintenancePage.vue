@@ -6,7 +6,7 @@
             <span class="neron-message" v-html="$t('errors.neronMessage')"></span>
             <p class="error">{{ $t('errors.gameInMaintenance') }}</p>
             <p class="community" v-html="$t('errors.consultCommunity')"></p>
-        </div>  
+        </div>
     </div>
 </template>
 
@@ -20,18 +20,18 @@ export default defineComponent ({
             type: Object,
             default: null
         }
-    },
+    }
 });
 
 </script>
 
 <style scoped lang="scss">
 .box-container {
-    &::v-deep strong {
+    &::v-deep(strong) {
         color: $cyan;
     }
 
-    &::v-deep a {
+    &::v-deep(a) {
         color: $green;
     }
 

@@ -73,5 +73,15 @@
         <target>astro_terminal.in_orbit</target>
       </segment>
     </unit>
+    <unit id="block_of_post_it">
+      <segment id="name" state="initial">
+        <source>block_of_post_it.name</source>
+        <target>block_of_post_it.name</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>block_of_post_it.tips</source>
+        <target>block_of_post_it.tips</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

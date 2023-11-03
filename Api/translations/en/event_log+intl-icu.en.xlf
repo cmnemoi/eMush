@@ -504,7 +504,7 @@
     <unit id="mush_convert_event">
       <segment id="mush_convert_event" state="translated">
         <source>mush_convert_event</source>
-        <target>Welcome to Mush, **{character}**. You have been awarded *{quantity} Glory points*.</target>
+        <target>Welcome to Mush, **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="player_enter_chat">

@@ -1,3 +1,5 @@
+import sanitizeHtml from 'sanitize-html';
+
 export const helpers = {
     computeImageHtml(key: string): string {
         switch(key) {
@@ -40,7 +42,12 @@ export const helpers = {
 };
 
 export function formatText(text: string): string {
-    let formattedText = text;
+    let formattedText = sanitizeHtml(text, {
+        allowedTags: [ 'strong', 'em', 'a', 'br' ],
+        allowedAttributes: {
+            'a': [ 'href' ]
+        }
+    });
     formattedText = formattedText.replaceAll(/\*\*(.[^*]*)\*\*/g, '<strong>$1</strong>');
     formattedText = formattedText.replaceAll(/\*(.[^*]*)\*/g, '<em>$1</em>');
     formattedText = formattedText.replaceAll(/\/\//g, '<br>');

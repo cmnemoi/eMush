@@ -52,7 +52,7 @@ const actions: ActionTree<any, any> = {
         if (!player.isInARoom()) {
             return false;
         }
-        
+
         commit('updateDaedalus', player.daedalus);
         commit('setLoadingMinimap', true);
         try {

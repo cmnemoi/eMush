@@ -42,17 +42,17 @@ export default {
             userLoading: 'auth/isLoading',
             playerLoading: 'player/isLoading',
             configLoading: 'gameConfig/isLoading',
-            userIsAdmin: 'auth/isAdmin',
-        }),
+            userIsAdmin: 'auth/isAdmin'
+        })
     },
     methods: {
         ...mapActions({
             loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus'
-        }),
+        })
     },
     beforeMount() {
         this.loadGameMaintenanceStatus();
-    },
+    }
 };
 </script>
 

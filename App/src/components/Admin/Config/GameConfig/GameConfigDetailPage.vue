@@ -200,7 +200,7 @@ export default defineComponent({
                                 result.data['hydra:member'].forEach((datum: any) => {
                                     equipmentsConfig.push((new EquipmentConfig()).load(datum));
                                 });
-                            
+
                                 if (this.gameConfig instanceof GameConfig) {
                                     this.gameConfig.equipmentsConfig = equipmentsConfig;
                                 }
@@ -211,7 +211,7 @@ export default defineComponent({
                                 result.data['hydra:member'].forEach((datum: any) => {
                                     statusConfigs.push((new StatusConfig()).load(datum));
                                 });
-                            
+
                                 if (this.gameConfig instanceof GameConfig) {
                                     this.gameConfig.statusConfigs = statusConfigs;
                                 }
@@ -222,7 +222,7 @@ export default defineComponent({
                                 result.data['hydra:member'].forEach((datum: any) => {
                                     triumphConfigs.push((new TriumphConfig()).load(datum));
                                 });
-                            
+
                                 if (this.gameConfig instanceof GameConfig) {
                                     this.gameConfig.triumphConfig = triumphConfigs;
                                 }
@@ -233,7 +233,7 @@ export default defineComponent({
                                 result.data['hydra:member'].forEach((datum: any) => {
                                     diseaseCauseConfigs.push((new DiseaseCauseConfig()).load(datum));
                                 });
-                            
+
                                 if (this.gameConfig instanceof GameConfig) {
                                     this.gameConfig.diseaseCauseConfig = diseaseCauseConfigs;
                                 }
@@ -244,7 +244,7 @@ export default defineComponent({
                                 result.data['hydra:member'].forEach((datum: any) => {
                                     diseaseConfigs.push((new DiseaseConfig()).load(datum));
                                 });
-                            
+
                                 if (this.gameConfig instanceof GameConfig) {
                                     this.gameConfig.diseaseConfig = diseaseConfigs;
                                 }
@@ -373,7 +373,7 @@ export default defineComponent({
             if (this.gameConfig && this.gameConfig.consumableDiseaseConfig){
                 this.gameConfig.consumableDiseaseConfig = removeItem(this.gameConfig.consumableDiseaseConfig, consumableDiseaseConfig);
             }
-        },
+        }
     },
     beforeMount() {
         const gameConfigId = Number(this.$route.params.gameConfigId);
@@ -414,7 +414,7 @@ export default defineComponent({
                     result.data['hydra:member'].forEach((datum: any) => {
                         equipmentsConfig.push((new EquipmentConfig()).load(datum));
                     });
-                    
+
                     if (this.gameConfig instanceof GameConfig) {
                         this.gameConfig.equipmentsConfig = equipmentsConfig;
                     }
@@ -425,7 +425,7 @@ export default defineComponent({
                     result.data['hydra:member'].forEach((datum: any) => {
                         statusConfigs.push((new StatusConfig()).load(datum));
                     });
-                    
+
                     if (this.gameConfig instanceof GameConfig) {
                         this.gameConfig.statusConfigs = statusConfigs;
                     }
@@ -436,7 +436,7 @@ export default defineComponent({
                     result.data['hydra:member'].forEach((datum: any) => {
                         triumphConfigs.push((new TriumphConfig()).load(datum));
                     });
-                    
+
                     if (this.gameConfig instanceof GameConfig) {
                         this.gameConfig.triumphConfig = triumphConfigs;
                     }
@@ -447,7 +447,7 @@ export default defineComponent({
                     result.data['hydra:member'].forEach((datum: any) => {
                         diseaseCauseConfigs.push((new DiseaseCauseConfig()).load(datum));
                     });
-                    
+
                     if (this.gameConfig instanceof GameConfig) {
                         this.gameConfig.diseaseCauseConfig = diseaseCauseConfigs;
                     }
@@ -458,7 +458,7 @@ export default defineComponent({
                     result.data['hydra:member'].forEach((datum: any) => {
                         diseaseConfigs.push((new DiseaseConfig()).load(datum));
                     });
-                    
+
                     if (this.gameConfig instanceof GameConfig) {
                         this.gameConfig.diseaseConfig = diseaseConfigs;
                     }
@@ -469,7 +469,7 @@ export default defineComponent({
                     result.data['hydra:member'].forEach((datum: any) => {
                         consumableDiseaseConfigs.push((new ConsumableDiseaseConfig()).load(datum));
                     });
-                    
+
                     if (this.gameConfig instanceof GameConfig) {
                         this.gameConfig.consumableDiseaseConfig = consumableDiseaseConfigs;
                     }

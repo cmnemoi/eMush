@@ -1,7 +1,7 @@
 <template>
-    <div class="daedalus-alarms">
+    <div class="daedalus-alarms" v-if="alerts.length > 0">
         <p v-if="!loadingAlerts" :class="{ alarm: !isNoAlert }">
-            <Tippy v-if="isNoAlert && alerts.length > 0">
+            <Tippy v-if="isNoAlert">
                 <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
                 <template #content>
                     <h1>{{ alerts[0].name }}</h1>
@@ -29,8 +29,6 @@
 </template>
 
 <script lang="ts">
-import { Daedalus } from "@/entities/Daedalus";
-import DaedalusService from "@/services/daedalus.service";
 import { AlertsIcons, NO_ALERT } from "@/enums/alerts.enum";
 import { formatText } from "@/utils/formatText";
 import { defineComponent } from "vue";

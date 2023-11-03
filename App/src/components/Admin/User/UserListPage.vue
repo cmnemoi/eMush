@@ -22,9 +22,6 @@
                     @change="updateFilter"
                 >
             </label>
-            <button class="action-button" type="button" @click="downloadUsersAsJson">
-                {{ $t("admin.user.downloadUsersAsJson") }}
-            </button>
         </div>
         <Datatable
             :headers='fields'
@@ -160,18 +157,6 @@ export default defineComponent({
         paginationClick(page: number) {
             this.pagination.currentPage = page;
             this.loadData();
-        },
-        downloadUsersAsJson() {
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'users')).then((result) => {
-                const dataStr = JSON.stringify(result.data["hydra:member"], null, 4);
-                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-                const exportFileDefaultName = 'users.json';
-                const linkElement = document.createElement('a');
-                linkElement.setAttribute('href', dataUri);
-                linkElement.setAttribute('download', exportFileDefaultName);
-                linkElement.click();
-            });
-            
         }
     },
     beforeMount() {

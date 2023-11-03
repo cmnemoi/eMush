@@ -1,13 +1,11 @@
 <template>
     <div class="action-panel">
-        <tippy-singleton>
-            <ActionButton
-                v-for="(action, key) in getActions"
-                :key="key"
-                :action="action"
-                @mousedown="executeTargetAction(action)"
-            />
-        </tippy-singleton>
+        <ActionButton
+            v-for="(action, key) in getActions"
+            :key="key"
+            :action="action"
+            @mousedown="executeTargetAction(action)"
+        />
     </div>
 </template>
 

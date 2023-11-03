@@ -45,11 +45,6 @@ const routes = [
                 name: "UserShips",
                 path: '',
                 component: UserShips
-            },
-            {
-                name: "UserLegacyProfile",
-                path: '',
-                component: () => import("@/components/User/UserLegacyProfile.vue")
             }
         ]
     },
@@ -107,82 +102,54 @@ const routes = [
             {
                 name: "AdminHomePage",
                 path: '',
-                meta: { authorize: [UserRole.ADMIN] },
                 component: AdminHomePage
             },
             {
                 path: "/config",
                 name: "AdminConfigHomepage",
                 component: AdminConfigPage,
-                meta: { authorize: [UserRole.ADMIN] },
                 redirect: { name: 'AdminGameConfigList' },
                 children: adminConfigRoutes
             },
             {
                 name: "AdminDaedalusList",
                 path: 'daedalus-list',
-                meta: { authorize: [UserRole.ADMIN] },
                 component: DaedalusListPage
             },
             {
                 name: "AdminDaedalusCreate",
                 path: 'daedalus-create',
-                meta: { authorize: [UserRole.ADMIN] },
                 component: DaedalusDetailPage
             },
             {
                 name: "AdminUser",
                 path: 'user',
-                meta: { authorize: [UserRole.ADMIN] },
                 component: UserListPage
             },
             {
                 name: "AdminUserDetail",
                 path: 'user/:userId',
-                meta: { authorize: [UserRole.ADMIN] },
                 component: UserDetailPage
             },
             {
                 name: "AdminNewsList",
                 path: 'news-list',
-                meta: { authorize: [UserRole.ADMIN] },
                 component: NewsListPage
             },
             {
                 name: "AdminNewsWrite",
                 path: 'write-news',
-                meta: { authorize: [UserRole.ADMIN] },
                 component: NewsWritePage
             },
             {
                 name: "AdminNewsEdit",
                 path: 'edit-news/:newsId',
-                meta: { authorize: [UserRole.ADMIN] },
                 component: NewsWritePage
             },
             {
                 name: "AdminPlayerList",
                 path: 'player-list',
-                meta: { authorize: [UserRole.ADMIN] },
                 component: PlayerListPage
-            },
-            {
-                name: "AdminSecretsList",
-                path: 'secrets-list',
-                meta: { authorize: [UserRole.ADMIN] },
-                component: () => import("@/components/Admin/Secrets/SecretsListPage.vue")
-            },
-            {
-                name: "AdminSecretsCreate",
-                path: 'create-secret',
-                meta: { authorize: [UserRole.ADMIN] },
-                component: () => import("@/components/Admin/Secrets/SecretsEditPage.vue")
-            },
-            {
-                name: "AdminSecretsEdit",
-                path: 'edit-secret/:secret',
-                meta: { authorize: [UserRole.ADMIN] },
-                component: () => import("@/components/Admin/Secrets/SecretsEditPage.vue")
             }
         ]
     },
@@ -190,12 +157,6 @@ const routes = [
         path: "/news",
         name: "NewsPage",
         component: NewsPage
-    },
-    {
-        path: "/import",
-        name: "ImportPage",
-        meta: { authorize: [UserRole.USER] },
-        component: () => import("@/components/ImportPage.vue")
     },
     {
         path: "/token",

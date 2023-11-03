@@ -163,6 +163,12 @@
         <target>read_document</target>
       </segment>
     </unit>
+    <unit id="read_content">
+      <segment id="read_content" state="translated">
+        <source>read_content</source>
+        <target>{content}</target>
+      </segment>
+    </unit>
     <unit id="repair_fail">
       <segment id="repair_fail" state="initial">
         <source>repair_fail</source>

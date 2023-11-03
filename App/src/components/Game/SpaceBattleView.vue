@@ -52,27 +52,25 @@
         </div>
     </div>
     <div class="hunters-container">
-        <tippy-singleton>
-            <Tippy
-                tag="div"
-                class="hunter"
-                :class="isHunterSelected(hunter) ? 'highlight' : ''"
-                @mousedown.stop="$emit('select', hunter)"
-                v-for="(hunter, key) in player?.spaceBattle?.hunters"
-                :key="key">
-                <div class="ship-img-container">
-                    <img :class="hunter.key + '-img'" :src="getHunterImage(hunter)" :alt="hunter.key">
-                </div>
-                <div class="stats">
-                    <p class="quantity">{{ hunter.health }}</p>
-                    <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
-                </div>
-                <template #content>
-                    <h1 v-html="formatContent(hunter.name)" /><br />
-                    <p v-html="formatContent(hunter.description)" />
-                </template>
-            </Tippy>
-        </tippy-singleton>
+        <Tippy
+            tag="div"
+            class="hunter"
+            :class="isHunterSelected(hunter) ? 'highlight' : ''"
+            @mousedown.stop="$emit('select', hunter)"
+            v-for="(hunter, key) in player?.spaceBattle?.hunters"
+            :key="key">
+            <div class="ship-img-container">
+                <img :class="hunter.key + '-img'" :src="getHunterImage(hunter)" :alt="hunter.key">
+            </div>
+            <div class="stats">
+                <p class="quantity">{{ hunter.health }}</p>
+                <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
+            </div>
+            <template #content>
+                <h1 v-html="formatContent(hunter.name)" /><br />
+                <p v-html="formatContent(hunter.description)" />
+            </template>
+        </Tippy>
     </div>
 
 </template>

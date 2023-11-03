@@ -12,7 +12,6 @@ use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
-use Mush\MetaGame\Entity\AdminSecret;
 use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
@@ -293,53 +292,6 @@ class AdminController extends AbstractFOSRestController
         $this->adminService->removeGameFromMaintenance();
 
         return $this->view('Game removed from maintenance successfully', Response::HTTP_OK);
-    }
-
-    /**
-     * Get all secrets.
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get(path="/secrets")
-     */
-    public function getSecrets(): View
-    {
-        $this->denyAccessIfNotAdmin();
-
-        $response = [];
-        /** @var AdminSecret $secret */
-        foreach ($this->adminService->findAllSecrets() as $secret) {
-            $response[] = ['name' => $secret->getName()];
-        }
-
-        return $this->view($response, Response::HTTP_OK);
-    }
-
-    /**
-     * Edit a secret.
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/secrets")
-     */
-    public function editSecret(Request $request): View
-    {
-        $this->denyAccessIfNotAdmin();
-
-        $secretName = $request->get('name');
-        $secretValue = $request->get('value');
-
-        if (!$secretName || !$secretValue) {
-            return $this->view('Env variable name and value are required', Response::HTTP_BAD_REQUEST);
-        }
-
-        $this->adminService->editSecret($secretName, $secretValue);
-
-        return $this->view('Secret edited successfully', Response::HTTP_OK);
     }
 
     private function alertElementHaveSameEquipmentOrPlace(AlertElement $element1, AlertElement $element2): bool

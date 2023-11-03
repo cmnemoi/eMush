@@ -49,7 +49,6 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
             'username' => $user->getUsername(),
             'playerInfo' => $currentPlayer,
             'roles' => $user->getRoles(),
-            'legacyUser' => $this->normalizer->normalize($user->getLegacyUser(), $format, $context),
         ];
     }
 }

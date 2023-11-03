@@ -133,7 +133,6 @@
         "psalm:clear-cache": "vendor/bin/psalm --clear-cache",
         "reset": [
             "composer install",
-            "@auto-scripts",
             "@load-fixtures",
             "php bin/console doctrine:database:create --if-not-exists",
             "@drop-database",

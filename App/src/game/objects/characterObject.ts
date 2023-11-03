@@ -62,6 +62,7 @@ export default class CharacterObject extends InteractObject {
     applyEquipmentInteraction(): void
     {
         const targetBed = this.player.isLyingDown();
+        const room = this.player.room;
 
         if (targetBed !== null) {
             const bed = (<DaedalusScene>this.scene).findObjectByNameAndId(targetBed.key, targetBed.id);
@@ -69,6 +70,8 @@ export default class CharacterObject extends InteractObject {
             if (bed !== null) {
                 this.applyEquipmentInteractionInformation(bed);
             }
+        } else if (room && room.type === 'space') {
+            this.play('space_giggle');
         } else {
             if (this.interactedEquipment !== null) {
                 const interactCoordinates = this.interactedEquipment.getInteractCoordinates(this.navMesh);
@@ -194,6 +197,17 @@ export default class CharacterObject extends InteractObject {
                 end: 18
             }),
             frameRate: 1
+        });
+
+        this.anims.create({
+            key: 'space_giggle',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: 'space_suit',
+                start: 1,
+                end: 5
+            }),
+            frameRate: 7,
+            repeat: -1
         });
     }
 

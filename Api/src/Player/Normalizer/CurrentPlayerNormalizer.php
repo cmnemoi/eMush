@@ -15,7 +15,6 @@ use Mush\Equipment\Normalizer\SpaceBattleTurretNormalizer;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
@@ -37,7 +36,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private SpaceBattlePatrolShipNormalizer $spaceBattlePatrolShipNormalizer;
     private SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer;
     private TerminalNormalizer $terminalNormalizer;
-    private PlanetServiceInterface $planetService;
     private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
 
@@ -48,7 +46,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         SpaceBattlePatrolShipNormalizer $spaceBattlePatrolShipNormalizer,
         SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer,
         TerminalNormalizer $terminalNormalizer,
-        PlanetServiceInterface $planetService,
         TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService
     ) {
@@ -58,7 +55,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $this->spaceBattlePatrolShipNormalizer = $spaceBattlePatrolShipNormalizer;
         $this->spaceBattleTurretNormalizer = $spaceBattleTurretNormalizer;
         $this->terminalNormalizer = $terminalNormalizer;
-        $this->planetService = $planetService;
         $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
     }
@@ -77,7 +73,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     {
         /** @var Player $player */
         $player = $object;
-        /** @var Daedalus $daedalus */
         $daedalus = $player->getDaedalus();
 
         $language = $daedalus->getLanguage();
@@ -107,7 +102,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'daedalus' => $this->normalizer->normalize($daedalus, $format, $context),
             'spaceBattle' => $this->normalizeSpaceBattle($player, $format, $context),
             'terminal' => $this->terminalNormalizer->normalize($player->getFocusedTerminal(), $format, $context),
-            'inOrbitPlanet' => $this->normalizer->normalize($this->planetService->findPlanetInDaedalusOrbit($daedalus), $format, $context),
         ];
 
         $statuses = [];

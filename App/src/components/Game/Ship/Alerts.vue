@@ -1,31 +1,29 @@
 <template>
     <div class="daedalus-alarms">
         <p v-if="!loadingAlerts" :class="{ alarm: !isNoAlert }">
-            <tippy-singleton>
-                <Tippy v-if="isNoAlert && alerts.length > 0">
-                    <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
-                    <template #content>
-                        <h1>{{ alerts[0].name }}</h1>
-                        <p v-html="formatAlert(alerts[0].description)"/>
-                    </template>
-                </Tippy>
-                <span v-else>{{ alerts[0].prefix }}</span>
-                <Tippy v-for="(alert, key) in alertsDisplayed" :key="key">
-                    <img
-                        :src="alertIcon(alert)"
-                        :alt="alert.name"
-                    >
-                    <template #content>
-                        <h1>{{ alert.name }}</h1>
-                        <p v-html="formatAlert(alert.description)" />
-                        <ul v-if="alert.reports.length > 0" style="flex-direction:column">
-                            <li v-for="(report, reportKey) in alert.reports" :key="reportKey">
-                                <p v-html="formatAlert(report)"/>
-                            </li>
-                        </ul>
-                    </template>
-                </Tippy>
-            </tippy-singleton>
+            <Tippy v-if="isNoAlert && alerts.length > 0">
+                <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
+                <template #content>
+                    <h1>{{ alerts[0].name }}</h1>
+                    <p v-html="formatAlert(alerts[0].description)"/>
+                </template>
+            </Tippy>
+            <span v-else>{{ alerts[0].prefix }}</span>
+            <Tippy v-for="(alert, key) in alertsDisplayed" :key="key">
+                <img
+                    :src="alertIcon(alert)"
+                    :alt="alert.name"
+                >
+                <template #content>
+                    <h1>{{ alert.name }}</h1>
+                    <p v-html="formatAlert(alert.description)" />
+                    <ul v-if="alert.reports.length > 0" style="flex-direction:column">
+                        <li v-for="(report, reportKey) in alert.reports" :key="reportKey">
+                            <p v-html="formatAlert(report)"/>
+                        </li>
+                    </ul>
+                </template>
+            </Tippy>
         </p>
     </div>
 </template>

@@ -39,14 +39,12 @@
             </div> -->
         </div>
         <div class="interactions">
-            <tippy-singleton>
-                <ActionButton
-                    v-for="(action, key) in getActions"
-                    :key="key"
-                    :action="action"
-                    @click="executeTargetAction(action)"
-                />
-            </tippy-singleton>
+            <ActionButton
+                v-for="(action, key) in getActions"
+                :key="key"
+                :action="action"
+                @click="executeTargetAction(action)"
+            />
         </div>
     </div>
 </template>

@@ -56,7 +56,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
 
         $planet = $this->planetService->findPlanetInDaedalusOrbit($daedalus);
         if ($planet !== null) {
-            $planet = $this->normalizer->normalize($planet);
+            $planet = $this->normalizer->normalize($planet, $format, $context);
         }
 
         $attackingHunters = $daedalus->getAttackingHunters()->count();

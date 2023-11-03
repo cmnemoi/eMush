@@ -38,20 +38,6 @@ const AdminService = {
 
         return response;
     },
-    editSecret(secret: {name: string, value: string}): Promise<any> {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = ApiService.post(ADMIN_ENDPOINT + '/secrets', secret);
-        store.dispatch('gameConfig/setLoading', { loading: false });
-
-        return response;
-    },
-    getSecrets: async(): Promise<any> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.get(ADMIN_ENDPOINT + '/secrets');
-        store.dispatch('gameConfig/setLoading', { loading: false });
-
-        return response;
-    },
     getPlayerInfoList: async(params: Record<string, unknown> | undefined): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.get(PLAYER_INFO_ENDPOINT, params);

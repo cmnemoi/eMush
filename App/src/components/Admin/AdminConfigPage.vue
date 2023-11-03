@@ -30,14 +30,14 @@ export default defineComponent ({
     margin-right: 1.6em;
 
     &::v-deep {
-        
+
         h2 { font-size: 1.6em; }
 
         h3 { font-size: 1.3em; }
 
         h2, h3 {
             margin: 2.8em 0 0.6em;
-            
+
             &:first-child { margin-top: 0.6em; }
         }
 
@@ -56,8 +56,8 @@ export default defineComponent ({
                 outline: none;
                 box-shadow: 0 0 0 3px transparentize(white, 0.85);
             }
-        
-            label { 
+
+            label {
                 padding: 0.6em;
                 flex: 1;
                 cursor: pointer;

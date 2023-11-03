@@ -93,14 +93,8 @@ class User implements UserInterface
         return null;
     }
 
-    public function getSalt()
+    public function eraseCredentials(): void
     {
-        return null;
-    }
-
-    public function eraseCredentials()
-    {
-        return null;
     }
 
     public function isInGame(): bool

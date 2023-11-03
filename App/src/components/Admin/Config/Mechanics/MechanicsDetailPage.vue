@@ -25,7 +25,7 @@
             @addElement="mechanics.mechanics.push($event)"
             @removeElement="mechanics.mechanics.splice(mechanics.mechanics.indexOf($event), 1)"
         />
-        
+
         <h3>{{ $t('admin.mechanics.actions') }}</h3>
         <ChildCollectionManager
             :children="mechanics.actions"
@@ -76,13 +76,13 @@
         <template v-if="mechanics.mechanicsType == 'Document'">
             <h3> {{ $t('admin.mechanics.content') }}</h3>
             <textarea v-model="mechanics.content"></textarea>
-            
+
             <div class="flex-row wrap">
                 <div class="checkbox-container">
                     <input
                         type="checkbox"
                         id="isTranslated"
-                        v-model="mechanics.isTranslated" 
+                        v-model="mechanics.isTranslated"
                     />
                     <label for="isTranslated">{{ mechanics.isTranslated ? $t('admin.mechanics.isTranslated') : $t('admin.mechanics.isNotTranslated') }}</label>
                 </div>
@@ -90,7 +90,7 @@
                     <input
                         type="checkbox"
                         id="canShred"
-                        v-model="mechanics.canShred" 
+                        v-model="mechanics.canShred"
                     />
                     <label for="canShred">{{ mechanics.canShred ? $t('admin.mechanics.canShred') : $t('admin.mechanics.cannotShred') }}</label>
                 </div>
@@ -118,17 +118,17 @@
                     <input
                         type="checkbox"
                         id="isPerishable"
-                        v-model="mechanics.isPerishable" 
+                        v-model="mechanics.isPerishable"
                     />
                     <label for="isPerishable">{{ mechanics.isPerishable ? $t('admin.mechanics.isPerishable') : $t('admin.mechanics.isNotPerishable') }}</label>
                 </div>
             </div>
             <MapManager
                 :label="$t('admin.mechanics.actionPoints')"
-                :map="mechanics.actionPoints" 
+                :map="mechanics.actionPoints"
                 id="mechanics_actionPoints"
-                mapIndexesType="number"
-                mapValuesType="number"
+                map-indexes-type="number"
+                map-values-type="number"
                 @addTuple="addActionPoints"
                 @removeIndex="removeActionPoints"
             />
@@ -136,36 +136,36 @@
                 :label="$t('admin.mechanics.moralPoints')"
                 :map="mechanics.moralPoints"
                 id="mechanics_moralPoints"
-                mapIndexesType="number"
-                mapValuesType="number"
-                @addTuple="addMoralPoints" 
+                map-indexes-type="number"
+                map-values-type="number"
+                @addTuple="addMoralPoints"
                 @removeIndex="removeMoralPoints"
             />
             <MapManager
                 :label="$t('admin.mechanics.healthPoints')"
-                :map="mechanics.healthPoints" 
+                :map="mechanics.healthPoints"
                 id="mechanics_healthPoints"
-                mapIndexesType="number"
-                mapValuesType="number"
-                @addTuple="addHealthPoints" 
+                map-indexes-type="number"
+                map-values-type="number"
+                @addTuple="addHealthPoints"
                 @removeIndex="removeHealthPoints"
             />
             <MapManager
                 :label="$t('admin.mechanics.movementPoints')"
-                :map="mechanics.movementPoints" 
+                :map="mechanics.movementPoints"
                 id="mechanics_movementPoints"
-                mapIndexesType="number"
-                mapValuesType="number"
-                @addTuple="addMovementPoints" 
+                map-indexes-type="number"
+                map-values-type="number"
+                @addTuple="addMovementPoints"
                 @removeIndex="removeMovementPoints"
             />
             <MapManager
                 :label="$t('admin.mechanics.extraEffects')"
-                :map="mechanics.extraEffects" 
+                :map="mechanics.extraEffects"
                 id="mechanics_extraEffects"
-                mapIndexesType="string"
-                mapValuesType="number"
-                @addTuple="addExtraEffects" 
+                map-indexes-type="string"
+                map-values-type="number"
+                @addTuple="addExtraEffects"
                 @removeIndex="removeExtraEffects"
             />
         </template>
@@ -189,18 +189,18 @@
             <MapManager
                 :map="mechanics.maturationTime"
                 id="mechanics_maturationTime"
-                mapIndexesType="number"
-                mapValuesType="number"
+                map-indexes-type="number"
+                map-values-type="number"
                 @addTuple="addMaturationTime"
                 @removeIndex="removeMaturationTime"
             />
-            
+
             <h3>{{ $t('admin.mechanics.oxygen') }}</h3>
             <MapManager
                 :map="mechanics.oxygen"
                 id="mechanics_oxygen"
-                mapIndexesType="number"
-                mapValuesType="number"
+                map-indexes-type="number"
+                map-values-type="number"
                 @addTuple="addOxygen"
                 @removeIndex="removeOxygen"
             />
@@ -249,8 +249,8 @@
             <MapManager
                 :map="mechanics.baseDamageRange"
                 id="mechanics_baseDamageRange"
-                mapIndexesType="number"
-                mapValuesType="number"
+                map-indexes-type="number"
+                map-values-type="number"
                 @addTuple="addBaseDamageRange"
                 @removeIndex="removeBaseDamageRange"
             />
@@ -258,7 +258,7 @@
         <template v-if="mechanics.mechanicsType == 'PatrolShip'">
             <h3>{{ $t('admin.mechanics.dockingPlace') }}</h3>
             <div class="flex-row">
-                <Input 
+                <Input
                     :label="$t('admin.mechanics.dockingPlace')"
                     id="mechanics_dockingPlace"
                     v-model="mechanics.dockingPlace"
@@ -270,8 +270,8 @@
             <MapManager
                 :map="mechanics.collectScrapNumber"
                 id="mechanics_collectScrapNumber"
-                mapIndexesType="number"
-                mapValuesType="number"
+                map-indexes-type="number"
+                map-values-type="number"
                 @addTuple="addCollectScrapNumber"
                 @removeIndex="removeCollectScrapNumber"
             />
@@ -279,8 +279,8 @@
             <MapManager
                 :map="mechanics.collectScrapPatrolShipDamage"
                 id="mechanics_collectScrapPatrolShipDamage"
-                mapIndexesType="number"
-                mapValuesType="number"
+                map-indexes-type="number"
+                map-values-type="number"
                 @addTuple="addCollectScrapPatrolShipDamage"
                 @removeIndex="removeCollectScrapPatrolShipDamage"
             />
@@ -288,8 +288,8 @@
             <MapManager
                 :map="mechanics.collectScrapPlayerDamage"
                 id="mechanics_collectScrapPlayerDamage"
-                mapIndexesType="number"
-                mapValuesType="number"
+                map-indexes-type="number"
+                map-values-type="number"
                 @addTuple="addCollectScrapPlayerDamage"
                 @removeIndex="removeCollectScrapPlayerDamage"
             />
@@ -297,8 +297,8 @@
             <MapManager
                 :map="mechanics.failedManoeuvreDaedalusDamage"
                 id="mechanics_failedManoeuvreDaedalusDamage"
-                mapIndexesType="number"
-                mapValuesType="number"
+                map-indexes-type="number"
+                map-values-type="number"
                 @addTuple="addFailedManoeuvreDaedalusDamage"
                 @removeIndex="removeFailedManoeuvreDaedalusDamage"
             />
@@ -306,8 +306,8 @@
             <MapManager
                 :map="mechanics.failedManoeuvrePatrolShipDamage"
                 id="mechanics_failedManoeuvrePatrolShipDamage"
-                mapIndexesType="number"
-                mapValuesType="number"
+                map-indexes-type="number"
+                map-values-type="number"
                 @addTuple="addFailedManoeuvrePatrolShipDamage"
                 @removeIndex="removeFailedManoeuvrePatrolShipDamage"
             />
@@ -315,8 +315,8 @@
             <MapManager
                 :map="mechanics.failedManoeuvrePlayerDamage"
                 id="mechanics_failedManoeuvrePlayerDamage"
-                mapIndexesType="number"
-                mapValuesType="number"
+                map-indexes-type="number"
+                map-values-type="number"
                 @addTuple="addFailedManoeuvrePlayerDamage"
                 @removeIndex="removeFailedManoeuvrePlayerDamage"
             />
@@ -363,7 +363,7 @@ export default defineComponent({
             mechanics: null,
             errors: {},
             ingredients: ["metal_scraps", "plastic_scraps", "soap", "old_t_shirt", "thick_tube", "oxygen_capsule", "fuel_capsule"],
-            ingredientToAdd: "",
+            ingredientToAdd: ""
         };
     },
     methods: {
@@ -655,7 +655,7 @@ export default defineComponent({
             if (this.mechanics && this.mechanics.failedManoeuvrePlayerDamage) {
                 this.mechanics.failedManoeuvrePlayerDamage.delete(index);
             }
-        },
+        }
 
     },
     beforeMount() {

@@ -28,10 +28,11 @@
                 </tr>
             </tbody>
         </table>
-        <button class="action-button"
-                :disabled="!news.frenchTitle || !news.frenchContent"
-                type="submit"
-                @click="update">
+        <button
+            class="action-button"
+            :disabled="!news.frenchTitle || !news.frenchContent"
+            type="submit"
+            @click="update">
             {{ $t('admin.save') }}
         </button>
     </div>
@@ -107,7 +108,7 @@ export default defineComponent({
             .catch((error: any) => {
                 this.errors = handleErrors(error);
             });
-        
+
     }
 });
 </script>
@@ -139,7 +140,7 @@ table {
     th, td {
         padding: 1em 0.5em 1em 1.2em;
         vertical-align: middle;
-        &::v-deep a, &::v-deep button {
+        &::v-deep(a), &::v-deep(button) {
             @include button-style();
             width: fit-content;
             padding: 2px 15px 4px;

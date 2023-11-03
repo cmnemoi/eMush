@@ -83,40 +83,61 @@ class HasEquipmentValidator extends ConstraintValidator
     ): bool {
         switch ($reach) {
             case ReachEnum::INVENTORY:
-                $equipments = $player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
-                if ($checkIfOperational) {
-                    return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
-                }
-
-                return !$equipments->isEmpty();
+                return $this->canReachEquipmentInInventory($player, $equipmentName, $checkIfOperational);
 
             case ReachEnum::SHELVE:
-                $equipments = $player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
-                if ($checkIfOperational) {
-                    return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
-                }
-
-                return !$equipments->isEmpty();
+                return $this->canReachEquipmentInShelf($player, $equipmentName, $checkIfOperational);
 
             case ReachEnum::ROOM:
-                $shelfEquipments = $player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
-                $playerEquipments = $player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
-                if ($checkIfOperational) {
-                    return !($playerEquipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty()
-                    && $shelfEquipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty());
-                }
-
-                return !($shelfEquipments->isEmpty() && $playerEquipments->isEmpty());
+                return $this->canReachEquipmentInRoom($player, $equipmentName, $checkIfOperational);
 
             case ReachEnum::DAEDALUS:
-                $equipments = $this->gameEquipmentService->findByNameAndDaedalus($equipmentName, $player->getDaedalus());
-                if ($checkIfOperational) {
-                    return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
-                }
-
-                return !$equipments->isEmpty();
+                return $this->canReachEquipmentInDaedalus($player, $equipmentName, $checkIfOperational);
         }
 
         return true;
+    }
+
+    private function canReachEquipmentInInventory(Player $player, string $equipmentName, bool $checkIfOperational): bool
+    {
+        $equipments = $player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
+        if ($checkIfOperational) {
+            return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+        }
+
+        return !$equipments->isEmpty();
+    }
+
+    private function canReachEquipmentInShelf(Player $player, string $equipmentName, bool $checkIfOperational): bool
+    {
+        $equipments = $player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
+        if ($checkIfOperational) {
+            return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+        }
+
+        return !$equipments->isEmpty();
+    }
+
+    private function canReachEquipmentInRoom(Player $player, string $equipmentName, bool $checkIfOperational): bool
+    {
+        $shelfEquipments = $player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
+        $playerEquipments = $player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
+
+        if ($checkIfOperational) {
+            return !($playerEquipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty()
+            && $shelfEquipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty());
+        }
+
+        return !($shelfEquipments->isEmpty() && $playerEquipments->isEmpty());
+    }
+
+    private function canReachEquipmentInDaedalus(Player $player, string $equipmentName, bool $checkIfOperational): bool
+    {
+        $equipments = $this->gameEquipmentService->findByNameAndDaedalus($equipmentName, $player->getDaedalus());
+        if ($checkIfOperational) {
+            return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+        }
+
+        return !$equipments->isEmpty();
     }
 }

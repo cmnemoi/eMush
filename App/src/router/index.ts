@@ -26,7 +26,7 @@ const routes = [
     {
         path: "/",
         name: "HomePage",
-        component: HomePage,
+        component: HomePage
     },
     {
         path: "/game",
@@ -62,7 +62,7 @@ const routes = [
                 next({ name: 'HomePage' });
             }
         }
-        
+
     },
     {
         path: "/ranking",
@@ -74,7 +74,7 @@ const routes = [
             {
                 name: "ShipRanking",
                 path: '',
-                component: ShipRanking,
+                component: ShipRanking
             },
             {
                 name: "TheEnd",
@@ -85,7 +85,7 @@ const routes = [
                         name: "TheEndUserPage",
                         path: '/user/:userId',
                         component: UserPage,
-                        redirect: { name: 'UserPage' },
+                        redirect: { name: 'UserPage' }
                     }
                 ]
 
@@ -161,7 +161,7 @@ const routes = [
     {
         path: "/token",
         name: "Token",
-        component: Token,
+        component: Token
     }
 ];
 

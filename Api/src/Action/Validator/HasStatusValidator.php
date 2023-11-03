@@ -13,29 +13,14 @@ class HasStatusValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
-        if (!$value instanceof AbstractAction) {
-            throw new UnexpectedTypeException($value, AbstractAction::class);
-        }
+        $this->isTheRightValidator($value, $constraint);
 
-        if (!$constraint instanceof HasStatus) {
-            throw new UnexpectedTypeException($constraint, HasStatus::class);
-        }
         // @TODO remove this when rejuvenate is removed for testers
         if ($constraint->bypassIfUserIsAdmin && $value->getPlayer()->getUser()->isAdmin()) {
             return;
         }
 
-        $target = match ($constraint->target) {
-            HasStatus::PARAMETER => $value->getTarget(),
-            HasStatus::PLAYER => $value->getPlayer(),
-            HasStatus::PLAYER_ROOM => $value->getPlayer()->getPlace(),
-            HasStatus::DAEDALUS => $value->getPlayer()->getDaedalus(),
-            default => throw new LogicException('unsupported target'),
-        };
-
-        if (!$target instanceof StatusHolderInterface) {
-            throw new UnexpectedTypeException($target, StatusHolderInterface::class);
-        }
+        $target = $this->getTarget($value, $constraint);
 
         if ($constraint->ownerSide && $target->hasStatus($constraint->status) !== $constraint->contain) {
             $this->context->buildViolation($constraint->message)
@@ -48,6 +33,34 @@ class HasStatusValidator extends ConstraintValidator
         if ($constraint->statusTargetName !== null && $target->getStatusByName($constraint->status)?->getTarget()?->getName() !== $constraint->statusTargetName) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
+        }
+    }
+
+    private function getTarget($value, Constraint $constraint): StatusHolderInterface
+    {
+        $target = match ($constraint->target) {
+            HasStatus::PARAMETER => $value->getTarget(),
+            HasStatus::PLAYER => $value->getPlayer(),
+            HasStatus::PLAYER_ROOM => $value->getPlayer()->getPlace(),
+            HasStatus::DAEDALUS => $value->getPlayer()->getDaedalus(),
+            default => throw new LogicException('unsupported target'),
+        };
+
+        if (!$target instanceof StatusHolderInterface) {
+            throw new UnexpectedTypeException($target, StatusHolderInterface::class);
+        }
+
+        return $target;
+    }
+
+    private function isTheRightValidator($value, Constraint $constraint)
+    {
+        if (!$value instanceof AbstractAction) {
+            throw new UnexpectedTypeException($value, AbstractAction::class);
+        }
+
+        if (!$constraint instanceof HasStatus) {
+            throw new UnexpectedTypeException($constraint, HasStatus::class);
         }
     }
 }

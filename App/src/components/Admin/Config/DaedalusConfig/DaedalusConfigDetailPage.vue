@@ -138,7 +138,7 @@ export default defineComponent({
     components: {
         ChildCollectionManager,
         Input,
-        UpdateConfigButtons,
+        UpdateConfigButtons
     },
     data: function (): DaedalusConfigState {
         return {
@@ -149,7 +149,7 @@ export default defineComponent({
     methods: {
         create(): void {
             if (this.daedalusConfig === null) return;
-            
+
             const newDaedalusConfig = this.daedalusConfig;
             newDaedalusConfig.id = null;
             if (this.daedalusConfig.randomItemPlaces){
@@ -177,7 +177,7 @@ export default defineComponent({
                     this.daedalusConfig = res;
                     if (this.daedalusConfig !== null) {
                         ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'daedalus_configs', String(this.daedalusConfig.id), 'random_item_places'))
-                            .then((result) => {                                
+                            .then((result) => {
                                 if (this.daedalusConfig instanceof DaedalusConfig) {
                                     this.daedalusConfig.randomItemPlaces = (new RandomItemPlaces()).load(result.data);
                                 }

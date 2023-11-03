@@ -58,7 +58,7 @@ const ActionService = {
         }
 
         return action;
-    },
+    }
 
 };
 export default ActionService;

@@ -6,7 +6,7 @@
                 <option
                     v-for="i in selection"
                     :value="i"
-                    v-bind:key="i"
+                    :key="i"
                 >
                     {{ i }}
                 </option>
@@ -40,14 +40,14 @@ export default {
         },
         label: {
             type: String,
-            required: false,
+            required: false
         },
         selection: {
             type: Array<string>,
             required: false
         },
         array: Array<string>,
-        mapIndexesType: String,
+        mapIndexesType: String
     },
     emits: ['addElement', 'removeElement'],
     data: function () {

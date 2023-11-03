@@ -2,17 +2,18 @@
     <div class="configs-list">
         <div class="toolbar">
             <label>
-                Rechercher: 
+                Rechercher:
                 <input type="search">
             </label>
         </div>
         <ul>
             <li class="selected"> <!-- selected configs should display ontop the list, dynamically -->
                 <label>
-                    <input type="checkbox" 
-                           id="config_1" 
-                           name="config_1" 
-                           checked />
+                    <input
+                        type="checkbox"
+                        id="config_1"
+                        name="config_1"
+                        checked />
                     <div>
                         <h3>Config 1</h3>
                         <p>Details, comments</p>
@@ -21,10 +22,11 @@
             </li>
             <li class="selected">
                 <label>
-                    <input type="checkbox" 
-                           id="config_2" 
-                           name="config_2" 
-                           checked />
+                    <input
+                        type="checkbox"
+                        id="config_2"
+                        name="config_2"
+                        checked />
                     <div>
                         <h3>Config 2</h3>
                         <p>Details, comments</p>
@@ -33,9 +35,10 @@
             </li>
             <li>
                 <label>
-                    <input type="checkbox" 
-                           id="config_3" 
-                           name="config_3" />
+                    <input
+                        type="checkbox"
+                        id="config_3"
+                        name="config_3" />
                     <div>
                         <h3>Config 3</h3>
                         <p>Details, comments</p>
@@ -44,9 +47,10 @@
             </li>
             <li>
                 <label>
-                    <input type="checkbox" 
-                           id="config_4" 
-                           name="config_4" />
+                    <input
+                        type="checkbox"
+                        id="config_4"
+                        name="config_4" />
                     <div>
                         <h3>Config 4</h3>
                         <p>Details, comments</p>
@@ -55,9 +59,10 @@
             </li>
             <li>
                 <label>
-                    <input type="checkbox" 
-                           id="config_5" 
-                           name="config_5" />
+                    <input
+                        type="checkbox"
+                        id="config_5"
+                        name="config_5" />
                     <div>
                         <h3>Config 5</h3>
                         <p>Details, comments</p>

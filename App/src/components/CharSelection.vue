@@ -10,7 +10,7 @@
                         :key="`Lang${i}`"
                         :value="lang.caption"
                         @click="resetValues(); loadAvailableCharacters(i);"
-                        :src="lang.icon" 
+                        :src="lang.icon"
                         class="flag"
                     />
                 </ol>
@@ -98,7 +98,7 @@ export default defineComponent ({
             characterSelected: false,
             selectedCharacter: null,
             error: null as any,
-            languages: gameLocales,
+            languages: gameLocales
         };
     },
     computed: {
@@ -120,7 +120,7 @@ export default defineComponent ({
                     this.error = error.response?.data?.detail;
                     this.loading = false;
                 });
-            
+
         },
         characterPortrait: function(character: Character) {
             return characterEnum[character.key] ? characterEnum[character.key].portrait : require('@/assets/images/items/todo.jpg');
@@ -150,7 +150,7 @@ export default defineComponent ({
         ...mapActions('error', [
             'clearError'
         ])
-    },
+    }
 });
 </script>
 

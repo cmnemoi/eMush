@@ -4,7 +4,7 @@
             class="inventory"
             :items="items"
             :min-slot="7"
-            :selectedItem="getSelectedItem"
+            :selected-item="getSelectedItem"
             @select="selectItem"
         />
         <div class="item-details">
@@ -87,7 +87,7 @@ export default defineComponent ({
             justify-content: center;
             display: flex;
 
-            &::v-deep .status {
+            &::v-deep(.status) {
                 vertical-align: middle;
                 margin-left: 2px;
             }

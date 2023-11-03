@@ -65,7 +65,7 @@ export default defineComponent({
         create(): void {
             // @ts-ignore
             const newTriumphConfig = (new TriumphConfig()).load(this.triumphConfig?.jsonEncode());
-            
+
             newTriumphConfig.id = null;
             GameConfigService.createTriumphConfig(newTriumphConfig).then((res: TriumphConfig | null) => {
                 this.triumphConfig = res;
@@ -106,7 +106,7 @@ export default defineComponent({
                         console.error('Error', error.message);
                     }
                 });
-        },
+        }
     },
     beforeMount() {
         const triumphConfigId = String(this.$route.params.triumphConfigId);

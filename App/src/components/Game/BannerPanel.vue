@@ -135,8 +135,8 @@ export default defineComponent({
         },
         triggerCycleChange(player: Player) {
             PlayerService.triggerCycleChange(player);
-        },
-    },
+        }
+    }
 });
 </script>
 

@@ -18,7 +18,7 @@ export class ConsumableDiseaseAttribute {
         this.rate = null;
         this.delayMin = null;
         this.delayLength = null;
-  
+
     }
     load(object:any) : ConsumableDiseaseAttribute {
         if (typeof object !== "undefined") {
@@ -39,7 +39,7 @@ export class ConsumableDiseaseAttribute {
             'type': this.type,
             'rate': this.rate,
             'delayMin': this.delayMin,
-            'delayLength': this.delayLength,
+            'delayLength': this.delayLength
         };
         return data;
     }

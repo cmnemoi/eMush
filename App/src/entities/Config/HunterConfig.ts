@@ -119,7 +119,7 @@ export class HunterConfig {
             "scrapDropTable": scrapDropTable,
             "numberOfDroppedScrap": numberOfDroppedScrap,
             "bonusAfterFailedShot": this.bonusAfterFailedShot,
-            "numberOfActionsPerCycle": this.numberOfActionsPerCycle,
+            "numberOfActionsPerCycle": this.numberOfActionsPerCycle
         };
     }
     decode(jsonString : string): HunterConfig {

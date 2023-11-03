@@ -26,16 +26,18 @@
             <button class = "action-button" type="button" @click="destroyAllDaedaluses">
                 {{$t("admin.daedalus.destroyAllDaedaluses")}}
             </button>
-            <button class="action-button"
-                    type="button"
-                    @click="removeGameFromMaintenance"
-                    v-if="gameInMaintenance()">
+            <button
+                class="action-button"
+                type="button"
+                @click="removeGameFromMaintenance"
+                v-if="gameInMaintenance()">
                 {{$t("admin.daedalus.maintenanceOff")}}
             </button>
-            <button class="action-button"
-                    type="button"
-                    @click="putGameInMaintenance"
-                    v-else>
+            <button
+                class="action-button"
+                type="button"
+                @click="putGameInMaintenance"
+                v-else>
                 {{$t("admin.daedalus.maintenanceOn")}}
             </button>
         </div>
@@ -60,28 +62,32 @@
             </template>
             <template #row-actions="slotProps">
                 <div class="flex-row">
-                    <button v-if="!daedalusIsFinished(slotProps)"
-                            class="action-button"
-                            type="button"
-                            @click="destroyDaedalus(slotProps.id)">
+                    <button
+                        v-if="!daedalusIsFinished(slotProps)"
+                        class="action-button"
+                        type="button"
+                        @click="destroyDaedalus(slotProps.id)">
                         {{ $t("admin.daedalus.destroy") }}
                     </button>
-                    <button v-if="!daedalusIsFinished(slotProps) && slotProps.isCycleChange"
-                            class="action-button"
-                            type="button"
-                            @click="unlockDaedalus(slotProps.id)">
+                    <button
+                        v-if="!daedalusIsFinished(slotProps) && slotProps.isCycleChange"
+                        class="action-button"
+                        type="button"
+                        @click="unlockDaedalus(slotProps.id)">
                         {{ $t("admin.daedalus.unlock") }}
                     </button>
-                    <button v-if="!daedalusIsFinished(slotProps)"
-                            class="action-button"
-                            type="button"
-                            @click="addNewRoomsToDaedalus(slotProps.id)">
+                    <button
+                        v-if="!daedalusIsFinished(slotProps)"
+                        class="action-button"
+                        type="button"
+                        @click="addNewRoomsToDaedalus(slotProps.id)">
                         {{ $t("admin.daedalus.addNewRooms") }}
                     </button>
-                    <button v-if="!daedalusIsFinished(slotProps)"
-                            class="action-button"
-                            type="button"
-                            @click="deleteDaedalusDuplicatedAlertElements(slotProps.id)">
+                    <button
+                        v-if="!daedalusIsFinished(slotProps)"
+                        class="action-button"
+                        type="button"
+                        @click="deleteDaedalusDuplicatedAlertElements(slotProps.id)">
                         {{ $t("admin.daedalus.deleteDuplicatedAlertElements") }}
                     </button>
                 </div>
@@ -155,19 +161,19 @@ export default defineComponent({
                 { text: 5, value: 5 },
                 { text: 10, value: 10 },
                 { text: 20, value: 20 }
-            ],
+            ]
         };
     },
     methods: {
         ...mapGetters({
-            gameInMaintenance: 'admin/gameInMaintenance',
+            gameInMaintenance: 'admin/gameInMaintenance'
         }),
         ...mapActions({
-            loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus',
+            loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus'
         }),
         formatDate: (date: string): string => {
             const dateObject = new Date(date);
-            return format(dateObject, 'PPPPpp', { locale: fr });  
+            return format(dateObject, 'PPPPpp', { locale: fr });
         },
         loadData() {
             this.loading = true;

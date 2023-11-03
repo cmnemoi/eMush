@@ -89,7 +89,7 @@ export class Mechanics {
             this.name = object.name;
             this.mechanics = object.mechanics;
         }
-        
+
         if (typeof object.actions !== 'undefined') {
             const actions : Action[] = [];
             object.actions.forEach((actionData: any) => {
@@ -98,8 +98,8 @@ export class Mechanics {
             });
             this.actions = actions;
         }
-        
-        this.addBlueprintAttributes(object);  
+
+        this.addBlueprintAttributes(object);
         this.addBookAttributes(object);
         this.addDocumentAttributes(object);
         this.addFruitAttributes(object);
@@ -108,21 +108,21 @@ export class Mechanics {
         this.addRationAttributes(object);
         this.addWeaponAttributes(object);
         this.addPatrolShipAttributes(object);
-        
+
         return this;
     }
 
     jsonEncode() : object {
         const actions : string[] = [];
         this.actions?.forEach(action => (typeof action.iri === 'string' ? actions.push(action.iri) : null));
-        
+
         const data: any = {
             'id': this.id,
             'name': this.name,
             'mechanics': this.mechanics,
-            'actions': actions,
+            'actions': actions
         };
-        
+
         this.encodeBlueprintAttributes(data);
         this.encodeBookAttributes(data);
         this.encodeDocumentAttributes(data);
@@ -435,7 +435,7 @@ export class Mechanics {
                 }
             }
         }
-        
+
         this.dockingPlace = object.dockingPlace;
     }
 

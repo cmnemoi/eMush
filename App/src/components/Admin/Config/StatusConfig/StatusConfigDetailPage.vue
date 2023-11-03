@@ -118,7 +118,7 @@ export default defineComponent({
         ChildCollectionManager,
         Input,
         UpdateConfigButtons,
-        StringArrayManager,
+        StringArrayManager
     },
     data: function (): StatusConfigState {
         return {

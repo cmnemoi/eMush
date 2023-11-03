@@ -64,9 +64,9 @@ export class DiseaseConfig {
             'resistance': this.resistance,
             'delayMin': this.delayMin,
             'delayLength': this.delayLength,
-            'diseasePointMin': this.diseasePointMin,    
+            'diseasePointMin': this.diseasePointMin,
             'diseasePointLength': this.diseasePointLength,
-            'override': this.override,
+            'override': this.override
         };
     }
     decode(jsonString : string): DiseaseConfig {

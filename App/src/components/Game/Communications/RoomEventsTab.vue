@@ -29,7 +29,7 @@ export default defineComponent ({
     },
     props: {
         channel: Channel,
-        calendar: GameCalendar,
+        calendar: GameCalendar
     },
     computed: {
         ...mapGetters('communication', [

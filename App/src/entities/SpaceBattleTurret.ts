@@ -5,7 +5,7 @@ export class SpaceBattleTurret {
         ['front_bravo_turret', 3],
         ['rear_alpha_turret', 4],
         ['centre_alpha_turret', 5],
-        ['front_alpha_turret', 6],
+        ['front_alpha_turret', 6]
     ]);
 
     public id!: number;
@@ -28,7 +28,7 @@ export class SpaceBattleTurret {
             this.occupiers = object.occupiers;
             this.displayOrder = this.turretOrders.get(this.key) || -1;
         }
-        
+
         return this;
     }
 
@@ -39,7 +39,7 @@ export class SpaceBattleTurret {
             'name': this.name,
             'charges': this.charges,
             'occupiers': this.occupiers,
-            'displayOrder': this.displayOrder,
+            'displayOrder': this.displayOrder
         };
 
         return data;

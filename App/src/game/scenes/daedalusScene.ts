@@ -414,7 +414,7 @@ export default class DaedalusScene extends Phaser.Scene
         }
 
         this.enableEventListeners();
-       
+
         // add target tile highlight
         this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
         this.add.existing(this.targetHighlightObject);
@@ -424,7 +424,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.input.setGlobalTopOnly(true);
 
         this.createPlayers();
- 
+
     }
 
     reloadScene(): void
@@ -455,7 +455,7 @@ export default class DaedalusScene extends Phaser.Scene
             }
             this.updateStatuses();
             this.createPlayers();
-            
+
 
         } else if (this.areEquipmentsModified()) {
             this.room = newRoom;
@@ -502,7 +502,7 @@ export default class DaedalusScene extends Phaser.Scene
                 const updatedEquipment = room.equipments.filter((equipment: Equipment) => (equipment.id === gameObject.equipment.id))[0];
 
                 gameObject.updateEquipment(updatedEquipment);
-                
+
                 this.displayPatrolShipActions(updatedEquipment, room);
 
             } else if (gameObject instanceof DoorObject || gameObject instanceof DoorGroundObject) {
@@ -612,7 +612,7 @@ export default class DaedalusScene extends Phaser.Scene
     }
 
     createRoom(): MushTiledMap
-    {        
+    {
         this.sceneGrid = new SceneGrid(this, this.characterSize);
         this.navMeshGrid = new NavMeshGrid(this);
 
@@ -655,7 +655,7 @@ export default class DaedalusScene extends Phaser.Scene
             const planetSprite = this.add.tileSprite(this.game.scale.gameSize.width-(268/2), this.game.scale.gameSize.height-(191/2), 268, 191, `planet_${this.player.inOrbitPlanet.imageId}`);
             planetSprite.setScrollFactor(0, 0);
         }
-        
+
         return map;
     }
 

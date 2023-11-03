@@ -107,6 +107,9 @@ class EventModifierConfig extends AbstractModifierConfig
         return $this->tagConstraints;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function doModifierApplies(AbstractGameEvent $event): bool
     {
         if ($event->getEventName() !== $this->getTargetEvent()) {
@@ -118,21 +121,15 @@ class EventModifierConfig extends AbstractModifierConfig
         foreach ($this->tagConstraints as $tag => $constraint) {
             switch ($constraint) {
                 case ModifierRequirementEnum::ANY_TAGS:
-                    if ($anyConstraint === null) {
-                        $anyConstraint = false;
-                    }
-
-                    if (in_array($tag, $event->getTags())) {
-                        $anyConstraint = true;
-                    }
+                    $anyConstraint = $anyConstraint || $event->hasTag($tag);
                     break;
                 case ModifierRequirementEnum::ALL_TAGS:
-                    if (!in_array($tag, $event->getTags())) {
+                    if (!$event->hasTag($tag)) {
                         return false;
                     }
                     break;
                 case ModifierRequirementEnum::NONE_TAGS:
-                    if (in_array($tag, $event->getTags())) {
+                    if ($event->hasTag($tag)) {
                         return false;
                     }
                     break;

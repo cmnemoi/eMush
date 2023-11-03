@@ -1,8 +1,9 @@
 <template>
-    <Tippy tag="ul"
-           v-for="(status, key) in statuses"
-           :key="key"
-           class="status">
+    <Tippy
+        tag="ul"
+        v-for="(status, key) in statuses"
+        :key="key"
+        class="status">
         <img :src="statusIcon(status)">
         <span v-if="status.charge !== null" class="charge">{{ status.charge }}</span>
         <template #content>

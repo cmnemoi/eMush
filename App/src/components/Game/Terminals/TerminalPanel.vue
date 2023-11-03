@@ -34,7 +34,7 @@ export default defineComponent ({
         player: {
             type: Player,
             required: true
-        },
+        }
     },
     methods: {
     },
@@ -42,7 +42,7 @@ export default defineComponent ({
         return {
             TerminalEnum
         };
-    },
+    }
 });
 </script>
 
@@ -79,7 +79,7 @@ export default defineComponent ({
         @extend %game-scrollbar;
     }
 
-    &::v-deep em {
+    &::v-deep(em) {
         color: $red;
     }
 

@@ -18,6 +18,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 #[AsCommand(
     name: 'mush:fill-daedalus',
     description: 'Fill a new Daedalus',

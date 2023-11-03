@@ -117,7 +117,7 @@ export default defineComponent({
                         console.error('Error', error.message);
                     }
                 });
-        },
+        }
     },
     beforeMount() {
         const eventConfigId = String(this.$route.params.configId);

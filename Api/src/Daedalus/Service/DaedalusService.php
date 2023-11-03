@@ -474,6 +474,9 @@ class DaedalusService implements DaedalusServiceInterface
         return $value;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function attributeTitles(Daedalus $daedalus, \DateTime $date): Daedalus
     {
         $gameConfig = $daedalus->getGameConfig();
@@ -493,7 +496,12 @@ class DaedalusService implements DaedalusServiceInterface
                 // This will return the player if it is alive, and null if not
                 $player = $players->getPlayerByName($priorityCharacter);
 
-                if ($player && !$player->hasTitle($title) && !$titleAssigned) {
+                // if the player is not alive, continue to the next one
+                if (!$player) {
+                    continue;
+                }
+
+                if (!$player->hasTitle($title) && !$titleAssigned) {
                     // If first person in order of priority does not have title, assign it
                     $player->addTitle($title);
                     $playerEvent = new PlayerEvent(
@@ -503,9 +511,9 @@ class DaedalusService implements DaedalusServiceInterface
                     );
                     $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_ATTRIBUTED);
                     $titleAssigned = true;
-                } elseif ($player && $player->hasTitle($title) && !$titleAssigned) {
+                } elseif ($player->hasTitle($title) && !$titleAssigned) {
                     $titleAssigned = true;
-                } elseif ($player && $player->hasTitle($title) && $titleAssigned) {
+                } elseif ($player->hasTitle($title) && $titleAssigned) {
                     // If someone has a title when they are not the player alive with the biggest priority, remove it
                     // For when an inactive player wakes up
                     $player->removeTitle($title);

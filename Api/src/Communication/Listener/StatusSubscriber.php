@@ -41,12 +41,11 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         $holder = $event->getStatusHolder();
         $time = $event->getTime();
-        $equipmentBrokenByCycleChange = $event->hasTags(
+        $equipmentBrokenByCycleChange = $event->hasAllTags(
             tags: [
                 EventEnum::NEW_CYCLE,
                 EquipmentEvent::EQUIPMENT_BROKEN,
             ],
-            all: true
         )
         && $holder instanceof GameEquipment;
         // $brokenByGreenJelly = $event->getReason() === EventEnum::GREEN_JELLY;

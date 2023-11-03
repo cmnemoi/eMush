@@ -34,7 +34,7 @@ export class News {
             this.spanishContent = object.spanishContent;
             this.updatedAt = new Date(object.updatedAt);
         }
-        
+
         return this;
     }
     jsonEncode(): object {
@@ -45,7 +45,7 @@ export class News {
             'spanishTitle': this.spanishTitle,
             'frenchContent': this.frenchContent,
             'englishContent': this.englishContent,
-            'spanishContent': this.spanishContent,
+            'spanishContent': this.spanishContent
         };
 
         return data;

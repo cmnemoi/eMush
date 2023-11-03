@@ -43,7 +43,7 @@ export class SpaceBattle {
                 return a.displayOrder - b.displayOrder;
             });
         }
-        
+
         return this;
     }
 

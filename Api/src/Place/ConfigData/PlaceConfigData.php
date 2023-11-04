@@ -62,7 +62,7 @@ class PlaceConfigData
             'placeName' => 'laboratory',
             'type' => 'room',
             'doors' => ['front_corridor_laboratory', 'medlab_laboratory'],
-            'items' => ['apprenton_pilot', 'sniper_helmet_blueprint', 'echolocator_blueprint', 'alien_bottle_opener', 'rolling_boulder', 'metal_scraps', 'plastic_scraps', 'banana', 'creepnut', 'bottine', 'fragilane', 'filandra', 'alien_holographic_tv'],
+            'items' => ['sniper_helmet_blueprint', 'echolocator_blueprint', 'alien_bottle_opener', 'rolling_boulder', 'metal_scraps', 'plastic_scraps', 'banana', 'creepnut', 'bottine', 'fragilane', 'filandra', 'alien_holographic_tv'],
             'equipments' => ['gravity_simulator', 'research_laboratory', 'cryo_module', 'mycoscan'],
         ],
         [

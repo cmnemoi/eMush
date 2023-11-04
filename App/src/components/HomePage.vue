@@ -18,7 +18,7 @@
                 <source src="@/assets/videos/trailer_en.mp4#t=1" type="video/mp4"/>
                 Sorry, your browser doesn't support embedded videos.
             </video>
-        </section>
+        </div>
         <section class="incentive">
             <div class="box-container" id="play-container">
                 <p v-html="$t('homePage.synopsis')" />
@@ -190,7 +190,6 @@ export default defineComponent ({
         };
     },
     mounted: function() {
-        console.log(`the component is now mounted.`);
         this.autoPlay();
     }
 });

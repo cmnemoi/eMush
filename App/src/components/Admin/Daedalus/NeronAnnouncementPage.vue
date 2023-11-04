@@ -1,8 +1,8 @@
 <template>
     <form>
-        <textarea v-model="announcement"/>
+        <textarea v-model="announcement" />
     </form>
-    <button class="action-button" @click="sendNeronAnnouncement">
+    <button :class="'action-button ' + (announcement ? '' : 'disabled')" @click="sendNeronAnnouncement">
         {{ $t('admin.daedalus.sendNeronAnnouncementToAllDaedaluses') }}
     </button>
 </template>

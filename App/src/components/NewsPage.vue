@@ -4,28 +4,10 @@
             <img src="@/assets/images/janice.png" alt="Janice">
         </div>
         <div class="news-feed">
-            <section
-                :class="item.hidden ? 'news hidden' : 'news'"
-                v-for="item in news"
-                :key="item.id"
-            >
-                <div class="news-french title" v-if="localeIsFrench()" @click="toggleNews(item)">
-                    <img class="news-cover" src="@/assets/images/mush-cover.png">
-                    <h2>{{ item.frenchTitle }}</h2>
-                    <p><img class="flag" src="@/assets/images/lang_fr.png" alt="🇫🇷"> {{ $t('newsPage.updatedAt') }} {{ formatDate(item.updatedAt) }}</p>
-                </div>
-                <div class="news-french content" v-if="localeIsFrench()">
-                    <p v-html="formatNewsContent(item.frenchContent)" />
-                </div>
-                <div class="news-english title" v-if="localeIsEnglish()" @click="toggleNews(item)">
-                    <img class="news-cover" src="@/assets/images/mush-cover.png">
-                    <h2>{{ item.englishTitle }}</h2>
-                    <p><img class="flag" src="@/assets/images/lang_en.png" alt="🇬🇧"> {{ $t('newsPage.updatedAt') }} {{ formatDate(item.updatedAt) }}</p>
-                </div>
-                <div class="news-english content" v-if="localeIsEnglish()">
-                    <p v-html="formatNewsContent(item.englishContent)" />
-                </div>
-            </section>
+            <NewsItem v-for="item in news"
+                      :news="item"
+                      @click="toggleNews(item)"
+                      :key="item.id"/>
             <div class="pagination-container">
                 <Pagination
                     :page-count="Math.ceil(pagination.totalPage)"
@@ -44,15 +26,15 @@ import { defineComponent } from "vue";
 import urlJoin from "url-join";
 import qs from "qs";
 import ApiService from "@/services/api.service";
-import { GameLocales } from "@/i18n";
 import { News } from "@/entities/News";
 import Pagination from "@/components/Utils/Datatable/Pagination.vue";
-import { formatText } from "@/utils/formatText";
+import NewsItem from "./NewsItem.vue";
 
 export default defineComponent ({
     name: 'TheEnd',
     components: {
-        Pagination
+        Pagination,
+        NewsItem
     },
     props: {
         numberOfNews: {
@@ -129,18 +111,6 @@ export default defineComponent ({
                 }
             });
         },
-        localeIsFrench() {
-            return this.$i18n.locale.split('-')[0] === GameLocales.FR;
-        },
-        localeIsEnglish() {
-            return this.$i18n.locale.split('-')[0] === GameLocales.EN;
-        },
-        formatDate(date: Date) {
-            return date ? date.toLocaleDateString(this.$i18n.locale) : '';
-        },
-        formatNewsContent(content: string | null) {
-            return content ? formatText(content) : '';
-        },
         paginationClick(page: number) {
             this.pagination.currentPage = page;
             this.getNews();
@@ -181,61 +151,6 @@ export default defineComponent ({
 .news-feed {
     flex: 1;
     padding: 0.6em;
-}
-
-.news {
-    border: 1px solid #576077;
-    background-color: #222b6b;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
-    padding: 1.2em;
-    margin: .4em;
-
-    img {
-        width: fit-content;
-        height: fit-content;
-    }
-
-    p { line-height: 1.4em; }
-
-    a { color: #D24781; }
-
-    &:not(:first-child) .title { cursor: pointer; } // for hidden news interaction cue
-}
-
-.title {
-    display: block;
-
-    img.news-cover {
-        float:left;
-        width: 48px;
-        margin-right: 1.2em;
-    }
-
-    h2, p {
-        margin: 0.1em;
-    }
-
-    h2 {
-        font-size: 2.2rem;
-        color: #D24781;
-    }
-
-    p {
-        opacity: 0.85;
-        font-size: 0.8em;
-        letter-spacing: 0.03em;
-    }
-
-    .flag {
-        vertical-align: baseline;
-        padding-right: 0.4em;
-    }
-}
-
-.hidden {
-    opacity: 0.75;
-
-    .content p { display: none; }
 }
 
 .pagination-container {

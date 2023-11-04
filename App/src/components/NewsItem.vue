@@ -1,5 +1,5 @@
 <template>
-    <section :class="'section ' + (news.hidden ? 'hidden' : '')">
+    <article :class="'article ' + (news.hidden ? 'hidden' : '')">
         <div class="title" v-if="localeIsFrench()" @click="$emit('click')">
             <img class="news-cover" src="@/assets/images/mush-cover.png">
             <h2>{{ news.frenchTitle }}</h2>
@@ -16,7 +16,7 @@
         <div class="content" v-if="localeIsEnglish()">
             <p v-html="formatNewsContent(news.englishContent)" />
         </div>
-    </section>
+    </article>
 </template>
 
 <script lang="ts">
@@ -53,7 +53,7 @@ export default defineComponent ({
 
 <style scoped lang="scss">
 
-.section {
+article {
     border: 1px solid #576077;
     background-color: #222b6b;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
@@ -67,7 +67,7 @@ export default defineComponent ({
 
     p { line-height: 1.4em; }
 
-    a { color: #D24781; }
+    a { color: $pink; }
 
     &:not(:first-child) .title { cursor: pointer; } // for hidden news interaction cue
 }
@@ -87,7 +87,7 @@ export default defineComponent ({
 
     h2 {
         font-size: 2.2rem;
-        color: #D24781;
+        color: $pink;
     }
 
     p {
@@ -106,6 +106,12 @@ export default defineComponent ({
     opacity: 0.75;
 
     .content p { display: none; }
+}
+
+
+@media screen and (max-width: $breakpoint-desktop-m) {
+
+    .title h2 { font-size: 1.8em; }
 }
 
 </style>

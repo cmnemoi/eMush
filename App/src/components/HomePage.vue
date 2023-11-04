@@ -1,7 +1,17 @@
 <template>
     <div class="homepage-container">
-        <img class="daedalus-container" src="@/assets/images/daedalus_home.png" alt="Daedalus" />
-        <div class="trailer-container">
+        <section class="decorative">
+            <img class="daedalus" src="@/assets/images/daedalus_home.png" alt="Daedalus" />
+            <img class="award"
+                 v-if="localeIsFrench()"
+                 src="@/assets/images/eigd_fr.png"
+                 alt="Award" />
+            <img class="award"
+                 v-else
+                 src="@/assets/images/eigd_en.png"
+                 alt="Award" />
+        </section>
+        <section class="trailer-container">
             <video
                 v-if="localeIsFrench()"
                 controls
@@ -18,7 +28,7 @@
                 <source src="@/assets/videos/trailer_en.mp4#t=1" type="video/mp4"/>
                 Sorry, your browser doesn't support embedded videos.
             </video>
-        </div>
+        </section>
         <section class="incentive">
             <div class="box-container" id="play-container">
                 <p v-html="$t('homePage.synopsis')" />
@@ -55,9 +65,13 @@
             </div>
             -->
         </section>
-        <NewsItem class="news" :news="news" @click="$router.push('news')"/>
+        <section class="newsgroup">
+            <h1>Latest news:</h1>
+            <NewsItem class="news" :news="news" @click="$router.push('news')"/>
+            <router-link class="more" :to="{ name: 'NewsPage' }">See all the news</router-link>
+        </section>
         <section class="medias">
-            <!-- REVIEWS TEMPLATE
+            <!-- CARROUSEL TEMPLATE
             <h3>Ils n'ont pas trouvé ça mush :</h3>
             <div class="reviews">
                 <div>
@@ -223,16 +237,15 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 
-section {
-    flex-direction: row;
-    gap: 1.6em;
-    max-width: 80%;
-}
-
 .homepage-container {
     align-items: center;
     max-width: 1080px;
     margin: 0 auto;
+
+    & > section {
+        gap: 1.6em;
+        max-width: 80%;
+    }
 
     .box-container {
         margin-bottom: 0;
@@ -249,14 +262,10 @@ section {
         }
     }
 
-    .news {
-        width: 100%;
-    }
-
     p {
         text-align: center;
         font-size: 1.15em;
-        line-height: 1.4;
+        line-height: 1.5em;
         margin-top: 0;
     }
 
@@ -264,15 +273,17 @@ section {
         align-items: center;
     }
 
-    &::v-deep(em) {
+    :deep(em) {
         color: #01c3df;
         font-size: 1.3em;
+        line-height: 0.8em;
         font-style: normal;
         font-weight: bold;
     }
 }
 
 .decorative {
+    flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     gap: 30%;
@@ -284,6 +295,8 @@ section {
 
     .daedalus { margin-bottom: -7em; }
 }
+
+.incentive { flex-direction: row; }
 
 .start {
     display: flex;
@@ -396,12 +409,22 @@ section {
     }
 }
 
+.newsgroup {
+    margin-top: 2.8em;
+
+    a.more {
+        align-self: flex-end;
+        padding: 0 0.3em;
+        color: $green;
+        font-size: 1.2em;
+    }
+}
+
 .medias {
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin-top: 2em;
+    margin-top: 4em;
 
     .reviews {
+        columns: 4 auto;
         columns: 180px auto;
         display: block;
         gap: 1.5em 2.2em;
@@ -484,20 +507,19 @@ section {
 @media screen and (max-width: $breakpoint-desktop-m) {
   
 
-  section {
-    max-width: 92%;
-  }
+    .homepage-container > section { max-width: 92%; }
 
-  .decorative { gap: 8%; }
+    .decorative { gap: 8%; }
 
-  .incentive {
-    flex-direction: column;
-    gap: 0;
+    .incentive {
+        flex-direction: column;
+        gap: 0;
     }
 
     .medias .reviews {
         gap: 1.2em 1.4em;
     }
+
     .weblinks {
         flex-direction: column;
         gap: 0.8em;

@@ -146,7 +146,12 @@ export default defineComponent ({
     background-color: rgba(34, 38, 102, 0.5);
 }
 
-.janice { width: fit-content; }
+.janice {
+    width: fit-content;
+    max-width: 25%;
+    margin-right: -2em;
+    z-index: 5;
+}
 
 .news-feed {
     flex: 1;
@@ -157,6 +162,11 @@ export default defineComponent ({
     flex-direction: row;
     justify-content: center;
     padding: 10px;
+}
+
+@media screen and (max-width: $breakpoint-mobile-l) {
+
+    .janice { display: none; }
 }
 
 </style>

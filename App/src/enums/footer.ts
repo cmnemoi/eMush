@@ -12,6 +12,7 @@ export const team: ({active: boolean, name: string, role: string})[] = [
     { name: 'Tishwa', role: 'developer', active: false },
     { name: 'Sami / EaCOS', role: 'developer', active: false },
     { name: 'MoUoA', role: 'helper', active: false },
+    { name: 'Yasgal', role: 'artist', active: true }
 ];
 
 export const crowdin = "https://eternaltwin.crowdin.com/multilingual/c9f4ef84da7d855637e201101992f6ed/all?languages=fr,es,en&filter=basic&value=0";

@@ -55,9 +55,7 @@
             </div>
             -->
         </section>
-        <section>
-            <NewsPage :numberOfNews = "1" />
-        </section>
+        <NewsItem class="news" :news="news" @click="$router.push('news')"/>
         <section class="medias">
             <!-- REVIEWS TEMPLATE
             <h3>Ils n'ont pas trouvé ça mush :</h3>
@@ -119,17 +117,19 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
-import NewsPage from "@/components/NewsPage.vue";
+import NewsItem from "./NewsItem.vue";
+import NewsService from "@/services/news.service";
+import { News } from "@/entities/News";
 
 export default defineComponent ({
     name: "HomePage",
     components: {
-        NewsPage
+        NewsItem
     },
     computed: {
         ...mapGetters('auth', [
             'loggedIn'
-        ])
+        ]),
     },
     methods: {
         ...mapActions('auth', [
@@ -148,10 +148,31 @@ export default defineComponent ({
             setInterval(() => {
                 if(this.toggleTimer) this.move(1);
             }, this.timerDelay);
-        }
+        },
+        async getMostRecentNews() {
+            const allNews = await NewsService.getAllNews().then((news: News[]) => {
+                return news;
+            });
+            
+            const news = allNews[allNews.length - 1];
+            return news;
+        },
+        displayNews(news: News) {
+            news.hidden = false;
+            return news;
+        },
+        fillEmptyNews(news: News) {
+            news.englishTitle = news.englishTitle || news.frenchTitle;
+            news.englishContent = news.englishContent || news.frenchContent;
+            news.spanishContent = news.spanishContent || news.frenchContent;
+            news.spanishTitle = news.spanishTitle || news.frenchTitle;
+
+            return news;
+        },
     },
     data: function() {
         return {
+            news: new News(),
             slide: 0,
             timerDelay: 3000,
             toggleTimer: true,
@@ -190,6 +211,11 @@ export default defineComponent ({
         };
     },
     mounted: function() {
+        this.getMostRecentNews().then((news: News) => {
+            this.news = news;
+            this.news = this.displayNews(this.news);
+            this.news = this.fillEmptyNews(this.news);
+        });
         this.autoPlay();
     }
 });
@@ -221,6 +247,10 @@ section {
             box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.5);
             width: 100%;
         }
+    }
+
+    .news {
+        width: 100%;
     }
 
     p {

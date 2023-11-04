@@ -101,7 +101,7 @@ export default defineComponent({
             this.news = new News();
             return;
         }
-        NewsService.loadNews(Number(newsId))
+        NewsService.getNewsById(Number(newsId))
             .then((result: News | null) => {
                 this.news = result;
             })

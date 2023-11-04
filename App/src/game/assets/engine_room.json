@@ -919,7 +919,7 @@
                          "value":23
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":83,
                  "x":162.75,
@@ -1003,7 +1003,7 @@
                          "value":80
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":199,
                  "x":283.75,
@@ -1041,7 +1041,7 @@
                          "value":80
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":199,
                  "x":283.75,
@@ -1079,7 +1079,7 @@
                          "value":80
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":199,
                  "x":283.75,
@@ -1148,7 +1148,7 @@
                          "value":24
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":73,
                  "x":98.25,
@@ -1176,7 +1176,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":67,
                  "x":181.25,
@@ -1227,7 +1227,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":51,
                  "x":164.75,
@@ -1433,7 +1433,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":25,
                  "x":80.75,

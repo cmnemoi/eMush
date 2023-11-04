@@ -10,7 +10,7 @@ import DoorObject from "@/game/objects/doorObject";
 import DoorGroundObject from "@/game/objects/doorGroundObject";
 import ShelfObject from "@/game/objects/shelfObject";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { InteractionInformation } from "@/game/objects/interactObject";
+import InteractObject, { InteractionInformation } from "@/game/objects/interactObject";
 
 export default class MushTiledObject {
     public tiledObj: Phaser.Types.Tilemaps.TiledObject;
@@ -27,7 +27,7 @@ export default class MushTiledObject {
             return room.doors.find((door: Door) => {
                 return (door.key === this.tiledObj.name);
             });
-        case 'interact':
+        case 'equipment':
             return room.equipments.find((equipment: Equipment) => (equipment.key === this.tiledObj.name &&
                 (!(createdObjectId.includes(equipment.id)) || this.isCustomPropertyByName('grouped')))
             );
@@ -60,6 +60,7 @@ export default class MushTiledObject {
 
         const interactionInformation = this.getInteractionInformations();
 
+        console.log(this.tiledObj.type);
         switch (this.tiledObj.type) {
         case 'decoration':
             return new DecorationObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, name, isFlipped, collides, isAnimationYoyo);
@@ -72,6 +73,20 @@ export default class MushTiledObject {
                 return new DoorGroundObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, isFlipped, equipmentEntity);
             } else {break;}
         case 'interact':
+            return new InteractObject(
+                scene,
+                cart_coords,
+                this.getIsometricGeom(),
+                tileset,
+                frame,
+                name,
+                isFlipped,
+                collides,
+                isAnimationYoyo,
+                group,
+                interactionInformation
+            );
+        case 'equipment':
             if (equipmentEntity instanceof Equipment) {
                 return new EquipmentObject(
                     scene,
@@ -90,7 +105,7 @@ export default class MushTiledObject {
         case 'shelf':
             return new ShelfObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, name, isFlipped, collides, isAnimationYoyo, group);
         }
-        throw new Error(this.tiledObj.name + "type does not exist");
+        throw new Error(this.tiledObj.type + " type does not exist for this tiled object: " + this.tiledObj.name);
     }
 
     //Isometric size of the object is stored as a custom property of the object
@@ -229,7 +244,7 @@ export default class MushTiledObject {
         switch (this.tiledObj.type) {
         case 'door':
         case 'door_ground':
-        case 'interact':
+        case 'equipment':
             return this.tiledObj.name;
         case 'shelf':
             return 'shelf';

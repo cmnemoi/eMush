@@ -19,8 +19,6 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Comfort extends AbstractAction
 {
-    public const BASE_CONFORT = 2;
-
     protected string $name = ActionEnum::COMFORT;
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
@@ -54,7 +52,7 @@ class Comfort extends AbstractAction
         $playerModifierEvent = new PlayerVariableEvent(
             $target,
             PlayerVariableEnum::MORAL_POINT,
-            self::BASE_CONFORT,
+            $this->getOutputQuantity(),
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );

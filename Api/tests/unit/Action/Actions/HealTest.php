@@ -6,8 +6,8 @@ use Mockery;
 use Mush\Action\Actions\Heal;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\PlayerInfo;
@@ -27,7 +27,8 @@ class HealTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::HEAL);
-        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->actionEntity->setOutputQuantity(3);
+
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Heal(
@@ -61,6 +62,11 @@ class HealTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->andReturn(3)
+            ->once()
+        ;
         $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 

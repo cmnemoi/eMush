@@ -63,7 +63,7 @@ export default defineComponent({
             config: '',
             language: '',
             errors: {},
-            loading: false,
+            loading: false
         };
     },
     methods: {
@@ -128,7 +128,7 @@ h3 { font-size: 1.3em; }
 
 h2, h3 {
     margin: 2.8em 0 0.6em;
-    
+
     &:first-child { margin-top: 0.6em; }
 }
 

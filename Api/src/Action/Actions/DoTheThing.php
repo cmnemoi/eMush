@@ -38,7 +38,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class DoTheThing extends AbstractAction
 {
-    public const BASE_CONFORT = 2;
     public const PREGNANCY_RATE = 8;
     public const STD_TRANSMISSION_RATE = 5;
 
@@ -146,8 +145,9 @@ class DoTheThing extends AbstractAction
         // @TODO add confirmation pop up
 
         // give two moral points, or max morale if it is their first time
-        $this->addMoralPoints($player);
-        $this->addMoralPoints($target);
+        $moralePoints = $this->getOutputQuantity();
+        $this->addMoralPoints($player, $moralePoints);
+        $this->addMoralPoints($target, $moralePoints);
 
         // if one is mush and has a spore, infect other player
         if ($player->isMush() && !$target->isMush()) {
@@ -181,7 +181,7 @@ class DoTheThing extends AbstractAction
         $this->addDidTheThingStatus($target);
     }
 
-    private function addMoralPoints(Player $player): void
+    private function addMoralPoints(Player $player, int $moralePoints): void
     {
         $maxMoralePoint = $this->player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->getMaxValue();
 
@@ -190,7 +190,7 @@ class DoTheThing extends AbstractAction
         }
 
         $firstTimeStatus = $player->getStatusByName(PlayerStatusEnum::FIRST_TIME);
-        $moralePoints = $firstTimeStatus ? $maxMoralePoint : self::BASE_CONFORT;
+        $moralePoints = $firstTimeStatus ? $maxMoralePoint : $moralePoints;
 
         $playerModifierEvent = new PlayerVariableEvent(
             $player,
@@ -202,7 +202,12 @@ class DoTheThing extends AbstractAction
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         if ($firstTimeStatus) {
-            $player->removeStatus($firstTimeStatus);
+            $this->statusService->removeStatus(
+                PlayerStatusEnum::FIRST_TIME,
+                $player,
+                $this->getAction()->getActionTags(),
+                new \DateTime(),
+            );
         }
     }
 

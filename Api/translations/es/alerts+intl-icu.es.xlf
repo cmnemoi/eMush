@@ -144,5 +144,11 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
         <target>no_alert.description</target>
       </segment>
     </unit>
+    <unit id="alerts">
+      <segment id="alerts" state="initial">
+        <source>alerts</source>
+        <target>alerts</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

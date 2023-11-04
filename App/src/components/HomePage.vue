@@ -2,29 +2,33 @@
     <div class="homepage-container">
         <img class="daedalus-container" src="@/assets/images/daedalus_home.png" alt="Daedalus" />
         <div class="trailer-container">
-            <video v-if="localeIsFrench()"
-                   controls
-                   ref="trailer"
-                   preload="metadata">
+            <video
+                v-if="localeIsFrench()"
+                controls
+                ref="trailer"
+                preload="metadata">
                 <source src="@/assets/videos/trailer_fr.mp4#t=1" type="video/mp4"/>
                 Désolé, votre navigateur ne supporte pas les vidéos intégrées.
             </video>
-            <video v-else
-                   controls
-                   ref="trailer"
-                   preload="metadata">
+            <video
+                v-else
+                controls
+                ref="trailer"
+                preload="metadata">
                 <source src="@/assets/videos/trailer_en.mp4#t=1" type="video/mp4"/>
                 Sorry, your browser doesn't support embedded videos.
             </video>
         </div>
-        <img class="award-container"
-             v-if="localeIsFrench()"
-             src="@/assets/images/eigd_fr.png"
-             alt="Award" />
-        <img class="award-container"
-             v-else
-             src="@/assets/images/eigd_en.png"
-             alt="Award" />
+        <img
+            class="award-container"
+            v-if="localeIsFrench()"
+            src="@/assets/images/eigd_fr.png"
+            alt="Award" />
+        <img
+            class="award-container"
+            v-else
+            src="@/assets/images/eigd_en.png"
+            alt="Award" />
         <div class="box-container" id="play-container">
             <p v-html="$t('homePage.synopsis')" />
             <router-link v-if="loggedIn" class="action-button" :to="{ name: 'GamePage' }">
@@ -55,16 +59,16 @@ export default defineComponent ({
     name: "HomePage",
     computed: {
         ...mapGetters('auth', [
-            'loggedIn',
+            'loggedIn'
         ])
     },
     methods: {
         ...mapActions('auth', [
-            'redirectToLogin',
+            'redirectToLogin'
         ]),
         localeIsFrench() {
             return this.$i18n.locale.split('-')[0] === 'fr';
-        },
+        }
     }
 });
 </script>
@@ -104,7 +108,7 @@ export default defineComponent ({
         margin-bottom: 0;
     }
 
-    &::v-deep em {
+    &::v-deep(em) {
         color: #01c3df;
         font-size: 1.2em;
         font-style: normal;
@@ -120,7 +124,7 @@ export default defineComponent ({
 }
 
 @media screen and (min-width: 950px) {
-  
+
 
     .homepage-container {
         max-width: 1080px;

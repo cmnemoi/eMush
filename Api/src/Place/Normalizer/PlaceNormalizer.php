@@ -268,11 +268,11 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
                 // book and blueprint hae the same name event for similar blueprint This part split them
                 $book = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
                 if ($book instanceof Book) {
-                    $name = $name . $book->getSkill();
+                    $name .= $book->getSkill();
                 }
                 $blueprint = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
                 if ($blueprint instanceof Blueprint) {
-                    $name = $name . $blueprint->getCraftedEquipmentName();
+                    $name .= $blueprint->getCraftedEquipmentName();
                 }
 
                 if (!isset($itemsGroup[$name])) {

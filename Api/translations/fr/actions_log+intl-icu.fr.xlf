@@ -992,7 +992,7 @@
     </unit>
     <unit id="play_arcade_success">
       <segment id="play_arcade_success" state="translated">
-        <source>play_arcade_succes</source>
+        <source>play_arcade_success</source>
         <target>OH OUIIIII. **{character}** a vaincu Xatator le boss du NIVEAUUUUU 10 !</target>
       </segment>
     </unit>

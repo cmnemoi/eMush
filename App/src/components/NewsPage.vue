@@ -4,9 +4,10 @@
             <img src="@/assets/images/janice.png" alt="Janice">
         </div>
         <div class="news-feed">
-            <section :class="item.hidden ? 'news hidden' : 'news'"
-                     v-for="item in news" 
-                     :key="item.id"
+            <section
+                :class="item.hidden ? 'news hidden' : 'news'"
+                v-for="item in news"
+                :key="item.id"
             >
                 <div class="news-french title" v-if="localeIsFrench()" @click="toggleNews(item)">
                     <img class="news-cover" src="@/assets/images/mush-cover.png">
@@ -14,7 +15,7 @@
                     <p><img class="flag" src="@/assets/images/lang_fr.png" alt="🇫🇷"> {{ $t('newsPage.updatedAt') }} {{ formatDate(item.updatedAt) }}</p>
                 </div>
                 <div class="news-french content" v-if="localeIsFrench()">
-                    <p v-html="item.frenchContent" />
+                    <p v-html="formatNewsContent(item.frenchContent)" />
                 </div>
                 <div class="news-english title" v-if="localeIsEnglish()" @click="toggleNews(item)">
                     <img class="news-cover" src="@/assets/images/mush-cover.png">
@@ -22,7 +23,7 @@
                     <p><img class="flag" src="@/assets/images/lang_en.png" alt="🇬🇧"> {{ $t('newsPage.updatedAt') }} {{ formatDate(item.updatedAt) }}</p>
                 </div>
                 <div class="news-english content" v-if="localeIsEnglish()">
-                    <p v-html="item.englishContent" />
+                    <p v-html="formatNewsContent(item.englishContent)" />
                 </div>
             </section>
             <div class="pagination-container">
@@ -46,6 +47,7 @@ import ApiService from "@/services/api.service";
 import { GameLocales } from "@/i18n";
 import { News } from "@/entities/News";
 import Pagination from "@/components/Utils/Datatable/Pagination.vue";
+import { formatText } from "@/utils/formatText";
 
 export default defineComponent ({
     name: 'TheEnd',
@@ -60,8 +62,8 @@ export default defineComponent ({
                 pageSize: 10,
                 totalItem: 1,
                 totalPage: 1
-            },
-            
+            }
+
         };
     },
     methods: {
@@ -125,10 +127,10 @@ export default defineComponent ({
             return this.$i18n.locale.split('-')[0] === GameLocales.EN;
         },
         formatDate(date: Date) {
-            if (date === null) {
-                return '';
-            }
-            return date.toLocaleDateString(this.$i18n.locale);
+            return date ? date.toLocaleDateString(this.$i18n.locale) : '';
+        },
+        formatNewsContent(content: string | null) {
+            return content ? formatText(content) : '';
         },
         paginationClick(page: number) {
             this.pagination.currentPage = page;
@@ -140,11 +142,11 @@ export default defineComponent ({
             {
                 news.hidden = !news.hidden;
             }
-        },
+        }
     },
     async mounted() {
         await this.getNews();
-    },
+    }
 });
 
 </script>

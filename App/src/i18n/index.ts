@@ -24,7 +24,7 @@ export const gameLocales : {[index: string]: LangInfos}  = {
     [GameLocales.FR]: {
         'caption': 'Français',
         'icon': require('@/assets/images/lang_fr.png')
-    },
+    }
     // TODO: not supported yet
     // [GameLocales.ES]: {
     //     'caption': 'Spanish',

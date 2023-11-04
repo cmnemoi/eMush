@@ -146,7 +146,7 @@ export default class PlayableCharacterObject extends CharacterObject {
             this.body.setVelocityX(-cartSpeed.x);
             // @ts-ignore
             this.body.setVelocityY(-cartSpeed.y);
-            if (this.anims.currentAnim.key !== 'move_left') {
+            if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_left') {
                 this.anims.play('move_left');
             }
 
@@ -157,7 +157,7 @@ export default class PlayableCharacterObject extends CharacterObject {
             this.body.setVelocityX(cartSpeed.x);
             // @ts-ignore
             this.body.setVelocityY(cartSpeed.y);
-            if (this.anims.currentAnim.key !== 'move_right') {
+            if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_right') {
                 this.anims.play('move_right');
             }
 
@@ -168,7 +168,7 @@ export default class PlayableCharacterObject extends CharacterObject {
             this.body.setVelocityX(-cartSpeed.x);
             // @ts-ignore
             this.body.setVelocityY(cartSpeed.y);
-            if (this.anims.currentAnim.key !== 'move_right') {
+            if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_right') {
                 this.anims.play('move_right');
             }
 
@@ -179,7 +179,7 @@ export default class PlayableCharacterObject extends CharacterObject {
             this.body.setVelocityX(cartSpeed.x);
             // @ts-ignore
             this.body.setVelocityY(-cartSpeed.y);
-            if (this.anims.currentAnim.key !== 'move_left') {
+            if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_left') {
                 this.anims.play('move_left');
             }
 
@@ -202,6 +202,7 @@ export default class PlayableCharacterObject extends CharacterObject {
     applyEquipmentInteraction(): void
     {
         const targetBed = this.player.isLyingDown();
+        const room = this.player.room;
 
         if (targetBed !== null) {
             const bed = (<DaedalusScene>this.scene).findObjectByNameAndId(targetBed.key, targetBed.id);
@@ -212,6 +213,8 @@ export default class PlayableCharacterObject extends CharacterObject {
 
             //reset any ongoing movement
             this.resetMove();
+        } else if (room && room.type === 'space') {
+            this.play('space_giggle');
         } else {
             if (this.interactedEquipment !== null) {
                 const interactCoordinates = this.interactedEquipment.getInteractCoordinates(this.navMesh);

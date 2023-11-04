@@ -133,7 +133,7 @@ export class GameConfig {
             'diseaseCauseConfig': diseaseCauseConfigs,
             'diseaseConfig': diseaseConfigs,
             'consumableDiseaseConfig': consumableDiseaseConfigs,
-            'difficultyConfig': this.difficultyConfig?.iri,
+            'difficultyConfig': this.difficultyConfig?.iri
         };
 
         return data;

@@ -10,12 +10,12 @@
             :filter="filter"
             @paginationClick="paginationClick"
             @sortTable="sortTable"
-        >   
+        >
             <template #header-actions>
                 {{ $t('userShips.linkToTheEnd') }}
             </template>
             <template #row-actions="slotProps">
-                
+
                 <router-link class="router" :to="{ name: 'TheEnd', params: { closedDaedalusId: slotProps.closedDaedalusId } }"> <img :src="require('@/assets/images/right.png')" id="arrow" />  {{  $t('userShips.goToTheEnd') }}</router-link>
             </template>
         </Datatable>
@@ -48,12 +48,12 @@ export default defineComponent({
                 {
                     key: 'daysSurvived',
                     name: 'userShips.day',
-                    sortable: true,
+                    sortable: true
                 },
                 {
                     key: 'cyclesSurvived',
                     name: 'userShips.cyclesSurvived',
-                    sortable: false,
+                    sortable: false
                 },
                 {
                     key: 'endCause',
@@ -83,7 +83,7 @@ export default defineComponent({
                 { text: 10, value: 10 },
                 { text: 20, value: 20 }
             ],
-            username: '',
+            username: ''
         };
     },
     methods: {
@@ -166,7 +166,7 @@ export default defineComponent({
     },
     beforeMount() {
         this.loadData();
-    },
+    }
 });
 </script>
 

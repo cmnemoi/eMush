@@ -5,13 +5,13 @@
             <p class="daedalus-current-orientation" v-html="formatText(terminal.infos?.daedalusOrientation)"></p>
             <div class="action">
                 <ActionButton
-                    :cssClass="'wide'"
+                    :css-class="'wide'"
                     :key="turnDaedalusLeftAction.key"
                     :action="turnDaedalusLeftAction"
                     @click="executeTargetAction(target, turnDaedalusLeftAction)"
                 />
                 <ActionButton
-                    :cssClass="'wide'"
+                    :css-class="'wide'"
                     :key="turnDaedalusRightAction.key"
                     :action="turnDaedalusRightAction"
                     @click="executeTargetAction(target, turnDaedalusRightAction)"
@@ -23,21 +23,23 @@
             <h3>{{ terminal.sectionTitles?.moveDaedalus }}</h3>
             <div class="move-status" v-if="terminal.infos.advanceDaedalusStatus">
                 <img src="@/assets/images/att.png" alt="warning" v-if="terminal.infos.advanceDaedalusStatus.isWarning()">
-                <img src="@/assets/images/info.png" alt="info" v-else> 
+                <img src="@/assets/images/info.png" alt="info" v-else>
                 <p v-html="formatText(terminal.infos.advanceDaedalusStatus.text)"></p>
             </div>
             <div class="action">
-                <ActionButton v-if="advanceDaedalusAction"
-                              :cssClass="'wide'"
-                              :key="advanceDaedalusAction.key"
-                              :action="advanceDaedalusAction"
-                              @click="executeTargetAction(target, advanceDaedalusAction)"
+                <ActionButton
+                    v-if="advanceDaedalusAction"
+                    :css-class="'wide'"
+                    :key="advanceDaedalusAction.key"
+                    :action="advanceDaedalusAction"
+                    @click="executeTargetAction(target, advanceDaedalusAction)"
                 />
-                <ActionButton v-else-if="leaveOrbitAction"
-                              :cssClass="'wide'"
-                              :key="leaveOrbitAction.key"
-                              :action="leaveOrbitAction"
-                              @click="executeTargetAction(target, leaveOrbitAction)"
+                <ActionButton
+                    v-else-if="leaveOrbitAction"
+                    :css-class="'wide'"
+                    :key="leaveOrbitAction.key"
+                    :action="leaveOrbitAction"
+                    @click="executeTargetAction(target, leaveOrbitAction)"
                 />
             </div>
         </section>
@@ -103,7 +105,7 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions({
-            'executeAction': 'action/executeAction',
+            'executeAction': 'action/executeAction'
         }),
         async executeTargetAction(target: Terminal, action: Action): Promise<void> {
             if(action.canExecute) {

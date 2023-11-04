@@ -11,7 +11,6 @@
             <router-link v-if="isAdmin" :to="{ name: 'Admin' }">Admin</router-link>
             <router-link v-if="loggedIn" :to="{ name: 'NewsPage' }">{{ $t("banner.news") }}</router-link>
             <a v-if="loggedIn" :href="forumLink">{{ $t("banner.forum") }}</a>
-            <router-link v-if="loggedIn" :to="{ name: 'ImportPage' }">{{ $t("banner.import") }}</router-link>
             <Login />
         </div>
     </div>

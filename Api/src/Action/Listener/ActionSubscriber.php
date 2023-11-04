@@ -130,7 +130,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         }
 
         $changingRoomPatrolshipActions = ActionEnum::getChangingRoomPatrolshipActions()->toArray();
-        if ($event->hasTags($changingRoomPatrolshipActions, all: false)
+        if ($event->hasAnyTag($changingRoomPatrolshipActions)
             && $event->getActionResult() instanceof Fail
         ) {
             $this->handlePatrolshipManoeuvreDamage($event);

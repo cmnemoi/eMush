@@ -78,7 +78,7 @@ export default defineComponent ({
     data() {
         return {
             show: false,
-            lost: true, //only for preview purpose//
+            lost: true //only for preview purpose//
         };
     }
 });

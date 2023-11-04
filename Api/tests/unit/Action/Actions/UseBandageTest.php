@@ -5,6 +5,7 @@ namespace Mush\Tests\unit\Action\Actions;
 use Mush\Action\Actions\UseBandage;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
@@ -20,6 +21,7 @@ class UseBandageTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::USE_BANDAGE);
+        $this->actionEntity->setOutputQuantity(2);
 
         $this->action = new UseBandage(
             $this->eventService,
@@ -55,6 +57,11 @@ class UseBandageTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->andReturn(2)
+            ->once()
+        ;
         $this->eventService->shouldReceive('callEvent');
         $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();

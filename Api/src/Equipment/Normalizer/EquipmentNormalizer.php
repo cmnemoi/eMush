@@ -216,8 +216,12 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
                 'quantity' => $disease->getRate(),
                 'diseaseName' => $diseaseName,
                 'start' => $disease->getDelayMin(),
-                'end' => $disease->getDelayMin() + $disease->getDelayLength(),
             ];
+
+            if ($disease->getDelayLength() > 0) {
+                $key .= '_with_range';
+                $params['end'] = $disease->getDelayMin() + $disease->getDelayLength();
+            }
         } else {
             $key = 'disease_info';
             $params = [
@@ -238,8 +242,12 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             $params = [
                 'diseaseName' => $cureName,
                 'start' => $cure->getDelayMin(),
-                'end' => $cure->getDelayMin() + $cure->getDelayLength(),
             ];
+
+            if ($cure->getDelayLength() > 0) {
+                $key .= '_with_range';
+                $params['end'] = $cure->getDelayMin() + $cure->getDelayLength();
+            }
         } else {
             $key = 'cure_info';
             $params = [

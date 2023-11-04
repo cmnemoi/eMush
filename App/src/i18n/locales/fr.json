@@ -33,8 +33,7 @@
 		"ranking": "Classements",
 		"user": "Mon Compte",
 		"news": "News",
-		"forum": "Forum",
-		"import": "Importer mon profil"
+		"forum": "Forum"
 	},
 	"ranking": {
 		"ship_end_cause": "Cause de la destruction",
@@ -101,8 +100,7 @@
 		}
 	},
 	"userBanner": {
-		"userShips": "Fiche",
-		"legacyProfile": "Archives"
+		"userShips": "Fiche"
 	},
 	"userShips": {
 		"pageTitle": "Fiche de ",
@@ -193,8 +191,7 @@
 	"admin": {
 		"user": {
 			"username": "Pseudonyme",
-			"roles": "Rôles",
-			"downloadUsersAsJson": "Télécharger les données des utilisateurs"
+			"roles": "Rôles"
 		},
 		"gameConfig": {
 			"name": "Nom",
@@ -543,9 +540,6 @@
 			"closeAllPlayers": "Fermer (archiver) tous les joueurs",
 			"closePlayer": "Fermer (archiver) ce joueur",
 			"quarantine": "Mettre en quarantaine"
-		},
-		"secrets": {
-			"create": "Créer un secret"
 		}
 	},
 	"charSelection": {
@@ -588,19 +582,5 @@
 		"problem": "Il y a eu un problème lors du traitement de votre requête.",
 		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
 		"title": "ERREUR"
-	},
-	"import": {
-		"connectToTwinoid": "Se connecter à Twinoid",
-		"frcookie": "Cookie Mush FR",
-		"encookie": "Cookie Mush EN",
-		"importFrenchData": "Importer mon profil français",
-		"importEnglishData": "Importer mon profil anglais",
-		"importMyProfile": "Importer mon profil",
-		"importedProfile": "Profil importé ({username} - {id})",
-		"noImportedProfile": "Vous n'avez pas encore importé de profil Mush.",
-		"smallInfos": "Vous pouvez sauvegarder votre compte Mush original sur eMush. Connectez vous à Twinoid à l'aide du bouton ci-dessous pour commencer.",
-		"infos": "Vous pouvez sauvegarder votre compte Mush original sur eMush.////Voici la liste des éléments sauvegardés ://- Votre pseudo Twinoid// - Vos succès et vos titres// - Les niveaux de vos personnages//- Votre expérience disponible//- Vos vaisseaux//- Vos skins //- Vos vanités //- Vos klix ////Vous ne pouvez sauvegarder le profil d'**un seul serveur**. Choisissez bien !////Pour lancer la sauvegarde, vous trouverez ci-dessous deux liens \"Cookie\" : un pour le serveur français et un pour le serveur anglais.//Enregistrez le lien qui vous intéresse en tant que nouveau marque-page (clic droit puis sauvegarder le marque page). //Ensuite, allez sur le site Mush qui correspond, et connectez-vous à votre compte. Cliquez sur le marque-page enregistré précedemment en étant connecté sur le site Mush.////Cela va automatiquement enregistrer le cookie dans votre presse-papier. Retournez sur la page d'import d'eMush, et collez le cookie dans le champ 'cookie' en dessous.//Enfin, cliquez sur le bouton à côté du champ 'cookie' qui correspond au serveur que vous voulez importer.////Ne quittez pas la page pendant l'import du profil !//Il vous est possible de relancer l'import une seconde fois: cela effacera la sauvegarde mais vous pourrez en refaire de nouvelles par la suite.////En cas de questions ou autres problèmes n'hésitez pas à nous contacter sur le <a href='https://discord.gg/Kd8DUkWy4N'>Discord Eternaltwin</a>.",
-		"success": "Félicitations, le compte {username} ({id}) a été importé avec succès ! {nbShips} vaisseaux ont été importés.",
-		"successInfo": "Un aperçu des données collectées est disponible ci-dessous. Tout nouvel import supprimera le précédent."
 	}
 }

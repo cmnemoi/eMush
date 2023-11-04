@@ -87,8 +87,8 @@
             :label="$t('admin.hunterConfig.damageRange')"
             :map="hunterConfig.damageRange"
             id="hunterConfig_damageRange"
-            mapIndexesType="number"
-            mapValuesType="number"
+            map-indexes-type="number"
+            map-values-type="number"
             @addTuple="addDamage"
             @removeIndex="removeDamage"
         />
@@ -96,8 +96,8 @@
             :label="$t('admin.hunterConfig.scrapDropTable')"
             :map="hunterConfig.scrapDropTable"
             id="hunterConfig_scrapDropTable"
-            mapIndexesType="string"
-            mapValuesType="number"
+            map-indexes-type="string"
+            map-values-type="number"
             @addTuple="addScrapDrop"
             @removeIndex="removeScrapDrop"
         />
@@ -105,8 +105,8 @@
             :label="$t('admin.hunterConfig.numberOfDroppedScrap')"
             :map="hunterConfig.numberOfDroppedScrap"
             id="hunterConfig_numberOfDroppedScrap"
-            mapIndexesType="string"
-            mapValuesType="number"
+            map-indexes-type="string"
+            map-values-type="number"
             @addTuple="addNumberDrop"
             @removeIndex="removeNumberDrop"
         />
@@ -163,7 +163,7 @@ export default defineComponent({
     methods: {
         create(): void {
             const newHunterConfig = (new HunterConfig()).load(this.hunterConfig?.jsonEncode());
-            
+
             newHunterConfig.id = null;
             HunterConfigService.createHunterConfig(newHunterConfig).then((res: HunterConfig | null) => {
                 this.hunterConfig = res;
@@ -282,9 +282,9 @@ export default defineComponent({
             if (this.hunterConfig && this.hunterConfig.initialStatuses){
                 this.hunterConfig.initialStatuses = removeItem(this.hunterConfig.initialStatuses, statusConfig);
             }
-        },
+        }
     },
-    beforeMount() {   
+    beforeMount() {
         const hunterConfigId = Number(this.$route.params.hunterConfigId);
         HunterConfigService.loadHunterConfig(hunterConfigId).then((res: HunterConfig | null) => {
             this.hunterConfig = res;
@@ -299,7 +299,7 @@ export default defineComponent({
                         this.hunterConfig.initialStatuses = initialStatuses;
                     }
                 });
-        });     
+        });
     }
 });
 </script>

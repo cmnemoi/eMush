@@ -165,7 +165,6 @@ button {
 
 .tippy-box[data-animation='fade'][data-state='hidden'] {
     opacity: 0;
-    transform: translateY(-5px);
     transition-timing-function: cubic-bezier(.2,1,.2,1);
 }
 

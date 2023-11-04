@@ -19,7 +19,7 @@ export default class MushTiledMap {
     public tilemap: Phaser.Tilemaps.Tilemap;
     public scene: DaedalusScene;
     private groups: Array<Phaser.GameObjects.Group>;
-    private equipments: Array<EquipmentObject>;
+    private readonly equipments: Array<EquipmentObject>;
 
     constructor(scene: DaedalusScene, key: string) {
         this.tilemap = scene.add.tilemap(key);
@@ -52,11 +52,14 @@ export default class MushTiledMap {
 
             if (tiledLayer.name === 'wall') {
                 const wallLayer = this.tilemap.createLayer(i, this.tilemap.tilesets, this.tilemapsShift.x, this.tilemapsShift.y);
+                if (wallLayer === null) {return;}
+
                 wallLayer.setDepth(this.computeFixedDepth(tiledLayer.getCustomPropertyByName('depth')));
 
             } else if (tiledLayer.name === 'ground') {
                 //ground layers needs to be rectangular
                 const groundLayer = this.tilemap.createLayer(i, 'ground_tileset', this.tilemapsShift.x, this.tilemapsShift.y);
+                if (groundLayer === null) {return;}
 
                 const depth = tiledLayer.getCustomPropertyByName('depth');
                 const walkingDepth = tiledLayer.getCustomPropertyByName('walkingDepth');
@@ -134,11 +137,8 @@ export default class MushTiledMap {
         if ( !obj.isCustomPropertyByName('grouped') ) {
             return null;
         } else {
-            let filteredGroups: Array<Phaser.GameObjects.Group> = [];
             const groupName = obj.getGroupName();
-
-
-            filteredGroups = this.groups.filter((group: Phaser.GameObjects.Group) => {
+            const filteredGroups: Array<Phaser.GameObjects.Group> = this.groups.filter((group: Phaser.GameObjects.Group) => {
                 return group.name === groupName;
             });
 

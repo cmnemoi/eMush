@@ -4,36 +4,44 @@ namespace Mush\Daedalus\Normalizer;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\DaedalusStatusEnum;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class DaedalusNormalizer implements NormalizerInterface
+class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+    use NormalizerAwareTrait;
+
     private CycleServiceInterface $cycleService;
     private TranslationServiceInterface $translationService;
+    private PlanetServiceInterface $planetService;
 
     public function __construct(
         CycleServiceInterface $cycleService,
         TranslationServiceInterface $translationService,
+        PlanetServiceInterface $planetService,
     ) {
         $this->cycleService = $cycleService;
         $this->translationService = $translationService;
+        $this->planetService = $planetService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        $group = current($context['groups'] ?? []);
-
-        return $data instanceof Daedalus && $group === false;
+        return $data instanceof Daedalus;
     }
 
     public function normalize($object, string $format = null, array $context = []): array
     {
         /** @var Daedalus $daedalus */
         $daedalus = $object;
+
         $gameConfig = $daedalus->getGameConfig();
         $players = $daedalus->getPlayers();
         $closedPlayers = $players->map(fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer());
@@ -45,6 +53,13 @@ class DaedalusNormalizer implements NormalizerInterface
         $mushDead = $closedPlayers->filter(fn (ClosedPlayer $player) => !$player->getPlayerInfo()->isAlive() && $player->isMush())->count();
 
         $language = $daedalus->getLanguage();
+
+        $planet = $this->planetService->findPlanetInDaedalusOrbit($daedalus);
+        if ($planet !== null) {
+            $planet = $this->normalizer->normalize($planet, $format, $context);
+        }
+
+        $attackingHunters = $daedalus->getAttackingHunters()->count();
 
         return [
                 'id' => $object->getId(),
@@ -87,6 +102,9 @@ class DaedalusNormalizer implements NormalizerInterface
                         ], 'daedalus',
                         $language
                     ), ],
+                'inOrbitPlanet' => $planet,
+                'isDaedalusTravelling' => $daedalus->hasStatus(DaedalusStatusEnum::TRAVELING),
+                'attackingHunters' => $attackingHunters,
             ];
     }
 

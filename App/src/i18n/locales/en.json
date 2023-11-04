@@ -33,8 +33,7 @@
 		"ranking": "Rankings",
 		"user": "My account",
 		"news": "News",
-		"forum": "Forum",
-		"import": "Import my profile"
+		"forum": "Forum"
 	},
 	"ranking": {
 		"ship_end_cause": "End cause",
@@ -192,8 +191,7 @@
 	"admin": {
 		"user": {
 			"username": "Username",
-			"roles": "Roles",
-			"downloadUsersAsJson": "Download user data"
+			"roles": "Roles"
 		},
 		"gameConfig": {
 			"name": "Name",
@@ -584,18 +582,5 @@
 		"problem": "There was a problem processing your request.",
 		"reportToDevs": "Please report this error to the developers, with details of how it occurred.",
 		"title": "ERROR"
-	},
-	"import": {
-		"connectToTwinoid": "Connect to Twinoid",
-		"frcookie": "FR Mush cookie",
-		"encookie": "EN Mush cookie",
-		"importFrenchData": "Importer my french profile",
-		"importEnglishData": "Import my english profile",
-		"importMyProfile": "Importe my profile",
-		"importedProfile": "Imported profile ({username} - {id})",
-		"noImportedProfile": "You have not yet imported a Mush profile",
-		"smallInfos": "You can save your original Mush account on eMush. Connect to Twinoid using the button below to get started.",
-		"infos": "You can backup your original Mush account on eMush.////Here is the list of items saved ://- Your Twinoid username// - Your achievements and titles// - Your character levels//- Your available experience//- Your ships//- Your skins //- Your vanities //- Your klix ////You can only backup the profile from one server. Choose wisely!////To start the backup, below you will find two 'Cookie' links: one for the French server and one for the English server.//Save the link that interests you as a new bookmark (right-click and save the bookmark). //Next, go to the corresponding Mush site and log in to your account. Click on the bookmark saved previously while being logged into the Mush site.////This will automatically save the cookie in your clipboard. Return to the eMush import page, and paste the cookie into the 'cookie' field below.//Finally, click on the button next to the 'cookie' field that corresponds to the server you want to import.////Do not leave the page during the profile import!//It's possible to restart the import a second time: this will delete the backup, but you can create new backups afterward.////If you have any questions or encounter issues, feel free to contact us on <a href='https://discord.gg/Kd8DUkWy4N'>Eternaltwin Discord</a>.",		"success": "Congratulations, the {username} ({id}) account has been successfully imported! {nbShips} ships have been imported.",
-		"successInfo": "A preview of the collected data is available below. Any new import will delete the previous one."
 	}
 }

@@ -2,10 +2,11 @@
     <div class="allies-container">
         <div :class="['turret', { 'green': isPlayerInRoom(turret.key) }]" v-for="(turret, key) in player?.spaceBattle?.turrets" :key="key">
             <div class="operator">
-                <img v-if="!turretIsEmpty(turret)"
-                     class="player-body"
-                     :src="getPlayerCharacterBodyByName(getTurretOccupier(turret))"
-                     :alt="getTurretOccupier(turret)">
+                <img
+                    v-if="!turretIsEmpty(turret)"
+                    class="player-body"
+                    :src="getPlayerCharacterBodyByName(getTurretOccupier(turret))"
+                    :alt="getTurretOccupier(turret)">
             </div>
             <div>
                 <div class="ship-img-container">
@@ -26,50 +27,52 @@
             </div>
             <div>
                 <div class="ship-img-container">
-                    <img v-if="!patrolShip.isPasiphae()"
-                         class="patrol-ship-img"
-                         :src="require('@/assets/images/patrol_ship.png')"
-                         alt="patrol ship">
-                    <img v-else
-                         class="pasiphae-img"
-                         :src="require('@/assets/images/pasiphae.png')"
-                         alt="pasiphae">
+                    <img
+                        v-if="!patrolShip.isPasiphae()"
+                        class="patrol-ship-img"
+                        :src="require('@/assets/images/patrol_ship.png')"
+                        alt="patrol ship">
+                    <img
+                        v-else
+                        class="pasiphae-img"
+                        :src="require('@/assets/images/pasiphae.png')"
+                        alt="pasiphae">
                 </div>
                 <div class="stats">
                     <p class="quantity">{{ patrolShip.armor }}</p>
                     <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
                     <p class="quantity" v-if="!patrolShip.isPasiphae()">{{ patrolShip.charges }}</p>
-                    <img class="charges-img"
-                         v-if="!patrolShip.isPasiphae()"
-                         :src="require('@/assets/images/status/charge.png')"
-                         alt="charges">
+                    <img
+                        class="charges-img"
+                        v-if="!patrolShip.isPasiphae()"
+                        :src="require('@/assets/images/status/charge.png')"
+                        alt="charges">
                 </div>
             </div>
         </div>
     </div>
     <div class="hunters-container">
-        <tippy-singleton>
-            <Tippy tag="div"
-                   class="hunter"
-                   :class="isHunterSelected(hunter) ? 'highlight' : ''"
-                   @mousedown.stop="$emit('select', hunter)"
-                   v-for="(hunter, key) in player?.spaceBattle?.hunters"
-                   :key="key">
-                <div class="ship-img-container">
-                    <img :class="hunter.key + '-img'" :src="getHunterImage(hunter)" :alt="hunter.key">
-                </div>
-                <div class="stats">
-                    <p class="quantity">{{ hunter.health }}</p>
-                    <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
-                </div>
-                <template #content>
-                    <h1 v-html="formatContent(hunter.name)" /><br />
-                    <p v-html="formatContent(hunter.description)" />
-                </template>
-            </Tippy>
-        </tippy-singleton>
+        <Tippy
+            tag="div"
+            class="hunter"
+            :class="isHunterSelected(hunter) ? 'highlight' : ''"
+            @mousedown.stop="$emit('select', hunter)"
+            v-for="(hunter, key) in player?.spaceBattle?.hunters"
+            :key="key">
+            <div class="ship-img-container">
+                <img :class="hunter.key + '-img'" :src="getHunterImage(hunter)" :alt="hunter.key">
+            </div>
+            <div class="stats">
+                <p class="quantity">{{ hunter.health }}</p>
+                <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
+            </div>
+            <template #content>
+                <h1 v-html="formatContent(hunter.name)" /><br />
+                <p v-html="formatContent(hunter.description)" />
+            </template>
+        </Tippy>
     </div>
-    
+
 </template>
 
 <script lang="ts">
@@ -128,7 +131,7 @@ export default defineComponent({
         turretIsEmpty(turret: SpaceBattleTurret) : boolean {
             if (turret.occupiers === null) return true;
             return turret?.occupiers?.length === 0;
-        },
+        }
     }
 });
 

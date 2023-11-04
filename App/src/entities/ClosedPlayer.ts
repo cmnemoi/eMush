@@ -46,7 +46,7 @@ export class ClosedPlayer {
         if (this.dayDeath && this.cycleDeath && this.startCycle){
             this.cyclesSurvived = (this.dayDeath - 1) * 8 + this.cycleDeath - this.startCycle;
         }
-        
+
         return this;
     }
     jsonEncode(): object {
@@ -62,7 +62,7 @@ export class ClosedPlayer {
             'isMush': this.isMush,
             'characterKey': this.characterKey,
             'username': this.username,
-            'userId': this.userId,
+            'userId': this.userId
         };
 
         return data;

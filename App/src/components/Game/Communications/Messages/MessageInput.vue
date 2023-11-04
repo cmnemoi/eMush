@@ -40,12 +40,13 @@ export default defineComponent ({
     methods: {
         sendNewMessage (): void {
             if (this.text.length > 0) {
+                this.text = this.text.replace(/\n/g, "//"); // Replace line breaks with "//" so they are actually interpreted as line breaks
                 this.sendMessage({ text: this.text, parent: this.parent, channel: this.channel });
                 this.text = "";
             }
         },
         breakLine (): void {
-            this.text += "\n//\n";
+            this.text += "\n";
         },
         ...mapActions('communication', [
             'sendMessage'

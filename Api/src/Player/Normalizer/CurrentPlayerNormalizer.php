@@ -15,7 +15,6 @@ use Mush\Equipment\Normalizer\SpaceBattleTurretNormalizer;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
@@ -37,7 +36,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private SpaceBattlePatrolShipNormalizer $spaceBattlePatrolShipNormalizer;
     private SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer;
     private TerminalNormalizer $terminalNormalizer;
-    private PlanetServiceInterface $planetService;
     private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
 
@@ -48,7 +46,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         SpaceBattlePatrolShipNormalizer $spaceBattlePatrolShipNormalizer,
         SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer,
         TerminalNormalizer $terminalNormalizer,
-        PlanetServiceInterface $planetService,
         TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService
     ) {
@@ -58,7 +55,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $this->spaceBattlePatrolShipNormalizer = $spaceBattlePatrolShipNormalizer;
         $this->spaceBattleTurretNormalizer = $spaceBattleTurretNormalizer;
         $this->terminalNormalizer = $terminalNormalizer;
-        $this->planetService = $planetService;
         $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
     }
@@ -77,7 +73,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     {
         /** @var Player $player */
         $player = $object;
-        /** @var Daedalus $daedalus */
         $daedalus = $player->getDaedalus();
 
         $language = $daedalus->getLanguage();
@@ -107,7 +102,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'daedalus' => $this->normalizer->normalize($daedalus, $format, $context),
             'spaceBattle' => $this->normalizeSpaceBattle($player, $format, $context),
             'terminal' => $this->terminalNormalizer->normalize($player->getFocusedTerminal(), $format, $context),
-            'inOrbitPlanet' => $this->normalizer->normalize($this->planetService->findPlanetInDaedalusOrbit($daedalus), $format, $context),
         ];
 
         $statuses = [];
@@ -117,16 +111,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
                 $statuses[] = $normedStatus;
             }
         }
-        // if current player is mush add spores info
-        if ($player->isMush()) {
-            $normedSpores = [
-                'key' => PlayerStatusEnum::SPORES,
-                'name' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.name', [], 'status', $language),
-                'description' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.description', [], 'status', $language),
-                'charge' => $player->getSpores(),
-            ];
-            $statuses[] = $normedSpores;
-        }
+
+        $statuses = $this->normalizeMushPlayerSpores($player, $statuses);
 
         $diseases = [];
         foreach ($player->getMedicalConditions()->getActiveDiseases() as $disease) {
@@ -159,6 +145,21 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
         ]);
+    }
+
+    private function normalizeMushPlayerSpores(Player $player, array $normalizedStatuses): array
+    {
+        if ($player->isMush()) {
+            $normalizedSpores = [
+                'key' => PlayerStatusEnum::SPORES,
+                'name' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.name', [], 'status', $player->getDaedalus()->getLanguage()),
+                'description' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.description', [], 'status', $player->getDaedalus()->getLanguage()),
+                'charge' => $player->getSpores(),
+            ];
+            $normalizedStatuses[] = $normalizedSpores;
+        }
+
+        return $normalizedStatuses;
     }
 
     private function normalizePlayerGameVariable(Player $player, string $variable, string $language): array

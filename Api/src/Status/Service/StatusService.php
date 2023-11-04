@@ -9,9 +9,6 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -25,9 +22,6 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
-use Mush\Status\Enum\DaedalusStatusEnum;
-use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\ChargeStatusEvent;
 use Mush\Status\Event\StatusEvent;
@@ -102,36 +96,7 @@ class StatusService implements StatusServiceInterface
             return;
         }
 
-        // If a talkie or itrackie is repaired, check if it was screwed.
-        $this->handleScrewedTalkie($statusName, $holder, $tags, $time);
-        $this->handleRepairGravity($statusName, $holder, $tags, $time);
-
         $this->delete($status);
-    }
-
-    private function handleScrewedTalkie(string $statusName, StatusHolderInterface $holder, array $tags, \DateTime $time): void
-    {
-        // If so, remove the screwed talkie status from the owner of the talkie and the pirate
-        if ($holder instanceof GameItem
-            && in_array($holder->getName(), [ItemEnum::ITRACKIE, ItemEnum::WALKIE_TALKIE])
-            && $statusName === EquipmentStatusEnum::BROKEN
-        ) {
-            /** @var Player $piratedPlayer */
-            $piratedPlayer = $holder->getOwner();
-
-            $screwedTalkieStatus = $this->getByTargetAndName($piratedPlayer, PlayerStatusEnum::TALKIE_SCREWED);
-            if ($screwedTalkieStatus !== null) {
-                $removeEvent = new StatusEvent(
-                    $screwedTalkieStatus,
-                    $screwedTalkieStatus->getOwner(),
-                    $tags,
-                    $time
-                );
-                $this->eventService->callEvent($removeEvent, StatusEvent::STATUS_REMOVED);
-
-                $this->delete($screwedTalkieStatus);
-            }
-        }
     }
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
@@ -182,83 +147,7 @@ class StatusService implements StatusServiceInterface
 
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
-        // handle side effects
-        $this->resetElectricCharges($statusConfig->getStatusName(), $holder, $tags, $time);
-        $this->createNoGravityStatus($statusConfig->getStatusName(), $holder, $tags, $time);
-
         return $status;
-    }
-
-    private function resetElectricCharges(
-        string $statusName,
-        StatusHolderInterface $statusHolder,
-        array $tags,
-        \DateTime $time
-    ): void {
-        if ($statusName === EquipmentStatusEnum::BROKEN
-            && $statusHolder instanceof GameEquipment
-            && $statusHolder->hasStatus(EquipmentStatusEnum::ELECTRIC_CHARGES)
-        ) {
-            /** @var ChargeStatus $electricCharges */
-            $electricCharges = $statusHolder->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
-
-            $this->updateCharge(
-                chargeStatus: $electricCharges,
-                delta: 0,
-                tags: $tags,
-                time: $time,
-                mode: VariableEventInterface::SET_VALUE
-            );
-        }
-    }
-
-    private function createNoGravityStatus(
-        string $statusName,
-        StatusHolderInterface $statusHolder,
-        array $tags,
-        \DateTime $time
-    ): void {
-        if ($statusName === EquipmentStatusEnum::BROKEN
-            && $statusHolder instanceof GameEquipment
-            && $statusHolder->getName() === EquipmentEnum::GRAVITY_SIMULATOR
-        ) {
-            $daedalus = $statusHolder->getDaedalus();
-
-            $this->createStatusFromName(
-                DaedalusStatusEnum::NO_GRAVITY,
-                $daedalus,
-                $tags,
-                $time
-            );
-        }
-    }
-
-    private function handleRepairGravity(
-        string $statusName,
-        StatusHolderInterface $statusHolder,
-        array $tags,
-        \DateTime $time
-    ): void {
-        if ($statusName === EquipmentStatusEnum::BROKEN
-            && $statusHolder instanceof GameEquipment
-            && $statusHolder->getName() === EquipmentEnum::GRAVITY_SIMULATOR
-        ) {
-            $daedalus = $statusHolder->getDaedalus();
-
-            $this->removeStatus(
-                DaedalusStatusEnum::NO_GRAVITY,
-                $daedalus,
-                $tags,
-                $time
-            );
-
-            $this->createStatusFromName(
-                DaedalusStatusEnum::NO_GRAVITY_REPAIRED,
-                $daedalus,
-                $tags,
-                $time
-            );
-        }
     }
 
     public function createStatusFromName(

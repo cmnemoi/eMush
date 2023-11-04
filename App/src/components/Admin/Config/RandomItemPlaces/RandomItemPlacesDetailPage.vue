@@ -48,7 +48,7 @@ export default defineComponent({
     components: {
         Input,
         UpdateConfigButtons,
-        StringArrayManager,
+        StringArrayManager
 
     },
     data: function (): RandomItemPlacesState {

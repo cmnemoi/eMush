@@ -25,7 +25,7 @@
                 {{ $t('ranking.linkToTheEnd') }}
             </template>
             <template #row-actions="slotProps">
-                
+
                 <router-link class="router" :to="{ name: 'TheEnd', params: { closedDaedalusId: slotProps.id } }"> <img :src="require('@/assets/images/right.png')" id="arrow" />  {{  $t('ranking.goToTheEnd') }}</router-link>
             </template>
         </Datatable>
@@ -55,12 +55,12 @@ export default defineComponent({
                 {
                     key: 'daysSurvived',
                     name: 'ranking.day',
-                    sortable: true,
+                    sortable: true
                 },
                 {
                     key: 'cyclesSurvived',
                     name: 'ranking.cycle',
-                    sortable: false,
+                    sortable: false
                 },
                 {
                     key: 'actions',

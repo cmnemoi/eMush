@@ -9,7 +9,7 @@
         "ext-openssl": "*",
         "api-platform/core": "^2.7",
         "composer/package-versions-deprecated": "^1.11",
-        "doctrine/annotations": "^1.0",
+        "doctrine/annotations": "^2.0",
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.8",
@@ -24,15 +24,12 @@
         "phpstan/phpdoc-parser": "^1.6",
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/asset": "6.2.*",
-        "symfony/browser-kit": "6.2.*",
         "symfony/console": "6.2.*",
-        "symfony/dom-crawler": "6.2.*",
         "symfony/dotenv": "6.2.*",
         "symfony/expression-language": "6.2.*",
         "symfony/flex": "^2.2",
         "symfony/framework-bundle": "6.2.*",
         "symfony/http-client": "6.2.*",
-        "symfony/mime": "6.2.*",
         "symfony/monolog-bundle": "^3.6",
         "symfony/property-access": "6.2.*",
         "symfony/property-info": "6.2.*",
@@ -121,7 +118,8 @@
         ],
         "lint": [
             "@cs-fixer",
-            "@psalm"
+            "@psalm",
+            "@phpmd"
         ],
         "load-data": [
             "php bin/console mush:load-configs-data"
@@ -132,11 +130,11 @@
             "php bin/console doctrine:schema:update --env=test -f",
             "php bin/console doctrine:fixtures:load --env=test -n --verbose"
         ],
+        "phpmd": "vendor/bin/phpmd src text phpmd.xml --exclude src/*/DataFixtures/*,src/*/ConfigData/* --ignore-errors-on-exit",
         "psalm": "vendor/bin/psalm",
         "psalm:clear-cache": "vendor/bin/psalm --clear-cache",
         "reset": [
             "composer install",
-            "@auto-scripts",
             "@load-fixtures",
             "php bin/console doctrine:database:create --if-not-exists",
             "@drop-database",

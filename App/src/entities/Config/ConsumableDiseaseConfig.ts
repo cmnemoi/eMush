@@ -44,7 +44,7 @@ export class ConsumableDiseaseConfig {
         const data: any = {
             'id': this.id,
             'name': this.name,
-            'causeName': this.causeName,
+            'causeName': this.causeName
         };
         this.encodeMapAttribute(data, 'diseasesName', this.diseasesName);
         this.encodeMapAttribute(data, 'curesName', this.curesName);
@@ -68,7 +68,7 @@ export class ConsumableDiseaseConfig {
         if (map === null) {
             return;
         }
-        
+
         if (typeof object[attributeName] !== 'undefined') {
             for (const [key, value] of Object.entries(object[attributeName])) {
                 if (typeof key === 'string' && typeof value === 'number') {

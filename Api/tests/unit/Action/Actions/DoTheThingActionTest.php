@@ -6,6 +6,7 @@ use Mockery;
 use Mush\Action\Actions\DoTheThing;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -42,6 +43,7 @@ class DoTheThingActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::DO_THE_THING);
+        $this->actionEntity->setOutputQuantity(2);
 
         $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
         $this->playerDiseaseService = \Mockery::mock(PlayerDiseaseServiceInterface::class);
@@ -88,6 +90,11 @@ class DoTheThingActionTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent')->twice();
         $this->statusService->shouldReceive('createStatusFromName')->twice();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false);
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->andReturn(2)
+            ->once()
+        ;
 
         $result = $this->action->execute();
 

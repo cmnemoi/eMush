@@ -6,6 +6,7 @@ use Mockery;
 use Mush\Action\Actions\Comfort;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -25,6 +26,8 @@ class ComfortActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::COMFORT);
+        $this->actionEntity->setOutputQuantity(2);
+
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Comfort(
@@ -59,6 +62,11 @@ class ComfortActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')
+            ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->andReturn(2)
+            ->once()
+        ;
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

@@ -112,6 +112,7 @@ class DoTheThingCest
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST)
+            ->setOutputQuantity(2)
         ;
         $I->haveInRepository($action);
 

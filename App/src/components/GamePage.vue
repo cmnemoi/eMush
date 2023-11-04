@@ -26,6 +26,6 @@ export default defineComponent ({
             'loggedIn',
             'getUserInfo'
         ])
-    },
+    }
 });
 </script>

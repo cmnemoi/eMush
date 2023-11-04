@@ -19,40 +19,40 @@
         </div>
         <div class="flex-row wrap">
             <div class="checkbox-container">
-                <input 
-                    type="checkbox" 
+                <input
+                    type="checkbox"
                     id="equipmentConfig_isBreakable"
                     v-model="equipmentConfig.isBreakable"
                 />
                 <label for="equipmentConfig_isBreakable">{{ equipmentConfig.isBreakable ? $t('admin.equipmentConfig.isBreakable') : $t('admin.equipmentConfig.isNotBreakable') }}</label>
             </div>
             <div class="checkbox-container">
-                <input 
-                    type="checkbox" 
+                <input
+                    type="checkbox"
                     id="equipmentConfig_isFireBreakable"
                     v-model="equipmentConfig.isFireBreakable"
                 />
                 <label for="equipmentConfig_isFireBreakable">{{ equipmentConfig.isFireBreakable ? $t('admin.equipmentConfig.isFireBreakable') : $t('admin.equipmentConfig.isNotFireBreakable') }}</label>
             </div>
             <div class="checkbox-container">
-                <input 
-                    type="checkbox" 
+                <input
+                    type="checkbox"
                     id="equipmentConfig_isFireDestroyable"
                     v-model="equipmentConfig.isFireDestroyable"
                 />
                 <label for="equipmentConfig_isFireDestroyable">{{ equipmentConfig.isFireDestroyable ? $t('admin.equipmentConfig.isFireDestroyable') : $t('admin.equipmentConfig.isNotFireDestroyable') }}</label>
             </div>
             <div class="checkbox-container" v-if="equipmentConfig.equipmentType === 'ItemConfig'">
-                <input 
-                    type="checkbox" 
+                <input
+                    type="checkbox"
                     id="equipmentConfig_isPersonal"
                     v-model="equipmentConfig.isPersonal"
                 />
                 <label for="equipmentConfig_isPersonal">{{ equipmentConfig.isPersonal ? $t('admin.equipmentConfig.isPersonal') : $t('admin.equipmentConfig.isNotPersonal') }}</label>
             </div>
             <div class="checkbox-container" v-if="equipmentConfig.equipmentType === 'ItemConfig'">
-                <input 
-                    type="checkbox" 
+                <input
+                    type="checkbox"
                     id="equipmentConfig_isStackable"
                     v-model="equipmentConfig.isStackable"
                 />
@@ -286,7 +286,7 @@ export default defineComponent({
             }
             return this.equipmentConfig.dismountedProducts.size > 0;
 
-        },
+        }
     },
     beforeMount() {
         const equipmentConfigId = String(this.$route.params.equipmentConfigId);

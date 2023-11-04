@@ -181,7 +181,7 @@ export default defineComponent ({
     p {
         margin: 0;
         font-size: 0.95em;
-        &::v-deep img { vertical-align: middle; }
+        &::v-deep(img) { vertical-align: middle; }
     }
 }
 

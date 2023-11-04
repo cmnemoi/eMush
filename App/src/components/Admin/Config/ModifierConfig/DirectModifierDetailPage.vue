@@ -23,8 +23,8 @@
                 :errors="errors.modifierRange"
             />
             <div class="checkbox-container">
-                <input 
-                    type="checkbox" 
+                <input
+                    type="checkbox"
                     id="modifierConfig_reverseOnRemove"
                     v-model="modifierConfig.reverseOnRemove"
                 />
@@ -175,7 +175,7 @@ export default defineComponent({
                     this.modifierConfig.triggeredEvent = res;
                 }
             });
-        },
+        }
     },
     beforeMount() {
         const modifierConfigId = String(this.$route.params.configId);

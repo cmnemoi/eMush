@@ -85,5 +85,15 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         <target>*In orbit!*</target>
       </segment>
     </unit>
+    <unit id="block_of_post_it">
+      <segment id="name" state="translated">
+        <source>block_of_post_it.name</source>
+        <target>Block of Post-it Notes</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>block_of_post_it.tips</source>
+        <target/>
+      </segment>
+    </unit>
   </file>
 </xliff>

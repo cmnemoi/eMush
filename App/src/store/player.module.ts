@@ -60,7 +60,7 @@ const actions: ActionTree<any, any> = {
     },
     selectTarget({ commit }, { target }) {
         commit('setSelectedItem', target);
-    },
+    }
 };
 
 const mutations : MutationTree<any> = {

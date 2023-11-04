@@ -203,6 +203,12 @@
         <target>**{character}** starts reading enthusiastically...</target>
       </segment>
     </unit>
+    <unit id="read_content">
+      <segment id="read_content" state="translated">
+        <source>read_content</source>
+        <target>{content}</target>
+      </segment>
+    </unit>
     <unit id="repair_fail">
       <segment id="repair_fail" state="translated">
         <source>repair_fail</source>
@@ -726,7 +732,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     </unit>
     <unit id="play_arcade_success">
       <segment id="play_arcade_success" state="translated">
-        <source>play_arcade_succes</source>
+        <source>play_arcade_success</source>
         <target>OH YEEAAHH. **{character}** has defeated Xatator, the boss on LEVEL 10!</target>
       </segment>
     </unit>

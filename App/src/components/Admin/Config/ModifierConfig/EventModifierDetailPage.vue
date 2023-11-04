@@ -37,8 +37,8 @@
                 :errors="errors.priority"
             />
             <div class="checkbox-container">
-                <input 
-                    type="checkbox" 
+                <input
+                    type="checkbox"
                     id="modifierConfig_applyOnActionParameter"
                     v-model="modifierConfig.applyOnActionParameter"
                 />
@@ -91,8 +91,8 @@
         <MapManager
             :map="modifierConfig.tagConstraints"
             id="modifierConfig.tagConstraints"
-            mapIndexesType="string"
-            mapValuesType="string"
+            map-indexes-type="string"
+            map-values-type="string"
         >
         </MapManager>
         <h3>Modifier Requirement</h3>
@@ -145,7 +145,7 @@ export default defineComponent({
     data: function (): ModifierConfigState {
         return {
             modifierConfig: null,
-            errors: {},
+            errors: {}
         };
     },
     methods: {

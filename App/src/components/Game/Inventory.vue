@@ -1,30 +1,28 @@
 <template>
     <ul class="inventory">
-        <tippy-singleton>
-            <li
-                v-for="(item) in items"
-                :key="item.id"
-                tabindex="0"
-                class="slot"
-                :class="isItemSelected(item) ? 'highlight' : ''"
-                @mousedown.stop="$emit('select', item)"
-            >
-                <Tippy tag="div">
-                    <img :src="itemImage(item)" :alt="item.name">
-                    <span class="qty">{{ item.number }}</span>
-                    <template #content>
-                        <h1>{{ item.name }}</h1>
-                        <p v-html="formatDescription(item.description)" />
-                        <span v-if="item.effectTitle">
-                            {{item.effectTitle}}
-                            <ul class="effect_list">
-                                <li v-for="(effect, key) in item.effects" :key="key" v-html="formatContent(effect)"></li>
-                            </ul>
-                        </span>
-                    </template>
-                </Tippy>
-            </li>
-        </tippy-singleton>
+        <li
+            v-for="(item) in items"
+            :key="item.id"
+            tabindex="0"
+            class="slot"
+            :class="isItemSelected(item) ? 'highlight' : ''"
+            @mousedown.stop="$emit('select', item)"
+        >
+            <Tippy tag="div">
+                <img :src="itemImage(item)" :alt="item.name">
+                <span class="qty">{{ item.number }}</span>
+                <template #content>
+                    <h1>{{ item.name }}</h1>
+                    <p v-html="formatDescription(item.description)" />
+                    <span v-if="item.effectTitle">
+                        {{item.effectTitle}}
+                        <ul class="effect_list">
+                            <li v-for="(effect, key) in item.effects" :key="key" v-html="formatContent(effect)"></li>
+                        </ul>
+                    </span>
+                </template>
+            </Tippy>
+        </li>
         <li
             v-for="n in emptySlots"
             :key="n"

@@ -163,6 +163,12 @@
         <target>read_document</target>
       </segment>
     </unit>
+    <unit id="read_content">
+      <segment id="read_content" state="translated">
+        <source>read_content</source>
+        <target>{content}</target>
+      </segment>
+    </unit>
     <unit id="repair_fail">
       <segment id="repair_fail" state="initial">
         <source>repair_fail</source>
@@ -507,7 +513,7 @@
     </unit>
     <unit id="play_arcade_success">
       <segment id="play_arcade_success" state="translated">
-        <source>play_arcade_succes</source>
+        <source>play_arcade_success</source>
         <target>OH SIIIII. **{character}** ha vencido a Xatator, ¡el jefe del NIVEL10!</target>
       </segment>
     </unit>

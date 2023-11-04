@@ -480,9 +480,12 @@ export default class DaedalusScene extends Phaser.Scene
 
             if (this.map === null) { throw new Error("player room should be defined");}
 
+            this.deleteCharacters();
+
             this.map = this.createRoom();
             this.createEquipments(this.map);
             this.updateStatuses();
+            this.createPlayers();
         } else{
             this.room = newRoom;
 
@@ -600,18 +603,19 @@ export default class DaedalusScene extends Phaser.Scene
         if (room === null) { throw new Error("player room should be defined");}
         const equipmentsToUpdate = room.equipments;
 
-
-        const updatedEquipment = new Array<string>();
+        const updatedEquipment = new Array<number>();
 
         for (let i=0; i < sceneGameObjects.length; i++) {
             const gameObject = sceneGameObjects[i];
 
             if (gameObject instanceof EquipmentObject) {
-                if (equipmentsToUpdate.filter((equipment: Equipment) => {return equipment.key === gameObject.name;}).length === 0) {
+                if (equipmentsToUpdate.filter((equipment: Equipment) => {
+                    return equipment.id === gameObject.equipment.id;
+                }).length === 0) {
                     return true;
                 }
-                if (!(updatedEquipment.includes(gameObject.name))) {
-                    updatedEquipment.push(gameObject.name);
+                if (!(updatedEquipment.includes(gameObject.equipment.id))) {
+                    updatedEquipment.push(gameObject.equipment.id);
                 }
             }
         }

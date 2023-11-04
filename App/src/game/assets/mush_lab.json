@@ -204,7 +204,7 @@
                          "value":64
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":128,
                  "x":39,
@@ -349,7 +349,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":28,
                  "x":115,
@@ -377,7 +377,7 @@
                          "value":40
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":81,
                  "x":144.25,
@@ -410,7 +410,7 @@
                          "value":64
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":79,
                  "x":27.25,
@@ -448,7 +448,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":25,
                  "x":145.25,
@@ -544,7 +544,7 @@
                          "value":-7
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":34,
                  "x":42,

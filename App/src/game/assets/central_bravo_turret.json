@@ -250,7 +250,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":25,
                  "x":52.25,
@@ -385,7 +385,7 @@
                          "value":0
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":34,
                  "x":86.5,
@@ -433,7 +433,7 @@
                          "value":48
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":122,
                  "x":104,
@@ -484,7 +484,7 @@
                          "value":true
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":69,
                  "x":85.75,

@@ -271,7 +271,7 @@
                          "value":18
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":32,
                  "x":12,
@@ -299,7 +299,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":32,
                  "x":14,
@@ -353,9 +353,39 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":48
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_front"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":24
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":0
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":88,
                  "x":28.03,
@@ -459,7 +489,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":25,
                  "x":47.75,
@@ -517,7 +547,7 @@
                          "value":4
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":66,
                  "x":83.48,
@@ -575,7 +605,7 @@
                          "value":4
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":66,
                  "x":85,
@@ -633,7 +663,7 @@
                          "value":4
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":66,
                  "x":83.5,

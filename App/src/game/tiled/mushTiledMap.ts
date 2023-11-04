@@ -105,7 +105,7 @@ export default class MushTiledMap {
             const objEntity = obj.getEquipmentFromTiledObject(room, addedObjectId);
 
             //if the equipment is present according to the API
-            if (!(obj.tiledObj.type === 'interact' &&
+            if (!(obj.tiledObj.type === 'equipment' &&
                 objEntity === undefined)
             ){
                 const group = this.getGroupOfObject(obj);

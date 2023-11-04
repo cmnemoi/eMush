@@ -282,7 +282,9 @@
 			"config": "Configuration du Daedalus",
 			"language": "Langue du Daedalus",
 			"maintenanceOn": "Mettre le jeu en maintenance",
-			"maintenanceOff": "Retirer le jeu de la maintenance"
+			"maintenanceOff": "Retirer le jeu de la maintenance",
+			"sendNeronAnnouncement": "Envoyer une annonce NERON",
+			"sendNeronAnnouncementToAllDaedaluses": "Envoyer une annonce NERON à tous les Daedalus"
 		},
 		"save": "Sauvegarder",
 		"show": "Montrer",

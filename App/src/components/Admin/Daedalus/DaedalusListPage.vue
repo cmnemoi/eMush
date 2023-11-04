@@ -23,6 +23,7 @@
                 >
             </label>
             <router-link :to="{ name: 'AdminDaedalusCreate' }">{{$t("admin.daedalus.create")}}</router-link>
+            <router-link :to="{ name: 'AdminNeronAnnouncement' }">{{$t("admin.daedalus.sendNeronAnnouncement")}}</router-link>
             <button class = "action-button" type="button" @click="destroyAllDaedaluses">
                 {{$t("admin.daedalus.destroyAllDaedaluses")}}
             </button>

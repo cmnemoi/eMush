@@ -104,10 +104,10 @@
             </div>
             -->
             <div class="weblinks">
-                <h3>Suivez-nous:</h3>
+                <h3>{{ $t('homePage.followUs') }}</h3>
                 <a href="https://discord.gg/ERc3svy"><img src="@/assets/images/medias/discord.png"> Discord</a>
                 <a href="https://eternaltwin.org/"><img src="@/assets/images/medias/etwin.png"> EternalTwin</a>
-                <a href="https://gitlab.com/eternaltwin/mush/mush"><img src="@/assets/images/medias/gitlab.png"> Gitlab</a>
+                <a href="https://gitlab.com/eternaltwin/mush/mush"><img src="@/assets/images/medias/gitlab.png"> GitLab</a>
                 <img class="pegi" src="@/assets/images/medias/pegi.png">
             </div>
         </section>

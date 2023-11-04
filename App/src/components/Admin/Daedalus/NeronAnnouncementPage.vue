@@ -33,7 +33,6 @@ export default defineComponent ({
 
 form {
     background: #222b6b;
-    // border-radius: 5px;
     border-collapse: collapse;
     border: thin solid #1B2256;
     margin-bottom: 1%;
@@ -45,7 +44,7 @@ form {
         line-height: 1.4em;
         padding: 0.4em;
         width: 100%;
-        height: 16em;
+        height: 5em;
         resize: vertical;
     }
 }

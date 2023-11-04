@@ -166,6 +166,8 @@ export default defineComponent({
                 return require('@/assets/images/adminPicto.png');
             } else if (role === 'helper') {
                 return require('@/assets/images/helperPicto.png');
+            } else if (role === 'artist') {
+                return require('@/assets/images/artistPicto.png');
             } else {
                 return '';
             }

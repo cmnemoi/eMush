@@ -54,6 +54,12 @@ export default defineComponent ({
     components: {
         Pagination
     },
+    props: {
+        numberOfNews: {
+            type: Number,
+            required: false,
+        }
+    },
     data() {
         return {
             news: new Array<News>(),
@@ -80,6 +86,9 @@ export default defineComponent ({
             }
             if (this.pagination.pageSize) {
                 params.params['itemsPerPage'] = this.pagination.pageSize;
+            }
+            if (this.numberOfNews) {
+                params.params['itemsPerPage'] = this.numberOfNews;
             }
             qs.stringify(params.params['order'] = { 'id': 'DESC' });
             await ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'news'), params)

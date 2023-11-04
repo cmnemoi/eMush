@@ -56,7 +56,7 @@
             -->
         </section>
         <section>
-            <NewsPage />
+            <NewsPage :numberOfNews = "1" />
         </section>
         <section class="medias">
             <!-- REVIEWS TEMPLATE

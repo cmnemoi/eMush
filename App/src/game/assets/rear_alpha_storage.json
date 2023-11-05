@@ -212,14 +212,19 @@
                          "value":true
                         }, 
                         {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-6
+                        }, 
+                        {
                          "name":"isoSizeX",
                          "type":"int",
-                         "value":24
+                         "value":18
                         }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
-                         "value":16
+                         "value":10
                         }],
                  "rotation":0,
                  "type":"equipment",
@@ -352,8 +357,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":87,
-                 "x":84.75,
-                 "y":16.25
+                 "x":83.75,
+                 "y":17.25
                 }, 
                 {
                  "gid":269,
@@ -369,7 +374,7 @@
                         {
                          "name":"isoSizeX",
                          "type":"int",
-                         "value":32
+                         "value":28
                         }, 
                         {
                          "name":"isoSizeY",
@@ -380,8 +385,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":45,
-                 "x":138.75,
-                 "y":19.25
+                 "x":139.25,
+                 "y":20.75
                 }, 
                 {
                  "gid":271,
@@ -393,6 +398,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
                         }, 
                         {
                          "name":"isoSizeX",
@@ -481,6 +491,74 @@
                  "width":14,
                  "x":-6,
                  "y":49
+                }, 
+                {
+                 "gid":2147483944,
+                 "height":37,
+                 "id":18,
+                 "name":"swedish_sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":24
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_front"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":-8
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":-8
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":42,
+                 "x":26,
+                 "y":85
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -489,7 +567,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":18,
+ "nextobjectid":19,
  "orientation":"isometric",
  "renderorder":"right-down",
  "tiledversion":"git",
@@ -1758,6 +1836,20 @@
                  "id":2
                 }],
          "tilewidth":14
+        }, 
+        {
+         "columns":5,
+         "firstgid":293,
+         "image":"tilemaps\/small_sofa.png",
+         "imageheight":37,
+         "imagewidth":210,
+         "margin":0,
+         "name":"small_sofa",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":5,
+         "tileheight":37,
+         "tilewidth":42
         }],
  "tilewidth":32,
  "type":"map",

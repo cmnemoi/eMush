@@ -84,6 +84,8 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
             this.setTexture(tileset.name, this.tiledFrame);
         }
 
+        console.log(name);
+        console.log(isFlipped);
         this.flipX = isFlipped.x;
         this.flipY = isFlipped.y;
     }

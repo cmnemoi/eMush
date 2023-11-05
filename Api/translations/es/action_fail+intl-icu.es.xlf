@@ -26,9 +26,10 @@
       </segment>
     </unit>
     <unit id="not_a_room">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>not_a_room.description</source>
-        <target>not_a_room.description</target>
+        <target>
+No puedes realizar esta acción aquí... ¿Cuál es el punto de ello?</target>
       </segment>
     </unit>
     <unit id="on_planet">

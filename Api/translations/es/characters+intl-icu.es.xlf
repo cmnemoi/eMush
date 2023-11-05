@@ -2,27 +2,27 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="characters.ext">
     <unit id="Neron">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>neron.name</source>
-        <target>neron.name</target>
+        <target>Nerón</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>neron.fullname</source>
-        <target>neron.fullname</target>
+        <target>Nerón</target>
       </segment>
     </unit>
     <unit id="Andie">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>andie.name</source>
-        <target>andie.name</target>
+        <target>Andie</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>andie.fullname</source>
-        <target>andie.fullname</target>
+        <target>Andie Graham</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>andie.age</source>
-        <target>andie.age</target>
+        <target>24 años</target>
       </segment>
       <segment id="description" state="initial">
         <source>andie.description</source>

@@ -543,7 +543,7 @@
     <unit id="mush_convert_event">
       <segment id="mush_convert_event" state="translated">
         <source>mush_convert_event</source>
-        <target>Bienvenue parmi le Mush **{target_character}**. Vous avez été récompensé avec *{quantity} points de Triomphe*.</target>
+        <target>Bienvenue parmi le Mush **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="player_enter_chat">

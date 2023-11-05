@@ -34,7 +34,11 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof Daedalus;
+        // This group is used to differentiate the normalizer for in-game Daedalus and Daedalus in the admin panel
+        // Do not remove it
+        $group = current($context['groups'] ?? []);
+
+        return $data instanceof Daedalus && $group === false;
     }
 
     public function normalize($object, string $format = null, array $context = []): array

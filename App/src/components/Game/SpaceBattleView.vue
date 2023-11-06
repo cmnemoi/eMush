@@ -19,7 +19,7 @@
             </div>
         </div>
         <div :class="['fighter', { 'green': isPlayerInRoom(patrolShip.key) }]" v-for="(patrolShip, key) in player?.spaceBattle?.patrolShips" :key="key">
-            <div class="operator">
+            <div class="operator" v-if="patrolShip.pilot">
                 <img
                     class="player-body"
                     :src="getPlayerCharacterBodyByName(patrolShip.pilot)"
@@ -97,13 +97,8 @@ export default defineComponent({
         'select'
     ],
     methods: {
-        getPlayerCharacterBodyByName(playerKey: string | undefined) : string | undefined {
-            if (playerKey === undefined) return;
+        getPlayerCharacterBodyByName(playerKey: string) : string {
             return characterEnum[playerKey].body;
-        },
-        getPlayerCharacterBody(player: Player | undefined) : string | undefined {
-            if (player === undefined) return;
-            return characterEnum[player.character.key].body;
         },
         getTurretOccupier(turret: SpaceBattleTurret) : string | undefined {
             if (turret.occupiers.length === 0) return;

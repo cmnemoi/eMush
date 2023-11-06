@@ -12,7 +12,7 @@
 ////
 Moving the ship is essential for **travelling to other planets** and could be useful for getting rid of hunters.
 ////
-To go to a planet you need to **know the heading and the quantity of fuel required**. These two pieces of information can be obtained from the *Astro Terminal**. With this information, someone must first fill the combustion chamber with the appropriate amount of fuel. Then, set the Daedalus on the correct path and start the journey!
+To go to a planet you need to **know the heading and the quantity of fuel required**. These two pieces of information can be obtained from the *Astro Terminal*. With this information, someone must first fill the combustion chamber with the appropriate amount of fuel. Then, set the Daedalus on the correct path and start the journey!
 ////
 If the job has been done properly, the Daedalus will put itself into a planet's orbit, which can then be explored by the crew and new resources obtained!</target>
       </segment>
@@ -88,7 +88,7 @@ To leave orbit, the Commander in charge must give this order from the Command Te
     <unit id="block_of_post_it">
       <segment id="name" state="translated">
         <source>block_of_post_it.name</source>
-        <target>Block of Post-it Notes</target>
+        <target>Block of post-it notes</target>
       </segment>
       <segment id="tips" state="translated">
         <source>block_of_post_it.tips</source>

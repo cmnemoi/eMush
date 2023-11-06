@@ -215,7 +215,7 @@ class PlayerServiceTest extends TestCase
 
         $this->eventService->shouldReceive('callEvent');
 
-        $player = $this->service->endPlayer($player, $message);
+        $player = $this->service->endPlayer($player, $message, []);
 
         $this->assertEquals(GameStatusEnum::CLOSED, $playerInfo->getGameStatus());
         $this->assertEquals($closedPlayer->getMessage(), $message);

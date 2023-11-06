@@ -139,7 +139,7 @@ class AdminController extends AbstractFOSRestController
             throw new HttpException(Response::HTTP_BAD_REQUEST, 'Player to close is still alive');
         }
 
-        if ($this->playerService->endPlayer($playerToClose, '')) {
+        if ($this->playerService->endPlayer($playerToClose, '', [])) {
             return $this->view('Player closed successfully', Response::HTTP_OK);
         }
 
@@ -228,7 +228,7 @@ class AdminController extends AbstractFOSRestController
             if ($player->isAlive()) {
                 return $this->view('Some players are still alive', Response::HTTP_BAD_REQUEST);
             }
-            $this->playerService->endPlayer($player, '');
+            $this->playerService->endPlayer($player, '', []);
         }
 
         return $this->view('All players closed successfully', Response::HTTP_OK);

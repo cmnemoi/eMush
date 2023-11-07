@@ -65,6 +65,12 @@ final class AccessTerminal extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => PlayerStatusEnum::FOCUSED,
+            'target' => HasStatus::PLAYER,
+            'contain' => false,
+            'groups' => ['visibility'],
+        ]));
         self::addTerminalTitleConstraints($metadata);
     }
 

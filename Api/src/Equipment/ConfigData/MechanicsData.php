@@ -4,6 +4,7 @@ namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Enum\RoomEnum;
 
 /** @codeCoverageIgnore */
@@ -3053,6 +3054,37 @@ class MechanicsData
             'type' => 'blueprint',
             'craftedEquipmentName' => 'sniper_helmet',
             'ingredients' => ['plastic_scraps' => 1, 'metal_scraps' => 1],
+            'skill' => null,
+            'content' => null,
+            'isTranslated' => null,
+            'canShred' => null,
+            'plantName' => null,
+            'fruitName' => null,
+            'maturationTime' => null,
+            'oxygen' => null,
+            'moralPoints' => null,
+            'actionPoints' => null,
+            'movementPoints' => null,
+            'healthPoints' => null,
+            'satiety' => null,
+            'extraEffects' => null,
+            'isPerishable' => null,
+            'baseAccuracy' => null,
+            'baseDamageRange' => null,
+            'expeditionBonus' => null,
+            'criticalSuccessRate' => null,
+            'criticalFailRate' => null,
+            'oneShotRate' => null,
+            'actions' => [
+                'build',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'swedish_sofa_blueprint_default',
+            'type' => 'blueprint',
+            'craftedEquipmentName' => 'swedish_sofa',
+            'ingredients' => [ItemEnum::THICK_TUBE => 1, 'metal_scraps' => 1],
             'skill' => null,
             'content' => null,
             'isTranslated' => null,

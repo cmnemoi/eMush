@@ -55,7 +55,7 @@ class PlaceConfigData
             'type' => 'room',
             'doors' => ['medlab_central_bravo_turret', 'medlab_laboratory', 'front_corridor_medlab'],
             'items' => ['bandage', 'bandage', 'bandage', 'jar_of_alien_oil', 'spore_sucker'],
-            'equipments' => ['surgery_plot', 'narcotic_distiller', 'medlab_bed'],
+            'equipments' => ['surgery_plot', 'narcotic_distiller', 'bed'],
         ],
         [
             'name' => 'laboratory_default',

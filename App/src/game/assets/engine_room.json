@@ -1438,6 +1438,118 @@
                  "width":25,
                  "x":80.75,
                  "y":-7.75
+                }, 
+                {
+                 "gid":356,
+                 "height":47,
+                 "id":33,
+                 "name":"swedish_sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":44
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":2
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":-2
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":42.5,
+                 "y":329.5
+                },
+            
+                {
+                 "gid":361,
+                 "height":47,
+                 "id":34,
+                 "name":"swedish_sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-10
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":42.5,
+                 "y":329.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1446,10 +1558,10 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":33,
+ "nextobjectid":35,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.10.2",
+ "tiledversion":"git",
  "tileheight":16,
  "tilesets":[
         {
@@ -3067,6 +3179,20 @@
          "tilecount":1,
          "tileheight":60,
          "tilewidth":67
+        }, 
+        {
+         "columns":5,
+         "firstgid":352,
+         "image":"tilemaps\/sofa_asset.png",
+         "imageheight":188,
+         "imagewidth":310,
+         "margin":0,
+         "name":"sofa_asset",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":20,
+         "tileheight":47,
+         "tilewidth":62
         }],
  "tilewidth":32,
  "type":"map",

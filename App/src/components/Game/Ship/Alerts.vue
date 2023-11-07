@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { AlertsIcons, NO_ALERT } from "@/enums/alerts.enum";
+import { AlertsIcons, AlertEnum } from "@/enums/alerts.enum";
 import { formatText } from "@/utils/formatText";
 import { defineComponent } from "vue";
 import { Alert } from "@/entities/Alerts";
@@ -48,7 +48,7 @@ export default defineComponent ({
             'loadingAlerts'
         ]),
         isNoAlert: function (): boolean {
-            return this.alerts.length === 0 || (this.alerts.length === 1 && (this.alerts[0].key ?? '') === NO_ALERT);
+            return this.alerts.length === 0 || (this.alerts.length === 1 && (this.alerts[0].key ?? '') === AlertEnum.NO_ALERT);
         },
         alertsDisplayed: function (): Alert[] {
             if (this.isNoAlert) {

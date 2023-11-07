@@ -1,5 +1,11 @@
 import sanitizeHtml from 'sanitize-html';
 
+import { AlertEnum, AlertsIcons } from '@/enums/alerts.enum';
+import { CharacterEnum, characterEnum } from '@/enums/character';
+import { StatusPlayerNameEnum, statusPlayerEnum } from '@/enums/status.player.enum';
+import { StatusItemNameEnum, statusItemEnum } from '@/enums/status.item.enum';
+import { titleEnum, TitleEnum } from '@/enums/title.enum';
+
 export const helpers = {
     computeImageHtml(key: string): string {
         switch(key) {
@@ -38,7 +44,43 @@ export const helpers = {
         default:
             throw Error(`Unexpected key for replaced image: ${key}`);
         }
-    }
+    },
+    computeCharacterImageHtmlByKey(key: string): string {
+        if (!characterEnum[key]) {
+            throw Error(`Unexpected key for replaced image: ${key}`);
+        }
+
+        return `<img src="${characterEnum[key].head}" alt="${key}">`;
+    },
+    computeAlertImageHtmlByKey(key: string): string {
+        if (!AlertsIcons[key]) {
+            throw Error(`Unexpected key for replaced image: ${key}`);
+        }
+
+        return `<img src="${AlertsIcons[key]}" alt="${key}">`;
+    },
+    computeItemStatusImageHtmlByKey(key: string): string {
+        if (!statusItemEnum[key]) {
+            throw Error(`Unexpected key for replaced image: ${key}`);
+        }
+
+        return `<img src="${statusItemEnum[key].icon}" alt="${key}">`;
+    },
+    computePlayerStatusImageHtmlByKey(key: string): string {
+        if (!statusPlayerEnum[key]) {
+            throw Error(`Unexpected key for replaced image: ${key}`);
+        }
+
+        return `<img src="${statusPlayerEnum[key].icon}" alt="${key}">`;
+    },
+    computeTitleImageHtmlByKey(key: string): string {
+        if (!titleEnum[key]) {
+            throw Error(`Unexpected key for replaced image: ${key}`);
+        }
+
+        return `<img src="${titleEnum[key].image}" alt="${key}">`;
+    },
+
 };
 
 export function formatText(text: string): string {
@@ -67,5 +109,21 @@ export function formatText(text: string): string {
     formattedText = formattedText.replaceAll(/:mush:/g, helpers.computeImageHtml("mush"));
     formattedText = formattedText.replaceAll(/:pa_cook:/g, helpers.computeImageHtml("pa_cook"));
     formattedText = formattedText.replaceAll(/:hunter:/g, helpers.computeImageHtml("hunter"));
+    Object.values(CharacterEnum).forEach((character: string) => {
+        formattedText = formattedText.replaceAll(new RegExp(`:${character}:`, 'g'), helpers.computeCharacterImageHtmlByKey(character));
+    });
+    Object.values(AlertEnum).forEach((alert: string) => {
+        formattedText = formattedText.replaceAll(new RegExp(`:${alert}:`, 'g'), helpers.computeAlertImageHtmlByKey(alert));
+    });
+    Object.values(StatusItemNameEnum).forEach((statusItem: any) => {
+        formattedText = formattedText.replaceAll(new RegExp(`:${statusItem}:`, 'g'), helpers.computeItemStatusImageHtmlByKey(statusItem));
+    });
+    Object.values(StatusPlayerNameEnum).forEach((statusPlayer: string) => {
+        formattedText = formattedText.replaceAll(new RegExp(`:${statusPlayer}:`, 'g'), helpers.computePlayerStatusImageHtmlByKey(statusPlayer));
+    });
+    Object.values(TitleEnum).forEach((title: string) => {
+        formattedText = formattedText.replaceAll(new RegExp(`:${title}:`, 'g'), helpers.computeTitleImageHtmlByKey(title));
+    });
+
     return formattedText;
 }

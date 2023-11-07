@@ -3,7 +3,7 @@
         <section v-for="(cycleRoomLog, id) in roomLogs.slice().reverse()" :key="id" class="unit">
             <div class="banner cycle-banner">
                 <img class="expand" src="@/assets/images/comms/less.png">
-                <span>{{ calendar?.dayName }} {{ calendar?.day }} {{ calendar?.cycleName }} {{ calendar?.cycle }}</span>
+                <span>{{ calendar?.dayName }} {{ cycleRoomLog.day }} {{ calendar?.cycleName }} {{ cycleRoomLog.cycle }}</span>
             </div>
             <div class="cycle-events">
                 <Log v-for="(roomLog, id) in cycleRoomLog.roomLogs" :key="id" :room-log="roomLog" />
@@ -17,9 +17,9 @@ import { mapActions, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
 import Log from "@/components/Game/Communications/Messages/Log.vue";
 import TabContainer from "@/components/Game/Communications/TabContainer.vue";
-import { Message } from "@/entities/Message";
 import { defineComponent } from "vue";
 import { GameCalendar } from "@/entities/GameCalendar";
+import { RoomLog } from "@/entities/RoomLog";
 
 export default defineComponent ({
     name: "RoomEventsTab",
@@ -35,7 +35,7 @@ export default defineComponent ({
         ...mapGetters('communication', [
             'messages'
         ]),
-        roomLogs(): Message[] {
+        roomLogs(): { day: number, cycle: number, roomLogs: RoomLog[] }[] {
             return this.messages;
         }
     },

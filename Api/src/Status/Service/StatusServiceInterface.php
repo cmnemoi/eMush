@@ -40,7 +40,7 @@ interface StatusServiceInterface
         \DateTime $time,
         StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
-    ): Status;
+    ): ?Status;
 
     public function createStatusFromName(
         string $statusName,
@@ -49,7 +49,7 @@ interface StatusServiceInterface
         \DateTime $time,
         StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
-    ): Status;
+    ): ?Status;
 
     public function handleAttempt(
         Player $player,

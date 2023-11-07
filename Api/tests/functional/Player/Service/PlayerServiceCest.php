@@ -2,21 +2,13 @@
 
 namespace Mush\Tests\functional\Player\Service;
 
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Place\Entity\Place;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\ClosedPlayer;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerService;
 use Mush\Status\Entity\ChargeStatus;
@@ -26,7 +18,6 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
 
 class PlayerServiceCest extends AbstractFunctionalTest
 {
@@ -41,35 +32,10 @@ class PlayerServiceCest extends AbstractFunctionalTest
 
     public function testDeathHumanPlayer(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['day' => 5, 'cycle' => '3']);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
-
         /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'place' => $room,
-            'daedalus' => $daedalus,
-        ]);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $player = $this->player;
+        $this->daedalus->setDay(5);
+        $this->daedalus->setCycle(3);
 
         $statusConfig = new StatusConfig();
         $statusConfig
@@ -89,42 +55,15 @@ class PlayerServiceCest extends AbstractFunctionalTest
         ]);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $deadPlayer->getPlayerInfo()->getGameStatus());
-        $I->assertCount(1, $daedalus->getPlayers()->getPlayerDead());
-        $I->assertCount(1, $daedalus->getPlayers()->getHumanPlayer());
-        $I->assertCount(0, $daedalus->getPlayers()->getMushPlayer());
+        $I->assertCount(1, $this->daedalus->getPlayers()->getPlayerDead());
+        $I->assertCount(2, $this->daedalus->getPlayers()->getHumanPlayer());
+        $I->assertCount(0, $this->daedalus->getPlayers()->getMushPlayer());
     }
 
     public function testDeathMushPlayer(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['day' => 5, 'cycle' => '3']);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
-
         /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'place' => $room,
-            'daedalus' => $daedalus,
-        ]);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $player = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ANDIE);
 
         $mushConfig = new ChargeStatusConfig();
         $mushConfig
@@ -148,68 +87,23 @@ class PlayerServiceCest extends AbstractFunctionalTest
 
         $I->assertEquals(GameStatusEnum::FINISHED, $deadPlayer->getPlayerInfo()->getGameStatus());
         $I->assertEquals(PlayerStatusEnum::MUSH, $deadPlayer->getStatuses()->first()->getName());
-        $I->assertCount(1, $daedalus->getPlayers()->getPlayerDead());
-        $I->assertCount(1, $daedalus->getPlayers()->getMushPlayer());
-        $I->assertCount(0, $daedalus->getPlayers()->getHumanPlayer());
+        $I->assertCount(1, $this->daedalus->getPlayers()->getPlayerDead());
+        $I->assertCount(1, $this->daedalus->getPlayers()->getMushPlayer());
+        $I->assertCount(2, $this->daedalus->getPlayers()->getHumanPlayer());
     }
 
     public function testDeathEffectOnOtherPlayer(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
-
         /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'place' => $room,
-            'daedalus' => $daedalus,
-        ]);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $player = $this->player1;
 
         /** @var Player $player2 */
-        $player2 = $I->have(Player::class, [
-            'place' => $room,
-            'daedalus' => $daedalus,
-        ]);
-        $player2->setPlayerVariables($characterConfig);
+        $player2 = $this->player2;
         $player2->setMoralPoint(10);
-        $player2Info = new PlayerInfo($player2, $user, $characterConfig);
-
-        $I->haveInRepository($player2Info);
-        $player2->setPlayerInfo($player2Info);
-        $I->refreshEntities($player2);
 
         /** @var Player $mushPlayer */
-        $mushPlayer = $I->have(Player::class, [
-            'place' => $room,
-            'daedalus' => $daedalus,
-        ]);
-        $mushPlayer->setPlayerVariables($characterConfig);
+        $mushPlayer = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ANDIE);
         $mushPlayer->setMoralPoint(10);
-        $mushPlayerInfo = new PlayerInfo($mushPlayer, $user, $characterConfig);
-
-        $I->haveInRepository($mushPlayerInfo);
-        $mushPlayer->setPlayerInfo($mushPlayerInfo);
-        $I->refreshEntities($mushPlayer);
 
         $mushConfig = new ChargeStatusConfig();
         $mushConfig
@@ -224,39 +118,16 @@ class PlayerServiceCest extends AbstractFunctionalTest
 
         $I->assertEquals(9, $player2->getMoralPoint());
         $I->assertEquals(10, $mushPlayer->getMoralPoint());
-        $I->assertCount(1, $daedalus->getPlayers()->getPlayerDead());
-        $I->assertCount(1, $daedalus->getPlayers()->getMushPlayer());
-        $I->assertCount(2, $daedalus->getPlayers()->getHumanPlayer());
+        $I->assertCount(1, $this->daedalus->getPlayers()->getPlayerDead());
+        $I->assertCount(1, $this->daedalus->getPlayers()->getMushPlayer());
+        $I->assertCount(2, $this->daedalus->getPlayers()->getHumanPlayer());
     }
 
     public function testDeathEffectOnItems(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['day' => 5, 'cycle' => '3']);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
-
         /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'place' => $room,
-            'daedalus' => $daedalus,
-        ]);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-        $I->haveInRepository($playerInfo);
+        $player = $this->player;
+        $room = $player->getPlace();
 
         /** @var ItemConfig $item */
         $item = $I->have(ItemConfig::class);
@@ -267,12 +138,11 @@ class PlayerServiceCest extends AbstractFunctionalTest
         ;
 
         $player->addEquipment($gameItem);
-        $player->setPlayerInfo($playerInfo);
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
-        $I->assertCount(1, $room->getPlayers());
-        $I->assertCount(0, $room->getPlayers()->getPlayerAlive());
+        $I->assertCount(2, $room->getPlayers());
+        $I->assertCount(1, $room->getPlayers()->getPlayerAlive());
         $I->assertCount(0, $player->getEquipments());
         $I->assertCount(1, $room->getEquipments());
     }
@@ -288,5 +158,75 @@ class PlayerServiceCest extends AbstractFunctionalTest
 
         $I->assertEquals(11, $this->player1->getActionPoint());
         $I->assertEquals(11, $this->player1->getMovementPoint());
+    }
+
+    public function testEndPlayer(FunctionalTester $I)
+    {
+        /** @var Player $player */
+        $player = $this->player;
+        $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
+
+        $otherPlayer = $this->player2;
+
+        $this->playerService->endPlayer($this->player, 'my end message', [$otherPlayer->getId()]);
+
+        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
+        $otherClosedPlayer = $otherPlayer->getPlayerInfo()->getClosedPlayer();
+
+        $I->assertEquals($closedPlayer->getMessage(), 'my end message');
+        $I->assertEquals($otherClosedPlayer->getMessage(), null);
+        $I->assertEquals($closedPlayer->getLikes(), 0);
+        $I->assertEquals($otherClosedPlayer->getLikes(), 1);
+    }
+
+    public function testEndPlayerCannotLikeThemself(FunctionalTester $I)
+    {
+        /** @var Player $player */
+        $player = $this->player;
+        $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
+
+        $otherPlayer = $this->player2;
+
+        $this->playerService->endPlayer($this->player, '', [$otherPlayer->getId(), $player->getId()]);
+
+        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
+        $otherClosedPlayer = $otherPlayer->getPlayerInfo()->getClosedPlayer();
+
+        $I->assertEquals($closedPlayer->getLikes(), 0);
+        $I->assertEquals($otherClosedPlayer->getLikes(), 1);
+    }
+
+    public function testEndPlayerCannotLikeOtherPlayerMultipleTimes(FunctionalTester $I)
+    {
+        /** @var Player $player */
+        $player = $this->player;
+        $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
+
+        $otherPlayer = $this->player2;
+
+        $this->playerService->endPlayer($this->player, '', [$otherPlayer->getId(), $otherPlayer->getId(), $otherPlayer->getId()]);
+
+        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
+        $otherClosedPlayer = $otherPlayer->getPlayerInfo()->getClosedPlayer();
+
+        $I->assertEquals($closedPlayer->getLikes(), 0);
+        $I->assertEquals($otherClosedPlayer->getLikes(), 1);
+    }
+
+    public function testEndPlayerCannotLikePlayerFromDifferentDaedalus(FunctionalTester $I)
+    {
+        $player = $this->player;
+        $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
+
+        $daedalus2 = $this->createDaedalus($I);
+        $otherPlayer = $this->addPlayerByCharacter($I, $daedalus2, CharacterEnum::ANDIE);
+
+        $this->playerService->endPlayer($this->player, '', [$otherPlayer->getId()]);
+
+        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
+        $otherClosedPlayer = $otherPlayer->getPlayerInfo()->getClosedPlayer();
+
+        $I->assertEquals($closedPlayer->getLikes(), 0);
+        $I->assertEquals($otherClosedPlayer->getLikes(), 0);
     }
 }

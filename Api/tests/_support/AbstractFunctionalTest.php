@@ -170,7 +170,7 @@ class AbstractFunctionalTest
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $I->haveInRepository($playerInfo);
 
-        $player->setDaedalus($this->daedalus);
+        $player->setDaedalus($daedalus);
         $player->setPlace($daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $player->setPlayerVariables($characterConfig);
 

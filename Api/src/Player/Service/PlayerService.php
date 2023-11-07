@@ -210,7 +210,7 @@ class PlayerService implements PlayerServiceInterface
         return $player;
     }
 
-    public function endPlayer(Player $player, string $message): Player
+    public function endPlayer(Player $player, string $message, array $likedPlayers = []): Player
     {
         $playerInfo = $player->getPlayerInfo();
 
@@ -220,6 +220,23 @@ class PlayerService implements PlayerServiceInterface
         $closedPlayer
             ->setMessage($message)
         ;
+
+        // Avoid duplicates
+        $likedPlayers = array_unique($likedPlayers);
+
+        foreach ($likedPlayers as $likedPlayerId) {
+            $likedPlayer = $this->findById($likedPlayerId);
+
+            // Only keep players that are not source player and that are in same daedalus
+            if ($likedPlayer
+                    && $likedPlayer->getId() != $player->getId()
+                    && $likedPlayer->getDaedalus()->getId() == $player->getDaedalus()->getId()
+            ) {
+                $likedClosedPlayer = $likedPlayer->getPlayerInfo()->getClosedPlayer();
+                $likedClosedPlayer->addLike();
+                $this->persistClosedPlayer($likedClosedPlayer);
+            }
+        }
 
         $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
         $this->persistPlayerInfo($playerInfo);

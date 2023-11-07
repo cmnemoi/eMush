@@ -113,7 +113,7 @@ class ClosedPlayer
 
     public function addLike(): static
     {
-        $this->likes = +1;
+        ++$this->likes;
 
         return $this;
     }

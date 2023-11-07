@@ -23,7 +23,7 @@ interface PlayerServiceInterface
 
     public function createPlayer(Daedalus $daedalus, User $user, string $character): Player;
 
-    public function endPlayer(Player $player, string $message): Player;
+    public function endPlayer(Player $player, string $message, array $likedPlayers): Player;
 
     public function handleNewCycle(Player $player, \DateTime $date): Player;
 

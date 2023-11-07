@@ -64,7 +64,7 @@ class ValidateCrewDeathCommand extends Command
                     $io->warning("Player can't be found for $name. Skipping ...");
                     continue;
                 }
-                $this->playerService->endPlayer($player, 'Validated by command');
+                $this->playerService->endPlayer($player, 'Validated by command', []);
                 $io->info("$name as validated his death. Ready to board !");
             } catch (\Exception $e) {
                 $message = $e->getMessage();

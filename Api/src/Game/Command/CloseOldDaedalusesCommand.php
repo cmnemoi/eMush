@@ -76,7 +76,7 @@ class CloseOldDaedalusesCommand extends Command
 
         /** @var Player $player */
         foreach ($daedalus->getPlayers() as $player) {
-            $this->playerService->endPlayer($player, '');
+            $this->playerService->endPlayer($player, '', []);
         }
 
         return true;

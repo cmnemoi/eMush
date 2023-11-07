@@ -103,7 +103,7 @@ export default defineComponent ({
             return characterEnum[characterKey].body;
         },
         endGame: function(): void {
-            PlayerService.sendEndGameRequest(this.player, this.epitaph);
+            PlayerService.sendEndGameRequest(this.player, this.epitaph, []);
         }
     },
     computed: {

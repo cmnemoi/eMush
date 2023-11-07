@@ -199,6 +199,13 @@ class PlayerController extends AbstractGameController
      *                     description="The player last words",
      *                     type="string",
      *                 ),
+     *                  @OA\Property(
+     *                     property="likedPlayers",
+     *                     description="The other players that the player likes",
+     *                     type="array",
+     *
+     *                     @OA\Items(type="integer")
+     *                 ),
      *             )
      *             )
      *         )
@@ -232,7 +239,8 @@ class PlayerController extends AbstractGameController
 
         /** @var string $message */
         $message = $request->getMessage();
-        $this->playerService->endPlayer($player, $message);
+        $likedPlayers = $request->getLikedPlayers();
+        $this->playerService->endPlayer($player, $message, $likedPlayers);
 
         return $this->view(null, 200);
     }

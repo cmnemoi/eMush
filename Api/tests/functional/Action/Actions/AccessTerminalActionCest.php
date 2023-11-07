@@ -14,6 +14,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -23,6 +24,7 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
     private Action $accessTerminalConfig;
     private GameEquipment $astroTerminal;
     private GameEquipment $commandTerminal;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
@@ -52,6 +54,8 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
 
         // given player is on the bridge
         $this->player->changePlace($bridge);
+
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testAccessTerminalSuccessAddFocusedStatus(FunctionalTester $I): void
@@ -96,5 +100,24 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         // then the action is executable and player is focused on command terminal
         $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::FOCUSED));
         $I->assertNull($this->accessTerminal->cannotExecuteReason());
+    }
+
+    public function testAccessTerminalIsNotVisibleIfPlayerIsAlreadyFocused(FunctionalTester $I): void
+    {
+        // given player is already focused on astro terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->astroTerminal,
+        );
+
+        // when player access command terminal
+        $this->accessTerminal->loadParameters($this->accessTerminalConfig, $this->player, $this->commandTerminal);
+        $this->accessTerminal->execute();
+
+        // then the action is not visible
+        $I->assertFalse($this->accessTerminal->isVisible());
     }
 }

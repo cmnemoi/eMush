@@ -261,6 +261,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
     private function createEffectLine(int $quantity, string $key, string $language): string
     {
         $sign = $quantity > 0 ? '+' : '-';
+        $quantity = abs($quantity);
 
         return "{$sign} {$quantity} {$this->translationService->translate($key, [], 'misc', $language)}";
     }

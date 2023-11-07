@@ -79,7 +79,7 @@ export const helpers = {
         }
 
         return `<img src="${titleEnum[key].image}" alt="${key}">`;
-    },
+    }
 
 };
 

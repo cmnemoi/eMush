@@ -300,7 +300,7 @@ class GameConfigData
                 'shower_default',
                 'dynarcade_default',
                 'bed_default',
-                'medlab_bed_default',
+                'sofa_default',
                 'coffee_machine_default',
                 'cryo_module_default',
                 'mycoscan_default',
@@ -335,6 +335,7 @@ class GameConfigData
                 'extinguisher_blueprint_default',
                 'oscilloscope_blueprint_default',
                 'sniper_helmet_blueprint_default',
+                'swedish_sofa_blueprint_default',
             ],
             'statusConfigs' => [
                 'alien_artefact_default',

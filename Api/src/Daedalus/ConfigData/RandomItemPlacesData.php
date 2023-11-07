@@ -42,6 +42,7 @@ class RandomItemPlacesData
                 GearItemEnum::SPACESUIT,
                 ToolItemEnum::HACKER_KIT,
                 ToolItemEnum::BLOCK_OF_POST_IT,
+                'swedish_sofa_blueprint',
             ],
             'places' => [
                 RoomEnum::FRONT_STORAGE,

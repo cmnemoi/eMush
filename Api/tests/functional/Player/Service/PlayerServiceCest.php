@@ -34,7 +34,6 @@ class PlayerServiceCest extends AbstractFunctionalTest
     {
         /** @var Player $player */
         $player = $this->player;
-        // ['day' => 5, 'cycle' => '3']
         $this->daedalus->setDay(5);
         $this->daedalus->setCycle(3);
 

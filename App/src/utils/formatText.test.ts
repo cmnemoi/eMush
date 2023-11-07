@@ -57,6 +57,13 @@ describe('formatText', () => {
             Vous avez perdu 3 <img/>
             Vous avez perdu 3 <img/>`);
         });
+        it('should replace :hungry: with an image', () => {
+            const text = `Vous avez faim :hungry:`;
+
+            const result = formatText(text);
+
+            expect(result).to.equal(`Vous avez faim <img/>`);
+        });
     });
 
     describe("Complex tests", () => {

@@ -35,7 +35,7 @@ export default defineComponent ({
         ...mapGetters('communication', [
             'messages'
         ]),
-        roomLogs(): Message[] {
+        roomLogs(): { day: number, cycle: number, roomLogs: RoomLog[] }[] {
             return this.messages;
         }
     },

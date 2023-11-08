@@ -365,7 +365,7 @@ export default defineComponent ({
                 this.closedDaedalus = response;
                 ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'closed_daedaluses', closedDaedalusId, 'players'))
                     .then((result) => {
-                        (result);
+                        console.log(result);
                         const closedPlayers : ClosedPlayer[] = [];
                         result.data['hydra:member'].forEach((datum: any) => {
                             const currentClosedPlayer = (new ClosedPlayer()).load(datum);

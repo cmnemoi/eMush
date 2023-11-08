@@ -33,7 +33,7 @@ const HunterConfigService = {
         if (hunterConfigData.data) {
             hunterConfig = (new HunterConfig()).load(hunterConfigData.data);
         }
-        (hunterConfig);
+        console.log(hunterConfig);
 
         return hunterConfig;
     },

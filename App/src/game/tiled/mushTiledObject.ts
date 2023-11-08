@@ -60,7 +60,6 @@ export default class MushTiledObject {
 
         const interactionInformation = this.getInteractionInformations();
 
-        console.log(this.tiledObj.type);
         switch (this.tiledObj.type) {
         case 'decoration':
             return new DecorationObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, name, isFlipped, collides, isAnimationYoyo);

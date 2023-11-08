@@ -102,6 +102,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'daedalus' => $this->normalizer->normalize($daedalus, $format, $context),
             'spaceBattle' => $this->normalizeSpaceBattle($player, $format, $context),
             'terminal' => $this->terminalNormalizer->normalize($player->getFocusedTerminal(), $format, $context),
+            'exploration' => $this->normalizer->normalize($player->getExploration(), $format, $context),
         ];
 
         $statuses = [];
@@ -145,10 +146,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
         ]);
-
-        if ($player->isExploring()) {
-            $playerData['exploration'] = $this->normalizer->normalize($player->getExploration(), $format, $context);
-        }
 
         return $playerData;
     }

@@ -14,9 +14,13 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Game\Entity\Collection\ProbaCollection;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 
 final class ExplorationService implements ExplorationServiceInterface
 {
@@ -94,8 +98,6 @@ final class ExplorationService implements ExplorationServiceInterface
         $planet = $exploration->getPlanet();
         $sectorsToVisit = $planet->getUnvisitedSectors();
 
-        $eventLogs = [];
-
         // add Landing planet sector at the beginning of the exploration
         $landingSectorConfig = $this->findPlanetSectorConfigBySectorName(PlanetSectorEnum::LANDING);
         $landingSector = new PlanetSector($landingSectorConfig, $planet);
@@ -113,7 +115,7 @@ final class ExplorationService implements ExplorationServiceInterface
         $this->eventService->callEvent($planetSectorEvent, $eventName);
 
         // @TODO : select randomly a sector to visit given their `weightAtExploration` property
-        // @TODO : add a limit to the number of sectors to visit per exploration
+        // @TODO : add a limit to the number of sectors to visit per exploration (probably add a `numberOfSectionsToVisit` attribute to Exploration)
         foreach ($sectorsToVisit as $sector) {
             $sector->visit();
 
@@ -134,7 +136,7 @@ final class ExplorationService implements ExplorationServiceInterface
             $this->eventService->callEvent($event, $eventName);
         }
 
-        $this->persist(array_merge($eventLogs, [$exploration]));
+        $this->persist([$exploration]);
 
         return $exploration;
     }
@@ -159,6 +161,48 @@ final class ExplorationService implements ExplorationServiceInterface
         return $explorationLog;
     }
 
+    public function removeHealthToAllExplorators(PlanetSectorEvent $event): array
+    {
+        $exploration = $event->getExploration();
+
+        $healthLost = $this->drawEventOutputQuantity($event->getOutputQuantityTable());
+        foreach ($exploration->getExplorators() as $player) {
+            $playerVariableEvent = new PlayerVariableEvent(
+                player: $player,
+                variableName: PlayerVariableEnum::HEALTH_POINT,
+                quantity: -$healthLost,
+                tags: $event->getTags(),
+                time: new \DateTime()
+            );
+            $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+        }
+
+        return array_merge([
+            'quantity' => $healthLost,
+        ], $event->getLogParameters());
+    }
+
+    public function removeHealthToARandomExplorator(PlanetSectorEvent $event): array
+    {
+        $exploration = $event->getExploration();
+        $exploratorToInjure = $this->randomService->getRandomPlayer($exploration->getExplorators());
+        $healthLost = $this->drawEventOutputQuantity($event->getOutputQuantityTable());
+
+        $playerVariableEvent = new PlayerVariableEvent(
+            player: $exploratorToInjure,
+            variableName: PlayerVariableEnum::HEALTH_POINT,
+            quantity: -$healthLost,
+            tags: $event->getTags(),
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+
+        return array_merge([
+            $exploratorToInjure->getLogKey() => $exploratorToInjure->getLogName(),
+            'quantity' => $healthLost,
+        ], $event->getLogParameters());
+    }
+
     public function persist(array $entities): void
     {
         foreach ($entities as $entity) {
@@ -166,6 +210,20 @@ final class ExplorationService implements ExplorationServiceInterface
         }
 
         $this->entityManager->flush();
+    }
+
+    private function drawEventOutputQuantity(?ProbaCollection $outputQuantityTable): int
+    {
+        if ($outputQuantityTable === null) {
+            throw new \RuntimeException('You need an output quantity table to draw an event output quantity');
+        }
+
+        $quantity = $this->randomService->getSingleRandomElementFromProbaCollection($outputQuantityTable);
+        if (!is_int($quantity)) {
+            throw new \RuntimeException('Quantity should be an int');
+        }
+
+        return $quantity;
     }
 
     private function drawPlanetSectorEvent(PlanetSector $sector): string

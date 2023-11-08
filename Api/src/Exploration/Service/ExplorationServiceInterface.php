@@ -20,5 +20,15 @@ interface ExplorationServiceInterface
 
     public function createExplorationLog(PlanetSectorEvent $event, array $parameters = []): ExplorationLog;
 
+    /**
+     * @return array Array of log parameters to be used for the exploration log
+     */
+    public function removeHealthToARandomExplorator(PlanetSectorEvent $event): array;
+
+    /**
+     * @return array Array of log parameters to be used for the exploration log
+     */
+    public function removeHealthToAllExplorators(PlanetSectorEvent $event): array;
+
     public function persist(array $entities): void;
 }

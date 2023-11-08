@@ -150,9 +150,7 @@ final class ExplorationService implements ExplorationServiceInterface
         $explorationLog = new ExplorationLog($closedExploration);
         $explorationLog->setPlanetSectorName($sector->getName());
         $explorationLog->setEventName($eventName);
-        $explorationLog->setEventDescription($eventName);
         $explorationLog->setParameters($parameters);
-        $explorationLog->addParameter('planet', $exploration->getPlanet()->getName()->toArray());
 
         $closedExploration->addLog($explorationLog);
 

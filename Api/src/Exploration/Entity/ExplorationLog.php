@@ -26,12 +26,6 @@ final class ExplorationLog
     #[ORM\Column(type: 'string', nullable: false)]
     private string $eventName = '';
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $eventDescription = '';
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $eventOutcome = '';
-
     #[ORM\Column(type: 'array', nullable: false)]
     private array $parameters = [];
 
@@ -70,26 +64,6 @@ final class ExplorationLog
         $this->eventName = $eventName;
     }
 
-    public function getEventDescription(): string
-    {
-        return $this->eventDescription;
-    }
-
-    public function setEventDescription(string $eventDescription): void
-    {
-        $this->eventDescription = $eventDescription;
-    }
-
-    public function getEventOutcome(): string
-    {
-        return $this->eventOutcome;
-    }
-
-    public function setEventOutcome(string $eventOutcome): void
-    {
-        $this->eventOutcome = $eventOutcome;
-    }
-
     public function getParameters(): array
     {
         return $this->parameters;
@@ -98,10 +72,5 @@ final class ExplorationLog
     public function setParameters(array $parameters): void
     {
         $this->parameters = $parameters;
-    }
-
-    public function addParameter(string $key, $value): void
-    {
-        $this->parameters[$key] = $value;
     }
 }

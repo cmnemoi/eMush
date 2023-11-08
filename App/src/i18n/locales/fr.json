@@ -561,7 +561,10 @@
 	"homePage": {
 		"joinUs": "Inscrivez-vous !",
 		"play": "Jouer !",
-		"synopsis": "Vous allez vous réveiller avec 15 autres joueurs dans le Daedalus. Comme vous, ils fuient le <em>Mush</em>, un champignon qui ravage la planète Terre et menace l'Humanité."
+		"synopsis": "Vous allez vous réveiller avec 15 autres joueurs dans le Daedalus. Comme vous, ils fuient le <em>Mush</em>, un champignon qui ravage la planète Terre et menace l'Humanité.",
+		"followUs": "Suivez nous :",
+		"latestNews": "Dernière news :",
+		"seeAllNews": "Voir toutes les news"
 	},
 	"errors": {
 		"status": {

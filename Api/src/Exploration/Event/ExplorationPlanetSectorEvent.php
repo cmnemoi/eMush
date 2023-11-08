@@ -95,8 +95,18 @@ class ExplorationPlanetSectorEvent extends ExplorationEvent implements LoggableE
 
     public function getLogParameters(): array
     {
-        return [
-            $this->place->getLogKey() => $this->place->getLogName(),
-        ];
+        $logParameters = [];
+
+        $minQuantity = $this->config->getOutputQuantityTable()?->minElement();
+        $maxQuantity = $this->config->getOutputQuantityTable()?->maxElement();
+
+        if ($minQuantity) {
+            $logParameters['min_quantity'] = $minQuantity;
+        }
+        if ($maxQuantity) {
+            $logParameters['max_quantity'] = $maxQuantity;
+        }
+
+        return $logParameters;
     }
 }

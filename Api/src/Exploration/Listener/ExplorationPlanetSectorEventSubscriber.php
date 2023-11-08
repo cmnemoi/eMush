@@ -42,20 +42,14 @@ final class ExplorationPlanetSectorEventSubscriber implements EventSubscriberInt
 
     public function onAccident(ExplorationPlanetSectorEvent $event): void
     {
-        $healthLost = $this->removeHealthToARandomExplorator($event);
-        $logParameters = [
-            'quantity' => $healthLost,
-        ];
+        $logParameters = $this->removeHealthToARandomExplorator($event);
 
         $this->explorationService->createExplorationLog($event, $logParameters);
     }
 
     public function onDisaster(ExplorationPlanetSectorEvent $event): void
     {
-        $healthLost = $this->removeHealthPointsToAllExplorators($event);
-        $logParameters = [
-            'quantity' => $healthLost,
-        ];
+        $logParameters = $this->removeHealthPointsToAllExplorators($event);
 
         $this->explorationService->createExplorationLog($event, $logParameters);
     }
@@ -67,16 +61,13 @@ final class ExplorationPlanetSectorEventSubscriber implements EventSubscriberInt
 
     public function onTired(ExplorationPlanetSectorEvent $event): void
     {
-        $healthLost = $this->removeHealthPointsToAllExplorators($event);
-        $logParameters = [
-            'quantity' => $healthLost,
-        ];
+        $logParameters = $this->removeHealthPointsToAllExplorators($event);
 
         $this->explorationService->createExplorationLog($event, $logParameters);
     }
 
     // @TODO move this to a service
-    private function removeHealthPointsToAllExplorators(ExplorationPlanetSectorEvent $event): int
+    private function removeHealthPointsToAllExplorators(ExplorationPlanetSectorEvent $event): array
     {
         $exploration = $event->getExploration();
 
@@ -92,11 +83,13 @@ final class ExplorationPlanetSectorEventSubscriber implements EventSubscriberInt
             $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
 
-        return $healthLost;
+        return array_merge([
+            'quantity' => $healthLost,
+        ], $event->getLogParameters());
     }
 
     // @TODO move this to a service
-    private function removeHealthToARandomExplorator(ExplorationPlanetSectorEvent $event): int
+    private function removeHealthToARandomExplorator(ExplorationPlanetSectorEvent $event): array
     {
         $exploration = $event->getExploration();
         $exploratorToInjure = $this->randomService->getRandomPlayer($exploration->getExplorators());
@@ -111,7 +104,10 @@ final class ExplorationPlanetSectorEventSubscriber implements EventSubscriberInt
         );
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
 
-        return $healthLost;
+        return array_merge([
+            $exploratorToInjure->getLogKey() => $exploratorToInjure->getLogName(),
+            'quantity' => $healthLost,
+        ], $event->getLogParameters());
     }
 
     // @TODO move this to a service

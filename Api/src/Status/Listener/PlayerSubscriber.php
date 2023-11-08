@@ -37,8 +37,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $playerEvent->getPlayer();
 
         $mushStatusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::MUSH, $player->getDaedalus());
-        $mushStatus = $this->statusService->createStatusFromConfig($mushStatusConfig, $player, $playerEvent->getTags(), $playerEvent->getTime());
-        $this->statusService->persist($mushStatus);
+        $this->statusService->createStatusFromConfig($mushStatusConfig, $player, $playerEvent->getTags(), $playerEvent->getTime());
     }
 
     public function onNewPlayer(PlayerEvent $playerEvent): void

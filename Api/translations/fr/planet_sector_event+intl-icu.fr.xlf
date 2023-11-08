@@ -26,6 +26,14 @@
         <source>nothing_to_report.cold_description</source>
         <target>A part le froid mordant qui gèle vos doigts de pieds, il n'y a pas grand chose d'intéressant dans cette zone… Brrrr…</target>
       </segment>
+      <segment id="swamp_description">
+        <source>nothing_to_report.swamp_description</source>
+        <target>Ce marais est incroyablement calme… Rien de notable dans les parages.</target>
+      </segment>
+      <segment id="predator_description">
+        <source>nothing_to_report.predator_description</source>
+        <target>Vous avez remarqué la présence d'un Écorcheur. La créature rode un moment aux alentours de votre route mais renonce à vous attaquer… Ouf !</target>
+      </segment>
     </unit>
     <unit id="tired">
       <segment id="name">
@@ -67,7 +75,7 @@
       </segment>
       <segment id="predator_description">
         <source>accident.predator_description</source>
-        <target>Un écorcheur attaque {character}… Vous parvenez à l'effrayer et la créature s'enfuit. {character} subit de graves blessures !</target>
+        <target>Un Écorcheur attaque {character}… Vous parvenez à l'effrayer et la créature s'enfuit. {character} subit de graves blessures !</target>
       </segment>
       <segment id="mountain_description">
         <source>accident.mountain_description</source>

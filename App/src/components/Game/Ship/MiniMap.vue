@@ -421,7 +421,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M146,1l10,0" />
                         </g>
-                        <g id="Patrol-Ship-8" serif:id="Patrol Ship 8" :class="{visible : isBroken('equipment', 'alpha_bay_2' , 'patrol_ship_alpha2_wallis')}">
+                        <g id="Patrol-Ship-8" serif:id="Patrol Ship 8" :class="{visible : isBroken('equipment', 'alpha_bay_2' , 'patrol_ship_alpha_2_wallis')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -573,7 +573,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M102.958,1l10,0" />
                         </g>
-                        <g id="Patrol-Ship-2" serif:id="Patrol Ship 2" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_longane')}">
+                        <g id="Patrol-Ship-2" serif:id="Patrol Ship 2" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_jujube')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -584,7 +584,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M91,1l10,0" />
                         </g>
-                        <g id="Patrol-Ship-1" serif:id="Patrol Ship 1" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_jujube')}">
+                        <g id="Patrol-Ship-1" serif:id="Patrol Ship 1" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_longane')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"

@@ -294,14 +294,24 @@
                          "value":true
                         }, 
                         {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-12
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-12
+                        }, 
+                        {
                          "name":"isoSizeX",
                          "type":"int",
-                         "value":32
+                         "value":28
                         }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
-                         "value":72
+                         "value":60
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -388,7 +398,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":31,
                  "x":15.75,
@@ -416,7 +426,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":31,
                  "x":17.75,
@@ -454,7 +464,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":25,
                  "x":-6.75,
@@ -480,13 +490,43 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_front"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":0
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":34,
                  "x":66,
-                 "y":160
+                 "y":162
                 }, 
                 {
                  "gid":292,
@@ -508,13 +548,43 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_front"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":0
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":34,
                  "x":66,
-                 "y":144
+                 "y":146
                 }, 
                 {
                  "gid":292,
@@ -536,13 +606,43 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_front"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":0
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":34,
                  "x":66,
-                 "y":128
+                 "y":130
                 }, 
                 {
                  "gid":292,
@@ -564,13 +664,43 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_front"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":0
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":34,
                  "x":66,
-                 "y":112
+                 "y":114
                 }, 
                 {
                  "gid":293,
@@ -592,13 +722,43 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_back"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":-5
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":-5
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":34,
-                 "x":118.5,
-                 "y":167.5
+                 "x":121.5,
+                 "y":164.5
                 }, 
                 {
                  "gid":293,
@@ -620,13 +780,43 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_back"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":-5
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":-5
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":34,
-                 "x":118.5,
-                 "y":151.5
+                 "x":121.5,
+                 "y":148.5
                 }, 
                 {
                  "gid":293,
@@ -648,13 +838,43 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_back"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":-5
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":-5
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":34,
-                 "x":118.5,
-                 "y":135.5
+                 "x":121.5,
+                 "y":132.5
                 },
             
                 {
@@ -677,13 +897,43 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_back"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":-5
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":-5
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":34,
-                 "x":118.5,
-                 "y":119.5
+                 "x":121.5,
+                 "y":116.5
                 }, 
                 {
                  "gid":298,
@@ -717,7 +967,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":159,
                  "x":75.75,
@@ -750,11 +1000,137 @@
                          "value":32
                         }],
                  "rotation":0,
-                 "type":"interact",
+                 "type":"equipment",
                  "visible":true,
                  "width":46,
                  "x":159,
                  "y":23
+                }, 
+                {
+                 "gid":2147483960,
+                 "height":47,
+                 "id":24,
+                 "name":"swedish_sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-4
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-12
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":48
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":-3
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":41.5,
+                 "y":169.5
+                }, 
+                {
+                 "gid":2147483965,
+                 "height":47,
+                 "id":25,
+                 "name":"swedish_sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-2
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":48
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":12
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":41.5,
+                 "y":169.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -763,7 +1139,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":24,
+ "nextobjectid":26,
  "orientation":"isometric",
  "properties":[
         {
@@ -2045,6 +2421,20 @@
          "tilecount":2,
          "tileheight":62,
          "tilewidth":46
+        }, 
+        {
+         "columns":5,
+         "firstgid":302,
+         "image":"tilemaps\/sofa_asset.png",
+         "imageheight":188,
+         "imagewidth":310,
+         "margin":0,
+         "name":"sofa_asset",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":20,
+         "tileheight":47,
+         "tilewidth":62
         }],
  "tilewidth":32,
  "type":"map",

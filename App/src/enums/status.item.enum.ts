@@ -1,55 +1,57 @@
-const HEAVY = "heavy";
-const HIDDEN = "hidden";
-const PLANT_YOUNG = "plant_young";
-const PLANT_THIRSTY= "plant_thirsty";
-const PLANT_DRY= "plant_dry";
-const PLANT_DISEASED = "plant_diseased";
-const ELECTRIC_CHARGE = "electric_charges";
-const BROKEN = "broken";
-const FROZEN = "frozen";
-const UPDATING = "updating";
-const UNSTABLE = "unstable";
-const HASARDOUS = "hazardous";
-const DECOMPOSING = "decomposing";
+export enum StatusItemNameEnum {
+    HEAVY = "heavy",
+    HIDDEN = "hidden",
+    PLANT_YOUNG = "plant_young",
+    PLANT_THIRSTY = "plant_thirsty",
+    PLANT_DRY = "plant_dry",
+    PLANT_DISEASED = "plant_diseased",
+    ELECTRIC_CHARGE = "electric_charges",
+    BROKEN = "broken",
+    FROZEN = "frozen",
+    UPDATING = "updating",
+    UNSTABLE = "unstable",
+    HASARDOUS = "hazardous",
+    DECOMPOSING = "decomposing"
+}
 
 export const statusItemEnum: {[index: string]: any} = {
-    [HEAVY]: {
+    [StatusItemNameEnum.HEAVY]: {
         'icon': require('@/assets/images/status/heavy.png')
     },
-    [HIDDEN]: {
+    [StatusItemNameEnum.HIDDEN]: {
         'icon': require('@/assets/images/status/hidden.png')
     },
-    [PLANT_YOUNG]: {
+    [StatusItemNameEnum.PLANT_YOUNG]: {
         'icon': require('@/assets/images/status/plant_youngling.png')
     },
-    [PLANT_THIRSTY]: {
+    [StatusItemNameEnum.PLANT_THIRSTY]: {
         'icon': require('@/assets/images/status/plant_thirsty.png')
     },
-    [PLANT_DRY]: {
+    [StatusItemNameEnum.PLANT_DRY]: {
         'icon': require('@/assets/images/status/plant_dry.png')
     },
-    [PLANT_DISEASED]: {
+    [StatusItemNameEnum.PLANT_DISEASED]: {
         'icon': require('@/assets/images/status/plant_diseased.png')
     },
-    [ELECTRIC_CHARGE]: {
+    [StatusItemNameEnum.ELECTRIC_CHARGE]: {
         'icon': require('@/assets/images/status/charge.png')
     },
-    [BROKEN]: {
+    [StatusItemNameEnum.BROKEN]: {
         'icon': require('@/assets/images/status/broken.png')
     },
-    [FROZEN]: {
+    [StatusItemNameEnum.FROZEN]: {
         'icon': require('@/assets/images/status/food_frozen.png')
     },
-    [UPDATING]: {
+    [StatusItemNameEnum.UPDATING]: {
         'icon': require('@/assets/images/status/update.png')
     },
-    [UNSTABLE]: {
+    [StatusItemNameEnum.UNSTABLE]: {
         'icon': require('@/assets/images/status/food_unstable.png')
     },
-    [HASARDOUS]: {
+    [StatusItemNameEnum.HASARDOUS]: {
         'icon': require('@/assets/images/status/food_hazardous.png')
     },
-    [DECOMPOSING]: {
+    [StatusItemNameEnum.DECOMPOSING]: {
         'icon': require('@/assets/images/status/food_decaying.png')
     }
 };

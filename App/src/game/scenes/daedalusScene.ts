@@ -110,6 +110,8 @@ import planet_scanner from "@/game/assets/tilemaps/planet_scanner.png";
 import quantum_sensors from "@/game/assets/tilemaps/quantum_sensors.png";
 import reactor from "@/game/assets/tilemaps/reactor.png";
 import terminal_pilgred from "@/game/assets/tilemaps/terminal_pilgred.png";
+import sofa_asset from "@/game/assets/tilemaps/sofa_asset.png";
+import small_sofa from "@/game/assets/tilemaps/small_sofa.png";
 
 import character from "@/game/assets/images/characters.png";
 import characterFrame from "@/game/assets/images/characters.json";
@@ -386,6 +388,8 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('quantum_sensors', quantum_sensors, { frameWidth: 31, frameHeight: 43 });
         this.load.spritesheet('reactor', reactor, { frameWidth: 199, frameHeight: 181 });
         this.load.spritesheet('terminal_pilgred', terminal_pilgred, { frameWidth: 83, frameHeight: 69 });
+        this.load.spritesheet('sofa_asset', sofa_asset, { frameWidth: 62, frameHeight: 47 });
+        this.load.spritesheet('small_sofa', small_sofa, { frameWidth: 42, frameHeight: 37 });
 
 
         this.load.spritesheet('ground_object', ground_tileset, { frameWidth: 32, frameHeight: 72 });
@@ -480,9 +484,12 @@ export default class DaedalusScene extends Phaser.Scene
 
             if (this.map === null) { throw new Error("player room should be defined");}
 
+            this.deleteCharacters();
+
             this.map = this.createRoom();
             this.createEquipments(this.map);
             this.updateStatuses();
+            this.createPlayers();
         } else{
             this.room = newRoom;
 
@@ -600,18 +607,19 @@ export default class DaedalusScene extends Phaser.Scene
         if (room === null) { throw new Error("player room should be defined");}
         const equipmentsToUpdate = room.equipments;
 
-
-        const updatedEquipment = new Array<string>();
+        const updatedEquipment = new Array<number>();
 
         for (let i=0; i < sceneGameObjects.length; i++) {
             const gameObject = sceneGameObjects[i];
 
             if (gameObject instanceof EquipmentObject) {
-                if (equipmentsToUpdate.filter((equipment: Equipment) => {return equipment.key === gameObject.name;}).length === 0) {
+                if (equipmentsToUpdate.filter((equipment: Equipment) => {
+                    return equipment.id === gameObject.equipment.id;
+                }).length === 0) {
                     return true;
                 }
-                if (!(updatedEquipment.includes(gameObject.name))) {
-                    updatedEquipment.push(gameObject.name);
+                if (!(updatedEquipment.includes(gameObject.equipment.id))) {
+                    updatedEquipment.push(gameObject.equipment.id);
                 }
             }
         }

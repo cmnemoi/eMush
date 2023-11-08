@@ -1386,7 +1386,7 @@ The hypnotic effect of this machine makes you forget your worries. And your stri
     <unit id="block_of_post_it">
       <segment id="name" state="translated">
         <source>block_of_post_it.name</source>
-        <target>Block of post it</target>
+        <target>Block of post-it notes</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>block_of_post_it.short_name</source>

@@ -26,17 +26,25 @@
         <source>ration_data</source>
         <target>Effects data :</target>
       </segment>
+      <segment id="delayed_disease_info_with_range" state="translated">
+        <source>delayed_disease_info_with_range</source>
+        <target>{ quantity } % chance of causing the disease { diseaseName } within {start} to {end} cycles</target>
+      </segment>
       <segment id="delayed_disease_info" state="translated">
         <source>delayed_disease_info</source>
-        <target>{ quantity } % chance of causing the disease { diseaseName } within {start} to {end} cycles</target>
+        <target>{ quantity } % chance of causing the disease { diseaseName } in {start} cycles</target>
       </segment>
       <segment id="disease_info" state="translated">
         <source>disease_info</source>
         <target>{ quantity } % chance of causing the disease {diseaseName}</target>
       </segment>
+      <segment id="delayed_cure_info_with_range" state="translated">
+        <source>delayed_cure_info_with_range</source>
+        <target>Cures {diseaseName} within {start} to {end} cycles</target>
+      </segment>
       <segment id="delayed_cure_info" state="translated">
         <source>delayed_cure_info</source>
-        <target>Cures {diseaseName} within {start} to {end} cycles</target>
+        <target>Cures the disease {diseaseName} in {start} cycles</target>
       </segment>
       <segment id="cure_info" state="translated">
         <source>cure_info</source>

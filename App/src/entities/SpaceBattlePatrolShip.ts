@@ -4,10 +4,11 @@ export class SpaceBattlePatrolShip {
     public name!: string;
     public armor!: integer;
     public charges: integer|null;
-    public pilot!: string;
+    public pilot: string|null;
 
     public constructor() {
         this.charges = null;
+        this.pilot = null;
     }
 
     public load(object: any): SpaceBattlePatrolShip {

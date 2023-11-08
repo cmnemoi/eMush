@@ -9,7 +9,7 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'planet_sector')]
-final class PlanetSector
+class PlanetSector
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

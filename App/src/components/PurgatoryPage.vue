@@ -51,8 +51,8 @@
                         <td>{{ formatDeathDate(crewPlayer.deathDay, crewPlayer.deathCycle) }}</td>
                         <td>{{ crewPlayer.endCauseValue }}</td>
                         <td>
-                            <button class="like">
-                                {{ crewPlayer.likes }} <img src="@/assets/images/dislike.png">
+                            <button class="like" :class="isPlayerLiked(crewPlayer.id) ? 'liked' : ''" @click="toggleLike(crewPlayer.id)">
+                                {{ getNumberLikes(crewPlayer) }} <img src="@/assets/images/dislike.png">
                             </button>
                         </td>
                     </tr>
@@ -80,7 +80,8 @@ import Title from "@/components/Utils/Title.vue";
 interface PurgatoryState {
     deadPlayerInfo: DeadPlayerInfo | null,
     maxChar: number,
-    epitaph: string
+    epitaph: string,
+    likedPlayers: number[],
 };
 
 export default defineComponent ({
@@ -96,28 +97,39 @@ export default defineComponent ({
         return {
             deadPlayerInfo: null,
             maxChar: 250,
-            epitaph: ''
+            epitaph: '',
+            likedPlayers: []
         };
     },
     methods: {
-        addLike: function(player: Player): void {
-            PlayerService.addLikeToPlayer(player).then(() => {
-                PlayerService.loadDeadPlayerInfo(this.player.id).then((res: DeadPlayerInfo|null) => {
-                    this.deadPlayerInfo = res;
-                });
-            });
+        toggleLike: function(playerId: number): void {
+            if (!playerId) return;
+            if (this.likedPlayers.includes(playerId)) {
+                this.likedPlayers = this.likedPlayers.filter((player: number) => player != playerId);
+            } else {
+                this.likedPlayers.push(playerId);
+            }
         },
         characterBody: function(characterKey: string): string {
             return characterEnum[characterKey].body;
         },
         endGame: function(): void {
-            PlayerService.sendEndGameRequest(this.player, this.epitaph);
+            PlayerService.sendEndGameRequest(this.player, this.epitaph, this.likedPlayers);
         },
         formatDeathDate: function(deathDay: number|null, deathCycle: number|null): string {
             if (!deathDay || !deathCycle) {
                 return '-';
             }
             return `${deathDay}.${deathCycle}`;
+        },
+        isPlayerLiked: function(playerId: number): boolean {
+            return this.likedPlayers.includes(playerId);
+        },
+        getNumberLikes: function(crewPlayer: DeadPlayerInfo): number {
+            if (this.isPlayerLiked(crewPlayer.id)) {
+                return crewPlayer.likes + 1;
+            }
+            return crewPlayer.likes;
         }
     },
     computed: {

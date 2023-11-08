@@ -26,6 +26,10 @@
         <source>ration_data</source>
         <target>ration_data</target>
       </segment>
+      <segment id="delayed_disease_info_with_range" state="initial">
+        <source>delayed_disease_info_with_range</source>
+        <target>delayed_disease_info_with_range</target>
+      </segment>
       <segment id="delayed_disease_info" state="initial">
         <source>delayed_disease_info</source>
         <target>delayed_disease_info</target>
@@ -33,6 +37,10 @@
       <segment id="disease_info" state="initial">
         <source>disease_info</source>
         <target>disease_info</target>
+      </segment>
+      <segment id="delayed_cure_info_with_range" state="initial">
+        <source>delayed_cure_info_with_range</source>
+        <target>delayed_cure_info_with_range</target>
       </segment>
       <segment id="delayed_cure_info" state="initial">
         <source>delayed_cure_info</source>

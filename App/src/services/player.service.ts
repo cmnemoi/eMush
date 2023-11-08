@@ -44,9 +44,10 @@ const PlayerService = {
         return deadPlayer;
     },
 
-    sendEndGameRequest: (player: Player, message: string): Promise<void> => {
+    sendEndGameRequest: (player: Player, message: string, likedPlayers: number[]): Promise<void> => {
         const data = {
-            message: message
+            message: message,
+            likedPlayers: likedPlayers
         };
 
         return ApiService.post(PLAYER_ENDPOINT + '/' + player.id + '/end', data)

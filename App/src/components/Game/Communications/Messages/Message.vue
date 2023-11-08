@@ -1,39 +1,41 @@
 <template>
-    <div
-        v-if="isRoot && !isSystemMessage"
-        :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
-        @click="$emit('click')"
-    >
-        <div class="character-body">
-            <img :src="characterPortrait">
+    <div>
+        <div
+            v-if="isRoot && !isSystemMessage"
+            :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
+            @click="$emit('click')"
+        >
+            <div class="character-body">
+                <img :src="characterPortrait">
+            </div>
+            <p class="text">
+                <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
+            </p>
+            <ActionButtons v-if="isPlayerAlive" class="actions" :actions="['reply']" />
+            <span class="timestamp" style="position: absolute">{{ message.date }}</span>
         </div>
-        <p class="text">
-            <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
-        </p>
-        <ActionButtons class="actions" :actions="['reply']" />
-        <span class="timestamp" style="position: absolute">{{ message.date }}</span>
-    </div>
-    <div
-        v-if="isRoot && isSystemMessage"
-        class="log"
-        @click="$emit('click')"
-    >
-        <p class="text">
-            <span v-html="formatMessage(message.message)" />
-        </p>
-        <span class="timestamp" style="position: absolute">{{ message.date }}</span>
-    </div>
-    <div
-        v-else-if="!isRoot"
-        :class="isHidden ? 'message child-message hidden' : 'message child-message'"
-        @click="$emit('click')"
-    >
-        <p class="text">
-            <img class="character-head" :src="characterPortrait">
-            <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
-        </p>
-        <ActionButtons class="actions" :actions="['reply']" />
-        <span class="timestamp" style="position: absolute">{{ message.date }}</span>
+        <div
+            v-if="isRoot && isSystemMessage"
+            class="log"
+            @click="$emit('click')"
+        >
+            <p class="text">
+                <span v-html="formatMessage(message.message)" />
+            </p>
+            <span class="timestamp" style="position: absolute">{{ message.date }}</span>
+        </div>
+        <div
+            v-else-if="!isRoot"
+            :class="isHidden ? 'message child-message hidden' : 'message child-message'"
+            @click="$emit('click')"
+        >
+            <p class="text">
+                <img class="character-head" :src="characterPortrait">
+                <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
+            </p>
+            <ActionButtons v-if="isPlayerAlive" class="actions" :actions="['reply']" />
+            <span class="timestamp" style="position: absolute">{{ message.date }}</span>
+        </div>
     </div>
 </template>
 
@@ -42,6 +44,7 @@ import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
 import { formatText } from "@/utils/formatText";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
+import { mapGetters } from "vuex";
 import { Message } from "@/entities/Message";
 import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
@@ -66,6 +69,9 @@ export default defineComponent ({
         click: null
     },
     computed: {
+        ...mapGetters('player', [
+            'player'
+        ]),
         characterPortrait: function(): string| null {
             if (this.message.character.key !== null) {
                 const images = characterEnum[this.message.character.key];
@@ -81,6 +87,9 @@ export default defineComponent ({
         },
         isHidden: function(): boolean {
             return this.message.isHidden;
+        },
+        isPlayerAlive: function(): boolean {
+            return !['finished'].includes(this.player.gameStatus);
         }
     },
     methods: {

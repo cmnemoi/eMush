@@ -14,7 +14,7 @@ use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'planet')]
-final class Planet implements LogParameterInterface
+class Planet implements LogParameterInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

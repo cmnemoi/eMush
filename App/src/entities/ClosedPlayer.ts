@@ -7,7 +7,7 @@ export class ClosedPlayer {
     public startCycle: integer|null;
     public cycleDeath: integer|null;
     public cyclesSurvived: integer|null;
-    public likes: integer|null;
+    public likes: integer;
     public isMush: boolean|null;
     public characterKey: string|null;
     public username: string|null;
@@ -22,7 +22,7 @@ export class ClosedPlayer {
         this.startCycle = null;
         this.cycleDeath = null;
         this.cyclesSurvived = null;
-        this.likes = null;
+        this.likes = 0;
         this.isMush = null;
         this.characterKey = null;
         this.username = null;
@@ -37,7 +37,7 @@ export class ClosedPlayer {
             this.dayDeath = object.dayDeath;
             this.startCycle = object.startCycle;
             this.cycleDeath = object.cycleDeath;
-            this.likes = object.likes;
+            this.likes = object.likes ?? 0;
             this.isMush = object.isMush;
             this.characterKey = object.characterKey;
             this.username = object.username;

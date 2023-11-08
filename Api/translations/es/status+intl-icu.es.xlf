@@ -2,13 +2,13 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="status.ext">
     <unit id="alien_artefact">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>alien_artefact.name</source>
-        <target>alien_artefact.name</target>
+        <target>Artefacto alienígena</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>alien_artefact.description</source>
-        <target>alien_artefact.description</target>
+        <target>Este objeto es... extraño...</target>
       </segment>
       <segment id="effect" state="initial">
         <source>alien_artefact.examine</source>
@@ -30,13 +30,13 @@
       </segment>
     </unit>
     <unit id="heavy">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>heavy.name</source>
-        <target>heavy.name</target>
+        <target>Pesado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>heavy.description</source>
-        <target>heavy.description</target>
+        <target>Este objeto es particularmente pesado.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>heavy.examine</source>
@@ -58,13 +58,13 @@
       </segment>
     </unit>
     <unit id="hidden">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hidden.name</source>
-        <target>hidden.name</target>
+        <target>Oculto</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hidden.description</source>
-        <target>hidden.description</target>
+        <target>Este objeto está oculto. Solo tú puedes verlo. ¡Advertencia!, un objeto oculto puede ser descubierto por otro jugador si buscan en la habitación.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>hidden.examine</source>
@@ -72,13 +72,13 @@
       </segment>
     </unit>
     <unit id="broken">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>broken.name</source>
-        <target>broken.name</target>
+        <target>Roto</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>broken.description</source>
-        <target>broken.description</target>
+        <target>Este objeto no funciona más. Debe de ser reparado antes de poder usarlo de nuevo.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>broken.examine</source>
@@ -86,9 +86,9 @@
       </segment>
     </unit>
     <unit id="unstable">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>unstable.name</source>
-        <target>unstable.name</target>
+        <target>Inestable</target>
       </segment>
       <segment id="description" state="initial">
         <source>unstable.description</source>
@@ -100,9 +100,9 @@
       </segment>
     </unit>
     <unit id="hazardous">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hazardous.name</source>
-        <target>hazardous.name</target>
+        <target>Peligroso</target>
       </segment>
       <segment id="description" state="initial">
         <source>hazardous.description</source>
@@ -422,13 +422,13 @@
       </segment>
     </unit>
     <unit id="slight_nausea">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>slight_nausea.name</source>
-        <target>slight_nausea.name</target>
+        <target>Náusea ligera</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>slight_nausea.description</source>
-        <target>slight_nausea.description</target>
+        <target>Te sientes mareado... Va a pasar, piensa en algo bonito... Buuuuuaaaajjjj...</target>
       </segment>
       <segment id="effect" state="initial">
         <source>slight_nausea.examine</source>
@@ -1192,13 +1192,13 @@
       </segment>
     </unit>
     <unit id="dirty">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>dirty.name</source>
-        <target>dirty.name</target>
+        <target>Sucio</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>dirty.description</source>
-        <target>dirty.description</target>
+        <target>Estás sucio y apestas... Una visita rápida a la ducha no te vendría mal. Aprovecha esta oportunidad para ponerte un poco de desodorante.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>dirty.examine</source>
@@ -1528,13 +1528,13 @@
       </segment>
     </unit>
     <unit id="updating">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>updating.name</source>
-        <target>updating.name</target>
+        <target>Actualización en curso</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>updating.description</source>
-        <target>updating.description</target>
+        <target>NERON se está actualizando. ¡¡¡NO APAGUE el dispositivo!!! 30%</target>
       </segment>
     </unit>
     <unit id="fire.name">

@@ -135,7 +135,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { crowdin, developers, helpers } from '@/enums/footer';
+import { crowdin, team } from '@/enums/footer';
 import { version } from '../../package.json';
 
 export default defineComponent({
@@ -143,10 +143,7 @@ export default defineComponent({
     data() {
         return {
             crowdin: crowdin,
-            developers: developers,
-            randomDev: [] as Array<string>,
-            helpers: helpers,
-            randomHelpers: [] as Array<string>,
+            team: team,
             version: version as string,
             release: process.env.VUE_APP_API_RELEASE_COMMIT as string,
             channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string
@@ -158,13 +155,13 @@ export default defineComponent({
     methods: {
         getRoleImage(role: string) {
             if (role === 'developer') {
-                return require('@/assets/images/developerPicto.png');
+                return require('@/assets/images/project_roles/developerPicto.png');
             } else if (role === 'admin') {
-                return require('@/assets/images/adminPicto.png');
+                return require('@/assets/images/project_roles/adminPicto.png');
             } else if (role === 'helper') {
-                return require('@/assets/images/helperPicto.png');
+                return require('@/assets/images/project_roles/helperPicto.png');
             } else if (role === 'artist') {
-                return require('@/assets/images/artistPicto.png');
+                return require('@/assets/images/project_roles/artistPicto.png');
             } else if (role === 'translator') {
                 return require('@/assets/images/project_roles/translatorPicto.png');
             } else {

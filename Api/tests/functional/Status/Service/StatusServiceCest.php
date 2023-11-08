@@ -26,6 +26,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -168,5 +169,94 @@ final class StatusServiceCest extends AbstractFunctionalTest
             'log' => StatusEventLogEnum::EQUIPMENT_BROKEN,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+    }
+
+    public function testAlreadyHaveStatus(FunctionalTester $I)
+    {
+        $statusConfig = new StatusConfig();
+        $statusConfig->setStatusName(StatusEnum::FIRE)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($statusConfig);
+
+        $statusConfig2 = new StatusConfig();
+        $statusConfig2->setStatusName(StatusEnum::CHARGE)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($statusConfig2);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig, $statusConfig2])]);
+
+        $neron = new Neron();
+        $neron->setIsInhibited(true);
+        $I->haveInRepository($neron);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
+
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
+        $I->haveInRepository($channel);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+
+        // Case of a game Equipment
+        $gameEquipment = new GameEquipment($room);
+        $gameEquipment
+            ->setEquipment($equipmentConfig)
+            ->setName('some name')
+        ;
+        $I->haveInRepository($gameEquipment);
+
+        // add a status
+        $this->statusService->createStatusFromName(
+            StatusEnum::FIRE,
+            $gameEquipment,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime(),
+            null,
+            VisibilityEnum::PUBLIC
+        );
+
+        $I->assertCount(1, $room->getEquipments());
+        $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
+
+        // add the same status
+        $this->statusService->createStatusFromName(
+            StatusEnum::FIRE,
+            $gameEquipment,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime(),
+            null,
+            VisibilityEnum::PUBLIC
+        );
+        $I->assertCount(1, $room->getEquipments());
+        $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
+
+        // add a other status
+        $this->statusService->createStatusFromName(
+            StatusEnum::CHARGE,
+            $gameEquipment,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime(),
+            null,
+            VisibilityEnum::PUBLIC
+        );
+        $I->assertCount(1, $room->getEquipments());
+        $I->assertCount(2, $room->getEquipments()->first()->getStatuses());
     }
 }

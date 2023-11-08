@@ -1,5 +1,5 @@
 export const team: ({active: boolean, name: string, role: string})[] = [
-    { name: 'Charles-Meldhine "Evian" Madi Mnemoi', role: 'developer', active: true },
+    { name: 'Evian', role: 'developer', active: true },
     { name: 'Breut', role: 'developer', active: true },
     { name: 'Gowoons', role: 'developer', active: true },
     { name: 'A7', role: 'developer', active: true },

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+  <file id="planet.ext">
+    <unit id="nothing_to_report">
+      <segment id="name">
+        <source>nothing_to_report.name</source>
+        <target>Rien à signaler</target>
+      </segment>
+      <segment id="description">
+        <source>nothing_to_report.description</source>
+        <target>La zone est explorée, rien à signaler.</target>
+      </segment>
+      <segment id="landing_description">
+        <source>nothing_to_report.landing_description</source>
+        <target>L'atterrissage se passe parfaitement bien, rien à signaler !</target>
+      </segment>
+      <segment id="fruit_trees_description">
+        <source>nothing_to_report.fruit_trees_description</source>
+        <target>Les arbustes de la zone ne contiennent aucun fruit, vous n'êtes pas tombé a la bonne saison il faudra revenir plus tard !</target>
+      </segment>
+      <segment id="strong_wind_description">
+        <source>nothing_to_report.strong_wind_description</source>
+        <target>A part le vent qui balaie la plaine, il n'y a strictement rien à signaler dans cette zone.</target>
+      </segment>
+      <segment id="cold_description">
+        <source>nothing_to_report.cold_description</source>
+        <target>A part le froid mordant qui gèle vos doigts de pieds, il n'y a pas grand chose d'intéressant dans cette zone… Brrrr…</target>
+      </segment>
+    </unit>
+    <unit id="tired">
+      <segment id="name">
+        <source>tired.name</source>
+        <target>Fatigue</target>
+      </segment>
+      <segment id="description">
+        <source>tired.description</source>
+        <target>{quantity, plural,
+        one {Tous les équipiers subissent # point de dégâts.}
+        other {Tous les équipiers subissent # points de dégâts.}
+        }</target>
+      </segment>
+      <segment id="landing_description">
+        <source>tired.landing_description</source>
+        <target>L'atterrissage est difficile, le vaisseau tourne et vire dans tous les sens, l'équipage est malade.</target>
+      </segment>
+      <segment id="cold_description">
+        <source>tired.cold_description</source>
+        <target>Le froid ralentit de plus en plus votre progression. L'équipe a les membres gelés !</target>
+      </segment>
+      <segment id="hot_description">
+        <source>tired.hot_description</source>
+        <target>Il règne ici une chaleur accablante, les membres de l'équipe suent à grosse goutte !</target>
+      </segment>
+      <segment id="swamp_description">
+        <source>tired.swamp_description</source>
+        <target>Après deux heures de marche dans la vase, vous n'en pouvez plus de cette mélasse. Et des parasites. Et de la chaleur. Et de l'humidité. Et des hurlements…</target>
+      </segment>
+    </unit>
+    <unit id="accident">
+      <segment id="name">
+        <source>accident.name</source>
+        <target>Accident</target>
+      </segment>
+      <segment id="description">
+        <source>accident.description</source>
+        <target>Un équipier subit entre {min_quantity} et {max_quantity} points de dégâts.</target>
+      </segment>
+      <segment id="predator_description">
+        <source>accident.predator_description</source>
+        <target>Un écorcheur attaque {character}… Vous parvenez à l'effrayer et la créature s'enfuit. {character} subit de graves blessures !</target>
+      </segment>
+      <segment id="mountain_description">
+        <source>accident.mountain_description</source>
+        <target>{character} chute d'une petite falaise et s'écrase 4 mètres plus bas… Ouch !</target>
+      </segment>
+      <segment id="ruminant_description">
+        <source>accident.ruminant_description</source>
+        <target>Alors que vous mettez en joue un Chab Chab, la créature se précipite vers vous et heurte violemment {character} avant de s'enfuir…</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

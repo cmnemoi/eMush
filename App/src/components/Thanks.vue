@@ -3,12 +3,13 @@
         <div class="waves">
         </div>
         <div class="wrapper">
-            <div class="box small active">
-                <h3>{{ $t('footer.active') }} :</h3>
+            <div class="box small core-team">
+                <h3>{{ $t('footer.coreTeam') }}</h3>
                 <ul>
                     <li v-for="member in team" :key="member.name">
-                        <template v-if="member.active">
-                            <img :src="getRoleImage(member.role)" :alt="member.role">{{ member.name }}
+                        <template v-if="member.coreTeam && member.active">
+                            <img :src="getRoleImage(member.role)" :alt="member.role">
+                            <span class="name">{{ member.name }}</span>
                         </template>
                     </li>
                 </ul>
@@ -117,25 +118,16 @@
                     }}</a>
                 </div>
             </div>
-            <div class="box small thanks">
-                <h3>{{ $t('footer.inactive') }} :</h3>
+            <div class="box small contributors">
+                <h3>{{ $t('footer.contributors') }}</h3>
                 <ul>
                     <li v-for="member in team" :key="member.name">
-                        <template v-if="!member.active">
-                            <img :src="getRoleImage(member.role)" :alt="member.role">{{ member.name }}
+                        <template v-if="!member.coreTeam">
+                            <img :src="getRoleImage(member.role)" :alt="member.role">
+                            <span class="name">{{ member.name }}</span>
                         </template>
                     </li>
                 </ul>
-                <h3>{{ $t('footer.thanks') }} :</h3>
-                <i18n-t
-                    keypath="footer.alpha-testers"
-                    tag="div"
-                    class="text"
-                    id="alpha-testers">
-                    <template #alpha-testers>
-                        <p>alpha-testers</p>
-                    </template>
-                </i18n-t>
             </div>
         </div>
     </footer>
@@ -157,7 +149,9 @@ export default defineComponent({
             channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string
         };
     },
-
+    mounted() {
+        this.team = this.team.sort(() => 0.5 - Math.random());
+    },
     methods: {
         getRoleImage(role: string) {
             if (role === 'developer') {
@@ -249,6 +243,10 @@ footer {
     border-bottom-width: 4px;
 
     &.small { flex: 1 1 40%; }
+
+    .name {
+        margin: 0.3em;
+    }
 }
 
 .box.description {

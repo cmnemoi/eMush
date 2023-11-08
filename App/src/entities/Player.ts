@@ -179,4 +179,10 @@ export class Player {
     public isExploring(): boolean {
         return this.exploration !== null;
     }
+
+    public hasStatusByKey(key: string): boolean {
+        return this.statuses.filter((status: Status) => {
+            return status.key === key;
+        }).length > 0;
+    }
 }

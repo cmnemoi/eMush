@@ -26,7 +26,7 @@
                     </template>
                 </Tippy>
             </ul>
-            <div v-if="lost" class="lost">
+            <div v-if="player.hasStatusByKey('lost')" class="lost">
                 <img src="@/assets/images/att.png" alt="warning">
                 <p> Vous êtes perdu sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher. </p>
             </div>
@@ -38,8 +38,8 @@
                 <div>
                     <h3>{{ log.planetSectorName }} - {{ log.eventName }}</h3>
                     <p class="flavor">{{ log.eventDescription }}</p>
+                    <p class="details">{{ log.eventOutcome }}</p>
                 </div>
-                <p class="details">{{ log.eventOutcome }}</p>
             </div>
         </section>
     </div>
@@ -85,7 +85,6 @@ export default defineComponent ({
     data() {
         return {
             show: false,
-            lost: true //only for preview purpose//
         };
     }
 });

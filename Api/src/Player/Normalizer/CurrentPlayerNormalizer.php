@@ -229,12 +229,16 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         }
 
         $daedalus = $player->getDaedalus();
-        $hunters = $daedalus->getAttackingHunters();
         $patrolShips = $this->getPatrolShipsInBattle($daedalus);
         $turrets = $this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::TURRET_COMMAND, $daedalus);
 
+        $normalizedHunters = [];
+        foreach ($daedalus->getAttackingHunters() as $hunter) {
+            $normalizedHunters[] = $this->normalizer->normalize($hunter, $format, $context);
+        }
+
         return [
-            'hunters' => $this->normalizer->normalize($hunters, $format, $context),
+            'hunters' => $normalizedHunters,
             'patrolShips' => $patrolShips->map(fn (GameEquipment $patrolShip) => $this->spaceBattlePatrolShipNormalizer->normalize($patrolShip, $format, $context))->toArray(),
             'turrets' => $turrets->map(fn (GameEquipment $turret) => $this->spaceBattleTurretNormalizer->normalize($turret, $format, $context))->toArray(),
         ];

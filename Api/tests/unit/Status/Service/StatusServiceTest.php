@@ -220,6 +220,29 @@ class StatusServiceTest extends TestCase
         $this->assertTrue($result->isAutoRemove());
     }
 
+    public function testCreateStatusAlreadyHaveStatus()
+    {
+        $place = new Place();
+        $place->setDaedalus(new Daedalus());
+        $gameEquipment = new GameItem($place);
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setStatusName(PlayerStatusEnum::EUREKA_MOMENT)
+            ->setVisibility(VisibilityEnum::MUSH)
+        ;
+
+        $gameEquipment->addStatus(new Status($gameEquipment, $statusConfig));
+
+        $this->entityManager->shouldReceive('persist')->never();
+        $this->entityManager->shouldReceive('flush')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
+        $this->eventService->shouldReceive('computeEventModifications')->never();
+
+        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
+
+        $this->assertNull($result);
+    }
+
     public function testHandleAttemptStatusOnFail()
     {
         $attemptConfig = new ChargeStatusConfig();

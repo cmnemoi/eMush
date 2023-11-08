@@ -245,7 +245,7 @@ footer {
     &.small { flex: 1 1 40%; }
 
     .name {
-        margin: 0.3em;
+        margin: .3em;
     }
 }
 

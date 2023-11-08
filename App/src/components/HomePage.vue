@@ -66,9 +66,9 @@
             -->
         </section>
         <section class="newsgroup">
-            <h1>Latest news:</h1>
+            <h1>{{ $t('homePage.latestNews') }}</h1>
             <NewsItem class="news" :news="news" @click="$router.push('news')"/>
-            <router-link class="more" :to="{ name: 'NewsPage' }">See all the news</router-link>
+            <router-link class="more" :to="{ name: 'NewsPage' }">{{ $t('homePage.seeAllNews') }}</router-link>
         </section>
         <section class="medias">
             <!-- CARROUSEL TEMPLATE

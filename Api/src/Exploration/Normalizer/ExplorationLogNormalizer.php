@@ -34,9 +34,19 @@ final class ExplorationLogNormalizer implements NormalizerInterface
             return null;
         }
 
+        $planetSectorKey = $explorationLog->getPlanetSectorName();
+
+        $logParameters = $explorationLog->getParameters();
+        $logParameters['planet'] = $this->translationService->translate(
+            key: 'planet_name',
+            parameters: $explorationLog->getClosedExploration()->getPlanetName(),
+            domain: 'planet',
+            language: $currentPlayer->getDaedalus()->getLanguage(),
+        );
+
         return [
             'id' => $explorationLog->getId(),
-            'planetSectorKey' => $explorationLog->getPlanetSectorName(),
+            'planetSectorKey' => $planetSectorKey,
             'planetSectorName' => $this->translationService->translate(
                 key: $explorationLog->getPlanetSectorName() . '.name',
                 parameters: [],
@@ -46,11 +56,21 @@ final class ExplorationLogNormalizer implements NormalizerInterface
             'eventName' => $this->translationService->translate(
                 key: $explorationLog->getEventName() . '.name',
                 parameters: [],
-                domain: 'exploration',
+                domain: 'planet_sector_event',
                 language: $currentPlayer->getDaedalus()->getLanguage(),
             ),
-            'eventDescription' => $explorationLog->getEventDescription(),
-            'eventOutcome' => $explorationLog->getEventOutcome(),
+            'eventDescription' => $this->translationService->translate(
+                key: $explorationLog->getEventName() . '.description',
+                parameters: $logParameters,
+                domain: 'planet_sector_event',
+                language: $currentPlayer->getDaedalus()->getLanguage(),
+            ),
+            'eventOutcome' => $this->translationService->translate(
+                key: $explorationLog->getEventName() . '.' . $planetSectorKey . '_description',
+                parameters: $logParameters,
+                domain: 'planet_sector_event',
+                language: $currentPlayer->getDaedalus()->getLanguage(),
+            ),
         ];
     }
 }

@@ -117,7 +117,6 @@ export default defineComponent({
             }
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'difficulty_configs'), params)
                 .then((result) => {
-                    console.log(result.data);
                     return result.data;
                 })
                 .then((remoteRowData: any) => {

@@ -2,7 +2,7 @@
 
 namespace Mush\Game\ConfigData;
 
-use Mush\Exploration\Event\ExplorationPlanetSectorEvent;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -220,9 +220,9 @@ class EventConfigData
             'name' => 'change.variable_player_1_satiety',
         ],
         [
-            'type' => 'exploration_planet_sector_event_config',
-            'name' => ExplorationPlanetSectorEvent::ACCIDENT . '_3_5',
-            'eventName' => ExplorationPlanetSectorEvent::ACCIDENT,
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::ACCIDENT . '_3_5',
+            'eventName' => PlanetSectorEvent::ACCIDENT,
             'outputQuantityTable' => [
                 // 3 => 1,
                 // 4 => 1,
@@ -231,9 +231,9 @@ class EventConfigData
             ],
         ],
         [
-            'type' => 'exploration_planet_sector_event_config',
-            'name' => ExplorationPlanetSectorEvent::DISASTER . '_3_5',
-            'eventName' => ExplorationPlanetSectorEvent::DISASTER,
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::DISASTER . '_3_5',
+            'eventName' => PlanetSectorEvent::DISASTER,
             'outputQuantityTable' => [
                 // 3 => 1,
                 // 4 => 1,
@@ -242,14 +242,14 @@ class EventConfigData
             ],
         ],
         [
-            'type' => 'exploration_planet_sector_event_config',
-            'name' => ExplorationPlanetSectorEvent::NOTHING_TO_REPORT,
-            'eventName' => ExplorationPlanetSectorEvent::NOTHING_TO_REPORT,
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::NOTHING_TO_REPORT,
+            'eventName' => PlanetSectorEvent::NOTHING_TO_REPORT,
         ],
         [
-            'type' => 'exploration_planet_sector_event_config',
-            'name' => ExplorationPlanetSectorEvent::TIRED . '_2',
-            'eventName' => ExplorationPlanetSectorEvent::TIRED,
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::TIRED . '_2',
+            'eventName' => PlanetSectorEvent::TIRED,
             'outputQuantityTable' => [
                 // 2 => 1,
                 1 => 1,

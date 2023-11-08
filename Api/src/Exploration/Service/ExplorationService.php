@@ -8,12 +8,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
-use Mush\Exploration\Entity\ExplorationPlanetSectorEventConfig;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
+use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
-use Mush\Exploration\Event\ExplorationPlanetSectorEvent;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -106,7 +106,7 @@ final class ExplorationService implements ExplorationServiceInterface
             throw new \RuntimeException('Exploration event config not found for event name ' . $eventName);
         }
 
-        $planetSectorEvent = new ExplorationPlanetSectorEvent(
+        $planetSectorEvent = new PlanetSectorEvent(
             planetSector: $landingSector,
             config: $config,
         );
@@ -121,13 +121,13 @@ final class ExplorationService implements ExplorationServiceInterface
             $config = $this->findPlanetSectorEventConfigByName($eventName);
             // @TODO : remove this debug condition when all events are implemented
             if ($config === null) {
-                $config = $this->findPlanetSectorEventConfigByName(ExplorationPlanetSectorEvent::NOTHING_TO_REPORT);
+                $config = $this->findPlanetSectorEventConfigByName(PlanetSectorEvent::NOTHING_TO_REPORT);
                 if ($config === null) {
                     throw new \RuntimeException('Exploration event config not found for event name ' . $eventName);
                 }
             }
 
-            $event = new ExplorationPlanetSectorEvent(
+            $event = new PlanetSectorEvent(
                 planetSector: $sector,
                 config: $config,
             );
@@ -139,7 +139,7 @@ final class ExplorationService implements ExplorationServiceInterface
         return $exploration;
     }
 
-    public function createExplorationLog(ExplorationPlanetSectorEvent $event, array $parameters = []): ExplorationLog
+    public function createExplorationLog(PlanetSectorEvent $event, array $parameters = []): ExplorationLog
     {
         $exploration = $event->getExploration();
         $eventName = $event->getEventName();
@@ -188,9 +188,9 @@ final class ExplorationService implements ExplorationServiceInterface
         return $planetSector;
     }
 
-    private function findPlanetSectorEventConfigByName(string $eventName): ?ExplorationPlanetSectorEventConfig
+    private function findPlanetSectorEventConfigByName(string $eventName): ?PlanetSectorEventConfig
     {
-        return $this->entityManager->getRepository(ExplorationPlanetSectorEventConfig::class)->findOneByEventName($eventName);
+        return $this->entityManager->getRepository(PlanetSectorEventConfig::class)->findOneByEventName($eventName);
     }
 
     private function delete(array $entities): void

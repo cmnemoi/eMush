@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Exploration\ConfigData;
 
 use Mush\Exploration\Enum\PlanetSectorEnum;
-use Mush\Exploration\Event\ExplorationPlanetSectorEvent;
+use Mush\Exploration\Event\PlanetSectorEvent;
 
 /** @codeCoverageIgnore */
 final class PlanetSectorConfigData
@@ -19,10 +19,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 0,
             'maxPerPlanet' => 0,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 4,
-                ExplorationPlanetSectorEvent::TIRED => 3,
-                ExplorationPlanetSectorEvent::ACCIDENT => 2,
-                ExplorationPlanetSectorEvent::DISASTER => 1,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 4,
+                PlanetSectorEvent::TIRED => 3,
+                PlanetSectorEvent::ACCIDENT => 2,
+                PlanetSectorEvent::DISASTER => 1,
             ],
         ],
         [
@@ -33,10 +33,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::HARVEST . '_2' => 4,
-                ExplorationPlanetSectorEvent::AGAIN => 3,
-                ExplorationPlanetSectorEvent::DISEASE => 2,
-                ExplorationPlanetSectorEvent::PLAYER_LOST => 1,
+                PlanetSectorEvent::HARVEST . '_2' => 4,
+                PlanetSectorEvent::AGAIN => 3,
+                PlanetSectorEvent::DISEASE => 2,
+                PlanetSectorEvent::PLAYER_LOST => 1,
             ],
         ],
         [
@@ -47,10 +47,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::ACCIDENT => 4,
-                ExplorationPlanetSectorEvent::FUEL . '_1' => 3,
-                ExplorationPlanetSectorEvent::TIRED => 2,
-                ExplorationPlanetSectorEvent::HARVEST . '_1' => 1,
+                PlanetSectorEvent::ACCIDENT => 4,
+                PlanetSectorEvent::FUEL . '_1' => 3,
+                PlanetSectorEvent::TIRED => 2,
+                PlanetSectorEvent::HARVEST . '_1' => 1,
             ],
         ],
         [
@@ -61,10 +61,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::DISEASE => 4,
-                ExplorationPlanetSectorEvent::HARVEST . '_2' => 3,
-                ExplorationPlanetSectorEvent::TIRED => 2,
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 1,
+                PlanetSectorEvent::DISEASE => 4,
+                PlanetSectorEvent::HARVEST . '_2' => 3,
+                PlanetSectorEvent::TIRED => 2,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
         [
@@ -75,9 +75,9 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::AGAIN => 4,
-                ExplorationPlanetSectorEvent::TIRED => 3,
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 3,
+                PlanetSectorEvent::AGAIN => 4,
+                PlanetSectorEvent::TIRED => 3,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 3,
             ],
         ],
         [
@@ -88,9 +88,9 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 6,
-                ExplorationPlanetSectorEvent::PROVISION . '_3' => 3,
-                ExplorationPlanetSectorEvent::PLAYER_LOST => 1,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 6,
+                PlanetSectorEvent::PROVISION . '_3' => 3,
+                PlanetSectorEvent::PLAYER_LOST => 1,
             ],
         ],
         [
@@ -101,10 +101,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::FUEL . '_2' => 4,
-                ExplorationPlanetSectorEvent::ACCIDENT => 3,
-                ExplorationPlanetSectorEvent::AGAIN => 2,
-                ExplorationPlanetSectorEvent::ARTEFACT => 1,
+                PlanetSectorEvent::FUEL . '_2' => 4,
+                PlanetSectorEvent::ACCIDENT => 3,
+                PlanetSectorEvent::AGAIN => 2,
+                PlanetSectorEvent::ARTEFACT => 1,
             ],
         ],
         [
@@ -115,10 +115,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::PROVISION . '_4' => 4,
-                ExplorationPlanetSectorEvent::PROVISION . '_2' => 3,
-                ExplorationPlanetSectorEvent::ACCIDENT => 2,
-                ExplorationPlanetSectorEvent::FIGHT . '_12' => 1,
+                PlanetSectorEvent::PROVISION . '_4' => 4,
+                PlanetSectorEvent::PROVISION . '_2' => 3,
+                PlanetSectorEvent::ACCIDENT => 2,
+                PlanetSectorEvent::FIGHT . '_12' => 1,
             ],
         ],
         [
@@ -129,10 +129,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 6,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::FIGHT . '_12' => 4,
-                ExplorationPlanetSectorEvent::ACCIDENT => 3,
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 2,
-                ExplorationPlanetSectorEvent::PROVISION . '_3' => 1,
+                PlanetSectorEvent::FIGHT . '_12' => 4,
+                PlanetSectorEvent::ACCIDENT => 3,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 2,
+                PlanetSectorEvent::PROVISION . '_3' => 1,
             ],
         ],
         [
@@ -143,10 +143,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::FIGHT . '_12' => 4,
-                ExplorationPlanetSectorEvent::PROVISION . '_2' => 3,
-                ExplorationPlanetSectorEvent::ARTEFACT => 2,
-                ExplorationPlanetSectorEvent::ITEM_LOST => 1,
+                PlanetSectorEvent::FIGHT . '_12' => 4,
+                PlanetSectorEvent::PROVISION . '_2' => 3,
+                PlanetSectorEvent::ARTEFACT => 2,
+                PlanetSectorEvent::ITEM_LOST => 1,
             ],
         ],
         [
@@ -157,10 +157,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::ACCIDENT => 4,
-                ExplorationPlanetSectorEvent::DISEASE => 3,
-                ExplorationPlanetSectorEvent::PROVISION . '_1' => 2,
-                ExplorationPlanetSectorEvent::FIGHT . '_12' => 1,
+                PlanetSectorEvent::ACCIDENT => 4,
+                PlanetSectorEvent::DISEASE => 3,
+                PlanetSectorEvent::PROVISION . '_1' => 2,
+                PlanetSectorEvent::FIGHT . '_12' => 1,
             ],
         ],
         [
@@ -171,10 +171,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 6,
             'maxPerPlanet' => 1,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::KILL_RANDOM => 4,
-                ExplorationPlanetSectorEvent::FIGHT . '_12' => 3,
-                ExplorationPlanetSectorEvent::BACK => 2,
-                ExplorationPlanetSectorEvent::ARTEFACT => 1,
+                PlanetSectorEvent::KILL_RANDOM => 4,
+                PlanetSectorEvent::FIGHT . '_12' => 3,
+                PlanetSectorEvent::BACK => 2,
+                PlanetSectorEvent::ARTEFACT => 1,
             ],
         ],
         [
@@ -185,10 +185,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 2,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::FUEL . '_3' => 4,
-                ExplorationPlanetSectorEvent::FUEL . '_4' => 3,
-                ExplorationPlanetSectorEvent::FUEL . '_5' => 2,
-                ExplorationPlanetSectorEvent::FUEL . '_6' => 1,
+                PlanetSectorEvent::FUEL . '_3' => 4,
+                PlanetSectorEvent::FUEL . '_4' => 3,
+                PlanetSectorEvent::FUEL . '_5' => 2,
+                PlanetSectorEvent::FUEL . '_6' => 1,
             ],
         ],
         [
@@ -199,10 +199,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 1,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::OXYGEN . '_24' => 4,
-                ExplorationPlanetSectorEvent::OXYGEN . '_16' => 3,
-                ExplorationPlanetSectorEvent::OXYGEN . '_8' => 2,
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 1,
+                PlanetSectorEvent::OXYGEN . '_24' => 4,
+                PlanetSectorEvent::OXYGEN . '_16' => 3,
+                PlanetSectorEvent::OXYGEN . '_8' => 2,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
         [
@@ -213,10 +213,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 4,
-                ExplorationPlanetSectorEvent::TIRED => 3,
-                ExplorationPlanetSectorEvent::PLAYER_LOST => 2,
-                ExplorationPlanetSectorEvent::ACCIDENT => 1,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 4,
+                PlanetSectorEvent::TIRED => 3,
+                PlanetSectorEvent::PLAYER_LOST => 2,
+                PlanetSectorEvent::ACCIDENT => 1,
             ],
         ],
         [
@@ -227,10 +227,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::TIRED => 4,
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 3,
-                ExplorationPlanetSectorEvent::HARVEST . '_2' => 2,
-                ExplorationPlanetSectorEvent::ACCIDENT => 1,
+                PlanetSectorEvent::TIRED => 4,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 3,
+                PlanetSectorEvent::HARVEST . '_2' => 2,
+                PlanetSectorEvent::ACCIDENT => 1,
             ],
         ],
         [
@@ -241,9 +241,9 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 6,
-                ExplorationPlanetSectorEvent::TIRED => 3,
-                ExplorationPlanetSectorEvent::ITEM_LOST => 1,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 6,
+                PlanetSectorEvent::TIRED => 3,
+                PlanetSectorEvent::ITEM_LOST => 1,
             ],
         ],
         [
@@ -254,10 +254,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 4,
-                ExplorationPlanetSectorEvent::BACK => 3,
-                ExplorationPlanetSectorEvent::ACCIDENT => 2,
-                ExplorationPlanetSectorEvent::KILL_RANDOM => 1,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 4,
+                PlanetSectorEvent::BACK => 3,
+                PlanetSectorEvent::ACCIDENT => 2,
+                PlanetSectorEvent::KILL_RANDOM => 1,
             ],
         ],
         [
@@ -268,9 +268,9 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 6,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 6,
-                ExplorationPlanetSectorEvent::BACK => 2,
-                ExplorationPlanetSectorEvent::KILL_ALL => 1,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 6,
+                PlanetSectorEvent::BACK => 2,
+                PlanetSectorEvent::KILL_ALL => 1,
             ],
         ],
         [
@@ -281,10 +281,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::ARTEFACT => 4,
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 3,
-                ExplorationPlanetSectorEvent::FIGHT . '_12' => 2,
-                ExplorationPlanetSectorEvent::ACCIDENT => 1,
+                PlanetSectorEvent::ARTEFACT => 4,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 3,
+                PlanetSectorEvent::FIGHT . '_12' => 2,
+                PlanetSectorEvent::ACCIDENT => 1,
             ],
         ],
         [
@@ -295,10 +295,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::ARTEFACT => 4,
-                ExplorationPlanetSectorEvent::FUEL . '_3' => 3,
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 2,
-                ExplorationPlanetSectorEvent::FIGHT . '_12' => 1,
+                PlanetSectorEvent::ARTEFACT => 4,
+                PlanetSectorEvent::FUEL . '_3' => 3,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 2,
+                PlanetSectorEvent::FIGHT . '_12' => 1,
             ],
         ],
         [
@@ -309,9 +309,9 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::HARVEST . '_3' => 4,
-                ExplorationPlanetSectorEvent::HARVEST . '_1' => 3,
-                ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 3,
+                PlanetSectorEvent::HARVEST . '_3' => 4,
+                PlanetSectorEvent::HARVEST . '_1' => 3,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 3,
             ],
         ],
         [
@@ -322,9 +322,9 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 0,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::FIND_LOST => 7,
-                ExplorationPlanetSectorEvent::AGAIN => 2,
-                ExplorationPlanetSectorEvent::KILL_LOST => 1,
+                PlanetSectorEvent::FIND_LOST => 7,
+                PlanetSectorEvent::AGAIN => 2,
+                PlanetSectorEvent::KILL_LOST => 1,
             ],
         ],
         [
@@ -335,10 +335,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 10,
             'maxPerPlanet' => 1,
             'explorationEvents' => [
-                ExplorationPlanetSectorEvent::MUSH_TRAP => 4,
-                ExplorationPlanetSectorEvent::STARMAP => 3,
-                ExplorationPlanetSectorEvent::FIGHT . '_12' => 2,
-                ExplorationPlanetSectorEvent::ACCIDENT => 1,
+                PlanetSectorEvent::MUSH_TRAP => 4,
+                PlanetSectorEvent::STARMAP => 3,
+                PlanetSectorEvent::FIGHT . '_12' => 2,
+                PlanetSectorEvent::ACCIDENT => 1,
             ],
         ],
     ];

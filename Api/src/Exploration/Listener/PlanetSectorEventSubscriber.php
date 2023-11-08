@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Listener;
 
-use Mush\Exploration\Event\ExplorationPlanetSectorEvent;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Event\VariableEventInterface;
@@ -14,7 +14,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class ExplorationPlanetSectorEventSubscriber implements EventSubscriberInterface
+final class PlanetSectorEventSubscriber implements EventSubscriberInterface
 {
     private EventServiceInterface $eventService;
     private ExplorationServiceInterface $explorationService;
@@ -33,33 +33,33 @@ final class ExplorationPlanetSectorEventSubscriber implements EventSubscriberInt
     public static function getSubscribedEvents()
     {
         return [
-            ExplorationPlanetSectorEvent::ACCIDENT => 'onAccident',
-            ExplorationPlanetSectorEvent::DISASTER => 'onDisaster',
-            ExplorationPlanetSectorEvent::NOTHING_TO_REPORT => 'onNothingToReport',
-            ExplorationPlanetSectorEvent::TIRED => 'onTired',
+            PlanetSectorEvent::ACCIDENT => 'onAccident',
+            PlanetSectorEvent::DISASTER => 'onDisaster',
+            PlanetSectorEvent::NOTHING_TO_REPORT => 'onNothingToReport',
+            PlanetSectorEvent::TIRED => 'onTired',
         ];
     }
 
-    public function onAccident(ExplorationPlanetSectorEvent $event): void
+    public function onAccident(PlanetSectorEvent $event): void
     {
         $logParameters = $this->removeHealthToARandomExplorator($event);
 
         $this->explorationService->createExplorationLog($event, $logParameters);
     }
 
-    public function onDisaster(ExplorationPlanetSectorEvent $event): void
+    public function onDisaster(PlanetSectorEvent $event): void
     {
         $logParameters = $this->removeHealthPointsToAllExplorators($event);
 
         $this->explorationService->createExplorationLog($event, $logParameters);
     }
 
-    public function onNothingToReport(ExplorationPlanetSectorEvent $event): void
+    public function onNothingToReport(PlanetSectorEvent $event): void
     {
         $this->explorationService->createExplorationLog($event);
     }
 
-    public function onTired(ExplorationPlanetSectorEvent $event): void
+    public function onTired(PlanetSectorEvent $event): void
     {
         $logParameters = $this->removeHealthPointsToAllExplorators($event);
 
@@ -67,7 +67,7 @@ final class ExplorationPlanetSectorEventSubscriber implements EventSubscriberInt
     }
 
     // @TODO move this to a service
-    private function removeHealthPointsToAllExplorators(ExplorationPlanetSectorEvent $event): array
+    private function removeHealthPointsToAllExplorators(PlanetSectorEvent $event): array
     {
         $exploration = $event->getExploration();
 
@@ -89,7 +89,7 @@ final class ExplorationPlanetSectorEventSubscriber implements EventSubscriberInt
     }
 
     // @TODO move this to a service
-    private function removeHealthToARandomExplorator(ExplorationPlanetSectorEvent $event): array
+    private function removeHealthToARandomExplorator(PlanetSectorEvent $event): array
     {
         $exploration = $event->getExploration();
         $exploratorToInjure = $this->randomService->getRandomPlayer($exploration->getExplorators());

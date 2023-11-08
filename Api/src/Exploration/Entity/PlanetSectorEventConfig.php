@@ -9,7 +9,7 @@ use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Entity\Collection\ProbaCollection;
 
 #[ORM\Entity]
-class ExplorationPlanetSectorEventConfig extends AbstractEventConfig
+class PlanetSectorEventConfig extends AbstractEventConfig
 {
     #[ORM\Column(type: 'array', nullable: true)]
     private ?array $outputQuantityTable = null;

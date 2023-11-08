@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Event;
 
-use Mush\Exploration\Entity\ExplorationPlanetSectorEventConfig;
 use Mush\Exploration\Entity\PlanetSector;
+use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -13,7 +13,7 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
 /** @codeCoverageIgnore */
-class ExplorationPlanetSectorEvent extends ExplorationEvent implements LoggableEventInterface
+class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterface
 {
     public const ACCIDENT = 'accident';
     public const AGAIN = 'again';
@@ -41,11 +41,11 @@ class ExplorationPlanetSectorEvent extends ExplorationEvent implements LoggableE
     private Place $place;
     private string $visibility;
     private PlanetSector $planetSector;
-    private ExplorationPlanetSectorEventConfig $config;
+    private PlanetSectorEventConfig $config;
 
     public function __construct(
         PlanetSector $planetSector,
-        ExplorationPlanetSectorEventConfig $config,
+        PlanetSectorEventConfig $config,
         array $tags = [],
         \DateTime $time = new \DateTime(),
         string $visibility = VisibilityEnum::PUBLIC,
@@ -68,7 +68,7 @@ class ExplorationPlanetSectorEvent extends ExplorationEvent implements LoggableE
         return $this->planetSector;
     }
 
-    public function getConfig(): ExplorationPlanetSectorEventConfig
+    public function getConfig(): PlanetSectorEventConfig
     {
         return $this->config;
     }

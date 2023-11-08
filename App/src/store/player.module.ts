@@ -41,6 +41,7 @@ const actions: ActionTree<any, any> = {
             }
             return true;
         } catch (e) {
+            console.error(e);
             commit('errorUpdatePlayer');
             return false;
         }

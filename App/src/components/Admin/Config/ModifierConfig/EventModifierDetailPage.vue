@@ -175,7 +175,7 @@ export default defineComponent({
                 });
         },
         update(): void {
-            console.log(this.modifierConfig);
+            .modifierConfig);
             if (this.modifierConfig === null) {
                 return;
             }

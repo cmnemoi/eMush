@@ -6,10 +6,20 @@ describe('formatText', () => {
 
     before(() => {
         sinon.stub(helpers, "computeImageHtml").returns("<img/>");
+        sinon.stub(helpers, "computeCharacterImageHtmlByKey").returns("<img/>");
+        sinon.stub(helpers, "computeAlertImageHtmlByKey").returns("<img/>");
+        sinon.stub(helpers, "computeItemStatusImageHtmlByKey").returns("<img/>");
+        sinon.stub(helpers, "computePlayerStatusImageHtmlByKey").returns("<img/>");
+        sinon.stub(helpers, "computeTitleImageHtmlByKey").returns("<img/>");
     });
 
     after(() => {
         (helpers.computeImageHtml as any).restore();
+        (helpers.computeCharacterImageHtmlByKey as any).restore();
+        (helpers.computeAlertImageHtmlByKey as any).restore();
+        (helpers.computeItemStatusImageHtmlByKey as any).restore();
+        (helpers.computePlayerStatusImageHtmlByKey as any).restore();
+        (helpers.computeTitleImageHtmlByKey as any).restore();
     });
 
     describe('Simple tests', () => {
@@ -46,6 +56,13 @@ describe('formatText', () => {
             Vous avez gagné 1 <img/>
             Vous avez perdu 3 <img/>
             Vous avez perdu 3 <img/>`);
+        });
+        it('should replace :hungry: with an image', () => {
+            const text = `Vous avez faim :hungry:`;
+
+            const result = formatText(text);
+
+            expect(result).to.equal(`Vous avez faim <img/>`);
         });
     });
 

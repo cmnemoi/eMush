@@ -121,11 +121,9 @@
             <div class="box small contributors">
                 <h3>{{ $t('footer.contributors') }}</h3>
                 <ul>
-                    <li v-for="member in team" :key="member.name">
-                        <template v-if="!member.coreTeam">
-                            <img :src="getRoleImage(member.role)" :alt="member.role">
-                            <span class="name">{{ member.name }}</span>
-                        </template>
+                    <li v-for="contributor in displayedContributors" :key="contributor.name">
+                        <img :src="getRoleImage(contributor.role)" :alt="contributor.role">
+                        <span class="name">{{ contributor.name }}</span>
                     </li>
                 </ul>
             </div>
@@ -135,7 +133,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { crowdin, team } from '@/enums/footer';
+import { Contributor, crowdin, team } from '@/enums/footer';
 import { version } from '../../package.json';
 
 export default defineComponent({
@@ -146,11 +144,13 @@ export default defineComponent({
             team: team,
             version: version as string,
             release: process.env.VUE_APP_API_RELEASE_COMMIT as string,
-            channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string
+            channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string,
+            displayedContributors: team.filter((member) => !member.coreTeam).slice(0,5),
         };
     },
     mounted() {
         this.team = this.team.sort(() => 0.5 - Math.random());
+        this.startScrolling();
     },
     methods: {
         getRoleImage(role: string) {
@@ -167,8 +167,17 @@ export default defineComponent({
             } else {
                 return '';
             }
-        }
-    }
+        },
+        startScrolling() {
+            let currentIndex = 0;
+            const contributorList = this.team.filter((member) => !member.coreTeam);
+
+            setInterval(() => {
+                this.displayedContributors = contributorList.slice(currentIndex, currentIndex + 5);
+                currentIndex = (currentIndex + 5) % contributorList.length;
+            }, 3500);
+        },
+    },
 });
 </script>
 

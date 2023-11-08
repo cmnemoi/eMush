@@ -17,7 +17,7 @@ security:
 
     access_control:
         - { path: ^/oauth, roles: PUBLIC_ACCESS }
-        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api, roles: PUBLIC_ACCESS }
 
     role_hierarchy:
         ROLE_MODERATOR: ROLE_USER

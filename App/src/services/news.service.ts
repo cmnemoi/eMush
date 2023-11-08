@@ -23,7 +23,7 @@ const NewsService = {
         return createdNews;
 
     },
-    loadNews: async(newsId: number): Promise<News | null> => {
+    getNewsById: async(newsId: number): Promise<News | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
 
         const newsData = await ApiService.get(NEWS_ENDPOINT + '/' + newsId)
@@ -48,6 +48,19 @@ const NewsService = {
         }
 
         return updatedNews;
-    }
+    },
+    getAllNews: async (): Promise<News[]> => {
+        let news: News[] = [];
+        store.dispatch('gameConfig/setLoading', { loading: true });
+
+        await ApiService.get(NEWS_ENDPOINT).then((response) => {
+            news = response.data['hydra:member'].map((newsData: Record<string, any>) => {
+                return (new News()).load(newsData);
+            });
+        }).finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        return news;
+        
+    },
 };
 export default NewsService;

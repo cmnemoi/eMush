@@ -175,7 +175,6 @@ export default defineComponent({
                 });
         },
         update(): void {
-            .modifierConfig);
             if (this.modifierConfig === null) {
                 return;
             }

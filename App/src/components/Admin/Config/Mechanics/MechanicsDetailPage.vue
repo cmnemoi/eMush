@@ -495,7 +495,6 @@ export default defineComponent({
             }
         },
         removeMaturationTime(index: number): void {
-            ;
             if (this.mechanics && this.mechanics.maturationTime) {
                 this.mechanics.maturationTime.delete(index);
             }

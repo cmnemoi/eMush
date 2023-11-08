@@ -90,6 +90,7 @@ export default defineComponent ({
                 })
                 .catch((error) => {
                     ;
+``
                 });
         },
         displayFirstNews() {

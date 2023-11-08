@@ -177,7 +177,6 @@ const GameConfigService = {
             throw new Error('Mechanics type is not defined');
         }
 
-        ype);
 
         const modifierConfigData = await ApiService.put(MODIFIER_CONFIG_ENDPOINTS.get(modifierType) + '/' + modifierConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', modifierConfig.jsonEncode())
             .catch((e) => {

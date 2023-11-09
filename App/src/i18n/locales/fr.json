@@ -590,6 +590,7 @@
 			"502": "502 Bad Gateway",
 			"503": "503 Service indisponible"
 		},
+		"cannotAccessExploration": "Vous ne pouvez pas accéder à cette expédition. C'est privé un vaisseau, vous n'avez pas honte ?",
 		"consultCommunity": "En cas d'erreurs répétées, consultez la communauté sur <a href='https://discord.gg/Jb8Nwjck6r'>Discord</a> ou le <a href='https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1'>forum</a>.",
 		"Daedalus changing cycle": "Le Daedalus est en train de changer de cycle.",
 		"gameInMaintenance": "Le jeu est en maintenance, merci de revenir plus tard !",

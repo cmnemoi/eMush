@@ -1,5 +1,5 @@
 <template>
-    <PopUp :is-open="isError()" @close="clearError">
+    <PopUp :is-open="isError() && isGamePage()" @close="clearError">
         <h1 class="title">{{ getTranslatedErrorStatus() }}</h1>
         <div class="message">
             <img class="neron-img" src="@/assets/images/neron_eye.gif" alt="Neron">
@@ -63,6 +63,10 @@ export default defineComponent ({
         },
         isError() {
             return this.error !== null;
+        },
+        isGamePage() {
+            console.log(this.$route.name);
+            return this.$route.name === 'GamePage';
         },
         isWorkingServerError() {
             const errorStatus = this.isError() ? parseInt(this.error.status) : null;

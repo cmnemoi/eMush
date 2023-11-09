@@ -11,8 +11,6 @@
             <SpaceBattleView
                 v-if="player.canSeeSpaceBattle()"
                 :player="player"
-                :selected-hunter="getTargetHunter"
-                @select="selectHunter"
             />
             <MiniMap
                 v-if="isMinimapAvailable"
@@ -72,9 +70,6 @@ export default defineComponent ({
         ]),
         targetPanel() {
             return this.selectedTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
-        },
-        target(): Hunter | null {
-            return this.selectedTarget;
         },
         getTargetHunter(): Hunter | null {
             return this.selectedTarget instanceof Hunter ? this.selectedTarget : null;

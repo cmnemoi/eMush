@@ -4,12 +4,14 @@ import { Player } from "@/entities/Player";
 import { Equipment } from "@/entities/Equipment";
 import { Item } from "@/entities/Item";
 import { Hunter } from "@/entities/Hunter";
+import { SpaceBattle } from "@/entities/SpaceBattle";
 
 const state =  {
     loading: false,
     room: null,
     inventoryOpen: false,
-    selectedTarget: null
+    selectedTarget: null,
+    spaceBattle: null
 };
 
 const getters: GetterTree<any, any> = {
@@ -30,6 +32,9 @@ const actions: ActionTree<any, any> = {
     },
     loadRoom({ commit }, { room }) {
         commit('setRoom', room);
+    },
+    loadSpaceBattle({ commit }, { spaceBattle }) {
+        commit('setSpaceBattle', spaceBattle);
     },
     async reloadPlayer({ state, dispatch }) {
         return dispatch("loadPlayer", { playerId: state.player.id });
@@ -59,6 +64,9 @@ const mutations : MutationTree<any> = {
     setRoom(state, room: Room | null) {
         state.room = room;
     },
+    setSpaceBattle(state, spaceBattle: SpaceBattle | null) {
+        state.spaceBattle = spaceBattle;
+    },
     setSelectedTarget(state, target: Player | Equipment | Hunter | null) {
         state.selectedTarget = target;
 
@@ -68,8 +76,9 @@ const mutations : MutationTree<any> = {
     },
     updateSelectedItemPile(state) {
         const oldTarget = state.selectedTarget;
+        const room = (<Room> state.room);
         if (oldTarget instanceof Item && state.inventoryOpen) {
-            const targetList = (<Room> state.room).items;
+            const targetList = room.items;
             for (let i = 0; i < targetList.length; i++) {
                 const target = targetList[i];
                 if ((oldTarget.key === target.key && oldTarget.number > 0) ||
@@ -79,7 +88,7 @@ const mutations : MutationTree<any> = {
                 }
             }
         } else if (oldTarget instanceof Player) {
-            const targetList = (<Room> state.room).players;
+            const targetList = room.players;
             for (let i = 0; i < targetList.length; i++) {
                 const target = targetList[i];
                 if (oldTarget.id === target.id) {
@@ -87,7 +96,7 @@ const mutations : MutationTree<any> = {
                 }
             }
         } else if (oldTarget instanceof Equipment) {
-            const targetList = (<Room> state.room).equipments;
+            const targetList = room.equipments;
             for (let i = 0; i < targetList.length; i++) {
                 const target = targetList[i];
                 if (oldTarget.id === target.id) {
@@ -95,12 +104,16 @@ const mutations : MutationTree<any> = {
                 }
             }
         } else if (oldTarget instanceof Hunter) {
-            const targetList = (<Room> state.room).hunters;
+            const targetList = (<SpaceBattle> state.spaceBattle).hunters;
             for (let i = 0; i < targetList.length; i++) {
                 const target = targetList[i];
                 if (oldTarget.id === target.id) {
                     return state.selectedTarget = target;
                 }
+            }
+            // if player is in patrol ship select by default the patrol ship
+            if (room.type === 'patrol_ship') {
+                return state.selectedTarget = room.equipments[0];
             }
         }
         state.selectedTarget = null;

@@ -8,6 +8,7 @@
 import ActionPanel from "@/components/Game/Ship/ActionPanel.vue";
 import { Equipment } from "@/entities/Equipment";
 import { defineComponent } from "vue";
+import { Hunter } from "@/entities/Hunter";
 
 export default defineComponent ({
     components: {

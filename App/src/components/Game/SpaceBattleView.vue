@@ -59,7 +59,7 @@
             tag="div"
             class="hunter"
             :class="isHunterSelected(hunter) ? 'highlight' : ''"
-            @mousedown.stop="$emit('select', hunter)"
+            @mousedown.stop="toggleHunterSelection(hunter)"
             v-for="(hunter, key) in player?.spaceBattle?.hunters"
             :key="key">
             <div class="ship-img-container">
@@ -85,21 +85,31 @@ import { Player } from '@/entities/Player';
 import { Hunter } from '@/entities/Hunter';
 import { SpaceBattleTurret } from '@/entities/SpaceBattleTurret';
 import { defineComponent } from 'vue';
+import { mapActions, mapGetters } from "vuex";
+import { Item } from "@/entities/Item";
 
 export default defineComponent({
     name: 'SpaceBattleView',
     props: {
         player: Player,
-        selectedHunter: {
-            type: Hunter,
-            required: false,
-            default: null
-        }
     },
-    emits: [
-        'select'
-    ],
+    computed: {
+        ...mapGetters('room', [
+            'selectedTarget'
+        ]),
+        getSelectedTarget(): Item | Hunter | null
+        {
+            if (this.selectedTarget instanceof Hunter) { return this.selectedTarget;}
+            return null;
+        },
+    },
     methods: {
+        ...mapActions({
+            'selectTarget': 'room/selectTarget'
+        }),
+        isHunterSelected: function(hunter: Hunter): boolean {
+            return this.getSelectedTarget instanceof Hunter && this.getSelectedTarget.id === hunter.id;
+        },
         getPlayerCharacterBodyByName(playerKey: string) : string {
             return characterEnum[playerKey].body;
         },
@@ -119,8 +129,15 @@ export default defineComponent({
         getHunterImage(hunter: Hunter) : string {
             return hunterEnum[hunter.key].image;
         },
-        isHunterSelected: function(hunter: Hunter): boolean {
-            return this.selectedHunter instanceof Hunter && this.selectedHunter.id === hunter.id;
+        selectHunter(hunter: Hunter | null): void {
+            this.selectTarget({ target: hunter });
+        },
+        toggleHunterSelection(hunter: Hunter | null): void {
+            if (this.getSelectedTarget === hunter) {
+                this.selectTarget({ target: null });
+            } else {
+                this.selectTarget({ target: hunter });
+            }
         },
         isPlayerInRoom(roomKey: string | undefined) : boolean {
             if (roomKey === undefined) return false;

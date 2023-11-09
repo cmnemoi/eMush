@@ -516,22 +516,11 @@ export default class DaedalusScene extends Phaser.Scene
 
                 gameObject.updateEquipment(updatedEquipment);
 
-                this.displayPatrolShipActions(updatedEquipment, room);
-
             } else if (gameObject instanceof DoorObject || gameObject instanceof DoorGroundObject) {
                 const updatedDoor = room.doors.filter((door: Door) => (door.key === gameObject.door.key))[0];
 
                 gameObject.updateDoor(updatedDoor);
             }
-        }
-    }
-
-    private displayPatrolShipActions(updatedEquipment: Equipment, playerRoom: Room) {
-        const equipmentIsAPatrolShip = updatedEquipment.key?.substring(0, 11) === 'patrol_ship' || updatedEquipment.key?.substring(0, 8) === 'pasiphae';
-        const playerIsInAPatrolShip = playerRoom?.type === 'patrol_ship';
-
-        if (equipmentIsAPatrolShip && playerIsInAPatrolShip) {
-            store.dispatch('room/selectTarget', { target: updatedEquipment });
         }
     }
 

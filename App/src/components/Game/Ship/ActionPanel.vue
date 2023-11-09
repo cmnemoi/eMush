@@ -16,10 +16,11 @@ import { mapActions, mapGetters } from "vuex";
 import { Player } from "@/entities/Player";
 import { Action } from "@/entities/Action";
 import { Equipment } from "@/entities/Equipment";
+import {Hunter} from "@/entities/Hunter";
 
 interface AlertsState {
     loading: boolean,
-    selectedTarget: Equipment | Player
+    selectedTarget: Equipment | Player | Hunter
 }
 
 export default defineComponent ({

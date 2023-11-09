@@ -1,22 +1,24 @@
-import { Planet } from "@/entities/Planet";
-import { Explorator } from "@/entities/Explorator";
 import { ExplorationLogs } from "@/entities/ExplorationLogs";
 
-export class Exploration {
+export class ClosedExploration {
     public id!: number;
+    public iri!: string;
     public createdAt!: Date;
     public updatedAt!: Date;
-    public planet!: Planet;
-    public explorators!: Explorator[];
+    public planet!: string;
+    public explorators!: string[];
+    public sectors!: string[];
     public logs!: ExplorationLogs[];
 
-    public load(object: any): Exploration {
+    public load(object: any): ClosedExploration {
         if (object) {
             this.id = object.id;
+            this.iri = object['@id'];
             this.createdAt = object.createdAt;
             this.updatedAt = object.updatedAt;
-            this.planet = (new Planet()).load(object.planet);
-            this.explorators = object.explorators.map((explorator: any) => (new Explorator()).load(explorator));
+            this.planet = object.planetName;
+            this.explorators = object.exploratorNames;
+            this.sectors = object.exploredSectorKeys;
             this.logs = object.logs;
         }
 
@@ -24,10 +26,10 @@ export class Exploration {
     }
 
     public jsonEncode(): string {
-        return JSON.stringify(this);
+        return JSON.stringify(this, null, 4);
     }
     
-    public decode(jsonString : string): Exploration {
+    public decode(jsonString : string): ClosedExploration {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);
@@ -37,11 +39,11 @@ export class Exploration {
     }
 
     public getPlanetName(): string {
-        return this.planet.name;
+        return this.planet;
     }
 
     public getExploratorNames(): string[] {
-        return this.explorators.map((explorator: Explorator) => explorator.name);
+        return this.explorators;
     }
 }
     

@@ -90,4 +90,9 @@ class ClosedExploration
     {
         $this->logs->add($log);
     }
+
+    public function isExplorationFinished(): bool
+    {
+        return $this->exploration === null;
+    }
 }

@@ -76,6 +76,7 @@ final class TakeoffToPlanet extends AbstractAction
 
         $this->explorationService->createExploration(
             players: $icarus->getPlace()->getPlayers()->getPlayerAlive(),
+            explorationShip: $icarus,
             numberOfSectorsToVisit: $this->getOutputQuantity(),
             reasons: $this->action->getActionTags(),
         );

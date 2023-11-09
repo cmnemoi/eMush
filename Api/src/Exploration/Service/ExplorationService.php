@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Exploration\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
@@ -41,7 +42,7 @@ final class ExplorationService implements ExplorationServiceInterface
         $this->randomService = $randomService;
     }
 
-    public function createExploration(PlayerCollection $players, int $numberOfSectorsToVisit, array $reasons): Exploration
+    public function createExploration(PlayerCollection $players, GameEquipment $explorationShip, int $numberOfSectorsToVisit, array $reasons): Exploration
     {
         $explorator = $players->first();
         if (!$explorator) {
@@ -63,6 +64,8 @@ final class ExplorationService implements ExplorationServiceInterface
         if ($numberOfSectorsToVisit < 1) {
             throw new \RuntimeException('You cannot visit less than 1 sector');
         }
+        $exploration->setShipUsedName($explorationShip->getName());
+        $exploration->setStartPlaceName($explorationShip->getPlace()->getName());
 
         // @TODO : check for spacesuits for planets without oxygen
 

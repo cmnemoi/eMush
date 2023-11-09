@@ -34,6 +34,12 @@ class Exploration
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $numberOfSectionsToVisit = 0;
 
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $startPlaceName = '';
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $shipUsedName = '';
+
     public function __construct(Planet $planet)
     {
         $this->planet = $planet;
@@ -87,6 +93,26 @@ class Exploration
     public function setNumberOfSectionsToVisit(int $numberOfSectionsToVisit): void
     {
         $this->numberOfSectionsToVisit = $numberOfSectionsToVisit;
+    }
+
+    public function getStartPlaceName(): string
+    {
+        return $this->startPlaceName;
+    }
+
+    public function setStartPlaceName(string $startPlaceName): void
+    {
+        $this->startPlaceName = $startPlaceName;
+    }
+
+    public function getShipUsedName(): string
+    {
+        return $this->shipUsedName;
+    }
+
+    public function setShipUsedName(string $shipUsedName): void
+    {
+        $this->shipUsedName = $shipUsedName;
     }
 
     public function getDaedalus(): Daedalus

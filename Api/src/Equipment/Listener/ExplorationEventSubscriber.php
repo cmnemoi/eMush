@@ -41,14 +41,13 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             throw new \RuntimeException('You need a non-empty explorator collection to create an exploration');
         }
 
-        // explorators are still in Icarus bay at this point, so recover Icarus ship on the room this way
-        $icarus = $explorator->getPlace()->getEquipmentByName(EquipmentEnum::ICARUS);
-        if (!$icarus) {
-            throw new \RuntimeException('There should be one Icarus ship in Icarus bay');
+        $explorationShip = $explorator->getPlace()->getEquipmentByName($exploration->getShipUsedName());
+        if (!$explorationShip) {
+            throw new \RuntimeException("There should be a {$exploration->getShipUsedName()} ship in the planet place");
         }
 
         $equipmentEvent = new MoveEquipmentEvent(
-            equipment: $icarus,
+            equipment: $explorationShip,
             newHolder: $exploration->getDaedalus()->getPlanetPlace(),
             author: null,
             visibility: VisibilityEnum::HIDDEN,
@@ -64,26 +63,25 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         /** @var Player $explorator */
         $explorator = $exploration->getExplorators()->getPlayerAlive()->first();
 
-        // All explorators are dead, no Icarus return!
-        // @TODO : Magnetic return project should prevent this
+        // All explorators are dead, no exploration craft return!
+        // @TODO : Magnetic return project should prevent this for the Icarus
         if (!$explorator) {
             return;
         }
 
-        $icarus = $explorator->getPlace()->getEquipmentByName(EquipmentEnum::ICARUS);
-        if (!$icarus) {
-            throw new \RuntimeException('There should be one Icarus ship in explorator place');
+        $explorationShip = $explorator->getPlace()->getEquipmentByName($exploration->getShipUsedName());
+        if (!$explorationShip) {
+            throw new \RuntimeException('There should be an exploration ship in the planet place');
         }
 
-        // @TODO: some explorations do not start in Icarus Bay, we need to handle that.
-        $icarusBay = $exploration->getDaedalus()->getPlaceByName(RoomEnum::ICARUS_BAY);
-        if (!$icarusBay) {
-            throw new \RuntimeException('There should be one Icarus bay in Daedalus');
+        $returnPlace = $exploration->getDaedalus()->getPlaceByName($exploration->getStartPlaceName());
+        if (!$returnPlace) {
+            throw new \RuntimeException("There should be a {$exploration->getStartPlaceName()} place in Daedalus");
         }
 
         $equipmentEvent = new MoveEquipmentEvent(
-            equipment: $icarus,
-            newHolder: $icarusBay,
+            equipment: $explorationShip,
+            newHolder: $returnPlace,
             author: null,
             visibility: VisibilityEnum::HIDDEN,
             tags: $event->getTags(),

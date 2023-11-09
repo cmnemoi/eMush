@@ -41,7 +41,7 @@ final class ExplorationService implements ExplorationServiceInterface
         $this->randomService = $randomService;
     }
 
-    public function createExploration(PlayerCollection $players, array $reasons): Exploration
+    public function createExploration(PlayerCollection $players, int $numberOfSectorsToVisit, array $reasons): Exploration
     {
         $explorator = $players->first();
         if (!$explorator) {
@@ -56,6 +56,15 @@ final class ExplorationService implements ExplorationServiceInterface
 
         $exploration = new Exploration($planet);
         $exploration->setExplorators($players);
+        $exploration->setNumberOfSectionsToVisit($numberOfSectorsToVisit);
+        if ($numberOfSectorsToVisit > $planet->getSectors()->count()) {
+            throw new \RuntimeException('You cannot visit more sectors than the planet has');
+        }
+        if ($numberOfSectorsToVisit < 1) {
+            throw new \RuntimeException('You cannot visit less than 1 sector');
+        }
+
+        // @TODO : check for spacesuits for planets without oxygen
 
         $this->persist([$exploration]);
 
@@ -96,7 +105,6 @@ final class ExplorationService implements ExplorationServiceInterface
     public function computeExplorationEvents(Exploration $exploration): Exploration
     {
         $planet = $exploration->getPlanet();
-        $sectorsToVisit = $planet->getUnvisitedSectors();
 
         // add Landing planet sector at the beginning of the exploration
         $landingSectorConfig = $this->findPlanetSectorConfigBySectorName(PlanetSectorEnum::LANDING);
@@ -114,10 +122,8 @@ final class ExplorationService implements ExplorationServiceInterface
         );
         $this->eventService->callEvent($planetSectorEvent, $eventName);
 
-        // @TODO : select randomly a sector to visit given their `weightAtExploration` property
-        // @TODO : add a limit to the number of sectors to visit per exploration (probably add a `numberOfSectionsToVisit` attribute to Exploration)
-        foreach ($sectorsToVisit as $sector) {
-            $sector->visit();
+        for ($i = 0; $i < $exploration->getNumberOfSectionsToVisit(); ++$i) {
+            $sector = $this->randomService->getRandomPlanetSectorsToVisit($planet, 1)->first();
 
             $eventName = $this->drawPlanetSectorEvent($sector);
             $config = $this->findPlanetSectorEventConfigByName($eventName);

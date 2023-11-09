@@ -12,7 +12,7 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 
 interface ExplorationServiceInterface
 {
-    public function createExploration(PlayerCollection $players, array $reasons): Exploration;
+    public function createExploration(PlayerCollection $players, int $numberOfSectorsToVisit, array $reasons): Exploration;
 
     public function closeExploration(Exploration $exploration, array $reasons): ClosedExploration;
 

@@ -278,6 +278,7 @@ class RandomService implements RandomServiceInterface
 
     private function getPlanetSectorCollectionFromIds(array $sectorIds): ArrayCollection
     {
+        /** @var ArrayCollection<int, PlanetSector> $sectors */
         $sectors = new ArrayCollection();
         foreach ($sectorIds as $sectorId) {
             $sector = $this->planetSectorRepository->find($sectorId);

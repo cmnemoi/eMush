@@ -2,12 +2,16 @@
 
 namespace Mush\Game\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Exploration\Entity\Planet;
+use Mush\Exploration\Entity\PlanetSector;
+use Mush\Exploration\Repository\PlanetSectorRepository;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Hunter\Entity\Hunter;
@@ -19,15 +23,35 @@ use Mush\Player\Entity\Player;
 class RandomService implements RandomServiceInterface
 {
     private GameEquipmentRepository $gameEquipmentRepository;
+    private PlanetSectorRepository $planetSectorRepository;
 
-    public function __construct(GameEquipmentRepository $gameEquipmentRepository)
+    public function __construct(GameEquipmentRepository $gameEquipmentRepository, PlanetSectorRepository $planetSectorRepository)
     {
         $this->gameEquipmentRepository = $gameEquipmentRepository;
+        $this->planetSectorRepository = $planetSectorRepository;
     }
 
     public function random(int $min, int $max): int
     {
         return random_int($min, $max);
+    }
+
+    public function poissonRandom(float $lambda): int
+    {
+        if ($lambda < 0) {
+            throw new \Exception("poissonRandom: lambda ({$lambda}) must be positive");
+        }
+
+        $L = exp(-$lambda);
+        $k = 0;
+        $p = 1;
+
+        do {
+            ++$k;
+            $p *= $this->randomPercent() / 100;
+        } while ($p > $L);
+
+        return $k - 1;
     }
 
     public function randomPercent(): int
@@ -212,25 +236,63 @@ class RandomService implements RandomServiceInterface
         return $equipments;
     }
 
-    /** Generate a random number from a Poisson process (Knuth algorithm).
-     *
-     * P(k) = exp(-lambda) * lambda^k / k!
-     */
-    public function poissonRandom(float $lambda): int
+    public function getRandomPlanetSectorsToReveal(Planet $planet, int $number): ArrayCollection
     {
-        if ($lambda < 0) {
-            throw new \Exception("poissonRandom: lambda ({$lambda}) must be positive");
+        $sectorIdsToReveal = $this->getRandomElementsFromProbaCollection(
+            array: $this->getPlanetSectorsToRevealProbaCollection($planet),
+            number: $number,
+        );
+
+        /** @var ArrayCollection<int, PlanetSector> $sectorsToReveal */
+        $sectorsToReveal = new ArrayCollection();
+        foreach ($sectorIdsToReveal as $sectorId) {
+            $sector = $this->planetSectorRepository->find($sectorId);
+            if (!$sector) {
+                throw new \RuntimeException("Sector $sectorId not found on planet {$planet->getId()}");
+            }
+            $sectorsToReveal->add($sector);
         }
 
-        $L = exp(-$lambda);
-        $k = 0;
-        $p = 1;
+        return $sectorsToReveal;
+    }
 
-        do {
-            ++$k;
-            $p *= $this->randomPercent() / 100;
-        } while ($p > $L);
+    public function getRandomPlanetSectorsToVisit(Planet $planet, int $number): ArrayCollection
+    {
+        $sectorIdsToVisit = $this->getRandomElementsFromProbaCollection(
+            array: $this->getPlanetSectorsToVisitProbaCollection($planet),
+            number: $number,
+        );
 
-        return $k - 1;
+        /** @var ArrayCollection<int, PlanetSector> $sectorsToVisit */
+        $sectorsToVisit = new ArrayCollection();
+        foreach ($sectorIdsToVisit as $sectorId) {
+            $sector = $this->planetSectorRepository->find($sectorId);
+            if (!$sector) {
+                throw new \RuntimeException("Sector $sectorId not found on planet {$planet->getId()}");
+            }
+            $sectorsToVisit->add($sector);
+        }
+
+        return $sectorsToVisit;
+    }
+
+    private function getPlanetSectorsToRevealProbaCollection(Planet $planet): ProbaCollection
+    {
+        $probaCollection = new ProbaCollection();
+        foreach ($planet->getUnrevealedSectors() as $sector) {
+            $probaCollection->setElementProbability($sector->getId(), $sector->getWeightAtPlanetAnalysis());
+        }
+
+        return $probaCollection;
+    }
+
+    private function getPlanetSectorsToVisitProbaCollection(Planet $planet): ProbaCollection
+    {
+        $probaCollection = new ProbaCollection();
+        foreach ($planet->getUnvisitedSectors() as $sector) {
+            $probaCollection->setElementProbability($sector->getId(), $sector->getWeightAtPlanetExploration());
+        }
+
+        return $probaCollection;
     }
 }

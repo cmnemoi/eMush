@@ -63,7 +63,7 @@ final class PlanetService implements PlanetServiceInterface
 
     public function revealPlanetSectors(Planet $planet, int $number): Planet
     {
-        $sectorsToReveal = $this->getPlanetSectorsToReveal($planet, $number);
+        $sectorsToReveal = $this->randomService->getRandomPlanetSectorsToReveal($planet, $number);
 
         $revealedSectors = $sectorsToReveal->map(fn (PlanetSector $sector) => $sector->reveal());
 
@@ -218,41 +218,6 @@ final class PlanetService implements PlanetServiceInterface
         }
 
         return $total;
-    }
-
-    private function getPlanetSectorsToReveal(Planet $planet, int $number): ArrayCollection
-    {
-        $sectorIdsToReveal = $this->randomService->getRandomElementsFromProbaCollection(
-            array: $this->getPlanetSectorsToRevealProbaCollection($planet),
-            number: $number,
-        );
-
-        /** @var ArrayCollection<int, PlanetSector> $sectorsToReveal */
-        $sectorsToReveal = new ArrayCollection();
-        foreach ($sectorIdsToReveal as $sectorId) {
-            $sector = $this->findPlanetSectorById($sectorId);
-            if (!$sector) {
-                throw new \RuntimeException("Sector $sectorId not found on planet {$planet->getId()}");
-            }
-            $sectorsToReveal->add($sector);
-        }
-
-        return $sectorsToReveal;
-    }
-
-    private function getPlanetSectorsToRevealProbaCollection(Planet $planet): ProbaCollection
-    {
-        $probaCollection = new ProbaCollection();
-        foreach ($planet->getUnrevealedSectors() as $sector) {
-            $probaCollection->setElementProbability($sector->getId(), $sector->getWeightAtPlanetAnalysis());
-        }
-
-        return $probaCollection;
-    }
-
-    private function findPlanetSectorById(int $id): ?PlanetSector
-    {
-        return $this->entityManager->find(PlanetSector::class, $id);
     }
 
     private function persist(array $entities): void

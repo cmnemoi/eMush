@@ -95,7 +95,9 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
 
     public function getLogParameters(): array
     {
-        $logParameters = [];
+        $logParameters = [
+            'equipment' => $this->exploration->getShipUsedName(),
+        ];
 
         $minQuantity = $this->config->getOutputQuantityTable()?->minElement();
         $maxQuantity = $this->config->getOutputQuantityTable()?->maxElement();

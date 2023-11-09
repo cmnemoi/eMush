@@ -32,6 +32,9 @@ class ClosedExploration
     #[ORM\Column(type: 'array', nullable: false)]
     private array $exploratorNames = [];
 
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $exploredSectorKeys = [];
+
     #[ORM\OneToMany(targetEntity: ExplorationLog::class, mappedBy: 'closedExploration')]
     private Collection $logs;
 
@@ -66,6 +69,16 @@ class ClosedExploration
     public function setExploratorNames(array $exploratorNames): void
     {
         $this->exploratorNames = $exploratorNames;
+    }
+
+    public function getExploredSectorKeys(): array
+    {
+        return $this->exploredSectorKeys;
+    }
+
+    public function addExploredSectorKey(string $exploredSectorKey): void
+    {
+        $this->exploredSectorKeys[] = $exploredSectorKey;
     }
 
     public function getLogs(): ExplorationLogCollection

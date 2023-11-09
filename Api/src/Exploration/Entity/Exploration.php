@@ -31,6 +31,9 @@ class Exploration
     #[ORM\OneToMany(targetEntity: Player::class, mappedBy: 'exploration')]
     private Collection $explorators;
 
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $numberOfSectionsToVisit = 0;
+
     public function __construct(Planet $planet)
     {
         $this->planet = $planet;
@@ -74,6 +77,16 @@ class Exploration
     public function getClosedExploration(): ClosedExploration
     {
         return $this->closedExploration;
+    }
+
+    public function getNumberOfSectionsToVisit(): int
+    {
+        return $this->numberOfSectionsToVisit;
+    }
+
+    public function setNumberOfSectionsToVisit(int $numberOfSectionsToVisit): void
+    {
+        $this->numberOfSectionsToVisit = $numberOfSectionsToVisit;
     }
 
     public function getDaedalus(): Daedalus

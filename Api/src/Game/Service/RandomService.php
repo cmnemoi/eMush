@@ -243,17 +243,7 @@ class RandomService implements RandomServiceInterface
             number: $number,
         );
 
-        /** @var ArrayCollection<int, PlanetSector> $sectorsToReveal */
-        $sectorsToReveal = new ArrayCollection();
-        foreach ($sectorIdsToReveal as $sectorId) {
-            $sector = $this->planetSectorRepository->find($sectorId);
-            if (!$sector) {
-                throw new \RuntimeException("Sector $sectorId not found on planet {$planet->getId()}");
-            }
-            $sectorsToReveal->add($sector);
-        }
-
-        return $sectorsToReveal;
+        return $this->getPlanetSectorCollectionFromIds($sectorIdsToReveal);
     }
 
     public function getRandomPlanetSectorsToVisit(Planet $planet, int $number): ArrayCollection
@@ -263,17 +253,7 @@ class RandomService implements RandomServiceInterface
             number: $number,
         );
 
-        /** @var ArrayCollection<int, PlanetSector> $sectorsToVisit */
-        $sectorsToVisit = new ArrayCollection();
-        foreach ($sectorIdsToVisit as $sectorId) {
-            $sector = $this->planetSectorRepository->find($sectorId);
-            if (!$sector) {
-                throw new \RuntimeException("Sector $sectorId not found on planet {$planet->getId()}");
-            }
-            $sectorsToVisit->add($sector);
-        }
-
-        return $sectorsToVisit;
+        return $this->getPlanetSectorCollectionFromIds($sectorIdsToVisit);
     }
 
     private function getPlanetSectorsToRevealProbaCollection(Planet $planet): ProbaCollection
@@ -294,5 +274,19 @@ class RandomService implements RandomServiceInterface
         }
 
         return $probaCollection;
+    }
+
+    private function getPlanetSectorCollectionFromIds(array $sectorIds): ArrayCollection
+    {
+        $sectors = new ArrayCollection();
+        foreach ($sectorIds as $sectorId) {
+            $sector = $this->planetSectorRepository->find($sectorId);
+            if (!$sector) {
+                throw new \RuntimeException("Sector $sectorId not found");
+            }
+            $sectors->add($sector);
+        }
+
+        return $sectors;
     }
 }

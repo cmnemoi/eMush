@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionResult\Error;
 use Mush\Action\Entity\Dto\ActionRequest;
 use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Game\Controller\AbstractGameController;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
@@ -16,6 +17,7 @@ use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -24,13 +26,16 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ActionController extends AbstractGameController
 {
     private ActionStrategyServiceInterface $actionService;
+    private CycleServiceInterface $cycleService;
 
     public function __construct(
         AdminServiceInterface $adminService,
+        CycleServiceInterface $cycleService,
         ActionStrategyServiceInterface $actionService,
     ) {
         parent::__construct($adminService);
         $this->actionService = $actionService;
+        $this->cycleService = $cycleService;
     }
 
     /**
@@ -94,6 +99,11 @@ class ActionController extends AbstractGameController
         if ($player->getPlayerInfo()->getUser() !== $user) {
             throw new AccessDeniedException('player must be the same as user');
         }
+        $daedalus = $player->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
+        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         try {
             $result = $this->actionService->executeAction(

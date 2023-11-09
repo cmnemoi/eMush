@@ -622,5 +622,27 @@
         <target>L'appareil encaisse *{quantity} {quantity, select, 1 {point} other {points}} de dégâts*.</target>
       </segment>
     </unit>
+    <unit id="stuck_in_the_ship">
+      <segment id="stuck_in_the_ship" state="translated">
+        <source>stuck_in_the_ship</source>
+        <target>{character_gender, select,
+        male {*{character}** est resté à bord car il n'avait pas sa **Combinaison**.}
+        female {**{character}** est restée à bord car elle n'avait pas sa **Combinaison**.}
+        other {**{character}** est resté à bord car il n'avait pas sa **Combinaison**.}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="exploration_finished">
+      <segment id="exploration_finished" state="translated">
+        <source>exploration_finished</source>
+        <target>Vous venez de terminer une expédition ! Vous pouvez retrouver son déroulement {exploration_link}.</target>
+      </segment>
+    </unit>
+    <unit id="all_explorators_stucked">
+      <segment id="all_explorators_stucked" state="translated">
+        <source>all_explorators_stucked</source>
+        <target>L'exploration est revenue plus tôt que prévu : personne n'avait de combinaison !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

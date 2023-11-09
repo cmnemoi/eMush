@@ -69,5 +69,11 @@
         <target>Ouest</target>
       </segment>
     </unit>
+    <unit id="here">
+      <segment id="here" state="final">
+        <source>here</source>
+        <target>ici</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -121,10 +121,12 @@
             <div class="box small contributors">
                 <h3>{{ $t('footer.contributors') }}</h3>
                 <ul>
-                    <li v-for="contributor in displayedContributors" :key="contributor.name">
-                        <img :src="getRoleImage(contributor.role)" :alt="contributor.role">
-                        <span class="name">{{ contributor.name }}</span>
-                    </li>
+                    <TransitionGroup>
+                        <li v-for="contributor in displayedContributors" :key="contributor.name">
+                            <img :src="getRoleImage(contributor.role)" :alt="contributor.role">
+                            <span class="name">{{ contributor.name }}</span>
+                        </li>
+                    </TransitionGroup>
                 </ul>
             </div>
         </div>
@@ -145,7 +147,7 @@ export default defineComponent({
             version: version as string,
             release: process.env.VUE_APP_API_RELEASE_COMMIT as string,
             channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string,
-            displayedContributors: team.filter((member) => !member.coreTeam).slice(0,5),
+            displayedContributors: team.filter((member) => !member.coreTeam).slice(0,6),
         };
     },
     mounted() {
@@ -170,12 +172,15 @@ export default defineComponent({
         },
         startScrolling() {
             let currentIndex = 0;
+            const displayedNames = 6;
             const contributorList = this.team.filter((member) => !member.coreTeam);
 
             setInterval(() => {
-                this.displayedContributors = contributorList.slice(currentIndex, currentIndex + 5);
-                currentIndex = (currentIndex + 5) % contributorList.length;
-            }, 3500);
+                this.displayedContributors = contributorList.slice(currentIndex, currentIndex + displayedNames);
+                if (currentIndex + 1 > contributorList.length - displayedNames) { // adds back the first names when the list is ending to always keep the preset amount of elements
+                    this.displayedContributors = this.displayedContributors.concat(contributorList.slice(0, displayedNames + currentIndex - contributorList.length)); };
+                currentIndex = (currentIndex + 1) % contributorList.length;
+            }, 3000);
         },
     },
 });
@@ -305,6 +310,8 @@ footer {
     padding: 0.3% 0;
 }
 
+.contributors ul { white-space: nowrap; }
+
 @media only screen and (min-width: 768px) { //desktop breakpoint
 
     footer { font-size: 1rem; }
@@ -317,5 +324,19 @@ footer {
         &.small { max-width: 152px; }
     }
 }
+
+ /* TransitionGroup component animations */
+.v-move,
+.v-enter-active,
+.v-leave-active { transition: all 0.8s ease-in-out; }
+
+.v-enter-from,
+.v-leave-to { opacity: 0; }
+
+.v-enter-from { transform: translateY(16px); }
+.v-leave-to { transform: translateY(-16px); }
+
+/* ensure leaving items are taken out of layout flow so that moving animations can be calculated correctly. */
+.v-leave-active { position: absolute; }
 
 </style>

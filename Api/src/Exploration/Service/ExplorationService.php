@@ -124,6 +124,7 @@ final class ExplorationService implements ExplorationServiceInterface
 
         for ($i = 0; $i < $exploration->getNumberOfSectionsToVisit(); ++$i) {
             $sector = $this->randomService->getRandomPlanetSectorsToVisit($planet, 1)->first();
+            $sector->visit();
 
             $eventName = $this->drawPlanetSectorEvent($sector);
             $config = $this->findPlanetSectorEventConfigByName($eventName);

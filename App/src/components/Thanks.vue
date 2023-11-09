@@ -3,10 +3,15 @@
         <div class="waves">
         </div>
         <div class="wrapper">
-            <div class="box small devs">
-                <h3>{{ $t('footer.developers') }} :</h3>
+            <div class="box small core-team">
+                <h3>{{ $t('footer.coreTeam') }}</h3>
                 <ul>
-                    <li v-for="dev in randomDev" :key="dev">{{ dev }}</li>
+                    <li v-for="member in team" :key="member.name">
+                        <template v-if="member.coreTeam && member.active">
+                            <img :src="getRoleImage(member.role)" :alt="member.role">
+                            <span class="name">{{ member.name }}</span>
+                        </template>
+                    </li>
                 </ul>
             </div>
             <div class="box description" id="eternaltwin">
@@ -113,20 +118,17 @@
                     }}</a>
                 </div>
             </div>
-            <div class="box small thanks">
-                <h3>{{ $t('footer.thanks') }} :</h3>
+            <div class="box small contributors">
+                <h3>{{ $t('footer.contributors') }}</h3>
                 <ul>
-                    <li v-for="helper in randomHelpers" :key="helper">{{ helper }}</li>
+                    <TransitionGroup>
+                        <li v-for="contributor in displayedContributors" :key="contributor.name">
+                            <img :src="getRoleImage(contributor.role)" :alt="contributor.role">
+                            <span class="name">{{ contributor.name }}</span>
+                        </li>
+                    </TransitionGroup>
                 </ul>
-                <i18n-t
-                    keypath="footer.alpha-testers"
-                    tag="div"
-                    class="text"
-                    id="alpha-testers">
-                    <template #alpha-testers>
-                        <p>alpha-testers</p>
-                    </template>
-                </i18n-t>
+                {{ $t('footer.alpha-testers') }}
             </div>
         </div>
     </footer>
@@ -134,7 +136,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { crowdin, developers, helpers } from '@/enums/footer';
+import { Contributor, crowdin, team } from '@/enums/footer';
 import { version } from '../../package.json';
 
 export default defineComponent({
@@ -142,19 +144,46 @@ export default defineComponent({
     data() {
         return {
             crowdin: crowdin,
-            developers: developers,
-            randomDev: [] as Array<string>,
-            helpers: helpers,
-            randomHelpers: [] as Array<string>,
+            team: team,
             version: version as string,
             release: process.env.VUE_APP_API_RELEASE_COMMIT as string,
-            channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string
+            channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string,
+            displayedContributors: team.filter((member) => !member.coreTeam).slice(0,6),
         };
     },
     mounted() {
-        this.randomDev = this.developers.sort(() => 0.5 - Math.random());
-        this.randomHelpers = this.helpers.sort(() => 0.5 - Math.random());
-    }
+        this.team = this.team.sort(() => 0.5 - Math.random());
+        this.startScrolling();
+    },
+    methods: {
+        getRoleImage(role: string) {
+            if (role === 'developer') {
+                return require('@/assets/images/project_roles/developerPicto.png');
+            } else if (role === 'admin') {
+                return require('@/assets/images/project_roles/adminPicto.png');
+            } else if (role === 'helper') {
+                return require('@/assets/images/project_roles/helperPicto.png');
+            } else if (role === 'artist') {
+                return require('@/assets/images/project_roles/artistPicto.png');
+            } else if (role === 'translator') {
+                return require('@/assets/images/project_roles/translatorPicto.png');
+            } else {
+                return '';
+            }
+        },
+        startScrolling() {
+            let currentIndex = 0;
+            const displayedNames = 6;
+            const contributorList = this.team.filter((member) => !member.coreTeam);
+
+            setInterval(() => {
+                this.displayedContributors = contributorList.slice(currentIndex, currentIndex + displayedNames);
+                if (currentIndex + 1 > contributorList.length - displayedNames) { // adds back the first names when the list is ending to always keep the preset amount of elements
+                    this.displayedContributors = this.displayedContributors.concat(contributorList.slice(0, displayedNames + currentIndex - contributorList.length)); };
+                currentIndex = (currentIndex + 1) % contributorList.length;
+            }, 3000);
+        },
+    },
 });
 </script>
 
@@ -201,6 +230,10 @@ footer {
     }
 
     ul { display: initial; }
+
+    li {
+        margin-bottom: 0.15em;
+    }
 }
 
 .wrapper {
@@ -231,6 +264,10 @@ footer {
     border-bottom-width: 4px;
 
     &.small { flex: 1 1 40%; }
+
+    .name {
+        margin: .3em;
+    }
 }
 
 .box.description {
@@ -278,6 +315,8 @@ footer {
     padding: 0.3% 0;
 }
 
+.contributors ul { white-space: nowrap; }
+
 @media only screen and (min-width: 768px) { //desktop breakpoint
 
     footer { font-size: 1rem; }
@@ -290,5 +329,19 @@ footer {
         &.small { max-width: 152px; }
     }
 }
+
+ /* TransitionGroup component animations */
+.v-move,
+.v-enter-active,
+.v-leave-active { transition: all 0.8s ease-in-out; }
+
+.v-enter-from,
+.v-leave-to { opacity: 0; }
+
+.v-enter-from { transform: translateY(16px); }
+.v-leave-to { transform: translateY(-16px); }
+
+/* ensure leaving items are taken out of layout flow so that moving animations can be calculated correctly. */
+.v-leave-active { position: absolute; }
 
 </style>

@@ -168,4 +168,9 @@ class DaedalusInfo
 
         return $this;
     }
+
+    public function getLanguage(): string
+    {
+        return $this->localizationConfig->getLanguage();
+    }
 }

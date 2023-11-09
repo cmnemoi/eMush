@@ -1,0 +1,19 @@
+Mush\Exploration\Entity\ClosedExploration:
+  shortName: 'ClosedExploration'
+  description: 'eMush Closed Explorations'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'closed_exploration_read' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+      security: ~
+  itemOperations:
+    get: 
+      security: ~
+  properties:
+    logs:
+      subresource:
+        resourceClass: 'Mush\Exploration\Entity\ExplorationLog'
+        collection: true

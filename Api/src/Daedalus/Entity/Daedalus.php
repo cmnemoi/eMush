@@ -521,7 +521,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getLanguage(): string
     {
-        return $this->daedalusInfo->getLocalizationConfig()->getLanguage();
+        return $this->daedalusInfo->getLanguage();
     }
 
     public function getGameConfig(): GameConfig

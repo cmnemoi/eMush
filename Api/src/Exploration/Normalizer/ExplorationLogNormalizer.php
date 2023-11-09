@@ -25,23 +25,18 @@ final class ExplorationLogNormalizer implements NormalizerInterface
 
     public function normalize(mixed $object, string $format = null, array $context = []): ?array
     {
-        /** @var Player $currentPlayer */
-        $currentPlayer = $context['currentPlayer'];
         /** @var ExplorationLog $explorationLog */
         $explorationLog = $object;
 
-        if (!$currentPlayer->isExploring()) {
-            return null;
-        }
-
+        $closedExploration = $explorationLog->getClosedExploration();
         $planetSectorKey = $explorationLog->getPlanetSectorName();
 
         $logParameters = $explorationLog->getParameters();
         $logParameters['planet'] = $this->translationService->translate(
             key: 'planet_name',
-            parameters: $explorationLog->getClosedExploration()->getPlanetName(),
+            parameters: $closedExploration->getPlanetName(),
             domain: 'planet',
-            language: $currentPlayer->getDaedalus()->getLanguage(),
+            language: $closedExploration->getDaedalusInfo()->getLanguage(),
         );
 
         return [
@@ -51,25 +46,25 @@ final class ExplorationLogNormalizer implements NormalizerInterface
                 key: $explorationLog->getPlanetSectorName() . '.name',
                 parameters: [],
                 domain: 'planet',
-                language: $currentPlayer->getDaedalus()->getLanguage(),
+                language: $closedExploration->getDaedalusInfo()->getLanguage(),
             ),
             'eventName' => $this->translationService->translate(
                 key: $explorationLog->getEventName() . '.name',
                 parameters: [],
                 domain: 'planet_sector_event',
-                language: $currentPlayer->getDaedalus()->getLanguage(),
+                language: $closedExploration->getDaedalusInfo()->getLanguage(),
             ),
             'eventDescription' => $this->translationService->translate(
                 key: $explorationLog->getEventName() . '.description',
                 parameters: $logParameters,
                 domain: 'planet_sector_event',
-                language: $currentPlayer->getDaedalus()->getLanguage(),
+                language: $closedExploration->getDaedalusInfo()->getLanguage(),
             ),
             'eventOutcome' => $this->translationService->translate(
                 key: $explorationLog->getEventName() . '.' . $planetSectorKey . '_description',
                 parameters: $logParameters,
                 domain: 'planet_sector_event',
-                language: $currentPlayer->getDaedalus()->getLanguage(),
+                language: $closedExploration->getDaedalusInfo()->getLanguage(),
             ),
         ];
     }

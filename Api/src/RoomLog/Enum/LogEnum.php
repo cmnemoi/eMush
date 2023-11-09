@@ -50,6 +50,8 @@ class LogEnum
     public const ATTACKED_BY_HUNTER = 'attacked_by_hunter';
     public const PATROL_DISCHARGE = 'patrol_discharge';
     public const PATROL_DAMAGE = 'patrol_damage';
+    public const EXPLORATION_FINISHED = 'exploration_finished';
+    public const ALL_EXPLORATORS_STUCKED = 'all_explorators_stucked';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';

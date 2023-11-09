@@ -19,6 +19,7 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 
@@ -56,6 +57,7 @@ final class ExplorationService implements ExplorationServiceInterface
 
         $exploration = new Exploration($planet);
         $exploration->setExplorators($players);
+        $exploration->getClosedExploration()->setExploratorNames($players->map(fn (Player $player) => $player->getLogName())->toArray());
         $exploration->setNumberOfSectionsToVisit(min($numberOfSectorsToVisit, $planet->getSectors()->count()));
         
         if ($exploration->getNumberOfSectionsToVisit() < 1) {
@@ -63,8 +65,6 @@ final class ExplorationService implements ExplorationServiceInterface
         }
         $exploration->setShipUsedName($explorationShip->getName());
         $exploration->setStartPlaceName($explorationShip->getPlace()->getName());
-
-        // @TODO : check for spacesuits for planets without oxygen
 
         $this->persist([$exploration]);
 
@@ -124,8 +124,10 @@ final class ExplorationService implements ExplorationServiceInterface
         $this->eventService->callEvent($planetSectorEvent, $eventName);
 
         for ($i = 0; $i < $exploration->getNumberOfSectionsToVisit(); ++$i) {
+            /** @var PlanetSector $sector */
             $sector = $this->randomService->getRandomPlanetSectorsToVisit($planet, 1)->first();
             $sector->visit();
+            $exploration->getClosedExploration()->addExploredSectorKey($sector->getName());
 
             $eventName = $this->drawPlanetSectorEvent($sector);
             $config = $this->findPlanetSectorEventConfigByName($eventName);

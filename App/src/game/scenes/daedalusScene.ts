@@ -430,11 +430,6 @@ export default class DaedalusScene extends Phaser.Scene
             return;
         }
 
-        // add target tile highlight
-        this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
-        this.add.existing(this.targetHighlightObject);
-        this.targetHighlightObject.setDepth(500);
-
         this.input.setTopOnly(true);
         this.input.setGlobalTopOnly(true);
 
@@ -669,6 +664,11 @@ export default class DaedalusScene extends Phaser.Scene
             this.isScreenSliding.y = true;
             this.cameras.main.setBounds(-this.sceneIsoSize.y, -72, sceneCartesianSize.x, sceneCartesianSize.y + 72);
         }
+
+        // add target tile highlight
+        this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
+        this.add.existing(this.targetHighlightObject);
+        this.targetHighlightObject.setDepth(500);
 
         return map;
     }
@@ -1062,6 +1062,7 @@ export default class DaedalusScene extends Phaser.Scene
             const cellCoords = this.getGridIsoCoordinate(pointerCoords.toIsometricCoordinates()).toCartesianCoordinates();
 
             const sceneGridIndex = this.sceneGrid.getPolygonFromPoint(cellCoords.toIsometricCoordinates());
+
             if (sceneGridIndex !== -1) {
                 this.targetHighlightObject.setPosition(cellCoords.x, cellCoords.y);
                 this.targetHighlightObject.setDepth(this.sceneGrid.getDepthOfPoint(cellCoords.toIsometricCoordinates()));

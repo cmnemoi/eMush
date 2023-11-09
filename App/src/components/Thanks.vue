@@ -128,6 +128,7 @@
                         </li>
                     </TransitionGroup>
                 </ul>
+                {{ $t('footer.alpha-testers') }}
             </div>
         </div>
     </footer>
@@ -229,6 +230,10 @@ footer {
     }
 
     ul { display: initial; }
+
+    li {
+        margin-bottom: 0.15em;
+    }
 }
 
 .wrapper {

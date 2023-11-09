@@ -9,6 +9,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 
@@ -72,6 +74,29 @@ class Exploration
         }
 
         $this->explorators = $explorators;
+    }
+
+    public function getExploratorsWithoutSpacesuit(): PlayerCollection
+    {
+        return $this->getExplorators()->filter(
+            fn (Player $explorator) => !$explorator->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)
+        );
+    }
+
+    /**
+     * Returns active explorators : alive if there is oxygen on the planet, alive and with spacesuit otherwise
+     */
+    public function getActiveExplorators(): PlayerCollection
+    {   
+        if ($this->planet->hasSectorByName(PlanetSectorEnum::OXYGEN)) {
+            return $this->getExplorators()->filter(
+                fn (Player $explorator) => $explorator->isAlive()
+            );
+        }
+
+        return $this->getExplorators()->filter(
+            fn (Player $explorator) => $explorator->isAlive() && $explorator->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)
+        );
     }
 
     public function addExplorator(Player $explorator): void

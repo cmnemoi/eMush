@@ -21,8 +21,14 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
+            ExplorationEvent::ALL_EXPLORATORS_STUCKED => 'onAllExploratorsStucked',
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::LOWEST],
         ];
+    }
+
+    public function onAllExploratorsStucked(ExplorationEvent $event): void
+    {   
+        $this->explorationService->closeExploration($event->getExploration(), $event->getTags());
     }
 
     public function onExplorationStarted(ExplorationEvent $event): void

@@ -24,7 +24,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $this->eventService = $eventService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::HIGH],

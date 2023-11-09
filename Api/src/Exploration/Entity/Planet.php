@@ -115,6 +115,11 @@ class Planet implements LogParameterInterface
         return $this;
     }
 
+    public function hasSectorByName(string $name): bool
+    {
+        return $this->sectors->exists(fn (int $key, PlanetSector $sector) => $sector->getName() === $name);
+    }
+
     /** @return Collection<int, PlanetSector> */
     public function getRevealedSectors(): Collection
     {

@@ -6,7 +6,6 @@ namespace Mush\Exploration\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Entity\PlanetSector;
@@ -79,7 +78,7 @@ final class ExplorationService implements ExplorationServiceInterface
         return $exploration;
     }
 
-    public function closeExploration(Exploration $exploration, array $reasons): ClosedExploration
+    public function closeExploration(Exploration $exploration, array $reasons): void
     {
         $closedExploration = $exploration->getClosedExploration();
 
@@ -91,8 +90,6 @@ final class ExplorationService implements ExplorationServiceInterface
         // @TODO remove this debug line
         $exploration->getPlanet()->getSectors()->map(fn (PlanetSector $sector) => $sector->unvisit());
 
-        $this->delete([$exploration]);
-
         $explorationEvent = new ExplorationEvent(
             exploration: $exploration,
             tags: $reasons,
@@ -100,7 +97,10 @@ final class ExplorationService implements ExplorationServiceInterface
         );
         $this->eventService->callEvent($explorationEvent, ExplorationEvent::EXPLORATION_FINISHED);
 
-        return $closedExploration;
+        $this->delete([$exploration]);
+        if (in_array(ExplorationEvent::ALL_EXPLORATORS_STUCKED, $reasons)) {
+            $this->delete([$closedExploration]);
+        }
     }
 
     public function computeExplorationEvents(Exploration $exploration): Exploration
@@ -173,10 +173,15 @@ final class ExplorationService implements ExplorationServiceInterface
     {
         $exploration = $event->getExploration();
 
+        // also remove health to explorators in stucked in the ship for landign events
+        $explorators = $event->getPlanetSector()->getName() === PlanetSectorEnum::LANDING ?
+            $exploration->getExplorators() :
+            $exploration->getActiveExplorators();
+
         $healthLost = $this->drawEventOutputQuantity($event->getOutputQuantityTable());
-        foreach ($exploration->getExplorators() as $player) {
+        foreach ($explorators as $explorator) {
             $playerVariableEvent = new PlayerVariableEvent(
-                player: $player,
+                player: $explorator,
                 variableName: PlayerVariableEnum::HEALTH_POINT,
                 quantity: -$healthLost,
                 tags: $event->getTags(),
@@ -193,7 +198,13 @@ final class ExplorationService implements ExplorationServiceInterface
     public function removeHealthToARandomExplorator(PlanetSectorEvent $event): array
     {
         $exploration = $event->getExploration();
-        $exploratorToInjure = $this->randomService->getRandomPlayer($exploration->getExplorators());
+        
+        // also remove health to explorators in stucked in the ship for landign events
+        $explorators = $event->getPlanetSector()->getName() === PlanetSectorEnum::LANDING ?
+            $exploration->getExplorators() :
+            $exploration->getActiveExplorators();
+
+        $exploratorToInjure = $this->randomService->getRandomPlayer($explorators);
         $healthLost = $this->drawEventOutputQuantity($event->getOutputQuantityTable());
 
         $playerVariableEvent = new PlayerVariableEvent(

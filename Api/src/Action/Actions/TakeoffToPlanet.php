@@ -16,6 +16,8 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -24,16 +26,21 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class TakeoffToPlanet extends AbstractAction
 {
     protected string $name = ActionEnum::TAKEOFF_TO_PLANET;
+    
+    private const NUMBER_OF_EXPLORATORS = 4;
     private ExplorationServiceInterface $explorationService;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        ExplorationServiceInterface $explorationService
+        ExplorationServiceInterface $explorationService,
+        RandomServiceInterface $randomService
     ) {
         parent::__construct($eventService, $actionService, $validator);
         $this->explorationService = $explorationService;
+        $this->randomService = $randomService;
     }
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
@@ -74,8 +81,15 @@ final class TakeoffToPlanet extends AbstractAction
         /** @var GameEquipment $icarus */
         $icarus = $this->target;
 
+        // draw explorators from the players in exploration craft place to avoid all crewmates
+        // to participate and be overpowered
+        $explorators = $this->randomService->getRandomElements(
+            $icarus->getPlace()->getPlayers()->getPlayerAlive()->toArray(),
+            self::NUMBER_OF_EXPLORATORS
+        );
+
         $this->explorationService->createExploration(
-            players: $icarus->getPlace()->getPlayers()->getPlayerAlive(),
+            players: new PlayerCollection($explorators),
             explorationShip: $icarus,
             numberOfSectorsToVisit: $this->getOutputQuantity(),
             reasons: $this->action->getActionTags(),

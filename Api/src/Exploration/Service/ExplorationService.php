@@ -172,8 +172,13 @@ final class ExplorationService implements ExplorationServiceInterface
         $exploration->setCycle($exploration->getCycle() + 1);
         $this->persist([$exploration]);
 
-        // if number of sectors to visit is reached, close exploration
-        if ($exploration->getCycle() >= $exploration->getNumberOfSectionsToVisit() + 1) {
+        // close exploration prematurely if needed
+        $allActiveExploratorsAreDead = $exploration->getActiveExplorators()->isEmpty();
+        $allSectorsVisited = $exploration->getCycle() >= $exploration->getNumberOfSectionsToVisit() + 1;
+
+        if ($allActiveExploratorsAreDead) {
+            $this->closeExploration($exploration, [ExplorationEvent::ALL_EXPLORATORS_ARE_DEAD]);
+        } else if ($allSectorsVisited) {
             $this->closeExploration($exploration, [ExplorationEvent::ALL_SECTORS_VISITED]);
         }
 

@@ -117,7 +117,7 @@ export default defineComponent ({
 .panel {
     position: relative;
     flex-direction: column;
-    width: 424px;
+    width: 100%;
     height: 100%;
     padding: 5px 8px;
     margin: auto;
@@ -125,7 +125,6 @@ export default defineComponent ({
     background: $brightCyan;
 
     @include corner-bezel(6.5px, 6.5px, 6.5px, 6.5px);
-
 }
 
 .planet {

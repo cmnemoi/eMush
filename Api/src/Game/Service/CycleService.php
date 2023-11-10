@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Exploration\Entity\Exploration;
+use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Psr\Log\LoggerInterface;
@@ -152,6 +154,78 @@ class CycleService implements CycleServiceInterface
         $differencesInMinutes = $this->getDateIntervalAsMinutes($start, $end);
 
         return intval(floor($differencesInMinutes / $daedalusConfig->getCycleLength()));
+    }
+
+    public function handleExplorationCycleChange(\DateTime $dateTime, Exploration $exploration): int
+    {
+        $daedalusInfo = $exploration->getDaedalus()->getDaedalusInfo();
+        if ($daedalusInfo->isDaedalusFinished()) {
+            return 0;
+        }
+
+        $dateExplorationLastCycle = $exploration->getUpdatedAt();
+        $dateExplorationLastCycle = clone $dateExplorationLastCycle;
+
+        $cycleElapsed = $this->getNumberOfExplorationCycleElapsed($dateExplorationLastCycle, $dateTime, $exploration);
+
+        if ($cycleElapsed > 0 && !$exploration->isChangingCycle()) {
+            $exploration->setIsChangingCycle(true);
+            $this->entityManager->persist($exploration);
+            $this->entityManager->flush();
+
+            try {
+                for ($i = 0; $i < $cycleElapsed; ++$i) {
+                    $dateExplorationLastCycle->add(new \DateInterval('PT' . $exploration->getCycleLength() . 'M'));
+                    $cycleEvent = new ExplorationEvent(
+                        $exploration,
+                        [EventEnum::NEW_CYCLE],
+                        $dateExplorationLastCycle
+                    );
+                    $this->eventService->callEvent($cycleEvent, ExplorationEvent::EXPLORATION_NEW_CYCLE);
+
+                    // Do not continue make cycle if Daedalus is finished
+                    if ($daedalusInfo->getGameStatus() === GameStatusEnum::FINISHED) {
+                        break;
+                    }
+                }
+            } catch (\Throwable $e) {
+                $this->logger->error('Error during exploration cycle change', [
+                    'exploration' => $exploration->getId(),
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
+            } finally {
+                $exploration->setIsChangingCycle(false);
+                $this->entityManager->persist($exploration);
+                $this->entityManager->flush();
+            }
+        }
+
+        return $cycleElapsed;
+    }
+
+    public function getExplorationDateStartNextCycle(Exploration $exploration): \DateTime
+    {
+        if (($dateExplorationLastCycle = $exploration->getUpdatedAt()) === null) {
+            throw new \LogicException('Exploration should have a CycleStartedAt Value');
+        }
+
+        $nextCycleStartAt = clone $dateExplorationLastCycle;
+
+        return $nextCycleStartAt->add(new \DateInterval('PT' . $exploration->getCycleLength() . 'M'));
+    }
+
+    private function getNumberOfExplorationCycleElapsed(\DateTime $start, \DateTime $end, Exploration $exploration): int
+    {   
+        $start = clone $start;
+        $end = clone $end;
+        $timeZone = $exploration->getDaedalus()->getDaedalusInfo()->getLocalizationConfig()->getTimeZone();
+        $end->setTimezone(new \DateTimeZone($timeZone));
+        $start->setTimezone(new \DateTimeZone($timeZone));
+
+        $differencesInMinutes = $this->getDateIntervalAsMinutes($start, $end);
+
+        return intval(floor($differencesInMinutes / $exploration->getCycleLength()));
     }
 
     private function getDateIntervalAsMinutes(\DateTime $dateStart, \DateTime $dateEnd): int

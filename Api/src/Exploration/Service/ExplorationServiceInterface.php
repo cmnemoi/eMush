@@ -16,7 +16,7 @@ interface ExplorationServiceInterface
 
     public function closeExploration(Exploration $exploration, array $reasons): void;
 
-    public function computeExplorationEvents(Exploration $exploration): Exploration;
+    public function dispatchExplorationEvent(Exploration $exploration): Exploration;
 
     public function createExplorationLog(PlanetSectorEvent $event, array $parameters = []): ExplorationLog;
 

@@ -81,14 +81,8 @@ final class ExplorationService implements ExplorationServiceInterface
     public function closeExploration(Exploration $exploration, array $reasons): void
     {
         $closedExploration = $exploration->getClosedExploration();
-
-        foreach ($exploration->getExplorators() as $explorator) {
-            $explorator->setExploration(null);
-        }
-        $exploration->getPlanet()->setExploration(null);
-
-        // @TODO remove this debug line
-        $exploration->getPlanet()->getSectors()->map(fn (PlanetSector $sector) => $sector->unvisit());
+        $explorators = $exploration->getExplorators();
+        $planet = $exploration->getPlanet();
 
         $explorationEvent = new ExplorationEvent(
             exploration: $exploration,
@@ -97,58 +91,18 @@ final class ExplorationService implements ExplorationServiceInterface
         );
         $this->eventService->callEvent($explorationEvent, ExplorationEvent::EXPLORATION_FINISHED);
 
+        foreach ($explorators as $explorator) {
+            $explorator->setExploration(null);
+        }
+        $planet->setExploration(null);
+
+        // @TODO remove this debug line
+        $exploration->getPlanet()->getSectors()->map(fn (PlanetSector $sector) => $sector->unvisit());
+
         $this->delete([$exploration]);
         if (in_array(ExplorationEvent::ALL_EXPLORATORS_STUCKED, $reasons)) {
             $this->delete([$closedExploration]);
         }
-    }
-
-    public function computeExplorationEvents(Exploration $exploration): Exploration
-    {
-        $planet = $exploration->getPlanet();
-
-        // add Landing planet sector at the beginning of the exploration
-        $landingSectorConfig = $this->findPlanetSectorConfigBySectorName(PlanetSectorEnum::LANDING);
-        $landingSector = new PlanetSector($landingSectorConfig, $planet);
-
-        $eventName = $this->drawPlanetSectorEvent($landingSector);
-        $config = $this->findPlanetSectorEventConfigByName($eventName);
-        if (!$config) {
-            throw new \RuntimeException('Exploration event config not found for event name ' . $eventName);
-        }
-
-        $planetSectorEvent = new PlanetSectorEvent(
-            planetSector: $landingSector,
-            config: $config,
-        );
-        $this->eventService->callEvent($planetSectorEvent, $eventName);
-
-        for ($i = 0; $i < $exploration->getNumberOfSectionsToVisit(); ++$i) {
-            /** @var PlanetSector $sector */
-            $sector = $this->randomService->getRandomPlanetSectorsToVisit($planet, 1)->first();
-            $sector->visit();
-            $exploration->getClosedExploration()->addExploredSectorKey($sector->getName());
-
-            $eventName = $this->drawPlanetSectorEvent($sector);
-            $config = $this->findPlanetSectorEventConfigByName($eventName);
-            // @TODO : remove this debug condition when all events are implemented
-            if ($config === null) {
-                $config = $this->findPlanetSectorEventConfigByName(PlanetSectorEvent::NOTHING_TO_REPORT);
-                if ($config === null) {
-                    throw new \RuntimeException('Exploration event config not found for event name ' . $eventName);
-                }
-            }
-
-            $event = new PlanetSectorEvent(
-                planetSector: $sector,
-                config: $config,
-            );
-            $this->eventService->callEvent($event, $eventName);
-        }
-
-        $this->persist([$exploration]);
-
-        return $exploration;
     }
 
     public function createExplorationLog(PlanetSectorEvent $event, array $parameters = []): ExplorationLog
@@ -169,6 +123,61 @@ final class ExplorationService implements ExplorationServiceInterface
         $this->persist([$explorationLog]);
 
         return $explorationLog;
+    }
+
+    public function dispatchExplorationEvent(Exploration $exploration): Exploration
+    {   
+        $closedExploration = $exploration->getClosedExploration();
+        $planet = $exploration->getPlanet();
+
+        // if exploration is just starting, dispatch landing event
+        if ($exploration->getCycle() === 0) {
+            $landingSectorConfig = $this->findPlanetSectorConfigBySectorName(PlanetSectorEnum::LANDING);
+            $landingSector = new PlanetSector($landingSectorConfig, $planet);
+
+            $eventName = $this->drawPlanetSectorEvent($landingSector);
+            $config = $this->findPlanetSectorEventConfigByName($eventName);
+            if (!$config) {
+                throw new \RuntimeException('Exploration event config not found for event name ' . $eventName);
+            }
+
+            $planetSectorEvent = new PlanetSectorEvent(
+                planetSector: $landingSector,
+                config: $config,
+            );
+            $this->eventService->callEvent($planetSectorEvent, $eventName);
+        } else {
+            /** @var PlanetSector $sector */
+            $sector = $this->randomService->getRandomPlanetSectorsToVisit($planet, 1)->first();
+            $sector->visit();
+            $closedExploration->addExploredSectorKey($sector->getName());
+
+            $eventName = $this->drawPlanetSectorEvent($sector);
+            $config = $this->findPlanetSectorEventConfigByName($eventName);
+            // @TODO : remove this debug condition when all events are implemented
+            if ($config === null) {
+                $config = $this->findPlanetSectorEventConfigByName(PlanetSectorEvent::NOTHING_TO_REPORT);
+                if ($config === null) {
+                    throw new \RuntimeException('Exploration event config not found for event name ' . $eventName);
+                }
+            }
+
+            $event = new PlanetSectorEvent(
+                planetSector: $sector,
+                config: $config,
+            );
+            $this->eventService->callEvent($event, $eventName);
+        }
+
+        $exploration->setCycle($exploration->getCycle() + 1);
+        $this->persist([$exploration]);
+
+        // if number of sectors to visit is reached, close exploration
+        if ($exploration->getCycle() >= $exploration->getNumberOfSectionsToVisit() + 1) {
+            $this->closeExploration($exploration, [ExplorationEvent::ALL_SECTORS_VISITED]);
+        }
+
+        return $exploration;
     }
 
     public function removeHealthToAllExplorators(PlanetSectorEvent $event): array

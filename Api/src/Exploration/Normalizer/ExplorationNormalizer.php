@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Exploration\Normalizer;
 
 use Mush\Exploration\Entity\Exploration;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -16,10 +17,15 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
 {
     use NormalizerAwareTrait;
 
+    private CycleServiceInterface $cycleService;
     private TranslationServiceInterface $translationService;
 
-    public function __construct(TranslationServiceInterface $translationService)
-    {
+    public function __construct(
+        CycleServiceInterface $cycleService,
+        TranslationServiceInterface $translationService,
+    )
+    {   
+        $this->cycleService = $cycleService;
         $this->translationService = $translationService;
     }
 
@@ -43,9 +49,28 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
             'id' => $exploration->getId(),
             'createdAt' => $exploration->getCreatedAt(),
             'updatedAt' => $exploration->getUpdatedAt(),
+            'cycleLength' => $exploration->getCycleLength(),
             'planet' => $this->normalizer->normalize($exploration->getPlanet(), $format, $context),
             'explorators' => $this->normalizeExplorators($exploration->getExplorators()),
             'logs' => $this->normalizer->normalize($exploration->getClosedExploration()->getLogs(), $format, $context),
+            'estimated_duration' => $this->translationService->translate(
+                'estimated_duration',
+                [
+                    '%duration%' => $exploration->getCycleLength() * ($exploration->getNumberOfSectionsToVisit() + 1 - $exploration->getCycle()),
+                ],
+                'misc',
+                $exploration->getDaedalus()->getLanguage(),
+            ),
+            'timer' => [
+                'name' => $this->translationService->translate('currentCycle.name', [], 'daedalus', $exploration->getDaedalus()->getLanguage()),
+                'description' => $this->translationService->translate(
+                    'currentCycle.description',
+                    [],
+                    'daedalus',
+                    $exploration->getDaedalus()->getLanguage(),
+                ),
+                'timerCycle' => $this->cycleService->getExplorationDateStartNextCycle($object)->format(\DateTimeInterface::ATOM),
+            ],
         ];
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -42,6 +43,12 @@ class Exploration
     #[ORM\Column(type: 'string', nullable: false)]
     private string $shipUsedName = '';
 
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $cycle = 0;
+
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    private bool $isChangingCycle = false;
+
     public function __construct(Planet $planet)
     {
         $this->planet = $planet;
@@ -51,7 +58,7 @@ class Exploration
 
         $this->closedExploration = new ClosedExploration($this);
     }
-
+    
     public function getId(): int
     {
         return $this->id;
@@ -140,8 +147,33 @@ class Exploration
         $this->shipUsedName = $shipUsedName;
     }
 
+    public function getCycle(): int
+    {
+        return $this->cycle;
+    }
+
+    public function setCycle(int $cycle): void
+    {
+        $this->cycle = $cycle;
+    }
+    
+    public function isChangingCycle(): bool
+    {
+        return $this->isChangingCycle;
+    }
+
+    public function setIsChangingCycle(bool $isChangingCycle): void
+    {
+        $this->isChangingCycle = $isChangingCycle;
+    }
+
     public function getDaedalus(): Daedalus
     {
         return $this->planet->getPlayer()->getDaedalus();
+    }
+
+    public function getCycleLength(): int
+    {
+        return intval($this->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCycleLength() / 18);
     }
 }

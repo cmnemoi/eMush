@@ -23,6 +23,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         return [
             ExplorationEvent::ALL_EXPLORATORS_STUCKED => 'onAllExploratorsStucked',
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::LOWEST],
+            ExplorationEvent::EXPLORATION_NEW_CYCLE => ['onExplorationNewCycle', EventPriorityEnum::LOWEST],
         ];
     }
 
@@ -33,6 +34,11 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
 
     public function onExplorationStarted(ExplorationEvent $event): void
     {
-        $this->explorationService->computeExplorationEvents($event->getExploration());
+        $this->explorationService->dispatchExplorationEvent($event->getExploration());
+    }
+
+    public function onExplorationNewCycle(ExplorationEvent $event): void
+    {   
+        $this->explorationService->dispatchExplorationEvent($event->getExploration());
     }
 }

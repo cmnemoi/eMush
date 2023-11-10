@@ -8,7 +8,7 @@ Mush\Exploration\Entity\ClosedExploration:
   collectionOperations:
     get:
       filters: [ 'default.search_filter', 'default.order_filter' ]
-      security: 'is_granted("ROLE_USER")'
+      security: 'is_granted("ROLE_ADMIN")'
   itemOperations:
     get: 
       security: 'is_granted("ROLE_USER") and (is_granted("DAEDALUS_IS_FINISHED", object) or is_granted("IS_AN_EXPLORATOR", object) or is_granted("IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED", object))'

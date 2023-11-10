@@ -270,7 +270,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
     }
 
     public function testCollectScrapWithAttackingAsteroids(FunctionalTester $I): void
-    {   
+    {
         // given there is some scrap in space
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::METAL_SCRAPS,
@@ -284,7 +284,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $this->daedalus->getGameConfig()->setHunterConfigs(
             $this->daedalus->getGameConfig()->getHunterConfigs()->filter(
                 fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID
-        ));
+            ));
         // given it's day 10 so asteroids can spawn
         $this->daedalus->setDay(10);
 

@@ -26,7 +26,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class TakeoffToPlanet extends AbstractAction
 {
     protected string $name = ActionEnum::TAKEOFF_TO_PLANET;
-    
+
     private const NUMBER_OF_EXPLORATORS = 4;
     private ExplorationServiceInterface $explorationService;
     private RandomServiceInterface $randomService;

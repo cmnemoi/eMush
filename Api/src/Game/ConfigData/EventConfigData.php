@@ -224,10 +224,9 @@ class EventConfigData
             'name' => PlanetSectorEvent::ACCIDENT . '_3_5',
             'eventName' => PlanetSectorEvent::ACCIDENT,
             'outputQuantityTable' => [
-                // 3 => 1,
-                // 4 => 1,
-                // 5 => 1,
-                1 => 1,
+                3 => 1,
+                4 => 1,
+                5 => 1,
             ],
         ],
         [
@@ -235,10 +234,9 @@ class EventConfigData
             'name' => PlanetSectorEvent::DISASTER . '_3_5',
             'eventName' => PlanetSectorEvent::DISASTER,
             'outputQuantityTable' => [
-                // 3 => 1,
-                // 4 => 1,
-                // 5 => 1,
-                1 => 1,
+                3 => 1,
+                4 => 1,
+                5 => 1,
             ],
         ],
         [
@@ -251,8 +249,7 @@ class EventConfigData
             'name' => PlanetSectorEvent::TIRED . '_2',
             'eventName' => PlanetSectorEvent::TIRED,
             'outputQuantityTable' => [
-                // 2 => 1,
-                1 => 1,
+                2 => 1,
             ],
         ],
     ];

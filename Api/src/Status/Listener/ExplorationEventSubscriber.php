@@ -56,6 +56,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             );
         }
 
+        // won't do an exploration with all explorators stucked in the ship
         if ($exploratorsWithoutSpaceSuit->count() === $explorators->count()) {
             $event->stopPropagation();
 

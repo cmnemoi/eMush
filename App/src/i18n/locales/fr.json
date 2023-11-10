@@ -566,6 +566,9 @@
 			"showMessageChildren": "Afficher {count} réponse | Afficher {count} réponses",
 			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses",
 			"newCycle": "Nouveau cycle"
+		},
+		"exploration" : {
+			"newStep": "Nouvelle étape"
 		}
 	},
 	"newsPage": {

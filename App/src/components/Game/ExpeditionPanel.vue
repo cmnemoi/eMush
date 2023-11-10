@@ -3,7 +3,7 @@
         <TerminalTips content="Hello, World!"/>
         <section class="planet">
             <h3>{{ exploration.planet.name }}</h3>
-            <!-- <span class="estimate">Retour estimé dans: 40 min.</span> -->
+            <span class="estimate">{{ exploration.estimatedDuration }}</span>
             <div class="card">
                 <img class="planet-img" src="@/assets/images/astro/planet_unknown.png">
                 <ul class="crew">
@@ -31,9 +31,21 @@
                 <p> Vous êtes perdu sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher. </p>
             </div>
         </section>
-        <section class="logs">
+        <section class="logs" v-if="exploration.logs.length > 0">
+            <CountdownTimer class="estimate" :end-date="exploration.timer?.timerCycle">
+                <template #default="slotProps">
+                    <div v-if="!isCycleChangeAvailable(exploration)" class="timer">
+                        <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour
+                        }}h</span>
+                        <span class="cycle-time-left">{{ slotProps.min }}m</span>
+                        <span class="cycle-time-left">{{ slotProps.sec }}s</span>
+                    </div>
+                    <div v-else>
+                        <button class="new-cycle-button flashing" @click="triggerCycleChange(player)">{{ $t('game.exploration.newStep') }}</button>
+                    </div>
+                </template>
+            </CountdownTimer>
             <div v-for="(log, i) in exploration.logs" :key=i class="event">
-                <!-- <span class="estimate"><img src="@/assets/images/casio.png"> 09m03s</span> -->
                 <img :src="getSectorImage(log.planetSectorKey)">
                 <div>
                     <h3>{{ log.planetSectorName }} - {{ log.eventName }}</h3>
@@ -46,15 +58,19 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue";
+import { formatText } from "@/utils/formatText";
+import CountdownTimer from "@/components/Utils/CountdownTimer.vue";
 import TerminalTips from "@/components/Game/Terminals/TerminalTips.vue";
 import { Exploration } from "@/entities/Exploration";
 import { Player } from "@/entities/Player";
-import { defineComponent } from "vue";
-import { formatText } from "@/utils/formatText";
+import PlayerService from "@/services/player.service";
+
 
 export default defineComponent ({
     name: "ExpeditionPanel",
     components: {
+        CountdownTimer,
         TerminalTips
     },
     computed: {
@@ -80,6 +96,16 @@ export default defineComponent ({
             if (!text)
                 return '';
             return formatText(text);
+        },
+        isCycleChangeAvailable(exploration: Exploration) {
+            if (!exploration.timer.timerCycle) {
+                return false;
+            }
+
+            return exploration.timer.timerCycle.getTime() < Date.now();
+        },
+        triggerCycleChange(player: Player) {
+            PlayerService.triggerExplorationCycleChange(player);
         }
     },
     data() {
@@ -211,6 +237,11 @@ export default defineComponent ({
 .logs {
     overflow-y: auto;
     @extend %game-scrollbar;
+
+    .estimate {
+        position: relative;
+        font-variant: small-caps; 
+    }
 }
 
 .event {
@@ -219,7 +250,10 @@ export default defineComponent ({
     padding: 0.4em 0.3em 0 0;
     border-bottom: 1px solid #aad4e5;
 
-    .estimate { font-variant: small-caps; }
+    .estimate { 
+        position: relative;
+        font-variant: small-caps; 
+    }
 
     & > img {
         width: 32px;
@@ -238,6 +272,11 @@ export default defineComponent ({
         font-style: italic;
         color: $red;
     }
+}
+
+.new-cycle-button {
+    @include button-style();
+    display: block;
 }
 
 </style>

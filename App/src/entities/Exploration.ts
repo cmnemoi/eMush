@@ -1,6 +1,7 @@
 import { Planet } from "@/entities/Planet";
 import { Explorator } from "@/entities/Explorator";
 import { ExplorationLogs } from "@/entities/ExplorationLogs";
+import { TimerCycle } from "./TimerCycle";
 
 export class Exploration {
     public id!: number;
@@ -9,6 +10,8 @@ export class Exploration {
     public planet!: Planet;
     public explorators!: Explorator[];
     public logs!: ExplorationLogs[];
+    public estimatedDuration!: number;
+    public timer!: TimerCycle;
 
     public load(object: any): Exploration {
         if (object) {
@@ -18,6 +21,8 @@ export class Exploration {
             this.planet = (new Planet()).load(object.planet);
             this.explorators = object.explorators.map((explorator: any) => (new Explorator()).load(explorator));
             this.logs = object.logs;
+            this.estimatedDuration = object.estimated_duration;
+            this.timer = (new TimerCycle()).load(object.timer);
         }
 
         return this;

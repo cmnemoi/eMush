@@ -4,11 +4,14 @@ namespace Mush\Game\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Exploration\Entity\PlanetSectorEventConfig;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 
+/** @codeCoverageIgnore */
 class EventConfigFixtures extends Fixture
 {
     public const MAX_HEALTH_REDUCE_1 = 'change.value.max_player_-1_healthPoint';
@@ -313,6 +316,48 @@ class EventConfigFixtures extends Fixture
         ;
         $manager->persist($eventConfig);
         $this->addReference(self::SATIETY_INCREASE_1, $eventConfig);
+
+        $eventConfig = new PlanetSectorEventConfig();
+        $eventConfig
+            ->setOutputQuantityTable([
+                3 => 1,
+                4 => 1,
+                5 => 1,
+            ])
+            ->setName(PlanetSectorEvent::DISASTER . '_3_5')
+            ->setEventName(PlanetSectorEvent::DISASTER)
+        ;
+        $manager->persist($eventConfig);
+
+        $eventConfig = new PlanetSectorEventConfig();
+        $eventConfig
+            ->setOutputQuantityTable([
+                3 => 1,
+                4 => 1,
+                5 => 1,
+            ])
+            ->setName(PlanetSectorEvent::DISASTER . '_3_5')
+            ->setEventName(PlanetSectorEvent::DISASTER)
+
+        ;
+        $manager->persist($eventConfig);
+
+        $eventConfig = new PlanetSectorEventConfig();
+        $eventConfig
+            ->setName(PlanetSectorEvent::NOTHING_TO_REPORT)
+            ->setEventName(PlanetSectorEvent::NOTHING_TO_REPORT)
+        ;
+        $manager->persist($eventConfig);
+
+        $eventConfig = new PlanetSectorEventConfig();
+        $eventConfig
+            ->setOutputQuantityTable([
+                2 => 1,
+            ])
+            ->setName(PlanetSectorEvent::TIRED . '_2')
+            ->setEventName(PlanetSectorEvent::TIRED)
+        ;
+        $manager->persist($eventConfig);
 
         $manager->flush();
     }

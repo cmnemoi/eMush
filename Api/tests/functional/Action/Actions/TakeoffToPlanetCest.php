@@ -9,8 +9,11 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
@@ -42,6 +45,21 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
         // given there is Icarus Bay on this Daedalus
         $icarusBay = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
+
+        // given players have spacesuit in their inventory to explore oxygen-free planets
+        $spacesuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
+        $spacesuit = new GameItem($this->player1);
+        $spacesuit
+            ->setName(GearItemEnum::SPACESUIT)
+            ->setEquipment($spacesuitConfig)
+        ;
+        $I->haveInRepository($spacesuit);
+        $spacesuit2 = new GameItem($this->player2);
+        $spacesuit2
+            ->setName(GearItemEnum::SPACESUIT)
+            ->setEquipment($spacesuitConfig)
+        ;
+        $I->haveInRepository($spacesuit2);
 
         // given player1 and player2 are in Icarus Bay
         $this->player1->changePlace($icarusBay);

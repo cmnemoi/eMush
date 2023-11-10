@@ -16,10 +16,9 @@ use Mush\Player\Entity\Player;
 
 #[ORM\Entity]
 class Exploration
-{   
-    private const CYCLE_LENGTH = 18;
-
+{
     use TimestampableEntity;
+    private const CYCLE_LENGTH = 18;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -174,7 +173,7 @@ class Exploration
     }
 
     public function getCycleLength(): int
-    {   
+    {
         $cycleLength = intval($this->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCycleLength() / self::CYCLE_LENGTH);
 
         return $cycleLength > 1 ? $cycleLength : 1;

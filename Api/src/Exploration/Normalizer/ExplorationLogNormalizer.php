@@ -6,7 +6,6 @@ namespace Mush\Exploration\Normalizer;
 
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class ExplorationLogNormalizer implements NormalizerInterface

@@ -14,7 +14,7 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ExplorationEventSubscriber implements EventSubscriberInterface
-{   
+{
     private RoomLogServiceInterface $roomLogService;
     private TranslationServiceInterface $translateService;
 
@@ -32,7 +32,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     }
 
     public function onExplorationFinished(ExplorationEvent $event): void
-    {   
+    {
         $exploration = $event->getExploration();
         $explorators = $exploration->getExplorators();
         $explorator = $explorators->first();
@@ -51,7 +51,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                 );
             }
         } else {
-            $explorationUrl = "/expPerma/" . $exploration->getClosedExploration()->getId();
+            $explorationUrl = '/expPerma/' . $exploration->getClosedExploration()->getId();
             $here = $this->translateService->translate(
                 key: 'here',
                 parameters: [],
@@ -66,7 +66,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                     type: 'event_log',
                     player: $explorator,
                     parameters: [
-                        'exploration_link' => "<a href='$explorationUrl'>" . strtoupper($here) . "</a>"
+                        'exploration_link' => "<a href='$explorationUrl'>" . strtoupper($here) . '</a>',
                     ]
                 );
             }

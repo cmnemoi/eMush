@@ -84,10 +84,10 @@ class Exploration
     }
 
     /**
-     * Returns active explorators : alive if there is oxygen on the planet, alive and with spacesuit otherwise
+     * Returns active explorators : alive if there is oxygen on the planet, alive and with spacesuit otherwise.
      */
     public function getActiveExplorators(): PlayerCollection
-    {   
+    {
         if ($this->planet->hasSectorByName(PlanetSectorEnum::OXYGEN)) {
             return $this->getExplorators()->filter(
                 fn (Player $explorator) => $explorator->isAlive()

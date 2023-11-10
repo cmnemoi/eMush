@@ -4,15 +4,16 @@ namespace Mush\Exploration\Voter;
 
 use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ClosedExplorationVoter extends Voter
-{   
+{
     public const DAEDALUS_IS_FINISHED = 'DAEDALUS_IS_FINISHED';
     public const IS_AN_EXPLORATOR = 'IS_AN_EXPLORATOR';
     public const IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED = 'IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED';
-    
+
     private PlayerServiceInterface $playerService;
 
     public function __construct(
@@ -45,15 +46,19 @@ class ClosedExplorationVoter extends Voter
             return false;
         }
 
-        $userPlayer = $this->playerService->findUserCurrentGame($token->getUser());
+        /** @var User $user */
+        $user = $token->getUser();
+        $userPlayer = $this->playerService->findUserCurrentGame($user);
 
         switch ($attribute) {
             case self::DAEDALUS_IS_FINISHED:
                 return $closedExploration->getDaedalusInfo()->isDaedalusFinished();
-            case self::IS_AN_EXPLORATOR: 
+            case self::IS_AN_EXPLORATOR:
                 return in_array($userPlayer?->getName(), $closedExploration->getExploratorNames());
             case self::IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED:
                 return $closedExploration->isExplorationFinished() && $userPlayer?->getDaedalus()->getDaedalusInfo() === $closedExploration->getDaedalusInfo();
         }
+
+        throw new \LogicException('This code should not be reached!');
     }
 }

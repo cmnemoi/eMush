@@ -27,7 +27,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     }
 
     public function onAllExploratorsStucked(ExplorationEvent $event): void
-    {   
+    {
         $this->explorationService->closeExploration($event->getExploration(), $event->getTags());
     }
 

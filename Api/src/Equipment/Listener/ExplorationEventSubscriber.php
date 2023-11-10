@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

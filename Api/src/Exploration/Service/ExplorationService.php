@@ -59,7 +59,7 @@ final class ExplorationService implements ExplorationServiceInterface
         $exploration->setExplorators($players);
         $exploration->getClosedExploration()->setExploratorNames($players->map(fn (Player $player) => $player->getLogName())->toArray());
         $exploration->setNumberOfSectionsToVisit(min($numberOfSectorsToVisit, $planet->getSectors()->count()));
-        
+
         if ($exploration->getNumberOfSectionsToVisit() < 1) {
             throw new \RuntimeException('You cannot visit less than 1 sector');
         }
@@ -200,7 +200,7 @@ final class ExplorationService implements ExplorationServiceInterface
     public function removeHealthToARandomExplorator(PlanetSectorEvent $event): array
     {
         $exploration = $event->getExploration();
-        
+
         // also remove health to explorators in stucked in the ship for landign events
         $explorators = $event->getPlanetSector()->getName() === PlanetSectorEnum::LANDING ?
             $exploration->getExplorators() :

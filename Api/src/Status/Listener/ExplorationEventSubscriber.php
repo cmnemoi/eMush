@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Status\Listener;
 
-use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
-use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -16,7 +14,7 @@ use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ExplorationEventSubscriber implements EventSubscriberInterface
-{   
+{
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
@@ -35,7 +33,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     }
 
     public function onExplorationStarted(ExplorationEvent $event): void
-    {   
+    {
         $exploration = $event->getExploration();
         $explorators = $exploration->getExplorators();
         $planet = $exploration->getPlanet();
@@ -57,10 +55,10 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                 visibility: VisibilityEnum::PUBLIC,
             );
         }
-        
+
         if ($exploratorsWithoutSpaceSuit->count() === $explorators->count()) {
             $event->stopPropagation();
-            
+
             $explorationEvent = new ExplorationEvent(
                 exploration: $exploration,
                 tags: $event->getTags(),
@@ -68,11 +66,11 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             );
             $explorationEvent->addTag(ExplorationEvent::ALL_EXPLORATORS_STUCKED);
             $this->eventService->callEvent($explorationEvent, ExplorationEvent::ALL_EXPLORATORS_STUCKED);
-        } 
+        }
     }
 
     public function onExplorationFinished(ExplorationEvent $event): void
-    {   
+    {
         $exploratorsWithoutSpaceSuit = $event->getExploration()->getExploratorsWithoutSpacesuit();
 
         /** @var Player $explorator */

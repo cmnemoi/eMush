@@ -23,8 +23,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
     public function __construct(
         CycleServiceInterface $cycleService,
         TranslationServiceInterface $translationService,
-    )
-    {   
+    ) {
         $this->cycleService = $cycleService;
         $this->translationService = $translationService;
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Entity;
 
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -58,7 +57,7 @@ class Exploration
 
         $this->closedExploration = new ClosedExploration($this);
     }
-    
+
     public function getId(): int
     {
         return $this->id;
@@ -156,7 +155,7 @@ class Exploration
     {
         $this->cycle = $cycle;
     }
-    
+
     public function isChangingCycle(): bool
     {
         return $this->isChangingCycle;

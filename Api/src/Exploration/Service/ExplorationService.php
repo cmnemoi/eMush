@@ -126,7 +126,7 @@ final class ExplorationService implements ExplorationServiceInterface
     }
 
     public function dispatchExplorationEvent(Exploration $exploration): Exploration
-    {   
+    {
         $closedExploration = $exploration->getClosedExploration();
         $planet = $exploration->getPlanet();
 

@@ -38,7 +38,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     }
 
     public function onExplorationNewCycle(ExplorationEvent $event): void
-    {   
+    {
         $this->explorationService->dispatchExplorationEvent($event->getExploration());
     }
 }

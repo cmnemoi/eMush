@@ -164,7 +164,11 @@ class CycleService implements CycleServiceInterface
         }
 
         $dateExplorationLastCycle = $exploration->getUpdatedAt();
-        $dateExplorationLastCycle = clone $dateExplorationLastCycle;
+        if ($dateExplorationLastCycle === null) {
+            throw new \LogicException('Daedalus should have a UpdatedAt Value');
+        } else {
+            $dateExplorationLastCycle = clone $dateExplorationLastCycle;
+        }
 
         $cycleElapsed = $this->getNumberOfExplorationCycleElapsed($dateExplorationLastCycle, $dateTime, $exploration);
 
@@ -216,7 +220,7 @@ class CycleService implements CycleServiceInterface
     }
 
     private function getNumberOfExplorationCycleElapsed(\DateTime $start, \DateTime $end, Exploration $exploration): int
-    {   
+    {
         $start = clone $start;
         $end = clone $end;
         $timeZone = $exploration->getDaedalus()->getDaedalusInfo()->getLocalizationConfig()->getTimeZone();

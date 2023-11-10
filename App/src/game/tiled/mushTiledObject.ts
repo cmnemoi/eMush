@@ -11,6 +11,7 @@ import DoorGroundObject from "@/game/objects/doorGroundObject";
 import ShelfObject from "@/game/objects/shelfObject";
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import InteractObject, { InteractionInformation } from "@/game/objects/interactObject";
+import PatrolShipObject from "@/game/objects/patrolShipObject";
 
 export default class MushTiledObject {
     public tiledObj: Phaser.Types.Tilemaps.TiledObject;
@@ -27,6 +28,7 @@ export default class MushTiledObject {
             return room.doors.find((door: Door) => {
                 return (door.key === this.tiledObj.name);
             });
+        case 'patrol_ship':
         case 'equipment':
             return room.equipments.find((equipment: Equipment) => (equipment.key === this.tiledObj.name &&
                 (!(createdObjectId.includes(equipment.id)) || this.isCustomPropertyByName('grouped')))
@@ -103,7 +105,24 @@ export default class MushTiledObject {
             } else {break;}
         case 'shelf':
             return new ShelfObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, name, isFlipped, collides, isAnimationYoyo, group);
+        case 'patrol_ship':
+            if (equipmentEntity instanceof Equipment) {
+                return new PatrolShipObject(
+                    scene,
+                    cart_coords,
+                    this.getIsometricGeom(),
+                    tileset,
+                    frame,
+                    isFlipped,
+                    equipmentEntity,
+                    collides,
+                    isAnimationYoyo,
+                    group,
+                    interactionInformation
+                );
+            } else {break;}
         }
+
         throw new Error(this.tiledObj.type + " type does not exist for this tiled object: " + this.tiledObj.name);
     }
 
@@ -244,6 +263,7 @@ export default class MushTiledObject {
         case 'door':
         case 'door_ground':
         case 'equipment':
+        case 'patrol_ship':
             return this.tiledObj.name;
         case 'shelf':
             return 'shelf';

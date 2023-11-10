@@ -5,6 +5,7 @@ import { Equipment } from "@/entities/Equipment";
 import { Item } from "@/entities/Item";
 import { Hunter } from "@/entities/Hunter";
 import { SpaceBattle } from "@/entities/SpaceBattle";
+import { Action } from "@/entities/Action";
 
 const state =  {
     loading: false,
@@ -20,6 +21,26 @@ const getters: GetterTree<any, any> = {
     },
     selectedTarget: (state) => {
         return state.selectedTarget;
+    },
+    patrolShipActions: (state) => {
+        const room = (<Room> state.room);
+
+        if (room.type !== 'patrol_ship') {
+            return [];
+        }
+
+        const actions: {action: Action, target: Equipment}[] = [];
+        const patrolShip = room.equipments[0];
+        for (let i = 0; i < patrolShip.actions.length; i++) {
+            const action: Action = patrolShip.actions[i];
+
+            // if a hunter is selected and the action is the patrol ship shoot random, do not return the patrol ship shoot
+            if (!(state.selectedTarget  !== null && action.key === 'shoot_hunter_patrol_ship')) {
+                actions.push({ action: action, target: patrolShip });
+            }
+        }
+
+        return actions;
     }
 };
 
@@ -110,10 +131,6 @@ const mutations : MutationTree<any> = {
                 if (oldTarget.id === target.id) {
                     return state.selectedTarget = target;
                 }
-            }
-            // if player is in patrol ship select by default the patrol ship
-            if (room.type === 'patrol_ship') {
-                return state.selectedTarget = room.equipments[0];
             }
         }
         state.selectedTarget = null;

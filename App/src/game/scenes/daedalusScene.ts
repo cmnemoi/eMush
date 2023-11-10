@@ -178,6 +178,7 @@ import DoorGroundObject from "@/game/objects/doorGroundObject";
 import { Door } from "@/entities/Door";
 import DeathZone = Phaser.GameObjects.Particles.Zones.DeathZone;
 import { Planet } from "@/entities/Planet";
+import PatrolShipObject from "@/game/objects/patrolShipObject";
 
 
 export default class DaedalusScene extends Phaser.Scene
@@ -1032,10 +1033,7 @@ export default class DaedalusScene extends Phaser.Scene
             for (let i=0; i < sceneGameObjects.length; i++) {
                 const gameObject = sceneGameObjects[i];
 
-                if (gameObject instanceof EquipmentObject && (
-                    gameObject.equipment.key?.substring(0, 11) === 'patrol_ship' ||
-                    gameObject.equipment.key?.substring(0, 8) === 'pasiphae')
-                ) {
+                if (gameObject instanceof PatrolShipObject) {
                     gameObject.update(time, delta);
                 }
             }

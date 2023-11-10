@@ -3,7 +3,7 @@
         <ActionButton
             v-for="(action, key) in getActions"
             :key="key"
-            :action="action"
+            :action="action.action"
             @mousedown="executeTargetAction(action)"
         />
     </div>
@@ -29,12 +29,20 @@ export default defineComponent ({
     },
     computed: {
         ...mapGetters('room', [
-            'selectedTarget'
+            'selectedTarget',
+            'patrolShipActions'
         ]),
-        getActions(): Action[]
+        getActions(): {action: Action, target: Equipment | Player | Hunter | null}[]
         {
-            if (this.selectedTarget === null) { return [];}
-            return this.selectedTarget.actions;
+            const actions = this.patrolShipActions;
+
+            if (this.selectedTarget !== null) {
+                for (let i = 0; i < this.selectedTarget.actions.length; i++) {
+                    actions.push({ action: this.selectedTarget.actions[i], target: this.selectedTarget });
+                }
+            }
+
+            return actions;
         },
         ...mapGetters('player', [
             'player'
@@ -47,12 +55,12 @@ export default defineComponent ({
         ...mapActions({
             'executeAction': 'action/executeAction'
         }),
-        async executeTargetAction(action: Action) {
-            if (action.canExecute){
-                if (this.selectedTarget === this.player) {
-                    await this.executeAction({ target: null, action });
+        async executeTargetAction(action: {action: Action, target: Equipment | Player | Hunter | null}) {
+            if (action.action.canExecute){
+                if (action.target === this.player) {
+                    await this.executeAction({ target: null, action: action.action });
                 } else {
-                    await this.executeAction({ target: this.selectedTarget, action });
+                    await this.executeAction({ target: action.target, action: action.action });
                 }
             }
         }

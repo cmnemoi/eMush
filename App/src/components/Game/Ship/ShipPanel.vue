@@ -20,7 +20,7 @@
             <RoomInventoryPanel v-if="isInventoryOpen" :items="room.items" />
             <component
                 :is="targetPanel"
-                v-else-if="selectedTarget"
+                v-else-if="isActionPanelOpen"
                 :target="selectedTarget"
             />
         </div>
@@ -66,10 +66,14 @@ export default defineComponent ({
     computed: {
         ...mapGetters('room', [
             'isInventoryOpen',
-            'selectedTarget'
+            'selectedTarget',
+            'patrolShipActions'
         ]),
         targetPanel() {
             return this.selectedTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
+        },
+        isActionPanelOpen() {
+            return this.selectedTarget !== null || this.patrolShipActions.length > 0;
         },
         getTargetHunter(): Hunter | null {
             return this.selectedTarget instanceof Hunter ? this.selectedTarget : null;

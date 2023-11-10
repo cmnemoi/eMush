@@ -1459,7 +1459,7 @@ class ActionData
         ],
         [
             'name' => ActionEnum::SHOOT_RANDOM_HUNTER . '_turret',
-            'action_name' => ActionEnum::SHOOT_RANDOM_HUNTER,
+            'action_name' => ActionEnum::SHOOT_HUNTER,
             'types' => [ActionTypeEnum::ACTION_SHOOT_HUNTER],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
@@ -1491,7 +1491,7 @@ class ActionData
         ],
         [
             'name' => ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP,
-            'action_name' => ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP,
+            'action_name' => ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
             'types' => [ActionTypeEnum::ACTION_SHOOT_HUNTER],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,

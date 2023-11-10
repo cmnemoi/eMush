@@ -96,9 +96,6 @@ final class ExplorationService implements ExplorationServiceInterface
         }
         $planet->setExploration(null);
 
-        // @TODO remove this debug line
-        $exploration->getPlanet()->getSectors()->map(fn (PlanetSector $sector) => $sector->unvisit());
-
         $this->delete([$exploration]);
         if (in_array(ExplorationEvent::ALL_EXPLORATORS_STUCKED, $reasons)) {
             $this->delete([$closedExploration]);

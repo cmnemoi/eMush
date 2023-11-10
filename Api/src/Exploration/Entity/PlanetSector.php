@@ -64,10 +64,8 @@ class PlanetSector
         return $this;
     }
 
-    // @TODO: remove this debug method
     public function unvisit(): self
     {
-        $this->isRevealed = false;
         $this->isVisited = false;
 
         return $this;

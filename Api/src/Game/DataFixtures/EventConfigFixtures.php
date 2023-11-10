@@ -336,8 +336,8 @@ class EventConfigFixtures extends Fixture
                 4 => 1,
                 5 => 1,
             ])
-            ->setName(PlanetSectorEvent::DISASTER . '_3_5')
-            ->setEventName(PlanetSectorEvent::DISASTER)
+            ->setName(PlanetSectorEvent::ACCIDENT . '_3_5')
+            ->setEventName(PlanetSectorEvent::ACCIDENT)
 
         ;
         $manager->persist($eventConfig);

@@ -191,6 +191,10 @@ class CycleService implements CycleServiceInterface
                     if ($daedalusInfo->getGameStatus() === GameStatusEnum::FINISHED) {
                         break;
                     }
+                    // Do not continue make cycle if Exploration is finished
+                    if ($exploration === null) {
+                        break;
+                    }
                 }
             } catch (\Throwable $e) {
                 $this->logger->error('Error during exploration cycle change', [

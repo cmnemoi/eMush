@@ -65,7 +65,6 @@ export default defineComponent ({
             return this.error !== null;
         },
         isGamePage() {
-            console.log(this.$route.name);
             return this.$route.name === 'GamePage';
         },
         isWorkingServerError() {

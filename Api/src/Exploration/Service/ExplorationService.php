@@ -175,7 +175,7 @@ final class ExplorationService implements ExplorationServiceInterface
     {
         $exploration = $event->getExploration();
 
-        // also remove health to explorators in stucked in the ship for landign events
+        // also remove health to explorators in stucked in the ship for landing events
         $explorators = $event->getPlanetSector()->getName() === PlanetSectorEnum::LANDING ?
             $exploration->getExplorators() :
             $exploration->getActiveExplorators();
@@ -201,7 +201,7 @@ final class ExplorationService implements ExplorationServiceInterface
     {
         $exploration = $event->getExploration();
 
-        // also remove health to explorators in stucked in the ship for landign events
+        // also remove health to explorators in stucked in the ship for landing events
         $explorators = $event->getPlanetSector()->getName() === PlanetSectorEnum::LANDING ?
             $exploration->getExplorators() :
             $exploration->getActiveExplorators();

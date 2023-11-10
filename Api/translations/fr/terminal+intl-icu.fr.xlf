@@ -95,5 +95,20 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <target/>
       </segment>
     </unit>
+    <unit id="exploration">
+      <segment id="tips" state="translated">
+        <source>exploration.tips</source>
+        <target>{quantity, plural,
+        one {L'exploration se déroule automatiquement.//Toutes les minutes, une nouvelle étape se déroule.//Une fois parti, impossible de faire demi-tour.}
+        other {L'exploration se déroule automatiquement.//Toutes les {cycle_length} minutes, une nouvelle étape se déroule.//Une fois parti, impossible de faire demi-tour.}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="closed_exploration">
+      <segment id="tips" state="translated">
+        <source>closed_exploration.tips</source>
+        <target>Ici vous pouvez lire le rapport de l'expédition que vous avez réalisée.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

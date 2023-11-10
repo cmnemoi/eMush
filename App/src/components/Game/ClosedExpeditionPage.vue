@@ -1,7 +1,7 @@
 <template>
     <div class="box-container">
         <div class="panel" v-if="!error && closedExploration">
-            <TerminalTips content="Hello, World!"/>
+            <TerminalTips :content=closedExploration.tips />
             <section class="planet">
                 <h3>{{ closedExploration.planet }}</h3>
                 <div class="card">

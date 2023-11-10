@@ -48,6 +48,12 @@ final class ClosedExplorationNormalizer implements NormalizerInterface, Normaliz
             domain: 'planet',
             language: $closedExploration->getDaedalusInfo()->getLanguage(),
         );
+        $normalizedClosedExploration['tips'] = $this->translationService->translate(
+            key: 'closed_exploration.tips',
+            parameters: [],
+            domain: 'terminal',
+            language: $closedExploration->getDaedalusInfo()->getLanguage(),
+        );
 
         return $normalizedClosedExploration;
     }

@@ -9,6 +9,7 @@ export class ClosedExploration {
     public explorators!: string[];
     public sectors!: string[];
     public logs!: ExplorationLogs[];
+    public tips!: string;
 
     public load(object: any): ClosedExploration {
         if (object) {
@@ -20,6 +21,7 @@ export class ClosedExploration {
             this.explorators = object.exploratorNames;
             this.sectors = object.exploredSectorKeys;
             this.logs = object.logs;
+            this.tips = object.tips;
         }
 
         return this;

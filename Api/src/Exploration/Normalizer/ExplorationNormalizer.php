@@ -70,6 +70,12 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
                 ),
                 'timerCycle' => $this->cycleService->getExplorationDateStartNextCycle($object)->format(\DateTimeInterface::ATOM),
             ],
+            'tips' => $this->translationService->translate(
+                'exploration.tips',
+                ['quantity' => $exploration->getCycleLength()],
+                'terminal',
+                $exploration->getDaedalus()->getLanguage(),
+            ),
         ];
     }
 

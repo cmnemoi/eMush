@@ -12,6 +12,7 @@ export class Exploration {
     public logs!: ExplorationLogs[];
     public estimatedDuration!: number;
     public timer!: TimerCycle;
+    public tips!: string;
 
     public load(object: any): Exploration {
         if (object) {
@@ -23,6 +24,7 @@ export class Exploration {
             this.logs = object.logs;
             this.estimatedDuration = object.estimated_duration;
             this.timer = (new TimerCycle()).load(object.timer);
+            this.tips = object.tips;
         }
 
         return this;

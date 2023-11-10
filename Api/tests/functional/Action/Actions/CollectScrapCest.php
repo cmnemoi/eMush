@@ -19,6 +19,8 @@ use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Entity\HunterConfig;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
@@ -265,6 +267,52 @@ final class CollectScrapCest extends AbstractFunctionalTest
             'log' => LogEnum::PATROL_DAMAGE,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
+    }
+
+    public function testCollectScrapWithAttackingAsteroids(FunctionalTester $I): void
+    {   
+        // given there is some scrap in space
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::METAL_SCRAPS,
+            equipmentHolder: $this->daedalus->getSpace(),
+            reasons: ['test'],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::HIDDEN
+        );
+
+        // given only asteroids can spawn
+        $this->daedalus->getGameConfig()->setHunterConfigs(
+            $this->daedalus->getGameConfig()->getHunterConfigs()->filter(
+                fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID
+        ));
+        // given it's day 10 so asteroids can spawn
+        $this->daedalus->setDay(10);
+
+        // given some asteroids are spawn
+        $hunterEvent = new HunterPoolEvent(
+            $this->daedalus,
+            ['test'],
+            new \DateTime(),
+        );
+        $this->eventService->callEvent($hunterEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+        $I->assertNotEmpty($this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::ASTEROID));
+        $I->assertEmpty($this->daedalus->getAttackingHunters()->getAllHuntersExcept(HunterEnum::ASTEROID));
+
+        // when player collects scrap
+        $this->collectScrapAction->loadParameters($this->collectScrapActionConfig, $this->player1, $this->pasiphae);
+        $this->collectScrapAction->execute();
+
+        // then player should not be damaged
+        $I->assertEquals(
+            expected: $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
+            actual: $this->player1->getHealthPoint(),
+        );
+        // then pasiphae should not be damaged
+        $this->pasiphaeArmor = $this->pasiphae->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        $I->assertEquals(
+            $this->pasiphaeArmor->getThreshold(),
+            $this->pasiphaeArmor->getCharge()
+        );
     }
 
     public function testLandSuccessWithScrapCollected(FunctionalTester $I): void

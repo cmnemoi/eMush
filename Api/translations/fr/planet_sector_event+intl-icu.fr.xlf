@@ -151,7 +151,7 @@
       </segment>
       <segment id="cold_description">
         <source>accident.cold_description</source>
-        <target>Le bras de {character} est gelé, ça a l'air de lui faire terriblement mal et en plus il y a de bonne chance qu'il faille le couper !</target>
+        <target>Le bras de {character} est gelé, ça a l'air de lui faire terriblement mal et en plus il y a de bonnes chances qu'il faille le couper !</target>
       </segment>
       <segment id="hot_description">
         <source>accident.hot_description</source>

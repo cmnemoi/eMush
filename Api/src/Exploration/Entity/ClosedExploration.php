@@ -51,6 +51,11 @@ class ClosedExploration
         return $this->id;
     }
 
+    public function getExploration(): ?Exploration
+    {
+        return $this->exploration;
+    }
+
     public function getDaedalusInfo(): DaedalusInfo
     {
         return $this->daedalusInfo;

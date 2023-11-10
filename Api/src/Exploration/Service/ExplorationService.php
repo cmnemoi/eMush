@@ -178,7 +178,7 @@ final class ExplorationService implements ExplorationServiceInterface
 
         if ($allActiveExploratorsAreDead) {
             $this->closeExploration($exploration, [ExplorationEvent::ALL_EXPLORATORS_ARE_DEAD]);
-        } else if ($allSectorsVisited) {
+        } elseif ($allSectorsVisited) {
             $this->closeExploration($exploration, [ExplorationEvent::ALL_SECTORS_VISITED]);
         }
 

@@ -158,6 +158,7 @@ class CycleService implements CycleServiceInterface
 
     public function handleExplorationCycleChange(\DateTime $dateTime, Exploration $exploration): int
     {
+        $closedExploration = $exploration->getClosedExploration();
         $daedalusInfo = $exploration->getDaedalus()->getDaedalusInfo();
         if ($daedalusInfo->isDaedalusFinished()) {
             return 0;
@@ -191,8 +192,8 @@ class CycleService implements CycleServiceInterface
                     if ($daedalusInfo->getGameStatus() === GameStatusEnum::FINISHED) {
                         break;
                     }
-                    // Do not continue make cycle if Exploration is finished
-                    if ($exploration === null) {
+                    // Do not continue make cycle if Exploration is finished. Accessing it from ClosedExploration for safety
+                    if ($closedExploration->getExploration() === null) {
                         break;
                     }
                 }

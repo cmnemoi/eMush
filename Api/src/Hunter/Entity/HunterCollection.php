@@ -18,6 +18,14 @@ class HunterCollection extends ArrayCollection
         return $this->filter(fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() === $type));
     }
 
+    /**
+     * Returns a `HunterCollection` with all hunters except the specified type.
+     */
+    public function getAllHuntersExcept(string $type): self
+    {
+        return $this->filter(fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() !== $type));
+    }
+
     public function getAttackingHunters(): self
     {
         return $this->filter(fn (Hunter $hunter) => (!$hunter->isInPool()));

@@ -23,6 +23,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Service\PlaceServiceInterface;
@@ -100,7 +101,7 @@ final class CollectScrap extends AbstractAction
             $this->moveScrapToPasiphae($scrap, $pasiphaePlace);
         }
 
-        if ($daedalus->getAttackingHunters()->count() > 0) {
+        if ($daedalus->getAttackingHunters()->getAllHuntersExcept(HunterEnum::ASTEROID)->count() > 0) {
             $this->damagePasiphae($pasiphaeMechanic, $pasiphaePlace);
             $this->damagePlayer($pasiphaeMechanic, $pasiphaePlace);
         }

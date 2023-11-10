@@ -55,6 +55,7 @@
         <target>{target_equipment_first_letter, select,
         vowel {La pompe d'oxygène de l'{equipment} est enrayée, il n'y a rien à en tirer !}
         consonant {La pompe d'oxygène du {equipment} est enrayée, il n'y a rien à en tirer !}
+        other {La pompe d'oxygène du {equipment] est enrayée, il n'y a rien à en tirer !}
         }</target>
       </segment>
       <segment id="sismic_activity_description">

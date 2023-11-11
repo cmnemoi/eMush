@@ -9,7 +9,8 @@
                 <ul class="crew">
                     <li v-for="(explorator, i) in exploration.explorators" :key="i">
                         <img :src="explorator.getExploratorBody()" :alt="explorator.name">
-                        <p><img src="@/assets/images/lp.png"> {{ explorator.healthPoints }}</p>
+                        <p v-if="explorator.isAlive"><img src="@/assets/images/lp.png"> {{ explorator.healthPoints }}</p>
+                        <p v-else><img src="@/assets/images/dead.png"></p>
                     </li>
                 </ul>
             </div>

@@ -28,7 +28,6 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -40,7 +39,7 @@ class CycleEventCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
-    {   
+    {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
@@ -166,7 +165,7 @@ class CycleEventCest extends AbstractFunctionalTest
     }
 
     public function testCycleSubscriberDoNotAssignTitleToDeadPlayer(FunctionalTester $I): void
-    {   
+    {
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 

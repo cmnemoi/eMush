@@ -179,7 +179,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     }
 
     public function attributeTitles(DaedalusCycleEvent $event): void
-    {   
+    {
         $daedalus = $event->getDaedalus();
         $time = $event->getTime();
         if ($daedalus->getGameStatus() !== GameStatusEnum::CURRENT) {

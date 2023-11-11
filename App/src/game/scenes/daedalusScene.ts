@@ -737,7 +737,7 @@ export default class DaedalusScene extends Phaser.Scene
             `planet_${inOrbitPlanet.imageId}`
         );
         planetSprite.setScrollFactor(0, 0);
-        planetSprite.setDepth(1000000);
+        planetSprite.setDepth(3);
     }
 
     createHunterParticles(): void

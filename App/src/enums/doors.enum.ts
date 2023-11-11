@@ -114,7 +114,7 @@ export const DoorsEnum: Array<Doors> = [
         room2: 'alpha_bay_2'
     },
     {
-        name: 'bravo_bay_centre_bravo_turret',
+        name: 'bravo_bay_central_bravo_turret',
         svg: 'M75,76.522l0,3',
         room1: 'bravo_bay',
         room2: 'centre_bravo_turret'

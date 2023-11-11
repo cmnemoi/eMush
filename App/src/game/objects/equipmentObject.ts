@@ -7,7 +7,6 @@ import InteractObject, { InteractionInformation } from "@/game/objects/interactO
 import IsometricGeom from "@/game/scenes/isometricGeom";
 
 
-/*eslint no-unused-vars: "off"*/
 export default class EquipmentObject extends InteractObject {
     public equipment: Equipment;
     private particles: Phaser.GameObjects.Particles.ParticleEmitter | null = null;

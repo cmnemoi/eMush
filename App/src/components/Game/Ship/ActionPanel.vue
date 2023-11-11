@@ -1,10 +1,10 @@
 <template>
     <div class="action-panel">
         <ActionButton
-            v-for="(action, key) in getActions"
+            v-for="(action, key) in getActionsWithTargets"
             :key="key"
             :action="action.action"
-            @mousedown="executeTargetAction(action)"
+            @mousedown="executeActionWithTarget(action)"
         />
     </div>
 </template>
@@ -30,11 +30,11 @@ export default defineComponent ({
     computed: {
         ...mapGetters('room', [
             'selectedTarget',
-            'patrolShipActions'
+            'patrolShipActionsWithShip'
         ]),
-        getActions(): {action: Action, target: Equipment | Player | Hunter | null}[]
+        getActionsWithTargets(): { action: Action, target: Equipment | Player | Hunter }[]
         {
-            const actions = this.patrolShipActions;
+            const actions = this.patrolShipActionsWithShip;
 
             if (this.selectedTarget !== null) {
                 for (let i = 0; i < this.selectedTarget.actions.length; i++) {
@@ -55,7 +55,7 @@ export default defineComponent ({
         ...mapActions({
             'executeAction': 'action/executeAction'
         }),
-        async executeTargetAction(action: {action: Action, target: Equipment | Player | Hunter | null}) {
+        async executeActionWithTarget(action: { action: Action, target: Equipment | Player | Hunter }) {
             if (action.action.canExecute){
                 if (action.target === this.player) {
                     await this.executeAction({ target: null, action: action.action });

@@ -22,7 +22,7 @@ const getters: GetterTree<any, any> = {
     selectedTarget: (state) => {
         return state.selectedTarget;
     },
-    patrolShipActions: (state) => {
+    patrolShipActionsWithShip: (state) => {
         const room = (<Room> state.room);
 
         if (room.type !== 'patrol_ship') {

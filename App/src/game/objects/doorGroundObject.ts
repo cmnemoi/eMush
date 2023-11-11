@@ -8,7 +8,6 @@ import InteractObject from "@/game/objects/interactObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 
 
-/*eslint no-unused-vars: "off"*/
 export default class DoorGroundObject extends InteractObject {
     public door: DoorEntity;
     private particles: Phaser.GameObjects.Particles.ParticleEmitter | null = null;

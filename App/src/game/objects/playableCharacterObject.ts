@@ -8,7 +8,6 @@ import { MushPath } from "@/game/scenes/navigationGrid";
 import InteractObject from "@/game/objects/interactObject";
 import GameObject = Phaser.GameObjects.GameObject;
 
-/*eslint no-unused-vars: "off"*/
 export default class PlayableCharacterObject extends CharacterObject {
     private isoPath : MushPath;
     private currentMove : number;

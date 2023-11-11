@@ -7,7 +7,6 @@ import IsometricGeom from "@/game/scenes/isometricGeom";
 import EquipmentObject from "@/game/objects/equipmentObject";
 
 
-/*eslint no-unused-vars: "off"*/
 export default class PatrolShipObject extends EquipmentObject {
     private initCoordinates: CartesianCoordinates;
     private isShaking: boolean;
@@ -28,7 +27,6 @@ export default class PatrolShipObject extends EquipmentObject {
     {
         super(scene, cart_coords, iso_geom, tileset, frame, isFlipped, equipment, collides, isAnimationYoyo, group, interactionInformation);
 
-        console.log('coucou');
         this.isShaking = false;
         this.initCoordinates = new CartesianCoordinates(this.x, this.y);
     }

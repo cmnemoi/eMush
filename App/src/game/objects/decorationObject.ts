@@ -4,7 +4,6 @@ import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 
 
-/*eslint no-unused-vars: "off"*/
 export default class DecorationObject extends Phaser.GameObjects.Sprite {
     protected animName : string|null = null;
     protected tiledFrame: number;

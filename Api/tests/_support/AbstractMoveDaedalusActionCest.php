@@ -327,7 +327,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
                 'place' => RoomEnum::BRIDGE,
                 'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
                 'playerInfo' => $this->player->getPlayerInfo(),
-                'log' => ActionLogEnum::ADVANCE_DAEDALUS_EMERGENCY_REACTOR_BROKEN,
+                'log' => ActionLogEnum::ADVANCE_DAEDALUS_FAIL,
                 'visibility' => VisibilityEnum::PUBLIC,
             ]
         );

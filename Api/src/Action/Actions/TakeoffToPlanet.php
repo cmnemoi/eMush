@@ -13,6 +13,8 @@ use Mush\Action\Validator\AllPlanetSectorsVisited;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\PatrolShip;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -27,7 +29,6 @@ final class TakeoffToPlanet extends AbstractAction
 {
     protected string $name = ActionEnum::TAKEOFF_TO_PLANET;
 
-    private const NUMBER_OF_EXPLORATORS = 4;
     private ExplorationServiceInterface $explorationService;
     private RandomServiceInterface $randomService;
 
@@ -78,21 +79,34 @@ final class TakeoffToPlanet extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $icarus */
-        $icarus = $this->target;
+        /** @var GameEquipment $explorationShip */
+        $explorationShip = $this->target;
 
         // draw explorators from the players in exploration craft place to avoid all crewmates
         // to participate and be overpowered
+        $playersInRoom = $explorationShip->getPlace()->getPlayers()->getPlayerAlive();
+
         $explorators = $this->randomService->getRandomElements(
-            $icarus->getPlace()->getPlayers()->getPlayerAlive()->toArray(),
-            self::NUMBER_OF_EXPLORATORS
+            $playersInRoom->toArray(),
+            min($this->getOutputQuantity(), $explorationShip->getPlace()->getNumberOfPlayersAlive())
         );
 
         $this->explorationService->createExploration(
             players: new PlayerCollection($explorators),
-            explorationShip: $icarus,
-            numberOfSectorsToVisit: $this->getOutputQuantity(),
+            explorationShip: $explorationShip,
+            numberOfSectorsToVisit: $this->getPatrolShipMechanic($explorationShip)->getNumberOfExplorationSteps(),
             reasons: $this->action->getActionTags(),
         );
+    }
+
+    private function getPatrolShipMechanic(GameEquipment $explorationShip): PatrolShip
+    {
+        $patrolShipMechanic = $explorationShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
+
+        if (!$patrolShipMechanic instanceof PatrolShip) {
+            throw new \RuntimeException('Patrol ship mechanic not found');
+        }
+
+        return $patrolShipMechanic;
     }
 }

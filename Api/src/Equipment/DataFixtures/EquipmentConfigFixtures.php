@@ -70,16 +70,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $takeoffToPlanetAction = $this->getReference(ActionsFixtures::TAKEOFF_TO_PLANET);
 
         // @TODO terminals
-        $icarus = new EquipmentConfig();
-        $icarus
-            ->setEquipmentName(EquipmentEnum::ICARUS)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setActions([$examineAction, $takeoffToPlanetAction])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
-        $manager->persist($icarus);
-
         /** @var Action $moveAction */
         $moveAction = $this->getReference(ActionsFixtures::MOVE_DEFAULT);
 
@@ -329,8 +319,52 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $collectScrap */
         $collectScrap = $this->getReference(ActionsFixtures::COLLECT_SCRAP);
 
+        $icarusPatrolShip = $this->createPatrolShip(
+            [$takeoffAction, $landAction, $renovateAction, $collectScrap, $takeoffToPlanetAction],
+            EquipmentEnum::ICARUS,
+        );
+        $icarusPatrolShip
+            ->setCollectScrapNumber([
+                1 => 1,
+            ])
+            ->setCollectScrapPatrolShipDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
+            ->setCollectScrapPlayerDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
+            ->setFailedManoeuvreDaedalusDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
+            ->setFailedManoeuvrePatrolShipDamage([1 => 1])
+            ->setFailedManoeuvrePlayerDamage([
+                1 => 1,
+                2 => 1,
+            ])
+            ->setNumberOfExplorationSteps(9)
+            ->setDockingPlace(RoomEnum::ICARUS_BAY)
+        ;
+        $manager->persist($icarusPatrolShip);
+
+        $icarus = new EquipmentConfig();
+        $icarus
+            ->setEquipmentName(EquipmentEnum::ICARUS)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setActions([$examineAction])
+            ->setMechanics([$icarusPatrolShip])
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($icarus);
+
         $patrolShipMechanic = $this->createPatrolShip(
-            [$takeoffAction, $landAction, $renovateAction, $collectScrap],
+            [$takeoffAction, $landAction, $renovateAction, $collectScrap, $takeoffToPlanetAction],
             EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN
         );
         $patrolShipMechanic
@@ -357,6 +391,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                 1 => 1,
                 2 => 1,
             ])
+            ->setNumberOfExplorationSteps(3)
             ->setDockingPlace(RoomEnum::ALPHA_BAY)
         ;
         $patrolShipWeapon = $this->createWeapon(
@@ -390,7 +425,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($patrolShip);
 
         $pasiphaeMechanic = $this->createPatrolShip(
-            [$takeoffAction, $landAction, $collectScrap, $renovateAction],
+            [$takeoffAction, $landAction, $collectScrap, $renovateAction, $takeoffToPlanetAction],
             EquipmentEnum::PASIPHAE
         );
         $pasiphaeMechanic
@@ -419,6 +454,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                 1 => 1,
                 2 => 1,
             ])
+            ->setNumberOfExplorationSteps(3)
             ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
         ;
 

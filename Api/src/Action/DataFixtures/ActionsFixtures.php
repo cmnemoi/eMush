@@ -1078,7 +1078,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
-            ->setOutputQuantity(9) // number of sectors visited by exploration
+            ->setOutputQuantity(4) // max number of explorators allowed
         ;
         $manager->persist($takeoffToPlanet);
 

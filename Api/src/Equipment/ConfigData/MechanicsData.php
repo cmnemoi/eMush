@@ -3278,6 +3278,7 @@ class MechanicsData
                 1 => 1,
                 2 => 1,
             ],
+            'numberOfExplorationSteps' => 3,
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
@@ -3315,6 +3316,7 @@ class MechanicsData
                 1 => 1,
                 2 => 1,
             ],
+            'numberOfExplorationSteps' => 3,
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
@@ -3352,6 +3354,7 @@ class MechanicsData
                 1 => 1,
                 2 => 1,
             ],
+            'numberOfExplorationSteps' => 3,
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
@@ -3389,6 +3392,7 @@ class MechanicsData
                 1 => 1,
                 2 => 1,
             ],
+            'numberOfExplorationSteps' => 3,
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
@@ -3426,6 +3430,7 @@ class MechanicsData
                 1 => 1,
                 2 => 1,
             ],
+            'numberOfExplorationSteps' => 3,
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
@@ -3463,6 +3468,7 @@ class MechanicsData
                 1 => 1,
                 2 => 1,
             ],
+            'numberOfExplorationSteps' => 3,
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
@@ -3500,6 +3506,7 @@ class MechanicsData
                 1 => 1,
                 2 => 1,
             ],
+            'numberOfExplorationSteps' => 3,
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
@@ -3539,11 +3546,28 @@ class MechanicsData
                 1 => 1,
                 2 => 1,
             ],
+            'numberOfExplorationSteps' => 3,
             'actions' => [
                 ActionEnum::TAKEOFF,
                 ActionEnum::LAND,
                 ActionEnum::RENOVATE,
                 ActionEnum::COLLECT_SCRAP,
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'patrol_ship_icarus_default',
+            'type' => EquipmentMechanicEnum::PATROL_SHIP,
+            'collectScrapNumber' => [],
+            'collectScrapPatrolShipDamage' => [],
+            'collectScrapPlayerDamage' => [],
+            'dockingPlace' => RoomEnum::ICARUS_BAY,
+            'failedManoeuvreDaedalusDamage' => [],
+            'failedManoeuvrePatrolShipDamage' => [],
+            'failedManoeuvrePlayerDamage' => [],
+            'numberOfExplorationSteps' => 9,
+            'actions' => [
+                ActionEnum::TAKEOFF_TO_PLANET,
             ],
             'modifierConfigs' => [],
         ],

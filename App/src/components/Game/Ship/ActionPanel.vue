@@ -34,15 +34,18 @@ export default defineComponent ({
         ]),
         getActionsWithTargets(): { action: Action, target: Equipment | Player | Hunter }[]
         {
-            const actions = this.patrolShipActionsWithShip;
+            // if we are in spaceBattle the action given by the patrolShip should remain visible at any time
+            const actionsWithTarget = this.patrolShipActionsWithShip;
 
+            // we need to add the actions provided by the current target
+            // the target is different for patrolShip actions and target actions
             if (this.selectedTarget !== null) {
                 for (let i = 0; i < this.selectedTarget.actions.length; i++) {
-                    actions.push({ action: this.selectedTarget.actions[i], target: this.selectedTarget });
+                    actionsWithTarget.push({ action: this.selectedTarget.actions[i], target: this.selectedTarget });
                 }
             }
 
-            return actions;
+            return actionsWithTarget;
         },
         ...mapGetters('player', [
             'player'
@@ -55,12 +58,12 @@ export default defineComponent ({
         ...mapActions({
             'executeAction': 'action/executeAction'
         }),
-        async executeActionWithTarget(action: { action: Action, target: Equipment | Player | Hunter }) {
-            if (action.action.canExecute){
-                if (action.target === this.player) {
-                    await this.executeAction({ target: null, action: action.action });
+        async executeActionWithTarget(actionWithTarget: { action: Action, target: Equipment | Player | Hunter }) {
+            if (actionWithTarget.action.canExecute){
+                if (actionWithTarget.target === this.player) {
+                    await this.executeAction({ target: null, action: actionWithTarget.action });
                 } else {
-                    await this.executeAction({ target: action.target, action: action.action });
+                    await this.executeAction({ target: actionWithTarget.target, action: actionWithTarget.action });
                 }
             }
         }

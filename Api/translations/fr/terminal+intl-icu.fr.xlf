@@ -100,7 +100,7 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <source>exploration.tips</source>
         <target>{quantity, plural,
         one {L'exploration se déroule automatiquement.//Toutes les minutes, une nouvelle étape se déroule.//Une fois parti, impossible de faire demi-tour.}
-        other {L'exploration se déroule automatiquement.//Toutes les {cycle_length} minutes, une nouvelle étape se déroule.//Une fois parti, impossible de faire demi-tour.}
+        other {L'exploration se déroule automatiquement.//Toutes les # minutes, une nouvelle étape se déroule.//Une fois parti, impossible de faire demi-tour.}
         }</target>
       </segment>
     </unit>

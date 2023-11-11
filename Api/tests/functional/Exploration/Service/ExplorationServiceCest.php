@@ -112,7 +112,6 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
             reasons: ['test'],
         );
 
-        // then a landing event is dispatched
         // then landing event is dispatched
         $I->seeInRepository(
             entity: ExplorationLog::class,

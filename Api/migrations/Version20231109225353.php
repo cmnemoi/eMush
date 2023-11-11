@@ -26,7 +26,6 @@ final class Version20231109225353 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE closed_exploration RENAME COLUMN explored_sector_keys TO planet_sector_keys');
     }
 }

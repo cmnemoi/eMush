@@ -93,7 +93,7 @@
       </segment>
       <segment id="hot_description">
         <source>tired.hot_description</source>
-        <target>Il règne ici une chaleur accablante, les membres de l'équipe suent à grosse goutte !</target>
+        <target>Il règne ici une chaleur accablante, les membres de l'équipe suent à grosses gouttes !</target>
       </segment>
       <segment id="swamp_description">
         <source>tired.swamp_description</source>

@@ -67,13 +67,13 @@ export default defineComponent ({
         ...mapGetters('room', [
             'isInventoryOpen',
             'selectedTarget',
-            'patrolShipActions'
+            'patrolShipActionsWithShip'
         ]),
         targetPanel() {
             return this.selectedTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
         },
         isActionPanelOpen() {
-            return this.selectedTarget !== null || this.patrolShipActions.length > 0;
+            return this.selectedTarget !== null || this.patrolShipActionsWithShip.length > 0;
         },
         getTargetHunter(): Hunter | null {
             return this.selectedTarget instanceof Hunter ? this.selectedTarget : null;

@@ -965,7 +965,6 @@ export default class DaedalusScene extends Phaser.Scene
 
         for (let i = 0; i < numberOfFireCells; i++) {
             //get random coordinates for the fire cell
-            //const rand_iso_coords = new IsometricCoordinates(Math.random() * this.sceneIsoSize.x, Math.random() * this.sceneIsoSize.y);
             const rand_iso_coords = this.navMeshGrid.getRandomPoint().toIsometricCoordinates();
             const cell_coords = this.getGridIsoCoordinate(rand_iso_coords);
 

@@ -402,7 +402,6 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.image('hunter', hunter);
     }
 
-    // eslint-disable-next-line no-unused-vars
     create(): void
     {
         (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).pipelines.addPostPipeline('outline', OutlinePostFx);
@@ -439,13 +438,9 @@ export default class DaedalusScene extends Phaser.Scene
     reloadScene(): void
     {
         this.player = store.getters["player/player"];
-        this.navMeshGrid = new NavMeshGrid(this);
 
         const newRoom = this.player.room;
         if (newRoom === null) { throw new Error("player room should be defined");}
-
-        // update background
-        this.updateBackground(newRoom);
 
         if (this.room.key !== newRoom.key) {
             this.room = newRoom;
@@ -468,8 +463,8 @@ export default class DaedalusScene extends Phaser.Scene
             this.updateStatuses();
             this.createPlayers();
 
-
         } else if (this.areEquipmentsModified()) {
+            this.navMeshGrid = new NavMeshGrid(this);
             this.room = newRoom;
 
             this.deleteEquipmentsAndDecoration();
@@ -492,6 +487,9 @@ export default class DaedalusScene extends Phaser.Scene
             this.updateEquipments();
             this.updateStatuses();
         }
+
+        // update background
+        this.updateBackground(newRoom);
     }
 
     updateStatuses(): void
@@ -732,7 +730,12 @@ export default class DaedalusScene extends Phaser.Scene
 
     displayPlanet(inOrbitPlanet: Planet): void
     {
-        const planetSprite = this.add.tileSprite(this.game.scale.gameSize.width-(268/2), this.game.scale.gameSize.height-(191/2), 268, 191, `planet_${inOrbitPlanet.imageId}`);
+        const planetSprite = this.add.tileSprite(
+            this.game.scale.gameSize.width-(268/2),
+            this.game.scale.gameSize.height-(191/2),
+            268, 191,
+            `planet_${inOrbitPlanet.imageId}`
+        );
         planetSprite.setScrollFactor(0, 0);
         planetSprite.setDepth(3);
     }
@@ -958,12 +961,11 @@ export default class DaedalusScene extends Phaser.Scene
     {
         const totalNumberOfTiles = this.sceneIsoSize.x * this.sceneIsoSize.y/(this.isoTileSize * this.isoTileSize);
 
-        // get a number of cells on fire between 30% to 60% of tiles on the scene
-        const numberOfFireCells = (0.15 + Math.random()*0.2) * totalNumberOfTiles;
+        const numberOfFireCells = (Math.random()*0.2) * totalNumberOfTiles + 3;
 
         for (let i = 0; i < numberOfFireCells; i++) {
             //get random coordinates for the fire cell
-            const rand_iso_coords = new IsometricCoordinates(Math.random() * this.sceneIsoSize.x, Math.random() * this.sceneIsoSize.y);
+            const rand_iso_coords = this.navMeshGrid.getRandomPoint().toIsometricCoordinates();
             const cell_coords = this.getGridIsoCoordinate(rand_iso_coords);
 
             if (this.sceneGrid.getPolygonFromPoint(cell_coords) !== -1) {

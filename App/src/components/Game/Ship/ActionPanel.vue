@@ -1,10 +1,10 @@
 <template>
     <div class="action-panel">
         <ActionButton
-            v-for="(action, key) in getActionsWithTargets"
+            v-for="(actionWithTarget, key) in getActionsWithTargets"
             :key="key"
-            :action="action.action"
-            @mousedown="executeActionWithTarget(action)"
+            :action="actionWithTarget.action"
+            @mousedown="executeActionWithTarget(actionWithTarget)"
         />
     </div>
 </template>
@@ -35,7 +35,7 @@ export default defineComponent ({
         getActionsWithTargets(): { action: Action, target: Equipment | Player | Hunter }[]
         {
             // if we are in spaceBattle the action given by the patrolShip should remain visible at any time
-            const actionsWithTarget = this.patrolShipActionsWithShip;
+            const actionsWithTarget =  this.patrolShipActionsWithShip.slice();
 
             // we need to add the actions provided by the current target
             // the target is different for patrolShip actions and target actions

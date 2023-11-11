@@ -23,6 +23,11 @@ interface AlertsState {
     selectedTarget: Equipment | Player | Hunter
 }
 
+interface ActionWithTarget {
+    action: Action,
+    target: Equipment | Player | Hunter
+}
+
 export default defineComponent ({
     components: {
         ActionButton
@@ -32,16 +37,19 @@ export default defineComponent ({
             'selectedTarget',
             'patrolShipActionsWithShip'
         ]),
-        getActionsWithTargets(): { action: Action, target: Equipment | Player | Hunter }[]
+        getActionsWithTargets(): ActionWithTarget[]
         {
             // if we are in spaceBattle the action given by the patrolShip should remain visible at any time
-            const actionsWithTarget =  this.patrolShipActionsWithShip.slice();
+            const actionsWithTarget = this.patrolShipActionsWithShip.slice();
 
             // we need to add the actions provided by the current target
             // the target is different for patrolShip actions and target actions
             if (this.selectedTarget !== null) {
                 for (let i = 0; i < this.selectedTarget.actions.length; i++) {
-                    actionsWithTarget.push({ action: this.selectedTarget.actions[i], target: this.selectedTarget });
+                    const actionWithTargetToAdd = { action: this.selectedTarget.actions[i], target: this.selectedTarget } as ActionWithTarget;
+                    if (!actionsWithTarget.some((actionWithTarget: ActionWithTarget) => actionWithTarget.action.id === actionWithTargetToAdd.action.id)) {
+                        actionsWithTarget.push(actionWithTargetToAdd);
+                    }
                 }
             }
 
@@ -58,7 +66,7 @@ export default defineComponent ({
         ...mapActions({
             'executeAction': 'action/executeAction'
         }),
-        async executeActionWithTarget(actionWithTarget: { action: Action, target: Equipment | Player | Hunter }) {
+        async executeActionWithTarget(actionWithTarget: ActionWithTarget): Promise<void> {
             if (actionWithTarget.action.canExecute){
                 if (actionWithTarget.target === this.player) {
                     await this.executeAction({ target: null, action: actionWithTarget.action });

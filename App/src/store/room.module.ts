@@ -31,11 +31,12 @@ const getters: GetterTree<any, any> = {
 
         const actions: {action: Action, target: Equipment}[] = [];
         const patrolShip = room.equipments[0];
+
         for (let i = 0; i < patrolShip.actions.length; i++) {
             const action: Action = patrolShip.actions[i];
 
             // if a hunter is selected and the action is the patrol ship shoot random, do not return the patrol ship shoot
-            if (!(state.selectedTarget  !== null && action.key === 'shoot_hunter_patrol_ship')) {
+            if (!(state.selectedTarget !== null && action.key === 'shoot_hunter_patrol_ship')) {
                 actions.push({ action: action, target: patrolShip });
             }
         }

@@ -1,6 +1,7 @@
 <template>
     <div class="box-container">
         <Spinner :loading="loading"></Spinner>
+        <Title :title="$t('title')" />
         <form class="daedalus-selection" onsubmit="return false">
             <div>
                 <label>{{ $t('charSelection.selectLanguage') }}</label>
@@ -75,6 +76,7 @@ import { characterEnum } from "@/enums/character";
 import PlayerService from "@/services/player.service";
 import { Character } from "@/entities/Character";
 import Spinner from "@/components/Utils/Spinner.vue";
+import Title from "./Utils/Title.vue";
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import { gameLocales } from "@/i18n";
@@ -82,7 +84,8 @@ import { gameLocales } from "@/i18n";
 export default defineComponent ({
     name: 'CharSelection',
     components: {
-        Spinner
+        Spinner,
+        Title
     },
     props: {
     },

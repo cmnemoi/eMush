@@ -60,13 +60,15 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
         /** @var Action $dismantle25 */
         $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
+        /** @var Action $dismantle50 */
+        $dismantle50 = $this->getReference(TechnicianFixtures::DISMANTLE_3_50);
 
         /** @var StatusConfig $heavyStatus */
         $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
 
         /** @var ArrayCollection $actions25 */
         $actions25 = clone $actions;
-        $actions25->add($dismantle25);
+        $actions25->add($dismantle50);
         $actions25->add($repair25);
         $actions25->add($sabotage25);
         $actions25->add($reportAction);

@@ -586,6 +586,6 @@
 		"problem": "Il y a eu un problème lors du traitement de votre requête.",
 		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
 		"title": "ERREUR",
-		"badGateWay": "Le proxy a reçu une réponse invalide. Cette erreur est très probablement due à la synchronisation du serveur : réessayez plus tard !"
+		"badGateway": "Le proxy a reçu une réponse invalide. Cette erreur est très probablement due à la synchronisation du serveur : réessayez plus tard !"
 	}
 }

@@ -54,8 +54,8 @@ export default defineComponent ({
             return translatedDetails;
         },
         getTranslatedErrorStatus(): string {
-            const translatedStatus = this.$t(['errors', this.error.response.status].join('.'));
-            if (translatedStatus === ['errors', this.error.response.status].join('.')) {
+            const translatedStatus = this.$t(['errors.status', this.error.response.status].join('.'));
+            if (translatedStatus === ['errors.status', this.error.response.status].join('.')) {
                 return this.error.response.status;
             }
 

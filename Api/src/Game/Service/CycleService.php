@@ -166,7 +166,7 @@ class CycleService implements CycleServiceInterface
 
         $dateExplorationLastCycle = $exploration->getUpdatedAt();
         if ($dateExplorationLastCycle === null) {
-            throw new \LogicException('Daedalus should have a UpdatedAt Value');
+            throw new \LogicException('Exploration should have an UpdatedAt Value');
         } else {
             $dateExplorationLastCycle = clone $dateExplorationLastCycle;
         }
@@ -216,7 +216,7 @@ class CycleService implements CycleServiceInterface
     public function getExplorationDateStartNextCycle(Exploration $exploration): \DateTime
     {
         if (($dateExplorationLastCycle = $exploration->getUpdatedAt()) === null) {
-            throw new \LogicException('Exploration should have a CycleStartedAt Value');
+            throw new \LogicException('Exploration should have an UpdatedAt Value');
         }
 
         $nextCycleStartAt = clone $dateExplorationLastCycle;

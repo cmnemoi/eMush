@@ -33,7 +33,7 @@ To add the events associated with the sector, go to [EventConfigData](../Game/Co
 - [Planet](./Entity/Planet.php) represents a planet. A `Planet` has an orientation and a distance which are used at `Daedalus` travel to check if the `Daedalus` is in orbit of the planet. It also has a list of `PlanetSector`s that can be explored by players. A `Planet` is scanned by `player` which is the only one who can analyze it, unless the `Daedalus` is in orbit of the planet.
 - [PlanetSector](./Entity/PlanetSector.php) represents a sector of a planet. It can be `revealed` by planet analysis or `explored` by an exploration (not doabl8e again). It has a [PlanetSectorConfig](./Entity/Config/PlanetSectorConfig.php) which contains the list of `ExplorationEvent`s that can be triggered when a player visits the sector.
 - [Exploration](./Entity/Exploration.php) represents an exploration. An exploration needs a `planet` and `explorators` to be created. Those explorators visit the planet for `numberOfSectionsToVisit` steps, defined by the action used to launch the exploration (9 for Icarus, 3 for patrol ships). Current step is stored in a `cycle` to dispatch `ExplorationEvent`s at each step with a similar logic to Daedalus cycle change.
-- [ClosedExploration](./Entity/ClosedExploration.php) represents a finished exploration. The implementation and purpose is similar to [`ClosedDaedalus`](../Daedalus/Entity/ClosedDaedalus.php). It contains the list of exploration logs and useful info to be accessed after the exploration is finished.
+- [ClosedExploration](./Entity/ClosedExploration.php) represents a finished exploration. The implementation and purpose is similar to [`ClosedDaedalus`](../Daedalus/Entity/ClosedDaedalus.php). It contains the list of exploration logs and useful info to be accessed after the exploration is finished, including [ExplorationLog](./Entity/ExplorationLog.php)s.
 
 ## Event
 - [ExplorationEvent](./Event/ExplorationEvent.php) are dispatched to handle general exploration events. The more important are exploration started, finished and new cycle.
@@ -58,6 +58,8 @@ Similarly to Daedalus cycle changes, we dispatch new Exploration events this way
 - Every 1/18 of a Daedalus cycle (10 minutes for 3-hours cycles), dispatch `ExplorationEvent::EXPLORATION_NEW_CYCLE`
 - Listen to `ExplorationEvent::EXPLORATION_NEW_CYCLE` in a subscriber and use `ExplorationService::dispatchExplorationEvent` to select a random `PlanetSector` then a random `PlanetSectorEvent` from the sector's event pool and dispatch it.
 - Listen this `PlanetSectorEvent` in a subscriber and use the relevant service to handle it (create an equipment, removing health points, etc.).
+
+This is handled in [`CycleService`](../Game/Service/CycleService.php).
 
 ## Voter
 

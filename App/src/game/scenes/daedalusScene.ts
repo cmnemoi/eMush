@@ -442,9 +442,6 @@ export default class DaedalusScene extends Phaser.Scene
         const newRoom = this.player.room;
         if (newRoom === null) { throw new Error("player room should be defined");}
 
-        // update background
-        this.updateBackground(newRoom);
-
         if (this.room.key !== newRoom.key) {
             this.room = newRoom;
 
@@ -490,6 +487,9 @@ export default class DaedalusScene extends Phaser.Scene
             this.updateEquipments();
             this.updateStatuses();
         }
+
+        // update background
+        this.updateBackground(newRoom);
     }
 
     updateStatuses(): void
@@ -730,9 +730,14 @@ export default class DaedalusScene extends Phaser.Scene
 
     displayPlanet(inOrbitPlanet: Planet): void
     {
-        const planetSprite = this.add.tileSprite(this.game.scale.gameSize.width-(268/2), this.game.scale.gameSize.height-(191/2), 268, 191, `planet_${inOrbitPlanet.imageId}`);
+        const planetSprite = this.add.tileSprite(
+            this.game.scale.gameSize.width-(268/2),
+            this.game.scale.gameSize.height-(191/2),
+            268, 191,
+            `planet_${inOrbitPlanet.imageId}`
+        );
         planetSprite.setScrollFactor(0, 0);
-        planetSprite.setDepth(3);
+        planetSprite.setDepth(1000000);
     }
 
     createHunterParticles(): void

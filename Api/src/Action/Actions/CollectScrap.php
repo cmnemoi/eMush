@@ -86,11 +86,11 @@ final class CollectScrap extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $daedalus = $this->player->getDaedalus();
-        $pasiphaePlace = $this->getPasiphaePlace();
-        $pasiphaeMechanic = $this->getPasiphaeMechanic();
+        $patrolShipPlace = $this->getPatrolShipPlace();
+        $patrolShipMechanic = $this->getPatrolShipMechanic();
         $spaceContent = $daedalus->getSpace()->getEquipments();
 
-        $numberOfScrapToCollect = (int) $this->randomService->getSingleRandomElementFromProbaCollection($pasiphaeMechanic->getCollectScrapNumber());
+        $numberOfScrapToCollect = (int) $this->randomService->getSingleRandomElementFromProbaCollection($patrolShipMechanic->getCollectScrapNumber());
         if (!$numberOfScrapToCollect) {
             throw new \RuntimeException('There should be at least one scrap to collect if CollectScrap action is called');
         }
@@ -98,23 +98,23 @@ final class CollectScrap extends AbstractAction
 
         /** @var GameEquipment $scrap */
         foreach ($scrapToCollect as $scrap) {
-            $this->moveScrapToPasiphae($scrap, $pasiphaePlace);
+            $this->moveScrapToPatrolShipPlace($scrap, $patrolShipPlace);
         }
 
         if ($daedalus->getAttackingHunters()->getAllHuntersExcept(HunterEnum::ASTEROID)->count() > 0) {
-            $this->damagePasiphae($pasiphaeMechanic, $pasiphaePlace);
-            $this->damagePlayer($pasiphaeMechanic, $pasiphaePlace);
+            $this->damagePatrolShip($patrolShipMechanic, $patrolShipPlace);
+            $this->damagePlayer($patrolShipMechanic, $patrolShipPlace);
         }
     }
 
-    private function damagePlayer(PatrolShip $pasiphaeMechanic, Place $pasiphaePlace): void
+    private function damagePlayer(PatrolShip $patrolShipMechanic, Place $patrolShipPlace): void
     {
-        $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($pasiphaeMechanic->getCollectScrapPlayerDamage()));
+        $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($patrolShipMechanic->getCollectScrapPlayerDamage()));
 
         if ($damage != 0) {
             $this->roomLogService->createLog(
                 logKey: LogEnum::ATTACKED_BY_HUNTER,
-                place: $pasiphaePlace,
+                place: $patrolShipPlace,
                 visibility: VisibilityEnum::PUBLIC,
                 type: 'event_log',
                 player: $this->player,
@@ -132,20 +132,20 @@ final class CollectScrap extends AbstractAction
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function damagePasiphae(PatrolShip $pasiphaeMechanic, Place $pasiphaePlace): void
+    private function damagePatrolShip(PatrolShip $patrolShipMechanic, Place $patrolShipPlace): void
     {
-        /** @var GameEquipment $pasiphae */
-        $pasiphae = $this->target;
+        /** @var GameEquipment $patrolShip */
+        $patrolShip = $this->target;
 
         /** @var ChargeStatus $patrolShipArmor */
-        $patrolShipArmor = $pasiphae->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
         if ($patrolShipArmor === null) {
-            throw new \RuntimeException('Pasiphae should have a patrol ship armor status');
+            throw new \RuntimeException('PatrolShip should have a patrol ship armor status');
         }
 
         $damage = intval(
             $this->randomService->getSingleRandomElementFromProbaCollection(
-                $pasiphaeMechanic->getCollectScrapPatrolShipDamage()
+                $patrolShipMechanic->getCollectScrapPatrolShipDamage()
             )
         );
 
@@ -158,7 +158,7 @@ final class CollectScrap extends AbstractAction
 
         $this->roomLogService->createLog(
             logKey: LogEnum::PATROL_DAMAGE,
-            place: $pasiphaePlace,
+            place: $patrolShipPlace,
             visibility: VisibilityEnum::PRIVATE,
             type: 'event_log',
             player: $this->player,
@@ -167,11 +167,11 @@ final class CollectScrap extends AbstractAction
         );
     }
 
-    private function moveScrapToPasiphae(GameEquipment $scrap, Place $pasiphaePlace): void
+    private function moveScrapToPatrolShipPlace(GameEquipment $scrap, Place $patrolShipPlace): void
     {
         $moveEquipmentEvent = new MoveEquipmentEvent(
             equipment: $scrap,
-            newHolder: $pasiphaePlace,
+            newHolder: $patrolShipPlace,
             author: $this->player,
             visibility: VisibilityEnum::PUBLIC,
             tags: $this->getAction()->getActionTags(),
@@ -180,27 +180,27 @@ final class CollectScrap extends AbstractAction
         $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);
     }
 
-    private function getPasiphaePlace(): Place
+    private function getPatrolShipPlace(): Place
     {
-        /** @var GameEquipment $pasiphae */
-        $pasiphae = $this->target;
-        $pasiphaePlace = $this->placeService->findByNameAndDaedalus($pasiphae->getName(), $pasiphae->getDaedalus());
-        if (!$pasiphaePlace) {
-            throw new \RuntimeException('Daedalus should have a Pasiphae place');
+        /** @var GameEquipment $patrolShip */
+        $patrolShip = $this->target;
+        $patrolShipPlace = $this->placeService->findByNameAndDaedalus($patrolShip->getName(), $patrolShip->getDaedalus());
+        if (!$patrolShipPlace) {
+            throw new \RuntimeException('Daedalus should have a PatrolShip place');
         }
 
-        return $pasiphaePlace;
+        return $patrolShipPlace;
     }
 
-    private function getPasiphaeMechanic(): PatrolShip
+    private function getPatrolShipMechanic(): PatrolShip
     {
-        /** @var GameEquipment $pasiphae */
-        $pasiphae = $this->target;
-        $pasiphaeMechanic = $pasiphae->getEquipment()->getMechanics()->filter(fn (PatrolShip $mechanic) => in_array(EquipmentMechanicEnum::PATROL_SHIP, $mechanic->getMechanics()))->first();
-        if (!$pasiphaeMechanic instanceof PatrolShip) {
-            throw new \RuntimeException('Pasiphae should have a PatrolShip mechanic');
+        /** @var GameEquipment $patrolShip */
+        $patrolShip = $this->target;
+        $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
+        if (!$patrolShipMechanic instanceof PatrolShip) {
+            throw new \RuntimeException('PatrolShip should have a PatrolShip mechanic');
         }
 
-        return $pasiphaeMechanic;
+        return $patrolShipMechanic;
     }
 }

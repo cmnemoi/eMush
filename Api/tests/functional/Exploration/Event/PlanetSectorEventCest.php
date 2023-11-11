@@ -103,7 +103,7 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
 
     public function testAccidentHurtsExplorator(FunctionalTester $I): void
     {
-        $sismicSector = $this->planet->getSectors()->filter(fn(PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::SISMIC_ACTIVITY)->first();
+        $sismicSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::SISMIC_ACTIVITY)->first();
         /** @var PlanetSectorEventConfig $accidentEventConfig */
         $accidentEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ACCIDENT . '_3_5']);
 
@@ -154,7 +154,7 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
 
     public function testTiredHurtsAllExplorators(FunctionalTester $I): void
     {
-        $desertSector = $this->planet->getSectors()->filter(fn(PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::DESERT)->first();
+        $desertSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::DESERT)->first();
 
         /** @var PlanetSectorEventConfig $tiredEventConfig */
         $tiredEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::TIRED . '_2']);
@@ -174,5 +174,4 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
             );
         }
     }
-
 }

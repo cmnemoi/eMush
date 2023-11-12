@@ -20,6 +20,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Place\Entity\Place;
@@ -29,15 +30,17 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class CycleEventCest
+class CycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
@@ -159,5 +162,33 @@ class CycleEventCest
 
         $I->assertEquals(0, $daedalus->getOxygen());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerAlive());
+    }
+
+    public function testCycleSubscriberDoNotAssignTitleToDeadPlayer(FunctionalTester $I): void
+    {
+        // given daedalus is in game so titles can be assigned
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+
+        // given those players in the daedalus
+        /** @var Player $jinSu */
+        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+        /** @var Player $gioele */
+        $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
+
+        // given Jin Su has 0 morale points so he dies at cycle change
+        $jinSu->setMoralPoint(0);
+
+        // when cycle change event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then Jin Su is dead and is not commander, but Gioele is commander
+        $I->assertFalse($jinSu->isAlive());
+        $I->assertEmpty($jinSu->getTitles());
+        $I->assertEquals($gioele->getTitles(), [TitleEnum::COMMANDER]);
     }
 }

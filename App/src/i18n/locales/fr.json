@@ -573,7 +573,9 @@
 			"403": "403 Interdit",
 			"404": "404 Ressource non trouvée",
 			"409": "409 Conflit",
+			"422": "422 Entité non traitable",
 			"500": "500 Erreur interne du serveur",
+			"502": "502 Bad Gateway",
 			"503": "503 Service indisponible"
 		},
 		"consultCommunity": "En cas d'erreurs répétées, consultez la communauté sur <a href='https://discord.gg/Jb8Nwjck6r'>Discord</a> ou le <a href='https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1'>forum</a>.",
@@ -583,6 +585,7 @@
 		"Not Found": "La ressource demandée n'a pas été trouvée.",
 		"problem": "Il y a eu un problème lors du traitement de votre requête.",
 		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
-		"title": "ERREUR"
+		"title": "ERREUR",
+		"badGateway": "Le proxy a reçu une réponse invalide. Cette erreur est très probablement due à la synchronisation du serveur : réessayez plus tard !"
 	}
 }

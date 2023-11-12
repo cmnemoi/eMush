@@ -156,7 +156,7 @@ const mutations : MutationTree<any> = {
             return state.selectedTarget = room.equipments.filter((equipment:Equipment) => (
                 equipment.key?.substring(0, 11) === 'patrol_ship'
                 || equipment.key === 'turret_command')
-            )[0]
+            )[0];
         }
 
         if (room?.type === 'patrol_ship') {

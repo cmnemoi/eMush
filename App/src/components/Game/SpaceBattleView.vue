@@ -87,7 +87,7 @@ import { SpaceBattleTurret } from '@/entities/SpaceBattleTurret';
 import { defineComponent } from 'vue';
 import { mapActions, mapGetters } from "vuex";
 import { Item } from "@/entities/Item";
-import {Equipment} from "@/entities/Equipment";
+import { Equipment } from "@/entities/Equipment";
 
 export default defineComponent({
     name: 'SpaceBattleView',

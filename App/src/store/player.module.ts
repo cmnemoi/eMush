@@ -33,6 +33,9 @@ const actions: ActionTree<any, any> = {
 
             commit('updatePlayer', player);
             if (player?.gameStatus === 'in_game') {
+                if (player?.spaceBattle !== null) {
+                    this.dispatch("room/loadSpaceBattle", { spaceBattle: player?.spaceBattle });
+                }
                 commit('updateSelectedItem');
                 this.dispatch("daedalus/loadAlerts", { player: player });
                 this.dispatch("daedalus/loadMinimap", { player: player });

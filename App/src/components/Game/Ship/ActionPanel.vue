@@ -1,10 +1,10 @@
 <template>
     <div class="action-panel">
         <ActionButton
-            v-for="(action, key) in getActions"
+            v-for="(actionWithTarget, key) in getActionsWithTargets"
             :key="key"
-            :action="action"
-            @mousedown="executeTargetAction(action)"
+            :action="actionWithTarget.action"
+            @mousedown="executeActionWithTarget(actionWithTarget)"
         />
     </div>
 </template>
@@ -16,10 +16,16 @@ import { mapActions, mapGetters } from "vuex";
 import { Player } from "@/entities/Player";
 import { Action } from "@/entities/Action";
 import { Equipment } from "@/entities/Equipment";
+import { Hunter } from "@/entities/Hunter";
 
 interface AlertsState {
     loading: boolean,
-    selectedTarget: Equipment | Player
+    selectedTarget: Equipment | Player | Hunter
+}
+
+interface ActionWithTarget {
+    action: Action,
+    target: Equipment | Player | Hunter
 }
 
 export default defineComponent ({
@@ -28,12 +34,26 @@ export default defineComponent ({
     },
     computed: {
         ...mapGetters('room', [
-            'selectedTarget'
+            'selectedTarget',
+            'getSpaceWeaponAndActions'
         ]),
-        getActions(): Action[]
+        getActionsWithTargets(): ActionWithTarget[]
         {
-            if (this.selectedTarget === null) { return [];}
-            return this.selectedTarget.actions;
+            // if we are in spaceBattle the action given by the patrolShip should remain visible at any time
+            const actionsWithTarget = this.getSpaceWeaponAndActions.slice();
+
+            // we need to add the actions provided by the current target
+            // the target is different for patrolShip actions and target actions
+            if (this.selectedTarget !== null) {
+                for (let i = 0; i < this.selectedTarget.actions.length; i++) {
+                    const actionWithTargetToAdd = { action: this.selectedTarget.actions[i], target: this.selectedTarget } as ActionWithTarget;
+                    if (!actionsWithTarget.some((actionWithTarget: ActionWithTarget) => actionWithTarget.action.id === actionWithTargetToAdd.action.id)) {
+                        actionsWithTarget.push(actionWithTargetToAdd);
+                    }
+                }
+            }
+
+            return actionsWithTarget;
         },
         ...mapGetters('player', [
             'player'
@@ -46,12 +66,12 @@ export default defineComponent ({
         ...mapActions({
             'executeAction': 'action/executeAction'
         }),
-        async executeTargetAction(action: Action) {
-            if (action.canExecute){
-                if (this.selectedTarget === this.player) {
-                    await this.executeAction({ target: null, action });
+        async executeActionWithTarget(actionWithTarget: ActionWithTarget): Promise<void> {
+            if (actionWithTarget.action.canExecute){
+                if (actionWithTarget.target === this.player) {
+                    await this.executeAction({ target: null, action: actionWithTarget.action });
                 } else {
-                    await this.executeAction({ target: this.selectedTarget, action });
+                    await this.executeAction({ target: actionWithTarget.target, action: actionWithTarget.action });
                 }
             }
         }

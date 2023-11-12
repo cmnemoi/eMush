@@ -178,6 +178,7 @@ import DoorGroundObject from "@/game/objects/doorGroundObject";
 import { Door } from "@/entities/Door";
 import DeathZone = Phaser.GameObjects.Particles.Zones.DeathZone;
 import { Planet } from "@/entities/Planet";
+import PatrolShipObject from "@/game/objects/patrolShipObject";
 
 
 export default class DaedalusScene extends Phaser.Scene
@@ -423,12 +424,12 @@ export default class DaedalusScene extends Phaser.Scene
 
 
         this.createBackground();
-        this.enableEventListeners();
 
         if (this.player?.room?.type !== 'room') {
             return;
         }
 
+        this.enableEventListeners();
         this.input.setTopOnly(true);
         this.input.setGlobalTopOnly(true);
 
@@ -443,16 +444,17 @@ export default class DaedalusScene extends Phaser.Scene
         if (newRoom === null) { throw new Error("player room should be defined");}
 
         if (this.room.key !== newRoom.key) {
-            this.room = newRoom;
-
             this.selectedGameObject = null;
-            store.dispatch('room/selectTarget', { target: null });
             store.dispatch('room/closeInventory');
 
             this.deleteWallAndFloor();
             this.deleteCharacters();
             this.deleteEquipmentsAndDecoration();
             this.removeFire();
+
+            // update background
+            this.updateBackground(newRoom);
+            this.room = newRoom;
 
             this.map = this.createRoom();
             this.createEquipments(this.map);
@@ -465,31 +467,32 @@ export default class DaedalusScene extends Phaser.Scene
 
         } else if (this.areEquipmentsModified()) {
             this.navMeshGrid = new NavMeshGrid(this);
-            this.room = newRoom;
-
             this.deleteEquipmentsAndDecoration();
             this.selectedGameObject = null;
-            store.dispatch('room/selectTarget', { target: null });
             store.dispatch('room/closeInventory');
 
             if (this.map === null) { throw new Error("player room should be defined");}
 
             this.deleteCharacters();
 
+            // update background
+            this.updateBackground(newRoom);
+
+            this.room = newRoom;
             this.map = this.createRoom();
             this.createEquipments(this.map);
             this.updateStatuses();
             this.createPlayers();
         } else{
+            // update background
+            this.updateBackground(newRoom);
+
             this.room = newRoom;
 
             this.updatePlayers();
             this.updateEquipments();
             this.updateStatuses();
         }
-
-        // update background
-        this.updateBackground(newRoom);
     }
 
     updateStatuses(): void
@@ -516,22 +519,11 @@ export default class DaedalusScene extends Phaser.Scene
 
                 gameObject.updateEquipment(updatedEquipment);
 
-                this.displayPatrolShipActions(updatedEquipment, room);
-
             } else if (gameObject instanceof DoorObject || gameObject instanceof DoorGroundObject) {
                 const updatedDoor = room.doors.filter((door: Door) => (door.key === gameObject.door.key))[0];
 
                 gameObject.updateDoor(updatedDoor);
             }
-        }
-    }
-
-    private displayPatrolShipActions(updatedEquipment: Equipment, playerRoom: Room) {
-        const equipmentIsAPatrolShip = updatedEquipment.key?.substring(0, 11) === 'patrol_ship' || updatedEquipment.key?.substring(0, 8) === 'pasiphae';
-        const playerIsInAPatrolShip = playerRoom?.type === 'patrol_ship';
-
-        if (equipmentIsAPatrolShip && playerIsInAPatrolShip) {
-            store.dispatch('room/selectTarget', { target: updatedEquipment });
         }
     }
 
@@ -664,9 +656,13 @@ export default class DaedalusScene extends Phaser.Scene
         }
 
         // add target tile highlight
-        this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
-        this.add.existing(this.targetHighlightObject);
-        this.targetHighlightObject.setDepth(500);
+        if (this.room.type === 'room') {
+            this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
+            this.add.existing(this.targetHighlightObject);
+            this.targetHighlightObject.setDepth(500);
+        } else {
+            this.targetHighlightObject?.setDepth(-1);
+        }
 
         return map;
     }
@@ -1043,10 +1039,7 @@ export default class DaedalusScene extends Phaser.Scene
             for (let i=0; i < sceneGameObjects.length; i++) {
                 const gameObject = sceneGameObjects[i];
 
-                if (gameObject instanceof EquipmentObject && (
-                    gameObject.equipment.key?.substring(0, 11) === 'patrol_ship' ||
-                    gameObject.equipment.key?.substring(0, 8) === 'pasiphae')
-                ) {
+                if (gameObject instanceof PatrolShipObject) {
                     gameObject.update(time, delta);
                 }
             }

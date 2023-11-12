@@ -11,8 +11,6 @@
             <SpaceBattleView
                 v-if="player.canSeeSpaceBattle()"
                 :player="player"
-                :selected-hunter="getTargetHunter"
-                @select="selectHunter"
             />
             <MiniMap
                 v-if="isMinimapAvailable"
@@ -22,7 +20,7 @@
             <RoomInventoryPanel v-if="isInventoryOpen" :items="room.items" />
             <component
                 :is="targetPanel"
-                v-else-if="selectedTarget"
+                v-else-if="isActionPanelOpen"
                 :target="selectedTarget"
             />
         </div>
@@ -68,16 +66,13 @@ export default defineComponent ({
     computed: {
         ...mapGetters('room', [
             'isInventoryOpen',
-            'selectedTarget'
+            'selectedTarget',
         ]),
         targetPanel() {
             return this.selectedTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
         },
-        target(): Hunter | null {
-            return this.selectedTarget;
-        },
-        getTargetHunter(): Hunter | null {
-            return this.selectedTarget instanceof Hunter ? this.selectedTarget : null;
+        isActionPanelOpen() {
+            return this.selectedTarget !== null;
         },
         ...mapState('daedalus', [
             'isMinimapAvailable'

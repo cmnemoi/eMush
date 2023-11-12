@@ -6,7 +6,6 @@ import IsometricGeom from "@/game/scenes/isometricGeom";
 import EquipmentObject from "@/game/objects/equipmentObject";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 
-/*eslint no-unused-vars: "off"*/
 export default class InteractObject extends DecorationObject {
     protected interactionInformation: InteractionInformation | null;
 

@@ -1,12 +1,10 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import store from '@/store/index';
-import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
-import DecorationObject from "@/game/objects/decorationObject";
+import { CartesianCoordinates } from "@/game/types";
 import InteractObject from "@/game/objects/interactObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 
-/*eslint no-unused-vars: "off"*/
 export default class ShelfObject extends InteractObject {
     constructor(
         scene: DaedalusScene,

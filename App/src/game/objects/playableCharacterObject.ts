@@ -8,7 +8,6 @@ import { MushPath } from "@/game/scenes/navigationGrid";
 import InteractObject from "@/game/objects/interactObject";
 import GameObject = Phaser.GameObjects.GameObject;
 
-/*eslint no-unused-vars: "off"*/
 export default class PlayableCharacterObject extends CharacterObject {
     private isoPath : MushPath;
     private currentMove : number;
@@ -35,7 +34,11 @@ export default class PlayableCharacterObject extends CharacterObject {
     //this function return an array of direction to follow to get from character position to the pointed coordinates
     updateMovement(pointer: Phaser.Input.Pointer, object : GameObject | null ): MushPath | null
     {
-        if (this.player.isLyingDown()) {
+        if (
+            this.player.isLyingDown()
+            || this.player.room?.type === 'space'
+            || this.player.room?.type === 'patrol_ship'
+        ) {
             return null;
         }
 

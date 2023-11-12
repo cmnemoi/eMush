@@ -55,7 +55,7 @@ class ShootHunter extends AttemptAction
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $target instanceof Hunter;
+        return $target instanceof Hunter || $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

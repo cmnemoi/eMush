@@ -40,7 +40,10 @@
                 </div>
                 <div class="stats">
                     <p v-if="patrolShip.armor" class="quantity">{{ patrolShip.armor }}</p>
-                    <img v-if="patrolShip.armor" class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
+                    <img v-if="patrolShip.armor"
+                         class="armor-img"
+                         :src="require('@/assets/images/shield.png')"
+                         alt="armor">
                     <p class="quantity" v-if="!patrolShip.isPasiphae()">{{ patrolShip.charges }}</p>
                     <img
                         class="charges-img"

@@ -424,12 +424,12 @@ export default class DaedalusScene extends Phaser.Scene
 
 
         this.createBackground();
-        this.enableEventListeners();
 
         if (this.player?.room?.type !== 'room') {
             return;
         }
 
+        this.enableEventListeners();
         this.input.setTopOnly(true);
         this.input.setGlobalTopOnly(true);
 
@@ -444,16 +444,17 @@ export default class DaedalusScene extends Phaser.Scene
         if (newRoom === null) { throw new Error("player room should be defined");}
 
         if (this.room.key !== newRoom.key) {
-            this.room = newRoom;
-
             this.selectedGameObject = null;
-            store.dispatch('room/selectTarget', { target: null });
             store.dispatch('room/closeInventory');
 
             this.deleteWallAndFloor();
             this.deleteCharacters();
             this.deleteEquipmentsAndDecoration();
             this.removeFire();
+
+            // update background
+            this.updateBackground(newRoom);
+            this.room = newRoom;
 
             this.map = this.createRoom();
             this.createEquipments(this.map);
@@ -466,31 +467,32 @@ export default class DaedalusScene extends Phaser.Scene
 
         } else if (this.areEquipmentsModified()) {
             this.navMeshGrid = new NavMeshGrid(this);
-            this.room = newRoom;
-
             this.deleteEquipmentsAndDecoration();
             this.selectedGameObject = null;
-            store.dispatch('room/selectTarget', { target: null });
             store.dispatch('room/closeInventory');
 
             if (this.map === null) { throw new Error("player room should be defined");}
 
             this.deleteCharacters();
 
+            // update background
+            this.updateBackground(newRoom);
+
+            this.room = newRoom;
             this.map = this.createRoom();
             this.createEquipments(this.map);
             this.updateStatuses();
             this.createPlayers();
         } else{
+            // update background
+            this.updateBackground(newRoom);
+
             this.room = newRoom;
 
             this.updatePlayers();
             this.updateEquipments();
             this.updateStatuses();
         }
-
-        // update background
-        this.updateBackground(newRoom);
     }
 
     updateStatuses(): void
@@ -654,9 +656,13 @@ export default class DaedalusScene extends Phaser.Scene
         }
 
         // add target tile highlight
-        this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
-        this.add.existing(this.targetHighlightObject);
-        this.targetHighlightObject.setDepth(500);
+        if (this.room.type === 'room') {
+            this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
+            this.add.existing(this.targetHighlightObject);
+            this.targetHighlightObject.setDepth(500);
+        } else {
+            this.targetHighlightObject?.setDepth(-1);
+        }
 
         return map;
     }

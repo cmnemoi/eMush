@@ -87,6 +87,7 @@ import { SpaceBattleTurret } from '@/entities/SpaceBattleTurret';
 import { defineComponent } from 'vue';
 import { mapActions, mapGetters } from "vuex";
 import { Item } from "@/entities/Item";
+import {Equipment} from "@/entities/Equipment";
 
 export default defineComponent({
     name: 'SpaceBattleView',
@@ -95,7 +96,8 @@ export default defineComponent({
     },
     computed: {
         ...mapGetters('room', [
-            'selectedTarget'
+            'selectedTarget',
+            'getSpaceShip'
         ]),
         getSelectedTarget(): Item | Hunter | null
         {
@@ -134,7 +136,7 @@ export default defineComponent({
         },
         toggleHunterSelection(hunter: Hunter | null): void {
             if (this.getSelectedTarget === hunter) {
-                this.selectTarget({ target: null });
+                this.selectTarget({ target: this.getSpaceShip });
             } else {
                 this.selectTarget({ target: hunter });
             }

@@ -35,12 +35,12 @@ export default defineComponent ({
     computed: {
         ...mapGetters('room', [
             'selectedTarget',
-            'patrolShipActionsWithShip'
+            'getSpaceWeaponAndActions'
         ]),
         getActionsWithTargets(): ActionWithTarget[]
         {
             // if we are in spaceBattle the action given by the patrolShip should remain visible at any time
-            const actionsWithTarget = this.patrolShipActionsWithShip.slice();
+            const actionsWithTarget = this.getSpaceWeaponAndActions.slice();
 
             // we need to add the actions provided by the current target
             // the target is different for patrolShip actions and target actions

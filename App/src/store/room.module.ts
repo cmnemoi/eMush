@@ -22,27 +22,42 @@ const getters: GetterTree<any, any> = {
     selectedTarget: (state) => {
         return state.selectedTarget;
     },
-    patrolShipActionsWithShip: (state) => {
+    getSpaceWeaponAndActions: (state) => {
         const room = (<Room> state.room);
 
-        if (room.type !== 'patrol_ship') {
+        if (!(state.selectedTarget instanceof Hunter)) {
             return [];
         }
 
         const actions: {action: Action, target: Equipment}[] = [];
-        const patrolShip = room.equipments[0];
+        const weapon = room.equipments.filter((equipment:Equipment) => (
+            equipment.key?.substring(0, 11) === 'patrol_ship'
+            || equipment.key === 'turret_command')
+        )[0];
 
-        for (let i = 0; i < patrolShip.actions.length; i++) {
-            const action: Action = patrolShip.actions[i];
+        for (let i = 0; i < weapon.actions.length; i++) {
+            const action: Action = weapon.actions[i];
 
             // if a hunter is selected and the action is the patrol ship shoot random, do not return the patrol ship shoot
-            if (!(state.selectedTarget !== null && action.key === 'shoot_hunter_patrol_ship')) {
-                actions.push({ action: action, target: patrolShip });
+            if (action.key !== 'shoot_hunter_patrol_ship' && action.key !== 'shoot_hunter') {
+                actions.push({ action: action, target: weapon });
             }
         }
 
         return actions;
-    }
+    },
+    getSpaceShip: (state) => {
+        const room = (<Room> state.room);
+
+        if (room.type !== 'patrol_ship') {
+            return null;
+        }
+
+        return room.equipments.filter((equipment:Equipment) => (
+            equipment.key?.substring(0, 11) === 'patrol_ship'
+            || equipment.key?.substring(0, 8) === 'pasiphae')
+        )[0];
+    },
 };
 
 const actions: ActionTree<any, any> = {
@@ -84,6 +99,9 @@ const mutations : MutationTree<any> = {
         state.inventoryOpen = false;
     },
     setRoom(state, room: Room | null) {
+        if (state.room?.key !== room?.key) {
+            state.selectedTarget = null;
+        }
         state.room = room;
     },
     setSpaceBattle(state, spaceBattle: SpaceBattle | null) {
@@ -133,6 +151,19 @@ const mutations : MutationTree<any> = {
                     return state.selectedTarget = target;
                 }
             }
+
+            // if the hunter has been destroyed the spaceWeapon is selected
+            return state.selectedTarget = room.equipments.filter((equipment:Equipment) => (
+                equipment.key?.substring(0, 11) === 'patrol_ship'
+                || equipment.key === 'turret_command')
+            )[0]
+        }
+
+        if (room?.type === 'patrol_ship') {
+            return state.selectedTarget = room.equipments.filter((equipment:Equipment) => (
+                equipment.key?.substring(0, 11) === 'patrol_ship'
+                || equipment.key?.substring(0, 8) === 'pasiphae')
+            )[0];
         }
         state.selectedTarget = null;
     }

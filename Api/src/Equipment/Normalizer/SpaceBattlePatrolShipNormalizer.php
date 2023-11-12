@@ -54,7 +54,7 @@ final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
                 domain: 'equipment',
                 language: $patrolShip->getDaedalus()->getLanguage()
             ),
-            'armor' => $patrolShipArmor->getCharge(),
+            'armor' => $patrolShipArmor?->getCharge(),
             'charges' => $patrolShipCharges?->getCharge(), // Pasiphae doesn't have charges so do not try to normalize them
             'pilot' => $pilotKey,
         ];

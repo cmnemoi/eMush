@@ -45,9 +45,10 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     {
         return [
             DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => [
-                ['updateDaedalusCycle', 1000],
+                ['updateDaedalusCycle', EventPriorityEnum::HIGHEST],
                 ['updateDaedalusDifficulty', EventPriorityEnum::HIGHEST],
-                ['triggerEvents', 0],
+                ['triggerEvents', EventPriorityEnum::NORMAL],
+                ['attributeTitles', EventPriorityEnum::LOW], // do this after all cycle change events to prevent titles being attributed to dead players
             ],
         ];
     }
@@ -174,9 +175,17 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 $time
             );
             $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
-        } elseif ($daedalus->getGameStatus() === GameStatusEnum::CURRENT) {
-            // Assign Titles every cycle in case of new deaths or inactive players
-            $this->daedalusService->attributeTitles($daedalus, $time);
         }
+    }
+
+    public function attributeTitles(DaedalusCycleEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $time = $event->getTime();
+        if ($daedalus->getGameStatus() !== GameStatusEnum::CURRENT) {
+            return;
+        }
+
+        $this->daedalusService->attributeTitles($daedalus, $time);
     }
 }

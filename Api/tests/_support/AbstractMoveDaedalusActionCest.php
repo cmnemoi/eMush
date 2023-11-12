@@ -9,11 +9,14 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Alert\Service\AlertServiceInterface;
+use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterConfig;
@@ -138,6 +141,40 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // then player2 is alive
         $I->assertTrue($this->player2->isAlive());
+    }
+
+    public function testMoveDaedalusActionSuccessDoesNotKillDeadPlayersInPatrolShip(FunctionalTester $I): void
+    {
+        // given player2 is in a patrol ship
+        $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
+        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new GameEquipment($pasiphaePlace);
+        $pasiphae
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig)
+        ;
+        $I->haveInRepository($pasiphae);
+        $this->player2->changePlace($pasiphaePlace);
+
+        // given player2 is dead
+        $this->player2->getPlayerInfo()->setGameStatus(GameStatusEnum::CLOSED);
+
+        // when player moves daedalus
+        $this->moveDaedalusAction->loadParameters(
+            action: $this->moveDaedalusActionConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->moveDaedalusAction->execute();
+
+        // then there is no Neron death announcement
+        $I->dontSeeInRepository(
+            entity: Message::class,
+            params: [
+                'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
+                'message' => NeronMessageEnum::PLAYER_DEATH,
+            ]
+        );
     }
 
     public function testMoveDaedalusActionSuccessDestroyAllPatrolShipsInSpaceBattle(FunctionalTester $I): void

@@ -1,6 +1,6 @@
 <template>
     <PopUp :is-open="isError()" @close="clearError">
-        <h1 class="title">{{ $t(['errors.status', errorStatus].join('.')) }}</h1>
+        <h1 class="title">{{ getTranslatedErrorStatus() }}</h1>
         <div class="message">
             <img class="neron-img" src="@/assets/images/neron_eye.gif" alt="Neron">
             <div>
@@ -10,7 +10,7 @@
                     <span v-if="error.request.method">method: {{ error.request.method.toUpperCase() }}</span>
                     <span v-if="error.request.url">url: {{ error.request.url }}</span>
                     <span class="details" v-if="error.request.params">params: <strong>{{ error.request.params }}</strong></span>
-                    <span class="details" v-if="error.response.details">details: <strong>{{ $t(['errors', error.response.details].join('.')) }}</strong></span>
+                    <span class="details" v-if="error.response.details">details: <strong>{{ getTranslatedErrorDetails() }}</strong></span>
                     <span class="details" v-if="error.response.class">class: <strong>{{ error.response.class }}</strong></span>
                 </div>
                 <p v-html="$t('errors.consultCommunity')"></p>
@@ -42,13 +42,33 @@ export default defineComponent ({
         ...mapActions('error', [
             'clearError'
         ]),
+        getTranslatedErrorDetails(): string {
+            if (parseInt(this.error.response.status) === 502) {
+                return this.$t('errors.badGateway');
+            }
+            const translatedDetails = this.$t(['errors', this.error.response.details].join('.'));
+            if (translatedDetails === ['errors', this.error.response.details].join('.')) {
+                return this.error.response.details;
+            }
+
+            return translatedDetails;
+        },
+        getTranslatedErrorStatus(): string {
+            const translatedStatus = this.$t(['errors.status', this.error.response.status].join('.'));
+            if (translatedStatus === ['errors.status', this.error.response.status].join('.')) {
+                return this.error.response.status;
+            }
+
+            return translatedStatus;
+        },
         isError() {
             return this.error !== null;
         },
         isWorkingServerError() {
-            const isServerError = this.isError() && (parseInt(this.error.status) >= 500 && parseInt(this.error.status) < 600);
-            const isNot503Error = this.isError() && parseInt(this.error.status) !== 503;
-            return isServerError && isNot503Error;
+            const errorStatus = this.isError() ? parseInt(this.error.status) : null;
+            const isServerError = errorStatus && errorStatus >= 500 && errorStatus < 600;
+            const isNot503Or502Error = errorStatus !== 503 && errorStatus !== 502;
+            return isServerError && isNot503Or502Error;
         }
     }
 });

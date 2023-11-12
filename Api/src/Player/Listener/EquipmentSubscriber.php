@@ -54,7 +54,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $this->playerService->persist($player);
 
         // kill player if they don't have an operational spacesuit
-        if (!$player->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)) {
+        if ($player->isAlive() && !$player->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)) {
             $deathPlayerEvent = new PlayerEvent(
                 $player,
                 $tags,

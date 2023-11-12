@@ -39,8 +39,8 @@
                         alt="pasiphae">
                 </div>
                 <div class="stats">
-                    <p class="quantity">{{ patrolShip.armor }}</p>
-                    <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
+                    <p v-if="patrolShip.armor" class="quantity">{{ patrolShip.armor }}</p>
+                    <img v-if="patrolShip.armor" class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
                     <p class="quantity" v-if="!patrolShip.isPasiphae()">{{ patrolShip.charges }}</p>
                     <img
                         class="charges-img"

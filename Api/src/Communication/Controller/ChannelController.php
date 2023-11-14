@@ -487,8 +487,12 @@ class ChannelController extends AbstractGameController
 
         $this->denyIfPlayerNotInGame($currentPlayer);
 
-        if (!$this->messageService->canPlayerPostMessage($currentPlayer, $channel)) {
-            throw new AccessDeniedException('Player cannot speak');
+        if (
+            !$this->messageService->canPlayerPostMessage($currentPlayer, $channel)
+            || (!$this->channelService->canPlayerWhisperInChannel($channel, $currentPlayer)
+            && !$this->channelService->canPlayerCommunicate($currentPlayer))
+        ) {
+            throw new AccessDeniedException('Player cannot speak in this channel');
         }
 
         if ($channel->getDaedalusInfo()->getDaedalus() !== $currentPlayer->getDaedalus()) {

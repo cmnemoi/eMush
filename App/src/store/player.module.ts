@@ -41,6 +41,7 @@ const actions: ActionTree<any, any> = {
                 this.dispatch("daedalus/loadMinimap", { player: player });
                 this.dispatch("room/loadRoom", { room: player?.room });
                 this.dispatch("room/updateSelectedItemPile");
+                this.dispatch("daedalus/loadMinimap", { player: player });
             }
             return true;
         } catch (e) {

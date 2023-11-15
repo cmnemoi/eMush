@@ -85,6 +85,8 @@ const mutations: MutationTree<any> = {
         state.minimap = minimap;
         if (minimap.length > 0) {
             state.isMinimapAvailable = true;
+        } else {
+            state.isMinimapAvailable = false;
         }
         state.loadingMinimap = false;
     },

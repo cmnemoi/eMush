@@ -13,7 +13,7 @@
                 :player="player"
             />
             <MiniMap
-                v-if="isMinimapAvailable"
+                v-if="isMinimapOpen"
                 :my-position="room"
                 :minimap="player.daedalus.minimap"
             />
@@ -64,19 +64,20 @@ export default defineComponent ({
         player: Player
     },
     computed: {
-        ...mapGetters('room', [
-            'isInventoryOpen',
-            'selectedTarget',
-        ]),
+        ...mapGetters({
+            isInventoryOpen: 'room/isInventoryOpen',
+            selectedTarget: 'room/selectedTarget',
+            isMinimapAvailable: 'daedalus/isMinimapAvailable'
+        }),
         targetPanel() {
             return this.selectedTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
         },
         isActionPanelOpen() {
             return this.selectedTarget !== null;
         },
-        ...mapState('daedalus', [
-            'isMinimapAvailable'
-        ])
+        isMinimapOpen() {
+            return this.isMinimapAvailable;
+        },
     },
     methods: {
         ...mapActions({

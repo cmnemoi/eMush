@@ -87,8 +87,16 @@ export default class PlayableCharacterObject extends CharacterObject {
     // check if the character reached its destination (using a threshold)
     updateCurrentMove(): number
     {
+        // if the move is finished
         if (this.isoPath.length === 0) {
             return this.currentMove = -1;
+        }
+
+        // if, for any reason, the character left the walking grid stop movement and put the player on the closest point on the grid
+        if (this.depth === -1) {
+            this.setPositionFromFeet(this.navMesh.getClosestPoint(this.getFeetCartCoords().toIsometricCoordinates()).toCartesianCoordinates());
+            this.resetMove();
+            return this.currentMove;
         }
 
         const displacementThreshold = 4;

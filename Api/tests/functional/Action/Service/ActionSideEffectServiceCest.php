@@ -15,6 +15,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -66,6 +67,7 @@ class ActionSideEffectServiceCest extends AbstractFunctionalTest
 
         $I->assertCount(1, $this->player1->getEquipments());
         $I->assertCount(1, $this->player1->getModifiers());
+        $I->assertCount(0, $this->player1->getStatuses());
 
         $this->searchAction->loadParameters($this->action, $this->player1, null);
         $this->searchAction->execute();
@@ -75,6 +77,12 @@ class ActionSideEffectServiceCest extends AbstractFunctionalTest
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo(),
             'log' => LogEnum::SOIL_PREVENTED,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
+        $I->dontSeeInRepository(RoomLog::class, [
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => StatusEventLogEnum::SOILED,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }
@@ -94,11 +102,11 @@ class ActionSideEffectServiceCest extends AbstractFunctionalTest
 
         $event = new EquipmentInitEvent($apron, $apronConfig, [], new \DateTime());
         $event->setAuthor($this->player1);
-
         $this->eventService->callEvent($event, EquipmentInitEvent::NEW_EQUIPMENT);
 
         $I->assertCount(1, $this->player1->getEquipments());
         $I->assertCount(1, $this->player1->getModifiers());
+        $I->assertCount(0, $this->player1->getStatuses());
 
         $this->searchAction->loadParameters($this->action, $this->player1, null);
         $this->searchAction->execute();

@@ -61,7 +61,6 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
             actual: $this->player1->getSatiety()
         );
 
-        // dump($I->grabEntitiesFromRepository(RoomLog::class, ['log' => PlayerModifierLogEnum::GAIN_MOVEMENT_POINT]));
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $this->player1->getPlace()->getName(),

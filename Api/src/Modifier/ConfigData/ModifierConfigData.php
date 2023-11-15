@@ -668,7 +668,7 @@ class ModifierConfigData
             'targetEvent' => 'change.variable',
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
-            'applyOnTarget' => false,
+            'applyOnTarget' => true,
             'modifierRange' => 'daedalus',
             'type' => 'variable_event_modifier',
             'delta' => -1.0,

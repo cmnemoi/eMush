@@ -67,7 +67,11 @@ const actions: ActionTree<any, any> = {
 
             commit('setChannels', sortedChannels);
 
-            if (state.currentChannel.scope === undefined) {
+            // if the channel is no longer available, reset currentChannel
+            if (
+                state.currentChannel.scope === undefined
+                || sortedChannels.filter((channel: Channel) => channel.id === state.currentChannel.id).length === 0
+            ) {
                 commit('setCurrentChannel', getters.roomChannel);
             }
 

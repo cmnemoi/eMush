@@ -439,7 +439,7 @@ class ModifierConfigData
             'modifierName' => 'apron_modifier',
             'targetEvent' => StatusEvent::STATUS_APPLIED,
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
-            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'priority' => ModifierPriorityEnum::PREVENT_EVENT,
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'event_modifier',

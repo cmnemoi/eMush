@@ -487,13 +487,7 @@ class ChannelController extends AbstractGameController
 
         $this->denyIfPlayerNotInGame($currentPlayer);
 
-        if (!$this->messageService->canPlayerPostMessage($currentPlayer, $channel)) {
-            throw new AccessDeniedException('Player cannot speak');
-        }
-
-        if ($channel->getDaedalusInfo()->getDaedalus() !== $currentPlayer->getDaedalus()) {
-            return $this->view(['error' => 'player is not from this daedalus'], 422);
-        }
+        $this->checkMessagePermission($currentPlayer, $channel);
 
         $this->messageService->createPlayerMessage($playerMessage, $messageCreate);
         $messages = $this->messageService->getChannelMessages($currentPlayer, $channel);
@@ -505,6 +499,21 @@ class ChannelController extends AbstractGameController
         $view->setContext($context);
 
         return $view;
+    }
+
+    public function checkMessagePermission(Player $currentPlayer, Channel $channel): void
+    {
+        if (
+            !$this->messageService->canPlayerPostMessage($currentPlayer, $channel)
+            || (!$this->channelService->canPlayerWhisperInChannel($channel, $currentPlayer)
+                && !$this->channelService->canPlayerCommunicate($currentPlayer))
+        ) {
+            throw new AccessDeniedException('Player cannot speak in this channel');
+        }
+
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $currentPlayer->getDaedalus()) {
+            throw new AccessDeniedException('player is not from this daedalus');
+        }
     }
 
     /**

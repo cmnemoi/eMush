@@ -25,7 +25,7 @@ class HunterConfigData
             'drawCost' => 25,
             'maxPerWave' => 2,
             'drawWeight' => 1,
-            'spawnDifficulty' => 4,
+            'spawnDifficulty' => 5,
             'scrapDropTable' => [
                 ItemEnum::METAL_SCRAPS => 2,
                 ToolItemEnum::SPACE_CAPSULE => 1,
@@ -58,7 +58,7 @@ class HunterConfigData
             'drawCost' => 30,
             'maxPerWave' => 1,
             'drawWeight' => 1,
-            'spawnDifficulty' => 9,
+            'spawnDifficulty' => 10,
             'scrapDropTable' => [
                 ItemEnum::METAL_SCRAPS => 2,
                 ToolItemEnum::SPACE_CAPSULE => 2,
@@ -92,7 +92,7 @@ class HunterConfigData
             'drawCost' => 10,
             'maxPerWave' => null,
             'drawWeight' => 10,
-            'spawnDifficulty' => 0,
+            'spawnDifficulty' => 1,
             'scrapDropTable' => [
                 ItemEnum::METAL_SCRAPS => 2,
                 ToolItemEnum::SPACE_CAPSULE => 1,
@@ -124,7 +124,7 @@ class HunterConfigData
             'drawCost' => 20,
             'maxPerWave' => 2,
             'drawWeight' => 1,
-            'spawnDifficulty' => 4,
+            'spawnDifficulty' => 5,
             'scrapDropTable' => [
                 ItemEnum::METAL_SCRAPS => 2,
                 ToolItemEnum::SPACE_CAPSULE => 2,
@@ -155,7 +155,7 @@ class HunterConfigData
             'drawCost' => 20,
             'maxPerWave' => 2,
             'drawWeight' => 2,
-            'spawnDifficulty' => 4,
+            'spawnDifficulty' => 5,
             'scrapDropTable' => [
                 ItemEnum::METAL_SCRAPS => 2,
                 ToolItemEnum::SPACE_CAPSULE => 1,

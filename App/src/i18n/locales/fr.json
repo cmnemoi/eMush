@@ -141,7 +141,8 @@
 			"infection": "Septicémie",
 			"mankarog": "Aventurier trop curieux",
 			"no_infirmerie": "Aucune infirmerie disponible",
-			"suicide": "Suicide"
+			"suicide": "Suicide",
+			"patrol_ship_explosion": "Patrouilleur pulvérisé"
 		}
 	},
 	"login": "Connexion",

@@ -35,14 +35,14 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
     }
 
     public function normalize(mixed $object, string $format = null, array $context = []): array
-    {   
+    {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
         /** @var Planet $planet */
         $planet = $object;
         $daedalus = $planet->getDaedalus();
-        
+
         // Do not leak planet sections if player is not focused on astro terminal or in exploration (TODO)
         // as the planet is also normalized to display it in Phaser scene
         if ($currentPlayer->getFocusedTerminal()?->getName() !== EquipmentEnum::ASTRO_TERMINAL) {

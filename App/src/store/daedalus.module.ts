@@ -45,6 +45,7 @@ const actions: ActionTree<any, any> = {
 
             return true;
         } catch (e) {
+            console.error(e);
             return false;
         }
     },
@@ -61,6 +62,7 @@ const actions: ActionTree<any, any> = {
 
             return true;
         } catch (e) {
+            console.error(e);
             return false;
         }
     },

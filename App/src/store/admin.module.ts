@@ -20,6 +20,7 @@ const actions: ActionTree<any, any> = {
             commit('setMaintenanceStatus', gameInMaintenance);
             return true;
         } catch (e) {
+            console.error(e);
             return false;
         }
     }

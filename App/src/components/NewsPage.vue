@@ -89,6 +89,7 @@ export default defineComponent ({
                     this.pagination.totalPage = data['hydra:totalItems'] / this.pagination.pageSize;
                 })
                 .catch((error) => {
+                    console.error(error);
                 });
         },
         displayFirstNews() {

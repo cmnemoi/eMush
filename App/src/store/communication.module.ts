@@ -53,6 +53,7 @@ const actions: ActionTree<any, any> = {
                 await dispatch('loadMessages', { channel });
             }
         } catch (e) {
+            console.error(e);
             return false;
         }
     },
@@ -79,6 +80,7 @@ const actions: ActionTree<any, any> = {
             commit('setLoadingOfChannels', false);
             return true;
         } catch (e) {
+            console.error(e);
             commit('setLoadingOfChannels', false);
             return false;
         }
@@ -91,6 +93,7 @@ const actions: ActionTree<any, any> = {
             commit('setLoadingForChannel', { channel, newStatus: false });
             return true;
         } catch (e) {
+            console.error(e);
             commit('setLoadingForChannel', { channel, newStatus: false });
             return false;
         }
@@ -104,6 +107,7 @@ const actions: ActionTree<any, any> = {
             commit('setLoadingForChannel', { channel, newStatus: false });
             return true;
         } catch (e) {
+            console.error(e);
             commit('setLoadingForChannel', { channel, newStatus: false });
             return false;
         }
@@ -117,6 +121,7 @@ const actions: ActionTree<any, any> = {
             await dispatch('loadChannels');
             commit('setLoadingOfChannels', false);
         } catch (e) {
+            console.error(e);
             commit('setLoadingOfChannels', false);
         }
     },

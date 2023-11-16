@@ -40,6 +40,7 @@ const getters = {
         try {
             return JSON.parse(atob(token.split('.')[1])).userId;
         } catch (e) {
+            console.error(e);
             return null;
         }
     },
@@ -72,6 +73,7 @@ const actions: ActionTree<any, any> = {
 
             return true;
         } catch (e) {
+            console.error(e);
             return false;
         }
     },
@@ -104,6 +106,7 @@ const actions: ActionTree<any, any> = {
                 commit('setUserInfo', userInfo);
                 return userInfo;
             } catch (e) {
+                console.error(e);
                 return null;
             }
         }

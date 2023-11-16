@@ -221,7 +221,7 @@ class AlertServiceTest extends TestCase
         $this->entityManager->shouldReceive('remove')->with($alert)->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->alertService->gravityAlert($daedalus, AlertEnum::REBOOT);
+        $this->alertService->gravityAlert($daedalus, AlertEnum::GRAVITY_REBOOT);
     }
 
     public function testBrokenEquipmentAlert()

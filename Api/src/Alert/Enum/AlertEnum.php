@@ -12,7 +12,6 @@ class AlertEnum
     public const GRAVITY_REBOOT = 'gravity_reboot';
     public const BREAK = 'break';
     public const REPAIR = 'repair';
-    public const REBOOT = 'reboot';
 
     public const LOST_CREWMATE = 'lost_crewmate';
     public const OUTCAST = 'outcast';

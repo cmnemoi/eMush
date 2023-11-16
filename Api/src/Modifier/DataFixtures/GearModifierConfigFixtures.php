@@ -249,8 +249,9 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(-1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([PlayerService::BASE_PLAYER_CYCLE_CHANGE => ModifierRequirementEnum::ALL_TAGS])
+            ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
         ;
 

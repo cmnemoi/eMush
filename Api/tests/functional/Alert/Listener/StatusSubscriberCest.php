@@ -178,8 +178,17 @@ class StatusSubscriberCest
         );
 
         $I->SeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::GRAVITY_REBOOT]);
+        $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
         $I->assertCount(1, $daedalus->getStatuses());
         $I->assertTrue($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY_REPAIRED));
+        $I->assertFalse($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY));
+
+        // now, remove the no_gravity_repaired status
+        $this->statusService->removeStatus(DaedalusStatusEnum::NO_GRAVITY_REPAIRED, $daedalus, [], new \DateTime());
+        $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::GRAVITY_REBOOT]);
+        $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
+        $I->assertCount(0, $daedalus->getStatuses());
+        $I->assertFalse($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY_REPAIRED));
         $I->assertFalse($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY));
     }
 

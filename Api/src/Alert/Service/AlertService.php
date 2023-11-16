@@ -167,7 +167,7 @@ class AlertService implements AlertServiceInterface
 
                 return;
 
-            case AlertEnum::REBOOT:
+            case AlertEnum::GRAVITY_REBOOT:
                 $gravityAlert = $this->findByNameAndDaedalus(AlertEnum::GRAVITY_REBOOT, $daedalus);
 
                 if ($gravityAlert === null) {

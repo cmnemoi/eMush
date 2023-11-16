@@ -95,7 +95,8 @@
 			"infection": "Succombé à une infection massive !",
 			"mankarog": "Tué par un Mankarog chafouin !",
 			"no_infirmerie": "Mort perdu dans l'espace infini !",
-			"suicide": "Suicidé avec panache !"
+			"suicide": "Suicidé avec panache !",
+			"patrol_ship_explosion": "Manœuvre ratée !"
 		}
 	},
 	"userBanner": {

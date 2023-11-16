@@ -255,6 +255,7 @@ class HunterService implements HunterServiceInterface
                 continue;
             }
 
+            // do not draw hunters that are not available in the current difficulty mode
             if ($hunterConfig->getSpawnDifficulty() > $difficultyMode) {
                 continue;
             }

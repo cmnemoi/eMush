@@ -43,7 +43,7 @@ export default defineComponent ({
             'clearError'
         ]),
         getTranslatedErrorDetails(): string {
-            if (parseInt(this.error.response.status) === 502) {
+            if (parseInt(this.errorStatus) === 502) {
                 return this.$t('errors.badGateway');
             }
             const translatedDetails = this.$t(['errors', this.error.response.details].join('.'));
@@ -54,9 +54,9 @@ export default defineComponent ({
             return translatedDetails;
         },
         getTranslatedErrorStatus(): string {
-            const translatedStatus = this.$t(['errors.status', this.error.response.status].join('.'));
-            if (translatedStatus === ['errors.status', this.error.response.status].join('.')) {
-                return this.error.response.status;
+            const translatedStatus = this.$t(['errors.status', this.errorStatus].join('.'));
+            if (translatedStatus === ['errors.status', this.errorStatus].join('.')) {
+                return this.errorStatus;
             }
 
             return translatedStatus;

@@ -11,6 +11,8 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -18,6 +20,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -29,16 +32,18 @@ use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class CycleEventCest
+final class CycleEventCest extends AbstractFunctionalTest
 {
     private StatusCycleSubscriber $cycleSubscriber;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
         $this->cycleSubscriber = $I->grabService(StatusCycleSubscriber::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
@@ -222,5 +227,38 @@ class CycleEventCest
 
         $I->assertEquals(StatusEnum::FIRE, $room2->getStatuses()->first()->getName());
         $I->assertEquals(0, $room2->getStatuses()->first()->getCharge());
+    }
+
+    public function testBrokenEquipmentDoNotGetElectricChargesUpdatesAtCycleChange(FunctionalTester $I): void
+    {
+        // given a patrol ship
+        /** @var EquipmentConfig $patrolShipConfig */
+        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN . '_default']);
+        $patrolShip = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $patrolShip->setName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN);
+        $patrolShip->setEquipment($patrolShipConfig);
+        $I->haveInRepository($patrolShip);
+
+        // given the patrol ship has an electric charge status with 1 charge
+        /** @var ChargeStatusConfig $electricChargesConfig */
+        $electricChargesConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => 'electric_charges_patrol_ship_default']);
+        $electricCharges = new ChargeStatus($patrolShip, $electricChargesConfig);
+        $electricCharges->setCharge(1);
+        $I->haveInRepository($electricCharges);
+
+        // given this patrol ship is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $patrolShip,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when the cycle event is triggered
+        $cycleEvent = new StatusCycleEvent($electricCharges, $patrolShip, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->cycleSubscriber->onNewCycle($cycleEvent);
+
+        // then the patrol ship electric charges should still have 1 charge
+        $I->assertEquals(1, $electricCharges->getCharge());
     }
 }

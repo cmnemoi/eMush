@@ -5,6 +5,7 @@ export class SpaceBattlePatrolShip {
     public armor: integer|null;
     public charges: integer|null;
     public pilot: string|null;
+    public isBroken!: boolean;
 
     public constructor() {  
         this.armor = null;
@@ -13,29 +14,21 @@ export class SpaceBattlePatrolShip {
     }
 
     public load(object: any): SpaceBattlePatrolShip {
-        if (typeof object !== "undefined") {
+        if (object) {
             this.id = object.id;
             this.key = object.key;
             this.name = object.name;
             this.armor = object.armor;
             this.charges = object.charges;
             this.pilot = object.pilot;
+            this.isBroken = object.isBroken;
         }
 
         return this;
     }
 
-    public jsonEncode(): object {
-        const data : any = {
-            'id': this.id,
-            'key': this.key,
-            'name': this.name,
-            'armor': this.armor,
-            'charges': this.charges,
-            'pilot': this.pilot
-        };
-
-        return data;
+    public jsonEncode(): string {
+        return JSON.stringify(this); 
     }
 
     public decode(jsonString : string): SpaceBattlePatrolShip {

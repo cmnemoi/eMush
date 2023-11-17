@@ -73,9 +73,12 @@ const AdminService = {
 
         return response;
     },
-    sendNeronAnnouncementToAllDaedaluses: async(announcement: string): Promise<any> => {
+    sendNeronAnnouncementToAllDaedalusesByLanguage: async(announcement: string, language: string): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.post(ADMIN_ENDPOINT + '/neron-announcement', { announcement: announcement });
+        const response = await ApiService.post(
+            ADMIN_ENDPOINT + '/neron-announcement', 
+            { announcement: announcement, language: language }
+        );
 
         store.dispatch('gameConfig/setLoading', { loading: false });
 

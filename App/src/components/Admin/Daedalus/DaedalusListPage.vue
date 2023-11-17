@@ -23,7 +23,7 @@
                 >
             </label>
             <router-link :to="{ name: 'AdminDaedalusCreate' }">{{$t("admin.daedalus.create")}}</router-link>
-            <router-link :to="{ name: 'AdminNeronAnnouncement' }">{{$t("admin.daedalus.sendNeronAnnouncement")}}</router-link>
+            <router-link :to="{ name: 'AdminNeronAnnouncement' }">{{$t("admin.neronAnnouncement.sendNeronAnnouncement")}}</router-link>
             <button class = "action-button" type="button" @click="destroyAllDaedaluses">
                 {{$t("admin.daedalus.destroyAllDaedaluses")}}
             </button>
@@ -71,7 +71,7 @@
                         {{ $t("admin.daedalus.destroy") }}
                     </button>
                     <button
-                        v-if="!daedalusIsFinished(slotProps) && slotProps.isCycleChange"
+                        v-if="!daedalusIsFinished(slotProps)"
                         class="action-button"
                         type="button"
                         @click="unlockDaedalus(slotProps.id)">

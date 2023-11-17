@@ -342,7 +342,7 @@
     <unit id="dynarcade">
       <segment id="name" state="translated">
         <source>dynarcade.name</source>
-        <target>Dynacarde</target>
+        <target>Dynarcade</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>dynarcade.short_name</source>
@@ -350,7 +350,7 @@
       </segment>
       <segment id="plural_name" state="translated">
         <source>dynarcade.plural_name</source>
-        <target>Dynacardes</target>
+        <target>Dynarcades</target>
       </segment>
       <segment id="genre" state="translated">
         <source>dynarcade.gender</source>

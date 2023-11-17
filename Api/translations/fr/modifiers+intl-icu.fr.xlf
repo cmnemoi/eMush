@@ -166,8 +166,7 @@
         <target>{chance, select,
             100 {Fait subir le symptôme **Vomissements**.}
             other {Fait subir le symptôme **Nausée**.}
-          }
-        </target>
+          }</target>
       </segment>
     </unit>
     <unit id="coprolalia_messages_on_new_message">

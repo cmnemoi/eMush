@@ -3,7 +3,7 @@
   <file id="modifiers.ext">
     <unit id="change.value.max.decrease">
       <segment id="description" state="translated">
-        <source>change.value.max.decrease.cycle.description</source>
+        <source>change.value.max.decrease.description</source>
         <target>Max {emote} **-{quantity}**.</target>
       </segment>
     </unit>
@@ -166,8 +166,7 @@
         <target>{chance, select,
           100 {Gives the symptom **Vomiting**.}
           other {Gives the symptom **Nausea**.}
-          }
-        </target>
+          }</target>
       </segment>
     </unit>
     <unit id="coprolalia_messages_on_new_message">

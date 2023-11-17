@@ -1,5 +1,5 @@
 {
-	"title": "Mush - Humanity's last ship, lost in space... with a traitor aboard!",
+	"title": "eMush - Humanity's last ship, lost in space... with a traitor aboard!",
 	"alpha": {
 		"homepage": "<em>eMush</em> is not currently open to the public as the game is not fully finished and is infested with <em class='red'>Mushs</em><em>!!!</em><br><br>If you are interested in the game, feel free to join us on <a href='https://discord.gg/ERc3svy'>Discord</a> and on the <a href='https://eternal-twin.net/forum'>Eternaltwin forums</a>. All information is available on <a href='https://eternal-twin.net'>Eternaltwin</a>.<br><br>About the eMush alpha, private ships are regularly being launched with the help of volunteers on <a href='https://discord.gg/ERc3svy'>Discord</a>. To be part of an alpha ship, you will have to register on <a href='https://eternal-twin.net'>Eternaltwin</a> and join the list of volunteers on <a href='https://discord.gg/ERc3svy'>Discord</a>.<br><br><em>If you are not shortlisted for an alpha ship, don't worry!</em> The selection list rotates for each ship to offer everyone a chance.",
 		"valide": "Submit",
@@ -147,7 +147,7 @@
 	"login": "Login",
 	"logout": "Logout",
 	"deathpage": {
-		"title": "You are dead !",
+		"title": "eMush - You are dead!",
 		"name": "Name",
 		"death": "Death",
 		"reason": "Reason",

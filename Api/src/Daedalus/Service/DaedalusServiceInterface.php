@@ -33,6 +33,8 @@ interface DaedalusServiceInterface
 
     public function findAllNonFinishedDaedaluses(): DaedalusCollection;
 
+    public function findAllNonFinishedDaedalusesByLanguage(string $language): DaedalusCollection;
+
     public function findAllDaedalusesOnCycleChange(): DaedalusCollection;
 
     public function existAvailableDaedalus(): bool;

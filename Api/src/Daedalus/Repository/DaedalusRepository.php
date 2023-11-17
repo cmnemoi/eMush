@@ -101,6 +101,23 @@ class DaedalusRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findNonFinishedDaedalusesByLanguage(string $language): array
+    {
+        $qb = $this->createQueryBuilder('daedalus');
+
+        $qb
+            ->select('daedalus')
+            ->leftJoin('daedalus.daedalusInfo', 'daedalus_info')
+            ->leftJoin('daedalus_info.localizationConfig', 'localization_config')
+            ->where($qb->expr()->notIn('daedalus_info.gameStatus', ':gameStatus'))
+            ->andWhere($qb->expr()->eq('localization_config.language', ':language'))
+            ->setParameter('gameStatus', [GameStatusEnum::FINISHED, GameStatusEnum::CLOSED])
+            ->setParameter('language', $language)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function findAllDaedalusesOnCycleChange(): DaedalusCollection
     {
         $qb = $this->createQueryBuilder('daedalus');

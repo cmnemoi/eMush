@@ -541,6 +541,16 @@
 			"closeAllPlayers": "Fermer (archiver) tous les joueurs",
 			"closePlayer": "Fermer (archiver) ce joueur",
 			"quarantine": "Mettre en quarantaine"
+		},
+		"neronAnnouncement": {
+			"destroyAndUpdate": "Destruction et mise à jour",
+			"destroyAndUpdateContent": "**Alerte** : Le Daedalus est condamné à une destruction imminente. En effet, les développeurs tout-puissants ont prévu une **mise à jour** majeure du jeu. *Préparez-vous pour de nouvelles façons créatives de rencontrer votre fin !*",
+			"maintenance": "Maintenance",
+			"maintenanceContent": "Cher équipage, préparez-vous pour une **maintenance du jeu** dans *1 cycle*. Profitez de ce temps pour contempler le vide existentiel ou réfléchir à vos choix de vie : *le plaisir continuera après la pause technique... Ou pas*.",
+			"frenchAnnouncement": "Annonce française",
+			"englishAnnouncement": "Annonce anglaise",
+			"sendNeronAnnouncement": "Envoyer une annonce NERON",
+			"sendNeronAnnouncementToAllDaedaluses": "Envoyer une annonce NERON à tous les Daedalus"
 		}
 	},
 	"charSelection": {

@@ -10,6 +10,7 @@ use FOS\RestBundle\View\View;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Service\AlertServiceInterface;
+use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
 use Mush\MetaGame\Service\AdminServiceInterface;
@@ -42,6 +43,7 @@ class AdminController extends AbstractFOSRestController
     private PlaceServiceInterface $placeService;
     private PlayerServiceInterface $playerService;
     private UserServiceInterface $userService;
+    private NeronMessageServiceInterface $neronMessageService;
 
     public function __construct(
         AdminServiceInterface $adminService,
@@ -49,7 +51,8 @@ class AdminController extends AbstractFOSRestController
         DaedalusServiceInterface $daedalusService,
         PlaceServiceInterface $placeService,
         PlayerServiceInterface $playerService,
-        UserServiceInterface $userService
+        UserServiceInterface $userService,
+        NeronMessageServiceInterface $neronMessageService
     ) {
         $this->adminService = $adminService;
         $this->alertService = $alertService;
@@ -57,6 +60,7 @@ class AdminController extends AbstractFOSRestController
         $this->placeService = $placeService;
         $this->playerService = $playerService;
         $this->userService = $userService;
+        $this->neronMessageService = $neronMessageService;
     }
 
     /**
@@ -292,6 +296,77 @@ class AdminController extends AbstractFOSRestController
         $this->adminService->removeGameFromMaintenance();
 
         return $this->view('Game removed from maintenance successfully', Response::HTTP_OK);
+    }
+
+    /**
+     * Send a NERON announcement to all non-finished Daedaluses.
+     *
+     * @OA\RequestBody (
+     *      description="Input data format",
+     *
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *
+     *          @OA\Schema(
+     *              type="object",
+     *
+     *              @OA\Property(
+     *                  type="string",
+     *                  property="announcement",
+     *                  description="The announcement to send",
+     *              ),
+     *
+     *          ),
+     *
+     *          @OA\Schema(
+     *             type="object",
+     *
+     *            @OA\Property(
+     *               type="string",
+     *               property="language",
+     *               description="The language of the announcement",
+     *           ),
+     *      )
+     *    )
+     * )
+     *
+     * @OA\Tag(name="Admin")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post(path="/neron-announcement")
+     */
+    public function sendNeronAnnouncementToDaedaluses(Request $request): View
+    {
+        $this->denyAccessIfNotAdmin();
+
+        $requestContent = json_decode($request->getContent(), true);
+
+        if (!array_key_exists('announcement', $requestContent)) {
+            return $this->view('Announcement content is missing', Response::HTTP_BAD_REQUEST);
+        }
+
+        if (!array_key_exists('language', $requestContent)) {
+            return $this->view('Annoucement language is missing', Response::HTTP_BAD_REQUEST);
+        }
+
+        $announcement = $requestContent['announcement'];
+        $language = $requestContent['language'];
+
+        $daedaluses = $this->daedalusService->findAllNonFinishedDaedalusesByLanguage($language);
+        foreach ($daedaluses as $daedalus) {
+            $this->neronMessageService->createNeronMessage(
+                messageKey: $announcement,
+                daedalus: $daedalus,
+                parameters: [],
+                dateTime: new \DateTime()
+            );
+        }
+
+        return $this->view([
+            'message' => "Announcement sent successfully to {$daedaluses->count()} Daedaluses",
+            'announcement' => $announcement,
+        ], Response::HTTP_CREATED);
     }
 
     private function alertElementHaveSameEquipmentOrPlace(AlertElement $element1, AlertElement $element2): bool

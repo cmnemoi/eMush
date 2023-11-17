@@ -450,6 +450,11 @@ class DaedalusService implements DaedalusServiceInterface
         return new DaedalusCollection($this->daedalusRepository->findNonFinishedDaedaluses());
     }
 
+    public function findAllNonFinishedDaedalusesByLanguage(string $language): DaedalusCollection
+    {
+        return new DaedalusCollection($this->daedalusRepository->findNonFinishedDaedalusesByLanguage($language));
+    }
+
     public function findAllDaedalusesOnCycleChange(): DaedalusCollection
     {
         return $this->daedalusRepository->findAllDaedalusesOnCycleChange();

@@ -315,9 +315,20 @@ class AdminController extends AbstractFOSRestController
      *                  property="announcement",
      *                  description="The announcement to send",
      *              ),
-     *          )
+     *
+     *          ),
+     *
+     *          @OA\Schema(
+     *             type="object",
+     *
+     *            @OA\Property(
+     *               type="string",
+     *               property="language",
+     *               description="The language of the announcement",
+     *           ),
      *      )
      *    )
+     * )
      *
      * @OA\Tag(name="Admin")
      *
@@ -329,13 +340,20 @@ class AdminController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotAdmin();
 
-        $announcement = json_decode($request->getContent(), true)['announcement'] ?? null;
+        $requestContent = json_decode($request->getContent(), true);
 
-        if (!$announcement) {
-            return $this->view('Announcement is missing', Response::HTTP_BAD_REQUEST);
+        if (!array_key_exists('announcement', $requestContent)) {
+            return $this->view('Announcement content is missing', Response::HTTP_BAD_REQUEST);
         }
 
-        $daedaluses = $this->daedalusService->findAllNonFinishedDaedaluses();
+        if (!array_key_exists('language', $requestContent)) {
+            return $this->view('Annoucement language is missing', Response::HTTP_BAD_REQUEST);
+        }
+
+        $announcement = $requestContent['announcement'];
+        $language = $requestContent['language'];
+
+        $daedaluses = $this->daedalusService->findAllNonFinishedDaedalusesByLanguage($language);
         foreach ($daedaluses as $daedalus) {
             $this->neronMessageService->createNeronMessage(
                 messageKey: $announcement,

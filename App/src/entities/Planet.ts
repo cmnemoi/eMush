@@ -6,20 +6,20 @@ export class Planet {
 
     public id!: number;
     public name!: string;
-    public orientation!: string;
-    public distance!: number;
-    public sectors!: PlanetSector[];
-    public actions!: Action[];
+    public orientation: string|null = null;
+    public distance: number|null = null;
+    public sectors: PlanetSector[]|null = null;
+    public actions: Action[]|null = null;
     public imageId!: number;
 
     public load(object: any): Planet {
         if (object) {
             this.id = object.id;
             this.name = object.name;
-            this.orientation = object.orientation;
-            this.distance = object.distance;
-            this.sectors = object.sectors;
-            this.actions = object.actions;
+            this.orientation = object.orientation || null;
+            this.distance = object.distance || null;
+            this.sectors = object.sectors || null;
+            this.actions = object.actions || null;
             this.imageId = this.name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % this.numberOfPlanetImages;
         }
         return this;
@@ -43,6 +43,6 @@ export class Planet {
     }
 
     public getActionByKey(key: string): Action | null {
-        return this.actions.find(action => action.key === key) || null;
+        return this.actions?.find(action => action.key === key) || null;
     }
 }

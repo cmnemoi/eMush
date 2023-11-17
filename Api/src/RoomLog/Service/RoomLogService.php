@@ -242,15 +242,15 @@ class RoomLogService implements RoomLogServiceInterface
         return new RoomLogCollection($this->repository->getPlayerRoomLog($player->getPlayerInfo()));
     }
 
-    private function getPatrolShipLogParameters(GameEquipment $patrolship): array
+    private function getPatrolShipLogParameters(GameEquipment $patrolShip): array
     {
         /** @var ChargeStatus|null $electricCharges * */
-        $electricCharges = $patrolship->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $electricCharges = $patrolShip->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
         /** @var ChargeStatus|null $patrolShipArmor * */
-        $patrolShipArmor = $patrolship->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
         return [
-            'charges' => $electricCharges ? $electricCharges->getCharge() : 0,
+            'charges' => $electricCharges && !$patrolShip->hasStatus(EquipmentStatusEnum::BROKEN) ? $electricCharges->getCharge() : 0,
             'armor' => $patrolShipArmor ? $patrolShipArmor->getCharge() : 0,
         ];
     }

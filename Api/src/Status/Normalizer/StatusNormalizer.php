@@ -7,6 +7,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class StatusNormalizer implements NormalizerInterface
@@ -43,7 +44,7 @@ class StatusNormalizer implements NormalizerInterface
                 'description' => $this->translationService->translate("{$statusName}.description", [], 'status', $language),
             ];
 
-            if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN) {
+            if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN && !$status->getOwner()->hasStatus(EquipmentStatusEnum::BROKEN)) {
                 $normedStatus['charge'] = $status->getCharge();
             }
 

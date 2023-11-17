@@ -88,7 +88,7 @@ final class Scan extends AttemptAction
                 visibility: VisibilityEnum::PUBLIC,
                 type: 'event_log',
                 player: $this->player,
-                parameters: [],
+                parameters: [$this->player->getLogKey() => $this->player->getLogName()],
                 dateTime: new \DateTime()
             );
         }

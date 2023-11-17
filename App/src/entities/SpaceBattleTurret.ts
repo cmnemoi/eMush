@@ -13,6 +13,7 @@ export class SpaceBattleTurret {
     public name!: string;
     public charges!: integer;
     public occupiers!: Array<string>;
+    public isBroken!: boolean;
     public displayOrder!: integer;
 
     public constructor() {
@@ -20,29 +21,21 @@ export class SpaceBattleTurret {
     }
 
     public load(object: any): SpaceBattleTurret {
-        if (typeof object !== "undefined") {
+        if (object) {
             this.id = object.id;
             this.key = object.key;
             this.name = object.name;
             this.charges = object.charges;
             this.occupiers = object.occupiers;
+            this.isBroken = object.isBroken;
             this.displayOrder = this.turretOrders.get(this.key) || -1;
         }
 
         return this;
     }
 
-    public jsonEncode(): object {
-        const data : any = {
-            'id': this.id,
-            'key': this.key,
-            'name': this.name,
-            'charges': this.charges,
-            'occupiers': this.occupiers,
-            'displayOrder': this.displayOrder
-        };
-
-        return data;
+    public jsonEncode(): string {
+        return JSON.stringify(this);
     }
 
     public decode(jsonString : string): SpaceBattleTurret {

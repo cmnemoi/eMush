@@ -7,6 +7,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class StatusNormalizer implements NormalizerInterface
@@ -44,7 +45,7 @@ class StatusNormalizer implements NormalizerInterface
             ];
 
             if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN) {
-                $normedStatus['charge'] = $status->getCharge();
+                $normedStatus['charge'] = $status->getOwner()->hasStatus(EquipmentStatusEnum::BROKEN) ? 0 : $status->getCharge();
             }
 
             if (($target = $status->getTarget()) !== null) {

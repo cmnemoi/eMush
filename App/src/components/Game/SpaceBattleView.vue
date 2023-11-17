@@ -15,6 +15,10 @@
                 <div class="stats">
                     <p class="quantity">{{ turret.charges }}</p>
                     <img class="charges-img" :src="require('@/assets/images/status/charge.png')" alt="charges">
+                    <img v-if="turret.isBroken"
+                         class="broken-img"
+                         :src="require('@/assets/images/alerts/broken.png')"
+                         alt="broken">
                 </div>
             </div>
         </div>
@@ -50,6 +54,10 @@
                         v-if="!patrolShip.isPasiphae()"
                         :src="require('@/assets/images/status/charge.png')"
                         alt="charges">
+                    <img v-if="patrolShip.isBroken"
+                         class="broken-img"
+                         :src="require('@/assets/images/alerts/broken.png')"
+                         alt="broken">
                 </div>
             </div>
         </div>

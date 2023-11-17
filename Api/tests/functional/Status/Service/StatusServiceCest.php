@@ -22,7 +22,6 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -40,38 +39,6 @@ final class StatusServiceCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->createExtraPlace(RoomEnum::ALPHA_BAY, $I, $this->daedalus);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-    }
-
-    public function testBrokenEquipmentLosesTheirCharges(FunctionalTester $I)
-    {
-        // given a patrol ship in alpha bay with electric charges charge status
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY));
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
-        $I->haveInRepository($pasiphae);
-
-        $electricChargesConfig = $I->grabEntityFromRepository(StatusConfig::class, ['name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_patrol_ship_default']);
-        /** @var ChargeStatus $electricCharges */
-        $electricCharges = $this->statusService->createStatusFromConfig(
-            $electricChargesConfig,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-
-        // when patrol ship is broken
-        $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::BROKEN,
-            $pasiphae,
-            ['test'],
-            new \DateTime(),
-        );
-
-        // then electric charges status charge value is 0
-        $I->assertEquals(0, $electricCharges->getCharge());
     }
 
     public function testBrokenTerminalRemovesPlayerFocusedStatus(FunctionalTester $I): void

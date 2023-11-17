@@ -2,17 +2,23 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="terminal.ext">
     <unit id="command_terminal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>command_terminal.name</source>
-        <target>command_terminal.name</target>
+        <target>Terminal de Comando</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>command_terminal.tips</source>
-        <target>command_terminal.tips</target>
+        <target>Como *Comandante* eres la única persona que puede acceder a este terminal.
+////
+Mover la nave es esencial para **viajar a otros planetas** y podría ser útil para deshacerse de los cazadores.
+////
+Para ir a un planeta necesitas **saber el rumbo y la cantidad de combustible necesaria**. Estos dos datos pueden obtenerse en el *Terminal Astronómico*. Con esta información, primero hay que llenar la cámara de combustión con la cantidad adecuada de combustible. A continuación, ¡poner el Daedalus en la ruta correcta e iniciar el viaje!
+////
+Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita de un planeta, ¡que podrá ser explorado por la tripulación y obtener nuevos recursos!</target>
       </segment>
-      <segment id="orientate_daedalus" state="initial">
+      <segment id="orientate_daedalus" state="translated">
         <source>command_terminal.orientate_daedalus</source>
-        <target>command_terminal.orientate_daedalus</target>
+        <target>Orientación del Daedalus</target>
       </segment>
       <segment id="move_daedalus" state="initial">
         <source>command_terminal.move_daedalus</source>
@@ -52,25 +58,25 @@
       </segment>
     </unit>
     <unit id="astro_terminal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>astro_terminal.name</source>
-        <target>astro_terminal.name</target>
+        <target>Terminal Astronómico</target>
       </segment>
       <segment id="tips" state="initial">
         <source>astro_terminal.tips</source>
         <target>astro_terminal.tips</target>
       </segment>
-      <segment id="orientation" state="initial">
+      <segment id="orientation" state="translated">
         <source>astro_terminal.orientation</source>
-        <target>astro_terminal.orientation</target>
+        <target>Dirección</target>
       </segment>
-      <segment id="distance" state="initial">
+      <segment id="distance" state="translated">
         <source>astro_terminal.distance</source>
-        <target>astro_terminal.distance</target>
+        <target>Combustible necesario</target>
       </segment>
-      <segment id="in_orbit" state="initial">
+      <segment id="in_orbit" state="translated">
         <source>astro_terminal.in_orbit</source>
-        <target>astro_terminal.in_orbit</target>
+        <target>*¡En órbita!*</target>
       </segment>
     </unit>
     <unit id="block_of_post_it">

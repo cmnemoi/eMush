@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="modifiers.ext">
-    <unit id="roll.percentage_increase_cycle_disease">
-      <segment id="description" state="translated">
-        <source>roll.percentage_increase_cycle_disease.description</source>
-        <target>Augmente vos chances de tomber malade.</target>
-      </segment>
-    </unit>
     <unit id="change.value.max.decrease">
       <segment id="description" state="translated">
         <source>change.value.max.decrease.description</source>

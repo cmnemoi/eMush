@@ -10,33 +10,34 @@
 		"inventoryDescription": "Cliquez ici pour ouvrir l'inventaire de la pièce.",
 		"equipment": "Équipement",
 		"player": "Jugadores",
-		"issue": "Merci de signaler les bugs rencontrés sur",
-		"issue2": "ou le"
+		"issue": "Si encuentra algún error, notifíquelo en",
+		"issue2": "o en el"
 	},
 	"footer": {
 		"alphaVersion": "Versión alfa",
-		"crowdin": "Vous pouvez nous aider à traduire le jeu sur ",
+		"crowdin": "Puedes ayudarnos a traducir el juego en",
 		"developers": "Développement",
-		"thanks": "Remerciements",
+		"coreTeam": "L'équipe d'eMush :",
+		"contributors": "Merci à nos contributeurs :",
 		"alpha-testers": "Tous les alpha testeurs :)",
 		"emush": "eMush",
 		"eternaltwin": "eMush es un sitio web no comercial operado por aficionados. Pertenece al proyecto Eternaltwin cuyo objetivo es archivar los juegos de Motion Twin. Esto significa que queremos asegurarnos de que permanezcan disponibles incluso si el sitio web oficial cierra. <strong>No estamos relacionados con Motion Twin</strong>.",
 		"legal": "Mentions légales"
 	},
 	"util": {
-		"prev": "Page précédente",
-		"next": "Page suivante"
+		"prev": "Pagina anterior",
+		"next": "Siguiente página"
 	},
 	"banner": {
-		"ranking": "Classement",
-		"user": "Mon Compte",
-		"news": "News",
-		"forum": "Forum"
+		"ranking": "Clasificación",
+		"user": "Mi cuenta",
+		"news": "Noticias",
+		"forum": "Foro"
 	},
 	"ranking": {
-		"ship_end_cause": "Cause de la destruction",
-		"day": "Jours survécus",
-		"cycle": "Cycles survécus",
+		"ship_end_cause": "Causa de destrucción",
+		"day": "Días sobrevividos",
+		"cycle": "Ciclos sobrevividos",
 		"playerRankingSubMenu": "Jugadores",
 		"shipRankingSubMenu": "Daedalus",
 		"linkToTheEnd": "Daedalus",
@@ -44,9 +45,9 @@
 		"endCause": {
 			"sol_return": "Daedalus rentré sur Sol",
 			"eden": "Daedalus s'est installé sur Eden",
-			"daedalus_destroyed": "Daedalus détruit",
-			"killed_by_neron": "Equipage assassiné par NERON",
-			"super_nova": "Super Nova"
+			"daedalus_destroyed": "Daedalus destruido",
+			"killed_by_neron": "Tripulante asesinado por NERON",
+			"super_nova": "Supernova"
 		}
 	},
 	"theEnd": {
@@ -65,11 +66,11 @@
 		"endCause": {
 			"sol_return": "Le Daedalus est rentré sur Sol !",
 			"eden": "Le Daedalus s'est installé sur Eden !",
-			"daedalus_destroyed": "Votre cadavre flotte parmi les débris du Daedalus pulvérisé !",
+			"daedalus_destroyed": "¡Tu cadáver está flotando junto a los restos pulverizados del Daedalus!",
 			"killed_by_neron": "En route vers le vide infini !",
 			"super_nova": "Mort à cause d'un Administrateur Taquin !",
-			"alien_abducted": "Vous avez été enlevé.",
-			"assassinated": "Assassiné par un équipier !",
+			"alien_abducted": "Has sido abducido.",
+			"assassinated": "¡Asesinado por un tripulante!",
 			"depression": "Vous avez mis fin à vos jours...",
 			"asphyxia": "Mort sur le Daedalus par manque d'oxygène !",
 			"abandoned": "Abandonné à votre pauvre sort par le Daedalus !",
@@ -83,9 +84,9 @@
 			"burnt": "Calciné par un incendie inopportun !",
 			"clumsiness": "Tellement mal en point qu'un rien vous a achevé...",
 			"space_battle": "Mort présent dans un appareil annihilé !",
-			"space_asphyxiated": "Mort abandonné dans l'espace intersidéral !",
+			"space_asphyxiated": "¡Muerto abandonado en el espacio exterior!",
 			"beheaded": "Décapité par un fâcheux !",
-			"starvation": "Mort de faim !",
+			"starvation": "¡Muerto de inanición!",
 			"quarantine": "Mis en quarantaine par NERON",
 			"black_bite": "Succombé à une maladie extra-terrestre !",
 			"metal_plate": "Victime de cette vieille bicoque !",
@@ -102,23 +103,23 @@
 	},
 	"userShips": {
 		"pageTitle": "Fiche de ",
-		"character": "Personnage",
-		"day": "Jours survécus",
-		"cyclesSurvived": "Cycles survécus",
+		"character": "Personaje",
+		"day": "Días sobrevividos",
+		"cyclesSurvived": "Ciclos sobrevividos",
 		"linkToTheEnd": "Daedalus",
 		"goToTheEnd": "Palmarès",
 		"endCauses": "Causa de muerte",
 		"endCause": {
 			"sol_return": "Daedalus rentré sur Sol",
 			"eden": "Daedalus s'est installé sur Eden",
-			"daedalus_destroyed": "Daedalus détruit",
-			"killed_by_neron": "Assassiné par NERON",
-			"super_nova": "Super Nova",
-			"alien_abducted": "Enlevé par des races supérieures",
-			"assassinated": "Assassiné",
-			"depression": "Dépression fatale",
+			"daedalus_destroyed": "Daedalus destruido",
+			"killed_by_neron": "Asesinado por NERON",
+			"super_nova": "Supernova",
+			"alien_abducted": "Secuestrado por una raza superior",
+			"assassinated": "Asesinado",
+			"depression": "Depresión mortal",
 			"asphyxia": "Plus d'oxygène",
-			"abandoned": "Abandonné",
+			"abandoned": "Abandonado",
 			"allergy": "Alergia",
 			"self_extracted": "Auto-Extrait",
 			"exploration": "Aventurier malchanceux",
@@ -140,11 +141,11 @@
 			"infection": "Septicémie",
 			"mankarog": "Aventurier trop curieux",
 			"no_infirmerie": "Aucune infirmerie disponible",
-			"suicide": "Suicide"
+			"suicide": "Suicidio"
 		}
 	},
-	"login": "Connexion",
-	"logout": "Deconnexion",
+	"login": "Conectarse",
+	"logout": "Desconectarse",
 	"deathpage": {
 		"title": "Vous êtes mort !",
 		"name": "nom",
@@ -345,7 +346,7 @@
 			"initStatuses": "Statuts de départ",
 			"actions": "Actions",
 			"skills": "Compétences",
-			"startingItems": "Objets de départ",
+			"startingItems": "Equipamiento inicial",
 			"initDiseases": "Maladies de départ"
 		},
 		"diseaseConfig": {
@@ -541,10 +542,10 @@
 		}
 	},
 	"charSelection": {
-		"selectLanguage": "Sélectionnez une langue :",
+		"selectLanguage": "Seleccionar idioma:",
 		"shipNotFound": "Aucun vaisseau avec ce nom n'a été trouvé. Vérifiez son orthographe et réessayez.",
-		"startGame": "Démarrer la partie",
-		"youChoose": "Vous avez choisi "
+		"startGame": "Empezar a jugar",
+		"youChoose": "Has elegido a "
 	},
 	"game": {
 		"communications": {
@@ -559,9 +560,12 @@
 		"updatedAt": "newsPage.updatedAt"
 	},
 	"homePage": {
-		"joinUs": "homePage.joinUs",
+		"joinUs": "¡ Únete !",
 		"play": "homePage.play",
-		"synopsis": "homePage.synopsis"
+		"synopsis": "Estás a punto de despertar a bordo del Daedalus con otros 15 rebeldes. Como tú, huyen del <em>Mush</em>, un hongo parásito que está asolando la Tierra y amenaza a la Humanidad.",
+		"followUs": "Suivez nous :",
+		"latestNews": "Dernière news :",
+		"seeAllNews": "Voir toutes les news"
 	},
 	"errors": {
 		"status": {
@@ -569,7 +573,9 @@
 			"403": "403 Interdit",
 			"404": "404 Ressource non trouvée",
 			"409": "409 Conflit",
+			"422": "422 Entité non traitable",
 			"500": "500 Erreur interne du serveur",
+			"502": "502 Bad Gateway",
 			"503": "503 Service indisponible"
 		},
 		"consultCommunity": "En cas d'erreurs répétées, consultez la communauté sur <a href='https://discord.gg/Jb8Nwjck6r'>Discord</a> ou le <a href='https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1'>forum</a>.",
@@ -579,6 +585,7 @@
 		"Not Found": "La ressource demandée n'a pas été trouvée.",
 		"problem": "Il y a eu un problème lors du traitement de votre requête.",
 		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
-		"title": "ERREUR"
+		"title": "ERREUR",
+		"badGateway": "Le proxy a reçu une réponse invalide. Cette erreur est très probablement due à la synchronisation du serveur : réessayez plus tard !"
 	}
 }

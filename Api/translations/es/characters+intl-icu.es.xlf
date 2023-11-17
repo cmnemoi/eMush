@@ -102,33 +102,41 @@
       </segment>
     </unit>
     <unit id="Derek">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>derek.name</source>
-        <target>derek.name</target>
+        <target>Derek</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>derek.fullname</source>
-        <target>derek.fullname</target>
+        <target>Derek Hogan</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>derek.age</source>
-        <target>derek.age</target>
+        <target>39 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>derek.description</source>
-        <target>derek.description</target>
+        <target>Un verdadero héroe a pesar de todo.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>derek.employment</source>
-        <target>derek.employment</target>
+        <target>Ex-sargento de la FDS</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>derek.abstract</source>
-        <target>derek.abstract</target>
+        <target>Derek Hogan está asignado a la seguridad del Daedalus. Robusto y seguro de sí mismo, será un activo importante para el éxito de esta misión extrema. Su pasado es una sucesión de acontecimientos, cada uno más increíble que el anterior. Derek lo ha experimentado todo, los campos de batalla de Sol, las misiones suicidas de Tau-Ceti... Sin embargo, siempre está buscando un alma gemela. Desde su apresurada salida de su hogar, Derek ha dedicado su existencia a las mujeres, pero sin éxito.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>derek.biography</source>
-        <target>derek.biography</target>
+        <target>- 3109: Nace en la Tierra.
+- 3121: Derek se corta torpemente al afeitarse y no se le ocurre mejor idea que mostrar esa cicatriz (en especial a sus conquistas amorosas) diciendo que es una herida de combate en Tau-Ceti.
+- 3139: Derek es reclutado por una batida militar en una discoteca de Nueva Ibiza. Su madre lloró, imploró que no ingrese al cuartel, pero Derek prefirió enrolarse, atraído por el mito de tener una novia en cada puerto o mejor dicho, base espacial.
+- 3145: Derek asciende rápidamente y se impone como líder. Participa en varias batallas y conquistas planetarias. Haber tomado una base enemiga le ayuda a recibir el rango de sargento.
+- 3146: Se le asigna la seguridad de la construcción del arca Magallanes en Xyloph-17 junto a un tal Wang Chao. Sus aventuras amorosas con el personal de la estación le valen más de un lío con sus superiores y los maridos de sus víctimas.
+- 3151: Derek ejecuta diversas misiones en Encélado para recuperar la confianza de sus superiores en la FDS.
+- 3151: Para complementar sus bajos ingresos, Derek trabaja como instructor en la Universidad de la FDS.
+- 3153:El comandante Jin-Su le confía la protección del comando que secuestrará a la científica Finola Keegan para obligarle a formar parte de la misión.
+- 3154: Derek se embarca en el Daedalus junto al resto del equipo. ¡La FDS le tiene en su lista negra!</target>
       </segment>
     </unit>
     <unit id="Eleesha">
@@ -192,25 +200,25 @@
       </segment>
     </unit>
     <unit id="Frieda">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>frieda.name</source>
-        <target>frieda.name</target>
+        <target>Frieda</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>frieda.fullname</source>
-        <target>frieda.fullname</target>
+        <target>Frieda Bergmann</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>frieda.age</source>
-        <target>frieda.age</target>
+        <target>66 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>frieda.description</source>
-        <target>frieda.description</target>
+        <target>Científica milenaria.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>frieda.employment</source>
-        <target>frieda.employment</target>
+        <target>Navegante</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>frieda.abstract</source>
@@ -222,33 +230,41 @@
       </segment>
     </unit>
     <unit id="Gioele">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>gioele.name</source>
-        <target>gioele.name</target>
+        <target>Gioele</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>gioele.fullname</source>
-        <target>gioele.fullname</target>
+        <target>Gioele Rinaldo</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>gioele.age</source>
-        <target>gioele.age</target>
+        <target>55 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>gioele.description</source>
-        <target>gioele.description</target>
+        <target>Adicto a la cafeína, propietario de un barco y listo para el combate.</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>gioele.employment</source>
-        <target>gioele.employment</target>
+        <target>Magnate constructor de naves de gran escala.</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>gioele.abstract</source>
-        <target>gioele.abstract</target>
+        <target>Gioele es el propietario de la nave. Es un multimillonario de la Tierra obsesionado por los viajes espaciales, que financió el proyecto inicial del Daedalus. Ante la amenaza de los Mush, Gioele entró en pánico e in extremis, con la ayuda de los diseñadores, consiguió un puesto a bordo de la nave como navegante. También consiguió expulsar a un biólogo de la tripulación original para hacer sitio a su hija Paola.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>gioele.biography</source>
-        <target>gioele.biography</target>
+        <target>- 3099: Nace en la Tierra.
+- 3118: Gracias a los contactos de su padre, Gioele consiguió un espacio como ***pasajero a bordo del Gonzak*** con la misión de explorar ***Epsilon Indi***. Fue allí donde conoció a su ídolo ***GL Maubrick***. A su regreso, comenzó a estudiar astrofísica para poder convertirse en explorador algún día.
+- 3120: La muerte de su padre hizo que Gioele se diera cuenta de la situación económica de su familia. Se hizo cargo de la empresa de gestión de prisiones de su padre, pero cambió su funcionamiento para adaptarlo a sus propios fines: Enviaba a los prisioneros a nuevos sistemas para llevar a cabo operaciones de minería de asteroides.
+- 3136: Gioele estaba haciendo fortuna, pero aún no había cumplido sus sueños. En un anuncio publicitario en SNC ***ofreció un presupuesto de 4.000 millones de créditos*** a quien pudiera proponer un proyecto viable de arca estelar, que le permitiera unir la Vía Láctea y la ***Nube de Magallanes***.
+- 3137: Se reunió con ***Kuan-Ti*** quien, al año siguiente, entregó un gigantesco proyecto de Arca Mundial que implicaba a 7000 personas. Gioele ***asignó el presupuesto prometido***.
+- 3146: La Federación quiso participar en la financiación del proyecto y aportó 9.000 millones de créditos adicionales que engrasarían las ruedas en el avance del ***Reactor filogrande***. El explorador, y ahora representante oficial del gobierno, ***Kim Jin-Su***, fue asignado como líder del proyecto.
+- 3152: Gioele se entera por casualidad de que Jin-Su y Kuan-Ti han manipulado el proyecto original para permitir la construcción de una nave de exploración más pequeña, llamada ***Daedalus***. Continuando con su investigación, registra el despacho de Kuan-Ti y encuentra documentos que prueban que Mush ha infectado a los líderes de la Federación. Su posterior temor es la razón por la que se desespera por acceder al Daedalus y unirse a la evacuación.
+- 3153: A medida que la Federación reduce gradualmente la frecuencia de los pagos, Gioele ***ofrece apoyo financiero adicional para el proyecto*** a Raluca, Jin-Su y Kuan-Ti. Su única condición es que ***Nils Carlsson*** sea apartado del equipo y sustituido por su hija ***Paola Rinaldo***. El equipo se niega.
+- 3154: Nils cae enfermo durante una grave crisis entre ***Xyloph-17*** y la Federación. La ***SDF toma el control del proyecto***, pero Kim Jin-Su organiza la salida clandestina del Daedalus. Gioele y Paola son finalmente embarcadas.</target>
       </segment>
     </unit>
     <unit id="Hua">

@@ -60,10 +60,10 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
 
         $patrolShip->method('getId')->willReturn(1);
         $patrolShip->method('getName')->willReturn(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
-        $patrolShip->method('getStatusByName')->will($this->returnValueMap([
+        $patrolShip->method('getStatusByName')->willReturnMap([
             [EquipmentStatusEnum::PATROL_SHIP_ARMOR, $patrolShipArmor],
             [EquipmentStatusEnum::ELECTRIC_CHARGES, $patrolShipCharges],
-        ]));
+        ]);
         $patrolShip->method('getPlace')->willReturn($place);
         $patrolShip->method('getDaedalus')->willReturn($daedalus);
 
@@ -96,6 +96,7 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
             'armor' => 10,
             'charges' => 10,
             'pilot' => CharacterEnum::CHUN,
+            'isBroken' => false,
         ];
 
         $this->assertEquals($expected, $this->normalizer->normalize($patrolShip));
@@ -115,9 +116,9 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
 
         $patrolShip->method('getId')->willReturn(1);
         $patrolShip->method('getName')->willReturn(EquipmentEnum::PASIPHAE);
-        $patrolShip->method('getStatusByName')->will($this->returnValueMap([
+        $patrolShip->method('getStatusByName')->willReturnMap([
             [EquipmentStatusEnum::PATROL_SHIP_ARMOR, $patrolShipArmor],
-        ]));
+        ]);
         $patrolShip->method('getPlace')->willReturn($place);
         $patrolShip->method('getDaedalus')->willReturn($daedalus);
 
@@ -150,6 +151,7 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
             'armor' => 10,
             'charges' => null,
             'pilot' => CharacterEnum::CHUN,
+            'isBroken' => false,
         ];
 
         $this->assertEquals($expected, $this->normalizer->normalize($patrolShip));
@@ -168,10 +170,10 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
 
         $patrolShip->method('getId')->willReturn(1);
         $patrolShip->method('getName')->willReturn(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
-        $patrolShip->method('getStatusByName')->will($this->returnValueMap([
+        $patrolShip->method('getStatusByName')->willReturnMap([
             [EquipmentStatusEnum::PATROL_SHIP_ARMOR, $patrolShipArmor],
             [EquipmentStatusEnum::ELECTRIC_CHARGES, $patrolShipCharges],
-        ]));
+        ]);
         $patrolShip->method('getPlace')->willReturn($place);
         $patrolShip->method('getDaedalus')->willReturn($daedalus);
 
@@ -202,6 +204,64 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
             'armor' => 10,
             'charges' => 10,
             'pilot' => null,
+            'isBroken' => false,
+        ];
+
+        $this->assertEquals($expected, $this->normalizer->normalize($patrolShip));
+    }
+
+    public function testNormalizeWithBrokenPatrolShip(): void
+    {
+        $daedalus = $this->createMock(Daedalus::class);
+        $patrolShip = $this->createMock(GameEquipment::class);
+        $patrolShipArmor = $this->createMock(ChargeStatus::class);
+        $patrolShipCharges = $this->createMock(ChargeStatus::class);
+        $patrolShipPilot = $this->createMock(Player::class);
+        $place = $this->createMock(Place::class);
+        $placePlayers = $this->createMock(PlayerCollection::class);
+
+        $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
+
+        $patrolShip->method('getId')->willReturn(1);
+        $patrolShip->method('getName')->willReturn(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
+        $patrolShip->method('getStatusByName')->willReturnMap([
+            [EquipmentStatusEnum::PATROL_SHIP_ARMOR, $patrolShipArmor],
+            [EquipmentStatusEnum::ELECTRIC_CHARGES, $patrolShipCharges],
+        ]);
+        $patrolShip->method('getPlace')->willReturn($place);
+        $patrolShip->method('getDaedalus')->willReturn($daedalus);
+        $patrolShip->method('hasStatus')->with(EquipmentStatusEnum::BROKEN)->willReturn(true);
+
+        $patrolShipArmor->method('getCharge')->willReturn(10);
+
+        $patrolShipCharges->method('getCharge')->willReturn(10);
+
+        $patrolShipPilot->method('getName')->willReturn(CharacterEnum::CHUN);
+
+        $place->method('getPlayers')->willReturn($placePlayers);
+
+        $placePlayers->method('getPlayerAlive')->willReturn(new PlayerCollection([$patrolShipPilot]));
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with(
+                EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
+                [],
+                'equipment',
+                LanguageEnum::FRENCH
+            )
+            ->andReturn('Patrouilleur Wallis')
+            ->once()
+        ;
+
+        $expected = [
+            'id' => 1,
+            'key' => EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
+            'name' => 'Patrouilleur Wallis',
+            'armor' => 10,
+            'charges' => 0,
+            'pilot' => CharacterEnum::CHUN,
+            'isBroken' => true,
         ];
 
         $this->assertEquals($expected, $this->normalizer->normalize($patrolShip));

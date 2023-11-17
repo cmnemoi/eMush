@@ -3570,5 +3570,14 @@ class MechanicsData
                 'modifier_for_daedalus_+30percentage_on_action_scan',
             ],
         ],
+        [
+            'name' => 'gear_magellan_liquid_map_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                'modifier_for_place_+1sector_revealed_on_action_scan_planet',
+                'modifier_for_place_+1sector_revealed_on_action_scan_planet_random_50',
+            ],
+        ],
     ];
 }

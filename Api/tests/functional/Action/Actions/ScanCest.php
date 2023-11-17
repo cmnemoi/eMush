@@ -8,11 +8,10 @@ use Mush\Action\Actions\Scan;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Planet;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -31,6 +30,7 @@ final class ScanCest extends AbstractFunctionalTest
     private Action $scanActionConfig;
     private Scan $scanAction;
 
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
     private Place $bridge;
@@ -43,6 +43,7 @@ final class ScanCest extends AbstractFunctionalTest
         $this->scanActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::SCAN]);
         $this->scanAction = $I->grabService(Scan::class);
 
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->scanActionConfig->setSuccessRate(100);
@@ -145,13 +146,12 @@ final class ScanCest extends AbstractFunctionalTest
     public function testScanRevealsPlanetSectorsIfMagellanLiquidMapIsInTheRoom(FunctionalTester $I): void
     {
         // given magellan's liquid map is on the bridge
-        $liquidMapConfig = $I->grabEntityFromRepository(ItemConfig::class, ['name' => GearItemEnum::MAGELLAN_LIQUID_MAP . '_default']);
-        $liquidMap = new GameItem($this->bridge);
-        $liquidMap
-            ->setName(GearItemEnum::MAGELLAN_LIQUID_MAP)
-            ->setEquipment($liquidMapConfig)
-        ;
-        $I->haveInRepository($liquidMap);
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::MAGELLAN_LIQUID_MAP,
+            equipmentHolder: $this->bridge,
+            reasons: [],
+            time: new \DateTime(),
+        );
 
         // when player scans
         $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);

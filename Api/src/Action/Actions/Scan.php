@@ -13,7 +13,6 @@ use Mush\Action\Validator\NumberOfDiscoverablePlanets;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -77,20 +76,21 @@ final class Scan extends AttemptAction
 
         $planet = $this->planetService->createPlanet($this->player);
 
-        if ($this->player->getPlace()->hasEquipmentByName(GearItemEnum::MAGELLAN_LIQUID_MAP)) {
-            $numberOfSectorsToReveal = $this->randomService->random(1, $this->getOutputQuantity());
-
-            $this->planetService->revealPlanetSectors($planet, $numberOfSectorsToReveal);
-
-            $this->roomLogService->createLog(
-                logKey: LogEnum::LIQUID_MAP_HELPED,
-                place: $this->player->getPlace(),
-                visibility: VisibilityEnum::PUBLIC,
-                type: 'event_log',
-                player: $this->player,
-                parameters: [$this->player->getLogKey() => $this->player->getLogName()],
-                dateTime: new \DateTime()
-            );
+        $numberOfSectorsToReveal = $this->getOutputQuantity();
+        if ($numberOfSectorsToReveal <= 0) {
+            return;
         }
+
+        $this->planetService->revealPlanetSectors($planet, $this->getOutputQuantity());
+
+        $this->roomLogService->createLog(
+            logKey: LogEnum::LIQUID_MAP_HELPED,
+            place: $this->player->getPlace(),
+            visibility: VisibilityEnum::PUBLIC,
+            type: 'event_log',
+            player: $this->player,
+            parameters: [$this->player->getLogKey() => $this->player->getLogName()],
+            dateTime: new \DateTime()
+        );
     }
 }

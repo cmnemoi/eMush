@@ -328,6 +328,14 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $actionsLiquidMap->add($sabotage1);
         $actionsLiquidMap->add($reportAction);
 
+        $liquidMapGear = $this->createGear(
+            [
+                GearModifierConfigFixtures::LIQUID_MAP_MODIFIER,
+                GearModifierConfigFixtures::LIQUID_MAP_MODIFIER_RANDOM_50,
+            ],
+            GearItemEnum::MAGELLAN_LIQUID_MAP
+        );
+
         $liquidMap = new ItemConfig();
         $liquidMap
             ->setEquipmentName(GearItemEnum::MAGELLAN_LIQUID_MAP)
@@ -336,6 +344,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
             ->setActions($actionsLiquidMap)
+            ->setMechanics([$liquidMapGear])
             ->setInitStatuses([$alienArtifactStatus])
             ->buildName(GameConfigEnum::DEFAULT)
         ;

@@ -1012,6 +1012,7 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->setActionCost(3)
             ->setSuccessRate(50)
+            ->setOutputQuantity(2) // max number of section revealed by liquid map
         ;
         $manager->persist($scan);
 

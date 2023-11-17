@@ -8,13 +8,19 @@ use Mush\Action\Actions\Scan;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Exploration\Entity\Planet;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -133,6 +139,39 @@ final class ScanCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: $this->scanActionConfig->getSuccessRate() + $planetScannerModifierConfig->getDelta(),
             actual: $this->scanAction->getSuccessRate()
+        );
+    }
+
+    public function testScanRevealsPlanetSectorsIfMagellanLiquidMapIsInTheRoom(FunctionalTester $I): void
+    {
+        // given magellan' liquid map is on the bridge
+        $liquidMapConfig = $I->grabEntityFromRepository(ItemConfig::class, ['name' => GearItemEnum::MAGELLAN_LIQUID_MAP . '_default']);
+        $liquidMap = new GameItem($this->bridge);
+        $liquidMap
+            ->setName(GearItemEnum::MAGELLAN_LIQUID_MAP)
+            ->setEquipment($liquidMapConfig)
+        ;
+        $I->haveInRepository($liquidMap);
+
+        // when player scans
+        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->execute();
+
+        // then the scanned planet should have some sections revealed
+        /** @var Planet $planet */
+        $planet = $I->grabEntityFromRepository(Planet::class);
+        $I->assertNotEmpty($planet->getRevealedSectors());
+
+        // then there should be a specific public log to tell that the map worked
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => RoomEnum::BRIDGE,
+                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'log' => LogEnum::LIQUID_MAP_HELPED,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
         );
     }
 }

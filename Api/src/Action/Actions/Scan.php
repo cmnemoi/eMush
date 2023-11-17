@@ -13,11 +13,15 @@ use Mush\Action\Validator\NumberOfDiscoverablePlanets;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -26,6 +30,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class Scan extends AttemptAction
 {
     protected string $name = ActionEnum::SCAN;
+    private RoomLogServiceInterface $roomLogService;
     private PlanetServiceInterface $planetService;
 
     public function __construct(
@@ -33,9 +38,11 @@ final class Scan extends AttemptAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
+        RoomLogServiceInterface $roomLogService,
         PlanetServiceInterface $planetService
     ) {
         parent::__construct($eventService, $actionService, $validator, $randomService);
+        $this->roomLogService = $roomLogService;
         $this->planetService = $planetService;
     }
 
@@ -68,6 +75,22 @@ final class Scan extends AttemptAction
             return;
         }
 
-        $this->planetService->createPlanet($this->player);
+        $planet = $this->planetService->createPlanet($this->player);
+
+        if ($this->player->getPlace()->hasEquipmentByName(GearItemEnum::MAGELLAN_LIQUID_MAP)) {
+            $numberOfSectorsToReveal = $this->randomService->random(1, $this->getOutputQuantity());
+
+            $this->planetService->revealPlanetSectors($planet, $numberOfSectorsToReveal);
+
+            $this->roomLogService->createLog(
+                logKey: LogEnum::LIQUID_MAP_HELPED,
+                place: $this->player->getPlace(),
+                visibility: VisibilityEnum::PUBLIC,
+                type: 'event_log',
+                player: $this->player,
+                parameters: [],
+                dateTime: new \DateTime()
+            );
+        }
     }
 }

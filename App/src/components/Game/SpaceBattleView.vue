@@ -56,7 +56,7 @@
                         alt="charges">
                     <img v-if="patrolShip.isBroken"
                          class="broken-img"
-                         :src="require('@/assets/images/status/broken.png')"
+                         :src="require('@/assets/images/alerts/broken.png')"
                          alt="broken">
                 </div>
             </div>

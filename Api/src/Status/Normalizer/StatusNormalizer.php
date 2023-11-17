@@ -44,8 +44,8 @@ class StatusNormalizer implements NormalizerInterface
                 'description' => $this->translationService->translate("{$statusName}.description", [], 'status', $language),
             ];
 
-            if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN && !$status->getOwner()->hasStatus(EquipmentStatusEnum::BROKEN)) {
-                $normedStatus['charge'] = $status->getCharge();
+            if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN) {
+                $normedStatus['charge'] = $status->getOwner()->hasStatus(EquipmentStatusEnum::BROKEN) ? 0 : $status->getCharge();
             }
 
             if (($target = $status->getTarget()) !== null) {

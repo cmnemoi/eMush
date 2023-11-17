@@ -144,7 +144,7 @@ final class ScanCest extends AbstractFunctionalTest
 
     public function testScanRevealsPlanetSectorsIfMagellanLiquidMapIsInTheRoom(FunctionalTester $I): void
     {
-        // given magellan' liquid map is on the bridge
+        // given magellan's liquid map is on the bridge
         $liquidMapConfig = $I->grabEntityFromRepository(ItemConfig::class, ['name' => GearItemEnum::MAGELLAN_LIQUID_MAP . '_default']);
         $liquidMap = new GameItem($this->bridge);
         $liquidMap

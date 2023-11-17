@@ -42,38 +42,6 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testBrokenEquipmentLosesTheirCharges(FunctionalTester $I)
-    {
-        // given a patrol ship in alpha bay with electric charges charge status
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY));
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
-        $I->haveInRepository($pasiphae);
-
-        $electricChargesConfig = $I->grabEntityFromRepository(StatusConfig::class, ['name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_patrol_ship_default']);
-        /** @var ChargeStatus $electricCharges */
-        $electricCharges = $this->statusService->createStatusFromConfig(
-            $electricChargesConfig,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-
-        // when patrol ship is broken
-        $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::BROKEN,
-            $pasiphae,
-            ['test'],
-            new \DateTime(),
-        );
-
-        // then electric charges status charge value is 0
-        $I->assertEquals(0, $electricCharges->getCharge());
-    }
-
     public function testBrokenTerminalRemovesPlayerFocusedStatus(FunctionalTester $I): void
     {
         // given there is a command terminal in player room

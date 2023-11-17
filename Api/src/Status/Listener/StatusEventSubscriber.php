@@ -45,14 +45,8 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     {
         $statusHolder = $event->getStatusHolder();
 
-        // if a terminal is broken, player should not be focused on it anymore
-        if (!$statusHolder instanceof GameEquipment) {
-            return;
-        }
-
         if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
             $this->createNoGravityStatus($statusHolder, $event->getTags(), $event->getTime());
-            $this->resetElectricCharges($statusHolder, $event->getTags(), $event->getTime());
             $this->ejectFocusedPlayers($statusHolder, $event->getTags(), $event->getTime());
         }
     }
@@ -75,28 +69,6 @@ final class StatusEventSubscriber implements EventSubscriberInterface
                 $this->handleRepairGravity($statusHolder, $event->getTags(), $event->getTime());
                 break;
             default:
-        }
-    }
-
-    // on applying broken, electric charges are set to 0
-    private function resetElectricCharges(
-        StatusHolderInterface $statusHolder,
-        array $tags,
-        \DateTime $time
-    ): void {
-        if ($statusHolder instanceof GameEquipment
-            && $statusHolder->hasStatus(EquipmentStatusEnum::ELECTRIC_CHARGES)
-        ) {
-            /** @var ChargeStatus $electricCharges */
-            $electricCharges = $statusHolder->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
-
-            $this->statusService->updateCharge(
-                chargeStatus: $electricCharges,
-                delta: 0,
-                tags: $tags,
-                time: $time,
-                mode: VariableEventInterface::SET_VALUE
-            );
         }
     }
 

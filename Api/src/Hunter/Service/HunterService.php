@@ -243,7 +243,7 @@ class HunterService implements HunterServiceInterface
 
     private function getHunterProbaCollection(Daedalus $daedalus, ArrayCollection $hunterTypes): ProbaCollection
     {
-        $difficultyMode = $daedalus->getDifficultyMode();
+        $currentDifficulty = $daedalus->getDifficultyMode();
         $probaCollection = new ProbaCollection();
 
         foreach ($hunterTypes as $hunterType) {
@@ -255,11 +255,10 @@ class HunterService implements HunterServiceInterface
                 continue;
             }
 
-            if ($hunterConfig->getSpawnDifficulty() > $difficultyMode) {
-                continue;
+            $hunterAvailableInCurrentDifficulty = $hunterConfig->getSpawnDifficulty() <= $currentDifficulty;
+            if ($hunterAvailableInCurrentDifficulty) {
+                $probaCollection->setElementProbability($hunterType, $hunterConfig->getDrawWeight());
             }
-
-            $probaCollection->setElementProbability($hunterType, $hunterConfig->getDrawWeight());
         }
 
         return $probaCollection;

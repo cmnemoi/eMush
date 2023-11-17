@@ -67,9 +67,9 @@ class DifficultyConfigData
                 EquipmentEnum::OXYGEN_TANK => 25,
             ],
             'difficultyModes' => [
-                DifficultyEnum::NORMAL => 0,
-                DifficultyEnum::HARD => 4,
-                DifficultyEnum::VERY_HARD => 9,
+                DifficultyEnum::NORMAL => 1,
+                DifficultyEnum::HARD => 5,
+                DifficultyEnum::VERY_HARD => 10,
             ],
             'hunterSpawnRate' => 20,
             'hunterSafeCycles' => [2, 3],

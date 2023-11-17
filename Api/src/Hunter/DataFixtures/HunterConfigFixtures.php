@@ -177,7 +177,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDrawCost(20)
             ->setMaxPerWave(2)
             ->setDrawWeight(2)
-            ->setSpawnDifficulty($difficultyConfig->getDifficultyModes()->get(DifficultyEnum::VERY_HARD))
+            ->setSpawnDifficulty($difficultyConfig->getDifficultyModes()->get(DifficultyEnum::HARD))
             ->setScrapDropTable(new ProbaCollection([
                 ItemEnum::METAL_SCRAPS => 2,
                 ToolItemEnum::SPACE_CAPSULE => 1,

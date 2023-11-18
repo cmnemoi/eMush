@@ -104,16 +104,12 @@ final class ExplorationService implements ExplorationServiceInterface
 
     public function createExplorationLog(PlanetSectorEvent $event, array $parameters = []): ExplorationLog
     {
-        $exploration = $event->getExploration();
-        $eventName = $event->getEventName();
-        $sector = $event->getPlanetSector();
-
-        $closedExploration = $exploration->getClosedExploration();
+        $closedExploration = $event->getExploration()->getClosedExploration();
 
         $explorationLog = new ExplorationLog($closedExploration);
-        $explorationLog->setPlanetSectorName($sector->getName());
-        $explorationLog->setEventName($eventName);
-        $explorationLog->setParameters($parameters);
+        $explorationLog->setPlanetSectorName($event->getPlanetSector()->getName());
+        $explorationLog->setEventName($event->getEventName());
+        $explorationLog->setParameters(array_merge($event->getLogParameters(), $parameters));
 
         $closedExploration->addLog($explorationLog);
 

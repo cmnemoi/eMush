@@ -15,7 +15,7 @@ class DaedalusConfigData
             'initHull' => 100,
             'initShield' => -2,
             'initHunterPoints' => 40,
-            'initCombustionChamberFuel' => 2,
+            'initCombustionChamberFuel' => 0,
             'maxOxygen' => 32,
             'maxFuel' => 32,
             'maxHull' => 100,
@@ -24,7 +24,7 @@ class DaedalusConfigData
             'dailySporeNb' => 4,
             'nbMush' => 2,
             'cyclePerGameDay' => 8,
-            'cycleLength' => 18,
+            'cycleLength' => 180,
             'randomItemPlaces' => 'default',
             'placeConfigs' => [
                 RoomEnum::BRIDGE . '_default',

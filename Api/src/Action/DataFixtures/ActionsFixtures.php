@@ -108,6 +108,7 @@ class ActionsFixtures extends Fixture
     public const DELETE_PLANET = 'delete.planet';
     public const LEAVE_ORBIT = 'leave.orbit';
     public const TAKEOFF_TO_PLANET = 'takeoff.to.planet';
+    public const TAKEOFF_TO_PLANET_PATROL_SHIP = 'takeoff.to.planet.patrol_ship';
 
     public function load(ObjectManager $manager): void
     {
@@ -1082,6 +1083,17 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($takeoffToPlanet);
 
+        $takeoffToPlanetPatrolShip = new Action();
+        $takeoffToPlanetPatrolShip
+            ->setName(ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP)
+            ->setActionName(ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
+            ->setOutputQuantity(1) // max number of explorators allowed
+        ;
+        $manager->persist($takeoffToPlanetPatrolShip);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1174,5 +1186,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::DELETE_PLANET, $deletePlanet);
         $this->addReference(self::LEAVE_ORBIT, $leaveOrbit);
         $this->addReference(self::TAKEOFF_TO_PLANET, $takeoffToPlanet);
+        $this->addReference(self::TAKEOFF_TO_PLANET_PATROL_SHIP, $takeoffToPlanetPatrolShip);
     }
 }

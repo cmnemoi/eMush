@@ -1837,20 +1837,20 @@ class ActionData
             'outputQuantity' => ['value' => 4, 'min_value' => 1, 'max_value' => null], // max number of explorators allowed
         ],
         [
-            'name' => 'teleport',
-            'action_name' => 'teleport',
+            'name' => ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP,
+            'action_name' => ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP,
             'types' => [],
             'target' => null,
-            'scope' => ActionScopeEnum::SELF,
+            'scope' => ActionScopeEnum::CURRENT,
             'visibilities' => ['success' => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
-            'actionPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'actionPoint' => ['value' => 4, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 1, 'min_value' => 1, 'max_value' => null], // max number of explorators allowed
         ],
     ];
 }

@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace Mush\Status\Listener;
 
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -38,13 +43,12 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $explorators = $exploration->getExplorators();
         $planet = $exploration->getPlanet();
 
-        // no need to block explorators if there is oxygen on the planet
+        // do not block explorators if there is oxygen on the planet
         if ($planet->hasSectorByName(PlanetSectorEnum::OXYGEN)) {
             return;
         }
 
         $exploratorsWithoutSpaceSuit = $exploration->getExploratorsWithoutSpacesuit();
-
         /** @var Player $explorator */
         foreach ($exploratorsWithoutSpaceSuit as $explorator) {
             $this->statusService->createStatusFromName(
@@ -72,6 +76,12 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
 
     public function onExplorationFinished(ExplorationEvent $event): void
     {
+        $this->removeStuckInTheShipStatusToExplorators($event);
+        $this->addLootedOxygenToDaedalus($event);
+    }
+
+    private function removeStuckInTheShipStatusToExplorators(ExplorationEvent $event): void
+    {
         $exploratorsWithoutSpaceSuit = $event->getExploration()->getExploratorsWithoutSpacesuit();
 
         /** @var Player $explorator */
@@ -83,5 +93,31 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                 time: $event->getTime(),
             );
         }
+    }
+
+    private function addLootedOxygenToDaedalus(ExplorationEvent $event): void
+    {
+        $daedalus = $event->getExploration()->getDaedalus();
+        /** @var ChargeStatus $oxygenStatus */
+        $oxygenStatus = $daedalus->getStatusByName(DaedalusStatusEnum::EXPLORATION_OXYGEN);
+        if ($oxygenStatus === null) {
+            return;
+        }
+
+        $daedalusModifierEvent = new DaedalusVariableEvent(
+            $daedalus,
+            DaedalusVariableEnum::OXYGEN,
+            $oxygenStatus->getCharge(),
+            $event->getTags(),
+            $event->getTime(),
+        );
+        $this->eventService->callEvent($daedalusModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+
+        $this->statusService->removeStatus(
+            statusName: DaedalusStatusEnum::EXPLORATION_OXYGEN,
+            holder: $daedalus,
+            tags: $event->getTags(),
+            time: $event->getTime(),
+        );
     }
 }

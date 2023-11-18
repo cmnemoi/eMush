@@ -1001,11 +1001,21 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="takeoff_to_planet">
       <segment id="name" state="final">
         <source>takeoff_to_planet.name</source>
-        <target>Décoller</target>
+        <target>Décoller : {planet}</target>
       </segment>
       <segment id="description" state="final">
         <source>takeoff_to_planet.description</source>
         <target>Décoller avec le vaisseau d'exploration Icarus pour aller sur une planète.</target>
+      </segment>
+    </unit>
+    <unit id="takeoff_to_planet_patrol_ship">
+      <segment id="name" state="final">
+        <source>takeoff_to_planet_patrol_ship.name</source>
+        <target>Atterir : {planet}</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>takeoff_to_planet_patrol_ship.description</source>
+        <target>Vous pouvez atterir sur une planète avec un patrouilleur... *À vos risques et périls...*</target>
       </segment>
     </unit>
   </file>

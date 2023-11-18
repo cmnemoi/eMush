@@ -2,10 +2,12 @@
 
 namespace Mush\Game\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Exploration\Entity\Planet;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Place\Entity\Place;
@@ -15,6 +17,12 @@ use Mush\Player\Entity\Player;
 interface RandomServiceInterface
 {
     public function random(int $min, int $max): int;
+
+    /** Generate a random number from a Poisson process (Knuth algorithm).
+     *
+     * P(k) = exp(-lambda) * lambda^k / k!
+     */
+    public function poissonRandom(float $lambda): int;
 
     public function randomPercent(): int;
 
@@ -48,9 +56,7 @@ interface RandomServiceInterface
 
     public function getRandomDaedalusEquipmentFromProbaCollection(ProbaCollection $array, int $number, Daedalus $daedalus): array;
 
-    /** Generate a random number from a Poisson process (Knuth algorithm).
-     *
-     * P(k) = exp(-lambda) * lambda^k / k!
-     */
-    public function poissonRandom(float $lambda): int;
+    public function getRandomPlanetSectorsToReveal(Planet $planet, int $number): ArrayCollection;
+
+    public function getRandomPlanetSectorsToVisit(Planet $planet, int $number): ArrayCollection;
 }

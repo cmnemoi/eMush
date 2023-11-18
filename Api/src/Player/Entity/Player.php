@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
@@ -91,6 +92,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $titles = [];
+
+    #[ORM\ManyToOne(targetEntity: Exploration::class, inversedBy: 'explorators')]
+    private ?Exploration $exploration = null;
 
     public function __construct()
     {
@@ -609,5 +613,22 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function hasTitle(string $title): bool
     {
         return in_array($title, $this->getTitles());
+    }
+
+    public function getExploration(): ?Exploration
+    {
+        return $this->exploration;
+    }
+
+    public function setExploration(?Exploration $exploration): static
+    {
+        $this->exploration = $exploration;
+
+        return $this;
+    }
+
+    public function isExploring(): bool
+    {
+        return $this->exploration !== null;
     }
 }

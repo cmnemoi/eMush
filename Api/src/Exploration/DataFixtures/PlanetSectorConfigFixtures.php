@@ -13,6 +13,7 @@ use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 
+/** @codeCoverageIgnore */
 final class PlanetSectorConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
@@ -27,6 +28,7 @@ final class PlanetSectorConfigFixtures extends Fixture implements DependentFixtu
             $planetSectorConfig = new PlanetSectorConfig();
             $planetSectorConfig
                 ->setName($data['name'])
+                ->setSectorName($data['sectorName'])
                 ->setWeightAtPlanetGeneration($data['weightAtPlanetGeneration'])
                 ->setWeightAtPlanetAnalysis($data['weightAtPlanetAnalysis'])
                 ->setWeightAtPlanetExploration($data['weightAtPlanetExploration'])

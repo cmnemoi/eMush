@@ -96,6 +96,7 @@ class ActionEnum
     public const LAND = 'land';
     public const COLLECT_SCRAP = 'collect_scrap';
     public const TAKEOFF_TO_PLANET = 'takeoff_to_planet';
+    public const TAKEOFF_TO_PLANET_PATROL_SHIP = 'takeoff_to_planet_patrol_ship';
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';
@@ -240,6 +241,14 @@ class ActionEnum
         return new ArrayCollection([
             self::LAND,
             self::TAKEOFF,
+        ]);
+    }
+
+    public static function getTakeOffToPlanetActions(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::TAKEOFF_TO_PLANET,
+            self::TAKEOFF_TO_PLANET_PATROL_SHIP,
         ]);
     }
 

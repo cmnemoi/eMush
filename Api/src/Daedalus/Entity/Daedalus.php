@@ -160,6 +160,16 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $space;
     }
 
+    public function getPlanetPlace(): Place
+    {
+        $planetPlace = $place = $this->getPlaces()->filter(fn (Place $place) => $place->getName() === RoomEnum::PLANET)->first();
+        if (!$planetPlace) {
+            throw new \Exception('Daedalus should have a planet place');
+        }
+
+        return $planetPlace;
+    }
+
     public function getPlaceByName(string $name): ?Place
     {
         $place = $this->getPlaces()->filter(fn (Place $place) => $place->getName() === $name)->first();
@@ -511,7 +521,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getLanguage(): string
     {
-        return $this->daedalusInfo->getLocalizationConfig()->getLanguage();
+        return $this->daedalusInfo->getLanguage();
     }
 
     public function getGameConfig(): GameConfig

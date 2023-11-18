@@ -13,3 +13,7 @@ services:
       - '../Enum/'
       - '../Kernel.php'
       - '../Tests/'
+
+  Mush\Exploration\Normalizer\ClosedExplorationNormalizer:
+    tags:
+      - { name: 'serializer.normalizer', priority: 64 }

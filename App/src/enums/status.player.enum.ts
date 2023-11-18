@@ -15,7 +15,8 @@ export enum StatusPlayerNameEnum {
     FIRST_TIME = "first_time",
     PREGNANT = "pregnant",
     GAGGED = "gagged",
-    FOCUSED = "focused"
+    FOCUSED = "focused",
+    STUCK_IN_THE_SHIP = "stuck_in_the_ship"
 };
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -69,5 +70,8 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [StatusPlayerNameEnum.FOCUSED]: {
         'icon': require('@/assets/images/status/moduling.png')
+    },
+    [StatusPlayerNameEnum.STUCK_IN_THE_SHIP]: {
+        'icon': require('@/assets/images/status/stuck_in_ship.png')
     }
 };

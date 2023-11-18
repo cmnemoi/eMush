@@ -13,28 +13,35 @@ use Mush\Action\Validator\AllPlanetSectorsVisited;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\PatrolShip;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class TakeoffToPlanet extends AbstractAction
+class TakeoffToPlanet extends AbstractAction
 {
     protected string $name = ActionEnum::TAKEOFF_TO_PLANET;
-    private PlayerServiceInterface $playerService;
+
+    private ExplorationServiceInterface $explorationService;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        PlayerServiceInterface $playerService,
+        ExplorationServiceInterface $explorationService,
+        RandomServiceInterface $randomService
     ) {
         parent::__construct($eventService, $actionService, $validator);
-        $this->playerService = $playerService;
+        $this->explorationService = $explorationService;
+        $this->randomService = $randomService;
     }
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
@@ -72,16 +79,34 @@ final class TakeoffToPlanet extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $icarus */
-        $icarus = $this->target;
-        $icarusPlace = $icarus->getPlace();
-        $planetPlace = $icarus->getDaedalus()->getPlaceByName(RoomEnum::PLANET);
-        if (!$planetPlace) {
-            throw new \RuntimeException('Planet place not found');
+        /** @var GameEquipment $explorationShip */
+        $explorationShip = $this->target;
+
+        // draw explorators from the players in exploration craft place to avoid all crewmates
+        // to participate and be overpowered
+        $playersInRoom = $explorationShip->getPlace()->getPlayers()->getPlayerAlive();
+
+        $explorators = $this->randomService->getRandomElements(
+            $playersInRoom->toArray(),
+            min($this->getOutputQuantity(), $explorationShip->getPlace()->getNumberOfPlayersAlive())
+        );
+
+        $this->explorationService->createExploration(
+            players: new PlayerCollection($explorators),
+            explorationShip: $explorationShip,
+            numberOfSectorsToVisit: $this->getPatrolShipMechanic($explorationShip)->getNumberOfExplorationSteps(),
+            reasons: $this->action->getActionTags(),
+        );
+    }
+
+    private function getPatrolShipMechanic(GameEquipment $explorationShip): PatrolShip
+    {
+        $patrolShipMechanic = $explorationShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
+
+        if (!$patrolShipMechanic instanceof PatrolShip) {
+            throw new \RuntimeException('Patrol ship mechanic not found');
         }
 
-        foreach ($icarusPlace->getPlayers() as $player) {
-            $this->playerService->changePlace($player, $planetPlace);
-        }
+        return $patrolShipMechanic;
     }
 }

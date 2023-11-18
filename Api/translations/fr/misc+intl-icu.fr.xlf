@@ -69,5 +69,17 @@
         <target>Ouest</target>
       </segment>
     </unit>
+    <unit id="here">
+      <segment id="here" state="final">
+        <source>here</source>
+        <target>ici</target>
+      </segment>
+    </unit>
+    <unit id="estimated_duration">
+      <segment id="estimated_duration" state="final">
+        <source>estimated_duration</source>
+        <target>Retour estimé dans {duration} min.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

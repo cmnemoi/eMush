@@ -8,7 +8,7 @@
             <div class="game-content">
                 <CharPanel :player="player" />
                 <TerminalPanel v-if="player.isFocused()" :player="player" />
-                <ExpeditionPanel v-else-if="player.isInExploration()" :player="player" />
+                <ExpeditionPanel v-else-if="player.isExploring()" :player="player" />
                 <ShipPanel v-else :room="player.room" :player="player" />
                 <CommsPanel :calendar="player.daedalus.calendar"/>
             </div>

@@ -3,6 +3,7 @@ export class PlanetSector {
     public key!: string;
     public name!: string;
     public description!: string;
+    public isVisited!: boolean;
 
     public load(object: any): PlanetSector {
         if (object) {
@@ -10,6 +11,7 @@ export class PlanetSector {
             this.key = object.key;
             this.name = object.name;
             this.description = object.description;
+            this.isVisited = object.isVisited;
         }
         return this;
     }

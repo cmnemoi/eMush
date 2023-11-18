@@ -4,8 +4,16 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Event;
 
+use Mush\Exploration\Entity\PlanetSector;
+use Mush\Exploration\Entity\PlanetSectorEventConfig;
+use Mush\Game\Entity\Collection\ProbaCollection;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\RoomLog\Event\LoggableEventInterface;
+
 /** @codeCoverageIgnore */
-class PlanetSectorEvent
+class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterface
 {
     public const ACCIDENT = 'accident';
     public const AGAIN = 'again';
@@ -28,4 +36,79 @@ class PlanetSectorEvent
     public const PROVISION = 'provision';
     public const STARMAP = 'starmap';
     public const TIRED = 'tired';
+
+    private PlayerCollection $explorators;
+    private Place $place;
+    private string $visibility;
+    private PlanetSector $planetSector;
+    private PlanetSectorEventConfig $config;
+
+    public function __construct(
+        PlanetSector $planetSector,
+        PlanetSectorEventConfig $config,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
+        string $visibility = VisibilityEnum::PUBLIC,
+    ) {
+        $exploration = $planetSector->getPlanet()->getExploration();
+        if ($exploration === null) {
+            throw new \RuntimeException('You need an exploration to create an exploration event');
+        }
+
+        parent::__construct($exploration, $tags, $time);
+        $this->planetSector = $planetSector;
+        $this->config = $config;
+        $this->explorators = $this->exploration->getExplorators();
+        $this->place = $this->exploration->getDaedalus()->getPlanetPlace();
+        $this->visibility = $visibility;
+    }
+
+    public function getPlanetSector(): PlanetSector
+    {
+        return $this->planetSector;
+    }
+
+    public function getConfig(): PlanetSectorEventConfig
+    {
+        return $this->config;
+    }
+
+    public function getOutputQuantityTable(): ?ProbaCollection
+    {
+        return $this->config->getOutputQuantityTable();
+    }
+
+    public function getExplorators(): PlayerCollection
+    {
+        return $this->explorators;
+    }
+
+    public function getPlace(): Place
+    {
+        return $this->place;
+    }
+
+    public function getVisibility(): string
+    {
+        return $this->visibility;
+    }
+
+    public function getLogParameters(): array
+    {
+        $logParameters = [
+            'equipment' => $this->exploration->getShipUsedName(),
+        ];
+
+        $minQuantity = $this->config->getOutputQuantityTable()?->minElement();
+        $maxQuantity = $this->config->getOutputQuantityTable()?->maxElement();
+
+        if ($minQuantity) {
+            $logParameters['min_quantity'] = $minQuantity;
+        }
+        if ($maxQuantity) {
+            $logParameters['max_quantity'] = $maxQuantity;
+        }
+
+        return $logParameters;
+    }
 }

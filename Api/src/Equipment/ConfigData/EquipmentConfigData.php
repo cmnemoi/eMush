@@ -2505,9 +2505,8 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'examine',
-                'takeoff_to_planet',
             ],
-            'mechanics' => [],
+            'mechanics' => ['patrol_ship_icarus_default'],
             'initStatuses' => [],
         ],
         [

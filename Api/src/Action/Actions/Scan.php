@@ -81,7 +81,7 @@ final class Scan extends AttemptAction
             return;
         }
 
-        $this->planetService->revealPlanetSectors($planet, $this->getOutputQuantity());
+        $this->planetService->revealPlanetSectors($planet, $numberOfSectorsToReveal);
 
         $this->roomLogService->createLog(
             logKey: LogEnum::LIQUID_MAP_HELPED,

@@ -324,29 +324,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             EquipmentEnum::ICARUS,
         );
         $icarusPatrolShip
-            ->setCollectScrapNumber([
-                1 => 1,
-            ])
-            ->setCollectScrapPatrolShipDamage([
-                2 => 1,
-                3 => 1,
-                4 => 1,
-            ])
-            ->setCollectScrapPlayerDamage([
-                2 => 1,
-                3 => 1,
-                4 => 1,
-            ])
-            ->setFailedManoeuvreDaedalusDamage([
-                2 => 1,
-                3 => 1,
-                4 => 1,
-            ])
-            ->setFailedManoeuvrePatrolShipDamage([1 => 1])
-            ->setFailedManoeuvrePlayerDamage([
-                1 => 1,
-                2 => 1,
-            ])
+            ->setCollectScrapNumber([])
+            ->setCollectScrapPatrolShipDamage([])
+            ->setCollectScrapPlayerDamage([])
+            ->setFailedManoeuvreDaedalusDamage([])
+            ->setFailedManoeuvrePatrolShipDamage([])
+            ->setFailedManoeuvrePlayerDamage([])
             ->setNumberOfExplorationSteps(9)
             ->setDockingPlace(RoomEnum::ICARUS_BAY)
         ;

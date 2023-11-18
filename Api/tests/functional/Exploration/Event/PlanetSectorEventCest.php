@@ -19,6 +19,7 @@ use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -82,7 +83,11 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
         $oxygenSector = new PlanetSector($oxygenSectorConfig, $this->planet);
         $I->haveInRepository($oxygenSector);
 
-        $this->planet->setSectors(new ArrayCollection([$desertSector, $sismicSector, $oxygenSector]));
+        $hydroCarbonSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::HYDROCARBON . '_default']);
+        $hydroCarbonSector = new PlanetSector($hydroCarbonSectorConfig, $this->planet);
+        $I->haveInRepository($hydroCarbonSector);
+
+        $this->planet->setSectors(new ArrayCollection([$desertSector, $sismicSector, $oxygenSector, $hydroCarbonSector]));
 
         // given the Daedalus is in orbit around the planet
         $this->statusService->createStatusFromName(
@@ -103,6 +108,7 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
 
     public function testAccidentHurtsExplorator(FunctionalTester $I): void
     {
+        // given there is a sismic sector on the planet with accident event
         $sismicSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::SISMIC_ACTIVITY)->first();
         /** @var PlanetSectorEventConfig $accidentEventConfig */
         $accidentEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ACCIDENT . '_3_5']);
@@ -130,6 +136,7 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
 
     public function testDisasterHurtsAllExplorators(FunctionalTester $I): void
     {
+        // given there is a landing sector on the planet with disaster event
         $landingSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::LANDING . '_default']);
         $landingSector = new PlanetSector($landingSectorConfig, $this->planet);
 
@@ -154,6 +161,7 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
 
     public function testTiredHurtsAllExplorators(FunctionalTester $I): void
     {
+        // given there is a desert sector on the planet with tired event
         $desertSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::DESERT)->first();
 
         /** @var PlanetSectorEventConfig $tiredEventConfig */
@@ -173,5 +181,27 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
                 actual: $player->getHealthPoint(),
             );
         }
+    }
+
+    public function testOxygenCreatesOxygenStatus(FunctionalTester $I): void
+    {
+        // given there is an oxygen sector with an oxygen event
+        $oxygenSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::OXYGEN)->first();
+
+        /** @var PlanetSectorEventConfig $oxygenEventConfig */
+        $oxygenEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::OXYGEN . '_8_16_24']);
+
+        // when oxygen event is dispatched
+        $oxygenEvent = new PlanetSectorEvent(
+            planetSector: $oxygenSector,
+            config: $oxygenEventConfig,
+        );
+        $this->eventService->callEvent($oxygenEvent, $oxygenEventConfig->getEventName());
+
+        // then daedalus has an oxygen status
+        /** @var ChargeStatus $daedalusOxygenStatus */
+        $daedalusOxygenStatus = $this->daedalus->getStatusByName(DaedalusStatusEnum::EXPLORATION_OXYGEN);
+        $I->assertInstanceOf(ChargeStatus::class, $daedalusOxygenStatus);
+        $I->assertNotEquals(0, $daedalusOxygenStatus->getCharge());
     }
 }

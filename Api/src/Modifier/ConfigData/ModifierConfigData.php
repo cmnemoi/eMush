@@ -1723,7 +1723,7 @@ class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_place_+1sector_revealed_on_action_scan_planet',
-            'modifierName' => null,
+            'modifierName' => ModifierNameEnum::LIQUID_MAP_MODIFIER,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,

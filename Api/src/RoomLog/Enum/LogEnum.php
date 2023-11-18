@@ -70,6 +70,7 @@ class LogEnum
             SymptomEnum::FOAMING_MOUTH => VisibilityEnum::PUBLIC,
             SymptomEnum::SNEEZING => VisibilityEnum::PUBLIC,
             SymptomEnum::VOMITING => VisibilityEnum::PUBLIC,
+            ModifierNameEnum::LIQUID_MAP_MODIFIER => VisibilityEnum::PUBLIC,
         ],
         self::VALUE => [
             ModifierNameEnum::MUSH_SATIETY_CONSUME => self::CONSUME_MUSH,
@@ -85,6 +86,7 @@ class LogEnum
             SymptomEnum::FOAMING_MOUTH => SymptomEnum::FOAMING_MOUTH,
             SymptomEnum::SNEEZING => SymptomEnum::SNEEZING,
             SymptomEnum::VOMITING => SymptomEnum::VOMITING,
+            ModifierNameEnum::LIQUID_MAP_MODIFIER => self::LIQUID_MAP_HELPED,
         ],
     ];
 

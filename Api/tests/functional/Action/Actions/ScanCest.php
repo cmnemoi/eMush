@@ -159,7 +159,6 @@ final class ScanCest extends AbstractFunctionalTest
             params: [
                 'place' => RoomEnum::BRIDGE,
                 'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-                'playerInfo' => $this->player->getPlayerInfo(),
                 'log' => LogEnum::LIQUID_MAP_HELPED,
                 'visibility' => VisibilityEnum::PUBLIC,
             ]

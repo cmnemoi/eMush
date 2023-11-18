@@ -292,6 +292,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLACE)
+            ->setModifierName(ModifierNameEnum::LIQUID_MAP_MODIFIER)
         ;
         $manager->persist($liquidMapModifier);
 

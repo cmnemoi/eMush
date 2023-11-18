@@ -252,5 +252,15 @@ class EventConfigData
                 2 => 1,
             ],
         ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::OXYGEN . '_8_16_24',
+            'eventName' => PlanetSectorEvent::OXYGEN,
+            'outputQuantityTable' => [
+                24 => 4,
+                16 => 3,
+                8 => 2,
+            ],
+        ],
     ];
 }

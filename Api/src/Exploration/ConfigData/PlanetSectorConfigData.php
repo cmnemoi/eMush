@@ -176,9 +176,7 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 1,
             'explorationEvents' => [
-                PlanetSectorEvent::OXYGEN . '_24' => 4,
-                PlanetSectorEvent::OXYGEN . '_16' => 3,
-                PlanetSectorEvent::OXYGEN . '_8' => 2,
+                PlanetSectorEvent::OXYGEN => 9,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],

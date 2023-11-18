@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventEnum;
@@ -159,8 +160,7 @@ class CycleService implements CycleServiceInterface
     public function handleExplorationCycleChange(\DateTime $dateTime, Exploration $exploration): int
     {
         $closedExploration = $exploration->getClosedExploration();
-        $daedalusInfo = $exploration->getDaedalus()->getDaedalusInfo();
-        if ($daedalusInfo->isDaedalusFinished()) {
+        if ($this->isDaedalusOrExplorationFinished($closedExploration)) {
             return 0;
         }
 
@@ -188,12 +188,8 @@ class CycleService implements CycleServiceInterface
                     );
                     $this->eventService->callEvent($cycleEvent, ExplorationEvent::EXPLORATION_NEW_CYCLE);
 
-                    // Do not continue make cycle if Daedalus is finished
-                    if ($daedalusInfo->getGameStatus() === GameStatusEnum::FINISHED) {
-                        break;
-                    }
-                    // Do not continue make cycle if Exploration is finished. Accessing it from ClosedExploration for safety
-                    if ($closedExploration->getExploration() === null) {
+                    // Do not continue make cycle if Daedalus or exploration is finished
+                    if ($this->isDaedalusOrExplorationFinished($closedExploration)) {
                         break;
                     }
                 }
@@ -244,5 +240,12 @@ class CycleService implements CycleServiceInterface
         return intval($dateInterval->format('%a')) * 24 * 60 +
                 intval($dateInterval->format('%H')) * 60 +
                 intval($dateInterval->format('%i'));
+    }
+
+    private function isDaedalusOrExplorationFinished(ClosedExploration $exploration): bool
+    {
+        $daedalusInfo = $exploration->getDaedalusInfo();
+
+        return $daedalusInfo->isDaedalusFinished() || $exploration->isExplorationFinished();
     }
 }

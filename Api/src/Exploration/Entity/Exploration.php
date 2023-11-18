@@ -178,4 +178,9 @@ class Exploration
 
         return $cycleLength > 1 ? $cycleLength : 1;
     }
+
+    public function isFinished(): bool
+    {
+        return $this->closedExploration->isExplorationFinished();
+    }
 }

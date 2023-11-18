@@ -38,6 +38,9 @@ class ClosedExploration
     #[ORM\OneToMany(targetEntity: ExplorationLog::class, mappedBy: 'closedExploration')]
     private Collection $logs;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $isExplorationFinished = false;
+
     public function __construct(Exploration $exploration)
     {
         $this->exploration = $exploration;
@@ -98,6 +101,11 @@ class ClosedExploration
 
     public function isExplorationFinished(): bool
     {
-        return $this->exploration === null;
+        return $this->isExplorationFinished;
+    }
+
+    public function finishExploration(): void
+    {
+        $this->isExplorationFinished = true;
     }
 }

@@ -96,6 +96,8 @@ final class ExplorationService implements ExplorationServiceInterface
         }
         $planet->setExploration(null);
 
+        $closedExploration->finishExploration();
+
         $this->delete([$exploration]);
         if (in_array(ExplorationEvent::ALL_EXPLORATORS_STUCKED, $reasons)) {
             $this->delete([$closedExploration]);

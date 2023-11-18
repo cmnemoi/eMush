@@ -337,6 +337,6 @@ class PlayerController extends AbstractGameController
 
         $numberOfCycles = $this->cycleService->handleExplorationCycleChange(new \DateTime(), $player->getExploration());
 
-        return $this->view(['message' => "Exploration cycle change triggered successfully ({$numberOfCycles} cycle elapsed)"], Response::HTTP_OK);
+        return $this->view(['message' => "Exploration cycle change triggered successfully ({$numberOfCycles} cycles elapsed)"], Response::HTTP_OK);
     }
 }

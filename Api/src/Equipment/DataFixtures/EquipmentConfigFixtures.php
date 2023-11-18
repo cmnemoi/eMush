@@ -66,6 +66,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $exitTerminalAction */
         $exitTerminalAction = $this->getReference(ActionsFixtures::EXIT_TERMINAL);
+        /** @var Action $takeoffToPlanetAction */
+        $takeoffToPlanetAction = $this->getReference(ActionsFixtures::TAKEOFF_TO_PLANET);
 
         // @TODO terminals
         $icarus = new EquipmentConfig();
@@ -73,7 +75,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setEquipmentName(EquipmentEnum::ICARUS)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions([$examineAction])
+            ->setActions([$examineAction, $takeoffToPlanetAction])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($icarus);

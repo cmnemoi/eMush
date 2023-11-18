@@ -1,6 +1,6 @@
 <template>
     <div class="panel">
-        <TerminalTips />
+        <TerminalTips content="Hello, World!"/>
         <section class="planet">
             <h3>Goulidon</h3>
             <span class="estimate">Retour estimé dans: 40 min.</span>
@@ -66,6 +66,7 @@
 
 <script lang="ts">
 import TerminalTips from "@/components/Game/Terminals/TerminalTips.vue";
+import { Player } from "@/entities/Player";
 import { defineComponent } from "vue";
 
 export default defineComponent ({
@@ -74,6 +75,10 @@ export default defineComponent ({
         TerminalTips
     },
     props: {
+        player: {
+            type: Player,
+            required: true
+        }
     },
     data() {
         return {

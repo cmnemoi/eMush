@@ -95,6 +95,7 @@ class ActionEnum
     public const TAKEOFF = 'takeoff';
     public const LAND = 'land';
     public const COLLECT_SCRAP = 'collect_scrap';
+    public const TAKEOFF_TO_PLANET = 'takeoff_to_planet';
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';

@@ -48,6 +48,8 @@ class MovementPointConversionCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
+        /** @var Place $icarusBay */
+        $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         $moveActionEntity = new Action();
         $moveActionEntity
@@ -128,6 +130,8 @@ class MovementPointConversionCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
+        /** @var Place $icarusBay */
+        $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         $moveActionEntity = new Action();
         $moveActionEntity
@@ -210,6 +214,8 @@ class MovementPointConversionCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
+        /** @var Place $icarusBay */
+        $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         $moveActionEntity = new Action();
         $moveActionEntity
@@ -290,6 +296,8 @@ class MovementPointConversionCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
+        /** @var Place $icarusBay */
+        $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         $moveActionEntity = new Action();
         $moveActionEntity

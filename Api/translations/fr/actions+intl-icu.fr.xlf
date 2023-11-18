@@ -998,5 +998,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Lance l'allumage des moteurs pour un déplacement lié à la quantité de carburant prêt.</target>
       </segment>
     </unit>
+    <unit id="takeoff_to_planet">
+      <segment id="name" state="final">
+        <source>takeoff_to_planet.name</source>
+        <target>Décoller</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>takeoff_to_planet.description</source>
+        <target>Décoller avec le vaisseau d'exploration Icarus pour aller sur une planète.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

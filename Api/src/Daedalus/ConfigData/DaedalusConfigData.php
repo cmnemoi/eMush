@@ -63,6 +63,7 @@ class DaedalusConfigData
                 RoomEnum::PATROL_SHIP_BRAVO_PLANTON . '_default',
                 RoomEnum::PATROL_SHIP_BRAVO_SOCRATE . '_default',
                 RoomEnum::PASIPHAE . '_default',
+                RoomEnum::PLANET . '_default',
             ],
         ],
     ];

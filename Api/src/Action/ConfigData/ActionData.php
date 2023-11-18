@@ -1820,5 +1820,21 @@ class ActionData
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
+        [
+            'name' => ActionEnum::TAKEOFF_TO_PLANET,
+            'action_name' => ActionEnum::TAKEOFF_TO_PLANET,
+            'types' => [],
+            'target' => null,
+            'scope' => ActionScopeEnum::CURRENT,
+            'visibilities' => ['success' => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
+            'actionPoint' => ['value' => 4, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+        ],
     ];
 }

@@ -162,10 +162,7 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 2,
             'explorationEvents' => [
-                PlanetSectorEvent::FUEL . '_3' => 4,
-                PlanetSectorEvent::FUEL . '_4' => 3,
-                PlanetSectorEvent::FUEL . '_5' => 2,
-                PlanetSectorEvent::FUEL . '_6' => 1,
+                PlanetSectorEvent::FUEL => 1,
             ],
         ],
         [

@@ -371,6 +371,19 @@ class EventConfigFixtures extends Fixture
         ;
         $manager->persist($eventConfig);
 
+        $eventConfig = new PlanetSectorEventConfig();
+        $eventConfig
+            ->setOutputQuantityTable([
+                3 => 4,
+                4 => 3,
+                5 => 2,
+                6 => 1,
+            ])
+            ->setName(PlanetSectorEvent::FUEL . '_3_6')
+            ->setEventName(PlanetSectorEvent::FUEL)
+        ;
+        $manager->persist($eventConfig);
+
         $manager->flush();
     }
 }

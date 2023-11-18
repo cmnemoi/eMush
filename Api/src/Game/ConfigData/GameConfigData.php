@@ -409,6 +409,7 @@ class GameConfigData
                 'no_gravity_repaired_default',
                 'in_orbit_default',
                 'exploration_oxygen_default',
+                'exploration_fuel_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

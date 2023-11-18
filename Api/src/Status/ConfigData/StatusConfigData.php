@@ -960,5 +960,18 @@ class StatusConfigData
             'autoRemove' => false,
             'modifierConfigs' => [],
         ],
+        [
+            'name' => 'exploration_fuel_default',
+            'statusName' => 'exploration_fuel',
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
+            'maxCharge' => 32,
+            'startCharge' => 0,
+            'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
+            'autoRemove' => false,
+            'modifierConfigs' => [],
+        ],
     ];
 }

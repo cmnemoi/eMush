@@ -231,16 +231,17 @@ class StatusServiceTest extends TestCase
             ->setVisibility(VisibilityEnum::MUSH)
         ;
 
-        $gameEquipment->addStatus(new Status($gameEquipment, $statusConfig));
+        $status = new Status($gameEquipment, $statusConfig);
+        $gameEquipment->addStatus($status);
 
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('flush')->never();
         $this->eventService->shouldReceive('callEvent')->never();
         $this->eventService->shouldReceive('computeEventModifications')->never();
 
-        $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
+        $newStatus = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
 
-        $this->assertNull($result);
+        $this->assertEquals($newStatus, $status);
     }
 
     public function testHandleAttemptStatusOnFail()

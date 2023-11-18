@@ -262,7 +262,7 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
         // given exploration has found 8 units of fuel
         /** @var ChargeStatus $fuelStatus */
         $fuelStatus = $this->statusService->createStatusFromName(
-            statusName: DaedalusStatusEnum::EXPLORATION_OXYGEN,
+            statusName: DaedalusStatusEnum::EXPLORATION_FUEL,
             holder: $this->daedalus,
             tags: [],
             time: new \DateTime(),
